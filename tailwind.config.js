@@ -52,6 +52,9 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        'sub-title-color': '#11BEC1',
+
+      
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -71,6 +74,10 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+      },
+      screens: {
+        'custom-lg': '1148px',
+        'custom2-lg': '1248px',
       },
     },
   },

@@ -21,8 +21,10 @@ const data = [
 
 export const BarChartOfferings = (): JSX.Element => {
   return (
-    <Card className='flex flex-col'>
-      <h3 className='text-center font-bold text-2xl'>Ofrendas Dominicales</h3>
+    <Card className='flex flex-col md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-3 lg:row-start-1 lg:row-end-2 lg:col-start-1 lg:col-end-3 xl:col-start-1 xl:col-end-4 xl:row-start-1 xl:row-end-2 md:h-[16rem] lg:h-[14rem] xl:h-[25rem] 2xl:h-[30rem] xl:mt-5 lg:mt-5 md:mt-5'>
+      <h3 className='text-center font-bold text-3xl p-2 text-'>
+        Ofrendas Dominicales
+      </h3>
       <ResponsiveContainer width='100%' aspect={0}>
         <BarChart
           data={data}
