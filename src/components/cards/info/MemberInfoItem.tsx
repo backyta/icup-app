@@ -20,7 +20,9 @@ export function MemberInfoItem(): JSX.Element {
         </div>
       </CardContent>
       <div className='p-6 pt-0'>
-        <Button>Ver miembro</Button>
+        <Button className='lg:w-[7rem] xl:w-[8rem] 2xl:w-[10rem] 2xl:text-md'>
+          Ver Miembro
+        </Button>
       </div>
     </div>
   );

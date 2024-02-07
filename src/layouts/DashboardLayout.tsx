@@ -19,13 +19,13 @@ export const DashboardLayout = (): JSX.Element => {
   // console.log({authStatus})
 
   return (
-    <div className='bg-slate-200 w-full min-h-screen antialiased text-slate-900  selection:bg-blue-900 selection:text-white'>
-      <div className='flex flex-row relative w-full min-h-fit'>
+    <div className='bg-slate-200 w-full min-h-screen antialiased text-slate-900 selection:bg-blue-900 selection:text-white'>
+      <div className='flex flex-col md:flex-row md:relative md:w-full md:min-h-fit'>
         {/* <div className="col-span-2 xl:col-span-1"> */}
         <SideMenu />
 
         {/* <div className="col-span-5 w-full p-4"> */}
-        <div className='w-full  lg:h-[91rem] custom-lg:h-[87rem] custom2-lg:h-[79rem] xl:h-[74rem] 2xl:h-[80rem] p-4'>
+        <div className='w-full  lg:h-[102rem] lg-lv1:h-[94rem] lg-lv2:h-[88rem] xl:h-[72rem] 2xl:h-[80rem] p-4'>
           <Outlet />
         </div>
       </div>

@@ -32,7 +32,9 @@ export function HouseInfoItem(): JSX.Element {
         </div>
       </CardContent>
       <div className='p-6 pt-0'>
-        <Button>Ver casa</Button>
+        <Button className='lg:w-[8rem] xl:w-[8rem] 2xl:w-[10rem] 2xl:text-md'>
+          Ver Casa Familiar
+        </Button>
       </div>
     </div>
   );

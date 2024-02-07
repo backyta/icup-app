@@ -76,8 +76,8 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       screens: {
-        'custom-lg': '1148px',
-        'custom2-lg': '1248px',
+        'lg-lv1': '1104px',
+        'lg-lv2': '1244px',
       },
     },
   },
