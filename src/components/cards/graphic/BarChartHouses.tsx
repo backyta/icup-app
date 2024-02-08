@@ -28,9 +28,9 @@ const data = [
 
 export const BarChartHouse = (): JSX.Element => {
   return (
-    <Card className='flex flex-col md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 lg:row-start-2 lg:row-end-3 lg:col-start-1 lg:col-end-3 xl:col-start-4 xl:col-end-7 xl:row-start-1 xl:row-end-2 md:h-[16rem] lg:h-[16rem] xl:h-[25rem] 2xl:h-[30rem] xl:mt-5 lg:mt-5 md:mt-5'>
-      <div className='flex items-center justify-between md:p-2 lg:p-3 xl:p-2 2xl:p-4'>
-        <h3 className='font-bold md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.35rem] 2xl:text-3xl inline-block'>
+    <Card className='flex flex-col row-start-2 row-end-3 col-start-1 col-end-3 lg:row-start-2 lg:row-end-3 lg:col-start-1 lg:col-end-3 xl:col-start-4 xl:col-end-7 xl:row-start-1 xl:row-end-2 h-[16rem] lg:h-[16rem] xl:h-[25rem] 2xl:h-[30rem] xl:mt-5 lg:mt-5 md:mt-5'>
+      <div className='flex flex-col sm:flex-row items-center justify-between md:p-2 p-3 lg:p-3 xl:p-2 2xl:p-4'>
+        <h3 className='font-bold mb-2 sm:mb-0 text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.30rem] 2xl:text-3xl inline-block'>
           Ofrendas - Casa Familiar
         </h3>
         <DatePickerWithRange></DatePickerWithRange>
@@ -54,5 +54,3 @@ export const BarChartHouse = (): JSX.Element => {
     </Card>
   );
 };
-
-// TODO : hacer swicth para cambiar a los que menos ofrendaron

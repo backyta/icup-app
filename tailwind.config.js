@@ -78,6 +78,8 @@ module.exports = {
       screens: {
         'lg-lv1': '1104px',
         'lg-lv2': '1244px',
+        'xl-lv1': '1300px',
+        'xl-lv2': '1320px',
       },
     },
   },

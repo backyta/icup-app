@@ -6,7 +6,7 @@ import { Button } from '../../ui/button';
 export function MemberInfoItem(): JSX.Element {
   return (
     <div className='flex justify-between'>
-      <CardContent className='flex gap-1'>
+      <CardContent className='flex gap-1 '>
         <Avatar className='p-1'>
           <AvatarImage
             className='rounded-full w-10'
@@ -15,12 +15,16 @@ export function MemberInfoItem(): JSX.Element {
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
         <div className='flex flex-col'>
-          <p className='font-bold'>Kevin Michael Baca Angeles</p>
-          <p>Lima - Independencia</p>
+          <p className='text-sm sm:text-base font-bold'>
+            Kevin Michael Baca Angeles
+          </p>
+          <p className='text-[12px] sm:text-[14px] ml-2'>
+            Lima - Independencia
+          </p>
         </div>
       </CardContent>
-      <div className='p-6 pt-0'>
-        <Button className='lg:w-[7rem] xl:w-[8rem] 2xl:w-[10rem] 2xl:text-md'>
+      <div className='px-2 pt-0 pb-2 sm:p-6 sm:pt-0'>
+        <Button className='text-[0.70rem] sm:text-sm xl:text-md lg:w-[7rem] xl:w-[8rem] 2xl:w-[10rem] '>
           Ver Miembro
         </Button>
       </div>

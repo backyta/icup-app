@@ -2,51 +2,54 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import { Root } from '../Root';
 
-
 import { DashboardLayout } from '@/layouts/DashboardLayout';
-import { Dashboard } from '@/pages/dashboard/DashboardPage';
+import { DashboardPage } from '@/pages/dashboard/DashboardPage';
+import { PastorPage } from '@/pages/pastor/PastorPage';
+import { CopastorPage } from '@/pages/copastor/CopastorPage';
+import { LeaderPage } from '@/pages/leader/LeaderPage';
+import { FamilyHousePage } from '@/pages/family-house/FamilyHousePage';
+import { OfferingPage } from '@/pages/offering/OfferingPage';
+import { UserPage } from '@/pages/user/UserPage';
 
-
-export const router = createBrowserRouter( [
+export const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
     children: [
       /// Dashboard Routes
       {
-        path: 'dashboard',
+        path: '/',
         element: <DashboardLayout />,
         children: [
           {
-            path: '',
-            element: <Dashboard />
+            path: 'dashboard',
+            element: <DashboardPage />,
           },
-          // {
-          //   path: 'pastors',
-          //   element: <PastorPage />
-          // },
-          // {
-          //   path: 'copastors',
-          //   element: <CopastorPage />
-          // },
-          // {
-          //   path: 'preachers',
-          //   element: <PreacherPage />
-          // },
-          // {
-          //   path: 'family-house',
-          //   element: <FamilyHousePage />
-          // },
-          // {
-          //   path: 'offeings',
-          //   element: <OfrendasPage />
-          // },
-          // {
-          //   path: 'users',
-          //   element: <UsersPage />
-          // }
-
-        ]
+          {
+            path: 'pastors',
+            element: <PastorPage />,
+          },
+          {
+            path: 'copastors',
+            element: <CopastorPage />,
+          },
+          {
+            path: 'leaders',
+            element: <LeaderPage />,
+          },
+          {
+            path: 'family-houses',
+            element: <FamilyHousePage />,
+          },
+          {
+            path: 'offerings',
+            element: <OfferingPage />,
+          },
+          {
+            path: 'users',
+            element: <UserPage />,
+          },
+        ],
       },
 
       /// Auth Routes
@@ -61,7 +64,6 @@ export const router = createBrowserRouter( [
       //   ]
 
       // },
-
     ],
   },
-] );
+]);

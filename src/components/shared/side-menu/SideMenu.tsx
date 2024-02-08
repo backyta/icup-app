@@ -5,13 +5,12 @@ import { menuItems } from '../data/menu-items-data';
 import { FcExport } from 'react-icons/fc';
 // import { useAuthStore } from '../../../stores';
 
-// TODO : terminar el responsible de mobile, revisar y pasar a la siguiente pagina
 export const SideMenu = (): JSX.Element => {
   // const logoutUser = useAuthStore( state => state.logoutUser );
   // const userName = useAuthStore( state => state.user?.fullName || 'No user' );
 
   return (
-    <div className='bg-gray-900 md:min-h-screen z-10 text-slate-300 w-full md:w-[18rem] lg:w-80'>
+    <div className='bg-gray-900 md:min-h-screen z-10 text-slate-300 w-full md:w-[18rem] lg:w-[16rem] xl:w-80'>
       <div className='flex justify-between items-center'>
         {/* Title */}
         <div id='logo' className='my-4 px-4'>
@@ -33,6 +32,7 @@ export const SideMenu = (): JSX.Element => {
         </div>
 
         {/* Button */}
+        {/* TODO : Agregar estado y on click para abrir y cerrar */}
         <button
           id='button'
           type='button'
@@ -98,7 +98,7 @@ export const SideMenu = (): JSX.Element => {
         id='menu'
         className='w-full px-8 py-4 md:flex md:flex-col gap-y-[1rem] md:gap-y-[3.5rem] hidden'
       >
-        <div className='flex flex-col lg:gap-y-2 xl:gap-y-2 2xl:gap-y-3'>
+        <div className='flex flex-col lg:gap-y-1 xl:gap-y-2 2xl:gap-y-3'>
           {menuItems.map((item) => (
             <SideMenuItem key={item.href} {...item} />
           ))}
