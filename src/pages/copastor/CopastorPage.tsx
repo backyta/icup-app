@@ -1,12 +1,12 @@
 import { WhiteCard } from '@/components/shared/white-cards/WhiteCard';
 import {
-  IoAccessibilityOutline,
-  IoHeartOutline,
-  IoInformationOutline,
-  IoListOutline,
-  IoLockClosedOutline,
-  IoPawOutline,
-} from 'react-icons/io5';
+  FcCancel,
+  FcClearFilters,
+  FcPodiumWithSpeaker,
+  FcSearch,
+  FcSupport,
+} from 'react-icons/fc';
+import { NavLink } from 'react-router-dom';
 
 export const CopastorPage = (): JSX.Element => {
   // const totalBears = useBearStore((state) => state.totalBears);
@@ -18,45 +18,114 @@ export const CopastorPage = (): JSX.Element => {
 
   return (
     <>
-      <h1>Dashboard</h1>
-      <p>Información colectiva de varios stores de Zustand</p>
-      <hr />
+      <h1 className='text-center p-2 md:p-4 font-sans text-2xl sm:text-3xl font-bold text-blue-600 text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
+        Modulo Co-Pastor
+      </h1>
+      <p className='text-center font-sans text-sm sm:text-md font-bold px-4 pb-4 lg:text-base xl:text-lg'>
+        Bienvenido al modulo Co-Pastor, por favor elige una opción.
+      </p>
+      <hr className='*:p-[0.02rem] bg-slate-500' />
 
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
-        <WhiteCard centered>
-          <IoPawOutline size={50} className='text-indigo-600' />
-          <h2>Osos</h2>
-          <p>{/* totalBears() */}</p>
-        </WhiteCard>
+      <div className='w-full grid gap-4 grid-cols-2 grid-rows-3 md:grid-cols-2 md:grid-rows-4 lg:grid-cols-2 lg:grid-rows-5 2xl:grid-cols-4 2xl:grid-rows-1 h-[50rem] sm:h-[67rem] md:h-[70rem] lg:h-[68rem] xl:h-[63rem] 2xl:h-[63rem] mt-[2rem]'>
+        <NavLink
+          key='/'
+          to='/'
+          end
+          className='md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-3 lg:row-start-2 lg:row-end-5 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-1 2xl:col-end-2'
+        >
+          <WhiteCard
+            centered
+            className='h-full md:h-full gap-2 p-8 justify-center xl:gap-4'
+          >
+            <FcPodiumWithSpeaker className='text-[12rem]' />
+            <h2 className='text-green-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
+              Crear Co-Pastor
+            </h2>
+            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+              Registrar información de un nuevo Copastor.
+            </p>
+          </WhiteCard>
+        </NavLink>
 
-        <WhiteCard centered>
-          <IoAccessibilityOutline size={50} className='text-indigo-600' />
-          <h2>Persona</h2>
-          <p>{/* firstName */}</p>
-        </WhiteCard>
+        <NavLink
+          key='/'
+          to='/'
+          end
+          className='md:row-start-2 md:row-end-4 md:col-start-1 md:col-end-2 lg:row-start-1 lg:row-end-2 lg:col-start-1 lg:col-end-3 xl:row-start-1 xl:row-end-3 xl:col-start-2 xl:col-end-3 2xl:row-start-1 2xl:row-end-2 2xl:col-start-2 2xl:col-end-3'
+        >
+          <WhiteCard
+            centered
+            className='gap-2 p-8 justify-center xl:gap-4 h-full xl:h-full 2xl:h-full'
+          >
+            <FcSearch className='text-[12rem]' />
+            <h2 className='text-blue-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
+              Buscar Co-Pastor
+            </h2>
+            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+              Búsqueda de Copastores en general.
+            </p>
+          </WhiteCard>
+        </NavLink>
 
-        <WhiteCard centered>
-          <IoListOutline size={50} className='text-indigo-600' />
-          <h2>Tareas</h2>
-          <p>{/* taskCount */}</p>
-        </WhiteCard>
+        <NavLink
+          key='/'
+          to='/'
+          end
+          className='lg:row-start-2 lg:row-end-3 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-5 xl:col-start-2 xl:col-end-3 2xl:row-start-2 2xl:row-end-3 2xl:col-start-2 2xl:col-end-3'
+        >
+          <WhiteCard
+            centered
+            className='gap-2 p-8 justify-center h-full xl:h-full xl:gap-4'
+          >
+            <FcClearFilters className='text-[10rem]' />
+            <h2 className='text-sky-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
+              Buscar Co-Pastor
+            </h2>
+            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+              Búsqueda de Copastores por termino o filtro.
+            </p>
+          </WhiteCard>
+        </NavLink>
 
-        <WhiteCard centered>
-          <IoHeartOutline size={50} className='text-indigo-600' />
-          <h2>Boda</h2>
-          <p>Información</p>
-        </WhiteCard>
+        <NavLink
+          key='/'
+          to='/'
+          end
+          className='lg:h-full lg:row-start-3 lg:row-end-5 lg:col-start-2 lg:col-end-3 xl:row-start-4 xl:row-end-7 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-3 2xl:col-end-4'
+        >
+          <WhiteCard
+            centered
+            className='h-full gap-2 p-8 justify-center xl:gap-4'
+          >
+            <FcSupport className='text-[12rem]' />
+            <h2 className='text-orange-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
+              Actualizar Co-Pastor
+            </h2>
+            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+              Actualizar información del registro de un Copastor.
+            </p>
+          </WhiteCard>
+        </NavLink>
 
-        <WhiteCard centered>
-          <IoLockClosedOutline size={50} className='text-indigo-600' />
-          <h2>Auth</h2>
-          {/* userName */}
-        </WhiteCard>
-
-        <WhiteCard centered className='col-sapn-3'>
-          <IoInformationOutline size={50} className='text-indigo-600' />
-          {/* <RequestInfo /> */}
-        </WhiteCard>
+        <NavLink
+          key='/'
+          to='/'
+          end
+          className='md:h-full col-start-1 col-end-3 md:row-start-4 md:row-end-5 md:col-start-1 md:col-end-3 lg:h-full lg:row-start-5 lg:row-end-6 lg:col-start-1 lg:col-end-3 xl:row-start-5 xl:row-end-7 xl:col-start-2 xl:col-end-3 2xl:row-start-1 2xl:row-end-3 2xl:col-start-4 2xl:col-end-5'
+        >
+          <WhiteCard
+            centered
+            className='h-[12.5rem] sm:h-[18rem] md:h-full gap-2 p-8 justify-center xl:gap-4'
+          >
+            <FcCancel className='text-[12rem]' />
+            <h2 className='text-red-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
+              Eliminar Co-Pastor
+            </h2>
+            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+              Marcar como inactivo el registro de un Copastor.
+            </p>
+          </WhiteCard>
+        </NavLink>
       </div>
     </>
   );

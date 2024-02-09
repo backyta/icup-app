@@ -1,9 +1,10 @@
 
-import { FcBullish, FcHome, FcConferenceCall, FcPodiumWithSpeaker, FcBusinesswoman, FcLike, FcReadingEbook   } from "react-icons/fc";
+import { FcBullish, FcHome, FcConferenceCall,FcSportsMode,  FcPodiumWithSpeaker, FcBusinesswoman, FcLike, FcReadingEbook   } from "react-icons/fc";
 import { type MenuItem } from "../interfaces/menu-items.interface";
 
 export const menuItems: MenuItem[] = [
   { title: 'Panel de Control', subTitle: 'Visualizar data general', href: '/dashboard', Icon: FcBullish },
+  { title: 'Discípulos', subTitle: 'Modulo de Discípulos', href: '/disciples', Icon: FcSportsMode  },
   { title: 'Pastores', subTitle: 'Modulo de Pastores', href: '/pastors', Icon: FcPodiumWithSpeaker },
   { title: 'Co-Pastores', subTitle: 'Modulo de Co-Pastores', href: '/copastors', Icon: FcBusinesswoman },
   { title: 'Lideres', subTitle: 'Modulo de Lideres', href: '/leaders', Icon: FcConferenceCall },

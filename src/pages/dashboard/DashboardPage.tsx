@@ -23,15 +23,15 @@ export const DashboardPage = (): JSX.Element => {
 
   return (
     <>
-      <h1 className='text-center font-sans text-2xl sm:text-3xl font-bold text-blue-500 md:text-3xl lg:text-4xl xl:text-5xl'>
+      <h1 className='text-center p-2 md:p-4 font-sans text-2xl sm:text-3xl font-bold text-blue-600 md:text-3xl lg:text-4xl xl:text-5xl'>
         Panel Administrativo
       </h1>
-      <p className='text-center font-sans text-sm sm:text-md font-bold p-1 lg:text-base xl:text-lg'>
+      <p className='text-center font-sans text-sm sm:text-md font-bold px-4 pb-4 lg:text-base xl:text-lg'>
         Resumen informativo y gráfico de los últimos registros de la iglesia.
       </p>
-      <hr />
+      <hr className='p-[0.02rem] bg-slate-500' />
 
-      <div className='h-full w-full grid grid-cols-1 gap-y-4 lg:gap-4 xl:gap-10 2xl:gap-4 lg:grid-cols-2 lg:grid-rows-3 xl:grid-cols-6 xl:grid-rows-2 sm:h-[100rem] lg:h-[50rem] xl:h-[55rem] xl-lv1:h-[55rem] 2xl:h-[66rem]'>
+      <div className='h-full w-full grid grid-cols-1 gap-y-4 xl:gap-10 2xl:gap-4 lg:grid-rows-3 xl:grid-cols-6 xl:grid-rows-2 sm:h-[100rem] md:h-auto lg:h-auto xl:h-auto 2xl:h-[78rem]'>
         <BarChartOfferings></BarChartOfferings>
         <MembersInfoCard></MembersInfoCard>
         <HousesInfoCard></HousesInfoCard>

@@ -2,14 +2,13 @@ import { WhiteCard } from '@/components/shared/white-cards/WhiteCard';
 import {
   FcCancel,
   FcClearFilters,
-  FcPodiumWithSpeaker,
   FcSearch,
+  FcSportsMode,
   FcSupport,
 } from 'react-icons/fc';
-
 import { NavLink } from 'react-router-dom';
 
-export const PastorPage = (): JSX.Element => {
+export const DisciplePage = (): JSX.Element => {
   // const totalBears = useBearStore((state) => state.totalBears);
   // const firstName = usePersonStore((state) => state.firstName);
   // const tasks = useTaskStore((state) => state.tasks);
@@ -20,10 +19,10 @@ export const PastorPage = (): JSX.Element => {
   return (
     <>
       <h1 className='text-center p-2 md:p-4 font-sans text-2xl sm:text-3xl font-bold text-blue-600 text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
-        Modulo Pastor
+        Modulo Discípulo
       </h1>
       <p className='text-center font-sans text-sm sm:text-md font-bold px-4 pb-4 lg:text-base xl:text-lg'>
-        Bienvenido al modulo Pastor, por favor elige una opción.
+        Bienvenido al modulo Discípulo, por favor elige una opción.
       </p>
       <hr className='p-[0.02rem] bg-slate-500' />
 
@@ -38,12 +37,12 @@ export const PastorPage = (): JSX.Element => {
             centered
             className='h-full md:h-full gap-2 p-8 justify-center xl:gap-4'
           >
-            <FcPodiumWithSpeaker className='text-[12rem]' />
+            <FcSportsMode className='text-[12rem]' />
             <h2 className='text-green-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
-              Crear Pastor
+              Crear Discípulo
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
-              Registrar información de un nuevo pastor.
+            <p className='font-bold text-sm sm:text-md'>
+              Registrar información de un nuevo discípulo.
             </p>
           </WhiteCard>
         </NavLink>
@@ -60,10 +59,10 @@ export const PastorPage = (): JSX.Element => {
           >
             <FcSearch className='text-[12rem]' />
             <h2 className='text-blue-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
-              Buscar Pastor
+              Buscar Discípulo
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
-              Búsqueda de pastores en general.
+            <p className='font-bold text-sm sm:text-md'>
+              Búsqueda de discípulos en general.
             </p>
           </WhiteCard>
         </NavLink>
@@ -80,10 +79,10 @@ export const PastorPage = (): JSX.Element => {
           >
             <FcClearFilters className='text-[10rem]' />
             <h2 className='text-sky-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
-              Buscar Pastor
+              Buscar Discípulo
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
-              Búsqueda de pastores por termino o filtro.
+            <p className='font-bold text-sm sm:text-md'>
+              Búsqueda de discípulos por termino o filtro.
             </p>
           </WhiteCard>
         </NavLink>
@@ -100,10 +99,10 @@ export const PastorPage = (): JSX.Element => {
           >
             <FcSupport className='text-[12rem]' />
             <h2 className='text-orange-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
-              Actualizar Pastor
+              Actualizar Discípulo
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
-              Actualizar información del registro de un pastor.
+            <p className='font-bold text-sm sm:text-md'>
+              Actualizar información del registro de un discípulo.
             </p>
           </WhiteCard>
         </NavLink>
@@ -120,10 +119,10 @@ export const PastorPage = (): JSX.Element => {
           >
             <FcCancel className='text-[12rem]' />
             <h2 className='text-red-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
-              Eliminar Pastor
+              Eliminar Discípulo
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
-              Marcar como inactivo el registro de un pastor.
+            <p className='font-bold text-sm sm:text-md'>
+              Marcar como inactivo el registro de un discípulo.
             </p>
           </WhiteCard>
         </NavLink>

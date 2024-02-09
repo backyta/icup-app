@@ -10,6 +10,7 @@ import { LeaderPage } from '@/pages/leader/LeaderPage';
 import { FamilyHousePage } from '@/pages/family-house/FamilyHousePage';
 import { OfferingPage } from '@/pages/offering/OfferingPage';
 import { UserPage } from '@/pages/user/UserPage';
+import { DisciplePage } from '@/pages/disciple/DisciplePage';
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
           {
             path: 'dashboard',
             element: <DashboardPage />,
+          },
+          {
+            path: 'disciples',
+            element: <DisciplePage />,
           },
           {
             path: 'pastors',
