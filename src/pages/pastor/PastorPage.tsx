@@ -42,7 +42,7 @@ export const PastorPage = (): JSX.Element => {
             <h2 className='text-green-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Crear Pastor
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Registrar información de un nuevo pastor.
             </p>
           </WhiteCard>
@@ -62,7 +62,7 @@ export const PastorPage = (): JSX.Element => {
             <h2 className='text-blue-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Buscar Pastor
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Búsqueda de pastores en general.
             </p>
           </WhiteCard>
@@ -82,7 +82,7 @@ export const PastorPage = (): JSX.Element => {
             <h2 className='text-sky-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Buscar Pastor
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Búsqueda de pastores por termino o filtro.
             </p>
           </WhiteCard>
@@ -102,7 +102,7 @@ export const PastorPage = (): JSX.Element => {
             <h2 className='text-orange-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Actualizar Pastor
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Actualizar información del registro de un pastor.
             </p>
           </WhiteCard>
@@ -122,7 +122,7 @@ export const PastorPage = (): JSX.Element => {
             <h2 className='text-red-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Eliminar Pastor
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Marcar como inactivo el registro de un pastor.
             </p>
           </WhiteCard>

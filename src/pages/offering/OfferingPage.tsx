@@ -41,7 +41,7 @@ export const OfferingPage = (): JSX.Element => {
             <h2 className='text-green-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Crear Ofrenda
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Crear un nuevo registro de una ofrenda.
             </p>
           </WhiteCard>
@@ -61,7 +61,7 @@ export const OfferingPage = (): JSX.Element => {
             <h2 className='text-blue-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Buscar Ofrendas
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Búsqueda de ofrendas en general.
             </p>
           </WhiteCard>
@@ -81,7 +81,7 @@ export const OfferingPage = (): JSX.Element => {
             <h2 className='text-sky-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Buscar Ofrendas
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Búsqueda de ofrendas por termino o filtro.
             </p>
           </WhiteCard>
@@ -101,7 +101,7 @@ export const OfferingPage = (): JSX.Element => {
             <h2 className='text-orange-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Actualizar Ofrenda
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Actualizar información del registro de una ofrenda.
             </p>
           </WhiteCard>
@@ -121,7 +121,7 @@ export const OfferingPage = (): JSX.Element => {
             <h2 className='text-red-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Eliminar Ofrenda
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Marcar como inactivo el registro de una ofrenda .
             </p>
           </WhiteCard>

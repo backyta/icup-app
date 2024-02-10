@@ -41,7 +41,7 @@ export const FamilyHousePage = (): JSX.Element => {
             <h2 className='text-green-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Crear Casa Familiar
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Crear un nuevo registro de una casa familiar.
             </p>
           </WhiteCard>
@@ -61,7 +61,7 @@ export const FamilyHousePage = (): JSX.Element => {
             <h2 className='text-blue-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Buscar Casa Familiar
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Búsqueda de casas familiares en general.
             </p>
           </WhiteCard>
@@ -81,7 +81,7 @@ export const FamilyHousePage = (): JSX.Element => {
             <h2 className='text-sky-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Buscar Casa Familiar
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Búsqueda de casas familiares por termino o filtro.
             </p>
           </WhiteCard>
@@ -101,7 +101,7 @@ export const FamilyHousePage = (): JSX.Element => {
             <h2 className='text-orange-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Actualizar Casa Familiar
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Actualizar información del registro de una casa familiar.
             </p>
           </WhiteCard>
@@ -121,7 +121,7 @@ export const FamilyHousePage = (): JSX.Element => {
             <h2 className='text-red-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Eliminar Casa Familiar
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Marcar como inactivo el registro de una casa familiar.
             </p>
           </WhiteCard>

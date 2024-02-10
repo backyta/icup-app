@@ -23,7 +23,7 @@ export const DashboardPage = (): JSX.Element => {
 
   return (
     <>
-      <h1 className='text-center p-2 md:p-4 font-sans text-2xl sm:text-3xl font-bold text-blue-600 md:text-3xl lg:text-4xl xl:text-5xl'>
+      <h1 className='text-center p-2 md:p-4 font-sans font-bold text-blue-600 text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
         Panel Administrativo
       </h1>
       <p className='text-center font-sans text-sm sm:text-md font-bold px-4 pb-4 lg:text-base xl:text-lg'>

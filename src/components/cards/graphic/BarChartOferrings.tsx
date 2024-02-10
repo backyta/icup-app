@@ -24,7 +24,7 @@ export const BarChartOfferings = (): JSX.Element => {
   return (
     <Card className='bg-slate-200 flex flex-col row-start-1 row-end-2 col-start-1 col-end-3 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-3 xl:col-start-1 xl:col-end-4 xl:row-start-1 xl:row-end-2 h-[16rem] lg:h-[18rem] xl:h-[25rem] 2xl:h-[30rem] mt-3 xl:mt-5 lg:mt-5 lg-mb-5 md:mt-5 2xl:mt-10'>
       <div className='flex flex-col sm:flex-row items-center justify-between p-3 md:p-3 lg:p-3 xl:p-2 2xl:p-4'>
-        <h3 className='font-bold mb-2 sm:mb-0 text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.35rem]  2xl:text-3xl inline-block'>
+        <h3 className='font-bold mb-2 sm:mb-0 text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.50em] 2xl:text-3xl inline-block'>
           Ofrendas - Dominicales
         </h3>
         <DatePickerWithRange></DatePickerWithRange>

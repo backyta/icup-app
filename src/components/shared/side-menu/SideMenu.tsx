@@ -26,7 +26,7 @@ export const SideMenu = (): JSX.Element => {
               />
             </span>
           </a>
-          <p className='text-slate-600 mt-2 text-md hidden md:block'>
+          <p className='text-slate-400 mt-2 text-md hidden md:block'>
             Dashboard administrativo de la Iglesia.
           </p>
         </div>

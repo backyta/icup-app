@@ -14,7 +14,7 @@ export function MembersInfoCard(): JSX.Element {
         <CardTitle className='font-bold text-xl sm:text-[1.45rem] lg:text-[1.50rem] 2xl:text-3xl'>
           Miembros Nuevos
         </CardTitle>
-        <CardDescription className='pl-2 text-base'>
+        <CardDescription className='pl-2 text-base text-slate-800'>
           Últimos miembros registrados.
         </CardDescription>
       </CardHeader>

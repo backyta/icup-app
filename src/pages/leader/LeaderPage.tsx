@@ -41,7 +41,7 @@ export const LeaderPage = (): JSX.Element => {
             <h2 className='text-green-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Crear Líder
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Registrar información de un nuevo líder.
             </p>
           </WhiteCard>
@@ -61,7 +61,7 @@ export const LeaderPage = (): JSX.Element => {
             <h2 className='text-blue-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Buscar Líder
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Búsqueda de líderes en general.
             </p>
           </WhiteCard>
@@ -81,7 +81,7 @@ export const LeaderPage = (): JSX.Element => {
             <h2 className='text-sky-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Buscar Líder
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Búsqueda de líderes por termino o filtro.
             </p>
           </WhiteCard>
@@ -101,7 +101,7 @@ export const LeaderPage = (): JSX.Element => {
             <h2 className='text-orange-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Actualizar Líder
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Actualizar información del registro de un líder.
             </p>
           </WhiteCard>
@@ -121,7 +121,7 @@ export const LeaderPage = (): JSX.Element => {
             <h2 className='text-red-500 font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
               Eliminar Líder
             </h2>
-            <p className='font-bold text-sm sm:text-md xl:text-[16px]'>
+            <p className='font-bold text-sm sm:text-md lg:text-base xl:text-[16px]'>
               Marcar como inactivo el registro de un líder.
             </p>
           </WhiteCard>
