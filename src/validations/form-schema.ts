@@ -1,25 +1,57 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { MaritalStatus } from '@/enums/marital-status.enum';
-import { ValidMemberRoles } from '@/enums/valid-member-roles.enum';
+import { MemberRoles } from '@/enums/member-roles.enum';
 import * as z from 'zod';
 
 
 export const formSchema = z
   .object({
-    firstName: z.string().min(1).max(40),
-    lastName: z.string().min(1).max(40),
-    dateBirth: z.date(),
-    emailAddress: z.string().email(),
-    gender: z.enum(['male', 'female']),
+    firstName: z.string().min(1,{ message: 
+      'El campo debe contener al menos 1 carácter.'}).max(40),
+    lastName: z.string().min(1, { message: 
+      'El campo debe contener al menos 1 carácter.'}).max(40),
+    dateBirth: z.date({
+      required_error: "Por favor selecciona una fecha.",
+      invalid_type_error: "Eso no es una fecha!",
+    }),
+    emailAddress: z.string().email({ message: "Email invalido." }),
+    gender: z.enum(['male', 'female'], {
+      required_error: "Por favor seleccione un genero.",
+      invalid_type_error: "Eso no es un genero!",
+    }),
     maritalStatus: z.nativeEnum(MaritalStatus),
     numberChildren: z.number(),
-    phone: z.string(),
-    dateJoining: z.date(),
+    phoneNumber: z.string(),
+    conversionDate: z.date(),
     originCountry: z.string().min(1).max(20),
-    roles: z.nativeEnum(ValidMemberRoles),
+    department: z.string().min(1).max(20),
+    province: z.string().min(1).max(20),
+    district: z.string().min(1).max(20),
+    address: z.string().min(5).max(50),
+    roles: z.array(z.nativeEnum(MemberRoles),{
+      required_error: "Tienes que seleccionar al menos un elemento.",
+    }).refine((value) => value.some((item) => item), {
+      message: "Tienes que seleccionar al menos un elemento.",
+    }),
+    their_family_home: z.string().uuid({message:'UUID invalido'}).optional(),
+    their_pastor: z.string().uuid({message:'UUID invalido'}).optional(),
+    their_copastor: z.string().uuid({message:'UUID invalido'}).optional(),
+    their_preacher: z.string().uuid({message:'UUID invalido'}).optional(),
     accountType: z.enum(['personal', 'company']),
     companyName: z.string().optional(),
   })
+  .refine(
+    (data) => {
+      if (data.gender === 'male') {
+        return !!data.gender; /* //true */
+      }
+      return true;
+    },
+    {
+      message: 'Company name is required',
+      path: ['companyName'],
+    }
+  )
   .refine(
     (data) => {
       if (data.accountType === 'company') {
@@ -46,8 +78,8 @@ export const formSchema = z
   //   "date_joining": "2001/12/23",
   //   "origin_country": "Colombia",
   //   "roles": [
-  //     "member",
-  //     "preacher"
+    //     "member",
+    //     "preacher"
   //   ],
   //   "residence_country": "Peru",
   //   "department": "Lima",
