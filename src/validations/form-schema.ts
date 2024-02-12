@@ -12,87 +12,92 @@ export const formSchema = z
       'El campo debe contener al menos 1 carácter.'}).max(40),
     dateBirth: z.date({
       required_error: "Por favor selecciona una fecha.",
-      invalid_type_error: "Eso no es una fecha!",
     }),
-    emailAddress: z.string().email({ message: "Email invalido." }),
     gender: z.enum(['male', 'female'], {
       required_error: "Por favor seleccione un genero.",
-      invalid_type_error: "Eso no es un genero!",
     }),
-    maritalStatus: z.nativeEnum(MaritalStatus),
-    numberChildren: z.number(),
-    phoneNumber: z.string(),
+    maritalStatus: z.nativeEnum(MaritalStatus,{
+      required_error: "Por favor seleccione una opción.",
+    }),
+    numberChildren: z.string().refine(numberChildren => !isNaN(parseInt(numberChildren)),{
+      message: 'La cantidad no es un numero'
+    }),
     conversionDate: z.date(),
+
+    emailAddress: z.string().email({ message: "Email invalido." }),
+    phoneNumber: z.string(),
     originCountry: z.string().min(1).max(20),
     department: z.string().min(1).max(20),
     province: z.string().min(1).max(20),
     district: z.string().min(1).max(20),
     address: z.string().min(5).max(50),
+
     roles: z.array(z.nativeEnum(MemberRoles),{
       required_error: "Tienes que seleccionar al menos un elemento.",
     }).refine((value) => value.some((item) => item), {
       message: "Tienes que seleccionar al menos un elemento.",
     }),
-    their_family_home: z.string().uuid({message:'UUID invalido'}).optional(),
-    their_pastor: z.string().uuid({message:'UUID invalido'}).optional(),
-    their_copastor: z.string().uuid({message:'UUID invalido'}).optional(),
-    their_preacher: z.string().uuid({message:'UUID invalido'}).optional(),
-    accountType: z.enum(['personal', 'company']),
-    companyName: z.string().optional(),
+    theirPastor: z.string().optional(),
+    theirCopastor: z.string().optional(),
+    theirSupervisor: z.string().optional(),
+    theirPreacher: z.string().optional(),
+    theirFamilyHouse: z.string().optional(),
   })
+
   .refine(
     (data) => {
-      if (data.gender === 'male') {
-        return !!data.gender; /* //true */
+      if (data.roles.includes(MemberRoles.copastor) && data.roles.includes(MemberRoles.member)) {
+        return !!data.theirPastor; /* //verifica si hay un valor en theirPastor, y manda tru o false */
       }
       return true;
     },
     {
-      message: 'Company name is required',
-      path: ['companyName'],
+      message: 'Es necesario asignar un Pastor',
+      path: ['theirPastor'],
     }
   )
   .refine(
     (data) => {
-      if (data.accountType === 'company') {
-        return !!data.companyName; /* //true */
+      if (data.roles.includes(MemberRoles.supervisor) && data.roles.includes(MemberRoles.member)) {
+        return !!data.theirCopastor; 
       }
       return true;
     },
     {
-      message: 'Company name is required',
-      path: ['companyName'],
+      message: 'Es necesario asignar un Co-Pastor',
+      path: ['theirCopastor'],
     }
-  );
+  )
+  .refine(
+    (data) => {
+      if ((data.roles.includes(MemberRoles.preacher) && data.roles.includes(MemberRoles.member))|| (data.roles.includes(MemberRoles.preacher) && data.roles.includes(MemberRoles.member) && data.roles.includes(MemberRoles.treasurer))) {
+        return !!data.theirSupervisor;
+      }
+      return true;
+    },
+    {
+      message: 'Es necesario asignar un Supervisor',
+      path: ['theirSupervisor'],
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.roles.includes(MemberRoles.member) && !data.roles.includes(MemberRoles.pastor) && !data.roles.includes(MemberRoles.copastor) && !data.roles.includes(MemberRoles.supervisor)  && !data.roles.includes(MemberRoles.preacher)){
+        return !!data.theirFamilyHouse; /* //true */
+      }
+      return true;
+    },
+    {
+      message: 'Es necesario asignar una Casa Familiar',
+      path: ['theirFamilyHouse'],
+    }
+  )
 
-  // {
-  //   "first_name": "John Martin",
-  //   "last_name": "Rojas Castro",
-  //   "date_birth": "1990/12/23",
-  //   "email": "example@example.com",
-  //   "is_active": true,
-  //   "gender": "male",
-  //   "marital_status": "single",
-  //   "number_children": 2,
-  //   "phone": "999333555",
-  //   "date_joining": "2001/12/23",
-  //   "origin_country": "Colombia",
-  //   "roles": [
-    //     "member",
-    //     "preacher"
-  //   ],
-  //   "residence_country": "Peru",
-  //   "department": "Lima",
-  //   "province": "Lima",
-  //   "district": "Comas",
-  //   "address": "Av.example 1234",
-  //   "their_family_home": "cf5a9ee3-cad7-4b73-a331-a5f3f76f6661",
-  //   "their_pastor": "cf5a9ee3-cad7-4b73-a331-a5f3f76f6661",
-  //   "their_copastor": "cf5a9ee3-cad7-4b73-a331-a5f3f76f6661",
-  //   "their_preacher": "cf5a9ee3-cad7-4b73-a331-a5f3f76f6661"
-  // }
+
 
   // TODO : crear todas las validaciones y formularios de todos los módulos.
   // TODO : agregar el path al router de loas demas paginas form
   // NOTE : no creo que sea necesario hacer un componente de formilario poorque todos varian, usar los componentes de shadcn no mas
   // NOTE: pordria reutilizar el componente de los titulos 
+
+  // TODO : borrar el acceso para crear lider pastor copastor, porque todos se crea desde discipulo, y solo se sube de nivel desde actualizar discipulo para no chocar con sus relaciones their

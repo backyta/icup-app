@@ -1,39 +1,39 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import * as z from 'zod';
+// import * as z from 'zod';
 
 
-export const userSchema = z
-  .object({
-    firstName: z.string().min(1),
-    lastName: z.string().min(1),
-    dateBirth: z.date(),
-    emailAddress: z.string().email(),
-    password: z.string().min(3),
-    passwordConfirm: z.string(),
-    accountType: z.enum(['personal', 'company']),
-    companyName: z.string().optional(),
-  })
-  .refine(
-    (data) => {
-      return data.password === data.passwordConfirm;
-    },
-    {
-      message: 'Passwords do not match',
-      path: ['passwordConfirm'],
-    }
-  )
-  .refine(
-    (data) => {
-      if (data.accountType === 'company') {
-        return !!data.companyName; /* //true */
-      }
-      return true;
-    },
-    {
-      message: 'Company name is required',
-      path: ['companyName'],
-    }
-  );
+// export const userSchema = z
+//   .object({
+//     firstName: z.string().min(1),
+//     lastName: z.string().min(1),
+//     dateBirth: z.date(),
+//     emailAddress: z.string().email(),
+//     password: z.string().min(3),
+//     passwordConfirm: z.string(),
+//     accountType: z.enum(['personal', 'company']),
+//     companyName: z.string().optional(),
+//   })
+//   .refine(
+//     (data) => {
+//       return data.password === data.passwordConfirm;
+//     },
+//     {
+//       message: 'Passwords do not match',
+//       path: ['passwordConfirm'],
+//     }
+//   )
+//   .refine(
+//     (data) => {
+//       if (data.accountType === 'company') {
+//         return !!data.companyName; /* //true */
+//       }
+//       return true;
+//     },
+//     {
+//       message: 'Company name is required',
+//       path: ['companyName'],
+//     }
+//   );
 
   // {
   //   "first_name": "John Martin",

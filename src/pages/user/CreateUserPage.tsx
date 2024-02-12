@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import type * as z from 'zod';
+// import { userSchema } from '../../validations/user-schema';
+import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -20,7 +22,39 @@ import {
   Select,
 } from '@/components/ui/select';
 
-import { userSchema } from '../../validations/user-schema';
+// import * as z from 'zod';
+
+const userSchema = z
+  .object({
+    // firstName: z.string().min(1),
+    // lastName: z.string().min(1),
+    emailAddress: z.string().email(),
+    password: z.string().min(3),
+    passwordConfirm: z.string(),
+    accountType: z.enum(['personal', 'company']),
+    companyName: z.string().optional(),
+  })
+  .refine(
+    (data) => {
+      return data.password === data.passwordConfirm;
+    },
+    {
+      message: 'Passwords do not match',
+      path: ['passwordConfirm'],
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.accountType === 'company') {
+        return !!data.companyName; /* //true */
+      }
+      return true;
+    },
+    {
+      message: 'Company name is required',
+      path: ['companyName'],
+    }
+  );
 
 export const CreateUserPage = (): JSX.Element => {
   const form = useForm<z.infer<typeof userSchema>>({
@@ -67,12 +101,12 @@ export const CreateUserPage = (): JSX.Element => {
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel> Email Address</FormLabel>
+                    <FormLabel>Email Address</FormLabel>
                     <FormControl>
                       <Input
                         placeholder='Email address'
                         type='email'
-                        autoComplete='username'
+                        // autoComplete='username'
                         {...field}
                       />
                     </FormControl>
@@ -91,7 +125,7 @@ export const CreateUserPage = (): JSX.Element => {
                     <FormControl>
                       <Input
                         placeholder='Password'
-                        autoComplete='new-password'
+                        // autoComplete='new-password'
                         type='password'
                         {...field}
                       />
@@ -111,7 +145,7 @@ export const CreateUserPage = (): JSX.Element => {
                     <FormControl>
                       <Input
                         placeholder='Password confirm'
-                        autoComplete='new-password'
+                        // autoComplete='new-password'
                         type='password'
                         {...field}
                       />

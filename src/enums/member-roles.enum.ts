@@ -2,8 +2,8 @@ export enum MemberRoles {
   member = 'member',
   pastor = 'pastor',
   copastor = 'copastor',
-  preacher = 'preacher',
   supervisor = 'supervisor',
+  preacher = 'preacher',
   treasurer = 'treasurer',
 }
 
@@ -11,8 +11,8 @@ export const roleNames: Record<MemberRoles, string> = {
   member: 'Miembro',
   pastor: 'Pastor',
   copastor: 'Co-pastor',
-  preacher: 'Predicador',
   supervisor: 'Supervisor',
+  preacher: 'Predicador',
   treasurer: 'Tesorero',
 };
 

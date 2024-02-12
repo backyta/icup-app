@@ -28,8 +28,8 @@ export const UserPage = (): JSX.Element => {
 
       <div className='w-full grid gap-4 grid-cols-2 grid-rows-3 md:grid-cols-2 md:grid-rows-4 lg:grid-cols-2 lg:grid-rows-5 2xl:grid-cols-4 2xl:grid-rows-1 h-[50rem] sm:h-[67rem] md:h-[70rem] lg:h-[68rem] xl:h-[63rem] 2xl:h-[63rem] mt-[2rem]'>
         <NavLink
-          key='/'
-          to='/'
+          key='/users/create-user'
+          to='/users/create-user'
           end
           className='md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-3 lg:row-start-2 lg:row-end-5 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-1 2xl:col-end-2'
         >
