@@ -18,7 +18,7 @@ export const CopastorPage = (): JSX.Element => {
 
   return (
     <>
-      <h1 className='text-center p-2 md:p-4 font-sans text-2xl sm:text-3xl font-bold text-blue-600 text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
+      <h1 className='text-center p-2 md:p-4 font-sans text-2xl sm:text-3xl font-bold text-copastor-color text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
         Modulo Co-Pastor
       </h1>
       <p className='text-center font-sans text-sm sm:text-md font-bold px-4 pb-4 lg:text-base xl:text-lg'>
@@ -28,8 +28,8 @@ export const CopastorPage = (): JSX.Element => {
 
       <div className='w-full grid gap-4 grid-cols-2 grid-rows-3 md:grid-cols-2 md:grid-rows-4 lg:grid-cols-2 lg:grid-rows-5 2xl:grid-cols-4 2xl:grid-rows-1 h-[50rem] sm:h-[67rem] md:h-[70rem] lg:h-[68rem] xl:h-[63rem] 2xl:h-[63rem] mt-[2rem]'>
         <NavLink
-          key='/'
-          to='/'
+          key='/disciples/create-disciple'
+          to='/disciples/create-disciple'
           end
           className='md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-3 lg:row-start-2 lg:row-end-5 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-1 2xl:col-end-2'
         >

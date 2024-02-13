@@ -76,17 +76,16 @@ export const CreateUserPage = (): JSX.Element => {
   return (
     <>
       <h1 className='text-center p-2 md:p-4 font-sans text-2xl sm:text-3xl font-bold text-blue-600 text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
-        Modulo Discípulo
+        Modulo Usuario
       </h1>
 
       <hr className='p-[0.02rem] bg-slate-500' />
 
       <h1 className='text-center p-2 md:p-4 font-sans text-2xl sm:text-2xl font-bold text-green-600 text-[1.5rem] sm:text-[2.0rem] md:text-[2.2rem] lg:text-4xl xl:text-4xl'>
-        Crear un nuevo discípulo
+        Crear un nuevo usuario
       </h1>
       <p className='text-center font-sans text-sm sm:text-md font-bold px-4 lg:text-base xl:text-lg'>
-        Hola, por favor llena los siguientes datos para crear un nuevo
-        discípulo.
+        Hola, por favor llena los siguientes datos para crear un nuevo usuario.
       </p>
 
       <div className='flex min-h-screen flex-col items-center justify-between px-24 py-10'>

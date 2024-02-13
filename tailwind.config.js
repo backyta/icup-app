@@ -52,9 +52,15 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        'sub-title-color': '#11BEC1',
+        'sub-title-color': '',
+        'pastor-color': '#ff5f0a',
+        'copastor-color':'#9C27B0', 
+        'leader-color':'#068ef1',
+        'family-color':'#ffd700',
+        'offering-color': '#f83c85',
+        'user-color': '#32CD32', 
 
-      
+        // 'leader-color':'' 
       },
       borderRadius: {
         lg: "var(--radius)",

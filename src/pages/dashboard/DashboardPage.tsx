@@ -31,7 +31,7 @@ export const DashboardPage = (): JSX.Element => {
       </p>
       <hr className='p-[0.02rem] bg-slate-500' />
 
-      <div className='h-full w-full grid grid-cols-1 gap-y-4 xl:gap-10 2xl:gap-4 lg:grid-rows-3 xl:grid-cols-6 xl:grid-rows-2 sm:h-[100rem] md:h-auto lg:h-auto xl:h-auto 2xl:h-[78rem]'>
+      <div className='h-full w-full grid grid-cols-1 gap-y-4 xl:gap-10 2xl:gap-4 lg:grid-rows-3 xl:grid-cols-6 xl:grid-rows-2 sm:h-[100rem] md:h-auto lg:h-auto xl:h-auto 2xl:h-auto'>
         <BarChartOfferings></BarChartOfferings>
         <MembersInfoCard></MembersInfoCard>
         <HousesInfoCard></HousesInfoCard>

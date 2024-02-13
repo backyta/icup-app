@@ -22,6 +22,7 @@ import {
   Select,
 } from '@/components/ui/select';
 
+import { es } from 'date-fns/locale';
 import { formSchema } from '../../validations/form-schema';
 import {
   Popover,
@@ -35,7 +36,6 @@ import { Calendar } from '@/components/ui/calendar';
 
 import { Checkbox } from '@/components/ui/checkbox';
 import { MemberRoles, roleNames } from '@/enums/member-roles.enum';
-// import { clsx } from 'clsx';
 
 export const CreateDisciplePage = (): JSX.Element => {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -51,56 +51,49 @@ export const CreateDisciplePage = (): JSX.Element => {
       province: '',
       district: '',
       address: '',
-      // theirFamilyHouse: '',
-      // theirPastor: '',
-      // theirCopastor: '',
-      // theirPreacher: '',
-      // theirSupervisor: '',
     },
   });
-  const roles = form.watch('roles');
-  console.log(roles);
 
-  // TODO : terminar el responsive, yamnio de letras
-  // TODO : Eliminar y ordenar Crear pastores, copastorews y lideres.
-  // TODO : ver si los lideres tmb pueden ser tesoreros y asignarles un copastor y de los preacher sacar su copastor del superviosr
-  // TODO : revisr si el supervisor necesita una zona a su cargo (se puiede cambiar, asi como la casa a sui cargo del predicador)
+  const roles = form.watch('roles');
+
   const handleSubmit = (values: z.infer<typeof formSchema>): void => {
     console.log({ values });
   };
 
   return (
     <div>
-      <h1 className='text-center p-2 md:p-4 font-sans text-2xl sm:text-3xl font-bold text-blue-600 text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
+      <h1 className='text-center pb-4 spx-2 pt-2 lg:pt-4 p-4 font-sans text-2xl sm:text-3xl font-bold text-blue-500 text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
         Modulo Discípulo
       </h1>
 
-      <hr className='p-[0.02rem] bg-slate-500' />
+      <hr className='md:p-[0.02rem] bg-slate-500' />
 
-      <h1 className='text-center p-2 md:p-4 font-sans text-2xl sm:text-2xl font-bold text-green-600 text-[1.5rem] sm:text-[2.0rem] md:text-[2.2rem] lg:text-4xl xl:text-4xl'>
+      <h1 className='text-left px-4 py-2 sm:px-10 sm:pt-4 sm:pb-2 2xl:px-24 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-green-500 text-[1.4rem] sm:text-[2.0rem] md:text-[1.65rem] lg:text-[1.8rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear un nuevo discípulo
       </h1>
-      <p className='text-center font-sans text-sm sm:text-md font-bold px-4 lg:text-base xl:text-lg'>
-        Hola, por favor llena los siguientes datos para crear un nuevo
-        discípulo.
+      <p className='text-slate-500 text-left font-sans text-[13px] font-bold px-4 sm:px-10 sm:text-sm md:text-base  2xl:px-24'>
+        Por favor llena los siguientes datos para crear un nuevo discípulo.
       </p>
 
-      <div className='flex min-h-screen flex-col items-center justify-between px-10 py-10 2xl:px-36 2xl:py-12'>
+      <div className='flex min-h-screen flex-col items-center justify-between px-6 py-6 sm:px-10 sm:py-10 2xl:px-36 2xl:py-12'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            // className='max-w-md w-full flex flex-col gap-4'
-            className='w-full grid grid-cols-2 gap-y-8 gap-x-10'
+            className='w-full grid gap-y-6 sm:grid-cols-2 sm:gap-y-8 sm:gap-x-10'
           >
-            <div className='col-start-1 col-end-2'>
-              <legend className='font-bold text-lg'>Datos generales</legend>
+            <div className='sm:col-start-1 sm:col-end-2'>
+              <legend className='font-bold text-md lg:text-lg xl:text-xl'>
+                Datos generales
+              </legend>
               <FormField
                 control={form.control}
                 name='firstName'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel>Nombres</FormLabel>
+                      <FormLabel className='text-sm xl:text-[15px]'>
+                        Nombres
+                      </FormLabel>
                       <FormControl>
                         <Input
                           placeholder='Nombres del miembro'
@@ -119,7 +112,9 @@ export const CreateDisciplePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel>Apellidos</FormLabel>
+                      <FormLabel className='text-sm xl:text-[15px]'>
+                        Apellidos
+                      </FormLabel>
                       <FormControl>
                         <Input
                           placeholder='Apellidos del miembro'
@@ -137,7 +132,9 @@ export const CreateDisciplePage = (): JSX.Element => {
                 name='dateBirth'
                 render={({ field }) => (
                   <FormItem className='flex flex-col mt-4'>
-                    <FormLabel>Fecha de Nacimiento</FormLabel>
+                    <FormLabel className='text-sm xl:text-[15px]'>
+                      Fecha de Nacimiento
+                    </FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -149,9 +146,11 @@ export const CreateDisciplePage = (): JSX.Element => {
                             )}
                           >
                             {field.value ? (
-                              format(field.value, 'PPP')
+                              format(field.value, 'LLL dd, y', { locale: es })
                             ) : (
-                              <span>Fecha de nacimiento del miembro</span>
+                              <span className='text-sm md:text-[12px] lg:text-sm'>
+                                Fecha de nacimiento del miembro
+                              </span>
                             )}
                             <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                           </Button>
@@ -169,7 +168,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                         />
                       </PopoverContent>
                     </Popover>
-                    <FormDescription className='pl-3 text-blue-600 font-bold'>
+                    <FormDescription className='pl-3 text-blue-500 text-[12px] sm:text-sm font-bold'>
                       * Su fecha de nacimiento se utiliza para calcular su edad.
                     </FormDescription>
                     <FormMessage />
@@ -182,7 +181,9 @@ export const CreateDisciplePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel>Genero</FormLabel>
+                      <FormLabel className='text-sm xl:text-[15px]'>
+                        Genero
+                      </FormLabel>
                       <Select onValueChange={field.onChange}>
                         <FormControl>
                           <SelectTrigger>
@@ -205,7 +206,9 @@ export const CreateDisciplePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel>Estado Civil</FormLabel>
+                      <FormLabel className='text-sm xl:text-[15px]'>
+                        Estado Civil
+                      </FormLabel>
                       <Select onValueChange={field.onChange}>
                         <FormControl>
                           <SelectTrigger>
@@ -229,7 +232,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                 name='numberChildren'
                 render={({ field }) => {
                   return (
-                    <FormItem className='mt-3'>
+                    <FormItem className='text-sm xl:text-[15px]'>
                       <FormLabel>Numero de hijos</FormLabel>
                       <FormControl>
                         <Input
@@ -249,7 +252,9 @@ export const CreateDisciplePage = (): JSX.Element => {
                 name='conversionDate'
                 render={({ field }) => (
                   <FormItem className='flex flex-col mt-4'>
-                    <FormLabel>Fecha de conversión</FormLabel>
+                    <FormLabel className='text-sm xl:text-[15px]'>
+                      Fecha de conversión
+                    </FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -263,7 +268,9 @@ export const CreateDisciplePage = (): JSX.Element => {
                             {field.value ? (
                               format(field.value, 'PPP')
                             ) : (
-                              <span>Fecha de conversion del miembro</span>
+                              <span className='text-sm md:text-[12px] lg:text-sm'>
+                                Fecha de conversion del miembro
+                              </span>
                             )}
                             <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                           </Button>
@@ -281,7 +288,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                         />
                       </PopoverContent>
                     </Popover>
-                    <FormDescription className='pl-3 text-blue-600 font-bold'>
+                    <FormDescription className='pl-3 text-blue-600 text-[12px] sm:text-sm  font-bold'>
                       * Fecha en la que el creyente se convirtió.
                     </FormDescription>
                     <FormMessage />
@@ -289,15 +296,19 @@ export const CreateDisciplePage = (): JSX.Element => {
                 )}
               />
             </div>
-            <div className='col-start-2 col-end-3'>
-              <legend className='font-bold text-lg'>Contacto / Vivienda</legend>
+            <div className='sm:col-start-2 sm:col-end-3'>
+              <legend className='font-bold text-md lg:text-lg xl:text-xl'>
+                Contacto / Vivienda
+              </legend>
               <FormField
                 control={form.control}
                 name='emailAddress'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel>E-mail</FormLabel>
+                      <FormLabel className='text-sm xl:text-[15px]'>
+                        E-mail
+                      </FormLabel>
                       <FormControl>
                         <Input
                           placeholder='Dirección Email del miembro'
@@ -317,7 +328,9 @@ export const CreateDisciplePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel>Numero de Teléfono</FormLabel>
+                      <FormLabel className='text-sm xl:text-[15px]'>
+                        Numero de Teléfono
+                      </FormLabel>
                       <FormControl>
                         <Input
                           placeholder='Numero de teléfono del miembro'
@@ -336,7 +349,9 @@ export const CreateDisciplePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel>País de Origen</FormLabel>
+                      <FormLabel className='text-sm xl:text-[15px]'>
+                        País de Origen
+                      </FormLabel>
                       <FormControl>
                         <Input
                           placeholder='País de origen del miembro'
@@ -355,7 +370,9 @@ export const CreateDisciplePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel>Departamento</FormLabel>
+                      <FormLabel className='text-sm xl:text-[15px]'>
+                        Departamento
+                      </FormLabel>
                       <FormControl>
                         <Input
                           placeholder='Departamento en la que reside el miembro'
@@ -374,7 +391,9 @@ export const CreateDisciplePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel>Provincia</FormLabel>
+                      <FormLabel className='text-sm xl:text-[15px]'>
+                        Provincia
+                      </FormLabel>
                       <FormControl>
                         <Input
                           placeholder='Provincia en la que reside el miembro'
@@ -393,7 +412,9 @@ export const CreateDisciplePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel>Distrito</FormLabel>
+                      <FormLabel className='text-sm 2xl:text-[15px]'>
+                        Distrito
+                      </FormLabel>
                       <FormControl>
                         <Input
                           placeholder='Distrito en la que reside el miembro'
@@ -412,7 +433,9 @@ export const CreateDisciplePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel>Dirección</FormLabel>
+                      <FormLabel className='text-sm 2xl:text-[15px]'>
+                        Dirección
+                      </FormLabel>
                       <FormControl>
                         <Input
                           placeholder='Dirección en la que reside el miembro'
@@ -426,16 +449,18 @@ export const CreateDisciplePage = (): JSX.Element => {
                 }}
               />
             </div>
-            <div className='col-start-1 col-end-2 row-start-2 row-end-3 h-auto'>
+            <div className='sm:col-start-1 sm:col-end-2 sm:row-start-2 sm:row-end-3 h-auto'>
               <FormField
                 control={form.control}
                 name='roles'
                 render={() => (
                   <FormItem>
                     <div className='mb-4'>
-                      <FormLabel className='font-bold text-lg'>Roles</FormLabel>
-                      <FormDescription>
-                        Seleccione los roles que desea asignar al miembro
+                      <FormLabel className='font-bold text-md lg:text-lg xl:text-xl'>
+                        Roles
+                      </FormLabel>
+                      <FormDescription className='text-slate-500 font-medium text-sm xl:text-[15px]'>
+                        Seleccione los roles que desea asignar al miembro.
                       </FormDescription>
                     </div>
                     {Object.values(MemberRoles).map((role) => (
@@ -467,7 +492,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                                   }}
                                 />
                               </FormControl>
-                              <FormLabel className='text-sm font-normal'>
+                              <FormLabel className='lg:text-[15px] font-normal'>
                                 {roleNames[role]}
                               </FormLabel>
                             </FormItem>
@@ -480,8 +505,8 @@ export const CreateDisciplePage = (): JSX.Element => {
                 )}
               />
             </div>
-            <div className='col-start-2 col-end-3 row-start-2 row-end-3'>
-              <legend className='font-bold col-start-1 col-end-3 text-lg'>
+            <div className='sm:col-start-2 sm:col-end-3 sm:row-start-2 sm:row-end-3'>
+              <legend className='font-bold col-start-1 col-end-3 text-md lg:text-lg xl:text-xl'>
                 Relaciones
               </legend>
               {/* Validations */}
@@ -507,7 +532,12 @@ export const CreateDisciplePage = (): JSX.Element => {
                     render={({ field }) => {
                       return (
                         <FormItem>
-                          <FormLabel>Pastor</FormLabel>
+                          <FormLabel className='text-sm md:text-[16px]'>
+                            Pastor
+                          </FormLabel>
+                          <FormDescription>
+                            Asignar relación para los roles escogidos.
+                          </FormDescription>
                           <Select onValueChange={field.onChange}>
                             <FormControl>
                               <SelectTrigger>
@@ -528,72 +558,90 @@ export const CreateDisciplePage = (): JSX.Element => {
                     }}
                   />
                 )}
-              {roles?.includes(MemberRoles.member) &&
-                roles?.includes(MemberRoles.supervisor) &&
-                !roles?.includes(MemberRoles.pastor) &&
-                !roles?.includes(MemberRoles.copastor) &&
-                !roles?.includes(MemberRoles.preacher) &&
-                !roles?.includes(MemberRoles.treasurer) && (
-                  <FormField
-                    control={form.control}
-                    name='theirCopastor'
-                    render={({ field }) => {
-                      return (
-                        <FormItem>
-                          <FormLabel>Co-Pastor</FormLabel>
-                          <Select onValueChange={field.onChange}>
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder='Selecciona un Co-Pastor para asignar al miembro' />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value='id'>Michael Baca</SelectItem>
-                              <SelectItem value='id2'>Daniel Santos</SelectItem>
-                              <SelectItem value='id3'>
-                                Carlos Rosales
-                              </SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-                )}
               {((roles?.includes(MemberRoles.member) &&
-                roles?.includes(MemberRoles.preacher)) ||
-                roles?.includes(MemberRoles.treasurer)) &&
+                roles?.includes(MemberRoles.supervisor) &&
+                !roles?.includes(MemberRoles.treasurer) &&
                 !roles?.includes(MemberRoles.pastor) &&
                 !roles?.includes(MemberRoles.copastor) &&
-                !roles?.includes(MemberRoles.supervisor) && (
-                  <FormField
-                    control={form.control}
-                    name='theirSupervisor'
-                    render={({ field }) => {
-                      return (
-                        <FormItem>
-                          <FormLabel>Supervisor</FormLabel>
-                          <Select onValueChange={field.onChange}>
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder='Selecciona un Supervisor para asignar al miembro' />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value='id'>Michael Baca</SelectItem>
-                              <SelectItem value='id2'>Daniel Santos</SelectItem>
-                              <SelectItem value='id3'>
-                                Carlos Rosales
-                              </SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-                )}
+                !roles?.includes(MemberRoles.preacher)) ||
+                (roles?.includes(MemberRoles.member) &&
+                  roles?.includes(MemberRoles.supervisor) &&
+                  roles?.includes(MemberRoles.treasurer) &&
+                  !roles?.includes(MemberRoles.pastor) &&
+                  !roles?.includes(MemberRoles.copastor) &&
+                  !roles?.includes(MemberRoles.preacher))) && (
+                <FormField
+                  control={form.control}
+                  name='theirCopastor'
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormLabel className='text-sm md:text-[16px]'>
+                          Co-Pastor
+                        </FormLabel>
+                        <FormDescription>
+                          Asignar relación para los roles escogidos.
+                        </FormDescription>
+                        <Select onValueChange={field.onChange}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder='Selecciona un Co-Pastor para asignar al miembro' />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value='id'>Michael Baca</SelectItem>
+                            <SelectItem value='id2'>Daniel Santos</SelectItem>
+                            <SelectItem value='id3'>Carlos Rosales</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+              )}
+              {((roles?.includes(MemberRoles.member) &&
+                roles?.includes(MemberRoles.preacher) &&
+                !roles?.includes(MemberRoles.treasurer) &&
+                !roles?.includes(MemberRoles.pastor) &&
+                !roles?.includes(MemberRoles.copastor) &&
+                !roles?.includes(MemberRoles.supervisor)) ||
+                (roles?.includes(MemberRoles.member) &&
+                  roles?.includes(MemberRoles.preacher) &&
+                  roles?.includes(MemberRoles.treasurer) &&
+                  !roles?.includes(MemberRoles.pastor) &&
+                  !roles?.includes(MemberRoles.copastor) &&
+                  !roles?.includes(MemberRoles.supervisor))) && (
+                <FormField
+                  control={form.control}
+                  name='theirSupervisor'
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormLabel className='text-sm md:text-[16px]'>
+                          Supervisor
+                        </FormLabel>
+                        <FormDescription>
+                          Asignar relación para los roles escogidos.
+                        </FormDescription>
+                        <Select onValueChange={field.onChange}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder='Selecciona un Supervisor para asignar al miembro' />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value='id'>Michael Baca</SelectItem>
+                            <SelectItem value='id2'>Daniel Santos</SelectItem>
+                            <SelectItem value='id3'>Carlos Rosales</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+              )}
               {roles?.includes(MemberRoles.member) &&
                 !roles?.includes(MemberRoles.pastor) &&
                 !roles?.includes(MemberRoles.copastor) &&
@@ -606,7 +654,12 @@ export const CreateDisciplePage = (): JSX.Element => {
                     render={({ field }) => {
                       return (
                         <FormItem>
-                          <FormLabel>Casa Familiar</FormLabel>
+                          <FormLabel className='text-sm md:text-[16px]'>
+                            Casa Familiar
+                          </FormLabel>
+                          <FormDescription className='text-neutral-600 font-medium'>
+                            Asignar relación para los roles escogidos.
+                          </FormDescription>
                           <Select onValueChange={field.onChange}>
                             <FormControl>
                               <SelectTrigger>
@@ -627,10 +680,10 @@ export const CreateDisciplePage = (): JSX.Element => {
                     }}
                   />
                 )}
-              <p className='mt-4 font-bold text-sm text-blue-600'>
+              <p className='mt-4 font-bold text-[14.5px] 2xl:text-[15.5px] text-blue-600'>
                 Consideraciones
               </p>
-              <ul className=' text-sm text-red-500 font-medium '>
+              <ul className='text-sm 2xl:text-[15px] text-red-500 font-medium '>
                 <li>*No se permite asignar mas de 4 roles*</li>
                 <li>
                   *Para asignar rol Tesorero se debe asignar rol Predicador o
@@ -639,8 +692,8 @@ export const CreateDisciplePage = (): JSX.Element => {
                 <li>*El rol Member es obligatorio*</li>
               </ul>
             </div>
-            <div className='col-start-1 col-end-3 row-start-3 row-end-4 w-60 m-auto 2xl:w-80'>
-              <Button type='submit' className='w-full'>
+            <div className='sm:col-start-1 sm:col-end-3 sm:row-start-3 sm:row-end-4 w-60 m-auto 2xl:w-80'>
+              <Button type='submit' className='w-full lg: text-md xl:text-lg'>
                 Registrar miembro
               </Button>
             </div>

@@ -22,15 +22,23 @@ export const formSchema = z
     numberChildren: z.string().refine(numberChildren => !isNaN(parseInt(numberChildren)),{
       message: 'La cantidad no es un numero'
     }),
-    conversionDate: z.date(),
+    conversionDate: z.date({
+      required_error: "Por favor selecciona una fecha.",
+    }),
 
     emailAddress: z.string().email({ message: "Email invalido." }),
-    phoneNumber: z.string(),
-    originCountry: z.string().min(1).max(20),
-    department: z.string().min(1).max(20),
-    province: z.string().min(1).max(20),
-    district: z.string().min(1).max(20),
-    address: z.string().min(5).max(50),
+    phoneNumber: z.string().min(1, { message: 
+      'El campo debe contener al menos 1 carácter.'}).max(20),
+    originCountry: z.string().min(1, { message: 
+      'El campo debe contener al menos 1 carácter.'}).max(20),
+    department: z.string().min(1, { message: 
+      'El campo debe contener al menos 1 carácter.'}).max(20),
+    province: z.string().min(1, { message: 
+      'El campo debe contener al menos 1 carácter.'}).max(20),
+    district: z.string().min(1, { message: 
+      'El campo debe contener al menos 1 carácter.'}).max(20),
+    address: z.string().min(1, { message: 
+      'El campo debe contener al menos 1 carácter.'}).max(50),
 
     roles: z.array(z.nativeEnum(MemberRoles),{
       required_error: "Tienes que seleccionar al menos un elemento.",
@@ -93,11 +101,3 @@ export const formSchema = z
     }
   )
 
-
-
-  // TODO : crear todas las validaciones y formularios de todos los módulos.
-  // TODO : agregar el path al router de loas demas paginas form
-  // NOTE : no creo que sea necesario hacer un componente de formilario poorque todos varian, usar los componentes de shadcn no mas
-  // NOTE: pordria reutilizar el componente de los titulos 
-
-  // TODO : borrar el acceso para crear lider pastor copastor, porque todos se crea desde discipulo, y solo se sube de nivel desde actualizar discipulo para no chocar con sus relaciones their
