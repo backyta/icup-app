@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/select';
 
 import { es } from 'date-fns/locale';
-import { formSchema } from '../../validations/form-schema';
+import { formMemberSchema } from '../../validations/form-member-schema';
 import {
   Popover,
   PopoverContent,
@@ -38,8 +38,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { MemberRoles, roleNames } from '@/enums/member-roles.enum';
 
 export const CreateDisciplePage = (): JSX.Element => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof formMemberSchema>>({
+    resolver: zodResolver(formMemberSchema),
     defaultValues: {
       firstName: '',
       lastName: '',
@@ -56,7 +56,7 @@ export const CreateDisciplePage = (): JSX.Element => {
 
   const roles = form.watch('roles');
 
-  const handleSubmit = (values: z.infer<typeof formSchema>): void => {
+  const handleSubmit = (values: z.infer<typeof formMemberSchema>): void => {
     console.log({ values });
   };
 
@@ -232,7 +232,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                 name='numberChildren'
                 render={({ field }) => {
                   return (
-                    <FormItem className='text-sm xl:text-[15px]'>
+                    <FormItem className='text-sm xl:text-[15px] mt-3'>
                       <FormLabel>Numero de hijos</FormLabel>
                       <FormControl>
                         <Input
@@ -412,7 +412,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel className='text-sm 2xl:text-[15px]'>
+                      <FormLabel className='text-sm xl:text-[15px]'>
                         Distrito
                       </FormLabel>
                       <FormControl>
@@ -433,7 +433,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel className='text-sm 2xl:text-[15px]'>
+                      <FormLabel className='text-sm xl:text-[15px]'>
                         Dirección
                       </FormLabel>
                       <FormControl>
@@ -545,11 +545,9 @@ export const CreateDisciplePage = (): JSX.Element => {
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value='id'>Michael Baca</SelectItem>
-                              <SelectItem value='id2'>Daniel Santos</SelectItem>
-                              <SelectItem value='id3'>
-                                Carlos Rosales
-                              </SelectItem>
+                              <SelectItem value='id1'>Michael Baca</SelectItem>
+                              <SelectItem value='id2'>Daniel Perez</SelectItem>
+                              <SelectItem value='id3'>Carlos Rojas</SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -589,9 +587,13 @@ export const CreateDisciplePage = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value='id'>Michael Baca</SelectItem>
-                            <SelectItem value='id2'>Daniel Santos</SelectItem>
-                            <SelectItem value='id3'>Carlos Rosales</SelectItem>
+                            <SelectItem value='id1'>Luz Condori</SelectItem>
+                            <SelectItem value='id2'>
+                              Mercedes Aparcano
+                            </SelectItem>
+                            <SelectItem value='id3'>
+                              Rosario Gutierrez
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -631,9 +633,13 @@ export const CreateDisciplePage = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value='id'>Michael Baca</SelectItem>
-                            <SelectItem value='id2'>Daniel Santos</SelectItem>
-                            <SelectItem value='id3'>Carlos Rosales</SelectItem>
+                            <SelectItem value='id1'>Luz Condori</SelectItem>
+                            <SelectItem value='id2'>
+                              Mercedes Aparcano
+                            </SelectItem>
+                            <SelectItem value='id3'>
+                              Rosario Gutierrez
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -667,10 +673,23 @@ export const CreateDisciplePage = (): JSX.Element => {
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value='id'>Michael Baca</SelectItem>
-                              <SelectItem value='id2'>Daniel Santos</SelectItem>
+                              <SelectItem value='id1'>
+                                Guerreros de Dios
+                              </SelectItem>
+                              <SelectItem value='id1'>
+                                Redimidos de Jehova
+                              </SelectItem>
+                              <SelectItem value='id1'>
+                                Fieles en acción
+                              </SelectItem>
+                              <SelectItem value='id1'>
+                                Semillas de Fe
+                              </SelectItem>
+                              <SelectItem value='id2'>
+                                Guardianes de la Palabra
+                              </SelectItem>
                               <SelectItem value='id3'>
-                                Carlos Rosales
+                                Mensajeros del Altísimo
                               </SelectItem>
                             </SelectContent>
                           </Select>

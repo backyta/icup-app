@@ -13,6 +13,8 @@ import { UserPage } from '@/pages/user/UserPage';
 import { DisciplePage } from '@/pages/disciple/DisciplePage';
 import { CreateDisciplePage } from '@/pages/disciple/CreateDisciplePage';
 import { CreateUserPage } from '@/pages/user/CreateUserPage';
+import { CreateFamilyHousePage } from '@/pages/family-house/CreateFamilyHousePage';
+import { CreateOfferingPage } from '@/pages/offering/CreateOfferingPage';
 
 export const router = createBrowserRouter([
   {
@@ -53,8 +55,16 @@ export const router = createBrowserRouter([
             element: <FamilyHousePage />,
           },
           {
+            path: '/family-houses/create-family-house',
+            element: <CreateFamilyHousePage />,
+          },
+          {
             path: 'offerings',
             element: <OfferingPage />,
+          },
+          {
+            path: '/offerings/create-offering',
+            element: <CreateOfferingPage />,
           },
           {
             path: 'users',

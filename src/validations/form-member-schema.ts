@@ -4,7 +4,7 @@ import { MemberRoles } from '@/enums/member-roles.enum';
 import * as z from 'zod';
 
 
-export const formSchema = z
+export const formMemberSchema = z
   .object({
     firstName: z.string().min(1,{ message: 
       'El campo debe contener al menos 1 carácter.'}).max(40),
