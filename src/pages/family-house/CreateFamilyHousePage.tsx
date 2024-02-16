@@ -225,8 +225,8 @@ export const CreateFamilyHousePage = (): JSX.Element => {
                 );
               }}
             />
-            <Button type='submit' className='w-full'>
-              Submit
+            <Button type='submit' className='w-full text-lg mt-20'>
+              Registrar Casa Familiar
             </Button>
           </form>
         </Form>

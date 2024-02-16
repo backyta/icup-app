@@ -20,7 +20,7 @@ export const SideMenuItem = ({
         <Icon className='text-2xl' />
       </div>
       <div className='flex flex-col space-y-1'>
-        <span className='lg:text-lg xl:text-xl font-bold leading-5 text-white'>
+        <span className='text-lg lg:text-lg xl:text-xl font-bold leading-5 text-white'>
           {title}
         </span>
         <span className='text-sm text-white/70 hidden md:block'>

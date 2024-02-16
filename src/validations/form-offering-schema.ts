@@ -9,7 +9,7 @@ export const formOfferingSchema = z
     }),
     subType: z.nativeEnum(SubTypesOffering,{
       required_error: "Por favor seleccione una opción.",
-    }),
+    }).optional(),
     amount: z.string().refine(amount => !isNaN(parseFloat(amount)),{
       message: 'El monto de la ofrenda debe ser un numero'
     }),
@@ -17,8 +17,7 @@ export const formOfferingSchema = z
         'El campo debe contener al menos 1 carácter.'}).max(20),
     comments: z.string().min(1, { message: 
         'El campo debe contener al menos 1 carácter.'}).max(20),
-    urlFile: z.string().min(1, { message: 
-        'El campo debe contener al menos 1 carácter.'}).max(20),
+    urlFile: z.array(z.string()).optional(),
 
 
     familyHouseID: z.string().optional(),

@@ -10,12 +10,12 @@ export const SideMenu = (): JSX.Element => {
   // const userName = useAuthStore( state => state.user?.fullName || 'No user' );
 
   return (
-    <div className='bg-gray-900 md:min-h-screen z-10 text-slate-300 w-full md:w-[18rem] lg:w-[16rem] xl:w-80'>
+    <div className='bg-gray-900 md:min-h-screen z-10 text-slate-300 w-full md:w-[19rem] lg:w-[19rem] xl:w-80'>
       <div className='flex justify-between items-center'>
         {/* Title */}
         <div id='logo' className='my-4 px-4'>
           <a href='#' className='inline-flex gap-x-4 items-center'>
-            <h1 className='text-2xl md:text-xl lg:text-2xl xl:text-3xl font-bold text-white'>
+            <h1 className='text-xl md:text-2xl lg:text-2xl xl:text-3xl font-bold text-white'>
               ICUP-App
             </h1>
             <span>
