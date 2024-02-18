@@ -28,12 +28,13 @@ function Calendar({
       className={cn('p-3', className)}
       classNames={{
         months: 'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0',
-        month: 'space-y-4 text-sm ',
-        button: 'flex justify-end mb-4 w-[1.5]',
+        month: 'space-y-4 text-sm',
+        button: 'flex justify-end mb-4 w-[1.5] ',
 
         dropdown_icon: 'bg-red-500',
         caption_dropdowns: 'flex gap-x-2',
-        dropdown: 'text-black text-[0.9rem] w-auto',
+        dropdown:
+          'text-black text-[0.9rem] w-auto border-none dark:bg-slate-300 rounded-md',
         dropdown_month: 'w-full flex text-[0rem]',
         dropdown_year: 'w-full flex text-[0rem]',
         caption: 'flex flex-col justify-items-start pt-1 relative items-center',

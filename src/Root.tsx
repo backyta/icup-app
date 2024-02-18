@@ -1,4 +1,5 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { ThemeProvider } from './components/theme-provider';
 
 export const Root = (): JSX.Element => {
   const { pathname } = useLocation();
@@ -8,8 +9,8 @@ export const Root = (): JSX.Element => {
   }
 
   return (
-    <main>
+    <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
       <Outlet />
-    </main>
+    </ThemeProvider>
   );
 };

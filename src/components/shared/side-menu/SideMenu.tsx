@@ -10,12 +10,12 @@ export const SideMenu = (): JSX.Element => {
   // const userName = useAuthStore( state => state.user?.fullName || 'No user' );
 
   return (
-    <div className='bg-gray-900 md:min-h-screen z-10 text-slate-300 w-full md:w-[19rem] lg:w-[19rem] xl:w-80'>
+    <div className='bg-slate-900 md:min-h-screen z-10 text-slate-300 w-full md:w-[22rem]'>
       <div className='flex justify-between items-center'>
         {/* Title */}
         <div id='logo' className='my-4 px-4'>
           <a href='#' className='inline-flex gap-x-4 items-center'>
-            <h1 className='text-xl md:text-2xl lg:text-2xl xl:text-3xl font-bold text-white'>
+            <h1 className='text-2xl lg:text-[1.6rem] xl:text-3xl font-bold text-white'>
               ICUP-App
             </h1>
             <span>
@@ -26,7 +26,7 @@ export const SideMenu = (): JSX.Element => {
               />
             </span>
           </a>
-          <p className='text-slate-400 mt-2 text-md hidden md:block'>
+          <p className=' mt-2 text-md hidden md:block'>
             Dashboard administrativo de la Iglesia.
           </p>
         </div>
@@ -77,7 +77,7 @@ export const SideMenu = (): JSX.Element => {
 
       {/*  Profile */}
       <div id='profile' className='pb-4 px-6 md:px-6 md:py-8 md:block hidden'>
-        <p className='text-slate-600 text-lg'>Bienvenido,</p>
+        <p className='text-lg'>Bienvenido,</p>
         <a href='#' className='inline-flex space-x-2 items-center'>
           <span>
             <img
@@ -98,7 +98,7 @@ export const SideMenu = (): JSX.Element => {
         id='menu'
         className='w-full px-8 py-4 md:flex md:flex-col gap-y-[1rem] md:gap-y-[3.5rem] hidden'
       >
-        <div className='flex flex-col lg:gap-y-1 xl:gap-y-2 2xl:gap-y-3'>
+        <div className='flex flex-col lg:gap-y-1 xl:gap-y-1 2xl:gap-y-1'>
           {menuItems.map((item) => (
             <SideMenuItem key={item.href} {...item} />
           ))}

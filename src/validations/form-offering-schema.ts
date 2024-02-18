@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+import { CurrencyType } from '@/enums/currency-type.enum';
 import { SubTypesOffering } from '@/enums/sub-type-offering.enum';
 import * as z from 'zod';
 
@@ -13,10 +14,14 @@ export const formOfferingSchema = z
     amount: z.string().refine(amount => !isNaN(parseFloat(amount)),{
       message: 'El monto de la ofrenda debe ser un numero'
     }),
-    currency: z.string().min(1, { message: 
-        'El campo debe contener al menos 1 carácter.'}).max(20),
-    comments: z.string().min(1, { message: 
-        'El campo debe contener al menos 1 carácter.'}).max(20),
+    currency: z.array(z.nativeEnum(CurrencyType),{
+      required_error: "Tienes que seleccionar al menos un tipo.",
+    }).refine((value) => value.some((item) => item), {
+      message: "Tienes que seleccionar al menos un tipo.",
+    }),
+    comments: z.string().min(5, { message: 
+        'El campo debe contener al menos 5 carácter.'}).max(20).optional(),
+        
     urlFile: z.array(z.string()).optional(),
 
 

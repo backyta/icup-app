@@ -35,7 +35,7 @@ import { CalendarIcon } from '@radix-ui/react-icons';
 import { Calendar } from '@/components/ui/calendar';
 
 import { Checkbox } from '@/components/ui/checkbox';
-import { MemberRoles, roleNames } from '@/enums/member-roles.enum';
+import { MemberRoles, memberRoleNames } from '@/enums/member-roles.enum';
 
 export const CreateDisciplePage = (): JSX.Element => {
   const form = useForm<z.infer<typeof formMemberSchema>>({
@@ -62,20 +62,20 @@ export const CreateDisciplePage = (): JSX.Element => {
 
   return (
     <div>
-      <h1 className='text-center pb-4 spx-2 pt-2 lg:pt-4 p-4 font-sans text-2xl sm:text-3xl font-bold text-blue-500 text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+      <h1 className='text-center pt-1 pb-4 font-sans text-2xl sm:text-3xl font-bold text-blue-500 text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
         Modulo Discípulo
       </h1>
 
       <hr className='md:p-[0.02rem] bg-slate-500' />
 
-      <h1 className='text-left px-4 py-2 sm:px-10 sm:pt-4 sm:pb-2 2xl:px-24 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-green-500 text-[1.55rem] sm:text-[2.0rem] md:text-[1.75rem] lg:text-[1.8rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h1 className='text-left px-4 py-2 sm:px-10 sm:pt-4 sm:pb-2 2xl:px-24 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-green-500 text-[1.55rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear un nuevo discípulo
       </h1>
-      <p className='text-slate-500 text-left font-sans text-[13px] font-bold px-4 sm:px-10 sm:text-sm md:text-base 2xl:px-24'>
+      <p className='dark:text-slate-300 text-left font-sans font-bold px-4 sm:px-10 text-sm md:text-[15px] xl:text-base 2xl:px-24'>
         Por favor llena los siguientes datos para crear un nuevo discípulo.
       </p>
 
-      <div className='flex min-h-screen flex-col items-center justify-between px-6 py-6 sm:px-10 sm:py-10 2xl:px-36 2xl:py-12'>
+      <div className='flex min-h-screen flex-col items-center justify-between px-8 py-6 sm:px-12 sm:py-10 xl:px-20 2xl:px-36 2xl:py-12'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -168,7 +168,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                         />
                       </PopoverContent>
                     </Popover>
-                    <FormDescription className='pl-3 text-blue-500 text-[12px] sm:text-sm font-bold'>
+                    <FormDescription className='pl-3 text-blue-600 text-[13px] lg:text-sm font-bold'>
                       * Su fecha de nacimiento se utiliza para calcular su edad.
                     </FormDescription>
                     <FormMessage />
@@ -288,7 +288,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                         />
                       </PopoverContent>
                     </Popover>
-                    <FormDescription className='pl-3 text-blue-600 text-[12px] sm:text-sm  font-bold'>
+                    <FormDescription className='pl-3 text-blue-600 text-[13px] lg:text-sm font-bold'>
                       * Fecha en la que el creyente se convirtió.
                     </FormDescription>
                     <FormMessage />
@@ -493,7 +493,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                                 />
                               </FormControl>
                               <FormLabel className='lg:text-[15px] font-normal'>
-                                {roleNames[role]}
+                                {memberRoleNames[role]}
                               </FormLabel>
                             </FormItem>
                           );
@@ -702,17 +702,20 @@ export const CreateDisciplePage = (): JSX.Element => {
               <p className='mt-4 font-bold text-[14.5px] 2xl:text-[15.5px] text-blue-600'>
                 Consideraciones
               </p>
-              <ul className='text-sm 2xl:text-[15px] text-red-500 font-medium '>
-                <li>*No se permite asignar mas de 4 roles*</li>
+              <ul className='text-sm 2xl:text-[14px] text-red-500 font-medium '>
+                <li>*No se permite asignar mas de 4 roles.</li>
                 <li>
                   *Para asignar rol Tesorero se debe asignar rol Predicador o
-                  Supervisor*
+                  Supervisor.
                 </li>
-                <li>*El rol Member es obligatorio*</li>
+                <li>*El rol Member es obligatorio.</li>
               </ul>
             </div>
             <div className='sm:col-start-1 sm:col-end-3 sm:row-start-3 sm:row-end-4 w-60 m-auto 2xl:w-80'>
-              <Button type='submit' className='w-full lg: text-md xl:text-lg'>
+              <Button
+                type='submit'
+                className='w-full text-sm md:text-base xl:text-lg'
+              >
                 Registrar miembro
               </Button>
             </div>

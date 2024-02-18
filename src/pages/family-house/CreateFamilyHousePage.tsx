@@ -46,20 +46,20 @@ export const CreateFamilyHousePage = (): JSX.Element => {
 
   return (
     <>
-      <h1 className='text-center pb-4 px-2 pt-2 lg:pt-4 p-4 font-sans text-2xl sm:text-3xl font-bold text-family-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+      <h1 className='text-center pb-4 pt-1 font-sans text-2xl sm:text-3xl font-bold text-family-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
         Modulo Casa Familiar
       </h1>
 
       <hr className='md:p-[0.02rem] bg-slate-500' />
 
-      <h1 className='text-left px-4 py-2 sm:px-10 sm:pt-4 sm:pb-0 2xl:text-center 2xl:pt-4 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[2.0rem] md:text-[1.75rem] lg:text-[1.95rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h1 className='text-left px-4 py-2 sm:px-10 sm:pt-4 sm:pb-1 2xl:text-center 2xl:pt-4 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[2.0rem] md:text-[1.75rem] lg:text-[1.95rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear una nueva casa familiar
       </h1>
-      <p className='text-slate-500 text-left font-sans text-[14px] font-bold px-4 sm:px-10 sm:text-sm md:text-[15px] 2xl:text-center'>
+      <p className='dark:text-slate-300 text-left font-sans text-[14px] font-bold px-4 sm:px-10 text-sm md:text-[15px] xl:text-base  2xl:text-center'>
         Por favor llena los siguientes datos para crear una nueva casa familiar.
       </p>
 
-      <div className='flex min-h-screen flex-col items-center justify-between px-8 py-4 sm:px-10 sm:py-10 2xl:px-36 2xl:py-12'>
+      <div className='flex min-h-screen flex-col items-center justify-between px-8 py-4 sm:px-10 sm:py-6 2xl:px-36 2xl:py-8'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -72,10 +72,10 @@ export const CreateFamilyHousePage = (): JSX.Element => {
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel className='text-sm md:text-[16px]'>
+                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
                       Zona
                     </FormLabel>
-                    <FormDescription>
+                    <FormDescription className='text-sm lg:text-[15px]'>
                       Asignar una zona a la que pertenecerá la casa familiar.
                     </FormDescription>
                     <Select onValueChange={field.onChange}>
@@ -102,7 +102,12 @@ export const CreateFamilyHousePage = (): JSX.Element => {
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel>Nombre</FormLabel>
+                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                      Nombre
+                    </FormLabel>
+                    <FormDescription className='text-sm lg:text-[15px]'>
+                      Asignar una nombre a la casa familiar.
+                    </FormDescription>
                     <FormControl>
                       <Input
                         placeholder='Nombre de la casa familiar'
@@ -122,7 +127,12 @@ export const CreateFamilyHousePage = (): JSX.Element => {
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel>País</FormLabel>
+                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                      País
+                    </FormLabel>
+                    <FormDescription className='text-sm lg:text-[15px]'>
+                      Asignar una país a la que pertenece la casa familiar.
+                    </FormDescription>
                     <FormControl>
                       <Input
                         placeholder='País de la casa familiar'
@@ -142,7 +152,12 @@ export const CreateFamilyHousePage = (): JSX.Element => {
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel>Departamento</FormLabel>
+                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                      Departamento
+                    </FormLabel>
+                    <FormDescription className='text-sm lg:text-[15px]'>
+                      Asignar un departamento a la pertenece la casa familiar.
+                    </FormDescription>
                     <FormControl>
                       <Input
                         placeholder='Departamento de la casa familiar'
@@ -162,7 +177,12 @@ export const CreateFamilyHousePage = (): JSX.Element => {
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel>Provincia</FormLabel>
+                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                      Provincia
+                    </FormLabel>
+                    <FormDescription className='text-sm lg:text-[15px]'>
+                      Asignar una provincia a la que pertenece la casa familiar.
+                    </FormDescription>
                     <FormControl>
                       <Input
                         placeholder='Provincia de la casa familiar'
@@ -182,7 +202,12 @@ export const CreateFamilyHousePage = (): JSX.Element => {
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel>Distrito</FormLabel>
+                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                      Distrito
+                    </FormLabel>
+                    <FormDescription className='text-sm lg:text-[15px]'>
+                      Asignar un distrito al que pertenece la casa familiar.
+                    </FormDescription>
                     <FormControl>
                       <Input
                         placeholder='Distrito de la casa familiar'
@@ -202,7 +227,7 @@ export const CreateFamilyHousePage = (): JSX.Element => {
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel className='text-sm md:text-[16px]'>
+                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
                       Preacher
                     </FormLabel>
                     <FormDescription>
@@ -225,7 +250,10 @@ export const CreateFamilyHousePage = (): JSX.Element => {
                 );
               }}
             />
-            <Button type='submit' className='w-full text-lg mt-20'>
+            <Button
+              type='submit'
+              className='w-full text-sm md:text-base xl:text-lg mt-12'
+            >
               Registrar Casa Familiar
             </Button>
           </form>

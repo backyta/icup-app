@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
+// TODO : crear el form de usuario terminar y revisar todos los stylos y poner thema oscuro
 import { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { TiDeleteOutline } from 'react-icons/ti';
@@ -99,7 +100,6 @@ export const CreateOfferingPage = (): JSX.Element => {
     resolver: zodResolver(formOfferingSchema),
     defaultValues: {
       amount: '',
-      currency: '',
       comments: '',
     },
   });
@@ -172,7 +172,7 @@ export const CreateOfferingPage = (): JSX.Element => {
 
   return (
     <>
-      <h1 className='text-center pb-4 px-2 pt-2 lg:pt-4 p-4 font-sans text-2xl sm:text-3xl font-bold text-offering-color text-[2.1rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+      <h1 className='text-center pt-1 pb-4 font-sans text-2xl sm:text-3xl font-bold text-offering-color text-[2.1rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
         Modulo Ofrendas
       </h1>
 
@@ -181,16 +181,16 @@ export const CreateOfferingPage = (): JSX.Element => {
       <h1 className='text-left px-4 py-2 sm:px-10 sm:pt-4 sm:pb-2 2xl:px-24 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-green-500 text-[1.55rem] sm:text-[2.0rem] md:text-[1.75rem] lg:text-[1.8rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear un nuevo registro de ofrenda
       </h1>
-      <p className='text-slate-500 text-left font-sans text-[13px] font-bold px-4 sm:px-10 sm:text-sm md:text-base 2xl:px-24'>
+      <p className='dark:text-slate-300 text-left font-sans text-[13px] font-bold px-4 sm:px-10 sm:text-sm md:text-base 2xl:px-24'>
         Por favor llena los siguientes datos para crear un nuevo registro de
         ofrenda.
       </p>
 
-      <div className='flex min-h-screen flex-col items-center justify-between px-8 py-4 sm:px-10 sm:py-10 2xl:px-36 2xl:py-12'>
+      <div className='flex min-h-screen flex-col items-center justify-between px-8 py-4 sm:px-16 sm:py-10 lg:px-16 lg:py-10 2xl:px-32 2xl:py-10'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            className='w-full grid sm:grid-cols-1 lg:grid-cols-2 sm:gap-10 lg:gap-y-20 lg:gap-x-10'
+            className='w-full grid sm:grid-cols-1 lg:grid-cols-2 sm:gap-10 lg:gap-y-15 lg:gap-x-20'
           >
             <div className='lg:col-start-1 lg:col-end-2'>
               <FormField
@@ -199,10 +199,10 @@ export const CreateOfferingPage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className='text-[15px] sm:text-base lg:text-lg font-medium'>
-                        Tipo de Ofrenda
+                      <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                        Tipo
                       </FormLabel>
-                      <FormDescription>
+                      <FormDescription className='text-sm lg:text-[15px]'>
                         Asignar una un tipo de ofrenda al registro.
                       </FormDescription>
                       <Select onValueChange={field.onChange}>
@@ -229,10 +229,10 @@ export const CreateOfferingPage = (): JSX.Element => {
                   render={({ field }) => {
                     return (
                       <FormItem className='mt-4'>
-                        <FormLabel className='text-[15px] sm:text-base lg:text-lg'>
-                          Sub-Tipo de Ofrenda
+                        <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                          Sub-Tipo
                         </FormLabel>
-                        <FormDescription>
+                        <FormDescription className='text-sm lg:text-[15px]'>
                           Asignar una un sub-tipo de ofrenda al registro.
                         </FormDescription>
                         <Select onValueChange={field.onChange}>
@@ -267,10 +267,10 @@ export const CreateOfferingPage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-4'>
-                      <FormLabel className='text-[15px] sm:text-base lg:text-lg'>
+                      <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
                         Monto
                       </FormLabel>
-                      <FormDescription>
+                      <FormDescription className='text-sm lg:text-[15px]'>
                         Digita la cantidad de la ofrenda o diezmo.
                       </FormDescription>
                       <FormControl>
@@ -293,10 +293,10 @@ export const CreateOfferingPage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-4'>
-                      <FormLabel className='text-[15px] sm:text-base lg:text-lg'>
+                      <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
                         Divisa / Moneda
                       </FormLabel>
-                      <FormDescription>
+                      <FormDescription className='text-sm lg:text-[15px]'>
                         Asignar una un tipo de divisa o moneda al registro.
                       </FormDescription>
                       <Select onValueChange={field.onChange}>
@@ -326,7 +326,7 @@ export const CreateOfferingPage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-4'>
-                      <FormLabel className='text-[15px] sm:text-base lg:text-lg'>
+                      <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
                         Comentarios
                       </FormLabel>
                       <FormControl>
@@ -350,10 +350,10 @@ export const CreateOfferingPage = (): JSX.Element => {
                   name='memberID'
                   render={({ field }) => (
                     <FormItem className='flex flex-col mt-4'>
-                      <FormLabel className='text-[15px] sm:text-base lg:text-lg'>
+                      <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
                         Miembro
                       </FormLabel>
-                      <FormDescription>
+                      <FormDescription className='text-sm lg:text-[15px]'>
                         Seleccione un miembro para asignarlo al registro.
                       </FormDescription>
                       <Popover>
@@ -420,10 +420,10 @@ export const CreateOfferingPage = (): JSX.Element => {
                     name='familyHouseID'
                     render={({ field }) => (
                       <FormItem className='flex flex-col mt-4'>
-                        <FormLabel className='text-[15px] sm:text-base lg:text-lg'>
+                        <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
                           Casa Familiar
                         </FormLabel>
-                        <FormDescription>
+                        <FormDescription className='text-sm lg:text-[15px]'>
                           Selecciones una Casa familiar para asignarlo al
                           registro.
                         </FormDescription>
@@ -499,10 +499,10 @@ export const CreateOfferingPage = (): JSX.Element => {
                   name='copastorID'
                   render={({ field }) => (
                     <FormItem className='flex flex-col mt-4'>
-                      <FormLabel className='text-[15px] sm:text-base lg:text-lg'>
+                      <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
                         Co-Pastor
                       </FormLabel>
-                      <FormDescription>
+                      <FormDescription className='text-sm lg:text-[15px]'>
                         Selecciones un Co-Pastor para asignarlo al registro.
                       </FormDescription>
                       <Popover>
@@ -572,14 +572,14 @@ export const CreateOfferingPage = (): JSX.Element => {
                 render={() => {
                   return (
                     <FormItem className='mt-4 md:mt-0'>
-                      <FormLabel className='text-[15px] sm:text-base lg:text-lg'>
+                      <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
                         Subir imagen
                       </FormLabel>
                       <FormControl>
                         <div
                           {...getRootProps({
                             className:
-                              'font-medium text-[15px] p-16 max-w-[50rem] m-auto mt-[20rem] border border-dashed border-black hover:bg-green-200 ease-in duration-200 text-center',
+                              'font-medium text-sm sm:text-[15px] p-10 sm:p-12 md:p-16 max-w-[25rem] md:max-w-[25rem] m-auto border border-dashed border-black dark:border-white hover:bg-green-200 dark:hover:text-black ease-in duration-200 text-center',
                           })}
                         >
                           <input
@@ -604,20 +604,20 @@ export const CreateOfferingPage = (): JSX.Element => {
               />
               <section className='mt-10'>
                 <div className='flex gap-4 items-center justify-between'>
-                  <h2 className='title text-[18px] sm:text-[22px] lg:text-2xl font-semibold text-slate-500'>
+                  <h2 className='title text-base sm:text-lg lg:text-xl font-bold'>
                     Pre-visualización
                   </h2>
                   <button
                     type='button'
                     onClick={removeAll}
-                    className='mt-1 text-[10px] md:text-[12px] w-[8rem] md:w-[10rem] p-2 uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md  hover:bg-secondary-400 hover:text-white hover:bg-red-500 transition-colors'
+                    className='mt-1 text-[10px] lg:text-[11px] w-[8rem] md:w-[10rem] p-2 uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md  hover:bg-secondary-400 hover:text-white ease-in duration-200 hover:bg-red-500 transition-colors'
                   >
                     Remover todos los archivos
                   </button>
                 </div>
 
                 {/* Accepted files */}
-                <h3 className='title text-[15px] sm:text-base lg:text-lg font-semibold text-neutral-600 mt-5 border-b pb-3'>
+                <h3 className='title text-sm md:text-[15px] lg:text-base font-semibold mt-5 border-b pb-3'>
                   Archivos Aceptados
                 </h3>
                 <ul className='mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-2 gap-x-5 gap-y-20'>
@@ -653,7 +653,7 @@ export const CreateOfferingPage = (): JSX.Element => {
                 </ul>
 
                 {/* Rejected Files */}
-                <h3 className='title text-[15px] sm:text-base lg:text-lg font-semibold text-neutral-600 mt-20 border-b pb-3'>
+                <h3 className='title text-[15px] sm:text-base font-semibold mt-20 border-b pb-3'>
                   Archivos rechazados
                 </h3>
                 <ul className='mt-6 flex flex-col'>
@@ -666,7 +666,7 @@ export const CreateOfferingPage = (): JSX.Element => {
                         <p className='mt-2 text-neutral-500 text-sm font-medium'>
                           {file.name}
                         </p>
-                        <ul className='text-[15px] text-red-400 flex gap-3 font-medium'>
+                        <ul className='text-[14px] text-red-400 flex gap-3 font-medium'>
                           {errors.map((error) => (
                             <li key={error.code}>{error.message}</li>
                           ))}
@@ -674,7 +674,7 @@ export const CreateOfferingPage = (): JSX.Element => {
                       </div>
                       <button
                         type='button'
-                        className='mt-1 py-1 text-[12px] uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md px-3 hover:bg-red-500 hover:text-white transition-colors'
+                        className='mt-1 py-1 text-[12px] uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md px-3 hover:bg-red-500 hover:text-white ease-in duration-200 transition-colors'
                         onClick={() => {
                           removeRejected(file.name);
                         }}
@@ -689,7 +689,7 @@ export const CreateOfferingPage = (): JSX.Element => {
 
             <Button
               type='submit'
-              className='text-[15px] sm:text-base lg:text-lg lg:col-start-1 lg:col-end-3 lg:row-start-2 lg:row-end-3 w-60 m-auto 2xl:w-80'
+              className='lg:text-lg lg:col-start-1 lg:col-end-3 lg:row-start-2 lg:row-end-3 w-60 m-auto 2xl:w-80 text-sm md:text-base xl:text-lg'
             >
               Registrar Ofrenda
             </Button>

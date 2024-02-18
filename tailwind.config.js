@@ -8,6 +8,7 @@ module.exports = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
+
   prefix: "",
   theme: {
     container: {
@@ -53,13 +54,42 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
         'sub-title-color': '',
-        'pastor-color': '#ff5f0a',
+        'pastor-color': '#FF5252',
         'copastor-color':'#9C27B0', 
         'leader-color':'#068ef1',
-        'family-color':'#ffd700',
-        'offering-color': '#f83c85',
-        'user-color': '#32CD32', 
-
+        'family-color':'#FFA000',
+        'offering-color':'#FFD700',
+        'user-color':'#87CEEB',
+        'vulcan': {
+          '50': '#f4f6fb',
+          '100': '#e8ecf6',
+          '200': '#ccd7eb',
+          '300': '#9fb5da',
+          '400': '#6b8dc5',
+          '500': '#486faf',
+          '600': '#365793',
+          '700': '#2d4677',
+          '800': '#283d64',
+          '900': '#263554',
+          '950': '#0e131f',
+      },
+      'mirage': {
+        '50': '#f4f6fb',
+        '100': '#e8ecf6',
+        '200': '#cbd8ec',
+        '300': '#9db6dc',
+        '400': '#6990c7',
+        '500': '#4672b1',
+        '600': '#345995',
+        '700': '#2b4779',
+        '800': '#273e65',
+        '900': '#253555',
+        '950': '#111827',
+    },
+      
+          
+        
+        
         // 'leader-color':'' 
       },
       borderRadius: {

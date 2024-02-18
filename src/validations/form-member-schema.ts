@@ -41,9 +41,9 @@ export const formMemberSchema = z
       'El campo debe contener al menos 1 carácter.'}).max(50),
 
     roles: z.array(z.nativeEnum(MemberRoles),{
-      required_error: "Tienes que seleccionar al menos un elemento.",
+      required_error: "Tienes que seleccionar al menos un rol.",
     }).refine((value) => value.some((item) => item), {
-      message: "Tienes que seleccionar al menos un elemento.",
+      message: "Tienes que seleccionar al menos un rol.",
     }),
     theirPastor: z.string().optional(),
     theirCopastor: z.string().optional(),

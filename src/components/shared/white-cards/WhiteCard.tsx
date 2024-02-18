@@ -14,7 +14,7 @@ export const WhiteCard = ({
   return (
     <div
       className={classNames(
-        'bg-slate-200 border rounded-[20px] p-10 shadow-3xl shadow-shadow-500 w-full border-slate-400',
+        'border-[1.5px] rounded-[20px] p-10 shadow-3xl shadow-shadow-500 w-full border-slate-500',
         className,
         {
           'text-center': centered,
