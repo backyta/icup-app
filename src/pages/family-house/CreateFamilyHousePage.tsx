@@ -23,6 +23,33 @@ import {
   Select,
 } from '@/components/ui/select';
 import { formFamilyHouseSchema } from '@/validations/form-family-house-schema';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from '@/components/ui/command';
+
+const preachers = [
+  { label: 'Juan Carlos Medina Salinas', value: 'id1' },
+  { label: 'María Elena Huamaní Ramos', value: 'id2' },
+  { label: 'Jorge Luis Sánchez Cárdenas', value: 'id3' },
+  { label: 'Rosa María Torres Díaz', value: 'id4' },
+  { label: 'Luis Alberto Rodríguez Soto', value: 'id5' },
+  { label: 'Ana María Gutiérrez Flores', value: 'id6' },
+  { label: 'Pedro Pablo Pérez Torres', value: 'id7' },
+  { label: 'Silvia Esther Chávez Díaz', value: 'id8' },
+  { label: 'Fernando José López Ramírez', value: 'id9' },
+  { label: 'Carmen Rosa Silva García', value: 'id10' },
+] as const;
 
 export const CreateFamilyHousePage = (): JSX.Element => {
   const form = useForm<z.infer<typeof formFamilyHouseSchema>>({
@@ -226,25 +253,69 @@ export const CreateFamilyHousePage = (): JSX.Element => {
               name='theirPreacher'
               render={({ field }) => {
                 return (
-                  <FormItem>
+                  <FormItem className='flex flex-col mt-4'>
                     <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
-                      Preacher
+                      Predicador
                     </FormLabel>
-                    <FormDescription>
-                      Asignar un predicador para esta casa familiar.
+                    <FormDescription className='text-sm lg:text-[15px]'>
+                      Seleccione un predicador para esta casa familiar.
                     </FormDescription>
-                    <Select onValueChange={field.onChange}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder='Selecciona un predicador' />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value='id11'>Carlos Carranza</SelectItem>
-                        <SelectItem value='id2'>Pamela Chillon</SelectItem>
-                        <SelectItem value='id3'>Suzy Basurto</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant='outline'
+                            role='combobox'
+                            className={cn(
+                              'w-full justify-between overflow-hidden',
+                              !field.value && 'text-slate-500 font-normal'
+                            )}
+                          >
+                            {field.value
+                              ? preachers.find(
+                                  (preacher) => preacher.value === field.value
+                                )?.label
+                              : 'Busque y seleccione un predicador'}
+                            <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className='mr-30 w-[20rem] p-2\'>
+                        <Command>
+                          <CommandInput
+                            placeholder='Busque un predicador...'
+                            className='h-9 text-sm lg:text-[15px]'
+                          />
+                          <CommandEmpty>Predicador no encontrado.</CommandEmpty>
+                          <CommandGroup className='max-h-[200px] h-auto'>
+                            {preachers.map((preacher) => (
+                              <CommandItem
+                                className='text-sm lg:text-[15px]'
+                                value={preacher.label}
+                                key={preacher.value}
+                                onSelect={() => {
+                                  form.setValue(
+                                    'theirPreacher',
+                                    preacher.value
+                                  );
+                                }}
+                              >
+                                {preacher.label}
+                                <CheckIcon
+                                  className={cn(
+                                    'ml-auto h-4 w-4',
+                                    preacher.value === field.value
+                                      ? 'opacity-100'
+                                      : 'opacity-0'
+                                  )}
+                                />
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
+
                     <FormMessage />
                   </FormItem>
                 );

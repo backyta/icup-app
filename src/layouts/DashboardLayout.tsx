@@ -3,7 +3,7 @@
 import { Outlet } from 'react-router-dom';
 // import { useAuthStore } from '../stores';
 import { SideMenu } from '@/components/shared/side-menu/SideMenu';
-import { Headers } from '@/components/headers/Headers';
+import { ToggleLayout } from '@/components/toggle-theme/ToggleLayout';
 
 export const DashboardLayout = (): JSX.Element => {
   // const authStatus = useAuthStore( state => state.status );
@@ -22,14 +22,14 @@ export const DashboardLayout = (): JSX.Element => {
   // console.log({authStatus})
 
   return (
-    <div className='light:bg-slate-500 w-full min-h-screen antialiased light:text-slate-900 selection:bg-blue-900 selection:text-white'>
+    <div className='light:bg-slate-500 w-full h-auto antialiased light:text-slate-900 selection:bg-blue-900 selection:text-white'>
       <div className='flex flex-col md:flex-row md:relative md:w-full md:min-h-full'>
         {/* <div className="col-span-2 xl:col-span-1"> */}
         <SideMenu />
 
         {/* <div className="col-span-5 w-full p-4"> */}
         <div className='w-full h-auto p-4'>
-          <Headers />
+          <ToggleLayout />
           <Outlet />
         </div>
       </div>

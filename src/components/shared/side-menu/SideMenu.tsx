@@ -3,6 +3,8 @@ import './SideMenu.css';
 import { SideMenuItem } from './SideMenuItem';
 import { menuItems } from '../data/menu-items-data';
 import { FcExport } from 'react-icons/fc';
+
+import { ToggleSideBar } from '@/components/toggle-theme/ToggleSideBar';
 // import { useAuthStore } from '../../../stores';
 
 export const SideMenu = (): JSX.Element => {
@@ -11,6 +13,7 @@ export const SideMenu = (): JSX.Element => {
 
   return (
     <div className='bg-slate-900 md:min-h-screen z-10 text-slate-300 w-full md:w-[22rem]'>
+      <ToggleSideBar />
       <div className='flex justify-between items-center'>
         {/* Title */}
         <div id='logo' className='my-4 px-4'>
@@ -36,7 +39,7 @@ export const SideMenu = (): JSX.Element => {
         <button
           id='button'
           type='button'
-          className='relative md:hidden inline-flex items-center justify-center rounded-md p-4 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'
+          className='relative md:hidden inline-flex items-center justify-center rounded-md p-4 text-white hover:bg-slate-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white'
           aria-controls='mobile-menu'
           aria-expanded='false'
         >

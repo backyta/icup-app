@@ -31,11 +31,49 @@ import {
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
-import { CalendarIcon } from '@radix-ui/react-icons';
+import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Calendar } from '@/components/ui/calendar';
 
 import { Checkbox } from '@/components/ui/checkbox';
 import { MemberRoles, memberRoleNames } from '@/enums/member-roles.enum';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from '@/components/ui/command';
+
+const pastors = [
+  { label: 'Michael Rodrigo Baca Angeles', value: 'id1' },
+  { label: 'Carlos Ramiro Rodriguez Perez', value: 'id2' },
+  { label: 'Daniel Romero Ventura Paredes', value: 'id3' },
+] as const;
+
+const copastors = [
+  { label: 'Luz Maria Salgado Quito', value: 'id1' },
+  { label: 'Mercedes Paula Pelayo Terrones', value: 'id2' },
+  { label: 'Rosarios Agustina Rojas Prado', value: 'id3' },
+] as const;
+
+const supervisors = [
+  { label: 'Luz Maria Salgado Quito', value: 'id1' },
+  { label: 'Mercedes Paula Pelayo Terrones', value: 'id2' },
+  { label: 'Rosarios Agustina Rojas Prado', value: 'id3' },
+] as const;
+
+const familyHouses = [
+  { label: 'C-1 - Los Enviados de Jehová', value: 'id1' },
+  { label: 'A-2 - Los Guardianes del Amor', value: 'id2' },
+  { label: 'A-3 - Los Protectores del Hogar', value: 'id3' },
+  { label: 'B-2 - La Familia Unida', value: 'id4' },
+  { label: 'C-3 - Los Guardianes de la Luz', value: 'id5' },
+  { label: 'A-1 - Los Guerreros de la Fe', value: 'id6' },
+  { label: 'C-2 - La Casa del Amor Infinito', value: 'id7' },
+  { label: 'A-4 - Los Mensajeros de la Paz', value: 'id8' },
+  { label: 'C-4 - La Familia del Renacer', value: 'id9' },
+  { label: 'B-1 - Los Hijos de la Esperanza', value: 'id10' },
+] as const;
 
 export const CreateDisciplePage = (): JSX.Element => {
   const form = useForm<z.infer<typeof formMemberSchema>>({
@@ -47,6 +85,7 @@ export const CreateDisciplePage = (): JSX.Element => {
       phoneNumber: '',
       originCountry: '',
       numberChildren: '',
+      country: 'Peru',
       department: '',
       province: '',
       district: '',
@@ -68,14 +107,14 @@ export const CreateDisciplePage = (): JSX.Element => {
 
       <hr className='md:p-[0.02rem] bg-slate-500' />
 
-      <h1 className='text-left px-4 py-2 sm:px-10 sm:pt-4 sm:pb-2 2xl:px-24 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-green-500 text-[1.55rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h1 className='text-left px-4 py-2 sm:px-5 sm:pt-4 sm:pb-2 2xl:px-24 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-green-500 text-[1.55rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear un nuevo discípulo
       </h1>
-      <p className='dark:text-slate-300 text-left font-sans font-bold px-4 sm:px-10 text-sm md:text-[15px] xl:text-base 2xl:px-24'>
+      <p className='dark:text-slate-300 text-left font-sans font-bold px-4 sm:px-5 text-sm md:text-[15px] xl:text-base 2xl:px-24'>
         Por favor llena los siguientes datos para crear un nuevo discípulo.
       </p>
 
-      <div className='flex min-h-screen flex-col items-center justify-between px-8 py-6 sm:px-12 sm:py-10 xl:px-20 2xl:px-36 2xl:py-12'>
+      <div className='flex min-h-screen flex-col items-center justify-between px-8 py-6 sm:px-6 sm:py-10 xl:px-20 2xl:px-36 2xl:py-12'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -129,6 +168,27 @@ export const CreateDisciplePage = (): JSX.Element => {
               />
               <FormField
                 control={form.control}
+                name='originCountry'
+                render={({ field }) => {
+                  return (
+                    <FormItem className='mt-3'>
+                      <FormLabel className='text-sm xl:text-[15px]'>
+                        País de Origen
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder='País de origen del miembro'
+                          type='text'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+              <FormField
+                control={form.control}
                 name='dateBirth'
                 render={({ field }) => (
                   <FormItem className='flex flex-col mt-4'>
@@ -168,7 +228,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                         />
                       </PopoverContent>
                     </Popover>
-                    <FormDescription className='pl-3 text-blue-600 text-[13px] lg:text-sm font-bold'>
+                    <FormDescription className='pl-3 text-blue-600 text-[12px] lg:text-sm font-bold'>
                       * Su fecha de nacimiento se utiliza para calcular su edad.
                     </FormDescription>
                     <FormMessage />
@@ -200,6 +260,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                   );
                 }}
               />
+              {/* //TODO agregar busqueda por lupa en las relaciones de roles y en casa familiar */}
               <FormField
                 control={form.control}
                 name='maritalStatus'
@@ -288,7 +349,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                         />
                       </PopoverContent>
                     </Popover>
-                    <FormDescription className='pl-3 text-blue-600 text-[13px] lg:text-sm font-bold'>
+                    <FormDescription className='pl-3 text-blue-600 text-[12px] lg:text-sm font-bold'>
                       * Fecha en la que el creyente se convirtió.
                     </FormDescription>
                     <FormMessage />
@@ -300,6 +361,7 @@ export const CreateDisciplePage = (): JSX.Element => {
               <legend className='font-bold text-md lg:text-lg xl:text-xl'>
                 Contacto / Vivienda
               </legend>
+
               <FormField
                 control={form.control}
                 name='emailAddress'
@@ -345,16 +407,19 @@ export const CreateDisciplePage = (): JSX.Element => {
               />
               <FormField
                 control={form.control}
-                name='originCountry'
+                name='country'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-sm xl:text-[15px]'>
-                        País de Origen
+                        País
                       </FormLabel>
+                      <FormDescription className='text-[13px] lg:text-sm'>
+                        País en el que reside el miembro.
+                      </FormDescription>
                       <FormControl>
                         <Input
-                          placeholder='País de origen del miembro'
+                          placeholder='País de residencia del miembro'
                           type='text'
                           {...field}
                         />
@@ -459,7 +524,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                       <FormLabel className='font-bold text-md lg:text-lg xl:text-xl'>
                         Roles
                       </FormLabel>
-                      <FormDescription className='text-slate-500 font-medium text-sm xl:text-[15px]'>
+                      <FormDescription className='font-medium text-sm xl:text-[15px]'>
                         Seleccione los roles que desea asignar al miembro.
                       </FormDescription>
                     </div>
@@ -531,25 +596,71 @@ export const CreateDisciplePage = (): JSX.Element => {
                     name='theirPastor'
                     render={({ field }) => {
                       return (
-                        <FormItem>
-                          <FormLabel className='text-sm md:text-[16px]'>
+                        <FormItem className='flex flex-col mt-4'>
+                          <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
                             Pastor
                           </FormLabel>
-                          <FormDescription>
-                            Asignar relación para los roles escogidos.
+                          <FormDescription className='text-sm lg:text-[15px]'>
+                            Seleccione un pastor para esta relación.
                           </FormDescription>
-                          <Select onValueChange={field.onChange}>
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder='Selecciona un Pastor para asignar al miembro' />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value='id1'>Michael Baca</SelectItem>
-                              <SelectItem value='id2'>Daniel Perez</SelectItem>
-                              <SelectItem value='id3'>Carlos Rojas</SelectItem>
-                            </SelectContent>
-                          </Select>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <FormControl>
+                                <Button
+                                  variant='outline'
+                                  role='combobox'
+                                  className={cn(
+                                    'w-full justify-between overflow-hidden',
+                                    !field.value && 'text-slate-500 font-normal'
+                                  )}
+                                >
+                                  {field.value
+                                    ? pastors.find(
+                                        (pastor) => pastor.value === field.value
+                                      )?.label
+                                    : 'Busque y seleccione un pastor'}
+                                  <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent className='mr-30 w-[20rem] p-2\'>
+                              <Command>
+                                <CommandInput
+                                  placeholder='Busque un pastor...'
+                                  className='h-9 text-sm lg:text-[15px]'
+                                />
+                                <CommandEmpty>
+                                  Pastor no encontrado.
+                                </CommandEmpty>
+                                <CommandGroup className='max-h-[200px] h-auto'>
+                                  {pastors.map((pastor) => (
+                                    <CommandItem
+                                      className='text-sm lg:text-[15px]'
+                                      value={pastor.label}
+                                      key={pastor.value}
+                                      onSelect={() => {
+                                        form.setValue(
+                                          'theirPastor',
+                                          pastor.value
+                                        );
+                                      }}
+                                    >
+                                      {pastor.label}
+                                      <CheckIcon
+                                        className={cn(
+                                          'ml-auto h-4 w-4',
+                                          pastor.value === field.value
+                                            ? 'opacity-100'
+                                            : 'opacity-0'
+                                        )}
+                                      />
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </Command>
+                            </PopoverContent>
+                          </Popover>
+
                           <FormMessage />
                         </FormItem>
                       );
@@ -573,29 +684,72 @@ export const CreateDisciplePage = (): JSX.Element => {
                   name='theirCopastor'
                   render={({ field }) => {
                     return (
-                      <FormItem>
-                        <FormLabel className='text-sm md:text-[16px]'>
+                      <FormItem className='flex flex-col mt-4'>
+                        <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
                           Co-Pastor
                         </FormLabel>
-                        <FormDescription>
-                          Asignar relación para los roles escogidos.
+                        <FormDescription className='text-sm lg:text-[15px]'>
+                          Seleccione un co-pastor para esta relación.
                         </FormDescription>
-                        <Select onValueChange={field.onChange}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder='Selecciona un Co-Pastor para asignar al miembro' />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value='id1'>Luz Condori</SelectItem>
-                            <SelectItem value='id2'>
-                              Mercedes Aparcano
-                            </SelectItem>
-                            <SelectItem value='id3'>
-                              Rosario Gutierrez
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant='outline'
+                                role='combobox'
+                                className={cn(
+                                  'w-full justify-between overflow-hidden',
+                                  !field.value && 'text-slate-500 font-normal'
+                                )}
+                              >
+                                {field.value
+                                  ? copastors.find(
+                                      (copastor) =>
+                                        copastor.value === field.value
+                                    )?.label
+                                  : 'Busque y seleccione un co-pastor'}
+                                <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent className='mr-30 w-[20rem] p-2\'>
+                            <Command>
+                              <CommandInput
+                                placeholder='Busque un co-pastor...'
+                                className='h-9 text-sm lg:text-[15px]'
+                              />
+                              <CommandEmpty>
+                                Co-Pastor no encontrado.
+                              </CommandEmpty>
+                              <CommandGroup className='max-h-[200px] h-auto'>
+                                {copastors.map((copastor) => (
+                                  <CommandItem
+                                    className='text-sm lg:text-[15px]'
+                                    value={copastor.label}
+                                    key={copastor.value}
+                                    onSelect={() => {
+                                      form.setValue(
+                                        'theirCopastor',
+                                        copastor.value
+                                      );
+                                    }}
+                                  >
+                                    {copastor.label}
+                                    <CheckIcon
+                                      className={cn(
+                                        'ml-auto h-4 w-4',
+                                        copastor.value === field.value
+                                          ? 'opacity-100'
+                                          : 'opacity-0'
+                                      )}
+                                    />
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+
                         <FormMessage />
                       </FormItem>
                     );
@@ -619,29 +773,72 @@ export const CreateDisciplePage = (): JSX.Element => {
                   name='theirSupervisor'
                   render={({ field }) => {
                     return (
-                      <FormItem>
-                        <FormLabel className='text-sm md:text-[16px]'>
+                      <FormItem className='flex flex-col mt-4'>
+                        <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
                           Supervisor
                         </FormLabel>
-                        <FormDescription>
-                          Asignar relación para los roles escogidos.
+                        <FormDescription className='text-sm lg:text-[15px]'>
+                          Seleccione un supervisor para esta relación.
                         </FormDescription>
-                        <Select onValueChange={field.onChange}>
-                          <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder='Selecciona un Supervisor para asignar al miembro' />
-                            </SelectTrigger>
-                          </FormControl>
-                          <SelectContent>
-                            <SelectItem value='id1'>Luz Condori</SelectItem>
-                            <SelectItem value='id2'>
-                              Mercedes Aparcano
-                            </SelectItem>
-                            <SelectItem value='id3'>
-                              Rosario Gutierrez
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant='outline'
+                                role='combobox'
+                                className={cn(
+                                  'w-full justify-between overflow-hidden',
+                                  !field.value && 'text-slate-500 font-normal'
+                                )}
+                              >
+                                {field.value
+                                  ? supervisors.find(
+                                      (supervisor) =>
+                                        supervisor.value === field.value
+                                    )?.label
+                                  : 'Busque y seleccione un supervisor'}
+                                <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent className='mr-30 w-[20rem] p-2\'>
+                            <Command>
+                              <CommandInput
+                                placeholder='Busque un supervisor...'
+                                className='h-9 text-sm lg:text-[15px]'
+                              />
+                              <CommandEmpty>
+                                Supervisor no encontrado.
+                              </CommandEmpty>
+                              <CommandGroup className='max-h-[200px] h-auto'>
+                                {supervisors.map((supervisor) => (
+                                  <CommandItem
+                                    className='text-sm lg:text-[15px]'
+                                    value={supervisor.label}
+                                    key={supervisor.value}
+                                    onSelect={() => {
+                                      form.setValue(
+                                        'theirSupervisor',
+                                        supervisor.value
+                                      );
+                                    }}
+                                  >
+                                    {supervisor.label}
+                                    <CheckIcon
+                                      className={cn(
+                                        'ml-auto h-4 w-4',
+                                        supervisor.value === field.value
+                                          ? 'opacity-100'
+                                          : 'opacity-0'
+                                      )}
+                                    />
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+
                         <FormMessage />
                       </FormItem>
                     );
@@ -659,50 +856,82 @@ export const CreateDisciplePage = (): JSX.Element => {
                     name='theirFamilyHouse'
                     render={({ field }) => {
                       return (
-                        <FormItem>
-                          <FormLabel className='text-sm md:text-[16px]'>
+                        <FormItem className='flex flex-col mt-4'>
+                          <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
                             Casa Familiar
                           </FormLabel>
-                          <FormDescription className='text-neutral-600 font-medium'>
-                            Asignar relación para los roles escogidos.
+                          <FormDescription className='text-sm lg:text-[15px]'>
+                            Seleccione una casa familiar para esta relación.
                           </FormDescription>
-                          <Select onValueChange={field.onChange}>
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder='Selecciona una Casa Familiar para asignar al miembro' />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value='id1'>
-                                Guerreros de Dios
-                              </SelectItem>
-                              <SelectItem value='id1'>
-                                Redimidos de Jehova
-                              </SelectItem>
-                              <SelectItem value='id1'>
-                                Fieles en acción
-                              </SelectItem>
-                              <SelectItem value='id1'>
-                                Semillas de Fe
-                              </SelectItem>
-                              <SelectItem value='id2'>
-                                Guardianes de la Palabra
-                              </SelectItem>
-                              <SelectItem value='id3'>
-                                Mensajeros del Altísimo
-                              </SelectItem>
-                            </SelectContent>
-                          </Select>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <FormControl>
+                                <Button
+                                  variant='outline'
+                                  role='combobox'
+                                  className={cn(
+                                    'w-full justify-between overflow-hidden',
+                                    !field.value && 'text-slate-500 font-normal'
+                                  )}
+                                >
+                                  {field.value
+                                    ? familyHouses.find(
+                                        (familyHouse) =>
+                                          familyHouse.value === field.value
+                                      )?.label
+                                    : 'Busque y seleccione un casa familiar'}
+                                  <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent className='mr-30 w-[20rem] p-2\'>
+                              <Command>
+                                <CommandInput
+                                  placeholder='Busque una casa familiar...'
+                                  className='h-9 text-sm lg:text-[15px]'
+                                />
+                                <CommandEmpty>
+                                  Casa Familiar no encontrado.
+                                </CommandEmpty>
+                                <CommandGroup className='max-h-[200px] h-auto'>
+                                  {familyHouses.map((familyHouse) => (
+                                    <CommandItem
+                                      className='text-sm lg:text-[15px]'
+                                      value={familyHouse.label}
+                                      key={familyHouse.value}
+                                      onSelect={() => {
+                                        form.setValue(
+                                          'theirFamilyHouse',
+                                          familyHouse.value
+                                        );
+                                      }}
+                                    >
+                                      {familyHouse.label}
+                                      <CheckIcon
+                                        className={cn(
+                                          'ml-auto h-4 w-4',
+                                          familyHouse.value === field.value
+                                            ? 'opacity-100'
+                                            : 'opacity-0'
+                                        )}
+                                      />
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </Command>
+                            </PopoverContent>
+                          </Popover>
+
                           <FormMessage />
                         </FormItem>
                       );
                     }}
                   />
                 )}
-              <p className='mt-4 font-bold text-[14.5px] 2xl:text-[15.5px] text-blue-600'>
+              <p className='mt-4 font-bold text-[14px] 2xl:text-[15.5px] text-blue-600'>
                 Consideraciones
               </p>
-              <ul className='text-sm 2xl:text-[14px] text-red-500 font-medium '>
+              <ul className='text-[13px] 2xl:text-[14px] text-red-500 font-medium '>
                 <li>*No se permite asignar mas de 4 roles.</li>
                 <li>
                   *Para asignar rol Tesorero se debe asignar rol Predicador o

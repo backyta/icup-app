@@ -14,13 +14,10 @@ export const formOfferingSchema = z
     amount: z.string().refine(amount => !isNaN(parseFloat(amount)),{
       message: 'El monto de la ofrenda debe ser un numero'
     }),
-    currency: z.array(z.nativeEnum(CurrencyType),{
-      required_error: "Tienes que seleccionar al menos un tipo.",
-    }).refine((value) => value.some((item) => item), {
-      message: "Tienes que seleccionar al menos un tipo.",
+    currency: z.nativeEnum(CurrencyType,{
+      required_error: "Por favor seleccione una opción.",
     }),
-    comments: z.string().min(5, { message: 
-        'El campo debe contener al menos 5 carácter.'}).max(20).optional(),
+    comments: z.string().optional(),
         
     urlFile: z.array(z.string()).optional(),
 

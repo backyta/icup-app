@@ -308,7 +308,7 @@ export const CreateOfferingPage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(CurrencyTypeNames).map(
                             ([key, value]) => (
-                              <SelectItem key={key} value={value}>
+                              <SelectItem key={key} value={key}>
                                 {value}
                               </SelectItem>
                             )
@@ -380,12 +380,13 @@ export const CreateOfferingPage = (): JSX.Element => {
                           <Command>
                             <CommandInput
                               placeholder='Busque un miembro...'
-                              className='h-9'
+                              className='h-9 text-sm lg:text-[15px]'
                             />
                             <CommandEmpty>Miembro no encontrado.</CommandEmpty>
                             <CommandGroup className='max-h-[200px] h-auto'>
                               {members.map((member) => (
                                 <CommandItem
+                                  className='text-sm lg:text-[15px]'
                                   value={member.label}
                                   key={member.value}
                                   onSelect={() => {
@@ -452,7 +453,7 @@ export const CreateOfferingPage = (): JSX.Element => {
                             <Command>
                               <CommandInput
                                 placeholder='Busque una casa familiar...'
-                                className='h-9'
+                                className='h-9 text-sm lg:text-[15px]'
                               />
                               <CommandEmpty>
                                 Casa familiar no encontrada.
@@ -460,6 +461,7 @@ export const CreateOfferingPage = (): JSX.Element => {
                               <CommandGroup className='max-h-[200px] h-auto'>
                                 {familyHouses.map((familyHouse) => (
                                   <CommandItem
+                                    className='text-sm lg:text-[15px]'
                                     value={familyHouse.label}
                                     key={familyHouse.value}
                                     onSelect={() => {
@@ -520,7 +522,7 @@ export const CreateOfferingPage = (): JSX.Element => {
                                 ? copastors.find(
                                     (copastor) => copastor.value === field.value
                                   )?.label
-                                : 'Busque y seleccione un Co-Pastor'}
+                                : 'Busque y seleccione un co-pastor'}
                               <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                             </Button>
                           </FormControl>
@@ -528,15 +530,16 @@ export const CreateOfferingPage = (): JSX.Element => {
                         <PopoverContent className='w-[20rem] p-2'>
                           <Command>
                             <CommandInput
-                              placeholder='Busque un Co-Pastor...'
-                              className='h-9'
+                              placeholder='Busque un co-pastor...'
+                              className='h-9 text-sm lg:text-[15px]'
                             />
                             <CommandEmpty>
-                              Casa familiar no encontrada.
+                              Co-Pastor no encontrada.
                             </CommandEmpty>
                             <CommandGroup className='max-h-[200px] h-auto'>
                               {copastors.map((copastor) => (
                                 <CommandItem
+                                  className='text-sm lg:text-[15px]'
                                   value={copastor.label}
                                   key={copastor.value}
                                   onSelect={() => {

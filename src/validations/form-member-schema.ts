@@ -10,6 +10,8 @@ export const formMemberSchema = z
       'El campo debe contener al menos 1 carácter.'}).max(40),
     lastName: z.string().min(1, { message: 
       'El campo debe contener al menos 1 carácter.'}).max(40),
+    originCountry: z.string().min(1, { message: 
+      'El campo debe contener al menos 1 carácter.'}).max(20),
     dateBirth: z.date({
       required_error: "Por favor selecciona una fecha.",
     }),
@@ -29,7 +31,7 @@ export const formMemberSchema = z
     emailAddress: z.string().email({ message: "Email invalido." }),
     phoneNumber: z.string().min(1, { message: 
       'El campo debe contener al menos 1 carácter.'}).max(20),
-    originCountry: z.string().min(1, { message: 
+    country: z.string().min(1, { message: 
       'El campo debe contener al menos 1 carácter.'}).max(20),
     department: z.string().min(1, { message: 
       'El campo debe contener al menos 1 carácter.'}).max(20),
@@ -48,7 +50,6 @@ export const formMemberSchema = z
     theirPastor: z.string().optional(),
     theirCopastor: z.string().optional(),
     theirSupervisor: z.string().optional(),
-    theirPreacher: z.string().optional(),
     theirFamilyHouse: z.string().optional(),
   })
 
