@@ -107,9 +107,9 @@ export const CreateDisciplePage = (): JSX.Element => {
 
       <hr className='md:p-[0.02rem] bg-slate-500' />
 
-      <h1 className='text-left px-4 py-2 sm:px-5 sm:pt-4 sm:pb-2 2xl:px-24 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-green-500 text-[1.55rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h2 className='text-left px-4 py-2 sm:px-5 sm:pt-4 sm:pb-2 2xl:px-24 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-green-500 text-[1.55rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear un nuevo discípulo
-      </h1>
+      </h2>
       <p className='dark:text-slate-300 text-left font-sans font-bold px-4 sm:px-5 text-sm md:text-[15px] xl:text-base 2xl:px-24'>
         Por favor llena los siguientes datos para crear un nuevo discípulo.
       </p>

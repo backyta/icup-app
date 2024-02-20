@@ -70,16 +70,42 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className='flex items-center py-4'>
+      <div className='flex items-center justify-between space-x-2 py-4'>
+        {/* <div className='flex items-center py-4'> */}
         <Input
-          placeholder='Filter emails...'
-          value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
+          placeholder='Filtro por nombres...'
+          value={
+            (table.getColumn('first_name')?.getFilterValue() as string) ?? ''
+          }
           onChange={(event) =>
-            table.getColumn('email')?.setFilterValue(event.target.value)
+            table.getColumn('first_name')?.setFilterValue(event.target.value)
           }
           className='max-w-sm'
         />
-        <DropdownMenu>
+        <div className='flex items-center justify-end space-x-2 py-4'>
+          <Button
+            variant='outline'
+            size='sm'
+            onClick={() => {
+              table.previousPage();
+            }}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Anterior
+          </Button>
+          <Button
+            variant='outline'
+            size='sm'
+            onClick={() => {
+              table.nextPage();
+            }}
+            disabled={!table.getCanNextPage()}
+          >
+            Siguiente
+          </Button>
+          {/* </div> */}
+        </div>
+        {/* <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant='outline' className='ml-auto'>
               Columns
@@ -104,7 +130,7 @@ export function DataTable<TData, TValue>({
                 );
               })}
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu> */}
       </div>
       <div className='rounded-md border'>
         <Table>
@@ -134,7 +160,7 @@ export function DataTable<TData, TValue>({
                   data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell className='px-4 py-2.5' key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -149,14 +175,14 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className='h-24 text-center'
                 >
-                  No results.
+                  Sin resultados.
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
       </div>
-      <div className='flex items-center justify-end space-x-2 py-4'>
+      {/* <div className='flex items-center justify-end space-x-2 py-4'>
         <Button
           variant='outline'
           size='sm'
@@ -165,7 +191,7 @@ export function DataTable<TData, TValue>({
           }}
           disabled={!table.getCanPreviousPage()}
         >
-          Previous
+          Anterior
         </Button>
         <Button
           variant='outline'
@@ -175,9 +201,9 @@ export function DataTable<TData, TValue>({
           }}
           disabled={!table.getCanNextPage()}
         >
-          Next
+          Siguiente
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 }

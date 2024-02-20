@@ -1,14 +1,14 @@
-import { type Payment, columns } from './columns';
+import { type Member, columns } from './columns';
 import { DataTable } from './data-table';
 
-async function getData(): Promise<Payment[]> {
+async function getData(): Promise<Member[]> {
   // Fetch data from your API here.
   return [
     {
-      id: '728ed52f',
-      amount: 100,
-      status: 'pending',
-      email: 'm@example.com',
+      first_name: 'Roberto Carlos',
+      last_name: 'García',
+      date_birth: '1985-03-15',
+      gender: 'male',
     },
     // ...
   ];
