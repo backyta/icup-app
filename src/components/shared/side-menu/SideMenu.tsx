@@ -12,13 +12,13 @@ export const SideMenu = (): JSX.Element => {
   // const userName = useAuthStore( state => state.user?.fullName || 'No user' );
 
   return (
-    <div className='bg-slate-900 md:min-h-screen z-10 text-slate-300 w-full md:w-[22rem]'>
+    <div className='bg-slate-900 md:min-h-screen z-10 text-slate-300 w-full md:w-[18rem]'>
       <ToggleSideBar />
       <div className='flex justify-between items-center'>
         {/* Title */}
         <div id='logo' className='my-4 px-4'>
           <a href='#' className='inline-flex gap-x-4 items-center'>
-            <h1 className='text-2xl lg:text-[1.6rem] xl:text-3xl font-bold text-white'>
+            <h1 className='text-[1.45rem] lg:text-[1.45rem] xl:text-[1.75rem] font-bold text-white'>
               ICUP-App
             </h1>
             <span>
