@@ -24,3 +24,5 @@ export default function SearchDisciple(): JSX.Element {
     </div>
   );
 }
+
+// TODO : agregar limit y offset para traer cierta cantidad de registros, si quiero los mas nuevos o antiguos, mandar otra query en DTO

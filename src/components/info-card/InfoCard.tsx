@@ -52,7 +52,9 @@ export const InfoCard = (): JSX.Element => {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant='outline'>Edit Profile</Button>
+        <Button variant='outline' className='text-[12px] lg:text-[13px]'>
+          Ver Información
+        </Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className='text-left'>

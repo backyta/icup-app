@@ -18,7 +18,7 @@ export const SideMenu = (): JSX.Element => {
         {/* Title */}
         <div id='logo' className='my-4 px-4'>
           <a href='#' className='inline-flex gap-x-4 items-center'>
-            <h1 className='text-[1.45rem] lg:text-[1.45rem] xl:text-[1.75rem] font-bold text-white'>
+            <h1 className='text-[1.45rem] lg:text-[1.45rem] xl:text-[1.65rem] font-bold text-white'>
               ICUP-App
             </h1>
             <span>

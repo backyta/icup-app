@@ -1,6 +1,19 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { type z } from 'zod';
+
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 
 import {
   type ColumnDef,
@@ -24,6 +37,15 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useState } from 'react';
+import { formSearchMemberSchema } from '@/validations/form-search-member-schema';
+
+import {
+  SelectValue,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  Select,
+} from '@/components/ui/select';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -44,6 +66,20 @@ export function DataTable<TData, TValue>({
 
   const [disabled, setDisabled] = useState(true);
 
+  const form = useForm<z.infer<typeof formSearchMemberSchema>>({
+    resolver: zodResolver(formSearchMemberSchema),
+    defaultValues: {
+      limit: '10',
+      offset: '0',
+    },
+  });
+
+  function onSubmit(values: z.infer<typeof formSearchMemberSchema>): void {
+    setDisabled(false);
+    form.reset();
+    console.log(values);
+  }
+
   const table = useReactTable({
     data,
     columns,
@@ -63,50 +99,135 @@ export function DataTable<TData, TValue>({
     },
   });
 
-  const handleClick = (): void => {
-    setDisabled(false);
-  };
-
   return (
-    <div className='md:w-full m-auto lg:w-full'>
-      <div className='pb-4 md:p-0 grid grid-cols-2 gap-x-16 gap-y-3 md:flex md:items-center md:py-4 md:gap-6'>
-        <Input
-          placeholder='Filtro por nombres...'
-          value={
-            (table.getColumn('first_name')?.getFilterValue() as string) ?? ''
-          }
-          onChange={(event) =>
-            table.getColumn('first_name')?.setFilterValue(event.target.value)
-          }
-          className='text-[13px] lg:text-[14px] max-w-sm w-[12rem] lg:w-full'
-          disabled={disabled}
-        />
-        <Input
-          placeholder='Filtro por apellidos...'
-          value={
-            (table.getColumn('last_name')?.getFilterValue() as string) ?? ''
-          }
-          onChange={(event) =>
-            table.getColumn('last_name')?.setFilterValue(event.target.value)
-          }
-          className='col-start-1 col-end-2 text-[13px] lg:text-[14px] max-w-sm w-[12rem] lg:w-full'
-          disabled={disabled}
-        />
-
-        {disabled && (
-          <Button
-            variant='ghost'
-            className='w-[6rem] col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] h-full md:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500  hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
-            onClick={handleClick}
+    <div className='md:w-full m-auto lg:w-full pt-4'>
+      {disabled && (
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className='grid grid-cols-2 gap-4 items-end mb-4 lg:flex lg:gap-6 lg:items-end '
           >
-            Buscar
-          </Button>
-        )}
+            <FormField
+              control={form.control}
+              name='limit'
+              render={({ field }) => (
+                <FormItem className='col-start-1 col-end-2 row-start-1 row-end-2'>
+                  <FormLabel className='text-[13px] md:text-sm'>
+                    Limite
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      className='text-[12px]'
+                      placeholder='Limite de registros'
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='offset'
+              render={({ field }) => (
+                <FormItem className='col-start-2 col-end-3 row-start-1 row-end-2'>
+                  <FormLabel className='text-[13px] md:text-sm'>
+                    Desplazamiento
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      className='text-[12px] md:text-sm'
+                      placeholder='Nro. de registros desplazados'
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='order'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className='text-[13px] md:text-sm'>
+                    Orden
+                  </FormLabel>
+                  <Select onValueChange={field.onChange}>
+                    <FormControl className='text-[12px] md:text-sm'>
+                      <SelectTrigger>
+                        <SelectValue placeholder='Selecciona un tipo de orden' />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem
+                        className='text-[12px] md:text-sm'
+                        value='ASC'
+                      >
+                        Mas antiguo a mas nuevo
+                      </SelectItem>
+                      <SelectItem
+                        className='text-[12px] md:text-sm'
+                        value='DESC'
+                      >
+                        Mas nuevo a mas antiguo
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button
+              type='submit'
+              variant='ghost'
+              className='mx-auto lg:m-0 col-start-2 col-end-3 row-start-2 row-end-3 w-[8rem] text-[13px] lg:text-[14px] h-[2.5rem] md:w-[8rem] xl:w-[6rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500  hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
+            >
+              Buscar
+            </Button>
+          </form>
+        </Form>
+      )}
 
-        {!disabled && (
+      {!disabled && (
+        <div className='pb-4 lg:p-0 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
           <Button
             variant='ghost'
-            className='w-[6rem]  col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] h-full md:w-auto px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-400 dark:bg-red-500 dark:hover:bg-red-400 dark:hover:text-red-950'
+            className='w-[8rem] m-auto text-[13px] lg:text-[14px] h-full md:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
+            onClick={() => {
+              setDisabled(true);
+              table.getColumn('first_name')?.setFilterValue('');
+              table.getColumn('last_name')?.setFilterValue('');
+            }}
+          >
+            Nueva Búsqueda
+          </Button>
+          <Input
+            placeholder='Filtro por nombres...'
+            value={
+              (table.getColumn('first_name')?.getFilterValue() as string) ?? ''
+            }
+            onChange={(event) =>
+              table.getColumn('first_name')?.setFilterValue(event.target.value)
+            }
+            className='text-[13px] lg:text-[14px]  w-full'
+            disabled={disabled}
+          />
+          <Input
+            placeholder='Filtro por apellidos...'
+            value={
+              (table.getColumn('last_name')?.getFilterValue() as string) ?? ''
+            }
+            onChange={(event) =>
+              table.getColumn('last_name')?.setFilterValue(event.target.value)
+            }
+            className='col-start-1 col-end-2 text-[13px] lg:text-[14px] w-full'
+            disabled={disabled}
+          />
+
+          <Button
+            variant='ghost'
+            className='w-[6rem] m-auto text-[13px] lg:text-[14px] h-full md:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-400 dark:bg-red-500 dark:hover:bg-red-400 dark:hover:text-red-950'
             onClick={() => {
               table.getColumn('first_name')?.setFilterValue('');
               table.getColumn('last_name')?.setFilterValue('');
@@ -114,8 +235,8 @@ export function DataTable<TData, TValue>({
           >
             Borrar
           </Button>
-        )}
-      </div>
+        </div>
+      )}
       <div className='rounded-md border'>
         <Table>
           <TableHeader>
