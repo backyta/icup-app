@@ -267,7 +267,7 @@ export const CreateFamilyHousePage = (): JSX.Element => {
                             variant='outline'
                             role='combobox'
                             className={cn(
-                              'w-full justify-between overflow-hidden',
+                              'w-full justify-between',
                               !field.value && 'text-slate-500 font-normal'
                             )}
                           >

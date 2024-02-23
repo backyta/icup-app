@@ -1,21 +1,22 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { Root } from '../Root';
-
 import { DashboardLayout } from '@/layouts/DashboardLayout';
-import { DashboardPage } from '@/pages/dashboard/DashboardPage';
-import { PastorPage } from '@/pages/pastor/PastorPage';
-import { CopastorPage } from '@/pages/copastor/CopastorPage';
-import { LeaderPage } from '@/pages/leader/LeaderPage';
-import { FamilyHousePage } from '@/pages/family-house/FamilyHousePage';
-import { OfferingPage } from '@/pages/offering/OfferingPage';
-import { UserPage } from '@/pages/user/UserPage';
-import { DisciplePage } from '@/pages/disciple/DisciplePage';
-import { CreateDisciplePage } from '@/pages/disciple/CreateDisciplePage';
-import { CreateUserPage } from '@/pages/user/CreateUserPage';
-import { CreateFamilyHousePage } from '@/pages/family-house/CreateFamilyHousePage';
-import { CreateOfferingPage } from '@/pages/offering/CreateOfferingPage';
-import SearchDisciple from '@/pages/disciple/SearchDisciple';
+import {
+  CopastorPage,
+  CreateDisciplePage,
+  CreateFamilyHousePage,
+  CreateOfferingPage,
+  CreateUserPage,
+  DashboardPage,
+  DisciplePage,
+  FamilyHousePage,
+  LeaderPage,
+  OfferingPage,
+  PastorPage,
+  UserPage,
+  SearchDisciplePage,
+} from '@/pages';
 
 export const router = createBrowserRouter([
   {
@@ -72,7 +73,7 @@ export const router = createBrowserRouter([
           },
           {
             path: '/disciples/search-disciple',
-            element: <SearchDisciple />,
+            element: <SearchDisciplePage />,
           },
         ],
       },

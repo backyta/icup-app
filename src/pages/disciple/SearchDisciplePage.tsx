@@ -2,7 +2,7 @@ import { columns } from '@/components/table-members/columns';
 import { DataTable } from '@/components/table-members/data-table';
 import { dataMembers as data } from '../../data/data-members';
 
-export default function SearchDisciple(): JSX.Element {
+export const SearchDisciplePage = (): JSX.Element => {
   return (
     <div>
       <h1 className='text-center pt-1 pb-4 font-sans text-2xl sm:text-3xl font-bold text-blue-500 text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
@@ -23,6 +23,6 @@ export default function SearchDisciple(): JSX.Element {
       </div>
     </div>
   );
-}
+};
 
 // TODO : agregar limit y offset para traer cierta cantidad de registros, si quiero los mas nuevos o antiguos, mandar otra query en DTO
