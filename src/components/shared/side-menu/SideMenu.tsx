@@ -15,24 +15,25 @@ export const SideMenu = (): JSX.Element => {
   // const userName = useAuthStore( state => state.user?.fullName || 'No user' );
 
   return (
-    <div className='bg-slate-900 md:min-h-screen z-10 text-slate-300 w-full md:w-auto'>
+    <div className='bg-slate-900 md:min-h-screen z-10 text-slate-300 w-full md:w-[7.5rem]'>
       <ToggleSideBar />
-      <h1 className='text-[1.3rem] md:text-[1.5rem] font-bold text-white text-center pt-8 hidden md:block'>
-        ICUP-App
-      </h1>
+
       <div className='flex justify-between items-center md:flex-col md:pt-2 md:pb-4 md:px-2 md:gap-6'>
         {/* Title */}
-        <div id='logo' className='my-4 md:m-0 px-2'>
+        <div id='logo' className='my-4 md:m-0 px-0 md:pt-4'>
           <a
             href='/dashboard'
-            className='inline-flex gap-x-4 items-center px-3 md:px-0'
+            className='inline-flex gap-x-4 items-center px-3 md:py-4 md:px-0 md:flex md:flex-col-reverse md:gap-3'
           >
-            <h1 className='text-[1.45rem] font-bold text-white md:hidden'>
-              ICUP-App
+            <h1 className='text-[1.3rem] md:text-[1.5rem] font-bold text-white'>
+              ICUP <span className='md:hidden'> - </span>
+              <span className='md:block md:text-[1rem] md:text-center leading-3'>
+                App
+              </span>
             </h1>
             <span>
               <img
-                className='rounded-full w-12 h-12 md:w-14 md:h-14'
+                className='rounded-full w-12 h-12 '
                 src='../public/logo.jpg'
                 alt=''
               />
@@ -55,10 +56,10 @@ export const SideMenu = (): JSX.Element => {
       {/*  Profile */}
       <div
         id='profile'
-        className='pb-4 px-6 md:px-6 md:py-4 md:block md: text-center hidden'
+        className='pb-4 px-6 md:px-6 md:py-0 md:block md:text-center hidden'
       >
-        <p className='text-md font-bold pb-4'>Bienvenido,</p>
-        <a href='#' className='inline-flex space-x-2 items-center'>
+        <p className='text-md font-bold pb-4 hidden'>Bienvenido,</p>
+        <a href='#' className='inline-flex space-x-2 items-center md:hidden'>
           <span>
             <img
               className='rounded-full w-10 h-10'
@@ -76,7 +77,7 @@ export const SideMenu = (): JSX.Element => {
       {/* Menu Items */}
       <nav
         id='menu'
-        className='w-full px-8 py-6 md:flex md:flex-col gap-y-[3.5rem] hidden'
+        className='w-full px-8 py-6 md:flex md:flex-col gap-y-[3rem] hidden'
       >
         <div className='flex flex-col gap-y-1 justify-center items-left'>
           {menuItems.map((item) => (
@@ -91,3 +92,5 @@ export const SideMenu = (): JSX.Element => {
     </div>
   );
 };
+
+// word-wrap - Ver espaciado en Tailwind CSS

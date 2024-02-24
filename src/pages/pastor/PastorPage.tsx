@@ -29,8 +29,8 @@ export const PastorPage = (): JSX.Element => {
 
       <div className='w-full px-[2rem] py-[1.5rem] sm:px-[7rem] sm:py-[2rem] md:px-[4rem] lg:px-[3rem] lg:py-[2rem] xl:px-[3rem] xl:py-8 2xl:px-16 2xl:pt-12 grid gap-8 md:gap-6 xl:gap-5 2xl:gap-4 grid-cols-1 grid-rows-1 lg:grid-cols-2 lg:grid-rows-1 2xl:grid-cols-4 2xl:grid-rows-1 h-auto 2xl:h-[55rem]'>
         <NavLink
-          key='/disciples/create-disciple'
-          to='/disciples/create-disciple'
+          key='/pastors/create-pastor'
+          to='/pastors/create-pastor'
           end
           className='row-start-1 row-end-2 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-2 lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-2 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-1 2xl:col-end-2'
         >
@@ -46,8 +46,8 @@ export const PastorPage = (): JSX.Element => {
         </NavLink>
 
         <NavLink
-          key='/'
-          to='/'
+          key='/pastors/search-pastors'
+          to='/pastors/search-pastors'
           end
           className='row-start-2 row-end-3 lg:row-start-3 lg:row-end-4 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-3 xl:col-start-2 xl:col-end-3 2xl:row-start-1 2xl:row-end-2 2xl:col-start-2 2xl:col-end-3 '
         >

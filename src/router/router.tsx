@@ -3,19 +3,24 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Root } from '../Root';
 import { DashboardLayout } from '@/layouts/DashboardLayout';
 import {
+  DashboardPage,
+  DisciplePage,
+  PastorPage,
   CopastorPage,
+  LeaderPage,
+  UserPage,
+  FamilyHousePage,
+  OfferingPage,
   CreateDisciplePage,
   CreateFamilyHousePage,
   CreateOfferingPage,
   CreateUserPage,
-  DashboardPage,
-  DisciplePage,
-  FamilyHousePage,
-  LeaderPage,
-  OfferingPage,
-  PastorPage,
-  UserPage,
-  SearchDisciplePage,
+  SearchPastorsPage,
+  SearchCopastorsPage,
+  SearchLeadersPage,
+  SearchDisciplesPage,
+  SearchFamilyHousesPage,
+  SearchOfferingsPage,
 } from '@/pages';
 
 export const router = createBrowserRouter([
@@ -72,8 +77,53 @@ export const router = createBrowserRouter([
             element: <CreateDisciplePage />,
           },
           {
-            path: '/disciples/search-disciple',
-            element: <SearchDisciplePage />,
+            path: '/disciples/search-disciples',
+            element: <SearchDisciplesPage />,
+          },
+        ],
+      },
+      // routes pastor
+      {
+        path: '/pastors',
+        element: <DashboardLayout />,
+        children: [
+          {
+            path: '/pastors/create-pastor',
+            element: <CreateDisciplePage />,
+          },
+          {
+            path: '/pastors/search-pastors',
+            element: <SearchPastorsPage />,
+          },
+        ],
+      },
+      // routes co-pastor
+      {
+        path: '/copastors',
+        element: <DashboardLayout />,
+        children: [
+          {
+            path: '/copastors/create-copastor',
+            element: <CreateDisciplePage />,
+          },
+          {
+            path: '/copastors/search-copastors',
+            element: <SearchCopastorsPage />,
+          },
+        ],
+      },
+      // routes leader
+      {
+        path: '/leaders',
+        element: <DashboardLayout />,
+        children: [
+          {
+            path: '/leaders/create-leader',
+            element: <CreateDisciplePage />,
+          },
+          {
+            path: '/leaders/search-leaders',
+            element: <SearchLeadersPage />,
           },
         ],
       },
@@ -86,6 +136,10 @@ export const router = createBrowserRouter([
             path: '/family-houses/create-family-house',
             element: <CreateFamilyHousePage />,
           },
+          {
+            path: '/family-houses/search-family-houses',
+            element: <SearchFamilyHousesPage />,
+          },
         ],
       },
       // routes offering
@@ -96,6 +150,10 @@ export const router = createBrowserRouter([
           {
             path: '/offerings/create-offering',
             element: <CreateOfferingPage />,
+          },
+          {
+            path: '/offerings/search-offerings',
+            element: <SearchOfferingsPage />,
           },
         ],
       },

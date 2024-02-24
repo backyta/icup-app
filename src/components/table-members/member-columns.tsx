@@ -7,8 +7,6 @@ import { format } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { InfoCard } from '../info-card/InfoCard';
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 export interface Member {
   id: string;
   first_name: string;
@@ -17,7 +15,9 @@ export interface Member {
   date_birth: string;
 }
 
-export const columns: Array<ColumnDef<Member, any>> = [
+// TODO : crear las demás cols para las otras search de tables
+
+export const memberColumns: Array<ColumnDef<Member, any>> = [
   {
     accessorKey: 'id',
     header: 'ID',
@@ -95,15 +95,7 @@ export const columns: Array<ColumnDef<Member, any>> = [
   {
     id: 'search',
     cell: () => {
-      return (
-        // <Button
-        //   variant='ghost'
-        //   className='h-full w-auto px-4 py-2 border border-slate-500 bg-slate-200 hover:bg-slate-300 dark:bg-slate-950 dark:hover:bg-slate-900'
-        // >
-        //   Ver Información
-        // </Button>
-        <InfoCard />
-      );
+      return <InfoCard />;
     },
   },
 ];

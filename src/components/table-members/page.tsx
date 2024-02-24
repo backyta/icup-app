@@ -1,4 +1,4 @@
-import { type Member, columns } from './columns';
+import { type Member, memberColumns } from './member-columns';
 import { DataTable } from './data-table';
 
 async function getData(): Promise<Member[]> {
@@ -20,7 +20,7 @@ export default async function DemoPage(): Promise<JSX.Element> {
 
   return (
     <div className='container mx-auto py-10'>
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={memberColumns} data={data} />
     </div>
   );
 }

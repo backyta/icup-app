@@ -1,4 +1,4 @@
-import { type Member } from "@/components/table-members/columns";
+import { type Member } from "@/components/table-members/member-columns";
 
 export const dataMembers: Member[] = 
 [
@@ -6,7 +6,7 @@ export const dataMembers: Member[] =
     id: '1',
     first_name: 'Roberto Carlos',
     last_name: 'García Martínez',
-   date_birth: '1985-03-15',
+    date_birth: '1985-03-15',
     gender: 'M',
   },
   {

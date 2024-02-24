@@ -4,7 +4,7 @@ export enum SubTypesOffering {
   generalVigil = 'general_vigil',
   zonalVigil = 'zonal_vigil',
   zonalFasting = 'zonal_fasting',
-  familyHome = 'family_home',
+  familyHouse = 'family_house',
   sundaySchool = 'sunday_school',
   youthWorship = 'youth_worship',
   special = 'special',
@@ -14,7 +14,7 @@ export enum SubTypesOffering {
 
 export const SubTypesOfferingNames: Record<SubTypesOffering, string> = {
   sunday_worship : 'Ofrenda Dominical',
-  family_home : 'Casa Familiar',
+  family_house : 'Casa Familiar',
   general_fasting : 'Ayuno General',
   general_vigil : 'Vigilia General',
   zonal_fasting : 'Ayuno Zonal',

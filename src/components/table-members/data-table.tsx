@@ -9,6 +9,7 @@ import { type z } from 'zod';
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -105,7 +106,7 @@ export function DataTable<TData, TValue>({
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className='grid grid-cols-2 gap-4 items-end mb-4 lg:flex lg:gap-6 lg:items-end '
+            className='grid grid-cols-2 gap-4 gap-y-2 items-end mb-14 md:mb-10 lg:flex lg:gap-6 lg:items-end '
           >
             <FormField
               control={form.control}
@@ -115,6 +116,9 @@ export function DataTable<TData, TValue>({
                   <FormLabel className='text-[13px] md:text-sm'>
                     Limite
                   </FormLabel>
+                  <FormDescription className='text-[12px] md:text-[13px]'>
+                    ¿Cuantos registros necesitas?
+                  </FormDescription>
                   <FormControl>
                     <Input
                       className='text-[12px]'
@@ -134,6 +138,9 @@ export function DataTable<TData, TValue>({
                   <FormLabel className='text-[13px] md:text-sm'>
                     Desplazamiento
                   </FormLabel>
+                  <FormDescription className='text-[12px] md:text-[13px]'>
+                    ¿Cuantos registros quieres saltar?
+                  </FormDescription>
                   <FormControl>
                     <Input
                       className='text-[12px] md:text-sm'
@@ -149,12 +156,12 @@ export function DataTable<TData, TValue>({
               control={form.control}
               name='order'
               render={({ field }) => (
-                <FormItem>
+                <FormItem className='lg:flex lg:flex-col lg:gap-7'>
                   <FormLabel className='text-[13px] md:text-sm'>
                     Orden
                   </FormLabel>
                   <Select onValueChange={field.onChange}>
-                    <FormControl className='text-[12px] md:text-sm'>
+                    <FormControl className='text-[12px] md:text-sm lg:w-[14rem]'>
                       <SelectTrigger>
                         <SelectValue placeholder='Selecciona un tipo de orden' />
                       </SelectTrigger>
@@ -190,7 +197,7 @@ export function DataTable<TData, TValue>({
       )}
 
       {!disabled && (
-        <div className='pb-4 lg:p-0 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
+        <div className='pb-8 lg:pb-8 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
           <Button
             variant='ghost'
             className='w-[8rem] m-auto text-[13px] lg:text-[14px] h-full md:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
@@ -202,6 +209,8 @@ export function DataTable<TData, TValue>({
           >
             Nueva Búsqueda
           </Button>
+          {/* //TODO : Hacer condiciones para casas y ofrendas y usuarios seria lo mismo */}
+          {/* //TODO : falta hacer el buscar usuarios y arreglar lo demás */}
           <Input
             placeholder='Filtro por nombres...'
             value={
@@ -224,7 +233,6 @@ export function DataTable<TData, TValue>({
             className='col-start-1 col-end-2 text-[13px] lg:text-[14px] w-full'
             disabled={disabled}
           />
-
           <Button
             variant='ghost'
             className='w-[6rem] m-auto text-[13px] lg:text-[14px] h-full md:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-400 dark:bg-red-500 dark:hover:bg-red-400 dark:hover:text-red-950'

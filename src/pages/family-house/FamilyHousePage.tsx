@@ -44,8 +44,8 @@ export const FamilyHousePage = (): JSX.Element => {
         </NavLink>
 
         <NavLink
-          key='/'
-          to='/'
+          key='/family-houses/search-family-houses'
+          to='/family-houses/search-family-houses'
           end
           className='row-start-2 row-end-3 lg:row-start-3 lg:row-end-4 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-3 xl:col-start-2 xl:col-end-3 2xl:row-start-1 2xl:row-end-2 2xl:col-start-2 2xl:col-end-3 '
         >
