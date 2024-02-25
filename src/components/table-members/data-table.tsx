@@ -67,6 +67,9 @@ export function DataTable<TData, TValue>({
 
   const [disabled, setDisabled] = useState(true);
 
+  const currentPath = window.location.pathname;
+  console.log(currentPath);
+
   const form = useForm<z.infer<typeof formSearchMemberSchema>>({
     resolver: zodResolver(formSearchMemberSchema),
     defaultValues: {
@@ -196,39 +199,90 @@ export function DataTable<TData, TValue>({
         </Form>
       )}
 
-      {!disabled && (
+      {!disabled &&
+        (currentPath === '/disciples/search-disciples' ||
+          currentPath === '/pastors/search-pastors' ||
+          currentPath === '/copastors/search-copastors' ||
+          currentPath === '/leaders/search-leaders') && (
+          <div className='pb-8 lg:pb-8 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
+            <Button
+              variant='ghost'
+              className='w-[8rem] m-auto text-[13px] lg:text-[14px] h-full md:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
+              onClick={() => {
+                setDisabled(true);
+                table.getColumn('first_name')?.setFilterValue('');
+                table.getColumn('last_name')?.setFilterValue('');
+              }}
+            >
+              Nueva Búsqueda
+            </Button>
+            <Input
+              placeholder='Filtro por nombres...'
+              value={
+                (table.getColumn('first_name')?.getFilterValue() as string) ??
+                ''
+              }
+              onChange={(event) =>
+                table
+                  .getColumn('first_name')
+                  ?.setFilterValue(event.target.value)
+              }
+              className='text-[13px] lg:text-[14px]  w-full'
+              disabled={disabled}
+            />
+            <Input
+              placeholder='Filtro por apellidos...'
+              value={
+                (table.getColumn('last_name')?.getFilterValue() as string) ?? ''
+              }
+              onChange={(event) =>
+                table.getColumn('last_name')?.setFilterValue(event.target.value)
+              }
+              className='col-start-1 col-end-2 text-[13px] lg:text-[14px] w-full'
+              disabled={disabled}
+            />
+            <Button
+              variant='ghost'
+              className='w-[6rem] m-auto text-[13px] lg:text-[14px] h-full md:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-400 dark:bg-red-500 dark:hover:bg-red-400 dark:hover:text-red-950'
+              onClick={() => {
+                table.getColumn('first_name')?.setFilterValue('');
+                table.getColumn('last_name')?.setFilterValue('');
+              }}
+            >
+              Borrar
+            </Button>
+          </div>
+        )}
+
+      {!disabled && currentPath === '/family-houses/search-family-houses' && (
         <div className='pb-8 lg:pb-8 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
           <Button
             variant='ghost'
             className='w-[8rem] m-auto text-[13px] lg:text-[14px] h-full md:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
             onClick={() => {
               setDisabled(true);
-              table.getColumn('first_name')?.setFilterValue('');
-              table.getColumn('last_name')?.setFilterValue('');
+              table.getColumn('name_house')?.setFilterValue('');
+              table.getColumn('code')?.setFilterValue('');
             }}
           >
             Nueva Búsqueda
           </Button>
-          {/* //TODO : Hacer condiciones para casas y ofrendas y usuarios seria lo mismo */}
-          {/* //TODO : falta hacer el buscar usuarios y arreglar lo demás */}
           <Input
-            placeholder='Filtro por nombres...'
+            placeholder='Filtro por nombre de casa...'
             value={
-              (table.getColumn('first_name')?.getFilterValue() as string) ?? ''
+              (table.getColumn('name_house')?.getFilterValue() as string) ?? ''
             }
             onChange={(event) =>
-              table.getColumn('first_name')?.setFilterValue(event.target.value)
+              table.getColumn('name_house')?.setFilterValue(event.target.value)
             }
             className='text-[13px] lg:text-[14px]  w-full'
             disabled={disabled}
           />
           <Input
-            placeholder='Filtro por apellidos...'
-            value={
-              (table.getColumn('last_name')?.getFilterValue() as string) ?? ''
-            }
+            placeholder='Filtro por código de casa...'
+            value={(table.getColumn('code')?.getFilterValue() as string) ?? ''}
             onChange={(event) =>
-              table.getColumn('last_name')?.setFilterValue(event.target.value)
+              table.getColumn('code')?.setFilterValue(event.target.value)
             }
             className='col-start-1 col-end-2 text-[13px] lg:text-[14px] w-full'
             disabled={disabled}
@@ -237,8 +291,98 @@ export function DataTable<TData, TValue>({
             variant='ghost'
             className='w-[6rem] m-auto text-[13px] lg:text-[14px] h-full md:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-400 dark:bg-red-500 dark:hover:bg-red-400 dark:hover:text-red-950'
             onClick={() => {
-              table.getColumn('first_name')?.setFilterValue('');
-              table.getColumn('last_name')?.setFilterValue('');
+              table.getColumn('name_house')?.setFilterValue('');
+              table.getColumn('code')?.setFilterValue('');
+            }}
+          >
+            Borrar
+          </Button>
+        </div>
+      )}
+
+      {!disabled && currentPath === '/offerings/search-offerings' && (
+        <div className='pb-8 lg:pb-8 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
+          <Button
+            variant='ghost'
+            className='w-[8rem] m-auto text-[13px] lg:text-[14px] h-full md:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
+            onClick={() => {
+              setDisabled(true);
+              table.getColumn('type')?.setFilterValue('');
+              table.getColumn('sub_type')?.setFilterValue('');
+            }}
+          >
+            Nueva Búsqueda
+          </Button>
+          <Input
+            placeholder='Filtro por tipo de ofrenda...'
+            value={(table.getColumn('type')?.getFilterValue() as string) ?? ''}
+            onChange={(event) =>
+              table.getColumn('type')?.setFilterValue(event.target.value)
+            }
+            className='text-[13px] lg:text-[14px] w-full'
+            disabled={disabled}
+          />
+          <Input
+            placeholder='Filtro por código de casa...'
+            value={
+              (table.getColumn('sub_type')?.getFilterValue() as string) ?? ''
+            }
+            onChange={(event) =>
+              table.getColumn('sub_type')?.setFilterValue(event.target.value)
+            }
+            className='col-start-1 col-end-2 text-[13px] lg:text-[14px] w-full'
+            disabled={disabled}
+          />
+          <Button
+            variant='ghost'
+            className='w-[6rem] m-auto text-[13px] lg:text-[14px] h-full md:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-400 dark:bg-red-500 dark:hover:bg-red-400 dark:hover:text-red-950'
+            onClick={() => {
+              table.getColumn('type')?.setFilterValue('');
+              table.getColumn('sub_type')?.setFilterValue('');
+            }}
+          >
+            Borrar
+          </Button>
+        </div>
+      )}
+
+      {!disabled && currentPath === '/users/search-users' && (
+        <div className='pb-8 lg:pb-8 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
+          <Button
+            variant='ghost'
+            className='w-[8rem] m-auto text-[13px] lg:text-[14px] h-full md:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
+            onClick={() => {
+              setDisabled(true);
+              table.getColumn('email')?.setFilterValue('');
+              table.getColumn('roles')?.setFilterValue('');
+            }}
+          >
+            Nueva Búsqueda
+          </Button>
+          <Input
+            placeholder='Filtro por correo electrónico...'
+            value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
+            onChange={(event) =>
+              table.getColumn('email')?.setFilterValue(event.target.value)
+            }
+            className='text-[13px] lg:text-[14px] w-full'
+            disabled={disabled}
+          />
+          <Input
+            placeholder='Filtro por roles de usuario...'
+            value={(table.getColumn('roles')?.getFilterValue() as string) ?? ''}
+            onChange={(event) =>
+              table.getColumn('roles')?.setFilterValue(event.target.value)
+            }
+            className='col-start-1 col-end-2 text-[13px] lg:text-[14px] w-full'
+            disabled={disabled}
+          />
+          <Button
+            variant='ghost'
+            className='w-[6rem] m-auto text-[13px] lg:text-[14px] h-full md:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-400 dark:bg-red-500 dark:hover:bg-red-400 dark:hover:text-red-950'
+            onClick={() => {
+              table.getColumn('email')?.setFilterValue('');
+              table.getColumn('roles')?.setFilterValue('');
             }}
           >
             Borrar

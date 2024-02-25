@@ -1,10 +1,10 @@
 
-import { type Offerings } from "@/components/table-members/offerings-columns";
+import { type Offering } from "@/components/table-members/offering-columns";
 import { CurrencyType } from "@/enums/currency-type.enum";
 import { SubTypesOfferingNames } from "@/enums/sub-type-offering.enum";
 
 
-export const dataOfferings: Offerings[] = 
+export const dataOfferings: Offering[] = 
 [
   {
     id: '1',

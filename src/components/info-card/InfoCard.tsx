@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { TabsCardMember } from './TabsCardMember';
 import { TabsCardFamilyHome } from './TabsCardFamilyHome';
 import { TabsCardOffering } from './TabsCardOffering';
+import { TabsCardUser } from './TabsCardUser';
 
 export const InfoCard = (): JSX.Element => {
   const [open, setOpen] = useState(false);
@@ -32,6 +33,7 @@ export const InfoCard = (): JSX.Element => {
           {currentPath === '/offerings/search-offerings' && (
             <TabsCardOffering />
           )}
+          {currentPath === '/users/search-users' && <TabsCardUser />}
           {(currentPath === '/disciples/search-disciples' ||
             currentPath === '/pastors/search-pastors' ||
             currentPath === '/copastors/search-copastors' ||
@@ -56,6 +58,7 @@ export const InfoCard = (): JSX.Element => {
           {currentPath === '/offerings/search-offerings' && (
             <TabsCardOffering />
           )}
+          {currentPath === '/users/search-users' && <TabsCardUser />}
           {(currentPath === '/disciples/search-disciples' ||
             currentPath === '/pastors/search-pastors' ||
             currentPath === '/copastors/search-copastors' ||

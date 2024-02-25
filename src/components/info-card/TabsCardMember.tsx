@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
+// TODO : pasar la data de la conmsulta aca y que se renderize
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -78,8 +79,21 @@ export const TabsCardMember = (): JSX.Element => {
               </CardDescription>
             </div>
             <div className='space-y-1'>
+              <Label>Creado por</Label>
+              <CardDescription className='px-2'>
+                Rogelio Ramirez Carranza
+              </CardDescription>
+            </div>
+            <div className='space-y-1'>
               <Label>Fecha de creación</Label>
               <CardDescription className='px-2'>12/12/2023</CardDescription>
+            </div>
+
+            <div className='space-y-1 col-start-1 col-end-2'>
+              <Label>Actualizado por</Label>
+              <CardDescription className='px-2'>
+                Kevin Jorge Perez Loza
+              </CardDescription>
             </div>
             <div className='space-y-1'>
               <Label>Ultima fecha de actualización</Label>

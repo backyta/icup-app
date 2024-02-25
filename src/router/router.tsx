@@ -21,6 +21,7 @@ import {
   SearchDisciplesPage,
   SearchFamilyHousesPage,
   SearchOfferingsPage,
+  SearchUsersPage,
 } from '@/pages';
 
 export const router = createBrowserRouter([
@@ -165,6 +166,10 @@ export const router = createBrowserRouter([
           {
             path: '/users/create-user',
             element: <CreateUserPage />,
+          },
+          {
+            path: '/users/search-users',
+            element: <SearchUsersPage />,
           },
         ],
       },

@@ -3,29 +3,26 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { type ColumnDef } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
-import { format } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { InfoCard } from '../info-card/InfoCard';
 
-export interface Member {
+export interface Offering {
   id: string;
-  first_name: string;
-  last_name: string;
-  gender: 'M' | 'F'; // hacer enum con data para value
-  date_birth: string;
+  type: string; // hacer mapping
+  sub_type?: string;
+  amount: number;
+  currency: string;
 }
 
-// TODO : lo otro seria pasar el id de la DB del reistro aca y que lo tome el button y con eso hacer la solicitus
-// TODO : y tmb ocultar ese ID con un map para que se enumero de 1, 2....
+// TODO : crear las demás cols para las otras search de tables
 
-// NOTE: usar este mismo metodo para la data del dashboard en el boton.
-export const memberColumns: Array<ColumnDef<Member, any>> = [
+export const offeringColumns: Array<ColumnDef<Offering, any>> = [
   {
     accessorKey: 'id',
     header: 'ID',
   },
   {
-    accessorKey: 'first_name',
+    accessorKey: 'type',
     header: ({ column }) => {
       return (
         <Button
@@ -35,14 +32,14 @@ export const memberColumns: Array<ColumnDef<Member, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Nombres
+          Tipo de ofrenda
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'last_name',
+    accessorKey: 'sub_type',
     header: ({ column }) => {
       return (
         <Button
@@ -52,14 +49,14 @@ export const memberColumns: Array<ColumnDef<Member, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Apellidos
+          Sub-tipo de ofrenda
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'gender',
+    accessorKey: 'amount',
     header: ({ column }) => {
       return (
         <Button
@@ -69,14 +66,14 @@ export const memberColumns: Array<ColumnDef<Member, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Genero
+          Cantidad / Monto
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'date_birth',
+    accessorKey: 'currency',
     header: ({ column }) => {
       return (
         <Button
@@ -86,12 +83,11 @@ export const memberColumns: Array<ColumnDef<Member, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Fecha de Nacimiento
+          Divisa / Moneda
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
-    cell: (info) => format(new Date(info.getValue()), 'dd/MM/yyyy'),
   },
 
   {
