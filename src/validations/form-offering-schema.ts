@@ -35,7 +35,7 @@ export const formOfferingSchema = z
       return true;
     },
     {
-      message: 'Sub-Tipo es requerido',
+      message: 'El sub-Tipo es requerido',
       path: ['subType'],
     }
   )
@@ -89,7 +89,7 @@ export const formOfferingSchema = z
   )
   .refine(
     (data) => {
-      if (data.type === 'offering' && data.subType === SubTypesOffering.familyHome) {
+      if (data.type === 'offering' && data.subType === SubTypesOffering.familyHouse) {
         return !!data.familyHouseID; /* //true */
       }
       return true;
@@ -100,14 +100,3 @@ export const formOfferingSchema = z
     }
   );
 
-  // type: string;
-  // sub_type?: string;
-  // amount: number;
-  // currency: string;
-  // comments?: string;
-  // url_file?: string;
-
-  // //* Relations
-  // family_home_id?: string;
-  // member_id?: string;
-  // copastor_id?: string;

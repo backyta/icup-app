@@ -9,9 +9,9 @@ export const formFamilyHouseSchema = z
       
     country: z.string().min(1, { message: 
         'El campo debe contener al menos 1 carácter.'}).max(20), 
-    province: z.string().min(1, { message: 
-        'El campo debe contener al menos 1 carácter.'}).max(20),
     department: z.string().min(1, { message: 
+        'El campo debe contener al menos 1 carácter.'}).max(20),
+    province: z.string().min(1, { message: 
         'El campo debe contener al menos 1 carácter.'}).max(20),
     district: z.string().min(1, { message: 
         'El campo debe contener al menos 1 carácter.'}).max(20),

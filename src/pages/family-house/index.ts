@@ -1,3 +1,3 @@
-export * from './CreateFamilyHousePage';
-export * from './FamilyHousePage';
-export * from './SearchFamilyHousesPage';
+export * from './FamilyHouseCreatePage';
+export * from './FamilyHouseOptionsPage';
+export * from './GeneralFamilyHousesSearchPage';

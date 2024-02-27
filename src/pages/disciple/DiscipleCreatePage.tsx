@@ -43,6 +43,7 @@ import {
   CommandInput,
   CommandItem,
 } from '@/components/ui/command';
+import { useState } from 'react';
 
 const pastors = [
   { label: 'Michael Rodrigo Baca Angeles', value: 'id1' },
@@ -75,7 +76,11 @@ const familyHouses = [
   { label: 'B-1 - Los Hijos de la Esperanza', value: 'id10' },
 ] as const;
 
-export const CreateDisciplePage = (): JSX.Element => {
+
+
+export const DiscipleCreatePage = (): JSX.Element => {
+  const [open, setOpen] = useState(false);
+
   const form = useForm<z.infer<typeof formMemberSchema>>({
     resolver: zodResolver(formMemberSchema),
     defaultValues: {
@@ -93,6 +98,34 @@ export const CreateDisciplePage = (): JSX.Element => {
     },
   });
 
+  const currentPath = window.location.pathname;
+  const disciple = 'discípulo';
+  const pastor = 'pastor';
+  const copastor = 'co-pastor';
+  const leader = 'líder';
+
+  let subTitleValue;
+  let disabledRoles: string[];
+  if (currentPath === '/disciples/create-disciple') {
+    subTitleValue = disciple;
+    disabledRoles = [
+      'pastor',
+      'copastor',
+      'supervisor',
+      'preacher',
+      'treasurer',
+    ];
+  } else if (currentPath === '/pastors/create-pastor') {
+    subTitleValue = pastor;
+    disabledRoles = ['copastor', 'supervisor', 'preacher', 'treasurer'];
+  } else if (currentPath === '/copastors/create-copastor') {
+    subTitleValue = copastor;
+    disabledRoles = ['pastor', 'supervisor', 'preacher', 'treasurer'];
+  } else if (currentPath === '/leaders/create-leader') {
+    subTitleValue = leader;
+    disabledRoles = ['pastor', 'copastor'];
+  }
+
   const roles = form.watch('roles');
 
   const handleSubmit = (values: z.infer<typeof formMemberSchema>): void => {
@@ -101,17 +134,36 @@ export const CreateDisciplePage = (): JSX.Element => {
 
   return (
     <div>
-      <h1 className='text-center pt-1 pb-4 font-sans text-2xl sm:text-3xl font-bold text-blue-500 text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
-        Modulo Discípulo
-      </h1>
+      {currentPath === '/disciples/create-disciple' && (
+        <h1 className='text-center pt-1 pb-4 font-sans text-2xl sm:text-3xl font-bold text-blue-500 text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+          Modulo Discípulo
+        </h1>
+      )}
+      {currentPath === '/pastors/create-pastor' && (
+        <h1 className='text-center pt-1 pb-4 font-sans text-2xl sm:text-3xl font-bold text-pastor-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+          Modulo Pastor
+        </h1>
+      )}
+      {currentPath === '/copastors/create-copastor' && (
+        <h1 className='text-center pt-1 pb-4 font-sans text-2xl sm:text-3xl font-bold text-copastor-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+          Modulo Co-Pastor
+        </h1>
+      )}
+      {currentPath === '/leaders/create-leader' && (
+        <h1 className='text-center pt-1 pb-4 font-sans text-2xl sm:text-3xl font-bold text-leader-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+          Modulo Líder
+        </h1>
+      )}
 
       <hr className='md:p-[0.02rem] bg-slate-500' />
 
       <h2 className='text-left px-4 py-2 sm:px-5 sm:pt-4 sm:pb-2 2xl:px-24 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-green-500 text-[1.55rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
-        Crear un nuevo discípulo
+        Crear un nuevo {subTitleValue}
       </h2>
+
       <p className='dark:text-slate-300 text-left font-sans font-bold px-4 sm:px-5 text-sm md:text-[15px] xl:text-base 2xl:px-24'>
-        Por favor llena los siguientes datos para crear un nuevo discípulo.
+        Por favor llena los siguientes datos para crear un nuevo {subTitleValue}
+        .
       </p>
 
       <div className='flex min-h-screen flex-col items-center justify-between px-8 py-6 sm:px-6 sm:py-10 xl:px-20 2xl:px-36 2xl:py-12'>
@@ -534,6 +586,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                         control={form.control}
                         name='roles'
                         render={({ field }) => {
+                          const isDisabled = disabledRoles.includes(role);
                           return (
                             <FormItem
                               key={role}
@@ -542,6 +595,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                               <FormControl>
                                 <Checkbox
                                   checked={field.value?.includes(role)}
+                                  disabled={isDisabled}
                                   onCheckedChange={(checked) => {
                                     let updatedRoles: MemberRoles[] = [];
                                     checked
@@ -603,7 +657,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                           <FormDescription className='text-sm lg:text-[15px]'>
                             Seleccione un pastor para esta relación.
                           </FormDescription>
-                          <Popover>
+                          <Popover open={open} onOpenChange={setOpen}>
                             <PopoverTrigger asChild>
                               <FormControl>
                                 <Button
@@ -643,6 +697,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                                           'theirPastor',
                                           pastor.value
                                         );
+                                        setOpen(false);
                                       }}
                                     >
                                       {pastor.label}
@@ -691,7 +746,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                         <FormDescription className='text-sm lg:text-[15px]'>
                           Seleccione un co-pastor para esta relación.
                         </FormDescription>
-                        <Popover>
+                        <Popover open={open} onOpenChange={setOpen}>
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
@@ -732,6 +787,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                                         'theirCopastor',
                                         copastor.value
                                       );
+                                      setOpen(false);
                                     }}
                                   >
                                     {copastor.label}
@@ -780,7 +836,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                         <FormDescription className='text-sm lg:text-[15px]'>
                           Seleccione un supervisor para esta relación.
                         </FormDescription>
-                        <Popover>
+                        <Popover open={open} onOpenChange={setOpen}>
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
@@ -821,6 +877,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                                         'theirSupervisor',
                                         supervisor.value
                                       );
+                                      setOpen(false);
                                     }}
                                   >
                                     {supervisor.label}
@@ -863,7 +920,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                           <FormDescription className='text-sm lg:text-[15px]'>
                             Seleccione una casa familiar para esta relación.
                           </FormDescription>
-                          <Popover>
+                          <Popover open={open} onOpenChange={setOpen}>
                             <PopoverTrigger asChild>
                               <FormControl>
                                 <Button
@@ -904,6 +961,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                                           'theirFamilyHouse',
                                           familyHouse.value
                                         );
+                                        setOpen(false);
                                       }}
                                     >
                                       {familyHouse.label}
@@ -932,7 +990,7 @@ export const CreateDisciplePage = (): JSX.Element => {
                 Consideraciones
               </p>
               <ul className='text-[13px] 2xl:text-[14px] text-red-500 font-medium '>
-                <li>*No se permite asignar mas de 4 roles.</li>
+                <li>*No se permite asignar mas de 3 roles.</li>
                 <li>
                   *Para asignar rol Tesorero se debe asignar rol Predicador o
                   Supervisor.

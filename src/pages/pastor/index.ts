@@ -1,2 +1,2 @@
-export * from './PastorPage';
-export * from './SearchPastorsPage';
+export * from './GeneralPastorsSearchPage';
+export * from './PastorOptionsPage';

@@ -15,13 +15,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  Select,
-} from '@/components/ui/select';
+
 import { formFamilyHouseSchema } from '@/validations/form-family-house-schema';
 import {
   Popover,
@@ -37,6 +31,7 @@ import {
   CommandInput,
   CommandItem,
 } from '@/components/ui/command';
+import { useState } from 'react';
 
 const preachers = [
   { label: 'Juan Carlos Medina Salinas', value: 'id1' },
@@ -51,7 +46,19 @@ const preachers = [
   { label: 'Carmen Rosa Silva García', value: 'id10' },
 ] as const;
 
-export const CreateFamilyHousePage = (): JSX.Element => {
+const zones = [
+  { label: 'Zona A', value: 'zone-1' },
+  { label: 'Zona B', value: 'zone-2' },
+  { label: 'Zona C', value: 'zone-3' },
+  { label: 'Zona D', value: 'zone-4' },
+] as const;
+
+// TODO : colocar combox a la zona con buscador
+
+export const FamilyHouseCreatePage = (): JSX.Element => {
+  const [openPreacher, setOpenPreacher] = useState(false);
+  const [openZone, setOpenZone] = useState(false);
+
   const form = useForm<z.infer<typeof formFamilyHouseSchema>>({
     resolver: zodResolver(formFamilyHouseSchema),
     defaultValues: {
@@ -105,19 +112,58 @@ export const CreateFamilyHousePage = (): JSX.Element => {
                     <FormDescription className='text-sm lg:text-[15px]'>
                       Asignar una zona a la que pertenecerá la casa familiar.
                     </FormDescription>
-                    <Select onValueChange={field.onChange}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder='Selecciona una zona para la casa familiar' />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value='A'>Zona A</SelectItem>
-                        <SelectItem value='B'>Zona B</SelectItem>
-                        <SelectItem value='C'>Zona C</SelectItem>
-                        <SelectItem value='D'>Zona D</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Popover open={openZone} onOpenChange={setOpenZone}>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant='outline'
+                            role='combobox'
+                            className={cn(
+                              'w-full justify-between',
+                              !field.value && 'text-slate-500 font-normal'
+                            )}
+                          >
+                            {field.value
+                              ? zones.find((zone) => zone.value === field.value)
+                                  ?.label
+                              : 'Busque y seleccione una zona'}
+                            <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className='mr-30 w-[20rem] p-2\'>
+                        <Command>
+                          <CommandInput
+                            placeholder='Busque una zona...'
+                            className='h-9 text-sm lg:text-[15px]'
+                          />
+                          <CommandEmpty>Zona no encontrada.</CommandEmpty>
+                          <CommandGroup className='max-h-[200px] h-auto'>
+                            {zones.map((zone) => (
+                              <CommandItem
+                                className='text-sm lg:text-[15px]'
+                                value={zone.label}
+                                key={zone.value}
+                                onSelect={() => {
+                                  form.setValue('zone', zone.value);
+                                  setOpenZone(false);
+                                }}
+                              >
+                                {zone.label}
+                                <CheckIcon
+                                  className={cn(
+                                    'ml-auto h-4 w-4',
+                                    zone.value === field.value
+                                      ? 'opacity-100'
+                                      : 'opacity-0'
+                                  )}
+                                />
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
                     <FormMessage />
                   </FormItem>
                 );
@@ -250,6 +296,31 @@ export const CreateFamilyHousePage = (): JSX.Element => {
             />
             <FormField
               control={form.control}
+              name='address'
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                      Dirección
+                    </FormLabel>
+                    <FormDescription className='text-sm lg:text-[15px]'>
+                      Asignar una dirección al que pertenece la casa familiar.
+                    </FormDescription>
+                    <FormControl>
+                      <Input
+                        placeholder='Distrito de la casa familiar'
+                        // autoComplete='new-password'
+                        type='text'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+            <FormField
+              control={form.control}
               name='theirPreacher'
               render={({ field }) => {
                 return (
@@ -260,7 +331,7 @@ export const CreateFamilyHousePage = (): JSX.Element => {
                     <FormDescription className='text-sm lg:text-[15px]'>
                       Seleccione un predicador para esta casa familiar.
                     </FormDescription>
-                    <Popover>
+                    <Popover open={openPreacher} onOpenChange={setOpenPreacher}>
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
@@ -298,6 +369,7 @@ export const CreateFamilyHousePage = (): JSX.Element => {
                                     'theirPreacher',
                                     preacher.value
                                   );
+                                  setOpenPreacher(false);
                                 }}
                               >
                                 {preacher.label}
@@ -315,7 +387,6 @@ export const CreateFamilyHousePage = (): JSX.Element => {
                         </Command>
                       </PopoverContent>
                     </Popover>
-
                     <FormMessage />
                   </FormItem>
                 );

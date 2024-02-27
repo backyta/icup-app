@@ -38,7 +38,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useState } from 'react';
-import { formSearchMemberSchema } from '@/validations/form-search-member-schema';
+import { formSearchGeneralSchema } from '@/validations/form-search-general-schema';
 
 import {
   SelectValue,
@@ -53,7 +53,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({
+export function DataTableSearchGeneral<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>): JSX.Element {
@@ -68,20 +68,19 @@ export function DataTable<TData, TValue>({
   const [disabled, setDisabled] = useState(true);
 
   const currentPath = window.location.pathname;
-  console.log(currentPath);
 
-  const form = useForm<z.infer<typeof formSearchMemberSchema>>({
-    resolver: zodResolver(formSearchMemberSchema),
+  const form = useForm<z.infer<typeof formSearchGeneralSchema>>({
+    resolver: zodResolver(formSearchGeneralSchema),
     defaultValues: {
       limit: '10',
       offset: '0',
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSearchMemberSchema>): void {
+  function onSubmit(values: z.infer<typeof formSearchGeneralSchema>): void {
     setDisabled(false);
     form.reset();
-    console.log(values);
+    console.log({ values });
   }
 
   const table = useReactTable({
@@ -103,6 +102,7 @@ export function DataTable<TData, TValue>({
     },
   });
 
+  // todo : inputs para type y sub type y segun eso hago aparecer los inputs para las busquedas , con su limit offset y orden
   return (
     <div className='md:w-full m-auto lg:w-full pt-4'>
       {disabled && (

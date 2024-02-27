@@ -1,2 +1,2 @@
-export * from './CopastorPage';
-export * from './SearchCopastorsPage';
+export * from './CopastorOptionsPage';
+export * from './GeneralCopastorsSearchPage';

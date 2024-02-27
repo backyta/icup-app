@@ -1,2 +1,2 @@
-export * from './LeaderPage';
-export * from './SearchLeadersPage';
+export * from './GeneralLeadersSearchPage';
+export * from './LeaderOptionsPage';

@@ -7,6 +7,8 @@ export enum MemberRoles {
   treasurer = 'treasurer',
 }
 
+
+
 export const memberRoleNames: Record<MemberRoles, string> = {
   member: 'Miembro',
   pastor: 'Pastor',
@@ -16,4 +18,7 @@ export const memberRoleNames: Record<MemberRoles, string> = {
   treasurer: 'Tesorero',
 };
 
+
+
 // Note: Serán llamados discípulos todos, pero en los roles (cargos) se diferencian por roles
+

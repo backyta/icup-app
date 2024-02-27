@@ -8,7 +8,7 @@ import {
 } from 'react-icons/fc';
 import { NavLink } from 'react-router-dom';
 
-export const CopastorPage = (): JSX.Element => {
+export const CopastorOptionsPage = (): JSX.Element => {
   // const totalBears = useBearStore((state) => state.totalBears);
   // const firstName = usePersonStore((state) => state.firstName);
   // const tasks = useTaskStore((state) => state.tasks);

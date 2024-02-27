@@ -1,5 +1,5 @@
 import { type Member, memberColumns } from './member-columns';
-import { DataTable } from './data-table';
+import { DataTable } from './data-table-search-general';
 
 async function getData(): Promise<Member[]> {
   // Fetch data from your API here.

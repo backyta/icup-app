@@ -1,3 +1,4 @@
-export * from './CreateDisciplePage';
-export * from './DisciplePage';
-export * from './SearchDisciplesPage';
+export * from './DiscipleCreatePage';
+export * from './DiscipleOptionsPage';
+export * from './DisciplesSearchPageByTerm';
+export * from './GeneralDisciplesSearchPage';

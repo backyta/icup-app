@@ -20,9 +20,7 @@ import { userSchema } from '@/validations/user-schema';
 import { UserRoles, userRoleNames } from '@/enums/user-roles.enum';
 import { Checkbox } from '@/components/ui/checkbox';
 
-// import * as z from 'zod';
-
-export const CreateUserPage = (): JSX.Element => {
+export const UserCreatePage = (): JSX.Element => {
   const form = useForm<z.infer<typeof userSchema>>({
     resolver: zodResolver(userSchema),
     defaultValues: {
@@ -114,7 +112,7 @@ export const CreateUserPage = (): JSX.Element => {
                       <Input
                         placeholder='Dirección de correo electrónico'
                         type='email'
-                        // autoComplete='username'
+                        autoComplete='username'
                         {...field}
                       />
                     </FormControl>
@@ -135,7 +133,7 @@ export const CreateUserPage = (): JSX.Element => {
                     <FormControl>
                       <Input
                         placeholder='Contraseña'
-                        // autoComplete='new-password'
+                        autoComplete='new-password'
                         type='password'
                         {...field}
                       />
@@ -157,7 +155,7 @@ export const CreateUserPage = (): JSX.Element => {
                     <FormControl>
                       <Input
                         placeholder='Confirmar contraseña'
-                        // autoComplete='new-password'
+                        autoComplete='new-password'
                         type='password'
                         {...field}
                       />

@@ -56,7 +56,7 @@ export const formMemberSchema = z
   .refine(
     (data) => {
       if (data.roles.includes(MemberRoles.copastor) && data.roles.includes(MemberRoles.member)) {
-        return !!data.theirPastor; /* //verifica si hay un valor en theirPastor, y manda tru o false */
+        return !!data.theirPastor; /* //verifica si hay un valor en theirPastor, y manda true o false */
       }
       return true;
     },

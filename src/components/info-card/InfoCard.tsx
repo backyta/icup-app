@@ -16,7 +16,6 @@ export const InfoCard = (): JSX.Element => {
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const currentPath = window.location.pathname;
-  console.log(currentPath);
 
   if (isDesktop) {
     return (

@@ -1,7 +1,7 @@
 import * as z from 'zod';
 
 
-export const formSearchMemberSchema = z
+export const formSearchGeneralSchema = z
   .object({
     limit: z.string().refine(limit => !isNaN(parseInt(limit)),{
       message: 'Limite debe ser un numero.'

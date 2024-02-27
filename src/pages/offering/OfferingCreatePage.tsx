@@ -89,10 +89,8 @@ const familyHouses = [
   { label: 'Almas Renovadas', value: 'id15' },
 ] as const;
 
-/* //TODO : setear las zonas de la DB registradas, si no hay colocar por defecto */
-// TODO : trabajar en el cuadro de arrastrar y soltar
-
-export const CreateOfferingPage = (): JSX.Element => {
+export const OfferingCreatePage = (): JSX.Element => {
+  const [open, setOpen] = useState(false);
   const [files, setFiles] = useState<FilesProps[]>([]);
   const [rejected, setRejected] = useState<RejectedProps[]>([]);
 
@@ -356,7 +354,7 @@ export const CreateOfferingPage = (): JSX.Element => {
                       <FormDescription className='text-sm lg:text-[15px]'>
                         Seleccione un miembro para asignarlo al registro.
                       </FormDescription>
-                      <Popover>
+                      <Popover open={open} onOpenChange={setOpen}>
                         <PopoverTrigger asChild>
                           <FormControl>
                             <Button
@@ -391,6 +389,7 @@ export const CreateOfferingPage = (): JSX.Element => {
                                   key={member.value}
                                   onSelect={() => {
                                     form.setValue('memberID', member.value);
+                                    setOpen(false);
                                   }}
                                 >
                                   {member.label}
@@ -415,7 +414,7 @@ export const CreateOfferingPage = (): JSX.Element => {
                 />
               )}
               {type === 'offering' &&
-                subType === SubTypesOffering.familyHome && (
+                subType === SubTypesOffering.familyHouse && (
                   <FormField
                     control={form.control}
                     name='familyHouseID'
@@ -428,7 +427,7 @@ export const CreateOfferingPage = (): JSX.Element => {
                           Selecciones una Casa familiar para asignarlo al
                           registro.
                         </FormDescription>
-                        <Popover>
+                        <Popover open={open} onOpenChange={setOpen}>
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
@@ -469,6 +468,7 @@ export const CreateOfferingPage = (): JSX.Element => {
                                         'familyHouseID',
                                         familyHouse.value
                                       );
+                                      setOpen(false);
                                     }}
                                   >
                                     {familyHouse.label}
@@ -507,7 +507,7 @@ export const CreateOfferingPage = (): JSX.Element => {
                       <FormDescription className='text-sm lg:text-[15px]'>
                         Selecciones un Co-Pastor para asignarlo al registro.
                       </FormDescription>
-                      <Popover>
+                      <Popover open={open} onOpenChange={setOpen}>
                         <PopoverTrigger asChild>
                           <FormControl>
                             <Button
@@ -544,6 +544,7 @@ export const CreateOfferingPage = (): JSX.Element => {
                                   key={copastor.value}
                                   onSelect={() => {
                                     form.setValue('copastorID', copastor.value);
+                                    setOpen(false);
                                   }}
                                 >
                                   {copastor.label}
