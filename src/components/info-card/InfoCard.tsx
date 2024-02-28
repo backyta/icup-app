@@ -25,18 +25,23 @@ export const InfoCard = (): JSX.Element => {
             Ver Información
           </Button>
         </DialogTrigger>
-        <DialogContent className='sm:max-w-[480px] justify-center py-10'>
-          {currentPath === '/family-houses/search-family-houses' && (
-            <TabsCardFamilyHome />
-          )}
-          {currentPath === '/offerings/search-offerings' && (
-            <TabsCardOffering />
-          )}
-          {currentPath === '/users/search-users' && <TabsCardUser />}
+
+        <DialogContent className='max-w-[580px] w-full justify-center py-10'>
           {(currentPath === '/disciples/search-disciples' ||
+            currentPath === '/disciples/search-by-term-disciples' ||
             currentPath === '/pastors/search-pastors' ||
             currentPath === '/copastors/search-copastors' ||
             currentPath === '/leaders/search-leaders') && <TabsCardMember />}
+
+          {currentPath === '/family-houses/search-family-houses' && (
+            <TabsCardFamilyHome />
+          )}
+
+          {currentPath === '/offerings/search-offerings' && (
+            <TabsCardOffering />
+          )}
+
+          {currentPath === '/users/search-users' && <TabsCardUser />}
         </DialogContent>
       </Dialog>
     );
@@ -51,17 +56,21 @@ export const InfoCard = (): JSX.Element => {
       </DrawerTrigger>
       <DrawerContent className=''>
         <div className='flex justify-center py-8 px-6'>
-          {currentPath === '/family-houses/search-family-houses' && (
-            <TabsCardFamilyHome />
-          )}
-          {currentPath === '/offerings/search-offerings' && (
-            <TabsCardOffering />
-          )}
-          {currentPath === '/users/search-users' && <TabsCardUser />}
           {(currentPath === '/disciples/search-disciples' ||
+            currentPath === '/disciples/search-by-term-disciples' ||
             currentPath === '/pastors/search-pastors' ||
             currentPath === '/copastors/search-copastors' ||
             currentPath === '/leaders/search-leaders') && <TabsCardMember />}
+
+          {currentPath === '/family-houses/search-family-houses' && (
+            <TabsCardFamilyHome />
+          )}
+
+          {currentPath === '/offerings/search-offerings' && (
+            <TabsCardOffering />
+          )}
+
+          {currentPath === '/users/search-users' && <TabsCardUser />}
         </div>
       </DrawerContent>
     </Drawer>

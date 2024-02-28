@@ -76,8 +76,6 @@ const familyHouses = [
   { label: 'B-1 - Los Hijos de la Esperanza', value: 'id10' },
 ] as const;
 
-
-
 export const DiscipleCreatePage = (): JSX.Element => {
   const [open, setOpen] = useState(false);
 
@@ -106,6 +104,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
 
   let subTitleValue;
   let disabledRoles: string[];
+
   if (currentPath === '/disciples/create-disciple') {
     subTitleValue = disciple;
     disabledRoles = [

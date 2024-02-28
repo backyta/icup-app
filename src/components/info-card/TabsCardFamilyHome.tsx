@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 // TODO : ENVIAR la busqueda del fetch como hijo en objeto y colocar aqui (completo)
 export const TabsCardFamilyHome = (): JSX.Element => {
   return (
-    <Tabs defaultValue='general-info' className='w-[400px] md:w-[415px] '>
+    <Tabs defaultValue='general-info' className='w-[440px] md:w-[510px]'>
       <TabsList className='grid w-full grid-cols-3 px-auto'>
         <TabsTrigger value='general-info' className='text-[13px] md:text-sm'>
           Info. General
@@ -28,14 +28,14 @@ export const TabsCardFamilyHome = (): JSX.Element => {
         </TabsTrigger>
       </TabsList>
       <TabsContent value='general-info'>
-        <Card>
+        <Card className='w-full'>
           <CardHeader>
             <CardTitle>Información General</CardTitle>
             <CardDescription>
               Información general de la casa familiar.
             </CardDescription>
           </CardHeader>
-          <CardContent className='grid grid-cols-2 gap-y-5 gap-x-10'>
+          <CardContent className='grid grid-cols-3 gap-y-3 gap-x-6'>
             <div className='space-y-1'>
               <Label>Nombre de la casa</Label>
               <CardDescription className='px-2'>
@@ -64,7 +64,7 @@ export const TabsCardFamilyHome = (): JSX.Element => {
                 Activo
               </CardDescription>
             </div>
-            <div className='space-y-1 col-start-1 col-end-3'>
+            <div className='space-y-1 col-start-1 col-end-4'>
               <Label>Miembros</Label>
               <CardDescription className='px-2 pt-2'>
                 <ul className='flex flex-wrap gap-x-10 gap-y-2 list-disc'>
@@ -81,25 +81,25 @@ export const TabsCardFamilyHome = (): JSX.Element => {
               </CardDescription>
             </div>
             <div className='space-y-1'>
+              <Label>Fecha de creación</Label>
+              <CardDescription className='px-2'>12/12/2023</CardDescription>
+            </div>
+            <div className='space-y-1 col-start-2 col-end-4'>
               <Label>Creado por</Label>
               <CardDescription className='px-2'>
                 Rogelio Ramirez Carranza
               </CardDescription>
             </div>
-            <div className='space-y-1'>
-              <Label>Fecha de creación</Label>
-              <CardDescription className='px-2'>12/12/2023</CardDescription>
-            </div>
 
-            <div className='space-y-1 col-start-1 col-end-2'>
+            <div className='space-y-1'>
+              <Label>Ultima fecha de actualización</Label>
+              <CardDescription className='px-2'>20/12/2023</CardDescription>
+            </div>
+            <div className='space-y-1 col-start-2 col-end-4'>
               <Label>Actualizado por</Label>
               <CardDescription className='px-2'>
                 Kevin Jorge Perez Loza
               </CardDescription>
-            </div>
-            <div className='space-y-1'>
-              <Label>Ultima fecha de actualización</Label>
-              <CardDescription className='px-2'>20/12/2023</CardDescription>
             </div>
           </CardContent>
         </Card>

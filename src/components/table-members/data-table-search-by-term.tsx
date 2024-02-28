@@ -80,13 +80,297 @@ export function DataTableSearchByTerm<TData, TValue>({
     defaultValues: {
       limit: '10',
       offset: '0',
-      // term: '',
-      // termNames: '',
-      // termLastNames: '',
+      term: '',
+      termNames: '',
+      termLastNames: '',
     },
   });
 
-  // TODO : ver porque cambia el controlado a no controlado
+  let disabledTypes: string[];
+  let disabledSubTypes: string[];
+
+  // NOTE :hacer funcion que reciba como parametro el cirrenpath y devolver los disabled
+  // NOTE:  usar enum Names
+  // TODO : hacer el page de by term a los demas modulos y probar
+
+  if (currentPath === '/disciples/search-by-term-disciples') {
+    disabledTypes = [
+      'Ofrenda Culto Dominical',
+      'Ofrenda Casa Familiar',
+      'Ofrenda Ayuno General',
+      'Ofrenda Vigilia General',
+      'Ofrenda Ayuno Zonal',
+      'Ofrenda Vigilia Zonal',
+      'Ofrenda Escuela Dominical',
+      'Ofrenda Culto Jóvenes',
+      'Ofrenda Actividades',
+      'Ofrenda Terreno Iglesia',
+      'Ofrenda Especial',
+      'Diezmo',
+    ];
+
+    disabledSubTypes = [
+      'Buscar pastores por sus propios nombres',
+      'Buscar co-pastores por nombres de su pastor',
+      'Buscar co-pastores por sus propios nombres ',
+      'Buscar lideres por nombres de su pastor',
+      'Buscar lideres por nombres de su co-pastor',
+      'Buscar lideres por nombres de su supervisor',
+      'Buscar lideres por sus propios nombres',
+      'Buscar casas por nombres de su pastor',
+      'Buscar casas por nombres de su co-pastor',
+      'Buscar casas por nombres de su supervisor',
+      'Buscar casas por nombres de su predicador',
+      'Buscar casas por su propio nombre',
+      'Buscar ofrendas por nombres de su co-pastor',
+      'Buscar ofrendas por nombres de su predicador',
+      'Buscar ofrendas por nombres de miembro',
+      'Buscar ofrendas por rango de fecha',
+    ];
+  } else if (currentPath === '/pastors/search-by-term-pastors') {
+    disabledTypes = [
+      'Ofrenda Culto Dominical',
+      'Ofrenda Casa Familiar',
+      'Ofrenda Ayuno General',
+      'Ofrenda Vigilia General',
+      'Ofrenda Ayuno Zonal',
+      'Ofrenda Vigilia Zonal',
+      'Ofrenda Escuela Dominical',
+      'Ofrenda Culto Jóvenes',
+      'Ofrenda Actividades',
+      'Ofrenda Terreno Iglesia',
+      'Ofrenda Especial',
+      'Diezmo',
+      'Zona',
+      'Código de casa familiar',
+      'Nombre de casa familiar',
+      'Roles',
+    ];
+
+    disabledSubTypes = [
+      'Buscar miembros por nombres de su pastor',
+      'Buscar miembros por nombres de su co-pastor',
+      'Buscar miembros por nombres de su supervisor',
+      'Buscar miembros por nombres de su predicador',
+      'Buscar miembros por sus propios nombres',
+      'Buscar co-pastores por nombres de su pastor',
+      'Buscar co-pastores por sus propios nombres ',
+      'Buscar lideres por nombres de su pastor',
+      'Buscar lideres por nombres de su co-pastor',
+      'Buscar lideres por nombres de su supervisor',
+      'Buscar lideres por sus propios nombres',
+      'Buscar casas por nombres de su pastor',
+      'Buscar casas por nombres de su co-pastor',
+      'Buscar casas por nombres de su supervisor',
+      'Buscar casas por nombres de su predicador',
+      'Buscar casas por su propio nombre',
+      'Buscar ofrendas por nombres de su co-pastor',
+      'Buscar ofrendas por nombres de su predicador',
+      'Buscar ofrendas por nombres de miembro',
+      'Buscar ofrendas por rango de fecha',
+    ];
+  } else if (currentPath === '/copastors/search-by-term-copastors') {
+    disabledTypes = [
+      'Ofrenda Culto Dominical',
+      'Ofrenda Casa Familiar',
+      'Ofrenda Ayuno General',
+      'Ofrenda Vigilia General',
+      'Ofrenda Ayuno Zonal',
+      'Ofrenda Vigilia Zonal',
+      'Ofrenda Escuela Dominical',
+      'Ofrenda Culto Jóvenes',
+      'Ofrenda Actividades',
+      'Ofrenda Terreno Iglesia',
+      'Ofrenda Especial',
+      'Diezmo',
+      'Zona',
+      'Código de casa familiar',
+      'Nombre de casa familiar',
+      'Roles',
+    ];
+
+    disabledSubTypes = [
+      'Buscar miembros por nombres de su pastor',
+      'Buscar miembros por nombres de su co-pastor',
+      'Buscar miembros por nombres de su supervisor',
+      'Buscar miembros por nombres de su predicador',
+      'Buscar miembros por sus propios nombres',
+      'Buscar pastores por sus propios nombres',
+      'Buscar lideres por nombres de su pastor',
+      'Buscar lideres por nombres de su co-pastor',
+      'Buscar lideres por nombres de su supervisor',
+      'Buscar lideres por sus propios nombres',
+      'Buscar casas por nombres de su pastor',
+      'Buscar casas por nombres de su co-pastor',
+      'Buscar casas por nombres de su supervisor',
+      'Buscar casas por nombres de su predicador',
+      'Buscar casas por su propio nombre',
+      'Buscar ofrendas por nombres de su co-pastor',
+      'Buscar ofrendas por nombres de su predicador',
+      'Buscar ofrendas por nombres de miembro',
+      'Buscar ofrendas por rango de fecha',
+    ];
+  } else if (currentPath === '/leaders/search-by-term-leaders') {
+    disabledTypes = [
+      'Ofrenda Culto Dominical',
+      'Ofrenda Casa Familiar',
+      'Ofrenda Ayuno General',
+      'Ofrenda Vigilia General',
+      'Ofrenda Ayuno Zonal',
+      'Ofrenda Vigilia Zonal',
+      'Ofrenda Escuela Dominical',
+      'Ofrenda Culto Jóvenes',
+      'Ofrenda Actividades',
+      'Ofrenda Terreno Iglesia',
+      'Ofrenda Especial',
+      'Diezmo',
+      'Roles',
+    ];
+
+    disabledSubTypes = [
+      'Buscar miembros por nombres de su pastor',
+      'Buscar miembros por nombres de su co-pastor',
+      'Buscar miembros por nombres de su supervisor',
+      'Buscar miembros por nombres de su predicador',
+      'Buscar miembros por sus propios nombres',
+      'Buscar pastores por sus propios nombres',
+      'Buscar co-pastores por nombres de su pastor',
+      'Buscar co-pastores por sus propios nombres ',
+      'Buscar casas por nombres de su pastor',
+      'Buscar casas por nombres de su co-pastor',
+      'Buscar casas por nombres de su supervisor',
+      'Buscar casas por nombres de su predicador',
+      'Buscar casas por su propio nombre',
+      'Buscar ofrendas por nombres de su co-pastor',
+      'Buscar ofrendas por nombres de su predicador',
+      'Buscar ofrendas por nombres de miembro',
+      'Buscar ofrendas por rango de fecha',
+    ];
+  } else if (currentPath === '/family-houses/search-by-term-family-houses') {
+    disabledTypes = [
+      'Ofrenda Culto Dominical',
+      'Ofrenda Casa Familiar',
+      'Ofrenda Ayuno General',
+      'Ofrenda Vigilia General',
+      'Ofrenda Ayuno Zonal',
+      'Ofrenda Vigilia Zonal',
+      'Ofrenda Escuela Dominical',
+      'Ofrenda Culto Jóvenes',
+      'Ofrenda Actividades',
+      'Ofrenda Terreno Iglesia',
+      'Ofrenda Especial',
+      'Diezmo',
+      'Roles',
+      'Nombres',
+      'Apellidos',
+      'Nombres y Apellidos',
+      'Mes de nacimiento',
+      'Genero',
+      'Estado civil',
+      'País de origen',
+    ];
+
+    disabledSubTypes = [
+      'Buscar miembros por nombres de su pastor',
+      'Buscar miembros por nombres de su co-pastor',
+      'Buscar miembros por nombres de su supervisor',
+      'Buscar miembros por nombres de su predicador',
+      'Buscar miembros por sus propios nombres',
+      'Buscar pastores por sus propios nombres',
+      'Buscar co-pastores por nombres de su pastor',
+      'Buscar co-pastores por sus propios nombres ',
+      'Buscar lideres por nombres de su pastor',
+      'Buscar lideres por nombres de su co-pastor',
+      'Buscar lideres por nombres de su supervisor',
+      'Buscar lideres por sus propios nombres',
+      'Buscar ofrendas por nombres de su co-pastor',
+      'Buscar ofrendas por nombres de su predicador',
+      'Buscar ofrendas por nombres de miembro',
+      'Buscar ofrendas por rango de fecha',
+    ];
+  } else if (currentPath === '/offerings/search-by-term-offerings') {
+    disabledTypes = [
+      'Roles',
+      'Mes de nacimiento',
+      'Genero',
+      'Estado civil',
+      'País de origen',
+      'Departamento',
+      'Provincia',
+      'Distrito',
+    ];
+
+    disabledSubTypes = [
+      'Buscar miembros por nombres de su pastor',
+      'Buscar miembros por nombres de su co-pastor',
+      'Buscar miembros por nombres de su supervisor',
+      'Buscar miembros por nombres de su predicador',
+      'Buscar miembros por sus propios nombres',
+      'Buscar pastores por sus propios nombres',
+      'Buscar co-pastores por nombres de su pastor',
+      'Buscar co-pastores por sus propios nombres ',
+      'Buscar lideres por nombres de su pastor',
+      'Buscar lideres por nombres de su co-pastor',
+      'Buscar lideres por nombres de su supervisor',
+      'Buscar lideres por sus propios nombres',
+      'Buscar casas por nombres de su pastor',
+      'Buscar casas por nombres de su co-pastor',
+      'Buscar casas por nombres de su supervisor',
+      'Buscar casas por nombres de su predicador',
+      'Buscar casas por su propio nombre',
+    ];
+  } else if (currentPath === '/users/search-by-term-users') {
+    disabledTypes = [
+      'Ofrenda Culto Dominical',
+      'Ofrenda Casa Familiar',
+      'Ofrenda Ayuno General',
+      'Ofrenda Vigilia General',
+      'Ofrenda Ayuno Zonal',
+      'Ofrenda Vigilia Zonal',
+      'Ofrenda Escuela Dominical',
+      'Ofrenda Culto Jóvenes',
+      'Ofrenda Actividades',
+      'Ofrenda Terreno Iglesia',
+      'Ofrenda Especial',
+      'Diezmo',
+      'Mes de nacimiento',
+      'Genero',
+      'Estado civil',
+      'Zona',
+      'Código de casa familiar',
+      'Nombre de casa familiar',
+      'Dirección',
+      'País de origen',
+      'Departamento',
+      'Provincia',
+      'Distrito',
+    ];
+
+    disabledSubTypes = [
+      'Buscar miembros por nombres de su pastor',
+      'Buscar miembros por nombres de su co-pastor',
+      'Buscar miembros por nombres de su supervisor',
+      'Buscar miembros por nombres de su predicador',
+      'Buscar miembros por sus propios nombres',
+      'Buscar pastores por sus propios nombres',
+      'Buscar co-pastores por nombres de su pastor',
+      'Buscar co-pastores por sus propios nombres ',
+      'Buscar lideres por nombres de su pastor',
+      'Buscar lideres por nombres de su co-pastor',
+      'Buscar lideres por nombres de su supervisor',
+      'Buscar lideres por sus propios nombres',
+      'Buscar casas por nombres de su pastor',
+      'Buscar casas por nombres de su co-pastor',
+      'Buscar casas por nombres de su supervisor',
+      'Buscar casas por nombres de su predicador',
+      'Buscar casas por su propio nombre',
+      'Buscar ofrendas por nombres de su co-pastor',
+      'Buscar ofrendas por nombres de su predicador',
+      'Buscar ofrendas por nombres de miembro',
+      'Buscar ofrendas por rango de fecha',
+    ];
+  }
+
   // TODO : agregar select en marital status term, y hacer gris de 4 para xl y lg
 
   const type = form.watch('type');
@@ -116,15 +400,17 @@ export function DataTableSearchByTerm<TData, TValue>({
     },
   });
 
-  // todo : inputs para type y sub type y segun eso hago aparecer los inputs para las busquedas , con su limit offset y orden
   return (
-    // TODO : COLOCAR los demas inputs antes de enviar el form para que aparezca la data
     <div className='md:w-full m-auto lg:w-full pt-4'>
+      {/* Convertir este form en un componente para reutilizar */}
+      {/* puedo utilizar el mismo esquema pero lo puedo deshabilitar ciertos tipos y sub tipos */}
+      {/*  Entonces debo agregar todos los tipos y subtipos disponibles y luego hacer el filter para deshabilitar */}
+
       {disabled && (
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className='grid grid-cols-2 gap-4 gap-y-2 items-end mb-14 md:mb-10 lg:grid-cols-3 lg:gap-4'
+            className='grid grid-cols-2 gap-4 gap-y-2 items-end mb-14 md:mb-10 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4'
           >
             <FormField
               control={form.control}
@@ -148,7 +434,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                         {Object.entries(MemberTypeSearchNames).map(
                           ([key, value]) => (
                             <SelectItem
-                              className='text-[12px] md:text-[13px]'
+                              className={`text-[12px] md:text-[13px] ${disabledTypes.includes(value) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -188,7 +474,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                           {Object.entries(SubTypeMembersSearchNames).map(
                             ([key, value]) => (
                               <SelectItem
-                                className='text-[12px] md:text-[13px]'
+                                className={`text-[12px] md:text-[13px] ${disabledSubTypes.includes(value) ? 'hidden' : ''}`}
                                 key={key}
                                 value={key}
                               >
@@ -207,7 +493,8 @@ export function DataTableSearchByTerm<TData, TValue>({
 
             {type !== MemberTypeSearch.firstName &&
               type !== MemberTypeSearch.lastName &&
-              type !== MemberTypeSearch.fullName && (
+              type !== MemberTypeSearch.fullName &&
+              type !== undefined && (
                 <FormField
                   control={form.control}
                   name='term'
@@ -362,7 +649,7 @@ export function DataTableSearchByTerm<TData, TValue>({
             <Button
               type='submit'
               variant='ghost'
-              className='mx-auto lg:m-0 col-start-1 col-end-3 row-start-6 lg:col-start-2 lg:col-end-3 lg:row-start-4 lg:row-end-5 row-end-6 w-[8rem] text-[13px] lg:text-[14px] h-[2.5rem] md:w-[8rem] xl:w-[6rem] lg:w-full px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500  hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
+              className='mx-auto col-start-1 col-end-3 row-start-6 lg:col-start-2 lg:col-end-3 lg:row-start-4 lg:row-end-5 xl:row-start-3 xl:row-end-4 xl:col-start-2 xl:col-end-4 w-[8rem] text-[13px] lg:text-[14px] h-[2.5rem] md:w-[8rem] lg:w-[12rem] xl:w-[12rem] xl:mx-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500  hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
             >
               Buscar
             </Button>
@@ -560,6 +847,7 @@ export function DataTableSearchByTerm<TData, TValue>({
           </Button>
         </div>
       )}
+
       <div className='rounded-md border'>
         <Table>
           <TableHeader>

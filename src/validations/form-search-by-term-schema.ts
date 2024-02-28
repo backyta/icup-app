@@ -12,13 +12,11 @@ export const formSearchByTermSchema = z
     subType: z.nativeEnum(MemberSubTypeSearch,{
       required_error: "Por favor seleccione una opción.",
     }).optional(),
-    term: z.string().min(1,{ message: 
-      'El campo debe contener al menos 1 carácter.'}).max(20).optional(),
 
-    termNames: z.string().min(1,{ message: 
-      'El campo debe contener al menos 1 carácter.'}).max(20).optional(),
-    termLastNames: z.string().min(1,{ message: 
-      'El campo debe contener al menos 1 carácter.'}).max(20).optional(),
+    term: z.string().max(30).optional(),
+
+    termNames: z.string().max(30).optional(),
+    termLastNames: z.string().max(30).optional(),
 
     limit: z.string().refine(limit => !isNaN(parseInt(limit)),{
       message: 'Limite debe ser un numero.'

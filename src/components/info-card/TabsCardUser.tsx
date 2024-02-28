@@ -13,14 +13,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export const TabsCardUser = (): JSX.Element => {
   return (
-    <Tabs defaultValue='general-info' className='w-[400px] md:w-[415px] '>
+    <Tabs defaultValue='general-info' className='w-[440px] md:w-[510px]'>
       <TabsList className='grid w-full grid-cols-1 px-auto'>
         <TabsTrigger value='general-info' className='text-[13px] md:text-sm'>
           Info. General
         </TabsTrigger>
       </TabsList>
       <TabsContent value='general-info'>
-        <Card>
+        <Card className='w-full'>
           <CardHeader>
             <CardTitle>Información General</CardTitle>
             <CardDescription>Información general del usuario.</CardDescription>

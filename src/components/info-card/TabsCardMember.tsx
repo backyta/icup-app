@@ -6,13 +6,13 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
-// TODO : pasar la data de la conmsulta aca y que se renderize
+// TODO : pasar la data de la consulta aca y que se renderize.
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export const TabsCardMember = (): JSX.Element => {
   return (
-    <Tabs defaultValue='general-info' className='w-[400px] md:w-[415px] '>
+    <Tabs defaultValue='general-info' className='w-[440px] md:w-[510px] '>
       <TabsList className='grid w-full grid-cols-3 px-auto'>
         <TabsTrigger value='general-info' className='text-[13px] md:text-sm'>
           Info. General
@@ -28,14 +28,14 @@ export const TabsCardMember = (): JSX.Element => {
         </TabsTrigger>
       </TabsList>
       <TabsContent value='general-info'>
-        <Card>
+        <Card className='w-full'>
           <CardHeader>
             <CardTitle>Información General</CardTitle>
             <CardDescription>
               Información general y personal del miembro.
             </CardDescription>
           </CardHeader>
-          <CardContent className='grid grid-cols-2 gap-x-4 gap-y-5'>
+          <CardContent className='grid grid-cols-3 gap-x-4 gap-y-5'>
             <div className='space-y-1'>
               <Label>Nombres</Label>
               <CardDescription className='px-2'>Kevin Michael</CardDescription>
@@ -73,12 +73,6 @@ export const TabsCardMember = (): JSX.Element => {
               <CardDescription className='px-2'>13/03/2015</CardDescription>
             </div>
             <div className='space-y-1'>
-              <Label>Estado</Label>
-              <CardDescription className='px-2 text-green-600'>
-                Activo
-              </CardDescription>
-            </div>
-            <div className='space-y-1'>
               <Label>Creado por</Label>
               <CardDescription className='px-2'>
                 Rogelio Ramirez Carranza
@@ -88,7 +82,6 @@ export const TabsCardMember = (): JSX.Element => {
               <Label>Fecha de creación</Label>
               <CardDescription className='px-2'>12/12/2023</CardDescription>
             </div>
-
             <div className='space-y-1 col-start-1 col-end-2'>
               <Label>Actualizado por</Label>
               <CardDescription className='px-2'>
@@ -98,6 +91,12 @@ export const TabsCardMember = (): JSX.Element => {
             <div className='space-y-1'>
               <Label>Ultima fecha de actualización</Label>
               <CardDescription className='px-2'>20/12/2023</CardDescription>
+            </div>
+            <div className='space-y-1'>
+              <Label>Estado</Label>
+              <CardDescription className='px-2 text-green-600'>
+                Activo
+              </CardDescription>
             </div>
           </CardContent>
         </Card>
