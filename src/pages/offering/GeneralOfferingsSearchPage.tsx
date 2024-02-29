@@ -1,6 +1,9 @@
-import { DataTableSearchGeneral } from '@/components/table-members/data-table-search-general';
-import { offeringColumns } from '@/components/table-members/offering-columns';
-import { dataOfferings as data } from '@/data/data-offerings';
+import {
+  DataTableSearchGeneral,
+  offeringColumns,
+} from '@/components/data-table';
+
+import { dataOfferings as data } from '@/data';
 
 export const GeneralOfferingsSearchPage = (): JSX.Element => {
   return (

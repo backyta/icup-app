@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { type z } from 'zod';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { type z } from 'zod';
 
 import {
   Form,
@@ -15,6 +19,23 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+
+import {
+  SelectValue,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  Select,
+} from '@/components/ui/select';
 
 import {
   type ColumnDef,
@@ -29,24 +50,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import { useState } from 'react';
 import { formSearchGeneralSchema } from '@/validations/form-search-general-schema';
-
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  Select,
-} from '@/components/ui/select';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -102,7 +106,6 @@ export function DataTableSearchGeneral<TData, TValue>({
     },
   });
 
-  // todo : inputs para type y sub type y segun eso hago aparecer los inputs para las busquedas , con su limit offset y orden
   return (
     <div className='md:w-full m-auto lg:w-full pt-4'>
       {disabled && (

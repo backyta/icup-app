@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { CurrencyType } from '@/enums/currency-type.enum';
-import { SubTypesOffering } from '@/enums/sub-type-offering.enum';
+
 import * as z from 'zod';
+import { CurrencyType, SubTypesOffering } from '@/enums';
 
 export const formOfferingSchema = z
   .object({

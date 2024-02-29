@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { Root } from '../Root';
-import { DashboardLayout } from '@/layouts/DashboardLayout';
+import { DashboardLayout } from '@/layouts';
+
 import {
   DashboardPage,
   DiscipleCreatePage,
@@ -23,6 +24,11 @@ import {
   UserCreatePage,
   GeneralUsersSearchPage,
   GeneralDisciplesSearchPage,
+  PastorsSearchPageByTerm,
+  CopastorsSearchPageByTerm,
+  LeadersSearchPageByTerm,
+  FamilyHousesSearchPageByTerm,
+  OfferingsSearchPageByTerm,
 } from '@/pages';
 
 export const router = createBrowserRouter([
@@ -101,6 +107,10 @@ export const router = createBrowserRouter([
             path: '/pastors/search-pastors',
             element: <GeneralPastorsSearchPage />,
           },
+          {
+            path: '/pastors/search-by-term-pastors',
+            element: <PastorsSearchPageByTerm />,
+          },
         ],
       },
       // routes co-pastor
@@ -115,6 +125,10 @@ export const router = createBrowserRouter([
           {
             path: '/copastors/search-copastors',
             element: <GeneralCopastorsSearchPage />,
+          },
+          {
+            path: '/copastors/search-by-term-copastors',
+            element: <CopastorsSearchPageByTerm />,
           },
         ],
       },
@@ -131,6 +145,10 @@ export const router = createBrowserRouter([
             path: '/leaders/search-leaders',
             element: <GeneralLeadersSearchPage />,
           },
+          {
+            path: '/leaders/search-by-term-leaders',
+            element: <LeadersSearchPageByTerm />,
+          },
         ],
       },
       // routes family-house
@@ -145,6 +163,10 @@ export const router = createBrowserRouter([
           {
             path: '/family-houses/search-family-houses',
             element: <GeneralFamilyHousesSearchPage />,
+          },
+          {
+            path: '/family-houses/search-by-term-family-houses',
+            element: <FamilyHousesSearchPageByTerm />,
           },
         ],
       },
@@ -161,6 +183,10 @@ export const router = createBrowserRouter([
             path: '/offerings/search-offerings',
             element: <GeneralOfferingsSearchPage />,
           },
+          {
+            path: '/offerings/search-by-term-offerings',
+            element: <OfferingsSearchPageByTerm />,
+          },
         ],
       },
       // routes user
@@ -176,6 +202,10 @@ export const router = createBrowserRouter([
             path: '/users/search-users',
             element: <GeneralUsersSearchPage />,
           },
+          // {
+          //   path: '/users/search-by-term-users',
+          //   element: <UsersSearchPageByTerm />,
+          // },
         ],
       },
 

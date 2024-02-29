@@ -1,8 +1,22 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+
+import { useState } from 'react';
+
 import type * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { es } from 'date-fns/locale';
+import { format } from 'date-fns';
+
+import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+import { cn } from '@/lib/utils';
+
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import { Checkbox } from '@/components/ui/checkbox';
+
 import {
   Form,
   FormControl,
@@ -12,8 +26,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+
 import {
   SelectValue,
   SelectTrigger,
@@ -22,20 +35,12 @@ import {
   Select,
 } from '@/components/ui/select';
 
-import { es } from 'date-fns/locale';
-import { formMemberSchema } from '../../validations/form-member-schema';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
-import { format } from 'date-fns';
-import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
-import { Calendar } from '@/components/ui/calendar';
 
-import { Checkbox } from '@/components/ui/checkbox';
-import { MemberRoles, memberRoleNames } from '@/enums/member-roles.enum';
 import {
   Command,
   CommandEmpty,
@@ -43,7 +48,9 @@ import {
   CommandInput,
   CommandItem,
 } from '@/components/ui/command';
-import { useState } from 'react';
+
+import { formMemberSchema } from '../../validations';
+import { MemberRoles, MemberRoleNames, MaritalStatusNames } from '@/enums';
 
 const pastors = [
   { label: 'Michael Rodrigo Baca Angeles', value: 'id1' },
@@ -311,7 +318,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                   );
                 }}
               />
-              {/* //TODO agregar busqueda por lupa en las relaciones de roles y en casa familiar */}
+
               <FormField
                 control={form.control}
                 name='maritalStatus'
@@ -328,10 +335,17 @@ export const DiscipleCreatePage = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value='single'>Soltero</SelectItem>
-                          <SelectItem value='married'>Casado</SelectItem>
-                          <SelectItem value='widowed'>Viudo</SelectItem>
-                          <SelectItem value='divorced'>Divorciado</SelectItem>
+                          {Object.entries(MaritalStatusNames).map(
+                            ([key, value]) => (
+                              <SelectItem
+                                className={`text-[12px] md:text-[13px]`}
+                                key={key}
+                                value={key}
+                              >
+                                {value}
+                              </SelectItem>
+                            )
+                          )}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -611,7 +625,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                                 />
                               </FormControl>
                               <FormLabel className='lg:text-[15px] font-normal'>
-                                {memberRoleNames[role]}
+                                {MemberRoleNames[role]}
                               </FormLabel>
                             </FormItem>
                           );

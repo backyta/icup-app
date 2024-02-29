@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { MemberSubTypeSearch } from '@/enums/search-sub-types.enum';
-import { MemberTypeSearch } from '@/enums/search-types.enum';
-import * as z from 'zod';
 
-// NOTE: quías se hacen varios esquemas por term Member, pastor, etc
+import * as z from 'zod';
+import { SubTypeSearch, TypeSearch } from '@/enums';
+
 export const formSearchByTermSchema = z
   .object({
-    type: z.nativeEnum(MemberTypeSearch,{
+    type: z.nativeEnum(TypeSearch,{
       required_error: "Por favor seleccione un tipo.",
     }),
-    subType: z.nativeEnum(MemberSubTypeSearch,{
+    subType: z.nativeEnum(SubTypeSearch,{
       required_error: "Por favor seleccione una opción.",
     }).optional(),
 
-    term: z.string().max(30).optional(),
+    termInput: z.string().max(30).optional(),
+    termSelect: z.string().max(30).optional(),
 
     termNames: z.string().max(30).optional(),
     termLastNames: z.string().max(30).optional(),
@@ -31,7 +31,7 @@ export const formSearchByTermSchema = z
   })
   .refine(
     (data) => {
-      if (data.type === MemberTypeSearch.firstName || data.type === MemberTypeSearch.lastName || data.type === MemberTypeSearch.fullName ) {
+      if (data.type === TypeSearch.firstName || data.type === TypeSearch.lastName || data.type === TypeSearch.fullName ) {
         return !!data.subType; /* //true */
       }
       return true;
@@ -43,7 +43,7 @@ export const formSearchByTermSchema = z
   )
   .refine(
     (data) => {
-      if (data.type === MemberTypeSearch.firstName ) {
+      if (data.type === TypeSearch.firstName ) {
         return !!data.termNames; /* //true */
       }
       return true;
@@ -55,7 +55,7 @@ export const formSearchByTermSchema = z
   )
   .refine(
     (data) => {
-      if (data.type === MemberTypeSearch.lastName) {
+      if (data.type === TypeSearch.lastName) {
         return !!data.termLastNames; /* //true */
       }
       return true;
@@ -67,57 +67,55 @@ export const formSearchByTermSchema = z
   )
   .refine(
     (data) => {
-      if (data.type === MemberTypeSearch.fullName  ) {
-        return !!data.termLastNames && !!data.termNames; /* //true */
+      if (data.type === TypeSearch.fullName  ) {
+        return !!data.termLastNames; /* //true */
       }
       return true;
     },
     {
       message: 'El termino de  es requerido',
-      path: ['termLastNames','termNames'],
+      path: ['termLastNames'],
     }
   )
   .refine(
     (data) => {
-      if (data.type !== MemberTypeSearch.lastName && data.type !== MemberTypeSearch.firstName && data.type !== MemberTypeSearch.fullName) {
-        return !!data.term; /* //true */
+      if (data.type === TypeSearch.fullName  ) {
+        return !!data.termNames; /* //true */
+      }
+      return true;
+    },
+    {
+      message: 'El termino de  es requerido',
+      path: ['termNames'],
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.type !== TypeSearch.lastName && data.type !== TypeSearch.firstName && data.type !== TypeSearch.fullName &&  
+          data.type !== TypeSearch.gender && data.type !== TypeSearch.maritalStatus && data.type !== TypeSearch.isActive ) {
+        return !!data.termInput; /* //true */
       }
       return true;
     },
     {
       message: 'El termino es requerido',
-      path: ['term'],
+      path: ['termInput'],
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.type === TypeSearch.date_birth || data.type === TypeSearch.gender ||
+          data.type === TypeSearch.maritalStatus || data.type === TypeSearch.isActive  ) {
+        return !!data.termSelect; /* //true */
+      }
+      return true;
+    },
+    {
+      message: 'El termino es requerido',
+      path: ['termSelect'],
     }
   )
 
   
-//* Basic (members, pastor, copastor, leaders)
-// id = 'id', // no usar, solo para botones
-//! Si el tipo es algo que requiere subtipo habilitar ese input
-// ? Tipos directos
-// gender = 'gender',
-// maritalStatus = 'marital_status',
-// isActive = 'is_active',
-// roles = 'roles',
-// por código de casa (solo members, preachers, supervisor)
-// por zona (members preacher supervisors )
-// origin_country
-// departamento
-// provincia
-// distrito
-//! date birth podría trabajarse, para filtrar por mes de cumpleaños (usaríamos las mismas cols)
-
-// ? Con sub_tipos
-// firstName = 'first_name',
-// lastName = 'last_name',
-// fullName = 'full_name',
-
-
-
 
 // TODO : agregar indices a todos los filtros en el backend
-
-//* Casa Familiares
-// address = 'address',
-// zone = 'zone', 
-// code = 'code',

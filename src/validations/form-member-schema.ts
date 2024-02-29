@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { MaritalStatus } from '@/enums/marital-status.enum';
-import { MemberRoles } from '@/enums/member-roles.enum';
-import * as z from 'zod';
 
+import * as z from 'zod';
+import { MaritalStatus, MemberRoles } from '@/enums';
 
 export const formMemberSchema = z
   .object({

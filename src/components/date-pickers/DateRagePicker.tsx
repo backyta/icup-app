@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-'use client';
 
 import * as React from 'react';
 import { CalendarIcon } from '@radix-ui/react-icons';

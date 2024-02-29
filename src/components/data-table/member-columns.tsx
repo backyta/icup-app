@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { type ColumnDef } from '@tanstack/react-table';
-import { Button } from '@/components/ui/button';
+
 import { format } from 'date-fns';
+
+import { type ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
 import { InfoCard } from '../info-card/InfoCard';
 
 export interface Member {
@@ -15,10 +18,10 @@ export interface Member {
   date_birth: string;
 }
 
-// TODO : lo otro seria pasar el id de la DB del reistro aca y que lo tome el button y con eso hacer la solicitus
+// TODO : lo otro seria pasar el id de la DB del registro aca y que lo tome el button y con eso hacer la solicitud
 // TODO : y tmb ocultar ese ID con un map para que se enumero de 1, 2....
 
-// NOTE: usar este mismo metodo para la data del dashboard en el boton.
+// NOTE: usar este mismo método para la data del dashboard en el botón.
 export const memberColumns: Array<ColumnDef<Member, any>> = [
   {
     accessorKey: 'id',

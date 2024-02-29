@@ -1,17 +1,9 @@
-// import {
-//   IoAccessibilityOutline,
-//   IoHeartOutline,
-//   IoListOutline,
-//   IoLockClosedOutline,
-//   IoPawOutline }
-//   from 'react-icons/io5';
-// import { WhiteCard } from '../../components/shared/cards/WhiteCard';
-// import { useAuthStore, useBearStore, usePersonStore, useTaskStore } from '../../stores';
-
-import { BarChartHouse } from '@/components/cards/graphic/BarChartHouses';
-import { BarChartOfferings } from '@/components/cards/graphic/BarChartOferrings';
-import { HousesInfoCard } from '@/components/cards/info/HousesInfoCard';
-import { MembersInfoCard } from '@/components/cards/info/MembersInfoCard';
+import {
+  BarChartHouse,
+  BarChartOfferings,
+  HousesInfoCard,
+  MembersInfoCard,
+} from '@/components/cards';
 
 export const DashboardPage = (): JSX.Element => {
   // const totalBears = useBearStore( state => state.totalBears );

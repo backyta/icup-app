@@ -1,6 +1,5 @@
-import { memberColumns } from '@/components/table-members/member-columns';
-import { DataTableSearchGeneral } from '@/components/table-members/data-table-search-general';
-import { dataMembers as data } from '../../data/data-members';
+import { memberColumns, DataTableSearchGeneral } from '@/components/data-table';
+import { dataMembers as data } from '../../data';
 
 export const GeneralPastorsSearchPage = (): JSX.Element => {
   return (
@@ -25,14 +24,9 @@ export const GeneralPastorsSearchPage = (): JSX.Element => {
   );
 };
 
-// TODO : agregar limit y offset para traer cierta cantidad de registros, si quiero los mas nuevos o antiguos, mandar otra query en DTO
-
 // NOTE : aquí debo hacer el fetch y traer la data y hacer un filter o map para recuperar solo lo necesario
 // NOTE:  que se presentara en la tabla según las columnas.
 
-// NOTE: desde la ruta de preacher pastor copastor, mandar al componente create disciple, pero mortar
+// NOTE: desde la ruta de preacher pastor copastor, mandar al componente create disciple, pero mostrar
 // NOTE : solo los roles disponibles si es pastor, ninguno, si es copastor solo pastor y asi, y marcarlos
 // NOTE: automáticamente, asi usamos el mismo componente. pero en un ruta especifica.
-
-// TODO : alternar el H1 si se accede desde modulo predicador pastor o copastor, y hacer el select o renderizar
-// TODO : solo los roles necesarios segun la ruta

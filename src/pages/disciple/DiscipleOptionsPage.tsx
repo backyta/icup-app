@@ -1,4 +1,7 @@
+import { NavLink } from 'react-router-dom';
+
 import { WhiteCard } from '@/components/shared/white-cards/WhiteCard';
+
 import {
   FcCancel,
   FcClearFilters,
@@ -6,7 +9,6 @@ import {
   FcSportsMode,
   FcSupport,
 } from 'react-icons/fc';
-import { NavLink } from 'react-router-dom';
 
 export const DiscipleOptionsPage = (): JSX.Element => {
   // const totalBears = useBearStore((state) => state.totalBears);

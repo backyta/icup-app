@@ -1,7 +1,5 @@
-import { memberColumns } from '@/components/table-members/member-columns';
-
-import { dataMembers as data } from '../../data/data-members';
-import { DataTableSearchByTerm } from '@/components/table-members/data-table-search-by-term';
+import { memberColumns, DataTableSearchByTerm } from '@/components/data-table';
+import { dataMembers as data } from '../../data';
 
 export const DisciplesSearchPageByTerm = (): JSX.Element => {
   return (
@@ -26,9 +24,5 @@ export const DisciplesSearchPageByTerm = (): JSX.Element => {
   );
 };
 
-// TODO : agregar limit y offset para traer cierta cantidad de registros, si quiero los mas nuevos o antiguos, mandar otra query en DTO
-
-// NOTEE : aquio debo hacer el fetch y traer la data y hacer un filter o map para recuperar solo lo necesario
-// que se presentara en la tabla segun las columnas.
-
-// TODO : arreglar los colores de titulos de los modulos
+// NOTE : aquí debo hacer el fetch y traer la data y hacer un filter o map para recuperar solo lo necesario
+// NOTE: que se presentara en la tabla según las columnas.

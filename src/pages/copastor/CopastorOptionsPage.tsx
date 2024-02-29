@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 import { WhiteCard } from '@/components/shared/white-cards/WhiteCard';
 import {
   FcCancel,
@@ -6,7 +8,6 @@ import {
   FcSearch,
   FcSupport,
 } from 'react-icons/fc';
-import { NavLink } from 'react-router-dom';
 
 export const CopastorOptionsPage = (): JSX.Element => {
   // const totalBears = useBearStore((state) => state.totalBears);
@@ -62,8 +63,8 @@ export const CopastorOptionsPage = (): JSX.Element => {
         </NavLink>
 
         <NavLink
-          key='/'
-          to='/'
+          key='/copastors/search-by-term-copastors'
+          to='/copastors/search-by-term-copastors'
           end
           className='row-start-3 row-end-4 lg:row-start-1 lg:row-end-2 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-2 xl:col-end-3 2xl:row-start-2 2xl:row-end-3 2xl:col-start-2 2xl:col-end-3'
         >

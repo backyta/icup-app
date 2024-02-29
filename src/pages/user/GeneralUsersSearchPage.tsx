@@ -1,6 +1,6 @@
-import { DataTableSearchGeneral } from '@/components/table-members/data-table-search-general';
-import { userColumns } from '@/components/table-members/user-columns';
-import { dataUsers as data } from '@/data/data-users';
+import { DataTableSearchGeneral, userColumns } from '@/components/data-table';
+
+import { dataUsers as data } from '@/data';
 
 export const GeneralUsersSearchPage = (): JSX.Element => {
   return (
@@ -27,5 +27,5 @@ export const GeneralUsersSearchPage = (): JSX.Element => {
 
 // TODO : agregar limit y offset para traer cierta cantidad de registros, si quiero los mas nuevos o antiguos, mandar otra query en DTO
 
-// NOTE : aqui debo hacer el fetch y traer la data y hacer un filter o map para recuperar solo lo necesario
-// que se presentara en la tabla segun las columnas.
+// NOTE : aquí debo hacer el fetch y traer la data y hacer un filter o map para recuperar solo lo necesario
+// NOTE : que se presentara en la tabla según las columnas.

@@ -1,15 +1,18 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
+import { useState } from 'react';
 import { useMediaQuery } from '@react-hook/media-query';
+
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
 
-import { useState } from 'react';
-import { TabsCardMember } from './TabsCardMember';
-import { TabsCardFamilyHome } from './TabsCardFamilyHome';
-import { TabsCardOffering } from './TabsCardOffering';
-import { TabsCardUser } from './TabsCardUser';
+import {
+  TabsCardMember,
+  TabsCardUser,
+  TabsCardOffering,
+  TabsCardFamilyHome,
+} from '.';
 
 export const InfoCard = (): JSX.Element => {
   const [open, setOpen] = useState(false);

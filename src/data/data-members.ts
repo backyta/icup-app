@@ -1,4 +1,4 @@
-import { type Member } from "@/components/table-members/member-columns";
+import { type Member } from "@/components/data-table/member-columns";
 
 export const dataMembers: Member[] = 
 [

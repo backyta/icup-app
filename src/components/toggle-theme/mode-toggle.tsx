@@ -7,6 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+
 import { useTheme } from '../toggle-theme/theme-provider';
 
 export function ModeToggle(): JSX.Element {

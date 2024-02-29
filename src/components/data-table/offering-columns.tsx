@@ -1,28 +1,28 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+
 import { type ColumnDef } from '@tanstack/react-table';
-import { Button } from '@/components/ui/button';
 import { ArrowUpDown } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
 import { InfoCard } from '../info-card/InfoCard';
 
-export interface FamilyHouse {
+export interface Offering {
   id: string;
-  zone: string;
-  code: string;
-  name_house: string;
-  count_members: number;
+  type: string; // hacer mapping
+  sub_type?: string;
+  amount: number;
+  currency: string;
 }
 
-// TODO : crear las demás cols para las otras search de tables
-
-export const familyHouseColumns: Array<ColumnDef<FamilyHouse, any>> = [
+export const offeringColumns: Array<ColumnDef<Offering, any>> = [
   {
     accessorKey: 'id',
     header: 'ID',
   },
   {
-    accessorKey: 'zone',
+    accessorKey: 'type',
     header: ({ column }) => {
       return (
         <Button
@@ -32,14 +32,14 @@ export const familyHouseColumns: Array<ColumnDef<FamilyHouse, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Zona
+          Tipo de ofrenda
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'code',
+    accessorKey: 'sub_type',
     header: ({ column }) => {
       return (
         <Button
@@ -49,14 +49,14 @@ export const familyHouseColumns: Array<ColumnDef<FamilyHouse, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Código
+          Sub-tipo de ofrenda
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'name_house',
+    accessorKey: 'amount',
     header: ({ column }) => {
       return (
         <Button
@@ -66,14 +66,14 @@ export const familyHouseColumns: Array<ColumnDef<FamilyHouse, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Nombre de Casa Familiar
+          Cantidad / Monto
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'count_members',
+    accessorKey: 'currency',
     header: ({ column }) => {
       return (
         <Button
@@ -83,7 +83,7 @@ export const familyHouseColumns: Array<ColumnDef<FamilyHouse, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Cantidad de Miembros
+          Divisa / Moneda
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );

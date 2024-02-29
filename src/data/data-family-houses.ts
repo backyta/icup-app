@@ -1,4 +1,4 @@
-import { type FamilyHouse } from "@/components/table-members/family-house-columns";
+import { type FamilyHouse } from "@/components/data-table/family-house-columns";
 
 
 export const dataFamilyHouses: FamilyHouse[] = 

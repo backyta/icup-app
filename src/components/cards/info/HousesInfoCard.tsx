@@ -27,6 +27,4 @@ export function HousesInfoCard(): JSX.Element {
   );
 }
 
-// TODO : averiguar y ver que son vistas en otro proyectos (Para crear un nuevo usuario formulario)
-
 // TODO : Hacer if y pasar la data como props del estado o request del backend

@@ -1,4 +1,4 @@
-export enum MemberTypeSearch {
+export enum TypeSearch {
 
   //* Members, Pastor, Copastor, Supervisor, Preacher, Offering, User
   firstName = 'first_name',
@@ -35,23 +35,24 @@ export enum MemberTypeSearch {
   roles = 'roles',
 
   //* Offering (buscar ofrendas por diezmo y ofrenda)
-  offering_sunday_worship = 'offering_sunday_worship',
-  offering_family_house = 'offering_family_house',
-  offering_general_fasting = 'offering_general_fasting',
-  offering_general_vigil = 'offering_general_vigil',
-  offering_zonal_fasting = 'offering_zonal_fasting',
-  offering_zonal_vigil = 'offering_zonal_vigil',
-  offering_sunday_school = 'offering_sunday_school',
-  offering_youth_worship = 'offering_youth_worship',
-  offering_activities = 'offering_activities',
-  offering_church_ground = 'offering_church_ground',
-  offering_special = 'offering_special',
   tithe = 'tithe',
+  sunday_worship = 'sunday_worship',
+  family_house = 'family_house',
+  general_fasting = 'general_fasting',
+  general_vigil = 'general_vigil',
+  zonal_fasting = 'zonal_fasting',
+  zonal_vigil = 'zonal_vigil',
+  sunday_school = 'sunday_school',
+  youth_worship = 'youth_worship',
+  activities = 'activities',
+  church_ground = 'church_ground',
+  special = 'special',
+
 
 }
 
 
-export const MemberTypeSearchNames: Record<MemberTypeSearch, string> =  {
+export const TypeSearchNames: Record<TypeSearch, string> =  {
   
   first_name : 'Nombres',
   last_name : 'Apellidos',
@@ -72,22 +73,23 @@ export const MemberTypeSearchNames: Record<MemberTypeSearch, string> =  {
   department : 'Departamento',
   province : 'Provincia',
   district : 'Distrito',
-  is_active : 'Estado',
-  
+
   roles : 'Roles',
 
+  is_active : 'Estado',
+
   tithe : 'Diezmo',
-  offering_sunday_worship: 'Ofrenda Culto Dominical',
-  offering_family_house: 'Ofrenda Casa Familiar',
-  offering_general_fasting: 'Ofrenda Ayuno General',
-  offering_general_vigil: 'Ofrenda Vigilia General',
-  offering_zonal_fasting: 'Ofrenda Ayuno Zonal',
-  offering_zonal_vigil: 'Ofrenda Vigilia Zonal',
-  offering_sunday_school: 'Ofrenda Escuela Dominical',
-  offering_youth_worship: 'Ofrenda Culto Jóvenes',
-  offering_activities: 'Ofrenda Actividades',
-  offering_church_ground: 'Ofrenda Terreno Iglesia',
-  offering_special: 'Ofrenda Especial',
+  sunday_worship: 'Ofrenda Culto Dominical',
+  family_house: 'Ofrenda Casa Familiar',
+  general_fasting: 'Ofrenda Ayuno General',
+  zonal_fasting: 'Ofrenda Ayuno Zonal',
+  general_vigil: 'Ofrenda Vigilia General',
+  zonal_vigil: 'Ofrenda Vigilia Zonal',
+  sunday_school: 'Ofrenda Escuela Dominical',
+  youth_worship: 'Ofrenda Culto Jóvenes',
+  activities: 'Ofrenda Actividades',
+  church_ground: 'Ofrenda Terreno Iglesia',
+  special: 'Especial',
 
   
 }

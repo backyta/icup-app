@@ -1,9 +1,18 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import type * as z from 'zod';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+
+import type * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+
+import { cn } from '@/lib/utils';
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+
 import {
   Form,
   FormControl,
@@ -13,8 +22,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 
 import { formFamilyHouseSchema } from '@/validations/form-family-house-schema';
 import {
@@ -22,8 +29,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
-import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+
 import {
   Command,
   CommandEmpty,
@@ -31,7 +37,6 @@ import {
   CommandInput,
   CommandItem,
 } from '@/components/ui/command';
-import { useState } from 'react';
 
 const preachers = [
   { label: 'Juan Carlos Medina Salinas', value: 'id1' },
@@ -52,8 +57,6 @@ const zones = [
   { label: 'Zona C', value: 'zone-3' },
   { label: 'Zona D', value: 'zone-4' },
 ] as const;
-
-// TODO : colocar combox a la zona con buscador
 
 export const FamilyHouseCreatePage = (): JSX.Element => {
   const [openPreacher, setOpenPreacher] = useState(false);
@@ -184,7 +187,6 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                     <FormControl>
                       <Input
                         placeholder='Nombre de la casa familiar'
-                        // autoComplete='new-password'
                         type='text'
                         {...field}
                       />
@@ -209,7 +211,6 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                     <FormControl>
                       <Input
                         placeholder='País de la casa familiar'
-                        // autoComplete='new-password'
                         type='text'
                         {...field}
                       />
@@ -234,7 +235,6 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                     <FormControl>
                       <Input
                         placeholder='Departamento de la casa familiar'
-                        // autoComplete='new-password'
                         type='text'
                         {...field}
                       />
@@ -259,7 +259,6 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                     <FormControl>
                       <Input
                         placeholder='Provincia de la casa familiar'
-                        // autoComplete='new-password'
                         type='text'
                         {...field}
                       />
@@ -284,7 +283,6 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                     <FormControl>
                       <Input
                         placeholder='Distrito de la casa familiar'
-                        // autoComplete='new-password'
                         type='text'
                         {...field}
                       />
@@ -309,7 +307,6 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                     <FormControl>
                       <Input
                         placeholder='Distrito de la casa familiar'
-                        // autoComplete='new-password'
                         type='text'
                         {...field}
                       />

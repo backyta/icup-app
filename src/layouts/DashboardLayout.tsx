@@ -1,9 +1,12 @@
 /* eslint-disable no-constant-condition */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
 import { Outlet } from 'react-router-dom';
+
+import { SideMenu } from '@/components/shared';
+import { ToggleLayout } from '@/components/toggle-theme';
+
 // import { useAuthStore } from '../stores';
-import { SideMenu } from '@/components/shared/side-menu/SideMenu';
-import { ToggleLayout } from '@/components/toggle-theme/ToggleLayout';
 
 export const DashboardLayout = (): JSX.Element => {
   // const authStatus = useAuthStore( state => state.status );

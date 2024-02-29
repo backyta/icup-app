@@ -4,6 +4,11 @@
 import type * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+
 import {
   Form,
   FormControl,
@@ -13,12 +18,9 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 
-import { userSchema } from '@/validations/user-schema';
-import { UserRoles, userRoleNames } from '@/enums/user-roles.enum';
-import { Checkbox } from '@/components/ui/checkbox';
+import { userSchema } from '@/validations';
+import { UserRoles, UserRoleNames } from '@/enums';
 
 export const UserCreatePage = (): JSX.Element => {
   const form = useForm<z.infer<typeof userSchema>>({
@@ -209,7 +211,7 @@ export const UserCreatePage = (): JSX.Element => {
                               />
                             </FormControl>
                             <FormLabel className='text-sm lg:text-[15px] font-normal'>
-                              {userRoleNames[role]}
+                              {UserRoleNames[role]}
                             </FormLabel>
                           </FormItem>
                         );

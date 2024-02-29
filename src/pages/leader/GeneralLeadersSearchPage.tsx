@@ -1,6 +1,5 @@
-import { memberColumns } from '@/components/table-members/member-columns';
-import { DataTableSearchGeneral } from '@/components/table-members/data-table-search-general';
-import { dataMembers as data } from '../../data/data-members';
+import { memberColumns, DataTableSearchGeneral } from '@/components/data-table';
+import { dataMembers as data } from '../../data';
 
 export const GeneralLeadersSearchPage = (): JSX.Element => {
   return (

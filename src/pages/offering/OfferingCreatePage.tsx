@@ -3,14 +3,21 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-// TODO : crear el form de usuario terminar y revisar todos los stylos y poner thema oscuro
 import { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { TiDeleteOutline } from 'react-icons/ti';
 
+import { cn } from '@/lib/utils';
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+
 import type * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+
 import {
   Form,
   FormControl,
@@ -20,8 +27,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+
 import {
   SelectValue,
   SelectTrigger,
@@ -29,20 +35,19 @@ import {
   SelectItem,
   Select,
 } from '@/components/ui/select';
-import { formOfferingSchema } from '@/validations/form-offering-schema';
-import {
-  SubTypesOffering,
-  SubTypesOfferingNames,
-} from '@/enums/sub-type-offering.enum';
-import { CurrencyTypeNames } from '@/enums/currency-type.enum';
-import { Textarea } from '@/components/ui/textarea';
+
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
-import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+
+import {
+  SubTypesOffering,
+  SubTypesOfferingNames,
+  CurrencyTypeNames,
+} from '@/enums';
+
 import {
   Command,
   CommandEmpty,
@@ -51,8 +56,8 @@ import {
   CommandItem,
 } from '@/components/ui/command';
 
-import { type FilesProps } from '@/interfaces/files-props.interface';
-import { type RejectedProps } from '@/interfaces/rejected-props.interface';
+import { formOfferingSchema } from '@/validations';
+import { type FilesProps, type RejectedProps } from '@/interfaces';
 
 const members = [
   { label: 'Abigail Angeli Porras Angeles', value: 'id1' },
@@ -134,6 +139,7 @@ export const OfferingCreatePage = (): JSX.Element => {
     onDrop,
   });
 
+  // TODO : revisar los use effect y la fuga de memoria.
   useEffect(() => {
     // Revoke the data uris to avoid memory leaks
     return () => {
@@ -330,7 +336,6 @@ export const OfferingCreatePage = (): JSX.Element => {
                       <FormControl>
                         <Textarea
                           placeholder='Comentarios referente al registro de la ofrenda'
-                          // autoComplete='new-password'
                           {...field}
                         />
                       </FormControl>
@@ -407,7 +412,6 @@ export const OfferingCreatePage = (): JSX.Element => {
                           </Command>
                         </PopoverContent>
                       </Popover>
-
                       <FormMessage />
                     </FormItem>
                   )}
@@ -562,7 +566,6 @@ export const OfferingCreatePage = (): JSX.Element => {
                           </Command>
                         </PopoverContent>
                       </Popover>
-
                       <FormMessage />
                     </FormItem>
                   )}

@@ -1,28 +1,29 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+
 import { type ColumnDef } from '@tanstack/react-table';
-import { Button } from '@/components/ui/button';
 import { ArrowUpDown } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
+
 import { InfoCard } from '../info-card/InfoCard';
 
-export interface User {
+export interface FamilyHouse {
   id: string;
-  first_name: string; // hacer mapping
-  last_name: string;
-  email: string;
-  roles: string;
+  zone: string;
+  code: string;
+  name_house: string;
+  count_members: number;
 }
 
-// TODO : crear las demás cols para las otras search de tables.
-
-export const userColumns: Array<ColumnDef<User, any>> = [
+export const familyHouseColumns: Array<ColumnDef<FamilyHouse, any>> = [
   {
     accessorKey: 'id',
     header: 'ID',
   },
   {
-    accessorKey: 'first_name',
+    accessorKey: 'zone',
     header: ({ column }) => {
       return (
         <Button
@@ -32,14 +33,14 @@ export const userColumns: Array<ColumnDef<User, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Nombres
+          Zona
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'last_name',
+    accessorKey: 'code',
     header: ({ column }) => {
       return (
         <Button
@@ -49,14 +50,14 @@ export const userColumns: Array<ColumnDef<User, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Apellidos
+          Código
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'name_house',
     header: ({ column }) => {
       return (
         <Button
@@ -66,14 +67,14 @@ export const userColumns: Array<ColumnDef<User, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Correo Electrónico
+          Nombre de Casa Familiar
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'roles',
+    accessorKey: 'count_members',
     header: ({ column }) => {
       return (
         <Button
@@ -83,7 +84,7 @@ export const userColumns: Array<ColumnDef<User, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Roles
+          Cantidad de Miembros
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );

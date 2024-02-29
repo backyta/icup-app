@@ -5,9 +5,10 @@ import { menuItems } from '../data/menu-items-data';
 import { FcExport } from 'react-icons/fc';
 
 import { ToggleSideBar } from '@/components/toggle-theme/ToggleSideBar';
-import { DropdownMenuTop } from '@/components/dropdown-menu/DropdownMenuTop';
-import { DropdownMenuLeft } from '@/components/dropdown-menu/DropdownMenuLeft';
+import { DropdownMenuTop, DropdownMenuLeft } from '@/components/dropdown-menu';
+
 import { SideMenuItemIcons } from './SideMenuItemIcons';
+
 // import { useAuthStore } from '../../../stores';
 
 export const SideMenu = (): JSX.Element => {

@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { type z } from 'zod';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { type z } from 'zod';
 
 import {
   Form,
@@ -15,6 +19,23 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+
+import {
+  SelectValue,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  Select,
+} from '@/components/ui/select';
 
 import {
   type ColumnDef,
@@ -29,30 +50,16 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import { useState } from 'react';
-
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  Select,
-} from '@/components/ui/select';
 import { formSearchByTermSchema } from '@/validations/form-search-by-term-schema';
 
 import {
-  MemberTypeSearch,
-  MemberTypeSearchNames,
-} from '@/enums/search-types.enum';
-import { SubTypeMembersSearchNames } from '@/enums/search-sub-types.enum';
+  TypeSearch,
+  TypeSearchNames,
+  SubTypeSearchNames,
+  TermSelectTypeNames,
+} from '@/enums';
+
+import { validationDisableTermSelect, validationDisableTypes } from '@/helpers';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -80,300 +87,19 @@ export function DataTableSearchByTerm<TData, TValue>({
     defaultValues: {
       limit: '10',
       offset: '0',
-      term: '',
+      termSelect: '',
+      termInput: '',
       termNames: '',
       termLastNames: '',
     },
   });
 
-  let disabledTypes: string[];
-  let disabledSubTypes: string[];
-
-  // NOTE :hacer funcion que reciba como parametro el cirrenpath y devolver los disabled
-  // NOTE:  usar enum Names
-  // TODO : hacer el page de by term a los demas modulos y probar
-
-  if (currentPath === '/disciples/search-by-term-disciples') {
-    disabledTypes = [
-      'Ofrenda Culto Dominical',
-      'Ofrenda Casa Familiar',
-      'Ofrenda Ayuno General',
-      'Ofrenda Vigilia General',
-      'Ofrenda Ayuno Zonal',
-      'Ofrenda Vigilia Zonal',
-      'Ofrenda Escuela Dominical',
-      'Ofrenda Culto Jóvenes',
-      'Ofrenda Actividades',
-      'Ofrenda Terreno Iglesia',
-      'Ofrenda Especial',
-      'Diezmo',
-    ];
-
-    disabledSubTypes = [
-      'Buscar pastores por sus propios nombres',
-      'Buscar co-pastores por nombres de su pastor',
-      'Buscar co-pastores por sus propios nombres ',
-      'Buscar lideres por nombres de su pastor',
-      'Buscar lideres por nombres de su co-pastor',
-      'Buscar lideres por nombres de su supervisor',
-      'Buscar lideres por sus propios nombres',
-      'Buscar casas por nombres de su pastor',
-      'Buscar casas por nombres de su co-pastor',
-      'Buscar casas por nombres de su supervisor',
-      'Buscar casas por nombres de su predicador',
-      'Buscar casas por su propio nombre',
-      'Buscar ofrendas por nombres de su co-pastor',
-      'Buscar ofrendas por nombres de su predicador',
-      'Buscar ofrendas por nombres de miembro',
-      'Buscar ofrendas por rango de fecha',
-    ];
-  } else if (currentPath === '/pastors/search-by-term-pastors') {
-    disabledTypes = [
-      'Ofrenda Culto Dominical',
-      'Ofrenda Casa Familiar',
-      'Ofrenda Ayuno General',
-      'Ofrenda Vigilia General',
-      'Ofrenda Ayuno Zonal',
-      'Ofrenda Vigilia Zonal',
-      'Ofrenda Escuela Dominical',
-      'Ofrenda Culto Jóvenes',
-      'Ofrenda Actividades',
-      'Ofrenda Terreno Iglesia',
-      'Ofrenda Especial',
-      'Diezmo',
-      'Zona',
-      'Código de casa familiar',
-      'Nombre de casa familiar',
-      'Roles',
-    ];
-
-    disabledSubTypes = [
-      'Buscar miembros por nombres de su pastor',
-      'Buscar miembros por nombres de su co-pastor',
-      'Buscar miembros por nombres de su supervisor',
-      'Buscar miembros por nombres de su predicador',
-      'Buscar miembros por sus propios nombres',
-      'Buscar co-pastores por nombres de su pastor',
-      'Buscar co-pastores por sus propios nombres ',
-      'Buscar lideres por nombres de su pastor',
-      'Buscar lideres por nombres de su co-pastor',
-      'Buscar lideres por nombres de su supervisor',
-      'Buscar lideres por sus propios nombres',
-      'Buscar casas por nombres de su pastor',
-      'Buscar casas por nombres de su co-pastor',
-      'Buscar casas por nombres de su supervisor',
-      'Buscar casas por nombres de su predicador',
-      'Buscar casas por su propio nombre',
-      'Buscar ofrendas por nombres de su co-pastor',
-      'Buscar ofrendas por nombres de su predicador',
-      'Buscar ofrendas por nombres de miembro',
-      'Buscar ofrendas por rango de fecha',
-    ];
-  } else if (currentPath === '/copastors/search-by-term-copastors') {
-    disabledTypes = [
-      'Ofrenda Culto Dominical',
-      'Ofrenda Casa Familiar',
-      'Ofrenda Ayuno General',
-      'Ofrenda Vigilia General',
-      'Ofrenda Ayuno Zonal',
-      'Ofrenda Vigilia Zonal',
-      'Ofrenda Escuela Dominical',
-      'Ofrenda Culto Jóvenes',
-      'Ofrenda Actividades',
-      'Ofrenda Terreno Iglesia',
-      'Ofrenda Especial',
-      'Diezmo',
-      'Zona',
-      'Código de casa familiar',
-      'Nombre de casa familiar',
-      'Roles',
-    ];
-
-    disabledSubTypes = [
-      'Buscar miembros por nombres de su pastor',
-      'Buscar miembros por nombres de su co-pastor',
-      'Buscar miembros por nombres de su supervisor',
-      'Buscar miembros por nombres de su predicador',
-      'Buscar miembros por sus propios nombres',
-      'Buscar pastores por sus propios nombres',
-      'Buscar lideres por nombres de su pastor',
-      'Buscar lideres por nombres de su co-pastor',
-      'Buscar lideres por nombres de su supervisor',
-      'Buscar lideres por sus propios nombres',
-      'Buscar casas por nombres de su pastor',
-      'Buscar casas por nombres de su co-pastor',
-      'Buscar casas por nombres de su supervisor',
-      'Buscar casas por nombres de su predicador',
-      'Buscar casas por su propio nombre',
-      'Buscar ofrendas por nombres de su co-pastor',
-      'Buscar ofrendas por nombres de su predicador',
-      'Buscar ofrendas por nombres de miembro',
-      'Buscar ofrendas por rango de fecha',
-    ];
-  } else if (currentPath === '/leaders/search-by-term-leaders') {
-    disabledTypes = [
-      'Ofrenda Culto Dominical',
-      'Ofrenda Casa Familiar',
-      'Ofrenda Ayuno General',
-      'Ofrenda Vigilia General',
-      'Ofrenda Ayuno Zonal',
-      'Ofrenda Vigilia Zonal',
-      'Ofrenda Escuela Dominical',
-      'Ofrenda Culto Jóvenes',
-      'Ofrenda Actividades',
-      'Ofrenda Terreno Iglesia',
-      'Ofrenda Especial',
-      'Diezmo',
-      'Roles',
-    ];
-
-    disabledSubTypes = [
-      'Buscar miembros por nombres de su pastor',
-      'Buscar miembros por nombres de su co-pastor',
-      'Buscar miembros por nombres de su supervisor',
-      'Buscar miembros por nombres de su predicador',
-      'Buscar miembros por sus propios nombres',
-      'Buscar pastores por sus propios nombres',
-      'Buscar co-pastores por nombres de su pastor',
-      'Buscar co-pastores por sus propios nombres ',
-      'Buscar casas por nombres de su pastor',
-      'Buscar casas por nombres de su co-pastor',
-      'Buscar casas por nombres de su supervisor',
-      'Buscar casas por nombres de su predicador',
-      'Buscar casas por su propio nombre',
-      'Buscar ofrendas por nombres de su co-pastor',
-      'Buscar ofrendas por nombres de su predicador',
-      'Buscar ofrendas por nombres de miembro',
-      'Buscar ofrendas por rango de fecha',
-    ];
-  } else if (currentPath === '/family-houses/search-by-term-family-houses') {
-    disabledTypes = [
-      'Ofrenda Culto Dominical',
-      'Ofrenda Casa Familiar',
-      'Ofrenda Ayuno General',
-      'Ofrenda Vigilia General',
-      'Ofrenda Ayuno Zonal',
-      'Ofrenda Vigilia Zonal',
-      'Ofrenda Escuela Dominical',
-      'Ofrenda Culto Jóvenes',
-      'Ofrenda Actividades',
-      'Ofrenda Terreno Iglesia',
-      'Ofrenda Especial',
-      'Diezmo',
-      'Roles',
-      'Nombres',
-      'Apellidos',
-      'Nombres y Apellidos',
-      'Mes de nacimiento',
-      'Genero',
-      'Estado civil',
-      'País de origen',
-    ];
-
-    disabledSubTypes = [
-      'Buscar miembros por nombres de su pastor',
-      'Buscar miembros por nombres de su co-pastor',
-      'Buscar miembros por nombres de su supervisor',
-      'Buscar miembros por nombres de su predicador',
-      'Buscar miembros por sus propios nombres',
-      'Buscar pastores por sus propios nombres',
-      'Buscar co-pastores por nombres de su pastor',
-      'Buscar co-pastores por sus propios nombres ',
-      'Buscar lideres por nombres de su pastor',
-      'Buscar lideres por nombres de su co-pastor',
-      'Buscar lideres por nombres de su supervisor',
-      'Buscar lideres por sus propios nombres',
-      'Buscar ofrendas por nombres de su co-pastor',
-      'Buscar ofrendas por nombres de su predicador',
-      'Buscar ofrendas por nombres de miembro',
-      'Buscar ofrendas por rango de fecha',
-    ];
-  } else if (currentPath === '/offerings/search-by-term-offerings') {
-    disabledTypes = [
-      'Roles',
-      'Mes de nacimiento',
-      'Genero',
-      'Estado civil',
-      'País de origen',
-      'Departamento',
-      'Provincia',
-      'Distrito',
-    ];
-
-    disabledSubTypes = [
-      'Buscar miembros por nombres de su pastor',
-      'Buscar miembros por nombres de su co-pastor',
-      'Buscar miembros por nombres de su supervisor',
-      'Buscar miembros por nombres de su predicador',
-      'Buscar miembros por sus propios nombres',
-      'Buscar pastores por sus propios nombres',
-      'Buscar co-pastores por nombres de su pastor',
-      'Buscar co-pastores por sus propios nombres ',
-      'Buscar lideres por nombres de su pastor',
-      'Buscar lideres por nombres de su co-pastor',
-      'Buscar lideres por nombres de su supervisor',
-      'Buscar lideres por sus propios nombres',
-      'Buscar casas por nombres de su pastor',
-      'Buscar casas por nombres de su co-pastor',
-      'Buscar casas por nombres de su supervisor',
-      'Buscar casas por nombres de su predicador',
-      'Buscar casas por su propio nombre',
-    ];
-  } else if (currentPath === '/users/search-by-term-users') {
-    disabledTypes = [
-      'Ofrenda Culto Dominical',
-      'Ofrenda Casa Familiar',
-      'Ofrenda Ayuno General',
-      'Ofrenda Vigilia General',
-      'Ofrenda Ayuno Zonal',
-      'Ofrenda Vigilia Zonal',
-      'Ofrenda Escuela Dominical',
-      'Ofrenda Culto Jóvenes',
-      'Ofrenda Actividades',
-      'Ofrenda Terreno Iglesia',
-      'Ofrenda Especial',
-      'Diezmo',
-      'Mes de nacimiento',
-      'Genero',
-      'Estado civil',
-      'Zona',
-      'Código de casa familiar',
-      'Nombre de casa familiar',
-      'Dirección',
-      'País de origen',
-      'Departamento',
-      'Provincia',
-      'Distrito',
-    ];
-
-    disabledSubTypes = [
-      'Buscar miembros por nombres de su pastor',
-      'Buscar miembros por nombres de su co-pastor',
-      'Buscar miembros por nombres de su supervisor',
-      'Buscar miembros por nombres de su predicador',
-      'Buscar miembros por sus propios nombres',
-      'Buscar pastores por sus propios nombres',
-      'Buscar co-pastores por nombres de su pastor',
-      'Buscar co-pastores por sus propios nombres ',
-      'Buscar lideres por nombres de su pastor',
-      'Buscar lideres por nombres de su co-pastor',
-      'Buscar lideres por nombres de su supervisor',
-      'Buscar lideres por sus propios nombres',
-      'Buscar casas por nombres de su pastor',
-      'Buscar casas por nombres de su co-pastor',
-      'Buscar casas por nombres de su supervisor',
-      'Buscar casas por nombres de su predicador',
-      'Buscar casas por su propio nombre',
-      'Buscar ofrendas por nombres de su co-pastor',
-      'Buscar ofrendas por nombres de su predicador',
-      'Buscar ofrendas por nombres de miembro',
-      'Buscar ofrendas por rango de fecha',
-    ];
-  }
-
-  // TODO : agregar select en marital status term, y hacer gris de 4 para xl y lg
-
   const type = form.watch('type');
+
+  const disabledTypes = validationDisableTypes(currentPath);
+  const disabledTermSelect = validationDisableTermSelect(type);
+
+  // TODO : hacer el page de by term a los demás módulos y probar
 
   function onSubmit(values: z.infer<typeof formSearchByTermSchema>): void {
     setDisabled(false);
@@ -402,10 +128,6 @@ export function DataTableSearchByTerm<TData, TValue>({
 
   return (
     <div className='md:w-full m-auto lg:w-full pt-4'>
-      {/* Convertir este form en un componente para reutilizar */}
-      {/* puedo utilizar el mismo esquema pero lo puedo deshabilitar ciertos tipos y sub tipos */}
-      {/*  Entonces debo agregar todos los tipos y subtipos disponibles y luego hacer el filter para deshabilitar */}
-
       {disabled && (
         <Form {...form}>
           <form
@@ -431,17 +153,15 @@ export function DataTableSearchByTerm<TData, TValue>({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {Object.entries(MemberTypeSearchNames).map(
-                          ([key, value]) => (
-                            <SelectItem
-                              className={`text-[12px] md:text-[13px] ${disabledTypes.includes(value) ? 'hidden' : ''}`}
-                              key={key}
-                              value={key}
-                            >
-                              {value}
-                            </SelectItem>
-                          )
-                        )}
+                        {Object.entries(TypeSearchNames).map(([key, value]) => (
+                          <SelectItem
+                            className={`text-[12px] md:text-[13px] ${disabledTypes?.disabledTypes?.includes(value) ? 'hidden' : ''}`}
+                            key={key}
+                            value={key}
+                          >
+                            {value}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -449,9 +169,20 @@ export function DataTableSearchByTerm<TData, TValue>({
                 );
               }}
             />
-            {(type === MemberTypeSearch.firstName ||
-              type === MemberTypeSearch.lastName ||
-              type === MemberTypeSearch.fullName) && (
+            {(type === TypeSearch.firstName ||
+              type === TypeSearch.lastName ||
+              type === TypeSearch.fullName ||
+              type === TypeSearch.sunday_worship ||
+              type === TypeSearch.family_house ||
+              type === TypeSearch.zonal_fasting ||
+              type === TypeSearch.general_fasting ||
+              type === TypeSearch.zonal_vigil ||
+              type === TypeSearch.general_vigil ||
+              type === TypeSearch.sunday_school ||
+              type === TypeSearch.youth_worship ||
+              type === TypeSearch.activities ||
+              type === TypeSearch.church_ground ||
+              type === TypeSearch.special) && (
               <FormField
                 control={form.control}
                 name='subType'
@@ -471,10 +202,10 @@ export function DataTableSearchByTerm<TData, TValue>({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(SubTypeMembersSearchNames).map(
+                          {Object.entries(SubTypeSearchNames).map(
                             ([key, value]) => (
                               <SelectItem
-                                className={`text-[12px] md:text-[13px] ${disabledSubTypes.includes(value) ? 'hidden' : ''}`}
+                                className={`text-[12px] md:text-[13px] ${disabledTypes?.disabledSubTypes?.includes(value) ? 'hidden' : ''}`}
                                 key={key}
                                 value={key}
                               >
@@ -491,13 +222,17 @@ export function DataTableSearchByTerm<TData, TValue>({
               />
             )}
 
-            {type !== MemberTypeSearch.firstName &&
-              type !== MemberTypeSearch.lastName &&
-              type !== MemberTypeSearch.fullName &&
+            {type !== TypeSearch.firstName &&
+              type !== TypeSearch.lastName &&
+              type !== TypeSearch.fullName &&
+              type !== TypeSearch.date_birth &&
+              type !== TypeSearch.gender &&
+              type !== TypeSearch.maritalStatus &&
+              type !== TypeSearch.isActive &&
               type !== undefined && (
                 <FormField
                   control={form.control}
-                  name='term'
+                  name='termInput'
                   render={({ field }) => (
                     <FormItem className=''>
                       <FormLabel className='text-[13px] md:text-sm'>
@@ -519,8 +254,51 @@ export function DataTableSearchByTerm<TData, TValue>({
                 />
               )}
 
-            {(type === MemberTypeSearch.firstName ||
-              type === MemberTypeSearch.fullName) && (
+            {(type === TypeSearch.date_birth ||
+              type === TypeSearch.gender ||
+              type === TypeSearch.maritalStatus ||
+              type === TypeSearch.isActive) && (
+              <FormField
+                control={form.control}
+                name='termSelect'
+                render={({ field }) => {
+                  return (
+                    <FormItem className='mt-4'>
+                      <FormLabel className='text-[13px] md:text-sm'>
+                        Termino
+                      </FormLabel>
+                      <FormDescription className='text-[12px] md:text-[13px]'>
+                        Escribe aquí lo que deseas buscar.
+                      </FormDescription>
+                      <Select onValueChange={field.onChange}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder='Selecciona una opción' />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {Object.entries(TermSelectTypeNames).map(
+                            ([key, value]) => (
+                              <SelectItem
+                                className={`text-[12px] md:text-[13px] ${disabledTermSelect?.disabledTermSelect?.includes(value) ? 'hidden' : ''}`}
+                                key={key}
+                                value={key}
+                              >
+                                {value}
+                              </SelectItem>
+                            )
+                          )}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+            )}
+
+            {(type === TypeSearch.firstName ||
+              type === TypeSearch.fullName) && (
               <FormField
                 control={form.control}
                 name='termNames'
@@ -544,8 +322,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                 )}
               />
             )}
-            {(type === MemberTypeSearch.lastName ||
-              type === MemberTypeSearch.fullName) && (
+            {(type === TypeSearch.lastName || type === TypeSearch.fullName) && (
               <FormField
                 control={form.control}
                 name='termLastNames'
@@ -659,9 +436,9 @@ export function DataTableSearchByTerm<TData, TValue>({
 
       {!disabled &&
         (currentPath === '/disciples/search-by-term-disciples' ||
-          currentPath === '/pastors/search-pastors' ||
-          currentPath === '/copastors/search-copastors' ||
-          currentPath === '/leaders/search-leaders') && (
+          currentPath === '/pastors/search-by-term-pastors' ||
+          currentPath === '/copastors/search-by-term-copastors' ||
+          currentPath === '/leaders/search-by-term-leaders') && (
           <div className='pb-8 lg:pb-8 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
             <Button
               variant='ghost'
@@ -712,53 +489,59 @@ export function DataTableSearchByTerm<TData, TValue>({
           </div>
         )}
 
-      {!disabled && currentPath === '/family-houses/search-family-houses' && (
-        <div className='pb-8 lg:pb-8 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
-          <Button
-            variant='ghost'
-            className='w-[8rem] m-auto text-[13px] lg:text-[14px] h-full md:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
-            onClick={() => {
-              setDisabled(true);
-              table.getColumn('name_house')?.setFilterValue('');
-              table.getColumn('code')?.setFilterValue('');
-            }}
-          >
-            Nueva Búsqueda
-          </Button>
-          <Input
-            placeholder='Filtro por nombre de casa...'
-            value={
-              (table.getColumn('name_house')?.getFilterValue() as string) ?? ''
-            }
-            onChange={(event) =>
-              table.getColumn('name_house')?.setFilterValue(event.target.value)
-            }
-            className='text-[13px] lg:text-[14px]  w-full'
-            disabled={disabled}
-          />
-          <Input
-            placeholder='Filtro por código de casa...'
-            value={(table.getColumn('code')?.getFilterValue() as string) ?? ''}
-            onChange={(event) =>
-              table.getColumn('code')?.setFilterValue(event.target.value)
-            }
-            className='col-start-1 col-end-2 text-[13px] lg:text-[14px] w-full'
-            disabled={disabled}
-          />
-          <Button
-            variant='ghost'
-            className='w-[6rem] m-auto text-[13px] lg:text-[14px] h-full md:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-400 dark:bg-red-500 dark:hover:bg-red-400 dark:hover:text-red-950'
-            onClick={() => {
-              table.getColumn('name_house')?.setFilterValue('');
-              table.getColumn('code')?.setFilterValue('');
-            }}
-          >
-            Borrar
-          </Button>
-        </div>
-      )}
+      {!disabled &&
+        currentPath === '/family-houses/search-by-term-family-houses' && (
+          <div className='pb-8 lg:pb-8 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
+            <Button
+              variant='ghost'
+              className='w-[8rem] m-auto text-[13px] lg:text-[14px] h-full md:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
+              onClick={() => {
+                setDisabled(true);
+                table.getColumn('name_house')?.setFilterValue('');
+                table.getColumn('code')?.setFilterValue('');
+              }}
+            >
+              Nueva Búsqueda
+            </Button>
+            <Input
+              placeholder='Filtro por nombre de casa...'
+              value={
+                (table.getColumn('name_house')?.getFilterValue() as string) ??
+                ''
+              }
+              onChange={(event) =>
+                table
+                  .getColumn('name_house')
+                  ?.setFilterValue(event.target.value)
+              }
+              className='text-[13px] lg:text-[14px]  w-full'
+              disabled={disabled}
+            />
+            <Input
+              placeholder='Filtro por código de casa...'
+              value={
+                (table.getColumn('code')?.getFilterValue() as string) ?? ''
+              }
+              onChange={(event) =>
+                table.getColumn('code')?.setFilterValue(event.target.value)
+              }
+              className='col-start-1 col-end-2 text-[13px] lg:text-[14px] w-full'
+              disabled={disabled}
+            />
+            <Button
+              variant='ghost'
+              className='w-[6rem] m-auto text-[13px] lg:text-[14px] h-full md:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-400 dark:bg-red-500 dark:hover:bg-red-400 dark:hover:text-red-950'
+              onClick={() => {
+                table.getColumn('name_house')?.setFilterValue('');
+                table.getColumn('code')?.setFilterValue('');
+              }}
+            >
+              Borrar
+            </Button>
+          </div>
+        )}
 
-      {!disabled && currentPath === '/offerings/search-offerings' && (
+      {!disabled && currentPath === '/offerings/search-by-term-offerings' && (
         <div className='pb-8 lg:pb-8 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
           <Button
             variant='ghost'
@@ -804,7 +587,7 @@ export function DataTableSearchByTerm<TData, TValue>({
         </div>
       )}
 
-      {!disabled && currentPath === '/users/search-users' && (
+      {!disabled && currentPath === '/users/search-by-term-users' && (
         <div className='pb-8 lg:pb-8 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
           <Button
             variant='ghost'

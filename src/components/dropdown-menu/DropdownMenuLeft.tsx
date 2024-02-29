@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-redeclare */
-import { Button } from '@/components/ui/button';
 
+import { FcExport } from 'react-icons/fc';
+import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTrigger,
 } from '@/components/ui/sheet';
+
 import { SideMenuItem } from '../shared/side-menu/SideMenuItem';
 import { menuItems } from '../shared/data/menu-items-data';
-import { FcExport } from 'react-icons/fc';
 
 export function DropdownMenuLeft(): JSX.Element {
   return (

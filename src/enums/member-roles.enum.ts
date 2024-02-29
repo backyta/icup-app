@@ -9,7 +9,7 @@ export enum MemberRoles {
 
 
 
-export const memberRoleNames: Record<MemberRoles, string> = {
+export const MemberRoleNames: Record<MemberRoles, string> = {
   member: 'Miembro',
   pastor: 'Pastor',
   copastor: 'Co-pastor',
