@@ -59,7 +59,11 @@ import {
   TermSelectTypeNames,
 } from '@/enums';
 
-import { validationDisableTermSelect, validationDisableTypes } from '@/helpers';
+import {
+  validationDisableSubTypes,
+  validationDisableTermSelect,
+  validationDisableTypes,
+} from '@/helpers';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -97,6 +101,10 @@ export function DataTableSearchByTerm<TData, TValue>({
   const type = form.watch('type');
 
   const disabledTypes = validationDisableTypes(currentPath);
+
+  const disabledSubTypes = validationDisableSubTypes(currentPath, type);
+
+  console.log(disabledSubTypes?.disabledSubTypes);
   const disabledTermSelect = validationDisableTermSelect(type);
 
   // TODO : hacer el page de by term a los demás módulos y probar
@@ -172,6 +180,7 @@ export function DataTableSearchByTerm<TData, TValue>({
             {(type === TypeSearch.firstName ||
               type === TypeSearch.lastName ||
               type === TypeSearch.fullName ||
+              type === TypeSearch.tithe ||
               type === TypeSearch.sunday_worship ||
               type === TypeSearch.family_house ||
               type === TypeSearch.zonal_fasting ||
@@ -205,7 +214,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                           {Object.entries(SubTypeSearchNames).map(
                             ([key, value]) => (
                               <SelectItem
-                                className={`text-[12px] md:text-[13px] ${disabledTypes?.disabledSubTypes?.includes(value) ? 'hidden' : ''}`}
+                                className={`text-[12px] md:text-[13px] ${disabledSubTypes?.disabledSubTypes?.includes(value) ? 'hidden' : ''}`}
                                 key={key}
                                 value={key}
                               >

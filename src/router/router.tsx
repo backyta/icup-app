@@ -29,6 +29,7 @@ import {
   LeadersSearchPageByTerm,
   FamilyHousesSearchPageByTerm,
   OfferingsSearchPageByTerm,
+  UsersSearchPageByTerm,
 } from '@/pages';
 
 export const router = createBrowserRouter([
@@ -202,10 +203,10 @@ export const router = createBrowserRouter([
             path: '/users/search-users',
             element: <GeneralUsersSearchPage />,
           },
-          // {
-          //   path: '/users/search-by-term-users',
-          //   element: <UsersSearchPageByTerm />,
-          // },
+          {
+            path: '/users/search-by-term-users',
+            element: <UsersSearchPageByTerm />,
+          },
         ],
       },
 
