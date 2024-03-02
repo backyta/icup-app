@@ -14,6 +14,8 @@ export const formSearchByTermSchema = z
 
     termInput: z.string().max(30).optional(),
     termSelect: z.string().max(30).optional(),
+    // termDate: z.any(),
+    termDate: z.object({from: z.date(), to: z.date()}).optional(),
 
     termNames: z.string().max(30).optional(),
     termLastNames: z.string().max(30).optional(),
@@ -21,9 +23,9 @@ export const formSearchByTermSchema = z
     limit: z.string().refine(limit => !isNaN(parseInt(limit)),{
       message: 'Limite debe ser un numero.'
     }).optional(),
-    offset:z.string().refine(offset => !isNaN(parseInt(offset)),{
-      message: 'Desplaz. debe ser un numero.'
-    }).optional(),
+    // offset:z.string().refine(offset => !isNaN(parseInt(offset)),{
+    //   message: 'Desplaz. debe ser un numero.'
+    // }).optional(),
     order: z.enum(['ASC', 'DESC'], {
       required_error: "Seleccione un orden para al consulta.",
     }),
@@ -91,8 +93,8 @@ export const formSearchByTermSchema = z
   )
   .refine(
     (data) => {
-      if (data.type !== TypeSearch.lastName && data.type !== TypeSearch.firstName && data.type !== TypeSearch.fullName &&  
-          data.type !== TypeSearch.gender && data.type !== TypeSearch.maritalStatus && data.type !== TypeSearch.isActive ) {
+      if (data.type !== TypeSearch.lastName && data.type !== TypeSearch.firstName && data.type !== TypeSearch.fullName && data.type !== TypeSearch.monthBirth &&   
+          data.type !== TypeSearch.gender && data.type !== TypeSearch.maritalStatus && data.type !== TypeSearch.isActive && data.type !== TypeSearch.dateBirth  ) {
         return !!data.termInput; /* //true */
       }
       return true;
@@ -104,7 +106,7 @@ export const formSearchByTermSchema = z
   )
   .refine(
     (data) => {
-      if (data.type === TypeSearch.date_birth || data.type === TypeSearch.gender ||
+      if (data.type === TypeSearch.monthBirth || data.type === TypeSearch.gender ||
           data.type === TypeSearch.maritalStatus || data.type === TypeSearch.isActive  ) {
         return !!data.termSelect; /* //true */
       }
@@ -113,6 +115,18 @@ export const formSearchByTermSchema = z
     {
       message: 'El termino es requerido',
       path: ['termSelect'],
+    }
+  )
+  .refine(
+    (data) => {
+      if ( data.type === TypeSearch.dateBirth ) {
+        return !!data.termDate; /* //true */
+      }
+      return true;
+    },
+    {
+      message: 'El termino es requerido',
+      path: ['termDate'],
     }
   )
 

@@ -31,7 +31,7 @@ function Calendar({
         month: 'space-y-4 text-sm',
         button: 'flex justify-end mb-4 w-[1.5] ',
 
-        dropdown_icon: 'bg-red-500',
+        dropdown_icon: '',
         caption_dropdowns: 'flex gap-x-2',
         dropdown:
           'text-black text-[0.9rem] w-auto border-none dark:bg-slate-300 rounded-md',

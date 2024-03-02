@@ -1,6 +1,7 @@
 export enum TermSelectType {
 
   //* Date (pasar el numero de mes pa buscar en DB)
+
   january = 'january',
   february = 'february',
   march = 'march',
@@ -34,7 +35,19 @@ export enum TermSelectType {
 
 
 export const TermSelectTypeNames: Record<TermSelectType, string> =  {
-  
+
+  'male': 'Hombre',
+  'female': 'Mujer',
+
+  'single' : 'Soltero(a)',
+  'married' : 'Casado(a)',
+  'widowed' : 'Viudo(a)',
+  'divorced' : 'Divorciado(a)',
+  'other' : 'Otro',
+
+  'active' : 'Activo',
+  'inactive' : 'Inactivo',
+
   'january' : 'Enero',
   'february' : 'Febrero',
   'march' : 'Marzo',
@@ -47,17 +60,5 @@ export const TermSelectTypeNames: Record<TermSelectType, string> =  {
   'october' : 'Octubre',
   'november' : 'Noviembre',
   'december' : 'Diciembre',
-  
-  'male': 'Hombre',
-  'female': 'Mujer',
-
-  'single' : 'Soltero(a)',
-  'married' : 'Casado(a)',
-  'widowed' : 'Viudo(a)',
-  'divorced' : 'Divorciado(a)',
-  'other' : 'Otro',
-
-  'active' : 'Activo',
-  'inactive' : 'Inactivo',
 
 }

@@ -1,4 +1,5 @@
 export enum SubTypeSearch {
+  none = 'none',
 
   //* Member
   memberPastorNames = 'member_pastor_names',
@@ -109,6 +110,8 @@ export enum SubTypeSearch {
 // TODO : en search by term colocar la opción de todos en limite y tmb se podrá escribir
 
 export const SubTypeSearchNames: Record<SubTypeSearch, string> =  {
+
+  none: '',
   
   // TODO : mejorar por nombres ya apellidos para mejor legibilidad (like offering)
   //* Member

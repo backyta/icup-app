@@ -1,11 +1,15 @@
+/* eslint-disable @typescript-eslint/no-confusing-void-expression */
+/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+// import Select from 'react-select';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type z } from 'zod';
+import { es } from 'date-fns/locale';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -65,6 +69,17 @@ import {
   validationDisableTypes,
 } from '@/helpers';
 
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
+import { format } from 'date-fns';
+import { CalendarIcon } from '@radix-ui/react-icons';
+import { Calendar } from '@/components/ui/calendar';
+import { SubTypeSearch } from '../../enums/search-sub-types.enum';
+
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
@@ -90,21 +105,19 @@ export function DataTableSearchByTerm<TData, TValue>({
     resolver: zodResolver(formSearchByTermSchema),
     defaultValues: {
       limit: '10',
-      offset: '0',
-      termSelect: '',
+      // offset: '0',
       termInput: '',
       termNames: '',
       termLastNames: '',
+      termSelect: '',
     },
   });
 
   const type = form.watch('type');
-
+  console.log(type);
   const disabledTypes = validationDisableTypes(currentPath);
 
   const disabledSubTypes = validationDisableSubTypes(currentPath, type);
-
-  console.log(disabledSubTypes?.disabledSubTypes);
   const disabledTermSelect = validationDisableTermSelect(type);
 
   // TODO : hacer el page de by term a los demás módulos y probar
@@ -154,7 +167,15 @@ export function DataTableSearchByTerm<TData, TValue>({
                     <FormDescription className='text-[12px] md:text-[13px]'>
                       ¿Que tipo de búsqueda desea hacer?
                     </FormDescription>
-                    <Select onValueChange={field.onChange}>
+                    <Select
+                      // Mantener el espacio fijo para que no salte o agregar animacion de barrido
+                      onOpenChange={() =>
+                        form.resetField('type', {
+                          keepError: true,
+                        })
+                      }
+                      onValueChange={field.onChange}
+                    >
                       <FormControl className='text-[12px] md:text-[13px]'>
                         <SelectTrigger>
                           <SelectValue placeholder='Selecciona un tipo' />
@@ -234,7 +255,8 @@ export function DataTableSearchByTerm<TData, TValue>({
             {type !== TypeSearch.firstName &&
               type !== TypeSearch.lastName &&
               type !== TypeSearch.fullName &&
-              type !== TypeSearch.date_birth &&
+              type !== TypeSearch.monthBirth &&
+              type !== TypeSearch.dateBirth &&
               type !== TypeSearch.gender &&
               type !== TypeSearch.maritalStatus &&
               type !== TypeSearch.isActive &&
@@ -263,10 +285,72 @@ export function DataTableSearchByTerm<TData, TValue>({
                 />
               )}
 
-            {(type === TypeSearch.date_birth ||
-              type === TypeSearch.gender ||
+            {type === TypeSearch.dateBirth && (
+              <FormField
+                control={form.control}
+                name='termDate'
+                render={({ field }) => (
+                  <FormItem className=''>
+                    <FormLabel className='text-[13px] md:text-sm'>
+                      Termino
+                    </FormLabel>
+                    <FormDescription className='text-[12px] md:text-[13px]'>
+                      Escribe aquí lo que deseas buscar.
+                    </FormDescription>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            // id='date'
+                            variant={'outline'}
+                            className={cn(
+                              'w-full text-left font-normal justify-center p-4',
+                              !field.value && 'text-muted-foreground'
+                            )}
+                          >
+                            <CalendarIcon className='mr-2 h-4 w-4' />
+                            {field?.value?.from ? (
+                              field?.value.to ? (
+                                <>
+                                  {format(field?.value.from, 'LLL dd, y', {
+                                    locale: es,
+                                  })}{' '}
+                                  -{' '}
+                                  {format(field?.value.to, 'LLL dd, y', {
+                                    locale: es,
+                                  })}
+                                </>
+                              ) : (
+                                format(field?.value.from, 'LLL dd, y')
+                              )
+                            ) : (
+                              <span>Elige una fecha o rango de fechas</span>
+                            )}
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className='w-auto p-0' align='start'>
+                        <Calendar
+                          initialFocus
+                          mode='range'
+                          selected={field.value}
+                          onSelect={field.onChange}
+                          numberOfMonths={2}
+                        />
+                      </PopoverContent>
+                    </Popover>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+
+            {/* //TODO hacer select con opciones de meses para que elijan varios meses */}
+            {(type === TypeSearch.gender ||
               type === TypeSearch.maritalStatus ||
-              type === TypeSearch.isActive) && (
+              type === TypeSearch.isActive ||
+              type === TypeSearch.monthBirth) && (
               <FormField
                 control={form.control}
                 name='termSelect'
@@ -331,6 +415,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                 )}
               />
             )}
+
             {(type === TypeSearch.lastName || type === TypeSearch.fullName) && (
               <FormField
                 control={form.control}
@@ -377,7 +462,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                 </FormItem>
               )}
             />
-            <FormField
+            {/* <FormField
               control={form.control}
               name='offset'
               render={({ field }) => (
@@ -398,7 +483,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
             <FormField
               control={form.control}
               name='order'

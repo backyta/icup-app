@@ -200,7 +200,7 @@ import {
 
 
 export const validationDisableTypes = (currentPath: string) => {
-
+  
   //* Disabled Types by module
   const disabledTypesDisciples = Object.values(TypeSearchNames).filter(value => !typesDisciple.includes(value) ) 
   const disabledTypesPastors = Object.values(TypeSearchNames).filter(value => !typesPastor.includes(value) ) 
@@ -542,7 +542,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
 export const validationDisableTermSelect = (type: string) => {
 
   //* Disabled Term Select
-  if (type === TypeSearch.date_birth) {
+  if (type === TypeSearch.monthBirth) {
     return {
       disabledTermSelect : [
         TermSelectTypeNames.male,
