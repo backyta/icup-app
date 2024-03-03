@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 // import Select from 'react-select';
 
@@ -78,7 +78,6 @@ import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { CalendarIcon } from '@radix-ui/react-icons';
 import { Calendar } from '@/components/ui/calendar';
-import { SubTypeSearch } from '../../enums/search-sub-types.enum';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -103,6 +102,7 @@ export function DataTableSearchByTerm<TData, TValue>({
 
   const form = useForm<z.infer<typeof formSearchByTermSchema>>({
     resolver: zodResolver(formSearchByTermSchema),
+    mode: 'onChange',
     defaultValues: {
       limit: '10',
       // offset: '0',
@@ -114,13 +114,14 @@ export function DataTableSearchByTerm<TData, TValue>({
   });
 
   const type = form.watch('type');
-  console.log(type);
+  const subType = form.watch('subType');
+
   const disabledTypes = validationDisableTypes(currentPath);
 
   const disabledSubTypes = validationDisableSubTypes(currentPath, type);
   const disabledTermSelect = validationDisableTermSelect(type);
 
-  // TODO : hacer el page de by term a los demás módulos y probar
+  // TODO : TRABAJAR EL SEARCH BY TERM EN OFRENDAS
 
   function onSubmit(values: z.infer<typeof formSearchByTermSchema>): void {
     setDisabled(false);
@@ -168,12 +169,56 @@ export function DataTableSearchByTerm<TData, TValue>({
                       ¿Que tipo de búsqueda desea hacer?
                     </FormDescription>
                     <Select
-                      // Mantener el espacio fijo para que no salte o agregar animacion de barrido
-                      onOpenChange={() =>
-                        form.resetField('type', {
-                          keepError: true,
-                        })
-                      }
+                      onOpenChange={() => {
+                        (type === TypeSearch.firstName ||
+                          type === TypeSearch.lastName ||
+                          type === TypeSearch.fullName) &&
+                          form.resetField('subType', {
+                            keepError: true, // regresa a undefined
+                          });
+
+                        type !== TypeSearch.firstName &&
+                          form.resetField('termNames', {
+                            defaultValue: '',
+                          });
+                        type !== TypeSearch.lastName &&
+                          form.resetField('termLastNames', {
+                            defaultValue: '',
+                          });
+                        type !== TypeSearch.fullName &&
+                          form.resetField('termLastNames', {
+                            defaultValue: '',
+                          });
+                        type !== TypeSearch.fullName &&
+                          form.resetField('termNames', {
+                            defaultValue: '',
+                          });
+
+                        type === TypeSearch.dateBirth &&
+                          form.resetField('termDate', {
+                            keepError: true,
+                          });
+
+                        (type === TypeSearch.gender ||
+                          type === TypeSearch.monthBirth ||
+                          type === TypeSearch.maritalStatus ||
+                          type === TypeSearch.isActive) &&
+                          form.resetField('termSelect', {
+                            keepError: true,
+                          });
+
+                        (type === TypeSearch.zone ||
+                          type === TypeSearch.code ||
+                          type === TypeSearch.name_house ||
+                          type === TypeSearch.address ||
+                          type === TypeSearch.originCountry ||
+                          type === TypeSearch.department ||
+                          type === TypeSearch.province ||
+                          type === TypeSearch.district) &&
+                          form.resetField('termInput', {
+                            defaultValue: '',
+                          });
+                      }}
                       onValueChange={field.onChange}
                     >
                       <FormControl className='text-[12px] md:text-[13px]'>
@@ -198,6 +243,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                 );
               }}
             />
+
             {(type === TypeSearch.firstName ||
               type === TypeSearch.lastName ||
               type === TypeSearch.fullName ||
@@ -225,10 +271,36 @@ export function DataTableSearchByTerm<TData, TValue>({
                       <FormDescription className='text-[12px] md:text-[13px]'>
                         ¿Que sub tipo de búsqueda deseas hacer?
                       </FormDescription>
-                      <Select onValueChange={field.onChange}>
+                      <Select
+                        onOpenChange={() => {
+                          type !== TypeSearch.firstName &&
+                            form.resetField('termNames', {
+                              defaultValue: '',
+                            });
+                          type !== TypeSearch.lastName &&
+                            form.resetField('termLastNames', {
+                              defaultValue: '',
+                            });
+                          type !== TypeSearch.fullName &&
+                            form.resetField('termLastNames', {
+                              defaultValue: '',
+                            });
+                          type !== TypeSearch.fullName &&
+                            form.resetField('termNames', {
+                              defaultValue: '',
+                            });
+                        }}
+                        defaultValue={field.value}
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
                         <FormControl className='text-[12px] md:text-[13px]'>
                           <SelectTrigger>
-                            <SelectValue placeholder='Selecciona una sub-tipo' />
+                            {field.value ? (
+                              <SelectValue placeholder='Selecciona un sub-tipo' />
+                            ) : (
+                              'Selecciona un sub-tipo'
+                            )}
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -265,7 +337,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                   control={form.control}
                   name='termInput'
                   render={({ field }) => (
-                    <FormItem className=''>
+                    <FormItem>
                       <FormLabel className='text-[13px] md:text-sm'>
                         Termino
                       </FormLabel>
@@ -346,7 +418,6 @@ export function DataTableSearchByTerm<TData, TValue>({
               />
             )}
 
-            {/* //TODO hacer select con opciones de meses para que elijan varios meses */}
             {(type === TypeSearch.gender ||
               type === TypeSearch.maritalStatus ||
               type === TypeSearch.isActive ||
@@ -356,17 +427,25 @@ export function DataTableSearchByTerm<TData, TValue>({
                 name='termSelect'
                 render={({ field }) => {
                   return (
-                    <FormItem className='mt-4'>
+                    <FormItem>
                       <FormLabel className='text-[13px] md:text-sm'>
                         Termino
                       </FormLabel>
                       <FormDescription className='text-[12px] md:text-[13px]'>
                         Escribe aquí lo que deseas buscar.
                       </FormDescription>
-                      <Select onValueChange={field.onChange}>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        value={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder='Selecciona una opción' />
+                            {field.value ? (
+                              <SelectValue placeholder='Selecciona una opción' />
+                            ) : (
+                              'Selecciona una opción'
+                            )}
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -390,56 +469,60 @@ export function DataTableSearchByTerm<TData, TValue>({
               />
             )}
 
-            {(type === TypeSearch.firstName ||
-              type === TypeSearch.fullName) && (
-              <FormField
-                control={form.control}
-                name='termNames'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className='text-[13px] md:text-sm'>
-                      Termino (nombres)
-                    </FormLabel>
-                    <FormDescription className='text-[12px] md:text-[13px]'>
-                      Escribe aquí los nombres que deseas buscar.
-                    </FormDescription>
-                    <FormControl>
-                      <Input
-                        className='text-[12px] md:text-[13px]'
-                        placeholder='Escribe el termino de búsqueda'
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )}
+            {subType &&
+              (type === TypeSearch.firstName ||
+                type === TypeSearch.fullName) && (
+                <FormField
+                  control={form.control}
+                  name='termNames'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className='text-[13px] md:text-sm'>
+                        Termino (nombres)
+                      </FormLabel>
+                      <FormDescription className='text-[12px] md:text-[13px]'>
+                        Escribe aquí los nombres que deseas buscar.
+                      </FormDescription>
+                      <FormControl>
+                        <Input
+                          className='text-[12px] md:text-[13px]'
+                          placeholder='Escribe el termino de búsqueda'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
 
-            {(type === TypeSearch.lastName || type === TypeSearch.fullName) && (
-              <FormField
-                control={form.control}
-                name='termLastNames'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className='text-[13px] md:text-sm'>
-                      Termino (apellidos)
-                    </FormLabel>
-                    <FormDescription className='text-[12px] md:text-[13px]'>
-                      Escribe aquí los apellidos que deseas buscar.
-                    </FormDescription>
-                    <FormControl>
-                      <Input
-                        className='text-[12px] md:text-[13px]'
-                        placeholder='Escribe el termino de búsqueda'
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )}
+            {subType &&
+              (type === TypeSearch.lastName ||
+                type === TypeSearch.fullName) && (
+                <FormField
+                  control={form.control}
+                  name='termLastNames'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className='text-[13px] md:text-sm'>
+                        Termino (apellidos)
+                      </FormLabel>
+                      <FormDescription className='text-[12px] md:text-[13px]'>
+                        Escribe aquí los apellidos que deseas buscar.
+                      </FormDescription>
+                      <FormControl>
+                        <Input
+                          className='text-[12px] md:text-[13px]'
+                          placeholder='Escribe el termino de búsqueda'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+
             <FormField
               control={form.control}
               name='limit'
@@ -501,15 +584,15 @@ export function DataTableSearchByTerm<TData, TValue>({
                     <SelectContent>
                       <SelectItem
                         className='text-[12px] md:text-[13px]'
-                        value='ASC'
-                      >
-                        Mas antiguo a mas nuevo
-                      </SelectItem>
-                      <SelectItem
-                        className='text-[12px] md:text-[13px]'
                         value='DESC'
                       >
                         Mas nuevo a mas antiguo
+                      </SelectItem>
+                      <SelectItem
+                        className='text-[12px] md:text-[13px]'
+                        value='ASC'
+                      >
+                        Mas antiguo a mas nuevo
                       </SelectItem>
                     </SelectContent>
                   </Select>

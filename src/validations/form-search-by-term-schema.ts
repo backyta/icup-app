@@ -15,7 +15,9 @@ export const formSearchByTermSchema = z
     termInput: z.string().max(30).optional(),
     termSelect: z.string().max(30).optional(),
     // termDate: z.any(),
-    termDate: z.object({from: z.date(), to: z.date()}).optional(),
+    termDate: z.object({from: z.date(), to: z.date().optional()}, {
+      required_error: "Por favor seleccione una fecha.",
+    }).optional(),
 
     termNames: z.string().max(30).optional(),
     termLastNames: z.string().max(30).optional(),
@@ -113,7 +115,7 @@ export const formSearchByTermSchema = z
       return true;
     },
     {
-      message: 'El termino es requerido',
+      message: 'Por favor seleccione una opción',
       path: ['termSelect'],
     }
   )
@@ -125,7 +127,7 @@ export const formSearchByTermSchema = z
       return true;
     },
     {
-      message: 'El termino es requerido',
+      message: 'Por favor seleccione una fecha',
       path: ['termDate'],
     }
   )
