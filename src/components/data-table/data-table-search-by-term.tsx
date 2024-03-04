@@ -78,6 +78,7 @@ import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { CalendarIcon } from '@radix-ui/react-icons';
 import { Calendar } from '@/components/ui/calendar';
+import { Checkbox } from '@/components/ui/checkbox';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -105,11 +106,11 @@ export function DataTableSearchByTerm<TData, TValue>({
     mode: 'onChange',
     defaultValues: {
       limit: '10',
-      // offset: '0',
       termInput: '',
       termNames: '',
       termLastNames: '',
       termSelect: '',
+      limitAll: false,
     },
   });
 
@@ -122,12 +123,19 @@ export function DataTableSearchByTerm<TData, TValue>({
   const disabledTermSelect = validationDisableTermSelect(type);
 
   // TODO : TRABAJAR EL SEARCH BY TERM EN OFRENDAS
+  // TODO : Colocar el check de todos en búsqueda general y agregar zona a la tabla y filtro al ID
+  // TODO : hacer lo mismo que el title para el erroo, para el mesage para que tome todo el largo
+  // TODO : revisar y pasar a ofrendas
 
   function onSubmit(values: z.infer<typeof formSearchByTermSchema>): void {
+    // form.setValue('limit', '0');
     setDisabled(false);
     form.reset();
     console.log({ values });
   }
+
+  // console.log(form.getValues('limitAll'));
+  // console.log(form.getValues('limit'));
 
   const table = useReactTable({
     data,
@@ -299,7 +307,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                             {field.value ? (
                               <SelectValue placeholder='Selecciona un sub-tipo' />
                             ) : (
-                              'Selecciona un sub-tipo'
+                              'Elige un sub-tipo'
                             )}
                           </SelectTrigger>
                         </FormControl>
@@ -347,7 +355,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                       <FormControl>
                         <Input
                           className='text-[12px] md:text-[13px]'
-                          placeholder='Escribe el termino de búsqueda'
+                          placeholder='Eje: C-2, Av.Central 123, Lima ....'
                           {...field}
                         />
                       </FormControl>
@@ -367,16 +375,15 @@ export function DataTableSearchByTerm<TData, TValue>({
                       Termino
                     </FormLabel>
                     <FormDescription className='text-[12px] md:text-[13px]'>
-                      Escribe aquí lo que deseas buscar.
+                      Buscar por fecha o rango de fechas
                     </FormDescription>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
-                            // id='date'
                             variant={'outline'}
                             className={cn(
-                              'w-full text-left font-normal justify-center p-4',
+                              'w-full text-left font-normal justify-center p-4 text-[12px] md:text-[13px]',
                               !field.value && 'text-muted-foreground'
                             )}
                           >
@@ -396,7 +403,9 @@ export function DataTableSearchByTerm<TData, TValue>({
                                 format(field?.value.from, 'LLL dd, y')
                               )
                             ) : (
-                              <span>Elige una fecha o rango de fechas</span>
+                              <span className='text-[12px] md:text-[13px]'>
+                                Elige una fecha
+                              </span>
                             )}
                           </Button>
                         </FormControl>
@@ -411,7 +420,6 @@ export function DataTableSearchByTerm<TData, TValue>({
                         />
                       </PopoverContent>
                     </Popover>
-
                     <FormMessage />
                   </FormItem>
                 )}
@@ -439,12 +447,15 @@ export function DataTableSearchByTerm<TData, TValue>({
                         defaultValue={field.value}
                         value={field.value}
                       >
-                        <FormControl>
+                        <FormControl className='text-[12px] md:text-[13px]'>
                           <SelectTrigger>
                             {field.value ? (
-                              <SelectValue placeholder='Selecciona una opción' />
+                              <SelectValue
+                                className='text-[12px] md:text-[13px]'
+                                placeholder='Elige una opción'
+                              />
                             ) : (
-                              'Selecciona una opción'
+                              'Elige una opción'
                             )}
                           </SelectTrigger>
                         </FormControl>
@@ -486,7 +497,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                       <FormControl>
                         <Input
                           className='text-[12px] md:text-[13px]'
-                          placeholder='Escribe el termino de búsqueda'
+                          placeholder='Eje: Rolando Martin...'
                           {...field}
                         />
                       </FormControl>
@@ -513,7 +524,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                       <FormControl>
                         <Input
                           className='text-[12px] md:text-[13px]'
-                          placeholder='Escribe el termino de búsqueda'
+                          placeholder='Eje: Sanchez Torres...'
                           {...field}
                         />
                       </FormControl>
@@ -523,50 +534,67 @@ export function DataTableSearchByTerm<TData, TValue>({
                 />
               )}
 
-            <FormField
-              control={form.control}
-              name='limit'
-              render={({ field }) => (
-                <FormItem className=''>
-                  <FormLabel className='text-[13px] md:text-sm'>
-                    Limite
-                  </FormLabel>
-                  <FormDescription className='text-[12px] md:text-[13px]'>
-                    ¿Cuantos registros necesitas?
-                  </FormDescription>
-                  <FormControl>
-                    <Input
-                      className='text-[12px] md:text-[13px]'
-                      placeholder='Limite de registros'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {/* <FormField
-              control={form.control}
-              name='offset'
-              render={({ field }) => (
-                <FormItem className=''>
-                  <FormLabel className='text-[13px] md:text-[13px]'>
-                    Desplazamiento
-                  </FormLabel>
-                  <FormDescription className='text-[12px] md:text-[13px]'>
-                    ¿Cuantos registros quieres saltar?
-                  </FormDescription>
-                  <FormControl>
-                    <Input
-                      className='text-[12px] md:text-[13px]'
-                      placeholder='Nro. de registros desplazados'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
+            <div className='grid grid-cols-2 items-end justify-evenly'>
+              <div className='flex flex-col gap-2 col-start-1 col-end-3 pb-2'>
+                <FormField
+                  control={form.control}
+                  name='limit'
+                  render={() => (
+                    <FormItem>
+                      <FormLabel className='text-[13px] md:text-sm'>
+                        Limite
+                      </FormLabel>
+                      <FormDescription className='text-[12px] md:text-[13px]'>
+                        ¿Cuantos registros necesitas?
+                      </FormDescription>
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className='flex col-start-1 col-end-3 gap-2 md:gap-4 md:justify-start'>
+                <FormField
+                  control={form.control}
+                  name='limit'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          disabled={!!form.getValues('limitAll')}
+                          className='text-[12px] md:text-[13px]'
+                          value={
+                            form.getValues('limitAll') ? '-' : field?.value
+                          }
+                          placeholder='Limite de registros'
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name='limitAll'
+                  render={({ field }) => (
+                    <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem]'>
+                      <FormControl>
+                        <Checkbox
+                          checked={field?.value}
+                          onCheckedChange={(checked) => field.onChange(checked)}
+                        />
+                      </FormControl>
+                      <div className='space-y-1 leading-none'>
+                        <FormLabel className='text-[12px] md:text-[13px]'>
+                          Todos
+                        </FormLabel>
+                      </div>
+                    </FormItem>
+                  )}
+                />
+              </div>
+            </div>
+
             <FormField
               control={form.control}
               name='order'

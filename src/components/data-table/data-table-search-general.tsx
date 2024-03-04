@@ -51,6 +51,7 @@ import {
 } from '@tanstack/react-table';
 
 import { formSearchGeneralSchema } from '@/validations/form-search-general-schema';
+import { Checkbox } from '@/components/ui/checkbox';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -78,6 +79,7 @@ export function DataTableSearchGeneral<TData, TValue>({
     defaultValues: {
       limit: '10',
       offset: '0',
+      limitAll: false,
     },
   });
 
@@ -112,57 +114,103 @@ export function DataTableSearchGeneral<TData, TValue>({
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className='grid grid-cols-2 gap-4 gap-y-2 items-end mb-14 md:mb-10 lg:flex lg:gap-6 lg:items-end '
+            className='grid gap-y-2 items-end mb-10 md:mb-10 md:flex md:items-end md:gap-4 lg:gap-6 lg:items-end md:w-auto'
           >
-            <FormField
-              control={form.control}
-              name='limit'
-              render={({ field }) => (
-                <FormItem className='col-start-1 col-end-2 row-start-1 row-end-2'>
-                  <FormLabel className='text-[13px] md:text-sm'>
-                    Limite
-                  </FormLabel>
-                  <FormDescription className='text-[12px] md:text-[13px]'>
-                    ¿Cuantos registros necesitas?
-                  </FormDescription>
-                  <FormControl>
-                    <Input
-                      className='text-[12px]'
-                      placeholder='Limite de registros'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name='offset'
-              render={({ field }) => (
-                <FormItem className='col-start-2 col-end-3 row-start-1 row-end-2'>
-                  <FormLabel className='text-[13px] md:text-sm'>
-                    Desplazamiento
-                  </FormLabel>
-                  <FormDescription className='text-[12px] md:text-[13px]'>
-                    ¿Cuantos registros quieres saltar?
-                  </FormDescription>
-                  <FormControl>
-                    <Input
-                      className='text-[12px] md:text-sm'
-                      placeholder='Nro. de registros desplazados'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className='flex justify-between gap-8 sm:gap-10 md:gap-4'>
+              <FormField
+                control={form.control}
+                name='limit'
+                render={({ field }) => (
+                  <FormItem className='sm:w-[20rem] md:w-auto'>
+                    <FormLabel className='text-[13px] md:text-sm'>
+                      Limite
+                    </FormLabel>
+                    <FormDescription className='text-[12px] md:text-[13px]'>
+                      ¿Cuantos registros necesitas?
+                    </FormDescription>
+                    <FormControl>
+                      <Input
+                        disabled={!!form.getValues('limitAll')}
+                        className='text-[12px] md:text-[13px]'
+                        placeholder='Limite de registros'
+                        {...field}
+                        value={form.getValues('limitAll') ? '-' : field?.value}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <div className='grid grid-cols-2 items-end justify-evenly'>
+                <div className='flex flex-col gap-2 col-start-1 col-end-3 pb-2'>
+                  <FormField
+                    control={form.control}
+                    name='offset'
+                    render={() => (
+                      <FormItem>
+                        <FormLabel className='text-[13px] md:text-sm'>
+                          Desplazamiento
+                        </FormLabel>
+                        <FormDescription className='text-[12px] md:text-[13px]'>
+                          ¿Cuantos registros quieres saltar?
+                        </FormDescription>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className='flex col-start-1 col-end-3 gap-2 sm:gap-4 md:justify-start'>
+                  <FormField
+                    control={form.control}
+                    name='offset'
+                    render={({ field }) => (
+                      <FormItem className='sm:w-[18rem] md:w-auto'>
+                        <FormControl>
+                          <Input
+                            disabled={!!form.getValues('limitAll')}
+                            className='text-[12px] md:text-sm'
+                            placeholder='Nro. de registros desplazados'
+                            {...field}
+                            value={
+                              form.getValues('limitAll') ? '-' : field?.value
+                            }
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name='limitAll'
+                    render={({ field }) => (
+                      <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem]'>
+                        <FormControl>
+                          <Checkbox
+                            checked={field?.value}
+                            onCheckedChange={(checked) => {
+                              field.onChange(checked);
+                            }}
+                          />
+                        </FormControl>
+                        <div className='space-y-1 leading-none'>
+                          <FormLabel className='text-[12px] md:text-[13px]'>
+                            Todos
+                          </FormLabel>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+            </div>
+
             <FormField
               control={form.control}
               name='order'
               render={({ field }) => (
-                <FormItem className='lg:flex lg:flex-col lg:gap-7'>
+                <FormItem className=''>
                   <FormLabel className='text-[13px] md:text-sm'>
                     Orden
                   </FormLabel>
@@ -191,10 +239,11 @@ export function DataTableSearchGeneral<TData, TValue>({
                 </FormItem>
               )}
             />
+
             <Button
               type='submit'
               variant='ghost'
-              className='mx-auto lg:m-0 col-start-2 col-end-3 row-start-2 row-end-3 w-[8rem] text-[13px] lg:text-[14px] h-[2.5rem] md:w-[8rem] xl:w-[6rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500  hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
+              className='m-auto md:m-0 mt-2 lg:m-0 w-[8rem] text-[13px] lg:text-[14px] h-[2.5rem] md:w-[8rem] xl:w-[6rem] px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500  hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
             >
               Buscar
             </Button>

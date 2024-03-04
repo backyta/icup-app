@@ -14,7 +14,6 @@ export const formSearchByTermSchema = z
 
     termInput: z.string().max(30).optional(),
     termSelect: z.string().max(30).optional(),
-    // termDate: z.any(),
     termDate: z.object({from: z.date(), to: z.date().optional()}, {
       required_error: "Por favor seleccione una fecha.",
     }).optional(),
@@ -22,12 +21,14 @@ export const formSearchByTermSchema = z
     termNames: z.string().max(30).optional(),
     termLastNames: z.string().max(30).optional(),
 
-    limit: z.string().refine(limit => !isNaN(parseInt(limit)),{
-      message: 'Limite debe ser un numero.'
+    limit: z.string().refine(limit => {
+      const parsedLimit = parseInt(limit);
+      return !isNaN(parsedLimit) && parsedLimit > 0;
+    },{
+      message: 'Limite debe ser un numero mayor a 0'
     }).optional(),
-    // offset:z.string().refine(offset => !isNaN(parseInt(offset)),{
-    //   message: 'Desplaz. debe ser un numero.'
-    // }).optional(),
+    limitAll: z.any().optional(),
+
     order: z.enum(['ASC', 'DESC'], {
       required_error: "Seleccione un orden para al consulta.",
     }),
