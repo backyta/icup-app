@@ -37,6 +37,7 @@ export enum TypeSearch {
 
   //* Offering (buscar ofrendas por diezmo y ofrenda)
   tithe = 'tithe',
+  // date = 'date',
   sunday_worship = 'sunday_worship',
   family_house = 'family_house',
   general_fasting = 'general_fasting',
@@ -48,8 +49,6 @@ export enum TypeSearch {
   activities = 'activities',
   church_ground = 'church_ground',
   special = 'special',
-
-
 }
 
 
@@ -81,6 +80,7 @@ export const TypeSearchNames: Record<TypeSearch, string> =  {
 
   is_active : 'Estado',
 
+  // date: 'date',
   tithe : 'Diezmo',
   sunday_worship: 'Ofrenda Culto Dominical',
   family_house: 'Ofrenda Casa Familiar',

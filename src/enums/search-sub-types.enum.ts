@@ -111,7 +111,7 @@ export enum SubTypeSearch {
 
 export const SubTypeSearchNames: Record<SubTypeSearch, string> =  {
 
-  none: '',
+  none: 'Elige un sub-tipo',
   
   // TODO : mejorar por nombres ya apellidos para mejor legibilidad (like offering)
   //* Member
@@ -199,7 +199,7 @@ export const SubTypeSearchNames: Record<SubTypeSearch, string> =  {
   offering_preacher_names: 'Buscar ofrendas por nombres de predicador',
   offering_preacher_last_names: 'Buscar ofrendas por apellidos de predicador',
   offering_preacher_full_name: 'Buscar ofrendas por nombres y apellidos de predicador',
-  offering_code_house: 'Buscar ofrendas por código',
+  offering_code_house: 'Buscar ofrendas por código de casa',
   offering_date_code_house: 'Buscar ofrendas por código y fecha',
 
   //* Offering Ayuno Zonal y Vigilia Zonal

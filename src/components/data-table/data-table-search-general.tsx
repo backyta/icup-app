@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -75,6 +76,7 @@ export function DataTableSearchGeneral<TData, TValue>({
   const currentPath = window.location.pathname;
 
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({
+    mode: 'onChange', // para capturar cambios y lanzar el error antes del submit
     resolver: zodResolver(formSearchGeneralSchema),
     defaultValues: {
       limit: '10',
@@ -83,7 +85,21 @@ export function DataTableSearchGeneral<TData, TValue>({
     },
   });
 
+  // NO se resetean los valores, rebisar
+
+  useEffect(() => {
+    if (form.getValues('limitAll') === true) {
+      console.log('change');
+      form.setValue('limit', '10');
+      form.setValue('offset', '0');
+    }
+  }, [form.getValues('limitAll')]);
+
+  console.log(form.getValues('limit'));
+  console.log(form.getValues('offset'));
+
   function onSubmit(values: z.infer<typeof formSearchGeneralSchema>): void {
+    // form.setValue('limit', '0');
     setDisabled(false);
     form.reset();
     console.log({ values });
@@ -130,11 +146,13 @@ export function DataTableSearchGeneral<TData, TValue>({
                     </FormDescription>
                     <FormControl>
                       <Input
+                        {...field}
                         disabled={!!form.getValues('limitAll')}
                         className='text-[12px] md:text-[13px]'
+                        value={
+                          form.getValues('limitAll') ? '-' : field.value || ''
+                        }
                         placeholder='Limite de registros'
-                        {...field}
-                        value={form.getValues('limitAll') ? '-' : field?.value}
                       />
                     </FormControl>
                     <FormMessage />
@@ -172,7 +190,9 @@ export function DataTableSearchGeneral<TData, TValue>({
                             placeholder='Nro. de registros desplazados'
                             {...field}
                             value={
-                              form.getValues('limitAll') ? '-' : field?.value
+                              form.getValues('limitAll')
+                                ? '-'
+                                : field?.value || ''
                             }
                           />
                         </FormControl>
@@ -188,10 +208,20 @@ export function DataTableSearchGeneral<TData, TValue>({
                       <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem]'>
                         <FormControl>
                           <Checkbox
+                            disabled={
+                              !form.getValues('limit') ||
+                              !form.getValues('offset')
+                            }
                             checked={field?.value}
                             onCheckedChange={(checked) => {
                               field.onChange(checked);
                             }}
+                            className={
+                              !form.getValues('limit') ||
+                              !form.getValues('offset')
+                                ? 'bg-slate-500'
+                                : ''
+                            }
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
@@ -223,15 +253,15 @@ export function DataTableSearchGeneral<TData, TValue>({
                     <SelectContent>
                       <SelectItem
                         className='text-[12px] md:text-sm'
-                        value='ASC'
-                      >
-                        Mas antiguo a mas nuevo
-                      </SelectItem>
-                      <SelectItem
-                        className='text-[12px] md:text-sm'
                         value='DESC'
                       >
                         Mas nuevo a mas antiguo
+                      </SelectItem>
+                      <SelectItem
+                        className='text-[12px] md:text-sm'
+                        value='ASC'
+                      >
+                        Mas antiguo a mas nuevo
                       </SelectItem>
                     </SelectContent>
                   </Select>

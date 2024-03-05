@@ -138,13 +138,13 @@ import {
 
   //* Offering (Family House)
   const subTypesFamilyHouse = [ 
-    SubTypeSearchNames.offering_date,
-    SubTypeSearchNames.offering_zone,
-    SubTypeSearchNames.offering_date_zone,
     SubTypeSearchNames.offering_preacher_names,
     SubTypeSearchNames.offering_preacher_last_names,
     SubTypeSearchNames.offering_preacher_full_name,
+    SubTypeSearchNames.offering_zone,
     SubTypeSearchNames.offering_code_house,
+    SubTypeSearchNames.offering_date,
+    SubTypeSearchNames.offering_date_zone,
     SubTypeSearchNames.offering_date_code_house,
   ];
 

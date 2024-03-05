@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 // import Select from 'react-select';
 
@@ -61,6 +62,7 @@ import {
   TypeSearchNames,
   SubTypeSearchNames,
   TermSelectTypeNames,
+  SubTypeSearch,
 } from '@/enums';
 
 import {
@@ -99,6 +101,8 @@ export function DataTableSearchByTerm<TData, TValue>({
 
   const [disabled, setDisabled] = useState(true);
 
+  const [lastValue, setLastValue] = useState<string | undefined>('');
+
   const currentPath = window.location.pathname;
 
   const form = useForm<z.infer<typeof formSearchByTermSchema>>({
@@ -111,31 +115,39 @@ export function DataTableSearchByTerm<TData, TValue>({
       termLastNames: '',
       termSelect: '',
       limitAll: false,
+      subType: lastValue as SubTypeSearch,
     },
   });
 
   const type = form.watch('type');
   const subType = form.watch('subType');
 
+  useEffect(() => {
+    setLastValue(subType);
+  }, [form.getValues('subType')]);
+
+  useEffect(() => {
+    if (form.getValues('limitAll') === true) {
+      console.log('change');
+      form.setValue('limit', '10');
+    }
+  }, [form.getValues('limitAll')]);
+
+  // console.log(type);
+  // console.log(subType);
+
   const disabledTypes = validationDisableTypes(currentPath);
 
   const disabledSubTypes = validationDisableSubTypes(currentPath, type);
   const disabledTermSelect = validationDisableTermSelect(type);
 
-  // TODO : TRABAJAR EL SEARCH BY TERM EN OFRENDAS
-  // TODO : Colocar el check de todos en búsqueda general y agregar zona a la tabla y filtro al ID
-  // TODO : hacer lo mismo que el title para el erroo, para el mesage para que tome todo el largo
-  // TODO : revisar y pasar a ofrendas
+  // TODO : TRABAJAR EL SEARCH BY TERM EN OFRENDAS (aquí) Continuar ....
 
   function onSubmit(values: z.infer<typeof formSearchByTermSchema>): void {
-    // form.setValue('limit', '0');
     setDisabled(false);
     form.reset();
     console.log({ values });
   }
-
-  // console.log(form.getValues('limitAll'));
-  // console.log(form.getValues('limit'));
 
   const table = useReactTable({
     data,
@@ -162,7 +174,7 @@ export function DataTableSearchByTerm<TData, TValue>({
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className='grid grid-cols-2 gap-4 gap-y-2 items-end mb-14 md:mb-10 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4'
+            className='grid grid-cols-2 gap-4 gap-y-4 items-end mb-14 md:mb-10 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4 '
           >
             <FormField
               control={form.control}
@@ -180,9 +192,21 @@ export function DataTableSearchByTerm<TData, TValue>({
                       onOpenChange={() => {
                         (type === TypeSearch.firstName ||
                           type === TypeSearch.lastName ||
-                          type === TypeSearch.fullName) &&
+                          type === TypeSearch.fullName ||
+                          type === TypeSearch.tithe ||
+                          type === TypeSearch.sunday_worship ||
+                          type === TypeSearch.family_house ||
+                          type === TypeSearch.general_fasting ||
+                          type === TypeSearch.general_vigil ||
+                          type === TypeSearch.zonal_fasting ||
+                          type === TypeSearch.zonal_vigil ||
+                          type === TypeSearch.sunday_school ||
+                          type === TypeSearch.youth_worship ||
+                          type === TypeSearch.activities ||
+                          type === TypeSearch.church_ground ||
+                          type === TypeSearch.special) &&
                           form.resetField('subType', {
-                            keepError: true, // regresa a undefined
+                            keepError: true, // toma el valor por defecto que es vació y se puede elegir denuedo
                           });
 
                         type !== TypeSearch.firstName &&
@@ -202,7 +226,8 @@ export function DataTableSearchByTerm<TData, TValue>({
                             defaultValue: '',
                           });
 
-                        type === TypeSearch.dateBirth &&
+                        (type === TypeSearch.dateBirth ||
+                          subType === SubTypeSearch.titheDate) &&
                           form.resetField('termDate', {
                             keepError: true,
                           });
@@ -298,9 +323,10 @@ export function DataTableSearchByTerm<TData, TValue>({
                               defaultValue: '',
                             });
                         }}
-                        defaultValue={field.value}
                         value={field.value}
-                        onValueChange={field.onChange}
+                        onValueChange={(value) =>
+                          value && field.onChange(value)
+                        }
                       >
                         <FormControl className='text-[12px] md:text-[13px]'>
                           <SelectTrigger>
@@ -340,6 +366,7 @@ export function DataTableSearchByTerm<TData, TValue>({
               type !== TypeSearch.gender &&
               type !== TypeSearch.maritalStatus &&
               type !== TypeSearch.isActive &&
+              type !== TypeSearch.tithe &&
               type !== undefined && (
                 <FormField
                   control={form.control}
@@ -365,7 +392,8 @@ export function DataTableSearchByTerm<TData, TValue>({
                 />
               )}
 
-            {type === TypeSearch.dateBirth && (
+            {(type === TypeSearch.dateBirth ||
+              subType === SubTypeSearch.titheDate) && (
               <FormField
                 control={form.control}
                 name='termDate'
@@ -387,7 +415,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                               !field.value && 'text-muted-foreground'
                             )}
                           >
-                            <CalendarIcon className='mr-2 h-4 w-4' />
+                            <CalendarIcon className='mr-[0.1rem] h-4 w-4' />
                             {field?.value?.from ? (
                               field?.value.to ? (
                                 <>
@@ -482,7 +510,9 @@ export function DataTableSearchByTerm<TData, TValue>({
 
             {subType &&
               (type === TypeSearch.firstName ||
-                type === TypeSearch.fullName) && (
+                type === TypeSearch.fullName ||
+                subType === SubTypeSearch.titheNames ||
+                subType === SubTypeSearch.titheFullNames) && (
                 <FormField
                   control={form.control}
                   name='termNames'
@@ -509,7 +539,9 @@ export function DataTableSearchByTerm<TData, TValue>({
 
             {subType &&
               (type === TypeSearch.lastName ||
-                type === TypeSearch.fullName) && (
+                type === TypeSearch.fullName ||
+                subType === SubTypeSearch.titheLastNames ||
+                subType === SubTypeSearch.titheFullNames) && (
                 <FormField
                   control={form.control}
                   name='termLastNames'
@@ -551,24 +583,23 @@ export function DataTableSearchByTerm<TData, TValue>({
                   )}
                 />
               </div>
-              <div className='flex col-start-1 col-end-3 gap-2 md:gap-4 md:justify-start'>
+              <div className='flex col-start-1 col-end-3 gap-2 md:gap-6 lg:gap-4 md:justify-start'>
                 <FormField
                   control={form.control}
                   name='limit'
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className='2xl:w-[20rem]'>
                       <FormControl>
                         <Input
                           {...field}
                           disabled={!!form.getValues('limitAll')}
                           className='text-[12px] md:text-[13px]'
                           value={
-                            form.getValues('limitAll') ? '-' : field?.value
+                            form.getValues('limitAll') ? '-' : field.value || ''
                           }
                           placeholder='Limite de registros'
                         />
                       </FormControl>
-                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -577,11 +608,15 @@ export function DataTableSearchByTerm<TData, TValue>({
                   control={form.control}
                   name='limitAll'
                   render={({ field }) => (
-                    <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem]'>
+                    <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
                       <FormControl>
                         <Checkbox
+                          disabled={!form.getValues('limit')}
                           checked={field?.value}
                           onCheckedChange={(checked) => field.onChange(checked)}
+                          className={
+                            form.getValues('limit') ? '' : 'bg-slate-500'
+                          }
                         />
                       </FormControl>
                       <div className='space-y-1 leading-none'>
@@ -593,13 +628,24 @@ export function DataTableSearchByTerm<TData, TValue>({
                   )}
                 />
               </div>
+              <div className='flex flex-col gap-2 col-start-1 col-end-3'>
+                <FormField
+                  control={form.control}
+                  name='limit'
+                  render={() => (
+                    <FormItem>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
 
             <FormField
               control={form.control}
               name='order'
               render={({ field }) => (
-                <FormItem className='col-start-1 col-end-3 lg:col-start-auto lg:col-end-auto'>
+                <FormItem className='w-full col-start-auto col-end-auto lg:col-start-auto lg:col-end-auto'>
                   <FormLabel className='text-[13px] md:text-sm'>
                     Orden
                   </FormLabel>
@@ -631,7 +677,7 @@ export function DataTableSearchByTerm<TData, TValue>({
             <Button
               type='submit'
               variant='ghost'
-              className='mx-auto col-start-1 col-end-3 row-start-6 lg:col-start-2 lg:col-end-3 lg:row-start-4 lg:row-end-5 xl:row-start-3 xl:row-end-4 xl:col-start-2 xl:col-end-4 w-[8rem] text-[13px] lg:text-[14px] h-[2.5rem] md:w-[8rem] lg:w-[12rem] xl:w-[12rem] xl:mx-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500  hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
+              className='mx-auto col-start-1 col-end-3 row-start-auto lg:col-start-2 lg:col-end-3 lg:row-start-auto lg:row-end-auto xl:row-start-auto xl:row-end-auto xl:col-start-auto xl:col-end-auto w-[8rem] text-[13px] lg:text-[14px] h-[2.5rem] md:w-[15rem] lg:w-full xl:w-full xl:-ml-0 2xl:w-full 2xl:mx-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500  hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
             >
               Buscar
             </Button>

@@ -27,11 +27,11 @@ export const formSearchByTermSchema = z
     },{
       message: 'Limite debe ser un numero mayor a 0'
     }).optional(),
-    limitAll: z.any().optional(),
-
+    
     order: z.enum(['ASC', 'DESC'], {
       required_error: "Seleccione un orden para al consulta.",
     }),
+    limitAll: z.any().optional(),
    
   })
   .refine(
