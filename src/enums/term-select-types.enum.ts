@@ -31,6 +31,10 @@ export enum TermSelectType {
   active = 'active',
   inactive = 'inactive',
 
+  //* Turn
+  day = 'day',
+  night = 'night'
+
 }
 
 
@@ -61,4 +65,6 @@ export const TermSelectTypeNames: Record<TermSelectType, string> =  {
   'november' : 'Noviembre',
   'december' : 'Diciembre',
 
+  'day' : 'Dia',
+  'night' : 'Noche'
 }

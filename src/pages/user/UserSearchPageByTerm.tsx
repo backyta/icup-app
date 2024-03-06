@@ -17,7 +17,7 @@ export const UsersSearchPageByTerm = (): JSX.Element => {
         Busca, filtra u ordena los usuarios que necesites.
       </p>
 
-      <div className='px-4 md:-px-2 lg:px-[2rem] xl:px-[3rem] 2xl:px-36 py-4 w-full'>
+      <div className='px-4 md:-px-2 lg:px-[2rem] xl:px-[3rem] 2xl:px-[8rem] py-4 w-full'>
         <DataTableSearchByTerm columns={userColumns} data={data} />
       </div>
     </div>

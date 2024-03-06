@@ -36,15 +36,18 @@ export const InfoCard = (): JSX.Element => {
             currentPath === '/copastors/search-copastors' ||
             currentPath === '/leaders/search-leaders') && <TabsCardMember />}
 
-          {currentPath === '/family-houses/search-family-houses' && (
-            <TabsCardFamilyHome />
-          )}
+          {currentPath === '/family-houses/search-family-houses' ||
+            (currentPath === '/family-houses/search-by-term-family-houses' && (
+              <TabsCardFamilyHome />
+            ))}
 
-          {currentPath === '/offerings/search-offerings' && (
-            <TabsCardOffering />
-          )}
+          {currentPath === '/offerings/search-offerings' ||
+            (currentPath === '/offerings/search-by-term-offerings' && (
+              <TabsCardOffering />
+            ))}
 
-          {currentPath === '/users/search-users' && <TabsCardUser />}
+          {currentPath === '/users/search-users' ||
+            (currentPath === '/users/search-by-term-users' && <TabsCardUser />)}
         </DialogContent>
       </Dialog>
     );
@@ -65,15 +68,18 @@ export const InfoCard = (): JSX.Element => {
             currentPath === '/copastors/search-copastors' ||
             currentPath === '/leaders/search-leaders') && <TabsCardMember />}
 
-          {currentPath === '/family-houses/search-family-houses' && (
-            <TabsCardFamilyHome />
-          )}
+          {currentPath === '/family-houses/search-family-houses' ||
+            (currentPath === '/family-houses/search-by-term-family-houses' && (
+              <TabsCardFamilyHome />
+            ))}
 
-          {currentPath === '/offerings/search-offerings' && (
-            <TabsCardOffering />
-          )}
+          {currentPath === '/offerings/search-offerings' ||
+            (currentPath === '/offerings/search-by-term-offerings' && (
+              <TabsCardOffering />
+            ))}
 
-          {currentPath === '/users/search-users' && <TabsCardUser />}
+          {currentPath === '/users/search-users' ||
+            (currentPath === '/users/search-by-term-users' && <TabsCardUser />)}
         </div>
       </DrawerContent>
     </Drawer>

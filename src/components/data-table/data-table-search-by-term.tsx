@@ -63,6 +63,8 @@ import {
   SubTypeSearchNames,
   TermSelectTypeNames,
   SubTypeSearch,
+  UserRoles,
+  UserRoleNames,
 } from '@/enums';
 
 import {
@@ -101,8 +103,6 @@ export function DataTableSearchByTerm<TData, TValue>({
 
   const [disabled, setDisabled] = useState(true);
 
-  const [lastValue, setLastValue] = useState<string | undefined>('');
-
   const currentPath = window.location.pathname;
 
   const form = useForm<z.infer<typeof formSearchByTermSchema>>({
@@ -114,8 +114,8 @@ export function DataTableSearchByTerm<TData, TValue>({
       termNames: '',
       termLastNames: '',
       termSelect: '',
+      subType: '',
       limitAll: false,
-      subType: lastValue as SubTypeSearch,
     },
   });
 
@@ -123,25 +123,27 @@ export function DataTableSearchByTerm<TData, TValue>({
   const subType = form.watch('subType');
 
   useEffect(() => {
-    setLastValue(subType);
-  }, [form.getValues('subType')]);
-
-  useEffect(() => {
-    if (form.getValues('limitAll') === true) {
-      console.log('change');
+    if (form.getValues('limitAll')) {
       form.setValue('limit', '10');
     }
   }, [form.getValues('limitAll')]);
 
-  // console.log(type);
-  // console.log(subType);
+  console.log(type);
+  console.log(subType);
+
+  console.log(form.getValues('termMultiSelect'));
 
   const disabledTypes = validationDisableTypes(currentPath);
 
   const disabledSubTypes = validationDisableSubTypes(currentPath, type);
-  const disabledTermSelect = validationDisableTermSelect(type);
+  const disabledTermSelect = validationDisableTermSelect(type, subType);
 
-  // TODO : TRABAJAR EL SEARCH BY TERM EN OFRENDAS (aquí) Continuar ....
+  // TODO : Trabajar en el X y Flecha para desplazar la barra lateral (arreglas en Movil horizontal)
+  // TODO : revisar las tablas y sus modales que todos aparezcan
+  // TODO : Modificar el modal de modo claro a oscuro para contraste.
+  // TODO : Agregar botones modales a dashboard en botones y hacer form para la fecha y capturarla
+  // TODO : Agregar filtro por zona en la tabla donde sea conveniente.
+  // TODO : Una vez terminado limpiar archivos y pasar a update
 
   function onSubmit(values: z.infer<typeof formSearchByTermSchema>): void {
     setDisabled(false);
@@ -190,67 +192,24 @@ export function DataTableSearchByTerm<TData, TValue>({
                     </FormDescription>
                     <Select
                       onOpenChange={() => {
-                        (type === TypeSearch.firstName ||
-                          type === TypeSearch.lastName ||
-                          type === TypeSearch.fullName ||
-                          type === TypeSearch.tithe ||
-                          type === TypeSearch.sunday_worship ||
-                          type === TypeSearch.family_house ||
-                          type === TypeSearch.general_fasting ||
-                          type === TypeSearch.general_vigil ||
-                          type === TypeSearch.zonal_fasting ||
-                          type === TypeSearch.zonal_vigil ||
-                          type === TypeSearch.sunday_school ||
-                          type === TypeSearch.youth_worship ||
-                          type === TypeSearch.activities ||
-                          type === TypeSearch.church_ground ||
-                          type === TypeSearch.special) &&
-                          form.resetField('subType', {
-                            keepError: true, // toma el valor por defecto que es vació y se puede elegir denuedo
-                          });
-
-                        type !== TypeSearch.firstName &&
-                          form.resetField('termNames', {
-                            defaultValue: '',
-                          });
-                        type !== TypeSearch.lastName &&
-                          form.resetField('termLastNames', {
-                            defaultValue: '',
-                          });
-                        type !== TypeSearch.fullName &&
-                          form.resetField('termLastNames', {
-                            defaultValue: '',
-                          });
-                        type !== TypeSearch.fullName &&
-                          form.resetField('termNames', {
-                            defaultValue: '',
-                          });
-
-                        (type === TypeSearch.dateBirth ||
-                          subType === SubTypeSearch.titheDate) &&
-                          form.resetField('termDate', {
-                            keepError: true,
-                          });
-
-                        (type === TypeSearch.gender ||
-                          type === TypeSearch.monthBirth ||
-                          type === TypeSearch.maritalStatus ||
-                          type === TypeSearch.isActive) &&
-                          form.resetField('termSelect', {
-                            keepError: true,
-                          });
-
-                        (type === TypeSearch.zone ||
-                          type === TypeSearch.code ||
-                          type === TypeSearch.name_house ||
-                          type === TypeSearch.address ||
-                          type === TypeSearch.originCountry ||
-                          type === TypeSearch.department ||
-                          type === TypeSearch.province ||
-                          type === TypeSearch.district) &&
-                          form.resetField('termInput', {
-                            defaultValue: '',
-                          });
+                        form.resetField('subType', {
+                          keepError: true,
+                        });
+                        form.resetField('termNames', {
+                          keepError: true,
+                        });
+                        form.resetField('termLastNames', {
+                          keepError: true,
+                        });
+                        form.resetField('termDate', {
+                          keepError: true,
+                        });
+                        form.resetField('termSelect', {
+                          keepError: true,
+                        });
+                        form.resetField('termInput', {
+                          keepError: true,
+                        });
                       }}
                       onValueChange={field.onChange}
                     >
@@ -305,28 +264,26 @@ export function DataTableSearchByTerm<TData, TValue>({
                         ¿Que sub tipo de búsqueda deseas hacer?
                       </FormDescription>
                       <Select
-                        onOpenChange={() => {
-                          type !== TypeSearch.firstName &&
-                            form.resetField('termNames', {
-                              defaultValue: '',
-                            });
-                          type !== TypeSearch.lastName &&
-                            form.resetField('termLastNames', {
-                              defaultValue: '',
-                            });
-                          type !== TypeSearch.fullName &&
-                            form.resetField('termLastNames', {
-                              defaultValue: '',
-                            });
-                          type !== TypeSearch.fullName &&
-                            form.resetField('termNames', {
-                              defaultValue: '',
-                            });
-                        }}
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
                         value={field.value}
-                        onValueChange={(value) =>
-                          value && field.onChange(value)
-                        }
+                        onOpenChange={() => {
+                          form.resetField('termNames', {
+                            defaultValue: '',
+                          });
+                          form.resetField('termLastNames', {
+                            defaultValue: '',
+                          });
+                          form.resetField('termDate', {
+                            keepError: true,
+                          });
+                          form.resetField('termSelect', {
+                            keepError: true,
+                          });
+                          form.resetField('termInput', {
+                            keepError: true,
+                          });
+                        }}
                       >
                         <FormControl className='text-[12px] md:text-[13px]'>
                           <SelectTrigger>
@@ -358,7 +315,11 @@ export function DataTableSearchByTerm<TData, TValue>({
               />
             )}
 
-            {type !== TypeSearch.firstName &&
+            {(subType === SubTypeSearch.offeringZone ||
+              subType === SubTypeSearch.offeringDateZone ||
+              subType === SubTypeSearch.offeringCodeHouse ||
+              subType === SubTypeSearch.offeringDateCodeHouse) &&
+              type !== TypeSearch.firstName &&
               type !== TypeSearch.lastName &&
               type !== TypeSearch.fullName &&
               type !== TypeSearch.monthBirth &&
@@ -367,6 +328,7 @@ export function DataTableSearchByTerm<TData, TValue>({
               type !== TypeSearch.maritalStatus &&
               type !== TypeSearch.isActive &&
               type !== TypeSearch.tithe &&
+              type !== TypeSearch.sunday_worship &&
               type !== undefined && (
                 <FormField
                   control={form.control}
@@ -393,7 +355,14 @@ export function DataTableSearchByTerm<TData, TValue>({
               )}
 
             {(type === TypeSearch.dateBirth ||
-              subType === SubTypeSearch.titheDate) && (
+              subType === SubTypeSearch.titheDate ||
+              subType === SubTypeSearch.titheDateNames ||
+              subType === SubTypeSearch.titheDateLastNames ||
+              subType === SubTypeSearch.titheDateFullName ||
+              subType === SubTypeSearch.offeringDate ||
+              subType === SubTypeSearch.offeringDateShift ||
+              subType === SubTypeSearch.offeringDateZone ||
+              subType === SubTypeSearch.offeringDateCodeHouse) && (
               <FormField
                 control={form.control}
                 name='termDate'
@@ -457,7 +426,9 @@ export function DataTableSearchByTerm<TData, TValue>({
             {(type === TypeSearch.gender ||
               type === TypeSearch.maritalStatus ||
               type === TypeSearch.isActive ||
-              type === TypeSearch.monthBirth) && (
+              type === TypeSearch.monthBirth ||
+              subType === SubTypeSearch.offeringShift ||
+              subType === SubTypeSearch.offeringDateShift) && (
               <FormField
                 control={form.control}
                 name='termSelect'
@@ -508,63 +479,137 @@ export function DataTableSearchByTerm<TData, TValue>({
               />
             )}
 
-            {subType &&
-              (type === TypeSearch.firstName ||
-                type === TypeSearch.fullName ||
-                subType === SubTypeSearch.titheNames ||
-                subType === SubTypeSearch.titheFullNames) && (
-                <FormField
-                  control={form.control}
-                  name='termNames'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className='text-[13px] md:text-sm'>
-                        Termino (nombres)
-                      </FormLabel>
-                      <FormDescription className='text-[12px] md:text-[13px]'>
-                        Escribe aquí los nombres que deseas buscar.
-                      </FormDescription>
-                      <FormControl>
-                        <Input
-                          className='text-[12px] md:text-[13px]'
-                          placeholder='Eje: Rolando Martin...'
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
+            {type === TypeSearch.roles && (
+              <FormField
+                control={form.control}
+                name='termMultiSelect'
+                render={() => (
+                  <FormItem>
+                    <FormLabel className='text-[13px] md:text-sm'>
+                      Roles
+                    </FormLabel>
+                    <FormDescription className='text-[12px] md:text-[13px]'>
+                      Seleccione los roles que desea buscar
+                    </FormDescription>
 
-            {subType &&
-              (type === TypeSearch.lastName ||
-                type === TypeSearch.fullName ||
-                subType === SubTypeSearch.titheLastNames ||
-                subType === SubTypeSearch.titheFullNames) && (
-                <FormField
-                  control={form.control}
-                  name='termLastNames'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className='text-[13px] md:text-sm'>
-                        Termino (apellidos)
-                      </FormLabel>
-                      <FormDescription className='text-[12px] md:text-[13px]'>
-                        Escribe aquí los apellidos que deseas buscar.
-                      </FormDescription>
-                      <FormControl>
-                        <Input
-                          className='text-[12px] md:text-[13px]'
-                          placeholder='Eje: Sanchez Torres...'
-                          {...field}
+                    <div className='flex flex-wrap gap-y-1 justify-start sm:justify-around items-center'>
+                      {Object.values(UserRoles).map((role) => (
+                        <FormField
+                          key={role}
+                          control={form.control}
+                          name='termMultiSelect'
+                          render={({ field }) => {
+                            return (
+                              <FormItem
+                                key={role}
+                                className='flex flex-row items-start space-x-3 space-y-0'
+                              >
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value?.includes(role)}
+                                    onCheckedChange={(checked) => {
+                                      let updatedRoles: UserRoles[] = [];
+                                      checked
+                                        ? (updatedRoles = field.value
+                                            ? [...field.value, role]
+                                            : [role])
+                                        : (updatedRoles =
+                                            field.value?.filter(
+                                              (value) => value !== role
+                                            ) ?? []);
+
+                                      field.onChange(updatedRoles);
+                                    }}
+                                  />
+                                </FormControl>
+                                <FormLabel className='text-[12px] md:text-[13px] font-normal'>
+                                  {UserRoleNames[role]}
+                                </FormLabel>
+                              </FormItem>
+                            );
+                          }}
                         />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
+                      ))}
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+            {((subType &&
+              (type === TypeSearch.firstName ||
+                type === TypeSearch.fullName)) ||
+              subType === SubTypeSearch.titheNames ||
+              subType === SubTypeSearch.titheFullNames ||
+              subType === SubTypeSearch.titheDateNames ||
+              subType === SubTypeSearch.titheDateFullName ||
+              subType === SubTypeSearch.offeringPreacherNames ||
+              subType === SubTypeSearch.offeringPreacherFullName ||
+              subType === SubTypeSearch.offeringCopastorNames ||
+              subType === SubTypeSearch.offeringCopastorFullName ||
+              subType === SubTypeSearch.OfferingNames ||
+              subType === SubTypeSearch.OfferingFullNames ||
+              subType === SubTypeSearch.userNames ||
+              subType === SubTypeSearch.userLastFullName) && (
+              <FormField
+                control={form.control}
+                name='termNames'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className='text-[13px] md:text-sm'>
+                      Termino (nombres)
+                    </FormLabel>
+                    <FormDescription className='text-[12px] md:text-[13px]'>
+                      Escribe aquí los nombres que deseas buscar.
+                    </FormDescription>
+                    <FormControl>
+                      <Input
+                        className='text-[12px] md:text-[13px]'
+                        placeholder='Eje: Rolando Martin...'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+
+            {((subType &&
+              (type === TypeSearch.lastName || type === TypeSearch.fullName)) ||
+              subType === SubTypeSearch.titheLastNames ||
+              subType === SubTypeSearch.titheFullNames ||
+              subType === SubTypeSearch.titheDateLastNames ||
+              subType === SubTypeSearch.titheDateFullName ||
+              subType === SubTypeSearch.offeringPreacherLastNames ||
+              subType === SubTypeSearch.offeringPreacherFullName ||
+              subType === SubTypeSearch.offeringCopastorLastNames ||
+              subType === SubTypeSearch.offeringCopastorFullName ||
+              subType === SubTypeSearch.OfferingLastNames ||
+              subType === SubTypeSearch.OfferingFullNames) && (
+              <FormField
+                control={form.control}
+                name='termLastNames'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className='text-[13px] md:text-sm'>
+                      Termino (apellidos)
+                    </FormLabel>
+                    <FormDescription className='text-[12px] md:text-[13px]'>
+                      Escribe aquí los apellidos que deseas buscar.
+                    </FormDescription>
+                    <FormControl>
+                      <Input
+                        className='text-[12px] md:text-[13px]'
+                        placeholder='Eje: Sanchez Torres...'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
 
             <div className='grid grid-cols-2 items-end justify-evenly'>
               <div className='flex flex-col gap-2 col-start-1 col-end-3 pb-2'>

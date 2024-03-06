@@ -1,6 +1,32 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { SubTypeSearchNames, TypeSearch, TypeSearchNames, TermSelectTypeNames } from "@/enums";
+import { SubTypeSearchNames, TypeSearch, TypeSearchNames, TermSelectTypeNames, SubTypeSearch } from "@/enums";
 import { 
+  subTypesActivities,
+  subTypesCopastorFullName,
+  subTypesCopastorLastNames,
+  subTypesCopastorNames,
+  subTypesDiscipleFullName,
+  subTypesDiscipleLastNames,
+  subTypesDiscipleNames,
+  subTypesFamilyHouse,
+  subTypesFamilyHouseFullName,
+  subTypesFamilyHouseLastNames,
+  subTypesFamilyHouseNames,
+  subTypesFastingVigilGeneral,
+  subTypesFastingVigilZonal,
+  subTypesGroundChurch,
+  subTypesLeaderFullName,
+  subTypesLeaderLastNames,
+  subTypesLeaderNames,
+  subTypesPastorFullName,
+  subTypesPastorLastNames,
+  subTypesPastorNames,
+  subTypesSundayWorship,
+  subTypesTithe,
+  subTypesUserFullName,
+  subTypesUserLastNames,
+  subTypesUserNames,
+  subTypesYoungWorship,
   typesCopastor, 
   typesDisciple, 
   typesFamilyHouse, 
@@ -9,196 +35,10 @@ import {
   typesPastor, 
   typesUser } from ".";
 
-  // TODO : mover esto a un archivo aparte,
-  // TODO : esta en duda el desplazamiento (mucha duda) y el orden (no tanto)
-  // TODO : hacer el select de todos (por defecto 10), para el limite y ver mas optimizaciones, revisar datos enviados.
   // TODO : convertir la data del form al DTO que recibe el backend
   // TODO : colocar orden de inversion en el ID.
-  // TODO : quitar desplazamiento y reordenar el grid
   // TODO : colocar el drawer en oscuro cuando esta en tema claro para hacer contraste (probar)
   
-  //* Subtypes allowed
-
-  //* Disciple
-  const subTypesDiscipleNames = [ 
-    SubTypeSearchNames.member_pastor_names,
-    SubTypeSearchNames.member_copastor_names,
-    SubTypeSearchNames.member_supervisor_names,
-    SubTypeSearchNames.member_preacher_names,
-    SubTypeSearchNames.member_names,
-  ];
-
-  const subTypesDiscipleLastNames = [ 
-    SubTypeSearchNames.member_pastor_last_names,
-    SubTypeSearchNames.member_copastor_last_names,
-    SubTypeSearchNames.member_supervisor_last_names,
-    SubTypeSearchNames.member_preacher_last_names,
-    SubTypeSearchNames.member_last_names,
-  ];
-
-  const subTypesDiscipleFullName = [ 
-    SubTypeSearchNames.member_pastor_full_name,
-    SubTypeSearchNames.member_copastor_full_name,
-    SubTypeSearchNames.member_supervisor_full_name,
-    SubTypeSearchNames.member_preacher_full_name,
-    SubTypeSearchNames.member_full_name,
-  ];
-
-
-  //* Pastor
-  const subTypesPastorNames = [ 
-    SubTypeSearchNames.pastor_names,
-  ];
-
-  const subTypesPastorLastNames = [ 
-    SubTypeSearchNames.pastor_last_names,
-  ];
-
-  const subTypesPastorFullName = [ 
-    SubTypeSearchNames.pastor_full_name,
-  ];
-  
-  //* Co-Pastor
-  const subTypesCopastorNames = [ 
-    SubTypeSearchNames.copastor_pastor_names,
-    SubTypeSearchNames.copastor_names,
-  ];
-
-  const subTypesCopastorLastNames = [ 
-    SubTypeSearchNames.copastor_pastor_last_names,
-    SubTypeSearchNames.copastor_last_names,
-  ];
-
-  const subTypesCopastorFullName = [ 
-    SubTypeSearchNames.copastor_pastor_full_name,
-    SubTypeSearchNames.copastor_full_name,
-  ];
-
-  //* Leader
-  const subTypesLeaderNames = [ 
-    SubTypeSearchNames.leader_pastor_names,
-    SubTypeSearchNames.leader_copastor_names,
-    SubTypeSearchNames.leader_supervisor_names,
-    SubTypeSearchNames.leader_names,
-  ];
-
-  const subTypesLeaderLastNames = [ 
-    SubTypeSearchNames.leader_pastor_last_names,
-    SubTypeSearchNames.leader_copastor_last_names,
-    SubTypeSearchNames.leader_supervisor_last_names,
-    SubTypeSearchNames.leader_last_names,
-  ];
-
-  const subTypesLeaderFullName = [ 
-    SubTypeSearchNames.leader_pastor_full_name,
-    SubTypeSearchNames.leader_copastor_full_name,
-    SubTypeSearchNames.leader_supervisor_full_name,
-    SubTypeSearchNames.leader_full_name,
-  ];
-
-  //* Family House
-  const subTypesFamilyHouseNames = [ 
-    SubTypeSearchNames.family_house_pastor_names,
-    SubTypeSearchNames.family_house_copastor_names,
-    SubTypeSearchNames.family_house_supervisor_names,
-    SubTypeSearchNames.family_house_preacher_names,
-  ];
-
-  const subTypesFamilyHouseLastNames = [ 
-    SubTypeSearchNames.family_house_pastor_last_names,
-    SubTypeSearchNames.family_house_copastor_last_names,
-    SubTypeSearchNames.family_house_supervisor_last_names,
-    SubTypeSearchNames.family_house_preacher_last_names,
-  ];
-
-  const subTypesFamilyHouseFullName = [ 
-    SubTypeSearchNames.family_house_pastor_full_name,
-    SubTypeSearchNames.family_house_copastor_full_name,
-    SubTypeSearchNames.family_house_supervisor_full_name,
-    SubTypeSearchNames.family_house_preacher_full_name,
-  ];
-
-  //* Offering (Tithe)
-  const subTypesTithe = [ 
-    SubTypeSearchNames.tithe_names,
-    SubTypeSearchNames.tithe_last_names,
-    SubTypeSearchNames.tithe_full_names,
-    SubTypeSearchNames.tithe_date,
-    SubTypeSearchNames.tithe_date_names,
-    SubTypeSearchNames.tithe_date_last_names,
-    SubTypeSearchNames.tithe_date_full_name,
-  ];
-
-  //* Offering (Sunday Worship, Sunday School)
-  const subTypesSundayWorship = [ 
-    SubTypeSearchNames.offering_date,
-    SubTypeSearchNames.offering_shift,
-    SubTypeSearchNames.offering_date_shift,
-  ];
-
-  //* Offering (Family House)
-  const subTypesFamilyHouse = [ 
-    SubTypeSearchNames.offering_preacher_names,
-    SubTypeSearchNames.offering_preacher_last_names,
-    SubTypeSearchNames.offering_preacher_full_name,
-    SubTypeSearchNames.offering_zone,
-    SubTypeSearchNames.offering_code_house,
-    SubTypeSearchNames.offering_date,
-    SubTypeSearchNames.offering_date_zone,
-    SubTypeSearchNames.offering_date_code_house,
-  ];
-
-  //* Offering (Fasting, Vigil General)
-  const subTypesFastingVigilGeneral = [ 
-    SubTypeSearchNames.offering_date,
-  ];
-
-  //* Offering (Fasting, Vigil Zonal)
-  const subTypesFastingVigilZonal = [ 
-    SubTypeSearchNames.offering_date,
-    SubTypeSearchNames.offering_zone,
-    SubTypeSearchNames.offering_date_zone,
-    SubTypeSearchNames.offering_copastor_names,
-    SubTypeSearchNames.offering_copastor_last_names,
-    SubTypeSearchNames.offering_copastor_full_name,
-  ];
-
-  //* Offering (Young Worship)
-  const subTypesYoungWorship = [ 
-    SubTypeSearchNames.offering_date,
-  ];
-
-  //* Offering (Activities)
-  const subTypesActivities = [ 
-    SubTypeSearchNames.offering_date,
-  ];
-
-  //* Offering (Ground Church, Special)
-  const subTypesGroundChurch = [ 
-    SubTypeSearchNames.offering_date,
-    SubTypeSearchNames.offering_names,
-    SubTypeSearchNames.offering_last_names,
-    SubTypeSearchNames.offering_full_names,
-  ];
-
-  //* User
-  const subTypesUserNames = [ 
-    SubTypeSearchNames.user_names,
-    
-  ];
-
-  const subTypesUserLastNames = [ 
-    SubTypeSearchNames.user_last_names,
-    
-  ];
-
-  const subTypesUserFullName = [ 
-    SubTypeSearchNames.user_last_full_name,
-  ];
-
-
-
-
 export const validationDisableTypes = (currentPath: string) => {
   
   //* Disabled Types by module
@@ -539,7 +379,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
 }
 
 
-export const validationDisableTermSelect = (type: string) => {
+export const validationDisableTermSelect = (type: string, subType:string | undefined) => {
 
   //* Disabled Term Select
   if (type === TypeSearch.monthBirth) {
@@ -629,6 +469,36 @@ export const validationDisableTermSelect = (type: string) => {
         TermSelectTypeNames.widowed,
         TermSelectTypeNames.divorced,
         TermSelectTypeNames.other,
+        TermSelectTypeNames.day,
+        TermSelectTypeNames.night,
+      ]
+    }
+  }
+
+  if (subType === SubTypeSearch.offeringShift || subType === SubTypeSearch.offeringDateShift  ) {
+    return {
+      disabledTermSelect : [
+        TermSelectTypeNames.january,
+        TermSelectTypeNames.february,
+        TermSelectTypeNames.march,
+        TermSelectTypeNames.april,
+        TermSelectTypeNames.may,
+        TermSelectTypeNames.june,
+        TermSelectTypeNames.july,
+        TermSelectTypeNames.august,
+        TermSelectTypeNames.september,
+        TermSelectTypeNames.october,
+        TermSelectTypeNames.november,
+        TermSelectTypeNames.december,
+        TermSelectTypeNames.male,
+        TermSelectTypeNames.female,
+        TermSelectTypeNames.single,
+        TermSelectTypeNames.married,
+        TermSelectTypeNames.widowed,
+        TermSelectTypeNames.divorced,
+        TermSelectTypeNames.other,
+        TermSelectTypeNames.active,
+        TermSelectTypeNames.inactive,
       ]
     }
   }
