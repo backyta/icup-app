@@ -19,12 +19,12 @@ export function DropdownMenuLeft(): JSX.Element {
         <Button
           id='button'
           type='button'
-          className='bg-slate-900 text-white hover:bg-slate-600 hover:text-white px-2'
+          className='bg-slate-900 text-white hover:bg-slate-600 hover:text-white px-1 py-0 md:absolute md:left-[5.4rem] md:top-[11rem] rounded-full'
           aria-controls='mobile-menu'
           aria-expanded='false'
         >
           <svg
-            className='block h-7 w-7'
+            className='block md:hidden h-7 w-7 '
             fill='none'
             viewBox='0 0 24 24'
             strokeWidth='1.5'
@@ -37,12 +37,29 @@ export function DropdownMenuLeft(): JSX.Element {
               d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'
             />
           </svg>
+          <svg
+            className='hidden md:block h-7 w-7'
+            fill='none'
+            viewBox='0 0 24 24'
+            stroke='currentColor'
+            aria-hidden='true'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth='2'
+              d='M5 12h14M12 5l7 7-7 7'
+            />
+          </svg>
         </Button>
       </SheetTrigger>
-      <SheetContent side={'left'} className='h-full md:h-full'>
+      <SheetContent
+        side={'left'}
+        className='h-full w-[20rem] md:h-full md:w-full md:py-6'
+      >
         <SheetHeader>
           {/* Title and sub-title */}
-          <div id='logo' className='py-4 text-center'>
+          <div id='logo' className='py-1 text-center'>
             <a
               href='/dashboard'
               className='inline-flex gap-x-6 items-center justify-center'
@@ -61,12 +78,12 @@ export function DropdownMenuLeft(): JSX.Element {
             </p>
           </div>
           {/* Profile */}
-          <div id='profile' className='pb-6 px-6 text-center'>
+          <div id='profile' className='pb-2 md:pb-8 px-6 text-center md:pt-2'>
             <p className='text-lg text-white'>Bienvenido,</p>
-            <div className='inline-flex space-x-2 items-center'>
+            <div className='inline-flex space-x-0 items-center'>
               <span>
                 <img
-                  className='rounded-full w-10 h-10'
+                  className='rounded-full w-12 md:w-11 h-10'
                   src='../public/men.png'
                   alt=''
                 />
@@ -80,7 +97,7 @@ export function DropdownMenuLeft(): JSX.Element {
         </SheetHeader>
         <nav
           id='menu'
-          className='w-full px-10 flex flex-col items-center py-4 gap-y-[2.5rem]'
+          className='w-full px-10 flex flex-col items-center py-2  gap-y-[1rem] md:gap-y-[2.5rem]'
         >
           <div className='flex flex-col gap-y-2'>
             {menuItems.map((item) => (

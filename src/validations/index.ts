@@ -1,3 +1,4 @@
+export * from './bar-chart-form-schema';
 export * from './form-family-house-schema';
 export * from './form-member-schema';
 export * from './form-offering-schema';

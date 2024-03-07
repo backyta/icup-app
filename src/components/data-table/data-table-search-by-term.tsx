@@ -138,11 +138,11 @@ export function DataTableSearchByTerm<TData, TValue>({
   const disabledSubTypes = validationDisableSubTypes(currentPath, type);
   const disabledTermSelect = validationDisableTermSelect(type, subType);
 
-  // TODO : Trabajar en el X y Flecha para desplazar la barra lateral (arreglas en Movil horizontal)
-  // TODO : revisar las tablas y sus modales que todos aparezcan
-  // TODO : Modificar el modal de modo claro a oscuro para contraste.
+  // TODO : Trabajar en el X y Flecha para desplazar la barra lateral (arreglas en Movil horizontal)✅
+  // TODO : revisar las tablas y sus modales que todos aparezcan ✅
+  // TODO : Modificar el modal de modo claro a oscuro para contraste. ✅
   // TODO : Agregar botones modales a dashboard en botones y hacer form para la fecha y capturarla
-  // TODO : Agregar filtro por zona en la tabla donde sea conveniente.
+  // TODO : Agregar filtro por zona en la tabla donde sea conveniente.✅
   // TODO : Una vez terminado limpiar archivos y pasar a update
 
   function onSubmit(values: z.infer<typeof formSearchByTermSchema>): void {

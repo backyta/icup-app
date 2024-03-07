@@ -16,6 +16,7 @@ export interface Member {
   last_name: string;
   gender: 'M' | 'F'; // hacer enum con data para value
   date_birth: string;
+  zone: string;
 }
 
 // TODO : lo otro seria pasar el id de la DB del registro aca y que lo tome el button y con eso hacer la solicitud
@@ -25,7 +26,20 @@ export interface Member {
 export const memberColumns: Array<ColumnDef<Member, any>> = [
   {
     accessorKey: 'id',
-    header: 'ID',
+    header: ({ column }) => {
+      return (
+        <Button
+          className='text-[13px] lg:text-sm'
+          variant='ghost'
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+        >
+          ID
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: 'first_name',
@@ -95,6 +109,26 @@ export const memberColumns: Array<ColumnDef<Member, any>> = [
       );
     },
     cell: (info) => format(new Date(info.getValue()), 'dd/MM/yyyy'),
+  },
+  // if (currenPath === '/members') {
+
+  // }
+  {
+    accessorKey: 'zone',
+    header: ({ column }) => {
+      return (
+        <Button
+          className='text-[13px] lg:text-sm'
+          variant='ghost'
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+        >
+          Zona
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
   },
 
   {

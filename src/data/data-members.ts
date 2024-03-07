@@ -8,6 +8,7 @@ export const dataMembers: Member[] =
     last_name: 'García Martínez',
     date_birth: '1985-03-15',
     gender: 'M',
+    zone: 'A',
   },
   {
     id: '2',
@@ -15,6 +16,7 @@ export const dataMembers: Member[] =
     last_name: 'Martínez Alvarez',
     date_birth: '1990-07-21',
     gender: 'F',
+    zone: 'B',
   },
   {
     id: '3',
@@ -22,6 +24,7 @@ export const dataMembers: Member[] =
     last_name: 'López García',
     date_birth: '1988-12-10',
     gender: 'M',
+    zone: 'C',
   },
   {
     id: '4',
@@ -29,6 +32,7 @@ export const dataMembers: Member[] =
     last_name: 'Sánchez Castro',
     date_birth: '1983-05-02',
     gender: 'F',
+    zone: 'A',
   },
   {
     id: '5',
@@ -36,6 +40,7 @@ export const dataMembers: Member[] =
     last_name: 'Hernández Martínez',
     date_birth: '1995-09-28',
     gender: 'M',
+    zone: 'B',
   },
   {
     id: '6',
@@ -43,6 +48,7 @@ export const dataMembers: Member[] =
     last_name: 'Gómez Castro',
     date_birth: '1998-11-17',
     gender: 'F',
+    zone: 'B',
   },
   {
     id: '7',
@@ -50,6 +56,7 @@ export const dataMembers: Member[] =
     last_name: 'Díaz Alvarez',
     date_birth: '1987-04-09',
     gender: 'M',
+    zone: 'A',
   },
   {
     id: '8',
@@ -57,6 +64,7 @@ export const dataMembers: Member[] =
     last_name: 'Alvarez Sánchez',
     date_birth: '1992-08-03',
     gender: 'F',
+    zone: 'A',
   },
   {
     id: '9',
@@ -64,6 +72,7 @@ export const dataMembers: Member[] =
     last_name: 'Pérez Castro',
     date_birth: '1980-01-25',
     gender: 'M',
+    zone: 'C',
   },
   {
     id: '10',
@@ -71,6 +80,7 @@ export const dataMembers: Member[] =
     last_name: 'Castro Sánchez',
     date_birth: '1994-06-12',
     gender: 'F',
+    zone: 'A',
   },
   {
     id: '11',
@@ -78,6 +88,7 @@ export const dataMembers: Member[] =
     last_name: 'Castro García',
     date_birth: '1994-06-12',
     gender: 'F',
+    zone: 'A',
   },
   {
     id: '12',
@@ -85,6 +96,7 @@ export const dataMembers: Member[] =
     last_name: 'Gomez Ramirez',
     date_birth: '1985-09-22',
     gender: 'M',
+    zone: 'C',
   },
   {
     id: '13',
@@ -92,6 +104,7 @@ export const dataMembers: Member[] =
     last_name: 'López Perez',
     date_birth: '1990-03-15',
     gender: 'F',
+    zone: 'A',
   },
   {
     id: '14',
@@ -99,6 +112,7 @@ export const dataMembers: Member[] =
     last_name: 'Martinez Gonzalez',
     date_birth: '1982-11-30',
     gender: 'M',
+    zone: 'C',
   },
   {
     id: '15',
@@ -106,6 +120,7 @@ export const dataMembers: Member[] =
     last_name: 'Hernandez Sanchez',
     date_birth: '1987-07-18',
     gender: 'F',
+    zone: 'A',
   },
   {
     id: '16',
@@ -113,6 +128,7 @@ export const dataMembers: Member[] =
     last_name: 'Rodriguez Gomez',
     date_birth: '1993-04-04',
     gender: 'M',
+    zone: 'C',
   },
   {
     id: '17',
@@ -120,6 +136,7 @@ export const dataMembers: Member[] =
     last_name: 'Perez Garcia',
     date_birth: '1989-10-12',
     gender: 'F',
+    zone: 'A',
   },
   {
     id: '18',
@@ -127,6 +144,7 @@ export const dataMembers: Member[] =
     last_name: 'Gonzalez Martinez',
     date_birth: '1984-01-28',
     gender: 'M',
+    zone: 'B',
   },
   {
     id: '19',
@@ -134,6 +152,7 @@ export const dataMembers: Member[] =
     last_name: 'Lopez Rodriguez',
     date_birth: '1996-08-05',
     gender: 'F',
+    zone: 'A',
   },
   {
     id: '20',
@@ -141,6 +160,7 @@ export const dataMembers: Member[] =
     last_name: 'Gomez Perez',
     date_birth: '1988-12-19',
     gender: 'M',
+    zone: 'C',
   },
   {
     id: '21',
@@ -148,5 +168,6 @@ export const dataMembers: Member[] =
     last_name: 'Hernandez Martinez',
     date_birth: '1991-05-26',
     gender: 'F',
+    zone: 'AB',
   },
 ];

@@ -36,18 +36,18 @@ export const InfoCard = (): JSX.Element => {
             currentPath === '/copastors/search-copastors' ||
             currentPath === '/leaders/search-leaders') && <TabsCardMember />}
 
-          {currentPath === '/family-houses/search-family-houses' ||
-            (currentPath === '/family-houses/search-by-term-family-houses' && (
-              <TabsCardFamilyHome />
-            ))}
+          {(currentPath === '/family-houses/search-family-houses' ||
+            currentPath === '/family-houses/search-by-term-family-houses') && (
+            <TabsCardFamilyHome />
+          )}
 
-          {currentPath === '/offerings/search-offerings' ||
-            (currentPath === '/offerings/search-by-term-offerings' && (
-              <TabsCardOffering />
-            ))}
+          {(currentPath === '/offerings/search-offerings' ||
+            currentPath === '/offerings/search-by-term-offerings') && (
+            <TabsCardOffering />
+          )}
 
-          {currentPath === '/users/search-users' ||
-            (currentPath === '/users/search-by-term-users' && <TabsCardUser />)}
+          {(currentPath === '/users/search-users' ||
+            currentPath === '/users/search-by-term-users') && <TabsCardUser />}
         </DialogContent>
       </Dialog>
     );
@@ -60,7 +60,7 @@ export const InfoCard = (): JSX.Element => {
           Ver Información
         </Button>
       </DrawerTrigger>
-      <DrawerContent className=''>
+      <DrawerContent>
         <div className='flex justify-center py-8 px-6'>
           {(currentPath === '/disciples/search-disciples' ||
             currentPath === '/disciples/search-by-term-disciples' ||
@@ -68,18 +68,18 @@ export const InfoCard = (): JSX.Element => {
             currentPath === '/copastors/search-copastors' ||
             currentPath === '/leaders/search-leaders') && <TabsCardMember />}
 
-          {currentPath === '/family-houses/search-family-houses' ||
-            (currentPath === '/family-houses/search-by-term-family-houses' && (
-              <TabsCardFamilyHome />
-            ))}
+          {(currentPath === '/family-houses/search-family-houses' ||
+            currentPath === '/family-houses/search-by-term-family-houses') && (
+            <TabsCardFamilyHome />
+          )}
 
-          {currentPath === '/offerings/search-offerings' ||
-            (currentPath === '/offerings/search-by-term-offerings' && (
-              <TabsCardOffering />
-            ))}
+          {(currentPath === '/offerings/search-offerings' ||
+            currentPath === '/offerings/search-by-term-offerings') && (
+            <TabsCardOffering />
+          )}
 
-          {currentPath === '/users/search-users' ||
-            (currentPath === '/users/search-by-term-users' && <TabsCardUser />)}
+          {(currentPath === '/users/search-users' ||
+            currentPath === '/users/search-by-term-users') && <TabsCardUser />}
         </div>
       </DrawerContent>
     </Drawer>

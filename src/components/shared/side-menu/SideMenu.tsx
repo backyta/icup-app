@@ -5,7 +5,7 @@ import { menuItems } from '../data/menu-items-data';
 import { FcExport } from 'react-icons/fc';
 
 import { ToggleSideBar } from '@/components/toggle-theme/ToggleSideBar';
-import { DropdownMenuTop, DropdownMenuLeft } from '@/components/dropdown-menu';
+import { DropdownMenuLeft } from '@/components/dropdown-menu';
 
 import { SideMenuItemIcons } from './SideMenuItemIcons';
 
@@ -46,8 +46,9 @@ export const SideMenu = (): JSX.Element => {
         </div>
 
         {/* Button */}
-        <div className='md:hidden '>
-          <DropdownMenuTop />
+        <div className='md:hidden'>
+          {/* <DropdownMenuTop /> */}
+          <DropdownMenuLeft />
         </div>
         <div className='hidden md:block'>
           <DropdownMenuLeft />
