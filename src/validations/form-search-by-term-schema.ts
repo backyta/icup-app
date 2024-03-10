@@ -70,7 +70,7 @@ export const formSearchByTermSchema = z
   .refine(
     (data) => {
       if (data.type === TypeSearch.lastName || data.subType === SubTypeSearch.titheLastNames) {
-        return !!data.termLastNames; /* //true */
+        return !!data.termLastNames;
       }
       return true;
     },
@@ -82,7 +82,7 @@ export const formSearchByTermSchema = z
   .refine(
     (data) => {
       if (data.type === TypeSearch.fullName || data.subType === SubTypeSearch.titheFullNames ) {
-        return !!data.termLastNames; /* //true */
+        return !!data.termLastNames; 
       }
       return true;
     },
@@ -94,7 +94,7 @@ export const formSearchByTermSchema = z
   .refine(
     (data) => {
       if (data.type === TypeSearch.fullName || data.subType === SubTypeSearch.titheFullNames  ) {
-        return !!data.termNames; /* //true */
+        return !!data.termNames; 
       }
       return true;
     },
@@ -111,7 +111,7 @@ export const formSearchByTermSchema = z
           data.type !== TypeSearch.general_fasting && data.type !== TypeSearch.general_vigil && data.type !== TypeSearch.zonal_vigil && data.type !== TypeSearch.youth_worship && 
           data.type !== TypeSearch.sunday_school && data.type !== TypeSearch.activities && data.type !== TypeSearch.church_ground && data.type !== TypeSearch.special  && data.type !== TypeSearch.roles   
           ) {
-        return !!data.termInput; /* //true */
+        return !!data.termInput; 
       }
       return true;
     },
@@ -124,7 +124,7 @@ export const formSearchByTermSchema = z
     (data) => {
       if (data.type === TypeSearch.monthBirth || data.type === TypeSearch.gender ||
           data.type === TypeSearch.maritalStatus || data.type === TypeSearch.isActive  ) {
-        return !!data.termSelect; /* //true */
+        return !!data.termSelect; 
       }
       return true;
     },
@@ -136,7 +136,7 @@ export const formSearchByTermSchema = z
   .refine(
     (data) => {
       if ( data.type === TypeSearch.dateBirth || data.subType === SubTypeSearch.titheDate ) {
-        return !!data.termDate; /* //true */
+        return !!data.termDate; 
       }
       return true;
     },
@@ -148,7 +148,7 @@ export const formSearchByTermSchema = z
   .refine(
     (data) => {
       if ( data.type === TypeSearch.roles  ) {
-        return !!data.termMultiSelect; /* //true */
+        return !!data.termMultiSelect; 
       }
       return true;
     },
@@ -160,4 +160,3 @@ export const formSearchByTermSchema = z
 
   
 
-// TODO : agregar indices a todos los filtros en el backend

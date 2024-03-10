@@ -7,6 +7,7 @@ import {
 
 import { HouseInfoItem } from './HouseInfoItem';
 
+// TODO : Hacer if y pasar la data como props del estado o request del backend
 export function HousesInfoCard(): JSX.Element {
   return (
     <Card className='w-auto h-auto row-start-4 row-end-5 col-start-1 col-end-2 md:row-end-4 md:col-start-1 md:col-end-3 lg:row-start-4 lg:row-end-5  xl:col-start-4 xl:col-end-7 xl:row-start-2 xl:row-end-3  border-slate-400'>
@@ -26,5 +27,3 @@ export function HousesInfoCard(): JSX.Element {
     </Card>
   );
 }
-
-// TODO : Hacer if y pasar la data como props del estado o request del backend

@@ -1,3 +1,3 @@
 export * from './CopastorOptionsPage';
 export * from './CopastorSearchPageByTerm';
-export * from './GeneralCopastorsSearchPage';
+export * from './CopastorsGeneralSearchPage';

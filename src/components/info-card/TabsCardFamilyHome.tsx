@@ -9,7 +9,9 @@ import {
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-// TODO : ENVIAR la busqueda del fetch como hijo en objeto y colocar aqui (completo)
+// TODO : ENVIAR la búsqueda del fetch como hijo en objeto y colocar aquí (completo)
+// NOTE : revisar los campos vacíos no mostrarlos y acomodar tamaño de letras
+
 export const TabsCardFamilyHome = (): JSX.Element => {
   return (
     <Tabs defaultValue='general-info' className='w-[440px] md:w-[510px]'>

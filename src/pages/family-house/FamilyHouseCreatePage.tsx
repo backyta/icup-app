@@ -102,7 +102,6 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
             onSubmit={form.handleSubmit(handleSubmit)}
             className='max-w-md w-full flex flex-col gap-4'
           >
-            {/* //TODO : setear las zonas de la DB, si no hay colocar por defecto */}
             <FormField
               control={form.control}
               name='zone'

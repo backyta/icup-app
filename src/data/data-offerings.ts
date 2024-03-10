@@ -1,7 +1,7 @@
 
-import { type Offering } from "@/components/data-table/offering-columns";
-import { CurrencyType } from "@/enums/currency-type.enum";
-import { SubTypesOfferingNames } from "@/enums/sub-type-offering.enum";
+import { type Offering } from '@/components/data-table/offering-columns';
+import { CurrencyType } from '@/enums/currency-type.enum';
+import { SubTypesOfferingNames } from '@/enums/sub-type-offering.enum';
 
 
 export const dataOfferings: Offering[] = 

@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { useMediaQuery } from '@react-hook/media-query';
 
+import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
+
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/components/ui/drawer';
-
 import { CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
-import { Button } from '../../ui/button';
 import { TabsCardFamilyHome } from '@/components';
 
+// TODO : Hacer if, hombre eo mujer, Recibir props y colocar la data de nombres lugar y cargo e imagen
 export function HouseInfoItem(): JSX.Element {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery('(min-width: 768px)');
@@ -106,5 +107,3 @@ export function HouseInfoItem(): JSX.Element {
     </div>
   );
 }
-
-// TODO : Hacer if, hombre eo mujer, Recibir props y colocar la data de nombres lugar y cargo.

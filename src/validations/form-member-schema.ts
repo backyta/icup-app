@@ -91,7 +91,7 @@ export const formMemberSchema = z
   .refine(
     (data) => {
       if (data.roles.includes(MemberRoles.member) && !data.roles.includes(MemberRoles.pastor) && !data.roles.includes(MemberRoles.copastor) && !data.roles.includes(MemberRoles.supervisor)  && !data.roles.includes(MemberRoles.preacher)){
-        return !!data.theirFamilyHouse; /* //true */
+        return !!data.theirFamilyHouse; 
       }
       return true;
     },

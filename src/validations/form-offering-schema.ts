@@ -30,7 +30,7 @@ export const formOfferingSchema = z
   .refine(
     (data) => {
       if (data.type === 'offering') {
-        return !!data.subType; /* //true */
+        return !!data.subType; 
       }
       return true;
     },
@@ -42,7 +42,7 @@ export const formOfferingSchema = z
   .refine(
     (data) => {
       if (data.type === 'tithe') {
-        return !!data.memberID; /* //true */
+        return !!data.memberID; 
       }
       return true;
     },
@@ -54,7 +54,7 @@ export const formOfferingSchema = z
   .refine(
     (data) => {
       if (data.type === 'offering' && (data.subType === SubTypesOffering.special || data.subType === SubTypesOffering.churchGround)) {
-        return !!data.memberID; /* //true */
+        return !!data.memberID; 
       }
       return true;
     },
@@ -66,7 +66,7 @@ export const formOfferingSchema = z
   .refine(
     (data) => {
       if (data.type === 'offering' && data.subType === SubTypesOffering.zonalFasting) {
-        return !!data.copastorID; /* //true */
+        return !!data.copastorID; 
       }
       return true;
     },
@@ -78,7 +78,7 @@ export const formOfferingSchema = z
   .refine(
     (data) => {
       if (data.type === 'offering' && data.subType === SubTypesOffering.zonalVigil) {
-        return !!data.copastorID; /* //true */
+        return !!data.copastorID; 
       }
       return true;
     },
@@ -90,7 +90,7 @@ export const formOfferingSchema = z
   .refine(
     (data) => {
       if (data.type === 'offering' && data.subType === SubTypesOffering.familyHouse) {
-        return !!data.familyHouseID; /* //true */
+        return !!data.familyHouseID; 
       }
       return true;
     },

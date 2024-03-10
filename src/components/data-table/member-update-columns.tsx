@@ -2,21 +2,29 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
+import { format } from 'date-fns';
+
 import { type ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { InfoCard } from '../info-card/InfoCard';
+import { UpdateCard } from '..';
 
-export interface User {
+interface Member {
   id: string;
-  first_name: string; // hacer mapping
+  first_name: string;
   last_name: string;
-  email: string;
-  roles: string;
+  gender: 'M' | 'F'; // hacer enum con data para value
+  date_birth: string;
+  zone: string;
 }
 
-export const userColumns: Array<ColumnDef<User, any>> = [
+// TODO : lo otro seria pasar el id de la DB del registro aca y que lo tome el button y con eso hacer la solicitud
+// TODO : y tmb ocultar ese ID con un map para que se enumero de 1, 2....
+
+// NOTE: usar este mismo método para la data del dashboard en el botón.
+export const memberUpdateColumns: Array<ColumnDef<Member, any>> = [
   {
     accessorKey: 'id',
     header: ({ column }) => {
@@ -69,7 +77,7 @@ export const userColumns: Array<ColumnDef<User, any>> = [
     },
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'gender',
     header: ({ column }) => {
       return (
         <Button
@@ -79,14 +87,14 @@ export const userColumns: Array<ColumnDef<User, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Correo Electrónico
+          Genero
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'roles',
+    accessorKey: 'date_birth',
     header: ({ column }) => {
       return (
         <Button
@@ -96,16 +104,40 @@ export const userColumns: Array<ColumnDef<User, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Roles
+          Fecha de Nacimiento
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
+    cell: (info) => format(new Date(info.getValue()), 'dd/MM/yyyy'),
+  },
+  {
+    accessorKey: 'zone',
+    header: ({ column }) => {
+      return (
+        <Button
+          className='text-[13px] lg:text-sm'
+          variant='ghost'
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+        >
+          Zona
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
   },
   {
-    id: 'search',
+    id: 'showInfo',
     cell: () => {
       return <InfoCard />;
+    },
+  },
+  {
+    id: 'updateInfo',
+    cell: () => {
+      return <UpdateCard />;
     },
   },
 ];

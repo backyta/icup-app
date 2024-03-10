@@ -10,7 +10,7 @@ import { ArrowUpDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { InfoCard } from '../info-card/InfoCard';
 
-export interface Member {
+interface Member {
   id: string;
   first_name: string;
   last_name: string;
@@ -110,9 +110,6 @@ export const memberColumns: Array<ColumnDef<Member, any>> = [
     },
     cell: (info) => format(new Date(info.getValue()), 'dd/MM/yyyy'),
   },
-  // if (currenPath === '/members') {
-
-  // }
   {
     accessorKey: 'zone',
     header: ({ column }) => {
@@ -132,7 +129,7 @@ export const memberColumns: Array<ColumnDef<Member, any>> = [
   },
 
   {
-    id: 'search',
+    id: 'showInfo',
     cell: () => {
       return <InfoCard />;
     },

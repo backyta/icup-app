@@ -6,10 +6,10 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
-// TODO : pasar la data de la consulta aca y que se renderize.
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
+// TODO : pasar la data de la consulta aca y que se renderize.
 export const TabsCardMember = (): JSX.Element => {
   return (
     <Tabs defaultValue='general-info' className='w-[440px] md:w-[510px] '>

@@ -4,7 +4,6 @@ export enum CurrencyType {
   euros = 'euros',
 }
 
-
 export const CurrencyTypeNames: Record<CurrencyType, string> = {
   soles : 'Soles',
   dollars : 'Dólares',

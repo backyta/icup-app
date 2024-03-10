@@ -6,8 +6,8 @@ export enum TypeSearch {
   fullName = 'full_name',
 
   //* Members, Pastor, Copastor, Supervisor, Preacher
-  dateBirth = 'date_birth', // rango
-  monthBirth = 'month_birth', // mes de nacimiento, comparar con DB.
+  dateBirth = 'date_birth', 
+  monthBirth = 'month_birth', 
   gender = 'gender',
   maritalStatus = 'marital_status',
 
@@ -63,7 +63,6 @@ export const TypeSearchNames: Record<TypeSearch, string> =  {
   gender : 'Genero',
   marital_status : 'Estado civil',
 
-  
   zone : 'Zona',
 
   code : 'Código de casa familiar',
@@ -80,7 +79,6 @@ export const TypeSearchNames: Record<TypeSearch, string> =  {
 
   is_active : 'Estado',
 
-  // date: 'date',
   tithe : 'Diezmo',
   sunday_worship: 'Ofrenda Culto Dominical',
   family_house: 'Ofrenda Casa Familiar',

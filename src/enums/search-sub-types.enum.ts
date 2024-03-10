@@ -1,5 +1,4 @@
 export enum SubTypeSearch {
-  none = 'none',
 
   //* Member
   memberPastorNames = 'member_pastor_names',
@@ -107,13 +106,9 @@ export enum SubTypeSearch {
 
 }
 
-// TODO : en search by term colocar la opción de todos en limite y tmb se podrá escribir
-
 export const SubTypeSearchNames: Record<SubTypeSearch, string> =  {
 
-  none: 'Elige un sub-tipo',
-  
-  // TODO : mejorar por nombres ya apellidos para mejor legibilidad (like offering)
+
   //* Member
   member_pastor_names : 'Buscar miembros por nombres de su pastor',
   member_pastor_last_names : 'Buscar miembros por apellidos de su pastor',
@@ -220,7 +215,6 @@ export const SubTypeSearchNames: Record<SubTypeSearch, string> =  {
 
 }
 
-
 //! Colocar buscar por nombres apellidos o full
 // NOTE : tomar esto para hacer los search en el backend
 //* Diezmo por subtipo por nombre, apellido, full, fecha sola (rango), fecha con fullname, con nombre y apellido. /
@@ -236,4 +230,3 @@ export const SubTypeSearchNames: Record<SubTypeSearch, string> =  {
 //* Terreno Iglesia es por fecha(rango), nombre, apellido, o full name.
 //* Especial es por fecha(rango), nombre apellido, full name.
 
-// TODO : usar react select para tener un select y poder escribir al mismo tiempo. (validar con el schema)

@@ -1,7 +1,6 @@
-export enum TermSelectType {
+export enum TermSelectOptions {
 
   //* Date (pasar el numero de mes pa buscar en DB)
-
   january = 'january',
   february = 'february',
   march = 'march',
@@ -18,7 +17,6 @@ export enum TermSelectType {
   //* Gender
   male = 'male',
   female = 'female',
-
 
   //* Marital Status
   single = 'single',
@@ -37,8 +35,7 @@ export enum TermSelectType {
 
 }
 
-
-export const TermSelectTypeNames: Record<TermSelectType, string> =  {
+export const TermSelectOptionsNames: Record<TermSelectOptions, string> =  {
 
   'male': 'Hombre',
   'female': 'Mujer',

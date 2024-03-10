@@ -6,12 +6,18 @@
 
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-// import Select from 'react-select';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type z } from 'zod';
-import { es } from 'date-fns/locale';
 
+import { es } from 'date-fns/locale';
+import { format } from 'date-fns';
+
+import { cn } from '@/lib/utils';
+import { CalendarIcon } from '@radix-ui/react-icons';
+
+import { Calendar } from '@/components/ui/calendar';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -43,6 +49,12 @@ import {
 } from '@/components/ui/select';
 
 import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+
+import {
   type ColumnDef,
   flexRender,
   type SortingState,
@@ -61,7 +73,7 @@ import {
   TypeSearch,
   TypeSearchNames,
   SubTypeSearchNames,
-  TermSelectTypeNames,
+  TermSelectOptionsNames,
   SubTypeSearch,
   UserRoles,
   UserRoleNames,
@@ -73,21 +85,12 @@ import {
   validationDisableTypes,
 } from '@/helpers';
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
-import { format } from 'date-fns';
-import { CalendarIcon } from '@radix-ui/react-icons';
-import { Calendar } from '@/components/ui/calendar';
-import { Checkbox } from '@/components/ui/checkbox';
-
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
 }
+
+// TODO : comenzar con la parte del update... GO!
 
 export function DataTableSearchByTerm<TData, TValue>({
   columns,
@@ -119,31 +122,18 @@ export function DataTableSearchByTerm<TData, TValue>({
     },
   });
 
-  const type = form.watch('type');
-  const subType = form.watch('subType');
-
   useEffect(() => {
     if (form.getValues('limitAll')) {
       form.setValue('limit', '10');
     }
   }, [form.getValues('limitAll')]);
 
-  console.log(type);
-  console.log(subType);
-
-  console.log(form.getValues('termMultiSelect'));
+  const type = form.watch('type');
+  const subType = form.watch('subType');
 
   const disabledTypes = validationDisableTypes(currentPath);
-
   const disabledSubTypes = validationDisableSubTypes(currentPath, type);
   const disabledTermSelect = validationDisableTermSelect(type, subType);
-
-  // TODO : Trabajar en el X y Flecha para desplazar la barra lateral (arreglas en Movil horizontal)✅
-  // TODO : revisar las tablas y sus modales que todos aparezcan ✅
-  // TODO : Modificar el modal de modo claro a oscuro para contraste. ✅
-  // TODO : Agregar botones modales a dashboard en botones y hacer form para la fecha y capturarla
-  // TODO : Agregar filtro por zona en la tabla donde sea conveniente.✅
-  // TODO : Una vez terminado limpiar archivos y pasar a update
 
   function onSubmit(values: z.infer<typeof formSearchByTermSchema>): void {
     setDisabled(false);
@@ -459,7 +449,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(TermSelectTypeNames).map(
+                          {Object.entries(TermSelectOptionsNames).map(
                             ([key, value]) => (
                               <SelectItem
                                 className={`text-[12px] md:text-[13px] ${disabledTermSelect?.disabledTermSelect?.includes(value) ? 'hidden' : ''}`}
@@ -732,6 +722,7 @@ export function DataTableSearchByTerm<TData, TValue>({
 
       {!disabled &&
         (currentPath === '/disciples/search-by-term-disciples' ||
+          currentPath === '/disciples/update-disciple' ||
           currentPath === '/pastors/search-by-term-pastors' ||
           currentPath === '/copastors/search-by-term-copastors' ||
           currentPath === '/leaders/search-by-term-leaders') && (

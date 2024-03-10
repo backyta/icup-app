@@ -1,4 +1,4 @@
-import { type User } from "@/components/data-table/user-columns";
+import { type User } from '@/components/data-table/user-columns';
 
 
 

@@ -5,11 +5,12 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { zodResolver } from '@hookform/resolvers/zod';
 import { type z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 
 import {
   Form,
@@ -52,7 +53,6 @@ import {
 } from '@tanstack/react-table';
 
 import { formSearchGeneralSchema } from '@/validations/form-search-general-schema';
-import { Checkbox } from '@/components/ui/checkbox';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -76,7 +76,7 @@ export function DataTableSearchGeneral<TData, TValue>({
   const currentPath = window.location.pathname;
 
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({
-    mode: 'onChange', // para capturar cambios y lanzar el error antes del submit
+    mode: 'onChange', // capture changes and throw error before submit
     resolver: zodResolver(formSearchGeneralSchema),
     defaultValues: {
       limit: '10',
@@ -84,8 +84,6 @@ export function DataTableSearchGeneral<TData, TValue>({
       limitAll: false,
     },
   });
-
-  // NO se resetean los valores, rebisar
 
   useEffect(() => {
     if (form.getValues('limitAll') === true) {
@@ -99,7 +97,6 @@ export function DataTableSearchGeneral<TData, TValue>({
   console.log(form.getValues('offset'));
 
   function onSubmit(values: z.infer<typeof formSearchGeneralSchema>): void {
-    // form.setValue('limit', '0');
     setDisabled(false);
     form.reset();
     console.log({ values });
@@ -269,7 +266,6 @@ export function DataTableSearchGeneral<TData, TValue>({
                 </FormItem>
               )}
             />
-
             <Button
               type='submit'
               variant='ghost'

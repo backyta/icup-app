@@ -1,4 +1,3 @@
-
 export interface RejectedProps {
   errors: ErrorsProps[];
   file: File;

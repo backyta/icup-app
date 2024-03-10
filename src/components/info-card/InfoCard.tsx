@@ -24,30 +24,39 @@ export const InfoCard = (): JSX.Element => {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant='outline' className='text-[12px] lg:text-[13px]'>
+          <Button variant='outline' className='text-[12px] lg:text-[13px] '>
             Ver Información
           </Button>
         </DialogTrigger>
 
-        <DialogContent className='max-w-[580px] w-full justify-center py-10'>
+        <DialogContent className='max-w-[580px] w-full justify-center py-10 max-h-full overflow-y-auto'>
           {(currentPath === '/disciples/search-disciples' ||
             currentPath === '/disciples/search-by-term-disciples' ||
+            currentPath === '/disciples/update-disciple' ||
             currentPath === '/pastors/search-pastors' ||
+            currentPath === '/disciples/search-by-term-pastors' ||
             currentPath === '/copastors/search-copastors' ||
-            currentPath === '/leaders/search-leaders') && <TabsCardMember />}
+            currentPath === '/disciples/search-by-term-copastors' ||
+            currentPath === '/leaders/search-leaders' ||
+            currentPath === '/leaders/search-by-term-leaders') && (
+            <TabsCardMember />
+          )}
 
           {(currentPath === '/family-houses/search-family-houses' ||
-            currentPath === '/family-houses/search-by-term-family-houses') && (
+            currentPath === '/family-houses/search-by-term-family-houses' ||
+            currentPath === '/family-houses/update-family-house') && (
             <TabsCardFamilyHome />
           )}
 
           {(currentPath === '/offerings/search-offerings' ||
-            currentPath === '/offerings/search-by-term-offerings') && (
+            currentPath === '/offerings/search-by-term-offerings' ||
+            currentPath === '/offerings/update-offering') && (
             <TabsCardOffering />
           )}
 
           {(currentPath === '/users/search-users' ||
-            currentPath === '/users/search-by-term-users') && <TabsCardUser />}
+            currentPath === '/users/search-by-term-users' ||
+            currentPath === '/users/update-user') && <TabsCardUser />}
         </DialogContent>
       </Dialog>
     );
@@ -60,26 +69,34 @@ export const InfoCard = (): JSX.Element => {
           Ver Información
         </Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className='max-h-full overflow-y-auto'>
         <div className='flex justify-center py-8 px-6'>
           {(currentPath === '/disciples/search-disciples' ||
             currentPath === '/disciples/search-by-term-disciples' ||
+            currentPath === '/disciples/update-disciple' ||
             currentPath === '/pastors/search-pastors' ||
-            currentPath === '/copastors/search-copastors' ||
-            currentPath === '/leaders/search-leaders') && <TabsCardMember />}
+            currentPath === '/pastors/search-by-term-pastors' ||
+            currentPath === '/copastors/search-by-term-copastors' ||
+            currentPath === '/leaders/search-leaders' ||
+            currentPath === '/leaders/search-by-term-leaders') && (
+            <TabsCardMember />
+          )}
 
           {(currentPath === '/family-houses/search-family-houses' ||
-            currentPath === '/family-houses/search-by-term-family-houses') && (
+            currentPath === '/family-houses/search-by-term-family-houses' ||
+            currentPath === '/family-houses/update-family-house') && (
             <TabsCardFamilyHome />
           )}
 
           {(currentPath === '/offerings/search-offerings' ||
-            currentPath === '/offerings/search-by-term-offerings') && (
+            currentPath === '/offerings/search-by-term-offerings' ||
+            currentPath === '/offerings/update-offering') && (
             <TabsCardOffering />
           )}
 
           {(currentPath === '/users/search-users' ||
-            currentPath === '/users/search-by-term-users') && <TabsCardUser />}
+            currentPath === '/users/search-by-term-users' ||
+            currentPath === '/users/update-user') && <TabsCardUser />}
         </div>
       </DrawerContent>
     </Drawer>

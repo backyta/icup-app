@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { SubTypeSearchNames, TypeSearch, TypeSearchNames, TermSelectTypeNames, SubTypeSearch } from "@/enums";
+
+import { SubTypeSearchNames, TypeSearch, TypeSearchNames, TermSelectOptionsNames, SubTypeSearch } from "@/enums";
 import { 
   subTypesActivities,
   subTypesCopastorFullName,
@@ -35,10 +36,6 @@ import {
   typesPastor, 
   typesUser } from ".";
 
-  // TODO : convertir la data del form al DTO que recibe el backend
-  // TODO : colocar orden de inversion en el ID.
-  // TODO : colocar el drawer en oscuro cuando esta en tema claro para hacer contraste (probar)
-  
 export const validationDisableTypes = (currentPath: string) => {
   
   //* Disabled Types by module
@@ -385,15 +382,15 @@ export const validationDisableTermSelect = (type: string, subType:string | undef
   if (type === TypeSearch.monthBirth) {
     return {
       disabledTermSelect : [
-        TermSelectTypeNames.male,
-        TermSelectTypeNames.female,
-        TermSelectTypeNames.single,
-        TermSelectTypeNames.married,
-        TermSelectTypeNames.widowed,
-        TermSelectTypeNames.divorced,
-        TermSelectTypeNames.other,
-        TermSelectTypeNames.active,
-        TermSelectTypeNames.inactive,
+        TermSelectOptionsNames.male,
+        TermSelectOptionsNames.female,
+        TermSelectOptionsNames.single,
+        TermSelectOptionsNames.married,
+        TermSelectOptionsNames.widowed,
+        TermSelectOptionsNames.divorced,
+        TermSelectOptionsNames.other,
+        TermSelectOptionsNames.active,
+        TermSelectOptionsNames.inactive,
       ]
     }
   } 
@@ -401,25 +398,25 @@ export const validationDisableTermSelect = (type: string, subType:string | undef
   if (type === TypeSearch.gender) {
     return {
       disabledTermSelect : [
-        TermSelectTypeNames.january,
-        TermSelectTypeNames.february,
-        TermSelectTypeNames.march,
-        TermSelectTypeNames.april,
-        TermSelectTypeNames.may,
-        TermSelectTypeNames.june,
-        TermSelectTypeNames.july,
-        TermSelectTypeNames.august,
-        TermSelectTypeNames.september,
-        TermSelectTypeNames.october,
-        TermSelectTypeNames.november,
-        TermSelectTypeNames.december,
-        TermSelectTypeNames.single,
-        TermSelectTypeNames.married,
-        TermSelectTypeNames.widowed,
-        TermSelectTypeNames.divorced,
-        TermSelectTypeNames.other,
-        TermSelectTypeNames.active,
-        TermSelectTypeNames.inactive,
+        TermSelectOptionsNames.january,
+        TermSelectOptionsNames.february,
+        TermSelectOptionsNames.march,
+        TermSelectOptionsNames.april,
+        TermSelectOptionsNames.may,
+        TermSelectOptionsNames.june,
+        TermSelectOptionsNames.july,
+        TermSelectOptionsNames.august,
+        TermSelectOptionsNames.september,
+        TermSelectOptionsNames.october,
+        TermSelectOptionsNames.november,
+        TermSelectOptionsNames.december,
+        TermSelectOptionsNames.single,
+        TermSelectOptionsNames.married,
+        TermSelectOptionsNames.widowed,
+        TermSelectOptionsNames.divorced,
+        TermSelectOptionsNames.other,
+        TermSelectOptionsNames.active,
+        TermSelectOptionsNames.inactive,
       ]
     }
   }
@@ -427,22 +424,22 @@ export const validationDisableTermSelect = (type: string, subType:string | undef
   if (type === TypeSearch.maritalStatus) {
     return {
       disabledTermSelect : [
-        TermSelectTypeNames.january,
-        TermSelectTypeNames.february,
-        TermSelectTypeNames.march,
-        TermSelectTypeNames.april,
-        TermSelectTypeNames.may,
-        TermSelectTypeNames.june,
-        TermSelectTypeNames.july,
-        TermSelectTypeNames.august,
-        TermSelectTypeNames.september,
-        TermSelectTypeNames.october,
-        TermSelectTypeNames.november,
-        TermSelectTypeNames.december,
-        TermSelectTypeNames.male,
-        TermSelectTypeNames.female,
-        TermSelectTypeNames.active,
-        TermSelectTypeNames.inactive,
+        TermSelectOptionsNames.january,
+        TermSelectOptionsNames.february,
+        TermSelectOptionsNames.march,
+        TermSelectOptionsNames.april,
+        TermSelectOptionsNames.may,
+        TermSelectOptionsNames.june,
+        TermSelectOptionsNames.july,
+        TermSelectOptionsNames.august,
+        TermSelectOptionsNames.september,
+        TermSelectOptionsNames.october,
+        TermSelectOptionsNames.november,
+        TermSelectOptionsNames.december,
+        TermSelectOptionsNames.male,
+        TermSelectOptionsNames.female,
+        TermSelectOptionsNames.active,
+        TermSelectOptionsNames.inactive,
       ]
     }
   }
@@ -450,27 +447,27 @@ export const validationDisableTermSelect = (type: string, subType:string | undef
   if (type === TypeSearch.isActive) {
     return {
       disabledTermSelect : [
-        TermSelectTypeNames.january,
-        TermSelectTypeNames.february,
-        TermSelectTypeNames.march,
-        TermSelectTypeNames.april,
-        TermSelectTypeNames.may,
-        TermSelectTypeNames.june,
-        TermSelectTypeNames.july,
-        TermSelectTypeNames.august,
-        TermSelectTypeNames.september,
-        TermSelectTypeNames.october,
-        TermSelectTypeNames.november,
-        TermSelectTypeNames.december,
-        TermSelectTypeNames.male,
-        TermSelectTypeNames.female,
-        TermSelectTypeNames.single,
-        TermSelectTypeNames.married,
-        TermSelectTypeNames.widowed,
-        TermSelectTypeNames.divorced,
-        TermSelectTypeNames.other,
-        TermSelectTypeNames.day,
-        TermSelectTypeNames.night,
+        TermSelectOptionsNames.january,
+        TermSelectOptionsNames.february,
+        TermSelectOptionsNames.march,
+        TermSelectOptionsNames.april,
+        TermSelectOptionsNames.may,
+        TermSelectOptionsNames.june,
+        TermSelectOptionsNames.july,
+        TermSelectOptionsNames.august,
+        TermSelectOptionsNames.september,
+        TermSelectOptionsNames.october,
+        TermSelectOptionsNames.november,
+        TermSelectOptionsNames.december,
+        TermSelectOptionsNames.male,
+        TermSelectOptionsNames.female,
+        TermSelectOptionsNames.single,
+        TermSelectOptionsNames.married,
+        TermSelectOptionsNames.widowed,
+        TermSelectOptionsNames.divorced,
+        TermSelectOptionsNames.other,
+        TermSelectOptionsNames.day,
+        TermSelectOptionsNames.night,
       ]
     }
   }
@@ -478,27 +475,27 @@ export const validationDisableTermSelect = (type: string, subType:string | undef
   if (subType === SubTypeSearch.offeringShift || subType === SubTypeSearch.offeringDateShift  ) {
     return {
       disabledTermSelect : [
-        TermSelectTypeNames.january,
-        TermSelectTypeNames.february,
-        TermSelectTypeNames.march,
-        TermSelectTypeNames.april,
-        TermSelectTypeNames.may,
-        TermSelectTypeNames.june,
-        TermSelectTypeNames.july,
-        TermSelectTypeNames.august,
-        TermSelectTypeNames.september,
-        TermSelectTypeNames.october,
-        TermSelectTypeNames.november,
-        TermSelectTypeNames.december,
-        TermSelectTypeNames.male,
-        TermSelectTypeNames.female,
-        TermSelectTypeNames.single,
-        TermSelectTypeNames.married,
-        TermSelectTypeNames.widowed,
-        TermSelectTypeNames.divorced,
-        TermSelectTypeNames.other,
-        TermSelectTypeNames.active,
-        TermSelectTypeNames.inactive,
+        TermSelectOptionsNames.january,
+        TermSelectOptionsNames.february,
+        TermSelectOptionsNames.march,
+        TermSelectOptionsNames.april,
+        TermSelectOptionsNames.may,
+        TermSelectOptionsNames.june,
+        TermSelectOptionsNames.july,
+        TermSelectOptionsNames.august,
+        TermSelectOptionsNames.september,
+        TermSelectOptionsNames.october,
+        TermSelectOptionsNames.november,
+        TermSelectOptionsNames.december,
+        TermSelectOptionsNames.male,
+        TermSelectOptionsNames.female,
+        TermSelectOptionsNames.single,
+        TermSelectOptionsNames.married,
+        TermSelectOptionsNames.widowed,
+        TermSelectOptionsNames.divorced,
+        TermSelectOptionsNames.other,
+        TermSelectOptionsNames.active,
+        TermSelectOptionsNames.inactive,
       ]
     }
   }
