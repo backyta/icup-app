@@ -14,9 +14,9 @@ export const formMemberSchema = z
     dateBirth: z.date({
       required_error: "Por favor selecciona una fecha.",
     }),
-    gender: z.enum(['male', 'female'], {
+    gender: z.string(z.enum(['male', 'female'], {
       required_error: "Por favor seleccione un genero.",
-    }),
+    })),
     maritalStatus: z.nativeEnum(MaritalStatus,{
       required_error: "Por favor seleccione una opción.",
     }),
@@ -46,10 +46,15 @@ export const formMemberSchema = z
     }).refine((value) => value.some((item) => item), {
       message: "Tienes que seleccionar al menos un rol.",
     }),
-    theirPastor: z.string().optional(),
-    theirCopastor: z.string().optional(),
+    theirPastor: z.string({ required_error: 'xd'}).optional(),
+    theirCopastor: z.string({ required_error: 'xd'}).optional(),
     theirSupervisor: z.string().optional(),
+   
     theirFamilyHouse: z.string().optional(),
+
+    isActive: z.string(z.enum(['active', 'inactive'], {
+      required_error: "Por favor seleccione una opción.",
+    })).optional(),
   })
 
   .refine(
@@ -66,7 +71,7 @@ export const formMemberSchema = z
   )
   .refine(
     (data) => {
-      if (data.roles.includes(MemberRoles.supervisor) && data.roles.includes(MemberRoles.member)) {
+      if (data.roles.includes(MemberRoles.supervisor) && data.roles.includes(MemberRoles.member) ) {
         return !!data.theirCopastor; 
       }
       return true;

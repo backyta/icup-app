@@ -47,7 +47,7 @@ export const validationDisableTypes = (currentPath: string) => {
   const disabledTypesOfferings = Object.values(TypeSearchNames).filter(value => !typesOffering.includes(value) ) 
   const disabledTypesUsers = Object.values(TypeSearchNames).filter(value => !typesUser.includes(value) ) 
   
-  if (currentPath === '/disciples/search-by-term-disciples') {
+  if (currentPath === '/disciples/search-by-term-disciples' || currentPath === '/disciples/update-disciple') {
       return {
         disabledTypes : [
         ...disabledTypesDisciples
@@ -55,7 +55,7 @@ export const validationDisableTypes = (currentPath: string) => {
     }
   }
 
-  if (currentPath === '/pastors/search-by-term-pastors') {
+  if (currentPath === '/pastors/search-by-term-pastors' || currentPath === '/pastors/update-pastor') {
     return {
         disabledTypes : [
           ...disabledTypesPastors
@@ -63,7 +63,7 @@ export const validationDisableTypes = (currentPath: string) => {
     }
   }
 
-  if (currentPath === '/copastors/search-by-term-copastors') {
+  if (currentPath === '/copastors/search-by-term-copastors' || currentPath === '/copastors/update-copastor') {
     return { 
      disabledTypes : [
       ...disabledTypesCopastors
@@ -71,7 +71,7 @@ export const validationDisableTypes = (currentPath: string) => {
    }
   }
 
-   if (currentPath === '/leaders/search-by-term-leaders') {
+   if (currentPath === '/leaders/search-by-term-leaders' || currentPath === '/leaders/update-leaders') {
     return {
       disabledTypes : [
         ...disabledTypesLeaders
@@ -79,7 +79,7 @@ export const validationDisableTypes = (currentPath: string) => {
     }
   }
 
-  if (currentPath === '/family-houses/search-by-term-family-houses') {
+  if (currentPath === '/family-houses/search-by-term-family-houses' || currentPath === '/family-houses/update-family-house') {
     return {
       disabledTypes : [
         ...disabledTypesFamilyHouses
@@ -87,7 +87,7 @@ export const validationDisableTypes = (currentPath: string) => {
     }
   } 
 
-  if (currentPath === '/offerings/search-by-term-offerings') {
+  if (currentPath === '/offerings/search-by-term-offerings' || currentPath === '/offerings/update-offering') {
     return {
       disabledTypes : [
         ...disabledTypesOfferings
@@ -95,7 +95,7 @@ export const validationDisableTypes = (currentPath: string) => {
     }
   }
   
-  if (currentPath === '/users/search-by-term-users') {
+  if (currentPath === '/users/search-by-term-users' || currentPath === '/users/update-user') {
     return {
       disabledTypes : [
         ...disabledTypesUsers
@@ -114,7 +114,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
   
 
   
-  if (currentPath === '/disciples/search-by-term-disciples' && type === TypeSearch.firstName) {
+  if ((currentPath === '/disciples/search-by-term-disciples' || currentPath === '/disciples/update-disciple') && type === TypeSearch.firstName) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesDiscipleNames,
@@ -122,7 +122,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
     }
   }
 
-  if (currentPath === '/disciples/search-by-term-disciples' && type === TypeSearch.lastName) {
+  if ((currentPath === '/disciples/search-by-term-disciples' || currentPath === '/disciples/update-disciple') && type === TypeSearch.lastName) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesDiscipleLastNames
@@ -130,7 +130,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
     }
   }
 
-  if (currentPath === '/disciples/search-by-term-disciples' && type === TypeSearch.fullName) {
+  if ((currentPath === '/disciples/search-by-term-disciples' || currentPath === '/disciples/update-disciple') && type === TypeSearch.fullName) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesDiscipleFullName
@@ -144,7 +144,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
   const disabledSubTypesPastorFullName = Object.values(SubTypeSearchNames).filter(value => !subTypesPastorFullName.includes(value) ) 
   
   
-  if (currentPath === '/pastors/search-by-term-pastors' && type === TypeSearch.firstName) {
+  if ((currentPath === '/pastors/search-by-term-pastors' || currentPath === '/pastors/update-pastor') && type === TypeSearch.firstName) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesPastorNames,
@@ -152,7 +152,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
     }
   }
 
-  if (currentPath === '/pastors/search-by-term-pastors' && type === TypeSearch.lastName) {
+  if ((currentPath === '/pastors/search-by-term-pastors' || currentPath === '/pastors/update-pastor') && type === TypeSearch.lastName) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesPastorLastNames
@@ -160,7 +160,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
     }
   }
 
-  if (currentPath === '/pastors/search-by-term-pastors' && type === TypeSearch.fullName) {
+  if ((currentPath === '/pastors/search-by-term-pastors' || currentPath === '/pastors/update-pastor') && type === TypeSearch.fullName) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesPastorFullName
@@ -173,7 +173,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
   const disabledSubTypesCopastorLastNames = Object.values(SubTypeSearchNames).filter(value => !subTypesCopastorLastNames.includes(value) ) 
   const disabledSubTypesCopastorFullName = Object.values(SubTypeSearchNames).filter(value => !subTypesCopastorFullName.includes(value) ) 
   
-  if (currentPath === '/copastors/search-by-term-copastors' && type === TypeSearch.firstName) {
+  if ((currentPath === '/copastors/search-by-term-copastors' || currentPath === '/copastors/update-copastor') && type === TypeSearch.firstName) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesCopastorNames,
@@ -181,7 +181,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
     }
   }
 
-  if (currentPath === '/copastors/search-by-term-copastors' && type === TypeSearch.lastName) {
+  if ((currentPath === '/copastors/search-by-term-copastors' || currentPath === '/copastors/update-copastor') && type === TypeSearch.lastName) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesCopastorLastNames
@@ -189,7 +189,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
     }
   }
 
-  if (currentPath === '/copastors/search-by-term-copastors' && type === TypeSearch.fullName) {
+  if ((currentPath === '/copastors/search-by-term-copastors' || currentPath === '/copastors/update-copastor') && type === TypeSearch.fullName) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesCopastorFullName
@@ -202,7 +202,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
   const disabledSubTypesLeaderLastNames = Object.values(SubTypeSearchNames).filter(value => !subTypesLeaderLastNames.includes(value) ) 
   const disabledSubTypesLeaderFullName = Object.values(SubTypeSearchNames).filter(value => !subTypesLeaderFullName.includes(value) ) 
   
-  if (currentPath === '/leaders/search-by-term-leaders' && type === TypeSearch.firstName) {
+  if ((currentPath === '/leaders/search-by-term-leaders' || currentPath === '/leaders/update-leader' )&& type === TypeSearch.firstName) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesLeaderNames,
@@ -210,7 +210,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
     }
   }
 
-  if (currentPath === '/leaders/search-by-term-leaders' && type === TypeSearch.lastName) {
+  if ((currentPath === '/leaders/search-by-term-leaders' || currentPath === '/leaders/update-leader')  && type === TypeSearch.lastName) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesLeaderLastNames
@@ -218,7 +218,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
     }
   }
 
-  if (currentPath === '/leaders/search-by-term-leaders' && type === TypeSearch.fullName) {
+  if ((currentPath === '/leaders/search-by-term-leaders' || currentPath === '/leaders/update-leader')  && type === TypeSearch.fullName) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesLeaderFullName
@@ -231,7 +231,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
   const disabledSubTypesFamilyHouseLastNames = Object.values(SubTypeSearchNames).filter(value => !subTypesFamilyHouseLastNames.includes(value) ) 
   const disabledSubTypesFamilyHouseFullName = Object.values(SubTypeSearchNames).filter(value => !subTypesFamilyHouseFullName.includes(value) ) 
   
-  if (currentPath === '/family-houses/search-by-term-family-houses' && type === TypeSearch.firstName) {
+  if ((currentPath === '/family-houses/search-by-term-family-houses' || currentPath === '/family-houses/update-family-house') && type === TypeSearch.firstName) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesFamilyHouseNames,
@@ -239,7 +239,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
     }
   }
 
-  if (currentPath === '/family-houses/search-by-term-family-houses' && type === TypeSearch.lastName) {
+  if ((currentPath === '/family-houses/search-by-term-family-houses' || currentPath === '/family-houses/update-family-house') && type === TypeSearch.lastName) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesFamilyHouseLastNames
@@ -247,7 +247,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
     }
   }
 
-  if (currentPath === '/family-houses/search-by-term-family-houses' && type === TypeSearch.fullName) {
+  if ((currentPath === '/family-houses/search-by-term-family-houses' ||  currentPath === '/family-houses/update-family-house') && type === TypeSearch.fullName) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesFamilyHouseFullName
@@ -258,7 +258,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
   //* Offerings (Tithe)
   const disabledSubTypesTithe = Object.values(SubTypeSearchNames).filter(value => !subTypesTithe.includes(value) ) 
   
-  if (currentPath === '/offerings/search-by-term-offerings' && type === TypeSearch.tithe) {
+  if ((currentPath === '/offerings/search-by-term-offerings' || currentPath === '/offerings/update-offering') && type === TypeSearch.tithe) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesTithe,
@@ -269,7 +269,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
   //* Offerings (Worship sunday, Sunday School)
   const disabledSubTypesSundayWorship = Object.values(SubTypeSearchNames).filter(value => !subTypesSundayWorship.includes(value) ) 
   
-  if (currentPath === '/offerings/search-by-term-offerings' && (type === TypeSearch.sunday_worship || type === TypeSearch.sunday_school)) {
+  if ((currentPath === '/offerings/search-by-term-offerings' || currentPath === '/offerings/update-offering') && (type === TypeSearch.sunday_worship || type === TypeSearch.sunday_school)) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesSundayWorship,
@@ -280,7 +280,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
   //* Offerings (Family House)
   const disabledSubTypesFamilyHouse = Object.values(SubTypeSearchNames).filter(value => !subTypesFamilyHouse.includes(value) ) 
   
-  if (currentPath === '/offerings/search-by-term-offerings' && type === TypeSearch.family_house) {
+  if ((currentPath === '/offerings/search-by-term-offerings' || currentPath === '/offerings/update-offering') && type === TypeSearch.family_house) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesFamilyHouse,
@@ -291,7 +291,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
   //* Offerings (Fasting, Vigil General)
   const disabledSubTypesFastingVigilGeneral = Object.values(SubTypeSearchNames).filter(value => !subTypesFastingVigilGeneral.includes(value) ) 
   
-  if (currentPath === '/offerings/search-by-term-offerings' && (type === TypeSearch.general_fasting || type === TypeSearch.general_vigil )) {
+  if ((currentPath === '/offerings/search-by-term-offerings' || currentPath === '/offerings/update-offering') && (type === TypeSearch.general_fasting || type === TypeSearch.general_vigil )) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesFastingVigilGeneral,
@@ -302,7 +302,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
   //* Offerings (Fasting, Vigil Zonal)
   const disabledSubTypesFastingVigilZonal = Object.values(SubTypeSearchNames).filter(value => !subTypesFastingVigilZonal.includes(value) ) 
   
-  if (currentPath === '/offerings/search-by-term-offerings' && (type === TypeSearch.zonal_fasting || type === TypeSearch.zonal_vigil )) {
+  if ((currentPath === '/offerings/search-by-term-offerings' || currentPath === '/offerings/update-offering') && (type === TypeSearch.zonal_fasting || type === TypeSearch.zonal_vigil )) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesFastingVigilZonal,
@@ -313,7 +313,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
   //* Offerings (Young Worship)
   const disabledSubTypesYoungWorship = Object.values(SubTypeSearchNames).filter(value => !subTypesYoungWorship.includes(value) ) 
   
-  if (currentPath === '/offerings/search-by-term-offerings' &&  type === TypeSearch.youth_worship ) {
+  if ((currentPath === '/offerings/search-by-term-offerings' || currentPath === '/offerings/update-offering') &&  type === TypeSearch.youth_worship ) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesYoungWorship,
@@ -324,7 +324,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
   //* Offerings (Activities)
   const disabledSubTypesActivities = Object.values(SubTypeSearchNames).filter(value => !subTypesActivities.includes(value) ) 
   
-  if (currentPath === '/offerings/search-by-term-offerings' &&  type === TypeSearch.activities ) {
+  if ((currentPath === '/offerings/search-by-term-offerings' || currentPath === '/offerings/update-offering') &&  type === TypeSearch.activities ) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesActivities,
@@ -335,7 +335,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
   //* Offerings (Ground Church)
   const disabledSubTypesGroundChurch = Object.values(SubTypeSearchNames).filter(value => !subTypesGroundChurch.includes(value) ) 
   
-  if (currentPath === '/offerings/search-by-term-offerings' &&  (type === TypeSearch.church_ground || type === TypeSearch.special )) {
+  if ((currentPath === '/offerings/search-by-term-offerings' || currentPath === '/offerings/update-offering') &&  (type === TypeSearch.church_ground || type === TypeSearch.special )) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesGroundChurch,
@@ -348,7 +348,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
   const disabledSubTypesUserLastNames = Object.values(SubTypeSearchNames).filter(value => !subTypesUserLastNames.includes(value) ) 
   const disabledSubTypesUserFullName = Object.values(SubTypeSearchNames).filter(value => !subTypesUserFullName.includes(value) ) 
   
-  if (currentPath === '/users/search-by-term-users' &&  type === TypeSearch.firstName ) {
+  if ((currentPath === '/users/search-by-term-users' || currentPath === '/users/update-user')   &&  type === TypeSearch.firstName ) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesUserNames,
@@ -356,7 +356,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
     }
   }
 
-  if (currentPath === '/users/search-by-term-users' &&  type === TypeSearch.lastName ) {
+  if ((currentPath === '/users/search-by-term-users' || currentPath === '/users/update-user')  &&  type === TypeSearch.lastName ) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesUserLastNames,
@@ -364,7 +364,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
     }
   }
 
-  if (currentPath === '/users/search-by-term-users' &&  type === TypeSearch.fullName ) {
+  if ((currentPath === '/users/search-by-term-users' || currentPath === '/users/update-user')  &&  type === TypeSearch.fullName ) {
     return {
       disabledSubTypes : [
         ...disabledSubTypesUserFullName,
@@ -375,7 +375,7 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
  
 }
 
-
+// TODO : arreglar aqui los select para el update
 export const validationDisableTermSelect = (type: string, subType:string | undefined) => {
 
   //* Disabled Term Select
@@ -391,6 +391,9 @@ export const validationDisableTermSelect = (type: string, subType:string | undef
         TermSelectOptionsNames.other,
         TermSelectOptionsNames.active,
         TermSelectOptionsNames.inactive,
+        TermSelectOptionsNames.day,
+        TermSelectOptionsNames.night,
+
       ]
     }
   } 
@@ -417,6 +420,8 @@ export const validationDisableTermSelect = (type: string, subType:string | undef
         TermSelectOptionsNames.other,
         TermSelectOptionsNames.active,
         TermSelectOptionsNames.inactive,
+        TermSelectOptionsNames.day,
+        TermSelectOptionsNames.night,
       ]
     }
   }
@@ -440,6 +445,8 @@ export const validationDisableTermSelect = (type: string, subType:string | undef
         TermSelectOptionsNames.female,
         TermSelectOptionsNames.active,
         TermSelectOptionsNames.inactive,
+        TermSelectOptionsNames.day,
+        TermSelectOptionsNames.night,
       ]
     }
   }

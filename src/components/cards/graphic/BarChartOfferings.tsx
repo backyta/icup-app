@@ -125,7 +125,6 @@ export const BarChartOfferings = (): JSX.Element => {
                         selected={field.value}
                         onSelect={(date) => {
                           field.onChange(date);
-
                           if (date?.from && date?.to) {
                             form.handleSubmit(onSubmit)();
                             setOpen(false);

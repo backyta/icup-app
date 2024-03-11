@@ -32,6 +32,7 @@ import {
   UpdateDisciplePage,
 } from '@/pages';
 import { PastorOptionsPage } from '@/pages/pastor/PastorOptionsPage';
+import { FormMember } from '@/components';
 
 export const router = createBrowserRouter([
   {
@@ -96,7 +97,8 @@ export const router = createBrowserRouter([
           },
           {
             path: '/disciples/update-disciple',
-            element: <UpdateDisciplePage />,
+            // element: <UpdateDisciplePage />,
+            element: <FormMember />,
           },
         ],
       },

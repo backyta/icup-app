@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-confusing-void-expression */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Card, CardContent } from '@/components/ui/card';
@@ -42,13 +45,32 @@ import {
   CommandInput,
   CommandItem,
 } from '@/components/ui/command';
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+
 import { es } from 'date-fns/locale';
 import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { format } from 'date-fns';
 import { Calendar } from '@/components/ui/calendar';
-import { MaritalStatusNames, MemberRoleNames, MemberRoles } from '@/enums';
+import {
+  MaritalStatus,
+  MaritalStatusNames,
+  MemberRoleNames,
+  MemberRoles,
+} from '@/enums';
 import { Checkbox } from '@/components/ui/checkbox';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Toaster, toast } from 'sonner';
 
 const pastors = [
   { label: 'Michael Rodrigo Baca Angeles', value: 'id1' },
@@ -81,14 +103,43 @@ const familyHouses = [
   { label: 'B-1 - Los Hijos de la Esperanza', value: 'id10' },
 ] as const;
 
-// TODO : pasar la data de la consulta aca y que se renderize.
+// TODO : Hacer una interface
+const data: any = {
+  firstName: 'Kevin',
+  lastName: 'Angeles',
+  originCountry: 'Peru',
+  dateBirth: new Date('12-12-2000'),
+  gender: 'female',
+  maritalStatus: MaritalStatus.divorced,
+  numberChildren: '3',
+  conversionDate: new Date('12-12-2000'),
+  emailAddress: 'kevin@google.com',
+  phoneNumber: '9999',
+  country: 'Peru',
+  department: 'Lima',
+  province: 'Lima',
+  district: 'Lima',
+  address: 'jr rio 222',
+  roles: [MemberRoles.member, MemberRoles.preacher],
+  theirPastor: 'id1',
+  theirCopastor: 'id2',
+  theirSupervisor: 'id3',
+  theirFamilyHouse: 'id2',
+  isActive: 'active',
+};
 
-// NOTE : Colocar boton que diga promover miembro (a predicador), y auto seleccionar los campos o desabilitar, y colocar su nueva relacion.
+// TODO : pasar la data de la consulta aca y que se renderize.
+// TODO : hacer llamado según el ID para traer la data
 
 export const FormMember = (): JSX.Element => {
   const [open, setOpen] = useState(false);
+  const [openBirthDate, setOpenBirthDate] = useState(false);
+  const [openConvertionDate, setOpenConvertionDate] = useState(false);
+
+  const [disableInput, setDisableInput] = useState(false);
 
   const form = useForm<z.infer<typeof formMemberSchema>>({
+    mode: 'onChange',
     resolver: zodResolver(formMemberSchema),
     defaultValues: {
       firstName: '',
@@ -111,24 +162,113 @@ export const FormMember = (): JSX.Element => {
 
   let disabledRoles: string[];
 
-  if (currentPath === '/disciples/create-disciple') {
-    disabledRoles = [
-      'pastor',
-      'copastor',
-      'supervisor',
-      'preacher',
-      'treasurer',
-    ];
-  } else if (currentPath === '/pastors/create-pastor') {
-    disabledRoles = ['copastor', 'supervisor', 'preacher', 'treasurer'];
-  } else if (currentPath === '/copastors/create-copastor') {
-    disabledRoles = ['pastor', 'supervisor', 'preacher', 'treasurer'];
-  } else if (currentPath === '/leaders/create-leader') {
-    disabledRoles = ['pastor', 'copastor'];
+  // NOTE : al subir de nivel debemos borrar sus relaciones y setear la nueva dependiendo del rol
+  // NOTE : cambiar los roles y borrar las relaciones al hacer click en aceptar del modal
+  // NOTE: apagar el botón promover de cargo e indicar que haga click en actualizar
+  // NOTE : apagar todos los demás inputs menos el de relaciones para poder elegir (lanzar error si esta vació)
+
+  // TODO : agregar una nota debajo de roles cuando se presione promover.
+  // TODO : ("Roles actualizados, por favor asigna la nueva relación para estos roles") y quitarlos después.
+  // TODO : revisar y replicar para todos.
+
+  if (
+    currentPath === '/disciples/update-disciple' ||
+    currentPath === '/pastors/update-pastor' ||
+    currentPath === '/copastors/update-copastor' ||
+    currentPath === '/leaders/update-leader'
+  ) {
+    disabledRoles = [...Object.values(MemberRoles).filter((rol) => rol)];
   }
+
+  useEffect(() => {
+    // Simula una consulta a la URL del backend
+    for (const key in data) {
+      form.setValue(key as any, data[key]);
+    }
+    // form.setValue('firstName', data.firstName);
+    // form.setValue('lastName', data.lastName);
+    // form.setValue('originCountry', data.originCountry);
+    // form.setValue('dateBirth', data.dateBirth);
+    // form.setValue('gender', data.gender);
+    // form.setValue('maritalStatus', data.maritalStatus);
+    // form.setValue('numberChildren', data.numberChildren);
+    // form.setValue('conversionDate', data.conversionDate);
+    // form.setValue('emailAddress', data.emailAddress);
+    // form.setValue('phoneNumber', data.phoneNumber);
+    // form.setValue('country', data.country);
+    // form.setValue('department', data.department);
+    // form.setValue('province', data.province);
+    // form.setValue('district', data.district);
+    // form.setValue('address', data.address);
+    // form.setValue('roles', data.roles);
+    // form.setValue('theirCopastor', data.theirCopastor);
+    // form.setValue('theirPastor', data.theirPastor);
+    // form.setValue('theirFamilyHouse', data.theirFamilyHouse);
+    // form.setValue('theirSupervisor', data.theirSupervisor);
+    // form.setValue('isActive', data.isActive);
+  }, []); // solo necesita ejecutarse una vez no necesario
 
   const handleSubmit = (values: z.infer<typeof formMemberSchema>): void => {
     console.log({ values });
+  };
+
+  console.log(form.formState.errors);
+  console.log(form.getValues('theirCopastor'));
+
+  const handleChangeRoles = (): void => {
+    // Borrar todos los roles
+    form.setValue('theirCopastor', '');
+    form.setValue('theirPastor', '');
+    form.setValue('theirFamilyHouse', '');
+    form.setValue('theirSupervisor', '');
+
+    if (
+      form.getValues('roles').includes(MemberRoles.member) &&
+      !form.getValues('roles').includes(MemberRoles.preacher) &&
+      !form.getValues('roles').includes(MemberRoles.supervisor) &&
+      !form.getValues('roles').includes(MemberRoles.treasurer) &&
+      !form.getValues('roles').includes(MemberRoles.copastor) &&
+      !form.getValues('roles').includes(MemberRoles.pastor)
+    ) {
+      form.setValue('roles', [MemberRoles.member, MemberRoles.preacher]);
+    } else if (
+      (form.getValues('roles').includes(MemberRoles.member) &&
+        form.getValues('roles').includes(MemberRoles.preacher) &&
+        form.getValues('roles').includes(MemberRoles.treasurer) &&
+        !form.getValues('roles').includes(MemberRoles.copastor) &&
+        !form.getValues('roles').includes(MemberRoles.pastor) &&
+        !form.getValues('roles').includes(MemberRoles.supervisor)) ||
+      (form.getValues('roles').includes(MemberRoles.member) &&
+        form.getValues('roles').includes(MemberRoles.preacher) &&
+        !form.getValues('roles').includes(MemberRoles.treasurer) &&
+        !form.getValues('roles').includes(MemberRoles.copastor) &&
+        !form.getValues('roles').includes(MemberRoles.pastor) &&
+        !form.getValues('roles').includes(MemberRoles.supervisor))
+    ) {
+      form.setValue('roles', [MemberRoles.member, MemberRoles.supervisor]);
+    } else if (
+      (form.getValues('roles').includes(MemberRoles.member) &&
+        form.getValues('roles').includes(MemberRoles.supervisor) &&
+        form.getValues('roles').includes(MemberRoles.treasurer) &&
+        !form.getValues('roles').includes(MemberRoles.copastor) &&
+        !form.getValues('roles').includes(MemberRoles.pastor) &&
+        !form.getValues('roles').includes(MemberRoles.preacher)) ||
+      (form.getValues('roles').includes(MemberRoles.member) &&
+        form.getValues('roles').includes(MemberRoles.supervisor) &&
+        !form.getValues('roles').includes(MemberRoles.preacher) &&
+        !form.getValues('roles').includes(MemberRoles.treasurer) &&
+        !form.getValues('roles').includes(MemberRoles.copastor) &&
+        !form.getValues('roles').includes(MemberRoles.pastor))
+    ) {
+      form.setValue('roles', [MemberRoles.member, MemberRoles.copastor]);
+    } else if (
+      form.getValues('roles').includes(MemberRoles.member) &&
+      form.getValues('roles').includes(MemberRoles.copastor)
+    ) {
+      form.setValue('roles', [MemberRoles.member, MemberRoles.pastor]);
+    }
+
+    setDisableInput(true);
   };
 
   return (
@@ -167,8 +307,9 @@ export const FormMember = (): JSX.Element => {
                           </FormLabel>
                           <FormControl>
                             <Input
-                              className='text-[13px] xl:text-sm'
-                              placeholder='Nombres del miembro'
+                              disabled={disableInput}
+                              className='text-[12px] xl:text-[13px]'
+                              placeholder='Eje: Roberto Martin...'
                               type='text'
                               {...field}
                             />
@@ -189,8 +330,9 @@ export const FormMember = (): JSX.Element => {
                           </FormLabel>
                           <FormControl>
                             <Input
-                              className='text-[13px] xl:text-sm'
-                              placeholder='Apellidos del miembro'
+                              disabled={disableInput}
+                              className='text-[12px] xl:text-[13px]'
+                              placeholder='Eje: Mendoza Prado...'
                               type='text'
                               {...field}
                             />
@@ -209,21 +351,28 @@ export const FormMember = (): JSX.Element => {
                           <FormLabel className='text-[13px] xl:text-sm'>
                             Genero
                           </FormLabel>
-                          <Select onValueChange={field.onChange}>
-                            <FormControl className='text-[13px] xl:text-sm'>
+                          <Select
+                            disabled={disableInput}
+                            onValueChange={field.onChange}
+                          >
+                            <FormControl className='text-[12px] xl:text-[13px]'>
                               <SelectTrigger>
-                                <SelectValue placeholder='Selecciona un tipo de genero' />
+                                {field.value === 'male' ? (
+                                  <SelectValue placeholder='Masculino' />
+                                ) : (
+                                  <SelectValue placeholder='Femenino' />
+                                )}
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
                               <SelectItem
-                                className='text-[13px] xl:text-sm'
+                                className='text-[12px] xl:text-[13px]'
                                 value='male'
                               >
                                 Masculino
                               </SelectItem>
                               <SelectItem
-                                className='text-[13px] xl:text-sm'
+                                className='text-[12px] xl:text-[13px]'
                                 value='female'
                               >
                                 Femenino
@@ -246,8 +395,9 @@ export const FormMember = (): JSX.Element => {
                           </FormLabel>
                           <FormControl>
                             <Input
-                              className='text-[13px] xl:text-sm'
-                              placeholder='País de origen del miembro'
+                              disabled={disableInput}
+                              className='text-[12px] xl:text-[13px]'
+                              placeholder='Eje: Peru, Colombia, Mexico...'
                               type='text'
                               {...field}
                             />
@@ -265,10 +415,14 @@ export const FormMember = (): JSX.Element => {
                         <FormLabel className='text-[13px] xl:text-sm'>
                           Fecha de Nacimiento
                         </FormLabel>
-                        <Popover>
+                        <Popover
+                          open={openBirthDate}
+                          onOpenChange={setOpenBirthDate}
+                        >
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
+                                disabled={disableInput}
                                 variant={'outline'}
                                 className={cn(
                                   'w-full pl-3 text-left font-normal',
@@ -280,7 +434,7 @@ export const FormMember = (): JSX.Element => {
                                     locale: es,
                                   })
                                 ) : (
-                                  <span className='text-[13px] xl:text-sm'>
+                                  <span className='text-[12px] xl:text-[13px]'>
                                     Fecha de nacimiento
                                   </span>
                                 )}
@@ -292,7 +446,10 @@ export const FormMember = (): JSX.Element => {
                             <Calendar
                               mode='single'
                               selected={field.value}
-                              onSelect={field.onChange}
+                              onSelect={(date) => {
+                                field.onChange(date);
+                                setOpenBirthDate(false);
+                              }}
                               disabled={(date) =>
                                 date > new Date() ||
                                 date < new Date('1900-01-01')
@@ -319,17 +476,40 @@ export const FormMember = (): JSX.Element => {
                           <FormLabel className='text-[13px] xl:text-sm'>
                             Estado Civil
                           </FormLabel>
-                          <Select onValueChange={field.onChange}>
-                            <FormControl className='text-[13px] xl:text-sm'>
+                          <Select
+                            disabled={disableInput}
+                            onValueChange={field.onChange}
+                          >
+                            <FormControl className='text-[12px] xl:text-[13px]'>
                               <SelectTrigger>
-                                <SelectValue placeholder='Selecciona un tipo de estado civil' />
+                                {field.value === MaritalStatus.single ? (
+                                  <SelectValue
+                                    placeholder={MaritalStatusNames.single}
+                                  />
+                                ) : field.value === MaritalStatus.married ? (
+                                  <SelectValue
+                                    placeholder={MaritalStatusNames.married}
+                                  />
+                                ) : field.value === MaritalStatus.widowed ? (
+                                  <SelectValue
+                                    placeholder={MaritalStatusNames.widowed}
+                                  />
+                                ) : field.value === MaritalStatus.divorced ? (
+                                  <SelectValue
+                                    placeholder={MaritalStatusNames.divorced}
+                                  />
+                                ) : (
+                                  <SelectValue
+                                    placeholder={MaritalStatusNames.other}
+                                  />
+                                )}
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
                               {Object.entries(MaritalStatusNames).map(
                                 ([key, value]) => (
                                   <SelectItem
-                                    className={`text-[13px] xl:text-sm`}
+                                    className='text-[12px] xl:text-[13px]'
                                     key={key}
                                     value={key}
                                   >
@@ -355,8 +535,9 @@ export const FormMember = (): JSX.Element => {
                           </FormLabel>
                           <FormControl>
                             <Input
-                              className='text-[13px] xl:text-sm'
-                              placeholder='Cantidad de hijos'
+                              disabled={disableInput}
+                              className='text-[12px] xl:text-[13px]'
+                              placeholder='Eje: 3'
                               {...field}
                             />
                           </FormControl>
@@ -373,10 +554,14 @@ export const FormMember = (): JSX.Element => {
                         <FormLabel className='text-[13px] xl:text-sm'>
                           Fecha de conversión
                         </FormLabel>
-                        <Popover>
+                        <Popover
+                          open={openConvertionDate}
+                          onOpenChange={setOpenConvertionDate}
+                        >
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
+                                disabled={disableInput}
                                 variant={'outline'}
                                 className={cn(
                                   'w-full pl-3 text-left font-normal',
@@ -388,7 +573,7 @@ export const FormMember = (): JSX.Element => {
                                     locale: es,
                                   })
                                 ) : (
-                                  <span className='text-[13px] xl:text-sm'>
+                                  <span className='text-[12px] xl:text-[13px]'>
                                     Fecha de conversion
                                   </span>
                                 )}
@@ -400,7 +585,10 @@ export const FormMember = (): JSX.Element => {
                             <Calendar
                               mode='single'
                               selected={field.value}
-                              onSelect={field.onChange}
+                              onSelect={(date) => {
+                                field.onChange(date);
+                                setOpenConvertionDate(false);
+                              }}
                               disabled={(date) =>
                                 date > new Date() ||
                                 date < new Date('1900-01-01')
@@ -433,8 +621,9 @@ export const FormMember = (): JSX.Element => {
                           </FormLabel>
                           <FormControl>
                             <Input
-                              className='text-[13px] xl:text-sm'
-                              placeholder='Dirección Email del miembro'
+                              disabled={disableInput}
+                              className='text-[12px] xl:text-[13px]'
+                              placeholder='Eje: martin@gmail.com'
                               type='email'
                               autoComplete='username'
                               {...field}
@@ -456,8 +645,9 @@ export const FormMember = (): JSX.Element => {
                           </FormLabel>
                           <FormControl>
                             <Input
-                              className='text-[13px] xl:text-sm'
-                              placeholder='Numero de teléfono del miembro'
+                              disabled={disableInput}
+                              className='text-[12px] xl:text-[13px]'
+                              placeholder='Eje: 999 999 999'
                               type='text'
                               {...field}
                             />
@@ -481,8 +671,9 @@ export const FormMember = (): JSX.Element => {
                           </FormDescription>
                           <FormControl>
                             <Input
-                              className='text-[13px] xl:text-sm'
-                              placeholder='País de residencia del miembro'
+                              disabled={disableInput}
+                              className='text-[12px] xl:text-[13px]'
+                              placeholder='Eje: Peru...'
                               type='text'
                               {...field}
                             />
@@ -503,8 +694,9 @@ export const FormMember = (): JSX.Element => {
                           </FormLabel>
                           <FormControl>
                             <Input
-                              className='text-[13px] xl:text-sm'
-                              placeholder='Departamento en la que reside el miembro'
+                              disabled={disableInput}
+                              className='text-[12px] xl:text-[13px]'
+                              placeholder='Eje: Lima...'
                               type='text'
                               {...field}
                             />
@@ -525,8 +717,9 @@ export const FormMember = (): JSX.Element => {
                           </FormLabel>
                           <FormControl>
                             <Input
-                              className='text-[13px] xl:text-sm'
-                              placeholder='Provincia en la que reside el miembro'
+                              disabled={disableInput}
+                              className='text-[12px] xl:text-[13px]'
+                              placeholder='Eje: Lima...'
                               type='text'
                               {...field}
                             />
@@ -547,8 +740,9 @@ export const FormMember = (): JSX.Element => {
                           </FormLabel>
                           <FormControl>
                             <Input
-                              className='text-[13px] xl:text-sm'
-                              placeholder='Distrito en la que reside el miembro'
+                              disabled={disableInput}
+                              className='text-[12px] xl:text-[13px]'
+                              placeholder='Eje: Comas, Independencia...'
                               type='text'
                               {...field}
                             />
@@ -569,12 +763,56 @@ export const FormMember = (): JSX.Element => {
                           </FormLabel>
                           <FormControl>
                             <Input
-                              className='text-[13px] xl:text-sm'
-                              placeholder='Dirección en la que reside el miembro'
+                              disabled={disableInput}
+                              className='text-[12px] xl:text-[13px]'
+                              placeholder='Eje: Av. Central 123'
                               type='text'
                               {...field}
                             />
                           </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
+                  {/* //NOTE : revisar después de ver el backend solo debería ser activo */}
+                  <FormField
+                    control={form.control}
+                    name='isActive'
+                    render={({ field }) => {
+                      return (
+                        <FormItem className='mt-3'>
+                          <FormLabel className='text-[13px] xl:text-sm'>
+                            Estado
+                          </FormLabel>
+                          <Select
+                            disabled={disableInput}
+                            onValueChange={field.onChange}
+                          >
+                            <FormControl className='text-[12px] xl:text-[13px]'>
+                              <SelectTrigger>
+                                {field.value === 'active' ? (
+                                  <SelectValue placeholder='Activo' />
+                                ) : (
+                                  <SelectValue placeholder='Inactivo' />
+                                )}
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem
+                                className='text-[12px] xl:text-[13px]'
+                                value='active'
+                              >
+                                Activo
+                              </SelectItem>
+                              <SelectItem
+                                className='text-[12px] xl:text-[13px]'
+                                value='inactive'
+                              >
+                                Inactivo
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
                           <FormMessage />
                         </FormItem>
                       );
@@ -626,7 +864,7 @@ export const FormMember = (): JSX.Element => {
                                       }}
                                     />
                                   </FormControl>
-                                  <FormLabel className='lg:text-[15px] font-normal'>
+                                  <FormLabel className='text-[13px] lg:text-sm font-normal'>
                                     {MemberRoleNames[role]}
                                   </FormLabel>
                                 </FormItem>
@@ -649,7 +887,7 @@ export const FormMember = (): JSX.Element => {
                       !roles?.includes(MemberRoles.supervisor) &&
                       !roles?.includes(MemberRoles.preacher) &&
                       !roles?.includes(MemberRoles.treasurer) && (
-                        <span className='text-green-500 font-bold text-[13px] md:text-[14px]'>
+                        <span className='text-green-500 font-bold text-[13px] lg:text-[14px]'>
                           No hay relaciones que asignar para estos roles
                           elegidos.
                         </span>
@@ -669,7 +907,7 @@ export const FormMember = (): JSX.Element => {
                                 <FormLabel className='text-[13px] md:text-[14px] font-bold'>
                                   Pastor
                                 </FormLabel>
-                                <FormDescription className='text-[13px] lg:text-[14px]'>
+                                <FormDescription className='text-[12px] lg:text-[13px]'>
                                   Seleccione un pastor para esta relación.
                                 </FormDescription>
                                 <Popover open={open} onOpenChange={setOpen}>
@@ -679,7 +917,7 @@ export const FormMember = (): JSX.Element => {
                                         variant='outline'
                                         role='combobox'
                                         className={cn(
-                                          'w-full justify-between overflow-hidden text-[13px] xl:text-sm',
+                                          'w-full justify-between overflow-hidden font-medium text-[13px] xl:text-sm',
                                           !field.value &&
                                             'text-slate-500 font-normal'
                                         )}
@@ -694,11 +932,11 @@ export const FormMember = (): JSX.Element => {
                                       </Button>
                                     </FormControl>
                                   </PopoverTrigger>
-                                  <PopoverContent className='mr-30 w-[20rem] p-2\'>
+                                  <PopoverContent className='mr-30 w-auto px-4 py-2'>
                                     <Command>
                                       <CommandInput
                                         placeholder='Busque un pastor...'
-                                        className='h-9 text-sm lg:text-[15px]'
+                                        className='h-9 text-sm text-[12px] md:text-[13px]'
                                       />
                                       <CommandEmpty>
                                         Pastor no encontrado.
@@ -706,7 +944,7 @@ export const FormMember = (): JSX.Element => {
                                       <CommandGroup className='max-h-[200px] h-auto'>
                                         {pastors.map((pastor) => (
                                           <CommandItem
-                                            className='text-sm lg:text-[15px]'
+                                            className='text-[12px] md:text-[13px]'
                                             value={pastor.label}
                                             key={pastor.value}
                                             onSelect={() => {
@@ -770,7 +1008,7 @@ export const FormMember = (): JSX.Element => {
                                       variant='outline'
                                       role='combobox'
                                       className={cn(
-                                        'w-full justify-between overflow-hidden text-[13px] xl:text-sm',
+                                        'w-full justify-between overflow-hidden font-medium  text-[13px] xl:text-sm',
                                         !field.value &&
                                           'text-slate-500 font-normal'
                                       )}
@@ -785,11 +1023,11 @@ export const FormMember = (): JSX.Element => {
                                     </Button>
                                   </FormControl>
                                 </PopoverTrigger>
-                                <PopoverContent className='mr-30 w-[20rem] p-2\'>
+                                <PopoverContent className='mr-30 w-auto py-2 px-4'>
                                   <Command>
                                     <CommandInput
                                       placeholder='Busque un co-pastor...'
-                                      className='h-9 text-sm lg:text-[15px]'
+                                      className='h-9 text-[12px] md:text-[13px]'
                                     />
                                     <CommandEmpty>
                                       Co-Pastor no encontrado.
@@ -797,7 +1035,7 @@ export const FormMember = (): JSX.Element => {
                                     <CommandGroup className='max-h-[200px] h-auto'>
                                       {copastors.map((copastor) => (
                                         <CommandItem
-                                          className='text-sm lg:text-[15px]'
+                                          className='text-[12px] md:text-[13px]'
                                           value={copastor.label}
                                           key={copastor.value}
                                           onSelect={() => {
@@ -805,6 +1043,7 @@ export const FormMember = (): JSX.Element => {
                                               'theirCopastor',
                                               copastor.value
                                             );
+                                            form.clearErrors('theirCopastor'); // replicar esto
                                             setOpen(false);
                                           }}
                                         >
@@ -861,7 +1100,7 @@ export const FormMember = (): JSX.Element => {
                                       variant='outline'
                                       role='combobox'
                                       className={cn(
-                                        'w-full justify-between overflow-hidden text-[13px] xl:text-sm',
+                                        'w-full justify-between  font-medium text-[13px] xl:text-sm',
                                         !field.value &&
                                           'text-slate-500 font-normal'
                                       )}
@@ -876,11 +1115,11 @@ export const FormMember = (): JSX.Element => {
                                     </Button>
                                   </FormControl>
                                 </PopoverTrigger>
-                                <PopoverContent className='mr-30 w-[20rem] p-2\'>
-                                  <Command>
+                                <PopoverContent className='mr-30 w-auto px-4 py-2'>
+                                  <Command className='w-full'>
                                     <CommandInput
                                       placeholder='Busque un supervisor...'
-                                      className='h-9 text-sm lg:text-[15px]'
+                                      className='h-9 text-[13px]'
                                     />
                                     <CommandEmpty>
                                       Supervisor no encontrado.
@@ -888,7 +1127,7 @@ export const FormMember = (): JSX.Element => {
                                     <CommandGroup className='max-h-[200px] h-auto'>
                                       {supervisors.map((supervisor) => (
                                         <CommandItem
-                                          className='text-sm lg:text-[15px]'
+                                          className='text-[13px]'
                                           value={supervisor.label}
                                           key={supervisor.value}
                                           onSelect={() => {
@@ -947,7 +1186,7 @@ export const FormMember = (): JSX.Element => {
                                         variant='outline'
                                         role='combobox'
                                         className={cn(
-                                          'w-full justify-between overflow-hidden text-[13px] xl:text-sm',
+                                          'w-full justify-between overflow-hidden font-medium text-[13px] xl:text-sm',
                                           !field.value &&
                                             'text-slate-500 font-normal'
                                         )}
@@ -963,11 +1202,11 @@ export const FormMember = (): JSX.Element => {
                                       </Button>
                                     </FormControl>
                                   </PopoverTrigger>
-                                  <PopoverContent className='mr-30 w-[20rem] p-2\'>
+                                  <PopoverContent className='mr-30 w-auto py-2 px-4'>
                                     <Command>
                                       <CommandInput
                                         placeholder='Busque una casa familiar...'
-                                        className='h-9 text-sm lg:text-[15px]'
+                                        className='h-9 text-[12px] md:text-[13px]'
                                       />
                                       <CommandEmpty>
                                         Casa Familiar no encontrado.
@@ -975,7 +1214,7 @@ export const FormMember = (): JSX.Element => {
                                       <CommandGroup className='max-h-[200px] h-auto'>
                                         {familyHouses.map((familyHouse) => (
                                           <CommandItem
-                                            className='text-sm lg:text-[15px]'
+                                            className='text-[12px] md:text-[13px]'
                                             value={familyHouse.label}
                                             key={familyHouse.value}
                                             onSelect={() => {
@@ -1002,7 +1241,6 @@ export const FormMember = (): JSX.Element => {
                                     </Command>
                                   </PopoverContent>
                                 </Popover>
-
                                 <FormMessage />
                               </FormItem>
                             );
@@ -1010,7 +1248,7 @@ export const FormMember = (): JSX.Element => {
                         />
                       )}
                   </div>
-                  <div>
+                  {/* <div>
                     <p className='font-bold text-[14px] 2xl:text-[15.5px] text-blue-600'>
                       Consideraciones
                     </p>
@@ -1022,18 +1260,111 @@ export const FormMember = (): JSX.Element => {
                       </li>
                       <li>*El rol Member es obligatorio.</li>
                     </ul>
-                  </div>
-                  <Button
-                    type='button'
-                    className='w-full text-[14px] bg-yellow-400 text-yellow-700 hover:text-white hover:bg-yellow-500'
-                  >
-                    Promover de rango
-                  </Button>
+                  </div> */}
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        disabled={disableInput}
+                        className='w-full text-[14px]  md:mt-[7rem] disabled:bg-slate-500 disabled:text-white bg-yellow-400 text-yellow-700 hover:text-white hover:bg-yellow-500'
+                      >
+                        Promover de cargo
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle className='text-blue-500'>
+                          ¿Estas seguro de promover a este miembro?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription>
+                          <span className='text-green-500 font-bold'>
+                            Deberás hacer lo siguiente:
+                          </span>
+                          <br />
+                          <span className='inline-block mb-2'>
+                            ✔ Primero se deberá asignar nuevas relaciones según
+                            el nuevo cargo y guardar estos datos para aplicar la
+                            promoción.
+                          </span>
+                          <br />
+                          <span className='text-red-500 font-bold'>
+                            Después de hacer esto sucederá lo siguiente:
+                          </span>
+                          <br />
+                          <span className='inline-block mb-1'>
+                            ❌ Se borraran todas sus relaciones que tenia en el
+                            anterior cargo.
+                          </span>
+                          <br />
+                          <span className='inline-block mb-1'>
+                            ❌ Si era Miembro y sube a Predicador(a) se
+                            eliminara su relación con su casa familiar, y se le
+                            asignara una nueva donde desempeñara su nuevo rol.
+                          </span>
+                          <br />
+                          <span className='inline-block mb-1'>
+                            ❌ Si era Predicador(a) y sube a Supervisor(a) se
+                            borrara su relación con su casa familiar y sus
+                            miembros, por lo que deberá asignar a otro
+                            Predicador(a) para estos.
+                          </span>
+                          <br />
+                          <span className='inline-block mb-1'>
+                            ❌ Si era Supervisor(a) y sube a Co-pastor(a) se
+                            borrara su relación con las zonas, casas,
+                            predicadores y miembros que tenia a cargo, por lo
+                            que se deberá asignar otro Supervisor(a) para todos
+                            estos.
+                          </span>
+                          <br />
+                          <span>
+                            ❌ Si era Co-pastor(a) y sube a Pastor(a) se borrara
+                            su relación con las zonas, casas, supervisores,
+                            predicadores y miembros que englobaba su cargo, por
+                            lo que se deberá asignar otro Co-pastor(a) para
+                            todos estos.
+                          </span>
+                          <br />
+                          <br />
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                        <AlertDialogAction onClick={handleChangeRoles}>
+                          Aceptar
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                  {disableInput &&
+                    (form.getValues('theirPastor') ||
+                      form.getValues('theirCopastor') ||
+                      form.getValues('theirSupervisor')) && (
+                      <span className='text-[12px] md:text-[13px] text-green-500 font-bold text-center'>
+                        !SE HA PROMOVIDO CORRECTAMENTE! <br />
+                        <span className='dark:text-white font-medium'>
+                          Por favor guarde los cambios para finalizar.
+                        </span>
+                      </span>
+                    )}
                 </div>
 
                 <div className='sm:col-start-2 sm:col-end-3 sm:row-start-2 sm:row-end-3 w-full'>
-                  <Button type='submit' className='w-full text-[14px]'>
-                    Actualizar miembro
+                  <Toaster position='top-center' richColors />
+                  <Button
+                    type='submit'
+                    className='w-full text-[14px]'
+                    onClick={() => {
+                      setTimeout(() => {
+                        if (Object.keys(form.formState.errors).length === 0) {
+                          toast.success('Cambios guardados correctamente', {
+                            position: 'top-center',
+                            className: 'justify-center',
+                          });
+                        }
+                      }, 100);
+                    }}
+                  >
+                    Guardar cambios
                   </Button>
                 </div>
               </form>

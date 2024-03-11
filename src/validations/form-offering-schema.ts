@@ -35,7 +35,7 @@ export const formOfferingSchema = z
       return true;
     },
     {
-      message: 'El sub-Tipo es requerido',
+      message: 'El sub-tipo es requerido',
       path: ['subType'],
     }
   )

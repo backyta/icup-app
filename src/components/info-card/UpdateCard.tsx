@@ -19,12 +19,21 @@ export const UpdateCard = (): JSX.Element => {
 
   const currentPath = window.location.pathname;
 
-  // TODO : hacer validacion de tipos y sub tipos.
-  // TODO : lanzar aviso de validacion al promover con avisos (que pasara, se esta dejando casa tal o tal zona sin lider...)
-  // TODO : marcar las casillas de rangos nuevos, deoendeindo si es miembro a preacher si es preacher a supervisor
+  // TODO : hacer validación de tipos y sub tipos. ✅
+  // TODO : lanzar aviso de validación al promover con avisos (que pasara, se esta dejando casa tal o tal zona sin líder...)
+  // TODO : al lanzar click sobre promover se envía el formulario con la data y cambiando los roles.
 
-  // TODO : replicar todos los update en los demas modulos
+  // TODO : replicar todos los update en los demás módulos
   // TODO : revisar y continuar a delete
+
+  // NOTE : traer información del back al presionar actualizar y se cargan todos los inputs
+  // NOTE : los roles aparecerán llenos y desabilitados los demas (segun la info del back)
+  // NOTE : Al escribir algo o modificar cualquier input, deshabilitar el boton de promover y lanzar alerta "primero modifica y guarda cambios para poder promover"
+  // NOTE : Al promover lazar aviso de confirmacion y colocar a que se esta promoviendo y que sucedera.
+
+  // NOTE : al subir de nivel por detras mandar la data tal cual, pero cambiando el rol de copastor a pastor por ejemplo
+  // NOTE : el backend lo validara y actualizara en el sitema
+  // NOTE : colocar el select de activo o inactivo si esta activo desabilitarlo o poner el true si esta inactivo habilitarlo
 
   if (isDesktop) {
     return (
