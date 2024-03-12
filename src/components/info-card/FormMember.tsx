@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
@@ -103,7 +104,7 @@ const familyHouses = [
   { label: 'B-1 - Los Hijos de la Esperanza', value: 'id10' },
 ] as const;
 
-// TODO : Hacer una interface
+// TODO : Hacer una interface (transformar a array)
 const data: any = {
   firstName: 'Kevin',
   lastName: 'Angeles',
@@ -137,6 +138,9 @@ export const FormMember = (): JSX.Element => {
 
   const [disableInput, setDisableInput] = useState(false);
 
+  const [lastValue, setLastValue] = useState('');
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
   const form = useForm<z.infer<typeof formMemberSchema>>({
     mode: 'onChange',
     resolver: zodResolver(formMemberSchema),
@@ -161,9 +165,8 @@ export const FormMember = (): JSX.Element => {
 
   let disabledRoles: string[];
 
-  // TODO : al hacer click en treasurer y desactivar bloquear el botón de promover porque se debe guardar
-  // TODO : cambios primero.
-  // TODO : lo mismo para los inputs si cambia algo bloquear porque primero se deben guardar los cambios
+  // TODO : Revisar por rutas la de pastor, y los demás porque pastor no podrá subir de nivel.
+  // NOTE : pulir todo aquí antes de extender a los demás módulos (terminar todos los todos).
 
   useEffect(() => {
     // Simula una consulta a la URL del backend
@@ -192,6 +195,34 @@ export const FormMember = (): JSX.Element => {
     // form.setValue('theirSupervisor', data.theirSupervisor);
     // form.setValue('isActive', data.isActive);
   }, []); // solo necesita ejecutarse una vez no necesario
+
+  const names = form.watch('firstName');
+
+  //* setear el valor antiguo y compararlo con el nuevo
+  useEffect(() => {
+    const previousFirstName = lastValue;
+    const currentFirstName = form.getValues('firstName');
+    // console.log({ last: lastValue });
+    // console.log({ new: form.getValues('firstName') });
+    // Compara el valor actual con el valor anterior
+    // console.log(isButtonDisabled);
+    // TODO : hacer lo mismo para todos los inputs
+    // TODO : lanzar mensaje que cuando se desactive el botón que guarde los cambios primero no se podrá promover
+    // TODO : cuando el input tenga su mismo valor reactivar (esto seria muy difícil ya. intentar)
+
+    // TODO : primero hacer para todos y ver la manera de volver activarlo si es la misma palabra o fecha
+
+    // NOTE : tendría que crear un estado para el nombre fijo con el que se setae al comienzo
+    // NOTE : y luego compararlo y poner a false el disabled (seria mas interactivo)
+    // NOTE : mandar aviso que si se modifica algo se deberá guardar cambios antes de promover
+    // NOTE : "Si los datos no son los mismo no se podra promover, guardar cambios y actualizar antes"
+    // NOTE : "Si estas intentado actualizar datos del miembro no podras pormoverlo"
+    if (previousFirstName !== '' && currentFirstName !== previousFirstName) {
+      setIsButtonDisabled(true); // lo trae como esta en ese momento pero ya cambio a true
+    }
+
+    setLastValue(currentFirstName);
+  }, [names]);
 
   // TODO : ver disables para offering. (no sera necesario?)
 
@@ -275,6 +306,7 @@ export const FormMember = (): JSX.Element => {
     }
 
     setDisableInput(true);
+    setIsButtonDisabled(true);
   };
 
   return (
@@ -883,98 +915,107 @@ export const FormMember = (): JSX.Element => {
                     )}
                   />
 
-                  {disableInput && (
-                    <span className='text-[12px] md:text-[13px] text-blue-500 font-bold text-center'>
-                      !ROLES ACTUALIZADOS! <br />
-                      <span className='text-[12px]'>
-                        {form.getValues('roles').includes(MemberRoles.member) &&
-                          form
+                  {disableInput &&
+                    form.getValues('theirPastor') === '' &&
+                    form.getValues('theirCopastor') === '' &&
+                    form.getValues('theirSupervisor') === '' && (
+                      <span className='text-[12px] md:text-[13px] text-blue-500 font-bold text-center'>
+                        !ROLES ACTUALIZADOS! <br />
+                        <span className='text-[12px]'>
+                          {form
                             .getValues('roles')
-                            .includes(MemberRoles.preacher) && (
-                            <div>
-                              <span className='text-red-500 text-left inline-block'>
-                                Roles anteriores: Miembro
-                              </span>
-                              <br />
-                              <span className='text-green-500 text-left inline-block'>
-                                Roles nuevos: Miembro - Predicador
-                              </span>
-                            </div>
-                          )}
+                            .includes(MemberRoles.member) &&
+                            form
+                              .getValues('roles')
+                              .includes(MemberRoles.preacher) && (
+                              <div>
+                                <span className='text-red-500 text-left inline-block'>
+                                  Roles anteriores: Miembro
+                                </span>
+                                <br />
+                                <span className='text-green-500 text-left inline-block'>
+                                  Roles nuevos: Miembro - Predicador
+                                </span>
+                              </div>
+                            )}
 
-                        {form.getValues('roles').includes(MemberRoles.member) &&
-                          form
+                          {form
                             .getValues('roles')
-                            .includes(MemberRoles.supervisor) &&
-                          !form
-                            .getValues('roles')
-                            .includes(MemberRoles.treasurer) && (
-                            <div>
-                              <span className='text-red-500 text-left inline-block'>
-                                Roles anteriores: Miembro - Predicador
-                              </span>
-                              <br />
-                              <span className='text-green-500 text-left inline-block'>
-                                Roles nuevos: Miembro - Supervisor
-                              </span>
-                            </div>
-                          )}
+                            .includes(MemberRoles.member) &&
+                            form
+                              .getValues('roles')
+                              .includes(MemberRoles.supervisor) &&
+                            !form
+                              .getValues('roles')
+                              .includes(MemberRoles.treasurer) && (
+                              <div>
+                                <span className='text-red-500 text-left inline-block'>
+                                  Roles anteriores: Miembro - Predicador
+                                </span>
+                                <br />
+                                <span className='text-green-500 text-left inline-block'>
+                                  Roles nuevos: Miembro - Supervisor
+                                </span>
+                              </div>
+                            )}
 
-                        {form.getValues('roles').includes(MemberRoles.member) &&
-                          form
+                          {form
                             .getValues('roles')
-                            .includes(MemberRoles.supervisor) &&
-                          form
-                            .getValues('roles')
-                            .includes(MemberRoles.treasurer) && (
-                            <div>
-                              <span className='text-red-500 text-left inline-block'>
-                                Roles anteriores: Miembro - Predicador -
-                                Tesorero
-                              </span>
-                              <br />
-                              <span className='text-green-500 text-left inline-block'>
-                                Roles nuevos: Miembro - Supervisor - Tesorero
-                              </span>
-                            </div>
-                          )}
+                            .includes(MemberRoles.member) &&
+                            form
+                              .getValues('roles')
+                              .includes(MemberRoles.supervisor) &&
+                            form
+                              .getValues('roles')
+                              .includes(MemberRoles.treasurer) && (
+                              <div>
+                                <span className='text-red-500 text-left inline-block'>
+                                  Roles anteriores: Miembro - Predicador -
+                                  Tesorero
+                                </span>
+                                <br />
+                                <span className='text-green-500 text-left inline-block'>
+                                  Roles nuevos: Miembro - Supervisor - Tesorero
+                                </span>
+                              </div>
+                            )}
 
-                        {form.getValues('roles').includes(MemberRoles.member) &&
-                          form
+                          {form
                             .getValues('roles')
-                            .includes(MemberRoles.copastor) && (
-                            <div>
-                              <span className='text-red-500 text-left inline-block'>
-                                Roles anteriores: Miembro - Supervisor
-                              </span>
-                              <br />
-                              <span className='text-green-500 text-left inline-block'>
-                                Roles nuevos: Miembro - Co-pastor
-                              </span>
-                            </div>
-                          )}
+                            .includes(MemberRoles.member) &&
+                            form
+                              .getValues('roles')
+                              .includes(MemberRoles.copastor) && (
+                              <div>
+                                <span className='text-red-500 text-left inline-block'>
+                                  Roles anteriores: Miembro - Supervisor
+                                </span>
+                                <br />
+                                <span className='text-green-500 text-left inline-block'>
+                                  Roles nuevos: Miembro - Co-pastor
+                                </span>
+                              </div>
+                            )}
 
-                        {form.getValues('roles').includes(MemberRoles.member) &&
-                          form
+                          {form
                             .getValues('roles')
-                            .includes(MemberRoles.pastor) && (
-                            <div>
-                              <span className='text-red-500 text-left inline-block'>
-                                Roles anteriores: Miembro - Co-pastor
-                              </span>
-                              <br />
-                              <span className='text-green-500 text-left inline-block'>
-                                Roles nuevos: Miembro - Pastor
-                              </span>
-                            </div>
-                          )}
+                            .includes(MemberRoles.member) &&
+                            form
+                              .getValues('roles')
+                              .includes(MemberRoles.pastor) && (
+                              <div>
+                                <span className='text-red-500 text-left inline-block'>
+                                  Roles anteriores: Miembro - Co-pastor
+                                </span>
+                                <br />
+                                <span className='text-green-500 text-left inline-block'>
+                                  Roles nuevos: Miembro - Pastor
+                                </span>
+                              </div>
+                            )}
+                        </span>
                       </span>
-                      {/* <br />
-                      <span className='dark:text-white font-medium -mt-3 block text-[12px]'>
-                        Por favor asigna la nueva relación para estos roles.
-                      </span> */}
-                    </span>
-                  )}
+                    )}
 
                   <div>
                     <legend className='font-bold col-start-1 col-end-3 text-[14px] md:text-[15px]'>
@@ -1348,6 +1389,15 @@ export const FormMember = (): JSX.Element => {
                         />
                       )}
                   </div>
+                  {disableInput &&
+                    form.getValues('theirPastor') === '' &&
+                    form.getValues('theirCopastor') === '' &&
+                    form.getValues('theirSupervisor') === '' && (
+                      <span className='text-[12px] md:text-[13px] text-center dark:text-yellow-500 text-red-500 font-medium'>
+                        ! Por favor asigna la nueva relación para los roles
+                        promovidos !
+                      </span>
+                    )}
                   {/* <div>
                     <p className='font-bold text-[14px] 2xl:text-[15.5px] text-blue-600'>
                       Consideraciones
@@ -1361,10 +1411,11 @@ export const FormMember = (): JSX.Element => {
                       <li>*El rol Member es obligatorio.</li>
                     </ul>
                   </div> */}
+
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       <Button
-                        disabled={disableInput}
+                        disabled={isButtonDisabled}
                         className='w-full text-[14px]  md:mt-[2rem] disabled:bg-slate-500 disabled:text-white bg-yellow-400 text-yellow-700 hover:text-white hover:bg-yellow-500'
                       >
                         Promover de cargo
@@ -1441,7 +1492,7 @@ export const FormMember = (): JSX.Element => {
                       form.getValues('theirSupervisor')) && (
                       <span className='text-[12px] md:text-[13px] text-green-500 font-bold text-center'>
                         !SE HA PROMOVIDO CORRECTAMENTE! <br />
-                        <span className='dark:text-white font-medium'>
+                        <span className='dark:text-white text-black font-medium'>
                           Por favor guarde los cambios para finalizar.
                         </span>
                       </span>
