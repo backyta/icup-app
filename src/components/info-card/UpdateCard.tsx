@@ -13,27 +13,29 @@ import {
   FormMember,
 } from '.';
 
+// TODO : mover este UPDATE CARD y form member a otra carpeta de componente - update-card
+
 export const UpdateCard = (): JSX.Element => {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
-  const currentPath = window.location.pathname;
+  const handleContainerClose = (): void => {
+    setOpen(false);
+  };
 
-  // TODO : hacer validación de tipos y sub tipos. ✅
-  // TODO : lanzar aviso de validación al promover con avisos (que pasara, se esta dejando casa tal o tal zona sin líder...)
-  // TODO : al lanzar click sobre promover se envía el formulario con la data y cambiando los roles.
+  const currentPath = window.location.pathname;
 
   // TODO : replicar todos los update en los demás módulos
   // TODO : revisar y continuar a delete
 
   // NOTE : traer información del back al presionar actualizar y se cargan todos los inputs
-  // NOTE : los roles aparecerán llenos y desabilitados los demas (segun la info del back)
-  // NOTE : Al escribir algo o modificar cualquier input, deshabilitar el boton de promover y lanzar alerta "primero modifica y guarda cambios para poder promover"
-  // NOTE : Al promover lazar aviso de confirmacion y colocar a que se esta promoviendo y que sucedera.
+  // NOTE : los roles aparecerán llenos y deshabilitados los demás (según la info del back)
+  // NOTE : Al escribir algo o modificar cualquier input, deshabilitar el botón de promover y lanzar alerta "primero modifica y guarda cambios para poder promover"
+  // NOTE : Al promover lazar aviso de confirmación y colocar a que se esta promoviendo y que sucederá.
 
-  // NOTE : al subir de nivel por detras mandar la data tal cual, pero cambiando el rol de copastor a pastor por ejemplo
-  // NOTE : el backend lo validara y actualizara en el sitema
-  // NOTE : colocar el select de activo o inactivo si esta activo desabilitarlo o poner el true si esta inactivo habilitarlo
+  // NOTE : al subir de nivel por detrás mandar la data tal cual, pero cambiando el rol de copastor a pastor por ejemplo
+  // NOTE : el backend lo validara y actualizara en el sistema
+  // NOTE : colocar el select de activo o inactivo si esta activo deshabilitar o poner el true si esta inactivo habilitarlo
 
   if (isDesktop) {
     return (
@@ -44,11 +46,13 @@ export const UpdateCard = (): JSX.Element => {
           </Button>
         </DialogTrigger>
 
-        <DialogContent className='md:max-w-[740px] lg:max-w-[900px] xl:max-w-[1030px] w-full max-h-full justify-center py-4 overflow-y-auto'>
+        <DialogContent className='md:max-w-[740px] lg:max-w-[960px] xl:max-w-[1060px] w-full max-h-full justify-center py-4 overflow-y-auto'>
           {(currentPath === '/disciples/update-disciple' ||
             currentPath === '/pastors/update-pastor' ||
             currentPath === '/copastors/update-copastor' ||
-            currentPath === '/leaders/update-leader') && <FormMember />}
+            currentPath === '/leaders/update-leader') && (
+            <FormMember onSubmit={handleContainerClose} />
+          )}
 
           {currentPath === '/family-houses/update-family-house' && (
             <TabsCardFamilyHome />
@@ -76,7 +80,9 @@ export const UpdateCard = (): JSX.Element => {
         {(currentPath === '/disciples/update-disciple' ||
           currentPath === '/pastors/update-pastor' ||
           currentPath === '/copastors/update-copastor' ||
-          currentPath === '/leaders/update-leader') && <FormMember />}
+          currentPath === '/leaders/update-leader') && (
+          <FormMember onSubmit={handleContainerClose} />
+        )}
 
         {currentPath === '/family-houses/update-family-house' && (
           <TabsCardFamilyHome />

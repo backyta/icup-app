@@ -4,16 +4,27 @@
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { Card, CardContent } from '@/components/ui/card';
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { formMemberSchema } from '@/validations';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useState, useEffect } from 'react';
+
+import { Toaster, toast } from 'sonner';
 import { useForm } from 'react-hook-form';
+
+import { zodResolver } from '@hookform/resolvers/zod';
 import { type z } from 'zod';
+
+import { es } from 'date-fns/locale';
+import { format } from 'date-fns';
+
+import { cn } from '@/lib/utils';
+import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Card, CardContent } from '@/components/ui/card';
+import { Calendar } from '@/components/ui/calendar';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 import {
   Form,
@@ -59,53 +70,36 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 
-import { es } from 'date-fns/locale';
-import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
-import { format } from 'date-fns';
-import { Calendar } from '@/components/ui/calendar';
 import {
+  FieldName,
   MaritalStatus,
   MaritalStatusNames,
   MemberRoleNames,
   MemberRoles,
 } from '@/enums';
-import { Checkbox } from '@/components/ui/checkbox';
-import { useState, useEffect } from 'react';
-import { Toaster, toast } from 'sonner';
 
-const pastors = [
-  { label: 'Michael Rodrigo Baca Angeles', value: 'id1' },
-  { label: 'Carlos Ramiro Rodriguez Perez', value: 'id2' },
-  { label: 'Daniel Romero Ventura Paredes', value: 'id3' },
-] as const;
+import { type DataKeys, type MemberData } from '@/interfaces';
+import { formMemberSchema } from '@/validations';
+import { copastors, familyHouses, pastors, supervisors } from '@/data';
 
-const copastors = [
-  { label: 'Luz Maria Salgado Quito', value: 'id1' },
-  { label: 'Mercedes Paula Pelayo Terrones', value: 'id2' },
-  { label: 'Rosarios Agustina Rojas Prado', value: 'id3' },
-] as const;
+// TODO : arreglar ahora el active solo se puede activar y no desactivar.
+// TODO : arreglar el check de los roles no teresa el botón a true para activar (problema)
+// TODO : mover el logo de estas seguro? cada X para su subida correspondiente
+// TODO : seguir con los otras rutas (usar el mismo componente)
 
-const supervisors = [
-  { label: 'Luz Maria Salgado Quito', value: 'id1' },
-  { label: 'Mercedes Paula Pelayo Terrones', value: 'id2' },
-  { label: 'Rosarios Agustina Rojas Prado', value: 'id3' },
-] as const;
+// NOTE : General, cuando suba de nivel desparecer de la lista, osea si es miembro y sube, ya no debe aparecer en al lista cuando cierre el modal.
+// NOTE : en miembro se podrá subir de rol a preacher.
+// NOTE : en leader (preacher o supervisor) se podrá subir de rol a supervisor y copastor, y actualizar a tesorero
+// NOTE : en copastor se podrá subir de rol a pastor.
+// NOTE : en pastor no se podrá subir de nivel
 
-const familyHouses = [
-  { label: 'C-1 - Los Enviados de Jehová', value: 'id1' },
-  { label: 'A-2 - Los Guardianes del Amor', value: 'id2' },
-  { label: 'A-3 - Los Protectores del Hogar', value: 'id3' },
-  { label: 'B-2 - La Familia Unida', value: 'id4' },
-  { label: 'C-3 - Los Guardianes de la Luz', value: 'id5' },
-  { label: 'A-1 - Los Guerreros de la Fe', value: 'id6' },
-  { label: 'C-2 - La Casa del Amor Infinito', value: 'id7' },
-  { label: 'A-4 - Los Mensajeros de la Paz', value: 'id8' },
-  { label: 'C-4 - La Familia del Renacer', value: 'id9' },
-  { label: 'B-1 - Los Hijos de la Esperanza', value: 'id10' },
-] as const;
+// NOTE : ver si se hace el fetch aquí o el UpdateCard.
+// NOTE : hay que personalizar el aviso de promover según su pagina pastor , copastor, leader....
+// NOTE : hacer llamado según el ID para traer la data
 
-// TODO : Hacer una interface (transformar a array)
-const data: any = {
+// NOTE : Revisar por rutas la de pastor, y los demás porque pastor no podrá subir de nivel.
+
+const data: MemberData = {
   firstName: 'Kevin',
   lastName: 'Angeles',
   originCountry: 'Peru',
@@ -128,18 +122,24 @@ const data: any = {
   theirFamilyHouse: 'id2',
   isActive: 'active',
 };
+// NOTE : ver si pasar mas props y colocar en interfaces folder
+interface FormMemberProps {
+  onSubmit: () => void;
+}
 
-// NOTE : hacer llamado según el ID para traer la data
-
-export const FormMember = (): JSX.Element => {
-  const [open, setOpen] = useState(false);
-  const [openBirthDate, setOpenBirthDate] = useState(false);
-  const [openConvertionDate, setOpenConvertionDate] = useState(false);
+//! Type el objeto a recibir desde el padre en una interface
+export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
+  const [openInputRelation, setOpenInputRelation] = useState(false);
+  const [openInputBirthDate, setOpenInputBirthDate] = useState(false);
+  const [openInputConvertionDate, setOpenInputConvertionDate] = useState(false);
 
   const [disableInput, setDisableInput] = useState(false);
 
-  const [lastValue, setLastValue] = useState('');
+  const [fixedValues, setFixedValues] = useState<MemberData[]>([]);
+  const [lastValues, setLastValues] = useState<MemberData[]>([]);
+
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
 
   const form = useForm<z.infer<typeof formMemberSchema>>({
     mode: 'onChange',
@@ -159,73 +159,88 @@ export const FormMember = (): JSX.Element => {
     },
   });
 
+  //* Watchers
+  const firstName = form.watch('firstName');
+  const lastName = form.watch('lastName');
+  const gender = form.watch('gender');
+  const originCountry = form.watch('originCountry');
+  const maritalStatus = form.watch('maritalStatus');
+  const dateBirth = form.watch('dateBirth');
+  const numberChildren = form.watch('numberChildren');
+  const conversionDate = form.watch('conversionDate');
+  const emailAddress = form.watch('emailAddress');
+  const phoneNumber = form.watch('phoneNumber');
+  const country = form.watch('country');
+  const department = form.watch('department');
+  const province = form.watch('province');
+  const district = form.watch('district');
+  const address = form.watch('address');
   const roles = form.watch('roles');
-
-  const currentPath = window.location.pathname;
-
-  let disabledRoles: string[];
-
-  // TODO : Revisar por rutas la de pastor, y los demás porque pastor no podrá subir de nivel.
-  // NOTE : pulir todo aquí antes de extender a los demás módulos (terminar todos los todos).
+  const theirPastor = form.watch('theirPastor');
+  const theirCopastor = form.watch('theirCopastor');
+  const theirSupervisor = form.watch('theirSupervisor');
+  const theirFamilyHouse = form.watch('theirFamilyHouse');
+  const isActive = form.watch('isActive');
 
   useEffect(() => {
+    // TODO : hacer consulta real y setear datos según interface y type
     // Simula una consulta a la URL del backend
     for (const key in data) {
-      form.setValue(key as any, data[key]);
+      form.setValue(key as DataKeys, data[key as DataKeys]);
     }
-    // form.setValue('firstName', data.firstName);
-    // form.setValue('lastName', data.lastName);
-    // form.setValue('originCountry', data.originCountry);
-    // form.setValue('dateBirth', data.dateBirth);
-    // form.setValue('gender', data.gender);
-    // form.setValue('maritalStatus', data.maritalStatus);
-    // form.setValue('numberChildren', data.numberChildren);
-    // form.setValue('conversionDate', data.conversionDate);
-    // form.setValue('emailAddress', data.emailAddress);
-    // form.setValue('phoneNumber', data.phoneNumber);
-    // form.setValue('country', data.country);
-    // form.setValue('department', data.department);
-    // form.setValue('province', data.province);
-    // form.setValue('district', data.district);
-    // form.setValue('address', data.address);
-    // form.setValue('roles', data.roles);
-    // form.setValue('theirCopastor', data.theirCopastor);
-    // form.setValue('theirPastor', data.theirPastor);
-    // form.setValue('theirFamilyHouse', data.theirFamilyHouse);
-    // form.setValue('theirSupervisor', data.theirSupervisor);
-    // form.setValue('isActive', data.isActive);
-  }, []); // solo necesita ejecutarse una vez no necesario
+  }, []);
 
-  const names = form.watch('firstName');
-
-  //* setear el valor antiguo y compararlo con el nuevo
   useEffect(() => {
-    const previousFirstName = lastValue;
-    const currentFirstName = form.getValues('firstName');
-    // console.log({ last: lastValue });
-    // console.log({ new: form.getValues('firstName') });
-    // Compara el valor actual con el valor anterior
-    // console.log(isButtonDisabled);
-    // TODO : hacer lo mismo para todos los inputs
-    // TODO : lanzar mensaje que cuando se desactive el botón que guarde los cambios primero no se podrá promover
-    // TODO : cuando el input tenga su mismo valor reactivar (esto seria muy difícil ya. intentar)
+    const previousValues = lastValues;
+    const currentValues = form.getValues([...Object.values(FieldName)]);
 
-    // TODO : primero hacer para todos y ver la manera de volver activarlo si es la misma palabra o fecha
-
-    // NOTE : tendría que crear un estado para el nombre fijo con el que se setae al comienzo
-    // NOTE : y luego compararlo y poner a false el disabled (seria mas interactivo)
-    // NOTE : mandar aviso que si se modifica algo se deberá guardar cambios antes de promover
-    // NOTE : "Si los datos no son los mismo no se podra promover, guardar cambios y actualizar antes"
-    // NOTE : "Si estas intentado actualizar datos del miembro no podras pormoverlo"
-    if (previousFirstName !== '' && currentFirstName !== previousFirstName) {
-      setIsButtonDisabled(true); // lo trae como esta en ese momento pero ya cambio a true
+    if (
+      previousValues.length !== 0 &&
+      JSON.stringify(currentValues) !== JSON.stringify(previousValues)
+    ) {
+      setIsButtonDisabled(true);
     }
 
-    setLastValue(currentFirstName);
-  }, [names]);
+    if (
+      previousValues.length !== 0 &&
+      JSON.stringify(currentValues) === JSON.stringify(previousValues)
+    ) {
+      setFixedValues(currentValues);
+    }
 
-  // TODO : ver disables para offering. (no sera necesario?)
+    if (JSON.stringify(fixedValues) === JSON.stringify(currentValues)) {
+      setIsButtonDisabled(false);
+    }
 
+    setLastValues(currentValues);
+  }, [
+    firstName,
+    lastName,
+    gender,
+    originCountry,
+    maritalStatus,
+    dateBirth,
+    numberChildren,
+    conversionDate,
+    emailAddress,
+    phoneNumber,
+    country,
+    department,
+    province,
+    district,
+    address,
+    roles,
+    theirPastor,
+    theirCopastor,
+    theirSupervisor,
+    theirFamilyHouse,
+    isActive,
+  ]);
+
+  const currentPath = window.location.pathname;
+  let disabledRoles: string[];
+
+  // NOTE : ver disables para offering, houses, etc. (no sera necesario)
   if (currentPath === '/disciples/update-disciple' && !disableInput) {
     disabledRoles = [
       ...Object.values(MemberRoles).filter(
@@ -242,69 +257,75 @@ export const FormMember = (): JSX.Element => {
   }
 
   const handleSubmit = (values: z.infer<typeof formMemberSchema>): void => {
+    // TODO : enviar datos al backend actualizar
     console.log({ values });
   };
 
-  const handleChangeRoles = (): void => {
-    // Borrar todos los roles
+  const handleRoleUpdate = (): void => {
+    // Delete all roles
     form.setValue('theirCopastor', '');
     form.setValue('theirPastor', '');
     form.setValue('theirFamilyHouse', '');
     form.setValue('theirSupervisor', '');
 
-    if (
-      form.getValues('roles').includes(MemberRoles.member) &&
-      !form.getValues('roles').includes(MemberRoles.preacher) &&
-      !form.getValues('roles').includes(MemberRoles.supervisor) &&
-      !form.getValues('roles').includes(MemberRoles.treasurer) &&
-      !form.getValues('roles').includes(MemberRoles.copastor) &&
-      !form.getValues('roles').includes(MemberRoles.pastor)
-    ) {
-      form.setValue('roles', [MemberRoles.member, MemberRoles.preacher]);
-    } else if (
-      form.getValues('roles').includes(MemberRoles.member) &&
-      form.getValues('roles').includes(MemberRoles.preacher) &&
-      !form.getValues('roles').includes(MemberRoles.treasurer) &&
-      !form.getValues('roles').includes(MemberRoles.copastor) &&
-      !form.getValues('roles').includes(MemberRoles.pastor) &&
-      !form.getValues('roles').includes(MemberRoles.supervisor)
-    ) {
-      form.setValue('roles', [MemberRoles.member, MemberRoles.supervisor]);
-    } else if (
-      form.getValues('roles').includes(MemberRoles.member) &&
-      form.getValues('roles').includes(MemberRoles.preacher) &&
-      form.getValues('roles').includes(MemberRoles.treasurer) &&
-      !form.getValues('roles').includes(MemberRoles.copastor) &&
-      !form.getValues('roles').includes(MemberRoles.pastor) &&
-      !form.getValues('roles').includes(MemberRoles.supervisor)
-    ) {
-      form.setValue('roles', [
-        MemberRoles.member,
-        MemberRoles.supervisor,
-        MemberRoles.treasurer,
-      ]);
-    } else if (
-      (form.getValues('roles').includes(MemberRoles.member) &&
-        form.getValues('roles').includes(MemberRoles.supervisor) &&
-        form.getValues('roles').includes(MemberRoles.treasurer) &&
-        !form.getValues('roles').includes(MemberRoles.copastor) &&
-        !form.getValues('roles').includes(MemberRoles.pastor) &&
-        !form.getValues('roles').includes(MemberRoles.preacher)) ||
-      (form.getValues('roles').includes(MemberRoles.member) &&
-        form.getValues('roles').includes(MemberRoles.supervisor) &&
-        !form.getValues('roles').includes(MemberRoles.preacher) &&
-        !form.getValues('roles').includes(MemberRoles.treasurer) &&
-        !form.getValues('roles').includes(MemberRoles.copastor) &&
-        !form.getValues('roles').includes(MemberRoles.pastor))
-    ) {
-      form.setValue('roles', [MemberRoles.member, MemberRoles.copastor]);
-    } else if (
-      form.getValues('roles').includes(MemberRoles.member) &&
-      form.getValues('roles').includes(MemberRoles.copastor)
-    ) {
-      form.setValue('roles', [MemberRoles.member, MemberRoles.pastor]);
+    // Conditional level up role
+    const roles = form.getValues('roles');
+    const hasMember = roles.includes(MemberRoles.member);
+    const hasPreacher = roles.includes(MemberRoles.preacher);
+    const hasTreasurer = roles.includes(MemberRoles.treasurer);
+    const hasCopastor = roles.includes(MemberRoles.copastor);
+    const hasPastor = roles.includes(MemberRoles.pastor);
+    const hasSupervisor = roles.includes(MemberRoles.supervisor);
+
+    if (hasMember) {
+      if (
+        !hasPreacher &&
+        !hasSupervisor &&
+        !hasTreasurer &&
+        !hasCopastor &&
+        !hasPastor
+      ) {
+        form.setValue('roles', [MemberRoles.member, MemberRoles.preacher]);
+      } else if (
+        hasPreacher &&
+        !hasSupervisor &&
+        !hasTreasurer &&
+        !hasCopastor &&
+        !hasPastor
+      ) {
+        form.setValue('roles', [MemberRoles.member, MemberRoles.supervisor]);
+      } else if (
+        hasPreacher &&
+        hasTreasurer &&
+        !hasSupervisor &&
+        !hasCopastor &&
+        !hasPastor
+      ) {
+        form.setValue('roles', [
+          MemberRoles.member,
+          MemberRoles.supervisor,
+          MemberRoles.treasurer,
+        ]);
+      } else if (
+        (hasPreacher &&
+          hasSupervisor &&
+          hasTreasurer &&
+          !hasCopastor &&
+          !hasPastor) ||
+        (hasMember &&
+          hasSupervisor &&
+          !hasPreacher &&
+          !hasTreasurer &&
+          !hasCopastor &&
+          !hasPastor)
+      ) {
+        form.setValue('roles', [MemberRoles.member, MemberRoles.copastor]);
+      } else if (hasMember && hasCopastor) {
+        form.setValue('roles', [MemberRoles.member, MemberRoles.pastor]);
+      }
     }
 
+    // set disabled states
     setDisableInput(true);
     setIsButtonDisabled(true);
   };
@@ -312,7 +333,7 @@ export const FormMember = (): JSX.Element => {
   return (
     <Tabs
       defaultValue='general-info'
-      className='w-auto sm:w-[520px] md:w-[680px] lg:w-[840px] xl:w-[960px] overflow-y-auto'
+      className='w-auto sm:w-[520px] md:w-[680px] lg:w-[890px] xl:w-[1000px] overflow-y-auto'
     >
       <TabsList className='grid w-full grid-cols-1 px-auto'>
         <TabsTrigger
@@ -322,6 +343,7 @@ export const FormMember = (): JSX.Element => {
           Actualizar información del miembro
         </TabsTrigger>
       </TabsList>
+
       <TabsContent value='general-info' className='overflow-y-auto'>
         <Card className='w-full'>
           <CardContent className='py-3 px-4'>
@@ -330,6 +352,8 @@ export const FormMember = (): JSX.Element => {
                 onSubmit={form.handleSubmit(handleSubmit)}
                 className='w-auto grid gap-y-6 sm:grid-cols-3 sm:gap-y-4 sm:gap-x-8'
               >
+                {/* Datos generales */}
+
                 <div className='sm:col-start-1 sm:col-end-2'>
                   <legend className='font-bold text-[14px] md:text-[15px]'>
                     Datos generales
@@ -454,8 +478,8 @@ export const FormMember = (): JSX.Element => {
                           Fecha de Nacimiento
                         </FormLabel>
                         <Popover
-                          open={openBirthDate}
-                          onOpenChange={setOpenBirthDate}
+                          open={openInputBirthDate}
+                          onOpenChange={setOpenInputBirthDate}
                         >
                           <PopoverTrigger asChild>
                             <FormControl>
@@ -486,7 +510,7 @@ export const FormMember = (): JSX.Element => {
                               selected={field.value}
                               onSelect={(date) => {
                                 field.onChange(date);
-                                setOpenBirthDate(false);
+                                setOpenInputBirthDate(false);
                               }}
                               disabled={(date) =>
                                 date > new Date() ||
@@ -593,8 +617,8 @@ export const FormMember = (): JSX.Element => {
                           Fecha de conversión
                         </FormLabel>
                         <Popover
-                          open={openConvertionDate}
-                          onOpenChange={setOpenConvertionDate}
+                          open={openInputConvertionDate}
+                          onOpenChange={setOpenInputConvertionDate}
                         >
                           <PopoverTrigger asChild>
                             <FormControl>
@@ -625,7 +649,7 @@ export const FormMember = (): JSX.Element => {
                               selected={field.value}
                               onSelect={(date) => {
                                 field.onChange(date);
-                                setOpenConvertionDate(false);
+                                setOpenInputConvertionDate(false);
                               }}
                               disabled={(date) =>
                                 date > new Date() ||
@@ -643,6 +667,9 @@ export const FormMember = (): JSX.Element => {
                     )}
                   />
                 </div>
+
+                {/* Contacto y Vivienda */}
+
                 <div className='sm:col-start-2 sm:col-end-3'>
                   <legend className='font-bold text-[14px] md:text-[15px]'>
                     Contacto / Vivienda
@@ -813,7 +840,6 @@ export const FormMember = (): JSX.Element => {
                       );
                     }}
                   />
-                  {/* //NOTE : revisar después de ver el backend solo debería ser activo */}
                   <FormField
                     control={form.control}
                     name='isActive'
@@ -1017,6 +1043,8 @@ export const FormMember = (): JSX.Element => {
                       </span>
                     )}
 
+                  {/* Relaciones  */}
+
                   <div>
                     <legend className='font-bold col-start-1 col-end-3 text-[14px] md:text-[15px]'>
                       Relaciones
@@ -1033,6 +1061,7 @@ export const FormMember = (): JSX.Element => {
                           elegidos.
                         </span>
                       )}
+
                     {roles?.includes(MemberRoles.member) &&
                       roles?.includes(MemberRoles.copastor) &&
                       !roles?.includes(MemberRoles.pastor) &&
@@ -1051,7 +1080,10 @@ export const FormMember = (): JSX.Element => {
                                 <FormDescription className='text-[12px] lg:text-[13px]'>
                                   Seleccione un pastor para esta relación.
                                 </FormDescription>
-                                <Popover open={open} onOpenChange={setOpen}>
+                                <Popover
+                                  open={openInputRelation}
+                                  onOpenChange={setOpenInputRelation}
+                                >
                                   <PopoverTrigger asChild>
                                     <FormControl>
                                       <Button
@@ -1093,7 +1125,7 @@ export const FormMember = (): JSX.Element => {
                                                 'theirPastor',
                                                 pastor.value
                                               );
-                                              setOpen(false);
+                                              setOpenInputRelation(false);
                                             }}
                                           >
                                             {pastor.label}
@@ -1118,6 +1150,7 @@ export const FormMember = (): JSX.Element => {
                           }}
                         />
                       )}
+
                     {((roles?.includes(MemberRoles.member) &&
                       roles?.includes(MemberRoles.supervisor) &&
                       !roles?.includes(MemberRoles.treasurer) &&
@@ -1142,7 +1175,10 @@ export const FormMember = (): JSX.Element => {
                               <FormDescription className='text-[13px] lg:text-[14px]'>
                                 Seleccione un co-pastor para esta relación.
                               </FormDescription>
-                              <Popover open={open} onOpenChange={setOpen}>
+                              <Popover
+                                open={openInputRelation}
+                                onOpenChange={setOpenInputRelation}
+                              >
                                 <PopoverTrigger asChild>
                                   <FormControl>
                                     <Button
@@ -1185,7 +1221,7 @@ export const FormMember = (): JSX.Element => {
                                               copastor.value
                                             );
                                             form.clearErrors('theirCopastor'); // replicar esto
-                                            setOpen(false);
+                                            setOpenInputRelation(false);
                                           }}
                                         >
                                           {copastor.label}
@@ -1203,7 +1239,6 @@ export const FormMember = (): JSX.Element => {
                                   </Command>
                                 </PopoverContent>
                               </Popover>
-
                               <FormMessage />
                             </FormItem>
                           );
@@ -1234,7 +1269,10 @@ export const FormMember = (): JSX.Element => {
                               <FormDescription className='text-[13px] lg:text-[14px]'>
                                 Seleccione un supervisor para esta relación.
                               </FormDescription>
-                              <Popover open={open} onOpenChange={setOpen}>
+                              <Popover
+                                open={openInputRelation}
+                                onOpenChange={setOpenInputRelation}
+                              >
                                 <PopoverTrigger asChild>
                                   <FormControl>
                                     <Button
@@ -1276,7 +1314,7 @@ export const FormMember = (): JSX.Element => {
                                               'theirSupervisor',
                                               supervisor.value
                                             );
-                                            setOpen(false);
+                                            setOpenInputRelation(false);
                                           }}
                                         >
                                           {supervisor.label}
@@ -1294,7 +1332,6 @@ export const FormMember = (): JSX.Element => {
                                   </Command>
                                 </PopoverContent>
                               </Popover>
-
                               <FormMessage />
                             </FormItem>
                           );
@@ -1320,7 +1357,10 @@ export const FormMember = (): JSX.Element => {
                                   Seleccione una casa familiar para esta
                                   relación.
                                 </FormDescription>
-                                <Popover open={open} onOpenChange={setOpen}>
+                                <Popover
+                                  open={openInputRelation}
+                                  onOpenChange={setOpenInputRelation}
+                                >
                                   <PopoverTrigger asChild>
                                     <FormControl>
                                       <Button
@@ -1363,7 +1403,7 @@ export const FormMember = (): JSX.Element => {
                                                 'theirFamilyHouse',
                                                 familyHouse.value
                                               );
-                                              setOpen(false);
+                                              setOpenInputRelation(false);
                                             }}
                                           >
                                             {familyHouse.label}
@@ -1398,19 +1438,6 @@ export const FormMember = (): JSX.Element => {
                         promovidos !
                       </span>
                     )}
-                  {/* <div>
-                    <p className='font-bold text-[14px] 2xl:text-[15.5px] text-blue-600'>
-                      Consideraciones
-                    </p>
-                    <ul className='text-[12px] xl:text-[13px] text-red-500 font-medium'>
-                      <li>*No se permite asignar mas de 3 roles.</li>
-                      <li>
-                        *Para asignar rol Tesorero se debe asignar rol
-                        Predicador o Supervisor.
-                      </li>
-                      <li>*El rol Member es obligatorio.</li>
-                    </ul>
-                  </div> */}
 
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
@@ -1480,13 +1507,19 @@ export const FormMember = (): JSX.Element => {
                       </AlertDialogHeader>
                       <AlertDialogFooter>
                         <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                        <AlertDialogAction onClick={handleChangeRoles}>
+                        <AlertDialogAction onClick={handleRoleUpdate}>
                           Aceptar
                         </AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>
+
                   {disableInput &&
+                    isButtonDisabled &&
+                    JSON.stringify(fixedValues[15]) !==
+                      JSON.stringify(
+                        form.getValues([...Object.values(FieldName)][15])
+                      ) &&
                     (form.getValues('theirPastor') ||
                       form.getValues('theirCopastor') ||
                       form.getValues('theirSupervisor')) && (
@@ -1497,22 +1530,39 @@ export const FormMember = (): JSX.Element => {
                         </span>
                       </span>
                     )}
+
+                  {isButtonDisabled && !disableInput && (
+                    <span className='text-red-500 text-[13px] font-medium'>
+                      ! Si estas intentado actualizar los datos no podrás
+                      promoverlo hasta guardar los cambios !
+                    </span>
+                  )}
                 </div>
 
                 <div className='sm:col-start-2 sm:col-end-3 sm:row-start-2 sm:row-end-3 w-full'>
                   <Toaster position='top-center' richColors />
                   <Button
+                    disabled={isSubmitButtonDisabled}
                     type='submit'
                     className='w-full text-[14px]'
                     onClick={() => {
+                      // TODO : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
                       setTimeout(() => {
                         if (Object.keys(form.formState.errors).length === 0) {
                           toast.success('Cambios guardados correctamente', {
                             position: 'top-center',
                             className: 'justify-center',
                           });
+
+                          setDisableInput(true);
+                          setIsSubmitButtonDisabled(true);
                         }
                       }, 100);
+                      setTimeout(() => {
+                        if (Object.keys(form.formState.errors).length === 0) {
+                          onSubmit();
+                        }
+                      }, 1700);
                     }}
                   >
                     Guardar cambios

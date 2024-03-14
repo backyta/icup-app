@@ -171,3 +171,35 @@ export const dataMembers: Member[] =
     zone: 'AB',
   },
 ];
+
+
+export const pastors = [
+  { label: 'Michael Rodrigo Baca Angeles', value: 'id1' },
+  { label: 'Carlos Ramiro Rodriguez Perez', value: 'id2' },
+  { label: 'Daniel Romero Ventura Paredes', value: 'id3' },
+] as const;
+
+export const copastors = [
+  { label: 'Luz Maria Salgado Quito', value: 'id1' },
+  { label: 'Mercedes Paula Pelayo Terrones', value: 'id2' },
+  { label: 'Rosarios Agustina Rojas Prado', value: 'id3' },
+] as const;
+
+export const supervisors = [
+  { label: 'Luz Maria Salgado Quito', value: 'id1' },
+  { label: 'Mercedes Paula Pelayo Terrones', value: 'id2' },
+  { label: 'Rosarios Agustina Rojas Prado', value: 'id3' },
+] as const;
+
+export const familyHouses = [
+  { label: 'C-1 - Los Enviados de Jehová', value: 'id1' },
+  { label: 'A-2 - Los Guardianes del Amor', value: 'id2' },
+  { label: 'A-3 - Los Protectores del Hogar', value: 'id3' },
+  { label: 'B-2 - La Familia Unida', value: 'id4' },
+  { label: 'C-3 - Los Guardianes de la Luz', value: 'id5' },
+  { label: 'A-1 - Los Guerreros de la Fe', value: 'id6' },
+  { label: 'C-2 - La Casa del Amor Infinito', value: 'id7' },
+  { label: 'A-4 - Los Mensajeros de la Paz', value: 'id8' },
+  { label: 'C-4 - La Familia del Renacer', value: 'id9' },
+  { label: 'B-1 - Los Hijos de la Esperanza', value: 'id10' },
+] as const;

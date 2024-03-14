@@ -97,8 +97,8 @@ export const router = createBrowserRouter([
           },
           {
             path: '/disciples/update-disciple',
-            // element: <UpdateDisciplePage />,
-            element: <FormMember />,
+            element: <UpdateDisciplePage />,
+            // element: <FormMember />,
           },
         ],
       },
