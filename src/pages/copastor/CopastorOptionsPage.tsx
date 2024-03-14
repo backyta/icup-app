@@ -80,8 +80,8 @@ export const CopastorOptionsPage = (): JSX.Element => {
         </NavLink>
 
         <NavLink
-          key='/'
-          to='/'
+          key='/copastors/update-copastor'
+          to='/copastors/update-copastor'
           end
           className='row-start-4 row-end-5 lg:h-full lg:row-start-2 lg:row-end-3 lg:col-start-2 lg:col-end-3 xl:row-start-2 xl:row-end-3 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-3 2xl:col-end-4'
         >

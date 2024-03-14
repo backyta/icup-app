@@ -305,44 +305,44 @@ export function DataTableSearchByTerm<TData, TValue>({
               />
             )}
 
-            {(subType === SubTypeSearch.offeringZone ||
+            {subType === SubTypeSearch.offeringZone ||
               subType === SubTypeSearch.offeringDateZone ||
               subType === SubTypeSearch.offeringCodeHouse ||
-              subType === SubTypeSearch.offeringDateCodeHouse) &&
-              type !== TypeSearch.firstName &&
-              type !== TypeSearch.lastName &&
-              type !== TypeSearch.fullName &&
-              type !== TypeSearch.monthBirth &&
-              type !== TypeSearch.dateBirth &&
-              type !== TypeSearch.gender &&
-              type !== TypeSearch.maritalStatus &&
-              type !== TypeSearch.isActive &&
-              type !== TypeSearch.tithe &&
-              type !== TypeSearch.sunday_worship &&
-              type !== undefined && (
-                <FormField
-                  control={form.control}
-                  name='termInput'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className='text-[13px] md:text-sm'>
-                        Termino
-                      </FormLabel>
-                      <FormDescription className='text-[12px] md:text-[13px]'>
-                        Escribe aquí lo que deseas buscar.
-                      </FormDescription>
-                      <FormControl>
-                        <Input
-                          className='text-[12px] md:text-[13px]'
-                          placeholder='Eje: C-2, Av.Central 123, Lima ....'
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
+              subType === SubTypeSearch.offeringDateCodeHouse ||
+              (type !== TypeSearch.firstName &&
+                type !== TypeSearch.lastName &&
+                type !== TypeSearch.fullName &&
+                type !== TypeSearch.monthBirth &&
+                type !== TypeSearch.dateBirth &&
+                type !== TypeSearch.gender &&
+                type !== TypeSearch.maritalStatus &&
+                type !== TypeSearch.isActive &&
+                type !== TypeSearch.tithe &&
+                type !== TypeSearch.sunday_worship &&
+                type !== undefined && (
+                  <FormField
+                    control={form.control}
+                    name='termInput'
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className='text-[13px] md:text-sm'>
+                          Termino
+                        </FormLabel>
+                        <FormDescription className='text-[12px] md:text-[13px]'>
+                          Escribe aquí lo que deseas buscar.
+                        </FormDescription>
+                        <FormControl>
+                          <Input
+                            className='text-[12px] md:text-[13px]'
+                            placeholder='Eje: C-2, Av.Central 123, Lima ....'
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                ))}
 
             {(type === TypeSearch.dateBirth ||
               subType === SubTypeSearch.titheDate ||

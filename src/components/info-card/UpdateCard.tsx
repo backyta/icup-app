@@ -25,8 +25,8 @@ export const UpdateCard = (): JSX.Element => {
 
   const currentPath = window.location.pathname;
 
-  // TODO : replicar todos los update en los demás módulos
-  // TODO : revisar y continuar a delete
+  // TODO : replicar todos los update en los demás módulos.
+  // TODO : revisar y continuar a delete.
 
   // NOTE : traer información del back al presionar actualizar y se cargan todos los inputs
   // NOTE : los roles aparecerán llenos y deshabilitados los demás (según la info del back)

@@ -30,6 +30,9 @@ import {
   OfferingsGeneralSearchPage,
   UsersGeneralSearchPage,
   UpdateDisciplePage,
+  UpdatePastorPage,
+  UpdateCopastorPage,
+  UpdateLeaderPage,
 } from '@/pages';
 import { PastorOptionsPage } from '@/pages/pastor/PastorOptionsPage';
 import { FormMember } from '@/components';
@@ -119,6 +122,11 @@ export const router = createBrowserRouter([
             path: '/pastors/search-by-term-pastors',
             element: <PastorsSearchPageByTerm />,
           },
+          {
+            path: '/pastors/update-pastor',
+            element: <UpdatePastorPage />,
+            // element: <FormMember />,
+          },
         ],
       },
       // routes co-pastor
@@ -138,6 +146,11 @@ export const router = createBrowserRouter([
             path: '/copastors/search-by-term-copastors',
             element: <CopastorsSearchPageByTerm />,
           },
+          {
+            path: '/copastors/update-copastor',
+            element: <UpdateCopastorPage />,
+            // element: <FormMember />,
+          },
         ],
       },
       // routes leader
@@ -156,6 +169,11 @@ export const router = createBrowserRouter([
           {
             path: '/leaders/search-by-term-leaders',
             element: <LeadersSearchPageByTerm />,
+          },
+          {
+            path: '/leaders/update-leader',
+            element: <UpdateLeaderPage />,
+            // element: <FormMember />,
           },
         ],
       },

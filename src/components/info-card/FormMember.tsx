@@ -82,10 +82,13 @@ import { type DataKeys, type MemberData } from '@/interfaces';
 import { formMemberSchema } from '@/validations';
 import { copastors, familyHouses, pastors, supervisors } from '@/data';
 
-// TODO : arreglar ahora el active solo se puede activar y no desactivar.
-// TODO : arreglar el check de los roles no teresa el botón a true para activar (problema)
+// TODO : arreglar ahora el active solo se puede activar y no desactivar. ✅
+// TODO : arreglar el check de los roles no teresa el botón a true para activar (problema) ✅
 // TODO : mover el logo de estas seguro? cada X para su subida correspondiente
 // TODO : seguir con los otras rutas (usar el mismo componente)
+// TODO : dependiendo de la ruta hacer fetch a cierto modulo
+
+// TODO : revisar el !SUBIDO CORRECTAMENTE! ERRORES EN Roles
 
 // NOTE : General, cuando suba de nivel desparecer de la lista, osea si es miembro y sube, ya no debe aparecer en al lista cuando cierre el modal.
 // NOTE : en miembro se podrá subir de rol a preacher.
@@ -115,12 +118,12 @@ const data: MemberData = {
   province: 'Lima',
   district: 'Lima',
   address: 'jr rio 222',
-  roles: [MemberRoles.member, MemberRoles.treasurer, MemberRoles.preacher],
+  roles: [MemberRoles.member, MemberRoles.copastor],
   theirPastor: 'id1',
   theirCopastor: 'id2',
   theirSupervisor: 'id3',
   theirFamilyHouse: 'id2',
-  isActive: 'active',
+  isActive: 'inactive',
 };
 // NOTE : ver si pasar mas props y colocar en interfaces folder
 interface FormMemberProps {
@@ -134,9 +137,10 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
   const [openInputConvertionDate, setOpenInputConvertionDate] = useState(false);
 
   const [disableInput, setDisableInput] = useState(false);
+  // array objects
 
-  const [fixedValues, setFixedValues] = useState<MemberData[]>([]);
-  const [lastValues, setLastValues] = useState<MemberData[]>([]);
+  const [fixedValues, setFixedValues] = useState<MemberData[]>([]); // array objects
+  const [lastValues, setLastValues] = useState<MemberData[]>([]); // array object
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
@@ -208,7 +212,20 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
       setFixedValues(currentValues);
     }
 
-    if (JSON.stringify(fixedValues) === JSON.stringify(currentValues)) {
+    const arrayEqualsIgnoreOrder = (
+      fixed: MemberData[],
+      current: MemberData[]
+    ): boolean => {
+      const sortedA = Array.isArray(fixed[15]) && fixed[15]?.sort();
+      const sortedB = Array.isArray(current[15]) && current[15]?.sort();
+
+      return JSON.stringify(sortedA) === JSON.stringify(sortedB);
+    };
+
+    if (
+      arrayEqualsIgnoreOrder(fixedValues, currentValues) &&
+      JSON.stringify(fixedValues) === JSON.stringify(currentValues)
+    ) {
       setIsButtonDisabled(false);
     }
 
@@ -241,7 +258,7 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
   let disabledRoles: string[];
 
   // NOTE : ver disables para offering, houses, etc. (no sera necesario)
-  if (currentPath === '/disciples/update-disciple' && !disableInput) {
+  if (currentPath === '/leaders/update-leader' && !disableInput) {
     disabledRoles = [
       ...Object.values(MemberRoles).filter(
         (rol) => rol !== MemberRoles.treasurer
@@ -250,7 +267,7 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
   } else if (
     currentPath === '/pastors/update-pastor' ||
     currentPath === '/copastors/update-copastor' ||
-    currentPath === '/leaders/update-leader' ||
+    currentPath === '/disciples/update-disciple' ||
     disableInput
   ) {
     disabledRoles = [...Object.values(MemberRoles).filter((rol) => rol)];
@@ -347,6 +364,7 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
       <TabsContent value='general-info' className='overflow-y-auto'>
         <Card className='w-full'>
           <CardContent className='py-3 px-4'>
+            {/* Aca podría ser un componente pasamos todos por props */}
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(handleSubmit)}
@@ -869,14 +887,31 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
                               >
                                 Activo
                               </SelectItem>
-                              <SelectItem
+                              {/* <SelectItem
                                 className='text-[12px] xl:text-[13px]'
                                 value='inactive'
                               >
                                 Inactivo
-                              </SelectItem>
+                              </SelectItem> */}
                             </SelectContent>
                           </Select>
+                          {form.getValues('isActive') === 'active' && (
+                            <FormDescription className='pl-3  text-[12px] xl:text-[13px] font-bold'>
+                              *Se cambio el estado a{' '}
+                              <span className='text-green-500'>activo</span>,
+                              para colocar nuevamente como{' '}
+                              <span className='text-red-500'>inactivo</span>{' '}
+                              debe eliminar el registro.
+                            </FormDescription>
+                          )}
+                          {form.getValues('isActive') === 'inactive' &&
+                            !disableInput && (
+                              <FormDescription className='pl-3text-[12px] xl:text-[13px] font-bold'>
+                                * El miembro esta{' '}
+                                <span className='text-red-500'>inactivo</span>,
+                                puede modificar el estado eligiendo otra opción.
+                              </FormDescription>
+                            )}
                           <FormMessage />
                         </FormItem>
                       );
@@ -1056,7 +1091,7 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
                       !roles?.includes(MemberRoles.supervisor) &&
                       !roles?.includes(MemberRoles.preacher) &&
                       !roles?.includes(MemberRoles.treasurer) && (
-                        <span className='text-green-500 font-bold text-[13px] lg:text-[14px]'>
+                        <span className='text-green-500 font-bold text-[13px]'>
                           No hay relaciones que asignar para estos roles
                           elegidos.
                         </span>
@@ -1125,6 +1160,7 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
                                                 'theirPastor',
                                                 pastor.value
                                               );
+                                              form.clearErrors('theirPastor');
                                               setOpenInputRelation(false);
                                             }}
                                           >
@@ -1143,7 +1179,6 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
                                     </Command>
                                   </PopoverContent>
                                 </Popover>
-
                                 <FormMessage />
                               </FormItem>
                             );
@@ -1314,6 +1349,7 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
                                               'theirSupervisor',
                                               supervisor.value
                                             );
+                                            form.clearErrors('theirSupervisor');
                                             setOpenInputRelation(false);
                                           }}
                                         >
@@ -1403,6 +1439,9 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
                                                 'theirFamilyHouse',
                                                 familyHouse.value
                                               );
+                                              form.clearErrors(
+                                                'theirFamilyHouse'
+                                              );
                                               setOpenInputRelation(false);
                                             }}
                                           >
@@ -1429,97 +1468,123 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
                         />
                       )}
                   </div>
-                  {disableInput &&
+                  {currentPath === 'copastors/update-copastor' &&
+                    disableInput &&
                     form.getValues('theirPastor') === '' &&
                     form.getValues('theirCopastor') === '' &&
                     form.getValues('theirSupervisor') === '' && (
-                      <span className='text-[12px] md:text-[13px] text-center dark:text-yellow-500 text-red-500 font-medium'>
+                      <span className='text-[12px] md:text-[13px] text-center text-red-500 font-medium'>
                         ! Por favor asigna la nueva relación para los roles
                         promovidos !
                       </span>
                     )}
+                  {currentPath !== '/pastors/update-pastor' && (
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          disabled={isButtonDisabled}
+                          className='w-full text-[14px] md:mt-[2rem] disabled:bg-slate-500 disabled:text-white bg-yellow-400 text-yellow-700 hover:text-white hover:bg-yellow-500'
+                        >
+                          Promover de cargo
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader className='h-auto'>
+                          <AlertDialogTitle className='text-blue-500'>
+                            ¿Estas seguro de promover a este miembro?
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
+                            <span className='text-green-500 font-bold mb-2 inline-block'>
+                              Deberás hacer lo siguiente:
+                            </span>
+                            <br />
+                            <span className='inline-block mb-2'>
+                              ✔ Primero se deberá asignar nuevas relaciones
+                              según el nuevo cargo y guardar estos datos para
+                              aplicar la promoción.
+                            </span>
+                            <br />
+                            <span className='text-red-500 font-bold mb-2 inline-block'>
+                              Después de hacer esto sucederá lo siguiente:
+                            </span>
+                            <br />
+                            <span className='inline-block mb-1'>
+                              ❌ Se borraran todas sus relaciones que tenia en
+                              el anterior cargo.
+                            </span>
 
-                  <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                      <Button
-                        disabled={isButtonDisabled}
-                        className='w-full text-[14px]  md:mt-[2rem] disabled:bg-slate-500 disabled:text-white bg-yellow-400 text-yellow-700 hover:text-white hover:bg-yellow-500'
-                      >
-                        Promover de cargo
-                      </Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle className='text-blue-500'>
-                          ¿Estas seguro de promover a este miembro?
-                        </AlertDialogTitle>
-                        <AlertDialogDescription>
-                          <span className='text-green-500 font-bold'>
-                            Deberás hacer lo siguiente:
-                          </span>
-                          <br />
-                          <span className='inline-block mb-2'>
-                            ✔ Primero se deberá asignar nuevas relaciones según
-                            el nuevo cargo y guardar estos datos para aplicar la
-                            promoción.
-                          </span>
-                          <br />
-                          <span className='text-red-500 font-bold'>
-                            Después de hacer esto sucederá lo siguiente:
-                          </span>
-                          <br />
-                          <span className='inline-block mb-1'>
-                            ❌ Se borraran todas sus relaciones que tenia en el
-                            anterior cargo.
-                          </span>
-                          <br />
-                          <span className='inline-block mb-1'>
-                            ❌ Si era Miembro y sube a Predicador(a) se
-                            eliminara su relación con su casa familiar, y se le
-                            asignara una nueva donde desempeñara su nuevo rol.
-                          </span>
-                          <br />
-                          <span className='inline-block mb-1'>
-                            ❌ Si era Predicador(a) y sube a Supervisor(a) se
-                            borrara su relación con su casa familiar y sus
-                            miembros, por lo que deberá asignar a otro
-                            Predicador(a) para estos.
-                          </span>
-                          <br />
-                          <span className='inline-block mb-1'>
-                            ❌ Si era Supervisor(a) y sube a Co-pastor(a) se
-                            borrara su relación con las zonas, casas,
-                            predicadores y miembros que tenia a cargo, por lo
-                            que se deberá asignar otro Supervisor(a) para todos
-                            estos.
-                          </span>
-                          <br />
-                          <span>
-                            ❌ Si era Co-pastor(a) y sube a Pastor(a) se borrara
-                            su relación con las zonas, casas, supervisores,
-                            predicadores y miembros que englobaba su cargo, por
-                            lo que se deberá asignar otro Co-pastor(a) para
-                            todos estos.
-                          </span>
-                          <br />
-                          <br />
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                        <AlertDialogAction onClick={handleRoleUpdate}>
-                          Aceptar
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
+                            {currentPath === '/disciples/update-disciple' && (
+                              <span
+                                className={`${currentPath === '/disciples/update-disciple' ? 'inline-block mb-1' : 'hidden'}`}
+                              >
+                                ❌ Si era Miembro y sube a Predicador(a) se
+                                eliminara su relación con su casa familiar, y se
+                                le asignara una nueva donde desempeñara su nuevo
+                                rol.
+                              </span>
+                            )}
 
+                            {currentPath === '/leaders/update-leader' && (
+                              <span
+                                className={`${currentPath === '/leaders/update-leader' ? 'inline-block mb-1' : 'hidden'}`}
+                              >
+                                ❌ Si era Predicador(a) y sube a Supervisor(a)
+                                se borrara su relación con su casa familiar y
+                                sus miembros, por lo que deberá asignar a otro
+                                Predicador(a) para estos.
+                              </span>
+                            )}
+
+                            {currentPath === '/leaders/update-leader' && (
+                              <span
+                                className={`${currentPath === '/leaders/update-leader' ? 'inline-block mb-1' : 'hidden'}`}
+                              >
+                                ❌ Si era Supervisor(a) y sube a Co-pastor(a) se
+                                borrara su relación con las zonas, casas,
+                                predicadores y miembros que tenia a cargo, por
+                                lo que se deberá asignar otro Supervisor(a) para
+                                todos estos.
+                              </span>
+                            )}
+
+                            {currentPath === '/copastors/update-copastor' && (
+                              <span
+                                className={`${currentPath === '/copastors/update-copastor' ? '' : 'hidden'}`}
+                              >
+                                <br />❌ Si era Co-pastor(a) y sube a Pastor(a)
+                                se borrara su relación con las zonas, casas,
+                                supervisores, predicadores y miembros que
+                                englobaba su cargo, por lo que se deberá asignar
+                                otro Co-pastor(a) para todos estos.
+                              </span>
+                            )}
+
+                            <br />
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                          <AlertDialogAction onClick={handleRoleUpdate}>
+                            Aceptar
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  )}
+
+                  {/* TODO : corregir aquí, REESTRUCTURAR, al momento que debe aparecer o hacer un toast  */}
                   {disableInput &&
                     isButtonDisabled &&
                     JSON.stringify(fixedValues[15]) !==
                       JSON.stringify(
                         form.getValues([...Object.values(FieldName)][15])
                       ) &&
+                    (form.getValues('roles').includes(MemberRoles.preacher) ||
+                      form
+                        .getValues('roles')
+                        .includes(MemberRoles.supervisor) ||
+                      form.getValues('roles').includes(MemberRoles.copastor) ||
+                      form.getValues('roles').includes(MemberRoles.pastor)) &&
                     (form.getValues('theirPastor') ||
                       form.getValues('theirCopastor') ||
                       form.getValues('theirSupervisor')) && (
@@ -1531,12 +1596,14 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
                       </span>
                     )}
 
-                  {isButtonDisabled && !disableInput && (
-                    <span className='text-red-500 text-[13px] font-medium'>
-                      ! Si estas intentado actualizar los datos no podrás
-                      promoverlo hasta guardar los cambios !
-                    </span>
-                  )}
+                  {currentPath !== '/pastors/update-pastor' &&
+                    isButtonDisabled &&
+                    !disableInput && (
+                      <span className='text-red-500 text-[13px] font-bold'>
+                        !ALERTA! : Si estas intentado actualizar los datos no
+                        podrás promoverlo hasta guardar los cambios.
+                      </span>
+                    )}
                 </div>
 
                 <div className='sm:col-start-2 sm:col-end-3 sm:row-start-2 sm:row-end-3 w-full'>
