@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import type * as z from 'zod';
@@ -58,22 +58,69 @@ const zones = [
   { label: 'Zona D', value: 'zone-4' },
 ] as const;
 
+//* Nueva forma de usar el Crear House y Actualizar
+// Se puede crear una tabla de zona, con id, nombre de zona y supervisor a cargo
+// Al crear una casa al hacer click en zona no aparecerá nada porque no habrá zonas, para esto primero se crea
+// la zona en un tabla tendrá como relación a un supervisor,
+// En el front agregar un botón de crear zonas y al desplegar el input sale zonas vacías
+// Una vez creada al hacer click (en el input zonas) lanza una solicitud a la tabla zonas y trae la data y la setea
+
+// Asi mismo al elegir una zona (lanza una petición) este validara su supervisor con el mismo supervisor de los
+// preachers y devuelve los disponibles de esta manera se podrá controlar mejor la zona y su encargado.
+
+// Se setea los preacher en predicador y podremos elegit cualquiera según el supervisor.
+// Ver si tmb agregarle copastor y pastor (mas finjo que si)
+
+//! Que pasa si un supervisor se va o elimina?
+// Ahora si un supervisor se le da de baja o sube de nivel se borra el supervisor de la zona y de los demás lados donde
+// tenga relación Lanzar error. Si se intenta crear una nueva casa y no hay predicadores con este supervisor (huérfanos)
+// Se deberá asignar un supervisor a la zona
+
+// Si están huérfanos, y le coloco a la zona un nuevo supervisor, este tmb deberá setearse para los predicadores
+// que tengan la misma zona en su casa en la que están asignados.
+// Y viceversa si asigno a un nuevo supervisor al predicador y su casa tiene una zona, entonces
+// tmb debo setear en la misma zona (tabla) a ese supervisor
+
+// Y al colocar el nuevo supervisor hay otros preacher con casas en la misma zona tmb se setea el mismo supervisor
+// para estos de manera automática (osea solo basta actualizar 1).
+
+// TODO : crear un botón que diga crear zona con nombre, supervisor (modal + form y hacer petición) componente
+// TODO : El resto esta bien se setea la zona y luego se activan los demás campos.
+
+// ? Esto seria en la búsqueda del Update (de los módulos)
+// TODO : debería hacer una búsqueda(search by) por miembros y casas (huérfanos) (hacer select de los their),
+// TODO : en miembros buscamos por miembros sin pastor, copastor, supervisor, predicador, para actualizar.
+// TODO : en casas buscamos por casas sin predicador,(asignar predicador con el mismo supervisor de la zona), para actualizar.
+
 export const FamilyHouseCreatePage = (): JSX.Element => {
   const [openPreacher, setOpenPreacher] = useState(false);
   const [openZone, setOpenZone] = useState(false);
+
+  const [disableInput, setDisableInput] = useState(true);
 
   const form = useForm<z.infer<typeof formFamilyHouseSchema>>({
     resolver: zodResolver(formFamilyHouseSchema),
     defaultValues: {
       zone: '',
       nameHouse: '',
-      country: 'Peru',
-      department: 'Lima',
+      country: '',
+      department: '',
       province: '',
       district: '',
       address: '',
     },
   });
+
+  //* Watchers
+  const watchZone = form.watch('zone');
+
+  useEffect(() => {
+    if (form.getValues('zone')) {
+      //* hacer llamada a api con el valor de la zona y setear los datos en un estado
+      //* si regresa 0 setear todos los predicadores, si encuentra regresa los predicadores según su supervisor (disponibles)
+      setDisableInput(false);
+    }
+  }, [watchZone]);
 
   const handleSubmit = (
     values: z.infer<typeof formFamilyHouseSchema>
@@ -96,18 +143,18 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
         Por favor llena los siguientes datos para crear una nueva casa familiar.
       </p>
 
-      <div className='flex min-h-screen flex-col items-center justify-between px-8 py-4 sm:px-10 sm:py-6 2xl:px-36 2xl:py-8'>
+      <div className='flex min-h-screen flex-col items-center justify-between px-8 py-4 sm:px-10 sm:py-8 2xl:px-36 2xl:py-8'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            className='max-w-md w-full flex flex-col gap-4'
+            className='max-w-[60rem] w-full flex flex-col md:grid sm:grid-cols-2 gap-x-10 gap-y-7'
           >
             <FormField
               control={form.control}
               name='zone'
               render={({ field }) => {
                 return (
-                  <FormItem>
+                  <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
                     <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
                       Zona
                     </FormLabel>
@@ -133,7 +180,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
-                      <PopoverContent className='mr-30 w-[20rem] p-2\'>
+                      <PopoverContent align='center' className='w-auto p-2'>
                         <Command>
                           <CommandInput
                             placeholder='Busque una zona...'
@@ -143,7 +190,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                           <CommandGroup className='max-h-[200px] h-auto'>
                             {zones.map((zone) => (
                               <CommandItem
-                                className='text-sm lg:text-[15px]'
+                                className='text-[13px] md:text-[14px]'
                                 value={zone.label}
                                 key={zone.value}
                                 onSelect={() => {
@@ -173,154 +220,10 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
             />
             <FormField
               control={form.control}
-              name='nameHouse'
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
-                      Nombre
-                    </FormLabel>
-                    <FormDescription className='text-sm lg:text-[15px]'>
-                      Asignar una nombre a la casa familiar.
-                    </FormDescription>
-                    <FormControl>
-                      <Input
-                        placeholder='Nombre de la casa familiar'
-                        type='text'
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            />
-            <FormField
-              control={form.control}
-              name='country'
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
-                      País
-                    </FormLabel>
-                    <FormDescription className='text-sm lg:text-[15px]'>
-                      Asignar una país a la que pertenece la casa familiar.
-                    </FormDescription>
-                    <FormControl>
-                      <Input
-                        placeholder='País de la casa familiar'
-                        type='text'
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            />
-            <FormField
-              control={form.control}
-              name='department'
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
-                      Departamento
-                    </FormLabel>
-                    <FormDescription className='text-sm lg:text-[15px]'>
-                      Asignar un departamento a la pertenece la casa familiar.
-                    </FormDescription>
-                    <FormControl>
-                      <Input
-                        placeholder='Departamento de la casa familiar'
-                        type='text'
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            />
-            <FormField
-              control={form.control}
-              name='province'
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
-                      Provincia
-                    </FormLabel>
-                    <FormDescription className='text-sm lg:text-[15px]'>
-                      Asignar una provincia a la que pertenece la casa familiar.
-                    </FormDescription>
-                    <FormControl>
-                      <Input
-                        placeholder='Provincia de la casa familiar'
-                        type='text'
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            />
-            <FormField
-              control={form.control}
-              name='district'
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
-                      Distrito
-                    </FormLabel>
-                    <FormDescription className='text-sm lg:text-[15px]'>
-                      Asignar un distrito al que pertenece la casa familiar.
-                    </FormDescription>
-                    <FormControl>
-                      <Input
-                        placeholder='Distrito de la casa familiar'
-                        type='text'
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            />
-            <FormField
-              control={form.control}
-              name='address'
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
-                      Dirección
-                    </FormLabel>
-                    <FormDescription className='text-sm lg:text-[15px]'>
-                      Asignar una dirección al que pertenece la casa familiar.
-                    </FormDescription>
-                    <FormControl>
-                      <Input
-                        placeholder='Distrito de la casa familiar'
-                        type='text'
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            />
-            <FormField
-              control={form.control}
               name='theirPreacher'
               render={({ field }) => {
                 return (
-                  <FormItem className='flex flex-col mt-4'>
+                  <FormItem className='md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-2 flex flex-col'>
                     <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
                       Predicador
                     </FormLabel>
@@ -331,11 +234,13 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
+                            disabled={disableInput}
                             variant='outline'
                             role='combobox'
                             className={cn(
                               'w-full justify-between',
-                              !field.value && 'text-slate-500 font-normal'
+                              !field.value && 'text-slate-400 font-normal',
+                              disableInput && 'dark:bg-gray-100 bg-gray-300'
                             )}
                           >
                             {field.value
@@ -347,7 +252,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
-                      <PopoverContent className='mr-30 w-[20rem] p-2\'>
+                      <PopoverContent align='center' className='w-auto p-2'>
                         <Command>
                           <CommandInput
                             placeholder='Busque un predicador...'
@@ -357,7 +262,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                           <CommandGroup className='max-h-[200px] h-auto'>
                             {preachers.map((preacher) => (
                               <CommandItem
-                                className='text-sm lg:text-[15px]'
+                                className='text-[13px] md:text-[14px]'
                                 value={preacher.label}
                                 key={preacher.value}
                                 onSelect={() => {
@@ -388,9 +293,178 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                 );
               }}
             />
+            <FormField
+              control={form.control}
+              name='nameHouse'
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                      Nombre
+                    </FormLabel>
+                    <FormDescription className='text-sm lg:text-[15px]'>
+                      Asignar una nombre a la casa familiar.
+                    </FormDescription>
+                    <FormControl>
+                      <Input
+                        className={cn(
+                          disableInput && 'dark:bg-gray-100 bg-gray-300'
+                        )}
+                        disabled={disableInput}
+                        placeholder='Eje: Los Guerreros de Dios...'
+                        type='text'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+            <FormField
+              control={form.control}
+              name='country'
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                      País
+                    </FormLabel>
+                    <FormDescription className='text-sm lg:text-[15px]'>
+                      Asignar una país a la que pertenece la casa familiar.
+                    </FormDescription>
+                    <FormControl>
+                      <Input
+                        className={cn(
+                          disableInput && 'dark:bg-gray-100 bg-gray-300'
+                        )}
+                        disabled={disableInput}
+                        placeholder='Eje: Peru, Colombia, Ecuador...'
+                        type='text'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+            <FormField
+              control={form.control}
+              name='department'
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                      Departamento
+                    </FormLabel>
+                    <FormDescription className='text-sm lg:text-[15px]'>
+                      Asignar un departamento a la pertenece la casa familiar.
+                    </FormDescription>
+                    <FormControl>
+                      <Input
+                        className={cn(
+                          disableInput && 'dark:bg-gray-100 bg-gray-300'
+                        )}
+                        disabled={disableInput}
+                        placeholder='Eje: Lima, Puno, Huanuco...'
+                        type='text'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+            <FormField
+              control={form.control}
+              name='province'
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                      Provincia
+                    </FormLabel>
+                    <FormDescription className='text-sm lg:text-[15px]'>
+                      Asignar una provincia a la que pertenece la casa familiar.
+                    </FormDescription>
+                    <FormControl>
+                      <Input
+                        className={cn(
+                          disableInput && 'dark:bg-gray-100 bg-gray-300'
+                        )}
+                        disabled={disableInput}
+                        placeholder='Eje: Lima, Huamanga, Huaraz...'
+                        type='text'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+            <FormField
+              control={form.control}
+              name='district'
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                      Distrito
+                    </FormLabel>
+                    <FormDescription className='text-sm lg:text-[15px]'>
+                      Asignar un distrito al que pertenece la casa familiar.
+                    </FormDescription>
+                    <FormControl>
+                      <Input
+                        className={cn(
+                          disableInput && 'dark:bg-gray-100 bg-gray-300'
+                        )}
+                        disabled={disableInput}
+                        placeholder='Comas, Independencia, Carabayllo...'
+                        type='text'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+            <FormField
+              control={form.control}
+              name='address'
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                      Dirección
+                    </FormLabel>
+                    <FormDescription className='text-sm lg:text-[15px]'>
+                      Asignar una dirección al que pertenece la casa familiar.
+                    </FormDescription>
+                    <FormControl>
+                      <Input
+                        className={cn(
+                          disableInput && 'dark:bg-gray-100 bg-gray-300'
+                        )}
+                        disabled={disableInput}
+                        placeholder='Av. Central 123...'
+                        type='text'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+
             <Button
               type='submit'
-              className='w-full text-sm md:text-base xl:text-lg mt-12'
+              className='w-[20rem] mx-auto col-start-1 col-end-3 text-sm md:text-md xl:text-base mt-12'
             >
               Registrar Casa Familiar
             </Button>

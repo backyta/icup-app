@@ -724,8 +724,11 @@ export function DataTableSearchByTerm<TData, TValue>({
         (currentPath === '/disciples/search-by-term-disciples' ||
           currentPath === '/disciples/update-disciple' ||
           currentPath === '/pastors/search-by-term-pastors' ||
+          currentPath === '/pastors/update-pastor' ||
           currentPath === '/copastors/search-by-term-copastors' ||
-          currentPath === '/leaders/search-by-term-leaders') && (
+          currentPath === '/copastors/update-copastor' ||
+          currentPath === '/leaders/search-by-term-leaders' ||
+          currentPath === '/leaders/update-leader') && (
           <div className='pb-8 lg:pb-8 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
             <Button
               variant='ghost'
@@ -777,7 +780,8 @@ export function DataTableSearchByTerm<TData, TValue>({
         )}
 
       {!disabled &&
-        currentPath === '/family-houses/search-by-term-family-houses' && (
+        (currentPath === '/family-houses/search-by-term-family-houses' ||
+          currentPath === '/family-houses/update-family-house') && (
           <div className='pb-8 lg:pb-8 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
             <Button
               variant='ghost'

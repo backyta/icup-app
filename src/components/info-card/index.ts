@@ -1,3 +1,4 @@
+export * from './FormFamilyHouse';
 export * from './FormMember';
 export * from './InfoCard';
 export * from './TabsCardFamilyHome';

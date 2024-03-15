@@ -11,6 +11,7 @@ import {
   TabsCardOffering,
   TabsCardFamilyHome,
   FormMember,
+  FormFamilyHouse,
 } from '.';
 
 // TODO : mover este UPDATE CARD y form member a otra carpeta de componente - update-card
@@ -55,7 +56,7 @@ export const UpdateCard = (): JSX.Element => {
           )}
 
           {currentPath === '/family-houses/update-family-house' && (
-            <TabsCardFamilyHome />
+            <FormFamilyHouse onSubmit={handleContainerClose} />
           )}
 
           {currentPath === '/offerings/update-offerings' && (

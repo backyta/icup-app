@@ -145,3 +145,23 @@ export const dataFamilyHouses: FamilyHouse[] =
   }
   
 ];
+
+export const preachers = [
+  { label: 'Juan Carlos Medina Salinas', value: 'id1' },
+  { label: 'María Elena Huamaní Ramos', value: 'id2' },
+  { label: 'Jorge Luis Sánchez Cárdenas', value: 'id3' },
+  { label: 'Rosa María Torres Díaz', value: 'id4' },
+  { label: 'Luis Alberto Rodríguez Soto', value: 'id5' },
+  { label: 'Ana María Gutiérrez Flores', value: 'id6' },
+  { label: 'Pedro Pablo Pérez Torres', value: 'id7' },
+  { label: 'Silvia Esther Chávez Díaz', value: 'id8' },
+  { label: 'Fernando José López Ramírez', value: 'id9' },
+  { label: 'Carmen Rosa Silva García', value: 'id10' },
+] as const;
+
+export const zones = [
+  { label: 'Zona A', value: 'zone-1' },
+  { label: 'Zona B', value: 'zone-2' },
+  { label: 'Zona C', value: 'zone-3' },
+  { label: 'Zona D', value: 'zone-4' },
+] as const;

@@ -24,7 +24,7 @@ export interface MemberData {
   isActive: string;
 }
 
-export type DataKeys =
+export type DataMemberKeys =
   | 'firstName'
   | 'lastName'
   | 'gender'

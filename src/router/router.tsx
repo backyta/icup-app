@@ -33,9 +33,10 @@ import {
   UpdatePastorPage,
   UpdateCopastorPage,
   UpdateLeaderPage,
+  UpdateFamilyHousePage,
 } from '@/pages';
 import { PastorOptionsPage } from '@/pages/pastor/PastorOptionsPage';
-import { FormMember } from '@/components';
+import { FormFamilyHouse, FormMember } from '@/components';
 
 export const router = createBrowserRouter([
   {
@@ -193,6 +194,11 @@ export const router = createBrowserRouter([
           {
             path: '/family-houses/search-by-term-family-houses',
             element: <FamilyHousesSearchPageByTerm />,
+          },
+          {
+            path: '/family-houses/update-family-house',
+            // element: <UpdateFamilyHousePage />,
+            element: <FormFamilyHouse />,
           },
         ],
       },

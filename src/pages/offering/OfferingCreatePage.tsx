@@ -94,6 +94,9 @@ const familyHouses = [
   { label: 'Almas Renovadas', value: 'id15' },
 ] as const;
 
+// TODO : en ofrenda hacer la relación de ayuno y vigilia zonal al ID del miembro del encargado no al del copastor
+// TODO : por que este puede eliminarse o subir de nivel y ya no existiría
+
 export const OfferingCreatePage = (): JSX.Element => {
   const [open, setOpen] = useState(false);
   const [files, setFiles] = useState<FilesProps[]>([]);
@@ -496,6 +499,7 @@ export const OfferingCreatePage = (): JSX.Element => {
                     )}
                   />
                 )}
+              {/* TODO : no copastor si no Member ID encargado, normalmente es supervisor copastor o pastor. (filtrar por esos) */}
               {((type === 'offering' &&
                 subType === SubTypesOffering.zonalFasting) ||
                 (type === 'offering' &&

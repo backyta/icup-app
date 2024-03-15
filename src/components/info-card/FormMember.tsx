@@ -82,25 +82,11 @@ import { type DataKeys, type MemberData } from '@/interfaces';
 import { formMemberSchema } from '@/validations';
 import { copastors, familyHouses, pastors, supervisors } from '@/data';
 
-// TODO : arreglar ahora el active solo se puede activar y no desactivar. ✅
-// TODO : arreglar el check de los roles no teresa el botón a true para activar (problema) ✅
-// TODO : mover el logo de estas seguro? cada X para su subida correspondiente
-// TODO : seguir con los otras rutas (usar el mismo componente)
 // TODO : dependiendo de la ruta hacer fetch a cierto modulo
-
-// TODO : revisar el !SUBIDO CORRECTAMENTE! ERRORES EN Roles
-
-// NOTE : General, cuando suba de nivel desparecer de la lista, osea si es miembro y sube, ya no debe aparecer en al lista cuando cierre el modal.
-// NOTE : en miembro se podrá subir de rol a preacher.
-// NOTE : en leader (preacher o supervisor) se podrá subir de rol a supervisor y copastor, y actualizar a tesorero
-// NOTE : en copastor se podrá subir de rol a pastor.
-// NOTE : en pastor no se podrá subir de nivel
 
 // NOTE : ver si se hace el fetch aquí o el UpdateCard.
 // NOTE : hay que personalizar el aviso de promover según su pagina pastor , copastor, leader....
 // NOTE : hacer llamado según el ID para traer la data
-
-// NOTE : Revisar por rutas la de pastor, y los demás porque pastor no podrá subir de nivel.
 
 const data: MemberData = {
   firstName: 'Kevin',
@@ -118,7 +104,7 @@ const data: MemberData = {
   province: 'Lima',
   district: 'Lima',
   address: 'jr rio 222',
-  roles: [MemberRoles.member, MemberRoles.copastor],
+  roles: [MemberRoles.member, MemberRoles.supervisor],
   theirPastor: 'id1',
   theirCopastor: 'id2',
   theirSupervisor: 'id3',
@@ -1468,7 +1454,7 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
                         />
                       )}
                   </div>
-                  {currentPath === 'copastors/update-copastor' &&
+                  {currentPath !== '/copastors/update-copastor' &&
                     disableInput &&
                     form.getValues('theirPastor') === '' &&
                     form.getValues('theirCopastor') === '' &&
@@ -1572,36 +1558,29 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
                     </AlertDialog>
                   )}
 
-                  {/* TODO : corregir aquí, REESTRUCTURAR, al momento que debe aparecer o hacer un toast  */}
-                  {disableInput &&
-                    isButtonDisabled &&
-                    JSON.stringify(fixedValues[15]) !==
-                      JSON.stringify(
-                        form.getValues([...Object.values(FieldName)][15])
-                      ) &&
-                    (form.getValues('roles').includes(MemberRoles.preacher) ||
-                      form
-                        .getValues('roles')
-                        .includes(MemberRoles.supervisor) ||
-                      form.getValues('roles').includes(MemberRoles.copastor) ||
-                      form.getValues('roles').includes(MemberRoles.pastor)) &&
-                    (form.getValues('theirPastor') ||
-                      form.getValues('theirCopastor') ||
-                      form.getValues('theirSupervisor')) && (
-                      <span className='text-[12px] md:text-[13px] text-green-500 font-bold text-center'>
-                        !SE HA PROMOVIDO CORRECTAMENTE! <br />
-                        <span className='dark:text-white text-black font-medium'>
-                          Por favor guarde los cambios para finalizar.
-                        </span>
-                      </span>
-                    )}
-
                   {currentPath !== '/pastors/update-pastor' &&
                     isButtonDisabled &&
                     !disableInput && (
                       <span className='text-red-500 text-[13px] font-bold'>
-                        !ALERTA! : Si estas intentado actualizar los datos no
-                        podrás promoverlo hasta guardar los cambios.
+                        !ALERTA! : Mientras estés en modo de edición no podrás
+                        promover de cargo.
+                      </span>
+                    )}
+
+                  {(JSON.stringify(fixedValues) !==
+                    JSON.stringify(
+                      form.getValues([...Object.values(FieldName)])
+                    ) ||
+                    JSON.stringify(fixedValues[15]) !==
+                      JSON.stringify(
+                        form.getValues([...Object.values(FieldName)][15])
+                      )) &&
+                    isButtonDisabled &&
+                    (!disableInput || disableInput) && (
+                      <span className='text-[12px] md:text-[13px] text-green-500 font-bold text-center'>
+                        <span className='font-medium'>
+                          Para finalizar por favor guarde los cambios.
+                        </span>
                       </span>
                     )}
                 </div>
@@ -1623,6 +1602,7 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
 
                           setDisableInput(true);
                           setIsSubmitButtonDisabled(true);
+                          setIsButtonDisabled(true);
                         }
                       }, 100);
                       setTimeout(() => {
