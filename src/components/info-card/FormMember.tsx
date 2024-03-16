@@ -78,7 +78,7 @@ import {
   MemberRoles,
 } from '@/enums';
 
-import { type DataKeys, type MemberData } from '@/interfaces';
+import { type DataMemberKeys, type MemberData } from '@/interfaces';
 import { formMemberSchema } from '@/validations';
 import { copastors, familyHouses, pastors, supervisors } from '@/data';
 
@@ -122,8 +122,7 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
   const [openInputBirthDate, setOpenInputBirthDate] = useState(false);
   const [openInputConvertionDate, setOpenInputConvertionDate] = useState(false);
 
-  const [disableInput, setDisableInput] = useState(false);
-  // array objects
+  const [disableInput, setDisableInput] = useState(false); // array objects
 
   const [fixedValues, setFixedValues] = useState<MemberData[]>([]); // array objects
   const [lastValues, setLastValues] = useState<MemberData[]>([]); // array object
@@ -172,11 +171,12 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
   const theirFamilyHouse = form.watch('theirFamilyHouse');
   const isActive = form.watch('isActive');
 
+  //! Ver la opción de hacer un custom hook o un estado mas grande
   useEffect(() => {
     // TODO : hacer consulta real y setear datos según interface y type
     // Simula una consulta a la URL del backend
     for (const key in data) {
-      form.setValue(key as DataKeys, data[key as DataKeys]);
+      form.setValue(key as DataMemberKeys, data[key as DataMemberKeys]);
     }
   }, []);
 

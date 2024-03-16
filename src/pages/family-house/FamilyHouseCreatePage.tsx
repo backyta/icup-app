@@ -23,7 +23,10 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 
-import { formFamilyHouseSchema } from '@/validations/form-family-house-schema';
+import {
+  formFamilyHouseSchema,
+  formZoneSchema,
+} from '@/validations/form-family-house-schema';
 import {
   Popover,
   PopoverContent,
@@ -37,6 +40,16 @@ import {
   CommandInput,
   CommandItem,
 } from '@/components/ui/command';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 
 const preachers = [
   { label: 'Juan Carlos Medina Salinas', value: 'id1' },
@@ -49,6 +62,12 @@ const preachers = [
   { label: 'Silvia Esther Chávez Díaz', value: 'id8' },
   { label: 'Fernando José López Ramírez', value: 'id9' },
   { label: 'Carmen Rosa Silva García', value: 'id10' },
+] as const;
+
+const supervisors = [
+  { label: 'Luz Maria Condori Mejia', value: 'id1' },
+  { label: 'Rolando David Gonzales Calixto', value: 'id2' },
+  { label: 'Mercedes Luisa Aparcano Saavedra', value: 'id3' },
 ] as const;
 
 const zones = [
@@ -84,6 +103,12 @@ const zones = [
 // Y al colocar el nuevo supervisor hay otros preacher con casas en la misma zona tmb se setea el mismo supervisor
 // para estos de manera automática (osea solo basta actualizar 1).
 
+// Se podrá modificar la zona desde un botón cambiando nombre de zona, o supervisor, y estos se aplicaran a todos las casas que tengan este nombre de zona o supervisor
+
+// En actualizar la casa, podre elegir otra zona y esta llamara los predicadores disponibles de esa zona.
+// Si no hay ninguno lanzo una nota, pero si hay uno lo muestro si elijo ese, antes de enviar el form
+// valido que sean los mismos supervisores, y estaría moviendo la casa a otra zona y de predicador tmb.
+
 // TODO : crear un botón que diga crear zona con nombre, supervisor (modal + form y hacer petición) componente
 // TODO : El resto esta bien se setea la zona y luego se activan los demás campos.
 
@@ -94,15 +119,18 @@ const zones = [
 
 export const FamilyHouseCreatePage = (): JSX.Element => {
   const [openPreacher, setOpenPreacher] = useState(false);
+  const [openSupervisor, setOpenSupervisor] = useState(false);
+
   const [openZone, setOpenZone] = useState(false);
 
   const [disableInput, setDisableInput] = useState(true);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const form = useForm<z.infer<typeof formFamilyHouseSchema>>({
     resolver: zodResolver(formFamilyHouseSchema),
     defaultValues: {
       zone: '',
-      nameHouse: '',
+      houseName: '',
       country: '',
       department: '',
       province: '',
@@ -111,8 +139,27 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
     },
   });
 
+  const formZone = useForm<z.infer<typeof formZoneSchema>>({
+    resolver: zodResolver(formZoneSchema),
+    defaultValues: {
+      zoneName: '',
+    },
+  });
+
   //* Watchers
   const watchZone = form.watch('zone');
+
+  const watchSupervisor = formZone.watch('theirSupervisor');
+  const watchZoneName = formZone.watch('zoneName');
+
+  useEffect(() => {
+    if (
+      formZone.getValues('theirSupervisor') &&
+      formZone.getValues('zoneName')
+    ) {
+      setIsButtonDisabled(false);
+    }
+  }, [watchSupervisor, watchZoneName]);
 
   useEffect(() => {
     if (form.getValues('zone')) {
@@ -128,6 +175,11 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
     console.log({ values });
   };
 
+  const handleSubmitZone = (values: z.infer<typeof formZoneSchema>): void => {
+    formZone.reset();
+    console.log({ values });
+  };
+
   return (
     <>
       <h1 className='text-center pb-4 pt-1 font-sans text-2xl sm:text-3xl font-bold text-family-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
@@ -139,6 +191,336 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
       <h1 className='text-left px-4 py-2 sm:px-10 sm:pt-4 sm:pb-1 2xl:text-center 2xl:pt-4 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[2.0rem] md:text-[1.75rem] lg:text-[1.95rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear una nueva casa familiar
       </h1>
+
+      <p className='dark:text-slate-300 text-left font-sans text-[14px] font-bold px-4 sm:px-10 text-sm md:text-[15px] xl:text-base  2xl:text-center pb-4'>
+        Por favor, elige una opción: crear una nueva zona o modificar una zona
+        existente por falta de supervisor o para cambiar su nombre.
+      </p>
+
+      <div className='flex px-10 sm:px-20 gap-6 lg:w-[50rem] lg:mx-auto  2xl:w-[60rem] lg:gap-10 pb-7'>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button
+              onClick={() => {
+                formZone.resetField('zoneName');
+                formZone.resetField('theirSupervisor');
+                setIsButtonDisabled(true);
+              }}
+              className='w-full text-[14px]  disabled:bg-slate-500 disabled:text-white bg-yellow-400 text-yellow-700 hover:text-white hover:bg-yellow-500'
+            >
+              Crear nueva zona
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent className='max-w-[40rem]'>
+            <AlertDialogHeader className='h-auto'>
+              <AlertDialogTitle className='text-green-500 text-center font-bold text-[22px]'>
+                Crear nueva zona
+              </AlertDialogTitle>
+              <div>
+                {/* Create Zone */}
+
+                <Form {...formZone}>
+                  <form
+                    onSubmit={formZone.handleSubmit(handleSubmitZone)}
+                    className='max-w-[60rem] w-full flex flex-col md:grid sm:grid-cols-2 gap-x-8 gap-y-7'
+                  >
+                    <FormField
+                      control={formZone.control}
+                      name='zoneName'
+                      render={({ field }) => {
+                        return (
+                          <FormItem>
+                            <FormLabel className='text-[13px] sm:text-[14px] lg:text-[15px] font-bold'>
+                              Nombre
+                            </FormLabel>
+                            <FormDescription className='text-[12px] md:text-[13px] lg:[14px]'>
+                              Asignar una nombre a la zona.
+                            </FormDescription>
+                            <FormControl>
+                              <Input
+                                className='text-black dark:text-white'
+                                placeholder='Eje: A, Tahua-1, P-1...'
+                                type='text'
+                                {...field}
+                              />
+                            </FormControl>
+                            <span
+                              className={cn(
+                                `text-red-500 text-[12px] md:text-[13px] font-medium px-2`,
+                                formZone.getValues('zoneName') && 'hidden'
+                              )}
+                            >
+                              Por favor ingresa un nombre.
+                            </span>
+                          </FormItem>
+                        );
+                      }}
+                    />
+                    <FormField
+                      control={formZone.control}
+                      name='theirSupervisor'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-2 flex flex-col'>
+                            <FormLabel className='text-[13px] sm:text-[14px] lg:text-[15px] font-bold'>
+                              Supervisor
+                            </FormLabel>
+                            <FormDescription className='text-[12px] md:text-[13px] lg:[14px]'>
+                              Seleccione un supervisor para esta zona.
+                            </FormDescription>
+                            <Popover
+                              open={openSupervisor}
+                              onOpenChange={setOpenSupervisor}
+                            >
+                              <PopoverTrigger asChild>
+                                <FormControl>
+                                  <Button
+                                    variant='outline'
+                                    role='combobox'
+                                    className={cn(
+                                      'w-full justify-between text-black dark:text-white',
+                                      !field.value &&
+                                        'text-slate-400 font-normal'
+                                    )}
+                                  >
+                                    {field.value
+                                      ? supervisors.find(
+                                          (supervisor) =>
+                                            supervisor.value === field.value
+                                        )?.label
+                                      : 'Busque y seleccione un supervisor'}
+                                    <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                                  </Button>
+                                </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent
+                                align='center'
+                                className='w-auto p-2'
+                              >
+                                <Command>
+                                  <CommandInput
+                                    placeholder='Busque un supervisor...'
+                                    className='h-9 text-sm lg:text-[15px]'
+                                  />
+                                  <CommandEmpty>
+                                    Supervisor no encontrado.
+                                  </CommandEmpty>
+                                  <CommandGroup className='max-h-[200px] h-auto'>
+                                    {supervisors.map((supervisor) => (
+                                      <CommandItem
+                                        className='text-[13px] md:text-[14px]'
+                                        value={supervisor.label}
+                                        key={supervisor.value}
+                                        onSelect={() => {
+                                          formZone.setValue(
+                                            'theirSupervisor',
+                                            supervisor.value
+                                          );
+                                          setOpenSupervisor(false);
+                                        }}
+                                      >
+                                        {supervisor.label}
+                                        <CheckIcon
+                                          className={cn(
+                                            'ml-auto h-4 w-4',
+                                            supervisor.value === field.value
+                                              ? 'opacity-100'
+                                              : 'opacity-0'
+                                          )}
+                                        />
+                                      </CommandItem>
+                                    ))}
+                                  </CommandGroup>
+                                </Command>
+                              </PopoverContent>
+                            </Popover>
+                            <span
+                              className={cn(
+                                `text-red-500 text-[12px] md:text-[13px] font-medium`,
+                                formZone.getValues('theirSupervisor') &&
+                                  'hidden'
+                              )}
+                            >
+                              Por favor elige un Supervisor.
+                            </span>
+                          </FormItem>
+                        );
+                      }}
+                    />
+
+                    <AlertDialogFooter className='col-start-1 col-end-3'>
+                      <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                      <AlertDialogAction
+                        disabled={isButtonDisabled}
+                        type='submit'
+                      >
+                        Aceptar
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </form>
+                </Form>
+              </div>
+            </AlertDialogHeader>
+          </AlertDialogContent>
+        </AlertDialog>
+
+        {/* Update Zone */}
+        {/* // Agregar un boton de buscar y un input de zona o supervisor */}
+        {/* // El input listara todos los supervisores y zonas */}
+        {/* Ver si solo buscar por nombre de zona y traer todas las concidencias en una lista */}
+        {/*  Elegir de esa lista uno (hacer solicitud y traer) su data y setear en input, ahi podremos */}
+        {/* modificar y luego en guardar cambios */}
+        {/* //TODO : trabajar en buscar la zona por nombre o por supervisor(puede no haber) y mostrar las zonas  */}
+        {/* //TODO :   */}
+        {/* //TODO : con un input y su datos y un boton que diga editar (habilitar el input)  */}
+        {/* className='w-full text-[14px]  disabled:bg-slate-500 disabled:text-white bg-orange-400 text-orange-700 hover:text-white hover:bg-orange-500'> */}
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button
+              onClick={() => {
+                formZone.resetField('zoneName');
+                formZone.resetField('theirSupervisor');
+              }}
+              className='w-full text-[14px]  disabled:bg-slate-500 disabled:text-white bg-orange-400 text-orange-700 hover:text-white hover:bg-orange-500'
+            >
+              Actualizar una zona
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent className='max-w-[40rem]'>
+            <AlertDialogHeader className='h-auto'>
+              <AlertDialogTitle className='text-orange-500 text-center font-bold text-[22px]'>
+                Actualizar una Zona
+              </AlertDialogTitle>
+              <div>
+                {/* Create Zone */}
+
+                <Form {...formZone}>
+                  <form
+                    onSubmit={formZone.handleSubmit(handleSubmitZone)}
+                    className='max-w-[60rem] w-full flex flex-col md:grid sm:grid-cols-2 gap-x-8 gap-y-7'
+                  >
+                    <FormField
+                      control={formZone.control}
+                      name='zoneName'
+                      render={({ field }) => {
+                        return (
+                          <FormItem>
+                            <FormLabel className='text-[13px] sm:text-[14px] lg:text-[15px] font-bold'>
+                              Nombre
+                            </FormLabel>
+                            <FormDescription className='text-[12px] md:text-[13px] lg:[14px]'>
+                              Asignar una nombre a la zona.
+                            </FormDescription>
+                            <FormControl>
+                              <Input
+                                className='text-black dark:text-white'
+                                placeholder='Eje: A, Tahua-1, P-1...'
+                                type='text'
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        );
+                      }}
+                    />
+                    <FormField
+                      control={formZone.control}
+                      name='theirSupervisor'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-2 flex flex-col'>
+                            <FormLabel className='text-[13px] sm:text-[14px] lg:text-[15px] font-bold'>
+                              Supervisor
+                            </FormLabel>
+                            <FormDescription className='text-[12px] md:text-[13px] lg:[14px]'>
+                              Seleccione un supervisor para esta zona.
+                            </FormDescription>
+                            <Popover
+                              open={openSupervisor}
+                              onOpenChange={setOpenSupervisor}
+                            >
+                              <PopoverTrigger asChild>
+                                <FormControl>
+                                  <Button
+                                    variant='outline'
+                                    role='combobox'
+                                    className={cn(
+                                      'w-full justify-between text-black dark:text-white',
+                                      !field.value &&
+                                        'text-slate-400 font-normal'
+                                    )}
+                                  >
+                                    {field.value
+                                      ? supervisors.find(
+                                          (supervisor) =>
+                                            supervisor.value === field.value
+                                        )?.label
+                                      : 'Busque y seleccione un supervisor'}
+                                    <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                                  </Button>
+                                </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent
+                                align='center'
+                                className='w-auto p-2'
+                              >
+                                <Command>
+                                  <CommandInput
+                                    placeholder='Busque un supervisor...'
+                                    className='h-9 text-sm lg:text-[15px]'
+                                  />
+                                  <CommandEmpty>
+                                    Supervisor no encontrado.
+                                  </CommandEmpty>
+                                  <CommandGroup className='max-h-[200px] h-auto'>
+                                    {supervisors.map((supervisor) => (
+                                      <CommandItem
+                                        className='text-[13px] md:text-[14px]'
+                                        value={supervisor.label}
+                                        key={supervisor.value}
+                                        onSelect={() => {
+                                          formZone.setValue(
+                                            'theirSupervisor',
+                                            supervisor.value
+                                          );
+                                          setOpenSupervisor(false);
+                                        }}
+                                      >
+                                        {supervisor.label}
+                                        <CheckIcon
+                                          className={cn(
+                                            'ml-auto h-4 w-4',
+                                            supervisor.value === field.value
+                                              ? 'opacity-100'
+                                              : 'opacity-0'
+                                          )}
+                                        />
+                                      </CommandItem>
+                                    ))}
+                                  </CommandGroup>
+                                </Command>
+                              </PopoverContent>
+                            </Popover>
+                            <FormMessage />
+                          </FormItem>
+                        );
+                      }}
+                    />
+                    <AlertDialogFooter className='col-start-1 col-end-3'>
+                      <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                      <AlertDialogAction type='submit'>
+                        Aceptar
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </form>
+                </Form>
+              </div>
+            </AlertDialogHeader>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
+
       <p className='dark:text-slate-300 text-left font-sans text-[14px] font-bold px-4 sm:px-10 text-sm md:text-[15px] xl:text-base  2xl:text-center'>
         Por favor llena los siguientes datos para crear una nueva casa familiar.
       </p>
@@ -218,6 +600,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                 );
               }}
             />
+
             <FormField
               control={form.control}
               name='theirPreacher'
@@ -295,7 +678,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
             />
             <FormField
               control={form.control}
-              name='nameHouse'
+              name='houseName'
               render={({ field }) => {
                 return (
                   <FormItem>
