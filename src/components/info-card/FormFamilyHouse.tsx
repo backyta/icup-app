@@ -116,7 +116,7 @@ export const FormFamilyHouse = ({ onSubmit }: FormMemberProps): JSX.Element => {
     resolver: zodResolver(formFamilyHouseSchema),
     defaultValues: {
       zone: '',
-      nameHouse: '',
+      houseName: '',
       country: '',
       department: '',
       province: '',

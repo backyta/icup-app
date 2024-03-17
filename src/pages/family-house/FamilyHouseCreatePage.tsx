@@ -25,6 +25,7 @@ import {
 
 import {
   formFamilyHouseSchema,
+  formSearchZoneSchema,
   formZoneSchema,
 } from '@/validations/form-family-house-schema';
 import {
@@ -50,6 +51,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { type DataZoneKeys, type ZoneData } from '@/interfaces';
 
 const preachers = [
   { label: 'Juan Carlos Medina Salinas', value: 'id1' },
@@ -71,11 +73,20 @@ const supervisors = [
 ] as const;
 
 const zones = [
-  { label: 'Zona A', value: 'zone-1' },
-  { label: 'Zona B', value: 'zone-2' },
-  { label: 'Zona C', value: 'zone-3' },
-  { label: 'Zona D', value: 'zone-4' },
+  { label: 'Pisac Alto - (Indep.Lima)', value: 'id-1' },
+  { label: 'Tahua Centro - (Indep.Lima)', value: 'id-2' },
+  { label: 'Pisac Alto - (Huamanga - Ayacucho)', value: 'id-3' },
+  { label: 'Huandoy Bajo - (Los Oliv. Lima)', value: 'id-4' },
 ] as const;
+
+const data: ZoneData = {
+  zoneName: 'Pisac Alto',
+  country: 'Peru',
+  department: 'Ayacucho',
+  province: 'Huamanga',
+  district: 'Pacaycasa',
+  theirSupervisor: 'id2',
+};
 
 //* Nueva forma de usar el Crear House y Actualizar
 // Se puede crear una tabla de zona, con id, nombre de zona y supervisor a cargo
@@ -121,12 +132,16 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
   const [openPreacher, setOpenPreacher] = useState(false);
   const [openSupervisor, setOpenSupervisor] = useState(false);
 
-  const [openZone, setOpenZone] = useState(false);
+  const [openSearchZone, setOpenSearchZone] = useState(false);
+  const [openSearchZoneUpdate, setOpenSearchZoneUpdate] = useState(false);
 
   const [disableInput, setDisableInput] = useState(true);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [isSearchButtonDisabled, setIsSearchButtonDisabled] = useState(true);
 
-  const form = useForm<z.infer<typeof formFamilyHouseSchema>>({
+  const [showEditMode, setShowEditMode] = useState(true);
+
+  const formFamilyHouse = useForm<z.infer<typeof formFamilyHouseSchema>>({
     resolver: zodResolver(formFamilyHouseSchema),
     defaultValues: {
       zone: '',
@@ -139,32 +154,129 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
     },
   });
 
-  const formZone = useForm<z.infer<typeof formZoneSchema>>({
+  const formCreateZone = useForm<z.infer<typeof formZoneSchema>>({
     resolver: zodResolver(formZoneSchema),
+    defaultValues: {
+      zoneName: '',
+      country: '',
+      department: '',
+      province: '',
+      district: '',
+    },
+  });
+
+  const formUpdateZone = useForm<z.infer<typeof formZoneSchema>>({
+    resolver: zodResolver(formZoneSchema),
+    defaultValues: {
+      zoneName: '',
+      country: '',
+      department: '',
+      province: '',
+      district: '',
+    },
+  });
+
+  const formSearchZone = useForm<z.infer<typeof formSearchZoneSchema>>({
+    resolver: zodResolver(formSearchZoneSchema),
     defaultValues: {
       zoneName: '',
     },
   });
 
-  //* Watchers
-  const watchZone = form.watch('zone');
+  // console.log(formZone.getValues());
 
-  const watchSupervisor = formZone.watch('theirSupervisor');
-  const watchZoneName = formZone.watch('zoneName');
+  //* Watchers
+  const watchZone = formFamilyHouse.watch('zone');
+
+  const watchCreateSupervisor = formCreateZone.watch('theirSupervisor');
+  const watchCreateZoneName = formCreateZone.watch('zoneName');
+  const watchCreateCountry = formCreateZone.watch('country');
+  const watchCreateDepartment = formCreateZone.watch('department');
+  const watchCreateProvince = formCreateZone.watch('province');
+  const watchCreateDistrict = formCreateZone.watch('district');
+
+  const watchUpdateSupervisor = formUpdateZone.watch('theirSupervisor');
+  const watchUpdateZoneName = formUpdateZone.watch('zoneName');
+  const watchUpdateCountry = formUpdateZone.watch('country');
+  const watchUpdateDepartment = formUpdateZone.watch('department');
+  const watchUpdateProvince = formUpdateZone.watch('province');
+  const watchUpdateDistrict = formUpdateZone.watch('district');
+
+  const watchSearchZoneName = formSearchZone.watch('zoneName');
 
   useEffect(() => {
     if (
-      formZone.getValues('theirSupervisor') &&
-      formZone.getValues('zoneName')
+      formCreateZone.getValues('zoneName') &&
+      formCreateZone.getValues('country') &&
+      formCreateZone.getValues('department') &&
+      formCreateZone.getValues('province') &&
+      formCreateZone.getValues('district') &&
+      formCreateZone.getValues('theirSupervisor')
     ) {
       setIsButtonDisabled(false);
     }
-  }, [watchSupervisor, watchZoneName]);
+
+    if (
+      !formCreateZone.getValues('zoneName') ||
+      !formCreateZone.getValues('country') ||
+      !formCreateZone.getValues('department') ||
+      !formCreateZone.getValues('province') ||
+      !formCreateZone.getValues('district') ||
+      !formCreateZone.getValues('theirSupervisor')
+    ) {
+      setIsButtonDisabled(true);
+    }
+  }, [
+    watchCreateSupervisor,
+    watchCreateZoneName,
+    watchCreateCountry,
+    watchCreateDepartment,
+    watchCreateProvince,
+    watchCreateDistrict,
+  ]);
 
   useEffect(() => {
-    if (form.getValues('zone')) {
-      //* hacer llamada a api con el valor de la zona y setear los datos en un estado
-      //* si regresa 0 setear todos los predicadores, si encuentra regresa los predicadores según su supervisor (disponibles)
+    if (
+      formUpdateZone.getValues('zoneName') &&
+      formUpdateZone.getValues('country') &&
+      formUpdateZone.getValues('department') &&
+      formUpdateZone.getValues('province') &&
+      formUpdateZone.getValues('district') &&
+      formUpdateZone.getValues('theirSupervisor')
+    ) {
+      setIsButtonDisabled(false);
+    }
+
+    if (
+      !formUpdateZone.getValues('zoneName') ||
+      !formUpdateZone.getValues('country') ||
+      !formUpdateZone.getValues('department') ||
+      !formUpdateZone.getValues('province') ||
+      !formUpdateZone.getValues('district') ||
+      !formUpdateZone.getValues('theirSupervisor')
+    ) {
+      setIsButtonDisabled(true);
+    }
+
+    if (formSearchZone.getValues('zoneName')) {
+      setIsSearchButtonDisabled(false);
+    }
+    if (!formSearchZone.getValues('zoneName')) {
+      setIsSearchButtonDisabled(true);
+    }
+  }, [
+    watchUpdateSupervisor,
+    watchUpdateZoneName,
+    watchUpdateCountry,
+    watchUpdateDepartment,
+    watchUpdateProvince,
+    watchUpdateDistrict,
+    watchSearchZoneName,
+  ]);
+
+  console.log(formUpdateZone.getValues());
+  useEffect(() => {
+    if (formFamilyHouse.getValues('zone')) {
       setDisableInput(false);
     }
   }, [watchZone]);
@@ -175,8 +287,25 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
     console.log({ values });
   };
 
-  const handleSubmitZone = (values: z.infer<typeof formZoneSchema>): void => {
-    formZone.reset();
+  const handleSubmitCreateZone = (
+    values: z.infer<typeof formZoneSchema>
+  ): void => {
+    console.log({ values });
+  };
+
+  const handleSubmitUpdateZone = (
+    values: z.infer<typeof formZoneSchema>
+  ): void => {
+    console.log({ values });
+  };
+
+  const handleSubmitSearchZone = (
+    values: z.infer<typeof formSearchZoneSchema>
+  ): void => {
+    for (const key in data) {
+      formUpdateZone.setValue(key as DataZoneKeys, data[key as DataZoneKeys]);
+    }
+    setShowEditMode(false);
     console.log({ values });
   };
 
@@ -202,8 +331,12 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
           <AlertDialogTrigger asChild>
             <Button
               onClick={() => {
-                formZone.resetField('zoneName');
-                formZone.resetField('theirSupervisor');
+                formCreateZone.resetField('zoneName');
+                formCreateZone.resetField('country');
+                formCreateZone.resetField('department');
+                formCreateZone.resetField('province');
+                formCreateZone.resetField('district');
+                formCreateZone.resetField('theirSupervisor');
                 setIsButtonDisabled(true);
               }}
               className='w-full text-[14px]  disabled:bg-slate-500 disabled:text-white bg-yellow-400 text-yellow-700 hover:text-white hover:bg-yellow-500'
@@ -219,13 +352,15 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
               <div>
                 {/* Create Zone */}
 
-                <Form {...formZone}>
+                <Form {...formCreateZone}>
                   <form
-                    onSubmit={formZone.handleSubmit(handleSubmitZone)}
+                    onSubmit={formCreateZone.handleSubmit(
+                      handleSubmitCreateZone
+                    )}
                     className='max-w-[60rem] w-full flex flex-col md:grid sm:grid-cols-2 gap-x-8 gap-y-7'
                   >
                     <FormField
-                      control={formZone.control}
+                      control={formCreateZone.control}
                       name='zoneName'
                       render={({ field }) => {
                         return (
@@ -247,7 +382,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                             <span
                               className={cn(
                                 `text-red-500 text-[12px] md:text-[13px] font-medium px-2`,
-                                formZone.getValues('zoneName') && 'hidden'
+                                formCreateZone.getValues('zoneName') && 'hidden'
                               )}
                             >
                               Por favor ingresa un nombre.
@@ -257,7 +392,128 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                       }}
                     />
                     <FormField
-                      control={formZone.control}
+                      control={formCreateZone.control}
+                      name='country'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className=''>
+                            <FormLabel className='text-[13px] sm:text-[14px] font-medium'>
+                              País
+                            </FormLabel>
+
+                            <FormControl>
+                              <Input
+                                className='text-black dark:text-white'
+                                placeholder='Eje: A, Tahua-1, P-1...'
+                                type='text'
+                                {...field}
+                              />
+                            </FormControl>
+                            <span
+                              className={cn(
+                                `text-red-500 text-[12px] md:text-[13px] font-medium px-2`,
+                                formCreateZone.getValues('country') && 'hidden'
+                              )}
+                            >
+                              Por favor ingresa un nombre.
+                            </span>
+                          </FormItem>
+                        );
+                      }}
+                    />
+                    <FormField
+                      control={formCreateZone.control}
+                      name='department'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className=''>
+                            <FormLabel className='text-[13px] sm:text-[14px] font-medium'>
+                              Departamento
+                            </FormLabel>
+
+                            <FormControl>
+                              <Input
+                                className='text-black dark:text-white'
+                                placeholder='Eje: A, Tahua-1, P-1...'
+                                type='text'
+                                {...field}
+                              />
+                            </FormControl>
+                            <span
+                              className={cn(
+                                `text-red-500 text-[12px] md:text-[13px] font-medium px-2`,
+                                formCreateZone.getValues('department') &&
+                                  'hidden'
+                              )}
+                            >
+                              Por favor ingresa un nombre.
+                            </span>
+                          </FormItem>
+                        );
+                      }}
+                    />
+                    <FormField
+                      control={formCreateZone.control}
+                      name='province'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className=''>
+                            <FormLabel className='text-[13px] sm:text-[14px] font-medium'>
+                              Provincia
+                            </FormLabel>
+
+                            <FormControl>
+                              <Input
+                                className='text-black dark:text-white'
+                                placeholder='Eje: A, Tahua-1, P-1...'
+                                type='text'
+                                {...field}
+                              />
+                            </FormControl>
+                            <span
+                              className={cn(
+                                `text-red-500 text-[12px] md:text-[13px] font-medium px-2`,
+                                formCreateZone.getValues('province') && 'hidden'
+                              )}
+                            >
+                              Por favor ingresa un nombre.
+                            </span>
+                          </FormItem>
+                        );
+                      }}
+                    />
+                    <FormField
+                      control={formCreateZone.control}
+                      name='district'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className=''>
+                            <FormLabel className='text-[13px] sm:text-[14px] font-medium'>
+                              Distrito
+                            </FormLabel>
+
+                            <FormControl>
+                              <Input
+                                className='text-black dark:text-white'
+                                placeholder='Eje: A, Tahua-1, P-1...'
+                                type='text'
+                                {...field}
+                              />
+                            </FormControl>
+                            <span
+                              className={cn(
+                                `text-red-500 text-[12px] md:text-[13px] font-medium px-2`,
+                                formCreateZone.getValues('district') && 'hidden'
+                              )}
+                            >
+                              Por favor ingresa un nombre.
+                            </span>
+                          </FormItem>
+                        );
+                      }}
+                    />
+                    <FormField
+                      control={formCreateZone.control}
                       name='theirSupervisor'
                       render={({ field }) => {
                         return (
@@ -312,7 +568,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                                         value={supervisor.label}
                                         key={supervisor.value}
                                         onSelect={() => {
-                                          formZone.setValue(
+                                          formCreateZone.setValue(
                                             'theirSupervisor',
                                             supervisor.value
                                           );
@@ -337,7 +593,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                             <span
                               className={cn(
                                 `text-red-500 text-[12px] md:text-[13px] font-medium`,
-                                formZone.getValues('theirSupervisor') &&
+                                formCreateZone.getValues('theirSupervisor') &&
                                   'hidden'
                               )}
                             >
@@ -365,6 +621,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
         </AlertDialog>
 
         {/* Update Zone */}
+
         {/* // Agregar un boton de buscar y un input de zona o supervisor */}
         {/* // El input listara todos los supervisores y zonas */}
         {/* Ver si solo buscar por nombre de zona y traer todas las concidencias en una lista */}
@@ -378,8 +635,9 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
           <AlertDialogTrigger asChild>
             <Button
               onClick={() => {
-                formZone.resetField('zoneName');
-                formZone.resetField('theirSupervisor');
+                formSearchZone.resetField('zoneName');
+                setIsButtonDisabled(true);
+                setShowEditMode(true);
               }}
               className='w-full text-[14px]  disabled:bg-slate-500 disabled:text-white bg-orange-400 text-orange-700 hover:text-white hover:bg-orange-500'
             >
@@ -389,56 +647,37 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
           <AlertDialogContent className='max-w-[40rem]'>
             <AlertDialogHeader className='h-auto'>
               <AlertDialogTitle className='text-orange-500 text-center font-bold text-[22px]'>
-                Actualizar una Zona
+                Actualizar una zona
               </AlertDialogTitle>
               <div>
-                {/* Create Zone */}
-
-                <Form {...formZone}>
+                {/* Search Zone */}
+                {/* Se hara una búsqueda directa a la tabla zonas y se guardara en un array */}
+                {/* y se leera todas las zonas de ese array y se meteran al combox */}
+                {/* Al elegir una buscara solo 1 (zona unique), buscar por id */}
+                {/*  Si hay zonas en otros lados del pais con el mismo nombre identificar por, distrito, deptm. */}
+                {/* En el front traer la data y hacer un map para componer el name Pisac Alto - Huanc. Huanuco, Pisac Alto, Indp. Lima */}
+                <Form {...formSearchZone}>
                   <form
-                    onSubmit={formZone.handleSubmit(handleSubmitZone)}
-                    className='max-w-[60rem] w-full flex flex-col md:grid sm:grid-cols-2 gap-x-8 gap-y-7'
+                    onSubmit={formSearchZone.handleSubmit(
+                      handleSubmitSearchZone
+                    )}
+                    className='max-w-[60rem] w-full flex flex-col md:grid sm:grid-cols-2 gap-x-8 gap-y-7 items-center'
                   >
                     <FormField
-                      control={formZone.control}
+                      control={formSearchZone.control}
                       name='zoneName'
                       render={({ field }) => {
                         return (
                           <FormItem>
                             <FormLabel className='text-[13px] sm:text-[14px] lg:text-[15px] font-bold'>
-                              Nombre
+                              Zonas
                             </FormLabel>
                             <FormDescription className='text-[12px] md:text-[13px] lg:[14px]'>
-                              Asignar una nombre a la zona.
-                            </FormDescription>
-                            <FormControl>
-                              <Input
-                                className='text-black dark:text-white'
-                                placeholder='Eje: A, Tahua-1, P-1...'
-                                type='text'
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        );
-                      }}
-                    />
-                    <FormField
-                      control={formZone.control}
-                      name='theirSupervisor'
-                      render={({ field }) => {
-                        return (
-                          <FormItem className='md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-2 flex flex-col'>
-                            <FormLabel className='text-[13px] sm:text-[14px] lg:text-[15px] font-bold'>
-                              Supervisor
-                            </FormLabel>
-                            <FormDescription className='text-[12px] md:text-[13px] lg:[14px]'>
-                              Seleccione un supervisor para esta zona.
+                              Seleccione un zona a buscar.
                             </FormDescription>
                             <Popover
-                              open={openSupervisor}
-                              onOpenChange={setOpenSupervisor}
+                              open={openSearchZoneUpdate}
+                              onOpenChange={setOpenSearchZoneUpdate}
                             >
                               <PopoverTrigger asChild>
                                 <FormControl>
@@ -452,11 +691,10 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                                     )}
                                   >
                                     {field.value
-                                      ? supervisors.find(
-                                          (supervisor) =>
-                                            supervisor.value === field.value
+                                      ? zones.find(
+                                          (zone) => zone.value === field.value
                                         )?.label
-                                      : 'Busque y seleccione un supervisor'}
+                                      : 'Busque y seleccione una zona'}
                                     <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                   </Button>
                                 </FormControl>
@@ -467,31 +705,31 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                               >
                                 <Command>
                                   <CommandInput
-                                    placeholder='Busque un supervisor...'
+                                    placeholder='Busque una zona...'
                                     className='h-9 text-sm lg:text-[15px]'
                                   />
                                   <CommandEmpty>
-                                    Supervisor no encontrado.
+                                    Zona no encontrada.
                                   </CommandEmpty>
                                   <CommandGroup className='max-h-[200px] h-auto'>
-                                    {supervisors.map((supervisor) => (
+                                    {zones.map((zone) => (
                                       <CommandItem
                                         className='text-[13px] md:text-[14px]'
-                                        value={supervisor.label}
-                                        key={supervisor.value}
+                                        value={zone.label}
+                                        key={zone.value}
                                         onSelect={() => {
-                                          formZone.setValue(
-                                            'theirSupervisor',
-                                            supervisor.value
+                                          formSearchZone.setValue(
+                                            'zoneName',
+                                            zone.value
                                           );
-                                          setOpenSupervisor(false);
+                                          setOpenSearchZoneUpdate(false);
                                         }}
                                       >
-                                        {supervisor.label}
+                                        {zone.label}
                                         <CheckIcon
                                           className={cn(
                                             'ml-auto h-4 w-4',
-                                            supervisor.value === field.value
+                                            zone.value === field.value
                                               ? 'opacity-100'
                                               : 'opacity-0'
                                           )}
@@ -502,37 +740,314 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                                 </Command>
                               </PopoverContent>
                             </Popover>
-                            <FormMessage />
+                            <span
+                              className={cn(
+                                `text-red-500 text-[12px] md:text-[13px] font-medium`,
+                                formSearchZone.getValues('zoneName') && 'hidden'
+                              )}
+                            >
+                              Por favor elige un Supervisor.
+                            </span>
                           </FormItem>
                         );
                       }}
                     />
-                    <AlertDialogFooter className='col-start-1 col-end-3'>
-                      <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                      <AlertDialogAction type='submit'>
-                        Aceptar
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
+                    <Button
+                      disabled={isSearchButtonDisabled}
+                      type='submit'
+                      className='mt-[3.5rem]'
+                    >
+                      Buscar
+                    </Button>
                   </form>
                 </Form>
+
+                {/* Update Zone */}
+                {!showEditMode && (
+                  <Form {...formUpdateZone}>
+                    <form
+                      onSubmit={formUpdateZone.handleSubmit(
+                        handleSubmitUpdateZone
+                      )}
+                      className='max-w-[60rem] w-full flex flex-col md:grid sm:grid-cols-2 gap-x-8 gap-y-7'
+                    >
+                      <span className='inline-block col-start-1 col-end-3 row-start-1 row-end-2 mt-4 font-medium text-green-500'>
+                        Editar zona seleccionada
+                      </span>
+                      <FormField
+                        control={formUpdateZone.control}
+                        name='zoneName'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className='col-start-1 col-end-2 row-start-2 row-end-3'>
+                              <FormLabel className='text-[13px] sm:text-[14px] font-medium'>
+                                Nombre
+                              </FormLabel>
+
+                              <FormControl>
+                                <Input
+                                  className='text-black dark:text-white'
+                                  placeholder='Eje: A, Tahua-1, P-1...'
+                                  type='text'
+                                  {...field}
+                                />
+                              </FormControl>
+                              <span
+                                className={cn(
+                                  `text-red-500 text-[12px] md:text-[13px] font-medium px-2`,
+                                  formUpdateZone.getValues('zoneName') &&
+                                    'hidden'
+                                )}
+                              >
+                                Por favor ingresa un nombre.
+                              </span>
+                              <FormMessage />
+                            </FormItem>
+                          );
+                        }}
+                      />
+                      <FormField
+                        control={formUpdateZone.control}
+                        name='country'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className=''>
+                              <FormLabel className='text-[13px] sm:text-[14px] font-medium'>
+                                País
+                              </FormLabel>
+
+                              <FormControl>
+                                <Input
+                                  className='text-black dark:text-white'
+                                  placeholder='Eje: A, Tahua-1, P-1...'
+                                  type='text'
+                                  {...field}
+                                />
+                              </FormControl>
+                              <span
+                                className={cn(
+                                  `text-red-500 text-[12px] md:text-[13px] font-medium px-2`,
+                                  formUpdateZone.getValues('country') &&
+                                    'hidden'
+                                )}
+                              >
+                                Por favor ingresa un nombre.
+                              </span>
+                            </FormItem>
+                          );
+                        }}
+                      />
+                      <FormField
+                        control={formUpdateZone.control}
+                        name='department'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className=''>
+                              <FormLabel className='text-[13px] sm:text-[14px] font-medium'>
+                                Departamento
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  className='text-black dark:text-white'
+                                  placeholder='Eje: A, Tahua-1, P-1...'
+                                  type='text'
+                                  {...field}
+                                />
+                              </FormControl>
+                              <span
+                                className={cn(
+                                  `text-red-500 text-[12px] md:text-[13px] font-medium px-2`,
+                                  formUpdateZone.getValues('department') &&
+                                    'hidden'
+                                )}
+                              >
+                                Por favor ingresa un nombre.
+                              </span>
+                            </FormItem>
+                          );
+                        }}
+                      />
+                      <FormField
+                        control={formUpdateZone.control}
+                        name='province'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className=''>
+                              <FormLabel className='text-[13px] sm:text-[14px] font-medium'>
+                                Provincia
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  className='text-black dark:text-white'
+                                  placeholder='Eje: A, Tahua-1, P-1...'
+                                  type='text'
+                                  {...field}
+                                />
+                              </FormControl>
+                              <span
+                                className={cn(
+                                  `text-red-500 text-[12px] md:text-[13px] font-medium px-2`,
+                                  formUpdateZone.getValues('province') &&
+                                    'hidden'
+                                )}
+                              >
+                                Por favor ingresa un nombre.
+                              </span>
+                            </FormItem>
+                          );
+                        }}
+                      />
+                      <FormField
+                        control={formUpdateZone.control}
+                        name='district'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className=''>
+                              <FormLabel className='text-[13px] sm:text-[14px] font-medium'>
+                                Distrito
+                              </FormLabel>
+                              <FormControl>
+                                <Input
+                                  className='text-black dark:text-white'
+                                  placeholder='Eje: A, Tahua-1, P-1...'
+                                  type='text'
+                                  {...field}
+                                />
+                              </FormControl>
+                              <span
+                                className={cn(
+                                  `text-red-500 text-[12px] md:text-[13px] font-medium px-2`,
+                                  formUpdateZone.getValues('district') &&
+                                    'hidden'
+                                )}
+                              >
+                                Por favor ingresa un nombre.
+                              </span>
+                            </FormItem>
+                          );
+                        }}
+                      />
+                      <FormField
+                        control={formUpdateZone.control}
+                        name='theirSupervisor'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className='md:col-start-2 md:col-end-3 md:row-start-2 md:row-end-3 flex flex-col'>
+                              <FormLabel className='text-[13px] sm:text-[14px] lg:text-[15px] font-bold'>
+                                Supervisor
+                              </FormLabel>
+
+                              <Popover
+                                open={openSupervisor}
+                                onOpenChange={setOpenSupervisor}
+                              >
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      variant='outline'
+                                      role='combobox'
+                                      className={cn(
+                                        'w-full justify-between text-black dark:text-white',
+                                        !field.value &&
+                                          'text-slate-400 font-normal'
+                                      )}
+                                    >
+                                      {field.value
+                                        ? supervisors.find(
+                                            (supervisor) =>
+                                              supervisor.value === field.value
+                                          )?.label
+                                        : 'Busque y seleccione un supervisor'}
+                                      <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent
+                                  align='center'
+                                  className='w-auto p-2'
+                                >
+                                  <Command>
+                                    <CommandInput
+                                      placeholder='Busque un supervisor...'
+                                      className='h-9 text-sm lg:text-[15px]'
+                                    />
+                                    <CommandEmpty>
+                                      Supervisor no encontrado.
+                                    </CommandEmpty>
+                                    <CommandGroup className='max-h-[200px] h-auto'>
+                                      {supervisors.map((supervisor) => (
+                                        <CommandItem
+                                          className='text-[13px] md:text-[14px]'
+                                          value={supervisor.label}
+                                          key={supervisor.value}
+                                          onSelect={() => {
+                                            formUpdateZone.setValue(
+                                              'theirSupervisor',
+                                              supervisor.value
+                                            );
+                                            setOpenSupervisor(false);
+                                          }}
+                                        >
+                                          {supervisor.label}
+                                          <CheckIcon
+                                            className={cn(
+                                              'ml-auto h-4 w-4',
+                                              supervisor.value === field.value
+                                                ? 'opacity-100'
+                                                : 'opacity-0'
+                                            )}
+                                          />
+                                        </CommandItem>
+                                      ))}
+                                    </CommandGroup>
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
+                              <span
+                                className={cn(
+                                  `text-red-500 text-[12px] md:text-[13px] font-medium`,
+                                  formUpdateZone.getValues('theirSupervisor') &&
+                                    'hidden'
+                                )}
+                              >
+                                Por favor elige un Supervisor.
+                              </span>
+                            </FormItem>
+                          );
+                        }}
+                      />
+
+                      <AlertDialogFooter className='col-start-1 col-end-3'>
+                        <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                        <AlertDialogAction
+                          disabled={isButtonDisabled}
+                          type='submit'
+                        >
+                          Guardar cambios
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </form>
+                  </Form>
+                )}
               </div>
             </AlertDialogHeader>
           </AlertDialogContent>
         </AlertDialog>
       </div>
 
+      {/* //! Formulario de creación de casa familiar  */}
       <p className='dark:text-slate-300 text-left font-sans text-[14px] font-bold px-4 sm:px-10 text-sm md:text-[15px] xl:text-base  2xl:text-center'>
         Por favor llena los siguientes datos para crear una nueva casa familiar.
       </p>
 
       <div className='flex min-h-screen flex-col items-center justify-between px-8 py-4 sm:px-10 sm:py-8 2xl:px-36 2xl:py-8'>
-        <Form {...form}>
+        <Form {...formFamilyHouse}>
           <form
-            onSubmit={form.handleSubmit(handleSubmit)}
+            onSubmit={formFamilyHouse.handleSubmit(handleSubmit)}
             className='max-w-[60rem] w-full flex flex-col md:grid sm:grid-cols-2 gap-x-10 gap-y-7'
           >
             <FormField
-              control={form.control}
+              control={formFamilyHouse.control}
               name='zone'
               render={({ field }) => {
                 return (
@@ -543,7 +1058,10 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                     <FormDescription className='text-sm lg:text-[15px]'>
                       Asignar una zona a la que pertenecerá la casa familiar.
                     </FormDescription>
-                    <Popover open={openZone} onOpenChange={setOpenZone}>
+                    <Popover
+                      open={openSearchZone}
+                      onOpenChange={setOpenSearchZone}
+                    >
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
@@ -576,8 +1094,8 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                                 value={zone.label}
                                 key={zone.value}
                                 onSelect={() => {
-                                  form.setValue('zone', zone.value);
-                                  setOpenZone(false);
+                                  formFamilyHouse.setValue('zone', zone.value);
+                                  setOpenSearchZone(false);
                                 }}
                               >
                                 {zone.label}
@@ -602,7 +1120,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
             />
 
             <FormField
-              control={form.control}
+              control={formFamilyHouse.control}
               name='theirPreacher'
               render={({ field }) => {
                 return (
@@ -649,7 +1167,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                                 value={preacher.label}
                                 key={preacher.value}
                                 onSelect={() => {
-                                  form.setValue(
+                                  formFamilyHouse.setValue(
                                     'theirPreacher',
                                     preacher.value
                                   );
@@ -677,7 +1195,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
               }}
             />
             <FormField
-              control={form.control}
+              control={formFamilyHouse.control}
               name='houseName'
               render={({ field }) => {
                 return (
@@ -705,7 +1223,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
               }}
             />
             <FormField
-              control={form.control}
+              control={formFamilyHouse.control}
               name='country'
               render={({ field }) => {
                 return (
@@ -733,7 +1251,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
               }}
             />
             <FormField
-              control={form.control}
+              control={formFamilyHouse.control}
               name='department'
               render={({ field }) => {
                 return (
@@ -761,7 +1279,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
               }}
             />
             <FormField
-              control={form.control}
+              control={formFamilyHouse.control}
               name='province'
               render={({ field }) => {
                 return (
@@ -789,7 +1307,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
               }}
             />
             <FormField
-              control={form.control}
+              control={formFamilyHouse.control}
               name='district'
               render={({ field }) => {
                 return (
@@ -817,7 +1335,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
               }}
             />
             <FormField
-              control={form.control}
+              control={formFamilyHouse.control}
               name='address'
               render={({ field }) => {
                 return (
