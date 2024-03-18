@@ -1,8 +1,8 @@
 
 
 export interface FamilyHouseData {
-  zone: string;
-  nameHouse: string;
+  zoneName: string;
+  houseName: string;
   country: string;
   department: string;
   province: string;
@@ -12,8 +12,8 @@ export interface FamilyHouseData {
 }
 
 export type DataFamilyHouseKeys =
-  |'zone' 
-  |'nameHouse' 
+  |'zoneName' 
+  |'houseName' 
   |'country' 
   |'department' 
   |'province' 

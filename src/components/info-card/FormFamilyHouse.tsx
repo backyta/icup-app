@@ -48,24 +48,13 @@ import {
 
 import { formFamilyHouseSchema } from '@/validations';
 import { preachers, zones } from '@/data';
-import { type FamilyHouseData } from '@/interfaces';
+import { type DataFamilyHouseKeys, type FamilyHouseData } from '@/interfaces';
+import { Toaster, toast } from 'sonner';
 
-//* Creación de Casa Familiar
-// ? Primer paso
-// Selecciona la zona en el form, y se manda una solicitud busca al menos una casa con esa zona, y ve su supervisor
-// si existe al menos una trae los predicadores de ese supervisor que estén disponibles osea que no tengan
-// ninguna casa registrada con el o ella, si no existe ninguna casa, muestra todos los
-// predicadores para setear el primer valor
-
-//! Que pasa si un supervisor se va o elimina?
-// Va busca la info encuentra casas con cierta Zona y predicadores, pero encuentra null el supervisor.
-// Entonces regresa un error diciendo que no hay supervisor registrado para esta zona y predicadores
-// "parece que los predicadores no tiene relación con algún supervisor, por favor asignar un supervisor para"
-// "estos predicadores .... []" (Mostrar en alerta.. o modal) (buscamos en predicadores a todos los huérfanos)
-// La búsqueda debe ser un tipo de búsqueda (Sin relaciones) , buscar predicadores sin (pastor, copastor, o supervisor)
-
-// De esta manera una vez que seteamos el nuevo supervisor, lo toma la búsqueda de zona y me devuelve los
-// predicadores disponibles
+// Si quiero modificar la casa, la zona si cambia debe tener un predicador que tenga un supervisor
+// a cargo de esa zona, los predicadores deben estar disponibles de lo contrario lanzar error
+// Al hacer click hacer lógica para consultar datos de los preacher disponibles según la zona y su supervisor
+// Si no hay se lanza un error diciendo que no hay predicadores disponibles  (deshabilitar el botón si lanza error)
 
 // ? Esto seria en la búsqueda del Update
 // TODO : debería hacer una búsqueda(search by) por miembros y casas (huérfanos) (hacer select de los their),
@@ -77,13 +66,13 @@ import { type FamilyHouseData } from '@/interfaces';
 // NOTE : hacer llamado según el ID para traer la data
 
 const data: FamilyHouseData = {
-  zone: 'zone-1',
-  nameHouse: 'Guerreros de Jehova',
+  zoneName: zones[1].value,
+  houseName: 'Los Guerreros de Dios',
   country: 'Peru',
   department: 'Lima',
   province: 'Lima',
-  district: 'Lima',
-  address: 'Av. Coricancha 123',
+  district: 'Independencia',
+  address: 'Av. Hayan Capac 123',
   theirPreacher: 'id2',
 };
 
@@ -110,12 +99,14 @@ export const FormFamilyHouse = ({ onSubmit }: FormMemberProps): JSX.Element => {
   const [openPreacher, setOpenPreacher] = useState(false);
   const [openZone, setOpenZone] = useState(false);
 
-  const [disableInput, setDisableInput] = useState(true);
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
+
+  const [disableInput, setDisableInput] = useState(false);
 
   const form = useForm<z.infer<typeof formFamilyHouseSchema>>({
     resolver: zodResolver(formFamilyHouseSchema),
     defaultValues: {
-      zone: '',
+      zoneName: '',
       houseName: '',
       country: '',
       department: '',
@@ -124,17 +115,58 @@ export const FormFamilyHouse = ({ onSubmit }: FormMemberProps): JSX.Element => {
       address: '',
     },
   });
-
   //* Watchers
-  const watchZone = form.watch('zone');
+
+  const watchPreacher = form.watch('theirPreacher');
+  const watchZoneName = form.watch('zoneName');
+  const watchCountry = form.watch('country');
+  const watchDepartment = form.watch('department');
+  const watchProvince = form.watch('province');
+  const watchDistrict = form.watch('district');
+  const watchAddress = form.watch('address');
 
   useEffect(() => {
-    if (form.getValues('zone')) {
-      //* hacer llamada a api con el valor de la zona y setear los datos en un estado
-      //* si regresa 0 setear todos los predicadores, si encuentra regresa los predicadores según su supervisor (disponibles)
-      setDisableInput(false);
+    for (const key in data) {
+      form.setValue(
+        key as DataFamilyHouseKeys,
+        data[key as DataFamilyHouseKeys]
+      );
     }
-  }, [watchZone]);
+  }, []);
+
+  useEffect(() => {
+    if (
+      form.getValues('zoneName') &&
+      form.getValues('country') &&
+      form.getValues('department') &&
+      form.getValues('province') &&
+      form.getValues('district') &&
+      form.getValues('address') &&
+      form.getValues('theirPreacher')
+    ) {
+      setIsSubmitButtonDisabled(false);
+    }
+
+    if (
+      !form.getValues('zoneName') ||
+      !form.getValues('country') ||
+      !form.getValues('department') ||
+      !form.getValues('province') ||
+      !form.getValues('district') ||
+      !form.getValues('address') ||
+      !form.getValues('theirPreacher')
+    ) {
+      setIsSubmitButtonDisabled(true);
+    }
+  }, [
+    watchPreacher,
+    watchZoneName,
+    watchCountry,
+    watchDepartment,
+    watchProvince,
+    watchDistrict,
+    watchAddress,
+  ]);
 
   const handleSubmit = (
     values: z.infer<typeof formFamilyHouseSchema>
@@ -168,7 +200,7 @@ export const FormFamilyHouse = ({ onSubmit }: FormMemberProps): JSX.Element => {
               >
                 <FormField
                   control={form.control}
-                  name='zone'
+                  name='zoneName'
                   render={({ field }) => {
                     return (
                       <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
@@ -183,6 +215,7 @@ export const FormFamilyHouse = ({ onSubmit }: FormMemberProps): JSX.Element => {
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
+                                disabled={disableInput}
                                 variant='outline'
                                 role='combobox'
                                 className={cn(
@@ -213,7 +246,7 @@ export const FormFamilyHouse = ({ onSubmit }: FormMemberProps): JSX.Element => {
                                     value={zone.label}
                                     key={zone.value}
                                     onSelect={() => {
-                                      form.setValue('zone', zone.value);
+                                      form.setValue('zoneName', zone.value);
                                       setOpenZone(false);
                                     }}
                                   >
@@ -261,8 +294,7 @@ export const FormFamilyHouse = ({ onSubmit }: FormMemberProps): JSX.Element => {
                                 role='combobox'
                                 className={cn(
                                   'w-full justify-between',
-                                  !field.value && 'text-slate-400 font-normal',
-                                  disableInput && 'dark:bg-gray-100 bg-gray-300'
+                                  !field.value && 'text-slate-400 font-normal'
                                 )}
                               >
                                 {field.value
@@ -320,7 +352,7 @@ export const FormFamilyHouse = ({ onSubmit }: FormMemberProps): JSX.Element => {
                 />
                 <FormField
                   control={form.control}
-                  name='nameHouse'
+                  name='houseName'
                   render={({ field }) => {
                     return (
                       <FormItem>
@@ -332,9 +364,6 @@ export const FormFamilyHouse = ({ onSubmit }: FormMemberProps): JSX.Element => {
                         </FormDescription>
                         <FormControl>
                           <Input
-                            className={cn(
-                              disableInput && 'dark:bg-gray-100 bg-gray-300'
-                            )}
                             disabled={disableInput}
                             placeholder='Eje: Los Guerreros de Dios...'
                             type='text'
@@ -360,9 +389,6 @@ export const FormFamilyHouse = ({ onSubmit }: FormMemberProps): JSX.Element => {
                         </FormDescription>
                         <FormControl>
                           <Input
-                            className={cn(
-                              disableInput && 'dark:bg-gray-100 bg-gray-300'
-                            )}
                             disabled={disableInput}
                             placeholder='Eje: Peru, Colombia, Ecuador...'
                             type='text'
@@ -389,9 +415,6 @@ export const FormFamilyHouse = ({ onSubmit }: FormMemberProps): JSX.Element => {
                         </FormDescription>
                         <FormControl>
                           <Input
-                            className={cn(
-                              disableInput && 'dark:bg-gray-100 bg-gray-300'
-                            )}
                             disabled={disableInput}
                             placeholder='Eje: Lima, Puno, Huanuco...'
                             type='text'
@@ -418,9 +441,6 @@ export const FormFamilyHouse = ({ onSubmit }: FormMemberProps): JSX.Element => {
                         </FormDescription>
                         <FormControl>
                           <Input
-                            className={cn(
-                              disableInput && 'dark:bg-gray-100 bg-gray-300'
-                            )}
                             disabled={disableInput}
                             placeholder='Eje: Lima, Huamanga, Huaraz...'
                             type='text'
@@ -446,9 +466,6 @@ export const FormFamilyHouse = ({ onSubmit }: FormMemberProps): JSX.Element => {
                         </FormDescription>
                         <FormControl>
                           <Input
-                            className={cn(
-                              disableInput && 'dark:bg-gray-100 bg-gray-300'
-                            )}
                             disabled={disableInput}
                             placeholder='Comas, Independencia, Carabayllo...'
                             type='text'
@@ -475,9 +492,6 @@ export const FormFamilyHouse = ({ onSubmit }: FormMemberProps): JSX.Element => {
                         </FormDescription>
                         <FormControl>
                           <Input
-                            className={cn(
-                              disableInput && 'dark:bg-gray-100 bg-gray-300'
-                            )}
                             disabled={disableInput}
                             placeholder='Av. Central 123...'
                             type='text'
@@ -489,13 +503,35 @@ export const FormFamilyHouse = ({ onSubmit }: FormMemberProps): JSX.Element => {
                     );
                   }}
                 />
+                <div className='w-[20rem] mx-auto col-start-1 col-end-3 text-sm md:text-md xl:text-base mt-4'>
+                  <Toaster position='top-center' richColors />
+                  <Button
+                    disabled={isSubmitButtonDisabled}
+                    type='submit'
+                    className='w-full text-[14px]'
+                    onClick={() => {
+                      // TODO : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                      setTimeout(() => {
+                        if (Object.keys(form.formState.errors).length === 0) {
+                          toast.success('Cambios guardados correctamente', {
+                            position: 'top-center',
+                            className: 'justify-center',
+                          });
 
-                <Button
-                  type='submit'
-                  className='w-[20rem] mx-auto col-start-1 col-end-3 text-sm md:text-md xl:text-base mt-12'
-                >
-                  Guardar cambios
-                </Button>
+                          setDisableInput(true);
+                          setIsSubmitButtonDisabled(true);
+                        }
+                      }, 100);
+                      setTimeout(() => {
+                        if (Object.keys(form.formState.errors).length === 0) {
+                          onSubmit();
+                        }
+                      }, 1700);
+                    }}
+                  >
+                    Guardar cambios
+                  </Button>
+                </div>
               </form>
             </Form>
           </CardContent>

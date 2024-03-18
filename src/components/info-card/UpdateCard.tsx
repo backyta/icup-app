@@ -6,13 +6,7 @@ import { useMediaQuery } from '@react-hook/media-query';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 
-import {
-  TabsCardUser,
-  TabsCardOffering,
-  TabsCardFamilyHome,
-  FormMember,
-  FormFamilyHouse,
-} from '.';
+import { TabsCardUser, FormMember, FormFamilyHouse, FormOffering } from '.';
 
 // TODO : mover este UPDATE CARD y form member a otra carpeta de componente - update-card
 
@@ -59,8 +53,8 @@ export const UpdateCard = (): JSX.Element => {
             <FormFamilyHouse onSubmit={handleContainerClose} />
           )}
 
-          {currentPath === '/offerings/update-offerings' && (
-            <TabsCardOffering />
+          {currentPath === '/offerings/update-offering' && (
+            <FormOffering onSubmit={handleContainerClose} />
           )}
 
           {currentPath === '/users/update-users' && <TabsCardUser />}
@@ -86,10 +80,12 @@ export const UpdateCard = (): JSX.Element => {
         )}
 
         {currentPath === '/family-houses/update-family-house' && (
-          <TabsCardFamilyHome />
+          <FormFamilyHouse onSubmit={handleContainerClose} />
         )}
 
-        {currentPath === '/offerings/update-offerings' && <TabsCardOffering />}
+        {currentPath === '/offerings/update-offering' && (
+          <FormOffering onSubmit={handleContainerClose} />
+        )}
 
         {currentPath === '/users/update-users' && <TabsCardUser />}
       </DialogContent>

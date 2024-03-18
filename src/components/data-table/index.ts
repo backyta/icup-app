@@ -5,4 +5,5 @@ export * from './family-house-update-columns';
 export * from './member-columns';
 export * from './member-update-columns';
 export * from './offering-columns';
+export * from './offering-update-columns';
 export * from './user-columns';

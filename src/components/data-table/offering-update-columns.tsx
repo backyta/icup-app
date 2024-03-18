@@ -9,15 +9,19 @@ import { Button } from '@/components/ui/button';
 import { InfoCard } from '../info-card/InfoCard';
 import { UpdateCard } from '..';
 
-interface FamilyHouse {
+interface Offering {
   id: string;
-  zone: string;
-  code: string;
-  name_house: string;
-  count_members: number;
+  type: string; // hacer mapping
+  sub_type?: string;
+  amount: number;
+  currency: string;
 }
 
-export const familyHouseUpdateColumns: Array<ColumnDef<FamilyHouse, any>> = [
+// TODO : lo otro seria pasar el id de la DB del registro aca y que lo tome el button y con eso hacer la solicitud
+// TODO : y tmb ocultar ese ID con un map para que se enumero de 1, 2....
+
+// NOTE: usar este mismo método para la data del dashboard en el botón.
+export const offeringUpdateColumns: Array<ColumnDef<Offering, any>> = [
   {
     accessorKey: 'id',
     header: ({ column }) => {
@@ -36,7 +40,7 @@ export const familyHouseUpdateColumns: Array<ColumnDef<FamilyHouse, any>> = [
     },
   },
   {
-    accessorKey: 'zone',
+    accessorKey: 'type',
     header: ({ column }) => {
       return (
         <Button
@@ -46,14 +50,14 @@ export const familyHouseUpdateColumns: Array<ColumnDef<FamilyHouse, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Zona
+          Tipo de ofrenda
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'code',
+    accessorKey: 'sub_type',
     header: ({ column }) => {
       return (
         <Button
@@ -63,14 +67,14 @@ export const familyHouseUpdateColumns: Array<ColumnDef<FamilyHouse, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Código
+          Sub-tipo de ofrenda
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'name_house',
+    accessorKey: 'amount',
     header: ({ column }) => {
       return (
         <Button
@@ -80,14 +84,14 @@ export const familyHouseUpdateColumns: Array<ColumnDef<FamilyHouse, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Nombre de Casa Familiar
+          Cantidad / Monto
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
   },
   {
-    accessorKey: 'count_members',
+    accessorKey: 'currency',
     header: ({ column }) => {
       return (
         <Button
@@ -97,20 +101,18 @@ export const familyHouseUpdateColumns: Array<ColumnDef<FamilyHouse, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Cantidad de Miembros
+          Divisa / Moneda
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
     },
   },
-
   {
     id: 'showInfo',
     cell: () => {
       return <InfoCard />;
     },
   },
-
   {
     id: 'updateInfo',
     cell: () => {

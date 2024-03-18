@@ -1,5 +1,6 @@
 export * from './FormFamilyHouse';
 export * from './FormMember';
+export * from './FormOffering';
 export * from './InfoCard';
 export * from './TabsCardFamilyHome';
 export * from './TabsCardMember';

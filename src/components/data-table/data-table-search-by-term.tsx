@@ -305,44 +305,45 @@ export function DataTableSearchByTerm<TData, TValue>({
               />
             )}
 
-            {subType === SubTypeSearch.offeringZone ||
+            {(subType === SubTypeSearch.offeringZone ||
               subType === SubTypeSearch.offeringDateZone ||
               subType === SubTypeSearch.offeringCodeHouse ||
-              subType === SubTypeSearch.offeringDateCodeHouse ||
-              (type !== TypeSearch.firstName &&
-                type !== TypeSearch.lastName &&
-                type !== TypeSearch.fullName &&
-                type !== TypeSearch.monthBirth &&
-                type !== TypeSearch.dateBirth &&
-                type !== TypeSearch.gender &&
-                type !== TypeSearch.maritalStatus &&
-                type !== TypeSearch.isActive &&
-                type !== TypeSearch.tithe &&
-                type !== TypeSearch.sunday_worship &&
-                type !== undefined && (
-                  <FormField
-                    control={form.control}
-                    name='termInput'
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className='text-[13px] md:text-sm'>
-                          Termino
-                        </FormLabel>
-                        <FormDescription className='text-[12px] md:text-[13px]'>
-                          Escribe aquí lo que deseas buscar.
-                        </FormDescription>
-                        <FormControl>
-                          <Input
-                            className='text-[12px] md:text-[13px]'
-                            placeholder='Eje: C-2, Av.Central 123, Lima ....'
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                ))}
+              subType === SubTypeSearch.offeringDateCodeHouse) &&
+              type !== TypeSearch.firstName &&
+              type !== TypeSearch.lastName &&
+              type !== TypeSearch.fullName &&
+              type !== TypeSearch.monthBirth &&
+              type !== TypeSearch.dateBirth &&
+              type !== TypeSearch.gender &&
+              type !== TypeSearch.maritalStatus &&
+              type !== TypeSearch.isActive &&
+              type !== TypeSearch.tithe &&
+              type !== TypeSearch.sunday_worship &&
+              // type !== TypeSearch.family_house &&
+              type !== undefined && (
+                <FormField
+                  control={form.control}
+                  name='termInput'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className='text-[13px] md:text-sm'>
+                        Termino
+                      </FormLabel>
+                      <FormDescription className='text-[12px] md:text-[13px]'>
+                        Escribe aquí lo que deseas buscar.
+                      </FormDescription>
+                      <FormControl>
+                        <Input
+                          className='text-[12px] md:text-[13px]'
+                          placeholder='Eje: C-2, Av.Central 123, Lima ....'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
 
             {(type === TypeSearch.dateBirth ||
               subType === SubTypeSearch.titheDate ||
@@ -832,51 +833,55 @@ export function DataTableSearchByTerm<TData, TValue>({
           </div>
         )}
 
-      {!disabled && currentPath === '/offerings/search-by-term-offerings' && (
-        <div className='pb-8 lg:pb-8 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
-          <Button
-            variant='ghost'
-            className='w-[8rem] m-auto text-[13px] lg:text-[14px] h-full md:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
-            onClick={() => {
-              setDisabled(true);
-              table.getColumn('type')?.setFilterValue('');
-              table.getColumn('sub_type')?.setFilterValue('');
-            }}
-          >
-            Nueva Búsqueda
-          </Button>
-          <Input
-            placeholder='Filtro por tipo de ofrenda...'
-            value={(table.getColumn('type')?.getFilterValue() as string) ?? ''}
-            onChange={(event) =>
-              table.getColumn('type')?.setFilterValue(event.target.value)
-            }
-            className='text-[13px] lg:text-[14px] w-full'
-            disabled={disabled}
-          />
-          <Input
-            placeholder='Filtro por código de casa...'
-            value={
-              (table.getColumn('sub_type')?.getFilterValue() as string) ?? ''
-            }
-            onChange={(event) =>
-              table.getColumn('sub_type')?.setFilterValue(event.target.value)
-            }
-            className='col-start-1 col-end-2 text-[13px] lg:text-[14px] w-full'
-            disabled={disabled}
-          />
-          <Button
-            variant='ghost'
-            className='w-[6rem] m-auto text-[13px] lg:text-[14px] h-full md:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-400 dark:bg-red-500 dark:hover:bg-red-400 dark:hover:text-red-950'
-            onClick={() => {
-              table.getColumn('type')?.setFilterValue('');
-              table.getColumn('sub_type')?.setFilterValue('');
-            }}
-          >
-            Borrar
-          </Button>
-        </div>
-      )}
+      {!disabled &&
+        (currentPath === '/offerings/search-by-term-offerings' ||
+          currentPath === '/offerings/update-offering') && (
+          <div className='pb-8 lg:pb-8 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
+            <Button
+              variant='ghost'
+              className='w-[8rem] m-auto text-[13px] lg:text-[14px] h-full md:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 dark:hover:text-green-950'
+              onClick={() => {
+                setDisabled(true);
+                table.getColumn('type')?.setFilterValue('');
+                table.getColumn('sub_type')?.setFilterValue('');
+              }}
+            >
+              Nueva Búsqueda
+            </Button>
+            <Input
+              placeholder='Filtro por tipo de ofrenda...'
+              value={
+                (table.getColumn('type')?.getFilterValue() as string) ?? ''
+              }
+              onChange={(event) =>
+                table.getColumn('type')?.setFilterValue(event.target.value)
+              }
+              className='text-[13px] lg:text-[14px] w-full'
+              disabled={disabled}
+            />
+            <Input
+              placeholder='Filtro por código de casa...'
+              value={
+                (table.getColumn('sub_type')?.getFilterValue() as string) ?? ''
+              }
+              onChange={(event) =>
+                table.getColumn('sub_type')?.setFilterValue(event.target.value)
+              }
+              className='col-start-1 col-end-2 text-[13px] lg:text-[14px] w-full'
+              disabled={disabled}
+            />
+            <Button
+              variant='ghost'
+              className='w-[6rem] m-auto text-[13px] lg:text-[14px] h-full md:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-400 dark:bg-red-500 dark:hover:bg-red-400 dark:hover:text-red-950'
+              onClick={() => {
+                table.getColumn('type')?.setFilterValue('');
+                table.getColumn('sub_type')?.setFilterValue('');
+              }}
+            >
+              Borrar
+            </Button>
+          </div>
+        )}
 
       {!disabled && currentPath === '/users/search-by-term-users' && (
         <div className='pb-8 lg:pb-8 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>

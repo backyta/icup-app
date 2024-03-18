@@ -34,6 +34,7 @@ import {
   UpdateCopastorPage,
   UpdateLeaderPage,
   UpdateFamilyHousePage,
+  UpdateOfferingPage,
 } from '@/pages';
 import { PastorOptionsPage } from '@/pages/pastor/PastorOptionsPage';
 import { FormFamilyHouse, FormMember } from '@/components';
@@ -197,8 +198,8 @@ export const router = createBrowserRouter([
           },
           {
             path: '/family-houses/update-family-house',
-            // element: <UpdateFamilyHousePage />,
-            element: <FormFamilyHouse />,
+            element: <UpdateFamilyHousePage />,
+            // element: <FormFamilyHouse />,
           },
         ],
       },
@@ -218,6 +219,11 @@ export const router = createBrowserRouter([
           {
             path: '/offerings/search-by-term-offerings',
             element: <OfferingsSearchPageByTerm />,
+          },
+          {
+            path: '/offerings/update-offering',
+            element: <UpdateOfferingPage />,
+            // element: <FormFamilyHouse />,
           },
         ],
       },

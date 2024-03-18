@@ -59,7 +59,7 @@ import {
 import { formOfferingSchema } from '@/validations';
 import { type FilesProps, type RejectedProps } from '@/interfaces';
 
-const members = [
+export const members = [
   { label: 'Abigail Angeli Porras Angeles', value: 'id1' },
   { label: 'Kevin Michael Baca Angeles', value: 'id2' },
   { label: 'Luisa Margarita Angeles Tolentino', value: 'id3' },
@@ -70,13 +70,13 @@ const members = [
   { label: 'Jairo Pedro Guitierrez Rojas', value: 'id8' },
 ] as const;
 
-const copastors = [
+export const copastors = [
   { label: 'Mercedes Lucia Aparcano Jimenez', value: 'id1' },
   { label: 'Luz Roxana Condori Perola', value: 'id2' },
   { label: 'Rosario Julia Gutierrez Solis', value: 'id3' },
 ] as const;
 
-const familyHouses = [
+export const familyHouses = [
   { label: 'Guerreros de Dios', value: 'id1' },
   { label: 'Hijos de la Fe', value: 'id2' },
   { label: 'Guardianes Celestiales', value: 'id3' },

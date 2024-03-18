@@ -144,7 +144,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
   const formFamilyHouse = useForm<z.infer<typeof formFamilyHouseSchema>>({
     resolver: zodResolver(formFamilyHouseSchema),
     defaultValues: {
-      zone: '',
+      zoneName: '',
       houseName: '',
       country: '',
       department: '',
@@ -186,7 +186,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
   // console.log(formZone.getValues());
 
   //* Watchers
-  const watchZone = formFamilyHouse.watch('zone');
+  const watchZone = formFamilyHouse.watch('zoneName');
 
   const watchCreateSupervisor = formCreateZone.watch('theirSupervisor');
   const watchCreateZoneName = formCreateZone.watch('zoneName');
@@ -274,9 +274,9 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
     watchSearchZoneName,
   ]);
 
-  console.log(formUpdateZone.getValues());
+  // console.log(formUpdateZone.getValues());
   useEffect(() => {
-    if (formFamilyHouse.getValues('zone')) {
+    if (formFamilyHouse.getValues('zoneName')) {
       setDisableInput(false);
     }
   }, [watchZone]);
@@ -1048,7 +1048,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
           >
             <FormField
               control={formFamilyHouse.control}
-              name='zone'
+              name='zoneName'
               render={({ field }) => {
                 return (
                   <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
@@ -1094,7 +1094,10 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                                 value={zone.label}
                                 key={zone.value}
                                 onSelect={() => {
-                                  formFamilyHouse.setValue('zone', zone.value);
+                                  formFamilyHouse.setValue(
+                                    'zoneName',
+                                    zone.value
+                                  );
                                   setOpenSearchZone(false);
                                 }}
                               >
@@ -1114,6 +1117,10 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                       </PopoverContent>
                     </Popover>
                     <FormMessage />
+                    <FormDescription className='text-[13px] text-red-500 font-medium'>
+                      * Si no hay zonas disponibles o quieres una nueva, deber
+                      crearla.
+                    </FormDescription>
                   </FormItem>
                 );
               }}
