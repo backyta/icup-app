@@ -58,41 +58,7 @@ import {
 
 import { formOfferingSchema } from '@/validations';
 import { type FilesProps, type RejectedProps } from '@/interfaces';
-
-export const members = [
-  { label: 'Abigail Angeli Porras Angeles', value: 'id1' },
-  { label: 'Kevin Michael Baca Angeles', value: 'id2' },
-  { label: 'Luisa Margarita Angeles Tolentino', value: 'id3' },
-  { label: 'Roxana Margot Bernal Jimenez', value: 'id4' },
-  { label: 'Pamela Chillon Castro', value: 'id5' },
-  { label: 'Carlos Alberto Carranza Ramirez', value: 'id6' },
-  { label: 'Karina Rosa Camarena Jaimes', value: 'id7' },
-  { label: 'Jairo Pedro Guitierrez Rojas', value: 'id8' },
-] as const;
-
-export const copastors = [
-  { label: 'Mercedes Lucia Aparcano Jimenez', value: 'id1' },
-  { label: 'Luz Roxana Condori Perola', value: 'id2' },
-  { label: 'Rosario Julia Gutierrez Solis', value: 'id3' },
-] as const;
-
-export const familyHouses = [
-  { label: 'Guerreros de Dios', value: 'id1' },
-  { label: 'Hijos de la Fe', value: 'id2' },
-  { label: 'Guardianes Celestiales', value: 'id3' },
-  { label: 'Ángeles de la Luz', value: 'id4' },
-  { label: 'Estrellas del Cielo', value: 'id5' },
-  { label: 'Soldados de la Verdad', value: 'id6' },
-  { label: 'Esperanza Eterna', value: 'id7' },
-  { label: 'Luz del Mundo', value: 'id8' },
-  { label: 'Hijos de la Gracia', value: 'id9' },
-  { label: 'Herederos del Reino', value: 'id10' },
-  { label: 'Paladines de la Justicia', value: 'id11' },
-  { label: 'Siervos del Altísimo', value: 'id12' },
-  { label: 'Amigos de la Paz', value: 'id13' },
-  { label: 'Caminantes del Camino', value: 'id14' },
-  { label: 'Almas Renovadas', value: 'id15' },
-] as const;
+import { copastors, familyHouses, members } from '@/data';
 
 // TODO : en ofrenda hacer la relación de ayuno y vigilia zonal al ID del miembro del encargado no al del copastor
 // TODO : por que este puede eliminarse o subir de nivel y ya no existiría

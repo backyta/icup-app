@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/non-nullable-type-assertion-style */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
@@ -56,18 +57,25 @@ import {
 } from '@/components/ui/command';
 
 import {
+  CurrencyType,
   CurrencyTypeNames,
   SubTypesOffering,
   SubTypesOfferingNames,
 } from '@/enums';
 
-import { type FilesProps, type RejectedProps } from '@/interfaces';
+import {
+  type OfferingData,
+  type FilesProps,
+  type RejectedProps,
+  type DataOfferingKeys,
+} from '@/interfaces';
 import { formOfferingSchema } from '@/validations';
-import { copastors, familyHouses } from '@/data';
+import { copastors, familyHouses, members } from '@/data';
 import { useDropzone } from 'react-dropzone';
 import { TiDeleteOutline } from 'react-icons/ti';
-import { members } from '@/pages';
+
 import { Textarea } from '../ui/textarea';
+import { Toaster, toast } from 'sonner';
 
 // TODO : dependiendo de la ruta hacer fetch a cierto modulo
 
@@ -75,17 +83,32 @@ import { Textarea } from '../ui/textarea';
 // NOTE : hay que personalizar el aviso de promover según su pagina pastor , copastor, leader....
 // NOTE : hacer llamado según el ID para traer la data
 
-// const data: OfferingData = {
-//   type: 'offering',
-//   subType: SubTypesOffering.familyHouse,
-//   amount: '20',
-//   currency: CurrencyType.euros,
-//   comments: 'Hola mundo',
-//   urlFile: ['https://...1', 'https://...2'],
-//   familyHouseID: familyHouses[1].value,
-//   memberID: members[2].value,
-//   copastorID: copastors[2].value,
-// };
+const data: OfferingData = {
+  type: 'tithe',
+  // subType: '',
+  amount: '20',
+  currency: CurrencyType.euros,
+  comments: 'Diezmo entregado 2 días después 12/03/24',
+  urlFile: ['bem.jpg', 'cuadro.png'], // pasar el link del get de la imagen de cloudDinary
+  // familyHouseID: familyHouses[1].value,
+  // copastorID: copastors[2].value,
+  memberID: members[1].value,
+};
+
+const subTypePlaceholders: Record<SubTypesOffering, string> = {
+  [SubTypesOffering.sundayWorship]: SubTypesOfferingNames.sunday_worship,
+  [SubTypesOffering.familyHouse]: SubTypesOfferingNames.family_house,
+  [SubTypesOffering.generalFasting]: SubTypesOfferingNames.general_fasting,
+  [SubTypesOffering.generalVigil]: SubTypesOfferingNames.general_vigil,
+  [SubTypesOffering.zonalFasting]: SubTypesOfferingNames.zonal_fasting,
+  [SubTypesOffering.zonalVigil]: SubTypesOfferingNames.zonal_vigil,
+  [SubTypesOffering.youthWorship]: SubTypesOfferingNames.youth_worship,
+  [SubTypesOffering.sundaySchool]: SubTypesOfferingNames.sunday_school,
+  [SubTypesOffering.churchGround]: SubTypesOfferingNames.church_ground,
+  [SubTypesOffering.activities]: SubTypesOfferingNames.activities,
+  [SubTypesOffering.special]: SubTypesOfferingNames.special,
+};
+
 // NOTE : ver si pasar mas props y colocar en interfaces folder
 interface OfferingMemberProps {
   onSubmit: () => void;
@@ -99,6 +122,10 @@ export const FormOffering = ({
   const [files, setFiles] = useState<FilesProps[]>([]);
   const [rejected, setRejected] = useState<RejectedProps[]>([]);
 
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
+
+  const [disableInput, setDisableInput] = useState(false);
+
   const form = useForm<z.infer<typeof formOfferingSchema>>({
     resolver: zodResolver(formOfferingSchema),
     defaultValues: {
@@ -106,6 +133,60 @@ export const FormOffering = ({
       comments: '',
     },
   });
+
+  //* Watchers
+  const watchType = form.watch('type');
+  const watchSubType = form.watch('subType');
+  const watchAmount = form.watch('amount');
+  const watchCurrency = form.watch('currency');
+  const watchComments = form.watch('comments');
+  const watchUrlFile = form.watch('urlFile');
+  const watchMemberId = form.watch('memberID');
+  const watchCopastorId = form.watch('copastorID');
+  const watchFamilyHouseId = form.watch('familyHouseID');
+
+  useEffect(() => {
+    if (
+      (form.getValues('type') &&
+        form.getValues('subType') &&
+        form.getValues('amount') &&
+        form.getValues('currency') &&
+        form.getValues('comments') &&
+        form.getValues('urlFile') &&
+        (form.getValues('memberID') ||
+          form.getValues('copastorID') ||
+          form.getValues('familyHouseID'))) ||
+      (form.getValues('type') &&
+        form.getValues('amount') &&
+        form.getValues('currency') &&
+        form.getValues('comments') &&
+        (form.getValues('memberID') ||
+          form.getValues('copastorID') ||
+          form.getValues('familyHouseID')))
+    ) {
+      setIsSubmitButtonDisabled(false);
+    }
+
+    if (
+      !form.getValues('type') ||
+      !form.getValues('amount') ||
+      !form.getValues('currency') ||
+      !form.getValues('comments') ||
+      !form.getValues('urlFile')
+    ) {
+      setIsSubmitButtonDisabled(true);
+    }
+  }, [
+    watchType,
+    watchSubType,
+    watchAmount,
+    watchCurrency,
+    watchComments,
+    watchUrlFile,
+    watchMemberId,
+    watchCopastorId,
+    watchFamilyHouseId,
+  ]);
 
   const onDrop = useCallback(
     (acceptedFiles: any[], rejectedFiles: any[]) => {
@@ -137,6 +218,7 @@ export const FormOffering = ({
     },
     maxSize: 1024 * 1000,
     onDrop,
+    disabled: disableInput,
   });
 
   useEffect(() => {
@@ -166,13 +248,20 @@ export const FormOffering = ({
     setRejected((files) => files.filter(({ file }) => file.name !== name));
   };
 
-  const type = form.watch('type');
-  const subType = form.watch('subType');
+  // TODO : cuando revisemos aquí hacer que la imagen que llega del back setear como imagen
+  // TODO : y hacer que sis e agregan mas vayan dentro , modificar la función no mas
+  useEffect(() => {
+    for (const key in data) {
+      form.setValue(key as DataOfferingKeys, data[key as DataOfferingKeys]);
+    }
+  }, []);
 
   const handleSubmit = (values: z.infer<typeof formOfferingSchema>): void => {
+    // form.setValue('urlFile', data.urlFile);
     console.log({ values });
   };
 
+  console.log(form.getValues());
   return (
     <Tabs
       defaultValue='general-info'
@@ -194,7 +283,7 @@ export const FormOffering = ({
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(handleSubmit)}
-                className='w-full grid sm:grid-cols-1 lg:grid-cols-2 sm:gap-10 lg:gap-y-15 lg:gap-x-20'
+                className='w-full grid sm:grid-cols-1 lg:grid-cols-2 sm:gap-10 lg:gap-y-15 lg:gap-x-20 px-2 sm:px-6'
               >
                 <div className='lg:col-start-1 lg:col-end-2'>
                   <FormField
@@ -209,10 +298,19 @@ export const FormOffering = ({
                           <FormDescription className='text-sm lg:text-[15px]'>
                             Asignar una un tipo de ofrenda al registro.
                           </FormDescription>
-                          <Select onValueChange={field.onChange}>
+                          <Select
+                            disabled={disableInput}
+                            onValueChange={field.onChange}
+                          >
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder='Selecciona una tipo de ofrenda' />
+                                <SelectValue
+                                  placeholder={
+                                    field.value === 'offering'
+                                      ? 'Ofrendas'
+                                      : 'Diezmo'
+                                  }
+                                />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
@@ -226,7 +324,7 @@ export const FormOffering = ({
                     }}
                   />
 
-                  {type === 'offering' && (
+                  {watchType === 'offering' && (
                     <FormField
                       control={form.control}
                       name='subType'
@@ -239,10 +337,19 @@ export const FormOffering = ({
                             <FormDescription className='text-sm lg:text-[15px]'>
                               Asignar una un sub-tipo de ofrenda al registro.
                             </FormDescription>
-                            <Select onValueChange={field.onChange}>
+                            <Select
+                              disabled={disableInput}
+                              onValueChange={field.onChange}
+                            >
                               <FormControl>
                                 <SelectTrigger>
-                                  <SelectValue placeholder='Selecciona una sub-tipo de ofrenda' />
+                                  <SelectValue
+                                    placeholder={
+                                      subTypePlaceholders[
+                                        field?.value as SubTypesOffering
+                                      ]
+                                    }
+                                  />
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
@@ -279,8 +386,8 @@ export const FormOffering = ({
                           </FormDescription>
                           <FormControl>
                             <Input
+                              disabled={disableInput}
                               placeholder='Monto de la ofrenda o diezmo'
-                              // autoComplete='new-password'
                               type='text'
                               {...field}
                             />
@@ -290,7 +397,7 @@ export const FormOffering = ({
                       );
                     }}
                   />
-                  {/* TODO : agregar un drop de imagen  */}
+
                   <FormField
                     control={form.control}
                     name='currency'
@@ -303,10 +410,21 @@ export const FormOffering = ({
                           <FormDescription className='text-sm lg:text-[15px]'>
                             Asignar una un tipo de divisa o moneda al registro.
                           </FormDescription>
-                          <Select onValueChange={field.onChange}>
+                          <Select
+                            disabled={disableInput}
+                            onValueChange={field.onChange}
+                          >
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder='Selecciona una tipo de divisa o moneda' />
+                                <SelectValue
+                                  placeholder={
+                                    field.value === CurrencyType.dollars
+                                      ? CurrencyTypeNames.dollars
+                                      : field.value === CurrencyType.soles
+                                        ? CurrencyTypeNames.soles
+                                        : CurrencyTypeNames.euros
+                                  }
+                                />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
@@ -335,6 +453,7 @@ export const FormOffering = ({
                           </FormLabel>
                           <FormControl>
                             <Textarea
+                              disabled={disableInput}
                               placeholder='Comentarios referente al registro de la ofrenda'
                               {...field}
                             />
@@ -344,11 +463,11 @@ export const FormOffering = ({
                       );
                     }}
                   />
-                  {(type === 'tithe' ||
-                    (type === 'offering' &&
-                      subType === SubTypesOffering.special) ||
-                    (type === 'offering' &&
-                      subType === SubTypesOffering.churchGround)) && (
+                  {(watchType === 'tithe' ||
+                    (watchType === 'offering' &&
+                      watchSubType === SubTypesOffering.special) ||
+                    (watchType === 'offering' &&
+                      watchSubType === SubTypesOffering.churchGround)) && (
                     <FormField
                       control={form.control}
                       name='memberID'
@@ -364,6 +483,7 @@ export const FormOffering = ({
                             <PopoverTrigger asChild>
                               <FormControl>
                                 <Button
+                                  disabled={disableInput}
                                   variant='outline'
                                   role='combobox'
                                   className={cn(
@@ -420,8 +540,8 @@ export const FormOffering = ({
                       )}
                     />
                   )}
-                  {type === 'offering' &&
-                    subType === SubTypesOffering.familyHouse && (
+                  {watchType === 'offering' &&
+                    watchSubType === SubTypesOffering.familyHouse && (
                       <FormField
                         control={form.control}
                         name='familyHouseID'
@@ -438,6 +558,7 @@ export const FormOffering = ({
                               <PopoverTrigger asChild>
                                 <FormControl>
                                   <Button
+                                    disabled={disableInput}
                                     variant='outline'
                                     role='combobox'
                                     className={cn(
@@ -501,10 +622,10 @@ export const FormOffering = ({
                       />
                     )}
                   {/* TODO : no copastor si no Member ID encargado, normalmente es supervisor copastor o pastor. (filtrar por esos) */}
-                  {((type === 'offering' &&
-                    subType === SubTypesOffering.zonalFasting) ||
-                    (type === 'offering' &&
-                      subType === SubTypesOffering.zonalVigil)) && (
+                  {((watchType === 'offering' &&
+                    watchSubType === SubTypesOffering.zonalFasting) ||
+                    (watchType === 'offering' &&
+                      watchSubType === SubTypesOffering.zonalVigil)) && (
                     <FormField
                       control={form.control}
                       name='copastorID'
@@ -520,6 +641,7 @@ export const FormOffering = ({
                             <PopoverTrigger asChild>
                               <FormControl>
                                 <Button
+                                  disabled={disableInput}
                                   variant='outline'
                                   role='combobox'
                                   className={cn(
@@ -624,6 +746,7 @@ export const FormOffering = ({
                         Pre-visualización
                       </h2>
                       <button
+                        disabled={disableInput}
                         type='button'
                         onClick={removeAll}
                         className='mt-1 text-[10px] lg:text-[11px] w-[8rem] md:w-[10rem] p-2 uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md  hover:bg-secondary-400 hover:text-white ease-in duration-200 hover:bg-red-500 transition-colors'
@@ -653,6 +776,7 @@ export const FormOffering = ({
                             className='h-full w-full object-contain rounded-md'
                           />
                           <button
+                            disabled={disableInput}
                             type='button'
                             className='w-7 h-7 border border-secondary-400 bg-secondary-400 rounded-full flex justify-center items-center absolute -top-3 -right-3 hover:bg-white transition-colors'
                             onClick={() => {
@@ -689,6 +813,7 @@ export const FormOffering = ({
                             </ul>
                           </div>
                           <button
+                            disabled={disableInput}
                             type='button'
                             className='mt-1 py-1 text-[12px] uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md px-3 hover:bg-red-500 hover:text-white ease-in duration-200 transition-colors'
                             onClick={() => {
@@ -703,12 +828,35 @@ export const FormOffering = ({
                   </section>
                 </div>
 
-                <Button
-                  type='submit'
-                  className='lg:col-start-1 lg:col-end-3 lg:row-start-2 lg:row-end-3 w-60 m-auto 2xl:w-80 text-[16px]'
-                >
-                  Guardar cambios
-                </Button>
+                <div className='w-[20rem] mx-auto col-start-1 col-end-3 text-sm md:text-md xl:text-base mt-4'>
+                  <Toaster position='top-center' richColors />
+                  <Button
+                    disabled={isSubmitButtonDisabled}
+                    type='submit'
+                    className='w-full text-[14px]'
+                    onClick={() => {
+                      // TODO : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                      setTimeout(() => {
+                        if (Object.keys(form.formState.errors).length === 0) {
+                          toast.success('Cambios guardados correctamente', {
+                            position: 'top-center',
+                            className: 'justify-center',
+                          });
+
+                          setDisableInput(true);
+                          setIsSubmitButtonDisabled(true);
+                        }
+                      }, 100);
+                      setTimeout(() => {
+                        if (Object.keys(form.formState.errors).length === 0) {
+                          onSubmit();
+                        }
+                      }, 1700);
+                    }}
+                  >
+                    Guardar cambios
+                  </Button>
+                </div>
               </form>
             </Form>
           </CardContent>

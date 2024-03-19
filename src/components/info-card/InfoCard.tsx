@@ -24,7 +24,10 @@ export const InfoCard = (): JSX.Element => {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant='outline' className='text-[12px] lg:text-[13px] '>
+          <Button
+            variant='outline'
+            className='text-[12px] lg:text-[13px] bg-blue-400 text-blue-950 hover:bg-blue-500 hover:text-white'
+          >
             Ver Información
           </Button>
         </DialogTrigger>
@@ -33,14 +36,19 @@ export const InfoCard = (): JSX.Element => {
           {(currentPath === '/disciples/search-disciples' ||
             currentPath === '/disciples/search-by-term-disciples' ||
             currentPath === '/disciples/update-disciple' ||
+            currentPath === '/disciples/delete-disciple' ||
             currentPath === '/pastors/search-pastors' ||
-            currentPath === '/disciples/search-by-term-pastors' ||
+            currentPath === '/pastors/search-by-term-pastors' ||
+            currentPath === '/pastors/update-pastor' ||
+            currentPath === '/pastors/delete-pastor' ||
             currentPath === '/copastors/search-copastors' ||
-            currentPath === '/disciples/search-by-term-copastors' ||
+            currentPath === '/copastors/search-by-term-copastors' ||
+            currentPath === '/copastors/update-copastor' ||
+            currentPath === '/copastors/delete-copastor' ||
             currentPath === '/leaders/search-leaders' ||
-            currentPath === '/leaders/search-by-term-leaders') && (
-            <TabsCardMember />
-          )}
+            currentPath === '/leaders/search-by-term-leaders' ||
+            currentPath === '/leaders/update-leader' ||
+            currentPath === '/leaders/delete-leader') && <TabsCardMember />}
 
           {(currentPath === '/family-houses/search-family-houses' ||
             currentPath === '/family-houses/search-by-term-family-houses' ||

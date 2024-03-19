@@ -354,7 +354,7 @@ export const FormMember = ({ onSubmit }: FormMemberProps): JSX.Element => {
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(handleSubmit)}
-                className='w-auto grid gap-y-6 sm:grid-cols-3 sm:gap-y-4 sm:gap-x-8'
+                className='w-auto grid gap-y-6 sm:grid-cols-3 sm:gap-y-4 sm:gap-x-8 px-2 ms:px-6'
               >
                 {/* Datos generales */}
 

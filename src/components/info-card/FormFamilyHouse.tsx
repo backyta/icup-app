@@ -196,7 +196,7 @@ export const FormFamilyHouse = ({ onSubmit }: FormMemberProps): JSX.Element => {
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(handleSubmit)}
-                className='max-w-[60rem] w-full flex flex-col md:grid sm:grid-cols-2 gap-x-10 gap-y-7'
+                className='max-w-[60rem] w-full flex flex-col md:grid sm:grid-cols-2 gap-x-10 gap-y-7 px-2 sm:px-6'
               >
                 <FormField
                   control={form.control}

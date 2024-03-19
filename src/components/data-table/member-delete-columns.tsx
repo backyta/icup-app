@@ -9,8 +9,9 @@ import { ArrowUpDown } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { InfoCard } from '../info-card/InfoCard';
+import { DeleteCard } from '..';
 
-export interface Member {
+interface Member {
   id: string;
   first_name: string;
   last_name: string;
@@ -23,7 +24,7 @@ export interface Member {
 // TODO : y tmb ocultar ese ID con un map para que se enumero de 1, 2....
 
 // NOTE: usar este mismo método para la data del dashboard en el botón.
-export const memberColumns: Array<ColumnDef<Member, any>> = [
+export const memberDeleteColumns: Array<ColumnDef<Member, any>> = [
   {
     accessorKey: 'id',
     header: ({ column }) => {
@@ -127,11 +128,16 @@ export const memberColumns: Array<ColumnDef<Member, any>> = [
       );
     },
   },
-
   {
     id: 'showInfo',
     cell: () => {
       return <InfoCard />;
+    },
+  },
+  {
+    id: 'deleteInfo',
+    cell: () => {
+      return <DeleteCard />;
     },
   },
 ];

@@ -9,7 +9,7 @@ export const userSchema = z
     lastName: z.string().min(1),
 
     emailAddress: z.string().email(),
-    password: z.string().min(3),
+    password: z.string().min(3), // agregar REGEX para mejorar la validación aunque eso hay en el back ya
     passwordConfirm: z.string(),
 
     roles: z.array(z.nativeEnum(UserRoles),{

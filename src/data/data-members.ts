@@ -203,3 +203,14 @@ export const familyHouses = [
   { label: 'C-4 - La Familia del Renacer', value: 'id9' },
   { label: 'B-1 - Los Hijos de la Esperanza', value: 'id10' },
 ] as const;
+
+export const members = [
+  { label: 'Abigail Angeli Porras Angeles', value: 'id1' },
+  { label: 'Kevin Michael Baca Angeles', value: 'id2' },
+  { label: 'Luisa Margarita Angeles Tolentino', value: 'id3' },
+  { label: 'Roxana Margot Bernal Jimenez', value: 'id4' },
+  { label: 'Pamela Chillon Castro', value: 'id5' },
+  { label: 'Carlos Alberto Carranza Ramirez', value: 'id6' },
+  { label: 'Karina Rosa Camarena Jaimes', value: 'id7' },
+  { label: 'Jairo Pedro Guitierrez Rojas', value: 'id8' },
+] as const;
