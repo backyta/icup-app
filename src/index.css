@@ -1,3 +1,21 @@
+/* Ancho y color del riel de la barra de desplazamiento */
+::-webkit-scrollbar {
+  width: 10px;
+  scrollbar-width: thin; /* Agrega soporte para Firefox */
+  scrollbar-color: #888 #f1f1f1; /* Color del pulgar y del riel */
+}
+
+/* Estilo del pulgar de la barra de desplazamiento */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Estilo del pulgar de la barra de desplazamiento al pasar el ratón */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -57,3 +75,4 @@
     @apply bg-background text-foreground;
   }
 }
+

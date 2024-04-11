@@ -53,11 +53,11 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        'sub-title-color': '',
+      
         'pastor-color': '#FF5252',
         'copastor-color':'#9C27B0', 
         'leader-color':'#068ef1',
-        'family-color':'#FFA000',
+        'family-house-color':'#FFA000',
         'offering-color':'#FFD700',
         'user-color':'#87CEEB',
         'vulcan': {
@@ -86,38 +86,38 @@ module.exports = {
         '900': '#253555',
         '950': '#111827',
     },
-      
-          
-        
-        
-        // 'leader-color':'' 
+    },
+    borderRadius: {
+      lg: "var(--radius)",
+      md: "calc(var(--radius) - 2px)",
+      sm: "calc(var(--radius) - 4px)",
+    },
+    keyframes: {
+      "accordion-down": {
+        from: { height: "0" },
+        to: { height: "var(--radix-accordion-content-height)" },
       },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+      "accordion-up": {
+        from: { height: "var(--radix-accordion-content-height)" },
+        to: { height: "0" },
       },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-      },
-      screens: {
-
-        'xl-lv1': '1302px',
-     
-      },
+    },
+    animation: {
+      "accordion-down": "accordion-down 0.2s ease-out",
+      "accordion-up": "accordion-up 0.2s ease-out",
+    },
+    screens: {
+      'xl-lv1': '1302px',
+    },
+    fontFamily: {
+      'archivo': ['Archivo', 'sans-serif'],
+      'cormorant-garamond': ['Cormorant Garamond', 'serif'],
+      'dancing-script': ['Dancing Script', 'cursive'],
+      'satisfy': ['Satisfy', 'cursive'],
+    },
     },
   },
   // eslint-disable-next-line no-undef
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar")]
+
 }

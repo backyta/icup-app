@@ -1,45 +1,22 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import { Root } from '../Root';
 import { DashboardLayout } from '@/layouts';
-
-import {
-  DashboardPage,
-  DiscipleCreatePage,
-  FamilyHouseOptionsPage,
-  FamilyHouseCreatePage,
-  OfferingOptionsPage,
-  OfferingCreatePage,
-  DiscipleOptionsPage,
-  CopastorOptionsPage,
-  DisciplesSearchPageByTerm,
-  UserOptionsPage,
-  UserCreatePage,
-  PastorsSearchPageByTerm,
-  CopastorsSearchPageByTerm,
-  LeadersSearchPageByTerm,
-  FamilyHousesSearchPageByTerm,
-  OfferingsSearchPageByTerm,
-  UsersSearchPageByTerm,
-  LeaderOptionsPage,
-  DisciplesGeneralSearchPage,
-  PastorsGeneralSearchPage,
-  CopastorsGeneralSearchPage,
-  LeadersGeneralSearchPage,
-  FamilyHousesGeneralSearchPage,
-  OfferingsGeneralSearchPage,
-  UsersGeneralSearchPage,
-  UpdateDisciplePage,
-  UpdatePastorPage,
-  UpdateCopastorPage,
-  UpdateLeaderPage,
-  UpdateFamilyHousePage,
-  UpdateOfferingPage,
-  UserUpdatePage,
-  DiscipleDeletePage,
-} from '@/pages';
-import { PastorOptionsPage } from '@/pages/pastor/PastorOptionsPage';
-import { FormFamilyHouse, FormMember } from '@/components';
+import { DashboardPage } from '@/app/dashboard/pages';
+import { DiscipleOptionsPage } from '@/app/disciple/pages';
+import { PastorOptionsPage } from '@/app/pastor/pages';
+import { CopastorOptionsPage } from '@/app/copastor/pages';
+import { LeaderOptionsPage } from '@/app/leader/pages';
+import { FamilyHouseOptionsPage } from '@/app/family-house/pages';
+import { OfferingOptionsPage } from '@/app/offering/pages';
+import { UserOptionsPage } from '@/app/user/pages';
+import { DiscipleChildrenRoutes } from '@/app/disciple/router';
+import { PastorChildrenRoutes } from '@/app/pastor/router';
+import { CopastorChildrenRoutes } from '@/app/copastor/router';
+import { LeaderChildrenRoutes } from '@/app/leader/router';
+import { FamilyHouseChildrenRoutes } from '@/app/family-house/router';
+import { OfferingChildrenRoutes } from '@/app/offering/router';
+import { UserChildrenRoutes } from '@/app/user/router';
+import { Root } from '@/Root';
 
 export const router = createBrowserRouter([
   {
@@ -89,174 +66,43 @@ export const router = createBrowserRouter([
       {
         path: '/disciples',
         element: <DashboardLayout />,
-        children: [
-          {
-            path: '/disciples/create-disciple',
-            element: <DiscipleCreatePage />,
-          },
-          {
-            path: '/disciples/search-disciples',
-            element: <DisciplesGeneralSearchPage />,
-          },
-          {
-            path: '/disciples/search-by-term-disciples',
-            element: <DisciplesSearchPageByTerm />,
-          },
-          {
-            path: '/disciples/update-disciple',
-            element: <UpdateDisciplePage />,
-            // element: <FormMember />,
-          },
-          {
-            path: '/disciples/delete-disciple',
-            element: <DiscipleDeletePage />,
-            // element: <FormMember />,
-          },
-        ],
+        children: DiscipleChildrenRoutes,
       },
       // routes pastor
       {
         path: '/pastors',
         element: <DashboardLayout />,
-        children: [
-          {
-            path: '/pastors/create-pastor',
-            element: <DiscipleCreatePage />,
-          },
-          {
-            path: '/pastors/search-pastors',
-            element: <PastorsGeneralSearchPage />,
-          },
-          {
-            path: '/pastors/search-by-term-pastors',
-            element: <PastorsSearchPageByTerm />,
-          },
-          {
-            path: '/pastors/update-pastor',
-            element: <UpdatePastorPage />,
-            // element: <FormMember />,
-          },
-        ],
+        children: PastorChildrenRoutes,
       },
       // routes co-pastor
       {
         path: '/copastors',
         element: <DashboardLayout />,
-        children: [
-          {
-            path: '/copastors/create-copastor',
-            element: <DiscipleCreatePage />,
-          },
-          {
-            path: '/copastors/search-copastors',
-            element: <CopastorsGeneralSearchPage />,
-          },
-          {
-            path: '/copastors/search-by-term-copastors',
-            element: <CopastorsSearchPageByTerm />,
-          },
-          {
-            path: '/copastors/update-copastor',
-            element: <UpdateCopastorPage />,
-            // element: <FormMember />,
-          },
-        ],
+        children: CopastorChildrenRoutes,
       },
       // routes leader
       {
         path: '/leaders',
         element: <DashboardLayout />,
-        children: [
-          {
-            path: '/leaders/create-leader',
-            element: <DiscipleCreatePage />,
-          },
-          {
-            path: '/leaders/search-leaders',
-            element: <LeadersGeneralSearchPage />,
-          },
-          {
-            path: '/leaders/search-by-term-leaders',
-            element: <LeadersSearchPageByTerm />,
-          },
-          {
-            path: '/leaders/update-leader',
-            element: <UpdateLeaderPage />,
-            // element: <FormMember />,
-          },
-        ],
+        children: LeaderChildrenRoutes,
       },
       // routes family-house
       {
         path: '/family-houses',
         element: <DashboardLayout />,
-        children: [
-          {
-            path: '/family-houses/create-family-house',
-            element: <FamilyHouseCreatePage />,
-          },
-          {
-            path: '/family-houses/search-family-houses',
-            element: <FamilyHousesGeneralSearchPage />,
-          },
-          {
-            path: '/family-houses/search-by-term-family-houses',
-            element: <FamilyHousesSearchPageByTerm />,
-          },
-          {
-            path: '/family-houses/update-family-house',
-            element: <UpdateFamilyHousePage />,
-            // element: <FormFamilyHouse />,
-          },
-        ],
+        children: FamilyHouseChildrenRoutes,
       },
       // routes offering
       {
         path: '/offerings',
         element: <DashboardLayout />,
-        children: [
-          {
-            path: '/offerings/create-offering',
-            element: <OfferingCreatePage />,
-          },
-          {
-            path: '/offerings/search-offerings',
-            element: <OfferingsGeneralSearchPage />,
-          },
-          {
-            path: '/offerings/search-by-term-offerings',
-            element: <OfferingsSearchPageByTerm />,
-          },
-          {
-            path: '/offerings/update-offering',
-            element: <UpdateOfferingPage />,
-            // element: <FormFamilyHouse />,
-          },
-        ],
+        children: OfferingChildrenRoutes,
       },
       // routes user
       {
         path: '/users',
         element: <DashboardLayout />,
-        children: [
-          {
-            path: '/users/create-user',
-            element: <UserCreatePage />,
-          },
-          {
-            path: '/users/search-users',
-            element: <UsersGeneralSearchPage />,
-          },
-          {
-            path: '/users/search-by-term-users',
-            element: <UsersSearchPageByTerm />,
-          },
-          {
-            path: '/users/update-user',
-            element: <UserUpdatePage />,
-            // element: <FormFamilyHouse />,
-          },
-        ],
+        children: UserChildrenRoutes,
       },
 
       /// Auth Routes

@@ -1,30 +1,31 @@
-# React + TypeScript + Vite
+<p align="center">
+  <a href="https://react.dev/" target="blank"><img src="https://cdn.worldvectorlogo.com/logos/react-2.svg" width="200" alt="React Logo" /></a>
+</p>
+<p align="center">The library for web and native user interfaces.</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# ICUP-APP
 
-Currently, two official plugins are available:
+In this project, the user interface is developed to connect with ICUP-Server, the following technologies are used:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- ReactJs
+- Zustand
+- Tailwind
+- Shadcn
+- ReactHookForm
+- ReactRouterDOM
+- Recharts
+- Sonner
+- Zod, etc
 
-## Expanding the ESLint configuration
+## Installation and Run Locally
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Install my-project with npm or yarn
 
-- Configure the top-level `parserOptions` property like this:
+1. Clone the project
+2. Install dependencies
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```
+npm install or yarn
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+3. Clone the `.env.template` and change it to `.env` and configure its environment variables.
