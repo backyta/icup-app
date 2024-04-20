@@ -1,32 +1,35 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { useEffect, useRef } from 'react';
 
+import { type UseFormReturn } from 'react-hook-form';
 import { DialogTrigger } from '@radix-ui/react-dialog';
 
-import { ZoneCreateForm } from '@/app/family-house/components';
-
 import { useFamilyHouseStore } from '@/stores';
+import { ZoneCreateForm } from '@/app/family-house/components';
+import { type FamilyHouseData } from '@/app/family-house/interfaces';
 
-import { Dialog, DialogContent } from '@/shared/components/ui/dialog';
 import { Button } from '@/shared/components/ui/button';
+import { Dialog, DialogContent } from '@/shared/components/ui/dialog';
 
 interface Props {
   isDisabled: boolean;
-  form: any;
+  formFamilyHouse: UseFormReturn<FamilyHouseData, any, FamilyHouseData>;
 }
 
-export const ZoneCreateCard = ({ isDisabled, form }: Props): JSX.Element => {
+export const ZoneCreateCard = ({ isDisabled, formFamilyHouse }: Props): JSX.Element => {
+  //* States
   const isCreateCardOpen = useFamilyHouseStore((state) => state.isCreateCardOpen);
   const setIsCreateCardOpen = useFamilyHouseStore((state) => state.setIsCreateCardOpen);
 
+  const setIsInputDisabled = useFamilyHouseStore((state) => state.setIsInputDisabled);
   const setIsInputZoneDisabled = useFamilyHouseStore((state) => state.setIsInputZoneDisabled);
   const setIsInputPreacherDisabled = useFamilyHouseStore(
     (state) => state.setIsInputPreacherDisabled
   );
-  const setIsInputDisabled = useFamilyHouseStore((state) => state.setIsInputDisabled);
 
   const topRef = useRef<HTMLDivElement>(null);
 
+  //* Functions
   const handleCardClose = (): void => {
     setIsCreateCardOpen(false);
   };
@@ -37,6 +40,7 @@ export const ZoneCreateCard = ({ isDisabled, form }: Props): JSX.Element => {
     }
   };
 
+  //* Effects
   useEffect(() => {
     if (!isCreateCardOpen) {
       setIsInputZoneDisabled(false);
@@ -52,7 +56,7 @@ export const ZoneCreateCard = ({ isDisabled, form }: Props): JSX.Element => {
           variant='outline'
           disabled={isDisabled}
           onClick={() => {
-            form.reset();
+            formFamilyHouse.reset();
           }}
           className='w-full text-[14px] xl:text-[15px] disabled:bg-slate-500 disabled:text-white bg-green-500 text-green-900 hover:text-white hover:bg-green-600'
         >

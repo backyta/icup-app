@@ -8,10 +8,19 @@ export interface ZoneData {
   theirSupervisor: string;
 }
 
-export type DataZoneKeys =
+export type ZoneDataKeys =
   |'zoneName' 
   |'country' 
   |'department' 
   |'province' 
   |'district' 
   |'theirSupervisor';
+
+  
+export interface ZoneDataSearch {
+  zoneName: string;
+}
+
+export type ZoneDataSearchKeys =
+  |'zoneName';
+

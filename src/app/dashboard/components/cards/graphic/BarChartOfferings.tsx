@@ -9,13 +9,22 @@ import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMediaQuery } from '@react-hook/media-query';
-import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
-import { CalendarIcon } from '@radix-ui/react-icons';
 import { cn } from '@/shared/lib/utils';
+import { CalendarIcon } from '@radix-ui/react-icons';
 
 import { barChartFormSchema } from '@/app/dashboard/validations';
 
@@ -25,9 +34,11 @@ import { Calendar } from '@/shared/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/components/ui/form';
 
-// TODO : Colocar fechas y cantidades del mes anterior, por defecto, hacer un efecto cada 30 o 32 días.
-// TODO : hacer petición al backend en rango por fecha y devolver array.
-// TODO : hacer que el calendario seleccione máximo 3 meses (12 domingos).
+// NOTE : Colocar fechas y cantidades del mes anterior, por defecto, hacer un efecto cada 30 o 32 días.
+// NOTE : hacer petición al backend en rango por fecha y devolver array.
+// NOTE : hacer que el calendario seleccione máximo 3 meses (12 domingos).
+// NOTE : hacer que se muestren por defecto 7 domingos, cuando entre uno nuevo sale el primero o se empuja
+// NOTE : usar este calendario para la funcionalidad de los gráficos
 
 const data = [
   { date: '02/03', Dia: 75.5, Tarde: 85.5 },
@@ -40,15 +51,18 @@ const data = [
 ];
 
 export const BarChartOfferings = (): JSX.Element => {
+  //* States
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
+  //* Form
   const form = useForm<z.infer<typeof barChartFormSchema>>({
     resolver: zodResolver(barChartFormSchema),
     mode: 'onChange',
     defaultValues: {},
   });
 
+  //* Form handler
   function onSubmit(values: z.infer<typeof barChartFormSchema>): void {
     console.log({ values });
   }
@@ -131,7 +145,12 @@ export const BarChartOfferings = (): JSX.Element => {
         }
         aspect={0}
       >
-        <BarChart data={data} width={500} height={300} margin={{ top: 5, right: 20, left: -20, bottom: 10 }}>
+        <BarChart
+          data={data}
+          width={500}
+          height={300}
+          margin={{ top: 5, right: 20, left: -20, bottom: 10 }}
+        >
           <CartesianGrid strokeDasharray='3 3'></CartesianGrid>
           <XAxis dataKey='date' />
           <YAxis />

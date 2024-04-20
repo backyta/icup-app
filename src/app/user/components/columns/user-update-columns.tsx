@@ -11,14 +11,14 @@ import { Button } from '@/shared/components/ui/button';
 
 interface User {
   id: string;
-  first_name: string; // hacer mapping
+  first_name: string;
   last_name: string;
   email: string;
   roles: string;
 }
 
-// TODO : lo otro seria pasar el id de la DB del registro aca y que lo tome el button y con eso hacer la solicitud
-// TODO : y tmb ocultar ese ID con un map para que se enumero de 1, 2....
+// NOTE : lo otro seria pasar el id de la DB del registro aca y que lo tome el button y con eso hacer la solicitud
+// NOTE : y tmb ocultar ese ID con un map para que se enumero de 1, 2....
 
 // NOTE: usar este mismo método para la data del dashboard en el botón.
 export const userUpdateColumns: Array<ColumnDef<User, any>> = [
@@ -27,7 +27,7 @@ export const userUpdateColumns: Array<ColumnDef<User, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -44,7 +44,7 @@ export const userUpdateColumns: Array<ColumnDef<User, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -61,7 +61,7 @@ export const userUpdateColumns: Array<ColumnDef<User, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -78,7 +78,7 @@ export const userUpdateColumns: Array<ColumnDef<User, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -95,7 +95,7 @@ export const userUpdateColumns: Array<ColumnDef<User, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');

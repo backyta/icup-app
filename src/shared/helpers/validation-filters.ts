@@ -29,25 +29,41 @@ import {
   subTypesUserNames,
   subTypesYoungWorship,
   typesCopastor, 
+  typesCopastorDelete, 
   typesDisciple, 
+  typesDiscipleDelete, 
   typesFamilyHouse, 
+  typesFamilyHouseDelete, 
   typesLeader, 
+  typesLeaderDelete, 
   typesOffering, 
+  typesOfferingDeleteAndUpdate, 
   typesPastor, 
-  typesUser } from "@/shared/helpers";
+  typesPastorDelete, 
+  typesUser, 
+  typesUserDelete} from "@/shared/helpers";
 
+// ? Types
 export const validationDisableTypes = (currentPath: string) => {
   
   //* Disabled Types by module
   const disabledTypesDisciples = Object.values(TypeSearchNames).filter(value => !typesDisciple.includes(value) ) 
+  const disabledTypesDisciplesDelete = Object.values(TypeSearchNames).filter(value => !typesDiscipleDelete.includes(value) ) 
   const disabledTypesPastors = Object.values(TypeSearchNames).filter(value => !typesPastor.includes(value) ) 
+  const disabledTypesPastorsDelete = Object.values(TypeSearchNames).filter(value => !typesPastorDelete.includes(value) ) 
   const disabledTypesCopastors = Object.values(TypeSearchNames).filter(value => !typesCopastor.includes(value) ) 
+  const disabledTypesCopastorsDelete = Object.values(TypeSearchNames).filter(value => !typesCopastorDelete.includes(value) ) 
   const disabledTypesLeaders = Object.values(TypeSearchNames).filter(value => !typesLeader.includes(value) ) 
+  const disabledTypesLeadersDelete = Object.values(TypeSearchNames).filter(value => !typesLeaderDelete.includes(value) ) 
   const disabledTypesFamilyHouses = Object.values(TypeSearchNames).filter(value => !typesFamilyHouse.includes(value) ) 
+  const disabledTypesFamilyHousesDelete = Object.values(TypeSearchNames).filter(value => !typesFamilyHouseDelete.includes(value) ) 
   const disabledTypesOfferings = Object.values(TypeSearchNames).filter(value => !typesOffering.includes(value) ) 
+  const disabledTypesOfferingsDeleteAndUpdate = Object.values(TypeSearchNames).filter(value => !typesOfferingDeleteAndUpdate.includes(value) ) 
   const disabledTypesUsers = Object.values(TypeSearchNames).filter(value => !typesUser.includes(value) ) 
+  const disabledTypesUsersDelete = Object.values(TypeSearchNames).filter(value => !typesUserDelete.includes(value) ) 
   
-  if (currentPath === '/disciples/search-by-term-disciples' || currentPath === '/disciples/update-disciple' || currentPath === '/disciples/delete-disciple') {
+  //* Disciples
+  if (currentPath === '/disciples/search-by-term-disciples' || currentPath === '/disciples/update-disciple') {
       return {
         disabledTypes : [
         ...disabledTypesDisciples
@@ -55,7 +71,16 @@ export const validationDisableTypes = (currentPath: string) => {
     }
   }
 
-  if (currentPath === '/pastors/search-by-term-pastors' || currentPath === '/pastors/update-pastor' || currentPath === '/pastors/delete-pastor') {
+  if ( currentPath === '/disciples/delete-disciple') {
+      return {
+        disabledTypes : [
+        ...disabledTypesDisciplesDelete
+      ]   
+    }
+  }
+
+  //* Pastors
+  if (currentPath === '/pastors/search-by-term-pastors' || currentPath === '/pastors/update-pastor' ) {
     return {
         disabledTypes : [
           ...disabledTypesPastors
@@ -63,7 +88,16 @@ export const validationDisableTypes = (currentPath: string) => {
     }
   }
 
-  if (currentPath === '/copastors/search-by-term-copastors' || currentPath === '/copastors/update-copastor' || currentPath === '/copastors/delete-copastor') {
+  if (currentPath === '/pastors/delete-pastor') {
+    return {
+        disabledTypes : [
+          ...disabledTypesPastorsDelete
+      ]
+    }
+  }
+
+  //* Co-pastors
+  if (currentPath === '/copastors/search-by-term-copastors' || currentPath === '/copastors/update-copastor' ) {
     return { 
      disabledTypes : [
       ...disabledTypesCopastors
@@ -71,7 +105,16 @@ export const validationDisableTypes = (currentPath: string) => {
    }
   }
 
-   if (currentPath === '/leaders/search-by-term-leaders' || currentPath === '/leaders/update-leader' || currentPath === '/leaders/delete-leader') {
+  if ( currentPath === '/copastors/delete-copastor') {
+    return { 
+     disabledTypes : [
+      ...disabledTypesCopastorsDelete
+     ],
+   }
+  }
+
+  //* Leaders
+  if (currentPath === '/leaders/search-by-term-leaders' || currentPath === '/leaders/update-leader' ) {
     return {
       disabledTypes : [
         ...disabledTypesLeaders
@@ -79,7 +122,16 @@ export const validationDisableTypes = (currentPath: string) => {
     }
   }
 
-  if (currentPath === '/family-houses/search-by-term-family-houses' || currentPath === '/family-houses/update-family-house' || currentPath === '/family-houses/delete-family-house') {
+  if ( currentPath === '/leaders/delete-leader') {
+  return {
+    disabledTypes : [
+      ...disabledTypesLeadersDelete
+    ],
+  }
+  }
+
+  //* Family House
+  if (currentPath === '/family-houses/search-by-term-family-houses' || currentPath === '/family-houses/update-family-house' ) {
     return {
       disabledTypes : [
         ...disabledTypesFamilyHouses
@@ -87,25 +139,50 @@ export const validationDisableTypes = (currentPath: string) => {
     }
   } 
 
-  if (currentPath === '/offerings/search-by-term-offerings' || currentPath === '/offerings/update-offering' || currentPath === '/offerings/delete-offering') {
+  if ( currentPath === '/family-houses/delete-family-house') {
+    return {
+      disabledTypes : [
+        ...disabledTypesFamilyHousesDelete
+      ]
+    }
+  } 
+
+  //* Offerings
+  if (currentPath === '/offerings/search-by-term-offerings' ) {
     return {
       disabledTypes : [
         ...disabledTypesOfferings
       ],
     }
   }
+
+  if ( currentPath === '/offerings/update-offering' || currentPath === '/offerings/delete-offering') {
+    return {
+      disabledTypes : [
+        ...disabledTypesOfferingsDeleteAndUpdate
+      ],
+    }
+  }
   
-  if (currentPath === '/users/search-by-term-users' || currentPath === '/users/update-user' || currentPath === '/users/delete-user') {
+  //* Users
+  if (currentPath === '/users/search-by-term-users' || currentPath === '/users/update-user' ) {
     return {
       disabledTypes : [
         ...disabledTypesUsers
       ],
     }
   }
+  
+  if (currentPath === '/users/delete-user') {
+    return {
+      disabledTypes : [
+        ...disabledTypesUsersDelete
+      ],
+    }
+  }
 }
 
-// TODO : continuar aquí validación y cambiando hasta que se logre y revisar todos los módulos que estén con los filtros correctos
-
+// ? SubTypes
 export const validationDisableSubTypes = (currentPath: string, type: string ) => {
 
   //* Disabled Sub-types by module
@@ -377,7 +454,6 @@ export const validationDisableSubTypes = (currentPath: string, type: string ) =>
  
 }
 
-// TODO : arreglar aquí los select para el update
 export const validationDisableTermSelect = (type: string, subType:string | undefined) => {
 
   //* Disabled Term Select
@@ -394,8 +470,7 @@ export const validationDisableTermSelect = (type: string, subType:string | undef
         TermSelectOptionsNames.active,
         TermSelectOptionsNames.inactive,
         TermSelectOptionsNames.day,
-        TermSelectOptionsNames.night,
-
+        TermSelectOptionsNames.afternoon,
       ]
     }
   } 
@@ -423,7 +498,7 @@ export const validationDisableTermSelect = (type: string, subType:string | undef
         TermSelectOptionsNames.active,
         TermSelectOptionsNames.inactive,
         TermSelectOptionsNames.day,
-        TermSelectOptionsNames.night,
+        TermSelectOptionsNames.afternoon,
       ]
     }
   }
@@ -448,12 +523,12 @@ export const validationDisableTermSelect = (type: string, subType:string | undef
         TermSelectOptionsNames.active,
         TermSelectOptionsNames.inactive,
         TermSelectOptionsNames.day,
-        TermSelectOptionsNames.night,
+        TermSelectOptionsNames.afternoon,
       ]
     }
   }
   
-  if (type === TypeSearch.IsActive) {
+  if (type === TypeSearch.Status) {
     return {
       disabledTermSelect : [
         TermSelectOptionsNames.january,
@@ -476,7 +551,8 @@ export const validationDisableTermSelect = (type: string, subType:string | undef
         TermSelectOptionsNames.divorced,
         TermSelectOptionsNames.other,
         TermSelectOptionsNames.day,
-        TermSelectOptionsNames.night,
+        TermSelectOptionsNames.afternoon,
+        TermSelectOptionsNames.active,
       ]
     }
   }

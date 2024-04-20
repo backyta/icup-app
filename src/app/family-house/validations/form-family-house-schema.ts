@@ -1,17 +1,13 @@
+import { Status } from '@/shared/enums';
 import * as z from 'zod';
 
-// TODO : bloquear el botón de submit si no existe zona y predicador para evitar este error
-// NOTE : solo activar el botón cuando se tenga nombre y los demás que si desparecen su error
-// NOTE : replicar esto para todos los demás que usan combox como los their.
 export const formFamilyHouseSchema = z
   .object({
-    zoneName: z.string({required_error: 
-      'Por favor asigne un Zona.'}),
-
+    
     houseName: z.string()
     .min(1, { message: 'El campo debe contener al menos 1 carácter.'})
     .max(25, { message: 'El campo debe contener máximo 25 caracteres.'}),
-      
+    
     country: z.string()
     .min(1, { message: 'El campo debe contener al menos 1 carácter.'})
     .max(20, { message: 'El campo debe contener máximo 20 caracteres.'}), 
@@ -23,11 +19,11 @@ export const formFamilyHouseSchema = z
     province: z.string()
     .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
     .max(20, { message: 'El campo debe contener máximo 20 caracteres.'}),
-        
+    
     district: z.string()
     .min(1, { message: 'El campo debe contener al menos 1 carácter.'})
     .max(20, { message: 'El campo debe contener máximo 20 caracteres.'}),
-
+    
     address: z.string()
     .min(1, { message: 'El campo debe contener al menos 1 carácter.'})
     .max(50, { message: 'El campo debe contener máximo 50 caracteres.'}),
@@ -35,10 +31,15 @@ export const formFamilyHouseSchema = z
     theirPreacher: z.string({required_error: 
       'Por favor asigne un Predicador.'}),
 
+    zoneName: z.string({required_error: 
+      'Por favor asigne un Zona.'}),
+
+    status: z.string(z.nativeEnum(Status, {
+      required_error: "Por favor seleccione una opción.",
+    })).optional(),
   })
 
-
-// * Cambiar el opcional a requerido cuando pasemos a componentes propios
+  
 export const formZoneSchema = z
   .object({
     zoneName: z.string()

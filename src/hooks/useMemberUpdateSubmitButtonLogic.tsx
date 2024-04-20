@@ -1,45 +1,51 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { type MemberRoles } from '@/shared/enums';
 import { useEffect } from 'react';
 
+import { type UseFormReturn } from 'react-hook-form';
+
+import { type MemberRoles } from '@/shared/enums';
+import { type MemberData } from '@/shared/interfaces';
+
 interface Options {
-  form: any;
+  formMemberUpdate: UseFormReturn<MemberData, any, MemberData>;
   pathname: string;
   memberRoles: typeof MemberRoles;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsDisabledMessageError: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-// Submit button update Member
 export const useMemberUpdateSubmitButtonLogic = ({
-  form,
+  formMemberUpdate,
   pathname,
   memberRoles,
   setIsSubmitButtonDisabled,
-  setIsDisabledMessageError,
+  setIsMessageErrorDisabled,
 }: Options): void => {
-  const roles = form.watch('roles');
-  const firstName = form.watch('firstName');
-  const lastName = form.watch('lastName');
-  const gender = form.watch('gender');
-  const dateBirth = form.watch('dateBirth');
-  const conversionDate = form.watch('conversionDate');
-  const maritalStatus = form.watch('maritalStatus');
-  const emailAddress = form.watch('emailAddress');
-  const phoneNumber = form.watch('phoneNumber');
-  const originCountry = form.watch('originCountry');
-  const numberChildren = form.watch('numberChildren');
-  const country = form.watch('country');
-  const department = form.watch('department');
-  const province = form.watch('province');
-  const district = form.watch('district');
-  const address = form.watch('address');
+  // watchers
+  const roles = formMemberUpdate.watch('roles');
+  const firstName = formMemberUpdate.watch('firstName');
+  const lastName = formMemberUpdate.watch('lastName');
+  const gender = formMemberUpdate.watch('gender');
+  const dateBirth = formMemberUpdate.watch('dateBirth');
+  const conversionDate = formMemberUpdate.watch('conversionDate');
+  const maritalStatus = formMemberUpdate.watch('maritalStatus');
+  const emailAddress = formMemberUpdate.watch('emailAddress');
+  const phoneNumber = formMemberUpdate.watch('phoneNumber');
+  const originCountry = formMemberUpdate.watch('originCountry');
+  const numberChildren = formMemberUpdate.watch('numberChildren');
+  const country = formMemberUpdate.watch('country');
+  const department = formMemberUpdate.watch('department');
+  const province = formMemberUpdate.watch('province');
+  const district = formMemberUpdate.watch('district');
+  const address = formMemberUpdate.watch('address');
 
-  const theirFamilyHouse = form.watch('theirFamilyHouse');
-  const theirPastor = form.watch('theirPastor');
-  const theirCopastor = form.watch('theirCopastor');
-  const theirSupervisor = form.watch('theirSupervisor');
+  const theirFamilyHouse = formMemberUpdate.watch('theirFamilyHouse');
+  const theirPastor = formMemberUpdate.watch('theirPastor');
+  const theirCopastor = formMemberUpdate.watch('theirCopastor');
+  const theirSupervisor = formMemberUpdate.watch('theirSupervisor');
 
+  // effects
   useEffect(() => {
     // pastor
     if (
@@ -62,7 +68,7 @@ export const useMemberUpdateSubmitButtonLogic = ({
       roles.length !== 0
     ) {
       setIsSubmitButtonDisabled(false);
-      setIsDisabledMessageError(false);
+      setIsMessageErrorDisabled(false);
     }
 
     if (
@@ -85,7 +91,7 @@ export const useMemberUpdateSubmitButtonLogic = ({
         roles.length === 0)
     ) {
       setIsSubmitButtonDisabled(true);
-      setIsDisabledMessageError(true);
+      setIsMessageErrorDisabled(true);
     }
 
     // copastor
@@ -112,7 +118,7 @@ export const useMemberUpdateSubmitButtonLogic = ({
         (roles.includes(memberRoles.Member) && roles.includes(memberRoles.Pastor)))
     ) {
       setIsSubmitButtonDisabled(false);
-      setIsDisabledMessageError(false);
+      setIsMessageErrorDisabled(false);
     }
 
     if (
@@ -137,7 +143,7 @@ export const useMemberUpdateSubmitButtonLogic = ({
           !theirPastor))
     ) {
       setIsSubmitButtonDisabled(true);
-      setIsDisabledMessageError(true);
+      setIsMessageErrorDisabled(true);
     }
 
     // leaders
@@ -169,7 +175,7 @@ export const useMemberUpdateSubmitButtonLogic = ({
           theirSupervisor))
     ) {
       setIsSubmitButtonDisabled(false);
-      setIsDisabledMessageError(false);
+      setIsMessageErrorDisabled(false);
     }
 
     if (
@@ -192,7 +198,7 @@ export const useMemberUpdateSubmitButtonLogic = ({
         (!theirPastor && !theirCopastor && !theirSupervisor))
     ) {
       setIsSubmitButtonDisabled(true);
-      setIsDisabledMessageError(true);
+      setIsMessageErrorDisabled(true);
     }
 
     // disciples
@@ -219,7 +225,7 @@ export const useMemberUpdateSubmitButtonLogic = ({
           theirSupervisor))
     ) {
       setIsSubmitButtonDisabled(false);
-      setIsDisabledMessageError(false);
+      setIsMessageErrorDisabled(false);
     }
 
     if (
@@ -246,7 +252,7 @@ export const useMemberUpdateSubmitButtonLogic = ({
           !theirSupervisor))
     ) {
       setIsSubmitButtonDisabled(true);
-      setIsDisabledMessageError(true);
+      setIsMessageErrorDisabled(true);
     }
   }, [
     firstName,

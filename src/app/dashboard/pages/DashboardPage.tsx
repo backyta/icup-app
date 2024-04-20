@@ -1,4 +1,9 @@
-import { BarChartHouse, BarChartOfferings, HousesInfoCard, MembersInfoCard } from '@/app/dashboard/components';
+import {
+  BarChartHouse,
+  BarChartOfferings,
+  HousesInfoCard,
+  MembersInfoCard,
+} from '@/app/dashboard/components';
 
 // NOTE : hacer consulta a ofrendas por rango de fecha y generar un recurso único para
 // NOTE : poder filtrar en ese rango los Dias domingo, colocar limite de consulta en el date picker, máximo 10 domingos o 2 meses (8 o 9)

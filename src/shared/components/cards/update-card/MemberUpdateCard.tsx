@@ -11,14 +11,17 @@ import { MemberFormUpdate } from '@/shared/components';
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 
-// TODO : mover este UPDATE CARD y form member a otra carpeta de componente - update-card
-
 export const MemberUpdateCard = (): JSX.Element => {
-  const [open, setOpen] = useState(false);
-  const isDesktop = useMediaQuery('(min-width: 768px)');
+  //* States
+  const [open, setOpen] = useState<boolean>(false);
 
   const topRef = useRef<HTMLDivElement>(null);
 
+  //* Library hooks
+  const isDesktop = useMediaQuery('(min-width: 768px)');
+  const { pathname } = useLocation();
+
+  //* Functions
   const handleContainerClose = (): void => {
     setOpen(false);
   };
@@ -29,8 +32,6 @@ export const MemberUpdateCard = (): JSX.Element => {
       topRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
-
-  const { pathname } = useLocation();
 
   if (isDesktop) {
     return (

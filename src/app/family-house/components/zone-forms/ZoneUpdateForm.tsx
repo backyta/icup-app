@@ -2,17 +2,24 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState } from 'react';
 
+import { type z } from 'zod';
+import { Toaster, toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { type z } from 'zod';
-
-import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
-
-import { formSearchZoneSchema, formZoneSchema } from '@/app/family-house/validations';
-import { type DataZoneKeys, type ZoneData } from '@/app/family-house/interfaces';
 
 import { cn } from '@/shared/lib/utils';
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
+import { supervisors, zones } from '@/shared/data';
+
+import { formSearchZoneSchema, formZoneSchema } from '@/app/family-house/validations';
+import { type ZoneDataKeys, type ZoneData } from '@/app/family-house/interfaces';
+
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Card, CardContent } from '@/shared/components/ui/card';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
+import { useZoneUpdateSubmitButtonsLogic } from '@/hooks/useZoneUpdateSubmitButtonsLogic';
 import {
   Form,
   FormControl,
@@ -23,9 +30,6 @@ import {
   FormMessage,
 } from '@/shared/components/ui/form';
 
-import { Input } from '@/shared/components/ui/input';
-import { Button } from '@/shared/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Command,
   CommandEmpty,
@@ -34,12 +38,7 @@ import {
   CommandItem,
 } from '@/shared/components/ui/command';
 
-import { supervisors, zones } from '@/shared/data';
-import { Card, CardContent } from '@/shared/components/ui/card';
-import { Toaster, toast } from 'sonner';
-import { useZoneUpdateSubmitButtonsLogic } from '@/hooks/useZoneUpdateSubmitButtonsLogic';
-
-// data ficticia
+//* data ficticia
 const data: ZoneData = {
   zoneName: 'Pisac Alto',
   country: 'Peru',
@@ -49,42 +48,28 @@ const data: ZoneData = {
   theirSupervisor: 'id2',
 };
 
-// NOTE: notes.
-/* // Agregar un botón de buscar y un input de zona o supervisor */
-/* // El input listara todos los supervisores y zonas */
-/* Ver si solo buscar por nombre de zona y traer todas las conciencias en una lista */
-/*  Elegir de esa lista uno (hacer solicitud y traer) su data y setear en input, ahi podremos */
-/* modificar y luego en guardar cambios */
-/* //TODO : trabajar en buscar la zona por nombre o por supervisor(puede no haber) y mostrar las zonas  */
-/* //TODO : con un input y su datos y un botón que diga editar (habilitar el input)  */
-
-/* className='w-full text-[14px]  disabled:bg-slate-500 disabled:text-white bg-orange-400 text-orange-700 hover:text-white hover:bg-orange-500'> */
-
-// ?  Hacer componte de search Search Zone
-/* Se hará una búsqueda directa a la tabla zonas y se guardara en un array */
-/* y se leerá todas las zonas de ese array y se meterán al combox */
-/* Al elegir una buscara solo 1 (zona unique), buscar por id */
-/*  Si hay zonas en otros lados del país con el mismo nombre identificar por, distrito, deptm. */
-/* En el front traer la data y hacer un map para componer el name Pisac Alto - Huanc. Huanuco, Pisac Alto, Indp. Lima */
-
 interface Props {
   onClose: () => void;
   onScroll: () => void;
 }
 
 export const ZoneUpdateForm = ({ onClose, onScroll }: Props): JSX.Element => {
-  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
-  const [isSearchButtonDisabled, setIsSearchButtonDisabled] = useState(true);
+  //* States
+  const [isShowEditMode, setIsShowEditMode] = useState<boolean>(true);
+  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
 
-  const [isShowEditMode, setIsShowEditMode] = useState(true);
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
+  const [isSearchButtonDisabled, setIsSearchButtonDisabled] = useState<boolean>(true);
 
-  const [isSearchZoneUpdateOpen, setIsSearchZoneUpdateOpen] = useState(false);
-  const [isInputDisabled, setIsInputDisabled] = useState(false);
+  const [isSearchZoneUpdateOpen, setIsSearchZoneUpdateOpen] = useState<boolean>(false);
+  const [isInputSupervisorOpen, setIsInputSupervisorOpen] = useState<boolean>(false);
 
-  const [isInputSupervisorOpen, setIsInputSupervisorOpen] = useState(false);
+  const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
 
+  //* Forms
   const formUpdateZone = useForm<z.infer<typeof formZoneSchema>>({
     resolver: zodResolver(formZoneSchema),
+    mode: 'onChange',
     defaultValues: {
       zoneName: '',
       country: '',
@@ -101,24 +86,27 @@ export const ZoneUpdateForm = ({ onClose, onScroll }: Props): JSX.Element => {
     },
   });
 
-  useZoneUpdateSubmitButtonsLogic({
-    formSearchZone,
-    formUpdateZone,
-    setIsSearchButtonDisabled,
-    setIsSubmitButtonDisabled,
-  });
-
+  //* Forms handlers
   const handleSubmitUpdateZone = (values: z.infer<typeof formZoneSchema>): void => {
     console.log({ values });
   };
 
   const handleSubmitSearchZone = (values: z.infer<typeof formSearchZoneSchema>): void => {
     for (const key in data) {
-      formUpdateZone.setValue(key as DataZoneKeys, data[key as DataZoneKeys]);
+      formUpdateZone.setValue(key as ZoneDataKeys, data[key as ZoneDataKeys]);
     }
     setIsShowEditMode(false);
     console.log({ values });
   };
+
+  //* Custom hooks
+  useZoneUpdateSubmitButtonsLogic({
+    formSearchZone,
+    formUpdateZone,
+    setIsSearchButtonDisabled,
+    setIsSubmitButtonDisabled,
+    setIsMessageErrorDisabled,
+  });
 
   return (
     <Card className='w-full'>
@@ -135,7 +123,6 @@ export const ZoneUpdateForm = ({ onClose, onScroll }: Props): JSX.Element => {
               onSubmit={formSearchZone.handleSubmit(handleSubmitSearchZone)}
               className='w-full flex flex-col md:grid sm:grid-cols-2 gap-y-4 gap-x-8 md:gap-y-7 md:items-center md:px-2'
             >
-              {/* HACER COMPONENTE */}
               <FormField
                 control={formSearchZone.control}
                 name='zoneName'
@@ -257,11 +244,12 @@ export const ZoneUpdateForm = ({ onClose, onScroll }: Props): JSX.Element => {
                           <Input
                             disabled={isInputDisabled}
                             className='text-black dark:text-white'
-                            placeholder='Eje: A, Tahua-1, P-1...'
+                            placeholder='Eje: Peru, Ecuador, Colombia...'
                             type='text'
                             {...field}
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     );
                   }}
@@ -277,11 +265,12 @@ export const ZoneUpdateForm = ({ onClose, onScroll }: Props): JSX.Element => {
                           <Input
                             disabled={isInputDisabled}
                             className='text-black dark:text-white'
-                            placeholder='Eje: A, Tahua-1, P-1...'
+                            placeholder='Eje: Lima, Ancash...'
                             type='text'
                             {...field}
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     );
                   }}
@@ -297,11 +286,12 @@ export const ZoneUpdateForm = ({ onClose, onScroll }: Props): JSX.Element => {
                           <Input
                             disabled={isInputDisabled}
                             className='text-black dark:text-white'
-                            placeholder='Eje: A, Tahua-1, P-1...'
+                            placeholder='Eje: Lima, Huaraz...'
                             type='text'
                             {...field}
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     );
                   }}
@@ -317,11 +307,12 @@ export const ZoneUpdateForm = ({ onClose, onScroll }: Props): JSX.Element => {
                           <Input
                             disabled={isInputDisabled}
                             className='text-black dark:text-white'
-                            placeholder='Eje: A, Tahua-1, P-1...'
+                            placeholder='Eje: Los Olivos, Huarmey ...'
                             type='text'
                             {...field}
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     );
                   }}
@@ -362,13 +353,13 @@ export const ZoneUpdateForm = ({ onClose, onScroll }: Props): JSX.Element => {
                             <Command>
                               <CommandInput
                                 placeholder='Busque un supervisor...'
-                                className='h-9 text-sm lg:text-[15px]'
+                                className='h-9 text-[14px]'
                               />
                               <CommandEmpty>Supervisor no encontrado.</CommandEmpty>
                               <CommandGroup className='max-h-[200px] h-auto'>
                                 {supervisors.map((supervisor) => (
                                   <CommandItem
-                                    className='text-[13px] md:text-[14px]'
+                                    className='text-[14px]'
                                     value={supervisor.label}
                                     key={supervisor.value}
                                     onSelect={() => {
@@ -389,6 +380,7 @@ export const ZoneUpdateForm = ({ onClose, onScroll }: Props): JSX.Element => {
                                 ))}
                               </CommandGroup>
                             </Command>
+                            <FormMessage />
                           </PopoverContent>
                         </Popover>
                         <span
@@ -403,15 +395,25 @@ export const ZoneUpdateForm = ({ onClose, onScroll }: Props): JSX.Element => {
                     );
                   }}
                 />
+                {isMessageErrorDisabled ? (
+                  <p className='-mb-2 mt-4 md:mt-1 md:-mb-2 md:row-start-5 md:row-end-6 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
+                    *Por favor completa todos los campos para guardar el registro
+                  </p>
+                ) : (
+                  <p className='order-last md:-mt-3 md:row-start-7 md:row-end-8 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
+                    ¡Campos completados correctamente! <br /> Para finalizar por favor guarde los
+                    cambios
+                  </p>
+                )}
 
-                <div className='w-full md:mx-auto md:w-[50%] sm:col-start-1 sm:col-end-3 sm:row-start-5 sm:row-end-6 mt-2 md:mt-0'>
+                <div className='w-full md:mx-auto md:w-[50%] col-start-1 col-end-3 row-start-6 row-end-7 mt-2 md:mt-0'>
                   <Toaster position='top-center' richColors />
                   <Button
                     disabled={isSubmitButtonDisabled}
                     type='submit'
                     className='w-full text-[14px] bg-orange-500 text-white hover:bg-orange-600'
                     onClick={() => {
-                      // TODO : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                      // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
                       setTimeout(() => {
                         if (Object.keys(formUpdateZone.formState.errors).length === 0) {
                           toast.success('Cambios guardados correctamente', {

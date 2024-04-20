@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import * as z from 'zod';
-import { SubTypeSearch, TypeSearch, UserRoles } from '@/shared/enums';
+import { SubTypeSearch, TypeSearch, UserRoles, RecordOrder } from '@/shared/enums';
+
 
 export const formSearchByTermSchema = z
   .object({
     type: z.nativeEnum(TypeSearch,{
       required_error: "Por favor seleccione un tipo.",
     }),
+    
     subType: z.string(z.nativeEnum(SubTypeSearch ,{
       required_error: "Por favor seleccione una opción.",
     })).optional(),
@@ -35,9 +37,10 @@ export const formSearchByTermSchema = z
       message: 'Limite debe ser un numero mayor a 0'
     }).optional(),
     
-    order: z.enum(['ASC', 'DESC'], {
+    order: z.string(z.nativeEnum(RecordOrder, {
       required_error: "Seleccione un orden para al consulta.",
-    }),
+    })),
+
     limitAll: z.any().optional(),
    
   })
@@ -106,7 +109,7 @@ export const formSearchByTermSchema = z
   .refine(
     (data) => {
       if (data.type !== TypeSearch.LastName && data.type !== TypeSearch.FirstName && data.type !== TypeSearch.FullName && data.type !== TypeSearch.MonthBirth &&   
-          data.type !== TypeSearch.Gender && data.type !== TypeSearch.MaritalStatus && data.type !== TypeSearch.IsActive && data.type !== TypeSearch.DateBirth && 
+          data.type !== TypeSearch.Gender && data.type !== TypeSearch.MaritalStatus && data.type !== TypeSearch.Status && data.type !== TypeSearch.DateBirth && 
           data.type !== TypeSearch.Tithe && data.type !== TypeSearch.Sunday_worship && data.type !== TypeSearch.Family_house && data.type !== TypeSearch.Zonal_fasting &&
           data.type !== TypeSearch.General_fasting && data.type !== TypeSearch.General_vigil && data.type !== TypeSearch.Zonal_vigil && data.type !== TypeSearch.Youth_worship && 
           data.type !== TypeSearch.Sunday_school && data.type !== TypeSearch.Activities && data.type !== TypeSearch.Church_ground && data.type !== TypeSearch.Special  && data.type !== TypeSearch.Roles   
@@ -123,7 +126,7 @@ export const formSearchByTermSchema = z
   .refine(
     (data) => {
       if (data.type === TypeSearch.MonthBirth || data.type === TypeSearch.Gender ||
-          data.type === TypeSearch.MaritalStatus || data.type === TypeSearch.IsActive  ) {
+          data.type === TypeSearch.MaritalStatus || data.type === TypeSearch.Status  ) {
         return !!data.termSelect; 
       }
       return true;

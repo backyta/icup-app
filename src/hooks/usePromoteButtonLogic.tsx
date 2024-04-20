@@ -1,51 +1,62 @@
 import { useEffect, useState } from 'react';
 
+import { type UseFormReturn } from 'react-hook-form';
+
 import { type FieldName } from '@/shared/enums';
 import { type MemberData } from '@/shared/interfaces';
 
 interface Options {
-  form: any;
+  formMemberUpdate: UseFormReturn<MemberData, any, MemberData>;
   fieldName: typeof FieldName;
   setIsPromoteButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const usePromoteButtonLogic = ({ form, fieldName, setIsPromoteButtonDisabled }: Options): any => {
-  const firstName = form.watch('firstName');
-  const lastName = form.watch('lastName');
-  const gender = form.watch('gender');
-  const originCountry = form.watch('originCountry');
-  const maritalStatus = form.watch('maritalStatus');
-  const dateBirth = form.watch('dateBirth');
-  const numberChildren = form.watch('numberChildren');
-  const conversionDate = form.watch('conversionDate');
-  const emailAddress = form.watch('emailAddress');
-  const phoneNumber = form.watch('phoneNumber');
-  const country = form.watch('country');
-  const department = form.watch('department');
-  const province = form.watch('province');
-  const district = form.watch('district');
-  const address = form.watch('address');
-  const roles = form.watch('roles');
-  const theirPastor = form.watch('theirPastor');
-  const theirCopastor = form.watch('theirCopastor');
-  const theirSupervisor = form.watch('theirSupervisor');
-  const theirFamilyHouse = form.watch('theirFamilyHouse');
-  const isActive = form.watch('isActive');
+export const usePromoteButtonLogic = ({
+  formMemberUpdate,
+  fieldName,
+  setIsPromoteButtonDisabled,
+}: Options): any => {
+  // watchers
+  const firstName = formMemberUpdate.watch('firstName');
+  const lastName = formMemberUpdate.watch('lastName');
+  const gender = formMemberUpdate.watch('gender');
+  const originCountry = formMemberUpdate.watch('originCountry');
+  const maritalStatus = formMemberUpdate.watch('maritalStatus');
+  const dateBirth = formMemberUpdate.watch('dateBirth');
+  const numberChildren = formMemberUpdate.watch('numberChildren');
+  const conversionDate = formMemberUpdate.watch('conversionDate');
+  const emailAddress = formMemberUpdate.watch('emailAddress');
+  const phoneNumber = formMemberUpdate.watch('phoneNumber');
+  const country = formMemberUpdate.watch('country');
+  const department = formMemberUpdate.watch('department');
+  const province = formMemberUpdate.watch('province');
+  const district = formMemberUpdate.watch('district');
+  const address = formMemberUpdate.watch('address');
+  const roles = formMemberUpdate.watch('roles');
+  const theirPastor = formMemberUpdate.watch('theirPastor');
+  const theirCopastor = formMemberUpdate.watch('theirCopastor');
+  const theirSupervisor = formMemberUpdate.watch('theirSupervisor');
+  const theirFamilyHouse = formMemberUpdate.watch('theirFamilyHouse');
+  const status = formMemberUpdate.watch('status');
 
   const [fixedValues, setFixedValues] = useState<MemberData[]>([]);
   const [lastValues, setLastValues] = useState<MemberData[]>([]);
 
+  // effects
   useEffect(() => {
-    const initialValues: never[] = form.getValues([...Object.values(fieldName)]);
+    const initialValues: never[] = formMemberUpdate.getValues([...Object.values(fieldName)]);
     setFixedValues(initialValues);
   }, []);
 
   // validate and compare last and current values
   useEffect(() => {
     const previousValues: MemberData[] = lastValues;
-    const currentValues: never[] = form.getValues([...Object.values(fieldName)]);
+    const currentValues: never[] = formMemberUpdate.getValues([...Object.values(fieldName)]);
 
-    if (previousValues.length !== 0 && JSON.stringify(fixedValues) === JSON.stringify(previousValues)) {
+    if (
+      previousValues.length !== 0 &&
+      JSON.stringify(fixedValues) === JSON.stringify(previousValues)
+    ) {
       setIsPromoteButtonDisabled(true);
     }
 
@@ -60,7 +71,7 @@ export const usePromoteButtonLogic = ({ form, fieldName, setIsPromoteButtonDisab
     if (
       arrayEqualsIgnoreOrder(fixedValues, currentValues) &&
       JSON.stringify(fixedValues) === JSON.stringify(currentValues) &&
-      isActive === 'active'
+      status === 'active'
     ) {
       setIsPromoteButtonDisabled(false);
     }
@@ -86,6 +97,6 @@ export const usePromoteButtonLogic = ({ form, fieldName, setIsPromoteButtonDisab
     theirCopastor,
     theirSupervisor,
     theirFamilyHouse,
-    isActive,
+    status,
   ]);
 };

@@ -20,6 +20,17 @@ import { format } from 'date-fns';
 import { cn } from '@/shared/lib/utils';
 import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
+import {
+  useValidatePath,
+  useRoleUpdateHandler,
+  usePromoteButtonLogic,
+  useMemberUpdateSubmitButtonLogic,
+} from '@/hooks';
+
+import { copastors, familyHouses, pastors, supervisors } from '@/shared/data';
+import { type MemberDataKeys, type MemberData } from '@/shared/interfaces';
+import { formMemberSchema } from '@/shared/validations';
+
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
@@ -66,21 +77,14 @@ import {
 
 import {
   FieldName,
+  Gender,
+  GenderNames,
   MaritalStatus,
   MaritalStatusNames,
   MemberRoleNames,
   MemberRoles,
+  Status,
 } from '@/shared/enums';
-import { copastors, familyHouses, pastors, supervisors } from '@/shared/data';
-import { type DataMemberKeys, type MemberData } from '@/shared/interfaces';
-import { formMemberSchema } from '@/shared/validations';
-
-import {
-  useValidatePath,
-  useHandleRoleUpdate,
-  usePromoteButtonLogic,
-  useMemberUpdateSubmitButtonLogic,
-} from '@/hooks';
 
 // NOTE : ver si se hace el fetch aquí o el UpdateCard, hacer llamado según el ID para traer la data
 
@@ -89,7 +93,7 @@ const data: MemberData = {
   lastName: 'Guerrero',
   originCountry: 'Peru',
   dateBirth: new Date('12-12-2000'),
-  gender: 'female',
+  gender: Gender.Male,
   maritalStatus: MaritalStatus.Divorced,
   numberChildren: '3',
   conversionDate: new Date('12-12-2000'),
@@ -105,30 +109,33 @@ const data: MemberData = {
   theirCopastor: 'id2',
   theirSupervisor: 'id3',
   theirFamilyHouse: 'id2',
-  isActive: 'inactive',
+  status: Status.Inactive,
 };
 
-interface FormMemberProps {
+interface Props {
   onClose: () => void;
   onScroll: () => void;
 }
 
-// TODO : problema al colocar otro dato en el input y luego cambiar a activo el estado (revisar).
-// TODO : RENOMBRAR EL HOOK DE promote logic.
-// TODO : pintar en plomo los demás roles que no están marcados al deshabilitar.
-export const MemberFormUpdate = ({ onClose, onScroll }: FormMemberProps): JSX.Element => {
-  const [isInputRelationOpen, setIsInputRelationOpen] = useState(false);
-  const [isInputBirthDateOpen, setIsInputBirthDateOpen] = useState(false);
-  const [isInputConvertionDateOpen, setIsInputConvertionDateOpen] = useState(false);
+export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
+  //* States
+  const [isInputRelationOpen, setIsInputRelationOpen] = useState<boolean>(false);
+  const [isInputBirthDateOpen, setIsInputBirthDateOpen] = useState<boolean>(false);
+  const [isInputConvertionDateOpen, setIsInputConvertionDateOpen] = useState<boolean>(false);
 
-  const [isInputDisabled, setIsInputDisabled] = useState(false);
-  const [isRelationSelectDisabled, setIsRelationSelectDisabled] = useState(false);
-  const [isPromoteButtonDisabled, setIsPromoteButtonDisabled] = useState(false);
-  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
-  const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState(true);
-  const [isMessagePromoteDisabled, setIsMessagePromoteDisabled] = useState(false);
+  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
+  const [isRelationSelectDisabled, setIsRelationSelectDisabled] = useState<boolean>(false);
+
+  const [isPromoteButtonDisabled, setIsPromoteButtonDisabled] = useState<boolean>(false);
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(false);
+
+  const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
+  const [isMessagePromoteDisabled, setIsMessagePromoteDisabled] = useState<boolean>(false);
+
+  //* Library hooks
   const { pathname } = useLocation();
 
+  //* Form
   const form = useForm<z.infer<typeof formMemberSchema>>({
     mode: 'onChange',
     resolver: zodResolver(formMemberSchema),
@@ -136,6 +143,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: FormMemberProps): JSX.El
       firstName: '',
       lastName: '',
       emailAddress: '',
+      gender: '',
       phoneNumber: '',
       originCountry: '',
       numberChildren: '',
@@ -144,43 +152,46 @@ export const MemberFormUpdate = ({ onClose, onScroll }: FormMemberProps): JSX.El
       province: '',
       district: '',
       address: '',
+      status: '',
     },
   });
 
-  // Watchers
+  //* Form handler
+  const handleSubmit = (values: z.infer<typeof formMemberSchema>): void => {
+    console.log({ values });
+  };
+
+  //* Watchers
   const roles = form.watch('roles');
 
-  // Custom Hooks
-  const { disabledRoles } = useValidatePath({
+  //* Custom Hooks
+  const { disabledRoles, textValue } = useValidatePath({
     path: pathname,
-    idDisabled: isInputDisabled,
+    isInputDisabled,
+    memberRoles: MemberRoles,
   });
 
-  // TODO : hacer hook useFetch para setear en estado la data y aquí para barrer ese estado y setear en el form (traerlo del custom hook ver video)
+  //* Custom hooks
+  // NOTE : Hacer custom hook para setear
   useEffect(() => {
     for (const key in data) {
-      form.setValue(key as DataMemberKeys, data[key as DataMemberKeys]);
+      form.setValue(key as MemberDataKeys, data[key as MemberDataKeys]);
     }
   }, []);
 
   usePromoteButtonLogic({
-    form,
-    setIsPromoteButtonDisabled,
+    formMemberUpdate: form,
     fieldName: FieldName,
+    setIsPromoteButtonDisabled,
   });
 
   useMemberUpdateSubmitButtonLogic({
-    form,
+    formMemberUpdate: form,
     memberRoles: MemberRoles,
     pathname,
-    setIsDisabledMessageError: setIsMessageErrorDisabled,
+    setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
   });
-
-  const handleSubmit = (values: z.infer<typeof formMemberSchema>): void => {
-    // NOTE : enviar datos al backend actualizar
-    console.log({ values });
-  };
 
   return (
     <Tabs
@@ -269,12 +280,11 @@ export const MemberFormUpdate = ({ onClose, onScroll }: FormMemberProps): JSX.El
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem className='text-[13px] md:text-[14px]' value='male'>
-                                Masculino
-                              </SelectItem>
-                              <SelectItem className='text-[13px] md:text-[14px]' value='female'>
-                                Femenino
-                              </SelectItem>
+                              {Object.entries(GenderNames).map(([key, value]) => (
+                                <SelectItem className={`text-[14px]`} key={key} value={key}>
+                                  {value}
+                                </SelectItem>
+                              ))}
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -642,7 +652,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: FormMemberProps): JSX.El
 
                   <FormField
                     control={form.control}
-                    name='isActive'
+                    name='status'
                     render={({ field }) => {
                       return (
                         <FormItem className='mt-3'>
@@ -663,16 +673,17 @@ export const MemberFormUpdate = ({ onClose, onScroll }: FormMemberProps): JSX.El
                               </SelectItem>
                             </SelectContent>
                           </Select>
-                          {form.getValues('isActive') === 'active' && (
+                          {form.getValues('status') === 'active' && (
                             <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                               *El miembro esta <span className='text-green-500'>activo</span>, para
-                              colocar nuevamente como <span className='text-red-500'>inactivo</span>{' '}
-                              debe eliminar el registro.
+                              colocarla como <span className='text-red-500'>inactivo</span> debe
+                              eliminar el registro desde la pestaña{' '}
+                              <span className='font-bold text-red-500'>Eliminar {textValue}. </span>
                             </FormDescription>
                           )}
-                          {form.getValues('isActive') === 'inactive' && (
+                          {form.getValues('status') === 'inactive' && (
                             <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
-                              * El miembro esta <span className='text-red-500'>inactivo</span>,
+                              * El miembro esta <span className='text-red-500 '>inactivo</span>,
                               puede modificar el estado eligiendo otra opción.
                             </FormDescription>
                           )}
@@ -871,7 +882,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: FormMemberProps): JSX.El
                                       </Button>
                                     </FormControl>
                                   </PopoverTrigger>
-                                  <PopoverContent className='mr-30 w-auto px-4 py-2'>
+                                  <PopoverContent align='center' className='w-auto px-4 py-2'>
                                     <Command>
                                       <CommandInput
                                         placeholder='Busque un pastor...'
@@ -960,7 +971,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: FormMemberProps): JSX.El
                                     </Button>
                                   </FormControl>
                                 </PopoverTrigger>
-                                <PopoverContent className='mr-30 w-auto py-2 px-4'>
+                                <PopoverContent align='center' className='w-auto px-4 py-2'>
                                   <Command>
                                     <CommandInput
                                       placeholder='Busque un co-pastor...'
@@ -1049,7 +1060,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: FormMemberProps): JSX.El
                                     </Button>
                                   </FormControl>
                                 </PopoverTrigger>
-                                <PopoverContent className='mr-30 w-auto px-4 py-2'>
+                                <PopoverContent align='center' className='w-auto px-4 py-2'>
                                   <Command className='w-full'>
                                     <CommandInput
                                       placeholder='Busque un supervisor...'
@@ -1132,7 +1143,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: FormMemberProps): JSX.El
                                       </Button>
                                     </FormControl>
                                   </PopoverTrigger>
-                                  <PopoverContent className='mr-30 w-auto py-2 px-4'>
+                                  <PopoverContent align='center' className='w-auto px-4 py-2'>
                                     <Command>
                                       <CommandInput
                                         placeholder='Busque una casa familiar...'
@@ -1269,8 +1280,8 @@ export const MemberFormUpdate = ({ onClose, onScroll }: FormMemberProps): JSX.El
                           <AlertDialogAction
                             className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
                             onClick={() => {
-                              useHandleRoleUpdate({
-                                form,
+                              useRoleUpdateHandler({
+                                formMemberUpdate: form,
                                 memberRoles: MemberRoles,
                                 setIsDisabledPromoteButton: setIsPromoteButtonDisabled,
                                 setIsDisabledInput: setIsInputDisabled,
@@ -1299,8 +1310,8 @@ export const MemberFormUpdate = ({ onClose, onScroll }: FormMemberProps): JSX.El
                         </p>
                         <p className='text-[12px] md:text-[13px] font-medium '>
                           ❌ Mientras el &#34;Estado&#34; sea{' '}
-                          <span className='text-red-500'>inactivo</span> no podrás promover de
-                          cargo.
+                          <span className='text-red-500 font-bold'>inactivo</span> no podrás
+                          promover de cargo.
                         </p>
                       </div>
                     )}
@@ -1308,7 +1319,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: FormMemberProps): JSX.El
 
                 {isMessageErrorDisabled ? (
                   <p className='-mb-4 md:-mb-3 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-4 mx-auto md:w-[80%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
-                    *Por favor completa todos los campos para guardar el registro
+                    ❌ Datos incompletos, completa todos los campos para guardar el registro.
                   </p>
                 ) : (
                   <p className='-mt-4 order-last md:-mt-3 md:row-start-3 md:row-end-4 md:col-start-1 md:col-end-4 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
@@ -1324,7 +1335,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: FormMemberProps): JSX.El
                     type='submit'
                     className='w-full text-[14px]'
                     onClick={() => {
-                      // TODO : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                      // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
 
                       setTimeout(() => {
                         if (Object.keys(form.formState.errors).length === 0) {

@@ -1,28 +1,31 @@
 // import { MemberRoles as memberRoles } from '@/shared/enums';
 
+import { type UseFormReturn } from 'react-hook-form';
+
 import { type MemberRoles } from '@/shared/enums';
+import { type MemberData } from '@/shared/interfaces';
 
 interface Options {
-  form: any;
+  formMemberUpdate: UseFormReturn<MemberData, any, MemberData>;
   memberRoles: typeof MemberRoles;
   setIsDisabledInput: React.Dispatch<React.SetStateAction<boolean>>;
   setIsDisabledPromoteButton: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const useHandleRoleUpdate = ({
-  form,
+export const useRoleUpdateHandler = ({
+  formMemberUpdate,
   memberRoles,
   setIsDisabledInput,
   setIsDisabledPromoteButton,
 }: Options): void => {
-  // Delete all roles
-  form.setValue('theirCopastor', '');
-  form.setValue('theirPastor', '');
-  form.setValue('theirFamilyHouse', '');
-  form.setValue('theirSupervisor', '');
+  // delete all roles
+  formMemberUpdate.setValue('theirCopastor', '');
+  formMemberUpdate.setValue('theirPastor', '');
+  formMemberUpdate.setValue('theirFamilyHouse', '');
+  formMemberUpdate.setValue('theirSupervisor', '');
 
-  // Conditional level up role
-  const roles: MemberRoles[] = form.getValues('roles');
+  // conditional level up role
+  const roles: MemberRoles[] = formMemberUpdate.getValues('roles');
   const hasMember = roles.includes(memberRoles.Member);
   const hasPreacher = roles.includes(memberRoles.Preacher);
   const hasTreasurer = roles.includes(memberRoles.Treasurer);
@@ -33,23 +36,40 @@ export const useHandleRoleUpdate = ({
   if (hasMember) {
     // Member -> Preacher
     if (!hasPreacher && !hasSupervisor && !hasTreasurer && !hasCopastor && !hasPastor) {
-      form.setValue('roles', [memberRoles.Member, memberRoles.Preacher]);
+      formMemberUpdate.setValue('roles', [memberRoles.Member, memberRoles.Preacher]);
     }
     // preacher -> Supervisor
     else if (hasPreacher && !hasSupervisor && !hasTreasurer && !hasCopastor && !hasPastor) {
-      form.setValue('roles', [memberRoles.Member, memberRoles.Supervisor]);
+      formMemberUpdate.setValue('roles', [memberRoles.Member, memberRoles.Supervisor]);
     }
     // preacher + treasurer -> Supervisor + treasurer
     else if (hasPreacher && hasTreasurer && !hasSupervisor && !hasCopastor && !hasPastor) {
-      form.setValue('roles', [memberRoles.Member, memberRoles.Supervisor, memberRoles.Treasurer]);
+      formMemberUpdate.setValue('roles', [
+        memberRoles.Member,
+        memberRoles.Supervisor,
+        memberRoles.Treasurer,
+      ]);
     }
     // supervisor or supervisor + treasurer -> copastor
-    else if (hasSupervisor && (!hasTreasurer || hasTreasurer) && !hasPreacher && !hasCopastor && !hasPastor) {
-      form.setValue('roles', [memberRoles.Member, memberRoles.Copastor]);
+    else if (
+      hasSupervisor &&
+      (!hasTreasurer || hasTreasurer) &&
+      !hasPreacher &&
+      !hasCopastor &&
+      !hasPastor
+    ) {
+      formMemberUpdate.setValue('roles', [memberRoles.Member, memberRoles.Copastor]);
     }
     // copastor --> pastor
-    else if (hasMember && hasCopastor && !hasSupervisor && !hasPreacher && !hasTreasurer && !hasPastor) {
-      form.setValue('roles', [memberRoles.Member, memberRoles.Pastor]);
+    else if (
+      hasMember &&
+      hasCopastor &&
+      !hasSupervisor &&
+      !hasPreacher &&
+      !hasTreasurer &&
+      !hasPastor
+    ) {
+      formMemberUpdate.setValue('roles', [memberRoles.Member, memberRoles.Pastor]);
     }
   }
 

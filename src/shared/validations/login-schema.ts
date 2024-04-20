@@ -1,8 +1,6 @@
 import { UserRoles } from '@/shared/enums/user-roles.enum';
 import * as z from 'zod';
 
-
-// TODO : corregir para el login pass, and user o correo simple (solo colocar estos)
 export const loginSchema = z
   .object({
     firstName: z.string().min(1),

@@ -141,9 +141,9 @@ import { SubTypeSearch } from "@/shared/enums";
     SubTypeSearch.OfferingDate,
     SubTypeSearch.OfferingZone,
     SubTypeSearch.OfferingDateZone,
-    SubTypeSearch.OfferingCopastorNames,
-    SubTypeSearch.OfferingCopastorLastNames,
-    SubTypeSearch.OfferingCopastorFullName,
+    SubTypeSearch.OfferingSupervisorNames,
+    SubTypeSearch.OfferingSupervisorLastNames,
+    SubTypeSearch.OfferingSupervisorFullName,
   ];
 
   //* Offering (Young Worship)

@@ -4,10 +4,10 @@ export const dataUsers: User[] =
 [
   {
     id: '1',
-    first_name: 'Ana',
-    last_name: 'Martínez',
+    first_name: 'Ana Fernanda',
+    last_name: 'Martínez Díaz',
     email: 'ana1@gmail.com',
-    roles: 'user'
+    roles: 'user',
   },
   {
     id: '2',

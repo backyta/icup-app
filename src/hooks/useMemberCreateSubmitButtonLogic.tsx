@@ -1,9 +1,15 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { MemberRoles } from '@/shared/enums';
 import { useEffect } from 'react';
 
+import { type UseFormReturn } from 'react-hook-form';
+
+import { type MemberRoles } from '@/shared/enums';
+import { type MemberData } from '@/shared/interfaces';
+import { toast } from 'sonner';
+
 interface Options {
-  form: any;
+  formMemberCrate: UseFormReturn<MemberData, any, MemberData>;
   pathname: string;
   memberRoles: typeof MemberRoles;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,37 +17,38 @@ interface Options {
   isDisabledMessageError: boolean;
 }
 
-// TODO : modificar nombre y seccionar custom hooks por módulos
 export const useMemberCreateSubmitButtonLogic = ({
-  form,
+  formMemberCrate,
   pathname,
   memberRoles,
   setIsSubmitButtonDisabled,
   setIsDisabledMessageError,
   isDisabledMessageError,
 }: Options): void => {
-  const roles = form.watch('roles');
-  const firstName = form.watch('firstName');
-  const lastName = form.watch('lastName');
-  const gender = form.watch('gender');
-  const dateBirth = form.watch('dateBirth');
-  const conversionDate = form.watch('conversionDate');
-  const maritalStatus = form.watch('maritalStatus');
-  const emailAddress = form.watch('emailAddress');
-  const phoneNumber = form.watch('phoneNumber');
-  const originCountry = form.watch('originCountry');
-  const numberChildren = form.watch('numberChildren');
-  const country = form.watch('country');
-  const department = form.watch('department');
-  const province = form.watch('province');
-  const district = form.watch('district');
-  const address = form.watch('address');
+  // watchers
+  const roles = formMemberCrate.watch('roles');
+  const firstName = formMemberCrate.watch('firstName');
+  const lastName = formMemberCrate.watch('lastName');
+  const gender = formMemberCrate.watch('gender');
+  const dateBirth = formMemberCrate.watch('dateBirth');
+  const conversionDate = formMemberCrate.watch('conversionDate');
+  const maritalStatus = formMemberCrate.watch('maritalStatus');
+  const emailAddress = formMemberCrate.watch('emailAddress');
+  const phoneNumber = formMemberCrate.watch('phoneNumber');
+  const originCountry = formMemberCrate.watch('originCountry');
+  const numberChildren = formMemberCrate.watch('numberChildren');
+  const country = formMemberCrate.watch('country');
+  const department = formMemberCrate.watch('department');
+  const province = formMemberCrate.watch('province');
+  const district = formMemberCrate.watch('district');
+  const address = formMemberCrate.watch('address');
 
-  const theirFamilyHouse = form.watch('theirFamilyHouse');
-  const theirPastor = form.watch('theirPastor');
-  const theirCopastor = form.watch('theirCopastor');
-  const theirSupervisor = form.watch('theirSupervisor');
+  const theirFamilyHouse = formMemberCrate.watch('theirFamilyHouse');
+  const theirPastor = formMemberCrate.watch('theirPastor');
+  const theirCopastor = formMemberCrate.watch('theirCopastor');
+  const theirSupervisor = formMemberCrate.watch('theirSupervisor');
 
+  // effects
   useEffect(() => {
     // pastor
     if (
@@ -86,11 +93,11 @@ export const useMemberCreateSubmitButtonLogic = ({
       province &&
       district &&
       address &&
-      roles.includes(MemberRoles.Member) &&
-      roles.includes(MemberRoles.Supervisor) &&
-      theirSupervisor
+      roles.includes(memberRoles.Member) &&
+      roles.includes(memberRoles.Supervisor) &&
+      theirCopastor
     ) {
-      form.resetField('theirSupervisor', { keepTouched: true });
+      formMemberCrate.resetField('theirSupervisor', { keepTouched: true });
       setIsSubmitButtonDisabled(true);
       setIsDisabledMessageError(true);
     }
@@ -112,13 +119,25 @@ export const useMemberCreateSubmitButtonLogic = ({
       province &&
       district &&
       address &&
-      roles.includes(MemberRoles.Member) &&
-      roles.includes(MemberRoles.Preacher) &&
-      theirCopastor
+      roles.includes(memberRoles.Member) &&
+      roles.includes(memberRoles.Preacher) &&
+      theirSupervisor
     ) {
-      form.resetField('theirCopastor', { keepTouched: true });
+      formMemberCrate.resetField('theirCopastor', { keepTouched: true });
       setIsSubmitButtonDisabled(true);
       setIsDisabledMessageError(true);
+    }
+
+    // toast alert leader
+    if (
+      formMemberCrate.getValues('roles').includes(memberRoles.Supervisor) &&
+      formMemberCrate.getValues('roles').includes(memberRoles.Preacher) &&
+      formMemberCrate.getValues('roles').includes(memberRoles.Member)
+    ) {
+      toast.error('Solo debes elegir un rol: "Predicador" o "Supervisor"', {
+        position: 'bottom-left',
+        className: 'justify-center',
+      });
     }
 
     // others pages
@@ -191,19 +210,19 @@ export const useMemberCreateSubmitButtonLogic = ({
 
   useEffect(() => {
     if (pathname === '/disciples/create-disciple') {
-      form.setValue('roles', [MemberRoles.Member]);
+      formMemberCrate.setValue('roles', [memberRoles.Member]);
     }
     if (pathname === '/pastors/create-pastor') {
-      form.setValue('roles', [MemberRoles.Member, MemberRoles.Pastor]);
+      formMemberCrate.setValue('roles', [memberRoles.Member, memberRoles.Pastor]);
     }
     if (pathname === '/copastors/create-copastor') {
-      form.setValue('roles', [MemberRoles.Member, MemberRoles.Copastor]);
+      formMemberCrate.setValue('roles', [memberRoles.Member, memberRoles.Copastor]);
     }
   }, [isDisabledMessageError]);
 
   useEffect(() => {
     if (pathname === '/leaders/create-leader') {
-      form.setValue('roles', [MemberRoles.Member]);
+      formMemberCrate.setValue('roles', [memberRoles.Member]);
     }
   }, []);
 };

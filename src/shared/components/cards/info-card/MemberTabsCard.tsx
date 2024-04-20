@@ -8,7 +8,6 @@ import {
   CardTitle,
 } from '@/shared/components/ui/card';
 
-// TODO : pasar la data de la consulta aca y que se renderize.
 export const MemberTabsCard = (): JSX.Element => {
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
@@ -186,7 +185,7 @@ export const MemberTabsCard = (): JSX.Element => {
               Información de contacto del miembro.
             </CardDescription>
           </CardHeader>
-          <CardContent className='grid grid-cols-2 pl-[3rem] sm:pl-[6rem] gap-x-8 gap-y-4  md:gap-x-16 md:gap-y-6 md:pl-[5.8rem] md:pr-[1rem]'>
+          <CardContent className='grid grid-cols-2 pl-[3rem] sm:pl-[6rem] gap-x-8 gap-y-4  md:gap-x-16 md:gap-y-6 md:pl-[6.3rem] md:pr-[1rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Correo Electrónico</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>

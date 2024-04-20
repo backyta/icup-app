@@ -2,16 +2,18 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState } from 'react';
 
+import { type z } from 'zod';
+import { Toaster, toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { type z } from 'zod';
-
-import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
-
-import { formSearchZoneSchema, formZoneSchema } from '@/app/family-house/validations';
-import { type DataZoneKeys, type ZoneData } from '@/app/family-house/interfaces';
 
 import { cn } from '@/shared/lib/utils';
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+
+import { supervisors, zones } from '@/shared/data';
+
+import { formSearchZoneSchema, formZoneSchema } from '@/app/family-house/validations';
+import { type ZoneDataKeys, type ZoneData } from '@/app/family-house/interfaces';
 
 import {
   Form,
@@ -25,6 +27,7 @@ import {
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
+import { Card, CardContent } from '@/shared/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Command,
@@ -33,11 +36,6 @@ import {
   CommandInput,
   CommandItem,
 } from '@/shared/components/ui/command';
-
-import { supervisors, zones } from '@/shared/data';
-import { Card, CardContent } from '@/shared/components/ui/card';
-import { Toaster, toast } from 'sonner';
-import { useZoneUpdateSubmitButtonsLogic } from '@/hooks/useZoneUpdateSubmitButtonsLogic';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -49,8 +47,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/shared/components/ui/alert-dialog';
+import { useZoneDeleteSubmitButtonsLogic } from '@/hooks';
 
-// data ficticia
+//* data ficticia
 const data: ZoneData = {
   zoneName: 'Pisac Alto',
   country: 'Peru',
@@ -60,38 +59,26 @@ const data: ZoneData = {
   theirSupervisor: 'id2',
 };
 
-// NOTE: notes.
-/* // Agregar un botón de buscar y un input de zona o supervisor */
-/* // El input listara todos los supervisores y zonas */
-/* Ver si solo buscar por nombre de zona y traer todas las conciencias en una lista */
-/*  Elegir de esa lista uno (hacer solicitud y traer) su data y setear en input, ahi podremos */
-/* modificar y luego en guardar cambios */
-
-// ?  Hacer componte de search Search Zone
-/* Se hará una búsqueda directa a la tabla zonas y se guardara en un array */
-/* y se leerá todas las zonas de ese array y se meterán al combox */
-/* Al elegir una buscara solo 1 (zona unique), buscar por id */
-/*  Si hay zonas en otros lados del país con el mismo nombre identificar por, distrito, deptm. */
-/* En el front traer la data y hacer un map para componer el name Pisac Alto - Huanc. Huanuco, Pisac Alto, Indp. Lima */
-
 interface Props {
   onClose: () => void;
   onScroll: () => void;
 }
 
 export const ZoneDeleteForm = ({ onClose, onScroll }: Props): JSX.Element => {
-  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
-  const [isSearchButtonDisabled, setIsSearchButtonDisabled] = useState(true);
+  //* States
+  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(true);
+  const [isShowEditMode, setIsShowEditMode] = useState<boolean>(true);
 
-  const [isShowEditMode, setIsShowEditMode] = useState(true);
+  const [isInputSearchZoneDisabled, setIsInputSearchZoneDisabled] = useState<boolean>(false);
 
-  const [isSearchZoneUpdateOpen, setIsSearchZoneUpdateOpen] = useState(false);
-  const [isInputDisabled, setIsInputDisabled] = useState(true);
-  const [isInputSearchZoneDisabled, setIsInputSearchZoneDisabled] = useState(false);
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
+  const [isSearchButtonDisabled, setIsSearchButtonDisabled] = useState<boolean>(true);
 
-  const [isInputSupervisorOpen, setIsInputSupervisorOpen] = useState(false);
+  const [isSearchZoneUpdateOpen, setIsSearchZoneUpdateOpen] = useState<boolean>(false);
+  const [isInputSupervisorOpen, setIsInputSupervisorOpen] = useState<boolean>(false);
 
-  const formUpdateZone = useForm<z.infer<typeof formZoneSchema>>({
+  //* Forms
+  const formDeleteZone = useForm<z.infer<typeof formZoneSchema>>({
     resolver: zodResolver(formZoneSchema),
     defaultValues: {
       zoneName: '',
@@ -109,24 +96,26 @@ export const ZoneDeleteForm = ({ onClose, onScroll }: Props): JSX.Element => {
     },
   });
 
-  useZoneUpdateSubmitButtonsLogic({
-    formSearchZone,
-    formUpdateZone,
-    setIsSearchButtonDisabled,
-    setIsSubmitButtonDisabled,
-  });
-
+  //* Forms handlers
   const handleSubmitUpdateZone = (values: z.infer<typeof formZoneSchema>): void => {
     console.log({ values });
   };
 
   const handleSubmitSearchZone = (values: z.infer<typeof formSearchZoneSchema>): void => {
     for (const key in data) {
-      formUpdateZone.setValue(key as DataZoneKeys, data[key as DataZoneKeys]);
+      formDeleteZone.setValue(key as ZoneDataKeys, data[key as ZoneDataKeys]);
     }
     setIsShowEditMode(false);
     console.log({ values });
   };
+
+  //* Custom hooks
+  useZoneDeleteSubmitButtonsLogic({
+    formSearchZone,
+    formDeleteZone,
+    setIsSearchButtonDisabled,
+    setIsSubmitButtonDisabled,
+  });
 
   return (
     <Card className='w-full'>
@@ -224,16 +213,16 @@ export const ZoneDeleteForm = ({ onClose, onScroll }: Props): JSX.Element => {
 
           {/* Update Zone */}
           {!isShowEditMode && (
-            <Form {...formUpdateZone}>
+            <Form {...formDeleteZone}>
               <form
-                onSubmit={formUpdateZone.handleSubmit(handleSubmitUpdateZone)}
+                onSubmit={formDeleteZone.handleSubmit(handleSubmitUpdateZone)}
                 className='max-w-[60rem] w-full flex flex-col md:grid sm:grid-cols-2 gap-x-8 gap-y-2 md:gap-y-4 md:px-2'
               >
                 <span className='text-[18px] md:text-[22px] text-center font-bold inline-block col-start-1 col-end-3 row-start-1 row-end-2 mt-4 text-slate-400 '>
                   Información de la Zona
                 </span>
                 <FormField
-                  control={formUpdateZone.control}
+                  control={formDeleteZone.control}
                   name='zoneName'
                   render={({ field }) => {
                     return (
@@ -254,7 +243,7 @@ export const ZoneDeleteForm = ({ onClose, onScroll }: Props): JSX.Element => {
                   }}
                 />
                 <FormField
-                  control={formUpdateZone.control}
+                  control={formDeleteZone.control}
                   name='country'
                   render={({ field }) => {
                     return (
@@ -264,7 +253,7 @@ export const ZoneDeleteForm = ({ onClose, onScroll }: Props): JSX.Element => {
                           <Input
                             disabled={isInputDisabled}
                             className='text-black dark:text-white'
-                            placeholder='Eje: A, Tahua-1, P-1...'
+                            placeholder='Eje: Peru, Ecuador, Colombia...'
                             type='text'
                             {...field}
                           />
@@ -275,7 +264,7 @@ export const ZoneDeleteForm = ({ onClose, onScroll }: Props): JSX.Element => {
                   }}
                 />
                 <FormField
-                  control={formUpdateZone.control}
+                  control={formDeleteZone.control}
                   name='department'
                   render={({ field }) => {
                     return (
@@ -285,7 +274,7 @@ export const ZoneDeleteForm = ({ onClose, onScroll }: Props): JSX.Element => {
                           <Input
                             disabled={isInputDisabled}
                             className='text-black dark:text-white'
-                            placeholder='Eje: A, Tahua-1, P-1...'
+                            placeholder='Eje: Lima, Ancash...'
                             type='text'
                             {...field}
                           />
@@ -296,7 +285,7 @@ export const ZoneDeleteForm = ({ onClose, onScroll }: Props): JSX.Element => {
                   }}
                 />
                 <FormField
-                  control={formUpdateZone.control}
+                  control={formDeleteZone.control}
                   name='province'
                   render={({ field }) => {
                     return (
@@ -306,7 +295,7 @@ export const ZoneDeleteForm = ({ onClose, onScroll }: Props): JSX.Element => {
                           <Input
                             disabled={isInputDisabled}
                             className='text-black dark:text-white'
-                            placeholder='Eje: A, Tahua-1, P-1...'
+                            placeholder='Eje: Lima, Huaraz...'
                             type='text'
                             {...field}
                           />
@@ -317,7 +306,7 @@ export const ZoneDeleteForm = ({ onClose, onScroll }: Props): JSX.Element => {
                   }}
                 />
                 <FormField
-                  control={formUpdateZone.control}
+                  control={formDeleteZone.control}
                   name='district'
                   render={({ field }) => {
                     return (
@@ -327,7 +316,7 @@ export const ZoneDeleteForm = ({ onClose, onScroll }: Props): JSX.Element => {
                           <Input
                             disabled={isInputDisabled}
                             className='text-black dark:text-white'
-                            placeholder='Eje: A, Tahua-1, P-1...'
+                            placeholder='Eje: Los Olivos, Huarmey ...'
                             type='text'
                             {...field}
                           />
@@ -338,7 +327,7 @@ export const ZoneDeleteForm = ({ onClose, onScroll }: Props): JSX.Element => {
                   }}
                 />
                 <FormField
-                  control={formUpdateZone.control}
+                  control={formDeleteZone.control}
                   name='theirSupervisor'
                   render={({ field }) => {
                     return (
@@ -382,7 +371,7 @@ export const ZoneDeleteForm = ({ onClose, onScroll }: Props): JSX.Element => {
                                     value={supervisor.label}
                                     key={supervisor.value}
                                     onSelect={() => {
-                                      formUpdateZone.setValue('theirSupervisor', supervisor.value);
+                                      formDeleteZone.setValue('theirSupervisor', supervisor.value);
                                       setIsInputSupervisorOpen(false);
                                     }}
                                   >
@@ -407,7 +396,7 @@ export const ZoneDeleteForm = ({ onClose, onScroll }: Props): JSX.Element => {
                   }}
                 />
 
-                <div className='w-full md:mx-auto md:w-[50%] sm:col-start-1 sm:col-end-3 sm:row-start-5 sm:row-end-6 mt-2 md:mt-0'>
+                <div className='w-full md:mx-auto md:w-[50%] col-start-1 col-end-3 row-start-5 row-end-6 mt-2 md:mt-0'>
                   <Toaster position='top-center' richColors />
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
@@ -468,9 +457,9 @@ export const ZoneDeleteForm = ({ onClose, onScroll }: Props): JSX.Element => {
                         <AlertDialogAction
                           className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
                           onClick={() => {
-                            // TODO : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                            // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
                             setTimeout(() => {
-                              if (Object.keys(formUpdateZone.formState.errors).length === 0) {
+                              if (Object.keys(formDeleteZone.formState.errors).length === 0) {
                                 toast.success('Registro eliminado exitosamente', {
                                   position: 'top-center',
                                   className: 'justify-center',
@@ -488,7 +477,7 @@ export const ZoneDeleteForm = ({ onClose, onScroll }: Props): JSX.Element => {
                             }, 150);
 
                             setTimeout(() => {
-                              if (Object.keys(formUpdateZone.formState.errors).length === 0) {
+                              if (Object.keys(formDeleteZone.formState.errors).length === 0) {
                                 onClose();
                               }
                             }, 1800);

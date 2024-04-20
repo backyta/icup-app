@@ -30,7 +30,7 @@ export enum TypeSearch {
   District = 'district',
 
   //* Members, Pastor, Copastor, Supervisor, Preacher, Fam. House, Offering, User
-  IsActive = 'is_active',
+  Status = 'status',
   
   //* Members, User
   Roles = 'roles',
@@ -76,7 +76,7 @@ export const TypeSearchNames: Record<TypeSearch, string> =  {
 
   roles : 'Roles',
 
-  is_active : 'Estado',
+  status : 'Estado',
 
   tithe : 'Diezmo',
   sunday_worship: 'Ofrenda Culto Dominical',
@@ -89,7 +89,7 @@ export const TypeSearchNames: Record<TypeSearch, string> =  {
   youth_worship: 'Ofrenda Culto Jóvenes',
   activities: 'Ofrenda Actividades',
   church_ground: 'Ofrenda Terreno Iglesia',
-  special: 'Especial',
+  special: 'Ofrenda Especial',
 
   
 }

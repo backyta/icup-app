@@ -17,6 +17,15 @@ import { format } from 'date-fns';
 import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { cn } from '@/shared/lib/utils';
 
+import { useMemberCreateSubmitButtonLogic, useValidatePath } from '@/hooks';
+import { formMemberSchema } from '@/shared/validations';
+import { MemberRoles, MemberRoleNames, MaritalStatusNames, GenderNames } from '@/shared/enums';
+
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Calendar } from '@/shared/components/ui/calendar';
+import { Checkbox } from '@/shared/components/ui/checkbox';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Command,
   CommandEmpty,
@@ -31,12 +40,6 @@ import {
   SelectItem,
   Select,
 } from '@/shared/components/ui/select';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
-
-import { Input } from '@/shared/components/ui/input';
-import { Button } from '@/shared/components/ui/button';
-import { Calendar } from '@/shared/components/ui/calendar';
-import { Checkbox } from '@/shared/components/ui/checkbox';
 
 import {
   Form,
@@ -48,22 +51,24 @@ import {
   FormMessage,
 } from '@/shared/components/ui/form';
 
-import { formMemberSchema } from '@/shared/validations';
-import { useMemberCreateSubmitButtonLogic, useValidatePath } from '@/hooks';
 import { copastors, familyHouses, pastors, supervisors } from '@/shared/data';
-import { MemberRoles, MemberRoleNames, MaritalStatusNames } from '@/shared/enums';
 
 export const MemberCreatePage = (): JSX.Element => {
-  const [isInputRelationOpen, setIsInputRelationOpen] = useState(false);
-  const [isInputBirthDateOpen, setIsInputBirthDateOpen] = useState(false);
-  const [isInputConvertionDateOpen, setIsInputConvertionDateOpen] = useState(false);
+  //* States
+  const [isInputRelationOpen, setIsInputRelationOpen] = useState<boolean>(false);
+  const [isInputBirthDateOpen, setIsInputBirthDateOpen] = useState<boolean>(false);
+  const [isInputConvertionDateOpen, setIsInputConvertionDateOpen] = useState<boolean>(false);
 
-  const [isInputDisabled, setIsInputDisabled] = useState(false);
-  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
-  const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState(true);
+  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
 
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
+
+  const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
+
+  //* Library hooks
   const { pathname } = useLocation();
 
+  //* Form
   const form = useForm<z.infer<typeof formMemberSchema>>({
     resolver: zodResolver(formMemberSchema),
     defaultValues: {
@@ -86,27 +91,28 @@ export const MemberCreatePage = (): JSX.Element => {
     },
   });
 
+  //* Form handler
+  const handleSubmit = (values: z.infer<typeof formMemberSchema>): void => {
+    console.log({ values });
+  };
+
   //* watchers
   const roles = form.watch('roles');
 
   //* Custom hooks
   const { titleValue, subTitleValue, disabledRoles } = useValidatePath({
     path: pathname,
+    memberRoles: MemberRoles,
   });
 
   useMemberCreateSubmitButtonLogic({
-    form,
+    formMemberCrate: form,
     isDisabledMessageError: isMessageErrorDisabled,
     memberRoles: MemberRoles,
     pathname,
     setIsDisabledMessageError: setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
   });
-
-  //* Form handler
-  const handleSubmit = (values: z.infer<typeof formMemberSchema>): void => {
-    console.log({ values });
-  };
 
   return (
     <div>
@@ -131,7 +137,7 @@ export const MemberCreatePage = (): JSX.Element => {
         Por favor llena los siguientes datos para crear un nuevo {subTitleValue}.
       </p>
 
-      <div className='flex min-h-screen flex-col items-center justify-between px-8 py-6 sm:px-8 sm:py-6 lg:py-6 xl:px-20 2xl:px-36'>
+      <div className='flex min-h-screen flex-col items-center justify-between px-8 py-6 sm:px-8 sm:py-6 lg:py-6 xl:px-14 2xl:px-36'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -202,8 +208,11 @@ export const MemberCreatePage = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value='male'>Masculino</SelectItem>
-                          <SelectItem value='female'>Femenino</SelectItem>
+                          {Object.entries(GenderNames).map(([key, value]) => (
+                            <SelectItem className={`text-[14px]`} key={key} value={key}>
+                              {value}
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -217,7 +226,7 @@ export const MemberCreatePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel className='text-[14px] font-medium'>País de Origen</FormLabel>
+                      <FormLabel className='text-[14px] font-medium'>País de origen</FormLabel>
                       <FormControl>
                         <Input
                           disabled={isInputDisabled}
@@ -236,7 +245,7 @@ export const MemberCreatePage = (): JSX.Element => {
                 name='dateBirth'
                 render={({ field }) => (
                   <FormItem className='flex flex-col mt-4'>
-                    <FormLabel className='text-[14px] font-medium'>Fecha de Nacimiento</FormLabel>
+                    <FormLabel className='text-[14px] font-medium'>Fecha de nacimiento</FormLabel>
                     <Popover open={isInputBirthDateOpen} onOpenChange={setIsInputBirthDateOpen}>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -411,7 +420,7 @@ export const MemberCreatePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel className='text-[14px] font-medium'>Numero de Teléfono</FormLabel>
+                      <FormLabel className='text-[14px] font-medium'>Numero de teléfono</FormLabel>
                       <FormControl>
                         <Input
                           disabled={isInputDisabled}
@@ -922,21 +931,29 @@ export const MemberCreatePage = (): JSX.Element => {
                 )}
               {pathname === '/leaders/create-leader' && (
                 <div>
-                  <p className='mt-4 font-bold text-[13.5px] md:text-[14px] text-blue-600'>
+                  <p className='mt-4 font-bold text-[13.5px] md:text-[14px] text-red-500'>
                     Consideraciones
                   </p>
-                  <ul className='text-[12px] md:text-[13px] text-red-500 font-medium pl-2'>
-                    <li>*No se permite asignar mas de 3 roles.</li>
-                    <li>*Para crear un líder debe asignar el rol Predicador o Supervisor</li>
-                    <li>*Para asignar rol Tesorero se debe asignar rol Predicador o Supervisor.</li>
+                  <ul className='text-[12px] md:text-[13px] font-medium pl-2'>
+                    <li>✅ No se permite asignar mas de 3 roles.</li>
+                    <li>
+                      ✅ Para crear un <span className='font-bold'>Líder</span> debe asignar el rol{' '}
+                      <span className='font-bold'>Predicador</span> o{' '}
+                      <span className='font-bold'>Supervisor</span>
+                    </li>
+                    <li>
+                      ✅ Para asignar rol <span className='font-bold'>Tesorero</span> se debe
+                      asignar rol <span className='font-bold'>Predicador</span> o{' '}
+                      <span className='font-bold'>Supervisor</span>.
+                    </li>
                   </ul>
                 </div>
               )}
             </div>
 
             {isMessageErrorDisabled ? (
-              <p className='mt-2 -mb-3 md:-mt-5 md:col-start-1 md:col-end-3 md:row-start-3 md:row-end-4 mx-auto md:w-[70%] lg:w-[50%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
-                *Por favor completa todos los campos para guardar el registro
+              <p className='mt-2 -mb-4 md:-mt-5 md:col-start-1 md:col-end-3 md:row-start-3 md:row-end-4 mx-auto md:w-[100%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
+                ❌ Datos incompletos, completa todos los campos para crear el registro.
               </p>
             ) : (
               <p className='order-last -mt-3 md:-mt-5 md:col-start-1 md:col-end-3 mx-auto md:w-[70%] lg:w-[50%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
@@ -944,54 +961,19 @@ export const MemberCreatePage = (): JSX.Element => {
               </p>
             )}
 
-            <div className='md:mt-2 lg:mt-2 sm:col-start-1 sm:col-end-3 sm:row-start-3 sm:row-end-4 w-60  m-auto 2xl:w-80'>
+            <div className='md:mt-2 lg:mt-2 col-start-1 col-end-3 row-start-3 row-end-4 w-full md:w-[20rem] md:m-auto'>
               <Toaster position='top-center' richColors />
               <Button
                 disabled={isSubmitButtonDisabled}
                 type='submit'
-                className='w-full text-[14px] xl:text-[16px]'
+                className='w-full text-[14px]'
                 onClick={() => {
-                  // TODO : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                  // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
                   // page leader
                   if (pathname === '/leaders/create-leader') {
-                    if (!form.getValues('roles').includes(MemberRoles.Member)) {
-                      toast.error('El rol "miembro" es obligatorio', {
-                        position: 'bottom-left',
-                        className: 'justify-center',
-                      });
-                    }
-
-                    if (
-                      form.getValues('roles').includes(MemberRoles.Member) &&
-                      !form.getValues('roles').includes(MemberRoles.Preacher) &&
-                      !form.getValues('roles').includes(MemberRoles.Supervisor)
-                    ) {
-                      toast.error('Debe asignar el rol de "predicador" o "supervisor"', {
-                        position: 'bottom-left',
-                        className: 'justify-center',
-                      });
-                    }
-
-                    if (
-                      form.getValues('roles').includes(MemberRoles.Supervisor) &&
-                      form.getValues('roles').includes(MemberRoles.Preacher) &&
-                      form.getValues('roles').includes(MemberRoles.Member)
-                    ) {
-                      toast.error('Solo debes elegir un rol: "predicador" o "supervisor"', {
-                        position: 'bottom-left',
-                        className: 'justify-center',
-                      });
-                    }
-
                     setTimeout(() => {
-                      if (
-                        Object.keys(form.formState.errors).length === 0 &&
-                        ((form.getValues('roles').includes(MemberRoles.Preacher) &&
-                          !form.getValues('roles').includes(MemberRoles.Supervisor)) ||
-                          (!form.getValues('roles').includes(MemberRoles.Preacher) &&
-                            form.getValues('roles').includes(MemberRoles.Supervisor)))
-                      ) {
-                        toast.success('Cambios guardados correctamente', {
+                      if (Object.keys(form.formState.errors).length === 0) {
+                        toast.success('Registro creado exitosamente', {
                           position: 'top-center',
                           className: 'justify-center',
                         });
@@ -1002,13 +984,7 @@ export const MemberCreatePage = (): JSX.Element => {
                     }, 100);
 
                     setTimeout(() => {
-                      if (
-                        Object.keys(form.formState.errors).length === 0 &&
-                        ((form.getValues('roles').includes(MemberRoles.Preacher) &&
-                          !form.getValues('roles').includes(MemberRoles.Supervisor)) ||
-                          (!form.getValues('roles').includes(MemberRoles.Preacher) &&
-                            form.getValues('roles').includes(MemberRoles.Supervisor)))
-                      ) {
+                      if (Object.keys(form.formState.errors).length === 0) {
                         setIsInputDisabled(false);
                         setIsSubmitButtonDisabled(false);
                         form.reset();
@@ -1020,7 +996,7 @@ export const MemberCreatePage = (): JSX.Element => {
                   if (pathname !== '/leaders/create-leader') {
                     setTimeout(() => {
                       if (Object.keys(form.formState.errors).length === 0) {
-                        toast.success('Cambios guardados correctamente', {
+                        toast.success('Registro creado exitosamente', {
                           position: 'top-center',
                           className: 'justify-center',
                         });

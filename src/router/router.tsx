@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+// direct pages
 import { DashboardLayout } from '@/layouts';
 import { DashboardPage } from '@/app/dashboard/pages';
 import { DiscipleOptionsPage } from '@/app/disciple/pages';
@@ -9,6 +10,8 @@ import { LeaderOptionsPage } from '@/app/leader/pages';
 import { FamilyHouseOptionsPage } from '@/app/family-house/pages';
 import { OfferingOptionsPage } from '@/app/offering/pages';
 import { UserOptionsPage } from '@/app/user/pages';
+
+// routers by module
 import { DiscipleChildrenRoutes } from '@/app/disciple/router';
 import { PastorChildrenRoutes } from '@/app/pastor/router';
 import { CopastorChildrenRoutes } from '@/app/copastor/router';

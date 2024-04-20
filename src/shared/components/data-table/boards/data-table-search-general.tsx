@@ -24,11 +24,27 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 
+import { formSearchGeneralSchema } from '@/shared/validations';
+import { RecordOrder, RecordOrderNames } from '@/shared/enums';
+
 import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
 import { Checkbox } from '@/shared/components/ui/checkbox';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/shared/components/ui/table';
-import { SelectValue, SelectTrigger, SelectContent, SelectItem, Select } from '@/shared/components/ui/select';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/shared/components/ui/table';
+import {
+  SelectValue,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  Select,
+} from '@/shared/components/ui/select';
 import {
   Form,
   FormControl,
@@ -39,26 +55,28 @@ import {
   FormMessage,
 } from '@/shared/components/ui/form';
 
-import { formSearchGeneralSchema } from '@/shared/validations';
-
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
 }
 
-export function DataTableSearchGeneral<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>): JSX.Element {
+export function DataTableSearchGeneral<TData, TValue>({
+  columns,
+  data,
+}: DataTableProps<TData, TValue>): JSX.Element {
+  //* States
   const [sorting, setSorting] = useState<SortingState>([]);
-
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
   const [rowSelection, setRowSelection] = useState({});
 
-  const [disabled, setDisabled] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(true);
 
+  //* Library hooks
   const { pathname } = useLocation();
 
+  //* Forms
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({
     mode: 'onChange',
     resolver: zodResolver(formSearchGeneralSchema),
@@ -66,15 +84,18 @@ export function DataTableSearchGeneral<TData, TValue>({ columns, data }: DataTab
       limit: '10',
       offset: '0',
       limitAll: false,
+      order: RecordOrder.Ascending,
     },
   });
 
+  //* Form handler
   function onSubmit(values: z.infer<typeof formSearchGeneralSchema>): void {
-    setDisabled(false);
+    setIsDisabled(false);
     form.reset();
     console.log({ values });
   }
 
+  //* Table
   const table = useReactTable({
     data,
     columns,
@@ -96,7 +117,7 @@ export function DataTableSearchGeneral<TData, TValue>({ columns, data }: DataTab
 
   return (
     <div className='md:w-full m-auto lg:w-full pt-4'>
-      {disabled && (
+      {isDisabled && (
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -109,7 +130,9 @@ export function DataTableSearchGeneral<TData, TValue>({ columns, data }: DataTab
                 render={({ field }) => (
                   <FormItem className='sm:w-[20rem] md:w-auto'>
                     <FormLabel className='text-[14px] font-bold'>Limite</FormLabel>
-                    <FormDescription className='text-[14px]'>¿Cuantos registros necesitas?</FormDescription>
+                    <FormDescription className='text-[14px]'>
+                      ¿Cuantos registros necesitas?
+                    </FormDescription>
                     <FormControl>
                       <Input
                         {...field}
@@ -132,7 +155,9 @@ export function DataTableSearchGeneral<TData, TValue>({ columns, data }: DataTab
                     render={() => (
                       <FormItem>
                         <FormLabel className='text-[14px] font-bold'>Desplazamiento</FormLabel>
-                        <FormDescription className='text-[14px]'>¿Cuantos registros quieres saltar?</FormDescription>
+                        <FormDescription className='text-[14px]'>
+                          ¿Cuantos registros quieres saltar?
+                        </FormDescription>
                       </FormItem>
                     )}
                   />
@@ -169,7 +194,11 @@ export function DataTableSearchGeneral<TData, TValue>({ columns, data }: DataTab
                             onCheckedChange={(checked) => {
                               field.onChange(checked);
                             }}
-                            className={!form.getValues('limit') || !form.getValues('offset') ? 'bg-slate-500' : ''}
+                            className={
+                              !form.getValues('limit') || !form.getValues('offset')
+                                ? 'bg-slate-500'
+                                : ''
+                            }
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
@@ -188,19 +217,28 @@ export function DataTableSearchGeneral<TData, TValue>({ columns, data }: DataTab
               render={({ field }) => (
                 <FormItem className='lg:min-w-[23rem]'>
                   <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
-                  <Select onValueChange={field.onChange}>
+                  <FormDescription className='text-[14px]'>
+                    Selecciona el tipo de orden de los registros
+                  </FormDescription>
+                  <Select value={field.value} onValueChange={field.onChange}>
                     <FormControl className='text-[13px] md:text-[14px] lg:w-full'>
                       <SelectTrigger>
-                        <SelectValue placeholder='Selecciona un tipo de orden' />
+                        {field.value ? (
+                          <SelectValue
+                            className='text-[13px] md:text-[14px]'
+                            placeholder='Selecciona un tipo de orden'
+                          />
+                        ) : (
+                          'Selecciona un tipo de orden'
+                        )}
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem className='text-[13px] md:text-[14px]' value='DESC'>
-                        Mas nuevo a mas antiguo
-                      </SelectItem>
-                      <SelectItem className='text-[13px] md:text-[14px]' value='ASC'>
-                        Mas antiguo a mas nuevo
-                      </SelectItem>
+                      {Object.entries(RecordOrderNames).map(([key, value]) => (
+                        <SelectItem className={`text-[13px] md:text-[14px]`} key={key} value={key}>
+                          {value}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -211,7 +249,7 @@ export function DataTableSearchGeneral<TData, TValue>({ columns, data }: DataTab
               type='submit'
               variant='ghost'
               className={cn(
-                'm-auto md:m-0 mt-8 lg:m-0 w-full text-[13px] lg:text-[14px] h-[2.5rem] md:w-[12rem] xl:w-[10rem] px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500  dark:bg-green-500 hover:bg-green-500 hover:text-white'
+                'm-auto md:m-0 mt-8 lg:m-0 w-full text-[13px] lg:text-[14px] h-[2.5rem] md:w-[16rem] px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500  dark:bg-green-500 hover:bg-green-500 hover:text-white'
               )}
             >
               Buscar
@@ -222,30 +260,32 @@ export function DataTableSearchGeneral<TData, TValue>({ columns, data }: DataTab
 
       {/* Disciples, Pastors, Co-Pastors, Leaders  */}
 
-      {!disabled &&
+      {!isDisabled &&
         (pathname === '/disciples/search-disciples' ||
           pathname === '/pastors/search-pastors' ||
           pathname === '/copastors/search-copastors' ||
           pathname === '/leaders/search-leaders') && (
-          <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 md:flex lg:items-center lg:py-4 lg:gap-6'>
+          <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
             <Input
               placeholder='Filtro por nombres...'
               value={(table.getColumn('first_name')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('first_name')?.setFilterValue(event.target.value)}
+              onChange={(event) =>
+                table.getColumn('first_name')?.setFilterValue(event.target.value)
+              }
               className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
-              disabled={disabled}
+              disabled={isDisabled}
             />
             <Input
               placeholder='Filtro por apellidos...'
               value={(table.getColumn('last_name')?.getFilterValue() as string) ?? ''}
               onChange={(event) => table.getColumn('last_name')?.setFilterValue(event.target.value)}
               className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
-              disabled={disabled}
+              disabled={isDisabled}
             />
 
             <Button
               variant='ghost'
-              className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
+              className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
               onClick={() => {
                 table.getColumn('first_name')?.setFilterValue('');
                 table.getColumn('last_name')?.setFilterValue('');
@@ -255,9 +295,9 @@ export function DataTableSearchGeneral<TData, TValue>({ columns, data }: DataTab
             </Button>
             <Button
               variant='ghost'
-              className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
+              className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
               onClick={() => {
-                setDisabled(true);
+                setIsDisabled(true);
                 table.getColumn('first_name')?.setFilterValue('');
                 table.getColumn('last_name')?.setFilterValue('');
               }}
@@ -269,25 +309,25 @@ export function DataTableSearchGeneral<TData, TValue>({ columns, data }: DataTab
 
       {/* Family Houses */}
 
-      {!disabled && pathname === '/family-houses/search-family-houses' && (
+      {!isDisabled && pathname === '/family-houses/search-family-houses' && (
         <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
           <Input
             placeholder='Filtro por nombre de casa...'
             value={(table.getColumn('name_house')?.getFilterValue() as string) ?? ''}
             onChange={(event) => table.getColumn('name_house')?.setFilterValue(event.target.value)}
             className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
-            disabled={disabled}
+            disabled={isDisabled}
           />
           <Input
             placeholder='Filtro por código de casa...'
             value={(table.getColumn('code')?.getFilterValue() as string) ?? ''}
             onChange={(event) => table.getColumn('code')?.setFilterValue(event.target.value)}
             className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
-            disabled={disabled}
+            disabled={isDisabled}
           />
           <Button
             variant='ghost'
-            className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
+            className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
             onClick={() => {
               table.getColumn('name_house')?.setFilterValue('');
               table.getColumn('code')?.setFilterValue('');
@@ -297,9 +337,9 @@ export function DataTableSearchGeneral<TData, TValue>({ columns, data }: DataTab
           </Button>
           <Button
             variant='ghost'
-            className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
+            className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
             onClick={() => {
-              setDisabled(true);
+              setIsDisabled(true);
               table.getColumn('name_house')?.setFilterValue('');
               table.getColumn('code')?.setFilterValue('');
             }}
@@ -311,84 +351,84 @@ export function DataTableSearchGeneral<TData, TValue>({ columns, data }: DataTab
 
       {/* Offerings */}
 
-      {!disabled && pathname === '/offerings/search-offerings' && (
-        <div className='pb-8 lg:pb-8 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
-          <Button
-            variant='ghost'
-            className='w-[8rem] m-auto text-[13px] lg:text-[14px] h-full md:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-50 hover:bg-green-500 hover:text-white'
-            onClick={() => {
-              setDisabled(true);
-              table.getColumn('type')?.setFilterValue('');
-              table.getColumn('sub_type')?.setFilterValue('');
-            }}
-          >
-            Nueva Búsqueda
-          </Button>
+      {!isDisabled && pathname === '/offerings/search-offerings' && (
+        <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
           <Input
             placeholder='Filtro por tipo de ofrenda...'
             value={(table.getColumn('type')?.getFilterValue() as string) ?? ''}
             onChange={(event) => table.getColumn('type')?.setFilterValue(event.target.value)}
-            className='text-[13px] lg:text-[14px] w-full'
-            disabled={disabled}
+            className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
+            disabled={isDisabled}
           />
           <Input
             placeholder='Filtro por código de casa...'
             value={(table.getColumn('sub_type')?.getFilterValue() as string) ?? ''}
             onChange={(event) => table.getColumn('sub_type')?.setFilterValue(event.target.value)}
-            className='col-start-1 col-end-2 text-[13px] lg:text-[14px] w-full'
-            disabled={disabled}
+            className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
+            disabled={isDisabled}
           />
           <Button
             variant='ghost'
-            className='w-[6rem] m-auto text-[13px] lg:text-[14px] h-full md:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
+            className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
             onClick={() => {
               table.getColumn('type')?.setFilterValue('');
               table.getColumn('sub_type')?.setFilterValue('');
             }}
           >
             Borrar
+          </Button>
+          <Button
+            variant='ghost'
+            className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
+            onClick={() => {
+              setIsDisabled(true);
+              table.getColumn('type')?.setFilterValue('');
+              table.getColumn('sub_type')?.setFilterValue('');
+            }}
+          >
+            Nueva Búsqueda
           </Button>
         </div>
       )}
 
       {/* Users */}
 
-      {!disabled && pathname === '/users/search-users' && (
-        <div className='pb-8 lg:pb-8 grid grid-cols-1 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
-          <Button
-            variant='ghost'
-            className='w-[8rem] m-auto text-[13px] lg:text-[14px] h-full md:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
-            onClick={() => {
-              setDisabled(true);
-              table.getColumn('email')?.setFilterValue('');
-              table.getColumn('roles')?.setFilterValue('');
-            }}
-          >
-            Nueva Búsqueda
-          </Button>
+      {!isDisabled && pathname === '/users/search-users' && (
+        <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
           <Input
             placeholder='Filtro por correo electrónico...'
             value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
             onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
-            className='text-[13px] lg:text-[14px] w-full'
-            disabled={disabled}
+            className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
+            disabled={isDisabled}
           />
           <Input
             placeholder='Filtro por roles de usuario...'
             value={(table.getColumn('roles')?.getFilterValue() as string) ?? ''}
             onChange={(event) => table.getColumn('roles')?.setFilterValue(event.target.value)}
-            className='col-start-1 col-end-2 text-[13px] lg:text-[14px] w-full'
-            disabled={disabled}
+            className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
+            disabled={isDisabled}
           />
           <Button
             variant='ghost'
-            className='w-[6rem] m-auto text-[13px] lg:text-[14px] h-full md:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
+            className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
             onClick={() => {
               table.getColumn('email')?.setFilterValue('');
               table.getColumn('roles')?.setFilterValue('');
             }}
           >
             Borrar
+          </Button>
+          <Button
+            variant='ghost'
+            className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
+            onClick={() => {
+              setIsDisabled(true);
+              table.getColumn('email')?.setFilterValue('');
+              table.getColumn('roles')?.setFilterValue('');
+            }}
+          >
+            Nueva Búsqueda
           </Button>
         </div>
       )}
@@ -402,15 +442,20 @@ export function DataTableSearchGeneral<TData, TValue>({ columns, data }: DataTab
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead className='text-center text-slate-700 dark:text-slate-200' key={header.id}>
-                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                    <TableHead
+                      className='text-center text-slate-700 dark:text-slate-200'
+                      key={header.id}
+                    >
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
                 })}
               </TableRow>
             ))}
           </TableHeader>
-          {!disabled && (
+          {!isDisabled && (
             <TableBody>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (

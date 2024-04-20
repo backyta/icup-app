@@ -8,9 +8,10 @@ export interface FamilyHouseData {
   district: string;
   address: string;
   theirPreacher: string;
+  status?: string | undefined;
 }
 
-export type DataFamilyHouseKeys =
+export type FamilyHouseDataKeys =
   |'zoneName' 
   |'houseName' 
   |'country' 
@@ -18,4 +19,5 @@ export type DataFamilyHouseKeys =
   |'province' 
   |'district' 
   |'address' 
-  |'theirPreacher';
+  |'theirPreacher'
+  |'status';

@@ -5,3 +5,6 @@ export * from './search-sub-types.enum';
 export * from './search-types.enum';
 export * from './term-select-options.enum';
 export * from './user-roles.enum';
+export * from './gender.enum';
+export * from './status.enum';
+export * from './record-order.enum';

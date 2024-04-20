@@ -88,9 +88,9 @@ export enum SubTypeSearch {
   OfferingPreacherFullName = 'offering_preacher_full_name',
 
   //* Offering Ayuno y Vigilia Zonal
-  OfferingCopastorNames = 'offering_copastor_names',
-  OfferingCopastorLastNames = 'offering_copastor_last_names',
-  OfferingCopastorFullName = 'offering_copastor_full_name',
+  OfferingSupervisorNames = 'offering_supervisor_names',
+  OfferingSupervisorLastNames = 'offering_supervisor_last_names',
+  OfferingSupervisorFullName = 'offering_supervisor_full_name',
 
   //* Offering Ground Church and Special
   OfferingNames = 'offering_names',
@@ -190,21 +190,21 @@ export const SubTypeSearchNames: Record<SubTypeSearch, string> =  {
   'offering_date_zone': 'Buscar por zona y fecha',
 
   //* Family House
-  'offering_preacher_names': 'Buscar por nombres de predicador',
-  'offering_preacher_last_names': 'Buscar por apellidos de predicador',
-  'offering_preacher_full_name': 'Buscar por nombres y apellidos de predicador',
+  'offering_preacher_names': 'Buscar por nombres de su predicador',
+  'offering_preacher_last_names': 'Buscar por apellidos de su predicador',
+  'offering_preacher_full_name': 'Buscar por nombres y apellidos de su predicador',
   'offering_code_house': 'Buscar por código de casa',
   'offering_date_code_house': 'Buscar por código y fecha',
 
   //* Offering Ayuno Zonal y Vigilia Zonal
-  'offering_copastor_names': 'Buscar por nombres de co-pastor',
-  'offering_copastor_last_names': 'Buscar por apellidos de co-pastor',
-  'offering_copastor_full_name': 'Buscar por nombres y apellidos de co-pastor',
+  'offering_supervisor_names': 'Buscar por nombres de su supervisor',
+  'offering_supervisor_last_names': 'Buscar por apellidos de su supervisor',
+  'offering_supervisor_full_name': 'Buscar por nombres y apellidos de su supervisor',
 
   //* Offering Ground Church and Special
-  'offering_names': 'Buscar por nombres',
-  'offering_last_names': 'Buscar por apellidos',
-  'offering_full_names': 'Buscar por nombres y apellidos',
+  'offering_names': 'Buscar por nombres del aportante',
+  'offering_last_names': 'Buscar por apellidos del aportante',
+  'offering_full_names': 'Buscar por nombres y apellidos del aportante',
 
   //* Users
   'user_names' : 'Buscar por sus propios nombres',
@@ -213,19 +213,4 @@ export const SubTypeSearchNames: Record<SubTypeSearch, string> =  {
   'user_roles': 'Buscar por sus roles' // multi-select
 
 }
-
-//! Colocar buscar por nombres apellidos o full
-// NOTE : tomar esto para hacer los search en el backend
-//* Diezmo por subtipo por nombre, apellido, full, fecha sola (rango), fecha con fullname, con nombre y apellido. /
-//* Culto dominical mostrar input fecha y select de turno, ambos son opcionales (si no manda fecha busca general). / Hacer búsqueda por turno, por fecha y combinado, hacer un DTO de los query que vienen validar y si existen hacer cierta consulta en DB.
-//* Casa familiar es por subtipo, fecha(rango), código, predicador, zona, por fecha y code, fecha y zona.
-//* Ayuno general mostrar input fecha (rango).
-//* Ayuno Zonal es por subtipo, fecha(rango), zona, copastor, por fecha y zona.
-//* Vigilia general mostrar input fecha (rango).
-//* Vigilia Zonal es por subtipo, fecha (rango), zona, copastor, por fecha y zona.
-//* Escuela Dominical mostrar input fecha y select de turno, ambos son opcionales (si no manda fecha busca general).
-//* Culto Jóvenes mostrar input fecha (rango).
-//* Actividades mostrar input fecha (rango).
-//* Terreno Iglesia es por fecha(rango), nombre, apellido, o full name.
-//* Especial es por fecha(rango), nombre apellido, full name.
 

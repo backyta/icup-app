@@ -27,10 +27,7 @@ Command.displayName = CommandPrimitive.displayName;
 
 interface CommandDialogProps extends DialogProps {}
 
-const CommandDialog = ({
-  children,
-  ...props
-}: CommandDialogProps): JSX.Element => {
+const CommandDialog = ({ children, ...props }: CommandDialogProps): JSX.Element => {
   return (
     <Dialog {...props}>
       <DialogContent className='overflow-hidden p-0 shadow-lg'>
@@ -78,11 +75,7 @@ const CommandEmpty = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.Empty>,
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.Empty>
 >((props, ref) => (
-  <CommandPrimitive.Empty
-    ref={ref}
-    className='py-6 text-center text-sm'
-    {...props}
-  />
+  <CommandPrimitive.Empty ref={ref} className='py-6 text-center text-sm' {...props} />
 ));
 
 CommandEmpty.displayName = CommandPrimitive.Empty.displayName;
@@ -137,10 +130,7 @@ const CommandShortcut = ({
 }: React.HTMLAttributes<HTMLSpanElement>): JSX.Element => {
   return (
     <span
-      className={cn(
-        'ml-auto text-xs tracking-widest text-muted-foreground',
-        className
-      )}
+      className={cn('ml-auto text-xs tracking-widest text-muted-foreground', className)}
       {...props}
     />
   );

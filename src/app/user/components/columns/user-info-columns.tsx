@@ -11,7 +11,7 @@ import { Button } from '@/shared/components/ui/button';
 
 export interface User {
   id: string;
-  first_name: string; // hacer mapping
+  first_name: string;
   last_name: string;
   email: string;
   roles: string;
@@ -23,7 +23,7 @@ export const userInfoColumns: Array<ColumnDef<User, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -40,7 +40,7 @@ export const userInfoColumns: Array<ColumnDef<User, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -57,7 +57,7 @@ export const userInfoColumns: Array<ColumnDef<User, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -74,7 +74,7 @@ export const userInfoColumns: Array<ColumnDef<User, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -91,7 +91,7 @@ export const userInfoColumns: Array<ColumnDef<User, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');

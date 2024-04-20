@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import type * as z from 'zod';
@@ -12,11 +11,16 @@ import { cn } from '@/shared/lib/utils';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { formFamilyHouseSchema } from '@/app/family-house/validations';
-import { ZoneCreateCard, ZoneUpdateCard } from '@/app/family-house/components';
+import { ZoneCreateCard, ZoneUpdateCard, ZoneDeleteCard } from '@/app/family-house/components';
+
+import { useFamilyHouseCreateSubmitButtonLogic } from '@/hooks';
+
+import { useFamilyHouseStore } from '@/stores';
+import { preachers, zones } from '@/shared/data';
 
 import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
-
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Form,
   FormControl,
@@ -26,8 +30,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form';
-
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Command,
   CommandEmpty,
@@ -36,51 +38,8 @@ import {
   CommandItem,
 } from '@/shared/components/ui/command';
 
-import { useFamilyHouseStore } from '@/stores';
-import { preachers, zones } from '@/shared/data';
-import { ZoneDeleteCard } from '../components/zone-forms/ZoneDeleteCard';
-
-//* Nueva forma de usar el Crear House y Actualizar
-// Se puede crear una tabla de zona, con id, nombre de zona y supervisor a cargo
-// Al crear una casa al hacer click en zona no aparecerá nada porque no habrá zonas, para esto primero se crea
-// la zona en un tabla tendrá como relación a un supervisor,
-// En el front agregar un botón de crear zonas y al desplegar el input sale zonas vacías
-// Una vez creada al hacer click (en el input zonas) lanza una solicitud a la tabla zonas y trae la data y la setea
-
-// Asi mismo al elegir una zona (lanza una petición) este validara su supervisor con el mismo supervisor de los
-// preachers y devuelve los disponibles de esta manera se podrá controlar mejor la zona y su encargado.
-
-// Se setea los preacher en predicador y podremos elegit cualquiera según el supervisor.
-// Ver si tmb agregarle copastor y pastor (mas finjo que si)
-
-//! Que pasa si un supervisor se va o elimina?
-// Ahora si un supervisor se le da de baja o sube de nivel se borra el supervisor de la zona y de los demás lados donde
-// tenga relación Lanzar error. Si se intenta crear una nueva casa y no hay predicadores con este supervisor (huérfanos)
-// Se deberá asignar un supervisor a la zona
-
-// Si están huérfanos, y le coloco a la zona un nuevo supervisor, este tmb deberá setearse para los predicadores
-// que tengan la misma zona en su casa en la que están asignados.
-// Y viceversa si asigno a un nuevo supervisor al predicador y su casa tiene una zona, entonces
-// tmb debo setear en la misma zona (tabla) a ese supervisor
-
-// Y al colocar el nuevo supervisor hay otros preacher con casas en la misma zona tmb se setea el mismo supervisor
-// para estos de manera automática (osea solo basta actualizar 1).
-
-// Se podrá modificar la zona desde un botón cambiando nombre de zona, o supervisor, y estos se aplicaran a todos las casas que tengan este nombre de zona o supervisor
-
-// En actualizar la casa, podre elegir otra zona y esta llamara los predicadores disponibles de esa zona.
-// Si no hay ninguno lanzo una nota, pero si hay uno lo muestro si elijo ese, antes de enviar el form
-// valido que sean los mismos supervisores, y estaría moviendo la casa a otra zona y de predicador tmb.
-
-// TODO : crear un botón que diga crear zona con nombre, supervisor (modal + form y hacer petición) componente
-// TODO : El resto esta bien se setea la zona y luego se activan los demás campos.
-
-// ? Esto seria en la búsqueda del Update (de los módulos)
-// TODO : debería hacer una búsqueda(search by) por miembros y casas (huérfanos) (hacer select de los their),
-// TODO : en miembros buscamos por miembros sin pastor, copastor, supervisor, predicador, para actualizar.
-// TODO : en casas buscamos por casas sin predicador,(asignar predicador con el mismo supervisor de la zona), para actualizar.
-
 export const FamilyHouseCreatePage = (): JSX.Element => {
+  //* States
   const isInputPreacherOpen = useFamilyHouseStore((state) => state.isInputPreacherOpen);
   const isInputSearchZoneOpen = useFamilyHouseStore((state) => state.isInputSearchZoneOpen);
 
@@ -103,7 +62,11 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
   const setIsSubmitButtonDisabled = useFamilyHouseStore((state) => state.setIsSubmitButtonDisabled);
   const setIsZoneButtonsDisabled = useFamilyHouseStore((state) => state.setIsZoneButtonsDisabled);
 
-  const formFamilyHouse = useForm<z.infer<typeof formFamilyHouseSchema>>({
+  const setIsMessageErrorDisabled = useFamilyHouseStore((state) => state.setIsMessageErrorDisabled);
+  const isMessageErrorDisabled = useFamilyHouseStore((state) => state.isMessageErrorDisabled);
+
+  //* Form
+  const form = useForm<z.infer<typeof formFamilyHouseSchema>>({
     resolver: zodResolver(formFamilyHouseSchema),
     defaultValues: {
       zoneName: '',
@@ -113,75 +76,24 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
       province: '',
       district: '',
       address: '',
-      theirPreacher: undefined,
+      theirPreacher: '',
     },
   });
 
-  // TODO : corregir los setTimeout de 1700 cuando se escribe se lanza el form. (hacer otra validación o bloquear el campo)
-  //* Watchers
-  const watchZoneName = formFamilyHouse.watch('zoneName');
-  const watchHouseName = formFamilyHouse.watch('houseName');
-  const watchCountry = formFamilyHouse.watch('country');
-  const watchDepartment = formFamilyHouse.watch('department');
-  const watchProvince = formFamilyHouse.watch('province');
-  const watchDistrict = formFamilyHouse.watch('district');
-  const watchAddress = formFamilyHouse.watch('address');
-  const watchTheirPreacher = formFamilyHouse.watch('theirPreacher');
+  //* Custom hooks
+  useFamilyHouseCreateSubmitButtonLogic({
+    formFamilyHouseCreate: form,
+    setIsInputDisabled,
+    setIsInputPreacherDisabled,
+    setIsSubmitButtonDisabled,
+    setIsMessageErrorDisabled,
+  });
 
-  useEffect(() => {
-    if (formFamilyHouse.getValues('zoneName')) {
-      setIsInputPreacherDisabled(false);
-    }
-  }, [watchZoneName]);
-
-  useEffect(() => {
-    if (formFamilyHouse.getValues('theirPreacher')) {
-      setIsInputDisabled(false);
-    }
-  }, [watchTheirPreacher]);
-
-  useEffect(() => {
-    if (
-      watchZoneName &&
-      watchHouseName &&
-      watchCountry &&
-      watchDepartment &&
-      watchProvince &&
-      watchDistrict &&
-      watchAddress &&
-      watchTheirPreacher
-    ) {
-      setIsSubmitButtonDisabled(false);
-    }
-
-    if (
-      !watchZoneName ||
-      !watchHouseName ||
-      !watchCountry ||
-      !watchDepartment ||
-      !watchProvince ||
-      !watchDistrict ||
-      !watchAddress ||
-      !watchTheirPreacher
-    ) {
-      setIsSubmitButtonDisabled(true);
-    }
-  }, [
-    watchZoneName,
-    watchHouseName,
-    watchCountry,
-    watchDepartment,
-    watchProvince,
-    watchDistrict,
-    watchAddress,
-    watchTheirPreacher,
-  ]);
-
+  //* Form handler
   const handleSubmit = (values: z.infer<typeof formFamilyHouseSchema>): void => {
     console.log({ values });
   };
 
-  // TODO : tomorrow fix toast lleve hacia arriba cuando guardamos o salvamos en todos los forms que necesite ( card en su mayoria)
   return (
     <>
       <h1 className='text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-family-house-color text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]'>
@@ -198,14 +110,14 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
         Por favor llena los siguientes datos para crear una nueva casa familiar.
       </p>
 
-      <div className='flex flex-col items-center pb-8 gap-y-8 md:gap-y-12 px-5 py-4 sm:px-10 sm:py-8 2xl:px-36 2xl:py-8'>
-        <Form {...formFamilyHouse}>
+      <div className='flex flex-col items-center pb-8 gap-y-8 md:gap-y-12 px-5 py-4 sm:px-12 sm:py-8 2xl:px-36 2xl:py-8'>
+        <Form {...form}>
           <form
-            onSubmit={formFamilyHouse.handleSubmit(handleSubmit)}
+            onSubmit={form.handleSubmit(handleSubmit)}
             className='w-full flex flex-col md:grid sm:grid-cols-2 gap-x-10 gap-y-4'
           >
             <FormField
-              control={formFamilyHouse.control}
+              control={form.control}
               name='zoneName'
               render={({ field }) => {
                 return (
@@ -233,7 +145,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
-                      <PopoverContent align='center' className='w-auto p-2'>
+                      <PopoverContent align='center' className='w-auto px-4 py-2'>
                         <Command>
                           <CommandInput
                             placeholder='Busque una zona...'
@@ -247,7 +159,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                                 value={zone.label}
                                 key={zone.value}
                                 onSelect={() => {
-                                  formFamilyHouse.setValue('zoneName', zone.value);
+                                  form.setValue('zoneName', zone.value);
                                   setIsSearchZoneOpen(false);
                                 }}
                               >
@@ -266,14 +178,14 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                     </Popover>
                     <FormMessage />
                     <FormDescription className='text-[12px] md:text-[13px] text-blue-500 font-bold'>
-                      * Si no hay zonas disponibles o quieres una nueva, debes crearla.
+                      * Si no hay zonas disponibles o necesitas una nueva zona, debes crearla.
                     </FormDescription>
                   </FormItem>
                 );
               }}
             />
             <FormField
-              control={formFamilyHouse.control}
+              control={form.control}
               name='theirPreacher'
               render={({ field }) => {
                 return (
@@ -305,7 +217,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
-                      <PopoverContent align='center' className='w-auto p-2'>
+                      <PopoverContent align='center' className='w-auto px-4 py-2'>
                         <Command>
                           <CommandInput
                             placeholder='Busque un predicador...'
@@ -319,7 +231,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                                 value={preacher.label}
                                 key={preacher.value}
                                 onSelect={() => {
-                                  formFamilyHouse.setValue('theirPreacher', preacher.value);
+                                  form.setValue('theirPreacher', preacher.value);
                                   setIsPreacherOpen(false);
                                 }}
                               >
@@ -342,7 +254,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
               }}
             />
             <FormField
-              control={formFamilyHouse.control}
+              control={form.control}
               name='houseName'
               render={({ field }) => {
                 return (
@@ -366,7 +278,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
               }}
             />
             <FormField
-              control={formFamilyHouse.control}
+              control={form.control}
               name='country'
               render={({ field }) => {
                 return (
@@ -390,7 +302,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
               }}
             />
             <FormField
-              control={formFamilyHouse.control}
+              control={form.control}
               name='department'
               render={({ field }) => {
                 return (
@@ -416,7 +328,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
               }}
             />
             <FormField
-              control={formFamilyHouse.control}
+              control={form.control}
               name='province'
               render={({ field }) => {
                 return (
@@ -442,7 +354,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
               }}
             />
             <FormField
-              control={formFamilyHouse.control}
+              control={form.control}
               name='district'
               render={({ field }) => {
                 return (
@@ -468,7 +380,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
               }}
             />
             <FormField
-              control={formFamilyHouse.control}
+              control={form.control}
               name='address'
               render={({ field }) => {
                 return (
@@ -493,8 +405,18 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                 );
               }}
             />
-            <div className='mt-4 md:mt-6 sm:col-start-1 sm:col-end-3 sm:row-start-5 sm:row-end-6 w-60 m-auto 2xl:w-80'>
-              {Object.values(formFamilyHouse.getValues()).some(
+            {isMessageErrorDisabled ? (
+              <p className='-mb-5 mt-6 md:-mb-2 md:row-start-5 md:row-end-6 md:col-start-1 md:col-end-3 mx-auto md:w-[100%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
+                ❌ Datos incompletos, completa todos los campos para crear el registro.
+              </p>
+            ) : (
+              <p className='-mt-2 order-last md:-mt-2 md:row-start-7 md:row-end-8 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
+                ¡Campos completados correctamente! <br />
+              </p>
+            )}
+
+            <div className='mt-2 md:mt-1 md:col-start-1 md:col-end-3 md:row-start-6 md:row-end-7 w-full md:w-[20rem] md:m-auto'>
+              {Object.values(form.getValues()).some(
                 (value) => value !== '' && value !== undefined
               ) && <Toaster position='top-center' richColors />}
               <Button
@@ -502,9 +424,9 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                 type='submit'
                 className='w-full text-[14px]'
                 onClick={() => {
-                  // TODO : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                  // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
                   setTimeout(() => {
-                    if (Object.keys(formFamilyHouse.formState.errors).length === 0) {
+                    if (Object.keys(form.formState.errors).length === 0) {
                       toast.success('Cambios guardados correctamente', {
                         position: 'top-center',
                         className: 'justify-center',
@@ -519,7 +441,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                   }, 100);
 
                   setTimeout(() => {
-                    if (Object.keys(formFamilyHouse.formState.errors).length === 0) {
+                    if (Object.keys(form.formState.errors).length === 0) {
                       setIsSubmitButtonDisabled(false);
                       setIsZoneButtonsDisabled(false);
                       setIsInputZoneDisabled(false);
@@ -527,8 +449,8 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                   }, 1700);
 
                   setTimeout(() => {
-                    if (Object.keys(formFamilyHouse.formState.errors).length === 0) {
-                      formFamilyHouse.reset();
+                    if (Object.keys(form.formState.errors).length === 0) {
+                      form.reset();
                     }
                   }, 1700);
                 }}
@@ -539,9 +461,9 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
           </form>
         </Form>
 
-        {/* //TODO : hacer el delete y deshabilitar botones y revisar cada uno */}
         {/* Zone, create, update, delete */}
         <div className='max-w-[60rem] w-full flex flex-col gap-6'>
+          <hr className='md:p-[0.02rem] bg-slate-500 w-full' />
           <div className='flex flex-col md:grid md:grid-cols-2 gap-2 items-center lg:mx-auto lg:w-[90%]'>
             <div className='text-center'>
               <h1 className='text-center font-bold text-green-500 text-[22px] sm:text-[1.3rem] md:text-[1.5rem] lg:text-[1.6rem] xl:text-[1.6rem] 2xl:text-[1.7rem]'>
@@ -552,7 +474,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
               </p>
             </div>
             <div className='mx-auto w-[70%] md:w-[60%]'>
-              <ZoneCreateCard form={formFamilyHouse} isDisabled={isZoneButtonsDisabled} />
+              <ZoneCreateCard formFamilyHouse={form} isDisabled={isZoneButtonsDisabled} />
             </div>
           </div>
 
@@ -566,7 +488,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
               </p>
             </div>
             <div className='mx-auto w-[70%] md:w-[60%]'>
-              <ZoneUpdateCard form={formFamilyHouse} isDisabled={isZoneButtonsDisabled} />
+              <ZoneUpdateCard formFamilyHouse={form} isDisabled={isZoneButtonsDisabled} />
             </div>
           </div>
 
@@ -580,7 +502,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
               </p>
             </div>
             <div className='mx-auto w-[70%] md:w-[60%]'>
-              <ZoneDeleteCard form={formFamilyHouse} isDisabled={isZoneButtonsDisabled} />
+              <ZoneDeleteCard formFamilyHouse={form} isDisabled={isZoneButtonsDisabled} />
             </div>
           </div>
         </div>

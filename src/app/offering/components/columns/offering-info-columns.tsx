@@ -15,6 +15,7 @@ export interface Offering {
   sub_type?: string;
   amount: number;
   currency: string;
+  updated_by: string;
 }
 
 export const offeringInfoColumns: Array<ColumnDef<Offering, any>> = [
@@ -23,7 +24,7 @@ export const offeringInfoColumns: Array<ColumnDef<Offering, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -40,7 +41,7 @@ export const offeringInfoColumns: Array<ColumnDef<Offering, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -57,7 +58,7 @@ export const offeringInfoColumns: Array<ColumnDef<Offering, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -74,7 +75,7 @@ export const offeringInfoColumns: Array<ColumnDef<Offering, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -91,7 +92,7 @@ export const offeringInfoColumns: Array<ColumnDef<Offering, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -103,7 +104,23 @@ export const offeringInfoColumns: Array<ColumnDef<Offering, any>> = [
       );
     },
   },
-
+  {
+    accessorKey: 'updated_by',
+    header: ({ column }) => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px] text-orange-500 hover:text-orange-500'
+          variant='ghost'
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+        >
+          Actualizado por
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
+  },
   {
     id: 'search',
     cell: () => {

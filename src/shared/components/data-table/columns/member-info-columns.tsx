@@ -7,6 +7,7 @@ import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
 import { MemberInfoCard } from '@/shared/components';
+
 import { Button } from '@/shared/components/ui/button';
 
 export interface Member {
@@ -16,12 +17,9 @@ export interface Member {
   gender: 'M' | 'F'; // hacer enum con data para value
   date_birth: string;
   zone: string;
+  updated_by: string;
 }
 
-// TODO : lo otro seria pasar el id de la DB del registro aca y que lo tome el button y con eso hacer la solicitud
-// TODO : y tmb ocultar ese ID con un map para que se enumero de 1, 2....
-
-// NOTE: usar este mismo método para la data del dashboard en el botón.
 export const memberInfoColumns: Array<ColumnDef<Member, any>> = [
   {
     accessorKey: 'id',
@@ -121,6 +119,23 @@ export const memberInfoColumns: Array<ColumnDef<Member, any>> = [
           }}
         >
           Zona
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: 'updated_by',
+    header: ({ column }) => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px] text-orange-500 hover:text-orange-500'
+          variant='ghost'
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+        >
+          Actualizado por
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );

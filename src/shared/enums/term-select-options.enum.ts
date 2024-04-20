@@ -31,14 +31,14 @@ export enum TermSelectOptions {
 
   //* Turn
   Day = 'day',
-  Night = 'night'
+  Afternoon = 'afternoon'
 
 }
 
 export const TermSelectOptionsNames: Record<TermSelectOptions, string> =  {
 
-  'male': 'Hombre',
-  'female': 'Mujer',
+  'male': 'Masculino',
+  'female': 'Femenino',
 
   'single' : 'Soltero(a)',
   'married' : 'Casado(a)',
@@ -63,5 +63,5 @@ export const TermSelectOptionsNames: Record<TermSelectOptions, string> =  {
   'december' : 'Diciembre',
 
   'day' : 'Dia',
-  'night' : 'Noche'
+  'afternoon' : 'Tarde'
 }

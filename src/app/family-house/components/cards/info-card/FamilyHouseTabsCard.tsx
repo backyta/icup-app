@@ -5,10 +5,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/shared/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 import { Label } from '@/shared/components/ui/label';
-
-// TODO : ENVIAR la búsqueda del fetch como hijo en objeto y colocar aquí (completo)
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 
 export const FamilyHouseTabsCard = (): JSX.Element => {
   return (
@@ -165,7 +163,7 @@ export const FamilyHouseTabsCard = (): JSX.Element => {
               Información de contacto de la casa familiar.
             </CardDescription>
           </CardHeader>
-          <CardContent className='grid grid-cols-2 pl-[3rem] sm:pl-[7rem] gap-x-8 gap-y-5 md:gap-x-16 md:gap-y-6 md:pl-[5.8rem] md:pr-[1rem]'>
+          <CardContent className='grid grid-cols-2 pl-[3rem] sm:pl-[7rem] gap-x-8 gap-y-5 md:gap-x-16 md:gap-y-6 md:pl-[7.5rem] md:pr-[1rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>País</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>Peru</CardDescription>

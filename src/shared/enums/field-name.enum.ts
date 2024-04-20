@@ -1,4 +1,3 @@
-
 export enum FieldName {
   FirstName = 'firstName',
   LastName = 'lastName',
@@ -20,6 +19,6 @@ export enum FieldName {
   TheirCopastor = 'theirCopastor',
   TheirSupervisor = 'theirSupervisor',
   TheirFamilyHouse = 'theirFamilyHouse',
-  // IsActive = 'isActive',
+
 }
 

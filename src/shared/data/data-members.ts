@@ -9,6 +9,7 @@ export const dataMembers: Member[] =
     date_birth: '1985-03-15',
     gender: 'M',
     zone: 'A',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '2',
@@ -17,6 +18,7 @@ export const dataMembers: Member[] =
     date_birth: '1990-07-21',
     gender: 'F',
     zone: 'B',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '3',
@@ -25,6 +27,7 @@ export const dataMembers: Member[] =
     date_birth: '1988-12-10',
     gender: 'M',
     zone: 'C',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '4',
@@ -33,6 +36,7 @@ export const dataMembers: Member[] =
     date_birth: '1983-05-02',
     gender: 'F',
     zone: 'A',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '5',
@@ -41,6 +45,7 @@ export const dataMembers: Member[] =
     date_birth: '1995-09-28',
     gender: 'M',
     zone: 'B',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '6',
@@ -49,6 +54,7 @@ export const dataMembers: Member[] =
     date_birth: '1998-11-17',
     gender: 'F',
     zone: 'B',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '7',
@@ -57,6 +63,7 @@ export const dataMembers: Member[] =
     date_birth: '1987-04-09',
     gender: 'M',
     zone: 'A',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '8',
@@ -65,6 +72,7 @@ export const dataMembers: Member[] =
     date_birth: '1992-08-03',
     gender: 'F',
     zone: 'A',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '9',
@@ -73,6 +81,7 @@ export const dataMembers: Member[] =
     date_birth: '1980-01-25',
     gender: 'M',
     zone: 'C',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '10',
@@ -80,7 +89,8 @@ export const dataMembers: Member[] =
     last_name: 'Castro Sánchez',
     date_birth: '1994-06-12',
     gender: 'F',
-    zone: 'A',
+    zone: 'A', 
+    updated_by:'Pepito Gomez',
   },
   {
     id: '11',
@@ -89,6 +99,7 @@ export const dataMembers: Member[] =
     date_birth: '1994-06-12',
     gender: 'F',
     zone: 'A',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '12',
@@ -97,6 +108,7 @@ export const dataMembers: Member[] =
     date_birth: '1985-09-22',
     gender: 'M',
     zone: 'C',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '13',
@@ -105,6 +117,7 @@ export const dataMembers: Member[] =
     date_birth: '1990-03-15',
     gender: 'F',
     zone: 'A',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '14',
@@ -113,6 +126,7 @@ export const dataMembers: Member[] =
     date_birth: '1982-11-30',
     gender: 'M',
     zone: 'C',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '15',
@@ -121,6 +135,7 @@ export const dataMembers: Member[] =
     date_birth: '1987-07-18',
     gender: 'F',
     zone: 'A',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '16',
@@ -129,6 +144,7 @@ export const dataMembers: Member[] =
     date_birth: '1993-04-04',
     gender: 'M',
     zone: 'C',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '17',
@@ -137,6 +153,7 @@ export const dataMembers: Member[] =
     date_birth: '1989-10-12',
     gender: 'F',
     zone: 'A',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '18',
@@ -145,6 +162,7 @@ export const dataMembers: Member[] =
     date_birth: '1984-01-28',
     gender: 'M',
     zone: 'B',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '19',
@@ -153,6 +171,7 @@ export const dataMembers: Member[] =
     date_birth: '1996-08-05',
     gender: 'F',
     zone: 'A',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '20',
@@ -161,6 +180,7 @@ export const dataMembers: Member[] =
     date_birth: '1988-12-19',
     gender: 'M',
     zone: 'C',
+    updated_by: 'Pepito Gomez'
   },
   {
     id: '21',
@@ -169,12 +189,13 @@ export const dataMembers: Member[] =
     date_birth: '1991-05-26',
     gender: 'F',
     zone: 'AB',
+    updated_by: 'Pepito Gomez'
   },
 ];
 
 
 export const pastors = [
-  { label: 'Michael Rodrigo Baca Angeles', value: 'id1' },
+  { label: 'Michael Rodrigo Terrones Meza', value: 'id1' },
   { label: 'Carlos Ramiro Rodriguez Perez', value: 'id2' },
   { label: 'Daniel Romero Ventura Paredes', value: 'id3' },
 ] as const;
@@ -205,12 +226,12 @@ export const familyHouses = [
 ] as const;
 
 export const members = [
-  { label: 'Abigail Angeli Porras Angeles', value: 'id1' },
-  { label: 'Kevin Michael Baca Angeles', value: 'id2' },
-  { label: 'Luisa Margarita Angeles Tolentino', value: 'id3' },
-  { label: 'Roxana Margot Bernal Jimenez', value: 'id4' },
-  { label: 'Pamela Chillon Castro', value: 'id5' },
+  { label: 'Abigail Rosa Palacios Guerra', value: 'id1' },
+  { label: 'Kevin Roberto Arteaga Moreno', value: 'id2' },
+  { label: 'Luisa Sofia Castro Ramirez', value: 'id3' },
+  { label: 'Roxana Teodosea Jaimes Jimenez', value: 'id4' },
+  { label: 'Pamela Marcea Castro Perez', value: 'id5' },
   { label: 'Carlos Alberto Carranza Ramirez', value: 'id6' },
-  { label: 'Karina Rosa Camarena Jaimes', value: 'id7' },
+  { label: 'Karina Rosa Fajardo Jaimes', value: 'id7' },
   { label: 'Jairo Pedro Guitierrez Rojas', value: 'id8' },
 ] as const;

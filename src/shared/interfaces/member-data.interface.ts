@@ -6,8 +6,8 @@ export interface MemberData {
   gender: string;
   originCountry: string;
   dateBirth: Date;
-  maritalStatus: MaritalStatus;
-  numberChildren: '3';
+  maritalStatus: string | MaritalStatus;
+  numberChildren: string;
   conversionDate: Date;
   emailAddress: string;
   phoneNumber: string;
@@ -17,14 +17,14 @@ export interface MemberData {
   district: string;
   address: string;
   roles: MemberRoles[];
-  theirPastor: string;
-  theirCopastor: string;
-  theirSupervisor: string;
-  theirFamilyHouse: string;
-  isActive: string;
+  theirPastor?: string | undefined;
+  theirCopastor?: string | undefined;
+  theirSupervisor?: string | undefined;
+  theirFamilyHouse?: string | undefined;
+  status?: string | undefined;
 }
 
-export type DataMemberKeys =
+export type MemberDataKeys =
   | 'firstName'
   | 'lastName'
   | 'gender'
@@ -45,4 +45,4 @@ export type DataMemberKeys =
   | 'theirCopastor'
   | 'theirSupervisor'
   | 'theirFamilyHouse'
-  | 'isActive';
+  | 'status';

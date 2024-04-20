@@ -7,7 +7,6 @@ import { useMediaQuery } from '@react-hook/media-query';
 import { BsFillPersonVcardFill } from 'react-icons/bs';
 
 import { MemberTabsCard } from '@/shared/components';
-
 import { cn } from '@/shared/lib/utils';
 
 import { Button } from '@/shared/components/ui/button';
@@ -15,9 +14,11 @@ import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dia
 import { Drawer, DrawerContent, DrawerTrigger } from '@/shared/components/ui/drawer';
 
 export const MemberInfoCard = (): JSX.Element => {
+  //* States
   const [open, setOpen] = useState(false);
-  const isDesktop = useMediaQuery('(min-width: 768px)');
 
+  //* Library hooks
+  const isDesktop = useMediaQuery('(min-width: 768px)');
   const { pathname } = useLocation();
 
   if (isDesktop) {

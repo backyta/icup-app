@@ -8,7 +8,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "A-1",
     name_house: "Guerreros de Dios",
     count_members: 6,
-    district: 'Independencia'
+    district: 'Independencia',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "2",
@@ -16,7 +17,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "B-1",
     name_house: "Hijos del Cielo",
     count_members: 8,
-    district: 'Comas'
+    district: 'Comas',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "3",
@@ -24,7 +26,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "C-1",
     name_house: "Luz Divina",
     count_members: 4,
-    district: 'Comas'
+    district: 'Comas',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "4",
@@ -32,7 +35,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "A-2",
     name_house: "Ángeles de Esperanza",
     count_members: 10,
-    district: 'Independencia'
+    district: 'Independencia',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "5",
@@ -40,7 +44,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "B-2",
     name_house: "Sembradores de Paz",
     count_members: 5,
-    district: 'Independencia'
+    district: 'Independencia',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "6",
@@ -48,7 +53,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "C-2",
     name_house: "Familia Bendecida",
     count_members: 7,
-    district: 'Comas'
+    district: 'Comas',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "7",
@@ -56,7 +62,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "A-3",
     name_house: "Guardianes Celestiales",
     count_members: 9,
-    district: 'Comas'
+    district: 'Comas',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "8",
@@ -64,7 +71,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "B-3",
     name_house: "Hijos del Amor",
     count_members: 3,
-    district: 'Independencia'
+    district: 'Independencia',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "9",
@@ -72,7 +80,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "C-3",
     name_house: "Estrellas Brillantes",
     count_members: 11,
-    district: 'Comas'
+    district: 'Comas',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "10",
@@ -80,7 +89,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "A-4",
     name_house: "Siervos de la Luz",
     count_members: 6,
-    district: 'Independencia'
+    district: 'Independencia',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "11",
@@ -88,7 +98,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "B-4",
     name_house: "Ministros del Reino",
     count_members: 8,
-    district: 'Comas'
+    district: 'Comas',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "12",
@@ -96,7 +107,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "C-4",
     name_house: "Mensajeros del Éxito",
     count_members: 4,
-    district: 'Comas'
+    district: 'Comas',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "13",
@@ -104,7 +116,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "A-5",
     name_house: "Portadores de Fe",
     count_members: 10,
-    district: 'Independencia'
+    district: 'Independencia',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "14",
@@ -112,7 +125,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "B-5",
     name_house: "Caminantes de la Esperanza",
     count_members: 5,
-    district: 'Comas'
+    district: 'Comas',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "15",
@@ -120,7 +134,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "C-5",
     name_house: "Seguidores de la Verdad",
     count_members: 7,
-    district: 'Independencia'
+    district: 'Independencia',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "16",
@@ -128,7 +143,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "A-6",
     name_house: "Luchadores de la Bondad",
     count_members: 9,
-    district: 'Independencia'
+    district: 'Independencia',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "17",
@@ -136,7 +152,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "B-6",
     name_house: "Siervos del Amor",
     count_members: 3,
-    district: 'Comas'
+    district: 'Comas',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "18",
@@ -144,7 +161,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "C-6",
     name_house: "Constructores del Cielo",
     count_members: 11,
-    district: 'Comas'
+    district: 'Comas',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "19",
@@ -152,7 +170,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "A-7",
     name_house: "Viajeros del Alma",
     count_members: 6,
-    district: 'Independencia'
+    district: 'Independencia',
+     updated_by: 'Pepito Gomez'
   },
   {
     id: "20",
@@ -160,7 +179,8 @@ export const dataFamilyHouses: FamilyHouse[] =
     code: "B-7",
     name_house: "Sembradores de Alegría",
     count_members: 8,
-    district: 'Comas'
+    district: 'Comas',
+     updated_by: 'Pepito Gomez'
   }
   
 ];

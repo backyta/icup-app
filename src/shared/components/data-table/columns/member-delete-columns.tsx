@@ -6,8 +6,9 @@ import { format } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import { Button } from '@/shared/components/ui/button';
 import { MemberDeleteCard, MemberInfoCard } from '@/shared/components';
+
+import { Button } from '@/shared/components/ui/button';
 
 interface Member {
   id: string;
@@ -18,10 +19,6 @@ interface Member {
   zone: string;
 }
 
-// TODO : lo otro seria pasar el id de la DB del registro aca y que lo tome el button y con eso hacer la solicitud
-// TODO : y tmb ocultar ese ID con un map para que se enumero de 1, 2....
-
-// NOTE: usar este mismo método para la data del dashboard en el botón.
 export const memberDeleteColumns: Array<ColumnDef<Member, any>> = [
   {
     accessorKey: 'id',

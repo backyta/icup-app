@@ -16,6 +16,7 @@ interface FamilyHouseStore {
   isCreateCardOpen: boolean;
   isUpdateCardOpen: boolean;
   isDeleteCardOpen: boolean;
+  isMessageErrorDisabled: boolean;
 
   // Methods
   setIsPreacherOpen: (value: boolean) => void;
@@ -31,6 +32,7 @@ interface FamilyHouseStore {
   setIsCreateCardOpen: (value: boolean) => void;
   setIsUpdateCardOpen: (value: boolean) => void;
   setIsDeleteCardOpen: (value: boolean) => void;
+  setIsMessageErrorDisabled: (value: boolean) => void;
 }
 
 export const storeFamilyHouse: StateCreator<FamilyHouseStore> = (set) => ({
@@ -47,6 +49,7 @@ export const storeFamilyHouse: StateCreator<FamilyHouseStore> = (set) => ({
   isCreateCardOpen: false,
   isUpdateCardOpen: false,
   isDeleteCardOpen: false,
+  isMessageErrorDisabled: true,
 
   setIsPreacherOpen: (value: boolean) => set( state => ({isInputPreacherOpen: value})),
   setIsSearchZoneOpen: (value: boolean) => set( state => ({isInputSearchZoneOpen: value})),
@@ -61,7 +64,10 @@ export const storeFamilyHouse: StateCreator<FamilyHouseStore> = (set) => ({
   setIsCreateCardOpen: (value: boolean) => set( state => ({isCreateCardOpen: value})),
   setIsUpdateCardOpen: (value: boolean) => set( state => ({isUpdateCardOpen: value})),
   setIsDeleteCardOpen: (value: boolean) => set( state => ({isDeleteCardOpen: value})),
+
+  setIsMessageErrorDisabled: (value: boolean) => set( state => ({isMessageErrorDisabled: value})),
   
 })
 
 export const useFamilyHouseStore = create<FamilyHouseStore>()(storeFamilyHouse);
+

@@ -16,6 +16,7 @@ export interface FamilyHouse {
   name_house: string;
   count_members: number;
   district: string;
+  updated_by: string;
 }
 
 export const familyHouseInfoColumns: Array<ColumnDef<FamilyHouse, any>> = [
@@ -24,7 +25,7 @@ export const familyHouseInfoColumns: Array<ColumnDef<FamilyHouse, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='font-extrabold text-[13px] md:text-[14px]'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -37,11 +38,28 @@ export const familyHouseInfoColumns: Array<ColumnDef<FamilyHouse, any>> = [
     },
   },
   {
+    accessorKey: 'name_house',
+    header: ({ column }) => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px]'
+          variant='ghost'
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+        >
+          Nombre
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
+  },
+  {
     accessorKey: 'zone',
     header: ({ column }) => {
       return (
         <Button
-          className='font-extrabold text-[13px] md:text-[14px]'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -58,7 +76,7 @@ export const familyHouseInfoColumns: Array<ColumnDef<FamilyHouse, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='font-extrabold text-[13px] md:text-[14px]'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -71,28 +89,11 @@ export const familyHouseInfoColumns: Array<ColumnDef<FamilyHouse, any>> = [
     },
   },
   {
-    accessorKey: 'name_house',
-    header: ({ column }) => {
-      return (
-        <Button
-          className='font-extrabold text-[13px] md:text-[14px]'
-          variant='ghost'
-          onClick={() => {
-            column.toggleSorting(column.getIsSorted() === 'asc');
-          }}
-        >
-          Nombre
-          <ArrowUpDown className='ml-2 h-4 w-4' />
-        </Button>
-      );
-    },
-  },
-  {
     accessorKey: 'district',
     header: ({ column }) => {
       return (
         <Button
-          className='font-extrabold text-[13px] md:text-[14px]'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -109,13 +110,30 @@ export const familyHouseInfoColumns: Array<ColumnDef<FamilyHouse, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='font-extrabold text-[13px] md:text-[14px]'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
           Nro. miembros
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: 'updated_by',
+    header: ({ column }) => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px] text-orange-500 hover:text-orange-500'
+          variant='ghost'
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+        >
+          Actualizado por
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import * as z from 'zod';
-import { MaritalStatus, MemberRoles } from '@/shared/enums';
+import { Gender, MaritalStatus, MemberRoles, Status } from '@/shared/enums';
 
 export const formMemberSchema = z
   .object({
-    firstName: z.string({ required_error: 'xd'})
+    firstName: z.string()
       .min(1, {message: 'El campo debe contener al menos 1 carácter.'})
       .max(40, {message: 'El campo debe contener máximo 40 caracteres'}),
 
@@ -13,6 +13,11 @@ export const formMemberSchema = z
       .min(1, {message: 'El campo debe contener al menos 1 carácter.'})
       .max(40, {message: 'El campo debe contener máximo 40 caracteres'}),
       
+    gender: z.string(z.nativeEnum(Gender, {
+      required_error: "Por favor seleccione una opción válida.",
+    })).refine((value) => value !== undefined && value.trim() !== '',
+      { message: "Por favor seleccione una opción válida." }
+    ),
 
     originCountry: z.string()
       .min(1, {message: 'El campo debe contener al menos 1 carácter.'})
@@ -21,12 +26,6 @@ export const formMemberSchema = z
     dateBirth: z.date({
       required_error: "Por favor selecciona una fecha.",
     }),
-
-    gender: z.string(z.enum(['male', 'female'], {
-      required_error: "Por favor seleccione una opción válida.",
-    })).refine((value) => value !== undefined && value.trim() !== '',
-      { message: "Por favor seleccione una opción válida." }
-    ),
 
     maritalStatus: z.string( z.nativeEnum(MaritalStatus,{
       required_error: "Por favor seleccione una opción válida.",
@@ -80,7 +79,7 @@ export const formMemberSchema = z
     theirSupervisor: z.string().optional(),
     theirFamilyHouse: z.string().optional(),
 
-    isActive: z.string(z.enum(['active', 'inactive'], {
+    status: z.string(z.nativeEnum(Status, {
       required_error: "Por favor seleccione una opción.",
     })).optional(),
     

@@ -23,7 +23,7 @@ export const familyHouseDeleteColumns: Array<ColumnDef<FamilyHouse, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -40,7 +40,7 @@ export const familyHouseDeleteColumns: Array<ColumnDef<FamilyHouse, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -57,7 +57,7 @@ export const familyHouseDeleteColumns: Array<ColumnDef<FamilyHouse, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -74,13 +74,13 @@ export const familyHouseDeleteColumns: Array<ColumnDef<FamilyHouse, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Nombre de Casa Familiar
+          Nombre
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
@@ -91,13 +91,13 @@ export const familyHouseDeleteColumns: Array<ColumnDef<FamilyHouse, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='text-[13px] lg:text-sm'
+          className='font-bold text-[13px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Cantidad de Miembros
+          Nro. miembros
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );

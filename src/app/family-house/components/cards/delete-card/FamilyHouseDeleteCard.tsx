@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
-import { MdDeleteForever } from 'react-icons/md';
 import { Toaster, toast } from 'sonner';
+import { MdDeleteForever } from 'react-icons/md';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
@@ -12,17 +12,18 @@ import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dia
 // NOTE : tomaría el onDelete
 
 export const FamilyHouseDeleteCard = (): JSX.Element => {
-  const [isCardOpen, setIsCardOpen] = useState(false);
-  const [isButtonsDisabled, setIsButtonsDisabled] = useState(false);
+  //* States
+  const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
   return (
     <Dialog open={isCardOpen} onOpenChange={setIsCardOpen}>
       <DialogTrigger asChild>
         <Button
           onClick={() => {
-            setIsButtonsDisabled(false);
+            setIsButtonDisabled(false);
           }}
-          className='mt-2 lg:-ml-3 xl:-ml-4 2xl:-ml-6 mr-4 py-2 px-1 h-[2rem] bg-red-400 text-white hover:bg-red-500 hover:text-red-950  dark:text-red-950 dark:hover:bg-red-500 dark:hover:text-white'
+          className='mt-2 lg:-ml-5 xl:-ml-7 2xl:-ml-9 mr-4 py-2 px-1 h-[2rem] bg-red-400 text-white hover:bg-red-500 hover:text-red-950  dark:text-red-950 dark:hover:bg-red-500 dark:hover:text-white'
         >
           <MdDeleteForever className='w-8 h-[1.65rem]' />
         </Button>
@@ -33,8 +34,8 @@ export const FamilyHouseDeleteCard = (): JSX.Element => {
             ¿Estas seguro de eliminar a este Casa Familiar?
           </h2>
           <p>
-            <span className='w-full text-left text-blue-500 font-medium mb-3 inline-block text-[16px] md:text-[18px]'>
-              Sucederá lo siguiente:
+            <span className='w-full text-left text-blue-500 font-bold mb-3 inline-block text-[16px] md:text-[18px]'>
+              Luego de eliminar sucederá lo siguiente:
             </span>
             <br />
             <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
@@ -55,20 +56,23 @@ export const FamilyHouseDeleteCard = (): JSX.Element => {
         <div className='flex justify-end gap-x-4'>
           <Toaster position='top-center' richColors />
           <Button
-            disabled={isButtonsDisabled}
+            disabled={isButtonDisabled}
             className='bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
+            onClick={() => {
+              setIsCardOpen(false);
+            }}
           >
             No, cancelar
           </Button>
           <Button
-            disabled={isButtonsDisabled}
+            disabled={isButtonDisabled}
             onClick={() => {
-              // TODO : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+              // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
               toast.success('Registro eliminado exitosamente', {
                 position: 'top-center',
                 className: 'justify-center',
               });
-              setIsButtonsDisabled(true);
+              setIsButtonDisabled(true);
 
               setTimeout(() => {
                 setIsCardOpen(false);

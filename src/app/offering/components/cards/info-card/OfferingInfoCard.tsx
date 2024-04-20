@@ -2,7 +2,11 @@
 
 import { useState } from 'react';
 
+import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from '@react-hook/media-query';
+
+import { BsFillPersonVcardFill } from 'react-icons/bs';
+import { cn } from '@/shared/lib/utils';
 
 import { OfferingTabsCard } from '@/app/offering/components';
 
@@ -11,8 +15,12 @@ import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dia
 import { Drawer, DrawerContent, DrawerTrigger } from '@/shared/components/ui/drawer';
 
 export const OfferingInfoCard = (): JSX.Element => {
+  //* States
   const [open, setOpen] = useState(false);
+
+  //* Library hooks
   const isDesktop = useMediaQuery('(min-width: 768px)');
+  const { pathname } = useLocation();
 
   if (isDesktop) {
     return (
@@ -20,13 +28,18 @@ export const OfferingInfoCard = (): JSX.Element => {
         <DialogTrigger asChild>
           <Button
             variant='outline'
-            className='text-[12px] lg:text-[13px] bg-blue-400 text-blue-950 hover:bg-blue-500 hover:text-white'
+            className={cn(
+              'mt-2 mr-4 py-2 px-1 h-[2rem] bg-blue-400 text-white hover:bg-blue-500 hover:text-blue-950  dark:text-blue-950 dark:hover:bg-blue-500 dark:hover:text-white',
+              (pathname === '/offerings/update-offering' ||
+                pathname === '/offerings/delete-offering') &&
+                'mr-0'
+            )}
           >
-            Ver Información
+            <BsFillPersonVcardFill className='w-8 h-[1.65rem]' />
           </Button>
         </DialogTrigger>
 
-        <DialogContent className='max-w-[580px] w-full justify-center py-10 max-h-full overflow-y-auto'>
+        <DialogContent className='max-w-[690px] w-full justify-center py-6 max-h-full overflow-y-auto overflow-x-hidden'>
           <OfferingTabsCard />
         </DialogContent>
       </Dialog>
@@ -36,12 +49,22 @@ export const OfferingInfoCard = (): JSX.Element => {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button variant='outline' className='text-[12px] lg:text-[13px]'>
-          Ver Información
+        <Button
+          variant='outline'
+          className={cn(
+            'mt-2 mr-4 py-2 px-1 h-[2rem] bg-blue-400 text-white hover:bg-blue-500 hover:text-blue-950  dark:text-blue-950 dark:hover:bg-blue-500 dark:hover:text-white',
+            (pathname === '/offerings/update-offering' ||
+              pathname === '/offerings/update-offering') &&
+              'mr-0'
+          )}
+        >
+          <BsFillPersonVcardFill className='w-8 h-[1.65rem]' />
         </Button>
       </DrawerTrigger>
-      <DrawerContent className='max-h-full overflow-y-auto'>
-        <OfferingTabsCard />
+      <DrawerContent>
+        <div className='flex justify-center py-8 px-6 max-h-full overflow-y-auto overflow-x-hidden'>
+          <OfferingTabsCard />
+        </div>
       </DrawerContent>
     </Drawer>
   );

@@ -6,18 +6,20 @@ import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from '@react-hook/media-query';
 import { BsFillPersonVcardFill } from 'react-icons/bs';
 
-import { FamilyHouseTabsCard } from '@/app/family-house/components';
-
-import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
-import { Drawer, DrawerContent, DrawerTrigger } from '@/shared/components/ui/drawer';
-import { Button } from '@/shared/components/ui/button';
-
 import { cn } from '@/shared/lib/utils';
 
-export const FamilyHouseInfoCard = (): JSX.Element => {
-  const [open, setOpen] = useState(false);
-  const isDesktop = useMediaQuery('(min-width: 768px)');
+import { FamilyHouseTabsCard } from '@/app/family-house/components';
 
+import { Button } from '@/shared/components/ui/button';
+import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
+import { Drawer, DrawerContent, DrawerTrigger } from '@/shared/components/ui/drawer';
+
+export const FamilyHouseInfoCard = (): JSX.Element => {
+  //* States
+  const [open, setOpen] = useState<boolean>(false);
+
+  //* Library hooks
+  const isDesktop = useMediaQuery('(min-width: 768px)');
   const { pathname } = useLocation();
 
   if (isDesktop) {

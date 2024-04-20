@@ -16,5 +16,5 @@ export const MemberRoleNames: Record<MemberRoles, string> = {
   treasurer: 'Tesorero',
 };
 
-// Note: Serán llamados discípulos todos, pero en los roles (cargos) se diferencian por roles.
+
 

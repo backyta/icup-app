@@ -1,18 +1,20 @@
-import { type CurrencyType } from "../enums";
+import { type CurrencyType } from "@/app/offering/enums";
 
 export interface OfferingData {
   type: string,
-  subType?: string,
+  subType?: string | undefined,
   amount: string,
-  currency: CurrencyType,
-  comments?: string,
-  urlFile?: string[],
-  familyHouseID?: string,
-  memberID?: string,
-  copastorID?: string,
+  date: Date;
+  currency: string | CurrencyType,
+  comments?: string | undefined,
+  urlFile?: string[] | undefined,
+  familyHouseID?: string | undefined,
+  memberID?: string | undefined,
+  zoneID?: string | undefined,
+  status?: string | undefined,
 }
 
-export type DataOfferingKeys =
+export type OfferingDataKeys =
   | 'type'
   | 'subType'
   | 'amount'
@@ -21,4 +23,6 @@ export type DataOfferingKeys =
   | 'urlFile'
   | 'familyHouseID'
   | 'memberID'
-  | 'copastorID';
+  | 'zoneID'
+  | 'status'
+

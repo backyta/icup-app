@@ -7,12 +7,17 @@ export interface UserData {
   password: string,
   passwordConfirm: string,
   roles: UserRoles[],
+  status?: string | undefined,
 }
 
-export type DataUserKeys =
+export type UserDataKeys =
   | 'firstName'
   | 'lastName'
   | 'emailAddress'
   | 'password'
   | 'passwordConfirm'
-  | 'roles';
+  | 'roles'
+  | 'status';
+
+
+  

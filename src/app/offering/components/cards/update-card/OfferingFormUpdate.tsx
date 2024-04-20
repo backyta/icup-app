@@ -8,31 +8,48 @@
 
 import { useState, useEffect, useCallback } from 'react';
 
-import { useForm } from 'react-hook-form';
 import { type z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Toaster, toast } from 'sonner';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useDropzone } from 'react-dropzone';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
-import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { TiDeleteOutline } from 'react-icons/ti';
 
 import { cn } from '@/shared/lib/utils';
 
+import { useOfferingSubmitButtonLogic } from '@/hooks';
 import { formOfferingSchema } from '@/app/offering/validations';
-import { CurrencyType, CurrencyTypeNames, SubTypesOffering, SubTypesOfferingNames } from '@/app/offering/enums';
+
+import { Status } from '@/shared/enums';
+import { familyHouses, members, zones } from '@/shared/data';
+
+import {
+  CurrencyType,
+  CurrencyTypeNames,
+  SubTypesOffering,
+  SubTypesOfferingNames,
+  TypesOffering,
+  TypesOfferingNames,
+} from '@/app/offering/enums';
+
 import {
   type FilesProps,
   type RejectedProps,
   type OfferingData,
-  type DataOfferingKeys,
+  type OfferingDataKeys,
 } from '@/app/offering/interfaces';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
+import { Textarea } from '@/shared/components/ui/textarea';
+import { Calendar } from '@/shared/components/ui/calendar';
 import { Card, CardContent } from '@/shared/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
-
+import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Form,
   FormControl,
@@ -42,127 +59,111 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form';
-
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/shared/components/ui/command';
-import { SelectValue, SelectTrigger, SelectContent, SelectItem, Select } from '@/shared/components/ui/select';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
-import { Textarea } from '@/shared/components/ui/textarea';
-
-import { copastors, familyHouses, members } from '@/shared/data';
-
-// TODO : dependiendo de la ruta hacer fetch a cierto modulo
-
-// NOTE : ver si se hace el fetch aquí o el UpdateCard.
-// NOTE : hay que personalizar el aviso de promover según su pagina pastor , copastor, leader....
-// NOTE : hacer llamado según el ID para traer la data
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from '@/shared/components/ui/command';
+import {
+  SelectValue,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  Select,
+} from '@/shared/components/ui/select';
 
 const data: OfferingData = {
   type: 'tithe',
   // subType: '',
   amount: '20',
+  date: new Date('12-12-2000'),
   currency: CurrencyType.Euros,
   comments: 'Diezmo entregado 2 días después 12/03/24',
-  urlFile: ['bem.jpg', 'cuadro.png'], // pasar el link del get de la imagen de cloudinary
+  urlFile: [], // pasar el link del get de la imagen de cloudinary
   // familyHouseID: familyHouses[1].value,
   // copastorID: copastors[2].value,
-  memberID: members[1].value,
+  memberID: 'id2',
+  status: Status.Active,
 };
 
-const subTypePlaceholders: Record<SubTypesOffering, string> = {
-  [SubTypesOffering.SundayWorship]: SubTypesOfferingNames.sunday_worship,
-  [SubTypesOffering.FamilyHouse]: SubTypesOfferingNames.family_house,
-  [SubTypesOffering.GeneralFasting]: SubTypesOfferingNames.general_fasting,
-  [SubTypesOffering.GeneralVigil]: SubTypesOfferingNames.general_vigil,
-  [SubTypesOffering.ZonalFasting]: SubTypesOfferingNames.zonal_fasting,
-  [SubTypesOffering.ZonalVigil]: SubTypesOfferingNames.zonal_vigil,
-  [SubTypesOffering.YouthWorship]: SubTypesOfferingNames.youth_worship,
-  [SubTypesOffering.SundaySchool]: SubTypesOfferingNames.sunday_school,
-  [SubTypesOffering.ChurchGround]: SubTypesOfferingNames.church_ground,
-  [SubTypesOffering.Activities]: SubTypesOfferingNames.activities,
-  [SubTypesOffering.Special]: SubTypesOfferingNames.special,
-};
-
-// NOTE : ver si pasar mas props y colocar en interfaces folder
-interface OfferingMemberProps {
-  onSubmit: () => void;
+interface Props {
+  onClose: () => void;
+  onScroll: () => void;
 }
 
-//! Type el objeto a recibir desde el padre en una interface
-export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Element => {
-  const [open, setOpen] = useState(false);
+export const OfferingFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
+  //* States
+  const [isInputRelationOpen, setIsInputRelationOpen] = useState<boolean>(false);
+  const [isInputDateOpen, setIsInputDateOpen] = useState<boolean>(false);
+
   const [files, setFiles] = useState<FilesProps[]>([]);
   const [rejected, setRejected] = useState<RejectedProps[]>([]);
 
-  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
 
-  const [disableInput, setDisableInput] = useState(false);
+  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(true);
+  const [isDropZoneDisabled, setIsDropZoneDisabled] = useState<boolean>(false);
+  const [isFileButtonDisabled, setIsFileButtonDisabled] = useState<boolean>(false);
 
+  const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
+
+  //* Form
   const form = useForm<z.infer<typeof formOfferingSchema>>({
+    mode: 'onChange',
     resolver: zodResolver(formOfferingSchema),
     defaultValues: {
+      type: '',
+      subType: '',
       amount: '',
+      date: undefined,
+      currency: '',
       comments: '',
+      urlFile: [],
+      familyHouseID: '',
+      memberID: '',
+      zoneID: '',
+      status: '',
     },
   });
 
+  //* Form handler
+  const handleSubmit = (values: z.infer<typeof formOfferingSchema>): void => {
+    console.log({ values });
+  };
+
   //* Watchers
-  const watchType = form.watch('type');
-  const watchSubType = form.watch('subType');
-  const watchAmount = form.watch('amount');
-  const watchCurrency = form.watch('currency');
-  const watchComments = form.watch('comments');
-  const watchUrlFile = form.watch('urlFile');
-  const watchMemberId = form.watch('memberID');
-  const watchCopastorId = form.watch('copastorID');
-  const watchFamilyHouseId = form.watch('familyHouseID');
+  const type = form.watch('type');
+  const subType = form.watch('subType');
+  const status = form.watch('status');
+  const urlFiles = form.watch('urlFile');
 
-  useEffect(() => {
-    if (
-      (form.getValues('type') &&
-        form.getValues('subType') &&
-        form.getValues('amount') &&
-        form.getValues('currency') &&
-        form.getValues('comments') &&
-        form.getValues('urlFile') &&
-        (form.getValues('memberID') || form.getValues('copastorID') || form.getValues('familyHouseID'))) ||
-      (form.getValues('type') &&
-        form.getValues('amount') &&
-        form.getValues('currency') &&
-        form.getValues('comments') &&
-        (form.getValues('memberID') || form.getValues('copastorID') || form.getValues('familyHouseID')))
-    ) {
-      setIsSubmitButtonDisabled(false);
-    }
-
-    if (
-      !form.getValues('type') ||
-      !form.getValues('amount') ||
-      !form.getValues('currency') ||
-      !form.getValues('comments') ||
-      !form.getValues('urlFile')
-    ) {
-      setIsSubmitButtonDisabled(true);
-    }
-  }, [
-    watchType,
-    watchSubType,
-    watchAmount,
-    watchCurrency,
-    watchComments,
-    watchUrlFile,
-    watchMemberId,
-    watchCopastorId,
-    watchFamilyHouseId,
-  ]);
-
+  //* DropZone functions, hooks, effects
   const onDrop = useCallback(
     (acceptedFiles: any[], rejectedFiles: any[]) => {
       if (acceptedFiles?.length) {
-        const mappedFiles = acceptedFiles.map((file) => Object.assign(file, { preview: URL.createObjectURL(file) }));
-        setFiles((previousFiles) => [...previousFiles, ...mappedFiles]);
+        const mappedFiles = acceptedFiles.map((file) =>
+          Object.assign(file, { preview: URL.createObjectURL(file) })
+        );
 
-        // Obtén una lista de URLs de archivo y actualiza el campo de formulario
-        const allFileNames = [...files.map((file) => file.name), ...mappedFiles.map((file) => file.name)];
+        // Verifica si ya existe un archivo con el mismo nombre
+        mappedFiles.forEach((newFile) => {
+          const existingFileIndex = files.findIndex(
+            (existingFile) => existingFile.name === newFile.name
+          );
+
+          if (existingFileIndex !== -1) {
+            setFiles((previousFiles) => [...previousFiles]);
+          } else {
+            setFiles((previousFiles) => [...previousFiles, newFile]);
+          }
+        });
+
+        const allFileNames = [
+          ...files.map((file) => file.name),
+          ...mappedFiles.map((file) => file.name),
+        ];
 
         form.setValue('urlFile', allFileNames); // Actualiza el campo de formulario con las URLs de los archivos
       }
@@ -171,7 +172,7 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
         setRejected((previousFiles) => [...previousFiles, ...rejectedFiles]);
       }
     },
-    [form, setFiles]
+    [form, files, setFiles]
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -180,7 +181,7 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
     },
     maxSize: 1024 * 1000,
     onDrop,
-    disabled: disableInput,
+    disabled: isDropZoneDisabled,
   });
 
   useEffect(() => {
@@ -210,39 +211,73 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
     setRejected((files) => files.filter(({ file }) => file.name !== name));
   };
 
-  // TODO : cuando revisemos aquí hacer que la imagen que llega del back setear como imagen
-  // TODO : y hacer que sis e agregan mas vayan dentro , modificar la función no mas
+  useEffect(() => {
+    if (status === Status.Inactive) {
+      setIsDropZoneDisabled(true);
+      setIsFileButtonDisabled(true);
+    }
+
+    if (status === Status.Active) {
+      setIsDropZoneDisabled(false);
+      setIsFileButtonDisabled(false);
+    }
+  }, [status]);
+
+  //* Custom hooks
+  // NOTE : hacer custom hooks para setear
   useEffect(() => {
     for (const key in data) {
-      form.setValue(key as DataOfferingKeys, data[key as DataOfferingKeys]);
+      form.setValue(key as OfferingDataKeys, data[key as OfferingDataKeys]);
     }
   }, []);
 
-  const handleSubmit = (values: z.infer<typeof formOfferingSchema>): void => {
-    // form.setValue('urlFile', data.urlFile);
-    console.log({ values });
-  };
+  useOfferingSubmitButtonLogic({
+    formOffering: form,
+    typesOffering: TypesOffering,
+    subTypesOffering: SubTypesOffering,
+    setIsSubmitButtonDisabled,
+    setIsMessageErrorDisabled,
+    setIsDropZoneDisabled,
+  });
 
-  console.log(form.getValues());
   return (
     <Tabs
       defaultValue='general-info'
-      className='w-auto sm:w-[520px] md:w-[680px] lg:w-[890px] xl:w-[1000px] overflow-y-auto'
+      className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
-      <TabsList className='grid w-full grid-cols-1 px-auto'>
-        <TabsTrigger value='general-info' className='text-[14px] md:text-[15px]'>
-          Actualizar información de la ofrenda
-        </TabsTrigger>
-      </TabsList>
+      <div className='text-center'>
+        <h2 className='text-orange-500  font-bold text-[20px] md:text-[24px]'>
+          Actualizar información de la Ofrenda
+        </h2>
+      </div>
 
-      <TabsContent value='general-info' className='overflow-y-auto'>
+      <TabsContent value='general-info'>
         <Card className='w-full'>
           <CardContent className='py-3 px-4'>
-            {/* Aca podría ser un componente pasamos todos por props */}
+            <div className='flex flex-col mb-4 pl-4'>
+              <div className='dark:text-slate-300 text-slate-500 font-bold text-[17px]'>
+                Registro de Ofrenda: 12KH453 - Marcelo Pacheco
+              </div>
+
+              {status === Status.Active ? (
+                <span className='text-[11.5px] md:text-[12px] font-medium dark:text-slate-400 text-slate-500 md:pl-2'>
+                  El estado del registro esta{' '}
+                  <span className='font-bold text-green-500 uppercase'>Activo</span>, solo se podrá
+                  añadir o actualizar sus imágenes.
+                </span>
+              ) : (
+                <span className='text-[11.5px] md:text-[12px] font-medium dark:text-slate-400 text-slate-500 md:pl-2'>
+                  El estado del registro esta{' '}
+                  <span className='font-bold text-red-500 uppercase'>Inactivo</span>, no se podrá
+                  actualizar ningún campo.
+                </span>
+              )}
+            </div>
+
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(handleSubmit)}
-                className='w-full grid sm:grid-cols-1 lg:grid-cols-2 sm:gap-10 lg:gap-y-15 lg:gap-x-20 px-2 sm:px-6'
+                className='w-full flex flex-col md:grid sm:grid-cols-2 gap-x-8 gap-y-6 px-2 sm:px-8'
               >
                 <div className='lg:col-start-1 lg:col-end-2'>
                   <FormField
@@ -251,19 +286,32 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
                     render={({ field }) => {
                       return (
                         <FormItem>
-                          <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>Tipo</FormLabel>
-                          <FormDescription className='text-sm lg:text-[15px]'>
+                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                            Tipo
+                          </FormLabel>
+                          <FormDescription className='text-[14px]'>
                             Asignar una un tipo de ofrenda al registro.
                           </FormDescription>
-                          <Select disabled={disableInput} onValueChange={field.onChange}>
+                          <Select
+                            disabled={isInputDisabled}
+                            value={field.value}
+                            onValueChange={field.onChange}
+                          >
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder={field.value === 'offering' ? 'Ofrendas' : 'Diezmo'} />
+                                {field.value ? (
+                                  <SelectValue placeholder='Selecciona una tipo de ofrenda' />
+                                ) : (
+                                  'Selecciona una tipo de ofrenda'
+                                )}
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem value='tithe'>Diezmos</SelectItem>
-                              <SelectItem value='offering'>Ofrendas</SelectItem>
+                              {Object.entries(TypesOfferingNames).map(([key, value]) => (
+                                <SelectItem key={key} value={key}>
+                                  {value}
+                                </SelectItem>
+                              ))}
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -272,28 +320,32 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
                     }}
                   />
 
-                  {watchType === 'offering' && (
+                  {type === TypesOffering.Offering && (
                     <FormField
                       control={form.control}
                       name='subType'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-4'>
-                            <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Sub-Tipo
                             </FormLabel>
-                            <FormDescription className='text-sm lg:text-[15px]'>
+                            <FormDescription className='text-[14px]'>
                               Asignar una un sub-tipo de ofrenda al registro.
                             </FormDescription>
-                            <Select disabled={disableInput} onValueChange={field.onChange}>
+                            <Select disabled={isInputDisabled} onValueChange={field.onChange}>
                               <FormControl>
                                 <SelectTrigger>
-                                  <SelectValue placeholder={subTypePlaceholders[field?.value as SubTypesOffering]} />
+                                  {field.value ? (
+                                    <SelectValue placeholder='Selecciona una sub-tipo de ofrenda' />
+                                  ) : (
+                                    'Selecciona una sub-tipo de ofrenda'
+                                  )}
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
                                 {Object.entries(SubTypesOfferingNames).map(([key, value]) => (
-                                  <SelectItem className='font-medium' key={key} value={key}>
+                                  <SelectItem key={key} value={key}>
                                     {value}
                                   </SelectItem>
                                 ))}
@@ -311,13 +363,15 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
                     render={({ field }) => {
                       return (
                         <FormItem className='mt-4'>
-                          <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>Monto</FormLabel>
-                          <FormDescription className='text-sm lg:text-[15px]'>
+                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                            Monto
+                          </FormLabel>
+                          <FormDescription className='text-[14px]'>
                             Digita la cantidad de la ofrenda o diezmo.
                           </FormDescription>
                           <FormControl>
                             <Input
-                              disabled={disableInput}
+                              disabled={isInputDisabled}
                               placeholder='Monto de la ofrenda o diezmo'
                               type='text'
                               {...field}
@@ -335,13 +389,13 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
                     render={({ field }) => {
                       return (
                         <FormItem className='mt-4'>
-                          <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                             Divisa / Moneda
                           </FormLabel>
-                          <FormDescription className='text-sm lg:text-[15px]'>
+                          <FormDescription className='text-[14px]'>
                             Asignar una un tipo de divisa o moneda al registro.
                           </FormDescription>
-                          <Select disabled={disableInput} onValueChange={field.onChange}>
+                          <Select disabled={isInputDisabled} onValueChange={field.onChange}>
                             <FormControl>
                               <SelectTrigger>
                                 <SelectValue
@@ -368,47 +422,86 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
                       );
                     }}
                   />
+
                   <FormField
                     control={form.control}
-                    name='comments'
-                    render={({ field }) => {
-                      return (
-                        <FormItem className='mt-4'>
-                          <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
-                            Comentarios
-                          </FormLabel>
-                          <FormControl>
-                            <Textarea
-                              disabled={disableInput}
-                              placeholder='Comentarios referente al registro de la ofrenda'
-                              {...field}
+                    name='date'
+                    render={({ field }) => (
+                      <FormItem className='flex flex-col mt-4'>
+                        <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                          Fecha
+                        </FormLabel>
+                        <FormDescription className='text-[14px]'>
+                          Elige la fecha de deposito de la ofrenda o diezmo.
+                        </FormDescription>
+                        <Popover open={isInputDateOpen} onOpenChange={setIsInputDateOpen}>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                disabled={isInputDisabled}
+                                variant={'outline'}
+                                className={cn(
+                                  'w-full pl-3 text-left font-normal',
+                                  !field.value && 'text-muted-foreground'
+                                )}
+                              >
+                                {field.value ? (
+                                  format(field.value, 'LLL dd, y', { locale: es })
+                                ) : (
+                                  <span className='text-sm md:text-[12px] lg:text-sm'>
+                                    Seleccione la fecha de la ofrenda o diezmo
+                                  </span>
+                                )}
+                                <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent className='w-auto p-0' align='start'>
+                            <Calendar
+                              mode='single'
+                              selected={field.value}
+                              onSelect={(date) => {
+                                field.onChange(date);
+                                setIsInputDateOpen(false);
+                              }}
+                              disabled={(date) =>
+                                date > new Date() || date < new Date('1900-01-01')
+                              }
+                              initialFocus
                             />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
+                          </PopoverContent>
+                        </Popover>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
-                  {(watchType === 'tithe' ||
-                    (watchType === 'offering' && watchSubType === SubTypesOffering.Special) ||
-                    (watchType === 'offering' && watchSubType === SubTypesOffering.ChurchGround)) && (
+
+                  {(type === TypesOffering.Tithe ||
+                    (type === TypesOffering.Offering && subType === SubTypesOffering.Special) ||
+                    (type === TypesOffering.Offering &&
+                      subType === SubTypesOffering.ChurchGround)) && (
                     <FormField
                       control={form.control}
                       name='memberID'
                       render={({ field }) => (
                         <FormItem className='flex flex-col mt-4'>
-                          <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>Miembro</FormLabel>
-                          <FormDescription className='text-sm lg:text-[15px]'>
+                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                            Miembro
+                          </FormLabel>
+                          <FormDescription className='text-[14px]'>
                             Seleccione un miembro para asignarlo al registro.
                           </FormDescription>
-                          <Popover open={open} onOpenChange={setOpen}>
+                          <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
                             <PopoverTrigger asChild>
                               <FormControl>
                                 <Button
-                                  disabled={disableInput}
+                                  disabled={isInputDisabled}
                                   variant='outline'
                                   role='combobox'
-                                  className={cn('w-full justify-between', !field.value && 'text-slate-500 font-normal')}
+                                  className={cn(
+                                    'w-full justify-between',
+                                    !field.value && 'text-slate-500 font-normal'
+                                  )}
                                 >
                                   {field.value
                                     ? members.find((member) => member.value === field.value)?.label
@@ -417,22 +510,22 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
                                 </Button>
                               </FormControl>
                             </PopoverTrigger>
-                            <PopoverContent className='mr-30 w-[20rem] p-2\'>
+                            <PopoverContent align='center' className='w-auto px-4 py-2'>
                               <Command>
                                 <CommandInput
                                   placeholder='Busque un miembro...'
-                                  className='h-9 text-sm lg:text-[15px]'
+                                  className='h-9 text-[14px]'
                                 />
                                 <CommandEmpty>Miembro no encontrado.</CommandEmpty>
                                 <CommandGroup className='max-h-[200px] h-auto'>
                                   {members.map((member) => (
                                     <CommandItem
-                                      className='text-sm lg:text-[15px]'
+                                      className='text-[14px]'
                                       value={member.label}
                                       key={member.value}
                                       onSelect={() => {
                                         form.setValue('memberID', member.value);
-                                        setOpen(false);
+                                        setIsInputRelationOpen(false);
                                       }}
                                     >
                                       {member.label}
@@ -453,35 +546,40 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
                       )}
                     />
                   )}
-                  {watchType === 'offering' && watchSubType === SubTypesOffering.FamilyHouse && (
+                  {type === TypesOffering.Offering && subType === SubTypesOffering.FamilyHouse && (
                     <FormField
                       control={form.control}
                       name='familyHouseID'
                       render={({ field }) => (
                         <FormItem className='flex flex-col mt-4'>
-                          <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                             Casa Familiar
                           </FormLabel>
-                          <FormDescription className='text-sm lg:text-[15px]'>
-                            Selecciones una Casa familiar para asignarlo al registro.
+                          <FormDescription className='text-[14px]'>
+                            Selecciones una casa familiar para asignarla al registro.
                           </FormDescription>
-                          <Popover open={open} onOpenChange={setOpen}>
+                          <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
                             <PopoverTrigger asChild>
                               <FormControl>
                                 <Button
-                                  disabled={disableInput}
+                                  disabled={isInputDisabled}
                                   variant='outline'
                                   role='combobox'
-                                  className={cn('w-full justify-between', !field.value && 'text-slate-500 font-normal')}
+                                  className={cn(
+                                    'w-full justify-between',
+                                    !field.value && 'text-slate-500 font-normal'
+                                  )}
                                 >
                                   {field.value
-                                    ? familyHouses.find((familyHouse) => familyHouse.value === field.value)?.label
+                                    ? familyHouses.find(
+                                        (familyHouse) => familyHouse.value === field.value
+                                      )?.label
                                     : 'Busque y seleccione una casa familiar'}
                                   <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                 </Button>
                               </FormControl>
                             </PopoverTrigger>
-                            <PopoverContent className='w-[20rem] p-2'>
+                            <PopoverContent align='center' className='w-auto px-4 py-2'>
                               <Command>
                                 <CommandInput
                                   placeholder='Busque una casa familiar...'
@@ -491,19 +589,21 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
                                 <CommandGroup className='max-h-[200px] h-auto'>
                                   {familyHouses.map((familyHouse) => (
                                     <CommandItem
-                                      className='text-sm lg:text-[15px]'
+                                      className='text-[14px]'
                                       value={familyHouse.label}
                                       key={familyHouse.value}
                                       onSelect={() => {
                                         form.setValue('familyHouseID', familyHouse.value);
-                                        setOpen(false);
+                                        setIsInputRelationOpen(false);
                                       }}
                                     >
                                       {familyHouse.label}
                                       <CheckIcon
                                         className={cn(
                                           'ml-auto h-4 w-4',
-                                          familyHouse.value === field.value ? 'opacity-100' : 'opacity-0'
+                                          familyHouse.value === field.value
+                                            ? 'opacity-100'
+                                            : 'opacity-0'
                                         )}
                                       />
                                     </CommandItem>
@@ -518,57 +618,64 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
                       )}
                     />
                   )}
-                  {/* TODO : no copastor si no Member ID encargado, normalmente es supervisor copastor o pastor. (filtrar por esos) */}
-                  {((watchType === 'offering' && watchSubType === SubTypesOffering.ZonalFasting) ||
-                    (watchType === 'offering' && watchSubType === SubTypesOffering.ZonalVigil)) && (
+
+                  {((type === TypesOffering.Offering &&
+                    subType === SubTypesOffering.ZonalFasting) ||
+                    (type === TypesOffering.Offering &&
+                      subType === SubTypesOffering.ZonalVigil)) && (
                     <FormField
                       control={form.control}
-                      name='copastorID'
+                      name='zoneID'
                       render={({ field }) => (
                         <FormItem className='flex flex-col mt-4'>
-                          <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>Co-Pastor</FormLabel>
-                          <FormDescription className='text-sm lg:text-[15px]'>
-                            Selecciones un Co-Pastor para asignarlo al registro.
+                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                            Zone
+                          </FormLabel>
+                          <FormDescription className='text-[14px]'>
+                            Selecciones un zona para asignarlo al registro.
                           </FormDescription>
-                          <Popover open={open} onOpenChange={setOpen}>
+                          <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
                             <PopoverTrigger asChild>
                               <FormControl>
                                 <Button
-                                  disabled={disableInput}
+                                  disabled={isInputDisabled}
                                   variant='outline'
                                   role='combobox'
-                                  className={cn('w-full justify-between', !field.value && 'text-slate-500 font-normal')}
+                                  className={cn(
+                                    'w-full justify-between',
+                                    !field.value && 'text-slate-500 font-normal'
+                                  )}
                                 >
                                   {field.value
-                                    ? copastors.find((copastor) => copastor.value === field.value)?.label
-                                    : 'Busque y seleccione un co-pastor'}
+                                    ? zones.find((zone) => zone.value === field.value)?.label
+                                    : 'Busque y seleccione una zona'}
                                   <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                 </Button>
                               </FormControl>
                             </PopoverTrigger>
-                            <PopoverContent className='w-[20rem] p-2'>
+                            <PopoverContent align='center' className='w-auto px-4 py-2'>
                               <Command>
                                 <CommandInput
-                                  placeholder='Busque un co-pastor...'
+                                  placeholder='Busque una zona...'
                                   className='h-9 text-sm lg:text-[15px]'
                                 />
-                                <CommandEmpty>Co-Pastor no encontrada.</CommandEmpty>
+                                <CommandEmpty>Zona no encontrada.</CommandEmpty>
                                 <CommandGroup className='max-h-[200px] h-auto'>
-                                  {copastors.map((copastor) => (
+                                  {zones.map((zone) => (
                                     <CommandItem
-                                      className='text-sm lg:text-[15px]'
-                                      value={copastor.label}
-                                      key={copastor.value}
+                                      className='text-[14px]'
+                                      value={zone.label}
+                                      key={zone.value}
                                       onSelect={() => {
-                                        form.setValue('copastorID', copastor.value);
-                                        setOpen(false);
+                                        form.setValue('zoneID', zone.value);
+                                        setIsInputRelationOpen(false);
                                       }}
                                     >
-                                      {copastor.label}
+                                      {zone.label}
                                       <CheckIcon
                                         className={cn(
                                           'ml-auto h-4 w-4',
-                                          copastor.value === field.value ? 'opacity-100' : 'opacity-0'
+                                          zone.value === field.value ? 'opacity-100' : 'opacity-0'
                                         )}
                                       />
                                     </CommandItem>
@@ -582,16 +689,86 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
                       )}
                     />
                   )}
+                  <FormField
+                    control={form.control}
+                    name='comments'
+                    render={({ field }) => {
+                      return (
+                        <FormItem className='mt-4'>
+                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
+                            Comentarios
+                            <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
+                              Opcional
+                            </span>
+                          </FormLabel>
+                          <FormControl>
+                            <Textarea
+                              disabled={isInputDisabled}
+                              placeholder='Comentarios referente al registro del diezmo u ofrenda'
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='status'
+                    render={({ field }) => {
+                      return (
+                        <FormItem className='mt-3'>
+                          <FormLabel className='text-[14px]'>Estado</FormLabel>
+                          <Select disabled={isInputDisabled} onValueChange={field.onChange}>
+                            <FormControl className='text-[13px] md:text-[14px]'>
+                              <SelectTrigger>
+                                {field.value === 'active' ? (
+                                  <SelectValue placeholder='Activo' />
+                                ) : (
+                                  <SelectValue placeholder='Inactivo' />
+                                )}
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem className='text-[13px] md:text-[14px]' value='active'>
+                                Activo
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                          {form.getValues('status') === 'active' && (
+                            <FormDescription className='pl-2 text-[12px] md:text-[12.5px] font-bold'>
+                              *El registro esta <span className='text-green-500'>Activo</span>, para
+                              colocarlo como <span className='text-red-500'>Inactivo</span> eliminar
+                              el registro desde la pestaña{' '}
+                              <span className='font-bold text-red-500'>Eliminar Ofrenda.</span>
+                            </FormDescription>
+                          )}
+                          {form.getValues('status') === 'inactive' && (
+                            <FormDescription className='pl-2 text-[12px] md:text-[12.5px] font-bold'>
+                              * El registro esta <span className='text-red-500'>Inactivo</span>, y
+                              su estado no se puede modificar.
+                            </FormDescription>
+                          )}
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
                 </div>
-                <div className='lg:col-start-2 lg:col-end-3'>
+
+                <div className='lg:col-start-2 lg:col-end-3 border-l-2 border-slate-200 dark:border-slate-800 pl-8'>
                   <FormField
                     control={form.control}
                     name='urlFile'
                     render={() => {
                       return (
                         <FormItem className='mt-4 md:mt-0'>
-                          <FormLabel className='text-[14px] sm:text-[15px] lg:text-base font-bold'>
+                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
                             Subir imagen
+                            <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
+                              Opcional
+                            </span>
                           </FormLabel>
                           <FormControl>
                             <div
@@ -605,30 +782,45 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
                               {isDragActive ? (
                                 <p>Suelte sus archivos aquí ...</p>
                               ) : (
-                                <p>Arrastre y suelte sus archivos aquí, o haga clic para seleccionar.</p>
+                                <p>
+                                  Arrastre y suelte sus archivos aquí, o haga clic para seleccionar.
+                                </p>
                               )}
                             </div>
                           </FormControl>
                           <FormMessage />
+                          {urlFiles && urlFiles.length > 3 ? (
+                            <span className='text-red-500 font-bold text-[11.5px] md:text-[12.5px] text-center mx-auto justify-center flex'>
+                              ❌ Sobrepasa el limite, elige como máximo solo 3 imágenes.
+                            </span>
+                          ) : (
+                            <span className='font-bold text-[11.5px] md:text-[12.5px] pl-6 mt-1 flex flex-col'>
+                              {' '}
+                              <span>✅ Máximo 3 archivos.</span>
+                              <span>
+                                ✅ El campo se bloqueara al llegar o pasar los 3 archivos.
+                              </span>
+                            </span>
+                          )}
                         </FormItem>
                       );
                     }}
                   />
                   <section className='mt-10'>
                     <div className='flex gap-4 items-center justify-between'>
-                      <h2 className='title text-base sm:text-lg lg:text-xl font-bold'>Pre-visualización</h2>
+                      <h2 className='text-[16px] md:text-[18px] font-bold'>Pre-visualización</h2>
                       <button
-                        disabled={disableInput}
+                        disabled={isFileButtonDisabled}
                         type='button'
                         onClick={removeAll}
-                        className='mt-1 text-[10px] lg:text-[11px] w-[8rem] md:w-[10rem] p-2 uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md  hover:bg-secondary-400 hover:text-white ease-in duration-200 hover:bg-red-500 transition-colors'
+                        className='mt-1 text-[10px] md:text-[11px] w-[8rem] md:w-[10rem] p-2 uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md  hover:bg-secondary-400 hover:text-white ease-in duration-200 hover:bg-red-500 transition-colors'
                       >
                         Remover todos los archivos
                       </button>
                     </div>
 
                     {/* Accepted files */}
-                    <h3 className='title text-sm md:text-[15px] lg:text-base font-semibold mt-5 border-b pb-3'>
+                    <h3 className='text-[14.5px] lg:text-[16px] font-semibold mt-5 border-b pb-3'>
                       Archivos Aceptados
                     </h3>
                     <ul className='mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-2 gap-x-5 gap-y-20'>
@@ -645,7 +837,7 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
                             className='h-full w-full object-contain rounded-md'
                           />
                           <button
-                            disabled={disableInput}
+                            disabled={isFileButtonDisabled}
                             type='button'
                             className='w-7 h-7 border border-secondary-400 bg-secondary-400 rounded-full flex justify-center items-center absolute -top-3 -right-3 hover:bg-white transition-colors'
                             onClick={() => {
@@ -654,16 +846,18 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
                           >
                             <TiDeleteOutline className='w-12 h-12 fill-red-500 hover:fill-secondary-400 transition-colors' />
                           </button>
-                          <p className='mt-2 text-neutral-500 text-[12px] font-medium'>{file.name}</p>
+                          <p className='mt-2 text-neutral-500 text-[12px] font-medium'>
+                            {file.name}
+                          </p>
                         </li>
                       ))}
                     </ul>
 
                     {/* Rejected Files */}
-                    <h3 className='title text-[15px] sm:text-base font-semibold mt-20 border-b pb-3'>
+                    <h3 className='text-[14.5px] lg:text-[16px] font-semibold mt-20 border-b pb-3'>
                       Archivos rechazados
                     </h3>
-                    <ul className='mt-6 flex flex-col'>
+                    <ul className='mt-2 flex flex-col'>
                       {rejected.map(({ file, errors }) => (
                         <li key={file.name} className='flex items-start justify-between'>
                           <div>
@@ -675,14 +869,14 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
                             </ul>
                           </div>
                           <button
-                            disabled={disableInput}
+                            disabled={isFileButtonDisabled}
                             type='button'
-                            className='mt-1 py-1 text-[12px] uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md px-3 hover:bg-red-500 hover:text-white ease-in duration-200 transition-colors'
+                            className='mt-1 py-1 text-[11px] md:text-[12px] uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md px-3 hover:bg-red-500 hover:text-white ease-in duration-200 transition-colors'
                             onClick={() => {
                               removeRejected(file.name);
                             }}
                           >
-                            remove
+                            remover
                           </button>
                         </li>
                       ))}
@@ -690,28 +884,44 @@ export const OfferingFormUpdate = ({ onSubmit }: OfferingMemberProps): JSX.Eleme
                   </section>
                 </div>
 
-                <div className='w-[20rem] mx-auto col-start-1 col-end-3 text-sm md:text-md xl:text-base mt-4'>
+                {isMessageErrorDisabled ? (
+                  <p className='-mb-6 mt-4 md:-mb-6 md:mt-0 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
+                    ❌ Datos incompletos, completa todos los campos para guardar el registro.
+                  </p>
+                ) : (
+                  <p className='-mt-4 order-last md:-mt-3 md:row-start-3 md:row-end-4 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
+                    ¡Campos completados correctamente! <br /> Para finalizar por favor guarde los
+                    cambios
+                  </p>
+                )}
+
+                <div className='w-full md:w-[20rem] md:mx-auto col-start-1 col-end-3 text-sm md:text-md xl:text-base mt-2 md:mt-2'>
                   <Toaster position='top-center' richColors />
                   <Button
                     disabled={isSubmitButtonDisabled}
                     type='submit'
                     className='w-full text-[14px]'
                     onClick={() => {
-                      // TODO : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                      // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
                       setTimeout(() => {
                         if (Object.keys(form.formState.errors).length === 0) {
                           toast.success('Cambios guardados correctamente', {
                             position: 'top-center',
                             className: 'justify-center',
                           });
-
-                          setDisableInput(true);
+                          setIsInputDisabled(true);
+                          setIsDropZoneDisabled(true);
                           setIsSubmitButtonDisabled(true);
                         }
                       }, 100);
+
+                      setTimeout(() => {
+                        onScroll();
+                      }, 150);
+
                       setTimeout(() => {
                         if (Object.keys(form.formState.errors).length === 0) {
-                          onSubmit();
+                          onClose();
                         }
                       }, 1700);
                     }}

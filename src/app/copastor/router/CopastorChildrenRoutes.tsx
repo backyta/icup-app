@@ -4,7 +4,7 @@ import {
   CopastorsGeneralSearchPage,
   CopastorsSearchPageByTerm,
   CopastorUpdatePage,
-} from '../pages';
+} from '@/app/copastor/pages';
 
 export const CopastorChildrenRoutes = [
   {

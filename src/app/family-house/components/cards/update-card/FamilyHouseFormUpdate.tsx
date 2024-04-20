@@ -12,10 +12,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Toaster, toast } from 'sonner';
 import { type z } from 'zod';
 
+import { cn } from '@/shared/lib/utils';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { type DataFamilyHouseKeys, type FamilyHouseData } from '@/app/family-house/interfaces';
+import { useFamilyHouseUpdateSubmitButtonLogic } from '@/hooks';
+
+import { type FamilyHouseDataKeys, type FamilyHouseData } from '@/app/family-house/interfaces';
 import { formFamilyHouseSchema } from '@/app/family-house/validations';
+
+import { preachers, zones } from '@/shared/data';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -41,22 +46,14 @@ import {
   CommandItem,
 } from '@/shared/components/ui/command';
 
-import { preachers, zones } from '@/shared/data';
-import { cn } from '@/shared/lib/utils';
-
-// Si quiero modificar la casa, la zona si cambia debe tener un predicador que tenga un supervisor
-// a cargo de esa zona, los predicadores deben estar disponibles de lo contrario lanzar error
-// Al hacer click hacer lógica para consultar datos de los preacher disponibles según la zona y su supervisor
-// Si no hay se lanza un error diciendo que no hay predicadores disponibles  (deshabilitar el botón si lanza error)
-
-// ? Esto seria en la búsqueda del Update
-// TODO : debería hacer una búsqueda(search by) por miembros y casas (huérfanos) (hacer select de los their),
-// TODO : en miembros buscamos por miembros sin pastor, copastor, supervisor, predicador, para actualizar.
-// TODO : en casas buscamos por casas sin predicador,(asignar predicador con el mismo supervisor de la zona), para actualizar.
-
-// NOTE : ver si se hace el fetch aquí o el UpdateCard.
-// NOTE : hay que personalizar el aviso de promover según su pagina pastor , copastor, leader....
-// NOTE : hacer llamado según el ID para traer la data
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/shared/components/ui/select';
+import { Status } from '@/shared/enums';
 
 const data: FamilyHouseData = {
   zoneName: zones[1].value,
@@ -67,114 +64,71 @@ const data: FamilyHouseData = {
   district: 'Independencia',
   address: 'Av. Hayan Capac 123',
   theirPreacher: 'id2',
+  status: Status.Inactive,
 };
 
-// TODO : se podrá cambiar o actualizar de zona a la casa y tendrá el mismo efecto al colocar su predicador.
-// NOTE : si es nueva zona entonces
-
-//* Para actualizar
-// Sera como un crear los datos estarán seteados pero podre cambiar de zona y este me listara todos sus predicadores
-// No se podrá cambiar de zona y de predicador de otra zona ala vez, primero debo cambiar el supervisor de predicador
-// para que pueda aparecer en dicha zona.
-
-// Al cambiar el supervisor del predicador (se borran su relaciones anteriores) , por lo que esta libre de la
-// casa anterior, entonces solo se necesita buscar por zona al actualizar y me regresara a los predicadores disponibles o solos.
-
-//! Al seleccionar o querer cambiar una nueva zona esta casa, se consulta quien es su supervisor y ahi mismo se buscan todos
-//! los predicadores relacionados con este supervisor (muestra todos), porque se podrá tener multiples casas con un solo predicador.
-
-// TODO : setear los datos y trabajar en el onSubmit cerrar modal
-// TODO : Acomodar la vista y fingir el seto nuevo de data con los datos que ya tengo (que funcione el form)
-
-interface FormMemberProps {
+interface Props {
   onSubmit: () => void;
+  onScroll: () => void;
 }
 
-export const FamilyHouseFormUpdate = ({ onSubmit }: FormMemberProps): JSX.Element => {
-  const [openPreacher, setOpenPreacher] = useState(false);
-  const [openZone, setOpenZone] = useState(false);
+export const FamilyHouseFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Element => {
+  //* States
+  const [isInputZoneOpen, setIsInputZoneOpen] = useState<boolean>(false);
+  const [isInputPreacherOpen, setIsInputPreacherOpen] = useState<boolean>(false);
 
-  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(true);
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
 
-  const [disableInput, setDisableInput] = useState(false);
+  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
 
+  const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
+
+  //* Form
   const form = useForm<z.infer<typeof formFamilyHouseSchema>>({
+    mode: 'onChange',
     resolver: zodResolver(formFamilyHouseSchema),
     defaultValues: {
       zoneName: '',
+      theirPreacher: '',
       houseName: '',
       country: '',
       department: '',
       province: '',
       district: '',
       address: '',
+      status: '',
     },
   });
-  //* Watchers
 
-  const watchPreacher = form.watch('theirPreacher');
-  const watchZoneName = form.watch('zoneName');
-  const watchCountry = form.watch('country');
-  const watchDepartment = form.watch('department');
-  const watchProvince = form.watch('province');
-  const watchDistrict = form.watch('district');
-  const watchAddress = form.watch('address');
+  //* Handler form
+  const handleSubmit = (values: z.infer<typeof formFamilyHouseSchema>): void => {
+    console.log({ values });
+  };
 
+  // NOTE : Hacer custom hook
   useEffect(() => {
     for (const key in data) {
-      form.setValue(key as DataFamilyHouseKeys, data[key as DataFamilyHouseKeys]);
+      form.setValue(key as FamilyHouseDataKeys, data[key as FamilyHouseDataKeys]);
     }
   }, []);
 
-  useEffect(() => {
-    if (
-      form.getValues('zoneName') &&
-      form.getValues('country') &&
-      form.getValues('department') &&
-      form.getValues('province') &&
-      form.getValues('district') &&
-      form.getValues('address') &&
-      form.getValues('theirPreacher')
-    ) {
-      setIsSubmitButtonDisabled(false);
-    }
-
-    if (
-      !form.getValues('zoneName') ||
-      !form.getValues('country') ||
-      !form.getValues('department') ||
-      !form.getValues('province') ||
-      !form.getValues('district') ||
-      !form.getValues('address') ||
-      !form.getValues('theirPreacher')
-    ) {
-      setIsSubmitButtonDisabled(true);
-    }
-  }, [
-    watchPreacher,
-    watchZoneName,
-    watchCountry,
-    watchDepartment,
-    watchProvince,
-    watchDistrict,
-    watchAddress,
-  ]);
-
-  const handleSubmit = (values: z.infer<typeof formFamilyHouseSchema>): void => {
-    // TODO : enviar datos al backend actualizar
-    console.log({ values });
-  };
+  //* Custom hooks
+  useFamilyHouseUpdateSubmitButtonLogic({
+    formFamilyHouseUpdate: form,
+    setIsSubmitButtonDisabled,
+    setIsMessageErrorDisabled,
+  });
 
   return (
     <Tabs
       defaultValue='general-info'
-      className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px] overflow-y-auto'
+      className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
       <h2 className='text-center text-orange-500 pb-2 font-bold text-[20px] md:text-[24px]'>
-        Actualizar información de la casa familiar
+        Actualizar información de la Casa Familiar
       </h2>
 
-      <TabsContent value='general-info' className='overflow-y-auto mt-1'>
+      <TabsContent value='general-info'>
         <Card className='w-full'>
           <CardContent className='py-3 px-4'>
             <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-4'>
@@ -183,7 +137,7 @@ export const FamilyHouseFormUpdate = ({ onSubmit }: FormMemberProps): JSX.Elemen
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(handleSubmit)}
-                className=' w-full flex flex-col md:grid sm:grid-cols-2 gap-x-10 gap-y-5 px-2 sm:px-8'
+                className='w-full flex flex-col md:grid sm:grid-cols-2 gap-x-10 gap-y-5 px-2 sm:px-12'
               >
                 <FormField
                   control={form.control}
@@ -197,11 +151,11 @@ export const FamilyHouseFormUpdate = ({ onSubmit }: FormMemberProps): JSX.Elemen
                         <FormDescription className='text-[14px]'>
                           Asignar una zona a la que pertenecerá la casa familiar.
                         </FormDescription>
-                        <Popover open={openZone} onOpenChange={setOpenZone}>
+                        <Popover open={isInputZoneOpen} onOpenChange={setIsInputZoneOpen}>
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
-                                disabled={disableInput}
+                                disabled={isInputDisabled}
                                 variant='outline'
                                 role='combobox'
                                 className={cn(
@@ -231,7 +185,7 @@ export const FamilyHouseFormUpdate = ({ onSubmit }: FormMemberProps): JSX.Elemen
                                     key={zone.value}
                                     onSelect={() => {
                                       form.setValue('zoneName', zone.value);
-                                      setOpenZone(false);
+                                      setIsInputZoneOpen(false);
                                     }}
                                   >
                                     {zone.label}
@@ -252,6 +206,7 @@ export const FamilyHouseFormUpdate = ({ onSubmit }: FormMemberProps): JSX.Elemen
                     );
                   }}
                 />
+
                 <FormField
                   control={form.control}
                   name='theirPreacher'
@@ -264,11 +219,11 @@ export const FamilyHouseFormUpdate = ({ onSubmit }: FormMemberProps): JSX.Elemen
                         <FormDescription className='text-[14px]'>
                           Seleccione un predicador para esta casa familiar.
                         </FormDescription>
-                        <Popover open={openPreacher} onOpenChange={setOpenPreacher}>
+                        <Popover open={isInputPreacherOpen} onOpenChange={setIsInputPreacherOpen}>
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
-                                disabled={disableInput}
+                                disabled={isInputDisabled}
                                 variant='outline'
                                 role='combobox'
                                 className={cn(
@@ -299,7 +254,7 @@ export const FamilyHouseFormUpdate = ({ onSubmit }: FormMemberProps): JSX.Elemen
                                     key={preacher.value}
                                     onSelect={() => {
                                       form.setValue('theirPreacher', preacher.value);
-                                      setOpenPreacher(false);
+                                      setIsInputPreacherOpen(false);
                                     }}
                                   >
                                     {preacher.label}
@@ -334,7 +289,7 @@ export const FamilyHouseFormUpdate = ({ onSubmit }: FormMemberProps): JSX.Elemen
                         </FormDescription>
                         <FormControl>
                           <Input
-                            disabled={disableInput}
+                            disabled={isInputDisabled}
                             placeholder='Eje: Los Guerreros de Dios...'
                             type='text'
                             {...field}
@@ -359,7 +314,7 @@ export const FamilyHouseFormUpdate = ({ onSubmit }: FormMemberProps): JSX.Elemen
                         </FormDescription>
                         <FormControl>
                           <Input
-                            disabled={disableInput}
+                            disabled={isInputDisabled}
                             placeholder='Eje: Peru, Colombia, Ecuador...'
                             type='text'
                             {...field}
@@ -384,7 +339,7 @@ export const FamilyHouseFormUpdate = ({ onSubmit }: FormMemberProps): JSX.Elemen
                         </FormDescription>
                         <FormControl>
                           <Input
-                            disabled={disableInput}
+                            disabled={isInputDisabled}
                             placeholder='Eje: Lima, Puno, Huanuco...'
                             type='text'
                             {...field}
@@ -409,7 +364,7 @@ export const FamilyHouseFormUpdate = ({ onSubmit }: FormMemberProps): JSX.Elemen
                         </FormDescription>
                         <FormControl>
                           <Input
-                            disabled={disableInput}
+                            disabled={isInputDisabled}
                             placeholder='Eje: Lima, Huamanga, Huaraz...'
                             type='text'
                             {...field}
@@ -434,7 +389,7 @@ export const FamilyHouseFormUpdate = ({ onSubmit }: FormMemberProps): JSX.Elemen
                         </FormDescription>
                         <FormControl>
                           <Input
-                            disabled={disableInput}
+                            disabled={isInputDisabled}
                             placeholder='Comas, Independencia, Carabayllo...'
                             type='text'
                             {...field}
@@ -459,7 +414,7 @@ export const FamilyHouseFormUpdate = ({ onSubmit }: FormMemberProps): JSX.Elemen
                         </FormDescription>
                         <FormControl>
                           <Input
-                            disabled={disableInput}
+                            disabled={isInputDisabled}
                             placeholder='Av. Central 123...'
                             type='text'
                             {...field}
@@ -470,14 +425,70 @@ export const FamilyHouseFormUpdate = ({ onSubmit }: FormMemberProps): JSX.Elemen
                     );
                   }}
                 />
-                <div className='w-[20rem] mx-auto col-start-1 col-end-3 text-sm md:text-md xl:text-base mt-4'>
+                <FormField
+                  control={form.control}
+                  name='status'
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                          Estado
+                        </FormLabel>
+                        <Select disabled={isInputDisabled} onValueChange={field.onChange}>
+                          <FormControl className='text-[13px] md:text-[14px]'>
+                            <SelectTrigger>
+                              {field.value === 'active' ? (
+                                <SelectValue placeholder='Activo' />
+                              ) : (
+                                <SelectValue placeholder='Inactivo' />
+                              )}
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem className='text-[13px] md:text-[14px]' value='active'>
+                              Activo
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                        {form.getValues('status') === 'active' && (
+                          <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                            *La casa familiar esta <span className='text-green-500'>activa</span>,
+                            para colocarla como <span className='text-red-500'>inactiva</span> debe
+                            eliminar el registro desde la pestaña{' '}
+                            <span className='font-bold text-red-500'>Eliminar Casa Familiar.</span>
+                          </FormDescription>
+                        )}
+                        {form.getValues('status') === 'inactive' && (
+                          <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                            * La casa familiar esta <span className='text-red-500'>inactiva</span>,
+                            puede modificar el estado eligiendo otra opción.
+                          </FormDescription>
+                        )}
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+
+                {isMessageErrorDisabled ? (
+                  <p className='-mb-5 mt-4 md:mt-1 md:-mb-3 md:row-start-6 md:row-end-7 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
+                    ❌ Datos incompletos, completa todos los campos para guardar el registro.
+                  </p>
+                ) : (
+                  <p className='-mt-3 order-last md:-mt-2 md:row-start-8 md:row-end-9 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
+                    ¡Campos completados correctamente! <br /> Para finalizar por favor guarde los
+                    cambios.
+                  </p>
+                )}
+
+                <div className='mt-2 md:mt-1 md:col-start-1 md:col-end-3 md:row-start-7 md:row-end-8 w-full md:w-[20rem] md:m-auto'>
                   <Toaster position='top-center' richColors />
                   <Button
                     disabled={isSubmitButtonDisabled}
                     type='submit'
                     className='w-full text-[14px]'
                     onClick={() => {
-                      // TODO : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                      // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
                       setTimeout(() => {
                         if (Object.keys(form.formState.errors).length === 0) {
                           toast.success('Cambios guardados correctamente', {
@@ -485,10 +496,15 @@ export const FamilyHouseFormUpdate = ({ onSubmit }: FormMemberProps): JSX.Elemen
                             className: 'justify-center',
                           });
 
-                          setDisableInput(true);
+                          setIsInputDisabled(true);
                           setIsSubmitButtonDisabled(true);
                         }
                       }, 100);
+
+                      setTimeout(() => {
+                        onScroll();
+                      }, 150);
+
                       setTimeout(() => {
                         if (Object.keys(form.formState.errors).length === 0) {
                           onSubmit();

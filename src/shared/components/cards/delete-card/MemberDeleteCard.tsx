@@ -1,19 +1,20 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { MdDeleteForever } from 'react-icons/md';
-import { Button } from '@/shared/components/ui/button';
-
-// NOTE : podría usar zustand para tomar el estado del id del estado global y eliminar y tmb
-// NOTE : tomaría el onDelete
-
-import { useLocation } from 'react-router-dom';
-import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 import { useState } from 'react';
+
 import { Toaster, toast } from 'sonner';
+import { useLocation } from 'react-router-dom';
+import { MdDeleteForever } from 'react-icons/md';
+
+import { Button } from '@/shared/components/ui/button';
+import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 
 export const MemberDeleteCard = (): JSX.Element => {
-  const [isCardOpen, setIsCardOpen] = useState(false);
-  const [isButtonsDisabled, setIsButtonsDisabled] = useState(false);
+  //* States
+  const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
+  const [isButtonsDisabled, setIsButtonsDisabled] = useState<boolean>(false);
+
+  //* Library hooks
   const location = useLocation();
 
   return (
@@ -36,7 +37,7 @@ export const MemberDeleteCard = (): JSX.Element => {
             </h2>
             <p>
               <span className='w-full text-left text-blue-500 font-bold mb-3 inline-block text-[16px] md:text-[18px]'>
-                Sucederá lo siguiente:
+                Luego de eliminar sucederá lo siguiente:
               </span>
               <br />
               <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
@@ -65,7 +66,7 @@ export const MemberDeleteCard = (): JSX.Element => {
             <Button
               disabled={isButtonsDisabled}
               onClick={() => {
-                // TODO : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
                 toast.success('Registro eliminado exitosamente', {
                   position: 'top-center',
                   className: 'justify-center',
@@ -93,7 +94,7 @@ export const MemberDeleteCard = (): JSX.Element => {
             </h2>
             <p>
               <span className='text-blue-500 font-bold mb-3 inline-block text-[16px] md:text-[18px]'>
-                Sucederá lo siguiente:
+                Luego de eliminar sucederá lo siguiente:
               </span>
               <br />
               <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
@@ -122,7 +123,7 @@ export const MemberDeleteCard = (): JSX.Element => {
             <Button
               disabled={isButtonsDisabled}
               onClick={() => {
-                // TODO : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
                 toast.success('Registro eliminado exitosamente', {
                   position: 'top-center',
                   className: 'justify-center',
@@ -149,7 +150,7 @@ export const MemberDeleteCard = (): JSX.Element => {
             </h2>
             <p>
               <span className='text-blue-500 font-bold mb-3 inline-block text-[16px] md:text-[18px]'>
-                Sucederá lo siguiente:
+                Luego de eliminar sucederá lo siguiente:
               </span>
               <br />
               <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
@@ -178,7 +179,7 @@ export const MemberDeleteCard = (): JSX.Element => {
             <Button
               disabled={isButtonsDisabled}
               onClick={() => {
-                // TODO : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
                 toast.success('Registro eliminado exitosamente', {
                   position: 'top-center',
                   className: 'justify-center',
@@ -205,7 +206,7 @@ export const MemberDeleteCard = (): JSX.Element => {
             </h2>
             <p>
               <span className='text-blue-500 font-bold mb-3 inline-block text-[16px] md:text-[18px]'>
-                Sucederá lo siguiente:
+                Luego de eliminar sucederá lo siguiente:
               </span>
               <br />
               <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
@@ -234,7 +235,7 @@ export const MemberDeleteCard = (): JSX.Element => {
             <Button
               disabled={isButtonsDisabled}
               onClick={() => {
-                // TODO : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
                 toast.success('Registro eliminado exitosamente', {
                   position: 'top-center',
                   className: 'justify-center',

@@ -29,7 +29,7 @@ export const DashboardLayout = (): JSX.Element => {
       <div className='flex flex-col md:flex-row md:relative md:w-full md:min-h-full'>
         <SideMenu />
 
-        <div className='w-full px-4 py-0 over'>
+        <div className='w-full px-4 py-0 '>
           <ToggleLayout />
           <Outlet />
         </div>

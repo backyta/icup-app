@@ -3,15 +3,15 @@ import { useState } from 'react';
 import { useMediaQuery } from '@react-hook/media-query';
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 
+import { MemberTabsCard } from '@/shared/components';
+
 import { Button } from '@/shared/components/ui/button';
 import { CardContent } from '@/shared/components/ui/card';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/shared/components/ui/drawer';
 
-import { MemberTabsCard } from '@/shared/components';
-
-// TODO : Hacer if, hombre es mujer, Recibir props y colocar la data de nombres lugar y cargo e imagen
 export function MemberInfoItem(): JSX.Element {
+  //* States
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery('(min-width: 768px)');
 

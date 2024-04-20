@@ -59,7 +59,7 @@ module.exports = {
         'leader-color':'#068ef1',
         'family-house-color':'#FFA000',
         'offering-color':'#FFD700',
-        'user-color':'#87CEEB',
+        'user-color':'#2aa0cd',
         'vulcan': {
           '50': '#f4f6fb',
           '100': '#e8ecf6',
@@ -106,9 +106,6 @@ module.exports = {
       "accordion-down": "accordion-down 0.2s ease-out",
       "accordion-up": "accordion-up 0.2s ease-out",
     },
-    screens: {
-      'xl-lv1': '1302px',
-    },
     fontFamily: {
       'archivo': ['Archivo', 'sans-serif'],
       'cormorant-garamond': ['Cormorant Garamond', 'serif'],
@@ -118,6 +115,5 @@ module.exports = {
     },
   },
   // eslint-disable-next-line no-undef
-  plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar")]
-
+  plugins: [require("tailwindcss-animate")]
 }

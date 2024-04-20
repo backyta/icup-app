@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -13,10 +13,13 @@ import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { formZoneSchema } from '@/app/family-house/validations';
 
 import { cn } from '@/shared/lib/utils';
+import { supervisors } from '@/shared/data';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
 
+import { Card, CardContent } from '@/shared/components/ui/card';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Form,
   FormControl,
@@ -27,8 +30,6 @@ import {
   FormMessage,
 } from '@/shared/components/ui/form';
 
-import { Card, CardContent } from '@/shared/components/ui/card';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Command,
   CommandEmpty,
@@ -36,8 +37,7 @@ import {
   CommandInput,
   CommandItem,
 } from '@/shared/components/ui/command';
-
-import { supervisors } from '@/shared/data';
+import { useZoneCreateSubmitButtonsLogic } from '@/hooks';
 
 interface Props {
   onClose: () => void;
@@ -45,10 +45,15 @@ interface Props {
 }
 
 export const ZoneCreateForm = ({ onClose, onScroll }: Props): JSX.Element => {
-  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState(false);
-  const [isInputSupervisorOpen, setIsInputSupervisorOpen] = useState(false);
-  const [isInputDisabled, setIsInputDisabled] = useState(false);
+  //* States
+  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(false);
 
+  const [isInputSupervisorOpen, setIsInputSupervisorOpen] = useState<boolean>(false);
+
+  const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
+
+  //* Form
   const form = useForm<z.infer<typeof formZoneSchema>>({
     resolver: zodResolver(formZoneSchema),
     defaultValues: {
@@ -60,48 +65,17 @@ export const ZoneCreateForm = ({ onClose, onScroll }: Props): JSX.Element => {
     },
   });
 
-  //* Watchers
-  const watchZoneName = form.watch('zoneName');
-  const watchCountry = form.watch('country');
-  const watchDepartment = form.watch('department');
-  const watchProvincia = form.watch('province');
-  const watchDistrict = form.watch('district');
-  const watchTheirSupervisor = form.watch('theirSupervisor');
-
-  useEffect(() => {
-    if (
-      watchZoneName &&
-      watchCountry &&
-      watchDepartment &&
-      watchDistrict &&
-      watchProvincia &&
-      watchTheirSupervisor
-    ) {
-      setIsSubmitButtonDisabled(false);
-    }
-
-    if (
-      !watchZoneName ||
-      !watchCountry ||
-      !watchDepartment ||
-      !watchDistrict ||
-      !watchProvincia ||
-      !watchTheirSupervisor
-    ) {
-      setIsSubmitButtonDisabled(true);
-    }
-  }, [
-    watchZoneName,
-    watchCountry,
-    watchDepartment,
-    watchProvincia,
-    watchDistrict,
-    watchTheirSupervisor,
-  ]);
-
+  //* Form handler
   const handleSubmit = (values: z.infer<typeof formZoneSchema>): void => {
     console.log({ values });
   };
+
+  //* Custom hooks
+  useZoneCreateSubmitButtonsLogic({
+    formCreateZone: form,
+    setIsMessageErrorDisabled,
+    setIsSubmitButtonDisabled,
+  });
 
   return (
     <Card className='w-full'>
@@ -153,7 +127,7 @@ export const ZoneCreateForm = ({ onClose, onScroll }: Props): JSX.Element => {
                       <Input
                         disabled={isInputDisabled}
                         className='text-black dark:text-white text-[14px]'
-                        placeholder='Eje: A, Tahua-1, P-1...'
+                        placeholder='Eje: Peru, Ecuador, Colombia...'
                         type='text'
                         {...field}
                       />
@@ -175,7 +149,7 @@ export const ZoneCreateForm = ({ onClose, onScroll }: Props): JSX.Element => {
                       <Input
                         disabled={isInputDisabled}
                         className='text-black dark:text-white text-[14px]'
-                        placeholder='Eje: A, Tahua-1, P-1...'
+                        placeholder='Eje: Lima, Ancash...'
                         type='text'
                         {...field}
                       />
@@ -197,7 +171,7 @@ export const ZoneCreateForm = ({ onClose, onScroll }: Props): JSX.Element => {
                       <Input
                         disabled={isInputDisabled}
                         className='text-black dark:text-white text-[14px]'
-                        placeholder='Eje: A, Tahua-1, P-1...'
+                        placeholder='Eje: Lima, Huaraz...'
                         type='text'
                         {...field}
                       />
@@ -219,7 +193,7 @@ export const ZoneCreateForm = ({ onClose, onScroll }: Props): JSX.Element => {
                       <Input
                         disabled={isInputDisabled}
                         className='text-black dark:text-white text-[14px]'
-                        placeholder='Eje: A, Tahua-1, P-1...'
+                        placeholder='Eje: Los Olivos, Huarmey ...'
                         type='text'
                         {...field}
                       />
@@ -296,14 +270,25 @@ export const ZoneCreateForm = ({ onClose, onScroll }: Props): JSX.Element => {
               }}
             />
 
-            <div className='w-full md:mx-auto md:w-[50%] sm:col-start-1 sm:col-end-3 sm:row-start-4 sm:row-end-5  mt-2 md:mt-0'>
+            {isMessageErrorDisabled ? (
+              <p className='-mb-2 mt-4 md:mt-1 md:-mb-2 md:row-start-4 md:row-end-5 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
+                *Por favor completa todos los campos para crear el registro
+              </p>
+            ) : (
+              <p className='order-last md:-mt-3 md:row-start-6 md:row-end-7 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
+                ¡Campos completados correctamente! <br /> Para finalizar por favor guarde los
+                cambios
+              </p>
+            )}
+
+            <div className='w-full md:mx-auto md:w-[50%] col-start-1 col-end-3 row-start-5 row-end-6 mt-2 md:mt-0'>
               <Toaster position='top-center' richColors />
               <Button
                 disabled={isSubmitButtonDisabled}
                 type='submit'
                 className='w-full text-[14px] bg-green-500 text-white hover:bg-green-600'
                 onClick={() => {
-                  // TODO : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                  // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
                       toast.success('Se ha registrado exitosamente', {
