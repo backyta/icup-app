@@ -503,7 +503,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                             <Input
                               disabled={isInputDisabled}
                               className='text-[13px] md:text-[14px]'
-                              placeholder='Eje: martin@gmail.com'
+                              placeholder='Eje: martin@example.com'
                               type='email'
                               autoComplete='username'
                               {...field}

@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom';
 
 import { WhiteCard } from '@/shared/components';
-import { FcCancel, FcClearFilters, FcHome, FcSearch, FcSupport } from 'react-icons/fc';
+import { FcClearFilters, FcHome, FcSearch, FcSupport } from 'react-icons/fc';
+import { RiDeleteBin2Fill } from 'react-icons/ri';
 
 export const FamilyHouseOptionsPage = (): JSX.Element => {
   // const totalBears = useBearStore((state) => state.totalBears);
@@ -16,7 +17,7 @@ export const FamilyHouseOptionsPage = (): JSX.Element => {
         Modulo Casa Familiar
       </h1>
       <p className='text-center font-sans text-sm sm:text-md md:text-[15px] font-bold px-4 pb-4 lg:text-base xl:text-lg'>
-        Bienvenido al modulo Casa Familiar, por favor elige una opción.
+        Bienvenido, por favor elige una opción.
       </p>
       <hr className='p-[0.015rem] bg-slate-500' />
 
@@ -27,13 +28,13 @@ export const FamilyHouseOptionsPage = (): JSX.Element => {
           end
           className='row-start-1 row-end-2 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-2 lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-2 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-1 2xl:col-end-2'
         >
-          <WhiteCard centered>
+          <WhiteCard className='md:h-[11rem]' centered>
             <FcHome className='text-[10rem] lg:text-[8rem] xl:text-[7rem]' />
-            <h2 className='text-green-500 font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl'>
-              Crear Casa Familiar
+            <h2 className='text-green-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
+              Registrar Casa Familiar
             </h2>
-            <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
-              Registrar información de un nueva casa familiar.
+            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+              Crear nuevo registro de una casa familiar.
             </p>
           </WhiteCard>
         </NavLink>
@@ -44,13 +45,13 @@ export const FamilyHouseOptionsPage = (): JSX.Element => {
           end
           className='row-start-2 row-end-3 lg:row-start-3 lg:row-end-4 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-3 xl:col-start-2 xl:col-end-3 2xl:row-start-1 2xl:row-end-2 2xl:col-start-2 2xl:col-end-3 '
         >
-          <WhiteCard centered>
+          <WhiteCard className='md:h-[11rem]' centered>
             <FcSearch className='text-[10rem] lg:text-[7rem] xl:text-[8rem]' />
-            <h2 className='text-blue-500 font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl'>
-              Buscar Casa Familiar
+            <h2 className='text-blue-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
+              Consultar Casas Familiares
             </h2>
-            <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
-              Búsqueda de casa familiares en general.
+            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+              Consultar registros de casas familiares en general.
             </p>
           </WhiteCard>
         </NavLink>
@@ -61,13 +62,13 @@ export const FamilyHouseOptionsPage = (): JSX.Element => {
           end
           className='row-start-3 row-end-4 lg:row-start-1 lg:row-end-2 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-2 xl:col-end-3 2xl:row-start-2 2xl:row-end-3 2xl:col-start-2 2xl:col-end-3'
         >
-          <WhiteCard centered>
+          <WhiteCard className='md:h-[11rem]' centered>
             <FcClearFilters className='text-[10rem] lg:text-[6rem] xl:text-[6rem]' />
-            <h2 className='text-sky-500 font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl'>
-              Buscar Casa Familiar
+            <h2 className='text-sky-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
+              Consultar Casas Familiares
             </h2>
-            <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
-              Búsqueda de casas familiares por termino o filtro.
+            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+              Consultar registros de casas familiares por tipo.
             </p>
           </WhiteCard>
         </NavLink>
@@ -78,12 +79,12 @@ export const FamilyHouseOptionsPage = (): JSX.Element => {
           end
           className='row-start-4 row-end-5 lg:h-full lg:row-start-2 lg:row-end-3 lg:col-start-2 lg:col-end-3 xl:row-start-2 xl:row-end-3 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-3 2xl:col-end-4'
         >
-          <WhiteCard centered>
+          <WhiteCard className='md:h-[11rem]' centered>
             <FcSupport className='text-[10rem] lg:text-[8rem] xl:text-[6rem]' />
-            <h2 className='text-orange-500 font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl'>
+            <h2 className='text-orange-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Actualizar Casa Familiar
             </h2>
-            <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
+            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
               Actualizar información del registro de una casa familiar.
             </p>
           </WhiteCard>
@@ -95,13 +96,13 @@ export const FamilyHouseOptionsPage = (): JSX.Element => {
           end
           className='row-start-5 row-end-6 lg:row-start-3 lg:row-end-4 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-4 2xl:col-end-5'
         >
-          <WhiteCard centered>
-            <FcCancel className='text-[10rem] lg:text-[7rem] xl:text-[6rem]' />
-            <h2 className='text-red-500 font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl'>
+          <WhiteCard className='md:h-[11rem]' centered>
+            <RiDeleteBin2Fill className='text-[10rem] lg:text-[7rem] xl:text-[6rem] text-red-500' />
+            <h2 className='text-red-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Eliminar Casa Familiar
             </h2>
-            <p className='font-bold text-sm md:text-md lg:text-[15px] xl:text-[16px]'>
-              Marcar como inactivo el registro de una casa familiar.
+            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+              Eliminar el registro de una casa familiar.
             </p>
           </WhiteCard>
         </NavLink>

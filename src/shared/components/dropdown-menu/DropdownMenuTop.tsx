@@ -64,7 +64,7 @@ export function DropdownMenuTop(): JSX.Element {
               </span>
 
               <span className='text-md md:text-base font-bold text-white'>
-                Kevin Michael Baca Angeles
+                Pepito Jose Ramirez Gomez
               </span>
             </div>
           </div>

@@ -48,7 +48,7 @@ import { cn } from '@/shared/lib/utils';
 const data: UserData = {
   firstName: 'Mario Luigi',
   lastName: 'Farfan Moreno',
-  emailAddress: 'kevin.baca@icup.com',
+  emailAddress: 'kevin.baca@example.com',
   password: 'Abcd123$',
   passwordConfirm: 'Abcd123$',
   roles: [UserRoles.SuperUser],

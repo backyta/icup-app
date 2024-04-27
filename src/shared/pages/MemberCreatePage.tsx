@@ -118,7 +118,7 @@ export const MemberCreatePage = (): JSX.Element => {
     <div>
       <h1
         className={cn(
-          'text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-blue-500 text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]',
+          'text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-disciple-color text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]',
           titleValue === 'Pastor' && 'text-pastor-color',
           titleValue === 'Co-Pastor' && 'text-copastor-color',
           titleValue === 'Líder' && 'text-leader-color'
@@ -403,7 +403,7 @@ export const MemberCreatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           disabled={isInputDisabled}
-                          placeholder='Eje: pedro123@gmail.com'
+                          placeholder='Eje: pedro123@example.com'
                           type='email'
                           autoComplete='username'
                           {...field}

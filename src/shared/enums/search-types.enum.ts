@@ -1,4 +1,4 @@
-export enum TypeSearch {
+export enum TypesSearch {
 
   //* Members, Pastor, Copastor, Supervisor, Preacher, Offering, User
   FirstName = 'first_name',
@@ -15,8 +15,8 @@ export enum TypeSearch {
   Zone = 'zone',
   
   //* Members, Supervisor, Preacher, Fam. House, 
-  Code = 'code',
-  Name_house = 'name_house',
+  CodeHouse = 'code_house',
+  NameHouse = 'name_house',
 
   //* Members, Pastor, Copastor, Sup, Preacher, Family House
   Address = 'address',
@@ -35,23 +35,30 @@ export enum TypeSearch {
   //* Members, User
   Roles = 'roles',
 
-  //* Offering (buscar ofrendas por diezmo y ofrenda)
+  //* Offering Income (tithe and offering)
   Tithe = 'tithe',
-  Sunday_worship = 'sunday_worship',
-  Family_house = 'family_house',
-  General_fasting = 'general_fasting',
-  General_vigil = 'general_vigil',
-  Zonal_fasting = 'zonal_fasting',
-  Zonal_vigil = 'zonal_vigil',
-  Sunday_school = 'sunday_school',
-  Youth_worship = 'youth_worship',
+  SundayWorship = 'sunday_worship',
+  FamilyHouse = 'family_house',
+  GeneralFasting = 'general_fasting',
+  GeneralVigil = 'general_vigil',
+  ZonalFasting = 'zonal_fasting',
+  ZonalVigil = 'zonal_vigil',
+  SundaySchool = 'sunday_school',
+  YouthWorship = 'youth_worship',
   Activities = 'activities',
-  Church_ground = 'church_ground',
+  ChurchGround = 'church_ground',
   Special = 'special',
+
+  //* Offering Expenses
+  OperationalExpenses = "operative_expenses",
+  MaintenanceAndRepairExpenses = "maintenance_and_repair_expenses",
+  DecorationExpenses = "decoration_expenses",
+  EquipmentAndTechnologyExpenses = "equipment_and_technology_expenses",
+  SuppliesExpenses = "supplies_expenses",
+  ActivitiesAndEventsExpenses = "activities_and_events_expenses",
 }
 
-
-export const TypeSearchNames: Record<TypeSearch, string> =  {
+export const TypesSearchNames: Record<TypesSearch, string> =  {
   
   first_name : 'Nombres',
   last_name : 'Apellidos',
@@ -64,7 +71,7 @@ export const TypeSearchNames: Record<TypeSearch, string> =  {
 
   zone : 'Zona',
 
-  code : 'Código de casa familiar',
+  code_house : 'Código de casa familiar',
   name_house : 'Nombre de casa familiar',
 
   address : 'Dirección',
@@ -76,20 +83,26 @@ export const TypeSearchNames: Record<TypeSearch, string> =  {
 
   roles : 'Roles',
 
-  status : 'Estado',
+  sunday_worship: 'Ofrendas - Culto Dominical',
+  family_house: 'Ofrendas - Casa Familiar',
+  general_fasting: 'Ofrendas - Ayuno General',
+  zonal_fasting: 'Ofrenda - Ayuno Zonal',
+  general_vigil: 'Ofrenda - Vigilia General',
+  zonal_vigil: 'Ofrendas - Vigilia Zonal',
+  sunday_school: 'Ofrendas - Escuela Dominical',
+  youth_worship: 'Ofrendas - Culto Jóvenes',
+  activities: 'Ofrendas - Actividades',
+  church_ground: 'Ofrendas - Terreno Iglesia',
+  special: 'Ofrendas - Especial',
 
-  tithe : 'Diezmo',
-  sunday_worship: 'Ofrenda Culto Dominical',
-  family_house: 'Ofrenda Casa Familiar',
-  general_fasting: 'Ofrenda Ayuno General',
-  zonal_fasting: 'Ofrenda Ayuno Zonal',
-  general_vigil: 'Ofrenda Vigilia General',
-  zonal_vigil: 'Ofrenda Vigilia Zonal',
-  sunday_school: 'Ofrenda Escuela Dominical',
-  youth_worship: 'Ofrenda Culto Jóvenes',
-  activities: 'Ofrenda Actividades',
-  church_ground: 'Ofrenda Terreno Iglesia',
-  special: 'Ofrenda Especial',
-
+  tithe : 'Diezmos',
   
+  operative_expenses : 'Gastos de operación',
+  maintenance_and_repair_expenses : 'Gastos de reparación y mantenimiento',
+  decoration_expenses : 'Gastos de decoración',
+  equipment_and_technology_expenses : 'Gastos de equipamiento y tecnología',
+  supplies_expenses : 'Gastos de suministros',
+  activities_and_events_expenses : 'Gastos de actividades y eventos',
+
+  status : 'Estado de registro',
 }

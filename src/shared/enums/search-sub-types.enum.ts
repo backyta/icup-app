@@ -1,216 +1,344 @@
-export enum SubTypeSearch {
+export enum SubTypesSearch {
 
   //! Member
-  MemberPastorNames = 'member_pastor_names',
-  MemberPastorLastNames = 'member_pastor_last_names',
-  MemberPastorFullName = 'member_pastor_full_name',
-  MemberCopastorNames = 'member_copastor_names',
-  MemberCopastorLastNames = 'member_copastor_last_names',
-  MemberCopastorFullName = 'member_copastor_full_name',
-  MemberSupervisorNames = 'member_supervisor_names',
-  MemberSupervisorLastNames = 'member_supervisor_last_names',
-  MemberSupervisorFullName = 'member_supervisor_full_name',
-  MemberPreacherNames = 'member_preacher_names',
-  MemberPreacherLastNames = 'member_preacher_last_names',
-  MemberPreacherFullName = 'member_preacher_full_name',
-  MemberNames = 'member_names',
-  MemberLastNames = 'member_last_names',
-  MemberFullName = 'member_full_name',
+  MemberByPastorNames = 'member_by_pastor_names',
+  MemberByPastorLastNames = 'member_by_pastor_last_names',
+  MemberByPastorFullName = 'member_by_pastor_full_name',
+  MemberByCopastorNames = 'member_by_copastor_names',
+  MemberByCopastorLastNames = 'member_by_copastor_last_names',
+  MemberByCopastorFullName = 'member_by_copastor_full_name',
+  MemberBySupervisorNames = 'member_by_supervisor_names',
+  MemberBySupervisorLastNames = 'member_by_supervisor_last_names',
+  MemberBySupervisorFullName = 'member_by_supervisor_full_name',
+  MemberByPreacherNames = 'member_by_preacher_names',
+  MemberByPreacherLastNames = 'member_by_preacher_last_names',
+  MemberByPreacherFullName = 'member_by_preacher_full_name',
+  ByMemberNames = 'by_member_names',
+  ByMemberLastNames = 'by_member_last_names',
+  ByMemberFullName = 'by_member_full_name',
 
   //! Pastor
-  PastorNames = 'pastor_names',
-  PastorLastNames = 'pastor_last_names',
-  PastorFullName = 'pastor_full_name',
+  ByPastorNames = 'by_pastor_names',
+  ByPastorLastNames = 'by_pastor_last_names',
+  ByPastorFullName = 'by_pastor_full_name',
 
   //! Copastor
-  CopastorPastorNames = 'copastor_pastor_names',
-  CopastorPastorLastNames = 'copastor_pastor_last_names',
-  CopastorPastorFullName = 'copastor_pastor_full_name',
-  CopastorNames = 'copastor_names',
-  CopastorLastNames = 'copastor_last_names',
-  CopastorFullName = 'copastor_full_name',
+  CopastorByPastorNames = 'copastor_by_pastor_names',
+  CopastorByPastorLastNames = 'copastor_by_pastor_last_names',
+  CopastorByPastorFullName = 'copastor_by_pastor_full_name',
+  ByCopastorNames = 'by_copastor_names',
+  ByCopastorLastNames = 'by_copastor_last_names',
+  ByCopastorFullName = 'by_copastor_full_name',
 
   //! Leaders
-  LeaderPastorNames = 'leader_pastor_names',
-  LeaderPastorLastNames = 'leader_pastor_last_names',
-  LeaderPastorFullName = 'leader_pastor_full_name',
-  LeaderCopastorNames = 'leader_copastor_names',
-  LeaderCopastorLastNames = 'leader_copastor_last_names',
-  LeaderCopastorFullName = 'leader_copastor_full_name',
-  LeaderSupervisorNames = 'leader_supervisor_names',
-  LeaderSupervisorLastNames = 'leader_supervisor_last_names',
-  LeaderSupervisorFullName = 'leader_supervisor_full_name',
-  LeaderNames = 'leader_names',
-  LeaderLastNames = 'leader_last_names',
-  LeaderFullName = 'leader_full_name',
+  LeaderByPastorNames = 'leader_by_pastor_names',
+  LeaderByPastorLastNames = 'leader_by_pastor_last_names',
+  LeaderByPastorFullName = 'leader_by_pastor_full_name',
+  LeaderByCopastorNames = 'leader_by_copastor_names',
+  LeaderByCopastorLastNames = 'leader_by_copastor_last_names',
+  LeaderByCopastorFullName = 'leader_by_copastor_full_name',
+  LeaderBySupervisorNames = 'leader_by_supervisor_names',
+  LeaderBySupervisorLastNames = 'leader_by_supervisor_last_names',
+  LeaderBySupervisorFullName = 'leader_by_supervisor_full_name',
+  ByLeaderNames = 'by_leader_names',
+  ByLeaderLastNames = 'by_leader_last_names',
+  ByLeaderFullName = 'by_leader_full_name',
 
 
   //! Module Family Home
-  FamilyHousePastorNames = 'family_house_pastor_names',
-  FamilyHousePastorLastName = 'family_house_pastor_last_names',
-  FamilyHousePastorFullName = 'family_house_pastor_full_name',
-  FamilyHouseCopastorNames = 'family_house_copastor_names',
-  FamilyHouseCopastorLastaNames = 'family_house_copastor_last_names',
-  FamilyHouseCopastorFullName = 'family_house_copastor_full_name',
-  FamilyHouseSupervisorNames = 'family_house_supervisor_names',
-  FamilyHouseSupervisorLastNames = 'family_house_supervisor_last_names',
-  FamilyHouseSupervisorFullName = 'family_house_supervisor_full_name',
-  FamilyHousePreacherNames = 'family_house_preacher_names',
-  FamilyHousePreacherLastNames = 'family_house_preacher_last_names',
-  FamilyHousePreacherFullName = 'family_house_preacher_full_name',
+  FamilyHouseByPastorNames = 'family_house_by_pastor_names',
+  FamilyHouseByPastorLastNames = 'family_house_by_pastor_last_names',
+  FamilyHouseByPastorFullName = 'family_house_by_pastor_full_name',
+  FamilyHouseByCopastorNames = 'family_house_by_copastor_names',
+  FamilyHouseByCopastorLastaNames = 'family_house_by_copastor_last_names',
+  FamilyHouseByCopastorFullName = 'family_house_by_copastor_full_name',
+  FamilyHouseBySupervisorNames = 'family_house_by_supervisor_names',
+  FamilyHouseBySupervisorLastNames = 'family_house_by_supervisor_last_names',
+  FamilyHouseBySupervisorFullName = 'family_house_by_supervisor_full_name',
+  FamilyHouseByPreacherNames = 'family_house_by_preacher_names',
+  FamilyHouseByPreacherLastNames = 'family_house_by_preacher_last_names',
+  FamilyHouseByPreacherFullName = 'family_house_by_preacher_full_name',
 
   //! Tithe
-  TitheNames = 'tithe_names',
-  TitheLastNames = 'tithe_last_names',
-  TitheFullNames = 'tithe_full_names',
-  TitheDate = 'tithe_date',
-  TitheDateNames = 'tithe_date_names',
-  TitheDateLastNames = 'tithe_date_last_names',
-  TitheDateFullName = 'tithe_date_full_name',
+  TitheByNames = 'tithe_by_names',
+  TitheByLastNames = 'tithe_by_last_names',
+  TitheByFullName = 'tithe_by_full_name',
+  TitheByDate = 'tithe_by_date',
+  TitheByDateNames = 'tithe_by_date_names',
+  TitheByDateLastNames = 'tithe_by_date_last_names',
+  TitheByDateFullName = 'tithe_by_date_full_name',
 
-  //! Offering
+  //! Offering Income
   //* Family House, Fasting Zonal, Fasting General, Vigil Zonal, vigilia General, Ground Church, Activities, Youngs
-  OfferingDate = 'offering_date',
+  OfferingByDate = 'offering_by_date',
 
   //* Sunday Worship, youngs, school sunday
-  OfferingShift = 'offering_shift',
-  OfferingDateShift = 'offering_date_shift',
+  OfferingByShift = 'offering_by_shift',
+  OfferingByDateShift = 'offering_by_date_shift',
 
   //* Family House, Fasting Zonal, Vigil Zonal
-  OfferingZone = 'offering_zone', 
-  OfferingDateZone = 'offering_date_zone',
+  OfferingByZone = 'offering_by_zone', 
+  OfferingByDateZone = 'offering_by_date_zone',
 
   //* Offering Family House
-  OfferingDateCodeHouse = 'offering_date_code_house',
-  OfferingCodeHouse = 'offering_code_house',
-  OfferingPreacherNames = 'offering_preacher_names',
-  OfferingPreacherLastNames = 'offering_preacher_last_names',
-  OfferingPreacherFullName = 'offering_preacher_full_name',
+  OfferingByDateCodeHouse = 'offering_by_date_code_house',
+  OfferingByCodeHouse = 'offering_by_code_house',
+  OfferingByPreacherNames = 'offering_by_preacher_names',
+  OfferingByPreacherLastNames = 'offering_by_preacher_last_names',
+  OfferingByPreacherFullName = 'offering_by_preacher_full_name',
 
   //* Offering Ayuno y Vigilia Zonal
-  OfferingSupervisorNames = 'offering_supervisor_names',
-  OfferingSupervisorLastNames = 'offering_supervisor_last_names',
-  OfferingSupervisorFullName = 'offering_supervisor_full_name',
+  OfferingBySupervisorNames = 'offering_by_supervisor_names',
+  OfferingBySupervisorLastNames = 'offering_by_supervisor_last_names',
+  OfferingBySupervisorFullName = 'offering_by_supervisor_full_name',
 
   //* Offering Ground Church and Special
-  OfferingNames = 'offering_names',
-  OfferingLastNames = 'offering_last_names',
-  OfferingFullNames = 'offering_full_names',
+  OfferingByNames = 'offering_by_names',
+  OfferingByLastNames = 'offering_by_last_names',
+  OfferingByFullName = 'offering_by_full_name',
+
+  //! Offering Expenses
+  //* Operational Expenses
+  VenueRental = "venue_rental",
+  PublicServices = "public_services",
+  AdvertisingAndEventPromotion = "advertising_and_event_promotion",
+  TravelAndTransportation = "travel_and_transportation",
+  SecurityAndSurveillance = "security_and_surveillance",
+  OtherAdministrativeExpenses = "other_administrative_expenses",
+
+  //* Maintenance and Repair Expenses
+  PlumbingServices = "plumbing_services",
+  ElectricalServices = "electrical_services",
+  PaintingAndTouchUpsServices = "painting_and_touch_ups_services",
+  DeepCleaningServices = "deep_cleaning_services",
+  HeatingAndACSystemMaintenance = "heating_and_ac_system_maintenance",
+  SoundAndLightingEquipmentRepairAndMaintenance = "sound_and_lighting_equipment_repair_and_maintenance",
+  GardenAndExteriorMaintenance = "garden_and_exterior_maintenance",
+  OtherEquipmentRepairsAndMaintenance = "other_equipment_repairs_and_maintenance",
+  FurnitureRepairAndMaintenance = "furniture_repair_and_maintenance",
+  ComputerEquipmentRepairAndMaintenance = "computer_equipment_repair_and_maintenance",
+  RoofAndStructuralRepairs = "roof_and_structural_repairs",
+  DoorAndWindowRepairs = "door_and_window_repairs",
+
+  //* Decoration Expenses
+  PurchaseFlowersAndPlants = "purchase_flowers_and_plants",
+  PurchaseDecorativeFurniture = "purchase_decorative_furniture",
+  PurchaseDecorativeItems = "purchase_decorative_items",
+  AltarAndWorshipAreaDecorationService = "altar_and_worship_area_decoration_service",
+
+  //* Equipment and Technology Expenses
+  SoundEquipment = "sound_equipment",
+  ComputerEquipment = "computer_equipment",
+  ProjectionEquipment = "projection_equipment",
+  HvacEquipment = "hvac_equipment",
+  LightingEquipment = "lighting_equipment",
+  SecurityEquipment = "security_equipment",
+  OfficeEquipment = "office_equipment",
+  AudioVideoRecordingEquipment = "audio_video_recording_equipment",
+  Furniture = "furniture",
+  MusicalInstruments = "musical_instruments",
+  InternetTelecommunicationsServices = "internet_and_telecommunications_services",
+  HostingSoftwareServices = "hosting_and_software_services",
+
+  //* Supplies Expenses
+  KitchenUtensils = "kitchen_utensils",
+  OfficeSupplies = "office_supplies",
+  CookingIngredients = "cooking_ingredients",
+  CleaningMaterials = "cleaning_materials",
+  PackagingMaterials = "packaging_and_storage_materials",
+  SundaySchoolMaterials = "sunday_school_educational_materials",
+
+  //* Activities and Events Expenses
+  SpecialGuestFees = "fees_special_guests",
+  ExternalVenueRental = "rental_external_venues",
+  DecorationsAndAmbiance = "decorations_and_ambiance",
+  FoodAndBeverage = "food_beverage",
+  PromotionalMaterials = "promotional_materials",
+  TransportationSpecialGuests = "transportation_special_guests",
+  EquipmentTransportation = "equipment_transportation",
+  SupportStaffFees = "fees_support_staff",
+  RentalTechnicalAndLogisticEquipment = "rental_technical_and_logistical_equipment",
+  EducationalMaterialsAndResources = "educational_materials_and_resources",
+  GiftsAndPrizesParticipants = "gifts_and_prizes_participants",
+  OtherRelatedExpenses = "other_related_expenses",
 
   //* Users
-  UserNames = 'user_names',
-  UserLastNames = 'user_last_names',
-  UserFullName = 'user_full_name',
-  UserRoles = 'user_roles' // multi-select
-
-
+  UserByNames = 'user_by_names',
+  UserByLastNames = 'user_by_last_names',
+  UserByFullName = 'user_by_full_name',
+  UserByRoles = 'user_by_roles' 
 }
 
-export const SubTypeSearchNames: Record<SubTypeSearch, string> =  {
+export const SubTypesSearchNames: Record<SubTypesSearch, string> =  {
 
   //* Member
-  'member_pastor_names' : 'Buscar por nombres de su pastor',
-  'member_pastor_last_names' : 'Buscar por apellidos de su pastor',
-  'member_pastor_full_name' : 'Buscar por nombres y apellidos de su pastor',
-  'member_copastor_names' : 'Buscar por nombres de su co_pastor',
-  'member_copastor_last_names' : 'Buscar por apellidos de su co_pastor',
-  'member_copastor_full_name' : 'Buscar por nombres y apellidos de su co_pastor',
-  'member_supervisor_names' : 'Buscar por nombres de su supervisor',
-  'member_supervisor_last_names' : 'Buscar por apellidos de su supervisor',
-  'member_supervisor_full_name' : 'Buscar por nombres y apellidos de su supervisor',
-  'member_preacher_names' : 'Buscar por nombres de su predicador',
-  'member_preacher_last_names' : 'Buscar por apellidos de su predicador',
-  'member_preacher_full_name' : 'Buscar por nombres y apellidos de su predicador',
-  'member_names' : 'Buscar por sus propios nombres',
-  'member_last_names' : 'Buscar por sus propios apellidos',
-  'member_full_name' : 'Buscar por sus propios nombres y apellidos',
+  'by_member_names' : 'Por sus nombres',
+  'by_member_last_names' : 'Por sus apellidos',
+  'by_member_full_name' : 'Por sus nombres y apellidos',
+  'member_by_pastor_names' : 'Por nombres de su pastor',
+  'member_by_pastor_last_names' : 'Por apellidos de su pastor',
+  'member_by_pastor_full_name' : 'Por nombres y apellidos de su pastor',
+  'member_by_copastor_names' : 'Por nombres de su co-pastor',
+  'member_by_copastor_last_names' : 'Por apellidos de su co-pastor',
+  'member_by_copastor_full_name' : 'Por nombres y apellidos de su co-pastor',
+  'member_by_supervisor_names' : 'Por nombres de su supervisor',
+  'member_by_supervisor_last_names' : 'Por apellidos de su supervisor',
+  'member_by_supervisor_full_name' : 'Por nombres y apellidos de su supervisor',
+  'member_by_preacher_names' : 'Por nombres de su predicador',
+  'member_by_preacher_last_names' : 'Por apellidos de su predicador',
+  'member_by_preacher_full_name' : 'Por nombres y apellidos de su predicador',
 
   //* Pastor
-  'pastor_names': 'Buscar por sus nombres', 
-  'pastor_last_names': 'Buscar por sus apellidos', 
-  'pastor_full_name': 'Buscar por sus nombres y apellidos', 
+  'by_pastor_names': 'Por sus nombres', 
+  'by_pastor_last_names': 'Por sus apellidos', 
+  'by_pastor_full_name': 'Por sus nombres y apellidos', 
 
   //* Copastor
-  'copastor_pastor_names' : 'Buscar por nombres de su pastor',
-  'copastor_pastor_last_names' : 'Buscar por apellidos de su pastor',
-  'copastor_pastor_full_name' : 'Buscar por nombres y apellidos de su pastor',
-  'copastor_names' : 'Buscar por sus propios nombres',
-  'copastor_last_names' : 'Buscar por sus propios apellidos',
-  'copastor_full_name' : 'Buscar por sus propios nombres y apellidos',
+  'copastor_by_pastor_names' : 'Por nombres de su pastor',
+  'copastor_by_pastor_last_names' : 'Por apellidos de su pastor',
+  'copastor_by_pastor_full_name' : 'Por nombres y apellidos de su pastor',
+  'by_copastor_names' : 'Por sus nombres',
+  'by_copastor_last_names' : 'Por sus apellidos',
+  'by_copastor_full_name' : 'Por sus nombres y apellidos',
 
   //* Leaders
-  'leader_pastor_names' : 'Buscar por nombres de su pastor',
-  'leader_pastor_last_names' : 'Buscar por apellidos de su pastor',
-  'leader_pastor_full_name' : 'Buscar por nombres y apellidos de su pastor',
-  'leader_copastor_names': 'Buscar por nombres de su co_pastor',
-  'leader_copastor_last_names': 'Buscar por apellidos de su co_pastor',
-  'leader_copastor_full_name': 'Buscar por nombres y apellidos de su co_pastor',
-  'leader_supervisor_names': 'Buscar por nombres de su supervisor',
-  'leader_supervisor_last_names': 'Buscar por apellidos de su supervisor',
-  'leader_supervisor_full_name': 'Buscar por nombres y apellidos de su supervisor',
-  'leader_names': 'Buscar por sus propios nombres',
-  'leader_last_names': 'Buscar por sus propios apellidos',
-  'leader_full_name': 'Buscar por sus propios nombres y apellidos',
+  'leader_by_pastor_names' : 'Por nombres de su pastor',
+  'leader_by_pastor_last_names' : 'Por apellidos de su pastor',
+  'leader_by_pastor_full_name' : 'Por nombres y apellidos de su pastor',
+  'leader_by_copastor_names': 'Por nombres de su co-pastor',
+  'leader_by_copastor_last_names': 'Por apellidos de su co-pastor',
+  'leader_by_copastor_full_name': 'Por nombres y apellidos de su co-pastor',
+  'leader_by_supervisor_names': 'Por nombres de su supervisor',
+  'leader_by_supervisor_last_names': 'Por apellidos de su supervisor',
+  'leader_by_supervisor_full_name': 'Por nombres y apellidos de su supervisor',
+  'by_leader_names': 'Por sus nombres',
+  'by_leader_last_names': 'Por sus apellidos',
+  'by_leader_full_name': 'Por sus nombres y apellidos',
 
   //* Family House
-  'family_house_pastor_names': 'Buscar por nombres de su pastor',
-  'family_house_pastor_last_names': 'Buscar por apellidos de su pastor',
-  'family_house_pastor_full_name': 'Buscar por nombres y apellidos de su pastor',
-  'family_house_copastor_names': 'Buscar por nombres de su co_pastor',
-  'family_house_copastor_last_names': 'Buscar por apellidos de su co_pastor',
-  'family_house_copastor_full_name': 'Buscar por nombres y apellidos de su co_pastor',
-  'family_house_supervisor_names': 'Buscar por nombres de su supervisor',
-  'family_house_supervisor_last_names': 'Buscar por apellidos de su supervisor',
-  'family_house_supervisor_full_name': 'Buscar por nombres y apellidos de su supervisor',
-  'family_house_preacher_names': 'Buscar por nombres de su predicador',
-  'family_house_preacher_last_names': 'Buscar por apellidos de su predicador',
-  'family_house_preacher_full_name': 'Buscar por nombres y apellidos de su predicador',
+  'family_house_by_pastor_names': 'Por nombres de su pastor',
+  'family_house_by_pastor_last_names': 'Por apellidos de su pastor',
+  'family_house_by_pastor_full_name': 'Por nombres y apellidos de su pastor',
+  'family_house_by_copastor_names': 'Por nombres de su co-pastor',
+  'family_house_by_copastor_last_names': 'Por apellidos de su co-pastor',
+  'family_house_by_copastor_full_name': 'Por nombres y apellidos de su co-pastor',
+  'family_house_by_supervisor_names': 'Por nombres de su supervisor',
+  'family_house_by_supervisor_last_names': 'Por apellidos de su supervisor',
+  'family_house_by_supervisor_full_name': 'Por nombres y apellidos de su supervisor',
+  'family_house_by_preacher_names': 'Por nombres de su predicador',
+  'family_house_by_preacher_last_names': 'Por apellidos de su predicador',
+  'family_house_by_preacher_full_name': 'Por nombres y apellidos de su predicador',
 
   //* Tithe
-  'tithe_names': 'Buscar por nombres',
-  'tithe_last_names': 'Buscar por apellidos',
-  'tithe_full_names': 'Buscar por nombres y apellidos',
-  'tithe_date': 'Buscar por fecha',
-  'tithe_date_names': 'Buscar por nombres y fecha',
-  'tithe_date_last_names': 'Buscar por apellidos y fechas',
-  'tithe_date_full_name': 'Buscar por nombres, apellidos y fecha',
+  'tithe_by_names': 'Buscar por nombres',
+  'tithe_by_last_names': 'Buscar por apellidos',
+  'tithe_by_full_name': 'Buscar por nombres y apellidos',
+  'tithe_by_date': 'Buscar por fecha',
+  'tithe_by_date_names': 'Buscar por nombres y fecha',
+  'tithe_by_date_last_names': 'Buscar por apellidos y fechas',
+  'tithe_by_date_full_name': 'Buscar por nombres, apellidos y fecha',
 
 
-  //* Offering
+  //! Offering Income
   //* Sunday Worship, Family House, Fasting Zonal, Fasting General, Vigil Zonal, vigilia General, Ground Church, Activities, Youngs
-  'offering_date': 'Buscar por fecha',
+  'offering_by_date': 'Buscar por fecha',
 
   //* Sunday Worship, youngs, school sunday
-  'offering_shift': 'Buscar por turno',
-  'offering_date_shift': 'Buscar por fecha y turno',
+  'offering_by_shift': 'Buscar por turno',
+  'offering_by_date_shift': 'Buscar por fecha y turno',
 
 
   //* Family House, Fasting Zonal, Vigil Zonal
-  'offering_zone': 'Buscar por zona',
-  'offering_date_zone': 'Buscar por zona y fecha',
+  'offering_by_zone': 'Buscar por zona',
+  'offering_by_date_zone': 'Buscar por zona y fecha',
 
   //* Family House
-  'offering_preacher_names': 'Buscar por nombres de su predicador',
-  'offering_preacher_last_names': 'Buscar por apellidos de su predicador',
-  'offering_preacher_full_name': 'Buscar por nombres y apellidos de su predicador',
-  'offering_code_house': 'Buscar por código de casa',
-  'offering_date_code_house': 'Buscar por código y fecha',
+  'offering_by_preacher_names': 'Buscar por nombres de su predicador',
+  'offering_by_preacher_last_names': 'Buscar por apellidos de su predicador',
+  'offering_by_preacher_full_name': 'Buscar por nombres y apellidos de su predicador',
+  'offering_by_code_house': 'Buscar por código de casa',
+  'offering_by_date_code_house': 'Buscar por código y fecha',
 
   //* Offering Ayuno Zonal y Vigilia Zonal
-  'offering_supervisor_names': 'Buscar por nombres de su supervisor',
-  'offering_supervisor_last_names': 'Buscar por apellidos de su supervisor',
-  'offering_supervisor_full_name': 'Buscar por nombres y apellidos de su supervisor',
+  'offering_by_supervisor_names': 'Buscar por nombres de su supervisor',
+  'offering_by_supervisor_last_names': 'Buscar por apellidos de su supervisor',
+  'offering_by_supervisor_full_name': 'Buscar por nombres y apellidos de su supervisor',
 
   //* Offering Ground Church and Special
-  'offering_names': 'Buscar por nombres del aportante',
-  'offering_last_names': 'Buscar por apellidos del aportante',
-  'offering_full_names': 'Buscar por nombres y apellidos del aportante',
+  'offering_by_names': 'Buscar por nombres del aportante',
+  'offering_by_last_names': 'Buscar por apellidos del aportante',
+  'offering_by_full_name': 'Buscar por nombres y apellidos del aportante',
 
   //* Users
-  'user_names' : 'Buscar por sus propios nombres',
-  'user_last_names': 'Buscar por sus propios apellidos',
-  'user_full_name': 'Buscar por sus propios nombres y apellidos',
-  'user_roles': 'Buscar por sus roles' // multi-select
+  'user_by_names' : 'Buscar por sus propios nombres',
+  'user_by_last_names': 'Buscar por sus propios apellidos',
+  'user_by_full_name': 'Buscar por sus propios nombres y apellidos',
+  'user_by_roles': 'Buscar por sus roles',
+
+  //! Offering Expenses
+  //* Operative Expenses
+  'venue_rental' : 'Alquiler de local',
+  'public_services' : 'Servicios públicos',
+  'advertising_and_event_promotion' : 'Publicidad y promoción de eventos',
+  'travel_and_transportation' : 'Viaje y transporte',
+  'security_and_surveillance' : 'Seguridad y vigilancia',
+  'other_administrative_expenses' : 'Otros gastos administrativos',
+
+  //* Maintenance and Repair Expenses
+  'plumbing_services' : 'Servicios de gasfiteria',
+  'electrical_services' : 'Servicios de electricidad',
+  'painting_and_touch_ups_services' : 'Servicios de pintura y retoques',
+  'deep_cleaning_services' : 'Servicios de limpieza profunda',
+  'heating_and_ac_system_maintenance' : 'Mantenimiento de sistemas de calefacción y AC',
+  'sound_and_lighting_equipment_repair_and_maintenance' : 'Mantenimiento de equipos de sonido e iluminación',
+  'garden_and_exterior_maintenance' : 'Mantenimiento de jardines y exteriores',
+  'furniture_repair_and_maintenance' : 'Mantenimiento de muebles ',
+  'computer_equipment_repair_and_maintenance' : 'Mantenimiento de equipos informáticos',
+  'other_equipment_repairs_and_maintenance' : 'Mantenimiento de otros equipos',
+  'roof_and_structural_repairs' : 'Reparación de techo y estructuras',
+  'door_and_window_repairs' : 'Reparación de puertas y ventanas',
+
+  //* Decoration Expenses
+  'purchase_flowers_and_plants' : 'Adquisición de flores y plantas',
+  'purchase_decorative_furniture' : 'Adquisición de muebles decorativos',
+  'purchase_decorative_items' : 'Adquisición de elementos decorativos',
+  'altar_and_worship_area_decoration_service' : 'Servicio de decoración de altar y areas de culto',
+
+  //* Equipment and Technology Expenses
+  'sound_equipment' : 'Equipos de sonido',
+  'projection_equipment' : 'Equipos de proyección',
+  'hvac_equipment' : 'Equipos de ventilación, calefacción y AC',
+  'lighting_equipment' : 'Equipos de iluminación',
+  'security_equipment' : 'Equipos de seguridad',
+  'office_equipment' : 'Equipos de oficina',
+  'computer_equipment' : 'Equipos informáticos',
+  'audio_video_recording_equipment' : 'Equipos de grabación de audio/video',
+  'furniture' : 'Mobiliario',
+  'musical_instruments' : 'Instrumentos musicales',
+  'internet_and_telecommunications_services' : 'Servicios de internet y telecomunicaciones',
+  'hosting_and_software_services'   : 'Servicios de Hosting y Software',
+
+  //* Supplies Expenses
+  'kitchen_utensils' : 'Utensilios de cocina',
+  'cooking_ingredients' : 'Ingredientes de cocina',
+  'office_supplies' : 'Utensilios de oficina',
+  'cleaning_materials' : 'Materiales de limpieza',
+  'packaging_and_storage_materials' : 'Materiales de almacenamiento',
+  'sunday_school_educational_materials' : ' Material educativo Esc. Dominical',
+
+  //* Activities and Events Expenses
+  'fees_special_guests' : 'Honorarios para invitados especiales',
+  'fees_support_staff' : 'Honorarios de personal de apoyo',
+  'rental_external_venues' : 'Alquiler de locales externos',
+  'rental_technical_and_logistical_equipment' : 'Alquiler de equipos técnicos y logísticos',
+  'transportation_special_guests' : 'Transporte para invitados especiales',
+  'equipment_transportation' : 'Transporte de equipos',
+  'food_beverage' : 'Comida y bebida',
+  'decorations_and_ambiance' : 'Decoraciones y ambientación',
+  'promotional_materials' : 'Material promocional',
+  'educational_materials_and_resources' : 'Material didáctico y recursos',
+  'gifts_and_prizes_participants' : 'Regalos y premios para participantes',
+  'other_related_expenses' : ' Otros gastos relacionados',
 
 }
 

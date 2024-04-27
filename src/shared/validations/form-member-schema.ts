@@ -33,15 +33,21 @@ export const formMemberSchema = z
       { message: "Por favor seleccione una opción válida." }
     ),
 
-    numberChildren: z.string()
-      .refine(numberChildren => !isNaN(parseInt(numberChildren)),
-      { message: 'El campo debe contener un numero' }
-    ),
-
+    numberChildren:z.string().refine(limit => {
+      return /^\d+$/.test(limit);
+    }, {
+      message: 'El campo debe contener un numero positivo'
+    }).refine(limit => {
+      const parsedLimit = parseInt(limit);
+      return !isNaN(parsedLimit) && parsedLimit >= 0;
+    }, {
+      message: 'El campo debe contener un numero positivo'
+    }),
+    
     conversionDate: z.date({
       required_error: "Por favor selecciona una fecha.",
     }),
-
+    
     emailAddress: z.string().email({ message: "Email invalido." }),
 
     phoneNumber: z.string()

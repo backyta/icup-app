@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable array-callback-return */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 /* eslint-disable @typescript-eslint/no-use-before-define */
@@ -32,6 +34,8 @@ import {
 } from '@tanstack/react-table';
 
 import { formSearchByTermSchema } from '@/shared/validations';
+import { type FormSearchByTerm } from '@/shared/interfaces';
+
 import { Calendar } from '@/shared/components/ui/calendar';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Button } from '@/shared/components/ui/button';
@@ -65,16 +69,16 @@ import {
 } from '@/shared/components/ui/select';
 
 import {
-  validationDisableSubTypes,
-  validationDisableTermSelect,
-  validationDisableTypes,
+  validateTypesAllowedByModule,
+  validateSubTypesAllowedByModule,
+  validateTermSelectByTypeAndSubtype,
 } from '@/shared/helpers';
 import {
-  TypeSearch,
-  TypeSearchNames,
-  SubTypeSearchNames,
-  TermSelectOptionsNames,
-  SubTypeSearch,
+  TypesSearch,
+  TypesSearchNames,
+  SubTypesSearchNames,
+  SearchSelectionOptionsNames,
+  SubTypesSearch,
   UserRoles,
   UserRoleNames,
   RecordOrder,
@@ -97,9 +101,13 @@ export function DataTableSearchByTerm<TData, TValue>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
+  const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
+
+  const [dataForm, setDataForm] = useState<FormSearchByTerm>();
+
   const [rowSelection, setRowSelection] = useState({});
 
-  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const [isFiltersDisabled, setIsFiltersDisabled] = useState<boolean>(true);
 
   //* Library hooks
   const { pathname } = useLocation();
@@ -114,6 +122,7 @@ export function DataTableSearchByTerm<TData, TValue>({
       termNames: '',
       termLastNames: '',
       termSelect: '',
+      termDate: undefined,
       subType: '',
       limitAll: false,
       order: RecordOrder.Ascending,
@@ -122,7 +131,8 @@ export function DataTableSearchByTerm<TData, TValue>({
 
   //* Form handler
   function onSubmit(values: z.infer<typeof formSearchByTermSchema>): void {
-    setIsDisabled(false);
+    setIsFiltersDisabled(false);
+    setDataForm(values);
     form.reset();
     console.log({ values });
   }
@@ -130,6 +140,8 @@ export function DataTableSearchByTerm<TData, TValue>({
   //* Watchers
   const type = form.watch('type');
   const subType = form.watch('subType');
+  const limit = form.watch('limit');
+  const order = form.watch('order');
 
   //* Table
   const table = useReactTable({
@@ -158,14 +170,35 @@ export function DataTableSearchByTerm<TData, TValue>({
     }
   }, [form.getValues('limitAll')]);
 
-  //* Helpers
-  const disabledTypes = validationDisableTypes(pathname);
-  const disabledSubTypes = validationDisableSubTypes(pathname, type);
-  const disabledTermSelect = validationDisableTermSelect(type, subType);
+  useEffect(() => {
+    if (limit !== '' && order !== '') {
+      setIsDisabledSubmitButton(false);
+    }
 
+    if (limit === '' || order === '') {
+      setIsDisabledSubmitButton(true);
+    }
+  }, [limit, order]);
+
+  //* Functions
+  const formatDate = (dateString: Date): string => {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear().toString();
+    return `${day}/${month}/${year}`;
+  };
+
+  //* Helpers
+  const disabledTypes = validateTypesAllowedByModule(pathname);
+  const disabledSubTypes = validateSubTypesAllowedByModule(pathname, type);
+  const disabledTermSelect = validateTermSelectByTypeAndSubtype(type, subType);
+
+  // TODO : seguir revisando el tipo de búsqueda y termino por modulo y seguir filtrando.
+  // TODO : pasar los select abajo en el termino, solo los tipos y sub tipos irán arriba
   return (
-    <div className='md:w-full m-auto lg:w-full pt-4'>
-      {isDisabled && (
+    <div className='md:w-full m-auto lg:w-full pt-3'>
+      {isFiltersDisabled && (
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -210,7 +243,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {Object.entries(TypeSearchNames).map(([key, value]) => (
+                        {Object.entries(TypesSearchNames).map(([key, value]) => (
                           <SelectItem
                             className={`text-[13px] md:text-[14px] ${disabledTypes?.disabledTypes?.includes(value) ? 'hidden' : ''}`}
                             key={key}
@@ -227,28 +260,43 @@ export function DataTableSearchByTerm<TData, TValue>({
               }}
             />
 
-            {(type === TypeSearch.FirstName ||
-              type === TypeSearch.LastName ||
-              type === TypeSearch.FullName ||
-              type === TypeSearch.Tithe ||
-              type === TypeSearch.Sunday_worship ||
-              type === TypeSearch.Family_house ||
-              type === TypeSearch.Zonal_fasting ||
-              type === TypeSearch.General_fasting ||
-              type === TypeSearch.Zonal_vigil ||
-              type === TypeSearch.General_vigil ||
-              type === TypeSearch.Sunday_school ||
-              type === TypeSearch.Youth_worship ||
-              type === TypeSearch.Activities ||
-              type === TypeSearch.Church_ground ||
-              type === TypeSearch.Special) && (
+            {(type === TypesSearch.FirstName ||
+              type === TypesSearch.LastName ||
+              type === TypesSearch.FullName ||
+              type === TypesSearch.Tithe ||
+              type === TypesSearch.SundayWorship ||
+              type === TypesSearch.FamilyHouse ||
+              type === TypesSearch.ZonalFasting ||
+              type === TypesSearch.GeneralFasting ||
+              type === TypesSearch.ZonalVigil ||
+              type === TypesSearch.GeneralVigil ||
+              type === TypesSearch.SundaySchool ||
+              type === TypesSearch.YouthWorship ||
+              type === TypesSearch.Activities ||
+              type === TypesSearch.ChurchGround ||
+              type === TypesSearch.Special ||
+              type === TypesSearch.OperationalExpenses ||
+              type === TypesSearch.MaintenanceAndRepairExpenses ||
+              type === TypesSearch.DecorationExpenses ||
+              type === TypesSearch.EquipmentAndTechnologyExpenses ||
+              type === TypesSearch.SuppliesExpenses ||
+              type === TypesSearch.ActivitiesAndEventsExpenses) && (
               <FormField
                 control={form.control}
                 name='subType'
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Sub-tipo</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>
+                        Sub-tipo{' '}
+                        {(pathname === '/offerings/expenses/search-by-term-offerings-expenses' ||
+                          pathname === '/offerings/expenses/update-offering-expenses' ||
+                          pathname === '/offerings/expenses/delete-offering-expenses') && (
+                          <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[8.3px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
+                            Opcional
+                          </span>
+                        )}
+                      </FormLabel>
                       <FormDescription className='text-[14px]'>
                         ¿Qué sub tipo de búsqueda deseas hacer?
                       </FormDescription>
@@ -284,9 +332,12 @@ export function DataTableSearchByTerm<TData, TValue>({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(SubTypeSearchNames).map(([key, value]) => (
+                          {Object.entries(SubTypesSearchNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[13px] md:text-[14px] ${disabledSubTypes?.disabledSubTypes?.includes(key) ? 'hidden' : ''}`}
+                              className={cn(
+                                `text-[13px] md:text-[14px]`,
+                                disabledSubTypes?.disabledSubTypes?.includes(key) && 'hidden'
+                              )}
                               key={key}
                               value={key}
                             >
@@ -302,32 +353,38 @@ export function DataTableSearchByTerm<TData, TValue>({
               />
             )}
 
-            {((type !== TypeSearch.FirstName &&
-              type !== TypeSearch.LastName &&
-              type !== TypeSearch.FullName &&
-              type !== TypeSearch.MonthBirth &&
-              type !== TypeSearch.DateBirth &&
-              type !== TypeSearch.Gender &&
-              type !== TypeSearch.MaritalStatus &&
-              type !== TypeSearch.Status &&
-              type !== TypeSearch.Tithe &&
-              type !== TypeSearch.Sunday_worship &&
-              type !== TypeSearch.Family_house &&
-              type !== TypeSearch.General_fasting &&
-              type !== TypeSearch.Zonal_fasting &&
-              type !== TypeSearch.Zonal_vigil &&
-              type !== TypeSearch.General_vigil &&
-              type !== TypeSearch.Sunday_school &&
-              type !== TypeSearch.Youth_worship &&
-              type !== TypeSearch.Activities &&
-              type !== TypeSearch.Church_ground &&
-              type !== TypeSearch.Special &&
-              type !== TypeSearch.Roles &&
+            {((type !== TypesSearch.FirstName &&
+              type !== TypesSearch.LastName &&
+              type !== TypesSearch.FullName &&
+              type !== TypesSearch.MonthBirth &&
+              type !== TypesSearch.DateBirth &&
+              type !== TypesSearch.Gender &&
+              type !== TypesSearch.MaritalStatus &&
+              type !== TypesSearch.Status &&
+              type !== TypesSearch.Tithe &&
+              type !== TypesSearch.SundayWorship &&
+              type !== TypesSearch.FamilyHouse &&
+              type !== TypesSearch.GeneralFasting &&
+              type !== TypesSearch.ZonalFasting &&
+              type !== TypesSearch.ZonalVigil &&
+              type !== TypesSearch.GeneralVigil &&
+              type !== TypesSearch.SundaySchool &&
+              type !== TypesSearch.YouthWorship &&
+              type !== TypesSearch.Activities &&
+              type !== TypesSearch.ChurchGround &&
+              type !== TypesSearch.Special &&
+              type !== TypesSearch.Roles &&
+              type !== TypesSearch.OperationalExpenses &&
+              type !== TypesSearch.MaintenanceAndRepairExpenses &&
+              type !== TypesSearch.DecorationExpenses &&
+              type !== TypesSearch.EquipmentAndTechnologyExpenses &&
+              type !== TypesSearch.SuppliesExpenses &&
+              type !== TypesSearch.ActivitiesAndEventsExpenses &&
               type !== undefined) ||
-              subType === SubTypeSearch.OfferingZone ||
-              subType === SubTypeSearch.OfferingDateZone ||
-              subType === SubTypeSearch.OfferingCodeHouse ||
-              subType === SubTypeSearch.OfferingDateCodeHouse) && (
+              subType === SubTypesSearch.OfferingByZone ||
+              subType === SubTypesSearch.OfferingByDateZone ||
+              subType === SubTypesSearch.OfferingByCodeHouse ||
+              subType === SubTypesSearch.OfferingByDateCodeHouse) && (
               <FormField
                 control={form.control}
                 name='termInput'
@@ -350,21 +407,27 @@ export function DataTableSearchByTerm<TData, TValue>({
               />
             )}
 
-            {(type === TypeSearch.DateBirth ||
-              subType === SubTypeSearch.TitheDate ||
-              subType === SubTypeSearch.TitheDateNames ||
-              subType === SubTypeSearch.TitheDateLastNames ||
-              subType === SubTypeSearch.TitheDateFullName ||
-              subType === SubTypeSearch.OfferingDate ||
-              subType === SubTypeSearch.OfferingDateShift ||
-              subType === SubTypeSearch.OfferingDateZone ||
-              subType === SubTypeSearch.OfferingDateCodeHouse) && (
+            {(type === TypesSearch.DateBirth ||
+              type === TypesSearch.OperationalExpenses ||
+              type === TypesSearch.MaintenanceAndRepairExpenses ||
+              type === TypesSearch.DecorationExpenses ||
+              type === TypesSearch.EquipmentAndTechnologyExpenses ||
+              type === TypesSearch.SuppliesExpenses ||
+              type === TypesSearch.ActivitiesAndEventsExpenses ||
+              subType === SubTypesSearch.TitheByDate ||
+              subType === SubTypesSearch.TitheByDateNames ||
+              subType === SubTypesSearch.TitheByDateLastNames ||
+              subType === SubTypesSearch.TitheByDateFullName ||
+              subType === SubTypesSearch.OfferingByDate ||
+              subType === SubTypesSearch.OfferingByDateShift ||
+              subType === SubTypesSearch.OfferingByDateZone ||
+              subType === SubTypesSearch.OfferingByDateCodeHouse) && (
               <FormField
                 control={form.control}
                 name='termDate'
                 render={({ field }) => (
                   <FormItem className=''>
-                    <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
+                    <FormLabel className='text-[14px] font-bold'>Termino (fecha)</FormLabel>
                     <FormDescription className='text-[14px]'>
                       Buscar por fecha o rango de fechas
                     </FormDescription>
@@ -415,12 +478,12 @@ export function DataTableSearchByTerm<TData, TValue>({
               />
             )}
 
-            {(type === TypeSearch.Gender ||
-              type === TypeSearch.MaritalStatus ||
-              type === TypeSearch.Status ||
-              type === TypeSearch.MonthBirth ||
-              subType === SubTypeSearch.OfferingShift ||
-              subType === SubTypeSearch.OfferingDateShift) && (
+            {(type === TypesSearch.Gender ||
+              type === TypesSearch.MaritalStatus ||
+              type === TypesSearch.Status ||
+              type === TypesSearch.MonthBirth ||
+              subType === SubTypesSearch.OfferingByShift ||
+              subType === SubTypesSearch.OfferingByDateShift) && (
               <FormField
                 control={form.control}
                 name='termSelect'
@@ -429,7 +492,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Escribe aquí lo que deseas buscar.
+                        Selecciona una opción de búsqueda.
                       </FormDescription>
                       <Select
                         onValueChange={field.onChange}
@@ -449,7 +512,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(TermSelectOptionsNames).map(([key, value]) => (
+                          {Object.entries(SearchSelectionOptionsNames).map(([key, value]) => (
                             <SelectItem
                               className={`text-[13px] md:text-[14px] ${disabledTermSelect?.disabledTermSelect?.includes(value) ? 'hidden' : ''}`}
                               key={key}
@@ -467,7 +530,7 @@ export function DataTableSearchByTerm<TData, TValue>({
               />
             )}
 
-            {type === TypeSearch.Roles && (
+            {type === TypesSearch.Roles && (
               <FormField
                 control={form.control}
                 name='termMultiSelect'
@@ -477,7 +540,6 @@ export function DataTableSearchByTerm<TData, TValue>({
                     <FormDescription className='text-[14px]'>
                       Seleccione los roles que desea buscar
                     </FormDescription>
-
                     <div className='flex flex-wrap gap-y-1 justify-start sm:justify-around items-center'>
                       {Object.values(UserRoles).map((role) => (
                         <FormField
@@ -520,19 +582,19 @@ export function DataTableSearchByTerm<TData, TValue>({
                 )}
               />
             )}
-            {((subType && (type === TypeSearch.FirstName || type === TypeSearch.FullName)) ||
-              subType === SubTypeSearch.TitheNames ||
-              subType === SubTypeSearch.TitheFullNames ||
-              subType === SubTypeSearch.TitheDateNames ||
-              subType === SubTypeSearch.TitheDateFullName ||
-              subType === SubTypeSearch.OfferingPreacherNames ||
-              subType === SubTypeSearch.OfferingPreacherFullName ||
-              subType === SubTypeSearch.OfferingSupervisorNames ||
-              subType === SubTypeSearch.OfferingSupervisorFullName ||
-              subType === SubTypeSearch.OfferingNames ||
-              subType === SubTypeSearch.OfferingFullNames ||
-              subType === SubTypeSearch.UserNames ||
-              subType === SubTypeSearch.UserFullName) && (
+            {((subType && (type === TypesSearch.FirstName || type === TypesSearch.FullName)) ||
+              subType === SubTypesSearch.TitheByNames ||
+              subType === SubTypesSearch.TitheByFullName ||
+              subType === SubTypesSearch.TitheByDateNames ||
+              subType === SubTypesSearch.TitheByDateFullName ||
+              subType === SubTypesSearch.OfferingByPreacherNames ||
+              subType === SubTypesSearch.OfferingByPreacherFullName ||
+              subType === SubTypesSearch.OfferingBySupervisorNames ||
+              subType === SubTypesSearch.OfferingBySupervisorFullName ||
+              subType === SubTypesSearch.OfferingByNames ||
+              subType === SubTypesSearch.OfferingByFullName ||
+              subType === SubTypesSearch.UserByNames ||
+              subType === SubTypesSearch.UserByFullName) && (
               <FormField
                 control={form.control}
                 name='termNames'
@@ -555,17 +617,17 @@ export function DataTableSearchByTerm<TData, TValue>({
               />
             )}
 
-            {((subType && (type === TypeSearch.LastName || type === TypeSearch.FullName)) ||
-              subType === SubTypeSearch.TitheLastNames ||
-              subType === SubTypeSearch.TitheFullNames ||
-              subType === SubTypeSearch.TitheDateLastNames ||
-              subType === SubTypeSearch.TitheDateFullName ||
-              subType === SubTypeSearch.OfferingPreacherLastNames ||
-              subType === SubTypeSearch.OfferingPreacherFullName ||
-              subType === SubTypeSearch.OfferingSupervisorLastNames ||
-              subType === SubTypeSearch.OfferingSupervisorFullName ||
-              subType === SubTypeSearch.OfferingLastNames ||
-              subType === SubTypeSearch.OfferingFullNames) && (
+            {((subType && (type === TypesSearch.LastName || type === TypesSearch.FullName)) ||
+              subType === SubTypesSearch.TitheByLastNames ||
+              subType === SubTypesSearch.TitheByFullName ||
+              subType === SubTypesSearch.TitheByDateLastNames ||
+              subType === SubTypesSearch.TitheByDateFullName ||
+              subType === SubTypesSearch.OfferingByPreacherLastNames ||
+              subType === SubTypesSearch.OfferingByPreacherFullName ||
+              subType === SubTypesSearch.OfferingBySupervisorLastNames ||
+              subType === SubTypesSearch.OfferingBySupervisorFullName ||
+              subType === SubTypesSearch.OfferingByLastNames ||
+              subType === SubTypesSearch.OfferingByFullName) && (
               <FormField
                 control={form.control}
                 name='termLastNames'
@@ -612,7 +674,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                       <FormControl>
                         <Input
                           {...field}
-                          disabled={!!form.getValues('limitAll')}
+                          disabled={form.getValues('limitAll')}
                           className='text-[13px] md:text-[14px]'
                           value={form.getValues('limitAll') ? '-' : field.value || ''}
                           placeholder='Limite de registros'
@@ -629,10 +691,14 @@ export function DataTableSearchByTerm<TData, TValue>({
                     <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
                       <FormControl>
                         <Checkbox
-                          disabled={!form.getValues('limit')}
+                          disabled={!form.getValues('limit') || !!form.formState.errors.limit} // transform to boolean
                           checked={field?.value}
                           onCheckedChange={(checked) => field.onChange(checked)}
-                          className={form.getValues('limit') ? '' : 'bg-slate-500'}
+                          className={
+                            form.getValues('limit') && !form.formState.errors.limit
+                              ? ''
+                              : 'bg-slate-500'
+                          }
                         />
                       </FormControl>
                       <div className='space-y-1 leading-none'>
@@ -667,7 +733,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                 <FormItem className='w-full col-start-auto col-end-auto lg:col-start-auto lg:col-end-auto'>
                   <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
                   <FormDescription className='text-[14px]'>
-                    Selecciona el tipo de orden de los registros
+                    Elige el tipo de orden de los registros
                   </FormDescription>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <FormControl className='text-[14px]'>
@@ -695,6 +761,7 @@ export function DataTableSearchByTerm<TData, TValue>({
               )}
             />
             <Button
+              disabled={isDisabledSubmitButton}
               type='submit'
               variant='ghost'
               className='mx-auto mt-14 lg:mt-4 xl:mt-0 md:mt-0 md:col-start-2 md:col-end-3 lg:col-start-2 lg:col-end-3 lg:row-start-auto lg:row-end-auto xl:row-start-auto xl:row-end-auto xl:col-start-auto xl:col-end-auto w-[8rem] text-[13px] lg:text-[14px] h-[2.5rem] md:w-[15rem] lg:w-full xl:w-full xl:-ml-0 2xl:w-full 2xl:mx-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500  hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 hover:text-white'
@@ -705,7 +772,9 @@ export function DataTableSearchByTerm<TData, TValue>({
         </Form>
       )}
 
-      {!isDisabled &&
+      {/* Members */}
+
+      {!isFiltersDisabled &&
         (pathname === '/disciples/search-by-term-disciples' ||
           pathname === '/disciples/update-disciple' ||
           pathname === '/disciples/delete-disciple' ||
@@ -718,48 +787,146 @@ export function DataTableSearchByTerm<TData, TValue>({
           pathname === '/leaders/search-by-term-leaders' ||
           pathname === '/leaders/update-leader' ||
           pathname === '/leaders/delete-leader') && (
-          <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
-            <Input
-              placeholder='Filtro por nombres...'
-              value={(table.getColumn('first_name')?.getFilterValue() as string) ?? ''}
-              onChange={(event) =>
-                table.getColumn('first_name')?.setFilterValue(event.target.value)
-              }
-              className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
-              disabled={isDisabled}
-            />
-            <Input
-              placeholder='Filtro por apellidos...'
-              value={(table.getColumn('last_name')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('last_name')?.setFilterValue(event.target.value)}
-              className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
-              disabled={isDisabled}
-            />
-            <Button
-              variant='ghost'
-              className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
-              onClick={() => {
-                table.getColumn('first_name')?.setFilterValue('');
-                table.getColumn('last_name')?.setFilterValue('');
-              }}
-            >
-              Borrar
-            </Button>
-            <Button
-              variant='ghost'
-              className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
-              onClick={() => {
-                setIsDisabled(true);
-                table.getColumn('first_name')?.setFilterValue('');
-                table.getColumn('last_name')?.setFilterValue('');
-              }}
-            >
-              Nueva Búsqueda
-            </Button>
+          <div>
+            {/* Search Types */}
+            <div>
+              <span className='dark:text-offering-color text-search-color font-bold text-[14px] md:text-[15.5px]'>
+                Tipo de búsqueda:
+              </span>{' '}
+              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                {`${
+                  Object.entries(TypesSearchNames).find(
+                    ([key, value]) => key === dataForm?.type && value
+                  )?.[1]
+                }`}
+              </span>
+              {(dataForm?.type === TypesSearch.FirstName ||
+                dataForm?.type === TypesSearch.LastName ||
+                dataForm?.type === TypesSearch.FullName) && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {' '}
+                  -{' '}
+                  {`${
+                    Object.entries(SubTypesSearchNames).find(
+                      ([key, value]) => key === dataForm?.subType && value
+                    )?.[1]
+                  }`}
+                </span>
+              )}
+              {(dataForm?.type === TypesSearch.MonthBirth ||
+                dataForm?.type === TypesSearch.Gender ||
+                dataForm?.type === TypesSearch.MaritalStatus ||
+                dataForm?.type === TypesSearch.Status) && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {' '}
+                  -{' '}
+                  {`${
+                    Object.entries(SearchSelectionOptionsNames).find(
+                      ([key, value]) => key === dataForm?.termSelect && value
+                    )?.[1]
+                  }`}
+                </span>
+              )}
+            </div>
+            {/* Search Terms */}
+            {(dataForm?.type === TypesSearch.FirstName ||
+              dataForm?.type === TypesSearch.LastName ||
+              dataForm?.type === TypesSearch.FullName ||
+              dataForm?.type === TypesSearch.DateBirth ||
+              dataForm?.type === TypesSearch.Zone ||
+              dataForm?.type === TypesSearch.OriginCountry ||
+              dataForm?.type === TypesSearch.CodeHouse ||
+              dataForm?.type === TypesSearch.NameHouse ||
+              dataForm?.type === TypesSearch.Address ||
+              dataForm?.type === TypesSearch.Department ||
+              dataForm?.type === TypesSearch.Province ||
+              dataForm?.type === TypesSearch.District) && (
+              <div>
+                <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
+                  Termino de búsqueda:
+                </span>{' '}
+                {(dataForm?.type === TypesSearch.Zone ||
+                  dataForm?.type === TypesSearch.OriginCountry ||
+                  dataForm?.type === TypesSearch.CodeHouse ||
+                  dataForm?.type === TypesSearch.NameHouse ||
+                  dataForm?.type === TypesSearch.Address ||
+                  dataForm?.type === TypesSearch.Department ||
+                  dataForm?.type === TypesSearch.Province ||
+                  dataForm?.type === TypesSearch.District) && (
+                  <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                    {`${dataForm?.termInput}`}
+                  </span>
+                )}
+                {dataForm?.type === TypesSearch.FirstName && (
+                  <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                    {`${dataForm?.termNames}`}
+                  </span>
+                )}
+                {dataForm?.type === TypesSearch.LastName && (
+                  <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                    {`${dataForm?.termLastNames}`}
+                  </span>
+                )}
+                {dataForm?.type === TypesSearch.FullName && (
+                  <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                    {`${dataForm?.termNames} - ${dataForm?.termLastNames} `}
+                  </span>
+                )}
+                {dataForm?.type === TypesSearch.DateBirth && (
+                  <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                    {`${dataForm?.termDate?.from ? formatDate(dataForm?.termDate?.from) : ''} - ${dataForm?.termDate?.to ? formatDate(dataForm?.termDate?.to) : ''}`}
+                  </span>
+                )}
+              </div>
+            )}
+
+            <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center py-4 lg:gap-6'>
+              <Input
+                placeholder='Filtro por nombres...'
+                value={(table.getColumn('first_name')?.getFilterValue() as string) ?? ''}
+                onChange={(event) =>
+                  table.getColumn('first_name')?.setFilterValue(event.target.value)
+                }
+                className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
+                disabled={isFiltersDisabled}
+              />
+              <Input
+                placeholder='Filtro por apellidos...'
+                value={(table.getColumn('last_name')?.getFilterValue() as string) ?? ''}
+                onChange={(event) =>
+                  table.getColumn('last_name')?.setFilterValue(event.target.value)
+                }
+                className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
+                disabled={isFiltersDisabled}
+              />
+              <Button
+                variant='ghost'
+                className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
+                onClick={() => {
+                  table.getColumn('first_name')?.setFilterValue('');
+                  table.getColumn('last_name')?.setFilterValue('');
+                }}
+              >
+                Borrar
+              </Button>
+              <Button
+                variant='ghost'
+                className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
+                onClick={() => {
+                  setIsFiltersDisabled(true);
+                  table.getColumn('first_name')?.setFilterValue('');
+                  table.getColumn('last_name')?.setFilterValue('');
+                }}
+              >
+                Nueva Búsqueda
+              </Button>
+            </div>
           </div>
         )}
 
-      {!isDisabled &&
+      {/* Family House */}
+
+      {!isFiltersDisabled &&
         (pathname === '/family-houses/search-by-term-family-houses' ||
           pathname === '/family-houses/update-family-house' ||
           pathname === '/family-houses/delete-family-house') && (
@@ -771,14 +938,14 @@ export function DataTableSearchByTerm<TData, TValue>({
                 table.getColumn('name_house')?.setFilterValue(event.target.value)
               }
               className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
-              disabled={isDisabled}
+              disabled={isFiltersDisabled}
             />
             <Input
               placeholder='Filtro por código de casa...'
               value={(table.getColumn('code')?.getFilterValue() as string) ?? ''}
               onChange={(event) => table.getColumn('code')?.setFilterValue(event.target.value)}
               className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
-              disabled={isDisabled}
+              disabled={isFiltersDisabled}
             />
             <Button
               variant='ghost'
@@ -794,7 +961,7 @@ export function DataTableSearchByTerm<TData, TValue>({
               variant='ghost'
               className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
               onClick={() => {
-                setIsDisabled(true);
+                setIsFiltersDisabled(true);
                 table.getColumn('name_house')?.setFilterValue('');
                 table.getColumn('code')?.setFilterValue('');
               }}
@@ -804,24 +971,29 @@ export function DataTableSearchByTerm<TData, TValue>({
           </div>
         )}
 
-      {!isDisabled &&
-        (pathname === '/offerings/search-by-term-offerings' ||
-          pathname === '/offerings/update-offering' ||
-          pathname === '/offerings/delete-offering') && (
+      {/* Offerings */}
+
+      {!isFiltersDisabled &&
+        (pathname === '/offerings/income/search-by-term-offerings-income' ||
+          pathname === '/offerings/income/update-offering-income' ||
+          pathname === '/offerings/income/delete-offering-income' ||
+          pathname === '/offerings/expenses/search-by-term-offerings-expenses' ||
+          pathname === '/offerings/expenses/update-offering-expenses' ||
+          pathname === '/offerings/expenses/delete-offering-expenses') && (
           <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
             <Input
-              placeholder='Filtro por tipo de ofrenda...'
+              placeholder='Filtro por tipo...'
               value={(table.getColumn('type')?.getFilterValue() as string) ?? ''}
               onChange={(event) => table.getColumn('type')?.setFilterValue(event.target.value)}
               className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
-              disabled={isDisabled}
+              disabled={isFiltersDisabled}
             />
             <Input
-              placeholder='Filtro por código de casa...'
+              placeholder='Filtro por sub-tipo...'
               value={(table.getColumn('sub_type')?.getFilterValue() as string) ?? ''}
               onChange={(event) => table.getColumn('sub_type')?.setFilterValue(event.target.value)}
               className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
-              disabled={isDisabled}
+              disabled={isFiltersDisabled}
             />
             <Button
               variant='ghost'
@@ -837,7 +1009,7 @@ export function DataTableSearchByTerm<TData, TValue>({
               variant='ghost'
               className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
               onClick={() => {
-                setIsDisabled(true);
+                setIsFiltersDisabled(true);
                 table.getColumn('type')?.setFilterValue('');
                 table.getColumn('sub_type')?.setFilterValue('');
               }}
@@ -847,7 +1019,9 @@ export function DataTableSearchByTerm<TData, TValue>({
           </div>
         )}
 
-      {!isDisabled &&
+      {/* Users */}
+
+      {!isFiltersDisabled &&
         (pathname === '/users/search-by-term-users' ||
           pathname === '/users/update-user' ||
           pathname === '/users/delete-user') && (
@@ -857,14 +1031,14 @@ export function DataTableSearchByTerm<TData, TValue>({
               value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
               onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
               className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
-              disabled={isDisabled}
+              disabled={isFiltersDisabled}
             />
             <Input
               placeholder='Filtro por roles de usuario...'
               value={(table.getColumn('roles')?.getFilterValue() as string) ?? ''}
               onChange={(event) => table.getColumn('roles')?.setFilterValue(event.target.value)}
               className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
-              disabled={isDisabled}
+              disabled={isFiltersDisabled}
             />
             <Button
               variant='ghost'
@@ -880,7 +1054,7 @@ export function DataTableSearchByTerm<TData, TValue>({
               variant='ghost'
               className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
               onClick={() => {
-                setIsDisabled(true);
+                setIsFiltersDisabled(true);
                 table.getColumn('email')?.setFilterValue('');
                 table.getColumn('roles')?.setFilterValue('');
               }}
@@ -910,7 +1084,7 @@ export function DataTableSearchByTerm<TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
-          {!isDisabled && (
+          {!isFiltersDisabled && (
             <TableBody>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (

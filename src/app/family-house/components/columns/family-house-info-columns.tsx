@@ -6,20 +6,11 @@ import { type ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 
 import { FamilyHouseInfoCard } from '@/app/family-house/components';
+import { type FamilyHouseColumns } from '@/app/family-house/interfaces';
 
 import { Button } from '@/shared/components/ui/button';
 
-export interface FamilyHouse {
-  id: string;
-  zone: string;
-  code: string;
-  name_house: string;
-  count_members: number;
-  district: string;
-  updated_by: string;
-}
-
-export const familyHouseInfoColumns: Array<ColumnDef<FamilyHouse, any>> = [
+export const familyHouseInfoColumns: Array<ColumnDef<FamilyHouseColumns, any>> = [
   {
     accessorKey: 'id',
     header: ({ column }) => {

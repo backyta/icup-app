@@ -49,7 +49,7 @@ export const SideMenu = (): JSX.Element => {
       </div>
 
       {/*  Profile */}
-      <div id='profile' className='pb-4 px-6 md:px-6 md:py-0 md:block md:text-center hidden'>
+      {/* <div id='profile' className='pb-4 px-6 md:px-6 md:py-0 md:block md:text-center hidden'>
         <p className='text-md font-bold pb-4 hidden'>Bienvenido,</p>
         <a href='#' className='inline-flex space-x-2 items-center md:hidden'>
           <span>
@@ -58,7 +58,7 @@ export const SideMenu = (): JSX.Element => {
 
           <span className='text-sm font-bold hidden'>Kevin Michael Baca Angeles</span>
         </a>
-      </div>
+      </div> */}
 
       {/* Menu Items */}
       <nav id='menu' className='w-full px-8 py-6 md:flex md:flex-col gap-y-[3rem] hidden'>

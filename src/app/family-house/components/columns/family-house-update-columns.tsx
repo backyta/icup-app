@@ -6,18 +6,11 @@ import { type ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 
 import { FamilyHouseInfoCard, FamilyHouseUpdateCard } from '@/app/family-house/components';
+import { type FamilyHouseColumns } from '@/app/family-house/interfaces';
 
 import { Button } from '@/shared/components/ui/button';
 
-interface FamilyHouse {
-  id: string;
-  zone: string;
-  code: string;
-  name_house: string;
-  count_members: number;
-}
-
-export const familyHouseUpdateColumns: Array<ColumnDef<FamilyHouse, any>> = [
+export const familyHouseUpdateColumns: Array<ColumnDef<FamilyHouseColumns, any>> = [
   {
     accessorKey: 'id',
     header: ({ column }) => {
@@ -30,6 +23,23 @@ export const familyHouseUpdateColumns: Array<ColumnDef<FamilyHouse, any>> = [
           }}
         >
           ID
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: 'name_house',
+    header: ({ column }) => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px]'
+          variant='ghost'
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+        >
+          Nombre
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
@@ -70,7 +80,7 @@ export const familyHouseUpdateColumns: Array<ColumnDef<FamilyHouse, any>> = [
     },
   },
   {
-    accessorKey: 'name_house',
+    accessorKey: 'district',
     header: ({ column }) => {
       return (
         <Button
@@ -80,7 +90,7 @@ export const familyHouseUpdateColumns: Array<ColumnDef<FamilyHouse, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Nombre
+          Distrito
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );

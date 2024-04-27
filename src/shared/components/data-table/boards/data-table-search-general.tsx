@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
@@ -69,9 +69,11 @@ export function DataTableSearchGeneral<TData, TValue>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
+  const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
+
   const [rowSelection, setRowSelection] = useState({});
 
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [isFiltersDisabled, setIsFiltersDisabled] = useState(true);
 
   //* Library hooks
   const { pathname } = useLocation();
@@ -90,10 +92,15 @@ export function DataTableSearchGeneral<TData, TValue>({
 
   //* Form handler
   function onSubmit(values: z.infer<typeof formSearchGeneralSchema>): void {
-    setIsDisabled(false);
+    setIsFiltersDisabled(false);
     form.reset();
     console.log({ values });
   }
+
+  //* Watchers
+  const limit = form.watch('limit');
+  const offset = form.watch('offset');
+  const order = form.watch('order');
 
   //* Table
   const table = useReactTable({
@@ -115,9 +122,20 @@ export function DataTableSearchGeneral<TData, TValue>({
     },
   });
 
+  //* Effects
+  useEffect(() => {
+    if (limit !== '' && offset !== '' && order !== '') {
+      setIsDisabledSubmitButton(false);
+    }
+
+    if (limit === '' || offset === '' || order === '') {
+      setIsDisabledSubmitButton(true);
+    }
+  }, [limit, offset, order]);
+
   return (
-    <div className='md:w-full m-auto lg:w-full pt-4'>
-      {isDisabled && (
+    <div className='md:w-full m-auto lg:w-full pt-3'>
+      {isFiltersDisabled && (
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -136,7 +154,7 @@ export function DataTableSearchGeneral<TData, TValue>({
                     <FormControl>
                       <Input
                         {...field}
-                        disabled={!!form.getValues('limitAll')}
+                        disabled={form.getValues('limitAll')}
                         className='text-[13px] md:text-[14px]'
                         value={form.getValues('limitAll') ? '-' : field.value || ''}
                         placeholder='Limite de registros'
@@ -170,7 +188,7 @@ export function DataTableSearchGeneral<TData, TValue>({
                       <FormItem className='sm:w-[18rem] md:w-auto'>
                         <FormControl>
                           <Input
-                            disabled={!!form.getValues('limitAll')}
+                            disabled={form.getValues('limitAll')}
                             className='text-[13px] md:text-[14px]'
                             placeholder='Nro. de registros desplazados'
                             {...field}
@@ -189,15 +207,21 @@ export function DataTableSearchGeneral<TData, TValue>({
                       <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem]'>
                         <FormControl>
                           <Checkbox
-                            disabled={!form.getValues('limit') || !form.getValues('offset')}
+                            disabled={
+                              !form.getValues('limit') ||
+                              !form.getValues('offset') ||
+                              !!form.formState.errors.limit // transform to boolean
+                            }
                             checked={field?.value}
                             onCheckedChange={(checked) => {
                               field.onChange(checked);
                             }}
                             className={
-                              !form.getValues('limit') || !form.getValues('offset')
-                                ? 'bg-slate-500'
-                                : ''
+                              (form.getValues('limit') || form.getValues('offset')) &&
+                              !form.formState.errors.limit &&
+                              !form.formState.errors.offset
+                                ? ''
+                                : 'bg-slate-500'
                             }
                           />
                         </FormControl>
@@ -218,7 +242,7 @@ export function DataTableSearchGeneral<TData, TValue>({
                 <FormItem className='lg:min-w-[23rem]'>
                   <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
                   <FormDescription className='text-[14px]'>
-                    Selecciona el tipo de orden de los registros
+                    Elige el tipo de orden de los registros
                   </FormDescription>
                   <Select value={field.value} onValueChange={field.onChange}>
                     <FormControl className='text-[13px] md:text-[14px] lg:w-full'>
@@ -246,6 +270,7 @@ export function DataTableSearchGeneral<TData, TValue>({
               )}
             />
             <Button
+              disabled={isDisabledSubmitButton}
               type='submit'
               variant='ghost'
               className={cn(
@@ -260,35 +285,100 @@ export function DataTableSearchGeneral<TData, TValue>({
 
       {/* Disciples, Pastors, Co-Pastors, Leaders  */}
 
-      {!isDisabled &&
+      {!isFiltersDisabled &&
         (pathname === '/disciples/search-disciples' ||
           pathname === '/pastors/search-pastors' ||
           pathname === '/copastors/search-copastors' ||
           pathname === '/leaders/search-leaders') && (
+          <div>
+            <span className='text-offering-color font-bold text-[14px] md:text-[16px]'>
+              Búsqueda actual:
+            </span>{' '}
+            <span className='font-medium text-[13px] md:text-[15px]'>
+              {pathname === '/disciples/search-disciples'
+                ? `Discípulos (Todos)`
+                : pathname === '/pastors/search-pastors'
+                  ? `Pastores (Todos)`
+                  : pathname === '/copastors/search-copastors'
+                    ? `Co-Pastores (Todos)`
+                    : `Lideres (Todos)`}
+            </span>
+            <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center py-4 lg:gap-6'>
+              <Input
+                placeholder='Filtro por nombres...'
+                value={(table.getColumn('first_name')?.getFilterValue() as string) ?? ''}
+                onChange={(event) =>
+                  table.getColumn('first_name')?.setFilterValue(event.target.value)
+                }
+                className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
+                disabled={isFiltersDisabled}
+              />
+              <Input
+                placeholder='Filtro por apellidos...'
+                value={(table.getColumn('last_name')?.getFilterValue() as string) ?? ''}
+                onChange={(event) =>
+                  table.getColumn('last_name')?.setFilterValue(event.target.value)
+                }
+                className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
+                disabled={isFiltersDisabled}
+              />
+
+              <Button
+                variant='ghost'
+                className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
+                onClick={() => {
+                  table.getColumn('first_name')?.setFilterValue('');
+                  table.getColumn('last_name')?.setFilterValue('');
+                }}
+              >
+                Borrar
+              </Button>
+              <Button
+                variant='ghost'
+                className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
+                onClick={() => {
+                  setIsFiltersDisabled(true);
+                  table.getColumn('first_name')?.setFilterValue('');
+                  table.getColumn('last_name')?.setFilterValue('');
+                }}
+              >
+                Nueva Búsqueda
+              </Button>
+            </div>
+          </div>
+        )}
+
+      {/* Family Houses */}
+
+      {!isFiltersDisabled && pathname === '/family-houses/search-family-houses' && (
+        <div>
+          <span className='text-offering-color font-bold text-[14px] md:text-[16px]'>
+            Búsqueda actual:
+          </span>{' '}
+          <span className='font-medium text-[13px] md:text-[15px]'>Casas Familiares (Todas)</span>
           <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
             <Input
-              placeholder='Filtro por nombres...'
-              value={(table.getColumn('first_name')?.getFilterValue() as string) ?? ''}
+              placeholder='Filtro por nombre de casa...'
+              value={(table.getColumn('name_house')?.getFilterValue() as string) ?? ''}
               onChange={(event) =>
-                table.getColumn('first_name')?.setFilterValue(event.target.value)
+                table.getColumn('name_house')?.setFilterValue(event.target.value)
               }
               className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
-              disabled={isDisabled}
+              disabled={isFiltersDisabled}
             />
             <Input
-              placeholder='Filtro por apellidos...'
-              value={(table.getColumn('last_name')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('last_name')?.setFilterValue(event.target.value)}
+              placeholder='Filtro por código de casa...'
+              value={(table.getColumn('code')?.getFilterValue() as string) ?? ''}
+              onChange={(event) => table.getColumn('code')?.setFilterValue(event.target.value)}
               className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
-              disabled={isDisabled}
+              disabled={isFiltersDisabled}
             />
-
             <Button
               variant='ghost'
               className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
               onClick={() => {
-                table.getColumn('first_name')?.setFilterValue('');
-                table.getColumn('last_name')?.setFilterValue('');
+                table.getColumn('name_house')?.setFilterValue('');
+                table.getColumn('code')?.setFilterValue('');
               }}
             >
               Borrar
@@ -297,139 +387,118 @@ export function DataTableSearchGeneral<TData, TValue>({
               variant='ghost'
               className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
               onClick={() => {
-                setIsDisabled(true);
-                table.getColumn('first_name')?.setFilterValue('');
-                table.getColumn('last_name')?.setFilterValue('');
+                setIsFiltersDisabled(true);
+                table.getColumn('name_house')?.setFilterValue('');
+                table.getColumn('code')?.setFilterValue('');
               }}
             >
               Nueva Búsqueda
             </Button>
           </div>
-        )}
-
-      {/* Family Houses */}
-
-      {!isDisabled && pathname === '/family-houses/search-family-houses' && (
-        <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
-          <Input
-            placeholder='Filtro por nombre de casa...'
-            value={(table.getColumn('name_house')?.getFilterValue() as string) ?? ''}
-            onChange={(event) => table.getColumn('name_house')?.setFilterValue(event.target.value)}
-            className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
-            disabled={isDisabled}
-          />
-          <Input
-            placeholder='Filtro por código de casa...'
-            value={(table.getColumn('code')?.getFilterValue() as string) ?? ''}
-            onChange={(event) => table.getColumn('code')?.setFilterValue(event.target.value)}
-            className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
-            disabled={isDisabled}
-          />
-          <Button
-            variant='ghost'
-            className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
-            onClick={() => {
-              table.getColumn('name_house')?.setFilterValue('');
-              table.getColumn('code')?.setFilterValue('');
-            }}
-          >
-            Borrar
-          </Button>
-          <Button
-            variant='ghost'
-            className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
-            onClick={() => {
-              setIsDisabled(true);
-              table.getColumn('name_house')?.setFilterValue('');
-              table.getColumn('code')?.setFilterValue('');
-            }}
-          >
-            Nueva Búsqueda
-          </Button>
         </div>
       )}
 
       {/* Offerings */}
 
-      {!isDisabled && pathname === '/offerings/search-offerings' && (
-        <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
-          <Input
-            placeholder='Filtro por tipo de ofrenda...'
-            value={(table.getColumn('type')?.getFilterValue() as string) ?? ''}
-            onChange={(event) => table.getColumn('type')?.setFilterValue(event.target.value)}
-            className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
-            disabled={isDisabled}
-          />
-          <Input
-            placeholder='Filtro por código de casa...'
-            value={(table.getColumn('sub_type')?.getFilterValue() as string) ?? ''}
-            onChange={(event) => table.getColumn('sub_type')?.setFilterValue(event.target.value)}
-            className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
-            disabled={isDisabled}
-          />
-          <Button
-            variant='ghost'
-            className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
-            onClick={() => {
-              table.getColumn('type')?.setFilterValue('');
-              table.getColumn('sub_type')?.setFilterValue('');
-            }}
-          >
-            Borrar
-          </Button>
-          <Button
-            variant='ghost'
-            className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
-            onClick={() => {
-              setIsDisabled(true);
-              table.getColumn('type')?.setFilterValue('');
-              table.getColumn('sub_type')?.setFilterValue('');
-            }}
-          >
-            Nueva Búsqueda
-          </Button>
-        </div>
-      )}
+      {!isFiltersDisabled &&
+        (pathname === '/offerings/income/search-offerings-income' ||
+          pathname === '/offerings/expenses/search-offerings-expenses') && (
+          <div>
+            <span className='text-offering-color font-bold text-[14px] md:text-[16px]'>
+              Búsqueda actual:
+            </span>{' '}
+            <span className='font-medium text-[13px] md:text-[15px]'>
+              {pathname === '/offerings/expenses/search-offerings-expenses'
+                ? 'Salidas de ofrenda (Todos)'
+                : 'Ingresos de ofrenda (Todos)'}
+            </span>
+            <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
+              <Input
+                placeholder='Filtro por tipo...'
+                value={(table.getColumn('type')?.getFilterValue() as string) ?? ''}
+                onChange={(event) => table.getColumn('type')?.setFilterValue(event.target.value)}
+                className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
+                disabled={isFiltersDisabled}
+              />
+              <Input
+                placeholder='Filtro por sub-tipo...'
+                value={(table.getColumn('sub_type')?.getFilterValue() as string) ?? ''}
+                onChange={(event) =>
+                  table.getColumn('sub_type')?.setFilterValue(event.target.value)
+                }
+                className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
+                disabled={isFiltersDisabled}
+              />
+              <Button
+                variant='ghost'
+                className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
+                onClick={() => {
+                  table.getColumn('type')?.setFilterValue('');
+                  table.getColumn('sub_type')?.setFilterValue('');
+                }}
+              >
+                Borrar
+              </Button>
+              <Button
+                variant='ghost'
+                className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
+                onClick={() => {
+                  setIsFiltersDisabled(true);
+                  table.getColumn('type')?.setFilterValue('');
+                  table.getColumn('sub_type')?.setFilterValue('');
+                }}
+              >
+                Nueva Búsqueda
+              </Button>
+            </div>
+          </div>
+        )}
 
       {/* Users */}
 
-      {!isDisabled && pathname === '/users/search-users' && (
-        <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
-          <Input
-            placeholder='Filtro por correo electrónico...'
-            value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
-            onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
-            className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
-            disabled={isDisabled}
-          />
-          <Input
-            placeholder='Filtro por roles de usuario...'
-            value={(table.getColumn('roles')?.getFilterValue() as string) ?? ''}
-            onChange={(event) => table.getColumn('roles')?.setFilterValue(event.target.value)}
-            className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
-            disabled={isDisabled}
-          />
-          <Button
-            variant='ghost'
-            className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
-            onClick={() => {
-              table.getColumn('email')?.setFilterValue('');
-              table.getColumn('roles')?.setFilterValue('');
-            }}
-          >
-            Borrar
-          </Button>
-          <Button
-            variant='ghost'
-            className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
-            onClick={() => {
-              setIsDisabled(true);
-              table.getColumn('email')?.setFilterValue('');
-              table.getColumn('roles')?.setFilterValue('');
-            }}
-          >
-            Nueva Búsqueda
-          </Button>
+      {!isFiltersDisabled && pathname === '/users/search-users' && (
+        <div>
+          <span className='text-offering-color font-bold text-[14px] md:text-[16px]'>
+            Búsqueda actual:
+          </span>{' '}
+          <span className='font-medium text-[13px] md:text-[15px]'>Usuarios (Todos)</span>
+          <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
+            <Input
+              placeholder='Filtro por correo electrónico...'
+              value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
+              onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
+              className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
+              disabled={isFiltersDisabled}
+            />
+            <Input
+              placeholder='Filtro por roles de usuario...'
+              value={(table.getColumn('roles')?.getFilterValue() as string) ?? ''}
+              onChange={(event) => table.getColumn('roles')?.setFilterValue(event.target.value)}
+              className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
+              disabled={isFiltersDisabled}
+            />
+            <Button
+              variant='ghost'
+              className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
+              onClick={() => {
+                table.getColumn('email')?.setFilterValue('');
+                table.getColumn('roles')?.setFilterValue('');
+              }}
+            >
+              Borrar
+            </Button>
+            <Button
+              variant='ghost'
+              className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
+              onClick={() => {
+                setIsFiltersDisabled(true);
+                table.getColumn('email')?.setFilterValue('');
+                table.getColumn('roles')?.setFilterValue('');
+              }}
+            >
+              Nueva Búsqueda
+            </Button>
+          </div>
         </div>
       )}
 
@@ -455,7 +524,7 @@ export function DataTableSearchGeneral<TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
-          {!isDisabled && (
+          {!isFiltersDisabled && (
             <TableBody>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (

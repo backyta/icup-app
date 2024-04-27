@@ -1,16 +1,17 @@
 import { NavLink } from 'react-router-dom';
 
 import { WhiteCard } from '@/shared/components';
-import { FcCancel, FcClearFilters, FcSearch, FcSportsMode, FcSupport } from 'react-icons/fc';
+import { FcClearFilters, FcSearch, FcSportsMode, FcSupport } from 'react-icons/fc';
+import { RiDeleteBin2Fill } from 'react-icons/ri';
 
 export const DiscipleOptionsPage = (): JSX.Element => {
   return (
     <>
-      <h1 className='text-center pb-2 pt-3 md:pt-2 md:pb-2 font-sans text-2xl sm:text-3xl font-bold text-blue-500 text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
+      <h1 className='text-center pb-2 pt-3 md:pt-2 md:pb-2 font-sans text-2xl sm:text-3xl font-bold text-disciple-color text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
         Modulo Discípulo
       </h1>
       <p className='text-center font-sans text-[15px] sm:text-md md:text-[15px] font-bold px-4 pb-4 lg:text-base xl:text-lg'>
-        Bienvenido al modulo Discípulo, por favor elige una opción.
+        Bienvenido, por favor elige una opción.
       </p>
       <hr className='p-[0.015rem] bg-slate-500' />
 
@@ -21,13 +22,13 @@ export const DiscipleOptionsPage = (): JSX.Element => {
           end
           className='row-start-1 row-end-2 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-2 lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-2 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-1 2xl:col-end-2'
         >
-          <WhiteCard centered>
-            <FcSportsMode className='text-[10rem] lg:text-[8rem] xl:text-[7rem]' />
+          <WhiteCard className='md:h-[11rem]' centered>
+            <FcSportsMode className='text-[5rem] lg:text-[8rem] xl:text-[7rem]' />
             <h2 className='text-green-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
-              Crear Discípulo
+              Registrar Discípulo
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Registrar información de un nuevo discípulo.
+              Crear nuevo registro de un discípulo.
             </p>
           </WhiteCard>
         </NavLink>
@@ -38,13 +39,13 @@ export const DiscipleOptionsPage = (): JSX.Element => {
           end
           className='row-start-2 row-end-3 lg:row-start-3 lg:row-end-4 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-3 xl:col-start-2 xl:col-end-3 2xl:row-start-1 2xl:row-end-2 2xl:col-start-2 2xl:col-end-3 '
         >
-          <WhiteCard centered>
+          <WhiteCard className='md:h-[11rem]' centered>
             <FcSearch className='text-[10rem] lg:text-[7rem] xl:text-[8rem]' />
             <h2 className='text-blue-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
-              Buscar Discípulo
+              Consultar Discípulos
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Búsqueda de discípulos en general.
+              Consultar registros de discípulos en general.
             </p>
           </WhiteCard>
         </NavLink>
@@ -55,13 +56,13 @@ export const DiscipleOptionsPage = (): JSX.Element => {
           end
           className='row-start-3 row-end-4 lg:row-start-1 lg:row-end-2 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-2 xl:col-end-3 2xl:row-start-2 2xl:row-end-3 2xl:col-start-2 2xl:col-end-3'
         >
-          <WhiteCard centered>
+          <WhiteCard className='md:h-[10rem]' centered>
             <FcClearFilters className='text-[10rem] lg:text-[6rem] xl:text-[6rem]' />
             <h2 className='text-sky-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
-              Buscar Discípulo
+              Consultar Discípulos
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Búsqueda de discípulos por termino o filtro.
+              Consultar registros de discípulos por tipo.
             </p>
           </WhiteCard>
         </NavLink>
@@ -72,7 +73,7 @@ export const DiscipleOptionsPage = (): JSX.Element => {
           end
           className='row-start-4 row-end-5 lg:h-full lg:row-start-2 lg:row-end-3 lg:col-start-2 lg:col-end-3 xl:row-start-2 xl:row-end-3 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-3 2xl:col-end-4'
         >
-          <WhiteCard centered>
+          <WhiteCard className='md:h-[11rem]' centered>
             <FcSupport className='text-[10rem] lg:text-[8rem] xl:text-[6rem]' />
             <h2 className='text-orange-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Actualizar Discípulo
@@ -89,13 +90,13 @@ export const DiscipleOptionsPage = (): JSX.Element => {
           end
           className='row-start-5 row-end-6 lg:row-start-3 lg:row-end-4 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-4 2xl:col-end-5'
         >
-          <WhiteCard centered>
-            <FcCancel className='text-[10rem] lg:text-[7rem] xl:text-[6rem]' />
+          <WhiteCard className='md:h-[11rem]' centered>
+            <RiDeleteBin2Fill className='text-[10rem] lg:text-[7rem] xl:text-[6rem] text-red-500' />
             <h2 className='text-red-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Eliminar Discípulo
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Marcar como inactivo el registro de un discípulo.
+              Eliminar el registro de un discípulo.
             </p>
           </WhiteCard>
         </NavLink>

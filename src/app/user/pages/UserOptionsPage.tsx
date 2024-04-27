@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom';
 
 import { WhiteCard } from '@/shared/components/white-cards';
-import { FcCancel, FcClearFilters, FcReadingEbook, FcSearch, FcSupport } from 'react-icons/fc';
+import { FcClearFilters, FcReadingEbook, FcSearch, FcSupport } from 'react-icons/fc';
+import { RiDeleteBin2Fill } from 'react-icons/ri';
 
 export const UserOptionsPage = (): JSX.Element => {
   return (
@@ -10,7 +11,7 @@ export const UserOptionsPage = (): JSX.Element => {
         Modulo Usuarios
       </h1>
       <p className='text-center font-sans text-sm sm:text-md md:text-[15px] font-bold px-4 pb-4 lg:text-base xl:text-lg'>
-        Bienvenido al modulo Usuario, por favor elige una opción.
+        Bienvenido, por favor elige una opción.
       </p>
       <hr className='p-[0.015rem] bg-slate-500' />
 
@@ -23,11 +24,11 @@ export const UserOptionsPage = (): JSX.Element => {
         >
           <WhiteCard centered>
             <FcReadingEbook className='text-[10rem] lg:text-[8rem] xl:text-[7rem]' />
-            <h2 className='text-green-500 font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl'>
-              Crear Usuario
+            <h2 className='text-green-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
+              Registrar Usuario
             </h2>
-            <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
-              Registrar información de un nuevo usuario.
+            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+              Crear nuevo registro de un usuario.
             </p>
           </WhiteCard>
         </NavLink>
@@ -40,11 +41,11 @@ export const UserOptionsPage = (): JSX.Element => {
         >
           <WhiteCard centered>
             <FcSearch className='text-[10rem] lg:text-[7rem] xl:text-[8rem]' />
-            <h2 className='text-blue-500 font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl'>
-              Buscar Usuario
+            <h2 className='text-blue-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
+              Consultar Usuarios
             </h2>
-            <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
-              Búsqueda de usuarios en general.
+            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+              Consultar registros de usuarios en general.
             </p>
           </WhiteCard>
         </NavLink>
@@ -57,11 +58,11 @@ export const UserOptionsPage = (): JSX.Element => {
         >
           <WhiteCard centered>
             <FcClearFilters className='text-[10rem] lg:text-[6rem] xl:text-[6rem]' />
-            <h2 className='text-sky-500 font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl'>
-              Buscar Usuario
+            <h2 className='text-sky-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
+              Consultar Usuarios
             </h2>
-            <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
-              Búsqueda de usuarios por termino o filtro.
+            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+              Consultar registros de usuarios por tipo.
             </p>
           </WhiteCard>
         </NavLink>
@@ -74,10 +75,10 @@ export const UserOptionsPage = (): JSX.Element => {
         >
           <WhiteCard centered>
             <FcSupport className='text-[10rem] lg:text-[8rem] xl:text-[6rem]' />
-            <h2 className='text-orange-500 font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl'>
+            <h2 className='text-orange-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Actualizar Usuario
             </h2>
-            <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
+            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
               Actualizar información del registro de un usuario.
             </p>
           </WhiteCard>
@@ -90,12 +91,12 @@ export const UserOptionsPage = (): JSX.Element => {
           className='row-start-5 row-end-6 lg:row-start-3 lg:row-end-4 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-4 2xl:col-end-5'
         >
           <WhiteCard centered>
-            <FcCancel className='text-[10rem] lg:text-[7rem] xl:text-[6rem]' />
-            <h2 className='text-red-500 font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl'>
+            <RiDeleteBin2Fill className='text-[10rem] lg:text-[7rem] xl:text-[6rem] text-red-500' />
+            <h2 className='text-red-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Eliminar Usuario
             </h2>
-            <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
-              Marcar como inactivo el registro de un usuario.
+            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+              Eliminar el registro de un usuario.
             </p>
           </WhiteCard>
         </NavLink>
