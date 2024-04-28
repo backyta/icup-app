@@ -24,8 +24,10 @@ import { cn } from '@/shared/lib/utils';
 import { useOfferingIncomeSubmitButtonLogic } from '@/app/offering/income/hooks';
 import { offeringIncomeFormSchema } from '@/app/offering/income/validations';
 
+import { familyHouses, zones } from '@/app/family-house/data';
+
 import { Status } from '@/shared/enums';
-import { familyHouses, members, zones } from '@/shared/data';
+import { members } from '@/shared/data';
 
 import { CurrencyType, CurrencyTypeNames } from '@/app/offering/shared/enums';
 import { type RejectedProps, type FilesProps } from '@/app/offering/shared/interfaces';

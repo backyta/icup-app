@@ -19,8 +19,15 @@ import { useUserSubmitButtonLogic } from '@/hooks';
 import { userSchema } from '@/app/user/validations';
 import { type UserDataKeys, type UserData } from '@/app/user/interfaces';
 
+import { cn } from '@/shared/lib/utils';
+
 import { Status, UserRoleNames, UserRoles } from '@/shared/enums';
 
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Checkbox } from '@/shared/components/ui/checkbox';
+import { Card, CardContent } from '@/shared/components/ui/card';
+import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 import {
   Form,
   FormControl,
@@ -30,12 +37,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form';
-
-import { Input } from '@/shared/components/ui/input';
-import { Button } from '@/shared/components/ui/button';
-import { Checkbox } from '@/shared/components/ui/checkbox';
-import { Card, CardContent } from '@/shared/components/ui/card';
-import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 import {
   Select,
   SelectContent,
@@ -43,7 +44,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/components/ui/select';
-import { cn } from '@/shared/lib/utils';
 
 const data: UserData = {
   firstName: 'Mario Luigi',

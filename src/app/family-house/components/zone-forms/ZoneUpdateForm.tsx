@@ -7,10 +7,10 @@ import { Toaster, toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { cn } from '@/shared/lib/utils';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { supervisors, zones } from '@/shared/data';
+import { cn } from '@/shared/lib/utils';
+import { supervisors, zones } from '@/app/family-house/data';
 
 import { formSearchZoneSchema, formZoneSchema } from '@/app/family-house/validations';
 import { type ZoneDataKeys, type ZoneData } from '@/app/family-house/interfaces';

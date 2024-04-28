@@ -5,10 +5,11 @@ import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from '@react-hook/media-query';
 
-import { cn } from '@/shared/lib/utils';
 import { BsFillPersonVcardFill } from 'react-icons/bs';
 
 import { UserTabsCard } from '@/app/user/components';
+
+import { cn } from '@/shared/lib/utils';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

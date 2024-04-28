@@ -8,11 +8,8 @@ import {
   SubtypesMaintenanceAndRepairExpensesAllowed, 
   SubtypesOperatingExpensesAllowed, 
   SubTypesSuppliesExpensesAllowed 
-} from "@/app/offering/expenses/helpers";
+} from '@/app/offering/expenses/helpers';
 
-
-
-// SubTypes
 export const validateAllowedOfferingExpensesSubtypes = (currentPath: string, type: string ) => {
 
   // Disabled Sub-types 

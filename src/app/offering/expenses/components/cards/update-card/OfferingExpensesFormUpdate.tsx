@@ -24,10 +24,6 @@ import { cn } from '@/shared/lib/utils';
 import { useOfferingExpensesSubmitButtonLogic } from '@/app/offering/expenses/hooks';
 import { offeringExpensesFormSchema } from '@/app/offering/expenses/validations';
 
-import { CurrencyType, CurrencyTypeNames } from '@/app/offering/shared/enums';
-import { type RejectedProps, type FilesProps } from '@/app/offering/shared/interfaces';
-import { Status } from '@/shared/enums';
-
 import {
   SubTypesOfferingExpenses,
   SubTypesOfferingExpensesNames,
@@ -39,6 +35,11 @@ import {
   type OfferingExpensesData,
   type OfferingExpensesDataKeys,
 } from '@/app/offering/expenses/interfaces';
+
+import { CurrencyType, CurrencyTypeNames } from '@/app/offering/shared/enums';
+import { type RejectedProps, type FilesProps } from '@/app/offering/shared/interfaces';
+
+import { Status } from '@/shared/enums';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';

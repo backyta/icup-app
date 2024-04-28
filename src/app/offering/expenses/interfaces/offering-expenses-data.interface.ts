@@ -1,4 +1,4 @@
-import { type CurrencyType } from "@/app/offering/shared/enums";
+import { type CurrencyType } from '@/app/offering/shared/enums';
 
 export interface OfferingExpensesData {
   type: string,

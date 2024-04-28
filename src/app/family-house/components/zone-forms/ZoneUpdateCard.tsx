@@ -4,9 +4,10 @@ import { useEffect, useRef } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 import { DialogTrigger } from '@radix-ui/react-dialog';
 
-import { useFamilyHouseStore } from '@/stores';
 import { ZoneUpdateForm } from '@/app/family-house/components';
 import { type FamilyHouseData } from '@/app/family-house/interfaces';
+
+import { useFamilyHouseStore } from '@/stores';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent } from '@/shared/components/ui/dialog';

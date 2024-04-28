@@ -1,8 +1,9 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable prefer-regex-literals */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { Status, UserRoles } from '@/shared/enums';
+
 import * as z from 'zod';
+import { Status, UserRoles } from '@/shared/enums';
 
 export const userSchema = z
   .object({

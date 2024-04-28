@@ -1,6 +1,6 @@
 import { offeringExpensesInfoColumns } from '@/app/offering/expenses/components';
-
 import { dataOfferingsExpenses as data } from '@/app/offering/expenses/data';
+
 import { DataTableSearchGeneral } from '@/shared/components';
 
 export const OfferingsExpensesGeneralSearchPage = (): JSX.Element => {

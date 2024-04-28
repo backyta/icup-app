@@ -5,7 +5,6 @@ export enum TypesOfferingExpenses {
   EquipmentAndTechnologyExpenses = "equipment_and_technology_expenses",
   SuppliesExpenses = "supplies_expenses",
   ActivitiesAndEventsExpenses = "activities_and_events_expenses",
-
 }
 
 export const TypesOfferingExpensesNames: Record<TypesOfferingExpenses, string> = {

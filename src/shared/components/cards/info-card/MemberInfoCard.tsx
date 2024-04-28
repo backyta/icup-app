@@ -6,8 +6,8 @@ import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from '@react-hook/media-query';
 import { BsFillPersonVcardFill } from 'react-icons/bs';
 
-import { MemberTabsCard } from '@/shared/components';
 import { cn } from '@/shared/lib/utils';
+import { MemberTabsCard } from '@/shared/components';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

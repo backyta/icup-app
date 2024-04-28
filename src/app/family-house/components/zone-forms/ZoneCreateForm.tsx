@@ -12,12 +12,13 @@ import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { formZoneSchema } from '@/app/family-house/validations';
 
+import { useZoneCreateSubmitButtonsLogic } from '@/hooks';
+
 import { cn } from '@/shared/lib/utils';
 import { supervisors } from '@/shared/data';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
-
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
@@ -37,7 +38,6 @@ import {
   CommandInput,
   CommandItem,
 } from '@/shared/components/ui/command';
-import { useZoneCreateSubmitButtonsLogic } from '@/hooks';
 
 interface Props {
   onClose: () => void;

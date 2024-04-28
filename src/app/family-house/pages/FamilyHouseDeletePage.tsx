@@ -1,7 +1,7 @@
 import { familyHouseDeleteColumns } from '@/app/family-house/components';
 
 import { DataTableSearchByTerm } from '@/shared/components';
-import { dataFamilyHouses as data } from '@/shared/data';
+import { dataFamilyHouses as data } from '@/app/family-house/data';
 
 export const FamilyHouseDeletePage = (): JSX.Element => {
   return (

@@ -169,6 +169,7 @@ export enum SubTypesSearch {
   UserByRoles = 'user_by_roles' 
 }
 
+// TODO : revisar quitar las comillas de aqui de las keys
 export const SubTypesSearchNames: Record<SubTypesSearch, string> =  {
 
   //* Member
@@ -230,50 +231,50 @@ export const SubTypesSearchNames: Record<SubTypesSearch, string> =  {
   'family_house_by_preacher_full_name': 'Por nombres y apellidos de su predicador',
 
   //* Tithe
-  'tithe_by_names': 'Buscar por nombres',
-  'tithe_by_last_names': 'Buscar por apellidos',
-  'tithe_by_full_name': 'Buscar por nombres y apellidos',
-  'tithe_by_date': 'Buscar por fecha',
-  'tithe_by_date_names': 'Buscar por nombres y fecha',
-  'tithe_by_date_last_names': 'Buscar por apellidos y fechas',
-  'tithe_by_date_full_name': 'Buscar por nombres, apellidos y fecha',
+  'tithe_by_names': 'Por nombres',
+  'tithe_by_last_names': 'Por apellidos',
+  'tithe_by_full_name': 'Por nombres y apellidos',
+  'tithe_by_date': 'Por fecha',
+  'tithe_by_date_names': 'Por nombres y fecha',
+  'tithe_by_date_last_names': 'Por apellidos y fechas',
+  'tithe_by_date_full_name': 'Por nombres, apellidos y fecha',
 
 
   //! Offering Income
   //* Sunday Worship, Family House, Fasting Zonal, Fasting General, Vigil Zonal, vigilia General, Ground Church, Activities, Youngs
-  'offering_by_date': 'Buscar por fecha',
+  'offering_by_date': 'Por fecha',
 
   //* Sunday Worship, youngs, school sunday
-  'offering_by_shift': 'Buscar por turno',
-  'offering_by_date_shift': 'Buscar por fecha y turno',
+  'offering_by_shift': 'Por turno',
+  'offering_by_date_shift': 'Por fecha y turno',
 
 
   //* Family House, Fasting Zonal, Vigil Zonal
-  'offering_by_zone': 'Buscar por zona',
-  'offering_by_date_zone': 'Buscar por zona y fecha',
+  'offering_by_zone': 'Por zona',
+  'offering_by_date_zone': 'Por zona y fecha',
 
   //* Family House
-  'offering_by_preacher_names': 'Buscar por nombres de su predicador',
-  'offering_by_preacher_last_names': 'Buscar por apellidos de su predicador',
-  'offering_by_preacher_full_name': 'Buscar por nombres y apellidos de su predicador',
-  'offering_by_code_house': 'Buscar por código de casa',
-  'offering_by_date_code_house': 'Buscar por código y fecha',
+  'offering_by_preacher_names': 'Por nombres de su predicador',
+  'offering_by_preacher_last_names': 'Por apellidos de su predicador',
+  'offering_by_preacher_full_name': 'Por nombres y apellidos de su predicador',
+  'offering_by_code_house': 'Por código de casa',
+  'offering_by_date_code_house': 'Por código y fecha',
 
   //* Offering Ayuno Zonal y Vigilia Zonal
-  'offering_by_supervisor_names': 'Buscar por nombres de su supervisor',
-  'offering_by_supervisor_last_names': 'Buscar por apellidos de su supervisor',
-  'offering_by_supervisor_full_name': 'Buscar por nombres y apellidos de su supervisor',
+  'offering_by_supervisor_names': 'Por nombres de su supervisor',
+  'offering_by_supervisor_last_names': 'Por apellidos de su supervisor',
+  'offering_by_supervisor_full_name': 'Por nombres y apellidos de su supervisor',
 
   //* Offering Ground Church and Special
-  'offering_by_names': 'Buscar por nombres del aportante',
-  'offering_by_last_names': 'Buscar por apellidos del aportante',
-  'offering_by_full_name': 'Buscar por nombres y apellidos del aportante',
+  'offering_by_names': 'Por nombres del aportante',
+  'offering_by_last_names': 'Por apellidos del aportante',
+  'offering_by_full_name': 'Por nombres y apellidos del aportante',
 
   //* Users
-  'user_by_names' : 'Buscar por sus propios nombres',
-  'user_by_last_names': 'Buscar por sus propios apellidos',
-  'user_by_full_name': 'Buscar por sus propios nombres y apellidos',
-  'user_by_roles': 'Buscar por sus roles',
+  'user_by_names' : 'Por sus nombres',
+  'user_by_last_names': 'Por sus apellidos',
+  'user_by_full_name': 'Por sus nombres y apellidos',
+  'user_by_roles': 'Por sus roles',
 
   //! Offering Expenses
   //* Operative Expenses

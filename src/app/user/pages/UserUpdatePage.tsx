@@ -1,6 +1,6 @@
 import { userUpdateColumns } from '@/app/user/components';
 
-import { dataUsers as data } from '@/shared/data';
+import { dataUsers as data } from '@/app/user/data';
 import { DataTableSearchByTerm } from '@/shared/components';
 
 export const UserUpdatePage = (): JSX.Element => {

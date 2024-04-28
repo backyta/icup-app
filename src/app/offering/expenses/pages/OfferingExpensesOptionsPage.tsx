@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
 
-import { FcClearFilters, FcSearch, FcSupport } from 'react-icons/fc';
-import { RiDeleteBin2Fill } from 'react-icons/ri';
 import { GiExpense } from 'react-icons/gi';
+import { RiDeleteBin2Fill } from 'react-icons/ri';
+import { FcClearFilters, FcSearch, FcSupport } from 'react-icons/fc';
 
 import { WhiteCard } from '@/shared/components';
 

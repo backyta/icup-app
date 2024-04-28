@@ -1,4 +1,4 @@
-import { SubTypesOfferingExpenses } from "@/app/offering/expenses/enums";
+import { SubTypesOfferingExpenses } from '@/app/offering/expenses/enums';
 
 //* Subtypes allowed
     // Operative Expenses

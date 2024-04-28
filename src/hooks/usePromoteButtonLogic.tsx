@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type FieldName } from '@/shared/enums';
+import { type FieldNames } from '@/shared/enums';
 import { type MemberData } from '@/shared/interfaces';
 
 interface Options {
   formMemberUpdate: UseFormReturn<MemberData, any, MemberData>;
-  fieldName: typeof FieldName;
+  fieldName: typeof FieldNames;
   setIsPromoteButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

@@ -2,7 +2,6 @@
 
 import {  TypesSearch, SearchSelectionOptionsNames, SubTypesSearch } from "@/shared/enums";
 
-// validateSubTypesAllowedByModule
 export const validateTermSelectByTypeAndSubtype = (type: string, subType:string | undefined) => {
 
   //* Disabled Term Select

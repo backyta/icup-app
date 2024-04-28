@@ -7,14 +7,20 @@ import { Toaster, toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { cn } from '@/shared/lib/utils';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { supervisors, zones } from '@/shared/data';
+import { cn } from '@/shared/lib/utils';
+import { supervisors, zones } from '@/app/family-house/data';
 
 import { formSearchZoneSchema, formZoneSchema } from '@/app/family-house/validations';
 import { type ZoneDataKeys, type ZoneData } from '@/app/family-house/interfaces';
 
+import { useZoneDeleteSubmitButtonsLogic } from '@/hooks';
+
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Card, CardContent } from '@/shared/components/ui/card';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Form,
   FormControl,
@@ -24,11 +30,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form';
-
-import { Input } from '@/shared/components/ui/input';
-import { Button } from '@/shared/components/ui/button';
-import { Card, CardContent } from '@/shared/components/ui/card';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Command,
   CommandEmpty,
@@ -47,7 +48,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/shared/components/ui/alert-dialog';
-import { useZoneDeleteSubmitButtonsLogic } from '@/hooks';
 
 //* data ficticia
 const data: ZoneData = {

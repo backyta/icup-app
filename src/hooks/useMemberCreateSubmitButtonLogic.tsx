@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
 import { useEffect } from 'react';
 
+import { toast } from 'sonner';
 import { type UseFormReturn } from 'react-hook-form';
 
 import { type MemberRoles } from '@/shared/enums';
 import { type MemberData } from '@/shared/interfaces';
-import { toast } from 'sonner';
 
 interface Options {
   formMemberCrate: UseFormReturn<MemberData, any, MemberData>;

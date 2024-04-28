@@ -1,8 +1,9 @@
 import { NavLink } from 'react-router-dom';
 
-import { WhiteCard } from '@/shared/components';
-import { FcClearFilters, FcManager, FcSearch, FcSupport } from 'react-icons/fc';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
+import { FcClearFilters, FcManager, FcSearch, FcSupport } from 'react-icons/fc';
+
+import { WhiteCard } from '@/shared/components';
 
 export const LeaderOptionsPage = (): JSX.Element => {
   return (

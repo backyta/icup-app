@@ -1,4 +1,4 @@
-export enum FieldName {
+export enum FieldNames {
   FirstName = 'firstName',
   LastName = 'lastName',
   Gender = 'gender',
@@ -19,6 +19,5 @@ export enum FieldName {
   TheirCopastor = 'theirCopastor',
   TheirSupervisor = 'theirSupervisor',
   TheirFamilyHouse = 'theirFamilyHouse',
-
 }
 

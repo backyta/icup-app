@@ -35,13 +35,11 @@ import {
 
 import { formSearchByTermSchema } from '@/shared/validations';
 import { type FormSearchByTerm } from '@/shared/interfaces';
-
 import { Calendar } from '@/shared/components/ui/calendar';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
-
 import {
   Form,
   FormControl,
@@ -51,7 +49,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form';
-
 import {
   Table,
   TableBody,
@@ -194,8 +191,6 @@ export function DataTableSearchByTerm<TData, TValue>({
   const disabledSubTypes = validateSubTypesAllowedByModule(pathname, type);
   const disabledTermSelect = validateTermSelectByTypeAndSubtype(type, subType);
 
-  // TODO : seguir revisando el tipo de búsqueda y termino por modulo y seguir filtrando.
-  // TODO : pasar los select abajo en el termino, solo los tipos y sub tipos irán arriba
   return (
     <div className='md:w-full m-auto lg:w-full pt-3'>
       {isFiltersDisabled && (
@@ -772,6 +767,10 @@ export function DataTableSearchByTerm<TData, TValue>({
         </Form>
       )}
 
+      {/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ */}
+
+      {/* Input Filters and search results */}
+
       {/* Members */}
 
       {!isFiltersDisabled &&
@@ -813,21 +812,8 @@ export function DataTableSearchByTerm<TData, TValue>({
                   }`}
                 </span>
               )}
-              {(dataForm?.type === TypesSearch.MonthBirth ||
-                dataForm?.type === TypesSearch.Gender ||
-                dataForm?.type === TypesSearch.MaritalStatus ||
-                dataForm?.type === TypesSearch.Status) && (
-                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                  {' '}
-                  -{' '}
-                  {`${
-                    Object.entries(SearchSelectionOptionsNames).find(
-                      ([key, value]) => key === dataForm?.termSelect && value
-                    )?.[1]
-                  }`}
-                </span>
-              )}
             </div>
+
             {/* Search Terms */}
             {(dataForm?.type === TypesSearch.FirstName ||
               dataForm?.type === TypesSearch.LastName ||
@@ -840,7 +826,11 @@ export function DataTableSearchByTerm<TData, TValue>({
               dataForm?.type === TypesSearch.Address ||
               dataForm?.type === TypesSearch.Department ||
               dataForm?.type === TypesSearch.Province ||
-              dataForm?.type === TypesSearch.District) && (
+              dataForm?.type === TypesSearch.District ||
+              dataForm?.type === TypesSearch.MonthBirth ||
+              dataForm?.type === TypesSearch.Gender ||
+              dataForm?.type === TypesSearch.MaritalStatus ||
+              dataForm?.type === TypesSearch.Status) && (
               <div>
                 <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
                   Termino de búsqueda:
@@ -874,12 +864,25 @@ export function DataTableSearchByTerm<TData, TValue>({
                 )}
                 {dataForm?.type === TypesSearch.DateBirth && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                    {`${dataForm?.termDate?.from ? formatDate(dataForm?.termDate?.from) : ''} - ${dataForm?.termDate?.to ? formatDate(dataForm?.termDate?.to) : ''}`}
+                    {`${dataForm?.termDate?.from ? formatDate(dataForm?.termDate?.from) : ''} ${dataForm?.termDate?.to ? ` - ${formatDate(dataForm?.termDate?.to)}` : ''}`}
+                  </span>
+                )}
+                {(dataForm?.type === TypesSearch.MonthBirth ||
+                  dataForm?.type === TypesSearch.Gender ||
+                  dataForm?.type === TypesSearch.MaritalStatus ||
+                  dataForm?.type === TypesSearch.Status) && (
+                  <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                    {`${
+                      Object.entries(SearchSelectionOptionsNames).find(
+                        ([key, value]) => key === dataForm?.termSelect && value
+                      )?.[1]
+                    }`}
                   </span>
                 )}
               </div>
             )}
 
+            {/* Input Filters */}
             <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center py-4 lg:gap-6'>
               <Input
                 placeholder='Filtro por nombres...'
@@ -924,100 +927,374 @@ export function DataTableSearchByTerm<TData, TValue>({
           </div>
         )}
 
+      {/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ */}
+
       {/* Family House */}
 
       {!isFiltersDisabled &&
         (pathname === '/family-houses/search-by-term-family-houses' ||
           pathname === '/family-houses/update-family-house' ||
           pathname === '/family-houses/delete-family-house') && (
-          <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
-            <Input
-              placeholder='Filtro por nombre de casa...'
-              value={(table.getColumn('name_house')?.getFilterValue() as string) ?? ''}
-              onChange={(event) =>
-                table.getColumn('name_house')?.setFilterValue(event.target.value)
-              }
-              className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
-              disabled={isFiltersDisabled}
-            />
-            <Input
-              placeholder='Filtro por código de casa...'
-              value={(table.getColumn('code')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('code')?.setFilterValue(event.target.value)}
-              className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
-              disabled={isFiltersDisabled}
-            />
-            <Button
-              variant='ghost'
-              className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 bg-red-500 text-red-950 border-red-500 hover:bg-red-500 hover:text-white'
-              onClick={() => {
-                table.getColumn('name_house')?.setFilterValue('');
-                table.getColumn('code')?.setFilterValue('');
-              }}
-            >
-              Borrar
-            </Button>
-            <Button
-              variant='ghost'
-              className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
-              onClick={() => {
-                setIsFiltersDisabled(true);
-                table.getColumn('name_house')?.setFilterValue('');
-                table.getColumn('code')?.setFilterValue('');
-              }}
-            >
-              Nueva Búsqueda
-            </Button>
+          <div>
+            {/* Search Types */}
+            <div>
+              <span className='dark:text-offering-color text-search-color font-bold text-[14px] md:text-[15.5px]'>
+                Tipo de búsqueda:
+              </span>{' '}
+              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                {`${
+                  Object.entries(TypesSearchNames).find(
+                    ([key, value]) => key === dataForm?.type && value
+                  )?.[1]
+                }`}
+              </span>
+              {(dataForm?.type === TypesSearch.FirstName ||
+                dataForm?.type === TypesSearch.LastName ||
+                dataForm?.type === TypesSearch.FullName) && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {' '}
+                  -{' '}
+                  {`${
+                    Object.entries(SubTypesSearchNames).find(
+                      ([key, value]) => key === dataForm?.subType && value
+                    )?.[1]
+                  }`}
+                </span>
+              )}
+            </div>
+
+            {/* Search Terms */}
+            <div>
+              <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
+                Termino de búsqueda:
+              </span>{' '}
+              {(dataForm?.type === TypesSearch.Zone ||
+                dataForm?.type === TypesSearch.CodeHouse ||
+                dataForm?.type === TypesSearch.NameHouse ||
+                dataForm?.type === TypesSearch.Address ||
+                dataForm?.type === TypesSearch.Department ||
+                dataForm?.type === TypesSearch.Province ||
+                dataForm?.type === TypesSearch.District) && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {`${dataForm?.termInput}`}
+                </span>
+              )}
+              {dataForm?.type === TypesSearch.FirstName && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {`${dataForm?.termNames}`}
+                </span>
+              )}
+              {dataForm?.type === TypesSearch.LastName && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {`${dataForm?.termLastNames}`}
+                </span>
+              )}
+              {dataForm?.type === TypesSearch.FullName && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {`${dataForm?.termNames} - ${dataForm?.termLastNames} `}
+                </span>
+              )}
+              {dataForm?.type === TypesSearch.Status && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {`${
+                    Object.entries(SearchSelectionOptionsNames).find(
+                      ([key, value]) => key === dataForm?.termSelect && value
+                    )?.[1]
+                  }`}
+                </span>
+              )}
+            </div>
+
+            {/* Inputs Filters */}
+            <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
+              <Input
+                placeholder='Filtro por nombre de casa...'
+                value={(table.getColumn('name_house')?.getFilterValue() as string) ?? ''}
+                onChange={(event) =>
+                  table.getColumn('name_house')?.setFilterValue(event.target.value)
+                }
+                className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
+                disabled={isFiltersDisabled}
+              />
+              <Input
+                placeholder='Filtro por código de casa...'
+                value={(table.getColumn('code')?.getFilterValue() as string) ?? ''}
+                onChange={(event) => table.getColumn('code')?.setFilterValue(event.target.value)}
+                className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
+                disabled={isFiltersDisabled}
+              />
+              <Button
+                variant='ghost'
+                className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 bg-red-500 text-red-950 border-red-500 hover:bg-red-500 hover:text-white'
+                onClick={() => {
+                  table.getColumn('name_house')?.setFilterValue('');
+                  table.getColumn('code')?.setFilterValue('');
+                }}
+              >
+                Borrar
+              </Button>
+              <Button
+                variant='ghost'
+                className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
+                onClick={() => {
+                  setIsFiltersDisabled(true);
+                  table.getColumn('name_house')?.setFilterValue('');
+                  table.getColumn('code')?.setFilterValue('');
+                }}
+              >
+                Nueva Búsqueda
+              </Button>
+            </div>
           </div>
         )}
+      {/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ */}
 
-      {/* Offerings */}
+      {/* Offerings Income */}
 
       {!isFiltersDisabled &&
         (pathname === '/offerings/income/search-by-term-offerings-income' ||
           pathname === '/offerings/income/update-offering-income' ||
-          pathname === '/offerings/income/delete-offering-income' ||
-          pathname === '/offerings/expenses/search-by-term-offerings-expenses' ||
-          pathname === '/offerings/expenses/update-offering-expenses' ||
-          pathname === '/offerings/expenses/delete-offering-expenses') && (
-          <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
-            <Input
-              placeholder='Filtro por tipo...'
-              value={(table.getColumn('type')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('type')?.setFilterValue(event.target.value)}
-              className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
-              disabled={isFiltersDisabled}
-            />
-            <Input
-              placeholder='Filtro por sub-tipo...'
-              value={(table.getColumn('sub_type')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('sub_type')?.setFilterValue(event.target.value)}
-              className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
-              disabled={isFiltersDisabled}
-            />
-            <Button
-              variant='ghost'
-              className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 bg-red-500 text-red-950 border-red-500 hover:bg-red-500 hover:text-white'
-              onClick={() => {
-                table.getColumn('type')?.setFilterValue('');
-                table.getColumn('sub_type')?.setFilterValue('');
-              }}
-            >
-              Borrar
-            </Button>
-            <Button
-              variant='ghost'
-              className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
-              onClick={() => {
-                setIsFiltersDisabled(true);
-                table.getColumn('type')?.setFilterValue('');
-                table.getColumn('sub_type')?.setFilterValue('');
-              }}
-            >
-              Nueva Búsqueda
-            </Button>
+          pathname === '/offerings/income/delete-offering-income') && (
+          <div>
+            {/* Search Types */}
+            <div>
+              <span className='dark:text-offering-color text-search-color font-bold text-[14px] md:text-[15.5px]'>
+                Tipo de búsqueda:
+              </span>{' '}
+              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                {`${
+                  Object.entries(TypesSearchNames).find(
+                    ([key, value]) => key === dataForm?.type && value
+                  )?.[1]
+                }`}
+              </span>
+              {(dataForm?.type === TypesSearch.Tithe ||
+                dataForm?.type === TypesSearch.SundayWorship ||
+                dataForm?.type === TypesSearch.FamilyHouse ||
+                dataForm?.type === TypesSearch.GeneralFasting ||
+                dataForm?.type === TypesSearch.GeneralVigil ||
+                dataForm?.type === TypesSearch.ZonalFasting ||
+                dataForm?.type === TypesSearch.ZonalVigil ||
+                dataForm?.type === TypesSearch.SundaySchool ||
+                dataForm?.type === TypesSearch.YouthWorship ||
+                dataForm?.type === TypesSearch.Activities ||
+                dataForm?.type === TypesSearch.ChurchGround ||
+                dataForm?.type === TypesSearch.Special) && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {' '}
+                  -{' '}
+                  {`${
+                    Object.entries(SubTypesSearchNames).find(
+                      ([key, value]) => key === dataForm?.subType && value
+                    )?.[1]
+                  }`}
+                </span>
+              )}
+            </div>
+
+            {/* Search Terms */}
+            <div>
+              <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
+                Termino de búsqueda:
+              </span>{' '}
+              {(dataForm?.subType === SubTypesSearch.OfferingByZone ||
+                dataForm?.subType === SubTypesSearch.OfferingByDateZone ||
+                dataForm?.subType === SubTypesSearch.OfferingByDateCodeHouse ||
+                dataForm?.subType === SubTypesSearch.OfferingByCodeHouse) && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {`${dataForm?.termInput}`} -{' '}
+                </span>
+              )}
+              {(dataForm?.subType === SubTypesSearch.OfferingByPreacherNames ||
+                dataForm?.subType === SubTypesSearch.OfferingBySupervisorNames ||
+                dataForm?.subType === SubTypesSearch.OfferingByNames) && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {`${dataForm?.termNames}`}
+                </span>
+              )}
+              {(dataForm?.subType === SubTypesSearch.OfferingByPreacherLastNames ||
+                dataForm?.subType === SubTypesSearch.OfferingBySupervisorLastNames ||
+                dataForm?.subType === SubTypesSearch.OfferingByLastNames) && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {`${dataForm?.termLastNames}`}
+                </span>
+              )}
+              {(dataForm?.subType === SubTypesSearch.OfferingByPreacherFullName ||
+                dataForm?.subType === SubTypesSearch.OfferingBySupervisorFullName ||
+                dataForm?.subType === SubTypesSearch.OfferingByFullName) && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {`${dataForm?.termNames} - ${dataForm?.termLastNames} `}
+                </span>
+              )}
+              {(dataForm?.subType === SubTypesSearch.OfferingByDate ||
+                dataForm?.subType === SubTypesSearch.OfferingByDateShift ||
+                dataForm?.subType === SubTypesSearch.OfferingByDateZone ||
+                dataForm?.subType === SubTypesSearch.OfferingByDateCodeHouse) && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {`${dataForm?.termDate?.from ? formatDate(dataForm?.termDate?.from) : ''} ${dataForm?.termDate?.to ? ` - ${formatDate(dataForm?.termDate?.to)}` : ''}`}
+                </span>
+              )}
+              {dataForm?.type === TypesSearch.Status && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {`${
+                    Object.entries(SearchSelectionOptionsNames).find(
+                      ([key, value]) => key === dataForm?.termSelect && value
+                    )?.[1]
+                  }`}
+                </span>
+              )}
+              {(dataForm?.subType === SubTypesSearch.OfferingByShift ||
+                dataForm?.subType === SubTypesSearch.OfferingByDateShift) && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {' '}
+                  -{' '}
+                  {`${
+                    Object.entries(SearchSelectionOptionsNames).find(
+                      ([key, value]) => key === dataForm?.termSelect && value
+                    )?.[1]
+                  }`}
+                </span>
+              )}
+            </div>
+
+            {/* Inputs Filters */}
+
+            <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
+              <Input
+                placeholder='Filtro por tipo...'
+                value={(table.getColumn('type')?.getFilterValue() as string) ?? ''}
+                onChange={(event) => table.getColumn('type')?.setFilterValue(event.target.value)}
+                className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
+                disabled={isFiltersDisabled}
+              />
+              <Input
+                placeholder='Filtro por sub-tipo...'
+                value={(table.getColumn('sub_type')?.getFilterValue() as string) ?? ''}
+                onChange={(event) =>
+                  table.getColumn('sub_type')?.setFilterValue(event.target.value)
+                }
+                className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
+                disabled={isFiltersDisabled}
+              />
+              <Button
+                variant='ghost'
+                className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 bg-red-500 text-red-950 border-red-500 hover:bg-red-500 hover:text-white'
+                onClick={() => {
+                  table.getColumn('type')?.setFilterValue('');
+                  table.getColumn('sub_type')?.setFilterValue('');
+                }}
+              >
+                Borrar
+              </Button>
+              <Button
+                variant='ghost'
+                className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
+                onClick={() => {
+                  setIsFiltersDisabled(true);
+                  table.getColumn('type')?.setFilterValue('');
+                  table.getColumn('sub_type')?.setFilterValue('');
+                }}
+              >
+                Nueva Búsqueda
+              </Button>
+            </div>
           </div>
         )}
+      {/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ */}
+
+      {/* Offerings Expenses */}
+
+      {!isFiltersDisabled &&
+        (pathname === '/offerings/expenses/search-by-term-offerings-expenses' ||
+          pathname === '/offerings/expenses/update-offering-expenses' ||
+          pathname === '/offerings/expenses/delete-offering-expenses') && (
+          <div>
+            {/* Search Types */}
+            <div>
+              <span className='dark:text-offering-color text-search-color font-bold text-[14px] md:text-[15.5px]'>
+                Tipo de búsqueda:
+              </span>{' '}
+              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                {`${
+                  Object.entries(TypesSearchNames).find(
+                    ([key, value]) => key === dataForm?.type && value
+                  )?.[1]
+                }`}
+              </span>
+              {(dataForm?.type === TypesSearch.OperationalExpenses ||
+                dataForm?.type === TypesSearch.MaintenanceAndRepairExpenses ||
+                dataForm?.type === TypesSearch.DecorationExpenses ||
+                dataForm?.type === TypesSearch.EquipmentAndTechnologyExpenses ||
+                dataForm?.type === TypesSearch.SuppliesExpenses ||
+                dataForm?.type === TypesSearch.ActivitiesAndEventsExpenses) && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {' '}
+                  -{' '}
+                  {`${
+                    dataForm?.subType
+                      ? Object.entries(SubTypesSearchNames).find(
+                          ([key, value]) => key === dataForm?.subType && value
+                        )?.[1]
+                      : `Todos los sub-tipos`
+                  }`}
+                </span>
+              )}
+            </div>
+
+            {/* Search Terms */}
+            <div>
+              <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
+                Termino de búsqueda:
+              </span>{' '}
+              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                {`${dataForm?.termDate?.from ? formatDate(dataForm?.termDate?.from) : ''} ${dataForm?.termDate?.to ? ` - ${formatDate(dataForm?.termDate?.to)}` : ''}`}
+              </span>
+            </div>
+
+            {/* Inputs Filters */}
+
+            <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
+              <Input
+                placeholder='Filtro por tipo...'
+                value={(table.getColumn('type')?.getFilterValue() as string) ?? ''}
+                onChange={(event) => table.getColumn('type')?.setFilterValue(event.target.value)}
+                className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
+                disabled={isFiltersDisabled}
+              />
+              <Input
+                placeholder='Filtro por sub-tipo...'
+                value={(table.getColumn('sub_type')?.getFilterValue() as string) ?? ''}
+                onChange={(event) =>
+                  table.getColumn('sub_type')?.setFilterValue(event.target.value)
+                }
+                className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
+                disabled={isFiltersDisabled}
+              />
+              <Button
+                variant='ghost'
+                className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 bg-red-500 text-red-950 border-red-500 hover:bg-red-500 hover:text-white'
+                onClick={() => {
+                  table.getColumn('type')?.setFilterValue('');
+                  table.getColumn('sub_type')?.setFilterValue('');
+                }}
+              >
+                Borrar
+              </Button>
+              <Button
+                variant='ghost'
+                className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
+                onClick={() => {
+                  setIsFiltersDisabled(true);
+                  table.getColumn('type')?.setFilterValue('');
+                  table.getColumn('sub_type')?.setFilterValue('');
+                }}
+              >
+                Nueva Búsqueda
+              </Button>
+            </div>
+          </div>
+        )}
+      {/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ */}
 
       {/* Users */}
 
@@ -1025,45 +1302,123 @@ export function DataTableSearchByTerm<TData, TValue>({
         (pathname === '/users/search-by-term-users' ||
           pathname === '/users/update-user' ||
           pathname === '/users/delete-user') && (
-          <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
-            <Input
-              placeholder='Filtro por correo electrónico...'
-              value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
-              className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
-              disabled={isFiltersDisabled}
-            />
-            <Input
-              placeholder='Filtro por roles de usuario...'
-              value={(table.getColumn('roles')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('roles')?.setFilterValue(event.target.value)}
-              className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
-              disabled={isFiltersDisabled}
-            />
-            <Button
-              variant='ghost'
-              className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 bg-red-500 text-red-950 border-red-500 hover:bg-red-500 hover:text-white'
-              onClick={() => {
-                table.getColumn('email')?.setFilterValue('');
-                table.getColumn('roles')?.setFilterValue('');
-              }}
-            >
-              Borrar
-            </Button>
-            <Button
-              variant='ghost'
-              className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
-              onClick={() => {
-                setIsFiltersDisabled(true);
-                table.getColumn('email')?.setFilterValue('');
-                table.getColumn('roles')?.setFilterValue('');
-              }}
-            >
-              Nueva Búsqueda
-            </Button>
+          <div>
+            {/* Search Types */}
+            <div>
+              <span className='dark:text-offering-color text-search-color font-bold text-[14px] md:text-[15.5px]'>
+                Tipo de búsqueda:
+              </span>{' '}
+              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                {`${
+                  Object.entries(TypesSearchNames).find(
+                    ([key, value]) => key === dataForm?.type && value
+                  )?.[1]
+                }`}
+              </span>
+              {(dataForm?.type === TypesSearch.FirstName ||
+                dataForm?.type === TypesSearch.LastName ||
+                dataForm?.type === TypesSearch.FullName) && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {' '}
+                  -{' '}
+                  {`${
+                    Object.entries(SubTypesSearchNames).find(
+                      ([key, value]) => key === dataForm?.subType && value
+                    )?.[1]
+                  }`}
+                </span>
+              )}
+            </div>
+
+            {/* Search Terms */}
+            {(dataForm?.type === TypesSearch.FirstName ||
+              dataForm?.type === TypesSearch.LastName ||
+              dataForm?.type === TypesSearch.FullName ||
+              dataForm?.type === TypesSearch.Roles ||
+              dataForm?.type === TypesSearch.Status) && (
+              <div>
+                <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
+                  Termino de búsqueda:
+                </span>{' '}
+                {dataForm?.type === TypesSearch.FirstName && (
+                  <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                    {`${dataForm?.termNames}`}
+                  </span>
+                )}
+                {dataForm?.type === TypesSearch.LastName && (
+                  <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                    {`${dataForm?.termLastNames}`}
+                  </span>
+                )}
+                {dataForm?.type === TypesSearch.FullName && (
+                  <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                    {`${dataForm?.termNames} - ${dataForm?.termLastNames} `}
+                  </span>
+                )}
+                {dataForm?.type === TypesSearch.Roles && (
+                  <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                    {`${Object.entries(UserRoleNames)
+                      .map(([key, value]) => {
+                        return dataForm?.termMultiSelect?.includes(key as UserRoles) ? value : null;
+                      })
+                      .filter((value) => value !== null)
+                      .join(', ')}`}
+                  </span>
+                )}
+                {dataForm?.type === TypesSearch.Status && (
+                  <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                    {`${
+                      Object.entries(SearchSelectionOptionsNames).find(
+                        ([key, value]) => key === dataForm?.termSelect && value
+                      )?.[1]
+                    }`}
+                  </span>
+                )}
+              </div>
+            )}
+            <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
+              <Input
+                placeholder='Filtro por correo electrónico...'
+                value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
+                onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
+                className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
+                disabled={isFiltersDisabled}
+              />
+              <Input
+                placeholder='Filtro por roles de usuario...'
+                value={(table.getColumn('roles')?.getFilterValue() as string) ?? ''}
+                onChange={(event) => table.getColumn('roles')?.setFilterValue(event.target.value)}
+                className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
+                disabled={isFiltersDisabled}
+              />
+              <Button
+                variant='ghost'
+                className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 bg-red-500 text-red-950 border-red-500 hover:bg-red-500 hover:text-white'
+                onClick={() => {
+                  table.getColumn('email')?.setFilterValue('');
+                  table.getColumn('roles')?.setFilterValue('');
+                }}
+              >
+                Borrar
+              </Button>
+              <Button
+                variant='ghost'
+                className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
+                onClick={() => {
+                  setIsFiltersDisabled(true);
+                  table.getColumn('email')?.setFilterValue('');
+                  table.getColumn('roles')?.setFilterValue('');
+                }}
+              >
+                Nueva Búsqueda
+              </Button>
+            </div>
           </div>
         )}
 
+      {/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ */}
+
+      {/* render date table */}
       <div className='rounded-md border'>
         <Table>
           <TableHeader>

@@ -4,19 +4,19 @@
 import { useForm } from 'react-hook-form';
 
 import type * as z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Toaster, toast } from 'sonner';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import { cn } from '@/shared/lib/utils';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { formFamilyHouseSchema } from '@/app/family-house/validations';
 import { ZoneCreateCard, ZoneUpdateCard, ZoneDeleteCard } from '@/app/family-house/components';
 
 import { useFamilyHouseCreateSubmitButtonLogic } from '@/hooks';
-
 import { useFamilyHouseStore } from '@/stores';
-import { preachers, zones } from '@/shared/data';
+
+import { cn } from '@/shared/lib/utils';
+import { preachers, zones } from '@/app/family-house/data';
 
 import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';

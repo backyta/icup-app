@@ -76,7 +76,7 @@ import {
 } from '@/shared/components/ui/alert-dialog';
 
 import {
-  FieldName,
+  FieldNames,
   Gender,
   GenderNames,
   MaritalStatus,
@@ -181,7 +181,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
 
   usePromoteButtonLogic({
     formMemberUpdate: form,
-    fieldName: FieldName,
+    fieldName: FieldNames,
     setIsPromoteButtonDisabled,
   });
 

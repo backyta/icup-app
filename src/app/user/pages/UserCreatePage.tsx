@@ -8,18 +8,17 @@ import type * as z from 'zod';
 import { Toaster, toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
-import { useUserSubmitButtonLogic } from '@/hooks';
 import { userSchema } from '@/app/user/validations';
+
+import { useUserSubmitButtonLogic } from '@/hooks';
 
 import { UserRoles, UserRoleNames } from '@/shared/enums';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
-
 import {
   Form,
   FormControl,

@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import { type ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
+import { type ColumnDef } from '@tanstack/react-table';
 
 import { OfferingIncomeInfoCard } from '@/app/offering/income/components';
 

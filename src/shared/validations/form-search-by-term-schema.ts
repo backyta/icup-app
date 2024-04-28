@@ -3,7 +3,6 @@
 import * as z from 'zod';
 import { SubTypesSearch, TypesSearch, UserRoles, RecordOrder } from '@/shared/enums';
 
-
 export const formSearchByTermSchema = z
   .object({
     type: z.nativeEnum(TypesSearch,{
@@ -228,7 +227,6 @@ export const formSearchByTermSchema = z
         data.subType === SubTypesSearch.TitheByDateFullName ||
         data.subType === SubTypesSearch.OfferingByDate ||
         data.subType === SubTypesSearch.OfferingByDateShift ||
-        data.subType === SubTypesSearch.OfferingByZone ||
         data.subType === SubTypesSearch.OfferingByDateZone ||
         data.subType === SubTypesSearch.OfferingByDateCodeHouse ||
         data.type === TypesSearch.OperationalExpenses ||

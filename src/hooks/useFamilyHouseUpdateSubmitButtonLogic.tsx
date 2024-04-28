@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
 import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 import { type FamilyHouseData } from '@/app/family-house/interfaces';
-
 interface Options {
   formFamilyHouseUpdate: UseFormReturn<FamilyHouseData, any, FamilyHouseData>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;

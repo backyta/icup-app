@@ -1,6 +1,7 @@
 import { SubTypesSearch } from "@/shared/enums";
 
-// ? Subtypes allowed
+// * Subtypes allowed
+
   //* Disciple
   export const SubtypesNamesDiscipleAllowed = [ 
     SubTypesSearch.MemberByPastorNames,

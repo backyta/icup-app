@@ -7,19 +7,11 @@ import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
 import { MemberDeleteCard, MemberInfoCard } from '@/shared/components';
+import { type MemberColumns } from '@/shared/interfaces';
 
 import { Button } from '@/shared/components/ui/button';
 
-interface Member {
-  id: string;
-  first_name: string;
-  last_name: string;
-  gender: 'M' | 'F'; // hacer enum con data para value
-  date_birth: string;
-  zone: string;
-}
-
-export const memberDeleteColumns: Array<ColumnDef<Member, any>> = [
+export const memberDeleteColumns: Array<ColumnDef<MemberColumns, any>> = [
   {
     accessorKey: 'id',
     header: ({ column }) => {

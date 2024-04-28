@@ -4,8 +4,8 @@ import { useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from '@react-hook/media-query';
-
 import { BsFillPersonVcardFill } from 'react-icons/bs';
+
 import { cn } from '@/shared/lib/utils';
 
 import { OfferingExpensesTabsCard } from '@/app/offering/expenses/components';
@@ -13,8 +13,6 @@ import { OfferingExpensesTabsCard } from '@/app/offering/expenses/components';
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/shared/components/ui/drawer';
-
-// TODO : poner encima de la tabla de busqueda el tipo - subtipo de busqueda (ofrenda dominical - turno), para saber que estamos buscando
 
 export const OfferingExpensesInfoCard = (): JSX.Element => {
   //* States

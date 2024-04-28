@@ -1,6 +1,6 @@
 import { familyHouseInfoColumns } from '@/app/family-house/components';
 
-import { dataFamilyHouses as data } from '@/shared/data';
+import { dataFamilyHouses as data } from '@/app/family-house/data';
 import { DataTableSearchGeneral } from '@/shared/components';
 
 export const FamilyHousesGeneralSearchPage = (): JSX.Element => {

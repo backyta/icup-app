@@ -19,8 +19,7 @@ import { useFamilyHouseUpdateSubmitButtonLogic } from '@/hooks';
 
 import { type FamilyHouseDataKeys, type FamilyHouseData } from '@/app/family-house/interfaces';
 import { formFamilyHouseSchema } from '@/app/family-house/validations';
-
-import { preachers, zones } from '@/shared/data';
+import { preachers, zones } from '@/app/family-house/data';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';

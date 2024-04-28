@@ -1,6 +1,7 @@
 import { dataOfferingsIncome as data } from '@/app/offering/income/data';
-import { DataTableSearchByTerm } from '@/shared/components';
 import { offeringIncomeDeleteColumns } from '@/app/offering/income/components';
+
+import { DataTableSearchByTerm } from '@/shared/components';
 
 export const OfferingIncomeDeletePage = (): JSX.Element => {
   return (

@@ -6,22 +6,15 @@ import { type ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 
 import { UserInfoCard, UserUpdateCard } from '@/app/user/components';
+import { type UserColumns } from '@/app/user/interfaces';
 
 import { Button } from '@/shared/components/ui/button';
-
-interface User {
-  id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  roles: string;
-}
 
 // NOTE : lo otro seria pasar el id de la DB del registro aca y que lo tome el button y con eso hacer la solicitud
 // NOTE : y tmb ocultar ese ID con un map para que se enumero de 1, 2....
 
 // NOTE: usar este mismo método para la data del dashboard en el botón.
-export const userUpdateColumns: Array<ColumnDef<User, any>> = [
+export const userUpdateColumns: Array<ColumnDef<UserColumns, any>> = [
   {
     accessorKey: 'id',
     header: ({ column }) => {

@@ -21,6 +21,7 @@ import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { CurrencyTypeNames } from '@/app/offering/shared/enums';
 import { type FilesProps, type RejectedProps } from '@/app/offering/shared/interfaces';
 
+import { offeringIncomeFormSchema } from '@/app/offering/income/validations';
 import {
   SubTypesOfferingIncome,
   SubTypesOfferingIncomeNames,
@@ -28,12 +29,13 @@ import {
   TypesOfferingIncomeNames,
   TypesShiftOfferingIncomeNames,
 } from '@/app/offering/income/enums';
-import { offeringIncomeFormSchema } from '@/app/offering/income/validations';
 
 import { cn } from '@/shared/lib/utils';
 
 import { useOfferingIncomeSubmitButtonLogic } from '@/app/offering/income/hooks';
-import { familyHouses, members, zones } from '@/shared/data';
+import { zones, familyHouses } from '@/app/family-house/data';
+
+import { members } from '@/shared/data';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';

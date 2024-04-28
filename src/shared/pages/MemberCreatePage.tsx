@@ -18,8 +18,10 @@ import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { cn } from '@/shared/lib/utils';
 
 import { useMemberCreateSubmitButtonLogic, useValidatePath } from '@/hooks';
+
 import { formMemberSchema } from '@/shared/validations';
 import { MemberRoles, MemberRoleNames, MaritalStatusNames, GenderNames } from '@/shared/enums';
+import { copastors, familyHouses, pastors, supervisors } from '@/shared/data';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -50,8 +52,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form';
-
-import { copastors, familyHouses, pastors, supervisors } from '@/shared/data';
 
 export const MemberCreatePage = (): JSX.Element => {
   //* States

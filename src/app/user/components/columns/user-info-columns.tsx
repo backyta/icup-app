@@ -6,18 +6,11 @@ import { type ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 
 import { UserInfoCard } from '@/app/user/components';
+import { type UserColumns } from '@/app/user/interfaces';
 
 import { Button } from '@/shared/components/ui/button';
 
-export interface User {
-  id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  roles: string;
-}
-
-export const userInfoColumns: Array<ColumnDef<User, any>> = [
+export const userInfoColumns: Array<ColumnDef<UserColumns, any>> = [
   {
     accessorKey: 'id',
     header: ({ column }) => {

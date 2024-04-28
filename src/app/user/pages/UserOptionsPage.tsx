@@ -1,8 +1,9 @@
 import { NavLink } from 'react-router-dom';
 
-import { WhiteCard } from '@/shared/components/white-cards';
-import { FcClearFilters, FcReadingEbook, FcSearch, FcSupport } from 'react-icons/fc';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
+import { FcClearFilters, FcReadingEbook, FcSearch, FcSupport } from 'react-icons/fc';
+
+import { WhiteCard } from '@/shared/components';
 
 export const UserOptionsPage = (): JSX.Element => {
   return (

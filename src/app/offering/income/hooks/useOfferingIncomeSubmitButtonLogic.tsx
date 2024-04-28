@@ -105,7 +105,7 @@ export const useOfferingIncomeSubmitButtonLogic = ({
       setIsSubmitButtonDisabled(true);
     }
 
-    // limit images drop zone 3 (create offering)
+    // limit images drop zone 3 (create income offering)
     if (urlFiles && urlFiles?.length >= 4) {
       setIsDropZoneDisabled(true);
       setIsSubmitButtonDisabled(true);

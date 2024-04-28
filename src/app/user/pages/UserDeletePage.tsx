@@ -1,7 +1,7 @@
 import { userDeleteColumns } from '@/app/user/components';
-
-import { dataUsers as data } from '@/shared/data';
 import { DataTableSearchByTerm } from '@/shared/components';
+
+import { dataUsers as data } from '@/app/user/data';
 
 export const UserDeletePage = (): JSX.Element => {
   return (

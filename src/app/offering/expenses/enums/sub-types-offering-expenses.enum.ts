@@ -1,5 +1,5 @@
 export enum SubTypesOfferingExpenses {
-  // Operative Expenses
+  //* Operative Expenses
   VenueRental = "venue_rental",
   PublicServices = "public_services",
   AdvertisingAndEventPromotion = "advertising_and_event_promotion",
@@ -7,7 +7,7 @@ export enum SubTypesOfferingExpenses {
   SecurityAndSurveillance = "security_and_surveillance",
   OtherAdministrativeExpenses = "other_administrative_expenses",
 
-  // Maintenance and Repair Expenses
+  //* Maintenance and Repair Expenses
   PlumbingServices = "plumbing_services",
   ElectricalServices = "electrical_services",
   PaintingAndTouchUpsServices = "painting_and_touch_ups_services",
@@ -21,13 +21,13 @@ export enum SubTypesOfferingExpenses {
   RoofAndStructuralRepairs = "roof_and_structural_repairs",
   DoorAndWindowRepairs = "door_and_window_repairs",
 
-  // Decoration Expenses
+  //* Decoration Expenses
   PurchaseFlowersAndPlants = "purchase_flowers_and_plants",
   PurchaseDecorativeFurniture = "purchase_decorative_furniture",
   PurchaseDecorativeItems = "purchase_decorative_items",
   AltarAndWorshipAreaDecorationService = "altar_and_worship_area_decoration_service",
 
-  // Equipment and Technology Expenses
+  //* Equipment and Technology Expenses
   SoundEquipment = "sound_equipment",
   ComputerEquipment = "computer_equipment",
   ProjectionEquipment = "projection_equipment",
@@ -41,7 +41,7 @@ export enum SubTypesOfferingExpenses {
   InternetTelecommunicationsServices = "internet_and_telecommunications_services",
   HostingSoftwareServices = "hosting_and_software_services",
 
-  // Supplies Expenses
+  //* Supplies Expenses
   KitchenUtensils = "kitchen_utensils",
   OfficeSupplies = "office_supplies",
   CookingIngredients = "cooking_ingredients",
@@ -49,7 +49,7 @@ export enum SubTypesOfferingExpenses {
   PackagingMaterials = "packaging_and_storage_materials",
   SundaySchoolMaterials = "sunday_school_educational_materials",
 
-  // Activities and Events Expenses
+  //* Activities and Events Expenses
   SpecialGuestFees = "fees_special_guests",
   ExternalVenueRental = "rental_external_venues",
   DecorationsAndAmbiance = "decorations_and_ambiance",
@@ -66,7 +66,7 @@ export enum SubTypesOfferingExpenses {
 
 export const SubTypesOfferingExpensesNames: Record<SubTypesOfferingExpenses, string> = {
 
-  // Operative Expenses
+  //* Operative Expenses
   venue_rental : 'Alquiler de local',
   public_services : 'Servicios públicos',
   advertising_and_event_promotion : 'Publicidad y promoción de eventos',
@@ -74,7 +74,7 @@ export const SubTypesOfferingExpensesNames: Record<SubTypesOfferingExpenses, str
   security_and_surveillance : 'Seguridad y vigilancia',
   other_administrative_expenses : 'Otros gastos administrativos',
 
-  // Maintenance and Repair Expenses
+  //* Maintenance and Repair Expenses
   plumbing_services : 'Servicios de gasfiteria',
   electrical_services : 'Servicios de electricidad',
   painting_and_touch_ups_services : 'Servicios de pintura y retoques',
@@ -88,13 +88,13 @@ export const SubTypesOfferingExpensesNames: Record<SubTypesOfferingExpenses, str
   roof_and_structural_repairs : ' Reparación de techo y estructuras',
   door_and_window_repairs : 'Reparación de puertas y ventanas',
 
-  // Decoration Expenses
+  //* Decoration Expenses
   purchase_flowers_and_plants : 'Adquisición de flores y plantas',
   purchase_decorative_furniture : 'Adquisición de muebles decorativos',
   purchase_decorative_items : 'Adquisición de elementos decorativos',
   altar_and_worship_area_decoration_service : 'Servicio de decoración de altar y areas de culto',
 
-  // Equipment and Technology Expenses
+  //* Equipment and Technology Expenses
   sound_equipment : 'Equipos de sonido',
   projection_equipment : 'Equipos de proyección',
   hvac_equipment : 'Equipos de ventilación, calefacción y AC',
@@ -108,7 +108,7 @@ export const SubTypesOfferingExpensesNames: Record<SubTypesOfferingExpenses, str
   internet_and_telecommunications_services : ' Servicios de internet y telecomunicaciones',
   hosting_and_software_services   : 'Servicios de Hosting y Software',
 
-  // Supplies Expenses
+  //* Supplies Expenses
   kitchen_utensils : 'Utensilios de cocina',
   cooking_ingredients : 'Ingredientes de cocina',
   office_supplies : 'Utensilios de oficina',
@@ -116,7 +116,7 @@ export const SubTypesOfferingExpensesNames: Record<SubTypesOfferingExpenses, str
   packaging_and_storage_materials : 'Materiales de almacenamiento',
   sunday_school_educational_materials : 'Material educativo Esc. Dominical',
 
-  // Activities and Events Expenses
+  //* Activities and Events Expenses
   fees_special_guests : 'Honorarios para invitados especiales',
   fees_support_staff : 'Honorarios de personal de apoyo',
   rental_external_venues : 'Alquiler de locales externos',
@@ -132,6 +132,10 @@ export const SubTypesOfferingExpensesNames: Record<SubTypesOfferingExpenses, str
 };
 
 // TODO : hacer cartilla de parentesis para saber donde poner casa subtipo (piso a tal)
+// TODO : hacer opciones de ajustes en ofrendas, income y expenses, ajustes por salida y ajustes por ingreso.
+// TODO : revisar las valiodations en numeros y poner el del search para que no haiga erro entre letras y nums
+
+
   // Operative Expenses
   // venue_rental : 'Alquiler de local',
   // public_services : 'Servicios públicos',

@@ -1,6 +1,6 @@
 import { offeringIncomeInfoColumns } from '@/app/offering/income/components';
-
 import { dataOfferingsIncome as data } from '@/app/offering/income/data';
+
 import { DataTableSearchByTerm } from '@/shared/components';
 
 export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {

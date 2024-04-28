@@ -7,7 +7,6 @@ import { CurrencyType  } from '@/app/offering/shared/enums';
 
 import { Status } from '@/shared/enums';
 
-
 export const offeringIncomeFormSchema = z
   .object({
     
@@ -75,7 +74,10 @@ export const offeringIncomeFormSchema = z
   )
   .refine(
     (data) => {
-      if (data.type === TypesOfferingIncome.Offering && (data.subType === SubTypesOfferingIncome.Special || data.subType === SubTypesOfferingIncome.ChurchGround)) {
+      if (data.type === TypesOfferingIncome.Offering && 
+        (data.subType === SubTypesOfferingIncome.Special || 
+          data.subType === SubTypesOfferingIncome.ChurchGround)) 
+      {
         return !!data.memberID; 
       }
       return true;
@@ -87,7 +89,9 @@ export const offeringIncomeFormSchema = z
   )
   .refine(
     (data) => {
-      if (data.type === TypesOfferingIncome.Offering && data.subType === SubTypesOfferingIncome.ZonalFasting) {
+      if (data.type === TypesOfferingIncome.Offering && 
+        data.subType === SubTypesOfferingIncome.ZonalFasting) 
+      {
         return !!data.zoneID; 
       }
       return true;
@@ -99,7 +103,9 @@ export const offeringIncomeFormSchema = z
   )
   .refine(
     (data) => {
-      if (data.type === TypesOfferingIncome.Offering && data.subType === SubTypesOfferingIncome.ZonalVigil) {
+      if (data.type === TypesOfferingIncome.Offering && 
+        data.subType === SubTypesOfferingIncome.ZonalVigil) 
+      {
         return !!data.zoneID; 
       }
       return true;
@@ -111,7 +117,9 @@ export const offeringIncomeFormSchema = z
   )
   .refine(
     (data) => {
-      if (data.type === TypesOfferingIncome.Offering && data.subType === SubTypesOfferingIncome.FamilyHouse) {
+      if (data.type === TypesOfferingIncome.Offering && 
+        data.subType === SubTypesOfferingIncome.FamilyHouse) 
+      {
         return !!data.familyHouseID; 
       }
       return true;

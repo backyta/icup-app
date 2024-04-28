@@ -1,6 +1,6 @@
-import { type User } from '@/app/user/components/columns';
+import { type UserColumns } from '@/app/user/interfaces';
 
-export const dataUsers: User[] = 
+export const dataUsers: UserColumns[] = 
 [
   {
     id: '1',

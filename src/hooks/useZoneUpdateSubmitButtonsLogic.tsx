@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { type ZoneData, type ZoneDataSearch } from '@/app/family-house/interfaces';
+
 import { useEffect } from 'react';
+
 import { type UseFormReturn } from 'react-hook-form';
+
+import { type ZoneData, type ZoneDataSearch } from '@/app/family-house/interfaces';
 
 interface Options {
   formUpdateZone: UseFormReturn<ZoneData, any, ZoneData>;

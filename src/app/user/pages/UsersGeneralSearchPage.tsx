@@ -1,6 +1,6 @@
 import { userInfoColumns } from '@/app/user/components';
 
-import { dataUsers as data } from '@/shared/data';
+import { dataUsers as data } from '@/app/user/data';
 import { DataTableSearchGeneral } from '@/shared/components';
 
 export const UsersGeneralSearchPage = (): JSX.Element => {

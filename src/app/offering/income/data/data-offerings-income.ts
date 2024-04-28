@@ -1,7 +1,7 @@
 
 import { SubTypesOfferingIncomeNames } from '@/app/offering/income/enums';
-
 import { CurrencyType } from '@/app/offering/shared/enums';
+
 import { type OfferingColumns } from '@/app/offering/shared/interfaces';
 
 export const dataOfferingsIncome: OfferingColumns[] = 

@@ -24,8 +24,6 @@ import { OfferingExpensesChildrenRoutes } from '@/app/offering/expenses/router';
 import { UserChildrenRoutes } from '@/app/user/router';
 import { Root } from '@/Root';
 
-// TODO : continuar con las opciones de salida de ofrendas y poner en shared lo que sea necesario
-
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -49,14 +47,13 @@ export const router = createBrowserRouter([
           { path: '/users', element: <UserOptionsPage /> },
         ],
       },
-      // Rutas específicas para cada tipo de rol
+      // Specific routes for each type of module
       { path: '/disciples', element: <DashboardLayout />, children: DiscipleChildrenRoutes },
       { path: '/pastors', element: <DashboardLayout />, children: PastorChildrenRoutes },
       { path: '/copastors', element: <DashboardLayout />, children: CopastorChildrenRoutes },
       { path: '/leaders', element: <DashboardLayout />, children: LeaderChildrenRoutes },
       { path: '/family-houses', element: <DashboardLayout />, children: FamilyHouseChildrenRoutes },
 
-      // main page offering
       // routes offering (income)
       {
         path: '/offerings/income',

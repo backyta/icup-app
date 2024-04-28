@@ -1,6 +1,7 @@
 import { UserRoles } from '@/shared/enums/user-roles.enum';
 import * as z from 'zod';
 
+// TODO : trabajar en el login después de acabar métricas
 export const loginSchema = z
   .object({
     firstName: z.string().min(1),
