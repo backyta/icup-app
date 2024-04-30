@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import * as z from 'zod';
-import { SubTypesSearch, TypesSearch, UserRoles, RecordOrder } from '@/shared/enums';
+
+import { UserRoles } from '@/app/user/enums';
+import { SubTypesSearch, TypesSearch, RecordOrder } from '@/shared/enums';
 
 export const formSearchByTermSchema = z
   .object({

@@ -3,7 +3,10 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import * as z from 'zod';
-import { Status, UserRoles } from '@/shared/enums';
+
+import { UserRoles } from '@/app/user/enums';
+
+import { Status } from '@/shared/enums';
 
 export const userSchema = z
   .object({
@@ -21,7 +24,7 @@ export const userSchema = z
     password: z.string()
       .regex(new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$"), 
       'La contraseña no cumple con los requisitos mínimos'),
-      //
+      
     passwordConfirm: z.string()
       .regex(new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$"), 
       'La contraseña no cumple con los requisitos mínimos'),

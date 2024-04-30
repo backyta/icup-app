@@ -20,7 +20,7 @@ export const useValidatePath = ({ path, isInputDisabled, memberRoles }: Options)
     titleValue = 'Discípulo';
     subTitleValue = 'discípulo';
     disabledRoles = [
-      memberRoles.Member,
+      memberRoles.Disciple,
       memberRoles.Pastor,
       memberRoles.Copastor,
       memberRoles.Supervisor,
@@ -33,7 +33,7 @@ export const useValidatePath = ({ path, isInputDisabled, memberRoles }: Options)
     titleValue = 'Pastor';
     subTitleValue = 'pastor';
     disabledRoles = [
-      memberRoles.Member,
+      memberRoles.Disciple,
       memberRoles.Pastor,
       memberRoles.Copastor,
       memberRoles.Supervisor,
@@ -46,7 +46,7 @@ export const useValidatePath = ({ path, isInputDisabled, memberRoles }: Options)
     titleValue = 'Co-Pastor';
     subTitleValue = 'co-pastor';
     disabledRoles = [
-      memberRoles.Member,
+      memberRoles.Disciple,
       memberRoles.Pastor,
       memberRoles.Copastor,
       memberRoles.Supervisor,
@@ -58,7 +58,7 @@ export const useValidatePath = ({ path, isInputDisabled, memberRoles }: Options)
   if (path === '/leaders/create-leader') {
     titleValue = 'Líder';
     subTitleValue = 'líder';
-    disabledRoles = [memberRoles.Pastor, memberRoles.Copastor, memberRoles.Member];
+    disabledRoles = [memberRoles.Pastor, memberRoles.Copastor, memberRoles.Disciple];
   }
 
   // update

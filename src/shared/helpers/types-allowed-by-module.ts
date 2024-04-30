@@ -1,6 +1,7 @@
 import { TypesSearchNames } from "@/shared/enums";
 
 // ? Allowed Types by module
+
 //* Disciples
 // search, search by type and update
 export const TypesDiscipleAllowed = [ 

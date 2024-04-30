@@ -33,13 +33,13 @@ export const formMemberSchema = z
       { message: "Por favor seleccione una opción válida." }
     ),
 
-    numberChildren:z.string().refine(limit => {
-      return /^\d+$/.test(limit);
+    numberChildren: z.string().refine(number => {
+      return /^\d+$/.test(number);
     }, {
       message: 'El campo debe contener un numero positivo'
-    }).refine(limit => {
-      const parsedLimit = parseInt(limit);
-      return !isNaN(parsedLimit) && parsedLimit >= 0;
+    }).refine(number => {
+      const parsedNumber = parseInt(number);
+      return !isNaN(parsedNumber) && parsedNumber >= 0;
     }, {
       message: 'El campo debe contener un numero positivo'
     }),
@@ -50,10 +50,17 @@ export const formMemberSchema = z
     
     emailAddress: z.string().email({ message: "Email invalido." }),
 
-    phoneNumber: z.string()
-      .min(1, { message: 'El campo debe contener al menos 1 carácter.'})
-      .max(20, { message: 'El campo debe contener máximo 20 caracteres.' }),
-
+    phoneNumber: z.string().refine(limit => {
+      return /^\d+$/.test(limit);
+    }, {
+      message: 'El campo debe contener un numero'
+    }).refine(limit => {
+      const parsedLimit = parseInt(limit);
+      return !isNaN(parsedLimit) && parsedLimit >= 0;
+    }, {
+      message: 'El campo debe contener un numero'
+    }),
+     
     country: z.string()
       .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
       .max(20, { message: 'El campo debe contener máximo 20 caracteres.' }),
@@ -92,8 +99,8 @@ export const formMemberSchema = z
   })
   .refine(
     (data) => {
-      if (data.roles.includes(MemberRoles.Copastor) && data.roles.includes(MemberRoles.Member)) {
-        return !!data.theirPastor; /* //verifica si hay un valor en theirPastor, y manda true o false */
+      if (data.roles.includes(MemberRoles.Copastor) && data.roles.includes(MemberRoles.Disciple)) {
+        return !!data.theirPastor; 
       }
       return true;
     },
@@ -104,7 +111,7 @@ export const formMemberSchema = z
   )
   .refine(
     (data) => {
-      if (data.roles.includes(MemberRoles.Supervisor) && data.roles.includes(MemberRoles.Member) ) {
+      if (data.roles.includes(MemberRoles.Supervisor) && data.roles.includes(MemberRoles.Disciple) ) {
         return !!data.theirCopastor; 
       }
       return true;
@@ -116,7 +123,7 @@ export const formMemberSchema = z
   )
   .refine(
     (data) => {
-      if ((data.roles.includes(MemberRoles.Preacher) && data.roles.includes(MemberRoles.Member))|| (data.roles.includes(MemberRoles.Preacher) && data.roles.includes(MemberRoles.Member) && data.roles.includes(MemberRoles.Treasurer))) {
+      if ((data.roles.includes(MemberRoles.Preacher) && data.roles.includes(MemberRoles.Disciple))|| (data.roles.includes(MemberRoles.Preacher) && data.roles.includes(MemberRoles.Disciple) && data.roles.includes(MemberRoles.Treasurer))) {
         return !!data.theirSupervisor;
       }
       return true;
@@ -128,7 +135,7 @@ export const formMemberSchema = z
   )
   .refine(
     (data) => {
-      if (data.roles.includes(MemberRoles.Member) && !data.roles.includes(MemberRoles.Pastor) && !data.roles.includes(MemberRoles.Copastor) && !data.roles.includes(MemberRoles.Supervisor)  && !data.roles.includes(MemberRoles.Preacher)){
+      if (data.roles.includes(MemberRoles.Disciple) && !data.roles.includes(MemberRoles.Pastor) && !data.roles.includes(MemberRoles.Copastor) && !data.roles.includes(MemberRoles.Supervisor)  && !data.roles.includes(MemberRoles.Preacher)){
         return !!data.theirFamilyHouse; 
       }
       return true;

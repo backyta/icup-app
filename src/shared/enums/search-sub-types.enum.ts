@@ -1,6 +1,6 @@
 export enum SubTypesSearch {
 
-  //! Member
+  //* Member
   MemberByPastorNames = 'member_by_pastor_names',
   MemberByPastorLastNames = 'member_by_pastor_last_names',
   MemberByPastorFullName = 'member_by_pastor_full_name',
@@ -17,12 +17,12 @@ export enum SubTypesSearch {
   ByMemberLastNames = 'by_member_last_names',
   ByMemberFullName = 'by_member_full_name',
 
-  //! Pastor
+  //* Pastor
   ByPastorNames = 'by_pastor_names',
   ByPastorLastNames = 'by_pastor_last_names',
   ByPastorFullName = 'by_pastor_full_name',
 
-  //! Copastor
+  //* Copastor
   CopastorByPastorNames = 'copastor_by_pastor_names',
   CopastorByPastorLastNames = 'copastor_by_pastor_last_names',
   CopastorByPastorFullName = 'copastor_by_pastor_full_name',
@@ -30,7 +30,7 @@ export enum SubTypesSearch {
   ByCopastorLastNames = 'by_copastor_last_names',
   ByCopastorFullName = 'by_copastor_full_name',
 
-  //! Leaders
+  //* Leaders
   LeaderByPastorNames = 'leader_by_pastor_names',
   LeaderByPastorLastNames = 'leader_by_pastor_last_names',
   LeaderByPastorFullName = 'leader_by_pastor_full_name',
@@ -45,7 +45,7 @@ export enum SubTypesSearch {
   ByLeaderFullName = 'by_leader_full_name',
 
 
-  //! Module Family Home
+  //* Module Family Home
   FamilyHouseByPastorNames = 'family_house_by_pastor_names',
   FamilyHouseByPastorLastNames = 'family_house_by_pastor_last_names',
   FamilyHouseByPastorFullName = 'family_house_by_pastor_full_name',
@@ -59,7 +59,7 @@ export enum SubTypesSearch {
   FamilyHouseByPreacherLastNames = 'family_house_by_preacher_last_names',
   FamilyHouseByPreacherFullName = 'family_house_by_preacher_full_name',
 
-  //! Tithe
+  //* Tithe
   TitheByNames = 'tithe_by_names',
   TitheByLastNames = 'tithe_by_last_names',
   TitheByFullName = 'tithe_by_full_name',
@@ -68,7 +68,7 @@ export enum SubTypesSearch {
   TitheByDateLastNames = 'tithe_by_date_last_names',
   TitheByDateFullName = 'tithe_by_date_full_name',
 
-  //! Offering Income
+  // ! Offering Income
   //* Family House, Fasting Zonal, Fasting General, Vigil Zonal, vigilia General, Ground Church, Activities, Youngs
   OfferingByDate = 'offering_by_date',
 
@@ -97,7 +97,7 @@ export enum SubTypesSearch {
   OfferingByLastNames = 'offering_by_last_names',
   OfferingByFullName = 'offering_by_full_name',
 
-  //! Offering Expenses
+  // ! Offering Expenses
   //* Operational Expenses
   VenueRental = "venue_rental",
   PublicServices = "public_services",
@@ -169,177 +169,176 @@ export enum SubTypesSearch {
   UserByRoles = 'user_by_roles' 
 }
 
-// TODO : revisar quitar las comillas de aqui de las keys
+
 export const SubTypesSearchNames: Record<SubTypesSearch, string> =  {
 
   //* Member
-  'by_member_names' : 'Por sus nombres',
-  'by_member_last_names' : 'Por sus apellidos',
-  'by_member_full_name' : 'Por sus nombres y apellidos',
-  'member_by_pastor_names' : 'Por nombres de su pastor',
-  'member_by_pastor_last_names' : 'Por apellidos de su pastor',
-  'member_by_pastor_full_name' : 'Por nombres y apellidos de su pastor',
-  'member_by_copastor_names' : 'Por nombres de su co-pastor',
-  'member_by_copastor_last_names' : 'Por apellidos de su co-pastor',
-  'member_by_copastor_full_name' : 'Por nombres y apellidos de su co-pastor',
-  'member_by_supervisor_names' : 'Por nombres de su supervisor',
-  'member_by_supervisor_last_names' : 'Por apellidos de su supervisor',
-  'member_by_supervisor_full_name' : 'Por nombres y apellidos de su supervisor',
-  'member_by_preacher_names' : 'Por nombres de su predicador',
-  'member_by_preacher_last_names' : 'Por apellidos de su predicador',
-  'member_by_preacher_full_name' : 'Por nombres y apellidos de su predicador',
+  by_member_names : 'Por sus nombres',
+  by_member_last_names : 'Por sus apellidos',
+  by_member_full_name : 'Por sus nombres y apellidos',
+  member_by_pastor_names : 'Por nombres de su pastor',
+  member_by_pastor_last_names : 'Por apellidos de su pastor',
+  member_by_pastor_full_name : 'Por nombres y apellidos de su pastor',
+  member_by_copastor_names : 'Por nombres de su co-pastor',
+  member_by_copastor_last_names : 'Por apellidos de su co-pastor',
+  member_by_copastor_full_name : 'Por nombres y apellidos de su co-pastor',
+  member_by_supervisor_names : 'Por nombres de su supervisor',
+  member_by_supervisor_last_names : 'Por apellidos de su supervisor',
+  member_by_supervisor_full_name : 'Por nombres y apellidos de su supervisor',
+  member_by_preacher_names : 'Por nombres de su predicador',
+  member_by_preacher_last_names : 'Por apellidos de su predicador',
+  member_by_preacher_full_name : 'Por nombres y apellidos de su predicador',
 
   //* Pastor
-  'by_pastor_names': 'Por sus nombres', 
-  'by_pastor_last_names': 'Por sus apellidos', 
-  'by_pastor_full_name': 'Por sus nombres y apellidos', 
+  by_pastor_names: 'Por sus nombres', 
+  by_pastor_last_names: 'Por sus apellidos', 
+  by_pastor_full_name: 'Por sus nombres y apellidos', 
 
   //* Copastor
-  'copastor_by_pastor_names' : 'Por nombres de su pastor',
-  'copastor_by_pastor_last_names' : 'Por apellidos de su pastor',
-  'copastor_by_pastor_full_name' : 'Por nombres y apellidos de su pastor',
-  'by_copastor_names' : 'Por sus nombres',
-  'by_copastor_last_names' : 'Por sus apellidos',
-  'by_copastor_full_name' : 'Por sus nombres y apellidos',
+  copastor_by_pastor_names : 'Por nombres de su pastor',
+  copastor_by_pastor_last_names : 'Por apellidos de su pastor',
+  copastor_by_pastor_full_name : 'Por nombres y apellidos de su pastor',
+  by_copastor_names : 'Por sus nombres',
+  by_copastor_last_names : 'Por sus apellidos',
+  by_copastor_full_name : 'Por sus nombres y apellidos',
 
   //* Leaders
-  'leader_by_pastor_names' : 'Por nombres de su pastor',
-  'leader_by_pastor_last_names' : 'Por apellidos de su pastor',
-  'leader_by_pastor_full_name' : 'Por nombres y apellidos de su pastor',
-  'leader_by_copastor_names': 'Por nombres de su co-pastor',
-  'leader_by_copastor_last_names': 'Por apellidos de su co-pastor',
-  'leader_by_copastor_full_name': 'Por nombres y apellidos de su co-pastor',
-  'leader_by_supervisor_names': 'Por nombres de su supervisor',
-  'leader_by_supervisor_last_names': 'Por apellidos de su supervisor',
-  'leader_by_supervisor_full_name': 'Por nombres y apellidos de su supervisor',
-  'by_leader_names': 'Por sus nombres',
-  'by_leader_last_names': 'Por sus apellidos',
-  'by_leader_full_name': 'Por sus nombres y apellidos',
+  leader_by_pastor_names : 'Por nombres de su pastor',
+  leader_by_pastor_last_names : 'Por apellidos de su pastor',
+  leader_by_pastor_full_name : 'Por nombres y apellidos de su pastor',
+  leader_by_copastor_names: 'Por nombres de su co-pastor',
+  leader_by_copastor_last_names: 'Por apellidos de su co-pastor',
+  leader_by_copastor_full_name: 'Por nombres y apellidos de su co-pastor',
+  leader_by_supervisor_names: 'Por nombres de su supervisor',
+  leader_by_supervisor_last_names: 'Por apellidos de su supervisor',
+  leader_by_supervisor_full_name: 'Por nombres y apellidos de su supervisor',
+  by_leader_names: 'Por sus nombres',
+  by_leader_last_names: 'Por sus apellidos',
+  by_leader_full_name: 'Por sus nombres y apellidos',
 
   //* Family House
-  'family_house_by_pastor_names': 'Por nombres de su pastor',
-  'family_house_by_pastor_last_names': 'Por apellidos de su pastor',
-  'family_house_by_pastor_full_name': 'Por nombres y apellidos de su pastor',
-  'family_house_by_copastor_names': 'Por nombres de su co-pastor',
-  'family_house_by_copastor_last_names': 'Por apellidos de su co-pastor',
-  'family_house_by_copastor_full_name': 'Por nombres y apellidos de su co-pastor',
-  'family_house_by_supervisor_names': 'Por nombres de su supervisor',
-  'family_house_by_supervisor_last_names': 'Por apellidos de su supervisor',
-  'family_house_by_supervisor_full_name': 'Por nombres y apellidos de su supervisor',
-  'family_house_by_preacher_names': 'Por nombres de su predicador',
-  'family_house_by_preacher_last_names': 'Por apellidos de su predicador',
-  'family_house_by_preacher_full_name': 'Por nombres y apellidos de su predicador',
+  family_house_by_pastor_names : 'Por nombres de su pastor',
+  family_house_by_pastor_last_names : 'Por apellidos de su pastor',
+  family_house_by_pastor_full_name : 'Por nombres y apellidos de su pastor',
+  family_house_by_copastor_names : 'Por nombres de su co-pastor',
+  family_house_by_copastor_last_names : 'Por apellidos de su co-pastor',
+  family_house_by_copastor_full_name : 'Por nombres y apellidos de su co-pastor',
+  family_house_by_supervisor_names : 'Por nombres de su supervisor',
+  family_house_by_supervisor_last_names : 'Por apellidos de su supervisor',
+  family_house_by_supervisor_full_name : 'Por nombres y apellidos de su supervisor',
+  family_house_by_preacher_names : 'Por nombres de su predicador',
+  family_house_by_preacher_last_names : 'Por apellidos de su predicador',
+  family_house_by_preacher_full_name : 'Por nombres y apellidos de su predicador',
 
   //* Tithe
-  'tithe_by_names': 'Por nombres',
-  'tithe_by_last_names': 'Por apellidos',
-  'tithe_by_full_name': 'Por nombres y apellidos',
-  'tithe_by_date': 'Por fecha',
-  'tithe_by_date_names': 'Por nombres y fecha',
-  'tithe_by_date_last_names': 'Por apellidos y fechas',
-  'tithe_by_date_full_name': 'Por nombres, apellidos y fecha',
+  tithe_by_names : 'Por nombres',
+  tithe_by_last_names : 'Por apellidos',
+  tithe_by_full_name : 'Por nombres y apellidos',
+  tithe_by_date : 'Por fecha',
+  tithe_by_date_names : 'Por nombres y fecha',
+  tithe_by_date_last_names : 'Por apellidos y fechas',
+  tithe_by_date_full_name : 'Por nombres, apellidos y fecha',
 
 
-  //! Offering Income
+  //* Offering Income
   //* Sunday Worship, Family House, Fasting Zonal, Fasting General, Vigil Zonal, vigilia General, Ground Church, Activities, Youngs
-  'offering_by_date': 'Por fecha',
+  offering_by_date : 'Por fecha',
 
   //* Sunday Worship, youngs, school sunday
-  'offering_by_shift': 'Por turno',
-  'offering_by_date_shift': 'Por fecha y turno',
+  offering_by_shift : 'Por turno',
+  offering_by_date_shift : 'Por fecha y turno',
 
 
   //* Family House, Fasting Zonal, Vigil Zonal
-  'offering_by_zone': 'Por zona',
-  'offering_by_date_zone': 'Por zona y fecha',
+  offering_by_zone : 'Por zona',
+  offering_by_date_zone : 'Por zona y fecha',
 
   //* Family House
-  'offering_by_preacher_names': 'Por nombres de su predicador',
-  'offering_by_preacher_last_names': 'Por apellidos de su predicador',
-  'offering_by_preacher_full_name': 'Por nombres y apellidos de su predicador',
-  'offering_by_code_house': 'Por código de casa',
-  'offering_by_date_code_house': 'Por código y fecha',
+  offering_by_preacher_names : 'Por nombres de su predicador',
+  offering_by_preacher_last_names : 'Por apellidos de su predicador',
+  offering_by_preacher_full_name : 'Por nombres y apellidos de su predicador',
+  offering_by_code_house : 'Por código de casa',
+  offering_by_date_code_house : 'Por código y fecha',
 
   //* Offering Ayuno Zonal y Vigilia Zonal
-  'offering_by_supervisor_names': 'Por nombres de su supervisor',
-  'offering_by_supervisor_last_names': 'Por apellidos de su supervisor',
-  'offering_by_supervisor_full_name': 'Por nombres y apellidos de su supervisor',
+  offering_by_supervisor_names : 'Por nombres de su supervisor',
+  offering_by_supervisor_last_names : 'Por apellidos de su supervisor',
+  offering_by_supervisor_full_name : 'Por nombres y apellidos de su supervisor',
 
   //* Offering Ground Church and Special
-  'offering_by_names': 'Por nombres del aportante',
-  'offering_by_last_names': 'Por apellidos del aportante',
-  'offering_by_full_name': 'Por nombres y apellidos del aportante',
+  offering_by_names : 'Por nombres del aportante',
+  offering_by_last_names : 'Por apellidos del aportante',
+  offering_by_full_name : 'Por nombres y apellidos del aportante',
 
   //* Users
-  'user_by_names' : 'Por sus nombres',
-  'user_by_last_names': 'Por sus apellidos',
-  'user_by_full_name': 'Por sus nombres y apellidos',
-  'user_by_roles': 'Por sus roles',
+  user_by_names : 'Por sus nombres',
+  user_by_last_names: 'Por sus apellidos',
+  user_by_full_name: 'Por sus nombres y apellidos',
+  user_by_roles: 'Por sus roles',
 
-  //! Offering Expenses
+  //* Offering Expenses
   //* Operative Expenses
-  'venue_rental' : 'Alquiler de local',
-  'public_services' : 'Servicios públicos',
-  'advertising_and_event_promotion' : 'Publicidad y promoción de eventos',
-  'travel_and_transportation' : 'Viaje y transporte',
-  'security_and_surveillance' : 'Seguridad y vigilancia',
-  'other_administrative_expenses' : 'Otros gastos administrativos',
+  venue_rental : 'Alquiler de local',
+  public_services : 'Servicios públicos',
+  advertising_and_event_promotion : 'Publicidad y promoción de eventos',
+  travel_and_transportation : 'Viaje y transporte',
+  security_and_surveillance : 'Seguridad y vigilancia',
+  other_administrative_expenses : 'Otros gastos administrativos',
 
   //* Maintenance and Repair Expenses
-  'plumbing_services' : 'Servicios de gasfiteria',
-  'electrical_services' : 'Servicios de electricidad',
-  'painting_and_touch_ups_services' : 'Servicios de pintura y retoques',
-  'deep_cleaning_services' : 'Servicios de limpieza profunda',
-  'heating_and_ac_system_maintenance' : 'Mantenimiento de sistemas de calefacción y AC',
-  'sound_and_lighting_equipment_repair_and_maintenance' : 'Mantenimiento de equipos de sonido e iluminación',
-  'garden_and_exterior_maintenance' : 'Mantenimiento de jardines y exteriores',
-  'furniture_repair_and_maintenance' : 'Mantenimiento de muebles ',
-  'computer_equipment_repair_and_maintenance' : 'Mantenimiento de equipos informáticos',
-  'other_equipment_repairs_and_maintenance' : 'Mantenimiento de otros equipos',
-  'roof_and_structural_repairs' : 'Reparación de techo y estructuras',
-  'door_and_window_repairs' : 'Reparación de puertas y ventanas',
+  plumbing_services : 'Servicios de gasfiteria',
+  electrical_services : 'Servicios de electricidad',
+  painting_and_touch_ups_services : 'Servicios de pintura y retoques',
+  deep_cleaning_services : 'Servicios de limpieza profunda',
+  heating_and_ac_system_maintenance : 'Mantenimiento de sistemas de calefacción y AC',
+  sound_and_lighting_equipment_repair_and_maintenance : 'Mantenimiento de equipos de sonido e iluminación',
+  garden_and_exterior_maintenance : 'Mantenimiento de jardines y exteriores',
+  furniture_repair_and_maintenance : 'Mantenimiento de muebles ',
+  computer_equipment_repair_and_maintenance : 'Mantenimiento de equipos informáticos',
+  other_equipment_repairs_and_maintenance : 'Mantenimiento de otros equipos',
+  roof_and_structural_repairs : 'Reparación de techo y estructuras',
+  door_and_window_repairs : 'Reparación de puertas y ventanas',
 
   //* Decoration Expenses
-  'purchase_flowers_and_plants' : 'Adquisición de flores y plantas',
-  'purchase_decorative_furniture' : 'Adquisición de muebles decorativos',
-  'purchase_decorative_items' : 'Adquisición de elementos decorativos',
-  'altar_and_worship_area_decoration_service' : 'Servicio de decoración de altar y areas de culto',
+  purchase_flowers_and_plants : 'Adquisición de flores y plantas',
+  purchase_decorative_furniture : 'Adquisición de muebles decorativos',
+  purchase_decorative_items : 'Adquisición de elementos decorativos',
+  altar_and_worship_area_decoration_service : 'Servicio de decoración de altar y areas de culto',
 
   //* Equipment and Technology Expenses
-  'sound_equipment' : 'Equipos de sonido',
-  'projection_equipment' : 'Equipos de proyección',
-  'hvac_equipment' : 'Equipos de ventilación, calefacción y AC',
-  'lighting_equipment' : 'Equipos de iluminación',
-  'security_equipment' : 'Equipos de seguridad',
-  'office_equipment' : 'Equipos de oficina',
-  'computer_equipment' : 'Equipos informáticos',
-  'audio_video_recording_equipment' : 'Equipos de grabación de audio/video',
-  'furniture' : 'Mobiliario',
-  'musical_instruments' : 'Instrumentos musicales',
-  'internet_and_telecommunications_services' : 'Servicios de internet y telecomunicaciones',
-  'hosting_and_software_services'   : 'Servicios de Hosting y Software',
+  sound_equipment : 'Equipos de sonido',
+  projection_equipment : 'Equipos de proyección',
+  hvac_equipment : 'Equipos de ventilación, calefacción y AC',
+  lighting_equipment : 'Equipos de iluminación',
+  security_equipment : 'Equipos de seguridad',
+  office_equipment : 'Equipos de oficina',
+  computer_equipment : 'Equipos informáticos',
+  audio_video_recording_equipment : 'Equipos de grabación de audio/video',
+  furniture : 'Mobiliario',
+  musical_instruments : 'Instrumentos musicales',
+  internet_and_telecommunications_services : 'Servicios de internet y telecomunicaciones',
+  hosting_and_software_services   : 'Servicios de Hosting y Software',
 
   //* Supplies Expenses
-  'kitchen_utensils' : 'Utensilios de cocina',
-  'cooking_ingredients' : 'Ingredientes de cocina',
-  'office_supplies' : 'Utensilios de oficina',
-  'cleaning_materials' : 'Materiales de limpieza',
-  'packaging_and_storage_materials' : 'Materiales de almacenamiento',
-  'sunday_school_educational_materials' : ' Material educativo Esc. Dominical',
+  kitchen_utensils : 'Utensilios de cocina',
+  cooking_ingredients : 'Ingredientes de cocina',
+  office_supplies : 'Utensilios de oficina',
+  cleaning_materials : 'Materiales de limpieza',
+  packaging_and_storage_materials : 'Materiales de almacenamiento',
+  sunday_school_educational_materials : ' Material educativo Esc. Dominical',
 
   //* Activities and Events Expenses
-  'fees_special_guests' : 'Honorarios para invitados especiales',
-  'fees_support_staff' : 'Honorarios de personal de apoyo',
-  'rental_external_venues' : 'Alquiler de locales externos',
-  'rental_technical_and_logistical_equipment' : 'Alquiler de equipos técnicos y logísticos',
-  'transportation_special_guests' : 'Transporte para invitados especiales',
-  'equipment_transportation' : 'Transporte de equipos',
-  'food_beverage' : 'Comida y bebida',
-  'decorations_and_ambiance' : 'Decoraciones y ambientación',
-  'promotional_materials' : 'Material promocional',
-  'educational_materials_and_resources' : 'Material didáctico y recursos',
-  'gifts_and_prizes_participants' : 'Regalos y premios para participantes',
-  'other_related_expenses' : ' Otros gastos relacionados',
-
+  fees_special_guests : 'Honorarios para invitados especiales',
+  fees_support_staff : 'Honorarios de personal de apoyo',
+  rental_external_venues : 'Alquiler de locales externos',
+  rental_technical_and_logistical_equipment : 'Alquiler de equipos técnicos y logísticos',
+  transportation_special_guests : 'Transporte para invitados especiales',
+  equipment_transportation : 'Transporte de equipos',
+  food_beverage : 'Comida y bebida',
+  decorations_and_ambiance : 'Decoraciones y ambientación',
+  promotional_materials : 'Material promocional',
+  educational_materials_and_resources : 'Material didáctico y recursos',
+  gifts_and_prizes_participants : 'Regalos y premios para participantes',
+  other_related_expenses : ' Otros gastos relacionados',
 }
 

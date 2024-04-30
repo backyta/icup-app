@@ -29,7 +29,7 @@ export const FamilyHouseTabsCard = (): JSX.Element => {
               Información General
             </CardTitle>
             <CardDescription className='text-[14px] md:text-[15px]'>
-              Información general de la casa familiar.
+              Información general y discípulos.
             </CardDescription>
           </CardHeader>
           <CardContent className='grid grid-cols-3 pl-[2rem] sm:pl-[4rem] sm:pr-[5rem] gap-x-4 gap-y-4 md:gap-x-6 md:gap-y-5 md:pl-[4.2rem] md:pr-[2.5rem]'>
@@ -46,7 +46,7 @@ export const FamilyHouseTabsCard = (): JSX.Element => {
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>1</CardDescription>
             </div>
             <div className='space-y-1'>
-              <Label className='text-[14px] md:text-[15px]'>Nro. miembros</Label>
+              <Label className='text-[14px] md:text-[15px]'>Nro. discípulos</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>6</CardDescription>
             </div>
             <div className='space-y-1 col-start-2 col-end-4 md:col-auto md:row-auto'>
@@ -56,7 +56,7 @@ export const FamilyHouseTabsCard = (): JSX.Element => {
               </CardDescription>
             </div>
             <div className='space-y-1 col-start-1 col-end-4'>
-              <Label className='text-[14px] md:text-[15px]'>Miembros</Label>
+              <Label className='text-[14px] md:text-[15px]'>Discípulos</Label>
               <CardDescription className='px-2 pt-2 text-[14px] md:text-[14.5px]'>
                 <ul className='pl-5 flex flex-wrap gap-x-10 gap-y-2 list-disc'>
                   <li>Pedro Lopez</li>
@@ -117,7 +117,7 @@ export const FamilyHouseTabsCard = (): JSX.Element => {
               Info. Eclesiástica
             </CardTitle>
             <CardDescription className='text-[14px] md:text-[15px]'>
-              Información eclesiástica de la casa familiar.
+              Información eclesiástica y relaciones ministeriales.
             </CardDescription>
           </CardHeader>
           <CardContent className='grid grid-cols-2  pl-[2.5rem] sm:pl-[6rem] gap-x-6 gap-y-4 md:gap-x-4 md:gap-y-8 md:pl-[5.5rem] md:pr-[4rem]'>
@@ -160,7 +160,7 @@ export const FamilyHouseTabsCard = (): JSX.Element => {
               Contacto
             </CardTitle>
             <CardDescription className='text-[14px] md:text-[15px]'>
-              Información de contacto de la casa familiar.
+              Información de contacto y ubicación.
             </CardDescription>
           </CardHeader>
           <CardContent className='grid grid-cols-2 pl-[3rem] sm:pl-[7rem] gap-x-8 gap-y-5 md:gap-x-16 md:gap-y-6 md:pl-[7.5rem] md:pr-[1rem]'>

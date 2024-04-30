@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import { type ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
+import { type ColumnDef } from '@tanstack/react-table';
 
 import { UserInfoCard } from '@/app/user/components';
 import { type UserColumns } from '@/app/user/interfaces';

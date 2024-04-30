@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import { type ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
+import { type ColumnDef } from '@tanstack/react-table';
 
 import { FamilyHouseInfoCard } from '@/app/family-house/components';
 import { type FamilyHouseColumns } from '@/app/family-house/interfaces';
@@ -107,7 +107,7 @@ export const familyHouseInfoColumns: Array<ColumnDef<FamilyHouseColumns, any>> =
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Nro. miembros
+          Nro. discípulos
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );

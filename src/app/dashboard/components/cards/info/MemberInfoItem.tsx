@@ -32,7 +32,7 @@ export function MemberInfoItem(): JSX.Element {
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button className='text-[0.70rem] sm:text-sm xl:text-md lg:w-[7rem] xl:w-[8rem] 2xl:w-[10rem]'>
-                Ver Miembro
+                Ver Discípulo
               </Button>
             </DialogTrigger>
             <DialogContent className='max-w-[690px] w-full justify-center py-6 max-h-full overflow-y-auto'>
@@ -60,7 +60,7 @@ export function MemberInfoItem(): JSX.Element {
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerTrigger asChild>
             <Button className='text-[0.70rem] sm:text-sm xl:text-md lg:w-[7rem] xl:w-[8rem] 2xl:w-[10rem] '>
-              Ver Miembro
+              Ver Discípulo
             </Button>
           </DrawerTrigger>
           <DrawerContent>

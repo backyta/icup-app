@@ -67,6 +67,7 @@ export const UserDeleteCard = (): JSX.Element => {
             disabled={isButtonsDisabled}
             onClick={() => {
               // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+              // NOTE : Colocar función que envié la solicitud al backend para eliminar
               toast.success('Usuario eliminado exitosamente', {
                 position: 'top-center',
                 className: 'justify-center',
@@ -79,7 +80,6 @@ export const UserDeleteCard = (): JSX.Element => {
             }}
             className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
           >
-            {/* Colocar función que envié la solicitud al backend onClick */}
             Sí, eliminar
           </Button>
         </div>

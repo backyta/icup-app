@@ -8,10 +8,7 @@ import {
 import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 
-// NOTE : ENVIAR la búsqueda del fetch como hijo en objeto y colocar aquí (completo)
-// NOTE : borrar la pertenencia en blanco si es diezmo solo el miembro, si es ayuno zonal el copastor y su letra de zona.
-
-// NOTE : se puede anidir otra pestaña con archivos multimedia
+// NOTE : Validar el tipo y subtipo y según eso mostrar discípulo, zona o casa
 export const OfferingIncomeTabsCard = (): JSX.Element => {
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
@@ -27,7 +24,7 @@ export const OfferingIncomeTabsCard = (): JSX.Element => {
               Información General
             </CardTitle>
             <CardDescription className='text-[14px] md:text-[15px]'>
-              Información general del registro del ingreso de ofrenda.
+              Información general del registro de ingreso de la ofrenda.
             </CardDescription>
           </CardHeader>
           <CardContent className='grid grid-cols-3 pl-[2rem] sm:pl-[4rem] sm:pr-[5rem] gap-x-4 gap-y-4 md:gap-x-6 md:gap-y-5 md:pl-[4.2rem] md:pr-[2.5rem]'>
@@ -67,7 +64,7 @@ export const OfferingIncomeTabsCard = (): JSX.Element => {
             </Label>
 
             <div className='space-y-1'>
-              <Label className='text-[14px] md:text-[15px]'>Miembro</Label>
+              <Label className='text-[14px] md:text-[15px]'>Discípulo</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 Pedro Luis Lopez Carranza
               </CardDescription>

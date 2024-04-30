@@ -70,7 +70,11 @@ export function DropdownMenuLeft(): JSX.Element {
             <p className='text-lg text-white'>Bienvenido,</p>
             <div className='inline-flex space-x-0 items-center'>
               <span>
-                <img className='rounded-full w-12 md:w-11 h-10' src='../public/men.png' alt='' />
+                <img
+                  className='rounded-full w-12 md:w-11 h-10'
+                  src='src/assets/men.png'
+                  alt='profile-image'
+                />
               </span>
 
               <span className='text-md md:text-base font-medium text-white'>

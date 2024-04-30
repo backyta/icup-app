@@ -35,7 +35,7 @@ import { cn } from '@/shared/lib/utils';
 import { useOfferingIncomeSubmitButtonLogic } from '@/app/offering/income/hooks';
 import { zones, familyHouses } from '@/app/family-house/data';
 
-import { members } from '@/shared/data';
+import { disciples } from '@/shared/data';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -66,11 +66,6 @@ import {
   Select,
 } from '@/shared/components/ui/select';
 
-// NOTE IMPORTANT : seria mejor colocar la zona, y de la zona automático jala su supervisor y copastor y pastor
-// NOTE : si sube de nivel y se elimina el registro sel super, al colocar un nuevo supervisor
-// NOTE : para esta zona debe poblarse en todas las tablas y de ahi saca su copastor y pastor (hacer esto en actualizar zona su supervisor)
-// NOTE : al hacer esto en esa lógica se tendrá que setear a todos los lugares donde tiene zona A el nuevo supervisor.
-
 export const OfferingIncomeCreatePage = (): JSX.Element => {
   //* States
   const [isInputRelationOpen, setIsInputRelationOpen] = useState<boolean>(false);
@@ -83,6 +78,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
 
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isDropZoneDisabled, setIsDropZoneDisabled] = useState<boolean>(false);
+
+  const [isFileButtonDisabled, setIsFileButtonDisabled] = useState<boolean>(false);
 
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
 
@@ -188,9 +185,12 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
 
   //* Custom hooks
   useOfferingIncomeSubmitButtonLogic({
-    formOffering: form,
-    typesOffering: TypesOfferingIncome,
+    formOfferingIncome: form,
+    typesOfferingIncome: TypesOfferingIncome,
     subTypesOffering: SubTypesOfferingIncome,
+    isInputDisabled,
+    isDropZoneDisabled,
+    isFileButtonDisabled,
     setIsSubmitButtonDisabled,
     setIsMessageErrorDisabled,
     setIsDropZoneDisabled,
@@ -460,14 +460,25 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                     <FormItem className='mt-4'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
                         Comentarios
-                        <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
-                          Opcional
-                        </span>
+                        {type !== TypesOfferingIncome.IncomeAdjustment && (
+                          <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
+                            Opcional
+                          </span>
+                        )}
                       </FormLabel>
+                      {type === TypesOfferingIncome.IncomeAdjustment && (
+                        <FormDescription>
+                          Escribe una breve descripción sobre el ajuste
+                        </FormDescription>
+                      )}
                       <FormControl>
                         <Textarea
                           disabled={isInputDisabled}
-                          placeholder='Comentarios referente al registro de la ofrenda...'
+                          placeholder={`${
+                            type === TypesOfferingIncome.IncomeAdjustment
+                              ? `Motivos y comentarios sobre el ajuste...`
+                              : 'Comentarios referente al registro de la ofrenda..'
+                          }`}
                           {...field}
                         />
                       </FormControl>
@@ -487,10 +498,10 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   render={({ field }) => (
                     <FormItem className='flex flex-col mt-4'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                        Miembro
+                        Discípulo
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Seleccione un miembro para asignarlo al registro.
+                        Seleccione un discípulo para asignarlo al registro.
                       </FormDescription>
                       <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
                         <PopoverTrigger asChild>
@@ -505,8 +516,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                               )}
                             >
                               {field.value
-                                ? members.find((member) => member.value === field.value)?.label
-                                : 'Busque y seleccione un miembro'}
+                                ? disciples.find((member) => member.value === field.value)?.label
+                                : 'Busque y seleccione un discípulo'}
                               <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                             </Button>
                           </FormControl>
@@ -514,12 +525,12 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                         <PopoverContent align='center' className='w-auto px-4 py-2'>
                           <Command>
                             <CommandInput
-                              placeholder='Busque un miembro...'
+                              placeholder='Busque un discípulo...'
                               className='h-9 text-[14px]'
                             />
-                            <CommandEmpty>Miembro no encontrado.</CommandEmpty>
+                            <CommandEmpty>Discípulo no encontrado.</CommandEmpty>
                             <CommandGroup className='max-h-[200px] h-auto'>
-                              {members.map((member) => (
+                              {disciples.map((member) => (
                                 <CommandItem
                                   className='text-[14px]'
                                   value={member.label}
@@ -743,7 +754,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   <h2 className='text-[16px] md:text-[18px] font-bold'>Pre-visualización</h2>
                   <button
                     type='button'
-                    disabled={isInputDisabled}
+                    disabled={isFileButtonDisabled}
                     onClick={removeAll}
                     className='mt-1 text-[10.5px] md:text-[11px] w-[8rem] md:w-[10rem] p-2 uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md  hover:bg-secondary-400 hover:text-white ease-in duration-200 hover:bg-red-500 transition-colors'
                   >
@@ -770,7 +781,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                       />
                       <button
                         type='button'
-                        disabled={isInputDisabled}
+                        disabled={isFileButtonDisabled}
                         className='w-7 h-7 border border-secondary-400 bg-secondary-400 rounded-full flex justify-center items-center absolute -top-3 -right-3 hover:bg-white transition-colors'
                         onClick={() => {
                           removeFile(file.name);
@@ -800,7 +811,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                       </div>
                       <button
                         type='button'
-                        disabled={isInputDisabled}
+                        disabled={isFileButtonDisabled}
                         className='mt-1 py-1 text-[11px] md:text-[11.5px] uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md px-3 hover:bg-red-500 hover:text-white ease-in duration-200 transition-colors'
                         onClick={() => {
                           removeRejected(file.name);
@@ -832,6 +843,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 className='w-full text-[14px] md:text-[14.5px]'
                 onClick={() => {
                   // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                  // NOTE : hacer petición al backend para crear
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
                       toast.success('Ofrenda registrada correctamente', {
@@ -840,6 +852,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                       });
                       setIsInputDisabled(true);
                       setIsDropZoneDisabled(true);
+                      setIsFileButtonDisabled(true);
                       setIsSubmitButtonDisabled(true);
                     }
                   }, 100);
@@ -853,7 +866,6 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
                       setIsInputDisabled(false);
-                      setIsSubmitButtonDisabled(false);
                       setFiles([]);
                       form.reset();
                     }

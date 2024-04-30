@@ -1,7 +1,7 @@
+import { dataFamilyHouses as data } from '@/app/family-house/data';
 import { familyHouseInfoColumns } from '@/app/family-house/components';
 
 import { DataTableSearchByTerm } from '@/shared/components';
-import { dataFamilyHouses as data } from '@/app/family-house/data';
 
 export const FamilyHousesSearchPageByTerm = (): JSX.Element => {
   return (
@@ -30,6 +30,3 @@ export const FamilyHousesSearchPageByTerm = (): JSX.Element => {
     </div>
   );
 };
-
-// NOTE : aquí debo hacer el fetch y traer la data y hacer un filter o map para recuperar solo lo necesario
-// NOTE: que se presentara en la tabla según las columnas.

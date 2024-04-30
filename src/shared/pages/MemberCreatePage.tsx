@@ -70,6 +70,7 @@ export const MemberCreatePage = (): JSX.Element => {
 
   //* Form
   const form = useForm<z.infer<typeof formMemberSchema>>({
+    mode: 'onChange',
     resolver: zodResolver(formMemberSchema),
     defaultValues: {
       firstName: '',
@@ -87,7 +88,7 @@ export const MemberCreatePage = (): JSX.Element => {
       province: '',
       district: '',
       address: '',
-      roles: [MemberRoles.Member],
+      roles: [MemberRoles.Disciple],
     },
   });
 
@@ -107,10 +108,11 @@ export const MemberCreatePage = (): JSX.Element => {
 
   useMemberCreateSubmitButtonLogic({
     formMemberCrate: form,
-    isDisabledMessageError: isMessageErrorDisabled,
     memberRoles: MemberRoles,
+    isMessageErrorDisabled,
+    isInputDisabled,
     pathname,
-    setIsDisabledMessageError: setIsMessageErrorDisabled,
+    setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
   });
 
@@ -281,7 +283,7 @@ export const MemberCreatePage = (): JSX.Element => {
                         />
                       </PopoverContent>
                     </Popover>
-                    <FormDescription className='pl-3 text-blue-600 text-[12px] md:text-[13px] font-bold'>
+                    <FormDescription className='pl-3 text-blue-600 text-[11.5px] xl:text-[12.5px] font-bold italic'>
                       * Su fecha de nacimiento se utilizara para calcular su edad.
                     </FormDescription>
                     <FormMessage />
@@ -382,7 +384,7 @@ export const MemberCreatePage = (): JSX.Element => {
                         />
                       </PopoverContent>
                     </Popover>
-                    <FormDescription className='pl-3 text-blue-600 text-[12px] md:text-[13px] font-bold'>
+                    <FormDescription className='pl-3 text-blue-600 text-[11.5px] xl:text-[12.5px] font-bold italic'>
                       * Fecha en la que el creyente se convirtió.
                     </FormDescription>
                     <FormMessage />
@@ -442,12 +444,12 @@ export const MemberCreatePage = (): JSX.Element => {
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] font-medium'>País</FormLabel>
                       <FormDescription className='text-[13px] lg:text-sm'>
-                        País en el que reside el miembro.
+                        País en el que reside el.
                       </FormDescription>
                       <FormControl>
                         <Input
                           disabled={isInputDisabled}
-                          placeholder='País de residencia del miembro'
+                          placeholder='País de residencia del discípulo'
                           type='text'
                           {...field}
                         />
@@ -550,7 +552,7 @@ export const MemberCreatePage = (): JSX.Element => {
                     <div className='mb-4'>
                       <FormLabel className='font-bold text-[17px] sm:text-lg'>Roles</FormLabel>
                       <FormDescription className='font-medium'>
-                        Seleccione los roles que desea asignar al miembro.
+                        Seleccione los roles que desea asignar al discípulo.
                       </FormDescription>
                     </div>
                     {Object.values(MemberRoles).map((role) => (
@@ -604,7 +606,7 @@ export const MemberCreatePage = (): JSX.Element => {
                 Relaciones
               </legend>
               {/* Validations */}
-              {roles?.includes(MemberRoles.Member) &&
+              {roles?.includes(MemberRoles.Disciple) &&
                 roles?.includes(MemberRoles.Pastor) &&
                 !roles?.includes(MemberRoles.Copastor) &&
                 !roles?.includes(MemberRoles.Supervisor) &&
@@ -615,7 +617,7 @@ export const MemberCreatePage = (): JSX.Element => {
                   </span>
                 )}
 
-              {roles?.includes(MemberRoles.Member) &&
+              {roles?.includes(MemberRoles.Disciple) &&
                 roles?.includes(MemberRoles.Copastor) &&
                 !roles?.includes(MemberRoles.Pastor) &&
                 !roles?.includes(MemberRoles.Supervisor) &&
@@ -688,13 +690,13 @@ export const MemberCreatePage = (): JSX.Element => {
                   />
                 )}
 
-              {((roles?.includes(MemberRoles.Member) &&
+              {((roles?.includes(MemberRoles.Disciple) &&
                 roles?.includes(MemberRoles.Supervisor) &&
                 !roles?.includes(MemberRoles.Treasurer) &&
                 !roles?.includes(MemberRoles.Pastor) &&
                 !roles?.includes(MemberRoles.Copastor) &&
                 !roles?.includes(MemberRoles.Preacher)) ||
-                (roles?.includes(MemberRoles.Member) &&
+                (roles?.includes(MemberRoles.Disciple) &&
                   roles?.includes(MemberRoles.Supervisor) &&
                   roles?.includes(MemberRoles.Treasurer) &&
                   !roles?.includes(MemberRoles.Pastor) &&
@@ -768,13 +770,13 @@ export const MemberCreatePage = (): JSX.Element => {
                 />
               )}
 
-              {((roles?.includes(MemberRoles.Member) &&
+              {((roles?.includes(MemberRoles.Disciple) &&
                 roles?.includes(MemberRoles.Preacher) &&
                 !roles?.includes(MemberRoles.Treasurer) &&
                 !roles?.includes(MemberRoles.Pastor) &&
                 !roles?.includes(MemberRoles.Copastor) &&
                 !roles?.includes(MemberRoles.Supervisor)) ||
-                (roles?.includes(MemberRoles.Member) &&
+                (roles?.includes(MemberRoles.Disciple) &&
                   roles?.includes(MemberRoles.Preacher) &&
                   roles?.includes(MemberRoles.Treasurer) &&
                   !roles?.includes(MemberRoles.Pastor) &&
@@ -853,7 +855,7 @@ export const MemberCreatePage = (): JSX.Element => {
               )}
 
               {pathname !== '/leaders/create-leader' &&
-                roles?.includes(MemberRoles.Member) &&
+                roles?.includes(MemberRoles.Disciple) &&
                 !roles?.includes(MemberRoles.Pastor) &&
                 !roles?.includes(MemberRoles.Copastor) &&
                 !roles?.includes(MemberRoles.Preacher) &&
@@ -867,7 +869,7 @@ export const MemberCreatePage = (): JSX.Element => {
                         <FormItem className='flex flex-col mt-4'>
                           <FormLabel className='text-[16px] font-bold'>Casa Familiar</FormLabel>
                           <FormDescription className='text-[14px]'>
-                            Seleccione una casa familiar para este miembro.
+                            Seleccione una casa familiar para este discípulo.
                           </FormDescription>
                           <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
                             <PopoverTrigger asChild>
@@ -969,6 +971,7 @@ export const MemberCreatePage = (): JSX.Element => {
                 className='w-full text-[14px]'
                 onClick={() => {
                   // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                  // NOTE : hacer petición al backend para crear
                   // page leader
                   if (pathname === '/leaders/create-leader') {
                     setTimeout(() => {
@@ -1016,7 +1019,7 @@ export const MemberCreatePage = (): JSX.Element => {
                   }
                 }}
               >
-                Registrar miembro
+                Registrar discípulo
               </Button>
             </div>
           </form>

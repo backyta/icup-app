@@ -1,7 +1,7 @@
+import { dataFamilyHouses as data } from '@/app/family-house/data';
 import { familyHouseUpdateColumns } from '@/app/family-house/components';
 
 import { DataTableSearchByTerm } from '@/shared/components';
-import { dataFamilyHouses as data } from '@/app/family-house/data';
 
 export const FamilyHouseUpdatePage = (): JSX.Element => {
   return (

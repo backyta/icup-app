@@ -8,9 +8,6 @@ import { MdDeleteForever } from 'react-icons/md';
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 
-// NOTE : podría usar zustand para tomar el estado del id del estado global y eliminar y tmb
-// NOTE : tomaría el onDelete
-
 export const FamilyHouseDeleteCard = (): JSX.Element => {
   //* States
   const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
@@ -53,11 +50,11 @@ export const FamilyHouseDeleteCard = (): JSX.Element => {
             <br />
           </p>
         </div>
-        <div className='flex justify-end gap-x-4'>
+        <div className='flex justify-center md:justify-end gap-x-4'>
           <Toaster position='top-center' richColors />
           <Button
             disabled={isButtonDisabled}
-            className='bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
+            className='w-full md:w-auto bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
             onClick={() => {
               setIsCardOpen(false);
             }}
@@ -68,6 +65,7 @@ export const FamilyHouseDeleteCard = (): JSX.Element => {
             disabled={isButtonDisabled}
             onClick={() => {
               // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+              // NOTE : Colocar función que envié la solicitud al backend onClick
               toast.success('Registro eliminado exitosamente', {
                 position: 'top-center',
                 className: 'justify-center',
@@ -78,9 +76,8 @@ export const FamilyHouseDeleteCard = (): JSX.Element => {
                 setIsCardOpen(false);
               }, 1300);
             }}
-            className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
+            className='w-full md:w-auto bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
           >
-            {/* Colocar función que envié la solicitud al backend onClick */}
             Sí, eliminar
           </Button>
         </div>

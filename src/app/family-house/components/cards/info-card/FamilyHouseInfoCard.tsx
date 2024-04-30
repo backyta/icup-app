@@ -32,7 +32,7 @@ export const FamilyHouseInfoCard = (): JSX.Element => {
               'mt-2 mr-4 py-2 px-1 h-[2rem] bg-blue-400 text-white hover:bg-blue-500 hover:text-blue-950  dark:text-blue-950 dark:hover:bg-blue-500 dark:hover:text-white',
               (pathname === '/family-houses/update-family-house' ||
                 pathname === '/family-houses/delete-family-house') &&
-                'mr-0'
+                'mr-2'
             )}
           >
             <BsFillPersonVcardFill className='w-8 h-[1.65rem]' />
@@ -55,7 +55,7 @@ export const FamilyHouseInfoCard = (): JSX.Element => {
             'mt-2 mr-4 py-2 px-1 h-[2rem] bg-blue-400 text-white hover:bg-blue-500 hover:text-blue-950  dark:text-blue-950 dark:hover:bg-blue-500 dark:hover:text-white',
             (pathname === '/family-houses/update-family-house' ||
               pathname === '/family-houses/delete-family-house') &&
-              'mr-0'
+              'mr-2'
           )}
         >
           <BsFillPersonVcardFill className='w-8 h-[1.65rem]' />

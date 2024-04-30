@@ -1,5 +1,5 @@
 export enum MemberRoles {
-  Member = 'member',
+  Disciple = 'disciple',
   Pastor = 'pastor',
   Copastor = 'copastor',
   Supervisor = 'supervisor',
@@ -8,7 +8,7 @@ export enum MemberRoles {
 }
 
 export const MemberRoleNames: Record<MemberRoles, string> = {
-  member: 'Miembro',
+  disciple: 'Discípulo',
   pastor: 'Pastor',
   copastor: 'Co-pastor',
   supervisor: 'Supervisor',

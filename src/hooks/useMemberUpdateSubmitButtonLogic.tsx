@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
 import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
@@ -10,6 +11,7 @@ import { type MemberData } from '@/shared/interfaces';
 interface Options {
   formMemberUpdate: UseFormReturn<MemberData, any, MemberData>;
   pathname: string;
+  isRelationSelectDisabled: boolean;
   memberRoles: typeof MemberRoles;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,6 +21,7 @@ export const useMemberUpdateSubmitButtonLogic = ({
   formMemberUpdate,
   pathname,
   memberRoles,
+  isRelationSelectDisabled,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
 }: Options): void => {
@@ -47,6 +50,14 @@ export const useMemberUpdateSubmitButtonLogic = ({
 
   // effects
   useEffect(() => {
+    if (
+      formMemberUpdate.formState.errors &&
+      Object.values(formMemberUpdate.formState.errors).length > 0
+    ) {
+      setIsSubmitButtonDisabled(true);
+      setIsMessageErrorDisabled(true);
+    }
+
     // pastor
     if (
       pathname === '/pastors/update-pastor' &&
@@ -65,7 +76,12 @@ export const useMemberUpdateSubmitButtonLogic = ({
       province &&
       district &&
       address &&
-      roles.length !== 0
+      roles.length !== 0 &&
+      roles.includes(memberRoles.Disciple) &&
+      roles.includes(memberRoles.Pastor) &&
+      theirPastor &&
+      Object.values(formMemberUpdate.formState.errors).length === 0 &&
+      !isRelationSelectDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
@@ -112,10 +128,12 @@ export const useMemberUpdateSubmitButtonLogic = ({
       province &&
       district &&
       address &&
-      ((roles.includes(memberRoles.Member) &&
+      ((roles.includes(memberRoles.Disciple) &&
         roles.includes(memberRoles.Copastor) &&
         theirPastor) ||
-        (roles.includes(memberRoles.Member) && roles.includes(memberRoles.Pastor)))
+        (roles.includes(memberRoles.Disciple) && roles.includes(memberRoles.Pastor))) &&
+      Object.values(formMemberUpdate.formState.errors).length === 0 &&
+      !isRelationSelectDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
@@ -138,7 +156,7 @@ export const useMemberUpdateSubmitButtonLogic = ({
         !province ||
         !district ||
         !address ||
-        (roles.includes(memberRoles.Member) &&
+        (roles.includes(memberRoles.Disciple) &&
           roles.includes(memberRoles.Copastor) &&
           !theirPastor))
     ) {
@@ -164,15 +182,17 @@ export const useMemberUpdateSubmitButtonLogic = ({
       province &&
       district &&
       address &&
-      ((roles.includes(memberRoles.Member) &&
+      ((roles.includes(memberRoles.Disciple) &&
         roles.includes(memberRoles.Copastor) &&
         theirPastor) ||
-        (roles.includes(memberRoles.Member) &&
+        (roles.includes(memberRoles.Disciple) &&
           roles.includes(memberRoles.Supervisor) &&
           theirCopastor) ||
-        (roles.includes(memberRoles.Member) &&
+        (roles.includes(memberRoles.Disciple) &&
           roles.includes(memberRoles.Preacher) &&
-          theirSupervisor))
+          theirSupervisor)) &&
+      Object.values(formMemberUpdate.formState.errors).length === 0 &&
+      !isRelationSelectDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
@@ -219,10 +239,12 @@ export const useMemberUpdateSubmitButtonLogic = ({
       province &&
       district &&
       address &&
-      ((roles.includes(memberRoles.Member) && theirFamilyHouse) ||
-        (roles.includes(memberRoles.Member) &&
+      ((roles.includes(memberRoles.Disciple) && theirFamilyHouse) ||
+        (roles.includes(memberRoles.Disciple) &&
           roles.includes(memberRoles.Preacher) &&
-          theirSupervisor))
+          theirSupervisor)) &&
+      Object.values(formMemberUpdate.formState.errors).length === 0 &&
+      !isRelationSelectDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
@@ -245,9 +267,9 @@ export const useMemberUpdateSubmitButtonLogic = ({
         !province ||
         !district ||
         !address ||
-        (roles.includes(memberRoles.Member) &&
+        (roles.includes(memberRoles.Disciple) &&
           !theirFamilyHouse &&
-          roles.includes(memberRoles.Member) &&
+          roles.includes(memberRoles.Disciple) &&
           roles.includes(memberRoles.Preacher) &&
           !theirSupervisor))
     ) {
@@ -255,6 +277,7 @@ export const useMemberUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
+    formMemberUpdate.formState,
     firstName,
     lastName,
     gender,

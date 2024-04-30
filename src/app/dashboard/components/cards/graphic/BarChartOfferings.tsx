@@ -34,12 +34,6 @@ import { Calendar } from '@/shared/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/components/ui/form';
 
-// NOTE : Colocar fechas y cantidades del mes anterior, por defecto, hacer un efecto cada 30 o 32 días.
-// NOTE : hacer petición al backend en rango por fecha y devolver array.
-// NOTE : hacer que el calendario seleccione máximo 3 meses (12 domingos).
-// NOTE : hacer que se muestren por defecto 7 domingos, cuando entre uno nuevo sale el primero o se empuja
-// NOTE : usar este calendario para la funcionalidad de los gráficos
-
 const data = [
   { date: '02/03', Dia: 75.5, Tarde: 85.5 },
   { date: '09/03', Dia: 90.2, Tarde: 55.7 },

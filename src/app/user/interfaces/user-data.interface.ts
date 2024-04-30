@@ -1,4 +1,4 @@
-import { type UserRoles } from '@/shared/enums';
+import { type UserRoles } from '@/app/user/enums';
 
 export interface UserData {
   firstName: string,

@@ -67,6 +67,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
 
   //* Form
   const form = useForm<z.infer<typeof formFamilyHouseSchema>>({
+    mode: 'onChange',
     resolver: zodResolver(formFamilyHouseSchema),
     defaultValues: {
       zoneName: '',
@@ -84,6 +85,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
   useFamilyHouseCreateSubmitButtonLogic({
     formFamilyHouseCreate: form,
     setIsInputDisabled,
+    isInputDisabled,
     setIsInputPreacherDisabled,
     setIsSubmitButtonDisabled,
     setIsMessageErrorDisabled,
@@ -425,6 +427,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                 className='w-full text-[14px]'
                 onClick={() => {
                   // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                  // NOTE : hacer petición al backend para crear
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
                       toast.success('Cambios guardados correctamente', {

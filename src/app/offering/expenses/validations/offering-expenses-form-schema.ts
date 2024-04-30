@@ -1,11 +1,11 @@
-import { TypesOfferingExpenses, SubTypesOfferingExpenses } from '@/app/offering/expenses/enums';
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import * as z from 'zod';
 
-import { Status } from '@/shared/enums';
+import { TypesOfferingExpenses, SubTypesOfferingExpenses } from '@/app/offering/expenses/enums';
 import { CurrencyType  } from '@/app/offering/shared/enums';
 
+import { Status } from '@/shared/enums';
 
 export const offeringExpensesFormSchema = z
   .object({
@@ -18,9 +18,17 @@ export const offeringExpensesFormSchema = z
       required_error: "Por favor seleccione una opción.",
     })).optional(),
 
-    amount: z.string().refine(amount => !isNaN(parseFloat(amount)),{
-      message: 'El monto de la ofrenda debe ser un numero'
+    amount: z.string().refine(amount => {
+      return /^\d+(\.\d+)?$/.test(amount);
+    }, {
+      message: 'El monto debe ser un número'
+    }).refine(amount => {
+      const parsedAmount = parseFloat(amount);
+      return !isNaN(parsedAmount) && parsedAmount >= 0;
+    }, {
+      message: 'El monto debe ser un número mayor o igual a 0'
     }),
+
     currency: z.string(z.nativeEnum(CurrencyType,{
       required_error: "Por favor seleccione una opción.",
     })),
@@ -36,7 +44,7 @@ export const offeringExpensesFormSchema = z
     })).optional(),
     
     comments: z.string()
-    .max(80, {message: 'El campo debe contener máximo 80 caracteres'})
+    .max(100, {message: 'El campo debe contener máximo 100 caracteres'})
     .optional(),   
   })
 

@@ -226,7 +226,7 @@ export const familyHouses = [
   { label: 'B-1 - Los Hijos de la Esperanza', value: 'id10' },
 ] as const;
 
-export const members = [
+export const disciples = [
   { label: 'Abigail Rosa Palacios Guerra', value: 'id1' },
   { label: 'Kevin Roberto Arteaga Moreno', value: 'id2' },
   { label: 'Luisa Sofia Castro Ramirez', value: 'id3' },

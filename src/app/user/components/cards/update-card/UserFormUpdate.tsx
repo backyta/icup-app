@@ -21,7 +21,9 @@ import { type UserDataKeys, type UserData } from '@/app/user/interfaces';
 
 import { cn } from '@/shared/lib/utils';
 
-import { Status, UserRoleNames, UserRoles } from '@/shared/enums';
+import { UserRoleNames, UserRoles } from '@/app/user/enums';
+
+import { Status } from '@/shared/enums';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -420,6 +422,7 @@ export const UserFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                     className='w-full text-[14px]'
                     onClick={() => {
                       // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                      // NOTE : hacer petición al backend para actualizar
                       setTimeout(() => {
                         if (Object.keys(form.formState.errors).length === 0) {
                           toast.success('Cambios guardados correctamente', {

@@ -28,10 +28,3 @@ export const PastorsGeneralSearchPage = (): JSX.Element => {
     </div>
   );
 };
-
-// NOTE : aquí debo hacer el fetch y traer la data y hacer un filter o map para recuperar solo lo necesario
-// NOTE:  que se presentara en la tabla según las columnas.
-
-// NOTE: desde la ruta de preacher pastor copastor, mandar al componente create disciple, pero mostrar
-// NOTE : solo los roles disponibles si es pastor, ninguno, si es copastor solo pastor y asi, y marcarlos
-// NOTE: automáticamente, asi usamos el mismo componente. pero en un ruta especifica.

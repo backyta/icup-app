@@ -5,6 +5,7 @@ export enum TypesOfferingExpenses {
   EquipmentAndTechnologyExpenses = "equipment_and_technology_expenses",
   SuppliesExpenses = "supplies_expenses",
   ActivitiesAndEventsExpenses = "activities_and_events_expenses",
+  ExpensesAdjustment = 'expenses_adjustment',
 }
 
 export const TypesOfferingExpensesNames: Record<TypesOfferingExpenses, string> = {
@@ -14,5 +15,6 @@ export const TypesOfferingExpensesNames: Record<TypesOfferingExpenses, string> =
   equipment_and_technology_expenses : "Gastos de equipamiento y tecnología",
   supplies_expenses : "Gastos de suministros",
   activities_and_events_expenses : "Gastos de actividades y eventos",
+  expenses_adjustment: "Ajuste por Salida"
 };
 

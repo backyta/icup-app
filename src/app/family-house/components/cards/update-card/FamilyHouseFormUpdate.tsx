@@ -21,6 +21,8 @@ import { type FamilyHouseDataKeys, type FamilyHouseData } from '@/app/family-hou
 import { formFamilyHouseSchema } from '@/app/family-house/validations';
 import { preachers, zones } from '@/app/family-house/data';
 
+import { Status } from '@/shared/enums';
+
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
 import { Card, CardContent } from '@/shared/components/ui/card';
@@ -44,7 +46,6 @@ import {
   CommandInput,
   CommandItem,
 } from '@/shared/components/ui/command';
-
 import {
   Select,
   SelectContent,
@@ -52,7 +53,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/components/ui/select';
-import { Status } from '@/shared/enums';
 
 const data: FamilyHouseData = {
   zoneName: zones[1].value,
@@ -116,6 +116,7 @@ export const FamilyHouseFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Elemen
     formFamilyHouseUpdate: form,
     setIsSubmitButtonDisabled,
     setIsMessageErrorDisabled,
+    isInputDisabled,
   });
 
   return (
@@ -488,6 +489,7 @@ export const FamilyHouseFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Elemen
                     className='w-full text-[14px]'
                     onClick={() => {
                       // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                      // NOTE : hacer petición al backend para actualizar
                       setTimeout(() => {
                         if (Object.keys(form.formState.errors).length === 0) {
                           toast.success('Cambios guardados correctamente', {

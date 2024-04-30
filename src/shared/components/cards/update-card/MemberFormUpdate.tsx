@@ -86,8 +86,6 @@ import {
   Status,
 } from '@/shared/enums';
 
-// NOTE : ver si se hace el fetch aquí o el UpdateCard, hacer llamado según el ID para traer la data
-
 const data: MemberData = {
   firstName: 'Marcos',
   lastName: 'Guerrero',
@@ -104,7 +102,7 @@ const data: MemberData = {
   province: 'Lima',
   district: 'Lima',
   address: 'jr rio 222',
-  roles: [MemberRoles.Member, MemberRoles.Preacher],
+  roles: [MemberRoles.Disciple],
   theirPastor: 'id1',
   theirCopastor: 'id2',
   theirSupervisor: 'id3',
@@ -188,6 +186,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
   useMemberUpdateSubmitButtonLogic({
     formMemberUpdate: form,
     memberRoles: MemberRoles,
+    isRelationSelectDisabled,
     pathname,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
@@ -199,14 +198,29 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
       className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px] overflow-y-auto'
     >
       <h2 className='text-center text-orange-500 pb-2 font-bold text-[20px] md:text-[24px]'>
-        Actualizar información del miembro
+        {pathname === '/disciples/update-disciple'
+          ? 'Actualizar información del Discípulo'
+          : pathname === '/pastors/update-pastor'
+            ? 'Actualizar información del Pastor'
+            : pathname === '/copastors/update-copastor'
+              ? 'Actualizar información del Co-Pastor'
+              : 'Actualizar información del Líder'}
       </h2>
 
       <TabsContent value='general-info' className='overflow-y-auto mt-0'>
         <Card className='w-full'>
           <CardContent className='py-3 px-4'>
-            <div className='dark:text-slate-300 text-slate-500 font-bold text-[14px] md:text-[16px] mb-2 pl-0 md:pl-2'>
-              Miembro: Marcos Lucas Castillo Perez (Lima - Peru)
+            <div className='dark:text-slate-300 text-slate-500 font-bold text-[14px] md:text-[16px] mb-2 pl-0 md:pl-2 italic'>
+              {pathname === '/disciples/update-disciple'
+                ? 'Discípulo:'
+                : pathname === '/pastors/update-pastor'
+                  ? 'Pastor:'
+                  : pathname === '/copastors/update-copastor'
+                    ? 'Copastor:'
+                    : 'Líder:'}{' '}
+              <span className='italic text-[13[px] md:text-[14px]'>
+                Marcos Lucas Castillo Perez (Lima - Peru)
+              </span>
             </div>
             <Form {...form}>
               <form
@@ -360,7 +374,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                             />
                           </PopoverContent>
                         </Popover>
-                        <FormDescription className='pl-3 text-blue-600 text-[12px] xl:text-[13px] font-bold'>
+                        <FormDescription className='pl-3 text-blue-600 text-[11.5px] xl:text-[12.5px] font-bold italic'>
                           * Su fecha de nacimiento se utiliza para calcular su edad.
                         </FormDescription>
                         <FormMessage />
@@ -478,7 +492,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                             />
                           </PopoverContent>
                         </Popover>
-                        <FormDescription className='pl-3 text-blue-600 text-[12px] xl:text-[13px] font-bold'>
+                        <FormDescription className='pl-3 text-blue-600 text-[11.5px] xl:text-[12.5px] font-bold italic'>
                           * Fecha en la que el creyente se convirtió.
                         </FormDescription>
                         <FormMessage />
@@ -545,7 +559,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                         <FormItem className='mt-3'>
                           <FormLabel className='text-[14px]'>País</FormLabel>
                           <FormDescription className='text-[13px] md:text-[14px]'>
-                            País en el que reside el miembro.
+                            País en el que reside.
                           </FormDescription>
                           <FormControl>
                             <Input
@@ -675,15 +689,15 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                           </Select>
                           {form.getValues('status') === 'active' && (
                             <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
-                              *El miembro esta <span className='text-green-500'>activo</span>, para
-                              colocarla como <span className='text-red-500'>inactivo</span> debe
+                              *El registro esta <span className='text-green-500'>activo</span>, para
+                              colocarla como <span className='text-red-500'>Inactivo</span> debe
                               eliminar el registro desde la pestaña{' '}
                               <span className='font-bold text-red-500'>Eliminar {textValue}. </span>
                             </FormDescription>
                           )}
                           {form.getValues('status') === 'inactive' && (
                             <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
-                              * El miembro esta <span className='text-red-500 '>inactivo</span>,
+                              * El registro esta <span className='text-red-500 '>Inactivo</span>,
                               puede modificar el estado eligiendo otra opción.
                             </FormDescription>
                           )}
@@ -703,7 +717,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                         <div className='mb-4'>
                           <FormLabel className='font-bold text-[16px]'>Roles</FormLabel>
                           <FormDescription className='font-medium text-[13px] md:text-[14px]'>
-                            Seleccione los roles que desea asignar al miembro.
+                            Seleccione los roles que desea asignar al discípulo.
                           </FormDescription>
                         </div>
                         {Object.values(MemberRoles).map((role) => (
@@ -753,69 +767,69 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                     <span className='text-[13px] md:text-[14px] text-yellow-500 font-bold text-center'>
                       !SE HA PROMOVIDO CORRECTAMENTE! <br />
                       <span className='text-[12px] md:text-[13px]'>
-                        {form.getValues('roles').includes(MemberRoles.Member) &&
+                        {form.getValues('roles').includes(MemberRoles.Disciple) &&
                           form.getValues('roles').includes(MemberRoles.Preacher) && (
                             <div>
                               <span className='text-red-500 text-left inline-block'>
-                                Roles anteriores: Miembro
+                                Roles anteriores: Discípulo
                               </span>
                               <br />
                               <span className='text-green-500 text-left inline-block'>
-                                Roles nuevos: Miembro - Predicador
+                                Roles nuevos: Discípulo - Predicador
                               </span>
                             </div>
                           )}
 
-                        {form.getValues('roles').includes(MemberRoles.Member) &&
+                        {form.getValues('roles').includes(MemberRoles.Disciple) &&
                           form.getValues('roles').includes(MemberRoles.Supervisor) &&
                           !form.getValues('roles').includes(MemberRoles.Treasurer) && (
                             <div>
                               <span className='text-red-500 text-left inline-block'>
-                                Roles anteriores: Miembro - Predicador
+                                Roles anteriores: Discípulo - Predicador
                               </span>
                               <br />
                               <span className='text-green-500 text-left inline-block'>
-                                Roles nuevos: Miembro - Supervisor
+                                Roles nuevos: Discípulo - Supervisor
                               </span>
                             </div>
                           )}
 
-                        {form.getValues('roles').includes(MemberRoles.Member) &&
+                        {form.getValues('roles').includes(MemberRoles.Disciple) &&
                           form.getValues('roles').includes(MemberRoles.Supervisor) &&
                           form.getValues('roles').includes(MemberRoles.Treasurer) && (
                             <div>
                               <span className='text-red-500 text-left inline-block'>
-                                Roles anteriores: Miembro - Predicador - Tesorero
+                                Roles anteriores: Discípulo - Predicador - Tesorero
                               </span>
                               <br />
                               <span className='text-green-500 text-left inline-block'>
-                                Roles nuevos: Miembro - Supervisor - Tesorero
+                                Roles nuevos: Discípulo - Supervisor - Tesorero
                               </span>
                             </div>
                           )}
 
-                        {form.getValues('roles').includes(MemberRoles.Member) &&
+                        {form.getValues('roles').includes(MemberRoles.Disciple) &&
                           form.getValues('roles').includes(MemberRoles.Copastor) && (
                             <div>
                               <span className='text-red-500 text-left inline-block'>
-                                Roles anteriores: Miembro - Supervisor
+                                Roles anteriores: Discípulo - Supervisor
                               </span>
                               <br />
                               <span className='text-green-500 text-left inline-block'>
-                                Roles nuevos: Miembro - Co-pastor
+                                Roles nuevos: Discípulo - Co-pastor
                               </span>
                             </div>
                           )}
 
-                        {form.getValues('roles').includes(MemberRoles.Member) &&
+                        {form.getValues('roles').includes(MemberRoles.Disciple) &&
                           form.getValues('roles').includes(MemberRoles.Pastor) && (
                             <div>
                               <span className='text-red-500 text-left inline-block'>
-                                Roles anteriores: Miembro - Co-pastor
+                                Roles anteriores: Discípulo - Co-pastor
                               </span>
                               <br />
                               <span className='text-green-500 text-left inline-block'>
-                                Roles nuevos: Miembro - Pastor
+                                Roles nuevos: Discípulo - Pastor
                               </span>
                             </div>
                           )}
@@ -830,7 +844,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                       Relaciones
                     </legend>
                     {/* Validations */}
-                    {roles?.includes(MemberRoles.Member) &&
+                    {roles?.includes(MemberRoles.Disciple) &&
                       roles?.includes(MemberRoles.Pastor) &&
                       !roles?.includes(MemberRoles.Copastor) &&
                       !roles?.includes(MemberRoles.Supervisor) &&
@@ -841,7 +855,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                         </span>
                       )}
 
-                    {roles?.includes(MemberRoles.Member) &&
+                    {roles?.includes(MemberRoles.Disciple) &&
                       roles?.includes(MemberRoles.Copastor) &&
                       !roles?.includes(MemberRoles.Pastor) &&
                       !roles?.includes(MemberRoles.Supervisor) &&
@@ -923,13 +937,13 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                         />
                       )}
 
-                    {((roles?.includes(MemberRoles.Member) &&
+                    {((roles?.includes(MemberRoles.Disciple) &&
                       roles?.includes(MemberRoles.Supervisor) &&
                       !roles?.includes(MemberRoles.Treasurer) &&
                       !roles?.includes(MemberRoles.Pastor) &&
                       !roles?.includes(MemberRoles.Copastor) &&
                       !roles?.includes(MemberRoles.Preacher)) ||
-                      (roles?.includes(MemberRoles.Member) &&
+                      (roles?.includes(MemberRoles.Disciple) &&
                         roles?.includes(MemberRoles.Supervisor) &&
                         roles?.includes(MemberRoles.Treasurer) &&
                         !roles?.includes(MemberRoles.Pastor) &&
@@ -1012,13 +1026,13 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                       />
                     )}
 
-                    {((roles?.includes(MemberRoles.Member) &&
+                    {((roles?.includes(MemberRoles.Disciple) &&
                       roles?.includes(MemberRoles.Preacher) &&
                       !roles?.includes(MemberRoles.Treasurer) &&
                       !roles?.includes(MemberRoles.Pastor) &&
                       !roles?.includes(MemberRoles.Copastor) &&
                       !roles?.includes(MemberRoles.Supervisor)) ||
-                      (roles?.includes(MemberRoles.Member) &&
+                      (roles?.includes(MemberRoles.Disciple) &&
                         roles?.includes(MemberRoles.Preacher) &&
                         roles?.includes(MemberRoles.Treasurer) &&
                         !roles?.includes(MemberRoles.Pastor) &&
@@ -1101,7 +1115,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                       />
                     )}
 
-                    {roles?.includes(MemberRoles.Member) &&
+                    {roles?.includes(MemberRoles.Disciple) &&
                       !roles?.includes(MemberRoles.Pastor) &&
                       !roles?.includes(MemberRoles.Copastor) &&
                       !roles?.includes(MemberRoles.Preacher) &&
@@ -1200,7 +1214,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                       <AlertDialogTrigger asChild>
                         <Button
                           disabled={isPromoteButtonDisabled}
-                          className='w-full text-[14px] md:mt-[2rem] disabled:bg-slate-500 disabled:text-white bg-yellow-400 text-yellow-700 hover:text-white hover:bg-yellow-500'
+                          className='w-full text-[14px] md:mt-[1rem] disabled:bg-slate-500 disabled:text-white bg-yellow-400 text-yellow-700 hover:text-white hover:bg-yellow-500'
                         >
                           Promover de cargo
                         </Button>
@@ -1208,69 +1222,102 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                       <AlertDialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
                         <AlertDialogHeader className='h-auto'>
                           <AlertDialogTitle className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-2'>
-                            ¿Estas seguro de promover a este miembro?
+                            {pathname === '/copastors/update-copastor'
+                              ? '¿Estas seguro de promover a este Co-Pastor?'
+                              : pathname === '/leaders/update-leader'
+                                ? '¿Estas seguro de promover a este Líder?'
+                                : '¿Estas seguro de promover a este Discípulo?'}
                           </AlertDialogTitle>
-                          <AlertDialogDescription>
-                            <span className='w-full text-left text-green-500 font-medium mb-3 inline-block text-[16px] md:text-[18px]'>
-                              Deberás hacer lo siguiente:
+                          <AlertDialogDescription
+                            className={cn(
+                              'h-[19.5rem] md:h-[17rem]',
+                              pathname === '/copastors/update-copastor' && 'h-[21rem] md:h-[18rem]',
+                              pathname === '/leaders/update-leader' && 'h-[25rem] md:h-[21rem]'
+                            )}
+                          >
+                            <span className='w-full text-left text-blue-500 font-medium mb-3 inline-block text-[16px] md:text-[18px]'>
+                              Secuencia de pasos y acciones:
                             </span>
                             <br />
+                            <span className='-ml-10 md:ml-0 text-left inline-block mb-2 text-[14px] md:text-[15px]'>
+                              ✅ Asignar la relación según el nuevo cargo.
+                            </span>
+                            <span className='-ml-1 md:ml-0 text-left inline-block mb-2 text-[14px] md:text-[15px]'>
+                              ✅ Guardar estos datos para aplicar la promoción.
+                            </span>
                             <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-                              ✅ Primero se deberá asignar la relación según el nuevo cargo y
-                              guardar estos datos para aplicar la promoción.
-                            </span>
-                            <br />
-                            <span className='text-left text-red-500 font-medium mb-3 inline-block text-[16px] md:text-[18px]'>
-                              Después de hacer esto sucederá lo siguiente:
-                            </span>
-                            <br />
-                            <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-                              ❌ Se borraran todas sus relaciones que tenia en el anterior cargo.
+                              ❌ De manera automática se borraran todas sus relaciones que tenia en
+                              el anterior cargo.
                             </span>
 
+                            {/* Disciples */}
                             {pathname === '/disciples/update-disciple' && (
-                              <span
-                                className={`${pathname === '/disciples/update-disciple' ? 'text-left inline-block mb-2 text-[14px] md:text-[15px]' : 'hidden'}`}
-                              >
-                                ❌ Si era Miembro y sube a Predicador(a), se eliminara su relación
-                                con su casa familiar, y se le asignara una nueva donde desempeñara
-                                su nuevo rol.
-                              </span>
+                              <div>
+                                <span
+                                  className={`${pathname === '/disciples/update-disciple' ? 'text-left inline-block mb-2 text-[14px] md:text-[15px]' : 'hidden'}`}
+                                >
+                                  ❌ Si era Discípulo y sube a Predicador(a), se eliminara su
+                                  relación con su casa familiar, predicador, supervisor, co-pastor y
+                                  pastor.
+                                </span>
+                                <span
+                                  className={`${pathname === '/disciples/update-disciple' ? 'text-left inline-block mb-2 text-[14px] md:text-[15px]' : 'hidden'}`}
+                                >
+                                  ✅ El discípulo promovido desempeñara funciones de Predicador(a),
+                                  tendrá un nuevo supervisor, copastor y pastor, según la zona.
+                                </span>
+                              </div>
                             )}
 
-                            {pathname === '/leaders/update-leader' && (
-                              <span
-                                className={`${pathname === '/leaders/update-leader' ? 'text-left inline-block mb-2 text-[14px] md:text-[15px]' : 'hidden'}`}
-                              >
-                                ❌ Si era Predicador(a) y sube a Supervisor(a), se borrara su
-                                relación con su casa familiar y sus miembros, por lo que deberá
-                                asignar a otro Predicador(a) para estos.
-                              </span>
-                            )}
-
-                            {pathname === '/leaders/update-leader' && (
-                              <span
-                                className={`${pathname === '/leaders/update-leader' ? 'text-left inline-block mb-2 text-[14px] md:text-[15px]' : 'hidden'}`}
-                              >
-                                ❌ Si era Supervisor(a) y sube a Co-pastor(a), se borrara su
-                                relación con las zonas, casas, predicadores y miembros que tenia a
-                                cargo, por lo que se deberá asignar otro Supervisor(a) para todos
-                                estos.
-                              </span>
-                            )}
-
+                            {/* Copastor */}
                             {pathname === '/copastors/update-copastor' && (
-                              <span
-                                className={`${pathname === '/copastors/update-copastor' ? 'text-left inline-block mb-2 text-[14px] md:text-[15px]' : 'hidden'}`}
-                              >
-                                <br />❌ Si era Co-pastor(a) y sube a Pastor(a) se borrara su
-                                relación con las zonas, casas, supervisores, predicadores y miembros
-                                que englobaba su cargo, por lo que se deberá asignar otro
-                                Co-pastor(a) para todos estos.
-                              </span>
+                              <div>
+                                <span
+                                  className={`${pathname === '/copastors/update-copastor' ? 'text-left inline-block mb-2 text-[14px] md:text-[15px]' : 'hidden'}`}
+                                >
+                                  ❌ Si era Co-pastor(a) y sube a Pastor(a) se borrara su relación
+                                  con las zonas, casas familiares, supervisores, predicadores y
+                                  discípulos que englobaba su cargo.
+                                </span>
+                                <span
+                                  className={`${pathname === '/copastors/update-copastor' ? 'text-left inline-block mb-2 text-[14px] md:text-[15px]' : 'hidden'}`}
+                                >
+                                  ✅ Se deberá asignar otro Co-pastor(a) para los discípulos, casas
+                                  y zonas que quedaron desamparados.
+                                </span>
+                              </div>
                             )}
 
-                            <br />
+                            {/* Leaders */}
+                            {pathname === '/leaders/update-leader' && (
+                              <div>
+                                <span
+                                  className={`${pathname === '/leaders/update-leader' ? 'text-left inline-block mb-2 text-[14px] md:text-[15px]' : 'hidden'}`}
+                                >
+                                  ❌ Si era Predicador(a) y sube a Supervisor(a), se borrara su
+                                  relación con su casa familiar, discípulos, supervisor, co-pastor y
+                                  pastor.
+                                </span>
+                                <span
+                                  className={`${pathname === '/leaders/update-leader' ? 'text-left inline-block mb-2 text-[14px] md:text-[15px]' : 'hidden'}`}
+                                >
+                                  ❌ Si era Supervisor(a) y sube a Co-pastor(a), se borrara su
+                                  relación con su co-pastor y pastor asi como con las zonas, casas,
+                                  predicadores y discípulos que tenia a cargo.
+                                </span>
+                                <span
+                                  className={`${pathname === '/leaders/update-leader' ? 'text-left inline-block mb-2 text-[14px] md:text-[15px]' : 'hidden'}`}
+                                >
+                                  ✅ Se deberá asignar otro Predicador(a) o Supervisor(a) para los
+                                  discípulos, casas y zonas que quedaron desamparados.
+                                </span>
+                              </div>
+                            )}
+
+                            <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
+                              ✅ Finalmente el registro promovido esta apto para ser usado en su
+                              nuevo rol o cargo.
+                            </span>
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
@@ -1310,7 +1357,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                         </p>
                         <p className='text-[12px] md:text-[13px] font-medium '>
                           ❌ Mientras el &#34;Estado&#34; sea{' '}
-                          <span className='text-red-500 font-bold'>inactivo</span> no podrás
+                          <span className='text-red-500 font-bold'>Inactivo</span> no podrás
                           promover de cargo.
                         </p>
                       </div>
@@ -1336,7 +1383,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                     className='w-full text-[14px]'
                     onClick={() => {
                       // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
-
+                      // NOTE : hacer petición al backend para eliminar
                       setTimeout(() => {
                         if (Object.keys(form.formState.errors).length === 0) {
                           toast.success('Cambios guardados correctamente', {

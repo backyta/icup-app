@@ -10,6 +10,9 @@ import { menuItems } from '@/shared/data';
 
 // import { useAuthStore } from '../../../stores';
 
+// TODO 1 : Hacer tooltip en la barra lateral, con ShadCN tomar componente Tooltip e implementarlo.
+// NOTE : https://ui.shadcn.com/docs/components/tooltip
+
 export const SideMenu = (): JSX.Element => {
   // const logoutUser = useAuthStore( state => state.logoutUser );
   // const userName = useAuthStore( state => state.user?.fullName || 'No user' );
@@ -18,8 +21,9 @@ export const SideMenu = (): JSX.Element => {
     <div className='bg-slate-900 md:min-h-screen z-10 text-slate-300 w-full md:w-[7.5rem]'>
       <ToggleSideBar />
 
+      {/* Header */}
       <div className='flex justify-between items-center md:flex-col md:pt-2 md:pb-4 md:px-2 md:gap-6'>
-        {/* Title */}
+        {/* Image, Title */}
         <div id='logo' className='my-4 md:m-0 px-0 md:pt-4'>
           <a
             href='/dashboard'
@@ -35,38 +39,20 @@ export const SideMenu = (): JSX.Element => {
               {/* <img className='rounded-full w-12 h-12 ' src='../public/logo.jpg' alt='' /> */}
             </span>
           </a>
-          <p className=' mt-2 text-md hidden'>Panel administrativo de la Iglesia.</p>
+          {/* <p className=' mt-2 text-md hidden'>Panel administrativo de la Iglesia.</p> */}
         </div>
-
         {/* Button */}
-        <div className='md:hidden'>
-          {/* <DropdownMenuTop /> */}
-          <DropdownMenuLeft />
-        </div>
-        <div className='hidden md:block'>
-          <DropdownMenuLeft />
-        </div>
+        <DropdownMenuLeft />
       </div>
 
-      {/*  Profile */}
-      {/* <div id='profile' className='pb-4 px-6 md:px-6 md:py-0 md:block md:text-center hidden'>
-        <p className='text-md font-bold pb-4 hidden'>Bienvenido,</p>
-        <a href='#' className='inline-flex space-x-2 items-center md:hidden'>
-          <span>
-            <img className='rounded-full w-10 h-10' src='../public/men.png' alt='' />
-          </span>
-
-          <span className='text-sm font-bold hidden'>Kevin Michael Baca Angeles</span>
-        </a>
-      </div> */}
-
-      {/* Menu Items */}
-      <nav id='menu' className='w-full px-8 py-6 md:flex md:flex-col gap-y-[3rem] hidden'>
+      {/* Menu Icon Items */}
+      <nav id='menu' className='w-full px-8 py-6 md:flex md:flex-col gap-y-[3rem]'>
         <div className='flex flex-col gap-y-1 justify-center items-left'>
           {menuItems.map((item) => (
             <SideMenuItemIcons key={item.href} {...item} />
           ))}
         </div>
+
         {/* Logout */}
         <a /* onClick={ logoutUser } */>
           <FcExport className='text-2xl md:text-3xl m-auto' />
@@ -75,5 +61,3 @@ export const SideMenu = (): JSX.Element => {
     </div>
   );
 };
-
-// word-wrap - Ver espaciado en Tailwind CSS

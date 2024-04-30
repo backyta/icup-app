@@ -220,6 +220,10 @@ export const OfferingExpensesFormUpdate = ({ onClose, onScroll }: Props): JSX.El
 
   useOfferingExpensesSubmitButtonLogic({
     formOfferingExpenses: form,
+    typesOfferingExpenses: TypesOfferingExpenses,
+    isInputDisabled,
+    isDropZoneDisabled,
+    isFileButtonDisabled,
     setIsSubmitButtonDisabled,
     setIsMessageErrorDisabled,
     setIsDropZoneDisabled,
@@ -686,6 +690,7 @@ export const OfferingExpensesFormUpdate = ({ onClose, onScroll }: Props): JSX.El
                     className='w-full text-[14px]'
                     onClick={() => {
                       // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                      // NOTE : hacer petición al backend para actualizar
                       setTimeout(() => {
                         if (Object.keys(form.formState.errors).length === 0) {
                           toast.success('Cambios guardados correctamente', {

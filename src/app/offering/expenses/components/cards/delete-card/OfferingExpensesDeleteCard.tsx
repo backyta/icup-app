@@ -32,9 +32,6 @@ import {
   SelectValue,
 } from '@/shared/components/ui/select';
 
-// NOTE : podría usar zustand para tomar el estado del id del estado global y eliminar y tmb
-// NOTE : tomaría el onDelete
-
 export const OfferingExpensesDeleteCard = (): JSX.Element => {
   //* States
   const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
@@ -171,6 +168,7 @@ export const OfferingExpensesDeleteCard = (): JSX.Element => {
                   className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
                   onClick={() => {
                     // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                    // NOTE : hacer petición al backend para borrar
                     toast.success('Registro eliminado exitosamente', {
                       position: 'top-center',
                       className: 'justify-center',
@@ -181,6 +179,7 @@ export const OfferingExpensesDeleteCard = (): JSX.Element => {
                     }, 100);
 
                     setTimeout(() => {
+                      setIsSelectInputDisabled(false);
                       setIsCardOpen(false);
                     }, 1300);
                   }}

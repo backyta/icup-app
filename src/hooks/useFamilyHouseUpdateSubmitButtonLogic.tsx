@@ -8,25 +8,35 @@ interface Options {
   formFamilyHouseUpdate: UseFormReturn<FamilyHouseData, any, FamilyHouseData>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  isInputDisabled: boolean;
 }
 
 export const useFamilyHouseUpdateSubmitButtonLogic = ({
-  formFamilyHouseUpdate: formFamilyHouse,
+  formFamilyHouseUpdate,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
+  isInputDisabled,
 }: Options): void => {
   // watchers
-  const zoneName = formFamilyHouse.watch('zoneName');
-  const houseName = formFamilyHouse.watch('houseName');
-  const country = formFamilyHouse.watch('country');
-  const department = formFamilyHouse.watch('department');
-  const province = formFamilyHouse.watch('province');
-  const district = formFamilyHouse.watch('district');
-  const address = formFamilyHouse.watch('address');
-  const theirPreacher = formFamilyHouse.watch('theirPreacher');
+  const zoneName = formFamilyHouseUpdate.watch('zoneName');
+  const houseName = formFamilyHouseUpdate.watch('houseName');
+  const country = formFamilyHouseUpdate.watch('country');
+  const department = formFamilyHouseUpdate.watch('department');
+  const province = formFamilyHouseUpdate.watch('province');
+  const district = formFamilyHouseUpdate.watch('district');
+  const address = formFamilyHouseUpdate.watch('address');
+  const theirPreacher = formFamilyHouseUpdate.watch('theirPreacher');
 
   // effects
   useEffect(() => {
+    if (
+      formFamilyHouseUpdate.formState.errors &&
+      Object.values(formFamilyHouseUpdate.formState.errors).length > 0
+    ) {
+      setIsSubmitButtonDisabled(true);
+      setIsMessageErrorDisabled(true);
+    }
+
     if (
       zoneName &&
       houseName &&
@@ -35,7 +45,9 @@ export const useFamilyHouseUpdateSubmitButtonLogic = ({
       province &&
       district &&
       address &&
-      theirPreacher
+      theirPreacher &&
+      Object.values(formFamilyHouseUpdate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
@@ -54,5 +66,15 @@ export const useFamilyHouseUpdateSubmitButtonLogic = ({
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
-  }, [zoneName, houseName, country, department, province, district, address, theirPreacher]);
+  }, [
+    formFamilyHouseUpdate.formState,
+    zoneName,
+    houseName,
+    country,
+    department,
+    province,
+    district,
+    address,
+    theirPreacher,
+  ]);
 };

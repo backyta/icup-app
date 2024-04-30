@@ -14,10 +14,10 @@ export const TypesReasonEliminationOfferingIncomeNames: Record<TypesReasonElimin
   type_selection_error : '❌ Error en selección de tipo',
   sub_type_selection_error : '❌ Error en selección de sub-tipo',
   shift_selection_error : '❌ Error en selección de turno',
-  member_selection_error : '❌ Error en selección de miembro',
+  member_selection_error : '❌ Error en selección de discípulo',
   family_house_selection_error : '❌ Error en selección de casa familiar',
   zone_selection_error : '❌ Error en selección de zona',
-  amount_error : '❌ Error en digitar cantidad o monto',
+  amount_error : '❌ Error en digitar el monto',
   currency_error : '❌ Error en selección divisa ',
   date_error : '❌ Error en selección de fecha',
 };

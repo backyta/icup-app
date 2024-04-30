@@ -1,5 +1,3 @@
-// import { MemberRoles as memberRoles } from '@/shared/enums';
-
 import { type UseFormReturn } from 'react-hook-form';
 
 import { type MemberRoles } from '@/shared/enums';
@@ -26,7 +24,7 @@ export const useRoleUpdateHandler = ({
 
   // conditional level up role
   const roles: MemberRoles[] = formMemberUpdate.getValues('roles');
-  const hasMember = roles.includes(memberRoles.Member);
+  const hasMember = roles.includes(memberRoles.Disciple);
   const hasPreacher = roles.includes(memberRoles.Preacher);
   const hasTreasurer = roles.includes(memberRoles.Treasurer);
   const hasCopastor = roles.includes(memberRoles.Copastor);
@@ -36,16 +34,16 @@ export const useRoleUpdateHandler = ({
   if (hasMember) {
     // Member -> Preacher
     if (!hasPreacher && !hasSupervisor && !hasTreasurer && !hasCopastor && !hasPastor) {
-      formMemberUpdate.setValue('roles', [memberRoles.Member, memberRoles.Preacher]);
+      formMemberUpdate.setValue('roles', [memberRoles.Disciple, memberRoles.Preacher]);
     }
     // preacher -> Supervisor
     else if (hasPreacher && !hasSupervisor && !hasTreasurer && !hasCopastor && !hasPastor) {
-      formMemberUpdate.setValue('roles', [memberRoles.Member, memberRoles.Supervisor]);
+      formMemberUpdate.setValue('roles', [memberRoles.Disciple, memberRoles.Supervisor]);
     }
     // preacher + treasurer -> Supervisor + treasurer
     else if (hasPreacher && hasTreasurer && !hasSupervisor && !hasCopastor && !hasPastor) {
       formMemberUpdate.setValue('roles', [
-        memberRoles.Member,
+        memberRoles.Disciple,
         memberRoles.Supervisor,
         memberRoles.Treasurer,
       ]);
@@ -58,7 +56,7 @@ export const useRoleUpdateHandler = ({
       !hasCopastor &&
       !hasPastor
     ) {
-      formMemberUpdate.setValue('roles', [memberRoles.Member, memberRoles.Copastor]);
+      formMemberUpdate.setValue('roles', [memberRoles.Disciple, memberRoles.Copastor]);
     }
     // copastor --> pastor
     else if (
@@ -69,7 +67,7 @@ export const useRoleUpdateHandler = ({
       !hasTreasurer &&
       !hasPastor
     ) {
-      formMemberUpdate.setValue('roles', [memberRoles.Member, memberRoles.Pastor]);
+      formMemberUpdate.setValue('roles', [memberRoles.Disciple, memberRoles.Pastor]);
     }
   }
 

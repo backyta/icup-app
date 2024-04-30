@@ -34,23 +34,22 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/components/ui/form';
 
 // NOTE : Colocar fechas y cantidades del mes anterior, por defecto, hacer un efecto cada 30 o 32 días.
-// NOTE : hacer petición al backend en rango por fecha y devolver array.
-// NOTE : hacer que el calendario seleccione máximo 3 meses (12 domingos).
+// NOTE : hacer que el calendario seleccione máximo 3 meses (12 domingos), quitar fechas.
 // NOTE : hacer que se muestren por defecto 7 domingos, cuando entre uno nuevo sale el primero o se empuja
-// NOTE : usar este calendario para la funcionalidad de los gráficos
+
 const data = [
-  { Miembros: 5, Casa: 'A-1', Ofrenda: 25.5 },
-  { Miembros: 3, Casa: 'A-2', Ofrenda: 30.2 },
-  { Miembros: 9, Casa: 'A-3', Ofrenda: 18.2 },
-  { Miembros: 8, Casa: 'A-4', Ofrenda: 9.2 },
-  { Miembros: 4, Casa: 'B-1', Ofrenda: 44.8 },
-  { Miembros: 8, Casa: 'B-2', Ofrenda: 17.2 },
-  { Miembros: 10, Casa: 'B-3', Ofrenda: 23.3 },
-  { Miembros: 3, Casa: 'B-4', Ofrenda: 32.1 },
-  { Miembros: 7, Casa: 'C-1', Ofrenda: 45.4 },
-  { Miembros: 6, Casa: 'C-2', Ofrenda: 21.9 },
-  { Miembros: 12, Casa: 'C-3', Ofrenda: 50.3 },
-  { Miembros: 4, Casa: 'C-4', Ofrenda: 10.3 },
+  { Discípulos: 5, Casa: 'A-1', Ofrenda: 25.5 },
+  { Discípulos: 3, Casa: 'A-2', Ofrenda: 30.2 },
+  { Discípulos: 9, Casa: 'A-3', Ofrenda: 18.2 },
+  { Discípulos: 8, Casa: 'A-4', Ofrenda: 9.2 },
+  { Discípulos: 4, Casa: 'B-1', Ofrenda: 44.8 },
+  { Discípulos: 8, Casa: 'B-2', Ofrenda: 17.2 },
+  { Discípulos: 10, Casa: 'B-3', Ofrenda: 23.3 },
+  { Discípulos: 3, Casa: 'B-4', Ofrenda: 32.1 },
+  { Discípulos: 7, Casa: 'C-1', Ofrenda: 45.4 },
+  { Discípulos: 6, Casa: 'C-2', Ofrenda: 21.9 },
+  { Discípulos: 12, Casa: 'C-3', Ofrenda: 50.3 },
+  { Discípulos: 4, Casa: 'C-4', Ofrenda: 10.3 },
 ];
 
 export const BarChartHouse = (): JSX.Element => {
@@ -163,7 +162,7 @@ export const BarChartHouse = (): JSX.Element => {
 
           {!form.formState.errors.termDate?.message && <Legend wrapperStyle={{ left: 0 }} />}
           <Bar dataKey='Ofrenda' fill='#029012' />
-          <Bar dataKey='Miembros' fill='#0ED0D0' />
+          <Bar dataKey='Discípulos' fill='#0ED0D0' />
         </BarChart>
       </ResponsiveContainer>
     </Card>

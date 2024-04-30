@@ -14,8 +14,9 @@ interface Options {
   pathname: string;
   memberRoles: typeof MemberRoles;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsDisabledMessageError: React.Dispatch<React.SetStateAction<boolean>>;
-  isDisabledMessageError: boolean;
+  setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  isInputDisabled: boolean;
+  isMessageErrorDisabled: boolean;
 }
 
 export const useMemberCreateSubmitButtonLogic = ({
@@ -23,8 +24,9 @@ export const useMemberCreateSubmitButtonLogic = ({
   pathname,
   memberRoles,
   setIsSubmitButtonDisabled,
-  setIsDisabledMessageError,
-  isDisabledMessageError,
+  setIsMessageErrorDisabled,
+  isInputDisabled,
+  isMessageErrorDisabled,
 }: Options): void => {
   // watchers
   const roles = formMemberCrate.watch('roles');
@@ -51,6 +53,14 @@ export const useMemberCreateSubmitButtonLogic = ({
 
   // effects
   useEffect(() => {
+    if (
+      formMemberCrate.formState.errors &&
+      Object.values(formMemberCrate.formState.errors).length > 0
+    ) {
+      setIsSubmitButtonDisabled(true);
+      setIsMessageErrorDisabled(true);
+    }
+
     // pastor
     if (
       pathname === '/pastors/create-pastor' &&
@@ -69,11 +79,13 @@ export const useMemberCreateSubmitButtonLogic = ({
       province &&
       district &&
       address &&
-      roles.includes(memberRoles.Member) &&
-      roles.includes(memberRoles.Pastor)
+      roles.includes(memberRoles.Disciple) &&
+      roles.includes(memberRoles.Pastor) &&
+      Object.values(formMemberCrate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
-      setIsDisabledMessageError(false);
+      setIsMessageErrorDisabled(false);
     }
 
     // leaders
@@ -94,13 +106,15 @@ export const useMemberCreateSubmitButtonLogic = ({
       province &&
       district &&
       address &&
-      roles.includes(memberRoles.Member) &&
+      roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
-      theirCopastor
+      theirCopastor &&
+      Object.values(formMemberCrate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       formMemberCrate.resetField('theirSupervisor', { keepTouched: true });
-      setIsSubmitButtonDisabled(true);
-      setIsDisabledMessageError(true);
+      setIsSubmitButtonDisabled(false);
+      setIsMessageErrorDisabled(false);
     }
 
     if (
@@ -120,20 +134,22 @@ export const useMemberCreateSubmitButtonLogic = ({
       province &&
       district &&
       address &&
-      roles.includes(memberRoles.Member) &&
+      roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Preacher) &&
-      theirSupervisor
+      theirSupervisor &&
+      Object.values(formMemberCrate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       formMemberCrate.resetField('theirCopastor', { keepTouched: true });
-      setIsSubmitButtonDisabled(true);
-      setIsDisabledMessageError(true);
+      setIsSubmitButtonDisabled(false);
+      setIsMessageErrorDisabled(false);
     }
 
     // toast alert leader
     if (
       formMemberCrate.getValues('roles').includes(memberRoles.Supervisor) &&
       formMemberCrate.getValues('roles').includes(memberRoles.Preacher) &&
-      formMemberCrate.getValues('roles').includes(memberRoles.Member)
+      formMemberCrate.getValues('roles').includes(memberRoles.Disciple)
     ) {
       toast.error('Solo debes elegir un rol: "Predicador" o "Supervisor"', {
         position: 'bottom-left',
@@ -159,10 +175,12 @@ export const useMemberCreateSubmitButtonLogic = ({
       district &&
       address &&
       roles &&
-      (theirFamilyHouse || theirPastor || theirCopastor || theirSupervisor)
+      (theirFamilyHouse || theirPastor || theirCopastor || theirSupervisor) &&
+      Object.values(formMemberCrate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
-      setIsDisabledMessageError(false);
+      setIsMessageErrorDisabled(false);
     }
 
     if (
@@ -184,9 +202,10 @@ export const useMemberCreateSubmitButtonLogic = ({
       roles.length === 0
     ) {
       setIsSubmitButtonDisabled(true);
-      setIsDisabledMessageError(true);
+      setIsMessageErrorDisabled(true);
     }
   }, [
+    formMemberCrate.formState,
     firstName,
     lastName,
     gender,
@@ -211,19 +230,19 @@ export const useMemberCreateSubmitButtonLogic = ({
 
   useEffect(() => {
     if (pathname === '/disciples/create-disciple') {
-      formMemberCrate.setValue('roles', [memberRoles.Member]);
+      formMemberCrate.setValue('roles', [memberRoles.Disciple]);
     }
     if (pathname === '/pastors/create-pastor') {
-      formMemberCrate.setValue('roles', [memberRoles.Member, memberRoles.Pastor]);
+      formMemberCrate.setValue('roles', [memberRoles.Disciple, memberRoles.Pastor]);
     }
     if (pathname === '/copastors/create-copastor') {
-      formMemberCrate.setValue('roles', [memberRoles.Member, memberRoles.Copastor]);
+      formMemberCrate.setValue('roles', [memberRoles.Disciple, memberRoles.Copastor]);
     }
-  }, [isDisabledMessageError]);
+  }, [isMessageErrorDisabled]);
 
   useEffect(() => {
     if (pathname === '/leaders/create-leader') {
-      formMemberCrate.setValue('roles', [memberRoles.Member]);
+      formMemberCrate.setValue('roles', [memberRoles.Disciple]);
     }
   }, []);
 };

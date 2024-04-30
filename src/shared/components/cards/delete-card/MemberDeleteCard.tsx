@@ -55,11 +55,11 @@ export const MemberDeleteCard = (): JSX.Element => {
               <br />
             </p>
           </div>
-          <div className='flex justify-end gap-x-4'>
+          <div className='flex justify-center md:justify-end gap-x-4'>
             <Toaster position='top-center' richColors />
             <Button
               disabled={isButtonsDisabled}
-              className='bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
+              className='w-full md:w-auto bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
             >
               No, Cancelar
             </Button>
@@ -67,6 +67,7 @@ export const MemberDeleteCard = (): JSX.Element => {
               disabled={isButtonsDisabled}
               onClick={() => {
                 // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                // NOTE : hacer petición al backend para eliminar
                 toast.success('Registro eliminado exitosamente', {
                   position: 'top-center',
                   className: 'justify-center',
@@ -77,7 +78,7 @@ export const MemberDeleteCard = (): JSX.Element => {
                   setIsCardOpen(false);
                 }, 1300);
               }}
-              className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
+              className='w-full md:w-auto bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
             >
               {/* Colocar función que envié la solicitud al backend onClick */}
               Sí, Eliminar
@@ -86,6 +87,7 @@ export const MemberDeleteCard = (): JSX.Element => {
         </DialogContent>
       )}
 
+      {/* Pastor */}
       {location.pathname === '/pastors/delete-pastor' && (
         <DialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
           <div className='h-auto'>
@@ -112,11 +114,11 @@ export const MemberDeleteCard = (): JSX.Element => {
               <br />
             </p>
           </div>
-          <div className='flex justify-end gap-x-4'>
+          <div className='flex justify-center md:justify-end gap-x-4'>
             <Toaster position='top-center' richColors />
             <Button
               disabled={isButtonsDisabled}
-              className='bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
+              className='w-full md:w-auto bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
             >
               No, cancelar
             </Button>
@@ -124,6 +126,7 @@ export const MemberDeleteCard = (): JSX.Element => {
               disabled={isButtonsDisabled}
               onClick={() => {
                 // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                // NOTE : hacer petición al backend para eliminar
                 toast.success('Registro eliminado exitosamente', {
                   position: 'top-center',
                   className: 'justify-center',
@@ -134,7 +137,7 @@ export const MemberDeleteCard = (): JSX.Element => {
                   setIsCardOpen(false);
                 }, 1300);
               }}
-              className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
+              className='w-full md:w-auto bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
             >
               {/* Colocar función que envié la solicitud al backend onClick */}
               Sí, eliminar
@@ -142,6 +145,8 @@ export const MemberDeleteCard = (): JSX.Element => {
           </div>
         </DialogContent>
       )}
+
+      {/* Co-pastor */}
       {location.pathname === '/copastors/delete-copastor' && (
         <DialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
           <div className='h-auto'>
@@ -168,11 +173,11 @@ export const MemberDeleteCard = (): JSX.Element => {
               <br />
             </p>
           </div>
-          <div className='flex justify-end gap-x-4'>
+          <div className='flex justify-center md:justify-end gap-x-4'>
             <Toaster position='top-center' richColors />
             <Button
               disabled={isButtonsDisabled}
-              className='bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
+              className='w-full md:w-auto bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
             >
               No, cancelar
             </Button>
@@ -180,6 +185,7 @@ export const MemberDeleteCard = (): JSX.Element => {
               disabled={isButtonsDisabled}
               onClick={() => {
                 // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                // NOTE : hacer petición al backend para eliminar
                 toast.success('Registro eliminado exitosamente', {
                   position: 'top-center',
                   className: 'justify-center',
@@ -190,7 +196,7 @@ export const MemberDeleteCard = (): JSX.Element => {
                   setIsCardOpen(false);
                 }, 1300);
               }}
-              className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
+              className='w-full md:w-auto bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
             >
               {/* Colocar función que envié la solicitud al backend onClick */}
               Sí, eliminar
@@ -198,6 +204,8 @@ export const MemberDeleteCard = (): JSX.Element => {
           </div>
         </DialogContent>
       )}
+
+      {/* Leader */}
       {location.pathname === '/leaders/delete-leader' && (
         <DialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
           <div className='h-auto'>
@@ -224,11 +232,11 @@ export const MemberDeleteCard = (): JSX.Element => {
               <br />
             </p>
           </div>
-          <div className='flex justify-end gap-x-4'>
+          <div className='flex justify-center md:justify-end gap-x-4'>
             <Toaster position='top-center' richColors />
             <Button
               disabled={isButtonsDisabled}
-              className='bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
+              className='w-full md:w-auto bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
             >
               No, cancelar
             </Button>
@@ -236,6 +244,7 @@ export const MemberDeleteCard = (): JSX.Element => {
               disabled={isButtonsDisabled}
               onClick={() => {
                 // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                // NOTE : hacer petición al backend para eliminar
                 toast.success('Registro eliminado exitosamente', {
                   position: 'top-center',
                   className: 'justify-center',
@@ -246,9 +255,8 @@ export const MemberDeleteCard = (): JSX.Element => {
                   setIsCardOpen(false);
                 }, 1300);
               }}
-              className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
+              className='w-full md:w-auto bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
             >
-              {/* Colocar función que envié la solicitud al backend onClick */}
               Sí, eliminar
             </Button>
           </div>

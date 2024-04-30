@@ -12,7 +12,7 @@ import {
 
 export const validateAllowedOfferingExpensesSubtypes = (currentPath: string, type: string ) => {
 
-  // Disabled Sub-types 
+  //* Disabled Sub-types 
   const disabledOperatingExpensesSubtypes = Object.keys(SubTypesOfferingExpensesNames).filter(value => !SubtypesOperatingExpensesAllowed.includes(value as SubTypesOfferingExpenses) );
   const disabledMaintenanceAndRepairExpensesSubtypes = Object.keys(SubTypesOfferingExpensesNames).filter(value => !SubtypesMaintenanceAndRepairExpensesAllowed.includes(value as SubTypesOfferingExpenses) );
   const disabledDecorationExpensesSubtypes = Object.keys(SubTypesOfferingExpensesNames).filter(value => !SubtypesDecorationExpensesAllowed.includes(value as SubTypesOfferingExpenses) );
@@ -20,42 +20,54 @@ export const validateAllowedOfferingExpensesSubtypes = (currentPath: string, typ
   const disabledSuppliesExpensesSubtypes = Object.keys(SubTypesOfferingExpensesNames).filter(value => !SubTypesSuppliesExpensesAllowed.includes(value as SubTypesOfferingExpenses) );
   const disabledActivitiesAndEventsExpensesSubtypes = Object.keys(SubTypesOfferingExpensesNames).filter(value => !SubtypesActivitiesAndEventsExpensesAllowed.includes(value as SubTypesOfferingExpenses) );
   
-  if ((currentPath === '/offerings/expenses/create-offering-expenses' || currentPath === '/offerings/expenses/update-offering-expenses' ) && type === TypesOfferingExpenses.OperationalExpenses) {
+  if ((currentPath === '/offerings/expenses/create-offering-expenses' || 
+        currentPath === '/offerings/expenses/update-offering-expenses' ) && 
+      type === TypesOfferingExpenses.OperationalExpenses) {
     return {
       disabledSubTypes : [
         ...disabledOperatingExpensesSubtypes,
       ],
     }
   }
-  if ((currentPath === '/offerings/expenses/create-offering-expenses' || currentPath === '/offerings/expenses/update-offering-expenses' ) && type === TypesOfferingExpenses.MaintenanceAndRepairExpenses) {
+  if ((currentPath === '/offerings/expenses/create-offering-expenses' || 
+        currentPath === '/offerings/expenses/update-offering-expenses' ) && 
+      type === TypesOfferingExpenses.MaintenanceAndRepairExpenses) {
     return {
       disabledSubTypes : [
         ...disabledMaintenanceAndRepairExpensesSubtypes,
       ],
     }
   }
-  if ((currentPath === '/offerings/expenses/create-offering-expenses' || currentPath === '/offerings/expenses/update-offering-expenses' ) && type === TypesOfferingExpenses.DecorationExpenses) {
+  if ((currentPath === '/offerings/expenses/create-offering-expenses' || 
+        currentPath === '/offerings/expenses/update-offering-expenses' ) &&
+      type === TypesOfferingExpenses.DecorationExpenses) {
     return {
       disabledSubTypes : [
         ...disabledDecorationExpensesSubtypes,
       ],
     }
   }
-  if ((currentPath === '/offerings/expenses/create-offering-expenses' || currentPath === '/offerings/expenses/update-offering-expenses' ) && type === TypesOfferingExpenses.EquipmentAndTechnologyExpenses) {
+  if ((currentPath === '/offerings/expenses/create-offering-expenses' || 
+        currentPath === '/offerings/expenses/update-offering-expenses' ) && 
+      type === TypesOfferingExpenses.EquipmentAndTechnologyExpenses) {
     return {
       disabledSubTypes : [
         ...disabledEquipmentAndTechnologyExpensesSubtypes,
       ],
     }
   }
-  if ((currentPath === '/offerings/expenses/create-offering-expenses' || currentPath === '/offerings/expenses/update-offering-expenses' ) && type === TypesOfferingExpenses.SuppliesExpenses) {
+  if ((currentPath === '/offerings/expenses/create-offering-expenses' || 
+        currentPath === '/offerings/expenses/update-offering-expenses' ) && 
+      type === TypesOfferingExpenses.SuppliesExpenses) {
     return {
       disabledSubTypes : [
         ...disabledSuppliesExpensesSubtypes,
       ],
     }
   }
-  if ((currentPath === '/offerings/expenses/create-offering-expenses' || currentPath === '/offerings/expenses/update-offering-expenses' ) && type === TypesOfferingExpenses.ActivitiesAndEventsExpenses) {
+  if ((currentPath === '/offerings/expenses/create-offering-expenses' || 
+        currentPath === '/offerings/expenses/update-offering-expenses' ) &&
+      type === TypesOfferingExpenses.ActivitiesAndEventsExpenses) {
     return {
       disabledSubTypes : [
         ...disabledActivitiesAndEventsExpensesSubtypes,

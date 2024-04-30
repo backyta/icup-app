@@ -30,7 +30,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form';
-
 import {
   Command,
   CommandEmpty,
@@ -289,6 +288,7 @@ export const ZoneCreateForm = ({ onClose, onScroll }: Props): JSX.Element => {
                 className='w-full text-[14px] bg-green-500 text-white hover:bg-green-600'
                 onClick={() => {
                   // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                  // NOTE : hacer petición al backend para crear
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
                       toast.success('Se ha registrado exitosamente', {

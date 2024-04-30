@@ -1,6 +1,6 @@
+import { dataUsers as data } from '@/app/user/data';
 import { userInfoColumns } from '@/app/user/components';
 
-import { dataUsers as data } from '@/app/user/data';
 import { DataTableSearchGeneral } from '@/shared/components';
 
 export const UsersGeneralSearchPage = (): JSX.Element => {
@@ -30,6 +30,3 @@ export const UsersGeneralSearchPage = (): JSX.Element => {
     </div>
   );
 };
-
-// NOTE : aquí debo hacer el fetch y traer la data y hacer un filter o map para recuperar solo lo necesario
-// NOTE : que se presentara en la tabla según las columnas.

@@ -1,4 +1,5 @@
-import { type TypesSearch, type UserRoles } from "@/shared/enums";
+import { type UserRoles } from '@/app/user/enums';
+import { type TypesSearch } from '@/shared/enums';
 
 export interface FormSearchByTerm {
   type: TypesSearch;

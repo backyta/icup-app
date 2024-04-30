@@ -73,7 +73,7 @@ export const OfferingIncomeDeleteCard = (): JSX.Element => {
   };
   /* 
   Para que metería el ID de la ofrenda en la tabla casa for ejemplo seria un array de varias ofrendas
-  solo hacer la relación ela tabla de ofrenda income, miembro, zona va acompañado de super, casa,
+  solo hacer la relación ela tabla de ofrenda income, discípulo, zona va acompañado de super, casa,
   si la zona se elimina cuando se se setea una nueva zona al super y se cambia en todos,
   si el super esta inactive se puede asignar igual la zona, y actualizar a otro super activo a esta zona y se actualizara en las ofrendas tmb */
 
@@ -176,6 +176,7 @@ export const OfferingIncomeDeleteCard = (): JSX.Element => {
                   className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
                   onClick={() => {
                     // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                    // NOTE : hacer petición al backend para eliminar
                     toast.success('Registro eliminado exitosamente', {
                       position: 'top-center',
                       className: 'justify-center',
@@ -186,6 +187,7 @@ export const OfferingIncomeDeleteCard = (): JSX.Element => {
                     }, 100);
 
                     setTimeout(() => {
+                      setIsSelectInputDisabled(false);
                       setIsCardOpen(false);
                     }, 1300);
                   }}

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
 import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
@@ -10,39 +11,48 @@ interface Options {
   setIsInputPreacherDisabled: (value: boolean) => void;
   setIsInputDisabled: (value: boolean) => void;
   setIsMessageErrorDisabled: (value: boolean) => void;
+  isInputDisabled: boolean;
 }
 
 export const useFamilyHouseCreateSubmitButtonLogic = ({
-  formFamilyHouseCreate: formFamilyHouse,
+  formFamilyHouseCreate,
   setIsSubmitButtonDisabled,
   setIsInputPreacherDisabled,
   setIsInputDisabled,
   setIsMessageErrorDisabled,
+  isInputDisabled,
 }: Options): void => {
   // watchers
-  const zoneName = formFamilyHouse.watch('zoneName');
-  const houseName = formFamilyHouse.watch('houseName');
-  const country = formFamilyHouse.watch('country');
-  const department = formFamilyHouse.watch('department');
-  const province = formFamilyHouse.watch('province');
-  const district = formFamilyHouse.watch('district');
-  const address = formFamilyHouse.watch('address');
-  const theirPreacher = formFamilyHouse.watch('theirPreacher');
+  const zoneName = formFamilyHouseCreate.watch('zoneName');
+  const houseName = formFamilyHouseCreate.watch('houseName');
+  const country = formFamilyHouseCreate.watch('country');
+  const department = formFamilyHouseCreate.watch('department');
+  const province = formFamilyHouseCreate.watch('province');
+  const district = formFamilyHouseCreate.watch('district');
+  const address = formFamilyHouseCreate.watch('address');
+  const theirPreacher = formFamilyHouseCreate.watch('theirPreacher');
 
   // effects
   useEffect(() => {
-    if (formFamilyHouse.getValues('zoneName')) {
+    if (formFamilyHouseCreate.getValues('zoneName')) {
       setIsInputPreacherDisabled(false);
     }
   }, [zoneName]);
 
   useEffect(() => {
-    if (formFamilyHouse.getValues('theirPreacher')) {
+    if (formFamilyHouseCreate.getValues('theirPreacher')) {
       setIsInputDisabled(false);
     }
   }, [theirPreacher]);
 
   useEffect(() => {
+    if (
+      formFamilyHouseCreate.formState.errors &&
+      Object.values(formFamilyHouseCreate.formState.errors).length > 0
+    ) {
+      setIsSubmitButtonDisabled(true);
+      setIsMessageErrorDisabled(true);
+    }
     if (
       zoneName &&
       houseName &&
@@ -51,7 +61,9 @@ export const useFamilyHouseCreateSubmitButtonLogic = ({
       province &&
       district &&
       address &&
-      theirPreacher
+      theirPreacher &&
+      Object.values(formFamilyHouseCreate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
@@ -70,5 +82,15 @@ export const useFamilyHouseCreateSubmitButtonLogic = ({
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
-  }, [zoneName, houseName, country, department, province, district, address, theirPreacher]);
+  }, [
+    formFamilyHouseCreate.formState,
+    zoneName,
+    houseName,
+    country,
+    department,
+    province,
+    district,
+    address,
+    theirPreacher,
+  ]);
 };

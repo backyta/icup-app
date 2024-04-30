@@ -1,7 +1,8 @@
 import { SubTypesOfferingExpenses } from '@/app/offering/expenses/enums';
 
-//* Subtypes allowed
-    // Operative Expenses
+// ? Subtypes allowed
+
+  //* Operative Expenses
   export const SubtypesOperatingExpensesAllowed = [ 
     SubTypesOfferingExpenses.VenueRental,
     SubTypesOfferingExpenses.PublicServices,
@@ -11,7 +12,7 @@ import { SubTypesOfferingExpenses } from '@/app/offering/expenses/enums';
     SubTypesOfferingExpenses.OtherAdministrativeExpenses,
   ];
 
-  // Maintenance and Repair Expenses
+  //* Maintenance and Repair Expenses
   export const SubtypesMaintenanceAndRepairExpensesAllowed = [ 
     SubTypesOfferingExpenses.PlumbingServices,
     SubTypesOfferingExpenses.ElectricalServices,
@@ -27,7 +28,7 @@ import { SubTypesOfferingExpenses } from '@/app/offering/expenses/enums';
     SubTypesOfferingExpenses.DoorAndWindowRepairs,
   ];
   
-  // Decoration Expenses
+  //* Decoration Expenses
   export const SubtypesDecorationExpensesAllowed = [ 
     SubTypesOfferingExpenses.PurchaseFlowersAndPlants,
     SubTypesOfferingExpenses.PurchaseDecorativeFurniture,
@@ -35,7 +36,7 @@ import { SubTypesOfferingExpenses } from '@/app/offering/expenses/enums';
     SubTypesOfferingExpenses.AltarAndWorshipAreaDecorationService,
   ];
   
-  // Equipment and Technology Expenses
+  //* Equipment and Technology Expenses
   export const SubtypesEquipmentAndTechnologyExpensesAllowed = [ 
     SubTypesOfferingExpenses.SoundEquipment,
     SubTypesOfferingExpenses.ComputerEquipment,
@@ -51,7 +52,7 @@ import { SubTypesOfferingExpenses } from '@/app/offering/expenses/enums';
     SubTypesOfferingExpenses.HostingSoftwareServices,
   ];
   
-  // Supplies Expenses
+  //* Supplies Expenses
   export const SubTypesSuppliesExpensesAllowed = [ 
     SubTypesOfferingExpenses.KitchenUtensils,
     SubTypesOfferingExpenses.OfficeSupplies,
@@ -61,7 +62,7 @@ import { SubTypesOfferingExpenses } from '@/app/offering/expenses/enums';
     SubTypesOfferingExpenses.SundaySchoolMaterials,
   ];
   
-  // Activities and Events Expenses
+  //* Activities and Events Expenses
   export const SubtypesActivitiesAndEventsExpensesAllowed = [ 
     SubTypesOfferingExpenses.SpecialGuestFees,
     SubTypesOfferingExpenses.ExternalVenueRental,

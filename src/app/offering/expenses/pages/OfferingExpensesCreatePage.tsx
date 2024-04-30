@@ -26,6 +26,7 @@ import { useOfferingExpensesSubmitButtonLogic } from '@/app/offering/expenses/ho
 import { validateAllowedOfferingExpensesSubtypes } from '@/app/offering/expenses/helpers';
 import {
   SubTypesOfferingExpensesNames,
+  TypesOfferingExpenses,
   TypesOfferingExpensesNames,
 } from '@/app/offering/expenses/enums';
 
@@ -54,11 +55,6 @@ import {
   Select,
 } from '@/shared/components/ui/select';
 
-// NOTE IMPORTANT : seria mejor colocar la zona, y de la zona automático jala su supervisor y copastor y pastor
-// NOTE : si sube de nivel y se elimina el registro sel super, al colocar un nuevo supervisor
-// NOTE : para esta zona debe poblarse en todas las tablas y de ahi saca su copastor y pastor (hacer esto en actualizar zona su supervisor)
-// NOTE : al hacer esto en esa lógica se tendrá que setear a todos los lugares donde tiene zona A el nuevo supervisor.
-
 export const OfferingExpensesCreatePage = (): JSX.Element => {
   //* States
   const [isInputDateOpen, setIsInputDateOpen] = useState<boolean>(false);
@@ -70,6 +66,7 @@ export const OfferingExpensesCreatePage = (): JSX.Element => {
 
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isDropZoneDisabled, setIsDropZoneDisabled] = useState<boolean>(false);
+  const [isFileButtonDisabled, setIsFileButtonDisabled] = useState<boolean>(false);
 
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
 
@@ -108,7 +105,7 @@ export const OfferingExpensesCreatePage = (): JSX.Element => {
           Object.assign(file, { preview: URL.createObjectURL(file) })
         );
 
-        // Verifica si ya existe un archivo con el mismo nombre
+        // Check if a file with the same name already exists
         mappedFiles.forEach((newFile) => {
           const existingFileIndex = files.findIndex(
             (existingFile) => existingFile.name === newFile.name
@@ -126,7 +123,7 @@ export const OfferingExpensesCreatePage = (): JSX.Element => {
           ...mappedFiles.map((file) => file.name),
         ];
 
-        form.setValue('urlFile', allFileNames); // Actualiza el campo de formulario con las URLs de los archivos
+        form.setValue('urlFile', allFileNames); // Update the form field with file URLs
       }
 
       if (rejectedFiles?.length) {
@@ -175,6 +172,10 @@ export const OfferingExpensesCreatePage = (): JSX.Element => {
   //* Custom hooks
   useOfferingExpensesSubmitButtonLogic({
     formOfferingExpenses: form,
+    typesOfferingExpenses: TypesOfferingExpenses,
+    isInputDisabled,
+    isDropZoneDisabled,
+    isFileButtonDisabled,
     setIsSubmitButtonDisabled,
     setIsMessageErrorDisabled,
     setIsDropZoneDisabled,
@@ -247,7 +248,7 @@ export const OfferingExpensesCreatePage = (): JSX.Element => {
                   );
                 }}
               />
-              {type !== '' && (
+              {type !== TypesOfferingExpenses.ExpensesAdjustment && (
                 <FormField
                   control={form.control}
                   name='subType'
@@ -417,14 +418,25 @@ export const OfferingExpensesCreatePage = (): JSX.Element => {
                     <FormItem className='mt-4'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
                         Comentarios
-                        <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
-                          Opcional
-                        </span>
+                        {type !== TypesOfferingExpenses.ExpensesAdjustment && (
+                          <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
+                            Opcional
+                          </span>
+                        )}
                       </FormLabel>
+                      {type === TypesOfferingExpenses.ExpensesAdjustment && (
+                        <FormDescription>
+                          Escribe una breve descripción sobre el ajuste
+                        </FormDescription>
+                      )}
                       <FormControl>
                         <Textarea
                           disabled={isInputDisabled}
-                          placeholder='Comentarios referente al registro de la salida'
+                          placeholder={`${
+                            type === TypesOfferingExpenses.ExpensesAdjustment
+                              ? `Motivos y comentarios sobre el ajuste...`
+                              : 'Comentarios referente al registro de la salida'
+                          }`}
                           {...field}
                         />
                       </FormControl>
@@ -576,6 +588,7 @@ export const OfferingExpensesCreatePage = (): JSX.Element => {
                 className='w-full text-[14px] md:text-[14.5px]'
                 onClick={() => {
                   // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                  // NOTE : hacer petición al backend para crear
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
                       toast.success('Ofrenda registrada correctamente', {
@@ -584,6 +597,7 @@ export const OfferingExpensesCreatePage = (): JSX.Element => {
                       });
                       setIsInputDisabled(true);
                       setIsDropZoneDisabled(true);
+                      setIsFileButtonDisabled(true);
                       setIsSubmitButtonDisabled(true);
                     }
                   }, 100);
@@ -597,7 +611,6 @@ export const OfferingExpensesCreatePage = (): JSX.Element => {
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
                       setIsInputDisabled(false);
-                      setIsSubmitButtonDisabled(false);
                       setFiles([]);
                       form.reset();
                     }

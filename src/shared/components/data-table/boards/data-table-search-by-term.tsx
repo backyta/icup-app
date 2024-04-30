@@ -33,6 +33,8 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 
+import { UserRoles, UserRoleNames } from '@/app/user/enums';
+
 import { formSearchByTermSchema } from '@/shared/validations';
 import { type FormSearchByTerm } from '@/shared/interfaces';
 import { Calendar } from '@/shared/components/ui/calendar';
@@ -76,8 +78,6 @@ import {
   SubTypesSearchNames,
   SearchSelectionOptionsNames,
   SubTypesSearch,
-  UserRoles,
-  UserRoleNames,
   RecordOrder,
   RecordOrderNames,
 } from '@/shared/enums';
@@ -87,7 +87,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 // NOTE : del componente padre que llama a este, hacer el fetch y mandar el ID, y el onDelete
-// NOTE : para que actualize la lista. (pero tmb ver la manera de transformar el id a serial)
+// NOTE : para que actualize la lista, (pero tmb ver la manera de transformar el id a serial)
 
 export function DataTableSearchByTerm<TData, TValue>({
   columns,

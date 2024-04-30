@@ -14,7 +14,7 @@ import { userSchema } from '@/app/user/validations';
 
 import { useUserSubmitButtonLogic } from '@/hooks';
 
-import { UserRoles, UserRoleNames } from '@/shared/enums';
+import { UserRoles, UserRoleNames } from '@/app/user/enums';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -323,6 +323,7 @@ export const UserCreatePage = (): JSX.Element => {
                 className='w-full text-[14px]'
                 onClick={() => {
                   // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                  // NOTE : hacer petición al backend para crear
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
                       toast.success('Usuario registrado correctamente', {

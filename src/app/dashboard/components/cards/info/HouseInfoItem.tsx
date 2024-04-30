@@ -31,7 +31,7 @@ export function HouseInfoItem(): JSX.Element {
                   <span className='font-bold'>Código:</span> C-2
                 </p>
                 <p className='text-[12px] sm:text-[14px] font-normal'>
-                  <span className='font-bold'>Miembros: </span> 10
+                  <span className='font-bold'>Discípulos: </span> 10
                 </p>
               </div>
               <p className='text-[12px] sm:text-[14px] font-normal'>
@@ -71,7 +71,7 @@ export function HouseInfoItem(): JSX.Element {
                 <span className='font-bold'>Código:</span> C-2
               </p>
               <p className='text-[12px] sm:text-[14px] font-normal'>
-                <span className='font-bold'>Miembros: </span> 10
+                <span className='font-bold'>Discípulos: </span> 10
               </p>
             </div>
             <p className='text-[12px] sm:text-[14px] font-normal'>

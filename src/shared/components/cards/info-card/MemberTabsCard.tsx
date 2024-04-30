@@ -29,7 +29,7 @@ export const MemberTabsCard = (): JSX.Element => {
               Información General
             </CardTitle>
             <CardDescription className='text-[14px] md:text-[15px]'>
-              Información general y personal del miembro.
+              Información general y personal.
             </CardDescription>
           </CardHeader>
           <CardContent className='grid grid-cols-3 gap-x-4 gap-y-4 px-4 md:gap-x-6 md:gap-y-5 md:pl-[4.2rem] md:pr-[2.5rem]'>
@@ -124,17 +124,17 @@ export const MemberTabsCard = (): JSX.Element => {
         <Card>
           <CardHeader className='text-center pb-6 pt-2'>
             <CardTitle className='text-yellow-500 text-[23px] md:text-[28px] font-bold -mb-2'>
-              Info. Eclesiástica
+              Información Eclesiástica
             </CardTitle>
             <CardDescription className='text-[14px] md:text-[15px]'>
-              Información eclesiástica del miembro.
+              Información eclesiástica y relaciones ministeriales.
             </CardDescription>
           </CardHeader>
           <CardContent className='grid grid-cols-2 pl-[2rem] gap-x-6 gap-y-4 md:gap-x-4 md:gap-y-8 md:pl-[4.1rem] md:pr-[2.5rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Roles / Cargos</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                Miembro - Predicador
+                Discípulo - Predicador
               </CardDescription>
             </div>
             <div className='space-y-1'>
@@ -179,10 +179,10 @@ export const MemberTabsCard = (): JSX.Element => {
         <Card>
           <CardHeader className='text-center pb-6 pt-2'>
             <CardTitle className='text-orange-500 text-[23px] md:text-[28px] font-bold -mb-2'>
-              Contacto
+              Información de Contacto
             </CardTitle>
             <CardDescription className='text-[14px] md:text-[15px]'>
-              Información de contacto del miembro.
+              Información de contacto y ubicación.
             </CardDescription>
           </CardHeader>
           <CardContent className='grid grid-cols-2 pl-[3rem] sm:pl-[6rem] gap-x-8 gap-y-4  md:gap-x-16 md:gap-y-6 md:pl-[6.3rem] md:pr-[1rem]'>

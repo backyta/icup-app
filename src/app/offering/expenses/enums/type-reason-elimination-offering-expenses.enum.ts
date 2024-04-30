@@ -9,7 +9,7 @@ export enum TypesReasonEliminationOfferingExpenses {
 export const TypesReasonEliminationOfferingExpensesNames: Record<TypesReasonEliminationOfferingExpenses, string> = {
   type_selection_error : '❌ Error en selección de tipo',
   sub_type_selection_error : '❌ Error en selección de sub-tipo',
-  amount_error : '❌ Error en digitar cantidad o monto',
+  amount_error : '❌ Error en digitar el monto',
   currency_error : '❌ Error en selección divisa ',
   date_error : '❌ Error en selección de fecha',
 };

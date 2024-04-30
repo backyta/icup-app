@@ -27,7 +27,7 @@ import { offeringIncomeFormSchema } from '@/app/offering/income/validations';
 import { familyHouses, zones } from '@/app/family-house/data';
 
 import { Status } from '@/shared/enums';
-import { members } from '@/shared/data';
+import { disciples } from '@/shared/data';
 
 import { CurrencyType, CurrencyTypeNames } from '@/app/offering/shared/enums';
 import { type RejectedProps, type FilesProps } from '@/app/offering/shared/interfaces';
@@ -149,7 +149,7 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
           Object.assign(file, { preview: URL.createObjectURL(file) })
         );
 
-        // Verifica si ya existe un archivo con el mismo nombre
+        // Check if a file with the same name already exists
         mappedFiles.forEach((newFile) => {
           const existingFileIndex = files.findIndex(
             (existingFile) => existingFile.name === newFile.name
@@ -167,7 +167,7 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
           ...mappedFiles.map((file) => file.name),
         ];
 
-        form.setValue('urlFile', allFileNames); // Actualiza el campo de formulario con las URLs de los archivos
+        form.setValue('urlFile', allFileNames); // Update form field with file URLs
       }
 
       if (rejectedFiles?.length) {
@@ -213,6 +213,7 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
     setRejected((files) => files.filter(({ file }) => file.name !== name));
   };
 
+  // Inactive = Cannot eliminate anything
   useEffect(() => {
     if (status === Status.Inactive) {
       setIsDropZoneDisabled(true);
@@ -234,9 +235,12 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
   }, []);
 
   useOfferingIncomeSubmitButtonLogic({
-    formOffering: form,
-    typesOffering: TypesOfferingIncome,
+    formOfferingIncome: form,
+    typesOfferingIncome: TypesOfferingIncome,
     subTypesOffering: SubTypesOfferingIncome,
+    isInputDisabled,
+    isDropZoneDisabled,
+    isFileButtonDisabled,
     setIsSubmitButtonDisabled,
     setIsMessageErrorDisabled,
     setIsDropZoneDisabled,
@@ -558,10 +562,10 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                       render={({ field }) => (
                         <FormItem className='flex flex-col mt-3'>
                           <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                            Miembro
+                            Discípulo
                           </FormLabel>
                           <FormDescription className='text-[14px]'>
-                            Seleccione un miembro para asignarlo al registro.
+                            Seleccione un discípulo para asignarlo al registro.
                           </FormDescription>
                           <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
                             <PopoverTrigger asChild>
@@ -576,8 +580,9 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                                   )}
                                 >
                                   {field.value
-                                    ? members.find((member) => member.value === field.value)?.label
-                                    : 'Busque y seleccione un miembro'}
+                                    ? disciples.find((member) => member.value === field.value)
+                                        ?.label
+                                    : 'Busque y seleccione un discípulo'}
                                   <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                 </Button>
                               </FormControl>
@@ -585,12 +590,12 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                             <PopoverContent align='center' className='w-auto px-4 py-2'>
                               <Command>
                                 <CommandInput
-                                  placeholder='Busque un miembro...'
+                                  placeholder='Busque un discípulo...'
                                   className='h-9 text-[14px]'
                                 />
-                                <CommandEmpty>Miembro no encontrado.</CommandEmpty>
+                                <CommandEmpty>Discípulo no encontrado.</CommandEmpty>
                                 <CommandGroup className='max-h-[200px] h-auto'>
-                                  {members.map((member) => (
+                                  {disciples.map((member) => (
                                     <CommandItem
                                       className='text-[14px]'
                                       value={member.label}
@@ -956,6 +961,7 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                     className='w-full text-[14px]'
                     onClick={() => {
                       // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
+                      // NOTE : hacer petición al backend para actualizar
                       setTimeout(() => {
                         if (Object.keys(form.formState.errors).length === 0) {
                           toast.success('Cambios guardados correctamente', {
@@ -964,6 +970,7 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                           });
                           setIsInputDisabled(true);
                           setIsDropZoneDisabled(true);
+                          setIsFileButtonDisabled(true);
                           setIsSubmitButtonDisabled(true);
                         }
                       }, 100);
