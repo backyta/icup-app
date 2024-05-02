@@ -8,9 +8,11 @@ import { DropdownMenuLeft } from '@/shared/components/dropdown-menu';
 
 import { menuItems } from '@/shared/data';
 
+import { MenuBarTooltip } from './MenuBarTooltip';
+
 // import { useAuthStore } from '../../../stores';
 
-// TODO 1 : Hacer tooltip en la barra lateral, con ShadCN tomar componente Tooltip e implementarlo.
+// TODO 1 : Hacer tooltip en la barra lateral, con ShadCN tomar componente Tooltip e implementarlo.✔
 // NOTE : https://ui.shadcn.com/docs/components/tooltip
 
 export const SideMenu = (): JSX.Element => {
@@ -49,7 +51,9 @@ export const SideMenu = (): JSX.Element => {
       <nav id='menu' className='w-full px-8 py-6 md:flex md:flex-col gap-y-[3rem]'>
         <div className='flex flex-col gap-y-1 justify-center items-left'>
           {menuItems.map((item) => (
-            <SideMenuItemIcons key={item.href} {...item} />
+                <MenuBarTooltip key={item.title} item={item}>
+                  <SideMenuItemIcons key={item.href} {...item} />
+                </MenuBarTooltip>
           ))}
         </div>
 
