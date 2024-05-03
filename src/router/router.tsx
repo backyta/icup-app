@@ -24,6 +24,8 @@ import { OfferingExpensesChildrenRoutes } from '@/app/offering/expenses/router';
 import { UserChildrenRoutes } from '@/app/user/router';
 
 import { Root } from '@/Root';
+import { MetricsChildrenRoutes } from '@/app/metrics/router';
+import { MetricsOptionsPage } from '@/app/metrics/pages';
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +46,7 @@ export const router = createBrowserRouter([
           { path: '/offerings', element: <OfferingOptionsPage /> },
           { path: '/offerings/income', element: <OfferingIncomeOptionsPage /> },
           { path: '/offerings/expenses', element: <OfferingExpensesOptionsPage /> },
+          { path: '/metrics', element: <MetricsOptionsPage /> },
           { path: '/users', element: <UserOptionsPage /> },
         ],
       },
@@ -70,6 +73,9 @@ export const router = createBrowserRouter([
 
       // Routes user
       { path: '/users', element: <DashboardLayout />, children: UserChildrenRoutes },
+
+      // Routes metrics
+      { path: '/metrics', element: <DashboardLayout />, children: MetricsChildrenRoutes },
 
       /// Auth Routes
       // TODO 2 : Crear ruta para auth/login con su layout y login page

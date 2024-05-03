@@ -53,6 +53,7 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+  
         "pastor-color": "#1976D2",
         "copastor-color": "#9C27B0",
         "leader-color": "#068ef1",

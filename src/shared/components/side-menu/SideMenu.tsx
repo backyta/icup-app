@@ -46,7 +46,7 @@ export const SideMenu = (): JSX.Element => {
       </div>
 
       {/* Menu Icon Items */}
-      <nav id='menu' className='w-full px-8 py-6 md:flex md:flex-col gap-y-[3rem]'>
+      <nav id='menu' className='w-full px-8 py-6 md:flex md:flex-col gap-y-[3rem] hidden'>
         <div className='flex flex-col gap-y-1 justify-center items-left'>
           {menuItems.map((item) => (
             <SideMenuItemIcons key={item.href} {...item} />
