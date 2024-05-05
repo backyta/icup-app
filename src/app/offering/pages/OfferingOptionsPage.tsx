@@ -14,7 +14,7 @@ export const OfferingOptionsPage = (): JSX.Element => {
       </p>
       <hr className='p-[0.015rem] bg-slate-500' />
 
-      <div className='w-full px-8 py-6 flex flex-col gap-10 md:grid md:gap-8 lg:h-[47rem] 2xl:h-[43rem]'>
+      <div className='w-full px-8 py-6 flex flex-col gap-10 lg:grid md:gap-8 lg:h-[45rem] 2xl:h-[43rem]'>
         <NavLink
           key='/offerings/income'
           to='/offerings/income'

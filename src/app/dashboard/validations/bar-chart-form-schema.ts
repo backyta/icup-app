@@ -10,5 +10,6 @@ export const barChartFormSchema = z
     }),
   })
 
+  // TODO : ver si esto se usara desde shared para schema form chart global
   
 

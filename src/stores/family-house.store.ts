@@ -19,8 +19,8 @@ interface FamilyHouseStore {
   isMessageErrorDisabled: boolean;
 
   // Methods
-  setIsPreacherOpen: (value: boolean) => void;
-  setIsSearchZoneOpen: (value: boolean) => void;
+  setIsInputPreacherOpen: (value: boolean) => void;
+  setIsInputSearchZoneOpen: (value: boolean) => void;
 
   setIsInputDisabled: (value: boolean) => void;
   setIsInputZoneDisabled: (value: boolean) => void;
@@ -51,8 +51,8 @@ export const storeFamilyHouse: StateCreator<FamilyHouseStore> = (set) => ({
   isDeleteCardOpen: false,
   isMessageErrorDisabled: true,
 
-  setIsPreacherOpen: (value: boolean) => set( state => ({isInputPreacherOpen: value})),
-  setIsSearchZoneOpen: (value: boolean) => set( state => ({isInputSearchZoneOpen: value})),
+  setIsInputPreacherOpen: (value: boolean) => set( state => ({isInputPreacherOpen: value})),
+  setIsInputSearchZoneOpen: (value: boolean) => set( state => ({isInputSearchZoneOpen: value})),
 
   setIsInputDisabled: (value: boolean) => set( state => ({isInputDisabled: value})),
   setIsInputZoneDisabled: (value: boolean) => set( state => ({isInputZoneDisabled: value})),

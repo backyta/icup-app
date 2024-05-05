@@ -50,8 +50,8 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
   const isSubmitButtonDisabled = useFamilyHouseStore((state) => state.isSubmitButtonDisabled);
   const isZoneButtonsDisabled = useFamilyHouseStore((state) => state.isZoneButtonsDisabled);
 
-  const setIsPreacherOpen = useFamilyHouseStore((state) => state.setIsPreacherOpen);
-  const setIsSearchZoneOpen = useFamilyHouseStore((state) => state.setIsSearchZoneOpen);
+  const setIsPreacherOpen = useFamilyHouseStore((state) => state.setIsInputPreacherOpen);
+  const setIsSearchZoneOpen = useFamilyHouseStore((state) => state.setIsInputSearchZoneOpen);
 
   const setIsInputZoneDisabled = useFamilyHouseStore((state) => state.setIsInputZoneDisabled);
   const setIsInputPreacherDisabled = useFamilyHouseStore(

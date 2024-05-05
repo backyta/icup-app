@@ -14,12 +14,12 @@ export const MetricsMember = (): JSX.Element => {
   return (
     <div>
       <h2 className='text-center text-amber-500 text-[1.6rem] sm:text-[1.8rem] md:text-[2rem] lg:text-[2.5rem] xl:text-[3rem] font-sans font-bold pt-2 leading-tight'>
-        Análisis de Miembros de la Iglesia
+        Métricas de Miembros
       </h2>
       <p className='text-center text-[15px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-medium'>
-        Indicadores y estadísticas clave de los miembros
+        Análisis, comparativas e indicadores de los miembros
       </p>
-      <hr className='p-[0.015rem] bg-slate-500 mb-4 w-[90%] mx-auto' />
+      <hr className='p-[0.015rem] bg-slate-500 mt-2  mb-4 w-[90%] mx-auto' />
 
       {/* Header Cards Member Proportion */}
       <MemberProportionCards />
