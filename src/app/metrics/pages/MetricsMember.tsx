@@ -6,9 +6,12 @@ import {
   MemberAnalysisCardByMaritalStatus,
   MemberAnalysisCardByRole,
   MemberAnalysisCardByCategory,
-  MemberAnalysisCardByZone,
-  MemberLeaderAnalysisCardByZone,
 } from '@/app/metrics/components/graphics-member';
+
+import {
+  MemberAnalysisCardByZone,
+  PreacherAnalysisCardByZone,
+} from '@/app/metrics/components/shared';
 
 export const MetricsMember = (): JSX.Element => {
   return (
@@ -33,7 +36,7 @@ export const MetricsMember = (): JSX.Element => {
         <MemberAnalysisCardByRole />
         <MemberAnalysisCardByMaritalStatus />
         <MemberAnalysisCardByZone />
-        <MemberLeaderAnalysisCardByZone />
+        <PreacherAnalysisCardByZone />
       </div>
     </div>
   );

@@ -1,8 +1,5 @@
-import { Card } from '@/shared/components/ui/card';
 import { useMediaQuery } from '@react-hook/media-query';
-
 import {
-  BarChart,
   Bar,
   ResponsiveContainer,
   XAxis,
@@ -10,28 +7,37 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ComposedChart,
+  Line,
 } from 'recharts';
+
+import { Card } from '@/shared/components/ui/card';
 
 const data = [
   {
     rol: 'Pastores',
-    Cantidad: 5,
+    Varones: 2,
+    Mujeres: 1,
   },
   {
     rol: 'Co-Pastores',
-    Cantidad: 8,
+    Varones: 1,
+    Mujeres: 4,
   },
   {
     rol: 'Supervisores',
-    Cantidad: 25,
+    Varones: 1,
+    Mujeres: 3,
   },
   {
     rol: 'Predicadores',
-    Cantidad: 39,
+    Varones: 5,
+    Mujeres: 10,
   },
   {
     rol: 'Discípulos',
-    Cantidad: 210,
+    Varones: 42,
+    Mujeres: 76,
   },
 ];
 
@@ -65,16 +71,17 @@ export const MemberAnalysisCardByRole = (): JSX.Element => {
   const isDesktopLG = useMediaQuery('(min-width: 1024px)');
   const isDesktopXL = useMediaQuery('(min-width: 1280px)');
 
-  const totalCantidad = data.reduce((total, item) => total + item.Cantidad, 0);
+  const totalCantidad = data.reduce((total, item) => total + item.Varones + item.Mujeres, 0);
+
   const newData = data.map((item) => ({
     ...item,
-    Porcentaje: ((item.Cantidad / totalCantidad) * 100).toFixed(1),
+    Porcentaje: (((item.Varones + item.Mujeres) / totalCantidad) * 100).toFixed(1),
   }));
 
   return (
     <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <h3 className='p-2 text-center font-bold mb-2 sm:mb-0 text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.50em] 2xl:text-3xl inline-block'>
-        Miembros por Roles (%)
+        Miembros (roles eclesiásticos)
       </h3>
 
       <ResponsiveContainer
@@ -89,7 +96,7 @@ export const MemberAnalysisCardByRole = (): JSX.Element => {
                 : '100%'
         }
       >
-        <BarChart
+        <ComposedChart
           width={500}
           height={300}
           data={newData}
@@ -100,10 +107,10 @@ export const MemberAnalysisCardByRole = (): JSX.Element => {
           <YAxis />
           <Tooltip content={renderTooltipContent} />
           <Legend />
-
-          <Bar dataKey='Cantidad' fill='#82ca9d' />
-          <Bar dataKey='Porcentaje' fill='#8884d8' />
-        </BarChart>
+          <Bar dataKey='Varones' fill='#00bcdc' />
+          <Bar dataKey='Mujeres' fill='#bb3dff' />
+          <Line type='linear' dataKey='Porcentaje' stroke='#ff7300' />
+        </ComposedChart>
       </ResponsiveContainer>
     </Card>
   );

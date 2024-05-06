@@ -1,3 +1,4 @@
 export * from './FamilyHouseProportionCards';
 export * from './FamilyHouseFluctuationAnalysisCardByMonth';
-export * from './FamilyHouseAnalysisCardByZoneAndGender';
+export * from './MemberAnalysisCardByFamilyHouse';
+export * from './FamilyHousesAnalysisCardByZone';

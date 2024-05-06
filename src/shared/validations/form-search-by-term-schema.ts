@@ -47,7 +47,7 @@ export const formSearchByTermSchema = z
       required_error: "Seleccione un orden para al consulta.",
     })),
 
-    limitAll: z.boolean().optional(),
+    all: z.boolean().optional(),
    
   })
   .refine(

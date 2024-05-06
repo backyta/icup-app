@@ -85,7 +85,7 @@ export function DataTableSearchGeneral<TData, TValue>({
     defaultValues: {
       limit: '10',
       offset: '0',
-      limitAll: false,
+      all: false,
       order: RecordOrder.Ascending,
     },
   });
@@ -154,9 +154,9 @@ export function DataTableSearchGeneral<TData, TValue>({
                     <FormControl>
                       <Input
                         {...field}
-                        disabled={form.getValues('limitAll')}
+                        disabled={form.getValues('all')}
                         className='text-[13px] md:text-[14px]'
-                        value={form.getValues('limitAll') ? '-' : field.value || ''}
+                        value={form.getValues('all') ? '-' : field.value || ''}
                         placeholder='Limite de registros'
                       />
                     </FormControl>
@@ -188,11 +188,11 @@ export function DataTableSearchGeneral<TData, TValue>({
                       <FormItem className='sm:w-[18rem] md:w-auto'>
                         <FormControl>
                           <Input
-                            disabled={form.getValues('limitAll')}
+                            disabled={form.getValues('all')}
                             className='text-[13px] md:text-[14px]'
                             placeholder='Nro. de registros desplazados'
                             {...field}
-                            value={form.getValues('limitAll') ? '-' : field?.value || ''}
+                            value={form.getValues('all') ? '-' : field?.value || ''}
                           />
                         </FormControl>
                         <FormMessage />
@@ -202,7 +202,7 @@ export function DataTableSearchGeneral<TData, TValue>({
 
                   <FormField
                     control={form.control}
-                    name='limitAll'
+                    name='all'
                     render={({ field }) => (
                       <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem]'>
                         <FormControl>

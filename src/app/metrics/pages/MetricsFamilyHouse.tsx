@@ -1,8 +1,14 @@
 import {
   FamilyHouseProportionCards,
   FamilyHouseFluctuationAnalysisCardByMonth,
-  FamilyHouseAnalysisCardByZoneAndGender,
+  MemberAnalysisCardByFamilyHouse,
+  FamilyHousesAnalysisCardByZone,
 } from '@/app/metrics/components';
+
+import {
+  MemberAnalysisCardByZone,
+  PreacherAnalysisCardByZone,
+} from '@/app/metrics/components/shared';
 
 export const MetricsFamilyHouse = (): JSX.Element => {
   return (
@@ -21,7 +27,10 @@ export const MetricsFamilyHouse = (): JSX.Element => {
       {/* Gráficos independientes */}
       <div className='mt-10 px-2 md:px-6 xl:pb-14 flex flex-col xl:grid xl:grid-cols-2 gap-10 h-[200rem] lg:h-[222rem] xl:h-auto'>
         <FamilyHouseFluctuationAnalysisCardByMonth />
-        <FamilyHouseAnalysisCardByZoneAndGender />
+        <MemberAnalysisCardByFamilyHouse />
+        <MemberAnalysisCardByZone />
+        <FamilyHousesAnalysisCardByZone />
+        <PreacherAnalysisCardByZone />
       </div>
     </div>
   );

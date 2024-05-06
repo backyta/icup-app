@@ -121,7 +121,7 @@ export function DataTableSearchByTerm<TData, TValue>({
       termSelect: '',
       termDate: undefined,
       subType: '',
-      limitAll: false,
+      all: false,
       order: RecordOrder.Ascending,
     },
   });
@@ -162,10 +162,10 @@ export function DataTableSearchByTerm<TData, TValue>({
 
   //* Effects
   useEffect(() => {
-    if (form.getValues('limitAll')) {
+    if (form.getValues('all')) {
       form.setValue('limit', '10');
     }
-  }, [form.getValues('limitAll')]);
+  }, [form.getValues('all')]);
 
   useEffect(() => {
     if (limit !== '' && order !== '') {
@@ -669,9 +669,9 @@ export function DataTableSearchByTerm<TData, TValue>({
                       <FormControl>
                         <Input
                           {...field}
-                          disabled={form.getValues('limitAll')}
+                          disabled={form.getValues('all')}
                           className='text-[13px] md:text-[14px]'
-                          value={form.getValues('limitAll') ? '-' : field.value || ''}
+                          value={form.getValues('all') ? '-' : field.value || ''}
                           placeholder='Limite de registros'
                         />
                       </FormControl>
@@ -681,7 +681,7 @@ export function DataTableSearchByTerm<TData, TValue>({
 
                 <FormField
                   control={form.control}
-                  name='limitAll'
+                  name='all'
                   render={({ field }) => (
                     <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
                       <FormControl>

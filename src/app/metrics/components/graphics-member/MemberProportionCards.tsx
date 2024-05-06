@@ -1,9 +1,11 @@
+import { useEffect, useState } from 'react';
+
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
-import { FaPeopleRoof } from 'react-icons/fa6';
+
 import { BsGenderFemale, BsGenderMale } from 'react-icons/bs';
+import { FaPeopleRoof } from 'react-icons/fa6';
 
 import { Card, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card';
-import { useEffect, useState } from 'react';
 
 const COLORS_ACTIVE = ['#00C49F', '#808080'];
 const COLORS_INACTIVE = ['#808080', '#fd6c6c'];

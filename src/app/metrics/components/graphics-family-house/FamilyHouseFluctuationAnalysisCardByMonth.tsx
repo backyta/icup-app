@@ -25,12 +25,13 @@ import {
   YAxis,
 } from 'recharts';
 
+import { chartFormValidationSchema } from '@/app/metrics/validations';
+
 import { Card } from '@/shared/components/ui/card';
 import { Button } from '@/shared/components/ui/button';
 import { Calendar } from '@/shared/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/components/ui/form';
-import { chartFormValidationSchema } from '@/app/metrics/validations';
 
 const dataMembersByMonth = [
   { date: 'Enero', Nuevas: 10, Bajas: 2 },
@@ -64,7 +65,7 @@ export const FamilyHouseFluctuationAnalysisCardByMonth = (): JSX.Element => {
 
   return (
     <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
-      <div className='flex flex-col sm:flex-row items-center justify-between p-3 md:p-3 lg:p-3 xl:p-2 2xl:p-4'>
+      <div className='flex flex-col sm:flex-row items-center justify-between p-3 md:p-3 lg:p-3 xl:p-2 xl:px-3 2xl:p-4'>
         <h3 className='font-bold mb-2 sm:mb-0 text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.50em] 2xl:text-3xl inline-block'>
           Fluctuación de casas
         </h3>
@@ -101,7 +102,7 @@ export const FamilyHouseFluctuationAnalysisCardByMonth = (): JSX.Element => {
                               format(field?.value.from, 'LLL dd, y')
                             )
                           ) : (
-                            <span className='text-[14px] md:text-[15px]'>Elige las fechas</span>
+                            <span className='text-[14px]'>Elige las fechas</span>
                           )}
                         </Button>
                       </FormControl>

@@ -29,7 +29,7 @@ export const formSearchGeneralSchema = z
       message: 'Desplaz. debe ser un numero mayor o igual a 0'
     }).optional(),
 
-    limitAll: z.boolean().optional(),
+    all: z.boolean().optional(),
    
   })
 

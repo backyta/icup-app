@@ -2,7 +2,6 @@
 
 import * as z from 'zod';
 
-
 export const chartFormValidationSchema = z
   .object({
     
@@ -14,7 +13,12 @@ export const chartFormValidationSchema = z
     }).optional(),
 
     zone: z.string({required_error: 
-      'Por favor asigne un Zona.'}).optional(),
+      'Por favor elige un zona.'}).optional(),
+
+    copastor: z.string({required_error: 
+      'Por favor elige un co-pastor.'}).optional(),
+
+    all: z.boolean().optional(),
 
   })
  
