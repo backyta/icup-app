@@ -9,10 +9,17 @@ TooltipTrigger
 
 interface MenuBarItem {
     title: string
-    [key: string]: any;
+    subTitle: string
+    href: string
+    Icon: Function
 }
 
-export const MenuBarTooltip: React.FC<{ children: any; item: MenuBarItem }> = ( { children , item } ) => {
+interface Props {
+    children: React.ReactNode
+    item: MenuBarItem
+}
+
+export const MenuBarTooltip = ( { children , item }: Props ): JSX.Element => {
   
   return(
 
