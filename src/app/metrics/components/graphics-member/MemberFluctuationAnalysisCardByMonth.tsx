@@ -72,7 +72,7 @@ export const MemberFluctuationAnalysisCardByMonth = (): JSX.Element => {
           <form>
             <FormField
               control={form.control}
-              name='termDate'
+              name='dateTerm'
               render={({ field }) => (
                 <FormItem>
                   <Popover open={open} onOpenChange={setOpen}>
@@ -132,9 +132,9 @@ export const MemberFluctuationAnalysisCardByMonth = (): JSX.Element => {
       <ResponsiveContainer
         width='100%'
         height={
-          form.formState.errors.termDate?.message && isDesktop
+          form.formState.errors.dateTerm?.message && isDesktop
             ? '75%'
-            : form.formState.errors.termDate?.message && !isDesktop
+            : form.formState.errors.dateTerm?.message && !isDesktop
               ? '60%'
               : isDesktopXL
                 ? '100%'
@@ -153,7 +153,7 @@ export const MemberFluctuationAnalysisCardByMonth = (): JSX.Element => {
           <YAxis />
           <Tooltip labelClassName='text-black' />
 
-          {!form.formState.errors.termDate?.message && <Legend wrapperStyle={{ left: 0 }} />}
+          {!form.formState.errors.dateTerm?.message && <Legend wrapperStyle={{ left: 0 }} />}
 
           <Bar dataKey='Nuevos' fill='#22C55E' />
           <Bar dataKey='Bajas' fill='#EF4444' />

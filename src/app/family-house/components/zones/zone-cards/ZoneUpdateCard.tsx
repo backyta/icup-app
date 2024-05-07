@@ -61,7 +61,7 @@ export const ZoneUpdateCard = ({ isDisabled, formFamilyHouse }: Props): JSX.Elem
           }}
           className='w-full text-[14px] xl:text-[15px] disabled:bg-slate-500 disabled:text-white  bg-orange-400 text-orange-900 hover:text-white hover:bg-orange-500'
         >
-          Actualizar una zona
+          Actualizar zona
         </Button>
       </DialogTrigger>
       <DialogContent ref={topRef} className='max-w-[40rem] p-8 md:p-6 max-h-full overflow-y-auto'>

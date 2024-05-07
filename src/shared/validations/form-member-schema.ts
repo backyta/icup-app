@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import * as z from 'zod';
-import { Gender, MaritalStatus, MemberRoles, Status } from '@/shared/enums';
+import { Country, Department, District, Gender, MaritalStatus, MemberRole, Province, Status, UrbanSector } from '@/shared/enums';
 
 export const formMemberSchema = z
   .object({
@@ -61,27 +61,45 @@ export const formMemberSchema = z
       message: 'El campo debe contener un numero'
     }),
      
-    country: z.string()
-      .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
-      .max(20, { message: 'El campo debe contener máximo 20 caracteres.' }),
+    country: z.string(z.nativeEnum(Country, {
+      required_error: "Por favor seleccione una opción válida.",
+    })).refine((value) => value !== undefined && value.trim() !== '',
+      { message: "Por favor seleccione una opción válida." }
+    ),
 
-    department: z.string()
-      .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
-      .max(20, { message: 'El campo debe contener máximo 20 caracteres.' }),
+    department: z.string(z.nativeEnum(Department, {
+      required_error: "Por favor seleccione una opción válida.",
+    })).refine((value) => value !== undefined && value.trim() !== '',
+      { message: "Por favor seleccione una opción válida." }
+    ),
 
-    province: z.string()
-      .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
-      .max(20, { message: 'El campo debe contener máximo 20 caracteres.' }),
+    province: z.string(z.nativeEnum(Province, {
+      required_error: "Por favor seleccione una opción válida.",
+    })).refine((value) => value !== undefined && value.trim() !== '',
+      { message: "Por favor seleccione una opción válida." }
+    ),
 
-    district: z.string()
-      .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
-      .max(20, { message: 'El campo debe contener máximo 20 caracteres.' }),
+    district: z.string(z.nativeEnum(District, {
+      required_error: "Por favor seleccione una opción válida.",
+    })).refine((value) => value !== undefined && value.trim() !== '',
+      { message: "Por favor seleccione una opción válida." }
+    ),
+
+    urbanSector: z.string(z.nativeEnum(UrbanSector, {
+      required_error: "Por favor seleccione una opción válida.",
+    })).refine((value) => value !== undefined && value.trim() !== '',
+      { message: "Por favor seleccione una opción válida." }
+    ),
       
     address: z.string()
       .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
       .max(50, { message: 'El campo debe contener máximo 50 caracteres.' }),
 
-    roles: z.array(z.nativeEnum(MemberRoles),{
+    referenceComments: z.string()
+      .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
+      .max(100, { message: 'El campo debe contener máximo 50 caracteres.' }),
+
+    roles: z.array(z.nativeEnum(MemberRole),{
       required_error: "Debes seleccionar al menos un rol.",
     }).refine((value) => value.some((item) => item), {
       message: "Debes seleccionar al menos un rol.",
@@ -99,7 +117,7 @@ export const formMemberSchema = z
   })
   .refine(
     (data) => {
-      if (data.roles.includes(MemberRoles.Copastor) && data.roles.includes(MemberRoles.Disciple)) {
+      if (data.roles.includes(MemberRole.Copastor) && data.roles.includes(MemberRole.Disciple)) {
         return !!data.theirPastor; 
       }
       return true;
@@ -111,7 +129,7 @@ export const formMemberSchema = z
   )
   .refine(
     (data) => {
-      if (data.roles.includes(MemberRoles.Supervisor) && data.roles.includes(MemberRoles.Disciple) ) {
+      if (data.roles.includes(MemberRole.Supervisor) && data.roles.includes(MemberRole.Disciple) ) {
         return !!data.theirCopastor; 
       }
       return true;
@@ -123,7 +141,7 @@ export const formMemberSchema = z
   )
   .refine(
     (data) => {
-      if ((data.roles.includes(MemberRoles.Preacher) && data.roles.includes(MemberRoles.Disciple))|| (data.roles.includes(MemberRoles.Preacher) && data.roles.includes(MemberRoles.Disciple) && data.roles.includes(MemberRoles.Treasurer))) {
+      if ((data.roles.includes(MemberRole.Preacher) && data.roles.includes(MemberRole.Disciple))|| (data.roles.includes(MemberRole.Preacher) && data.roles.includes(MemberRole.Disciple) && data.roles.includes(MemberRole.Treasurer))) {
         return !!data.theirSupervisor;
       }
       return true;
@@ -135,7 +153,7 @@ export const formMemberSchema = z
   )
   .refine(
     (data) => {
-      if (data.roles.includes(MemberRoles.Disciple) && !data.roles.includes(MemberRoles.Pastor) && !data.roles.includes(MemberRoles.Copastor) && !data.roles.includes(MemberRoles.Supervisor)  && !data.roles.includes(MemberRoles.Preacher)){
+      if (data.roles.includes(MemberRole.Disciple) && !data.roles.includes(MemberRole.Pastor) && !data.roles.includes(MemberRole.Copastor) && !data.roles.includes(MemberRole.Supervisor)  && !data.roles.includes(MemberRole.Preacher)){
         return !!data.theirFamilyHouse; 
       }
       return true;

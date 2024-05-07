@@ -86,7 +86,7 @@ export function DataTableSearchGeneral<TData, TValue>({
       limit: '10',
       offset: '0',
       all: false,
-      order: RecordOrder.Ascending,
+      orderRecord: RecordOrder.Ascending,
     },
   });
 
@@ -100,7 +100,7 @@ export function DataTableSearchGeneral<TData, TValue>({
   //* Watchers
   const limit = form.watch('limit');
   const offset = form.watch('offset');
-  const order = form.watch('order');
+  const orderRecord = form.watch('orderRecord');
 
   //* Table
   const table = useReactTable({
@@ -124,14 +124,14 @@ export function DataTableSearchGeneral<TData, TValue>({
 
   //* Effects
   useEffect(() => {
-    if (limit !== '' && offset !== '' && order !== '') {
+    if (limit !== '' && offset !== '' && orderRecord !== '') {
       setIsDisabledSubmitButton(false);
     }
 
-    if (limit === '' || offset === '' || order === '') {
+    if (limit === '' || offset === '' || orderRecord === '') {
       setIsDisabledSubmitButton(true);
     }
-  }, [limit, offset, order]);
+  }, [limit, offset, orderRecord]);
 
   return (
     <div className='md:w-full m-auto lg:w-full pt-3'>
@@ -237,7 +237,7 @@ export function DataTableSearchGeneral<TData, TValue>({
 
             <FormField
               control={form.control}
-              name='order'
+              name='orderRecord'
               render={({ field }) => (
                 <FormItem className='lg:min-w-[23rem]'>
                   <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>

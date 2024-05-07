@@ -1,4 +1,4 @@
-export enum SearchSelectionOptions {
+export enum SearchSelectionOption {
 
   //* Date (pasar el numero de mes pa buscar en DB)
   January = 'january',
@@ -35,7 +35,7 @@ export enum SearchSelectionOptions {
 
 }
 
-export const SearchSelectionOptionsNames: Record<SearchSelectionOptions, string> =  {
+export const SearchSelectionOptionNames: Record<SearchSelectionOption, string> =  {
 
   'male': 'Masculino',
   'female': 'Femenino',

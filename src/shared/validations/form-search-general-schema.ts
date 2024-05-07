@@ -3,7 +3,7 @@ import { RecordOrder } from '@/shared/enums';
 
 export const formSearchGeneralSchema = z
   .object({
-    order: z.string(z.nativeEnum(RecordOrder, {
+    orderRecord: z.string(z.nativeEnum(RecordOrder, {
       required_error: "Seleccione un orden para al consulta.", 
     })),
 

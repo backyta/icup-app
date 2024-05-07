@@ -33,6 +33,7 @@ import { formMemberSchema } from '@/shared/validations';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
+import { Textarea } from '@/shared/components/ui/textarea';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Calendar } from '@/shared/components/ui/calendar';
 import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
@@ -82,9 +83,20 @@ import {
   MaritalStatus,
   MaritalStatusNames,
   MemberRoleNames,
-  MemberRoles,
+  MemberRole,
   Status,
+  Department,
+  Country,
+  Province,
+  District,
+  UrbanSector,
+  CountryNames,
+  DepartmentNames,
+  ProvinceNames,
+  DistrictNames,
+  UrbanSectorNames,
 } from '@/shared/enums';
+import { validateUrbanSectorsAllowedByDistrict } from '@/shared/helpers';
 
 const data: MemberData = {
   firstName: 'Marcos',
@@ -97,12 +109,14 @@ const data: MemberData = {
   conversionDate: new Date('12-12-2000'),
   emailAddress: 'marcos@google.com',
   phoneNumber: '9999',
-  country: 'Peru',
-  department: 'Lima',
-  province: 'Lima',
-  district: 'Lima',
-  address: 'jr rio 222',
-  roles: [MemberRoles.Disciple],
+  country: Country.Peru,
+  department: Department.Lima,
+  province: Province.Lima,
+  district: District.Independencia,
+  urbanSector: UrbanSector.Payet,
+  address: 'Jr. Cerro Alto 222, Mz.2 Lt.25',
+  referenceComments: 'Cerca a la esquina del parque Ollantaytambo',
+  roles: [MemberRole.Disciple],
   theirPastor: 'id1',
   theirCopastor: 'id2',
   theirSupervisor: 'id3',
@@ -145,11 +159,12 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
       phoneNumber: '',
       originCountry: '',
       numberChildren: '',
-      country: 'Peru',
+      country: '',
       department: '',
       province: '',
       district: '',
       address: '',
+      referenceComments: '',
       status: '',
     },
   });
@@ -161,12 +176,13 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
 
   //* Watchers
   const roles = form.watch('roles');
+  const district = form.watch('district');
 
   //* Custom Hooks
   const { disabledRoles, textValue } = useValidatePath({
     path: pathname,
     isInputDisabled,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
   });
 
   //* Custom hooks
@@ -185,12 +201,15 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
 
   useMemberUpdateSubmitButtonLogic({
     formMemberUpdate: form,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
     isRelationSelectDisabled,
     pathname,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
   });
+
+  //* Helpers
+  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
 
   return (
     <Tabs
@@ -242,7 +261,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                           <FormControl>
                             <Input
                               disabled={isInputDisabled}
-                              className='text-[13px] md:text-[14px]'
+                              className='text-[14px]'
                               placeholder='Eje: Roberto Martin...'
                               type='text'
                               {...field}
@@ -264,7 +283,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                           <FormControl>
                             <Input
                               disabled={isInputDisabled}
-                              className='text-[13px] md:text-[14px]'
+                              className='text-[14px]'
                               placeholder='Eje: Mendoza Prado...'
                               type='text'
                               {...field}
@@ -283,13 +302,17 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                       return (
                         <FormItem className='mt-3'>
                           <FormLabel className='text-[14px]'>Genero</FormLabel>
-                          <Select disabled={isInputDisabled} onValueChange={field.onChange}>
-                            <FormControl className='text-[13px] md:text-[14px]'>
+                          <Select
+                            disabled={isInputDisabled}
+                            value={field.value}
+                            onValueChange={field.onChange}
+                          >
+                            <FormControl className='text-[14px]'>
                               <SelectTrigger>
-                                {field.value === 'male' ? (
-                                  <SelectValue placeholder='Masculino' />
+                                {field.value ? (
+                                  <SelectValue placeholder='Selecciona el tipo de genero' />
                                 ) : (
-                                  <SelectValue placeholder='Femenino' />
+                                  'Selecciona el tipo de genero'
                                 )}
                               </SelectTrigger>
                             </FormControl>
@@ -317,7 +340,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                           <FormControl>
                             <Input
                               disabled={isInputDisabled}
-                              className='text-[13px] md:text-[14px]'
+                              className='text-[14px]'
                               placeholder='Eje: Peru, Colombia, Mexico...'
                               type='text'
                               {...field}
@@ -351,9 +374,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                                     locale: es,
                                   })
                                 ) : (
-                                  <span className='text-[13px] md:text-[14px]'>
-                                    Fecha de nacimiento
-                                  </span>
+                                  <span className='text-[14px]'>Fecha de nacimiento</span>
                                 )}
                                 <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                               </Button>
@@ -389,29 +410,23 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                       return (
                         <FormItem className='mt-3'>
                           <FormLabel className='text-[14px]'>Estado Civil</FormLabel>
-                          <Select disabled={isInputDisabled} onValueChange={field.onChange}>
-                            <FormControl className='text-[13px] xl:text-[14px]'>
+                          <Select
+                            disabled={isInputDisabled}
+                            value={field.value}
+                            onValueChange={field.onChange}
+                          >
+                            <FormControl className='text-[14px]'>
                               <SelectTrigger>
-                                {field.value === MaritalStatus.Single ? (
-                                  <SelectValue placeholder={MaritalStatusNames.single} />
-                                ) : field.value === MaritalStatus.Married ? (
-                                  <SelectValue placeholder={MaritalStatusNames.married} />
-                                ) : field.value === MaritalStatus.Widowed ? (
-                                  <SelectValue placeholder={MaritalStatusNames.widowed} />
-                                ) : field.value === MaritalStatus.Divorced ? (
-                                  <SelectValue placeholder={MaritalStatusNames.divorced} />
+                                {field.value ? (
+                                  <SelectValue placeholder='Selecciona el estado civil' />
                                 ) : (
-                                  <SelectValue placeholder={MaritalStatusNames.other} />
+                                  'Selecciona el estado civil'
                                 )}
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
                               {Object.entries(MaritalStatusNames).map(([key, value]) => (
-                                <SelectItem
-                                  className='text-[13px] md:text-[14px]'
-                                  key={key}
-                                  value={key}
-                                >
+                                <SelectItem className='text-[14px]' key={key} value={key}>
                                   {value}
                                 </SelectItem>
                               ))}
@@ -433,7 +448,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                           <FormControl>
                             <Input
                               disabled={isInputDisabled}
-                              className='text-[13px] md:text-[14px]'
+                              className='text-[14px]'
                               placeholder='Eje: 3'
                               {...field}
                             />
@@ -499,171 +514,6 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                       </FormItem>
                     )}
                   />
-                </div>
-
-                {/* Contacto y Vivienda */}
-
-                <div className='sm:col-start-2 sm:col-end-3'>
-                  <legend className='font-bold text-[16px]'>Contacto / Vivienda</legend>
-
-                  <FormField
-                    control={form.control}
-                    name='emailAddress'
-                    render={({ field }) => {
-                      return (
-                        <FormItem className='mt-3'>
-                          <FormLabel className='text-[14px]'>E-mail</FormLabel>
-                          <FormControl>
-                            <Input
-                              disabled={isInputDisabled}
-                              className='text-[13px] md:text-[14px]'
-                              placeholder='Eje: martin@example.com'
-                              type='email'
-                              autoComplete='username'
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name='phoneNumber'
-                    render={({ field }) => {
-                      return (
-                        <FormItem className='mt-3'>
-                          <FormLabel className='text-[14px]'>Numero de Teléfono</FormLabel>
-                          <FormControl>
-                            <Input
-                              disabled={isInputDisabled}
-                              className='text-[13px] md:text-[14px]'
-                              placeholder='Eje: 999 999 999'
-                              type='text'
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name='country'
-                    render={({ field }) => {
-                      return (
-                        <FormItem className='mt-3'>
-                          <FormLabel className='text-[14px]'>País</FormLabel>
-                          <FormDescription className='text-[13px] md:text-[14px]'>
-                            País en el que reside.
-                          </FormDescription>
-                          <FormControl>
-                            <Input
-                              disabled={isInputDisabled}
-                              className='text-[13px] xl:text-[14px]'
-                              placeholder='Eje: Peru...'
-                              type='text'
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name='department'
-                    render={({ field }) => {
-                      return (
-                        <FormItem className='mt-3'>
-                          <FormLabel className='text-[14px]'>Departamento</FormLabel>
-                          <FormControl>
-                            <Input
-                              disabled={isInputDisabled}
-                              className='text-[13px] md:text-[14px]'
-                              placeholder='Eje: Lima...'
-                              type='text'
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name='province'
-                    render={({ field }) => {
-                      return (
-                        <FormItem className='mt-3'>
-                          <FormLabel className='text-[14px]'>Provincia</FormLabel>
-                          <FormControl>
-                            <Input
-                              disabled={isInputDisabled}
-                              className='text-[13px] md:text-[14px]'
-                              placeholder='Eje: Lima...'
-                              type='text'
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name='district'
-                    render={({ field }) => {
-                      return (
-                        <FormItem className='mt-3'>
-                          <FormLabel className='text-[14px]'>Distrito</FormLabel>
-                          <FormControl>
-                            <Input
-                              disabled={isInputDisabled}
-                              className='text-[13px] md:text-[14px]'
-                              placeholder='Eje: Comas, Independencia...'
-                              type='text'
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name='address'
-                    render={({ field }) => {
-                      return (
-                        <FormItem className='mt-3'>
-                          <FormLabel className='text-[14px]'>Dirección</FormLabel>
-                          <FormControl>
-                            <Input
-                              disabled={isInputDisabled}
-                              className='text-[13px] md:text-[14px]'
-                              placeholder='Eje: Av. Central 123'
-                              type='text'
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-
                   <FormField
                     control={form.control}
                     name='status'
@@ -671,18 +521,22 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                       return (
                         <FormItem className='mt-3'>
                           <FormLabel className='text-[14px]'>Estado</FormLabel>
-                          <Select disabled={isInputDisabled} onValueChange={field.onChange}>
-                            <FormControl className='text-[13px] md:text-[14px]'>
+                          <Select
+                            disabled={isInputDisabled}
+                            value={field.value}
+                            onValueChange={field.onChange}
+                          >
+                            <FormControl className='text-[14px]'>
                               <SelectTrigger>
-                                {field.value === 'active' ? (
-                                  <SelectValue placeholder='Activo' />
+                                {field.value ? (
+                                  <SelectValue placeholder='Selecciona el estado' />
                                 ) : (
-                                  <SelectValue placeholder='Inactivo' />
+                                  'Selecciona el estado'
                                 )}
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              <SelectItem className='text-[13px] md:text-[14px]' value='active'>
+                              <SelectItem className='text-[14px]' value='active'>
                                 Activo
                               </SelectItem>
                             </SelectContent>
@@ -708,6 +562,277 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                   />
                 </div>
 
+                {/* Contacto y Vivienda */}
+
+                <div className='sm:col-start-2 sm:col-end-3'>
+                  <legend className='font-bold text-[16px]'>Contacto / Vivienda</legend>
+
+                  <FormField
+                    control={form.control}
+                    name='emailAddress'
+                    render={({ field }) => {
+                      return (
+                        <FormItem className='mt-3'>
+                          <FormLabel className='text-[14px]'>E-mail</FormLabel>
+                          <FormControl>
+                            <Input
+                              disabled={isInputDisabled}
+                              className='text-[14px]'
+                              placeholder='Eje: martin@example.com'
+                              type='email'
+                              autoComplete='username'
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name='phoneNumber'
+                    render={({ field }) => {
+                      return (
+                        <FormItem className='mt-3'>
+                          <FormLabel className='text-[14px]'>Numero de Teléfono</FormLabel>
+                          <FormControl>
+                            <Input
+                              disabled={isInputDisabled}
+                              className='text-[14px]'
+                              placeholder='Eje: 999 999 999'
+                              type='text'
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name='country'
+                    render={({ field }) => {
+                      return (
+                        <FormItem className='mt-3'>
+                          <FormLabel className='text-[14px]'>País</FormLabel>
+                          <Select
+                            disabled={isInputDisabled}
+                            value={field.value}
+                            onValueChange={field.onChange}
+                          >
+                            <FormControl className='text-[14px]'>
+                              <SelectTrigger>
+                                {field.value ? (
+                                  <SelectValue placeholder='Selecciona el país' />
+                                ) : (
+                                  'Selecciona el país'
+                                )}
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {Object.entries(CountryNames).map(([key, value]) => (
+                                <SelectItem className={`text-[14px]`} key={key} value={key}>
+                                  {value}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name='department'
+                    render={({ field }) => {
+                      return (
+                        <FormItem className='mt-3'>
+                          <FormLabel className='text-[14px]'>Departamento</FormLabel>
+                          <Select
+                            disabled={isInputDisabled}
+                            value={field.value}
+                            onValueChange={field.onChange}
+                          >
+                            <FormControl className='text-[14px]'>
+                              <SelectTrigger>
+                                {field.value ? (
+                                  <SelectValue placeholder='Selecciona el departamento' />
+                                ) : (
+                                  'Selecciona el departamento'
+                                )}
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {Object.entries(DepartmentNames).map(([key, value]) => (
+                                <SelectItem className={`text-[14px]`} key={key} value={key}>
+                                  {value}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name='province'
+                    render={({ field }) => {
+                      return (
+                        <FormItem className='mt-3'>
+                          <FormLabel className='text-[14px]'>Provincia</FormLabel>
+                          <Select
+                            disabled={isInputDisabled}
+                            value={field.value}
+                            onValueChange={field.onChange}
+                          >
+                            <FormControl className='text-[14px]'>
+                              <SelectTrigger>
+                                {field.value ? (
+                                  <SelectValue placeholder='Selecciona la provincia' />
+                                ) : (
+                                  'Selecciona la provincia'
+                                )}
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {Object.entries(ProvinceNames).map(([key, value]) => (
+                                <SelectItem className={`text-[14px]`} key={key} value={key}>
+                                  {value}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='district'
+                    render={({ field }) => {
+                      return (
+                        <FormItem className='mt-3'>
+                          <FormLabel className='text-[14px]'>Distrito</FormLabel>
+                          <Select
+                            disabled={isInputDisabled}
+                            value={field.value}
+                            onValueChange={field.onChange}
+                          >
+                            <FormControl className='text-[13px] md:text-[14px]'>
+                              <SelectTrigger>
+                                {field.value ? (
+                                  <SelectValue placeholder='Selecciona el distrito' />
+                                ) : (
+                                  'Selecciona el distrito'
+                                )}
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {Object.entries(DistrictNames).map(([key, value]) => (
+                                <SelectItem className={`text-[14px]`} key={key} value={key}>
+                                  {value}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='urbanSector'
+                    render={({ field }) => {
+                      return (
+                        <FormItem className='mt-3'>
+                          <FormLabel className='text-[14px] font-medium'>Sector Urbano</FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            value={field.value}
+                            disabled={isInputDisabled}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                {field.value ? (
+                                  <SelectValue placeholder='Selecciona el sector urbano' />
+                                ) : (
+                                  'Selecciona el sector urbano'
+                                )}
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {Object.entries(UrbanSectorNames).map(([key, value]) => (
+                                <SelectItem
+                                  className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) || !district ? 'hidden' : ''}`}
+                                  key={key}
+                                  value={key}
+                                >
+                                  {value}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='address'
+                    render={({ field }) => {
+                      return (
+                        <FormItem className='mt-3'>
+                          <FormLabel className='text-[14px]'>Dirección</FormLabel>
+                          <FormControl>
+                            <Input
+                              disabled={isInputDisabled}
+                              className='text-[14px]'
+                              placeholder='Eje: Av. Central 123'
+                              type='text'
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
+                  <FormField
+                    control={form.control}
+                    name='referenceComments'
+                    render={({ field }) => {
+                      return (
+                        <FormItem className='mt-3'>
+                          <FormLabel className='text-[14px] font-medium'>
+                            Referencia de dirección
+                          </FormLabel>
+                          <FormControl>
+                            <Textarea
+                              disabled={isInputDisabled}
+                              className='text-[14px]'
+                              placeholder='Comentarios sobre la referencia de la vivienda...'
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
+                </div>
+
                 <div className='sm:col-start-3 sm:col-end-4 flex flex-col gap-4'>
                   <FormField
                     control={form.control}
@@ -720,7 +845,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                             Seleccione los roles que desea asignar al discípulo.
                           </FormDescription>
                         </div>
-                        {Object.values(MemberRoles).map((role) => (
+                        {Object.values(MemberRole).map((role) => (
                           <FormField
                             key={role}
                             control={form.control}
@@ -737,7 +862,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                                       checked={field.value?.includes(role)}
                                       disabled={isDisabled}
                                       onCheckedChange={(checked) => {
-                                        let updatedRoles: MemberRoles[] = [];
+                                        let updatedRoles: MemberRole[] = [];
                                         checked
                                           ? (updatedRoles = field.value
                                               ? [...field.value, role]
@@ -750,7 +875,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                                       className={isDisabled ? 'bg-slate-500' : ''}
                                     />
                                   </FormControl>
-                                  <FormLabel className='text-[13px] md:text-[14px] font-normal'>
+                                  <FormLabel className='text-[14px] font-normal'>
                                     {MemberRoleNames[role]}
                                   </FormLabel>
                                 </FormItem>
@@ -767,8 +892,8 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                     <span className='text-[13px] md:text-[14px] text-yellow-500 font-bold text-center'>
                       !SE HA PROMOVIDO CORRECTAMENTE! <br />
                       <span className='text-[12px] md:text-[13px]'>
-                        {form.getValues('roles').includes(MemberRoles.Disciple) &&
-                          form.getValues('roles').includes(MemberRoles.Preacher) && (
+                        {form.getValues('roles').includes(MemberRole.Disciple) &&
+                          form.getValues('roles').includes(MemberRole.Preacher) && (
                             <div>
                               <span className='text-red-500 text-left inline-block'>
                                 Roles anteriores: Discípulo
@@ -780,9 +905,9 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                             </div>
                           )}
 
-                        {form.getValues('roles').includes(MemberRoles.Disciple) &&
-                          form.getValues('roles').includes(MemberRoles.Supervisor) &&
-                          !form.getValues('roles').includes(MemberRoles.Treasurer) && (
+                        {form.getValues('roles').includes(MemberRole.Disciple) &&
+                          form.getValues('roles').includes(MemberRole.Supervisor) &&
+                          !form.getValues('roles').includes(MemberRole.Treasurer) && (
                             <div>
                               <span className='text-red-500 text-left inline-block'>
                                 Roles anteriores: Discípulo - Predicador
@@ -794,9 +919,9 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                             </div>
                           )}
 
-                        {form.getValues('roles').includes(MemberRoles.Disciple) &&
-                          form.getValues('roles').includes(MemberRoles.Supervisor) &&
-                          form.getValues('roles').includes(MemberRoles.Treasurer) && (
+                        {form.getValues('roles').includes(MemberRole.Disciple) &&
+                          form.getValues('roles').includes(MemberRole.Supervisor) &&
+                          form.getValues('roles').includes(MemberRole.Treasurer) && (
                             <div>
                               <span className='text-red-500 text-left inline-block'>
                                 Roles anteriores: Discípulo - Predicador - Tesorero
@@ -808,8 +933,8 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                             </div>
                           )}
 
-                        {form.getValues('roles').includes(MemberRoles.Disciple) &&
-                          form.getValues('roles').includes(MemberRoles.Copastor) && (
+                        {form.getValues('roles').includes(MemberRole.Disciple) &&
+                          form.getValues('roles').includes(MemberRole.Copastor) && (
                             <div>
                               <span className='text-red-500 text-left inline-block'>
                                 Roles anteriores: Discípulo - Supervisor
@@ -821,8 +946,8 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                             </div>
                           )}
 
-                        {form.getValues('roles').includes(MemberRoles.Disciple) &&
-                          form.getValues('roles').includes(MemberRoles.Pastor) && (
+                        {form.getValues('roles').includes(MemberRole.Disciple) &&
+                          form.getValues('roles').includes(MemberRole.Pastor) && (
                             <div>
                               <span className='text-red-500 text-left inline-block'>
                                 Roles anteriores: Discípulo - Co-pastor
@@ -844,33 +969,31 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                       Relaciones
                     </legend>
                     {/* Validations */}
-                    {roles?.includes(MemberRoles.Disciple) &&
-                      roles?.includes(MemberRoles.Pastor) &&
-                      !roles?.includes(MemberRoles.Copastor) &&
-                      !roles?.includes(MemberRoles.Supervisor) &&
-                      !roles?.includes(MemberRoles.Preacher) &&
-                      !roles?.includes(MemberRoles.Treasurer) && (
-                        <span className='text-green-500 font-bold text-[12px] md:text-[13px]'>
+                    {roles?.includes(MemberRole.Disciple) &&
+                      roles?.includes(MemberRole.Pastor) &&
+                      !roles?.includes(MemberRole.Copastor) &&
+                      !roles?.includes(MemberRole.Supervisor) &&
+                      !roles?.includes(MemberRole.Preacher) &&
+                      !roles?.includes(MemberRole.Treasurer) && (
+                        <span className='text-green-500 font-bold text-[13px]'>
                           No hay relaciones que asignar para estos roles elegidos.
                         </span>
                       )}
 
-                    {roles?.includes(MemberRoles.Disciple) &&
-                      roles?.includes(MemberRoles.Copastor) &&
-                      !roles?.includes(MemberRoles.Pastor) &&
-                      !roles?.includes(MemberRoles.Supervisor) &&
-                      !roles?.includes(MemberRoles.Preacher) &&
-                      !roles?.includes(MemberRoles.Treasurer) && (
+                    {roles?.includes(MemberRole.Disciple) &&
+                      roles?.includes(MemberRole.Copastor) &&
+                      !roles?.includes(MemberRole.Pastor) &&
+                      !roles?.includes(MemberRole.Supervisor) &&
+                      !roles?.includes(MemberRole.Preacher) &&
+                      !roles?.includes(MemberRole.Treasurer) && (
                         <FormField
                           control={form.control}
                           name='theirPastor'
                           render={({ field }) => {
                             return (
                               <FormItem className='flex flex-col mt-3'>
-                                <FormLabel className='text-[13px] md:text-[14px] font-bold'>
-                                  Pastor
-                                </FormLabel>
-                                <FormDescription className='text-[13px] md:text-[14px]'>
+                                <FormLabel className='text-[14px] font-bold'>Pastor</FormLabel>
+                                <FormDescription className='text-[14px]'>
                                   Seleccione un pastor para esta relación.
                                 </FormDescription>
                                 <Popover
@@ -884,7 +1007,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                                         variant='outline'
                                         role='combobox'
                                         className={cn(
-                                          'w-full justify-between overflow-hidden font-medium text-[13px] md:text-[14px]',
+                                          'w-full justify-between overflow-hidden font-medium text-[14px]',
                                           !field.value && 'text-slate-500 font-normal'
                                         )}
                                       >
@@ -900,13 +1023,13 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                                     <Command>
                                       <CommandInput
                                         placeholder='Busque un pastor...'
-                                        className='h-9 text-sm text-[13px] md:text-[14px]'
+                                        className='h-9 text-[14px]'
                                       />
                                       <CommandEmpty>Pastor no encontrado.</CommandEmpty>
                                       <CommandGroup className='max-h-[200px] h-auto'>
                                         {pastors.map((pastor) => (
                                           <CommandItem
-                                            className='text-[13px] md:text-[14px]'
+                                            className='text-[14px]'
                                             value={pastor.label}
                                             key={pastor.value}
                                             onSelect={() => {
@@ -937,28 +1060,26 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                         />
                       )}
 
-                    {((roles?.includes(MemberRoles.Disciple) &&
-                      roles?.includes(MemberRoles.Supervisor) &&
-                      !roles?.includes(MemberRoles.Treasurer) &&
-                      !roles?.includes(MemberRoles.Pastor) &&
-                      !roles?.includes(MemberRoles.Copastor) &&
-                      !roles?.includes(MemberRoles.Preacher)) ||
-                      (roles?.includes(MemberRoles.Disciple) &&
-                        roles?.includes(MemberRoles.Supervisor) &&
-                        roles?.includes(MemberRoles.Treasurer) &&
-                        !roles?.includes(MemberRoles.Pastor) &&
-                        !roles?.includes(MemberRoles.Copastor) &&
-                        !roles?.includes(MemberRoles.Preacher))) && (
+                    {((roles?.includes(MemberRole.Disciple) &&
+                      roles?.includes(MemberRole.Supervisor) &&
+                      !roles?.includes(MemberRole.Treasurer) &&
+                      !roles?.includes(MemberRole.Pastor) &&
+                      !roles?.includes(MemberRole.Copastor) &&
+                      !roles?.includes(MemberRole.Preacher)) ||
+                      (roles?.includes(MemberRole.Disciple) &&
+                        roles?.includes(MemberRole.Supervisor) &&
+                        roles?.includes(MemberRole.Treasurer) &&
+                        !roles?.includes(MemberRole.Pastor) &&
+                        !roles?.includes(MemberRole.Copastor) &&
+                        !roles?.includes(MemberRole.Preacher))) && (
                       <FormField
                         control={form.control}
                         name='theirCopastor'
                         render={({ field }) => {
                           return (
                             <FormItem className='flex flex-col mt-3'>
-                              <FormLabel className='text-[13px] md:text-[14px] font-bold'>
-                                Co-Pastor
-                              </FormLabel>
-                              <FormDescription className='text-[13px] md:text-[14px]'>
+                              <FormLabel className='text-[14px] font-bold'>Co-Pastor</FormLabel>
+                              <FormDescription className='text-[14px]'>
                                 Seleccione un co-pastor para esta relación.
                               </FormDescription>
                               <Popover
@@ -972,7 +1093,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                                       variant='outline'
                                       role='combobox'
                                       className={cn(
-                                        'w-full justify-between overflow-hidden font-medium text-[13px] md:text-[14px]',
+                                        'w-full justify-between overflow-hidden font-medium text-[14px]',
                                         !field.value && 'text-slate-500 font-normal'
                                       )}
                                     >
@@ -989,13 +1110,13 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                                   <Command>
                                     <CommandInput
                                       placeholder='Busque un co-pastor...'
-                                      className='h-9 text-[13px] md:text-[14px]'
+                                      className='h-9 text-[14px]'
                                     />
                                     <CommandEmpty>Co-Pastor no encontrado.</CommandEmpty>
                                     <CommandGroup className='max-h-[200px] h-auto'>
                                       {copastors.map((copastor) => (
                                         <CommandItem
-                                          className='text-[13px] md:text-[14px]'
+                                          className='text-[14px]'
                                           value={copastor.label}
                                           key={copastor.value}
                                           onSelect={() => {
@@ -1026,28 +1147,26 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                       />
                     )}
 
-                    {((roles?.includes(MemberRoles.Disciple) &&
-                      roles?.includes(MemberRoles.Preacher) &&
-                      !roles?.includes(MemberRoles.Treasurer) &&
-                      !roles?.includes(MemberRoles.Pastor) &&
-                      !roles?.includes(MemberRoles.Copastor) &&
-                      !roles?.includes(MemberRoles.Supervisor)) ||
-                      (roles?.includes(MemberRoles.Disciple) &&
-                        roles?.includes(MemberRoles.Preacher) &&
-                        roles?.includes(MemberRoles.Treasurer) &&
-                        !roles?.includes(MemberRoles.Pastor) &&
-                        !roles?.includes(MemberRoles.Copastor) &&
-                        !roles?.includes(MemberRoles.Supervisor))) && (
+                    {((roles?.includes(MemberRole.Disciple) &&
+                      roles?.includes(MemberRole.Preacher) &&
+                      !roles?.includes(MemberRole.Treasurer) &&
+                      !roles?.includes(MemberRole.Pastor) &&
+                      !roles?.includes(MemberRole.Copastor) &&
+                      !roles?.includes(MemberRole.Supervisor)) ||
+                      (roles?.includes(MemberRole.Disciple) &&
+                        roles?.includes(MemberRole.Preacher) &&
+                        roles?.includes(MemberRole.Treasurer) &&
+                        !roles?.includes(MemberRole.Pastor) &&
+                        !roles?.includes(MemberRole.Copastor) &&
+                        !roles?.includes(MemberRole.Supervisor))) && (
                       <FormField
                         control={form.control}
                         name='theirSupervisor'
                         render={({ field }) => {
                           return (
                             <FormItem className='flex flex-col mt-3'>
-                              <FormLabel className='text-[13px] md:text-[14px] font-bold'>
-                                Supervisor
-                              </FormLabel>
-                              <FormDescription className='text-[13px] md:text-[14px]'>
+                              <FormLabel className='text-[14px] font-bold'>Supervisor</FormLabel>
+                              <FormDescription className='text-[14px]'>
                                 Seleccione un supervisor para esta relación.
                               </FormDescription>
                               <Popover
@@ -1061,7 +1180,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                                       variant='outline'
                                       role='combobox'
                                       className={cn(
-                                        'w-full justify-between font-medium text-[13px] md:text-[14px] overflow-hidden',
+                                        'w-full justify-between font-medium text-[14px] overflow-hidden',
                                         !field.value && 'text-slate-500 font-normal'
                                       )}
                                     >
@@ -1078,13 +1197,13 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                                   <Command className='w-full'>
                                     <CommandInput
                                       placeholder='Busque un supervisor...'
-                                      className='h-9 text-[13px] md:text-[14px]'
+                                      className='h-9 text-[14px]'
                                     />
                                     <CommandEmpty>Supervisor no encontrado.</CommandEmpty>
                                     <CommandGroup className='max-h-[200px] h-auto'>
                                       {supervisors.map((supervisor) => (
                                         <CommandItem
-                                          className='text-[13px] md:text-[14px]'
+                                          className='text-[14px]'
                                           value={supervisor.label}
                                           key={supervisor.value}
                                           onSelect={() => {
@@ -1115,22 +1234,22 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                       />
                     )}
 
-                    {roles?.includes(MemberRoles.Disciple) &&
-                      !roles?.includes(MemberRoles.Pastor) &&
-                      !roles?.includes(MemberRoles.Copastor) &&
-                      !roles?.includes(MemberRoles.Preacher) &&
-                      !roles?.includes(MemberRoles.Supervisor) &&
-                      !roles?.includes(MemberRoles.Treasurer) && (
+                    {roles?.includes(MemberRole.Disciple) &&
+                      !roles?.includes(MemberRole.Pastor) &&
+                      !roles?.includes(MemberRole.Copastor) &&
+                      !roles?.includes(MemberRole.Preacher) &&
+                      !roles?.includes(MemberRole.Supervisor) &&
+                      !roles?.includes(MemberRole.Treasurer) && (
                         <FormField
                           control={form.control}
                           name='theirFamilyHouse'
                           render={({ field }) => {
                             return (
                               <FormItem className='flex flex-col mt-3'>
-                                <FormLabel className='text-[13px] md:text-[14px] font-bold'>
+                                <FormLabel className='text-[14px] font-bold'>
                                   Casa Familiar
                                 </FormLabel>
-                                <FormDescription className='text-[14px] md:text-[14px]'>
+                                <FormDescription className='text-[14px]'>
                                   Seleccione una casa familiar para esta relación.
                                 </FormDescription>
                                 <Popover
@@ -1144,7 +1263,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                                         variant='outline'
                                         role='combobox'
                                         className={cn(
-                                          'w-full justify-between overflow-hidden font-medium text-[13px] md:text-[14px]',
+                                          'w-full justify-between overflow-hidden font-medium text-[14px]',
                                           !field.value && 'text-slate-500 font-normal'
                                         )}
                                       >
@@ -1161,13 +1280,13 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                                     <Command>
                                       <CommandInput
                                         placeholder='Busque una casa familiar...'
-                                        className='h-9 text-[13px] md:text-[14px]'
+                                        className='h-9 text-[14px]'
                                       />
                                       <CommandEmpty>Casa Familiar no encontrado.</CommandEmpty>
                                       <CommandGroup className='max-h-[200px] h-auto'>
                                         {familyHouses.map((familyHouse) => (
                                           <CommandItem
-                                            className='text-[13px] md:text-[14px]'
+                                            className='text-[14px]'
                                             value={familyHouse.label}
                                             key={familyHouse.value}
                                             onSelect={() => {
@@ -1329,7 +1448,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                             onClick={() => {
                               useRoleUpdateHandler({
                                 formMemberUpdate: form,
-                                memberRoles: MemberRoles,
+                                memberRoles: MemberRole,
                                 setIsDisabledPromoteButton: setIsPromoteButtonDisabled,
                                 setIsDisabledInput: setIsInputDisabled,
                               });

@@ -1,65 +1,66 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
-import { TypesSearchNames, } from "@/shared/enums";
+import { SearchTypeNames, } from "@/shared/enums";
 import { 
-  TypesCopastorAllowed, 
-  TypesCopastorAllowedOnDeletePage, 
-  TypesDiscipleAllowed, 
-  TypesDisciplesAllowedOnDeletePage, 
-  TypesFamilyHouseAllowed, 
-  TypesFamilyHouseAllowedOnDeletePage, 
-  TypesLeaderAllowed, 
-  TypesLeaderAllowedOnDeletePage, 
-  TypesOfferingIncomeAllowed, 
-  TypesOfferingIncomeAllowedOnDeleteAndUpdatePage, 
-  TypesPastorAllowed, 
-  TypesPastorAllowedOnDeletePage, 
-  TypesUserAllowed, 
-  TypesUserAllowedOnDeletePage,
-  TypesOfferingExpensesAllowed,
-  TypesOfferingExpensesAllowedOnDeleteAndUpdatePage} from "@/shared/helpers";
+  SearchTypesCopastorModuleAllowed, 
+  SearchTypesCopastorModuleAllowedOnDeletePage, 
+  SearchTypesDiscipleModuleAllowed, 
+  SearchTypeDisciplesModuleAllowedOnDeletePage, 
+  SearchTypesFamilyHouseModuleAllowed, 
+  SearchTypesFamilyHouseModuleAllowedOnDeletePage, 
+  SearchTypesLeaderModuleAllowed, 
+  SearchTypesLeaderModuleAllowedOnDeletePage, 
+  SearchTypesOfferingIncomeModuleAllowed, 
+  SearchTypesOfferingIncomeModuleAllowedOnDeleteAndUpdatePage, 
+  SearchTypesPastorModuleAllowed, 
+  SearchTypesPastorModuleAllowedOnDeletePage, 
+  SearchTypesUserModuleAllowed, 
+  SearchTypesUserModuleAllowedOnDeletePage,
+  SearchTypesOfferingExpensesModuleAllowed,
+  SearchTypesOfferingExpensesModuleAllowedOnDeleteAndUpdatePage
+} from "@/shared/helpers";
 
 
 export const validateTypesAllowedByModule = (currentPath: string) => {
   
   //* Disabled Types by module
-  const disabledDiscipleTypes = Object.values(TypesSearchNames).filter(value => !TypesDiscipleAllowed.includes(value) ) 
-  const disabledDiscipleTypesOnDeletePage = Object.values(TypesSearchNames).filter(value => !TypesDisciplesAllowedOnDeletePage.includes(value) ) 
+  const disabledDiscipleModuleSearchTypes = Object.values(SearchTypeNames).filter(value => !SearchTypesDiscipleModuleAllowed.includes(value) ) 
+  const disabledDiscipleModuleSearchTypesOnDeletePage = Object.values(SearchTypeNames).filter(value => !SearchTypeDisciplesModuleAllowedOnDeletePage.includes(value) ) 
 
-  const disabledPastorTypes = Object.values(TypesSearchNames).filter(value => !TypesPastorAllowed.includes(value) ) 
-  const disabledPastorTypesOnDeletePage = Object.values(TypesSearchNames).filter(value => !TypesPastorAllowedOnDeletePage.includes(value) ) 
+  const disabledPastorModuleSearchTypes = Object.values(SearchTypeNames).filter(value => !SearchTypesPastorModuleAllowed.includes(value) ) 
+  const disabledPastorModuleSearchTypesOnDeletePage = Object.values(SearchTypeNames).filter(value => !SearchTypesPastorModuleAllowedOnDeletePage.includes(value) ) 
 
-  const disabledCopastorTypes = Object.values(TypesSearchNames).filter(value => !TypesCopastorAllowed.includes(value) ) 
-  const disabledCopastorTypesOnDeletePage = Object.values(TypesSearchNames).filter(value => !TypesCopastorAllowedOnDeletePage.includes(value) ) 
+  const disabledCopastorModuleSearchTypes = Object.values(SearchTypeNames).filter(value => !SearchTypesCopastorModuleAllowed.includes(value) ) 
+  const disabledCopastorTypesOnDeletePage = Object.values(SearchTypeNames).filter(value => !SearchTypesCopastorModuleAllowedOnDeletePage.includes(value) ) 
 
-  const disabledLeaderTypes = Object.values(TypesSearchNames).filter(value => !TypesLeaderAllowed.includes(value) ) 
-  const disabledLeaderTypesOnDeletePage = Object.values(TypesSearchNames).filter(value => !TypesLeaderAllowedOnDeletePage.includes(value) ) 
+  const disabledLeaderModuleSearchTypes = Object.values(SearchTypeNames).filter(value => !SearchTypesLeaderModuleAllowed.includes(value) ) 
+  const disabledLeaderModuleSearchTypesOnDeletePage = Object.values(SearchTypeNames).filter(value => !SearchTypesLeaderModuleAllowedOnDeletePage.includes(value) ) 
 
-  const disabledFamilyHouseTypes = Object.values(TypesSearchNames).filter(value => !TypesFamilyHouseAllowed.includes(value) ) 
-  const disabledFamilyHouseTypesOnDeletePage = Object.values(TypesSearchNames).filter(value => !TypesFamilyHouseAllowedOnDeletePage.includes(value) ) 
+  const disabledFamilyHouseModuleSearchTypes = Object.values(SearchTypeNames).filter(value => !SearchTypesFamilyHouseModuleAllowed.includes(value) ) 
+  const disabledFamilyHouseModuleSearchTypesOnDeletePage = Object.values(SearchTypeNames).filter(value => !SearchTypesFamilyHouseModuleAllowedOnDeletePage.includes(value) ) 
 
-  const disabledOfferingIncomeTypes = Object.values(TypesSearchNames).filter(value => !TypesOfferingIncomeAllowed.includes(value) ) 
-  const disabledOfferingIncomeTypesOnDeleteAndUpdatePage = Object.values(TypesSearchNames).filter(value => !TypesOfferingIncomeAllowedOnDeleteAndUpdatePage.includes(value) ) 
+  const disabledOfferingIncomeModuleSearchTypes = Object.values(SearchTypeNames).filter(value => !SearchTypesOfferingIncomeModuleAllowed.includes(value) ) 
+  const disabledOfferingIncomeModuleSearchTypesOnDeleteAndUpdatePage = Object.values(SearchTypeNames).filter(value => !SearchTypesOfferingIncomeModuleAllowedOnDeleteAndUpdatePage.includes(value) ) 
 
-  const disabledOfferingExpensesTypes = Object.values(TypesSearchNames).filter(value => !TypesOfferingExpensesAllowed.includes(value) ) 
-  const disabledOfferingExpensesTypesOnDeleteAndUpdatePage = Object.values(TypesSearchNames).filter(value => !TypesOfferingExpensesAllowedOnDeleteAndUpdatePage.includes(value) ) 
+  const disabledOfferingExpensesModuleSearchTypes = Object.values(SearchTypeNames).filter(value => !SearchTypesOfferingExpensesModuleAllowed.includes(value) ) 
+  const disabledOfferingExpensesModuleSearchTypesOnDeleteAndUpdatePage = Object.values(SearchTypeNames).filter(value => !SearchTypesOfferingExpensesModuleAllowedOnDeleteAndUpdatePage.includes(value) ) 
 
-  const disabledUserTypes = Object.values(TypesSearchNames).filter(value => !TypesUserAllowed.includes(value) ) 
-  const disabledUserTypesOnDeletePage = Object.values(TypesSearchNames).filter(value => !TypesUserAllowedOnDeletePage.includes(value) ) 
+  const disabledUserModuleSearchTypes = Object.values(SearchTypeNames).filter(value => !SearchTypesUserModuleAllowed.includes(value) ) 
+  const disabledUserModuleSearchTypesOnDeletePage = Object.values(SearchTypeNames).filter(value => !SearchTypesUserModuleAllowedOnDeletePage.includes(value) ) 
   
   //* Disciples
   if (currentPath === '/disciples/search-by-term-disciples' || currentPath === '/disciples/update-disciple') {
       return {
-        disabledTypes : [
-        ...disabledDiscipleTypes
+        disabledSearchTypes : [
+        ...disabledDiscipleModuleSearchTypes
       ]   
     }
   }
 
   if ( currentPath === '/disciples/delete-disciple') {
       return {
-        disabledTypes : [
-        ...disabledDiscipleTypesOnDeletePage
+        disabledSearchTypes : [
+        ...disabledDiscipleModuleSearchTypesOnDeletePage
       ]   
     }
   }
@@ -67,16 +68,16 @@ export const validateTypesAllowedByModule = (currentPath: string) => {
   //* Pastors
   if (currentPath === '/pastors/search-by-term-pastors' || currentPath === '/pastors/update-pastor' ) {
     return {
-        disabledTypes : [
-          ...disabledPastorTypes
+        disabledSearchTypes : [
+          ...disabledPastorModuleSearchTypes
       ]
     }
   }
 
   if (currentPath === '/pastors/delete-pastor') {
     return {
-        disabledTypes : [
-          ...disabledPastorTypesOnDeletePage
+        disabledSearchTypes : [
+          ...disabledPastorModuleSearchTypesOnDeletePage
       ]
     }
   }
@@ -84,15 +85,15 @@ export const validateTypesAllowedByModule = (currentPath: string) => {
   //* Co-pastors
   if (currentPath === '/copastors/search-by-term-copastors' || currentPath === '/copastors/update-copastor' ) {
     return { 
-     disabledTypes : [
-      ...disabledCopastorTypes
+     disabledSearchTypes : [
+      ...disabledCopastorModuleSearchTypes
      ],
    }
   }
 
   if ( currentPath === '/copastors/delete-copastor') {
     return { 
-     disabledTypes : [
+     disabledSearchTypes : [
       ...disabledCopastorTypesOnDeletePage
      ],
    }
@@ -101,16 +102,16 @@ export const validateTypesAllowedByModule = (currentPath: string) => {
   //* Leaders
   if (currentPath === '/leaders/search-by-term-leaders' || currentPath === '/leaders/update-leader' ) {
     return {
-      disabledTypes : [
-        ...disabledLeaderTypes
+      disabledSearchTypes : [
+        ...disabledLeaderModuleSearchTypes
       ],
     }
   }
 
   if ( currentPath === '/leaders/delete-leader') {
   return {
-    disabledTypes : [
-      ...disabledLeaderTypesOnDeletePage
+    disabledSearchTypes : [
+      ...disabledLeaderModuleSearchTypesOnDeletePage
     ],
   }
   }
@@ -118,16 +119,16 @@ export const validateTypesAllowedByModule = (currentPath: string) => {
   //* Family House
   if (currentPath === '/family-houses/search-by-term-family-houses' || currentPath === '/family-houses/update-family-house' ) {
     return {
-      disabledTypes : [
-        ...disabledFamilyHouseTypes
+      disabledSearchTypes : [
+        ...disabledFamilyHouseModuleSearchTypes
       ]
     }
   } 
 
   if ( currentPath === '/family-houses/delete-family-house') {
     return {
-      disabledTypes : [
-        ...disabledFamilyHouseTypesOnDeletePage
+      disabledSearchTypes : [
+        ...disabledFamilyHouseModuleSearchTypesOnDeletePage
       ]
     }
   } 
@@ -135,16 +136,16 @@ export const validateTypesAllowedByModule = (currentPath: string) => {
   //* Offerings Income
   if (currentPath === '/offerings/income/search-by-term-offerings-income' ) {
     return {
-      disabledTypes : [
-        ...disabledOfferingIncomeTypes
+      disabledSearchTypes : [
+        ...disabledOfferingIncomeModuleSearchTypes
       ],
     }
   }
 
   if ( currentPath === '/offerings/income/update-offering-income' || currentPath === '/offerings/income/delete-offering-income') {
     return {
-      disabledTypes : [
-        ...disabledOfferingIncomeTypesOnDeleteAndUpdatePage
+      disabledSearchTypes : [
+        ...disabledOfferingIncomeModuleSearchTypesOnDeleteAndUpdatePage
       ],
     }
   }
@@ -152,16 +153,16 @@ export const validateTypesAllowedByModule = (currentPath: string) => {
   //* Offerings Expenses
   if (currentPath === '/offerings/expenses/search-by-term-offerings-expenses' ) {
     return {
-      disabledTypes : [
-        ...disabledOfferingExpensesTypes
+      disabledSearchTypes : [
+        ...disabledOfferingExpensesModuleSearchTypes
       ],
     }
   }
 
   if ( currentPath === '/offerings/expenses/update-offering-expenses' || currentPath === '/offerings/expenses/delete-offering-expenses') {
     return {
-      disabledTypes : [
-        ...disabledOfferingExpensesTypesOnDeleteAndUpdatePage
+      disabledSearchTypes : [
+        ...disabledOfferingExpensesModuleSearchTypesOnDeleteAndUpdatePage
       ],
     }
   }
@@ -169,16 +170,16 @@ export const validateTypesAllowedByModule = (currentPath: string) => {
   //* Users
   if (currentPath === '/users/search-by-term-users' || currentPath === '/users/update-user' ) {
     return {
-      disabledTypes : [
-        ...disabledUserTypes
+      disabledSearchTypes : [
+        ...disabledUserModuleSearchTypes
       ],
     }
   }
   
   if (currentPath === '/users/delete-user') {
     return {
-      disabledTypes : [
-        ...disabledUserTypesOnDeletePage
+      disabledSearchTypes : [
+        ...disabledUserModuleSearchTypesOnDeletePage
       ],
     }
   }

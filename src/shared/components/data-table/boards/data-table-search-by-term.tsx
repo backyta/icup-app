@@ -70,14 +70,14 @@ import {
 import {
   validateTypesAllowedByModule,
   validateSubTypesAllowedByModule,
-  validateTermSelectByTypeAndSubtype,
+  validateSelectTermByTypeAndSubtype,
 } from '@/shared/helpers';
 import {
-  TypesSearch,
-  TypesSearchNames,
-  SubTypesSearchNames,
-  SearchSelectionOptionsNames,
-  SubTypesSearch,
+  SearchType,
+  SearchTypeNames,
+  SearchSubTypeNames,
+  SearchSelectionOptionNames,
+  SearchSubType,
   RecordOrder,
   RecordOrderNames,
 } from '@/shared/enums';
@@ -115,14 +115,14 @@ export function DataTableSearchByTerm<TData, TValue>({
     mode: 'onChange',
     defaultValues: {
       limit: '10',
-      termInput: '',
-      termNames: '',
-      termLastNames: '',
-      termSelect: '',
-      termDate: undefined,
+      inputTerm: '',
+      namesTerm: '',
+      lastNamesTerm: '',
+      selectTerm: '',
+      dateTerm: undefined,
       subType: '',
       all: false,
-      order: RecordOrder.Ascending,
+      orderRecord: RecordOrder.Ascending,
     },
   });
 
@@ -138,7 +138,7 @@ export function DataTableSearchByTerm<TData, TValue>({
   const type = form.watch('type');
   const subType = form.watch('subType');
   const limit = form.watch('limit');
-  const order = form.watch('order');
+  const orderRecord = form.watch('orderRecord');
 
   //* Table
   const table = useReactTable({
@@ -168,14 +168,14 @@ export function DataTableSearchByTerm<TData, TValue>({
   }, [form.getValues('all')]);
 
   useEffect(() => {
-    if (limit !== '' && order !== '') {
+    if (limit !== '' && orderRecord !== '') {
       setIsDisabledSubmitButton(false);
     }
 
-    if (limit === '' || order === '') {
+    if (limit === '' || orderRecord === '') {
       setIsDisabledSubmitButton(true);
     }
-  }, [limit, order]);
+  }, [limit, orderRecord]);
 
   //* Functions
   const formatDate = (dateString: Date): string => {
@@ -189,7 +189,7 @@ export function DataTableSearchByTerm<TData, TValue>({
   //* Helpers
   const disabledTypes = validateTypesAllowedByModule(pathname);
   const disabledSubTypes = validateSubTypesAllowedByModule(pathname, type);
-  const disabledTermSelect = validateTermSelectByTypeAndSubtype(type, subType);
+  const disabledSelectTerm = validateSelectTermByTypeAndSubtype(type, subType);
 
   return (
     <div className='md:w-full m-auto lg:w-full pt-3'>
@@ -214,19 +214,19 @@ export function DataTableSearchByTerm<TData, TValue>({
                         form.resetField('subType', {
                           keepError: true,
                         });
-                        form.resetField('termNames', {
+                        form.resetField('namesTerm', {
                           keepError: true,
                         });
-                        form.resetField('termLastNames', {
+                        form.resetField('lastNamesTerm', {
                           keepError: true,
                         });
-                        form.resetField('termDate', {
+                        form.resetField('dateTerm', {
                           keepError: true,
                         });
-                        form.resetField('termSelect', {
+                        form.resetField('selectTerm', {
                           keepError: true,
                         });
-                        form.resetField('termInput', {
+                        form.resetField('inputTerm', {
                           keepError: true,
                         });
                       }}
@@ -238,9 +238,9 @@ export function DataTableSearchByTerm<TData, TValue>({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {Object.entries(TypesSearchNames).map(([key, value]) => (
+                        {Object.entries(SearchTypeNames).map(([key, value]) => (
                           <SelectItem
-                            className={`text-[13px] md:text-[14px] ${disabledTypes?.disabledTypes?.includes(value) ? 'hidden' : ''}`}
+                            className={`text-[13px] md:text-[14px] ${disabledTypes?.disabledSearchTypes?.includes(value) ? 'hidden' : ''}`}
                             key={key}
                             value={key}
                           >
@@ -255,27 +255,27 @@ export function DataTableSearchByTerm<TData, TValue>({
               }}
             />
 
-            {(type === TypesSearch.FirstName ||
-              type === TypesSearch.LastName ||
-              type === TypesSearch.FullName ||
-              type === TypesSearch.Tithe ||
-              type === TypesSearch.SundayWorship ||
-              type === TypesSearch.FamilyHouse ||
-              type === TypesSearch.ZonalFasting ||
-              type === TypesSearch.GeneralFasting ||
-              type === TypesSearch.ZonalVigil ||
-              type === TypesSearch.GeneralVigil ||
-              type === TypesSearch.SundaySchool ||
-              type === TypesSearch.YouthWorship ||
-              type === TypesSearch.Activities ||
-              type === TypesSearch.ChurchGround ||
-              type === TypesSearch.Special ||
-              type === TypesSearch.OperationalExpenses ||
-              type === TypesSearch.MaintenanceAndRepairExpenses ||
-              type === TypesSearch.DecorationExpenses ||
-              type === TypesSearch.EquipmentAndTechnologyExpenses ||
-              type === TypesSearch.SuppliesExpenses ||
-              type === TypesSearch.ActivitiesAndEventsExpenses) && (
+            {(type === SearchType.FirstName ||
+              type === SearchType.LastName ||
+              type === SearchType.FullName ||
+              type === SearchType.Tithe ||
+              type === SearchType.SundayWorship ||
+              type === SearchType.FamilyHouse ||
+              type === SearchType.ZonalFasting ||
+              type === SearchType.GeneralFasting ||
+              type === SearchType.ZonalVigil ||
+              type === SearchType.GeneralVigil ||
+              type === SearchType.SundaySchool ||
+              type === SearchType.YouthWorship ||
+              type === SearchType.Activities ||
+              type === SearchType.ChurchGround ||
+              type === SearchType.Special ||
+              type === SearchType.OperationalExpenses ||
+              type === SearchType.MaintenanceAndRepairExpenses ||
+              type === SearchType.DecorationExpenses ||
+              type === SearchType.EquipmentAndTechnologyExpenses ||
+              type === SearchType.SuppliesExpenses ||
+              type === SearchType.ActivitiesAndEventsExpenses) && (
               <FormField
                 control={form.control}
                 name='subType'
@@ -300,19 +300,19 @@ export function DataTableSearchByTerm<TData, TValue>({
                         defaultValue={field.value}
                         value={field.value}
                         onOpenChange={() => {
-                          form.resetField('termNames', {
+                          form.resetField('namesTerm', {
                             defaultValue: '',
                           });
-                          form.resetField('termLastNames', {
+                          form.resetField('lastNamesTerm', {
                             defaultValue: '',
                           });
-                          form.resetField('termDate', {
+                          form.resetField('dateTerm', {
                             keepError: true,
                           });
-                          form.resetField('termSelect', {
+                          form.resetField('selectTerm', {
                             keepError: true,
                           });
-                          form.resetField('termInput', {
+                          form.resetField('inputTerm', {
                             keepError: true,
                           });
                         }}
@@ -327,11 +327,11 @@ export function DataTableSearchByTerm<TData, TValue>({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(SubTypesSearchNames).map(([key, value]) => (
+                          {Object.entries(SearchSubTypeNames).map(([key, value]) => (
                             <SelectItem
                               className={cn(
                                 `text-[13px] md:text-[14px]`,
-                                disabledSubTypes?.disabledSubTypes?.includes(key) && 'hidden'
+                                disabledSubTypes?.disabledSearchSubTypes?.includes(key) && 'hidden'
                               )}
                               key={key}
                               value={key}
@@ -348,41 +348,41 @@ export function DataTableSearchByTerm<TData, TValue>({
               />
             )}
 
-            {((type !== TypesSearch.FirstName &&
-              type !== TypesSearch.LastName &&
-              type !== TypesSearch.FullName &&
-              type !== TypesSearch.MonthBirth &&
-              type !== TypesSearch.DateBirth &&
-              type !== TypesSearch.Gender &&
-              type !== TypesSearch.MaritalStatus &&
-              type !== TypesSearch.Status &&
-              type !== TypesSearch.Tithe &&
-              type !== TypesSearch.SundayWorship &&
-              type !== TypesSearch.FamilyHouse &&
-              type !== TypesSearch.GeneralFasting &&
-              type !== TypesSearch.ZonalFasting &&
-              type !== TypesSearch.ZonalVigil &&
-              type !== TypesSearch.GeneralVigil &&
-              type !== TypesSearch.SundaySchool &&
-              type !== TypesSearch.YouthWorship &&
-              type !== TypesSearch.Activities &&
-              type !== TypesSearch.ChurchGround &&
-              type !== TypesSearch.Special &&
-              type !== TypesSearch.Roles &&
-              type !== TypesSearch.OperationalExpenses &&
-              type !== TypesSearch.MaintenanceAndRepairExpenses &&
-              type !== TypesSearch.DecorationExpenses &&
-              type !== TypesSearch.EquipmentAndTechnologyExpenses &&
-              type !== TypesSearch.SuppliesExpenses &&
-              type !== TypesSearch.ActivitiesAndEventsExpenses &&
+            {((type !== SearchType.FirstName &&
+              type !== SearchType.LastName &&
+              type !== SearchType.FullName &&
+              type !== SearchType.MonthBirth &&
+              type !== SearchType.DateBirth &&
+              type !== SearchType.Gender &&
+              type !== SearchType.MaritalStatus &&
+              type !== SearchType.Status &&
+              type !== SearchType.Tithe &&
+              type !== SearchType.SundayWorship &&
+              type !== SearchType.FamilyHouse &&
+              type !== SearchType.GeneralFasting &&
+              type !== SearchType.ZonalFasting &&
+              type !== SearchType.ZonalVigil &&
+              type !== SearchType.GeneralVigil &&
+              type !== SearchType.SundaySchool &&
+              type !== SearchType.YouthWorship &&
+              type !== SearchType.Activities &&
+              type !== SearchType.ChurchGround &&
+              type !== SearchType.Special &&
+              type !== SearchType.Roles &&
+              type !== SearchType.OperationalExpenses &&
+              type !== SearchType.MaintenanceAndRepairExpenses &&
+              type !== SearchType.DecorationExpenses &&
+              type !== SearchType.EquipmentAndTechnologyExpenses &&
+              type !== SearchType.SuppliesExpenses &&
+              type !== SearchType.ActivitiesAndEventsExpenses &&
               type !== undefined) ||
-              subType === SubTypesSearch.OfferingByZone ||
-              subType === SubTypesSearch.OfferingByDateZone ||
-              subType === SubTypesSearch.OfferingByCodeHouse ||
-              subType === SubTypesSearch.OfferingByDateCodeHouse) && (
+              subType === SearchSubType.OfferingByZone ||
+              subType === SearchSubType.OfferingByDateZone ||
+              subType === SearchSubType.OfferingByCodeHouse ||
+              subType === SearchSubType.OfferingByDateCodeHouse) && (
               <FormField
                 control={form.control}
-                name='termInput'
+                name='inputTerm'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
@@ -402,24 +402,24 @@ export function DataTableSearchByTerm<TData, TValue>({
               />
             )}
 
-            {(type === TypesSearch.DateBirth ||
-              type === TypesSearch.OperationalExpenses ||
-              type === TypesSearch.MaintenanceAndRepairExpenses ||
-              type === TypesSearch.DecorationExpenses ||
-              type === TypesSearch.EquipmentAndTechnologyExpenses ||
-              type === TypesSearch.SuppliesExpenses ||
-              type === TypesSearch.ActivitiesAndEventsExpenses ||
-              subType === SubTypesSearch.TitheByDate ||
-              subType === SubTypesSearch.TitheByDateNames ||
-              subType === SubTypesSearch.TitheByDateLastNames ||
-              subType === SubTypesSearch.TitheByDateFullName ||
-              subType === SubTypesSearch.OfferingByDate ||
-              subType === SubTypesSearch.OfferingByDateShift ||
-              subType === SubTypesSearch.OfferingByDateZone ||
-              subType === SubTypesSearch.OfferingByDateCodeHouse) && (
+            {(type === SearchType.DateBirth ||
+              type === SearchType.OperationalExpenses ||
+              type === SearchType.MaintenanceAndRepairExpenses ||
+              type === SearchType.DecorationExpenses ||
+              type === SearchType.EquipmentAndTechnologyExpenses ||
+              type === SearchType.SuppliesExpenses ||
+              type === SearchType.ActivitiesAndEventsExpenses ||
+              subType === SearchSubType.TitheByDate ||
+              subType === SearchSubType.TitheByDateNames ||
+              subType === SearchSubType.TitheByDateLastNames ||
+              subType === SearchSubType.TitheByDateFullName ||
+              subType === SearchSubType.OfferingByDate ||
+              subType === SearchSubType.OfferingByDateShift ||
+              subType === SearchSubType.OfferingByDateZone ||
+              subType === SearchSubType.OfferingByDateCodeHouse) && (
               <FormField
                 control={form.control}
-                name='termDate'
+                name='dateTerm'
                 render={({ field }) => (
                   <FormItem className=''>
                     <FormLabel className='text-[14px] font-bold'>Termino (fecha)</FormLabel>
@@ -473,15 +473,15 @@ export function DataTableSearchByTerm<TData, TValue>({
               />
             )}
 
-            {(type === TypesSearch.Gender ||
-              type === TypesSearch.MaritalStatus ||
-              type === TypesSearch.Status ||
-              type === TypesSearch.MonthBirth ||
-              subType === SubTypesSearch.OfferingByShift ||
-              subType === SubTypesSearch.OfferingByDateShift) && (
+            {(type === SearchType.Gender ||
+              type === SearchType.MaritalStatus ||
+              type === SearchType.Status ||
+              type === SearchType.MonthBirth ||
+              subType === SearchSubType.OfferingByShift ||
+              subType === SearchSubType.OfferingByDateShift) && (
               <FormField
                 control={form.control}
-                name='termSelect'
+                name='selectTerm'
                 render={({ field }) => {
                   return (
                     <FormItem>
@@ -507,9 +507,9 @@ export function DataTableSearchByTerm<TData, TValue>({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(SearchSelectionOptionsNames).map(([key, value]) => (
+                          {Object.entries(SearchSelectionOptionNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[13px] md:text-[14px] ${disabledTermSelect?.disabledTermSelect?.includes(value) ? 'hidden' : ''}`}
+                              className={`text-[13px] md:text-[14px] ${disabledSelectTerm?.disabledSelectTerm?.includes(value) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -525,10 +525,10 @@ export function DataTableSearchByTerm<TData, TValue>({
               />
             )}
 
-            {type === TypesSearch.Roles && (
+            {type === SearchType.Roles && (
               <FormField
                 control={form.control}
-                name='termMultiSelect'
+                name='multiSelectTerm'
                 render={() => (
                   <FormItem>
                     <FormLabel className='text-[14px] font-bold'>Roles</FormLabel>
@@ -540,7 +540,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                         <FormField
                           key={role}
                           control={form.control}
-                          name='termMultiSelect'
+                          name='multiSelectTerm'
                           render={({ field }) => {
                             return (
                               <FormItem
@@ -577,22 +577,22 @@ export function DataTableSearchByTerm<TData, TValue>({
                 )}
               />
             )}
-            {((subType && (type === TypesSearch.FirstName || type === TypesSearch.FullName)) ||
-              subType === SubTypesSearch.TitheByNames ||
-              subType === SubTypesSearch.TitheByFullName ||
-              subType === SubTypesSearch.TitheByDateNames ||
-              subType === SubTypesSearch.TitheByDateFullName ||
-              subType === SubTypesSearch.OfferingByPreacherNames ||
-              subType === SubTypesSearch.OfferingByPreacherFullName ||
-              subType === SubTypesSearch.OfferingBySupervisorNames ||
-              subType === SubTypesSearch.OfferingBySupervisorFullName ||
-              subType === SubTypesSearch.OfferingByNames ||
-              subType === SubTypesSearch.OfferingByFullName ||
-              subType === SubTypesSearch.UserByNames ||
-              subType === SubTypesSearch.UserByFullName) && (
+            {((subType && (type === SearchType.FirstName || type === SearchType.FullName)) ||
+              subType === SearchSubType.TitheByNames ||
+              subType === SearchSubType.TitheByFullName ||
+              subType === SearchSubType.TitheByDateNames ||
+              subType === SearchSubType.TitheByDateFullName ||
+              subType === SearchSubType.OfferingByPreacherNames ||
+              subType === SearchSubType.OfferingByPreacherFullName ||
+              subType === SearchSubType.OfferingBySupervisorNames ||
+              subType === SearchSubType.OfferingBySupervisorFullName ||
+              subType === SearchSubType.OfferingByNames ||
+              subType === SearchSubType.OfferingByFullName ||
+              subType === SearchSubType.UserByNames ||
+              subType === SearchSubType.UserByFullName) && (
               <FormField
                 control={form.control}
-                name='termNames'
+                name='namesTerm'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className='text-[14px] font-bold'>Termino (nombres)</FormLabel>
@@ -612,20 +612,20 @@ export function DataTableSearchByTerm<TData, TValue>({
               />
             )}
 
-            {((subType && (type === TypesSearch.LastName || type === TypesSearch.FullName)) ||
-              subType === SubTypesSearch.TitheByLastNames ||
-              subType === SubTypesSearch.TitheByFullName ||
-              subType === SubTypesSearch.TitheByDateLastNames ||
-              subType === SubTypesSearch.TitheByDateFullName ||
-              subType === SubTypesSearch.OfferingByPreacherLastNames ||
-              subType === SubTypesSearch.OfferingByPreacherFullName ||
-              subType === SubTypesSearch.OfferingBySupervisorLastNames ||
-              subType === SubTypesSearch.OfferingBySupervisorFullName ||
-              subType === SubTypesSearch.OfferingByLastNames ||
-              subType === SubTypesSearch.OfferingByFullName) && (
+            {((subType && (type === SearchType.LastName || type === SearchType.FullName)) ||
+              subType === SearchSubType.TitheByLastNames ||
+              subType === SearchSubType.TitheByFullName ||
+              subType === SearchSubType.TitheByDateLastNames ||
+              subType === SearchSubType.TitheByDateFullName ||
+              subType === SearchSubType.OfferingByPreacherLastNames ||
+              subType === SearchSubType.OfferingByPreacherFullName ||
+              subType === SearchSubType.OfferingBySupervisorLastNames ||
+              subType === SearchSubType.OfferingBySupervisorFullName ||
+              subType === SearchSubType.OfferingByLastNames ||
+              subType === SearchSubType.OfferingByFullName) && (
               <FormField
                 control={form.control}
-                name='termLastNames'
+                name='lastNamesTerm'
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className='text-[14px] font-bold'>Termino (apellidos)</FormLabel>
@@ -723,7 +723,7 @@ export function DataTableSearchByTerm<TData, TValue>({
 
             <FormField
               control={form.control}
-              name='order'
+              name='orderRecord'
               render={({ field }) => (
                 <FormItem className='w-full col-start-auto col-end-auto lg:col-start-auto lg:col-end-auto'>
                   <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
@@ -794,19 +794,19 @@ export function DataTableSearchByTerm<TData, TValue>({
               </span>{' '}
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
-                  Object.entries(TypesSearchNames).find(
+                  Object.entries(SearchTypeNames).find(
                     ([key, value]) => key === dataForm?.type && value
                   )?.[1]
                 }`}
               </span>
-              {(dataForm?.type === TypesSearch.FirstName ||
-                dataForm?.type === TypesSearch.LastName ||
-                dataForm?.type === TypesSearch.FullName) && (
+              {(dataForm?.type === SearchType.FirstName ||
+                dataForm?.type === SearchType.LastName ||
+                dataForm?.type === SearchType.FullName) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {' '}
                   -{' '}
                   {`${
-                    Object.entries(SubTypesSearchNames).find(
+                    Object.entries(SearchSubTypeNames).find(
                       ([key, value]) => key === dataForm?.subType && value
                     )?.[1]
                   }`}
@@ -815,66 +815,66 @@ export function DataTableSearchByTerm<TData, TValue>({
             </div>
 
             {/* Search Terms */}
-            {(dataForm?.type === TypesSearch.FirstName ||
-              dataForm?.type === TypesSearch.LastName ||
-              dataForm?.type === TypesSearch.FullName ||
-              dataForm?.type === TypesSearch.DateBirth ||
-              dataForm?.type === TypesSearch.Zone ||
-              dataForm?.type === TypesSearch.OriginCountry ||
-              dataForm?.type === TypesSearch.CodeHouse ||
-              dataForm?.type === TypesSearch.NameHouse ||
-              dataForm?.type === TypesSearch.Address ||
-              dataForm?.type === TypesSearch.Department ||
-              dataForm?.type === TypesSearch.Province ||
-              dataForm?.type === TypesSearch.District ||
-              dataForm?.type === TypesSearch.MonthBirth ||
-              dataForm?.type === TypesSearch.Gender ||
-              dataForm?.type === TypesSearch.MaritalStatus ||
-              dataForm?.type === TypesSearch.Status) && (
+            {(dataForm?.type === SearchType.FirstName ||
+              dataForm?.type === SearchType.LastName ||
+              dataForm?.type === SearchType.FullName ||
+              dataForm?.type === SearchType.DateBirth ||
+              dataForm?.type === SearchType.Zone ||
+              dataForm?.type === SearchType.OriginCountry ||
+              dataForm?.type === SearchType.CodeHouse ||
+              dataForm?.type === SearchType.NameHouse ||
+              dataForm?.type === SearchType.Address ||
+              dataForm?.type === SearchType.Department ||
+              dataForm?.type === SearchType.Province ||
+              dataForm?.type === SearchType.District ||
+              dataForm?.type === SearchType.MonthBirth ||
+              dataForm?.type === SearchType.Gender ||
+              dataForm?.type === SearchType.MaritalStatus ||
+              dataForm?.type === SearchType.Status) && (
               <div>
                 <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
                   Termino de búsqueda:
                 </span>{' '}
-                {(dataForm?.type === TypesSearch.Zone ||
-                  dataForm?.type === TypesSearch.OriginCountry ||
-                  dataForm?.type === TypesSearch.CodeHouse ||
-                  dataForm?.type === TypesSearch.NameHouse ||
-                  dataForm?.type === TypesSearch.Address ||
-                  dataForm?.type === TypesSearch.Department ||
-                  dataForm?.type === TypesSearch.Province ||
-                  dataForm?.type === TypesSearch.District) && (
+                {(dataForm?.type === SearchType.Zone ||
+                  dataForm?.type === SearchType.OriginCountry ||
+                  dataForm?.type === SearchType.CodeHouse ||
+                  dataForm?.type === SearchType.NameHouse ||
+                  dataForm?.type === SearchType.Address ||
+                  dataForm?.type === SearchType.Department ||
+                  dataForm?.type === SearchType.Province ||
+                  dataForm?.type === SearchType.District) && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                    {`${dataForm?.termInput}`}
+                    {`${dataForm?.inputTerm}`}
                   </span>
                 )}
-                {dataForm?.type === TypesSearch.FirstName && (
+                {dataForm?.type === SearchType.FirstName && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                    {`${dataForm?.termNames}`}
+                    {`${dataForm?.namesTerm}`}
                   </span>
                 )}
-                {dataForm?.type === TypesSearch.LastName && (
+                {dataForm?.type === SearchType.LastName && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                    {`${dataForm?.termLastNames}`}
+                    {`${dataForm?.lastNamesTerm}`}
                   </span>
                 )}
-                {dataForm?.type === TypesSearch.FullName && (
+                {dataForm?.type === SearchType.FullName && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                    {`${dataForm?.termNames} - ${dataForm?.termLastNames} `}
+                    {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
                   </span>
                 )}
-                {dataForm?.type === TypesSearch.DateBirth && (
+                {dataForm?.type === SearchType.DateBirth && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                    {`${dataForm?.termDate?.from ? formatDate(dataForm?.termDate?.from) : ''} ${dataForm?.termDate?.to ? ` - ${formatDate(dataForm?.termDate?.to)}` : ''}`}
+                    {`${dataForm?.dateTerm?.from ? formatDate(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDate(dataForm?.dateTerm?.to)}` : ''}`}
                   </span>
                 )}
-                {(dataForm?.type === TypesSearch.MonthBirth ||
-                  dataForm?.type === TypesSearch.Gender ||
-                  dataForm?.type === TypesSearch.MaritalStatus ||
-                  dataForm?.type === TypesSearch.Status) && (
+                {(dataForm?.type === SearchType.MonthBirth ||
+                  dataForm?.type === SearchType.Gender ||
+                  dataForm?.type === SearchType.MaritalStatus ||
+                  dataForm?.type === SearchType.Status) && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                     {`${
-                      Object.entries(SearchSelectionOptionsNames).find(
-                        ([key, value]) => key === dataForm?.termSelect && value
+                      Object.entries(SearchSelectionOptionNames).find(
+                        ([key, value]) => key === dataForm?.selectTerm && value
                       )?.[1]
                     }`}
                   </span>
@@ -943,19 +943,19 @@ export function DataTableSearchByTerm<TData, TValue>({
               </span>{' '}
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
-                  Object.entries(TypesSearchNames).find(
+                  Object.entries(SearchTypeNames).find(
                     ([key, value]) => key === dataForm?.type && value
                   )?.[1]
                 }`}
               </span>
-              {(dataForm?.type === TypesSearch.FirstName ||
-                dataForm?.type === TypesSearch.LastName ||
-                dataForm?.type === TypesSearch.FullName) && (
+              {(dataForm?.type === SearchType.FirstName ||
+                dataForm?.type === SearchType.LastName ||
+                dataForm?.type === SearchType.FullName) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {' '}
                   -{' '}
                   {`${
-                    Object.entries(SubTypesSearchNames).find(
+                    Object.entries(SearchSubTypeNames).find(
                       ([key, value]) => key === dataForm?.subType && value
                     )?.[1]
                   }`}
@@ -968,37 +968,37 @@ export function DataTableSearchByTerm<TData, TValue>({
               <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
                 Termino de búsqueda:
               </span>{' '}
-              {(dataForm?.type === TypesSearch.Zone ||
-                dataForm?.type === TypesSearch.CodeHouse ||
-                dataForm?.type === TypesSearch.NameHouse ||
-                dataForm?.type === TypesSearch.Address ||
-                dataForm?.type === TypesSearch.Department ||
-                dataForm?.type === TypesSearch.Province ||
-                dataForm?.type === TypesSearch.District) && (
+              {(dataForm?.type === SearchType.Zone ||
+                dataForm?.type === SearchType.CodeHouse ||
+                dataForm?.type === SearchType.NameHouse ||
+                dataForm?.type === SearchType.Address ||
+                dataForm?.type === SearchType.Department ||
+                dataForm?.type === SearchType.Province ||
+                dataForm?.type === SearchType.District) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                  {`${dataForm?.termInput}`}
+                  {`${dataForm?.inputTerm}`}
                 </span>
               )}
-              {dataForm?.type === TypesSearch.FirstName && (
+              {dataForm?.type === SearchType.FirstName && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                  {`${dataForm?.termNames}`}
+                  {`${dataForm?.namesTerm}`}
                 </span>
               )}
-              {dataForm?.type === TypesSearch.LastName && (
+              {dataForm?.type === SearchType.LastName && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                  {`${dataForm?.termLastNames}`}
+                  {`${dataForm?.lastNamesTerm}`}
                 </span>
               )}
-              {dataForm?.type === TypesSearch.FullName && (
+              {dataForm?.type === SearchType.FullName && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                  {`${dataForm?.termNames} - ${dataForm?.termLastNames} `}
+                  {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
                 </span>
               )}
-              {dataForm?.type === TypesSearch.Status && (
+              {dataForm?.type === SearchType.Status && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {`${
-                    Object.entries(SearchSelectionOptionsNames).find(
-                      ([key, value]) => key === dataForm?.termSelect && value
+                    Object.entries(SearchSelectionOptionNames).find(
+                      ([key, value]) => key === dataForm?.selectTerm && value
                     )?.[1]
                   }`}
                 </span>
@@ -1063,28 +1063,28 @@ export function DataTableSearchByTerm<TData, TValue>({
               </span>{' '}
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
-                  Object.entries(TypesSearchNames).find(
+                  Object.entries(SearchTypeNames).find(
                     ([key, value]) => key === dataForm?.type && value
                   )?.[1]
                 }`}
               </span>
-              {(dataForm?.type === TypesSearch.Tithe ||
-                dataForm?.type === TypesSearch.SundayWorship ||
-                dataForm?.type === TypesSearch.FamilyHouse ||
-                dataForm?.type === TypesSearch.GeneralFasting ||
-                dataForm?.type === TypesSearch.GeneralVigil ||
-                dataForm?.type === TypesSearch.ZonalFasting ||
-                dataForm?.type === TypesSearch.ZonalVigil ||
-                dataForm?.type === TypesSearch.SundaySchool ||
-                dataForm?.type === TypesSearch.YouthWorship ||
-                dataForm?.type === TypesSearch.Activities ||
-                dataForm?.type === TypesSearch.ChurchGround ||
-                dataForm?.type === TypesSearch.Special) && (
+              {(dataForm?.type === SearchType.Tithe ||
+                dataForm?.type === SearchType.SundayWorship ||
+                dataForm?.type === SearchType.FamilyHouse ||
+                dataForm?.type === SearchType.GeneralFasting ||
+                dataForm?.type === SearchType.GeneralVigil ||
+                dataForm?.type === SearchType.ZonalFasting ||
+                dataForm?.type === SearchType.ZonalVigil ||
+                dataForm?.type === SearchType.SundaySchool ||
+                dataForm?.type === SearchType.YouthWorship ||
+                dataForm?.type === SearchType.Activities ||
+                dataForm?.type === SearchType.ChurchGround ||
+                dataForm?.type === SearchType.Special) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {' '}
                   -{' '}
                   {`${
-                    Object.entries(SubTypesSearchNames).find(
+                    Object.entries(SearchSubTypeNames).find(
                       ([key, value]) => key === dataForm?.subType && value
                     )?.[1]
                   }`}
@@ -1097,60 +1097,60 @@ export function DataTableSearchByTerm<TData, TValue>({
               <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
                 Termino de búsqueda:
               </span>{' '}
-              {(dataForm?.subType === SubTypesSearch.OfferingByZone ||
-                dataForm?.subType === SubTypesSearch.OfferingByDateZone ||
-                dataForm?.subType === SubTypesSearch.OfferingByDateCodeHouse ||
-                dataForm?.subType === SubTypesSearch.OfferingByCodeHouse) && (
+              {(dataForm?.subType === SearchSubType.OfferingByZone ||
+                dataForm?.subType === SearchSubType.OfferingByDateZone ||
+                dataForm?.subType === SearchSubType.OfferingByDateCodeHouse ||
+                dataForm?.subType === SearchSubType.OfferingByCodeHouse) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                  {`${dataForm?.termInput}`} -{' '}
+                  {`${dataForm?.inputTerm}`} -{' '}
                 </span>
               )}
-              {(dataForm?.subType === SubTypesSearch.OfferingByPreacherNames ||
-                dataForm?.subType === SubTypesSearch.OfferingBySupervisorNames ||
-                dataForm?.subType === SubTypesSearch.OfferingByNames) && (
+              {(dataForm?.subType === SearchSubType.OfferingByPreacherNames ||
+                dataForm?.subType === SearchSubType.OfferingBySupervisorNames ||
+                dataForm?.subType === SearchSubType.OfferingByNames) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                  {`${dataForm?.termNames}`}
+                  {`${dataForm?.namesTerm}`}
                 </span>
               )}
-              {(dataForm?.subType === SubTypesSearch.OfferingByPreacherLastNames ||
-                dataForm?.subType === SubTypesSearch.OfferingBySupervisorLastNames ||
-                dataForm?.subType === SubTypesSearch.OfferingByLastNames) && (
+              {(dataForm?.subType === SearchSubType.OfferingByPreacherLastNames ||
+                dataForm?.subType === SearchSubType.OfferingBySupervisorLastNames ||
+                dataForm?.subType === SearchSubType.OfferingByLastNames) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                  {`${dataForm?.termLastNames}`}
+                  {`${dataForm?.lastNamesTerm}`}
                 </span>
               )}
-              {(dataForm?.subType === SubTypesSearch.OfferingByPreacherFullName ||
-                dataForm?.subType === SubTypesSearch.OfferingBySupervisorFullName ||
-                dataForm?.subType === SubTypesSearch.OfferingByFullName) && (
+              {(dataForm?.subType === SearchSubType.OfferingByPreacherFullName ||
+                dataForm?.subType === SearchSubType.OfferingBySupervisorFullName ||
+                dataForm?.subType === SearchSubType.OfferingByFullName) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                  {`${dataForm?.termNames} - ${dataForm?.termLastNames} `}
+                  {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
                 </span>
               )}
-              {(dataForm?.subType === SubTypesSearch.OfferingByDate ||
-                dataForm?.subType === SubTypesSearch.OfferingByDateShift ||
-                dataForm?.subType === SubTypesSearch.OfferingByDateZone ||
-                dataForm?.subType === SubTypesSearch.OfferingByDateCodeHouse) && (
+              {(dataForm?.subType === SearchSubType.OfferingByDate ||
+                dataForm?.subType === SearchSubType.OfferingByDateShift ||
+                dataForm?.subType === SearchSubType.OfferingByDateZone ||
+                dataForm?.subType === SearchSubType.OfferingByDateCodeHouse) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                  {`${dataForm?.termDate?.from ? formatDate(dataForm?.termDate?.from) : ''} ${dataForm?.termDate?.to ? ` - ${formatDate(dataForm?.termDate?.to)}` : ''}`}
+                  {`${dataForm?.dateTerm?.from ? formatDate(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDate(dataForm?.dateTerm?.to)}` : ''}`}
                 </span>
               )}
-              {dataForm?.type === TypesSearch.Status && (
+              {dataForm?.type === SearchType.Status && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {`${
-                    Object.entries(SearchSelectionOptionsNames).find(
-                      ([key, value]) => key === dataForm?.termSelect && value
+                    Object.entries(SearchSelectionOptionNames).find(
+                      ([key, value]) => key === dataForm?.selectTerm && value
                     )?.[1]
                   }`}
                 </span>
               )}
-              {(dataForm?.subType === SubTypesSearch.OfferingByShift ||
-                dataForm?.subType === SubTypesSearch.OfferingByDateShift) && (
+              {(dataForm?.subType === SearchSubType.OfferingByShift ||
+                dataForm?.subType === SearchSubType.OfferingByDateShift) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {' '}
                   -{' '}
                   {`${
-                    Object.entries(SearchSelectionOptionsNames).find(
-                      ([key, value]) => key === dataForm?.termSelect && value
+                    Object.entries(SearchSelectionOptionNames).find(
+                      ([key, value]) => key === dataForm?.selectTerm && value
                     )?.[1]
                   }`}
                 </span>
@@ -1216,23 +1216,23 @@ export function DataTableSearchByTerm<TData, TValue>({
               </span>{' '}
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
-                  Object.entries(TypesSearchNames).find(
+                  Object.entries(SearchTypeNames).find(
                     ([key, value]) => key === dataForm?.type && value
                   )?.[1]
                 }`}
               </span>
-              {(dataForm?.type === TypesSearch.OperationalExpenses ||
-                dataForm?.type === TypesSearch.MaintenanceAndRepairExpenses ||
-                dataForm?.type === TypesSearch.DecorationExpenses ||
-                dataForm?.type === TypesSearch.EquipmentAndTechnologyExpenses ||
-                dataForm?.type === TypesSearch.SuppliesExpenses ||
-                dataForm?.type === TypesSearch.ActivitiesAndEventsExpenses) && (
+              {(dataForm?.type === SearchType.OperationalExpenses ||
+                dataForm?.type === SearchType.MaintenanceAndRepairExpenses ||
+                dataForm?.type === SearchType.DecorationExpenses ||
+                dataForm?.type === SearchType.EquipmentAndTechnologyExpenses ||
+                dataForm?.type === SearchType.SuppliesExpenses ||
+                dataForm?.type === SearchType.ActivitiesAndEventsExpenses) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {' '}
                   -{' '}
                   {`${
                     dataForm?.subType
-                      ? Object.entries(SubTypesSearchNames).find(
+                      ? Object.entries(SearchSubTypeNames).find(
                           ([key, value]) => key === dataForm?.subType && value
                         )?.[1]
                       : `Todos los sub-tipos`
@@ -1247,7 +1247,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                 Termino de búsqueda:
               </span>{' '}
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.termDate?.from ? formatDate(dataForm?.termDate?.from) : ''} ${dataForm?.termDate?.to ? ` - ${formatDate(dataForm?.termDate?.to)}` : ''}`}
+                {`${dataForm?.dateTerm?.from ? formatDate(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDate(dataForm?.dateTerm?.to)}` : ''}`}
               </span>
             </div>
 
@@ -1310,19 +1310,19 @@ export function DataTableSearchByTerm<TData, TValue>({
               </span>{' '}
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
-                  Object.entries(TypesSearchNames).find(
+                  Object.entries(SearchTypeNames).find(
                     ([key, value]) => key === dataForm?.type && value
                   )?.[1]
                 }`}
               </span>
-              {(dataForm?.type === TypesSearch.FirstName ||
-                dataForm?.type === TypesSearch.LastName ||
-                dataForm?.type === TypesSearch.FullName) && (
+              {(dataForm?.type === SearchType.FirstName ||
+                dataForm?.type === SearchType.LastName ||
+                dataForm?.type === SearchType.FullName) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {' '}
                   -{' '}
                   {`${
-                    Object.entries(SubTypesSearchNames).find(
+                    Object.entries(SearchSubTypeNames).find(
                       ([key, value]) => key === dataForm?.subType && value
                     )?.[1]
                   }`}
@@ -1331,45 +1331,45 @@ export function DataTableSearchByTerm<TData, TValue>({
             </div>
 
             {/* Search Terms */}
-            {(dataForm?.type === TypesSearch.FirstName ||
-              dataForm?.type === TypesSearch.LastName ||
-              dataForm?.type === TypesSearch.FullName ||
-              dataForm?.type === TypesSearch.Roles ||
-              dataForm?.type === TypesSearch.Status) && (
+            {(dataForm?.type === SearchType.FirstName ||
+              dataForm?.type === SearchType.LastName ||
+              dataForm?.type === SearchType.FullName ||
+              dataForm?.type === SearchType.Roles ||
+              dataForm?.type === SearchType.Status) && (
               <div>
                 <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
                   Termino de búsqueda:
                 </span>{' '}
-                {dataForm?.type === TypesSearch.FirstName && (
+                {dataForm?.type === SearchType.FirstName && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                    {`${dataForm?.termNames}`}
+                    {`${dataForm?.namesTerm}`}
                   </span>
                 )}
-                {dataForm?.type === TypesSearch.LastName && (
+                {dataForm?.type === SearchType.LastName && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                    {`${dataForm?.termLastNames}`}
+                    {`${dataForm?.lastNamesTerm}`}
                   </span>
                 )}
-                {dataForm?.type === TypesSearch.FullName && (
+                {dataForm?.type === SearchType.FullName && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                    {`${dataForm?.termNames} - ${dataForm?.termLastNames} `}
+                    {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
                   </span>
                 )}
-                {dataForm?.type === TypesSearch.Roles && (
+                {dataForm?.type === SearchType.Roles && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                     {`${Object.entries(UserRoleNames)
                       .map(([key, value]) => {
-                        return dataForm?.termMultiSelect?.includes(key as UserRoles) ? value : null;
+                        return dataForm?.multiSelectTerm?.includes(key as UserRoles) ? value : null;
                       })
                       .filter((value) => value !== null)
                       .join(', ')}`}
                   </span>
                 )}
-                {dataForm?.type === TypesSearch.Status && (
+                {dataForm?.type === SearchType.Status && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                     {`${
-                      Object.entries(SearchSelectionOptionsNames).find(
-                        ([key, value]) => key === dataForm?.termSelect && value
+                      Object.entries(SearchSelectionOptionNames).find(
+                        ([key, value]) => key === dataForm?.selectTerm && value
                       )?.[1]
                     }`}
                   </span>

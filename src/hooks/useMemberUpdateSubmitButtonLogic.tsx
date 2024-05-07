@@ -5,14 +5,14 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRoles } from '@/shared/enums';
+import { type MemberRole } from '@/shared/enums';
 import { type MemberData } from '@/shared/interfaces';
 
 interface Options {
   formMemberUpdate: UseFormReturn<MemberData, any, MemberData>;
   pathname: string;
   isRelationSelectDisabled: boolean;
-  memberRoles: typeof MemberRoles;
+  memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -41,7 +41,9 @@ export const useMemberUpdateSubmitButtonLogic = ({
   const department = formMemberUpdate.watch('department');
   const province = formMemberUpdate.watch('province');
   const district = formMemberUpdate.watch('district');
+  const urbanSector = formMemberUpdate.watch('urbanSector');
   const address = formMemberUpdate.watch('address');
+  const referenceComments = formMemberUpdate.watch('referenceComments');
 
   const theirFamilyHouse = formMemberUpdate.watch('theirFamilyHouse');
   const theirPastor = formMemberUpdate.watch('theirPastor');
@@ -76,6 +78,8 @@ export const useMemberUpdateSubmitButtonLogic = ({
       province &&
       district &&
       address &&
+      urbanSector &&
+      referenceComments &&
       roles.length !== 0 &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Pastor) &&
@@ -103,6 +107,8 @@ export const useMemberUpdateSubmitButtonLogic = ({
         !department ||
         !province ||
         !district ||
+        !urbanSector ||
+        !referenceComments ||
         !address ||
         roles.length === 0)
     ) {
@@ -127,6 +133,8 @@ export const useMemberUpdateSubmitButtonLogic = ({
       department &&
       province &&
       district &&
+      urbanSector &&
+      referenceComments &&
       address &&
       ((roles.includes(memberRoles.Disciple) &&
         roles.includes(memberRoles.Copastor) &&
@@ -155,6 +163,8 @@ export const useMemberUpdateSubmitButtonLogic = ({
         !department ||
         !province ||
         !district ||
+        !urbanSector ||
+        !referenceComments ||
         !address ||
         (roles.includes(memberRoles.Disciple) &&
           roles.includes(memberRoles.Copastor) &&
@@ -181,6 +191,8 @@ export const useMemberUpdateSubmitButtonLogic = ({
       department &&
       province &&
       district &&
+      urbanSector &&
+      referenceComments &&
       address &&
       ((roles.includes(memberRoles.Disciple) &&
         roles.includes(memberRoles.Copastor) &&
@@ -214,6 +226,8 @@ export const useMemberUpdateSubmitButtonLogic = ({
         !department ||
         !province ||
         !district ||
+        !urbanSector ||
+        !referenceComments ||
         !address ||
         (!theirPastor && !theirCopastor && !theirSupervisor))
     ) {
@@ -238,6 +252,8 @@ export const useMemberUpdateSubmitButtonLogic = ({
       department &&
       province &&
       district &&
+      urbanSector &&
+      referenceComments &&
       address &&
       ((roles.includes(memberRoles.Disciple) && theirFamilyHouse) ||
         (roles.includes(memberRoles.Disciple) &&
@@ -266,6 +282,8 @@ export const useMemberUpdateSubmitButtonLogic = ({
         !department ||
         !province ||
         !district ||
+        !urbanSector ||
+        !referenceComments ||
         !address ||
         (roles.includes(memberRoles.Disciple) &&
           !theirFamilyHouse &&
@@ -293,6 +311,8 @@ export const useMemberUpdateSubmitButtonLogic = ({
     province,
     district,
     address,
+    urbanSector,
+    referenceComments,
     theirFamilyHouse,
     theirPastor,
     theirCopastor,

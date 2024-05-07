@@ -80,7 +80,7 @@ export const BarChartHouse = (): JSX.Element => {
           <form>
             <FormField
               control={form.control}
-              name='termDate'
+              name='dateTerm'
               render={({ field }) => (
                 <FormItem>
                   <Popover open={open} onOpenChange={setOpen}>
@@ -141,9 +141,9 @@ export const BarChartHouse = (): JSX.Element => {
       <ResponsiveContainer
         width='100%'
         height={
-          form.formState.errors.termDate?.message && isDesktop
+          form.formState.errors.dateTerm?.message && isDesktop
             ? '75%'
-            : form.formState.errors.termDate?.message && !isDesktop
+            : form.formState.errors.dateTerm?.message && !isDesktop
               ? '60%'
               : '100%'
         }
@@ -160,7 +160,7 @@ export const BarChartHouse = (): JSX.Element => {
           <YAxis />
           <Tooltip />
 
-          {!form.formState.errors.termDate?.message && <Legend wrapperStyle={{ left: 0 }} />}
+          {!form.formState.errors.dateTerm?.message && <Legend wrapperStyle={{ left: 0 }} />}
           <Bar dataKey='Ofrenda' fill='#029012' />
           <Bar dataKey='Discípulos' fill='#0ED0D0' />
         </BarChart>

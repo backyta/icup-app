@@ -1,4 +1,4 @@
-export enum SubTypesSearch {
+export enum SearchSubType {
 
   //* Member
   MemberByPastorNames = 'member_by_pastor_names',
@@ -170,7 +170,7 @@ export enum SubTypesSearch {
 }
 
 
-export const SubTypesSearchNames: Record<SubTypesSearch, string> =  {
+export const SearchSubTypeNames: Record<SearchSubType, string> =  {
 
   //* Member
   by_member_names : 'Por sus nombres',

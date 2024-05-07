@@ -61,7 +61,7 @@ export const ZoneDeleteCard = ({ isDisabled, formFamilyHouse }: Props): JSX.Elem
           }}
           className='w-full text-[14px] xl:text-[15px] disabled:bg-slate-500 disabled:text-white  bg-red-500 text-red-900 hover:text-white hover:bg-red-600'
         >
-          Borrar una zona
+          Borrar zona
         </Button>
       </DialogTrigger>
       <DialogContent ref={topRef} className='max-w-[40rem] p-8 md:p-6 max-h-full overflow-y-auto'>

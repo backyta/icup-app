@@ -6,13 +6,13 @@ import { useEffect } from 'react';
 import { toast } from 'sonner';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRoles } from '@/shared/enums';
+import { type MemberRole } from '@/shared/enums';
 import { type MemberData } from '@/shared/interfaces';
 
 interface Options {
   formMemberCrate: UseFormReturn<MemberData, any, MemberData>;
   pathname: string;
-  memberRoles: typeof MemberRoles;
+  memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
@@ -44,7 +44,9 @@ export const useMemberCreateSubmitButtonLogic = ({
   const department = formMemberCrate.watch('department');
   const province = formMemberCrate.watch('province');
   const district = formMemberCrate.watch('district');
+  const urbanSector = formMemberCrate.watch('urbanSector');
   const address = formMemberCrate.watch('address');
+  const referenceComments = formMemberCrate.watch('referenceComments');
 
   const theirFamilyHouse = formMemberCrate.watch('theirFamilyHouse');
   const theirPastor = formMemberCrate.watch('theirPastor');
@@ -78,7 +80,9 @@ export const useMemberCreateSubmitButtonLogic = ({
       department &&
       province &&
       district &&
+      urbanSector &&
       address &&
+      referenceComments &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Pastor) &&
       Object.values(formMemberCrate.formState.errors).length === 0 &&
@@ -106,6 +110,8 @@ export const useMemberCreateSubmitButtonLogic = ({
       province &&
       district &&
       address &&
+      urbanSector &&
+      referenceComments &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
       theirCopastor &&
@@ -134,6 +140,8 @@ export const useMemberCreateSubmitButtonLogic = ({
       province &&
       district &&
       address &&
+      urbanSector &&
+      referenceComments &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Preacher) &&
       theirSupervisor &&
@@ -174,6 +182,8 @@ export const useMemberCreateSubmitButtonLogic = ({
       province &&
       district &&
       address &&
+      urbanSector &&
+      referenceComments &&
       roles &&
       (theirFamilyHouse || theirPastor || theirCopastor || theirSupervisor) &&
       Object.values(formMemberCrate.formState.errors).length === 0 &&
@@ -199,7 +209,9 @@ export const useMemberCreateSubmitButtonLogic = ({
       !province ||
       !district ||
       !address ||
-      roles.length === 0
+      !urbanSector ||
+      !address ||
+      (referenceComments && roles.length === 0)
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -221,6 +233,8 @@ export const useMemberCreateSubmitButtonLogic = ({
     province,
     district,
     address,
+    urbanSector,
+    referenceComments,
     theirFamilyHouse,
     theirPastor,
     theirCopastor,

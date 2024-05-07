@@ -20,13 +20,28 @@ import { cn } from '@/shared/lib/utils';
 import { useMemberCreateSubmitButtonLogic, useValidatePath } from '@/hooks';
 
 import { formMemberSchema } from '@/shared/validations';
-import { MemberRoles, MemberRoleNames, MaritalStatusNames, GenderNames } from '@/shared/enums';
+import {
+  MemberRole,
+  MemberRoleNames,
+  MaritalStatusNames,
+  GenderNames,
+  CountryNames,
+  DepartmentNames,
+  ProvinceNames,
+  DistrictNames,
+  UrbanSectorNames,
+  Country,
+  Department,
+  Province,
+} from '@/shared/enums';
 import { copastors, familyHouses, pastors, supervisors } from '@/shared/data';
+import { validateUrbanSectorsAllowedByDistrict } from '@/shared/helpers';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
 import { Calendar } from '@/shared/components/ui/calendar';
 import { Checkbox } from '@/shared/components/ui/checkbox';
+import { Textarea } from '@/shared/components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Command,
@@ -83,12 +98,13 @@ export const MemberCreatePage = (): JSX.Element => {
       maritalStatus: '',
       emailAddress: '',
       phoneNumber: '',
-      country: 'Peru',
-      department: '',
-      province: '',
+      country: Country.Peru,
+      department: Department.Lima,
+      province: Province.Lima,
       district: '',
       address: '',
-      roles: [MemberRoles.Disciple],
+      referenceComments: '',
+      roles: [MemberRole.Disciple],
     },
   });
 
@@ -99,16 +115,17 @@ export const MemberCreatePage = (): JSX.Element => {
 
   //* watchers
   const roles = form.watch('roles');
+  const district = form.watch('district');
 
   //* Custom hooks
   const { titleValue, subTitleValue, disabledRoles } = useValidatePath({
     path: pathname,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
   });
 
   useMemberCreateSubmitButtonLogic({
     formMemberCrate: form,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
     isMessageErrorDisabled,
     isInputDisabled,
     pathname,
@@ -116,6 +133,9 @@ export const MemberCreatePage = (): JSX.Element => {
     setIsSubmitButtonDisabled,
   });
 
+  //* Helpers
+  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
+  // TODO : listo lo del member, ahora copiar a casa familiar y seguir con zonas
   return (
     <div>
       <h1
@@ -203,9 +223,9 @@ export const MemberCreatePage = (): JSX.Element => {
                         <FormControl>
                           <SelectTrigger>
                             {field.value ? (
-                              <SelectValue placeholder='Selecciona su tipo de genero' />
+                              <SelectValue placeholder='Selecciona el tipo de genero' />
                             ) : (
-                              'Selecciona su tipo de genero'
+                              'Selecciona el tipo de genero'
                             )}
                           </SelectTrigger>
                         </FormControl>
@@ -262,9 +282,7 @@ export const MemberCreatePage = (): JSX.Element => {
                             {field.value ? (
                               format(field.value, 'LLL dd, y', { locale: es })
                             ) : (
-                              <span className='text-sm md:text-[12px] lg:text-sm'>
-                                Selecciona su fecha de nacimiento
-                              </span>
+                              <span className='text-[14px]'>Selecciona la fecha de nacimiento</span>
                             )}
                             <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                           </Button>
@@ -296,7 +314,7 @@ export const MemberCreatePage = (): JSX.Element => {
                 name='maritalStatus'
                 render={({ field }) => {
                   return (
-                    <FormItem className='mt-3'>
+                    <FormItem className='mt-4'>
                       <FormLabel className='text-[14px] font-medium'>Estado Civil</FormLabel>
                       <Select
                         value={field.value}
@@ -306,9 +324,9 @@ export const MemberCreatePage = (): JSX.Element => {
                         <FormControl>
                           <SelectTrigger>
                             {field.value ? (
-                              <SelectValue placeholder='Selecciona su tipo de estado civil' />
+                              <SelectValue placeholder='Selecciona el estado civil' />
                             ) : (
-                              'Selecciona su tipo de estado civil'
+                              'Selecciona el estado civil'
                             )}
                           </SelectTrigger>
                         </FormControl>
@@ -330,7 +348,7 @@ export const MemberCreatePage = (): JSX.Element => {
                 name='numberChildren'
                 render={({ field }) => {
                   return (
-                    <FormItem className=' mt-3'>
+                    <FormItem className=' mt-4'>
                       <FormLabel className='text-[14px] font-medium'>Numero de hijos</FormLabel>
                       <FormControl>
                         <Input disabled={isInputDisabled} placeholder='Eje: 2' {...field} />
@@ -364,7 +382,7 @@ export const MemberCreatePage = (): JSX.Element => {
                               format(field.value, 'LLL dd, y', { locale: es })
                             ) : (
                               <span className='text-sm md:text-[14px] lg:text-sm'>
-                                Selecciona su fecha de conversión
+                                Selecciona la fecha de conversión
                               </span>
                             )}
                             <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
@@ -443,17 +461,28 @@ export const MemberCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] font-medium'>País</FormLabel>
-                      <FormDescription className='text-[13px] lg:text-sm'>
-                        País en el que reside el.
-                      </FormDescription>
-                      <FormControl>
-                        <Input
-                          disabled={isInputDisabled}
-                          placeholder='País de residencia del discípulo'
-                          type='text'
-                          {...field}
-                        />
-                      </FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        disabled={isInputDisabled}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            {field.value ? (
+                              <SelectValue placeholder='Selecciona el país' />
+                            ) : (
+                              'Selecciona el país'
+                            )}
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {Object.entries(CountryNames).map(([key, value]) => (
+                            <SelectItem className={`text-[14px]`} key={key} value={key}>
+                              {value}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   );
@@ -466,14 +495,28 @@ export const MemberCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] font-medium'>Departamento</FormLabel>
-                      <FormControl>
-                        <Input
-                          disabled={isInputDisabled}
-                          placeholder='Eje: Lima'
-                          type='text'
-                          {...field}
-                        />
-                      </FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        disabled={isInputDisabled}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            {field.value ? (
+                              <SelectValue placeholder='Selecciona el departamento' />
+                            ) : (
+                              'Selecciona el departamento'
+                            )}
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {Object.entries(DepartmentNames).map(([key, value]) => (
+                            <SelectItem className={`text-[14px]`} key={key} value={key}>
+                              {value}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   );
@@ -486,14 +529,28 @@ export const MemberCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] font-medium'>Provincia</FormLabel>
-                      <FormControl>
-                        <Input
-                          disabled={isInputDisabled}
-                          placeholder='Eje: Lima'
-                          type='text'
-                          {...field}
-                        />
-                      </FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        disabled={isInputDisabled}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            {field.value ? (
+                              <SelectValue placeholder='Selecciona la provincia' />
+                            ) : (
+                              'Selecciona la provincia'
+                            )}
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {Object.entries(ProvinceNames).map(([key, value]) => (
+                            <SelectItem className={`text-[14px]`} key={key} value={key}>
+                              {value}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   );
@@ -506,14 +563,66 @@ export const MemberCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] font-medium'>Distrito</FormLabel>
-                      <FormControl>
-                        <Input
-                          disabled={isInputDisabled}
-                          placeholder='Eje: Los Olivos'
-                          type='text'
-                          {...field}
-                        />
-                      </FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        disabled={isInputDisabled}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            {field.value ? (
+                              <SelectValue placeholder='Selecciona el distrito' />
+                            ) : (
+                              'Selecciona el distrito'
+                            )}
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {Object.entries(DistrictNames).map(([key, value]) => (
+                            <SelectItem className={`text-[14px]`} key={key} value={key}>
+                              {value}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+              <FormField
+                control={form.control}
+                name='urbanSector'
+                render={({ field }) => {
+                  return (
+                    <FormItem className='mt-3'>
+                      <FormLabel className='text-[14px] font-medium'>Sector Urbano</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        disabled={isInputDisabled}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            {field.value ? (
+                              <SelectValue placeholder='Selecciona el sector urbano' />
+                            ) : (
+                              'Selecciona el sector urbano'
+                            )}
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {Object.entries(UrbanSectorNames).map(([key, value]) => (
+                            <SelectItem
+                              className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) || !district ? 'hidden' : ''}`}
+                              key={key}
+                              value={key}
+                            >
+                              {value}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   );
@@ -529,8 +638,29 @@ export const MemberCreatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           disabled={isInputDisabled}
-                          placeholder='Eje: Jr. Rosales 111 - Industrial CORPAC'
+                          placeholder='Eje: Jr. Rosales 111 - Mz.A Lt.14'
                           type='text'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+              <FormField
+                control={form.control}
+                name='referenceComments'
+                render={({ field }) => {
+                  return (
+                    <FormItem className='mt-3'>
+                      <FormLabel className='text-[14px] font-medium'>
+                        Referencia de dirección
+                      </FormLabel>
+                      <FormControl>
+                        <Textarea
+                          disabled={isInputDisabled}
+                          placeholder='Comentarios sobre la referencia de la vivienda...'
                           {...field}
                         />
                       </FormControl>
@@ -555,7 +685,7 @@ export const MemberCreatePage = (): JSX.Element => {
                         Seleccione los roles que desea asignar al discípulo.
                       </FormDescription>
                     </div>
-                    {Object.values(MemberRoles).map((role) => (
+                    {Object.values(MemberRole).map((role) => (
                       <FormField
                         key={role}
                         control={form.control}
@@ -572,7 +702,7 @@ export const MemberCreatePage = (): JSX.Element => {
                                   checked={field.value?.includes(role)}
                                   disabled={isDisabled}
                                   onCheckedChange={(checked) => {
-                                    let updatedRoles: MemberRoles[] = [];
+                                    let updatedRoles: MemberRole[] = [];
                                     checked
                                       ? (updatedRoles = field.value
                                           ? [...field.value, role]
@@ -602,34 +732,36 @@ export const MemberCreatePage = (): JSX.Element => {
             {/* Relations */}
 
             <div className='sm:col-start-2 sm:col-end-3 sm:row-start-2 sm:row-end-3'>
-              <legend className='font-bold col-start-1 col-end-3 text-[17px] sm:text-lg'>
+              <legend className='font-bold col-start-1 col-end-3 text-[17px] sm:text-[18px]'>
                 Relaciones
               </legend>
               {/* Validations */}
-              {roles?.includes(MemberRoles.Disciple) &&
-                roles?.includes(MemberRoles.Pastor) &&
-                !roles?.includes(MemberRoles.Copastor) &&
-                !roles?.includes(MemberRoles.Supervisor) &&
-                !roles?.includes(MemberRoles.Preacher) &&
-                !roles?.includes(MemberRoles.Treasurer) && (
+              {roles?.includes(MemberRole.Disciple) &&
+                roles?.includes(MemberRole.Pastor) &&
+                !roles?.includes(MemberRole.Copastor) &&
+                !roles?.includes(MemberRole.Supervisor) &&
+                !roles?.includes(MemberRole.Preacher) &&
+                !roles?.includes(MemberRole.Treasurer) && (
                   <span className='text-green-500 font-bold text-[14px]'>
                     No hay relaciones que asignar para estos roles elegidos.
                   </span>
                 )}
 
-              {roles?.includes(MemberRoles.Disciple) &&
-                roles?.includes(MemberRoles.Copastor) &&
-                !roles?.includes(MemberRoles.Pastor) &&
-                !roles?.includes(MemberRoles.Supervisor) &&
-                !roles?.includes(MemberRoles.Preacher) &&
-                !roles?.includes(MemberRoles.Treasurer) && (
+              {roles?.includes(MemberRole.Disciple) &&
+                roles?.includes(MemberRole.Copastor) &&
+                !roles?.includes(MemberRole.Pastor) &&
+                !roles?.includes(MemberRole.Supervisor) &&
+                !roles?.includes(MemberRole.Preacher) &&
+                !roles?.includes(MemberRole.Treasurer) && (
                   <FormField
                     control={form.control}
                     name='theirPastor'
                     render={({ field }) => {
                       return (
                         <FormItem className='flex flex-col mt-4'>
-                          <FormLabel className='text-[16px] font-bold'>Pastor</FormLabel>
+                          <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
+                            Pastor
+                          </FormLabel>
                           <FormDescription className='text-[14px]'>
                             Seleccione un pastor para esta co-pastor.
                           </FormDescription>
@@ -690,25 +822,27 @@ export const MemberCreatePage = (): JSX.Element => {
                   />
                 )}
 
-              {((roles?.includes(MemberRoles.Disciple) &&
-                roles?.includes(MemberRoles.Supervisor) &&
-                !roles?.includes(MemberRoles.Treasurer) &&
-                !roles?.includes(MemberRoles.Pastor) &&
-                !roles?.includes(MemberRoles.Copastor) &&
-                !roles?.includes(MemberRoles.Preacher)) ||
-                (roles?.includes(MemberRoles.Disciple) &&
-                  roles?.includes(MemberRoles.Supervisor) &&
-                  roles?.includes(MemberRoles.Treasurer) &&
-                  !roles?.includes(MemberRoles.Pastor) &&
-                  !roles?.includes(MemberRoles.Copastor) &&
-                  !roles?.includes(MemberRoles.Preacher))) && (
+              {((roles?.includes(MemberRole.Disciple) &&
+                roles?.includes(MemberRole.Supervisor) &&
+                !roles?.includes(MemberRole.Treasurer) &&
+                !roles?.includes(MemberRole.Pastor) &&
+                !roles?.includes(MemberRole.Copastor) &&
+                !roles?.includes(MemberRole.Preacher)) ||
+                (roles?.includes(MemberRole.Disciple) &&
+                  roles?.includes(MemberRole.Supervisor) &&
+                  roles?.includes(MemberRole.Treasurer) &&
+                  !roles?.includes(MemberRole.Pastor) &&
+                  !roles?.includes(MemberRole.Copastor) &&
+                  !roles?.includes(MemberRole.Preacher))) && (
                 <FormField
                   control={form.control}
                   name='theirCopastor'
                   render={({ field }) => {
                     return (
                       <FormItem className='flex flex-col mt-4'>
-                        <FormLabel className='text-[16px] font-bold'>Co-Pastor</FormLabel>
+                        <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
+                          Co-Pastor
+                        </FormLabel>
                         <FormDescription className='text-[14px]'>
                           Seleccione un co-pastor para este supervisor.
                         </FormDescription>
@@ -770,25 +904,27 @@ export const MemberCreatePage = (): JSX.Element => {
                 />
               )}
 
-              {((roles?.includes(MemberRoles.Disciple) &&
-                roles?.includes(MemberRoles.Preacher) &&
-                !roles?.includes(MemberRoles.Treasurer) &&
-                !roles?.includes(MemberRoles.Pastor) &&
-                !roles?.includes(MemberRoles.Copastor) &&
-                !roles?.includes(MemberRoles.Supervisor)) ||
-                (roles?.includes(MemberRoles.Disciple) &&
-                  roles?.includes(MemberRoles.Preacher) &&
-                  roles?.includes(MemberRoles.Treasurer) &&
-                  !roles?.includes(MemberRoles.Pastor) &&
-                  !roles?.includes(MemberRoles.Copastor) &&
-                  !roles?.includes(MemberRoles.Supervisor))) && (
+              {((roles?.includes(MemberRole.Disciple) &&
+                roles?.includes(MemberRole.Preacher) &&
+                !roles?.includes(MemberRole.Treasurer) &&
+                !roles?.includes(MemberRole.Pastor) &&
+                !roles?.includes(MemberRole.Copastor) &&
+                !roles?.includes(MemberRole.Supervisor)) ||
+                (roles?.includes(MemberRole.Disciple) &&
+                  roles?.includes(MemberRole.Preacher) &&
+                  roles?.includes(MemberRole.Treasurer) &&
+                  !roles?.includes(MemberRole.Pastor) &&
+                  !roles?.includes(MemberRole.Copastor) &&
+                  !roles?.includes(MemberRole.Supervisor))) && (
                 <FormField
                   control={form.control}
                   name='theirSupervisor'
                   render={({ field }) => {
                     return (
                       <FormItem className='flex flex-col mt-4'>
-                        <FormLabel className='text-[16px] font-bold'>Supervisor</FormLabel>
+                        <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
+                          Supervisor
+                        </FormLabel>
                         <FormDescription className='text-[14px]'>
                           Seleccione un supervisor para este predicador.
                         </FormDescription>
@@ -855,19 +991,21 @@ export const MemberCreatePage = (): JSX.Element => {
               )}
 
               {pathname !== '/leaders/create-leader' &&
-                roles?.includes(MemberRoles.Disciple) &&
-                !roles?.includes(MemberRoles.Pastor) &&
-                !roles?.includes(MemberRoles.Copastor) &&
-                !roles?.includes(MemberRoles.Preacher) &&
-                !roles?.includes(MemberRoles.Supervisor) &&
-                !roles?.includes(MemberRoles.Treasurer) && (
+                roles?.includes(MemberRole.Disciple) &&
+                !roles?.includes(MemberRole.Pastor) &&
+                !roles?.includes(MemberRole.Copastor) &&
+                !roles?.includes(MemberRole.Preacher) &&
+                !roles?.includes(MemberRole.Supervisor) &&
+                !roles?.includes(MemberRole.Treasurer) && (
                   <FormField
                     control={form.control}
                     name='theirFamilyHouse'
                     render={({ field }) => {
                       return (
                         <FormItem className='flex flex-col mt-4'>
-                          <FormLabel className='text-[16px] font-bold'>Casa Familiar</FormLabel>
+                          <FormLabel className='text-[14.5px] md:text-[16px]  font-bold'>
+                            Casa Familiar
+                          </FormLabel>
                           <FormDescription className='text-[14px]'>
                             Seleccione una casa familiar para este discípulo.
                           </FormDescription>

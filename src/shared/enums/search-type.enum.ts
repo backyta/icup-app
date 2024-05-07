@@ -1,4 +1,4 @@
-export enum TypesSearch {
+export enum SearchType {
 
   //* Members, Pastor, Copastor, Supervisor, Preacher, Offering, User
   FirstName = 'first_name',
@@ -58,7 +58,7 @@ export enum TypesSearch {
   ActivitiesAndEventsExpenses = "activities_and_events_expenses",
 }
 
-export const TypesSearchNames: Record<TypesSearch, string> =  {
+export const SearchTypeNames: Record<SearchType, string> =  {
   
   first_name : 'Nombres',
   last_name : 'Apellidos',

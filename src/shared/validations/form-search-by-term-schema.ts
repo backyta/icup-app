@@ -3,33 +3,34 @@
 import * as z from 'zod';
 
 import { UserRoles } from '@/app/user/enums';
-import { SubTypesSearch, TypesSearch, RecordOrder } from '@/shared/enums';
+import { SearchSubType, SearchType, RecordOrder } from '@/shared/enums';
 
 export const formSearchByTermSchema = z
   .object({
-    type: z.nativeEnum(TypesSearch,{
+    type: z.nativeEnum(SearchType,{
       required_error: "Por favor seleccione un tipo.",
     }),
     
-    subType: z.string(z.nativeEnum(SubTypesSearch ,{
+    subType: z.string(z.nativeEnum(SearchSubType ,{
       required_error: "Por favor seleccione una opción.",
     })).optional(),
 
-    termInput: z.string().max(30).optional(),
-    termSelect: z.string().max(30).optional(),
+    inputTerm: z.string().max(30).optional(),
+    selectTerm: z.string().max(30).optional(),
 
-    termMultiSelect: z.array(z.nativeEnum(UserRoles),{
+    multiSelectTerm: z.array(z.nativeEnum(UserRoles),{
       required_error: "Tienes que seleccionar al menos un rol.",
     }).refine((value) => value.some((item) => item), {
       message: "Tienes que seleccionar al menos un rol.",
     }).optional(),
 
-    termDate: z.object({from: z.date(), to: z.date().optional()}, {
+    dateTerm: z.object({from: z.date(), to: z.date().optional()}, {
       required_error: "Por favor seleccione una fecha.",
     }).optional(),
 
-    termNames: z.string().max(30).optional(),
-    termLastNames: z.string().max(30).optional(),
+    namesTerm: z.string().max(30).optional(),
+
+    lastNamesTerm: z.string().max(30).optional(),
 
     limit: z.string().refine(limit => {
       return /^\d+$/.test(limit);
@@ -42,8 +43,7 @@ export const formSearchByTermSchema = z
       message: 'El límite debe ser un número mayor a 0'
     }).optional(),
 
-    
-    order: z.string(z.nativeEnum(RecordOrder, {
+    orderRecord: z.string(z.nativeEnum(RecordOrder, {
       required_error: "Seleccione un orden para al consulta.",
     })),
 
@@ -53,21 +53,21 @@ export const formSearchByTermSchema = z
   .refine(
     (data) => {
       if (
-        data.type === TypesSearch.FirstName || 
-        data.type === TypesSearch.LastName || 
-        data.type === TypesSearch.FullName ||
-        data.type === TypesSearch.Tithe || 
-        data.type === TypesSearch.SundayWorship || 
-        data.type === TypesSearch.FamilyHouse || 
-        data.type === TypesSearch.ZonalFasting || 
-        data.type === TypesSearch.GeneralFasting || 
-        data.type === TypesSearch.GeneralVigil ||
-        data.type === TypesSearch.ZonalVigil ||
-        data.type === TypesSearch.SundaySchool ||
-        data.type === TypesSearch.YouthWorship ||
-        data.type === TypesSearch.Activities ||
-        data.type === TypesSearch.ChurchGround ||
-        data.type === TypesSearch.Special 
+        data.type === SearchType.FirstName || 
+        data.type === SearchType.LastName || 
+        data.type === SearchType.FullName ||
+        data.type === SearchType.Tithe || 
+        data.type === SearchType.SundayWorship || 
+        data.type === SearchType.FamilyHouse || 
+        data.type === SearchType.ZonalFasting || 
+        data.type === SearchType.GeneralFasting || 
+        data.type === SearchType.GeneralVigil ||
+        data.type === SearchType.ZonalVigil ||
+        data.type === SearchType.SundaySchool ||
+        data.type === SearchType.YouthWorship ||
+        data.type === SearchType.Activities ||
+        data.type === SearchType.ChurchGround ||
+        data.type === SearchType.Special 
       ) {
         return !!data.subType; 
       }
@@ -81,183 +81,183 @@ export const formSearchByTermSchema = z
   .refine(
     (data) => {
       if (
-        data.type === TypesSearch.FirstName || 
-        data.subType === SubTypesSearch.TitheByNames ||
-        data.subType === SubTypesSearch.TitheByDateNames ||
-        data.subType === SubTypesSearch.OfferingByPreacherNames ||
-        data.subType === SubTypesSearch.OfferingBySupervisorNames ||
-        data.subType === SubTypesSearch.OfferingByNames 
+        data.type === SearchType.FirstName || 
+        data.subType === SearchSubType.TitheByNames ||
+        data.subType === SearchSubType.TitheByDateNames ||
+        data.subType === SearchSubType.OfferingByPreacherNames ||
+        data.subType === SearchSubType.OfferingBySupervisorNames ||
+        data.subType === SearchSubType.OfferingByNames 
       ) {
-        return !!data.termNames; 
+        return !!data.namesTerm; 
       }
       return true;
     },
     {
       message: 'El nombre es requerido',
-      path: ['termNames'],
+      path: ['namesTerm'],
     }
   )
   .refine(
     (data) => {
       if (
-        data.type === TypesSearch.LastName || 
-        data.subType === SubTypesSearch.TitheByLastNames ||
-        data.subType === SubTypesSearch.TitheByDateLastNames ||
-        data.subType === SubTypesSearch.OfferingByPreacherLastNames ||
-        data.subType === SubTypesSearch.OfferingBySupervisorLastNames ||
-        data.subType === SubTypesSearch.OfferingByLastNames 
+        data.type === SearchType.LastName || 
+        data.subType === SearchSubType.TitheByLastNames ||
+        data.subType === SearchSubType.TitheByDateLastNames ||
+        data.subType === SearchSubType.OfferingByPreacherLastNames ||
+        data.subType === SearchSubType.OfferingBySupervisorLastNames ||
+        data.subType === SearchSubType.OfferingByLastNames 
       ) {
-        return !!data.termLastNames;
+        return !!data.lastNamesTerm;
       }
       return true;
     },
     {
       message: 'El apellido es requerido',
-      path: ['termLastNames'],
+      path: ['lastNamesTerm'],
     }
   )
   //* Full name
   .refine(
     (data) => {
       if (
-        data.type === TypesSearch.FullName || 
-        data.subType === SubTypesSearch.TitheByFullName ||
-        data.subType === SubTypesSearch.TitheByDateFullName ||
-        data.subType === SubTypesSearch.OfferingByPreacherFullName ||
-        data.subType === SubTypesSearch.OfferingBySupervisorFullName ||
-        data.subType === SubTypesSearch.OfferingByFullName
+        data.type === SearchType.FullName || 
+        data.subType === SearchSubType.TitheByFullName ||
+        data.subType === SearchSubType.TitheByDateFullName ||
+        data.subType === SearchSubType.OfferingByPreacherFullName ||
+        data.subType === SearchSubType.OfferingBySupervisorFullName ||
+        data.subType === SearchSubType.OfferingByFullName
       ) {
-        return !!data.termLastNames; 
+        return !!data.lastNamesTerm; 
       }
       return true;
     },
     {
       message: 'El nombre es requerido',
-      path: ['termLastNames'],
+      path: ['lastNamesTerm'],
     }
   )
   .refine(
     (data) => {
       if (
-        data.type === TypesSearch.FullName || 
-        data.subType === SubTypesSearch.TitheByFullName ||
-        data.subType === SubTypesSearch.TitheByDateFullName ||
-        data.subType === SubTypesSearch.OfferingByPreacherFullName ||  
-        data.subType === SubTypesSearch.OfferingBySupervisorFullName ||
-        data.subType === SubTypesSearch.OfferingByFullName
+        data.type === SearchType.FullName || 
+        data.subType === SearchSubType.TitheByFullName ||
+        data.subType === SearchSubType.TitheByDateFullName ||
+        data.subType === SearchSubType.OfferingByPreacherFullName ||  
+        data.subType === SearchSubType.OfferingBySupervisorFullName ||
+        data.subType === SearchSubType.OfferingByFullName
       ) {
-        return !!data.termNames; 
+        return !!data.namesTerm; 
       }
       return true;
     },
     {
       message: 'El apellido es requerido',
-      path: ['termNames'],
+      path: ['namesTerm'],
     }
   )
   .refine(
     (data) => {
-      if (data.type !== TypesSearch.LastName && 
-          data.type !== TypesSearch.FirstName && 
-          data.type !== TypesSearch.FullName && 
-          data.type !== TypesSearch.MonthBirth &&   
-          data.type !== TypesSearch.Gender && 
-          data.type !== TypesSearch.MaritalStatus && 
-          data.type !== TypesSearch.Status && 
-          data.type !== TypesSearch.DateBirth && 
-          data.type !== TypesSearch.Tithe && 
-          data.type !== TypesSearch.SundayWorship && 
-          data.type !== TypesSearch.FamilyHouse && 
-          data.type !== TypesSearch.ZonalFasting &&
-          data.type !== TypesSearch.GeneralFasting && 
-          data.type !== TypesSearch.GeneralVigil && 
-          data.type !== TypesSearch.ZonalVigil && 
-          data.type !== TypesSearch.YouthWorship && 
-          data.type !== TypesSearch.SundaySchool && 
-          data.type !== TypesSearch.Activities && 
-          data.type !== TypesSearch.ChurchGround && 
-          data.type !== TypesSearch.Special  && 
-          data.type !== TypesSearch.Roles && 
-          data.type !== TypesSearch.OperationalExpenses &&
-          data.type !== TypesSearch.MaintenanceAndRepairExpenses &&
-          data.type !== TypesSearch.DecorationExpenses &&
-          data.type !== TypesSearch.EquipmentAndTechnologyExpenses &&
-          data.type !== TypesSearch.SuppliesExpenses &&
-          data.type !== TypesSearch.ActivitiesAndEventsExpenses || 
+      if (data.type !== SearchType.LastName && 
+          data.type !== SearchType.FirstName && 
+          data.type !== SearchType.FullName && 
+          data.type !== SearchType.MonthBirth &&   
+          data.type !== SearchType.Gender && 
+          data.type !== SearchType.MaritalStatus && 
+          data.type !== SearchType.Status && 
+          data.type !== SearchType.DateBirth && 
+          data.type !== SearchType.Tithe && 
+          data.type !== SearchType.SundayWorship && 
+          data.type !== SearchType.FamilyHouse && 
+          data.type !== SearchType.ZonalFasting &&
+          data.type !== SearchType.GeneralFasting && 
+          data.type !== SearchType.GeneralVigil && 
+          data.type !== SearchType.ZonalVigil && 
+          data.type !== SearchType.YouthWorship && 
+          data.type !== SearchType.SundaySchool && 
+          data.type !== SearchType.Activities && 
+          data.type !== SearchType.ChurchGround && 
+          data.type !== SearchType.Special  && 
+          data.type !== SearchType.Roles && 
+          data.type !== SearchType.OperationalExpenses &&
+          data.type !== SearchType.MaintenanceAndRepairExpenses &&
+          data.type !== SearchType.DecorationExpenses &&
+          data.type !== SearchType.EquipmentAndTechnologyExpenses &&
+          data.type !== SearchType.SuppliesExpenses &&
+          data.type !== SearchType.ActivitiesAndEventsExpenses || 
           (
-            data.subType === SubTypesSearch.OfferingByZone ||
-            data.subType === SubTypesSearch.OfferingByDateZone ||
-            data.subType === SubTypesSearch.OfferingByCodeHouse ||
-            data.subType === SubTypesSearch.OfferingByDateCodeHouse
+            data.subType === SearchSubType.OfferingByZone ||
+            data.subType === SearchSubType.OfferingByDateZone ||
+            data.subType === SearchSubType.OfferingByCodeHouse ||
+            data.subType === SearchSubType.OfferingByDateCodeHouse
           )
           ) {
-        return !!data.termInput; 
+        return !!data.inputTerm; 
       }
       return true;
     },
     {
       message: 'El termino es requerido',
-      path: ['termInput'],
+      path: ['inputTerm'],
     }
   )
   .refine(
     (data) => {
       if (
-        data.type === TypesSearch.MonthBirth ||
-        data.type === TypesSearch.Gender ||
-          data.type === TypesSearch.MaritalStatus || 
-          data.type === TypesSearch.Status ||
-          data.subType === SubTypesSearch.OfferingByShift ||
-          data.subType === SubTypesSearch.OfferingByDateShift
+        data.type === SearchType.MonthBirth ||
+        data.type === SearchType.Gender ||
+          data.type === SearchType.MaritalStatus || 
+          data.type === SearchType.Status ||
+          data.subType === SearchSubType.OfferingByShift ||
+          data.subType === SearchSubType.OfferingByDateShift
         ) {
-        return !!data.termSelect; 
+        return !!data.selectTerm; 
       }
       return true;
     },
     {
       message: 'Por favor seleccione una opción',
-      path: ['termSelect'],
+      path: ['selectTerm'],
     }
   )
   .refine(
     (data) => {
       if ( 
-        data.type === TypesSearch.DateBirth || 
-        data.subType === SubTypesSearch.TitheByDate ||
-        data.subType === SubTypesSearch.TitheByDateNames || 
-        data.subType === SubTypesSearch.TitheByDateLastNames || 
-        data.subType === SubTypesSearch.TitheByDateFullName ||
-        data.subType === SubTypesSearch.OfferingByDate ||
-        data.subType === SubTypesSearch.OfferingByDateShift ||
-        data.subType === SubTypesSearch.OfferingByDateZone ||
-        data.subType === SubTypesSearch.OfferingByDateCodeHouse ||
-        data.type === TypesSearch.OperationalExpenses ||
-        data.type === TypesSearch.MaintenanceAndRepairExpenses ||
-        data.type === TypesSearch.DecorationExpenses ||
-        data.type === TypesSearch.EquipmentAndTechnologyExpenses ||
-        data.type === TypesSearch.SuppliesExpenses ||
-        data.type === TypesSearch.ActivitiesAndEventsExpenses
+        data.type === SearchType.DateBirth || 
+        data.subType === SearchSubType.TitheByDate ||
+        data.subType === SearchSubType.TitheByDateNames || 
+        data.subType === SearchSubType.TitheByDateLastNames || 
+        data.subType === SearchSubType.TitheByDateFullName ||
+        data.subType === SearchSubType.OfferingByDate ||
+        data.subType === SearchSubType.OfferingByDateShift ||
+        data.subType === SearchSubType.OfferingByDateZone ||
+        data.subType === SearchSubType.OfferingByDateCodeHouse ||
+        data.type === SearchType.OperationalExpenses ||
+        data.type === SearchType.MaintenanceAndRepairExpenses ||
+        data.type === SearchType.DecorationExpenses ||
+        data.type === SearchType.EquipmentAndTechnologyExpenses ||
+        data.type === SearchType.SuppliesExpenses ||
+        data.type === SearchType.ActivitiesAndEventsExpenses
         
       ) {
-        return !!data.termDate; 
+        return !!data.dateTerm; 
       }
       return true;
     },
     {
       message: 'Por favor seleccione una fecha',
-      path: ['termDate'],
+      path: ['dateTerm'],
     }
   )
   .refine(
     (data) => {
-      if ( data.type === TypesSearch.Roles) {
-        return !!data.termMultiSelect; 
+      if ( data.type === SearchType.Roles) {
+        return !!data.multiSelectTerm; 
       }
       return true;
     },
     {
       message: 'Por favor seleccione una opción',
-      path: ['termMultiSelect'],
+      path: ['multiSelectTerm'],
     }
   )
 

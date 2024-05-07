@@ -1,4 +1,4 @@
-import { type MaritalStatus, type MemberRoles } from "@/shared/enums";
+import { type MaritalStatus, type MemberRole } from "@/shared/enums";
 
 export interface MemberData {
   firstName: string;
@@ -15,8 +15,10 @@ export interface MemberData {
   department: string;
   province: string;
   district: string;
+  urbanSector: string;
   address: string;
-  roles: MemberRoles[];
+  roles: MemberRole[];
+  referenceComments: string;
   theirPastor?: string | undefined;
   theirCopastor?: string | undefined;
   theirSupervisor?: string | undefined;
@@ -39,7 +41,9 @@ export type MemberDataKeys =
   | 'department'
   | 'province'
   | 'district'
+  | 'urbanSector'
   | 'address'
+  | 'referenceComments'
   | 'roles'
   | 'theirPastor'
   | 'theirCopastor'

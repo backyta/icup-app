@@ -29,7 +29,9 @@ export const useFamilyHouseCreateSubmitButtonLogic = ({
   const department = formFamilyHouseCreate.watch('department');
   const province = formFamilyHouseCreate.watch('province');
   const district = formFamilyHouseCreate.watch('district');
+  const urbanSector = formFamilyHouseCreate.watch('urbanSector');
   const address = formFamilyHouseCreate.watch('address');
+  const worshipTime = formFamilyHouseCreate.watch('worshipTime');
   const theirPreacher = formFamilyHouseCreate.watch('theirPreacher');
 
   // effects
@@ -60,7 +62,9 @@ export const useFamilyHouseCreateSubmitButtonLogic = ({
       department &&
       province &&
       district &&
+      urbanSector &&
       address &&
+      worshipTime &&
       theirPreacher &&
       Object.values(formFamilyHouseCreate.formState.errors).length === 0 &&
       !isInputDisabled
@@ -76,7 +80,9 @@ export const useFamilyHouseCreateSubmitButtonLogic = ({
       !department ||
       !province ||
       !district ||
+      !worshipTime ||
       !address ||
+      !urbanSector ||
       !theirPreacher
     ) {
       setIsSubmitButtonDisabled(true);
@@ -91,6 +97,8 @@ export const useFamilyHouseCreateSubmitButtonLogic = ({
     province,
     district,
     address,
+    urbanSector,
     theirPreacher,
+    worshipTime,
   ]);
 };

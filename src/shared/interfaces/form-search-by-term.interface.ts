@@ -1,19 +1,19 @@
 import { type UserRoles } from '@/app/user/enums';
-import { type TypesSearch } from '@/shared/enums';
+import { type SearchType } from '@/shared/enums';
 
 export interface FormSearchByTerm {
-  type: TypesSearch;
-  order: string;
+  type: SearchType;
+  orderRecord: string;
   subType?: string | undefined;
-  termInput?: string | undefined;
-  termSelect?: string | undefined;
-  termMultiSelect?: UserRoles[] | undefined;
-  termDate?: {
+  inputTerm?: string | undefined;
+  selectTerm?: string | undefined;
+  multiSelectTerm?: UserRoles[] | undefined;
+  dateTerm?: {
         from: Date;
         to?: Date | undefined;
     } | undefined;
-  termNames?: string | undefined;
-  termLastNames?: string | undefined;
+  namesTerm?: string | undefined;
+  lastNamesTerm?: string | undefined;
   limit?: string | undefined;
   limitAll?: boolean | undefined;
 }

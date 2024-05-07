@@ -1,134 +1,134 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
-import {  TypesSearch, SearchSelectionOptionsNames, SubTypesSearch } from "@/shared/enums";
+import {  SearchType, SearchSelectionOptionNames, SearchSubType } from "@/shared/enums";
 
-export const validateTermSelectByTypeAndSubtype = (type: string, subType:string | undefined) => {
+export const validateSelectTermByTypeAndSubtype = (type: string, subType:string | undefined) => {
 
   //* Disabled Term Select
-  if (type === TypesSearch.MonthBirth) {
+  if (type === SearchType.MonthBirth) {
     return {
-      disabledTermSelect : [
-        SearchSelectionOptionsNames.male,
-        SearchSelectionOptionsNames.female,
-        SearchSelectionOptionsNames.single,
-        SearchSelectionOptionsNames.married,
-        SearchSelectionOptionsNames.widowed,
-        SearchSelectionOptionsNames.divorced,
-        SearchSelectionOptionsNames.other,
-        SearchSelectionOptionsNames.active,
-        SearchSelectionOptionsNames.inactive,
-        SearchSelectionOptionsNames.day,
-        SearchSelectionOptionsNames.afternoon,
+      disabledSelectTerm : [
+        SearchSelectionOptionNames.male,
+        SearchSelectionOptionNames.female,
+        SearchSelectionOptionNames.single,
+        SearchSelectionOptionNames.married,
+        SearchSelectionOptionNames.widowed,
+        SearchSelectionOptionNames.divorced,
+        SearchSelectionOptionNames.other,
+        SearchSelectionOptionNames.active,
+        SearchSelectionOptionNames.inactive,
+        SearchSelectionOptionNames.day,
+        SearchSelectionOptionNames.afternoon,
       ]
     }
   } 
   
-  if (type === TypesSearch.Gender) {
+  if (type === SearchType.Gender) {
     return {
-      disabledTermSelect : [
-        SearchSelectionOptionsNames.january,
-        SearchSelectionOptionsNames.february,
-        SearchSelectionOptionsNames.march,
-        SearchSelectionOptionsNames.april,
-        SearchSelectionOptionsNames.may,
-        SearchSelectionOptionsNames.june,
-        SearchSelectionOptionsNames.july,
-        SearchSelectionOptionsNames.august,
-        SearchSelectionOptionsNames.september,
-        SearchSelectionOptionsNames.october,
-        SearchSelectionOptionsNames.november,
-        SearchSelectionOptionsNames.december,
-        SearchSelectionOptionsNames.single,
-        SearchSelectionOptionsNames.married,
-        SearchSelectionOptionsNames.widowed,
-        SearchSelectionOptionsNames.divorced,
-        SearchSelectionOptionsNames.other,
-        SearchSelectionOptionsNames.active,
-        SearchSelectionOptionsNames.inactive,
-        SearchSelectionOptionsNames.day,
-        SearchSelectionOptionsNames.afternoon,
+      disabledSelectTerm : [
+        SearchSelectionOptionNames.january,
+        SearchSelectionOptionNames.february,
+        SearchSelectionOptionNames.march,
+        SearchSelectionOptionNames.april,
+        SearchSelectionOptionNames.may,
+        SearchSelectionOptionNames.june,
+        SearchSelectionOptionNames.july,
+        SearchSelectionOptionNames.august,
+        SearchSelectionOptionNames.september,
+        SearchSelectionOptionNames.october,
+        SearchSelectionOptionNames.november,
+        SearchSelectionOptionNames.december,
+        SearchSelectionOptionNames.single,
+        SearchSelectionOptionNames.married,
+        SearchSelectionOptionNames.widowed,
+        SearchSelectionOptionNames.divorced,
+        SearchSelectionOptionNames.other,
+        SearchSelectionOptionNames.active,
+        SearchSelectionOptionNames.inactive,
+        SearchSelectionOptionNames.day,
+        SearchSelectionOptionNames.afternoon,
       ]
     }
   }
 
-  if (type === TypesSearch.MaritalStatus) {
+  if (type === SearchType.MaritalStatus) {
     return {
-      disabledTermSelect : [
-        SearchSelectionOptionsNames.january,
-        SearchSelectionOptionsNames.february,
-        SearchSelectionOptionsNames.march,
-        SearchSelectionOptionsNames.april,
-        SearchSelectionOptionsNames.may,
-        SearchSelectionOptionsNames.june,
-        SearchSelectionOptionsNames.july,
-        SearchSelectionOptionsNames.august,
-        SearchSelectionOptionsNames.september,
-        SearchSelectionOptionsNames.october,
-        SearchSelectionOptionsNames.november,
-        SearchSelectionOptionsNames.december,
-        SearchSelectionOptionsNames.male,
-        SearchSelectionOptionsNames.female,
-        SearchSelectionOptionsNames.active,
-        SearchSelectionOptionsNames.inactive,
-        SearchSelectionOptionsNames.day,
-        SearchSelectionOptionsNames.afternoon,
+      disabledSelectTerm : [
+        SearchSelectionOptionNames.january,
+        SearchSelectionOptionNames.february,
+        SearchSelectionOptionNames.march,
+        SearchSelectionOptionNames.april,
+        SearchSelectionOptionNames.may,
+        SearchSelectionOptionNames.june,
+        SearchSelectionOptionNames.july,
+        SearchSelectionOptionNames.august,
+        SearchSelectionOptionNames.september,
+        SearchSelectionOptionNames.october,
+        SearchSelectionOptionNames.november,
+        SearchSelectionOptionNames.december,
+        SearchSelectionOptionNames.male,
+        SearchSelectionOptionNames.female,
+        SearchSelectionOptionNames.active,
+        SearchSelectionOptionNames.inactive,
+        SearchSelectionOptionNames.day,
+        SearchSelectionOptionNames.afternoon,
       ]
     }
   }
   
-  if (type === TypesSearch.Status) {
+  if (type === SearchType.Status) {
     return {
-      disabledTermSelect : [
-        SearchSelectionOptionsNames.january,
-        SearchSelectionOptionsNames.february,
-        SearchSelectionOptionsNames.march,
-        SearchSelectionOptionsNames.april,
-        SearchSelectionOptionsNames.may,
-        SearchSelectionOptionsNames.june,
-        SearchSelectionOptionsNames.july,
-        SearchSelectionOptionsNames.august,
-        SearchSelectionOptionsNames.september,
-        SearchSelectionOptionsNames.october,
-        SearchSelectionOptionsNames.november,
-        SearchSelectionOptionsNames.december,
-        SearchSelectionOptionsNames.male,
-        SearchSelectionOptionsNames.female,
-        SearchSelectionOptionsNames.single,
-        SearchSelectionOptionsNames.married,
-        SearchSelectionOptionsNames.widowed,
-        SearchSelectionOptionsNames.divorced,
-        SearchSelectionOptionsNames.other,
-        SearchSelectionOptionsNames.day,
-        SearchSelectionOptionsNames.afternoon,
-        SearchSelectionOptionsNames.active,
+      disabledSelectTerm : [
+        SearchSelectionOptionNames.january,
+        SearchSelectionOptionNames.february,
+        SearchSelectionOptionNames.march,
+        SearchSelectionOptionNames.april,
+        SearchSelectionOptionNames.may,
+        SearchSelectionOptionNames.june,
+        SearchSelectionOptionNames.july,
+        SearchSelectionOptionNames.august,
+        SearchSelectionOptionNames.september,
+        SearchSelectionOptionNames.october,
+        SearchSelectionOptionNames.november,
+        SearchSelectionOptionNames.december,
+        SearchSelectionOptionNames.male,
+        SearchSelectionOptionNames.female,
+        SearchSelectionOptionNames.single,
+        SearchSelectionOptionNames.married,
+        SearchSelectionOptionNames.widowed,
+        SearchSelectionOptionNames.divorced,
+        SearchSelectionOptionNames.other,
+        SearchSelectionOptionNames.day,
+        SearchSelectionOptionNames.afternoon,
+        SearchSelectionOptionNames.active,
       ]
     }
   }
 
-  if (subType === SubTypesSearch.OfferingByShift || subType === SubTypesSearch.OfferingByDateShift  ) {
+  if (subType === SearchSubType.OfferingByShift || subType === SearchSubType.OfferingByDateShift  ) {
     return {
-      disabledTermSelect : [
-        SearchSelectionOptionsNames.january,
-        SearchSelectionOptionsNames.february,
-        SearchSelectionOptionsNames.march,
-        SearchSelectionOptionsNames.april,
-        SearchSelectionOptionsNames.may,
-        SearchSelectionOptionsNames.june,
-        SearchSelectionOptionsNames.july,
-        SearchSelectionOptionsNames.august,
-        SearchSelectionOptionsNames.september,
-        SearchSelectionOptionsNames.october,
-        SearchSelectionOptionsNames.november,
-        SearchSelectionOptionsNames.december,
-        SearchSelectionOptionsNames.male,
-        SearchSelectionOptionsNames.female,
-        SearchSelectionOptionsNames.single,
-        SearchSelectionOptionsNames.married,
-        SearchSelectionOptionsNames.widowed,
-        SearchSelectionOptionsNames.divorced,
-        SearchSelectionOptionsNames.other,
-        SearchSelectionOptionsNames.active,
-        SearchSelectionOptionsNames.inactive,
+      disabledSelectTerm : [
+        SearchSelectionOptionNames.january,
+        SearchSelectionOptionNames.february,
+        SearchSelectionOptionNames.march,
+        SearchSelectionOptionNames.april,
+        SearchSelectionOptionNames.may,
+        SearchSelectionOptionNames.june,
+        SearchSelectionOptionNames.july,
+        SearchSelectionOptionNames.august,
+        SearchSelectionOptionNames.september,
+        SearchSelectionOptionNames.october,
+        SearchSelectionOptionNames.november,
+        SearchSelectionOptionNames.december,
+        SearchSelectionOptionNames.male,
+        SearchSelectionOptionNames.female,
+        SearchSelectionOptionNames.single,
+        SearchSelectionOptionNames.married,
+        SearchSelectionOptionNames.widowed,
+        SearchSelectionOptionNames.divorced,
+        SearchSelectionOptionNames.other,
+        SearchSelectionOptionNames.active,
+        SearchSelectionOptionNames.inactive,
       ]
     }
   }
