@@ -5,7 +5,7 @@ TooltipContent,
 Tooltip,
 TooltipProvider,
 TooltipTrigger 
-} from '../ui/tooltip';
+} from '@/shared/components/ui/tooltip';
 
 interface MenuBarItem {
     title: string
