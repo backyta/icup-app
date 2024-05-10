@@ -7,10 +7,11 @@
 
 import { useState, useEffect } from 'react';
 
+import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Toaster, toast } from 'sonner';
-import { type z } from 'zod';
+import { useLocation } from 'react-router-dom';
 
 import { cn } from '@/shared/lib/utils';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
@@ -20,6 +21,11 @@ import { useFamilyHouseUpdateSubmitButtonLogic } from '@/hooks';
 import { type FamilyHouseDataKeys, type FamilyHouseData } from '@/app/family-house/interfaces';
 import { formFamilyHouseSchema } from '@/app/family-house/validations';
 import { preachers, zones } from '@/app/family-house/data';
+
+import {
+  validateDistrictsAllowedByModule,
+  validateUrbanSectorsAllowedByDistrict,
+} from '@/shared/helpers';
 
 import {
   Country,
@@ -37,9 +43,11 @@ import {
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
+import { Textarea } from '@/shared/components/ui/textarea';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Form,
   FormControl,
@@ -49,8 +57,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form';
-
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Command,
   CommandEmpty,
@@ -65,7 +71,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/components/ui/select';
-import { Textarea } from '@/shared/components/ui/textarea';
 
 const data: FamilyHouseData = {
   zoneName: zones[1].value,
@@ -98,6 +103,9 @@ export const FamilyHouseFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Elemen
 
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
 
+  //* Library hooks
+  const { pathname } = useLocation();
+
   //* Form
   const form = useForm<z.infer<typeof formFamilyHouseSchema>>({
     mode: 'onChange',
@@ -110,6 +118,8 @@ export const FamilyHouseFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Elemen
       department: '',
       province: '',
       district: '',
+      urbanSector: '',
+      referenceComments: '',
       address: '',
       status: '',
     },
@@ -119,6 +129,9 @@ export const FamilyHouseFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Elemen
   const handleSubmit = (values: z.infer<typeof formFamilyHouseSchema>): void => {
     console.log({ values });
   };
+
+  //* watchers
+  const district = form.watch('district');
 
   // NOTE : Hacer custom hook
   useEffect(() => {
@@ -134,6 +147,15 @@ export const FamilyHouseFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Elemen
     setIsMessageErrorDisabled,
     isInputDisabled,
   });
+
+  //* Effects
+  useEffect(() => {
+    form.resetField('urbanSector', { defaultValue: undefined });
+  }, [district]);
+
+  //* Helpers
+  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
+  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
 
   return (
     <Tabs
@@ -445,7 +467,52 @@ export const FamilyHouseFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Elemen
                       );
                     }}
                   />
-
+                  <FormField
+                    control={form.control}
+                    name='district'
+                    render={({ field }) => {
+                      return (
+                        <FormItem className='mt-3'>
+                          <FormLabel className='text-[14px] font-bold'>Distrito</FormLabel>
+                          <FormDescription className='text-[14px]'>
+                            Asignar el distrito al que pertenece la casa familiar.
+                          </FormDescription>
+                          <Select
+                            onOpenChange={() => {
+                              form.resetField('urbanSector', {
+                                keepError: true,
+                              });
+                            }}
+                            onValueChange={field.onChange}
+                            value={field.value}
+                            disabled={isInputDisabled}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                {field.value ? (
+                                  <SelectValue placeholder='Selecciona el distrito' />
+                                ) : (
+                                  'Selecciona el distrito'
+                                )}
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {Object.entries(DistrictNames).map(([key, value]) => (
+                                <SelectItem
+                                  className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                                  key={key}
+                                  value={key}
+                                >
+                                  {value}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
                   <FormField
                     control={form.control}
                     name='urbanSector'
@@ -472,7 +539,11 @@ export const FamilyHouseFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Elemen
                             </FormControl>
                             <SelectContent>
                               {Object.entries(UrbanSectorNames).map(([key, value]) => (
-                                <SelectItem className={`text-[14px]`} key={key} value={key}>
+                                <SelectItem
+                                  className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                                  key={key}
+                                  value={key}
+                                >
                                   {value}
                                 </SelectItem>
                               ))}
@@ -484,43 +555,6 @@ export const FamilyHouseFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Elemen
                     }}
                   />
 
-                  <FormField
-                    control={form.control}
-                    name='district'
-                    render={({ field }) => {
-                      return (
-                        <FormItem className='mt-3'>
-                          <FormLabel className='text-[14px] font-bold'>Distrito</FormLabel>
-                          <FormDescription className='text-[14px]'>
-                            Asignar el distrito al que pertenece la casa familiar.
-                          </FormDescription>
-                          <Select
-                            onValueChange={field.onChange}
-                            value={field.value}
-                            disabled={isInputDisabled}
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                {field.value ? (
-                                  <SelectValue placeholder='Selecciona el distrito' />
-                                ) : (
-                                  'Selecciona el distrito'
-                                )}
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              {Object.entries(DistrictNames).map(([key, value]) => (
-                                <SelectItem className={`text-[14px]`} key={key} value={key}>
-                                  {value}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
                   <FormField
                     control={form.control}
                     name='address'
@@ -583,10 +617,10 @@ export const FamilyHouseFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Elemen
                           >
                             <FormControl className='text-[13px] md:text-[14px]'>
                               <SelectTrigger>
-                                {field.value ? (
-                                  <SelectValue placeholder='Selecciona el estado' />
+                                {field.value === 'active' ? (
+                                  <SelectValue placeholder='Activo' />
                                 ) : (
-                                  'Selecciona el estado'
+                                  <SelectValue placeholder='Inactivo' />
                                 )}
                               </SelectTrigger>
                             </FormControl>

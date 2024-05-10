@@ -1,4 +1,3 @@
-
 export interface FilesProps {
   path: string;
   preview: string;

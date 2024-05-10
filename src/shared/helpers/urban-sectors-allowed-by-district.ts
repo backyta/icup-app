@@ -1,6 +1,6 @@
-import { UrbanSectorNames } from "@/shared/enums";
+import { UrbanSectorNames } from '@/shared/enums';
 
-//* Allowed Urban Sector by module
+//* Allowed Urban Sector by district
 
 // module members = disciple - pastors - copastors - leaders
 export const UrbanSectorsIndependenciaAllowed = [

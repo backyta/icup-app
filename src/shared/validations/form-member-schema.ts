@@ -1,7 +1,17 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import * as z from 'zod';
-import { Country, Department, District, Gender, MaritalStatus, MemberRole, Province, Status, UrbanSector } from '@/shared/enums';
+import { 
+  Country, 
+  Department, 
+  District, 
+  Gender,
+  MaritalStatus, 
+  MemberRole, 
+  Province, 
+  Status, 
+  UrbanSector 
+} from '@/shared/enums';
 
 export const formMemberSchema = z
   .object({

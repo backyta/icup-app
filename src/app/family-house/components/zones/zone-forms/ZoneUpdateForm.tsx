@@ -10,10 +10,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { cn } from '@/shared/lib/utils';
-import { supervisors, zones } from '@/app/family-house/data';
 
+import { supervisors, zones } from '@/app/family-house/data';
 import { formSearchZoneSchema, formZoneSchema } from '@/app/family-house/validations';
 import { type ZoneDataKeys, type ZoneData } from '@/app/family-house/interfaces';
+
+import { Country, Department, District, Province } from '@/shared/enums';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -41,10 +43,10 @@ import {
 //* data ficticia
 const data: ZoneData = {
   zoneName: 'Pisac Alto',
-  country: 'Peru',
-  department: 'Ayacucho',
-  province: 'Huamanga',
-  district: 'Pacaycasa',
+  country: Country.Peru,
+  department: Department.Lima,
+  province: Province.Lima,
+  district: District.Independencia,
   theirSupervisor: 'id2',
 };
 
@@ -242,7 +244,7 @@ export const ZoneUpdateForm = ({ onClose, onScroll }: Props): JSX.Element => {
                         <FormLabel className='text-[14px] font-bold'>País</FormLabel>
                         <FormControl>
                           <Input
-                            disabled={isInputDisabled}
+                            disabled
                             className='text-black dark:text-white'
                             placeholder='Eje: Peru, Ecuador, Colombia...'
                             type='text'
@@ -263,7 +265,7 @@ export const ZoneUpdateForm = ({ onClose, onScroll }: Props): JSX.Element => {
                         <FormLabel className='text-[14px] font-bold'>Departamento</FormLabel>
                         <FormControl>
                           <Input
-                            disabled={isInputDisabled}
+                            disabled
                             className='text-black dark:text-white'
                             placeholder='Eje: Lima, Ancash...'
                             type='text'
@@ -284,7 +286,7 @@ export const ZoneUpdateForm = ({ onClose, onScroll }: Props): JSX.Element => {
                         <FormLabel className='text-[14px] font-bold'>Provincia</FormLabel>
                         <FormControl>
                           <Input
-                            disabled={isInputDisabled}
+                            disabled
                             className='text-black dark:text-white'
                             placeholder='Eje: Lima, Huaraz...'
                             type='text'
@@ -305,7 +307,7 @@ export const ZoneUpdateForm = ({ onClose, onScroll }: Props): JSX.Element => {
                         <FormLabel className='text-[14px] font-bold'>Distrito</FormLabel>
                         <FormControl>
                           <Input
-                            disabled={isInputDisabled}
+                            disabled
                             className='text-black dark:text-white'
                             placeholder='Eje: Los Olivos, Huarmey ...'
                             type='text'

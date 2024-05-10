@@ -1,4 +1,4 @@
-import { SearchSubType } from "@/shared/enums";
+import { SearchSubType } from '@/shared/enums';
 
 // * Subtypes allowed
 
@@ -151,6 +151,16 @@ import { SearchSubType } from "@/shared/enums";
     SearchSubType.OfferingByDate,
   ];
 
+  //* Offering (Worship United)
+  export const SearchSubTypesOfferingIncomeUnitedWorshipAllowed = [ 
+    SearchSubType.OfferingByDate,
+  ];
+
+  //* Offering (Income Adjustment)
+  export const SearchSubTypesOfferingIncomeIncomeAdjustmentAllowed = [ 
+    SearchSubType.OfferingByDate,
+  ];
+
   //* Offering (Activities)
   export const SearchSubTypesOfferingIncomeActivitiesAllowed = [ 
     SearchSubType.OfferingByDate,
@@ -240,6 +250,12 @@ import { SearchSubType } from "@/shared/enums";
     SearchSubType.GiftsAndPrizesParticipants,
     SearchSubType.OtherRelatedExpenses,
   ];
+
+  //* Expenses Adjustment
+  export const SearchSubTypesOfferingExpensesExpensesAdjustmentAllowed = [ 
+    SearchSubType.OfferingByDate,
+  ];
+  
 
   //* User
   export const SearchSubtypesNamesUserModuleAllowed = [ 

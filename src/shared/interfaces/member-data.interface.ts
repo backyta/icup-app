@@ -1,4 +1,4 @@
-import { type MaritalStatus, type MemberRole } from "@/shared/enums";
+import { type MaritalStatus, type MemberRole } from '@/shared/enums';
 
 export interface MemberData {
   firstName: string;

@@ -1,4 +1,4 @@
-import { SearchTypeNames } from "@/shared/enums";
+import { SearchTypeNames } from '@/shared/enums';
 
 // ? Allowed Types by module
 
@@ -192,6 +192,8 @@ export const SearchTypesOfferingIncomeModuleAllowed = [
   SearchTypeNames.zonal_vigil,
   SearchTypeNames.sunday_school,
   SearchTypeNames.youth_worship,
+  SearchTypeNames.united_worship,
+  SearchTypeNames.income_adjustment,
   SearchTypeNames.activities,
   SearchTypeNames.church_ground,
   SearchTypeNames.special,
@@ -209,6 +211,8 @@ export const SearchTypesOfferingIncomeModuleAllowedOnDeleteAndUpdatePage = [
   SearchTypeNames.zonal_vigil,
   SearchTypeNames.sunday_school,
   SearchTypeNames.youth_worship,
+  SearchTypeNames.united_worship,
+  SearchTypeNames.income_adjustment,
   SearchTypeNames.activities,
   SearchTypeNames.church_ground,
   SearchTypeNames.special,
@@ -223,6 +227,7 @@ export const SearchTypesOfferingExpensesModuleAllowed = [
   SearchTypeNames.equipment_and_technology_expenses,
   SearchTypeNames.supplies_expenses,
   SearchTypeNames.activities_and_events_expenses,
+  SearchTypeNames.expenses_adjustment,
   SearchTypeNames.status,
 ];
 
@@ -234,8 +239,8 @@ export const SearchTypesOfferingExpensesModuleAllowedOnDeleteAndUpdatePage = [
   SearchTypeNames.equipment_and_technology_expenses,
   SearchTypeNames.supplies_expenses,
   SearchTypeNames.activities_and_events_expenses,
+  SearchTypeNames.expenses_adjustment,
 ];
-
 
 //* Users
 // search, search by type and update

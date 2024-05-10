@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import { useForm } from 'react-hook-form';
+import { useEffect } from 'react';
 
+import { useLocation } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import type * as z from 'zod';
 import { Toaster, toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -52,6 +54,10 @@ import {
   UrbanSectorNames,
 } from '@/shared/enums';
 import { Textarea } from '@/shared/components/ui/textarea';
+import {
+  validateDistrictsAllowedByModule,
+  validateUrbanSectorsAllowedByDistrict,
+} from '@/shared/helpers';
 
 export const FamilyHouseCreatePage = (): JSX.Element => {
   //* States
@@ -80,6 +86,9 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
   const setIsMessageErrorDisabled = useFamilyHouseStore((state) => state.setIsMessageErrorDisabled);
   const isMessageErrorDisabled = useFamilyHouseStore((state) => state.isMessageErrorDisabled);
 
+  //* Library hooks
+  const { pathname } = useLocation();
+
   //* Form
   const form = useForm<z.infer<typeof formFamilyHouseSchema>>({
     mode: 'onChange',
@@ -99,6 +108,14 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
     },
   });
 
+  //* Form handler
+  const handleSubmit = (values: z.infer<typeof formFamilyHouseSchema>): void => {
+    console.log({ values });
+  };
+
+  //* watchers
+  const district = form.watch('district');
+
   //* Custom hooks
   useFamilyHouseCreateSubmitButtonLogic({
     formFamilyHouseCreate: form,
@@ -109,10 +126,16 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
     setIsMessageErrorDisabled,
   });
 
-  //* Form handler
-  const handleSubmit = (values: z.infer<typeof formFamilyHouseSchema>): void => {
-    console.log({ values });
-  };
+  //* Effects
+  useEffect(() => {
+    form.resetField('urbanSector', {
+      keepError: true,
+    });
+  }, [district]);
+
+  //* Helpers
+  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
+  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
 
   return (
     <>
@@ -130,7 +153,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
         Por favor llena los siguientes datos para crear una nueva casa familiar.
       </p>
 
-      <div className='flex flex-col items-center pb-8 gap-y-8 md:gap-y-12 px-5 py-4 sm:px-12 sm:py-8 2xl:px-36 2xl:py-8'>
+      <div className='flex flex-col items-center pb-8 gap-y-8 md:gap-y-8 px-5 py-4 sm:px-12 sm:py-8 2xl:px-36 2xl:py-8'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -487,7 +510,11 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                         </FormControl>
                         <SelectContent>
                           {Object.entries(DistrictNames).map(([key, value]) => (
-                            <SelectItem className={`text-[14px]`} key={key} value={key}>
+                            <SelectItem
+                              className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                              key={key}
+                              value={key}
+                            >
                               {value}
                             </SelectItem>
                           ))}
@@ -530,7 +557,11 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
                         </FormControl>
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
-                            <SelectItem className={`text-[14px]`} key={key} value={key}>
+                            <SelectItem
+                              className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              key={key}
+                              value={key}
+                            >
                               {value}
                             </SelectItem>
                           ))}

@@ -1,4 +1,9 @@
-import { MetricsMember, MetricsFamilyHouse, MetricsOffering } from '@/app/metrics/pages';
+import {
+  MetricsMember,
+  MetricsFamilyHouse,
+  MetricsOfferingIncome,
+  MetricsOfferingExpenses,
+} from '@/app/metrics/pages';
 
 export const MetricsChildrenRoutes = [
   {
@@ -10,7 +15,11 @@ export const MetricsChildrenRoutes = [
     element: <MetricsFamilyHouse />,
   },
   {
-    path: '/metrics/metrics-offering',
-    element: <MetricsOffering />,
+    path: '/metrics/metrics-offering-income',
+    element: <MetricsOfferingIncome />,
+  },
+  {
+    path: '/metrics/metrics-offering-expenses',
+    element: <MetricsOfferingExpenses />,
   },
 ];

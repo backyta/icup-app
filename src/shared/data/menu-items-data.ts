@@ -1,5 +1,15 @@
-import { type MenuItem } from "@/shared/interfaces";
-import { FcBullish, FcHome, FcConferenceCall,FcSportsMode,  FcPodiumWithSpeaker, FcBusinesswoman, FcLike, FcReadingEbook , FcStatistics   } from "react-icons/fc";
+import { type MenuItem } from '@/shared/interfaces';
+import { 
+  FcBullish, 
+  FcHome, 
+  FcConferenceCall,
+  FcSportsMode, 
+  FcPodiumWithSpeaker, 
+  FcBusinesswoman, 
+  FcLike, 
+  FcReadingEbook , 
+  FcStatistics
+  } from 'react-icons/fc';
 
 export const menuItems: MenuItem[] = [
   { title: 'Panel de Control', subTitle: 'Resumen semanal general', href: '/dashboard', Icon: FcBullish },

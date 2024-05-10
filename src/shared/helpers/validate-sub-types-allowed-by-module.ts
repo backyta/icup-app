@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
-import { SearchSubTypeNames, SearchType, type SearchSubType } from "@/shared/enums";
+import { SearchSubTypeNames, SearchType, type SearchSubType } from '@/shared/enums';
 import { 
   SearchSubTypesOfferingIncomeActivitiesAllowed,
   SearchSubtypesFullNameCopastorModuleAllowed,
@@ -34,6 +34,9 @@ import {
   SearchSubTypesOfferingExpensesEquipmentAndTechnologyAllowed,
   SearchSubTypesOfferingExpensesSuppliesAllowed,
   SearchSubTypesOfferingExpensesActivitiesAndEventsAllowed,
+  SearchSubTypesOfferingIncomeUnitedWorshipAllowed,
+  SearchSubTypesOfferingIncomeIncomeAdjustmentAllowed,
+  SearchSubTypesOfferingExpensesExpensesAdjustmentAllowed,
   } from "@/shared/helpers";
 
 
@@ -317,6 +320,34 @@ export const validateSubTypesAllowedByModule = (currentPath: string, type: strin
     }
   }
 
+  //* Offerings (Worship United)
+  const disabledUnitedWorshipOfferingIncomeSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubTypesOfferingIncomeUnitedWorshipAllowed.includes(value as SearchSubType) ) 
+  
+  if ((currentPath === '/offerings/income/search-by-term-offerings-income' || 
+        currentPath === '/offerings/income/update-offering-income' || 
+        currentPath === '/offerings/income/delete-offering-income') &&  
+      type === SearchType.UnitedWorship ) {
+    return {
+      disabledSearchSubTypes : [
+        ...disabledUnitedWorshipOfferingIncomeSearchSubTypes,
+      ],
+    }
+  }
+
+  //* Offerings (Worship United)
+  const disabledIncomeAdjustmentOfferingIncomeSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubTypesOfferingIncomeIncomeAdjustmentAllowed.includes(value as SearchSubType) ) 
+  
+  if ((currentPath === '/offerings/income/search-by-term-offerings-income' || 
+        currentPath === '/offerings/income/update-offering-income' || 
+        currentPath === '/offerings/income/delete-offering-income') &&  
+      type === SearchType.IncomeAdjustment ) {
+    return {
+      disabledSearchSubTypes : [
+        ...disabledIncomeAdjustmentOfferingIncomeSearchSubTypes,
+      ],
+    }
+  }
+
   //* Offerings (Activities)
   const disabledActivitiesOfferingIncomeSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubTypesOfferingIncomeActivitiesAllowed.includes(value as SearchSubType) ) 
   
@@ -426,6 +457,20 @@ export const validateSubTypesAllowedByModule = (currentPath: string, type: strin
     return {
       disabledSearchSubTypes : [
         ...disabledActivitiesAndEventsOfferingExpensesSearchSubTypes,
+      ],
+    }
+  }
+
+  //* Offerings (Worship United)
+  const disabledExpensesAdjustmentOfferingExpensesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubTypesOfferingExpensesExpensesAdjustmentAllowed.includes(value as SearchSubType) ) 
+
+  if ((currentPath === '/offerings/expenses/search-by-term-offerings-expenses' || 
+        currentPath === '/offerings/expenses/update-offering-expenses' || 
+        currentPath === '/offerings/expenses/delete-offering-expenses') &&  
+      type === SearchType.ExpensesAdjustment ) {
+    return {
+      disabledSearchSubTypes : [
+        ...disabledExpensesAdjustmentOfferingExpensesSearchSubTypes,
       ],
     }
   }

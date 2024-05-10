@@ -1,25 +1,27 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-misused-promises */
+
 import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMediaQuery } from '@react-hook/media-query';
-import {
-  ResponsiveContainer,
-  CartesianGrid,
-  Tooltip,
-  Area,
-  AreaChart,
-  XAxis,
-  YAxis,
-} from 'recharts';
-
-import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { cn } from '@/shared/lib/utils';
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+
+import {
+  Bar,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  Line,
+  ComposedChart,
+} from 'recharts';
 
 import { zones } from '@/app/family-house/data';
 
@@ -47,182 +49,105 @@ import {
 
 const dataZoneA = [
   {
-    'code-house': 'A-1',
-    Varones: 3,
-    Mujeres: 6,
-    preacher: 'Felix Torres',
+    'worship-time': '4:30 PM',
+    Casas: 3,
   },
   {
-    'code-house': 'A-2',
-    Varones: 5,
-    Mujeres: 4,
-    preacher: 'Johnathan Porras',
+    'worship-time': '8:00 PM',
+    Casas: 5,
   },
   {
-    'code-house': 'A-3',
-    Varones: 2,
-    Mujeres: 4,
-    preacher: 'Marcelo Díaz',
+    'worship-time': '10:00 AM',
+    Casas: 2,
   },
   {
-    'code-house': 'A-4',
-    Varones: 8,
-    Mujeres: 2,
-    preacher: 'Iris Fiestas',
+    'worship-time': '6:00 PM',
+    Casas: 2,
   },
   {
-    'code-house': 'A-5',
-    Varones: 3,
-    Mujeres: 19,
-    preacher: 'Sofia Castillo',
+    'worship-time': '7:00 PM',
+    Casas: 4,
   },
   {
-    'code-house': 'A-6',
-    Varones: 7,
-    Mujeres: 8,
-    preacher: 'Margarita Cruz',
+    'worship-time': '5:00 PM',
+    Casas: 3,
   },
 ];
 
 const dataZoneB = [
   {
-    'code-house': 'B-1',
-    Varones: 3,
-    Mujeres: 6,
-    preacher: 'Margarita Cruz',
+    'worship-time': '5:00 PM',
+    Casas: 2,
   },
   {
-    'code-house': 'B-2',
-    Varones: 5,
-    Mujeres: 4,
-    preacher: 'Margarita Cruz',
+    'worship-time': '10:00 AM',
+    Casas: 2,
   },
   {
-    'code-house': 'B-3',
-    Varones: 2,
-    Mujeres: 4,
-    preacher: 'Margarita Cruz',
+    'worship-time': '7:00 PM',
+    Casas: 1,
   },
   {
-    'code-house': 'B-4',
-    Varones: 8,
-    Mujeres: 2,
-    preacher: 'Margarita Cruz',
-  },
-  {
-    'code-house': 'B-5',
-    Varones: 3,
-    Mujeres: 19,
-    preacher: 'Margarita Cruz',
+    'worship-time': '8:00 PM',
+    Casas: 5,
   },
 ];
 
 const dataZoneC = [
   {
-    'code-house': 'C-1',
-    Varones: 8,
-    Mujeres: 2,
-    preacher: 'Margarita Cruz',
+    'worship-time': '5:00 PM',
+    Casas: 2,
   },
   {
-    'code-house': 'C-2',
-    Varones: 5,
-    Mujeres: 8,
-    preacher: 'Margarita Cruz',
+    'worship-time': '8:00 PM',
+    Casas: 4,
   },
   {
-    'code-house': 'C-3',
-    Varones: 7,
-    Mujeres: 2,
-    preacher: 'Margarita Cruz',
-  },
-  {
-    'code-house': 'C-4',
-    Varones: 8,
-    Mujeres: 3,
-    preacher: 'Margarita Cruz',
+    'worship-time': '7:00 PM',
+    Casas: 1,
   },
 ];
 
 const dataZoneD = [
   {
-    'code-house': 'D-1',
-    Varones: 3,
-    Mujeres: 6,
-    preacher: 'Margarita Cruz',
+    'worship-time': '6:00 PM',
+    Casas: 3,
   },
   {
-    'code-house': 'D-2',
-    Varones: 5,
-    Mujeres: 4,
-    preacher: 'Margarita Cruz',
+    'worship-time': '8:00 PM',
+    Casas: 4,
   },
   {
-    'code-house': 'D-3',
-    Varones: 2,
-    Mujeres: 4,
-    preacher: 'Margarita Cruz',
-  },
-  {
-    'code-house': 'D-4',
-    Varones: 8,
-    Mujeres: 2,
-    preacher: 'Margarita Cruz',
-  },
-  {
-    'code-house': 'D-5',
-    Varones: 3,
-    Mujeres: 19,
-    preacher: 'Margarita Cruz',
-  },
-  {
-    'code-house': 'D-6',
-    Varones: 7,
-    Mujeres: 8,
-  },
-  {
-    'code-house': 'D-7',
-    Varones: 7,
-    Mujeres: 8,
-    preacher: 'Margarita Cruz',
-  },
-  {
-    'code-house': 'D-8',
-    Varones: 7,
-    Mujeres: 8,
-    preacher: 'Margarita Cruz',
+    'worship-time': '7:00 PM',
+    Casas: 2,
   },
 ];
 
 //* Functions
-const toPercent = (decimal: any, fixed: number = 0): string => `${(decimal * 100).toFixed(0)}%`;
-
-const getPercent = (value: any, total: any): string => {
-  const ratio = total > 0 ? value / total : 0;
-
-  return toPercent(ratio, 0);
-};
-
 const renderTooltipContent = (o: any): JSX.Element => {
   const { payload, label } = o;
-  const total = payload.reduce((result: any, entry: any) => result + entry.value, 0);
 
   return (
     <div className='bg-white p-2 text-black font-normal'>
-      <p className='total'>{`${label} (Total: ${total})`}</p>
-      <p className='zone'>{`Pred: ${payload[1]?.payload?.preacher}`}</p>
+      <p className='total'>{`${label}`}</p>
       <ul className='list'>
-        {payload.map((entry: any, index: any) => (
-          <li key={`item-${index}`} style={{ color: entry.color }}>
-            {`${entry.name}: ${entry.value}(${getPercent(entry.value, total)})`}
-          </li>
-        ))}
+        {payload.map((entry: any, index: any) =>
+          entry.dataKey === 'Porcentaje' ? (
+            <li key={`item-${index}`} style={{ color: entry.color }}>
+              {`${entry.name}: ${entry.value}%`}
+            </li>
+          ) : (
+            <li key={`item-${index}`} style={{ color: entry.color }}>
+              {`${entry.name}: ${entry.value}`}
+            </li>
+          )
+        )}
       </ul>
     </div>
   );
 };
 
-export const MemberAnalysisCardByFamilyHouse = (): JSX.Element => {
+export const FamilyHousesAnalysisCardByWorshipTime = (): JSX.Element => {
   //* States
   const [isInputSearchZoneOpen, setIsInputSearchZoneOpen] = useState<boolean>(false);
   const [dataResult, setDataResult] = useState<any[]>([]);
@@ -270,15 +195,38 @@ export const MemberAnalysisCardByFamilyHouse = (): JSX.Element => {
     }
 
     if (all) {
-      setDataResult([...dataZoneA, ...dataZoneB, ...dataZoneC, ...dataZoneD]);
+      const allData = [...dataZoneA, ...dataZoneB, ...dataZoneC, ...dataZoneD];
+
+      const housesByWorshipTime: Record<string, number> = {};
+
+      allData.forEach((item) => {
+        const { 'worship-time': worshipTime, Casas } = item;
+        if (!housesByWorshipTime[worshipTime]) {
+          housesByWorshipTime[worshipTime] = 0;
+        }
+        housesByWorshipTime[worshipTime] += Casas;
+      });
+
+      const newArrayResult = Object.keys(housesByWorshipTime).map((worshipTime) => ({
+        'worship-time': worshipTime,
+        Casas: housesByWorshipTime[worshipTime],
+      }));
+
+      setDataResult(newArrayResult);
     }
   }, [zone, all]);
 
+  const totalCantidad = dataResult.reduce((total, item) => total + item.Casas, 0);
+  const newData = dataResult.map((item) => ({
+    ...item,
+    Porcentaje: ((item.Casas / totalCantidad) * 100).toFixed(1),
+  }));
+
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40  flex flex-col col-start-2 col-end-3 h-[22rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <div className='flex flex-col sm:flex-row items-center justify-between p-3 md:p-3 lg:p-3 xl:p-2 xl:px-3 2xl:p-4'>
         <h3 className='font-bold mb-2 sm:mb-0 text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.50em] 2xl:text-3xl inline-block'>
-          Miembros (casas familiares)
+          Casas Familiares (hora-culto)
         </h3>
         <Form {...form}>
           <form className='flex'>
@@ -368,11 +316,12 @@ export const MemberAnalysisCardByFamilyHouse = (): JSX.Element => {
           </form>
         </Form>
       </div>
+
       <ResponsiveContainer
         width='100%'
         height={
           isDesktop && !isDesktopLG
-            ? '100%'
+            ? '88%'
             : isDesktopLG && !isDesktopXL
               ? '90%'
               : isDesktopXL
@@ -380,20 +329,21 @@ export const MemberAnalysisCardByFamilyHouse = (): JSX.Element => {
                 : '100%'
         }
       >
-        <AreaChart
+        <ComposedChart
           width={500}
-          height={400}
-          data={dataResult}
-          stackOffset='expand'
-          margin={{ top: 5, right: 30, left: -5, bottom: 10 }}
+          height={300}
+          data={newData}
+          margin={{ top: 5, right: 30, left: -10, bottom: 5 }}
         >
-          <CartesianGrid strokeDasharray='3 3' stroke='#c8c8c8' />
-          <XAxis dataKey='code-house' />
-          <YAxis tickFormatter={toPercent} />
+          <CartesianGrid strokeDasharray='3 3' />
+          <XAxis dataKey='worship-time' />
+          {!all && <YAxis type='number' />}
+          {all && <YAxis type='number' domain={[0, 45]} allowDataOverflow />}
           <Tooltip content={renderTooltipContent} />
-          <Area type='monotone' dataKey='Varones' stackId='1' stroke='#68c4f2' fill='#68c4f2' />
-          <Area type='monotone' dataKey='Mujeres' stackId='1' stroke='#e54fc0' fill='#e54fc0' />
-        </AreaChart>
+          <Legend />
+          <Bar dataKey='Casas' fill='#da43f2' />
+          <Line type='linear' dataKey='Porcentaje' stroke='#ff7300' />
+        </ComposedChart>
       </ResponsiveContainer>
     </Card>
   );

@@ -1,29 +1,31 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-misused-promises */
+
 import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMediaQuery } from '@react-hook/media-query';
-import {
-  ResponsiveContainer,
-  CartesianGrid,
-  Tooltip,
-  Area,
-  AreaChart,
-  XAxis,
-  YAxis,
-} from 'recharts';
-
-import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { cn } from '@/shared/lib/utils';
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { zones } from '@/app/family-house/data';
+import {
+  Bar,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  Line,
+  ComposedChart,
+} from 'recharts';
 
 import { chartFormValidationSchema } from '@/app/metrics/validations';
+
+import { districts } from '@/shared/data';
 
 import { Card } from '@/shared/components/ui/card';
 import { Button } from '@/shared/components/ui/button';
@@ -45,186 +47,83 @@ import {
   CommandItem,
 } from '@/shared/components/ui/command';
 
-const dataZoneA = [
+const dataDistrictIndep = [
   {
-    'code-house': 'A-1',
-    Varones: 3,
-    Mujeres: 6,
-    preacher: 'Felix Torres',
+    'urban-sector': 'Independencia',
+    Casas: 7,
   },
   {
-    'code-house': 'A-2',
-    Varones: 5,
-    Mujeres: 4,
-    preacher: 'Johnathan Porras',
+    'urban-sector': 'Payet',
+    Casas: 9,
   },
   {
-    'code-house': 'A-3',
-    Varones: 2,
-    Mujeres: 4,
-    preacher: 'Marcelo Díaz',
+    'urban-sector': 'Tahuantinsuyo',
+    Casas: 10,
   },
   {
-    'code-house': 'A-4',
-    Varones: 8,
-    Mujeres: 2,
-    preacher: 'Iris Fiestas',
+    'urban-sector': 'Ermitaño',
+    Casas: 7,
   },
   {
-    'code-house': 'A-5',
-    Varones: 3,
-    Mujeres: 19,
-    preacher: 'Sofia Castillo',
+    'urban-sector': 'Unificada',
+    Casas: 9,
   },
   {
-    'code-house': 'A-6',
-    Varones: 7,
-    Mujeres: 8,
-    preacher: 'Margarita Cruz',
+    'urban-sector': 'Industrial',
+    Casas: 8,
   },
 ];
 
-const dataZoneB = [
+const dataDistrictPuenteP = [
   {
-    'code-house': 'B-1',
-    Varones: 3,
-    Mujeres: 6,
-    preacher: 'Margarita Cruz',
+    'urban-sector': 'Ensenada',
+    Casas: 3,
   },
   {
-    'code-house': 'B-2',
-    Varones: 5,
-    Mujeres: 4,
-    preacher: 'Margarita Cruz',
+    'urban-sector': 'Laderas',
+    Casas: 4,
   },
   {
-    'code-house': 'B-3',
-    Varones: 2,
-    Mujeres: 4,
-    preacher: 'Margarita Cruz',
+    'urban-sector': 'Shangri_La',
+    Casas: 4,
   },
   {
-    'code-house': 'B-4',
-    Varones: 8,
-    Mujeres: 2,
-    preacher: 'Margarita Cruz',
+    'urban-sector': 'Cercado',
+    Casas: 3,
   },
   {
-    'code-house': 'B-5',
-    Varones: 3,
-    Mujeres: 19,
-    preacher: 'Margarita Cruz',
-  },
-];
-
-const dataZoneC = [
-  {
-    'code-house': 'C-1',
-    Varones: 8,
-    Mujeres: 2,
-    preacher: 'Margarita Cruz',
-  },
-  {
-    'code-house': 'C-2',
-    Varones: 5,
-    Mujeres: 8,
-    preacher: 'Margarita Cruz',
-  },
-  {
-    'code-house': 'C-3',
-    Varones: 7,
-    Mujeres: 2,
-    preacher: 'Margarita Cruz',
-  },
-  {
-    'code-house': 'C-4',
-    Varones: 8,
-    Mujeres: 3,
-    preacher: 'Margarita Cruz',
-  },
-];
-
-const dataZoneD = [
-  {
-    'code-house': 'D-1',
-    Varones: 3,
-    Mujeres: 6,
-    preacher: 'Margarita Cruz',
-  },
-  {
-    'code-house': 'D-2',
-    Varones: 5,
-    Mujeres: 4,
-    preacher: 'Margarita Cruz',
-  },
-  {
-    'code-house': 'D-3',
-    Varones: 2,
-    Mujeres: 4,
-    preacher: 'Margarita Cruz',
-  },
-  {
-    'code-house': 'D-4',
-    Varones: 8,
-    Mujeres: 2,
-    preacher: 'Margarita Cruz',
-  },
-  {
-    'code-house': 'D-5',
-    Varones: 3,
-    Mujeres: 19,
-    preacher: 'Margarita Cruz',
-  },
-  {
-    'code-house': 'D-6',
-    Varones: 7,
-    Mujeres: 8,
-  },
-  {
-    'code-house': 'D-7',
-    Varones: 7,
-    Mujeres: 8,
-    preacher: 'Margarita Cruz',
-  },
-  {
-    'code-house': 'D-8',
-    Varones: 7,
-    Mujeres: 8,
-    preacher: 'Margarita Cruz',
+    'urban-sector': 'Copacabana',
+    Casas: 2,
   },
 ];
 
 //* Functions
-const toPercent = (decimal: any, fixed: number = 0): string => `${(decimal * 100).toFixed(0)}%`;
-
-const getPercent = (value: any, total: any): string => {
-  const ratio = total > 0 ? value / total : 0;
-
-  return toPercent(ratio, 0);
-};
-
 const renderTooltipContent = (o: any): JSX.Element => {
   const { payload, label } = o;
-  const total = payload.reduce((result: any, entry: any) => result + entry.value, 0);
 
   return (
     <div className='bg-white p-2 text-black font-normal'>
-      <p className='total'>{`${label} (Total: ${total})`}</p>
-      <p className='zone'>{`Pred: ${payload[1]?.payload?.preacher}`}</p>
+      <p className='total'>{`${label}`}</p>
       <ul className='list'>
-        {payload.map((entry: any, index: any) => (
-          <li key={`item-${index}`} style={{ color: entry.color }}>
-            {`${entry.name}: ${entry.value}(${getPercent(entry.value, total)})`}
-          </li>
-        ))}
+        {payload.map((entry: any, index: any) =>
+          entry.dataKey === 'Porcentaje' ? (
+            <li key={`item-${index}`} style={{ color: entry.color }}>
+              {`${entry.name}: ${entry.value}%`}
+            </li>
+          ) : (
+            <li key={`item-${index}`} style={{ color: entry.color }}>
+              {`${entry.name}: ${entry.value}`}
+            </li>
+          )
+        )}
       </ul>
     </div>
   );
 };
 
-export const MemberAnalysisCardByFamilyHouse = (): JSX.Element => {
+export const FamilyHousesAnalysisCardByDistrict = (): JSX.Element => {
   //* States
-  const [isInputSearchZoneOpen, setIsInputSearchZoneOpen] = useState<boolean>(false);
+  const [isInputSearchDistrictOpen, setIsInputSearchDistrictOpen] = useState<boolean>(false);
   const [dataResult, setDataResult] = useState<any[]>([]);
 
   // * Media Queries Library hooks
@@ -238,7 +137,7 @@ export const MemberAnalysisCardByFamilyHouse = (): JSX.Element => {
     mode: 'onChange',
     defaultValues: {
       all: false,
-      zone: '',
+      district: '',
     },
   });
 
@@ -248,47 +147,50 @@ export const MemberAnalysisCardByFamilyHouse = (): JSX.Element => {
   };
 
   //* Watchers
-  const zone = form.watch('zone');
+  const district = form.watch('district');
   const all = form.watch('all');
 
   //* Effects
   useEffect(() => {
-    if (zone === 'zone-2') {
-      setDataResult(dataZoneB);
+    if (district === 'puente_piedra') {
+      setDataResult(dataDistrictPuenteP);
     }
-    if (zone === 'zone-3') {
-      setDataResult(dataZoneC);
+    if (district === 'independencia') {
+      setDataResult(dataDistrictIndep);
     }
-    if (zone === 'zone-4') {
-      setDataResult(dataZoneD);
-    }
-    if (zone === 'zone-1') {
-      setDataResult(dataZoneA);
-    }
-    if (!zone) {
-      setDataResult(dataZoneA);
+    if (!district) {
+      setDataResult(dataDistrictIndep);
     }
 
     if (all) {
-      setDataResult([...dataZoneA, ...dataZoneB, ...dataZoneC, ...dataZoneD]);
+      setDataResult([...dataDistrictIndep, ...dataDistrictPuenteP]);
     }
-  }, [zone, all]);
+  }, [district, all]);
+
+  const totalCantidad = dataResult.reduce((total, item) => total + item.Casas, 0);
+  const newData = dataResult.map((item) => ({
+    ...item,
+    Porcentaje: ((item.Casas / totalCantidad) * 100).toFixed(1),
+  }));
 
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40  flex flex-col col-start-2 col-end-3 h-[22rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <div className='flex flex-col sm:flex-row items-center justify-between p-3 md:p-3 lg:p-3 xl:p-2 xl:px-3 2xl:p-4'>
         <h3 className='font-bold mb-2 sm:mb-0 text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.50em] 2xl:text-3xl inline-block'>
-          Miembros (casas familiares)
+          Casas Familiares (distrito)
         </h3>
         <Form {...form}>
           <form className='flex'>
             <FormField
               control={form.control}
-              name='zone'
+              name='district'
               render={({ field }) => {
                 return (
                   <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
-                    <Popover open={isInputSearchZoneOpen} onOpenChange={setIsInputSearchZoneOpen}>
+                    <Popover
+                      open={isInputSearchDistrictOpen}
+                      onOpenChange={setIsInputSearchDistrictOpen}
+                    >
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
@@ -301,8 +203,8 @@ export const MemberAnalysisCardByFamilyHouse = (): JSX.Element => {
                             )}
                           >
                             {field.value
-                              ? zones.find((zone) => zone.value === field.value)?.label
-                              : 'Elige una zona'}
+                              ? districts.find((district) => district.value === field.value)?.label
+                              : 'Elige un distrito'}
                             <CaretSortIcon className='ml-2 h-4 w-4 shrink-0' />
                           </Button>
                         </FormControl>
@@ -310,27 +212,27 @@ export const MemberAnalysisCardByFamilyHouse = (): JSX.Element => {
                       <PopoverContent align='center' className='w-auto px-4 py-2'>
                         <Command>
                           <CommandInput
-                            placeholder='Busque una zona...'
+                            placeholder='Busque un distrito...'
                             className='h-9 text-[14px]'
                           />
-                          <CommandEmpty>Zona no encontrada.</CommandEmpty>
+                          <CommandEmpty>Distrito no encontrado.</CommandEmpty>
                           <CommandGroup className='max-h-[200px] h-auto'>
-                            {zones.map((zone) => (
+                            {districts.map((district) => (
                               <CommandItem
                                 className='text-[14px]'
-                                value={zone.label}
-                                key={zone.value}
+                                value={district.label}
+                                key={district.value}
                                 onSelect={() => {
-                                  form.setValue('zone', zone.value);
+                                  form.setValue('district', district.value);
                                   form.handleSubmit(handleSubmit)();
-                                  setIsInputSearchZoneOpen(false);
+                                  setIsInputSearchDistrictOpen(false);
                                 }}
                               >
-                                {zone.label}
+                                {district.label}
                                 <CheckIcon
                                   className={cn(
                                     'ml-auto h-4 w-4',
-                                    zone.value === field.value ? 'opacity-100' : 'opacity-0'
+                                    district.value === field.value ? 'opacity-100' : 'opacity-0'
                                   )}
                                 />
                               </CommandItem>
@@ -354,7 +256,7 @@ export const MemberAnalysisCardByFamilyHouse = (): JSX.Element => {
                       checked={field?.value}
                       onCheckedChange={(checked) => {
                         field.onChange(checked);
-                        checked && form.resetField('zone');
+                        checked && form.resetField('district');
                         checked && form.handleSubmit(handleSubmit)();
                       }}
                     />
@@ -368,11 +270,12 @@ export const MemberAnalysisCardByFamilyHouse = (): JSX.Element => {
           </form>
         </Form>
       </div>
+
       <ResponsiveContainer
         width='100%'
         height={
           isDesktop && !isDesktopLG
-            ? '100%'
+            ? '88%'
             : isDesktopLG && !isDesktopXL
               ? '90%'
               : isDesktopXL
@@ -380,20 +283,21 @@ export const MemberAnalysisCardByFamilyHouse = (): JSX.Element => {
                 : '100%'
         }
       >
-        <AreaChart
+        <ComposedChart
           width={500}
-          height={400}
-          data={dataResult}
-          stackOffset='expand'
-          margin={{ top: 5, right: 30, left: -5, bottom: 10 }}
+          height={300}
+          data={newData}
+          margin={{ top: 5, right: 30, left: -10, bottom: 5 }}
         >
-          <CartesianGrid strokeDasharray='3 3' stroke='#c8c8c8' />
-          <XAxis dataKey='code-house' />
-          <YAxis tickFormatter={toPercent} />
+          <CartesianGrid strokeDasharray='3 3' />
+          <XAxis dataKey='urban-sector' />
+          {!all && <YAxis type='number' />}
+          {all && <YAxis type='number' domain={[0, 20]} allowDataOverflow />}
           <Tooltip content={renderTooltipContent} />
-          <Area type='monotone' dataKey='Varones' stackId='1' stroke='#68c4f2' fill='#68c4f2' />
-          <Area type='monotone' dataKey='Mujeres' stackId='1' stroke='#e54fc0' fill='#e54fc0' />
-        </AreaChart>
+          <Legend />
+          <Bar dataKey='Casas' fill='#62d723' />
+          <Line type='linear' dataKey='Porcentaje' stroke='#ff7300' />
+        </ComposedChart>
       </ResponsiveContainer>
     </Card>
   );

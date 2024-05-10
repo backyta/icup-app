@@ -18,6 +18,15 @@ export const chartFormValidationSchema = z
     copastor: z.string({required_error: 
       'Por favor elige un co-pastor.'}).optional(),
 
+    district: z.string({required_error: 
+      'Por favor elige un co-pastor.'}).optional(),
+
+    month: z.string({required_error: 
+      'Por favor elige un co-pastor.'}).optional(),
+
+    year: z.string({required_error: 
+      'Por favor elige un co-pastor.'}).optional(),
+
     all: z.boolean().optional(),
 
   })

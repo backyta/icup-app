@@ -236,3 +236,29 @@ export const disciples = [
   { label: 'Karina Rosa Fajardo Jaimes', value: 'id7' },
   { label: 'Jairo Pedro Guitierrez Rojas', value: 'id8' },
 ] as const;
+
+export const districts = [
+  { label: 'Independencia', value: 'independencia' },
+  { label: 'Puente-Piedra', value: 'puente_piedra' },
+] as const;
+
+export const months = [
+  { label: 'Enero', value: 'january' },
+  { label: 'Febrero', value: 'february' },
+  { label: 'Marzo', value: 'march' },
+  { label: 'Abril', value: 'april' },
+  { label: 'Mayo', value: 'may' },
+  { label: 'Junio', value: 'june' },
+  { label: 'Julio', value: 'july' },
+  { label: 'Agosto', value: 'august' },
+  { label: 'Septiembre', value: 'september' },
+  { label: 'Octubre', value: 'october' },
+  { label: 'Noviembre', value: 'november' },
+  { label: 'Diciembre', value: 'december' },
+] as const;
+
+export const years = [
+  { label: '2024', value: '2024' },
+  { label: '2025', value: '2025' },
+  { label: '2026', value: '2026' },
+] as const;

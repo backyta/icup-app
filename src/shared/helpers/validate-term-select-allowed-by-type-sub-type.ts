@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
-import {  SearchType, SearchSelectionOptionNames, SearchSubType } from "@/shared/enums";
+import {  SearchType, SearchSelectionOptionNames, SearchSubType } from '@/shared/enums';
 
 export const validateSelectTermByTypeAndSubtype = (type: string, subType:string | undefined) => {
 

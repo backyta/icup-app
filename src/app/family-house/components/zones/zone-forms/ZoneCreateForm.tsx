@@ -15,7 +15,9 @@ import { formZoneSchema } from '@/app/family-house/validations';
 import { useZoneCreateSubmitButtonsLogic } from '@/hooks';
 
 import { cn } from '@/shared/lib/utils';
+
 import { supervisors } from '@/shared/data';
+import { CountryNames, DepartmentNames, DistrictNames, ProvinceNames } from '@/shared/enums';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -37,6 +39,13 @@ import {
   CommandInput,
   CommandItem,
 } from '@/shared/components/ui/command';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/shared/components/ui/select';
 
 interface Props {
   onClose: () => void;
@@ -119,18 +128,31 @@ export const ZoneCreateForm = ({ onClose, onScroll }: Props): JSX.Element => {
               name='country'
               render={({ field }) => {
                 return (
-                  <FormItem className=''>
-                    <FormLabel className='text-[14px] font-bold'>País</FormLabel>
+                  <FormItem>
+                    <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>País</FormLabel>
 
-                    <FormControl>
-                      <Input
-                        disabled={isInputDisabled}
-                        className='text-black dark:text-white text-[14px]'
-                        placeholder='Eje: Peru, Ecuador, Colombia...'
-                        type='text'
-                        {...field}
-                      />
-                    </FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      disabled={isInputDisabled}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          {field.value ? (
+                            <SelectValue placeholder='Selecciona el país' />
+                          ) : (
+                            'Selecciona el país'
+                          )}
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Object.entries(CountryNames).map(([key, value]) => (
+                          <SelectItem className={`text-[14px]`} key={key} value={key}>
+                            {value}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 );
@@ -141,40 +163,71 @@ export const ZoneCreateForm = ({ onClose, onScroll }: Props): JSX.Element => {
               name='department'
               render={({ field }) => {
                 return (
-                  <FormItem className=''>
-                    <FormLabel className='text-[14px] font-bold'>Departamento</FormLabel>
+                  <FormItem>
+                    <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                      Departamento
+                    </FormLabel>
 
-                    <FormControl>
-                      <Input
-                        disabled={isInputDisabled}
-                        className='text-black dark:text-white text-[14px]'
-                        placeholder='Eje: Lima, Ancash...'
-                        type='text'
-                        {...field}
-                      />
-                    </FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      disabled={isInputDisabled}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          {field.value ? (
+                            <SelectValue placeholder='Selecciona el departamento' />
+                          ) : (
+                            'Selecciona el departamento'
+                          )}
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Object.entries(DepartmentNames).map(([key, value]) => (
+                          <SelectItem className={`text-[14px]`} key={key} value={key}>
+                            {value}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 );
               }}
             />
+
             <FormField
               control={form.control}
               name='province'
               render={({ field }) => {
                 return (
-                  <FormItem className=''>
-                    <FormLabel className='text-[14px] font-bold'>Provincia</FormLabel>
+                  <FormItem>
+                    <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                      Provincia
+                    </FormLabel>
 
-                    <FormControl>
-                      <Input
-                        disabled={isInputDisabled}
-                        className='text-black dark:text-white text-[14px]'
-                        placeholder='Eje: Lima, Huaraz...'
-                        type='text'
-                        {...field}
-                      />
-                    </FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      disabled={isInputDisabled}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          {field.value ? (
+                            <SelectValue placeholder='Selecciona la provincia' />
+                          ) : (
+                            'Selecciona la provincia'
+                          )}
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Object.entries(ProvinceNames).map(([key, value]) => (
+                          <SelectItem className={`text-[14px]`} key={key} value={key}>
+                            {value}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 );
@@ -185,18 +238,32 @@ export const ZoneCreateForm = ({ onClose, onScroll }: Props): JSX.Element => {
               name='district'
               render={({ field }) => {
                 return (
-                  <FormItem className=''>
-                    <FormLabel className='text-[14px] font-bold'>Distrito</FormLabel>
-
-                    <FormControl>
-                      <Input
-                        disabled={isInputDisabled}
-                        className='text-black dark:text-white text-[14px]'
-                        placeholder='Eje: Los Olivos, Huarmey ...'
-                        type='text'
-                        {...field}
-                      />
-                    </FormControl>
+                  <FormItem>
+                    <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                      Distrito
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      disabled={isInputDisabled}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          {field.value ? (
+                            <SelectValue placeholder='Selecciona el distrito' />
+                          ) : (
+                            'Selecciona el distrito'
+                          )}
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Object.entries(DistrictNames).map(([key, value]) => (
+                          <SelectItem className={`text-[14px]`} key={key} value={key}>
+                            {value}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 );

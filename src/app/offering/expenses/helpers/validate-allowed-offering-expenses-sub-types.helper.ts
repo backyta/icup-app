@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
-import { SubTypesOfferingExpensesNames, TypesOfferingExpenses, type SubTypesOfferingExpenses } from "@/app/offering/expenses/enums";
+import { SubTypesOfferingExpensesNames, TypesOfferingExpenses, type SubTypesOfferingExpenses } from '@/app/offering/expenses/enums';
 import { 
   SubtypesActivitiesAndEventsExpensesAllowed, 
   SubtypesDecorationExpensesAllowed, 

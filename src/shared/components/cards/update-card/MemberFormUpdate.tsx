@@ -31,6 +31,32 @@ import { copastors, familyHouses, pastors, supervisors } from '@/shared/data';
 import { type MemberDataKeys, type MemberData } from '@/shared/interfaces';
 import { formMemberSchema } from '@/shared/validations';
 
+import {
+  FieldNames,
+  Gender,
+  GenderNames,
+  MaritalStatus,
+  MaritalStatusNames,
+  MemberRoleNames,
+  MemberRole,
+  Status,
+  Department,
+  Country,
+  Province,
+  District,
+  UrbanSector,
+  CountryNames,
+  DepartmentNames,
+  ProvinceNames,
+  DistrictNames,
+  UrbanSectorNames,
+} from '@/shared/enums';
+
+import {
+  validateDistrictsAllowedByModule,
+  validateUrbanSectorsAllowedByDistrict,
+} from '@/shared/helpers';
+
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
 import { Textarea } from '@/shared/components/ui/textarea';
@@ -75,28 +101,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/shared/components/ui/alert-dialog';
-
-import {
-  FieldNames,
-  Gender,
-  GenderNames,
-  MaritalStatus,
-  MaritalStatusNames,
-  MemberRoleNames,
-  MemberRole,
-  Status,
-  Department,
-  Country,
-  Province,
-  District,
-  UrbanSector,
-  CountryNames,
-  DepartmentNames,
-  ProvinceNames,
-  DistrictNames,
-  UrbanSectorNames,
-} from '@/shared/enums';
-import { validateUrbanSectorsAllowedByDistrict } from '@/shared/helpers';
 
 const data: MemberData = {
   firstName: 'Marcos',
@@ -161,6 +165,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
       numberChildren: '',
       country: '',
       department: '',
+      urbanSector: '',
       province: '',
       district: '',
       address: '',
@@ -185,7 +190,6 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
     memberRoles: MemberRole,
   });
 
-  //* Custom hooks
   // NOTE : Hacer custom hook para setear
   useEffect(() => {
     for (const key in data) {
@@ -210,6 +214,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
 
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
+  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
 
   return (
     <Tabs
@@ -528,10 +533,10 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                           >
                             <FormControl className='text-[14px]'>
                               <SelectTrigger>
-                                {field.value ? (
-                                  <SelectValue placeholder='Selecciona el estado' />
+                                {field.value === 'active' ? (
+                                  <SelectValue placeholder='Activo' />
                                 ) : (
-                                  'Selecciona el estado'
+                                  <SelectValue placeholder='Inactivo' />
                                 )}
                               </SelectTrigger>
                             </FormControl>
@@ -724,6 +729,11 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                         <FormItem className='mt-3'>
                           <FormLabel className='text-[14px]'>Distrito</FormLabel>
                           <Select
+                            onOpenChange={() => {
+                              form.resetField('urbanSector', {
+                                keepError: true,
+                              });
+                            }}
                             disabled={isInputDisabled}
                             value={field.value}
                             onValueChange={field.onChange}
@@ -739,7 +749,11 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                             </FormControl>
                             <SelectContent>
                               {Object.entries(DistrictNames).map(([key, value]) => (
-                                <SelectItem className={`text-[14px]`} key={key} value={key}>
+                                <SelectItem
+                                  className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                                  key={key}
+                                  value={key}
+                                >
                                   {value}
                                 </SelectItem>
                               ))}

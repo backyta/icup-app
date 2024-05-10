@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type * as z from 'zod';
 import { Toaster, toast } from 'sonner';
@@ -35,7 +34,10 @@ import {
   Province,
 } from '@/shared/enums';
 import { copastors, familyHouses, pastors, supervisors } from '@/shared/data';
-import { validateUrbanSectorsAllowedByDistrict } from '@/shared/helpers';
+import {
+  validateDistrictsAllowedByModule,
+  validateUrbanSectorsAllowedByDistrict,
+} from '@/shared/helpers';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -133,9 +135,17 @@ export const MemberCreatePage = (): JSX.Element => {
     setIsSubmitButtonDisabled,
   });
 
+  //* Effects
+  useEffect(() => {
+    form.resetField('urbanSector', {
+      keepError: true,
+    });
+  }, [district]);
+
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
-  // TODO : listo lo del member, ahora copiar a casa familiar y seguir con zonas
+  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
+
   return (
     <div>
       <h1
@@ -579,7 +589,11 @@ export const MemberCreatePage = (): JSX.Element => {
                         </FormControl>
                         <SelectContent>
                           {Object.entries(DistrictNames).map(([key, value]) => (
-                            <SelectItem className={`text-[14px]`} key={key} value={key}>
+                            <SelectItem
+                              className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                              key={key}
+                              value={key}
+                            >
                               {value}
                             </SelectItem>
                           ))}
@@ -614,7 +628,7 @@ export const MemberCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) || !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -691,7 +705,7 @@ export const MemberCreatePage = (): JSX.Element => {
                         control={form.control}
                         name='roles'
                         render={({ field }) => {
-                          const isDisabled = disabledRoles?.includes(role) || isInputDisabled;
+                          const isDisabled = disabledRoles?.includes(role) ?? isInputDisabled;
                           return (
                             <FormItem
                               key={role}

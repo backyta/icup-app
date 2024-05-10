@@ -5,4 +5,5 @@ export * from './MemberAnalysisCardByCategoryAndGender';
 export * from './MemberAnalysisCardByMaritalStatus';
 export * from './MemberAnalysisCardByRole';
 export * from './MemberAnalysisCardByCategory';
+export * from './MembersAnalysisCardByDistrict';
 

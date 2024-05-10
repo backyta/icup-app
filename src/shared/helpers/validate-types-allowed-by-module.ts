@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
-import { SearchTypeNames, } from "@/shared/enums";
+import { SearchTypeNames, } from '@/shared/enums';
 import { 
   SearchTypesCopastorModuleAllowed, 
   SearchTypesCopastorModuleAllowedOnDeletePage, 

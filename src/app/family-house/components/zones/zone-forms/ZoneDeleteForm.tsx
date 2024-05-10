@@ -17,6 +17,8 @@ import { type ZoneDataKeys, type ZoneData } from '@/app/family-house/interfaces'
 
 import { useZoneDeleteSubmitButtonsLogic } from '@/hooks';
 
+import { Country, Department, District, Province } from '@/shared/enums';
+
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
 import { Card, CardContent } from '@/shared/components/ui/card';
@@ -52,10 +54,10 @@ import {
 //* data ficticia
 const data: ZoneData = {
   zoneName: 'Pisac Alto',
-  country: 'Peru',
-  department: 'Ayacucho',
-  province: 'Huamanga',
-  district: 'Pacaycasa',
+  country: Country.Peru,
+  department: Department.Lima,
+  province: Province.Lima,
+  district: District.Independencia,
   theirSupervisor: 'id2',
 };
 

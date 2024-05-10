@@ -3,6 +3,8 @@ import {
   FamilyHouseFluctuationAnalysisCardByMonth,
   MemberAnalysisCardByFamilyHouse,
   FamilyHousesAnalysisCardByZone,
+  FamilyHousesAnalysisCardByDistrict,
+  FamilyHousesAnalysisCardByWorshipTime,
 } from '@/app/metrics/components';
 
 import {
@@ -30,7 +32,9 @@ export const MetricsFamilyHouse = (): JSX.Element => {
         <MemberAnalysisCardByFamilyHouse />
         <MemberAnalysisCardByZone />
         <FamilyHousesAnalysisCardByZone />
+        <FamilyHousesAnalysisCardByDistrict />
         <PreacherAnalysisCardByZone />
+        <FamilyHousesAnalysisCardByWorshipTime />
       </div>
     </div>
   );

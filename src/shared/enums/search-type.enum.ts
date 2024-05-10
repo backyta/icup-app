@@ -45,10 +45,12 @@ export enum SearchType {
   ZonalVigil = 'zonal_vigil',
   SundaySchool = 'sunday_school',
   YouthWorship = 'youth_worship',
+  UnitedWorship = 'united_worship',
   Activities = 'activities',
   ChurchGround = 'church_ground',
   Special = 'special',
-
+  IncomeAdjustment = 'income_adjustment',
+  
   //* Offering Expenses
   OperationalExpenses = "operative_expenses",
   MaintenanceAndRepairExpenses = "maintenance_and_repair_expenses",
@@ -56,6 +58,7 @@ export enum SearchType {
   EquipmentAndTechnologyExpenses = "equipment_and_technology_expenses",
   SuppliesExpenses = "supplies_expenses",
   ActivitiesAndEventsExpenses = "activities_and_events_expenses",
+  ExpensesAdjustment = 'expenses_adjustment',
 }
 
 export const SearchTypeNames: Record<SearchType, string> =  {
@@ -91,10 +94,11 @@ export const SearchTypeNames: Record<SearchType, string> =  {
   zonal_vigil: 'Ofrendas - Vigilia Zonal',
   sunday_school: 'Ofrendas - Escuela Dominical',
   youth_worship: 'Ofrendas - Culto Jóvenes',
+  united_worship: 'Ofrendas - Culto Unido',
   activities: 'Ofrendas - Actividades',
   church_ground: 'Ofrendas - Terreno Iglesia',
   special: 'Ofrendas - Especial',
-
+  
   tithe : 'Diezmos',
   
   operative_expenses : 'Gastos de operación',
@@ -103,6 +107,8 @@ export const SearchTypeNames: Record<SearchType, string> =  {
   equipment_and_technology_expenses : 'Gastos de equipamiento y tecnología',
   supplies_expenses : 'Gastos de suministros',
   activities_and_events_expenses : 'Gastos de actividades y eventos',
-
+  
   status : 'Estado de registro',
+  income_adjustment: 'Ajustes por Ingreso',
+  expenses_adjustment: 'Ajustes por Salida',
 }

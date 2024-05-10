@@ -65,9 +65,12 @@ export const formSearchByTermSchema = z
         data.type === SearchType.ZonalVigil ||
         data.type === SearchType.SundaySchool ||
         data.type === SearchType.YouthWorship ||
+        data.type === SearchType.UnitedWorship ||
         data.type === SearchType.Activities ||
         data.type === SearchType.ChurchGround ||
-        data.type === SearchType.Special 
+        data.type === SearchType.Special ||
+        data.type === SearchType.IncomeAdjustment ||
+        data.type === SearchType.ExpensesAdjustment
       ) {
         return !!data.subType; 
       }
@@ -173,17 +176,20 @@ export const formSearchByTermSchema = z
           data.type !== SearchType.GeneralVigil && 
           data.type !== SearchType.ZonalVigil && 
           data.type !== SearchType.YouthWorship && 
+          data.type !== SearchType.UnitedWorship && 
           data.type !== SearchType.SundaySchool && 
           data.type !== SearchType.Activities && 
           data.type !== SearchType.ChurchGround && 
           data.type !== SearchType.Special  && 
+          data.type !== SearchType.IncomeAdjustment  && 
           data.type !== SearchType.Roles && 
           data.type !== SearchType.OperationalExpenses &&
           data.type !== SearchType.MaintenanceAndRepairExpenses &&
           data.type !== SearchType.DecorationExpenses &&
           data.type !== SearchType.EquipmentAndTechnologyExpenses &&
           data.type !== SearchType.SuppliesExpenses &&
-          data.type !== SearchType.ActivitiesAndEventsExpenses || 
+          data.type !== SearchType.ActivitiesAndEventsExpenses &&
+          data.type !== SearchType.ExpensesAdjustment || 
           (
             data.subType === SearchSubType.OfferingByZone ||
             data.subType === SearchSubType.OfferingByDateZone ||

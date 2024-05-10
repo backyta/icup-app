@@ -267,15 +267,18 @@ export function DataTableSearchByTerm<TData, TValue>({
               type === SearchType.GeneralVigil ||
               type === SearchType.SundaySchool ||
               type === SearchType.YouthWorship ||
+              type === SearchType.UnitedWorship ||
               type === SearchType.Activities ||
               type === SearchType.ChurchGround ||
               type === SearchType.Special ||
+              type === SearchType.IncomeAdjustment ||
               type === SearchType.OperationalExpenses ||
               type === SearchType.MaintenanceAndRepairExpenses ||
               type === SearchType.DecorationExpenses ||
               type === SearchType.EquipmentAndTechnologyExpenses ||
               type === SearchType.SuppliesExpenses ||
-              type === SearchType.ActivitiesAndEventsExpenses) && (
+              type === SearchType.ActivitiesAndEventsExpenses ||
+              type === SearchType.ExpensesAdjustment) && (
               <FormField
                 control={form.control}
                 name='subType'
@@ -286,11 +289,12 @@ export function DataTableSearchByTerm<TData, TValue>({
                         Sub-tipo{' '}
                         {(pathname === '/offerings/expenses/search-by-term-offerings-expenses' ||
                           pathname === '/offerings/expenses/update-offering-expenses' ||
-                          pathname === '/offerings/expenses/delete-offering-expenses') && (
-                          <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[8.3px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
-                            Opcional
-                          </span>
-                        )}
+                          pathname === '/offerings/expenses/delete-offering-expenses') &&
+                          type !== SearchType.ExpensesAdjustment && (
+                            <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[8.3px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
+                              Opcional
+                            </span>
+                          )}
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
                         ¿Qué sub tipo de búsqueda deseas hacer?
@@ -365,6 +369,9 @@ export function DataTableSearchByTerm<TData, TValue>({
               type !== SearchType.GeneralVigil &&
               type !== SearchType.SundaySchool &&
               type !== SearchType.YouthWorship &&
+              type !== SearchType.UnitedWorship &&
+              type !== SearchType.IncomeAdjustment &&
+              type !== SearchType.ExpensesAdjustment &&
               type !== SearchType.Activities &&
               type !== SearchType.ChurchGround &&
               type !== SearchType.Special &&
@@ -1079,7 +1086,8 @@ export function DataTableSearchByTerm<TData, TValue>({
                 dataForm?.type === SearchType.YouthWorship ||
                 dataForm?.type === SearchType.Activities ||
                 dataForm?.type === SearchType.ChurchGround ||
-                dataForm?.type === SearchType.Special) && (
+                dataForm?.type === SearchType.Special ||
+                dataForm?.type === SearchType.IncomeAdjustment) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {' '}
                   -{' '}
@@ -1226,7 +1234,8 @@ export function DataTableSearchByTerm<TData, TValue>({
                 dataForm?.type === SearchType.DecorationExpenses ||
                 dataForm?.type === SearchType.EquipmentAndTechnologyExpenses ||
                 dataForm?.type === SearchType.SuppliesExpenses ||
-                dataForm?.type === SearchType.ActivitiesAndEventsExpenses) && (
+                dataForm?.type === SearchType.ActivitiesAndEventsExpenses ||
+                dataForm?.type === SearchType.ExpensesAdjustment) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {' '}
                   -{' '}
