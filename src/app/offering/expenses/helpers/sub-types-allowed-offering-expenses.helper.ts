@@ -6,7 +6,6 @@ import { SubTypesOfferingExpenses } from '@/app/offering/expenses/enums';
   export const SubtypesOperatingExpensesAllowed = [ 
     SubTypesOfferingExpenses.VenueRental,
     SubTypesOfferingExpenses.PublicServices,
-    SubTypesOfferingExpenses.AdvertisingAndEventPromotion,
     SubTypesOfferingExpenses.TravelAndTransportation,
     SubTypesOfferingExpenses.SecurityAndSurveillance,
     SubTypesOfferingExpenses.OtherAdministrativeExpenses,
@@ -64,6 +63,7 @@ import { SubTypesOfferingExpenses } from '@/app/offering/expenses/enums';
   
   //* Activities and Events Expenses
   export const SubtypesActivitiesAndEventsExpensesAllowed = [ 
+    SubTypesOfferingExpenses.AdvertisingAndEventPromotion,
     SubTypesOfferingExpenses.SpecialGuestFees,
     SubTypesOfferingExpenses.ExternalVenueRental,
     SubTypesOfferingExpenses.DecorationsAndAmbiance,

@@ -1,4 +1,13 @@
-import { OfferingExpensesProportionCards } from '@/app/metrics/components/graphics-offering-expenses';
+import {
+  OfferingExpensesAnalysisCardByOperativeExpenses,
+  OfferingExpensesProportionCards,
+  OfferingExpensesAnalysisCardByMaintenanceAndRepairExpenses,
+  OfferingExpensesAnalysisCardByDecorationExpenses,
+  OfferingExpensesAnalysisCardByEquipmentAndTechnologyExpenses,
+  OfferingExpensesAnalysisCardBySuppliesExpenses,
+  OfferingExpensesAnalysisCardByActivitiesAndEventsExpenses,
+  OfferingIncomeAnalysisCardByExpensesAdjustment,
+} from '@/app/metrics/components/graphics-offering-expenses';
 
 export const MetricsOfferingExpenses = (): JSX.Element => {
   return (
@@ -15,7 +24,15 @@ export const MetricsOfferingExpenses = (): JSX.Element => {
       <OfferingExpensesProportionCards />
 
       {/* Gráficos independientes */}
-      <div className='mt-10 px-2 md:px-6 xl:pb-14 flex flex-col xl:grid xl:grid-cols-2 gap-10 h-[200rem] lg:h-[222rem] xl:h-auto'></div>
+      <div className='mt-10 px-2 md:px-6 xl:pb-14 flex flex-col xl:grid xl:grid-cols-2 gap-10 h-[200rem] lg:h-[222rem] xl:h-auto'>
+        <OfferingExpensesAnalysisCardByOperativeExpenses />
+        <OfferingExpensesAnalysisCardByMaintenanceAndRepairExpenses />
+        <OfferingExpensesAnalysisCardByDecorationExpenses />
+        <OfferingExpensesAnalysisCardByEquipmentAndTechnologyExpenses />
+        <OfferingExpensesAnalysisCardBySuppliesExpenses />
+        <OfferingExpensesAnalysisCardByActivitiesAndEventsExpenses />
+        <OfferingIncomeAnalysisCardByExpensesAdjustment />
+      </div>
     </div>
   );
 };

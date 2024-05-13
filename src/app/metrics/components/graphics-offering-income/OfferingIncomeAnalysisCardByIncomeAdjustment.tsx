@@ -42,141 +42,95 @@ import {
 const dataJanuary = [
   {
     'date-offering': '07/01/24',
-    Dia: 65.9,
-    Tarde: 85.2,
-    supervisor: 'Rolando Jimenez',
+    Cantidad: 45.9,
   },
   {
-    'date-offering': '14/01/24',
-    Dia: 76.5,
-    Tarde: 42.8,
-    supervisor: 'Maria Prado',
+    'date-offering': '12/01/24',
+    Cantidad: 50.8,
   },
   {
-    'date-offering': '21/01/24',
-    Dia: 93.2,
-    Tarde: 61.0,
-    supervisor: 'Marleny Torres',
+    'date-offering': '20/01/24',
+    Cantidad: 55,
   },
   {
-    'date-offering': '28/01/24',
-    Dia: 62.1,
-    Tarde: 89.7,
-    supervisor: 'Pamela Rojas',
+    'date-offering': '27/01/24',
+    Cantidad: 42.3,
   },
 ];
 
 const dataFebruary = [
   {
     'date-offering': '04/02/24',
-    Dia: 51.3,
-    Tarde: 60,
-    supervisor: 'Celeste Majail',
+    Cantidad: 72.3,
   },
   {
-    'date-offering': '11/02/24',
-    Dia: 79.6,
-    Tarde: 46.8,
-    supervisor: 'Jhon Porras',
+    'date-offering': '14/02/24',
+    Cantidad: 58.7,
   },
   {
-    'date-offering': '18/02/24',
-    Dia: 58.4,
-    Tarde: 88.1,
-    supervisor: 'Jeremy Terrones',
+    'date-offering': '22/02/24',
+    Cantidad: 81.5,
   },
   {
-    'date-offering': '25/02/24',
-    Dia: 67.2,
-    Tarde: 81.9,
-    supervisor: 'Pablo Conde',
+    'date-offering': '29/02/24',
+    Cantidad: 69.2,
   },
 ];
 
 const dataMarch = [
   {
-    'date-offering': '03/03/24',
-    Dia: 79.2,
-    Tarde: 88.3,
-    supervisor: 'Luisa Julian',
+    'date-offering': '05/03/24',
+    Cantidad: 67.8,
   },
   {
-    'date-offering': '10/03/24',
-    Dia: 85.5,
-    Tarde: 53.7,
-    supervisor: 'Nery Calles',
+    'date-offering': '15/03/24',
+    Cantidad: 74.6,
   },
   {
-    'date-offering': '17/03/24',
-    Dia: 73.1,
-    Tarde: 91.9,
-    supervisor: 'Felix Fiestas',
+    'date-offering': '23/03/24',
+    Cantidad: 59.4,
   },
   {
-    'date-offering': '24/03/24',
-    Dia: 62.8,
-    Tarde: 88.6,
-    supervisor: 'Brian Martinez',
-  },
-  {
-    'date-offering': '31/03/24',
-    Dia: 52.8,
-    Tarde: 66.2,
-    supervisor: 'Brian Martinez',
+    'date-offering': '30/03/24',
+    Cantidad: 63.1,
   },
 ];
 
 const dataApril = [
   {
     'date-offering': '07/04/24',
-    Dia: 70.3,
-    Tarde: 82.1,
-    supervisor: 'María González',
+    Cantidad: 82.4,
   },
   {
-    'date-offering': '14/04/24',
-    Dia: 78.9,
-    Tarde: 67.5,
-    supervisor: 'Juan Ramirez',
+    'date-offering': '16/04/24',
+    Cantidad: 68.5,
   },
   {
-    'date-offering': '21/04/24',
-    Dia: 65.2,
-    Tarde: 75.8,
-    supervisor: 'Ana López',
+    'date-offering': '24/04/24',
+    Cantidad: 75.9,
   },
   {
-    'date-offering': '28/04/24',
-    Dia: 83.4,
-    Tarde: 72.6,
-    supervisor: 'Carlos Sánchez',
+    'date-offering': '30/04/24',
+    Cantidad: 79.3,
   },
 ];
 
 const dataMay = [
   {
-    'date-offering': '05/05/24',
-    Dia: 75.6,
-    Tarde: 79.8,
-    supervisor: 'Laura Rodríguez',
+    'date-offering': '03/05/24',
+    Cantidad: 62.7,
   },
   {
     'date-offering': '12/05/24',
-    Dia: 68.7,
-    Tarde: 88.4,
-    supervisor: 'Pedro García',
+    Cantidad: 73.2,
   },
   {
-    'date-offering': '19/05/24',
-    Dia: 82.3,
-    Tarde: 71.2,
-    supervisor: 'Elena Fernández',
+    'date-offering': '20/05/24',
+    Cantidad: 68.9,
   },
   {
-    'date-offering': '26/05/24',
-    Dia: 76.9,
-    Tarde: 85.3,
-    supervisor: 'Andrés Pérez',
+    'date-offering': '29/05/24',
+    Cantidad: 77.4,
   },
 ];
 
@@ -186,9 +140,8 @@ const renderTooltipContent = (o: any): JSX.Element => {
 
   return (
     <div className='bg-white p-2 text-black font-normal'>
-      <p className='total'>{`${label}`}</p>
-      <p className='zone'>{`Sup: ${payload[1]?.payload?.supervisor}`}</p>
-      <ul className='list'>
+      <p className=''>{`${label}`}</p>
+      <ul>
         {payload.map((entry: any, index: any) =>
           entry.dataKey === 'Porcentaje' ? (
             <li key={`item-${index}`} style={{ color: entry.color }}>
@@ -196,7 +149,7 @@ const renderTooltipContent = (o: any): JSX.Element => {
             </li>
           ) : (
             <li key={`item-${index}`} style={{ color: entry.color }}>
-              {`${entry.name}: ${entry.value}`}
+              {`${entry.name}: ${entry.value} soles`}
             </li>
           )
         )}
@@ -205,7 +158,7 @@ const renderTooltipContent = (o: any): JSX.Element => {
   );
 };
 
-export const OfferingIncomeAnalysisSundayWorship = (): JSX.Element => {
+export const OfferingIncomeAnalysisCardByIncomeAdjustment = (): JSX.Element => {
   //* States
   const [isInputSearchMonthOpen, setIsInputSearchMonthOpen] = useState<boolean>(false);
   const [isInputSearchYearOpen, setIsInputSearchYearOpen] = useState<boolean>(false);
@@ -237,38 +190,38 @@ export const OfferingIncomeAnalysisSundayWorship = (): JSX.Element => {
 
   //* Effects
   useEffect(() => {
-    if (month === 'february') {
+    if (year === '2024' && month === 'february') {
       setDataResult(dataFebruary);
     }
-    if (month === 'march') {
+    if (year === '2024' && month === 'march') {
       setDataResult(dataMarch);
     }
-    if (month === 'april') {
+    if (year === '2024' && month === 'april') {
       setDataResult(dataApril);
     }
-    if (month === 'may') {
+    if (year === '2024' && month === 'may') {
       setDataResult(dataMay);
     }
-    if (month === 'january') {
+    if (year === '2024' && month === 'january') {
       setDataResult(dataJanuary);
     }
     if (!month) {
       setDataResult(dataJanuary);
     }
-  }, [month]);
+  }, [month, year]);
 
-  const totalDay = dataResult.reduce((total, item) => total + item.Dia, 0);
-  const totalAfternoon = dataResult.reduce((total, item) => total + item.Tarde, 0);
+  const totalAmount = dataResult.reduce((total, item) => total + item.Cantidad, 0);
+
   const newData = dataResult.map((item) => ({
     ...item,
-    Porcentaje: (((item.Dia + item.Tarde) / (totalDay + totalAfternoon)) * 100).toFixed(1),
+    Porcentaje: ((item.Cantidad / totalAmount) * 100).toFixed(1),
   }));
 
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-2 col-end-3 h-[22rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <div className='flex flex-col sm:flex-row items-center justify-between p-3 md:p-3 lg:p-3 xl:p-2 xl:px-3 2xl:p-4'>
         <h3 className='font-bold mb-2 sm:mb-0 text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.50em] 2xl:text-3xl inline-block'>
-          Ofrendas Dominicales
+          Ajustes por Ingresos
         </h3>
         <Form {...form}>
           <form className='flex'>
@@ -300,7 +253,7 @@ export const OfferingIncomeAnalysisSundayWorship = (): JSX.Element => {
                             {field.value
                               ? months.find((month) => month.value === field.value)?.label
                               : 'Elige un mes'}
-                            <CaretSortIcon className='ml-2 h-4 w-4 shrink-0' />
+                            <CaretSortIcon className='h-4 w-4 shrink-0' />
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
@@ -364,13 +317,13 @@ export const OfferingIncomeAnalysisSundayWorship = (): JSX.Element => {
                             role='combobox'
                             className={cn(
                               'justify-between w-full text-center px-2',
-                              !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-4'
+                              !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-2'
                             )}
                           >
                             {field.value
                               ? years.find((year) => year.value === field.value)?.label
-                              : 'Elige un año'}
-                            <CaretSortIcon className='ml-2 h-4 w-4 shrink-0' />
+                              : 'Año'}
+                            <CaretSortIcon className='h-4 w-4 shrink-0' />
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
@@ -438,9 +391,8 @@ export const OfferingIncomeAnalysisSundayWorship = (): JSX.Element => {
           <YAxis />
           <Tooltip content={renderTooltipContent} />
           <Legend />
-          <Bar dataKey='Dia' fill='#2390d4' />
-          <Bar dataKey='Tarde' fill='#1acd81' />
-          <Line type='linear' dataKey='Porcentaje' stroke='#ff7300' />
+          <Bar dataKey='Cantidad' fill='#1ed909' />
+          <Line type='linear' dataKey='Porcentaje' stroke='#E46F21' />
         </ComposedChart>
       </ResponsiveContainer>
     </Card>

@@ -1,6 +1,15 @@
 import {
-  OfferingIncomeAnalysisSundayWorship,
+  OfferingIncomeAnalysisCardBySundayWorship,
   OfferingIncomeProportionCards,
+  OfferingIncomeAnalysisCardByFamilyHouse,
+  OfferingIncomeAnalysisCardBySundaySchool,
+  OfferingIncomeAnalysisCardByFastingAndVigil,
+  OfferingIncomeAnalysisCardByYoungWorship,
+  OfferingIncomeAnalysisCardBySpecialOffering,
+  OfferingIncomeAnalysisCardByGroundChurch,
+  OfferingIncomeAnalysisCardByUnitedWorship,
+  OfferingIncomeAnalysisCardByActivities,
+  OfferingIncomeAnalysisCardByIncomeAdjustment,
 } from '@/app/metrics/components/graphics-offering-income';
 
 export const MetricsOfferingIncome = (): JSX.Element => {
@@ -19,7 +28,16 @@ export const MetricsOfferingIncome = (): JSX.Element => {
 
       {/* Gráficos independientes */}
       <div className='mt-10 px-2 md:px-6 xl:pb-14 flex flex-col xl:grid xl:grid-cols-2 gap-10 h-[200rem] lg:h-[222rem] xl:h-auto'>
-        <OfferingIncomeAnalysisSundayWorship />
+        <OfferingIncomeAnalysisCardBySundayWorship />
+        <OfferingIncomeAnalysisCardByFamilyHouse />
+        <OfferingIncomeAnalysisCardBySundaySchool />
+        <OfferingIncomeAnalysisCardByFastingAndVigil />
+        <OfferingIncomeAnalysisCardByYoungWorship />
+        <OfferingIncomeAnalysisCardBySpecialOffering />
+        <OfferingIncomeAnalysisCardByGroundChurch />
+        <OfferingIncomeAnalysisCardByUnitedWorship />
+        <OfferingIncomeAnalysisCardByActivities />
+        <OfferingIncomeAnalysisCardByIncomeAdjustment />
       </div>
     </div>
   );

@@ -2,7 +2,6 @@ export enum SubTypesOfferingExpenses {
   //* Operative Expenses
   VenueRental = "venue_rental",
   PublicServices = "public_services",
-  AdvertisingAndEventPromotion = "advertising_and_event_promotion",
   TravelAndTransportation = "travel_and_transportation",
   SecurityAndSurveillance = "security_and_surveillance",
   OtherAdministrativeExpenses = "other_administrative_expenses",
@@ -50,6 +49,7 @@ export enum SubTypesOfferingExpenses {
   SundaySchoolMaterials = "sunday_school_educational_materials",
 
   //* Activities and Events Expenses
+  AdvertisingAndEventPromotion = "advertising_and_event_promotion",
   SpecialGuestFees = "fees_special_guests",
   ExternalVenueRental = "rental_external_venues",
   DecorationsAndAmbiance = "decorations_and_ambiance",
@@ -69,7 +69,6 @@ export const SubTypesOfferingExpensesNames: Record<SubTypesOfferingExpenses, str
   //* Operative Expenses
   venue_rental : 'Alquiler de local',
   public_services : 'Servicios públicos',
-  advertising_and_event_promotion : 'Publicidad y promoción de eventos',
   travel_and_transportation : 'Viaje y transporte',
   security_and_surveillance : 'Seguridad y vigilancia',
   other_administrative_expenses : 'Otros gastos administrativos',
@@ -117,6 +116,7 @@ export const SubTypesOfferingExpensesNames: Record<SubTypesOfferingExpenses, str
   sunday_school_educational_materials : 'Material educativo Esc. Dominical',
 
   //* Activities and Events Expenses
+  advertising_and_event_promotion : 'Publicidad y promoción de eventos',
   fees_special_guests : 'Honorarios para invitados especiales',
   fees_support_staff : 'Honorarios de personal de apoyo',
   rental_external_venues : 'Alquiler de locales externos',

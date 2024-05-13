@@ -179,7 +179,6 @@ import { SearchSubType } from '@/shared/enums';
   export const SearchSubTypesOfferingExpensesOperationalAllowed = [ 
     SearchSubType.VenueRental,
     SearchSubType.PublicServices,
-    SearchSubType.AdvertisingAndEventPromotion,
     SearchSubType.TravelAndTransportation,
     SearchSubType.SecurityAndSurveillance,
     SearchSubType.OtherAdministrativeExpenses,
@@ -237,6 +236,7 @@ import { SearchSubType } from '@/shared/enums';
     
   //* ActivitiesAndEventsExpenses
   export const SearchSubTypesOfferingExpensesActivitiesAndEventsAllowed = [ 
+    SearchSubType.AdvertisingAndEventPromotion,
     SearchSubType.SpecialGuestFees,
     SearchSubType.ExternalVenueRental,
     SearchSubType.DecorationsAndAmbiance,
