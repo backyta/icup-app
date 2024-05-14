@@ -25,8 +25,6 @@ import {
 
 import { chartFormValidationSchema } from '@/app/metrics/validations';
 
-import { zones } from '@/app/family-house/data';
-
 import { months, years } from '@/shared/data';
 
 import { Card } from '@/shared/components/ui/card';
@@ -41,183 +39,158 @@ import {
   CommandItem,
 } from '@/shared/components/ui/command';
 
-const dataZoneAJanuary = [
+const dataJanuary = [
   {
-    'code-house': 'A-1',
-    Semana1: 55.5,
-    Semana2: 28.3,
-    Semana3: 15.3,
-    Semana4: 46.3,
-    preacher: 'Felix Torres',
+    type: 'Gast. Operación',
+    Cantidad: 1050.2,
   },
   {
-    'code-house': 'A-2',
-    Semana1: 71.8,
-    Semana2: 42.6,
-    Semana3: 19.5,
-    Semana4: 63.2,
-    preacher: 'Johnathan Porras',
+    type: 'Gast. Reparación/Mant.',
+    Cantidad: 350.4,
   },
   {
-    'code-house': 'A-3',
-    Semana1: 36.7,
-    Semana2: 88.4,
-    Semana3: 55.2,
-    Semana4: 27.9,
-    preacher: 'Marcelo Díaz',
+    type: 'Gast. Decoración',
+    Cantidad: 125.2,
   },
   {
-    'code-house': 'A-4',
-    Semana1: 49.3,
-    Semana2: 17.8,
-    Semana3: 81.6,
-    Semana4: 39.7,
-    preacher: 'Iris Fiestas',
+    type: 'Gast. Equipamiento/Tecn.',
+    Cantidad: 800.3,
   },
   {
-    'code-house': 'A-5',
-    Semana1: 93.2,
-    Semana2: 62.1,
-    Semana3: 74.8,
-    Semana4: 48.9,
-    preacher: 'Sofia Castillo',
+    type: 'Gast. Suministros',
+    Cantidad: 280.2,
   },
   {
-    'code-house': 'A-6',
-    Semana1: 15.9,
-    Semana2: 73.4,
-    Semana3: 28.6,
-    Semana4: 82.3,
-    preacher: 'Margarita Cruz',
+    type: 'Gast. Eventos/Activ.',
+    Cantidad: 370.6,
+  },
+  {
+    type: 'Ajus. Salida',
+    Cantidad: 115.4,
   },
 ];
 
-const dataZoneBJanuary = [
+const dataFebruary = [
   {
-    'code-house': 'B-1',
-    Semana1: 58.1,
-    Semana2: 35.2,
-    Semana3: 67.9,
-    Semana4: 16.4,
-    preacher: 'Margarita Cruz',
+    type: 'Gast. Operación',
+    Cantidad: 1100.5,
   },
   {
-    'code-house': 'B-2',
-    Semana1: 24.6,
-    Semana2: 46.8,
-    Semana3: 39.2,
-    Semana4: 55.7,
-    preacher: 'Margarita Cruz',
+    type: 'Gast. Reparación/Mant.',
+    Cantidad: 360.7,
   },
   {
-    'code-house': 'B-3',
-    Semana1: 87.3,
-    Semana2: 59.7,
-    Semana3: 45.1,
-    Semana4: 71.6,
-    preacher: 'Margarita Cruz',
+    type: 'Gast. Decoración',
+    Cantidad: 130.3,
   },
   {
-    'code-house': 'B-4',
-    Semana1: 41.5,
-    Semana2: 81.9,
-    Semana3: 53.7,
-    Semana4: 38.2,
-    preacher: 'Margarita Cruz',
+    type: 'Gast. Equipamiento/Tecn.',
+    Cantidad: 820.4,
   },
   {
-    'code-house': 'B-5',
-    Semana1: 76.2,
-    Semana2: 28.5,
-    Semana3: 62.4,
-    Semana4: 49.8,
-    preacher: 'Margarita Cruz',
+    type: 'Gast. Suministros',
+    Cantidad: 290.5,
+  },
+  {
+    type: 'Gast. Eventos/Activ.',
+    Cantidad: 385.1,
+  },
+  {
+    type: 'Ajus. Salida',
+    Cantidad: 120.6,
   },
 ];
 
-const dataZoneCJanuary = [
+const dataMarch = [
   {
-    'code-house': 'C-1',
-    Semana1: 52.8,
-    Semana2: 37.1,
-    Semana3: 14.6,
-    Semana4: 64.3,
-    preacher: 'Margarita Cruz',
+    type: 'Gast. Operación',
+    Cantidad: 1150.3,
   },
   {
-    'code-house': 'C-2',
-    Semana1: 67.4,
-    Semana2: 49.2,
-    Semana3: 76.8,
-    Semana4: 23.5,
-    preacher: 'Margarita Cruz',
+    type: 'Gast. Reparación/Mant.',
+    Cantidad: 370.9,
   },
   {
-    'code-house': 'C-3',
-    Semana1: 34.9,
-    Semana2: 56.3,
-    Semana3: 82.1,
-    Semana4: 42.7,
-    preacher: 'Margarita Cruz',
+    type: 'Gast. Decoración',
+    Cantidad: 135.1,
   },
   {
-    'code-house': 'C-4',
-    Semana1: 89.5,
-    Semana2: 64.7,
-    Semana3: 37.9,
-    Semana4: 58.2,
-    preacher: 'Margarita Cruz',
+    type: 'Gast. Equipamiento/Tecn.',
+    Cantidad: 840.2,
+  },
+  {
+    type: 'Gast. Suministros',
+    Cantidad: 300.4,
+  },
+  {
+    type: 'Gast. Eventos/Activ.',
+    Cantidad: 400.2,
+  },
+  {
+    type: 'Ajus. Salida',
+    Cantidad: 125.3,
   },
 ];
 
-const dataZoneDJanuary = [
+const dataApril = [
   {
-    'code-house': 'D-1',
-    Semana1: 45.2,
-    Semana2: 73.6,
-    Semana3: 51.4,
-    Semana4: 19.8,
-    preacher: 'Margarita Cruz',
+    type: 'Gast. Operación',
+    Cantidad: 1200.7,
   },
   {
-    'code-house': 'D-2',
-    Semana1: 55.5,
-    Semana2: 28.3,
-    Semana3: 15.3,
-    Semana4: 46.3,
-    preacher: 'Margarita Cruz',
+    type: 'Gast. Reparación/Mant.',
+    Cantidad: 380.6,
   },
   {
-    'code-house': 'D-3',
-    Semana1: 38.2,
-    Semana2: 56.4,
-    Semana3: 44.7,
-    Semana4: 73.1,
-    preacher: 'Margarita Cruz',
+    type: 'Gast. Decoración',
+    Cantidad: 140.2,
   },
   {
-    'code-house': 'D-4',
-    Semana1: 76.5,
-    Semana2: 42.9,
-    Semana3: 89.3,
-    Semana4: 31.7,
-    preacher: 'Margarita Cruz',
+    type: 'Gast. Equipamiento/Tecn.',
+    Cantidad: 860.5,
   },
   {
-    'code-house': 'D-5',
-    Semana1: 57.3,
-    Semana2: 38.6,
-    Semana3: 75.2,
-    Semana4: 21.4,
-    preacher: 'Margarita Cruz',
+    type: 'Gast. Suministros',
+    Cantidad: 310.8,
   },
   {
-    'code-house': 'D-6',
-    Semana1: 82.1,
-    Semana2: 29.8,
-    Semana3: 46.5,
-    Semana4: 63.7,
-    preacher: 'Margarita Cruz',
+    type: 'Gast. Eventos/Activ.',
+    Cantidad: 415.4,
+  },
+  {
+    type: 'Ajus. Salida',
+    Cantidad: 130.7,
+  },
+];
+
+const dataMay = [
+  {
+    type: 'Gast. Operación',
+    Cantidad: 1250.9,
+  },
+  {
+    type: 'Gast. Reparación/Mant.',
+    Cantidad: 390.8,
+  },
+  {
+    type: 'Gast. Decoración',
+    Cantidad: 145.7,
+  },
+  {
+    type: 'Gast. Equipamiento/Tecn.',
+    Cantidad: 880.1,
+  },
+  {
+    type: 'Gast. Suministros',
+    Cantidad: 320.3,
+  },
+  {
+    type: 'Gast. Eventos/Activ.',
+    Cantidad: 430.6,
+  },
+  {
+    type: 'Ajus. Salida',
+    Cantidad: 135.9,
   },
 ];
 
@@ -228,12 +201,7 @@ const renderTooltipContent = (o: any): JSX.Element => {
   return (
     <div className='bg-white p-2 text-black font-normal'>
       <p className=''>{`${label}`}</p>
-      <p className=''>{`Pred: ${payload[1]?.payload?.preacher}`}</p>
-      <p className='text-slate-500'>{`Sem1: ${payload[1]?.payload?.Semana1} soles`}</p>
-      <p className='text-slate-500'>{`Sem2: ${payload[1]?.payload?.Semana2} soles`}</p>
-      <p className='text-slate-500'>{`Sem3: ${payload[1]?.payload?.Semana3} soles`}</p>
-      <p className='text-slate-500'>{`Sem4: ${payload[1]?.payload?.Semana4} soles`}</p>
-      <ul className='list'>
+      <ul>
         {payload.map((entry: any, index: any) =>
           entry.dataKey === 'Porcentaje' ? (
             <li key={`item-${index}`} style={{ color: entry.color }}>
@@ -241,7 +209,7 @@ const renderTooltipContent = (o: any): JSX.Element => {
             </li>
           ) : (
             <li key={`item-${index}`} style={{ color: entry.color }}>
-              {`${entry.name}: ${entry.value}`}
+              {`${entry.name}: ${entry.value} soles`}
             </li>
           )
         )}
@@ -250,12 +218,10 @@ const renderTooltipContent = (o: any): JSX.Element => {
   );
 };
 
-export const OfferingIncomeAnalysisCardByFamilyHouse = (): JSX.Element => {
+export const ComparativeOfferingExpensesAnalysisCardByMonth = (): JSX.Element => {
   //* States
   const [isInputSearchMonthOpen, setIsInputSearchMonthOpen] = useState<boolean>(false);
   const [isInputSearchYearOpen, setIsInputSearchYearOpen] = useState<boolean>(false);
-  const [isInputSearchZoneOpen, setIsInputSearchZoneOpen] = useState<boolean>(false);
-
   const [dataResult, setDataResult] = useState<any[]>([]);
 
   // * Media Queries Library hooks
@@ -270,7 +236,6 @@ export const OfferingIncomeAnalysisCardByFamilyHouse = (): JSX.Element => {
     defaultValues: {
       month: 'january',
       year: '2024',
-      zone: 'zone-1',
     },
   });
 
@@ -280,118 +245,46 @@ export const OfferingIncomeAnalysisCardByFamilyHouse = (): JSX.Element => {
   };
 
   //* Watchers
-  const zone = form.watch('zone');
   const month = form.watch('month');
   const year = form.watch('year');
 
-  //* Effects (solo hacer la request y setear la data que viene)
+  //* Effects
   useEffect(() => {
-    if (zone === 'zone-2' && month === 'january') {
-      setDataResult(dataZoneBJanuary);
+    if (year === '2024' && month === 'february') {
+      setDataResult(dataFebruary);
     }
-    if (zone === 'zone-3' && month === 'january') {
-      setDataResult(dataZoneCJanuary);
+    if (year === '2024' && month === 'march') {
+      setDataResult(dataMarch);
     }
-    if (zone === 'zone-4' && month === 'january') {
-      setDataResult(dataZoneDJanuary);
+    if (year === '2024' && month === 'april') {
+      setDataResult(dataApril);
     }
-    if (zone === 'zone-1' && month === 'january') {
-      setDataResult(dataZoneAJanuary);
+    if (year === '2024' && month === 'may') {
+      setDataResult(dataMay);
     }
-    if (zone === 'zone-1' && month === 'january') {
-      setDataResult(dataZoneAJanuary);
+    if (year === '2024' && month === 'january') {
+      setDataResult(dataJanuary);
     }
     if (!month) {
-      setDataResult(dataZoneAJanuary);
+      setDataResult(dataJanuary);
     }
-  }, [month, zone, year]);
+  }, [month, year]);
 
-  const totalFirstWeek = dataResult.reduce((total, item) => total + item.Semana1, 0);
-  const totalSecondWeek = dataResult.reduce((total, item) => total + item.Semana2, 0);
-  const totalThirdWeek = dataResult.reduce((total, item) => total + item.Semana3, 0);
-  const totalFourthWeek = dataResult.reduce((total, item) => total + item.Semana4, 0);
-
-  const allWeeks = totalFirstWeek + totalSecondWeek + totalThirdWeek + totalFourthWeek;
+  const totalAmount = dataResult.reduce((total, item) => total + item.Cantidad, 0);
 
   const newData = dataResult.map((item) => ({
     ...item,
-    Total: (item.Semana1 + item.Semana2 + item.Semana3 + item.Semana4).toFixed(1),
-    Porcentaje: (
-      ((item.Semana1 + item.Semana2 + item.Semana3 + item.Semana4) / allWeeks) *
-      100
-    ).toFixed(1),
+    Porcentaje: ((item.Cantidad / totalAmount) * 100).toFixed(1),
   }));
 
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-2 col-end-3 h-[22rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-3 h-[22rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <div className='flex flex-col sm:flex-row items-center justify-between p-3 md:p-3 lg:p-3 xl:p-2 xl:px-3 2xl:p-4'>
         <h3 className='font-bold mb-2 sm:mb-0 text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.50em] 2xl:text-3xl inline-block'>
-          Ofrendas Casas Familiares
+          Comparativa Gastos (mes)
         </h3>
         <Form {...form}>
           <form className='flex'>
-            <FormField
-              control={form.control}
-              name='zone'
-              render={({ field }) => {
-                return (
-                  <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
-                    <Popover open={isInputSearchZoneOpen} onOpenChange={setIsInputSearchZoneOpen}>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            // disabled={all}
-                            variant='outline'
-                            role='combobox'
-                            className={cn(
-                              'justify-between w-full text-center px-2',
-                              !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-2'
-                            )}
-                          >
-                            {field.value
-                              ? zones.find((zone) => zone.value === field.value)?.label
-                              : 'Elige una zona'}
-                            <CaretSortIcon className='h-4 w-4 shrink-0' />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent align='center' className='w-auto px-4 py-2'>
-                        <Command>
-                          <CommandInput
-                            placeholder='Busque una zona...'
-                            className='h-9 text-[14px]'
-                          />
-                          <CommandEmpty>Zona no encontrada.</CommandEmpty>
-                          <CommandGroup className='max-h-[200px] h-auto'>
-                            {zones.map((zone) => (
-                              <CommandItem
-                                className='text-[14px]'
-                                value={zone.label}
-                                key={zone.value}
-                                onSelect={() => {
-                                  form.setValue('zone', zone.value);
-                                  zone && month && year && form.handleSubmit(handleSubmit)();
-                                  setIsInputSearchZoneOpen(false);
-                                }}
-                              >
-                                {zone.label}
-                                <CheckIcon
-                                  className={cn(
-                                    'ml-auto h-4 w-4',
-                                    zone.value === field.value ? 'opacity-100' : 'opacity-0'
-                                  )}
-                                />
-                              </CommandItem>
-                            ))}
-                          </CommandGroup>
-                        </Command>
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
-                );
-              }}
-            />
             <FormField
               control={form.control}
               name='month'
@@ -414,12 +307,12 @@ export const OfferingIncomeAnalysisCardByFamilyHouse = (): JSX.Element => {
                             role='combobox'
                             className={cn(
                               'justify-between w-full text-center px-2',
-                              !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-2'
+                              !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-4'
                             )}
                           >
                             {field.value
                               ? months.find((month) => month.value === field.value)?.label
-                              : 'Mes'}
+                              : 'Elige un mes'}
                             <CaretSortIcon className='h-4 w-4 shrink-0' />
                           </Button>
                         </FormControl>
@@ -439,7 +332,7 @@ export const OfferingIncomeAnalysisCardByFamilyHouse = (): JSX.Element => {
                                 key={month.value}
                                 onSelect={() => {
                                   form.setValue('month', month.value);
-                                  zone && month && year && form.handleSubmit(handleSubmit)();
+                                  month && year && form.handleSubmit(handleSubmit)();
                                   setIsInputSearchMonthOpen(false);
                                 }}
                               >
@@ -509,7 +402,7 @@ export const OfferingIncomeAnalysisCardByFamilyHouse = (): JSX.Element => {
                                 key={year.value}
                                 onSelect={() => {
                                   form.setValue('year', year.value);
-                                  zone && month && year && form.handleSubmit(handleSubmit)();
+                                  month && year && form.handleSubmit(handleSubmit)();
                                   setIsInputSearchYearOpen(false);
                                 }}
                               >
@@ -554,12 +447,12 @@ export const OfferingIncomeAnalysisCardByFamilyHouse = (): JSX.Element => {
           margin={{ top: 5, right: 30, left: -10, bottom: 5 }}
         >
           <CartesianGrid strokeDasharray='3 3' />
-          <XAxis dataKey='code-house' />
+          <XAxis dataKey='type' />
           <YAxis />
           <Tooltip content={renderTooltipContent} />
           <Legend />
-          <Bar dataKey='Total' fill='#b950f2' />
-          <Line type='linear' dataKey='Porcentaje' stroke='#ff7300' />
+          <Bar dataKey='Cantidad' fill='#934bec' />
+          <Line type='linear' dataKey='Porcentaje' stroke='#E46F21' />
         </ComposedChart>
       </ResponsiveContainer>
     </Card>

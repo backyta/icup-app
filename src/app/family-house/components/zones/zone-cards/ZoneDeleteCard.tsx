@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { useEffect, useRef } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
@@ -36,7 +35,7 @@ export const ZoneDeleteCard = ({ isDisabled, formFamilyHouse }: Props): JSX.Elem
   };
 
   const handleContainerScroll = (): void => {
-    if (topRef.current) {
+    if (topRef.current !== null) {
       topRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };

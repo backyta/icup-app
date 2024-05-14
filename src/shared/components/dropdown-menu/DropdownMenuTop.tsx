@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-redeclare */
-
 import { FcExport } from 'react-icons/fc';
 
 import { SideMenuItem } from '@/shared/components';

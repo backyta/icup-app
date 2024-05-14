@@ -19,13 +19,19 @@ export const chartFormValidationSchema = z
       'Por favor elige un co-pastor.'}).optional(),
 
     district: z.string({required_error: 
-      'Por favor elige un co-pastor.'}).optional(),
+      'Por favor elige un distrito.'}).optional(),
 
     month: z.string({required_error: 
-      'Por favor elige un co-pastor.'}).optional(),
+      'Por favor elige un mes.'}).optional(),
 
     year: z.string({required_error: 
-      'Por favor elige un co-pastor.'}).optional(),
+      'Por favor elige un año.'}).optional(),
+
+    subType: z.string({required_error: 
+      'Por favor elige un sub-tipo.'}).optional(),
+
+    type: z.string({required_error: 
+      'Por favor elige un tipo.'}).optional(),
 
     all: z.boolean().optional(),
 

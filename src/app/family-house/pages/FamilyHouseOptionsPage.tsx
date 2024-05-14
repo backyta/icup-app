@@ -6,12 +6,6 @@ import { FcClearFilters, FcHome, FcSearch, FcSupport } from 'react-icons/fc';
 import { WhiteCard } from '@/shared/components';
 
 export const FamilyHouseOptionsPage = (): JSX.Element => {
-  // const totalBears = useBearStore((state) => state.totalBears);
-  // const firstName = usePersonStore((state) => state.firstName);
-  // const tasks = useTaskStore((state) => state.tasks);
-  // const userName = useAuthStore((state) => state.user?.fullName || 'No user');
-  // const taskCount = Object.keys(tasks).length;
-
   return (
     <>
       <h1 className='text-center pb-2 pt-1 md:pt-2 md:pb-2 font-sans text-2xl sm:text-3xl font-bold text-family-house-color text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>

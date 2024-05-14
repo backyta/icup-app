@@ -1,8 +1,10 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-
 import {  SearchType, SearchSelectionOptionNames, SearchSubType } from '@/shared/enums';
 
-export const validateSelectTermByTypeAndSubtype = (type: string, subType:string | undefined) => {
+interface DisabledSelectTermResult {
+  disabledSelectTerm: string[];
+}
+
+export const validateSelectTermByTypeAndSubtype = (type: string, subType:string | undefined): DisabledSelectTermResult | undefined => {
 
   //* Disabled Term Select
   if (type === SearchType.MonthBirth) {

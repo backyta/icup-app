@@ -262,3 +262,33 @@ export const years = [
   { label: '2025', value: '2025' },
   { label: '2026', value: '2026' },
 ] as const;
+
+
+export const subTypes = [
+  { label: 'Culto Dominical', value: 'sunday_worship' },
+  { label: 'Casa Familiar', value: 'family_house' },
+  { label: 'Ayuno General', value: 'general_fasting' },
+  { label: 'Vigilia General', value: 'general_vigil' },
+  { label: 'Ayuno Zonal', value: 'zonal_fasting' },
+  { label: 'Vigilia Zonal', value: 'zonal_vigil' },
+  { label: 'Escuela Dominical', value: 'sunday_school' },
+  { label: 'Culto Jóvenes', value: 'youth_worship' },
+  { label: 'Culto Unido', value: 'worship_united' },
+  { label: 'Actividades', value: 'activities' },
+  { label: 'Terreno Iglesia', value: 'church_ground' },
+  { label: 'Especial', value: 'special' },
+
+] as const;
+
+export const types = [
+  { label: 'Gast. Operación', value: 'operative_expenses' },
+  { label: 'Gast. Reparación/Mant.', value: 'maintenance_and_repair_expenses' },
+  { label: 'Gast. Decoración', value: 'decoration_expenses' },
+  { label: 'Gast. Equipamiento/Tecn.', value: 'equipment_and_technology_expenses' },
+  { label: 'Gast. Suministros', value: 'supplies_expenses' },
+  { label: 'Gast. Actividades/Eventos', value: 'activities_and_events_expenses' },
+  { label: 'Ajuste por Salida', value: 'expenses_adjustment' },
+] as const;
+
+
+

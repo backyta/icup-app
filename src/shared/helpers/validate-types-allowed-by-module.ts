@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
+
 
 import { SearchTypeNames, } from '@/shared/enums';
 import { 
@@ -20,8 +20,11 @@ import {
   SearchTypesOfferingExpensesModuleAllowedOnDeleteAndUpdatePage
 } from "@/shared/helpers";
 
+interface DisabledSearchTypesResult {
+  disabledSearchTypes: string[];
+}
 
-export const validateTypesAllowedByModule = (currentPath: string) => {
+export const validateTypesAllowedByModule = (currentPath: string): DisabledSearchTypesResult | undefined => {
   
   //* Disabled Types by module
   const disabledDiscipleModuleSearchTypes = Object.values(SearchTypeNames).filter(value => !SearchTypesDiscipleModuleAllowed.includes(value) ) 

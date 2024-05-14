@@ -1,19 +1,19 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
-import { GiHouse } from 'react-icons/gi';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card';
+import { GiCardExchange } from 'react-icons/gi';
 
 const COLORS_ACTIVE = ['#00C49F', '#808080'];
 const COLORS_INACTIVE = ['#808080', '#fd6c6c'];
 
-export const FamilyHouseProportionCards = (): JSX.Element => {
+export const ComparativeOfferingProportionCards = (): JSX.Element => {
   //* Consultar el total de inactivos y activos
-  const familyHousesActive = 20;
-  const familyHousesInactive = 5;
-  const total = familyHousesActive + familyHousesInactive;
+  const offeringIncome = 2045;
+  const offeringExpenses = 830;
+  const total = offeringIncome + offeringExpenses;
 
-  const dataMembers = [
-    { name: 'Activos', value: familyHousesActive },
-    { name: 'Inactivos', value: familyHousesInactive },
+  const dataTotalOffering = [
+    { name: 'Ingresos', value: offeringIncome },
+    { name: 'Salidas', value: offeringExpenses },
   ];
 
   return (
@@ -21,13 +21,13 @@ export const FamilyHouseProportionCards = (): JSX.Element => {
       <Card className='w-[270px] md:w-[300px] mx-auto xl:mx-0 cursor-default shadow-md dark:shadow-slate-700 dark:bg-slate-900 bg-slate-50'>
         <CardHeader className='py-4'>
           <div className='flex justify-center gap-4'>
-            <GiHouse className='text-[5rem] text-orange-500' />
+            <GiCardExchange className='text-[5rem] text-blue-500' />
             <div className='flex flex-col gap-2 items-top justify-center'>
               <CardTitle className='text-center text-[2.8rem] md:text-[3rem] lg:text-[3.2rem] xl:text-[3.5rem] font-extrabold leading-10'>
                 {total}
               </CardTitle>
               <CardDescription className='text-[14.5px] md:text-[15px] xl:text-[16px] font-bold text-center'>
-                Casas totales
+                Total Registros
               </CardDescription>
             </div>
           </div>
@@ -40,22 +40,19 @@ export const FamilyHouseProportionCards = (): JSX.Element => {
           <CardHeader className='py-4'>
             <div className='flex justify-center gap-4 h-[5rem] relative'>
               <span className='absolute -top-3 left-8 font-bold text-[14px] md:text-[15px] xl:text-[16px]'>
-                {((familyHousesActive / (familyHousesActive + familyHousesInactive)) * 100).toFixed(
-                  0
-                )}
-                %
+                {((offeringIncome / (offeringIncome + offeringExpenses)) * 100).toFixed(0)}%
               </span>
               <ResponsiveContainer width='50%' height='125%'>
                 <PieChart width={400} height={400}>
                   <Pie
-                    data={dataMembers}
+                    data={dataTotalOffering}
                     cx='50%'
                     cy='50%'
                     labelLine={false}
                     outerRadius={35}
                     dataKey='value'
                   >
-                    {dataMembers.map((entry, index) => (
+                    {dataTotalOffering.map((entry, index) => (
                       <Cell
                         key={`cell-${index}`}
                         fill={COLORS_ACTIVE[index % COLORS_ACTIVE.length]}
@@ -66,10 +63,10 @@ export const FamilyHouseProportionCards = (): JSX.Element => {
               </ResponsiveContainer>
               <div className='flex flex-col  items-center justify-center'>
                 <CardDescription className='text-[14.5px] md:text-[15px] xl:text-[16px] font-bold text-center'>
-                  Tasa de casas <span className='text-green-500'>Activas</span>
+                  Tasa de registros <span className='text-green-500'>Ingresos</span>
                 </CardDescription>
                 <CardTitle className='text-center text-[2.2rem] xl:text-[2.5rem] font-extrabold leading-10'>
-                  {familyHousesActive}
+                  {offeringIncome}
                 </CardTitle>
               </div>
             </div>
@@ -81,23 +78,19 @@ export const FamilyHouseProportionCards = (): JSX.Element => {
           <CardHeader className='py-4'>
             <div className='flex justify-center gap-4 h-[5rem] relative'>
               <span className='absolute -top-3 left-8 font-bold text-[14px] md:text-[15px] xl:text-[16px]'>
-                {(
-                  (familyHousesInactive / (familyHousesActive + familyHousesInactive)) *
-                  100
-                ).toFixed(0)}
-                %
+                {((offeringExpenses / (offeringIncome + offeringExpenses)) * 100).toFixed(0)}%
               </span>
               <ResponsiveContainer width='50%' height='125%'>
                 <PieChart width={400} height={400}>
                   <Pie
-                    data={dataMembers}
+                    data={dataTotalOffering}
                     cx='50%'
                     cy='50%'
                     labelLine={false}
                     outerRadius={35}
                     dataKey='value'
                   >
-                    {dataMembers.map((entry, index) => (
+                    {dataTotalOffering.map((entry, index) => (
                       <Cell
                         key={`cell-${index}`}
                         fill={COLORS_INACTIVE[index % COLORS_INACTIVE.length]}
@@ -108,10 +101,10 @@ export const FamilyHouseProportionCards = (): JSX.Element => {
               </ResponsiveContainer>
               <div className='flex flex-col  items-center justify-center'>
                 <CardDescription className='text-[14.5px] md:text-[15px] xl:text-[16px]  font-bold text-center'>
-                  Tasa de casas <span className='text-red-500'>Inactivas</span>
+                  Tasa de registros <span className='text-red-500'>Salidas</span>
                 </CardDescription>
                 <CardTitle className='text-center text-[2.2rem] xl:text-[2.5rem] font-extrabold leading-10'>
-                  {familyHousesInactive}
+                  {offeringExpenses}
                 </CardTitle>
               </div>
             </div>

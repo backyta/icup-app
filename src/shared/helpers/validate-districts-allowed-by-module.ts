@@ -1,13 +1,14 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-
 import { DistrictNames } from '@/shared/enums';
 import { 
   DistrictsFamilyHouseModuleAllowed,
   DistrictsMemberModuleAllowed,
-} from "@/shared/helpers";
+} from '@/shared/helpers';
 
+interface DisabledDistrictsResult {
+  disabledDistricts: string[];
+}
 
-export const validateDistrictsAllowedByModule = ( path: string) => {
+export const validateDistrictsAllowedByModule = ( path: string): DisabledDistrictsResult | undefined => {
 
   //* Disabled Districts
   if (path === '/disciples/create-disciple' || 

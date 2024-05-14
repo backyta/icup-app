@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-
 import { useRef, useState } from 'react';
 
 import { useMediaQuery } from '@react-hook/media-query';
@@ -25,7 +23,7 @@ export const FamilyHouseUpdateCard = (): JSX.Element => {
   };
 
   const handleContainerScroll = (): void => {
-    if (topRef.current) {
+    if (topRef.current !== null) {
       topRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };

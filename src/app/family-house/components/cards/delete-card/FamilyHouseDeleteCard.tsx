@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-
 import { useState } from 'react';
 
 import { Toaster, toast } from 'sonner';

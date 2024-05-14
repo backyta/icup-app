@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
+
 
 import { District, UrbanSectorNames, } from '@/shared/enums';
 import { 
@@ -6,8 +6,11 @@ import {
  UrbanSectorsPuentePiedraAllowed
 } from "@/shared/helpers";
 
+interface DisabledUrbanSectorsResult {
+  disabledUrbanSectors: string[];
+}
 
-export const validateUrbanSectorsAllowedByDistrict = ( district: string) => {
+export const validateUrbanSectorsAllowedByDistrict = ( district: string): DisabledUrbanSectorsResult | undefined => {
   
   //* Disabled Urban Sectors
   if (district === District.Independencia) {

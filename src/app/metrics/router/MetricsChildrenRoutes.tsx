@@ -3,6 +3,7 @@ import {
   MetricsFamilyHouse,
   MetricsOfferingIncome,
   MetricsOfferingExpenses,
+  MetricsComparativeOffering,
 } from '@/app/metrics/pages';
 
 export const MetricsChildrenRoutes = [
@@ -21,5 +22,9 @@ export const MetricsChildrenRoutes = [
   {
     path: '/metrics/metrics-offering-expenses',
     element: <MetricsOfferingExpenses />,
+  },
+  {
+    path: '/metrics/metrics-comparative-offering',
+    element: <MetricsComparativeOffering />,
   },
 ];

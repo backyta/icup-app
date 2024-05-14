@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-
 import { useRef, useState } from 'react';
 
 import { GiArchiveRegister } from 'react-icons/gi';
@@ -25,7 +23,7 @@ export const UserUpdateCard = (): JSX.Element => {
   };
 
   const handleContainerScroll = (): void => {
-    if (topRef.current) {
+    if (topRef.current !== null) {
       topRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };

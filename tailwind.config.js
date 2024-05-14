@@ -107,6 +107,7 @@ module.exports = {
     animation: {
       "accordion-down": "accordion-down 0.2s ease-out",
       "accordion-up": "accordion-up 0.2s ease-out",
+      fadeIn: 'fadeIn 1s ease-in-out',
     },
     fontFamily: {
       'archivo': ['Archivo', 'sans-serif'],
@@ -114,7 +115,13 @@ module.exports = {
       'dancing-script': ['Dancing Script', 'cursive'],
       'satisfy': ['Satisfy', 'cursive'],
     },
+    keyframes: {
+      fadeIn: {
+        from: { opacity: 0 },
+        to: { opacity: 1 },
+      },
     },
+  }
   },
   // eslint-disable-next-line no-undef
   plugins: [require("tailwindcss-animate")]

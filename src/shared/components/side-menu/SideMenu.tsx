@@ -1,24 +1,17 @@
-// import { NavLink } from 'react-router-dom';
 import './SideMenu.css';
 
 import { FcExport } from 'react-icons/fc';
 
-import { ToggleSideBar, SideMenuItemIcons } from '@/shared/components';
+import { ToggleSideBar } from '@/shared/components/toggle-theme';
 import { DropdownMenuLeft } from '@/shared/components/dropdown-menu';
+import { MenuBarTooltip, SideMenuItemIcons } from '@/shared/components/side-menu';
 
 import { menuItems } from '@/shared/data';
-
-import { MenuBarTooltip } from './MenuBarTooltip';
-
-// import { useAuthStore } from '../../../stores';
 
 // TODO 1 : Hacer tooltip en la barra lateral, con ShadCN tomar componente Tooltip e implementarlo.✔
 // NOTE : https://ui.shadcn.com/docs/components/tooltip
 
 export const SideMenu = (): JSX.Element => {
-  // const logoutUser = useAuthStore( state => state.logoutUser );
-  // const userName = useAuthStore( state => state.user?.fullName || 'No user' );
-
   return (
     <div className='bg-slate-900 md:min-h-screen z-10 text-slate-300 w-full md:w-[7.5rem]'>
       <ToggleSideBar />
@@ -51,9 +44,9 @@ export const SideMenu = (): JSX.Element => {
       <nav id='menu' className='w-full px-8 py-6 md:flex md:flex-col gap-y-[3rem] hidden'>
         <div className='flex flex-col gap-y-1 justify-center items-left'>
           {menuItems.map((item) => (
-                <MenuBarTooltip key={item.href} item={item}>
-                  <SideMenuItemIcons key={item.href} {...item} />
-                </MenuBarTooltip>
+            <MenuBarTooltip key={item.href} item={item}>
+              <SideMenuItemIcons key={item.href} {...item} />
+            </MenuBarTooltip>
           ))}
         </div>
 

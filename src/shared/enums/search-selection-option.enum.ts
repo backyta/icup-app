@@ -1,6 +1,6 @@
 export enum SearchSelectionOption {
 
-  //* Date (pasar el numero de mes pa buscar en DB)
+  // TODO : Date (pasar el numero de mes pa buscar en DB)
   January = 'january',
   February = 'february',
   March = 'march',

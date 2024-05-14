@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-import { FcDonate, FcHome, FcManager } from 'react-icons/fc';
+import { FcDonate, FcHome, FcManager, FcRefresh } from 'react-icons/fc';
 
 import { WhiteCard } from '@/shared/components';
 import { GiExpense } from 'react-icons/gi';
@@ -16,7 +16,7 @@ export const MetricsOptionsPage = (): JSX.Element => {
       </p>
       <hr className='p-[0.015rem] bg-slate-500' />
 
-      <div className='w-full px-[2rem] py-6 sm:px-[7rem] md:px-[4rem] lg:px-[3rem] xl:px-[3rem] 2xl:px-16 grid gap-8 lg:gap-5 2xl:gap-8 lg:h-[43rem] 2xl:h-[43rem]'>
+      <div className='w-full px-[2rem] py-6 sm:px-[7rem] md:px-[4rem] lg:px-[3rem] xl:px-[3rem] 2xl:px-16 grid gap-8 lg:gap-5 2xl:gap-8 lg:h-[54rem] 2xl:h-[43rem]'>
         <NavLink
           key='/metrics/metrics-member'
           to='/metrics/metrics-member'
@@ -81,6 +81,40 @@ export const MetricsOptionsPage = (): JSX.Element => {
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
               Visualización de datos estadísticos y métricas de ofrendas.
+            </p>
+          </WhiteCard>
+        </NavLink>
+
+        <NavLink
+          key='/metrics/metrics-offering-expenses'
+          to='/metrics/metrics-offering-expenses'
+          end
+          className='row-start-4 row-end-5 lg:row-start-4 lg:row-end-7 lg:col-start-2 lg:col-end-3 2xl:row-start-1 2xl:row-end-7 2xl:col-start-4 2xl:col-end-5'
+        >
+          <WhiteCard className='md:h-[11rem]' centered>
+            <GiExpense className='text-[9rem] lg:text-[7.5rem] xl:text-[7rem] text-amber-500' />
+            <h2 className='text-red-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
+              Métricas de Ofrenda (Salida)
+            </h2>
+            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+              Visualización de datos estadísticos y métricas de ofrendas.
+            </p>
+          </WhiteCard>
+        </NavLink>
+
+        <NavLink
+          key='/metrics/metrics-comparative-offering'
+          to='/metrics/metrics-comparative-offering'
+          end
+          className='row-start-4 row-end-5 lg:row-start-7 lg:row-end-9 lg:col-start-1 lg:col-end-3 2xl:row-start-1 2xl:row-end-7 2xl:col-start-5 2xl:col-end-6'
+        >
+          <WhiteCard className='md:h-[11rem]' centered>
+            <FcRefresh className='text-[9rem] lg:text-[7.5rem] xl:text-[7rem]' />
+            <h2 className='text-blue-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
+              Métricas Comparativas de Ofrenda
+            </h2>
+            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+              Visualización de datos comparativos estadísticos y métricas de ofrendas.
             </p>
           </WhiteCard>
         </NavLink>

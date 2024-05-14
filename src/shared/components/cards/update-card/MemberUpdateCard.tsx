@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-
 import { useRef, useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
@@ -27,8 +25,7 @@ export const MemberUpdateCard = (): JSX.Element => {
   };
 
   const handleContainerScroll = (): void => {
-    console.log(topRef);
-    if (topRef.current) {
+    if (topRef.current !== null) {
       topRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };

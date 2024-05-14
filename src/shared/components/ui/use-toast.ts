@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-// Inspired by react-hot-toast library
-import * as React from "react"
+
+import * as React from 'react'
 
 import type {
   ToastActionElement,
   ToastProps,
-} from "@/shared/components/ui/toast"
+} from '@/shared/components/ui/toast'
 
 const TOAST_LIMIT = 1
 const TOAST_REMOVE_DELAY = 1000000

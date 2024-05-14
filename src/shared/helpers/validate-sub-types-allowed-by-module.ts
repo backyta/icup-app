@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-
 import { SearchSubTypeNames, SearchType, type SearchSubType } from '@/shared/enums';
 import { 
   SearchSubTypesOfferingIncomeActivitiesAllowed,
@@ -37,11 +35,14 @@ import {
   SearchSubTypesOfferingIncomeUnitedWorshipAllowed,
   SearchSubTypesOfferingIncomeIncomeAdjustmentAllowed,
   SearchSubTypesOfferingExpensesExpensesAdjustmentAllowed,
-  } from "@/shared/helpers";
+  } from '@/shared/helpers';
 
 
+  interface DisabledSearchSubTypesResult {
+    disabledSearchSubTypes: string[];
+}
 
-export const validateSubTypesAllowedByModule = (currentPath: string, type: string ) => {
+export const validateSubTypesAllowedByModule = (currentPath: string, type: string ): DisabledSearchSubTypesResult | undefined => {
 
   //* Disabled Sub-types by module
   //* Disciple

@@ -1,6 +1,4 @@
-// TODO : agregar ingresos por ajustes e salidas por ajuste, en search by term de cada modulo de ofrenda
-// TODO : buscar por fecha
-// TODO : Agregar tmb culto unido
+
 export enum TypesOfferingExpenses {
   OperationalExpenses = "operative_expenses",
   MaintenanceAndRepairExpenses = "maintenance_and_repair_expenses",
