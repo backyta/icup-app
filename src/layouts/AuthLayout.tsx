@@ -1,7 +1,9 @@
+import { Outlet } from "react-router-dom";
+
 export const AuthLayout = (): JSX.Element => {
   return (
-    <div>
-      <div>Renderizar layout aquí.....</div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 w-full h-screen">
+      <Outlet />
     </div>
   );
 };
