@@ -11,7 +11,7 @@ interface Props {
 export const SideMenuItemIcons = ({ href, Icon }: Props): JSX.Element => {
   return (
     <NavLink key={href} to={href} end>
-      <Icon className='text-2xl m-auto' />
+      <Icon className='text-[1.7rem] m-auto text-slate-300' />
     </NavLink>
   );
 };

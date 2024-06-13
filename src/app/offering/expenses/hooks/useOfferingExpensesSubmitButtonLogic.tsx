@@ -5,12 +5,12 @@ import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
 import { type OfferingExpensesData } from '@/app/offering/expenses/interfaces';
-import { type TypesOfferingExpenses } from '@/app/offering/expenses/enums';
+import { type TypesOfferingExpense } from '@/app/offering/expenses/enums';
 import { Status } from '@/shared/enums';
 
 interface Options {
   formOfferingExpenses: UseFormReturn<OfferingExpensesData, any, OfferingExpensesData>;
-  typesOfferingExpenses: typeof TypesOfferingExpenses;
+  typesOfferingExpenses: typeof TypesOfferingExpense;
 
   isInputDisabled: boolean;
   isDropZoneDisabled: boolean;

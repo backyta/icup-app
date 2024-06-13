@@ -1,4 +1,8 @@
 export enum SearchType {
+  //* Church
+  NameChurch = 'name_church',
+  FoundingDate = 'founding_date',
+
 
   //* Members, Pastor, Copastor, Supervisor, Preacher, Offering, User
   FirstName = 'first_name',
@@ -28,6 +32,7 @@ export enum SearchType {
   Department = 'department',
   Province = 'province',
   District = 'district',
+  UrbanSector = 'urban_sector',
 
   //* Members, Pastor, Copastor, Supervisor, Preacher, Fam. House, Offering, User
   Status = 'status',
@@ -63,26 +68,29 @@ export enum SearchType {
 
 export const SearchTypeNames: Record<SearchType, string> =  {
   
+  name_church: 'Nombre Iglesia',
+  founding_date: 'Fecha de Fundación',
+  
   first_name : 'Nombres',
   last_name : 'Apellidos',
   full_name : 'Nombres y Apellidos',
-
+  
   date_birth: 'Fecha de nacimiento',
   month_birth: 'Mes de nacimiento',
   gender : 'Genero',
   marital_status : 'Estado civil',
-
+  
   zone : 'Zona',
-
+  
   code_house : 'Código de casa familiar',
   name_house : 'Nombre de casa familiar',
-
-  address : 'Dirección',
   
   origin_country : 'País de origen' ,
   department : 'Departamento',
   province : 'Provincia',
   district : 'Distrito',
+  urban_sector: 'Sector Urbano',
+  address : 'Dirección',
 
   roles : 'Roles',
 

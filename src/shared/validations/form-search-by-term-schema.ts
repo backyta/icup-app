@@ -160,8 +160,9 @@ export const formSearchByTermSchema = z
   )
   .refine(
     (data) => {
-      if (data.type !== SearchType.LastName && 
+      if (data.type !== SearchType.FoundingDate && 
           data.type !== SearchType.FirstName && 
+          data.type !== SearchType.LastName && 
           data.type !== SearchType.FullName && 
           data.type !== SearchType.MonthBirth &&   
           data.type !== SearchType.Gender && 
@@ -228,6 +229,7 @@ export const formSearchByTermSchema = z
   .refine(
     (data) => {
       if ( 
+        data.type === SearchType.FoundingDate || 
         data.type === SearchType.DateBirth || 
         data.subType === SearchSubType.TitheByDate ||
         data.subType === SearchSubType.TitheByDateNames || 

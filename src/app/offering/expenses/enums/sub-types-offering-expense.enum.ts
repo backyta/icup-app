@@ -1,4 +1,4 @@
-export enum SubTypesOfferingExpenses {
+export enum SubTypesOfferingExpense {
   //* Operative Expenses
   VenueRental = "venue_rental",
   PublicServices = "public_services",
@@ -64,7 +64,7 @@ export enum SubTypesOfferingExpenses {
   OtherRelatedExpenses = "other_related_expenses"
 }
 
-export const SubTypesOfferingExpensesNames: Record<SubTypesOfferingExpenses, string> = {
+export const SubTypesOfferingExpenseNames: Record<SubTypesOfferingExpense, string> = {
 
   //* Operative Expenses
   venue_rental : 'Alquiler de local',

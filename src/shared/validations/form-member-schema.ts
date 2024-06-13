@@ -71,41 +71,41 @@ export const formMemberSchema = z
       message: 'El campo debe contener un numero'
     }),
      
-    country: z.string(z.nativeEnum(Country, {
+    countryResidence: z.string(z.nativeEnum(Country, {
       required_error: "Por favor seleccione una opción válida.",
     })).refine((value) => value !== undefined && value.trim() !== '',
       { message: "Por favor seleccione una opción válida." }
     ),
 
-    department: z.string(z.nativeEnum(Department, {
+    departmentResidence: z.string(z.nativeEnum(Department, {
       required_error: "Por favor seleccione una opción válida.",
     })).refine((value) => value !== undefined && value.trim() !== '',
       { message: "Por favor seleccione una opción válida." }
     ),
 
-    province: z.string(z.nativeEnum(Province, {
+    provinceResidence: z.string(z.nativeEnum(Province, {
       required_error: "Por favor seleccione una opción válida.",
     })).refine((value) => value !== undefined && value.trim() !== '',
       { message: "Por favor seleccione una opción válida." }
     ),
 
-    district: z.string(z.nativeEnum(District, {
+    districtResidence: z.string(z.nativeEnum(District, {
       required_error: "Por favor seleccione una opción válida.",
     })).refine((value) => value !== undefined && value.trim() !== '',
       { message: "Por favor seleccione una opción válida." }
     ),
 
-    urbanSector: z.string(z.nativeEnum(UrbanSector, {
+    urbanSectorResidence: z.string(z.nativeEnum(UrbanSector, {
       required_error: "Por favor seleccione una opción válida.",
     })).refine((value) => value !== undefined && value.trim() !== '',
       { message: "Por favor seleccione una opción válida." }
     ),
       
-    address: z.string()
+    addressResidence: z.string()
       .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
       .max(50, { message: 'El campo debe contener máximo 50 caracteres.' }),
 
-    referenceComments: z.string()
+    addressResidenceReference: z.string()
       .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
       .max(100, { message: 'El campo debe contener máximo 50 caracteres.' }),
 
@@ -119,6 +119,10 @@ export const formMemberSchema = z
     theirCopastor: z.string().optional(),
     theirSupervisor: z.string().optional(),
     theirFamilyHouse: z.string().optional(),
+
+
+    createdBy: z.string().optional(),
+    updatedBy: z.string().optional(),
 
     status: z.string(z.nativeEnum(Status, {
       required_error: "Por favor seleccione una opción.",

@@ -26,6 +26,8 @@ import { UserChildrenRoutes } from '@/app/user/router';
 import { Root } from '@/Root';
 import { MetricsChildrenRoutes } from '@/app/metrics/router';
 import { MetricsOptionsPage } from '@/app/metrics/pages';
+import { ChurchOptionsPage } from '@/app/church/pages';
+import { ChurchChildrenRoutes } from '@/app/church/router';
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +40,7 @@ export const router = createBrowserRouter([
         children: [
           // Main modules pages
           { path: '/dashboard', element: <DashboardPage /> },
+          { path: '/churches', element: <ChurchOptionsPage /> },
           { path: '/disciples', element: <DiscipleOptionsPage /> },
           { path: '/pastors', element: <PastorOptionsPage /> },
           { path: '/copastors', element: <CopastorOptionsPage /> },
@@ -51,6 +54,7 @@ export const router = createBrowserRouter([
         ],
       },
       // Specific routes for each type of module
+      { path: '/churches', element: <DashboardLayout />, children: ChurchChildrenRoutes },
       { path: '/disciples', element: <DashboardLayout />, children: DiscipleChildrenRoutes },
       { path: '/pastors', element: <DashboardLayout />, children: PastorChildrenRoutes },
       { path: '/copastors', element: <DashboardLayout />, children: CopastorChildrenRoutes },

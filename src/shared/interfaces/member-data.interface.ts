@@ -11,18 +11,20 @@ export interface MemberData {
   conversionDate: Date;
   emailAddress: string;
   phoneNumber: string;
-  country: string;
-  department: string;
-  province: string;
-  district: string;
-  urbanSector: string;
-  address: string;
+  countryResidence: string;
+  departmentResidence: string;
+  provinceResidence: string;
+  districtResidence: string;
+  urbanSectorResidence: string;
+  addressResidence: string;
   roles: MemberRole[];
-  referenceComments: string;
+  addressResidenceReference: string;
   theirPastor?: string | undefined;
   theirCopastor?: string | undefined;
   theirSupervisor?: string | undefined;
   theirFamilyHouse?: string | undefined;
+  createdBy?: string | undefined;
+  updatedBy?: string | undefined;
   status?: string | undefined;
 }
 
@@ -37,16 +39,18 @@ export type MemberDataKeys =
   | 'conversionDate'
   | 'emailAddress'
   | 'phoneNumber'
-  | 'country'
-  | 'department'
-  | 'province'
-  | 'district'
-  | 'urbanSector'
-  | 'address'
-  | 'referenceComments'
+  | 'countryResidence'
+  | 'departmentResidence'
+  | 'provinceResidence'
+  | 'districtResidence'
+  | 'urbanSectorResidence'
+  | 'addressResidence'
+  | 'addressResidenceReference'
   | 'roles'
   | 'theirPastor'
   | 'theirCopastor'
   | 'theirSupervisor'
   | 'theirFamilyHouse'
+  | 'createdBy'
+  | 'updatedBy'
   | 'status';

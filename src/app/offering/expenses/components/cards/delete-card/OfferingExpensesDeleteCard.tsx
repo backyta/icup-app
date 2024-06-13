@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { MdDeleteForever } from 'react-icons/md';
 
-import { TypesReasonEliminationOfferingExpensesNames } from '@/app/offering/expenses/enums';
+import { TypesReasonEliminationOfferingExpenseNames } from '@/app/offering/expenses/enums';
 
 import { offeringDeleteFormSchema } from '@/app/offering/shared/validations';
 
@@ -136,7 +136,7 @@ export const OfferingExpensesDeleteCard = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(TypesReasonEliminationOfferingExpensesNames).map(
+                          {Object.entries(TypesReasonEliminationOfferingExpenseNames).map(
                             ([key, value]) => (
                               <SelectItem key={key} value={key}>
                                 {value}

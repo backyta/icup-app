@@ -21,10 +21,10 @@ import { useOfferingExpensesSubmitButtonLogic } from '@/app/offering/expenses/ho
 import { offeringExpensesFormSchema } from '@/app/offering/expenses/validations';
 
 import {
-  SubTypesOfferingExpenses,
-  SubTypesOfferingExpensesNames,
-  TypesOfferingExpenses,
-  TypesOfferingExpensesNames,
+  SubTypesOfferingExpense,
+  SubTypesOfferingExpenseNames,
+  TypesOfferingExpense,
+  TypesOfferingExpenseNames,
 } from '@/app/offering/expenses/enums';
 
 import {
@@ -62,8 +62,8 @@ import {
 } from '@/shared/components/ui/select';
 
 const data: OfferingExpensesData = {
-  type: TypesOfferingExpenses.EquipmentAndTechnologyExpenses,
-  subType: SubTypesOfferingExpenses.ComputerEquipment,
+  type: TypesOfferingExpense.EquipmentAndTechnologyExpenses,
+  subType: SubTypesOfferingExpense.ComputerEquipment,
   amount: '20',
   date: new Date('12-12-2000'),
   currency: CurrencyType.Dollars,
@@ -216,7 +216,7 @@ export const OfferingExpensesFormUpdate = ({ onClose, onScroll }: Props): JSX.El
 
   useOfferingExpensesSubmitButtonLogic({
     formOfferingExpenses: form,
-    typesOfferingExpenses: TypesOfferingExpenses,
+    typesOfferingExpenses: TypesOfferingExpense,
     isInputDisabled,
     isDropZoneDisabled,
     isFileButtonDisabled,
@@ -292,7 +292,7 @@ export const OfferingExpensesFormUpdate = ({ onClose, onScroll }: Props): JSX.El
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              {Object.entries(TypesOfferingExpensesNames).map(([key, value]) => (
+                              {Object.entries(TypesOfferingExpenseNames).map(([key, value]) => (
                                 <SelectItem key={key} value={key}>
                                   {value}
                                 </SelectItem>
@@ -333,7 +333,7 @@ export const OfferingExpensesFormUpdate = ({ onClose, onScroll }: Props): JSX.El
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
-                                {Object.entries(SubTypesOfferingExpensesNames).map(
+                                {Object.entries(SubTypesOfferingExpenseNames).map(
                                   ([key, value]) => (
                                     <SelectItem key={key} value={key}>
                                       {value}

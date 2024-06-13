@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
-import { SubTypesOfferingExpensesNames, TypesOfferingExpenses, type SubTypesOfferingExpenses } from '@/app/offering/expenses/enums';
+import { SubTypesOfferingExpenseNames, TypesOfferingExpense, type SubTypesOfferingExpense } from '@/app/offering/expenses/enums';
 import { 
   SubtypesActivitiesAndEventsExpensesAllowed, 
   SubtypesDecorationExpensesAllowed, 
@@ -13,16 +13,16 @@ import {
 export const validateAllowedOfferingExpensesSubtypes = (currentPath: string, type: string ) => {
 
   //* Disabled Sub-types 
-  const disabledOperatingExpensesSubtypes = Object.keys(SubTypesOfferingExpensesNames).filter(value => !SubtypesOperatingExpensesAllowed.includes(value as SubTypesOfferingExpenses) );
-  const disabledMaintenanceAndRepairExpensesSubtypes = Object.keys(SubTypesOfferingExpensesNames).filter(value => !SubtypesMaintenanceAndRepairExpensesAllowed.includes(value as SubTypesOfferingExpenses) );
-  const disabledDecorationExpensesSubtypes = Object.keys(SubTypesOfferingExpensesNames).filter(value => !SubtypesDecorationExpensesAllowed.includes(value as SubTypesOfferingExpenses) );
-  const disabledEquipmentAndTechnologyExpensesSubtypes = Object.keys(SubTypesOfferingExpensesNames).filter(value => !SubtypesEquipmentAndTechnologyExpensesAllowed.includes(value as SubTypesOfferingExpenses) );
-  const disabledSuppliesExpensesSubtypes = Object.keys(SubTypesOfferingExpensesNames).filter(value => !SubTypesSuppliesExpensesAllowed.includes(value as SubTypesOfferingExpenses) );
-  const disabledActivitiesAndEventsExpensesSubtypes = Object.keys(SubTypesOfferingExpensesNames).filter(value => !SubtypesActivitiesAndEventsExpensesAllowed.includes(value as SubTypesOfferingExpenses) );
+  const disabledOperatingExpensesSubtypes = Object.keys(SubTypesOfferingExpenseNames).filter(value => !SubtypesOperatingExpensesAllowed.includes(value as SubTypesOfferingExpense) );
+  const disabledMaintenanceAndRepairExpensesSubtypes = Object.keys(SubTypesOfferingExpenseNames).filter(value => !SubtypesMaintenanceAndRepairExpensesAllowed.includes(value as SubTypesOfferingExpense) );
+  const disabledDecorationExpensesSubtypes = Object.keys(SubTypesOfferingExpenseNames).filter(value => !SubtypesDecorationExpensesAllowed.includes(value as SubTypesOfferingExpense) );
+  const disabledEquipmentAndTechnologyExpensesSubtypes = Object.keys(SubTypesOfferingExpenseNames).filter(value => !SubtypesEquipmentAndTechnologyExpensesAllowed.includes(value as SubTypesOfferingExpense) );
+  const disabledSuppliesExpensesSubtypes = Object.keys(SubTypesOfferingExpenseNames).filter(value => !SubTypesSuppliesExpensesAllowed.includes(value as SubTypesOfferingExpense) );
+  const disabledActivitiesAndEventsExpensesSubtypes = Object.keys(SubTypesOfferingExpenseNames).filter(value => !SubtypesActivitiesAndEventsExpensesAllowed.includes(value as SubTypesOfferingExpense) );
   
   if ((currentPath === '/offerings/expenses/create-offering-expenses' || 
         currentPath === '/offerings/expenses/update-offering-expenses' ) && 
-      type === TypesOfferingExpenses.OperationalExpenses) {
+      type === TypesOfferingExpense.OperationalExpenses) {
     return {
       disabledSubTypes : [
         ...disabledOperatingExpensesSubtypes,
@@ -31,7 +31,7 @@ export const validateAllowedOfferingExpensesSubtypes = (currentPath: string, typ
   }
   if ((currentPath === '/offerings/expenses/create-offering-expenses' || 
         currentPath === '/offerings/expenses/update-offering-expenses' ) && 
-      type === TypesOfferingExpenses.MaintenanceAndRepairExpenses) {
+      type === TypesOfferingExpense.MaintenanceAndRepairExpenses) {
     return {
       disabledSubTypes : [
         ...disabledMaintenanceAndRepairExpensesSubtypes,
@@ -40,7 +40,7 @@ export const validateAllowedOfferingExpensesSubtypes = (currentPath: string, typ
   }
   if ((currentPath === '/offerings/expenses/create-offering-expenses' || 
         currentPath === '/offerings/expenses/update-offering-expenses' ) &&
-      type === TypesOfferingExpenses.DecorationExpenses) {
+      type === TypesOfferingExpense.DecorationExpenses) {
     return {
       disabledSubTypes : [
         ...disabledDecorationExpensesSubtypes,
@@ -49,7 +49,7 @@ export const validateAllowedOfferingExpensesSubtypes = (currentPath: string, typ
   }
   if ((currentPath === '/offerings/expenses/create-offering-expenses' || 
         currentPath === '/offerings/expenses/update-offering-expenses' ) && 
-      type === TypesOfferingExpenses.EquipmentAndTechnologyExpenses) {
+      type === TypesOfferingExpense.EquipmentAndTechnologyExpenses) {
     return {
       disabledSubTypes : [
         ...disabledEquipmentAndTechnologyExpensesSubtypes,
@@ -58,7 +58,7 @@ export const validateAllowedOfferingExpensesSubtypes = (currentPath: string, typ
   }
   if ((currentPath === '/offerings/expenses/create-offering-expenses' || 
         currentPath === '/offerings/expenses/update-offering-expenses' ) && 
-      type === TypesOfferingExpenses.SuppliesExpenses) {
+      type === TypesOfferingExpense.SuppliesExpenses) {
     return {
       disabledSubTypes : [
         ...disabledSuppliesExpensesSubtypes,
@@ -67,7 +67,7 @@ export const validateAllowedOfferingExpensesSubtypes = (currentPath: string, typ
   }
   if ((currentPath === '/offerings/expenses/create-offering-expenses' || 
         currentPath === '/offerings/expenses/update-offering-expenses' ) &&
-      type === TypesOfferingExpenses.ActivitiesAndEventsExpenses) {
+      type === TypesOfferingExpense.ActivitiesAndEventsExpenses) {
     return {
       disabledSubTypes : [
         ...disabledActivitiesAndEventsExpensesSubtypes,

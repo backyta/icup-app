@@ -23,7 +23,7 @@ import {
 
 import { chartFormValidationSchema } from '@/app/metrics/validations';
 
-import { TypesOfferingExpenses } from '@/app/offering/expenses/enums';
+import { TypesOfferingExpense } from '@/app/offering/expenses/enums';
 
 import { types, years } from '@/shared/data';
 
@@ -226,7 +226,7 @@ export const ComparativeOfferingExpensesAnalysisCardByType = (): JSX.Element => 
     resolver: zodResolver(chartFormValidationSchema),
     mode: 'onChange',
     defaultValues: {
-      type: TypesOfferingExpenses.OperationalExpenses,
+      type: TypesOfferingExpense.OperationalExpenses,
       year: '2024',
     },
   });
@@ -242,13 +242,13 @@ export const ComparativeOfferingExpensesAnalysisCardByType = (): JSX.Element => 
 
   //* Effects
   useEffect(() => {
-    if (year === '2025' && type === TypesOfferingExpenses.OperationalExpenses) {
+    if (year === '2025' && type === TypesOfferingExpense.OperationalExpenses) {
       setDataResult(data2025);
     }
-    if (year === '2026' && type === TypesOfferingExpenses.OperationalExpenses) {
+    if (year === '2026' && type === TypesOfferingExpense.OperationalExpenses) {
       setDataResult(data2026);
     }
-    if (year === '2024' && type === TypesOfferingExpenses.OperationalExpenses) {
+    if (year === '2024' && type === TypesOfferingExpense.OperationalExpenses) {
       setDataResult(data2024);
     }
     if (!type) {

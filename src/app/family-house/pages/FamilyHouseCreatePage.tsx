@@ -103,7 +103,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
       urbanSector: '',
       address: '',
       worshipTime: '',
-      referenceComments: '',
+      referenceAddress: '',
       theirPreacher: '',
     },
   });
@@ -602,7 +602,7 @@ export const FamilyHouseCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='referenceComments'
+                name='referenceAddress'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3 md:mt-5'>

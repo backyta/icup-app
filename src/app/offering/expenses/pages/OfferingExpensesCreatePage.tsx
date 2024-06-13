@@ -23,9 +23,9 @@ import { offeringExpensesFormSchema } from '@/app/offering/expenses/validations'
 import { useOfferingExpensesSubmitButtonLogic } from '@/app/offering/expenses/hooks';
 import { validateAllowedOfferingExpensesSubtypes } from '@/app/offering/expenses/helpers';
 import {
-  SubTypesOfferingExpensesNames,
-  TypesOfferingExpenses,
-  TypesOfferingExpensesNames,
+  SubTypesOfferingExpenseNames,
+  TypesOfferingExpense,
+  TypesOfferingExpenseNames,
 } from '@/app/offering/expenses/enums';
 
 import { CurrencyTypeNames } from '@/app/offering/shared/enums';
@@ -170,7 +170,7 @@ export const OfferingExpensesCreatePage = (): JSX.Element => {
   //* Custom hooks
   useOfferingExpensesSubmitButtonLogic({
     formOfferingExpenses: form,
-    typesOfferingExpenses: TypesOfferingExpenses,
+    typesOfferingExpenses: TypesOfferingExpense,
     isInputDisabled,
     isDropZoneDisabled,
     isFileButtonDisabled,
@@ -234,7 +234,7 @@ export const OfferingExpensesCreatePage = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(TypesOfferingExpensesNames).map(([key, value]) => (
+                          {Object.entries(TypesOfferingExpenseNames).map(([key, value]) => (
                             <SelectItem key={key} value={key}>
                               {value}
                             </SelectItem>
@@ -246,7 +246,7 @@ export const OfferingExpensesCreatePage = (): JSX.Element => {
                   );
                 }}
               />
-              {type !== TypesOfferingExpenses.ExpensesAdjustment && (
+              {type !== TypesOfferingExpense.ExpensesAdjustment && (
                 <FormField
                   control={form.control}
                   name='subType'
@@ -274,7 +274,7 @@ export const OfferingExpensesCreatePage = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {Object.entries(SubTypesOfferingExpensesNames).map(([key, value]) => (
+                            {Object.entries(SubTypesOfferingExpenseNames).map(([key, value]) => (
                               <SelectItem
                                 className={cn(
                                   `text-[13px] md:text-[14px]`,
@@ -416,13 +416,13 @@ export const OfferingExpensesCreatePage = (): JSX.Element => {
                     <FormItem className='mt-4'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
                         Comentarios
-                        {type !== TypesOfferingExpenses.ExpensesAdjustment && (
+                        {type !== TypesOfferingExpense.ExpensesAdjustment && (
                           <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
                             Opcional
                           </span>
                         )}
                       </FormLabel>
-                      {type === TypesOfferingExpenses.ExpensesAdjustment && (
+                      {type === TypesOfferingExpense.ExpensesAdjustment && (
                         <FormDescription>
                           Escribe una breve descripción sobre el ajuste
                         </FormDescription>
@@ -431,7 +431,7 @@ export const OfferingExpensesCreatePage = (): JSX.Element => {
                         <Textarea
                           disabled={isInputDisabled}
                           placeholder={`${
-                            type === TypesOfferingExpenses.ExpensesAdjustment
+                            type === TypesOfferingExpense.ExpensesAdjustment
                               ? `Motivos y comentarios sobre el ajuste...`
                               : 'Comentarios referente al registro de la salida'
                           }`}

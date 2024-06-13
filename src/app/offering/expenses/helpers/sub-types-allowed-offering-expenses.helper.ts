@@ -1,81 +1,81 @@
-import { SubTypesOfferingExpenses } from '@/app/offering/expenses/enums';
+import { SubTypesOfferingExpense } from '@/app/offering/expenses/enums';
 
 // ? Subtypes allowed
 
   //* Operative Expenses
   export const SubtypesOperatingExpensesAllowed = [ 
-    SubTypesOfferingExpenses.VenueRental,
-    SubTypesOfferingExpenses.PublicServices,
-    SubTypesOfferingExpenses.TravelAndTransportation,
-    SubTypesOfferingExpenses.SecurityAndSurveillance,
-    SubTypesOfferingExpenses.OtherAdministrativeExpenses,
+    SubTypesOfferingExpense.VenueRental,
+    SubTypesOfferingExpense.PublicServices,
+    SubTypesOfferingExpense.TravelAndTransportation,
+    SubTypesOfferingExpense.SecurityAndSurveillance,
+    SubTypesOfferingExpense.OtherAdministrativeExpenses,
   ];
 
   //* Maintenance and Repair Expenses
   export const SubtypesMaintenanceAndRepairExpensesAllowed = [ 
-    SubTypesOfferingExpenses.PlumbingServices,
-    SubTypesOfferingExpenses.ElectricalServices,
-    SubTypesOfferingExpenses.PaintingAndTouchUpsServices,
-    SubTypesOfferingExpenses.DeepCleaningServices,
-    SubTypesOfferingExpenses.HeatingAndACSystemMaintenance,
-    SubTypesOfferingExpenses.SoundAndLightingEquipmentRepairAndMaintenance,
-    SubTypesOfferingExpenses.GardenAndExteriorMaintenance,
-    SubTypesOfferingExpenses.OtherEquipmentRepairsAndMaintenance,
-    SubTypesOfferingExpenses.FurnitureRepairAndMaintenance,
-    SubTypesOfferingExpenses.ComputerEquipmentRepairAndMaintenance,
-    SubTypesOfferingExpenses.RoofAndStructuralRepairs,
-    SubTypesOfferingExpenses.DoorAndWindowRepairs,
+    SubTypesOfferingExpense.PlumbingServices,
+    SubTypesOfferingExpense.ElectricalServices,
+    SubTypesOfferingExpense.PaintingAndTouchUpsServices,
+    SubTypesOfferingExpense.DeepCleaningServices,
+    SubTypesOfferingExpense.HeatingAndACSystemMaintenance,
+    SubTypesOfferingExpense.SoundAndLightingEquipmentRepairAndMaintenance,
+    SubTypesOfferingExpense.GardenAndExteriorMaintenance,
+    SubTypesOfferingExpense.OtherEquipmentRepairsAndMaintenance,
+    SubTypesOfferingExpense.FurnitureRepairAndMaintenance,
+    SubTypesOfferingExpense.ComputerEquipmentRepairAndMaintenance,
+    SubTypesOfferingExpense.RoofAndStructuralRepairs,
+    SubTypesOfferingExpense.DoorAndWindowRepairs,
   ];
   
   //* Decoration Expenses
   export const SubtypesDecorationExpensesAllowed = [ 
-    SubTypesOfferingExpenses.PurchaseFlowersAndPlants,
-    SubTypesOfferingExpenses.PurchaseDecorativeFurniture,
-    SubTypesOfferingExpenses.PurchaseDecorativeItems,
-    SubTypesOfferingExpenses.AltarAndWorshipAreaDecorationService,
+    SubTypesOfferingExpense.PurchaseFlowersAndPlants,
+    SubTypesOfferingExpense.PurchaseDecorativeFurniture,
+    SubTypesOfferingExpense.PurchaseDecorativeItems,
+    SubTypesOfferingExpense.AltarAndWorshipAreaDecorationService,
   ];
   
   //* Equipment and Technology Expenses
   export const SubtypesEquipmentAndTechnologyExpensesAllowed = [ 
-    SubTypesOfferingExpenses.SoundEquipment,
-    SubTypesOfferingExpenses.ComputerEquipment,
-    SubTypesOfferingExpenses.ProjectionEquipment,
-    SubTypesOfferingExpenses.HvacEquipment,
-    SubTypesOfferingExpenses.LightingEquipment,
-    SubTypesOfferingExpenses.SecurityEquipment,
-    SubTypesOfferingExpenses.OfficeEquipment,
-    SubTypesOfferingExpenses.AudioVideoRecordingEquipment,
-    SubTypesOfferingExpenses.Furniture,
-    SubTypesOfferingExpenses.MusicalInstruments,
-    SubTypesOfferingExpenses.InternetTelecommunicationsServices,
-    SubTypesOfferingExpenses.HostingSoftwareServices,
+    SubTypesOfferingExpense.SoundEquipment,
+    SubTypesOfferingExpense.ComputerEquipment,
+    SubTypesOfferingExpense.ProjectionEquipment,
+    SubTypesOfferingExpense.HvacEquipment,
+    SubTypesOfferingExpense.LightingEquipment,
+    SubTypesOfferingExpense.SecurityEquipment,
+    SubTypesOfferingExpense.OfficeEquipment,
+    SubTypesOfferingExpense.AudioVideoRecordingEquipment,
+    SubTypesOfferingExpense.Furniture,
+    SubTypesOfferingExpense.MusicalInstruments,
+    SubTypesOfferingExpense.InternetTelecommunicationsServices,
+    SubTypesOfferingExpense.HostingSoftwareServices,
   ];
   
   //* Supplies Expenses
   export const SubTypesSuppliesExpensesAllowed = [ 
-    SubTypesOfferingExpenses.KitchenUtensils,
-    SubTypesOfferingExpenses.OfficeSupplies,
-    SubTypesOfferingExpenses.CookingIngredients,
-    SubTypesOfferingExpenses.CleaningMaterials,
-    SubTypesOfferingExpenses.PackagingMaterials,
-    SubTypesOfferingExpenses.SundaySchoolMaterials,
+    SubTypesOfferingExpense.KitchenUtensils,
+    SubTypesOfferingExpense.OfficeSupplies,
+    SubTypesOfferingExpense.CookingIngredients,
+    SubTypesOfferingExpense.CleaningMaterials,
+    SubTypesOfferingExpense.PackagingMaterials,
+    SubTypesOfferingExpense.SundaySchoolMaterials,
   ];
   
   //* Activities and Events Expenses
   export const SubtypesActivitiesAndEventsExpensesAllowed = [ 
-    SubTypesOfferingExpenses.AdvertisingAndEventPromotion,
-    SubTypesOfferingExpenses.SpecialGuestFees,
-    SubTypesOfferingExpenses.ExternalVenueRental,
-    SubTypesOfferingExpenses.DecorationsAndAmbiance,
-    SubTypesOfferingExpenses.FoodAndBeverage,
-    SubTypesOfferingExpenses.PromotionalMaterials,
-    SubTypesOfferingExpenses.TransportationSpecialGuests,
-    SubTypesOfferingExpenses.EquipmentTransportation,
-    SubTypesOfferingExpenses.SupportStaffFees,
-    SubTypesOfferingExpenses.RentalTechnicalAndLogisticEquipment,
-    SubTypesOfferingExpenses.EducationalMaterialsAndResources,
-    SubTypesOfferingExpenses.GiftsAndPrizesParticipants,
-    SubTypesOfferingExpenses.OtherRelatedExpenses,
+    SubTypesOfferingExpense.AdvertisingAndEventPromotion,
+    SubTypesOfferingExpense.SpecialGuestFees,
+    SubTypesOfferingExpense.ExternalVenueRental,
+    SubTypesOfferingExpense.DecorationsAndAmbiance,
+    SubTypesOfferingExpense.FoodAndBeverage,
+    SubTypesOfferingExpense.PromotionalMaterials,
+    SubTypesOfferingExpense.TransportationSpecialGuests,
+    SubTypesOfferingExpense.EquipmentTransportation,
+    SubTypesOfferingExpense.SupportStaffFees,
+    SubTypesOfferingExpense.RentalTechnicalAndLogisticEquipment,
+    SubTypesOfferingExpense.EducationalMaterialsAndResources,
+    SubTypesOfferingExpense.GiftsAndPrizesParticipants,
+    SubTypesOfferingExpense.OtherRelatedExpenses,
   ];
 
 

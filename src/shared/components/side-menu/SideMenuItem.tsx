@@ -14,8 +14,8 @@ export const SideMenuItem = ({ href, Icon, title, subTitle }: Props): JSX.Elemen
   return (
     <SheetClose asChild>
       <NavLink key={href} to={href} end>
-        <div>
-          <Icon className='text-2xl' />
+        <div className='pr-1'>
+          <Icon className='text-[28px] text-slate-300' />
         </div>
         <div className='flex flex-col space-y-1'>
           <span className='text-lg xls:text-xl font-bold leading-5 text-white'>{title}</span>

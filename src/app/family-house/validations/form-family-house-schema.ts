@@ -44,7 +44,7 @@ export const formFamilyHouseSchema = z
       .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
       .max(50, { message: 'El campo debe contener máximo 50 caracteres.' }),
 
-    referenceComments: z.string()
+    referenceAddress: z.string()
       .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
       .max(100, { message: 'El campo debe contener máximo 50 caracteres.' })
       .optional(),

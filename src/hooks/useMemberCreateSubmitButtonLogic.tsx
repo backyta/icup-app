@@ -40,13 +40,13 @@ export const useMemberCreateSubmitButtonLogic = ({
   const phoneNumber = formMemberCrate.watch('phoneNumber');
   const originCountry = formMemberCrate.watch('originCountry');
   const numberChildren = formMemberCrate.watch('numberChildren');
-  const country = formMemberCrate.watch('country');
-  const department = formMemberCrate.watch('department');
-  const province = formMemberCrate.watch('province');
-  const district = formMemberCrate.watch('district');
-  const urbanSector = formMemberCrate.watch('urbanSector');
-  const address = formMemberCrate.watch('address');
-  const referenceComments = formMemberCrate.watch('referenceComments');
+  const countryResidence = formMemberCrate.watch('countryResidence');
+  const departmentResidence = formMemberCrate.watch('departmentResidence');
+  const provinceResidence = formMemberCrate.watch('provinceResidence');
+  const districtResidence = formMemberCrate.watch('districtResidence');
+  const urbanSectorResidence = formMemberCrate.watch('urbanSectorResidence');
+  const addressResidence = formMemberCrate.watch('addressResidence');
+  const addressResidenceReference = formMemberCrate.watch('addressResidenceReference');
 
   const theirFamilyHouse = formMemberCrate.watch('theirFamilyHouse');
   const theirPastor = formMemberCrate.watch('theirPastor');
@@ -76,13 +76,13 @@ export const useMemberCreateSubmitButtonLogic = ({
       phoneNumber &&
       originCountry &&
       numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      urbanSector &&
-      address &&
-      referenceComments &&
+      countryResidence &&
+      departmentResidence &&
+      provinceResidence &&
+      districtResidence &&
+      urbanSectorResidence &&
+      addressResidence &&
+      addressResidenceReference &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Pastor) &&
       Object.values(formMemberCrate.formState.errors).length === 0 &&
@@ -105,13 +105,13 @@ export const useMemberCreateSubmitButtonLogic = ({
       phoneNumber &&
       originCountry &&
       numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceComments &&
+      countryResidence &&
+      departmentResidence &&
+      provinceResidence &&
+      districtResidence &&
+      addressResidence &&
+      urbanSectorResidence &&
+      addressResidenceReference &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
       theirCopastor &&
@@ -135,13 +135,13 @@ export const useMemberCreateSubmitButtonLogic = ({
       phoneNumber &&
       originCountry &&
       numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceComments &&
+      countryResidence &&
+      departmentResidence &&
+      provinceResidence &&
+      districtResidence &&
+      addressResidence &&
+      urbanSectorResidence &&
+      addressResidenceReference &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Preacher) &&
       theirSupervisor &&
@@ -177,13 +177,13 @@ export const useMemberCreateSubmitButtonLogic = ({
       phoneNumber &&
       originCountry &&
       numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceComments &&
+      countryResidence &&
+      departmentResidence &&
+      provinceResidence &&
+      districtResidence &&
+      addressResidence &&
+      urbanSectorResidence &&
+      addressResidenceReference &&
       roles &&
       (theirFamilyHouse || theirPastor || theirCopastor || theirSupervisor) &&
       Object.values(formMemberCrate.formState.errors).length === 0 &&
@@ -204,14 +204,14 @@ export const useMemberCreateSubmitButtonLogic = ({
       !phoneNumber ||
       !originCountry ||
       !numberChildren ||
-      !country ||
-      !department ||
-      !province ||
-      !district ||
-      !address ||
-      !urbanSector ||
-      !address ||
-      (referenceComments && roles.length === 0)
+      !countryResidence ||
+      !departmentResidence ||
+      !provinceResidence ||
+      !districtResidence ||
+      !addressResidence ||
+      !urbanSectorResidence ||
+      !addressResidence ||
+      (addressResidenceReference && roles.length === 0)
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -228,13 +228,13 @@ export const useMemberCreateSubmitButtonLogic = ({
     phoneNumber,
     originCountry,
     numberChildren,
-    country,
-    department,
-    province,
-    district,
-    address,
-    urbanSector,
-    referenceComments,
+    countryResidence,
+    departmentResidence,
+    provinceResidence,
+    districtResidence,
+    addressResidence,
+    urbanSectorResidence,
+    addressResidenceReference,
     theirFamilyHouse,
     theirPastor,
     theirCopastor,

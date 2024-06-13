@@ -4,6 +4,31 @@ import { SearchTypeNames } from '@/shared/enums';
 
 //* Disciples
 // search, search by type and update
+export const SearchTypesChurchModuleAllowed = [ 
+  SearchTypeNames.name_church,
+  SearchTypeNames.founding_date,
+  SearchTypeNames.department,
+  SearchTypeNames.province,
+  SearchTypeNames.district,
+  SearchTypeNames.urban_sector,
+  SearchTypeNames.address,
+  SearchTypeNames.status,
+];
+
+// delete
+export const SearchTypeChurchModuleAllowedOnDeletePage = [ 
+  SearchTypeNames.name_church,
+  SearchTypeNames.founding_date,
+  SearchTypeNames.department,
+  SearchTypeNames.province,
+  SearchTypeNames.district,
+  SearchTypeNames.urban_sector,
+  SearchTypeNames.address,
+
+];
+
+//* Disciples
+// search, search by type and update
 export const SearchTypesDiscipleModuleAllowed = [ 
   SearchTypeNames.first_name,
   SearchTypeNames.last_name,

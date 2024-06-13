@@ -9,7 +9,7 @@ export interface FamilyHouseData {
   district: string;
   urbanSector: string;
   address: string;
-  referenceComments?: string | undefined;
+  referenceAddress?: string | undefined;
   theirPreacher: string;
   status?: string | undefined;
 }
@@ -24,6 +24,6 @@ export type FamilyHouseDataKeys =
   |'district' 
   |'urbanSector'
   |'address' 
-  |'referenceComments'
+  |'referenceAddress'
   |'theirPreacher'
   |'status';

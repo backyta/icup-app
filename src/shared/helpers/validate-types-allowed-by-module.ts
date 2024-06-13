@@ -17,7 +17,9 @@ import {
   SearchTypesUserModuleAllowed, 
   SearchTypesUserModuleAllowedOnDeletePage,
   SearchTypesOfferingExpensesModuleAllowed,
-  SearchTypesOfferingExpensesModuleAllowedOnDeleteAndUpdatePage
+  SearchTypesOfferingExpensesModuleAllowedOnDeleteAndUpdatePage,
+  SearchTypesChurchModuleAllowed,
+  SearchTypeChurchModuleAllowedOnDeletePage
 } from "@/shared/helpers";
 
 interface DisabledSearchTypesResult {
@@ -27,6 +29,9 @@ interface DisabledSearchTypesResult {
 export const validateTypesAllowedByModule = (currentPath: string): DisabledSearchTypesResult | undefined => {
   
   //* Disabled Types by module
+  const disabledChurchModuleSearchTypes = Object.values(SearchTypeNames).filter(value => !SearchTypesChurchModuleAllowed.includes(value) ) 
+  const disabledChurchModuleSearchTypesOnDeletePage = Object.values(SearchTypeNames).filter(value => !SearchTypeChurchModuleAllowedOnDeletePage.includes(value) ) 
+
   const disabledDiscipleModuleSearchTypes = Object.values(SearchTypeNames).filter(value => !SearchTypesDiscipleModuleAllowed.includes(value) ) 
   const disabledDiscipleModuleSearchTypesOnDeletePage = Object.values(SearchTypeNames).filter(value => !SearchTypeDisciplesModuleAllowedOnDeletePage.includes(value) ) 
 
@@ -51,6 +56,23 @@ export const validateTypesAllowedByModule = (currentPath: string): DisabledSearc
   const disabledUserModuleSearchTypes = Object.values(SearchTypeNames).filter(value => !SearchTypesUserModuleAllowed.includes(value) ) 
   const disabledUserModuleSearchTypesOnDeletePage = Object.values(SearchTypeNames).filter(value => !SearchTypesUserModuleAllowedOnDeletePage.includes(value) ) 
   
+  //* Churches
+  if (currentPath === '/churches/search-by-term-churches' || currentPath === '/churches/update-church') {
+    return {
+      disabledSearchTypes : [
+      ...disabledChurchModuleSearchTypes
+    ]   
+  }
+}
+
+if ( currentPath === '/churches/delete-church') {
+    return {
+      disabledSearchTypes : [
+      ...disabledChurchModuleSearchTypesOnDeletePage
+    ]   
+  }
+}
+
   //* Disciples
   if (currentPath === '/disciples/search-by-term-disciples' || currentPath === '/disciples/update-disciple') {
       return {

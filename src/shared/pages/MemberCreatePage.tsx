@@ -99,12 +99,12 @@ export const MemberCreatePage = (): JSX.Element => {
       maritalStatus: '',
       emailAddress: '',
       phoneNumber: '',
-      country: Country.Peru,
-      department: Department.Lima,
-      province: Province.Lima,
-      district: '',
-      address: '',
-      referenceComments: '',
+      countryResidence: Country.Peru,
+      departmentResidence: Department.Lima,
+      provinceResidence: Province.Lima,
+      districtResidence: '',
+      addressResidence: '',
+      addressResidenceReference: '',
       roles: [MemberRole.Disciple],
     },
   });
@@ -116,7 +116,7 @@ export const MemberCreatePage = (): JSX.Element => {
 
   //* watchers
   const roles = form.watch('roles');
-  const district = form.watch('district');
+  const districtResidence = form.watch('districtResidence');
 
   //* Custom hooks
   const { titleValue, subTitleValue, disabledRoles } = useValidatePath({
@@ -136,13 +136,13 @@ export const MemberCreatePage = (): JSX.Element => {
 
   //* Effects
   useEffect(() => {
-    form.resetField('urbanSector', {
+    form.resetField('urbanSectorResidence', {
       keepError: true,
     });
-  }, [district]);
+  }, [districtResidence]);
 
   //* Helpers
-  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
+  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(districtResidence);
   const disabledDistricts = validateDistrictsAllowedByModule(pathname);
 
   return (
@@ -465,7 +465,7 @@ export const MemberCreatePage = (): JSX.Element => {
               />
               <FormField
                 control={form.control}
-                name='country'
+                name='countryResidence'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -499,7 +499,7 @@ export const MemberCreatePage = (): JSX.Element => {
               />
               <FormField
                 control={form.control}
-                name='department'
+                name='departmentResidence'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -533,7 +533,7 @@ export const MemberCreatePage = (): JSX.Element => {
               />
               <FormField
                 control={form.control}
-                name='province'
+                name='provinceResidence'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -567,7 +567,7 @@ export const MemberCreatePage = (): JSX.Element => {
               />
               <FormField
                 control={form.control}
-                name='district'
+                name='districtResidence'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -605,7 +605,7 @@ export const MemberCreatePage = (): JSX.Element => {
               />
               <FormField
                 control={form.control}
-                name='urbanSector'
+                name='urbanSectorResidence'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -627,7 +627,7 @@ export const MemberCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !districtResidence ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -643,7 +643,7 @@ export const MemberCreatePage = (): JSX.Element => {
               />
               <FormField
                 control={form.control}
-                name='address'
+                name='addressResidence'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -663,7 +663,7 @@ export const MemberCreatePage = (): JSX.Element => {
               />
               <FormField
                 control={form.control}
-                name='referenceComments'
+                name='addressResidenceReference'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>

@@ -2,7 +2,7 @@
 
 import * as z from 'zod';
 
-import { TypesOfferingExpenses, SubTypesOfferingExpenses } from '@/app/offering/expenses/enums';
+import { TypesOfferingExpense, SubTypesOfferingExpense } from '@/app/offering/expenses/enums';
 import { CurrencyType  } from '@/app/offering/shared/enums';
 
 import { Status } from '@/shared/enums';
@@ -10,11 +10,11 @@ import { Status } from '@/shared/enums';
 export const offeringExpensesFormSchema = z
   .object({
     
-    type: z.string(z.nativeEnum(TypesOfferingExpenses,{
+    type: z.string(z.nativeEnum(TypesOfferingExpense,{
       required_error: "Por favor seleccione un tipo.",
     })),
 
-    subType: z.string(z.nativeEnum(SubTypesOfferingExpenses,{
+    subType: z.string(z.nativeEnum(SubTypesOfferingExpense,{
       required_error: "Por favor seleccione una opción.",
     })).optional(),
 

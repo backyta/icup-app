@@ -115,7 +115,7 @@ export const FamilyHouseFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Elemen
       province: '',
       district: '',
       urbanSector: '',
-      referenceComments: '',
+      referenceAddress: '',
       address: '',
       status: '',
     },

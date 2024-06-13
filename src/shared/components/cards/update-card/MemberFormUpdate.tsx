@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
@@ -109,13 +110,13 @@ const data: MemberData = {
   conversionDate: new Date('12-12-2000'),
   emailAddress: 'marcos@google.com',
   phoneNumber: '9999',
-  country: Country.Peru,
-  department: Department.Lima,
-  province: Province.Lima,
-  district: District.Independencia,
-  urbanSector: UrbanSector.Payet,
-  address: 'Jr. Cerro Alto 222, Mz.2 Lt.25',
-  referenceComments: 'Cerca a la esquina del parque Ollantaytambo',
+  countryResidence: Country.Peru,
+  departmentResidence: Department.Lima,
+  provinceResidence: Province.Lima,
+  districtResidence: District.Independencia,
+  urbanSectorResidence: UrbanSector.Payet,
+  addressResidence: 'Jr. Cerro Alto 222, Mz.2 Lt.25',
+  addressResidenceReference: 'Cerca a la esquina del parque Ollantaytambo',
   roles: [MemberRole.Disciple],
   theirPastor: 'id1',
   theirCopastor: 'id2',
@@ -159,13 +160,13 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
       phoneNumber: '',
       originCountry: '',
       numberChildren: '',
-      country: '',
-      department: '',
-      urbanSector: '',
-      province: '',
-      district: '',
-      address: '',
-      referenceComments: '',
+      countryResidence: '',
+      departmentResidence: '',
+      urbanSectorResidence: '',
+      provinceResidence: '',
+      districtResidence: '',
+      addressResidence: '',
+      addressResidenceReference: '',
       status: '',
     },
   });
@@ -177,7 +178,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
 
   //* Watchers
   const roles = form.watch('roles');
-  const district = form.watch('district');
+  const district = form.watch('districtResidence');
 
   //* Custom Hooks
   const { disabledRoles, textValue } = useValidatePath({
@@ -615,7 +616,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
 
                   <FormField
                     control={form.control}
-                    name='country'
+                    name='countryResidence'
                     render={({ field }) => {
                       return (
                         <FormItem className='mt-3'>
@@ -650,7 +651,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
 
                   <FormField
                     control={form.control}
-                    name='department'
+                    name='departmentResidence'
                     render={({ field }) => {
                       return (
                         <FormItem className='mt-3'>
@@ -685,7 +686,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
 
                   <FormField
                     control={form.control}
-                    name='province'
+                    name='provinceResidence'
                     render={({ field }) => {
                       return (
                         <FormItem className='mt-3'>
@@ -719,14 +720,14 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                   />
                   <FormField
                     control={form.control}
-                    name='district'
+                    name='districtResidence'
                     render={({ field }) => {
                       return (
                         <FormItem className='mt-3'>
                           <FormLabel className='text-[14px]'>Distrito</FormLabel>
                           <Select
                             onOpenChange={() => {
-                              form.resetField('urbanSector', {
+                              form.resetField('urbanSectorResidence', {
                                 keepError: true,
                               });
                             }}
@@ -762,7 +763,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                   />
                   <FormField
                     control={form.control}
-                    name='urbanSector'
+                    name='urbanSectorResidence'
                     render={({ field }) => {
                       return (
                         <FormItem className='mt-3'>
@@ -800,7 +801,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                   />
                   <FormField
                     control={form.control}
-                    name='address'
+                    name='addressResidence'
                     render={({ field }) => {
                       return (
                         <FormItem className='mt-3'>
@@ -821,7 +822,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                   />
                   <FormField
                     control={form.control}
-                    name='referenceComments'
+                    name='addressResidenceReference'
                     render={({ field }) => {
                       return (
                         <FormItem className='mt-3'>
