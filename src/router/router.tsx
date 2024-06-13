@@ -28,6 +28,8 @@ import { MetricsChildrenRoutes } from '@/app/metrics/router';
 import { MetricsOptionsPage } from '@/app/metrics/pages';
 import { ChurchOptionsPage } from '@/app/church/pages';
 import { ChurchChildrenRoutes } from '@/app/church/router';
+import { AuthLayout } from '@/layouts/AuthLayout';
+import { LoginRouters } from '@/auth/router/LoginRouters';
 
 export const router = createBrowserRouter([
   {
@@ -83,6 +85,7 @@ export const router = createBrowserRouter([
 
       /// Auth Routes
       // TODO 2 : Crear ruta para auth/login con su layout y login page
+      { path: '/auth/login', element: <AuthLayout />, children: LoginRouters },
     ],
   },
 ]);
