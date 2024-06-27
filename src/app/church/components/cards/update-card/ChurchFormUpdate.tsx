@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
@@ -7,7 +10,7 @@ import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Toaster, toast } from 'sonner';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { cn } from '@/shared/lib/utils';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
@@ -18,16 +21,10 @@ import {
 } from '@/shared/helpers';
 
 import {
-  Country,
   CountryNames,
-  Department,
   DepartmentNames,
-  District,
   DistrictNames,
-  Province,
   ProvinceNames,
-  Status,
-  UrbanSector,
   UrbanSectorNames,
 } from '@/shared/enums';
 
@@ -61,9 +58,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/components/ui/select';
-import { formChurchSchema } from '@/app/church/validations';
-import { type ChurchData, type ChurchDataKeys } from '@/app/church/interfaces';
-import { churches } from '@/app/church/data';
+import { churchFormSchema } from '@/app/church/validations';
+import { type ErrorResponse, type ChurchResponse } from '@/app/church/interfaces';
 import { WorshipTimes, WorshipTimesNames } from '@/app/church/enums/worship-times.enum';
 import { useChurchUpdateSubmitButtonLogic } from '@/hooks/useChurchUpdateSubmitButtonLogic';
 import { CalendarIcon } from 'lucide-react';
@@ -71,83 +67,86 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { Calendar } from '@/shared/components/ui/calendar';
 import { Checkbox } from '@/shared/components/ui/checkbox';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { getMainChurch, updateChurch } from '@/app/church/services';
+import { LoadingSpinner } from '@/layouts/components';
+import { useChurchStore } from '@/stores/church';
 
-const data: ChurchData = {
-  nameChurch: 'Iglesia Roca Celestial',
-  emailAddress: 'iglesia.central@iglesia.com',
-  worshipTimes: [WorshipTimes.FirstOption, WorshipTimes.FourthOption],
-  foundingDate: new Date('2021/10/20'),
-  phoneNumber: '9998888222',
-  country: Country.Peru,
-  department: Department.Lima,
-  province: Province.Lima,
-  district: District.Independencia,
-  urbanSector: UrbanSector.Payet,
-  addressReference: 'nuevo referencia',
-  address: 'Av. Hayan Capac 123',
-  theirMainChurch: undefined,
-  isAnexe: false,
-  status: Status.Active,
-};
-
-interface Props {
+// TODO : ordenar imports
+interface ChurchFormUpdateProps {
+  id: string;
   onSubmit: () => void;
   onScroll: () => void;
+  data: ChurchResponse | undefined;
 }
 
-export const ChurchFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Element => {
+export const ChurchFormUpdate = ({
+  id,
+  data,
+  onSubmit,
+  onScroll,
+}: ChurchFormUpdateProps): JSX.Element => {
   //* States
-
   const [isInputMainChurchOpen, setIsInputMainChurchOpen] = useState<boolean>(false);
-
   const [isInputFoundingDateOpen, setIsInputFoundingDateOpen] = useState<boolean>(false);
-
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
-
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
-
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
+
+  const setIsFiltersSearchByTermDisabled = useChurchStore(
+    (state) => state.setIsFiltersSearchByTermDisabled
+  );
 
   //* Library hooks
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   //* Form
-  const form = useForm<z.infer<typeof formChurchSchema>>({
+  const form = useForm<z.infer<typeof churchFormSchema>>({
     mode: 'onChange',
-    resolver: zodResolver(formChurchSchema),
+    resolver: zodResolver(churchFormSchema),
     defaultValues: {
-      nameChurch: '',
-      emailAddress: '',
+      churchName: '',
+      email: '',
       foundingDate: undefined,
       worshipTimes: [],
       isAnexe: false,
+      phoneNumber: '',
       country: '',
       department: '',
       province: '',
       district: '',
       urbanSector: '',
       address: '',
-      addressReference: '',
+      referenceAddress: '',
       status: '',
       theirMainChurch: '',
     },
   });
 
-  //* Handler form
-  const handleSubmit = (values: z.infer<typeof formChurchSchema>): void => {
-    console.log({ values });
-  };
-
   //* watchers
   const district = form.watch('district');
   const isAnexe = form.watch('isAnexe');
+  const theirMainChurch = form.watch('theirMainChurch');
 
-  // TODO : retrasar o precargar la data al pasar el click por el botón y evitar el parpadeo
-  // NOTE : Hacer custom hook
+  // todo : pasar el mouse el componente y pre cargar (parpadeo es porque al mismo tiempo se carga y se abre)
+  // TODO : hacer el delete y el servicio y ordenar y revisar todo el modulo de church para empezar a replicar
   useEffect(() => {
-    for (const key in data) {
-      form.setValue(key as ChurchDataKeys, data[key as ChurchDataKeys]);
-    }
+    form.setValue('churchName', data?.churchName!);
+    form.setValue('foundingDate', new Date(data?.foundingDate.replace(/-/g, '/') as any));
+    form.setValue('worshipTimes', data?.worshipTimes as WorshipTimes[]);
+    form.setValue('email', data?.email!);
+    form.setValue('phoneNumber', data?.phoneNumber!);
+    form.setValue('country', data?.country!);
+    form.setValue('department', data?.department!);
+    form.setValue('province', data?.province!);
+    form.setValue('district', data?.district!);
+    form.setValue('urbanSector', data?.urbanSector!);
+    form.setValue('address', data?.address!);
+    form.setValue('referenceAddress', data?.referenceAddress!);
+    form.setValue('isAnexe', data?.isAnexe);
+    form.setValue('theirMainChurch', data?.theirMainChurch?.id);
+    form.setValue('status', data?.status);
   }, []);
 
   //* Custom hooks
@@ -157,16 +156,73 @@ export const ChurchFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Element => 
     setIsMessageErrorDisabled,
   });
 
-  //* Effects
-  useEffect(() => {
-    form.resetField('theirMainChurch', {
-      keepError: true,
-    });
-  }, [isAnexe]);
-
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
   const disabledDistricts = validateDistrictsAllowedByModule(pathname);
+
+  //* Mutation
+  const mutation = useMutation({
+    mutationFn: updateChurch,
+    onError: (error: ErrorResponse) => {
+      if (error.message !== 'Unauthorized') {
+        toast.error(error.message, {
+          position: 'top-center',
+          className: 'justify-center',
+        });
+
+        setTimeout(() => {
+          setIsInputDisabled(false);
+          setIsSubmitButtonDisabled(false);
+        }, 1500);
+      }
+
+      if (error.message === 'Unauthorized') {
+        toast.error('Operación rechazada, el token expiro ingresa nuevamente.', {
+          position: 'top-center',
+          className: 'justify-center',
+        });
+
+        setTimeout(() => {
+          navigate('/');
+        }, 3500);
+      }
+    },
+    onSuccess: () => {
+      toast.success('Cambios guardados correctamente', {
+        position: 'top-center',
+        className: 'justify-center',
+      });
+
+      setTimeout(() => {
+        onScroll();
+      }, 150);
+
+      setTimeout(() => {
+        onSubmit();
+        setIsInputDisabled(false);
+        setIsSubmitButtonDisabled(false);
+        setIsFiltersSearchByTermDisabled(true);
+      }, 1500);
+
+      setTimeout(() => {
+        navigate('/churches');
+      }, 2700);
+    },
+  });
+
+  //* Querys
+  const query = useQuery({
+    queryKey: ['mainChurch'],
+    queryFn: getMainChurch,
+  });
+
+  if (query.isLoading) return <LoadingSpinner />;
+
+  //* Handler form
+  const handleSubmit = (formData: z.infer<typeof churchFormSchema>): void => {
+    mutation.mutate({ id, formData });
+    // console.log({ formData });
+  };
 
   return (
     <Tabs
@@ -181,7 +237,7 @@ export const ChurchFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Element => 
         <Card className='w-full'>
           <CardContent className='py-3 px-4'>
             <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-4'>
-              Iglesia: Roca de Jesus - Los Olivos
+              Iglesia: {data?.churchName} - {data?.district}
             </div>
             <Form {...form}>
               <form
@@ -191,7 +247,7 @@ export const ChurchFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Element => 
                 <div className='col-start-1 col-end-2'>
                   <FormField
                     control={form.control}
-                    name='nameChurch'
+                    name='churchName'
                     render={({ field }) => {
                       return (
                         <FormItem>
@@ -331,7 +387,7 @@ export const ChurchFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Element => 
 
                   <FormField
                     control={form.control}
-                    name='emailAddress'
+                    name='email'
                     render={({ field }) => {
                       return (
                         <FormItem className='mt-3'>
@@ -460,15 +516,13 @@ export const ChurchFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Element => 
                       );
                     }}
                   />
-                </div>
 
-                <div className='col-start-2 col-end-3'>
                   <FormField
                     control={form.control}
                     name='province'
                     render={({ field }) => {
                       return (
-                        <FormItem>
+                        <FormItem className='mt-3'>
                           <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                             Provincia
                           </FormLabel>
@@ -502,12 +556,15 @@ export const ChurchFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Element => 
                       );
                     }}
                   />
+                </div>
+
+                <div className='col-start-2 col-end-3'>
                   <FormField
                     control={form.control}
                     name='district'
                     render={({ field }) => {
                       return (
-                        <FormItem className='mt-3'>
+                        <FormItem>
                           <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                             Distrito
                           </FormLabel>
@@ -622,7 +679,7 @@ export const ChurchFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Element => 
 
                   <FormField
                     control={form.control}
-                    name='addressReference'
+                    name='referenceAddress'
                     render={({ field }) => {
                       return (
                         <FormItem className='mt-3 md:mt-5'>
@@ -653,6 +710,13 @@ export const ChurchFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Element => 
                             checked={field?.value}
                             onCheckedChange={(checked) => {
                               field.onChange(checked);
+                              form.resetField('theirMainChurch', {
+                                keepError: true,
+                              });
+                              if (!theirMainChurch) {
+                                setIsSubmitButtonDisabled(true);
+                                setIsMessageErrorDisabled(true);
+                              }
                             }}
                           />
                         </FormControl>
@@ -685,14 +749,15 @@ export const ChurchFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Element => 
                               <PopoverTrigger asChild>
                                 <FormControl>
                                   <Button
+                                    value={field.value}
                                     disabled={isInputDisabled}
                                     variant='outline'
                                     role='combobox'
                                     className={cn('w-full justify-between ')}
                                   >
                                     {field.value
-                                      ? churches.find((church) => church.value === field.value)
-                                          ?.label
+                                      ? query?.data?.find((church) => church.id === field.value)
+                                          ?.churchName
                                       : 'Busque y seleccione una iglesia'}
                                     <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                   </Button>
@@ -706,23 +771,21 @@ export const ChurchFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Element => 
                                   />
                                   <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
                                   <CommandGroup className='max-h-[200px] h-auto'>
-                                    {churches.map((church) => (
+                                    {query?.data?.map((church) => (
                                       <CommandItem
                                         className='text-[14px]'
-                                        value={church.label}
-                                        key={church.value}
+                                        value={church.id}
+                                        key={church.id}
                                         onSelect={() => {
-                                          form.setValue('theirMainChurch', church.value);
+                                          form.setValue('theirMainChurch', church.id);
                                           setIsInputMainChurchOpen(false);
                                         }}
                                       >
-                                        {church.label}
+                                        {church.churchName}
                                         <CheckIcon
                                           className={cn(
                                             'ml-auto h-4 w-4',
-                                            church.value === field.value
-                                              ? 'opacity-100'
-                                              : 'opacity-0'
+                                            church.id === field.value ? 'opacity-100' : 'opacity-0'
                                           )}
                                         />
                                       </CommandItem>
@@ -737,6 +800,53 @@ export const ChurchFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Element => 
                       }}
                     />
                   )}
+
+                  <FormField
+                    control={form.control}
+                    name='status'
+                    render={({ field }) => {
+                      return (
+                        <FormItem className='mt-5'>
+                          <FormLabel className='text-[14px]'>Estado</FormLabel>
+                          <Select
+                            disabled={isInputDisabled}
+                            value={field.value}
+                            onValueChange={field.onChange}
+                          >
+                            <FormControl className='text-[14px]'>
+                              <SelectTrigger>
+                                {field.value === 'active' ? (
+                                  <SelectValue placeholder='Activo' />
+                                ) : (
+                                  <SelectValue placeholder='Inactivo' />
+                                )}
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem className='text-[14px]' value='active'>
+                                Activo
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                          {form.getValues('status') === 'active' && (
+                            <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              *El registro esta <span className='text-green-500'>activo</span>, para
+                              colocarla como <span className='text-red-500'>Inactivo</span> debe
+                              eliminar el registro desde la pestaña{' '}
+                              <span className='font-bold text-red-500'>Eliminar Iglesia. </span>
+                            </FormDescription>
+                          )}
+                          {form.getValues('status') === 'inactive' && (
+                            <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              * El registro esta <span className='text-red-500 '>Inactivo</span>,
+                              puede modificar el estado eligiendo otra opción.
+                            </FormDescription>
+                          )}
+                          <FormMessage />
+                        </FormItem>
+                      );
+                    }}
+                  />
                 </div>
 
                 {isMessageErrorDisabled ? (
@@ -757,29 +867,12 @@ export const ChurchFormUpdate = ({ onSubmit, onScroll }: Props): JSX.Element => 
                     type='submit'
                     className='w-full text-[14px]'
                     onClick={() => {
-                      // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
-                      // NOTE : hacer petición al backend para actualizar
                       setTimeout(() => {
                         if (Object.keys(form.formState.errors).length === 0) {
-                          toast.success('Cambios guardados correctamente', {
-                            position: 'top-center',
-                            className: 'justify-center',
-                          });
-
-                          setIsInputDisabled(true);
                           setIsSubmitButtonDisabled(true);
+                          setIsInputDisabled(true);
                         }
                       }, 100);
-
-                      setTimeout(() => {
-                        onScroll();
-                      }, 150);
-
-                      setTimeout(() => {
-                        if (Object.keys(form.formState.errors).length === 0) {
-                          onSubmit();
-                        }
-                      }, 1700);
                     }}
                   >
                     Guardar cambios

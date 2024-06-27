@@ -1,21 +1,38 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable n/handle-callback-err */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 import { useEffect, useState } from 'react';
 
-import { useLocation } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
 import type * as z from 'zod';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { Toaster, toast } from 'sonner';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useLocation, useNavigate } from 'react-router-dom';
 
+import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+
+import { churchFormSchema } from '@/app/church/validations';
+import { type ErrorResponse } from '@/app/church/interfaces';
+import { createChurch, getMainChurch } from '@/app/church/services';
+import { WorshipTimes, WorshipTimesNames } from '@/app/church/enums';
+
+import { useChurchCreateSubmitButtonLogic } from '@/hooks';
+import { LoadingSpinner } from '@/layouts/components';
 
 import { cn } from '@/shared/lib/utils';
 
 import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
+import { Checkbox } from '@/shared/components/ui/checkbox';
+import { Calendar } from '@/shared/components/ui/calendar';
+import { Textarea } from '@/shared/components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Form,
@@ -40,6 +57,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/components/ui/select';
+
 import {
   CountryNames,
   DepartmentNames,
@@ -47,46 +65,32 @@ import {
   ProvinceNames,
   UrbanSectorNames,
 } from '@/shared/enums';
-import { Textarea } from '@/shared/components/ui/textarea';
 import {
   validateDistrictsAllowedByModule,
   validateUrbanSectorsAllowedByDistrict,
 } from '@/shared/helpers';
-import { formChurchSchema } from '../validations';
-import { WorshipTimes, WorshipTimesNames } from '../enums/worship-times.enum';
-import { Checkbox } from '@/shared/components/ui/checkbox';
-import { churches } from '../data';
-import { useChurchCreateSubmitButtonLogic } from '@/hooks/useChurchCreateSubmitButtonLogic';
-import { CalendarIcon } from 'lucide-react';
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
-import { Calendar } from '@/shared/components/ui/calendar';
-import { createChurch } from '@/api/icupApi';
 
 export const ChurchCreatePage = (): JSX.Element => {
   //* States
-  const [isInputMainChurchOpen, setIsInputMainChurchOpen] = useState<boolean>(false);
-
-  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
-
-  const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
-
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
-
+  const [isInputMainChurchOpen, setIsInputMainChurchOpen] = useState<boolean>(false);
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
+  const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
   const [isInputFoundingDateOpen, setIsInputFoundingDateOpen] = useState<boolean>(false);
 
-  //* Library hooks
+  //* External libraries
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   //* Form
-  const form = useForm<z.infer<typeof formChurchSchema>>({
+  const form = useForm<z.infer<typeof churchFormSchema>>({
     mode: 'onChange',
-    resolver: zodResolver(formChurchSchema),
+    resolver: zodResolver(churchFormSchema),
     defaultValues: {
-      nameChurch: '',
+      churchName: '',
       isAnexe: false,
       country: '',
-      emailAddress: '',
+      email: '',
       phoneNumber: '',
       department: '',
       province: '',
@@ -94,14 +98,15 @@ export const ChurchCreatePage = (): JSX.Element => {
       urbanSector: '',
       address: '',
       worshipTimes: [],
-      addressReference: '',
+      referenceAddress: '',
       theirMainChurch: '',
     },
   });
 
-  //* watchers
+  //* Watchers
   const district = form.watch('district');
   const isAnexe = form.watch('isAnexe');
+  const theirMainChurch = form.watch('theirMainChurch');
 
   //* Custom hooks
   useChurchCreateSubmitButtonLogic({
@@ -123,18 +128,80 @@ export const ChurchCreatePage = (): JSX.Element => {
     });
   }, [isAnexe]);
 
+  useEffect(() => {
+    if (isAnexe && !theirMainChurch) {
+      setIsSubmitButtonDisabled(true);
+      setIsMessageErrorDisabled(true);
+    }
+  }, [isAnexe]);
+
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
   const disabledDistricts = validateDistrictsAllowedByModule(pathname);
 
+  //* Mutation
+  const mutation = useMutation({
+    mutationFn: createChurch,
+    onError: (error: ErrorResponse) => {
+      if (error.message !== 'Unauthorized') {
+        toast.error(error.message, {
+          position: 'top-center',
+          className: 'justify-center',
+        });
+
+        setTimeout(() => {
+          setIsInputDisabled(false);
+          setIsSubmitButtonDisabled(false);
+        }, 1500);
+      }
+
+      if (error.message === 'Unauthorized') {
+        toast.error('Operación rechazada, el token expiro ingresa nuevamente.', {
+          position: 'top-center',
+          className: 'justify-center',
+        });
+
+        setTimeout(() => {
+          navigate('/');
+        }, 3500);
+      }
+    },
+    onSuccess: () => {
+      toast.success('Iglesia creada exitosamente', {
+        position: 'top-center',
+        className: 'justify-center',
+      });
+
+      setTimeout(() => {
+        setIsInputDisabled(false);
+        setIsSubmitButtonDisabled(false);
+      }, 1500);
+
+      setTimeout(() => {
+        form.reset();
+      }, 1600);
+
+      setTimeout(() => {
+        navigate('/churches');
+      }, 2600);
+    },
+  });
+
+  //* Querys
+  const { data, isLoading } = useQuery({
+    queryKey: ['mainChurch'],
+    queryFn: getMainChurch,
+  });
+
+  if (isLoading) return <LoadingSpinner />;
+
   //* Form handler
-  const handleSubmit = (values: z.infer<typeof formChurchSchema>): void => {
-    // console.log({ values });
-    createChurch(values);
+  const handleSubmit = (formData: z.infer<typeof churchFormSchema>): void => {
+    mutation.mutate(formData);
   };
 
   return (
-    <>
+    <div className='animate-fadeInPage'>
       <h1 className='text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-slate-500 dark:text-slate-400 text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]'>
         Modulo Iglesia
       </h1>
@@ -158,7 +225,7 @@ export const ChurchCreatePage = (): JSX.Element => {
             <div className='col-start-1 col-end-2'>
               <FormField
                 control={form.control}
-                name='nameChurch'
+                name='churchName'
                 render={({ field }) => {
                   return (
                     <FormItem>
@@ -295,7 +362,7 @@ export const ChurchCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='emailAddress'
+                name='email'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -335,7 +402,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           disabled={isInputDisabled}
-                          placeholder='Eje: 999 999 999'
+                          placeholder='Eje: +51 999-999-999'
                           type='text'
                           {...field}
                         />
@@ -383,6 +450,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='department'
@@ -464,6 +532,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='district'
@@ -507,6 +576,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='urbanSector'
@@ -550,6 +620,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='address'
@@ -578,7 +649,7 @@ export const ChurchCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='addressReference'
+                name='referenceAddress'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3 md:mt-5'>
@@ -620,6 +691,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                   </FormItem>
                 )}
               />
+
               {isAnexe && (
                 <FormField
                   control={form.control}
@@ -646,7 +718,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                                 className={cn('w-full justify-between ')}
                               >
                                 {field.value
-                                  ? churches.find((church) => church.value === field.value)?.label
+                                  ? data?.find((church) => church.id === field.value)?.churchName
                                   : 'Busque y seleccione una iglesia'}
                                 <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                               </Button>
@@ -660,25 +732,29 @@ export const ChurchCreatePage = (): JSX.Element => {
                               />
                               <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
                               <CommandGroup className='max-h-[200px] h-auto'>
-                                {churches.map((church) => (
+                                {data?.map((church) => (
                                   <CommandItem
                                     className='text-[14px]'
-                                    value={church.label}
-                                    key={church.value}
+                                    value={church?.id}
+                                    key={church?.id}
                                     onSelect={() => {
-                                      form.setValue('theirMainChurch', church.value);
+                                      form.setValue('theirMainChurch', church?.id);
                                       setIsInputMainChurchOpen(false);
                                     }}
                                   >
-                                    {church.label}
+                                    {church?.churchName}
                                     <CheckIcon
                                       className={cn(
                                         'ml-auto h-4 w-4',
-                                        church.value === field.value ? 'opacity-100' : 'opacity-0'
+                                        church.id === field.value ? 'opacity-100' : 'opacity-0'
                                       )}
                                     />
                                   </CommandItem>
                                 ))}
+
+                                {data?.length === 0 && (
+                                  <CommandItem>{'No hay iglesias disponibles'}</CommandItem>
+                                )}
                               </CommandGroup>
                             </Command>
                           </PopoverContent>
@@ -702,40 +778,18 @@ export const ChurchCreatePage = (): JSX.Element => {
             )}
 
             <div className='mt-2 md:mt-1 md:col-start-1 md:col-end-3 md:row-start-3 md:row-end-4 w-full md:w-[20rem] md:m-auto'>
-              {Object.values(form.getValues()).some(
-                (value) => value !== '' && value !== undefined
-              ) && <Toaster position='top-center' richColors />}
+              <Toaster position='top-center' richColors />
               <Button
                 disabled={isSubmitButtonDisabled}
                 type='submit'
                 className='w-full text-[14px]'
                 onClick={() => {
-                  // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
-                  // NOTE : hacer petición al backend para crear
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
-                      toast.success('Cambios guardados correctamente', {
-                        position: 'top-center',
-                        className: 'justify-center',
-                      });
-
                       setIsSubmitButtonDisabled(true);
                       setIsInputDisabled(true);
                     }
                   }, 100);
-
-                  setTimeout(() => {
-                    if (Object.keys(form.formState.errors).length === 0) {
-                      setIsInputDisabled(false);
-                      setIsSubmitButtonDisabled(false);
-                    }
-                  }, 1700);
-
-                  setTimeout(() => {
-                    if (Object.keys(form.formState.errors).length === 0) {
-                      form.reset();
-                    }
-                  }, 1700);
                 }}
               >
                 Registrar Iglesia
@@ -744,6 +798,6 @@ export const ChurchCreatePage = (): JSX.Element => {
           </form>
         </Form>
       </div>
-    </>
+    </div>
   );
 };

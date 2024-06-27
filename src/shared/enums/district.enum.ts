@@ -1,9 +1,9 @@
 export enum District {
   Independencia = 'Independencia',
-  PuentePiedra = 'Puente_Piedra',
+  PuentePiedra = 'Puente Piedra',
 }
 
 export const DistrictNames: Record<District, string> = {
-  'Puente_Piedra' : 'Puente Piedra',
+  'Puente Piedra' : 'Puente Piedra',
   'Independencia' : 'Independencia',
 }

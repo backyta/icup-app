@@ -81,3 +81,14 @@ input[type="time"]::-webkit-calendar-picker-indicator{
     @apply bg-background text-foreground;
   }
 }
+
+.loader {
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

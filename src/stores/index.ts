@@ -1,1 +1,2 @@
-export * from './family-house.store';
+export * from './auth';
+export * from './family-house';

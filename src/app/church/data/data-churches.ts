@@ -5,7 +5,7 @@ export const dataChurches: ChurchColumns[] =
 [
   {
     id: "1",
-    nameChurch: "Iglesia Presencia Divina",
+    churchName: "Iglesia Presencia Divina",
     email: "iglesia.presencia.divina@iglesia.com",
     phoneNumber: "9999999999",
     district: 'Los Olivos',
@@ -14,7 +14,7 @@ export const dataChurches: ChurchColumns[] =
   },
   {
     id: "2",
-    nameChurch: "Iglesia Presencia Divina - Anexo 1",
+    churchName: "Iglesia Presencia Divina - Anexo 1",
     email: "iglesia.presencia.divina.1@iglesia.com",
     phoneNumber: "9999999999",
     district: 'SMP',
@@ -23,7 +23,7 @@ export const dataChurches: ChurchColumns[] =
   },
   {
     id: "3",
-    nameChurch: "Iglesia Presencia Divina - Anexo 2",
+    churchName: "Iglesia Presencia Divina - Anexo 2",
     email: "iglesia.presencia.divina.2@iglesia.com",
     phoneNumber: "9999999999",
     district: 'Independencia',
@@ -32,7 +32,7 @@ export const dataChurches: ChurchColumns[] =
   },
   {
     id: "4",
-    nameChurch: "Iglesia Presencia Divina - Anexo 3",
+    churchName: "Iglesia Presencia Divina - Anexo 3",
     email: "iglesia.presencia.divina.3@iglesia.com",
     phoneNumber: "9999999999",
     district: 'Comas',

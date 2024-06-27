@@ -62,8 +62,6 @@ export const ChurchDeleteCard = (): JSX.Element => {
           <Button
             disabled={isButtonDisabled}
             onClick={() => {
-              // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
-              // NOTE : Colocar función que envié la solicitud al backend onClick
               toast.success('Registro eliminado exitosamente', {
                 position: 'top-center',
                 className: 'justify-center',

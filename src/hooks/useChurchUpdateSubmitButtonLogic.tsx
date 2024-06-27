@@ -17,10 +17,10 @@ export const useChurchUpdateSubmitButtonLogic = ({
   setIsMessageErrorDisabled,
 }: Options): void => {
   // watchers
-  const nameChurch = formChurchUpdate.watch('nameChurch');
+  const nameChurch = formChurchUpdate.watch('churchName');
   const foundingDate = formChurchUpdate.watch('foundingDate');
   const worshipTimes = formChurchUpdate.watch('worshipTimes');
-  const emailAddress = formChurchUpdate.watch('emailAddress');
+  const email = formChurchUpdate.watch('email');
   const phoneNumber = formChurchUpdate.watch('phoneNumber');
   const country = formChurchUpdate.watch('country');
   const department = formChurchUpdate.watch('department');
@@ -28,7 +28,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
   const district = formChurchUpdate.watch('district');
   const urbanSector = formChurchUpdate.watch('urbanSector');
   const address = formChurchUpdate.watch('address');
-  const addressReference = formChurchUpdate.watch('addressReference');
+  const referenceAddress = formChurchUpdate.watch('referenceAddress');
   const isAnexe = formChurchUpdate.watch('isAnexe');
   const theirMainChurch = formChurchUpdate.watch('theirMainChurch');
   // effects
@@ -45,7 +45,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
       nameChurch &&
       foundingDate &&
       worshipTimes &&
-      emailAddress &&
+      email &&
       phoneNumber &&
       country &&
       department &&
@@ -53,7 +53,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
       district &&
       urbanSector &&
       address &&
-      addressReference &&
+      referenceAddress &&
       isAnexe &&
       theirMainChurch &&
       Object.values(formChurchUpdate.formState.errors).length === 0
@@ -66,7 +66,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
       nameChurch &&
       foundingDate &&
       worshipTimes &&
-      emailAddress &&
+      email &&
       phoneNumber &&
       country &&
       department &&
@@ -74,7 +74,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
       district &&
       urbanSector &&
       address &&
-      addressReference &&
+      referenceAddress &&
       !isAnexe &&
       Object.values(formChurchUpdate.formState.errors).length === 0
     ) {
@@ -86,7 +86,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
       !nameChurch ||
       !foundingDate ||
       !worshipTimes ||
-      !emailAddress ||
+      !email ||
       !phoneNumber ||
       !country ||
       !department ||
@@ -94,7 +94,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
       !district ||
       !urbanSector ||
       !address ||
-      !addressReference
+      !referenceAddress
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -103,7 +103,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
     nameChurch,
     foundingDate,
     worshipTimes,
-    emailAddress,
+    email,
     phoneNumber,
     country,
     department,
@@ -111,7 +111,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
     district,
     urbanSector,
     address,
-    addressReference,
+    referenceAddress,
     isAnexe,
     theirMainChurch,
   ]);

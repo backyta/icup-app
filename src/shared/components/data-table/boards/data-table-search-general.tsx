@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
@@ -54,6 +55,9 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form';
+import { useQuery } from '@tanstack/react-query';
+import { getChurches } from '@/app/church/services';
+import { LoadingSpinner } from '@/layouts/components';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -75,7 +79,7 @@ export function DataTableSearchGeneral<TData, TValue>({
 
   const [isFiltersDisabled, setIsFiltersDisabled] = useState(true);
 
-  //* Library hooks
+  //* External libraries
   const { pathname } = useLocation();
 
   //* Forms
@@ -86,21 +90,15 @@ export function DataTableSearchGeneral<TData, TValue>({
       limit: '10',
       offset: '0',
       all: false,
-      orderRecord: RecordOrder.Ascending,
+      order: RecordOrder.Descending,
     },
   });
-
-  //* Form handler
-  function onSubmit(values: z.infer<typeof formSearchGeneralSchema>): void {
-    setIsFiltersDisabled(false);
-    form.reset();
-    console.log({ values });
-  }
 
   //* Watchers
   const limit = form.watch('limit');
   const offset = form.watch('offset');
-  const orderRecord = form.watch('orderRecord');
+  const order = form.watch('orderRecord');
+  const all = form.getValues('all');
 
   //* Table
   const table = useReactTable({
@@ -124,14 +122,33 @@ export function DataTableSearchGeneral<TData, TValue>({
 
   //* Effects
   useEffect(() => {
-    if (limit !== '' && offset !== '' && orderRecord !== '') {
+    if (limit !== '' && offset !== '' && order !== '') {
       setIsDisabledSubmitButton(false);
     }
 
-    if (limit === '' || offset === '' || orderRecord === '') {
+    if (limit === '' || offset === '' || order === '') {
       setIsDisabledSubmitButton(true);
     }
-  }, [limit, offset, orderRecord]);
+  }, [limit, offset, order]);
+
+  // NOTE : NO TENDRIA QUE HACERLO AQUI si no en el page para que pase la info aca como data
+  // NOTE : pasar el query en el handle form
+  //* Querys
+  const query = useQuery({
+    queryKey: ['churches'],
+    queryFn: () => getChurches({ limit, offset, order, all }),
+  });
+
+  if (query.isLoading) return <LoadingSpinner />;
+
+  console.log(query.data);
+
+  //* Form handler
+  function onSubmit(values: z.infer<typeof formSearchGeneralSchema>): void {
+    setIsFiltersDisabled(false);
+    form.reset();
+    console.log({ values });
+  }
 
   return (
     <div className='md:w-full m-auto lg:w-full pt-3'>
@@ -281,6 +298,56 @@ export function DataTableSearchGeneral<TData, TValue>({
             </Button>
           </form>
         </Form>
+      )}
+
+      {/* Churches */}
+
+      {!isFiltersDisabled && pathname === '/churches/search-churches' && (
+        <div>
+          <span className='text-offering-color font-bold text-[14px] md:text-[16px]'>
+            Búsqueda actual:
+          </span>{' '}
+          <span className='font-medium text-[13px] md:text-[15px]'>Iglesias y anexos (Todas)</span>
+          <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
+            <Input
+              placeholder='Filtro por nombre de iglesia...'
+              value={(table.getColumn('churchName')?.getFilterValue() as string) ?? ''}
+              onChange={(event) =>
+                table.getColumn('churchName')?.setFilterValue(event.target.value)
+              }
+              className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
+              disabled={isFiltersDisabled}
+            />
+            <Input
+              placeholder='Filtro por código distrito...'
+              value={(table.getColumn('district')?.getFilterValue() as string) ?? ''}
+              onChange={(event) => table.getColumn('district')?.setFilterValue(event.target.value)}
+              className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
+              disabled={isFiltersDisabled}
+            />
+            <Button
+              variant='ghost'
+              className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
+              onClick={() => {
+                table.getColumn('churchName')?.setFilterValue('');
+                table.getColumn('district')?.setFilterValue('');
+              }}
+            >
+              Borrar
+            </Button>
+            <Button
+              variant='ghost'
+              className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
+              onClick={() => {
+                setIsFiltersDisabled(true);
+                table.getColumn('churchName')?.setFilterValue('');
+                table.getColumn('district')?.setFilterValue('');
+              }}
+            >
+              Nueva Búsqueda
+            </Button>
+          </div>
+        </div>
       )}
 
       {/* Disciples, Pastors, Co-Pastors, Leaders  */}

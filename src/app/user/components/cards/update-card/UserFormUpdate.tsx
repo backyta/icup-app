@@ -46,7 +46,7 @@ import {
 const data: UserData = {
   firstName: 'Mario Luigi',
   lastName: 'Farfan Moreno',
-  emailAddress: 'kevin.baca@example.com',
+  email: 'kevin.baca@example.com',
   password: 'Abcd123$',
   passwordConfirm: 'Abcd123$',
   roles: [UserRoles.SuperUser],
@@ -79,7 +79,7 @@ export const UserFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
     defaultValues: {
       firstName: '',
       lastName: '',
-      emailAddress: '',
+      email: '',
       password: '',
       passwordConfirm: '',
       roles: [],

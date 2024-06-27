@@ -49,7 +49,7 @@ export const UserCreatePage = (): JSX.Element => {
     defaultValues: {
       firstName: '',
       lastName: '',
-      emailAddress: '',
+      email: '',
       password: '',
       passwordConfirm: '',
       roles: [],

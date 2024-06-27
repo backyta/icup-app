@@ -1,2 +1,3 @@
 export * from './cards';
-export * from './columns';
+export * from './data-tables/columns';
+export * from './data-tables/boards';

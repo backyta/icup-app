@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-// direct pages
+// Direct pages
 import { DashboardLayout } from '@/layouts';
 import { DashboardPage } from '@/app/dashboard/pages';
 import { DiscipleOptionsPage } from '@/app/disciple/pages';
@@ -13,7 +13,7 @@ import { OfferingIncomeOptionsPage } from '@/app/offering/income/pages';
 import { OfferingExpensesOptionsPage } from '@/app/offering/expenses/pages';
 import { UserOptionsPage } from '@/app/user/pages';
 
-// routers by module
+// Routers by module
 import { DiscipleChildrenRoutes } from '@/app/disciple/router';
 import { PastorChildrenRoutes } from '@/app/pastor/router';
 import { CopastorChildrenRoutes } from '@/app/copastor/router';
@@ -29,7 +29,7 @@ import { MetricsOptionsPage } from '@/app/metrics/pages';
 import { ChurchOptionsPage } from '@/app/church/pages';
 import { ChurchChildrenRoutes } from '@/app/church/router';
 import { AuthLayout } from '@/layouts/AuthLayout';
-import { LoginRouters } from '@/auth/router/LoginRouters';
+import { AuthChildrenRoutes } from '@/auth/router/AuthChildrenRoutes';
 
 export const router = createBrowserRouter([
   {
@@ -84,8 +84,7 @@ export const router = createBrowserRouter([
       { path: '/metrics', element: <DashboardLayout />, children: MetricsChildrenRoutes },
 
       /// Auth Routes
-      // TODO 2 : Crear ruta para auth/login con su layout y login page
-      { path: '/auth/login', element: <AuthLayout />, children: LoginRouters },
+      { path: '/auth', element: <AuthLayout />, children: AuthChildrenRoutes },
     ],
   },
 ]);

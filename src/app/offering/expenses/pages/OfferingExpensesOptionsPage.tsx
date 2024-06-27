@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { NavLink } from 'react-router-dom';
 
 import { GiExpense } from 'react-icons/gi';
@@ -5,8 +6,16 @@ import { RiDeleteBin2Fill } from 'react-icons/ri';
 import { FcClearFilters, FcSearch, FcSupport } from 'react-icons/fc';
 
 import { WhiteCard } from '@/shared/components';
+import { useAuthStore } from '@/stores';
+import { useEffect } from 'react';
 
 export const OfferingExpensesOptionsPage = (): JSX.Element => {
+  const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
+
+  useEffect(() => {
+    checkAuthStatus();
+  }, []);
+
   return (
     <>
       <h1 className='text-center pb-2 pt-1 md:pt-2 md:pb-2 font-sans text-2xl sm:text-3xl font-bold text-red-600 text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>

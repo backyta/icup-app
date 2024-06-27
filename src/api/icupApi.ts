@@ -1,16 +1,25 @@
-import { type ChurchData } from '@/app/church/interfaces';
-import { icupApi } from '@/lib/axios';
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
+import axios from 'axios';
+import { useAuthStore } from '@/stores';
 
-// TODO : primero se debe trabajar en el login 
-export const createChurch = async (formData:ChurchData ): Promise<any> => {
-  try {
-    const {data} = await icupApi.post('/churches', formData)
-    console.log(data);
-    
-  } catch (error) {
-    console.log(error);
-    
+export const icupApi = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+  headers: {}
+})
+
+//* Interceptors (leer el storage de zustand)
+// Any request that passes through the API executes the interceptor
+
+icupApi.interceptors.request.use(
+  (config) => {
+    const token = useAuthStore.getState().token;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config;
   }
-  
-}
+)
+
+
+

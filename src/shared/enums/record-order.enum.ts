@@ -5,7 +5,7 @@ export enum RecordOrder {
 }
 
 export const RecordOrderNames: Record<RecordOrder, string> = {
-  ASC : 'Mas nuevo a mas antiguo',
-  DESC : 'Mas antiguo a mas nuevo',
+  ASC : 'Mas antiguo al mas nuevo',
+  DESC : 'Mas nuevo al mas antiguo',
 }
 

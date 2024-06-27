@@ -19,7 +19,7 @@ export const userSchema = z
       .max(40, {message: 'El campo debe contener máximo 40 caracteres'}),
       
 
-    emailAddress: z.string().email({ message: "Email invalido." }),
+    email: z.string().email({ message: "Email invalido." }),
 
     password: z.string()
       .regex(new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$"), 

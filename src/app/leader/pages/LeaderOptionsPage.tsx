@@ -1,13 +1,22 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { NavLink } from 'react-router-dom';
 
 import { RiDeleteBin2Fill } from 'react-icons/ri';
 import { FcClearFilters, FcManager, FcSearch, FcSupport } from 'react-icons/fc';
 
 import { WhiteCard } from '@/shared/components';
+import { useAuthStore } from '@/stores';
+import { useEffect } from 'react';
 
 export const LeaderOptionsPage = (): JSX.Element => {
+  const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
+
+  useEffect(() => {
+    checkAuthStatus();
+  }, []);
+
   return (
-    <>
+    <div className='animate-fadeIn'>
       <h1 className='text-center pb-2 pt-3 md:pt-2 md:pb-2 font-sans text-2xl sm:text-3xl font-bold text-leader-color text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
         Modulo Líder
       </h1>
@@ -102,6 +111,6 @@ export const LeaderOptionsPage = (): JSX.Element => {
           </WhiteCard>
         </NavLink>
       </div>
-    </>
+    </div>
   );
 };

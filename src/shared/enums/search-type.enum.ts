@@ -1,8 +1,7 @@
 export enum SearchType {
   //* Church
-  NameChurch = 'name_church',
+  ChurchName = 'church_name',
   FoundingDate = 'founding_date',
-
 
   //* Members, Pastor, Copastor, Supervisor, Preacher, Offering, User
   FirstName = 'first_name',
@@ -68,7 +67,7 @@ export enum SearchType {
 
 export const SearchTypeNames: Record<SearchType, string> =  {
   
-  name_church: 'Nombre Iglesia',
+  church_name: 'Nombre Iglesia',
   founding_date: 'Fecha de Fundación',
   
   first_name : 'Nombres',

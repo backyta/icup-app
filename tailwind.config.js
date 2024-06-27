@@ -53,7 +53,7 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-  
+        "login-text": "#ad6632",
         "pastor-color": "#1976D2",
         "copastor-color": "#9C27B0",
         "leader-color": "#068ef1",
@@ -107,7 +107,8 @@ module.exports = {
     animation: {
       "accordion-down": "accordion-down 0.2s ease-out",
       "accordion-up": "accordion-up 0.2s ease-out",
-      fadeIn: 'fadeIn 1s ease-in-out',
+      fadeIn: 'fadeIn .7s ease-in-out',
+      fadeInPage: 'fadeIn .35s ease-in-out',
     },
     fontFamily: {
       'archivo': ['Archivo', 'sans-serif'],

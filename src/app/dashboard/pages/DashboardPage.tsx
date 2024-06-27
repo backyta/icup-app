@@ -1,13 +1,22 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import {
   BarChartHouse,
   BarChartOfferings,
   HousesInfoCard,
   MembersInfoCard,
 } from '@/app/dashboard/components';
+import { useAuthStore } from '@/stores';
+import { useEffect } from 'react';
 
 export const DashboardPage = (): JSX.Element => {
+  const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
+
+  useEffect(() => {
+    checkAuthStatus();
+  }, []);
+
   return (
-    <>
+    <div className='animate-fadeIn'>
       <h1 className='text-center pb-1 md:pt-1 md:pb-2 font-sans font-bold text-blue-600 text-[2.1rem] sm:text-[2.6rem] md:text-[2.8rem] lg:text-5xl xl:text-5xl'>
         Panel Administrativo
       </h1>
@@ -25,6 +34,6 @@ export const DashboardPage = (): JSX.Element => {
         <HousesInfoCard></HousesInfoCard>
         <BarChartHouse></BarChartHouse>
       </div>
-    </>
+    </div>
   );
 };

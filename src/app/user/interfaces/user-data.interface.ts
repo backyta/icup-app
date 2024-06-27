@@ -1,9 +1,10 @@
 import { type UserRoles } from '@/app/user/enums';
 
 export interface UserData {
+  id: string;
   firstName: string,
   lastName:string,
-  emailAddress: string,
+  email: string,
   password: string,
   passwordConfirm: string,
   roles: UserRoles[],
@@ -11,13 +12,14 @@ export interface UserData {
 }
 
 export type UserDataKeys =
+  | 'id'
   | 'firstName'
   | 'lastName'
-  | 'emailAddress'
+  | 'email'
   | 'password'
   | 'passwordConfirm'
   | 'roles'
   | 'status';
 
 
-  
+export type User = Omit<UserData, 'password' | 'passwordConfirm'>;

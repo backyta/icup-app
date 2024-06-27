@@ -1,14 +1,25 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+import { useEffect } from 'react';
+
 import { NavLink } from 'react-router-dom';
 
+import { PiChurch } from 'react-icons/pi';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
 import { FcClearFilters, FcSearch, FcSupport } from 'react-icons/fc';
-import { PiChurch } from 'react-icons/pi';
+
+import { useAuthStore } from '@/stores';
 
 import { WhiteCard } from '@/shared/components';
 
 export const ChurchOptionsPage = (): JSX.Element => {
+  const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
+
+  useEffect(() => {
+    checkAuthStatus();
+  }, []);
+
   return (
-    <>
+    <div className='animate-fadeIn'>
       <h1 className='text-center pb-2 pt-1 md:pt-2 md:pb-2 font-sans text-2xl sm:text-3xl font-bold text-slate-500 dark:text-slate-400 text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
         Modulo Iglesia
       </h1>
@@ -103,6 +114,6 @@ export const ChurchOptionsPage = (): JSX.Element => {
           </WhiteCard>
         </NavLink>
       </div>
-    </>
+    </div>
   );
 };

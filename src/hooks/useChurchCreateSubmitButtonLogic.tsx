@@ -17,10 +17,10 @@ export const useChurchCreateSubmitButtonLogic = ({
   setIsMessageErrorDisabled,
 }: Options): void => {
   // watchers
-  const nameChurch = formChurchCreate.watch('nameChurch');
+  const nameChurch = formChurchCreate.watch('churchName');
   const foundingDate = formChurchCreate.watch('foundingDate');
   const worshipTimes = formChurchCreate.watch('worshipTimes');
-  const emailAddress = formChurchCreate.watch('emailAddress');
+  const emailAddress = formChurchCreate.watch('email');
   const phoneNumber = formChurchCreate.watch('phoneNumber');
   const country = formChurchCreate.watch('country');
   const department = formChurchCreate.watch('department');
@@ -28,7 +28,7 @@ export const useChurchCreateSubmitButtonLogic = ({
   const district = formChurchCreate.watch('district');
   const urbanSector = formChurchCreate.watch('urbanSector');
   const address = formChurchCreate.watch('address');
-  const addressReference = formChurchCreate.watch('addressReference');
+  const referenceAddress = formChurchCreate.watch('referenceAddress');
   const isAnexe = formChurchCreate.watch('isAnexe');
   const theirMainChurch = formChurchCreate.watch('theirMainChurch');
 
@@ -54,7 +54,7 @@ export const useChurchCreateSubmitButtonLogic = ({
       district &&
       urbanSector &&
       address &&
-      addressReference &&
+      referenceAddress &&
       isAnexe &&
       theirMainChurch &&
       Object.values(formChurchCreate.formState.errors).length === 0
@@ -75,7 +75,7 @@ export const useChurchCreateSubmitButtonLogic = ({
       district &&
       urbanSector &&
       address &&
-      addressReference &&
+      referenceAddress &&
       !isAnexe &&
       Object.values(formChurchCreate.formState.errors).length === 0
     ) {
@@ -95,7 +95,7 @@ export const useChurchCreateSubmitButtonLogic = ({
       !district ||
       !urbanSector ||
       !address ||
-      !addressReference
+      !referenceAddress
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -112,7 +112,7 @@ export const useChurchCreateSubmitButtonLogic = ({
     district,
     urbanSector,
     address,
-    addressReference,
+    referenceAddress,
     isAnexe,
     theirMainChurch,
   ]);

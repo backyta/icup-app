@@ -1,28 +1,31 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable no-constant-condition */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
+
+import { useAuthStore } from '@/stores';
 
 import { ToggleLayout } from '@/shared/components/toggle-theme';
 import { SideMenu } from '@/shared/components/side-menu';
-
-// import { useAuthStore } from '../stores';
+import { LoadingSpinner } from '@/layouts/components/LoadingSpinner';
+import { useEffect } from 'react';
 
 export const DashboardLayout = (): JSX.Element => {
-  // const authStatus = useAuthStore( state => state.status );
-  // const checkAuthStatus = useAuthStore( state => state.checkAuthStatus );
+  const authStatus = useAuthStore((state) => state.status);
+  const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
 
-  // if (authStatus === 'pending') {
+  useEffect(() => {
+    checkAuthStatus();
+  }, []);
 
-  //   checkAuthStatus();
-  //   return <>Loading...</>
-  // }
+  if (authStatus === 'pending') {
+    return <LoadingSpinner />;
+  }
 
-  // if ( authStatus === 'unauthorized') {
-  //   return <Navigate to='/auth/login'/>
-  // }
-
-  // console.log({authStatus})
+  if (authStatus === 'unauthorized') {
+    return <Navigate to='/auth/login' />;
+  }
 
   return (
     <div className='light:bg-slate-500 w-full h-auto antialiased light:text-slate-900 selection:bg-blue-900 selection:text-white'>

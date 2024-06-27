@@ -1,18 +1,44 @@
-import { Outlet } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-floating-promises */
+import { useAuthStore } from '@/stores';
+import { Navigate, Outlet } from 'react-router-dom';
+import { LoadingSpinner } from '@/layouts/components/LoadingSpinner';
+import { ToggleLayoutLogin } from '@/shared/components/toggle-theme';
 
 export const AuthLayout = (): JSX.Element => {
+  const authStatus = useAuthStore((state) => state.status);
+  const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
+
+  if (authStatus === 'pending') {
+    checkAuthStatus();
+    return <LoadingSpinner />;
+  }
+
+  if (authStatus === 'authorized') {
+    return <Navigate to='/dashboard' />;
+  }
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 w-full h-screen">
-      <Outlet />
-    </div>
+    <>
+      <ToggleLayoutLogin />
+      <div className='bg-neutral-100 dark:bg-slate-950 flex h-screen overflow-hidden'>
+        <div className='w-1/2 hidden lg:flex lg:flex-col items-center relative'>
+          <span
+            className='absolute text-login-text font-medium lg:text-[5.8rem] lg:bottom-12 xl:text-[7.5rem] 2xl:text-[8rem] xl:bottom-12 2xl:bottom-12 font-dancing-script'
+            style={{ textShadow: '3px 3px 4px rgba(255, 255, 255, 0.8)' }}
+          >
+            Ven y sígueme
+          </span>
+
+          <img
+            src='/src/assets/jesus-image.jpg'
+            alt='Placeholder Image'
+            className='w-full h-full '
+          />
+        </div>
+        <div className='lg:p-8 md:p-8 sm:20 p-8 w-full lg:w-1/2 flex flex-col justify-center items-center'>
+          <Outlet />
+        </div>
+      </div>
+    </>
   );
 };
-
-// TODO 3 : Desarrollar el layout
-// NOTE : Ver curso de zustand, Sección 6, tomar como referencia ese diseño, y la estructura de carpetas
-// NOTE : Se usa un layout como envoltorio y una pagina dentro del layout (Outlet), para el diseño del login.
-
-// NOTE : Este layout se renderiza en el router principal (root), con su Outlet (pagina LoginPage.tsx )
-// NOTE : Lu ruta debe ser /auth/login y que en esta ruta se muestre la interfaz.
-
-// NOTE : Agregar imagen de logo de la iglesia

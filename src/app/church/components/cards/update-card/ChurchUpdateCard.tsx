@@ -7,9 +7,16 @@ import { ChurchFormUpdate } from '@/app/church/components';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
+import { useChurchStore } from '@/stores/church';
 
-export const ChurchUpdateCard = (): JSX.Element => {
+interface ChurchUpdateCardProps {
+  idRow: string;
+}
+
+export const ChurchUpdateCard = ({ idRow }: ChurchUpdateCardProps): JSX.Element => {
   //* States
+  const dataSearchByTermResponse = useChurchStore((state) => state.dataSearchByTermResponse);
+
   const [open, setOpen] = useState<boolean>(false);
 
   const topRef = useRef<HTMLDivElement>(null);
@@ -18,6 +25,8 @@ export const ChurchUpdateCard = (): JSX.Element => {
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   //* Functions
+  const currentChurch = dataSearchByTermResponse?.find((data) => data.id === idRow);
+
   const handleContainerClose = (): void => {
     setOpen(false);
   };
@@ -34,7 +43,7 @@ export const ChurchUpdateCard = (): JSX.Element => {
         <DialogTrigger asChild>
           <Button
             variant='outline'
-            className='mt-2 lg:-ml-5 xl:-ml-7 2xl:-ml-9 mr-4 py-2 px-1 h-[2rem] bg-orange-400 text-white hover:bg-orange-500 hover:text-orange-950  dark:text-orange-950 dark:hover:bg-orange-500 dark:hover:text-white'
+            className='mt-2 py-2 px-1 h-[2rem] bg-orange-400 text-white hover:bg-orange-500 hover:text-orange-950  dark:text-orange-950 dark:hover:bg-orange-500 dark:hover:text-white'
           >
             <GiArchiveRegister className='w-8 h-[1.65rem]' />
           </Button>
@@ -44,7 +53,12 @@ export const ChurchUpdateCard = (): JSX.Element => {
           ref={topRef}
           className='md:max-w-[740px] lg:max-w-[1050px] xl:max-w-[1160px] w-full max-h-full justify-center pt-[0.9rem] pb-[1.3rem] overflow-x-hidden overflow-y-auto'
         >
-          <ChurchFormUpdate onSubmit={handleContainerClose} onScroll={handleContainerScroll} />
+          <ChurchFormUpdate
+            id={idRow}
+            data={currentChurch}
+            onSubmit={handleContainerClose}
+            onScroll={handleContainerScroll}
+          />
         </DialogContent>
       </Dialog>
     );
@@ -55,7 +69,7 @@ export const ChurchUpdateCard = (): JSX.Element => {
       <DialogTrigger asChild>
         <Button
           variant='outline'
-          className='mt-2 mr-4 py-2 px-1 h-[2rem] bg-orange-400 text-white hover:bg-orange-500 hover:text-orange-950  dark:text-orange-950 dark:hover:bg-orange-500 dark:hover:text-white'
+          className='mt-2 py-2 px-1 h-[2rem] bg-orange-400 text-white hover:bg-orange-500 hover:text-orange-950  dark:text-orange-950 dark:hover:bg-orange-500 dark:hover:text-white'
         >
           <GiArchiveRegister className='w-8 h-[1.65rem]' />
         </Button>
@@ -65,7 +79,12 @@ export const ChurchUpdateCard = (): JSX.Element => {
         ref={topRef}
         className='max-w-auto sm:max-w-[590px] w-full max-h-full justify-center pt-6 pb-4 px-8 overflow-y-auto overflow-x-hidden'
       >
-        <ChurchFormUpdate onSubmit={handleContainerClose} onScroll={handleContainerScroll} />
+        <ChurchFormUpdate
+          id={idRow}
+          data={currentChurch}
+          onSubmit={handleContainerClose}
+          onScroll={handleContainerScroll}
+        />
       </DialogContent>
     </Dialog>
   );

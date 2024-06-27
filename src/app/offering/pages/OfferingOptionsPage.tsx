@@ -1,11 +1,20 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { NavLink } from 'react-router-dom';
 
 import { FcBearish, FcBullish } from 'react-icons/fc';
 import { WhiteCard } from '@/shared/components';
+import { useAuthStore } from '@/stores';
+import { useEffect } from 'react';
 
 export const OfferingOptionsPage = (): JSX.Element => {
+  const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
+
+  useEffect(() => {
+    checkAuthStatus();
+  }, []);
+
   return (
-    <>
+    <div className='animate-fadeIn'>
       <h1 className='text-center pb-2 pt-1 md:pt-2 md:pb-2 font-sans text-2xl sm:text-3xl font-bold text-offering-color text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
         Modulo Ofrendas
       </h1>
@@ -49,6 +58,6 @@ export const OfferingOptionsPage = (): JSX.Element => {
           </WhiteCard>
         </NavLink>
       </div>
-    </>
+    </div>
   );
 };

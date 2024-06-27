@@ -5,20 +5,34 @@ import { useMediaQuery } from '@react-hook/media-query';
 import { BsFillPersonVcardFill } from 'react-icons/bs';
 
 import { cn } from '@/shared/lib/utils';
+import { useChurchStore } from '@/stores/church';
 
-import { FamilyHouseTabsCard } from '@/app/family-house/components';
+import { ChurchTabsCard } from '@/app/church/components';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/shared/components/ui/drawer';
 
-export const ChurchInfoCard = (): JSX.Element => {
+interface ChurchInfoCardProps {
+  idRow: string;
+}
+
+export const ChurchInfoCard = ({ idRow }: ChurchInfoCardProps): JSX.Element => {
   //* States
+  const dataSearchGeneralResponse = useChurchStore((state) => state.dataSearchGeneralResponse);
+  const dataSearchByTermResponse = useChurchStore((state) => state.dataSearchByTermResponse);
+
   const [open, setOpen] = useState<boolean>(false);
 
-  //* Library hooks
+  //* Hooks (external libraries)
   const isDesktop = useMediaQuery('(min-width: 768px)');
   const { pathname } = useLocation();
+
+  //* Functions
+  const currentChurch =
+    pathname === '/churches/search-churches'
+      ? dataSearchGeneralResponse?.find((data) => data.id === idRow)
+      : dataSearchByTermResponse?.find((data) => data.id === idRow);
 
   if (isDesktop) {
     return (
@@ -27,10 +41,9 @@ export const ChurchInfoCard = (): JSX.Element => {
           <Button
             variant='outline'
             className={cn(
-              'mt-2 mr-4 py-2 px-1 h-[2rem] bg-blue-400 text-white hover:bg-blue-500 hover:text-blue-950  dark:text-blue-950 dark:hover:bg-blue-500 dark:hover:text-white',
-              (pathname === '/family-houses/update-family-house' ||
-                pathname === '/family-houses/delete-family-house') &&
-                'mr-2'
+              'mt-2 py-2 px-1 h-[2rem] bg-blue-400 text-white hover:bg-blue-500 hover:text-blue-950  dark:text-blue-950 dark:hover:bg-blue-500 dark:hover:text-white',
+              (pathname === '/churches/update-church' || pathname === '/churches/delete-church') &&
+                ''
             )}
           >
             <BsFillPersonVcardFill className='w-8 h-[1.65rem]' />
@@ -38,7 +51,7 @@ export const ChurchInfoCard = (): JSX.Element => {
         </DialogTrigger>
 
         <DialogContent className='max-w-[690px] w-full justify-center py-6 max-h-full overflow-y-auto overflow-x-hidden'>
-          <FamilyHouseTabsCard />
+          <ChurchTabsCard data={currentChurch} />
         </DialogContent>
       </Dialog>
     );
@@ -50,10 +63,8 @@ export const ChurchInfoCard = (): JSX.Element => {
         <Button
           variant='outline'
           className={cn(
-            'mt-2 mr-4 py-2 px-1 h-[2rem] bg-blue-400 text-white hover:bg-blue-500 hover:text-blue-950  dark:text-blue-950 dark:hover:bg-blue-500 dark:hover:text-white',
-            (pathname === '/family-houses/update-family-house' ||
-              pathname === '/family-houses/delete-family-house') &&
-              'mr-2'
+            'mt-2 py-2 px-1 h-[2rem] bg-blue-400 text-white hover:bg-blue-500 hover:text-blue-950  dark:text-blue-950 dark:hover:bg-blue-500 dark:hover:text-white',
+            (pathname === '/churches/update-church' || pathname === '/churches/delete-church') && ''
           )}
         >
           <BsFillPersonVcardFill className='w-8 h-[1.65rem]' />
@@ -61,7 +72,7 @@ export const ChurchInfoCard = (): JSX.Element => {
       </DrawerTrigger>
       <DrawerContent>
         <div className='flex justify-center py-8 px-6 max-h-full overflow-y-auto overflow-x-hidden'>
-          <FamilyHouseTabsCard />
+          <ChurchTabsCard data={currentChurch} />
         </div>
       </DrawerContent>
     </Drawer>

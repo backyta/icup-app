@@ -792,7 +792,7 @@ export function DataTableSearchByTerm<TData, TValue>({
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
                   Object.entries(SearchTypeNames).find(
-                    ([key, value]) => key === dataForm?.type && value
+                    ([key, value]) => key === dataForm?.searchType && value
                   )?.[1]
                 }`}
               </span>
@@ -803,22 +803,22 @@ export function DataTableSearchByTerm<TData, TValue>({
               <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
                 Termino de búsqueda:
               </span>{' '}
-              {(dataForm?.type === SearchType.NameChurch ||
-                dataForm?.type === SearchType.Department ||
-                dataForm?.type === SearchType.Province ||
-                dataForm?.type === SearchType.Address ||
-                dataForm?.type === SearchType.UrbanSector ||
-                dataForm?.type === SearchType.District) && (
+              {(dataForm?.searchType === SearchType.ChurchName ||
+                dataForm?.searchType === SearchType.Department ||
+                dataForm?.searchType === SearchType.Province ||
+                dataForm?.searchType === SearchType.Address ||
+                dataForm?.searchType === SearchType.UrbanSector ||
+                dataForm?.searchType === SearchType.District) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {`${dataForm?.inputTerm}`}
                 </span>
               )}
-              {dataForm?.type === SearchType.FoundingDate && (
+              {dataForm?.searchType === SearchType.FoundingDate && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {`${dataForm?.dateTerm?.from ? formatDate(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDate(dataForm?.dateTerm?.to)}` : ''}`}
                 </span>
               )}
-              {dataForm?.type === SearchType.Status && (
+              {dataForm?.searchType === SearchType.Status && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {`${
                     Object.entries(SearchSelectionOptionNames).find(
@@ -833,9 +833,9 @@ export function DataTableSearchByTerm<TData, TValue>({
             <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
               <Input
                 placeholder='Filtro por nombre de iglesia...'
-                value={(table.getColumn('nameChurch')?.getFilterValue() as string) ?? ''}
+                value={(table.getColumn('churchName')?.getFilterValue() as string) ?? ''}
                 onChange={(event) =>
-                  table.getColumn('nameChurch')?.setFilterValue(event.target.value)
+                  table.getColumn('churchName')?.setFilterValue(event.target.value)
                 }
                 className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
                 disabled={isFiltersDisabled}
@@ -853,7 +853,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                 variant='ghost'
                 className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 bg-red-500 text-red-950 border-red-500 hover:bg-red-500 hover:text-white'
                 onClick={() => {
-                  table.getColumn('nameChurch')?.setFilterValue('');
+                  table.getColumn('churchName')?.setFilterValue('');
                   table.getColumn('district')?.setFilterValue('');
                 }}
               >
@@ -864,7 +864,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                 className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
                 onClick={() => {
                   setIsFiltersDisabled(true);
-                  table.getColumn('nameChurch')?.setFilterValue('');
+                  table.getColumn('churchName')?.setFilterValue('');
                   table.getColumn('district')?.setFilterValue('');
                 }}
               >
@@ -899,13 +899,13 @@ export function DataTableSearchByTerm<TData, TValue>({
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
                   Object.entries(SearchTypeNames).find(
-                    ([key, value]) => key === dataForm?.type && value
+                    ([key, value]) => key === dataForm?.searchType && value
                   )?.[1]
                 }`}
               </span>
-              {(dataForm?.type === SearchType.FirstName ||
-                dataForm?.type === SearchType.LastName ||
-                dataForm?.type === SearchType.FullName) && (
+              {(dataForm?.searchType === SearchType.FirstName ||
+                dataForm?.searchType === SearchType.LastName ||
+                dataForm?.searchType === SearchType.FullName) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {' '}
                   -{' '}
@@ -919,62 +919,62 @@ export function DataTableSearchByTerm<TData, TValue>({
             </div>
 
             {/* Search Terms */}
-            {(dataForm?.type === SearchType.FirstName ||
-              dataForm?.type === SearchType.LastName ||
-              dataForm?.type === SearchType.FullName ||
-              dataForm?.type === SearchType.DateBirth ||
-              dataForm?.type === SearchType.Zone ||
-              dataForm?.type === SearchType.OriginCountry ||
-              dataForm?.type === SearchType.CodeHouse ||
-              dataForm?.type === SearchType.NameHouse ||
-              dataForm?.type === SearchType.Address ||
-              dataForm?.type === SearchType.Department ||
-              dataForm?.type === SearchType.Province ||
-              dataForm?.type === SearchType.District ||
-              dataForm?.type === SearchType.MonthBirth ||
-              dataForm?.type === SearchType.Gender ||
-              dataForm?.type === SearchType.MaritalStatus ||
-              dataForm?.type === SearchType.Status) && (
+            {(dataForm?.searchType === SearchType.FirstName ||
+              dataForm?.searchType === SearchType.LastName ||
+              dataForm?.searchType === SearchType.FullName ||
+              dataForm?.searchType === SearchType.DateBirth ||
+              dataForm?.searchType === SearchType.Zone ||
+              dataForm?.searchType === SearchType.OriginCountry ||
+              dataForm?.searchType === SearchType.CodeHouse ||
+              dataForm?.searchType === SearchType.NameHouse ||
+              dataForm?.searchType === SearchType.Address ||
+              dataForm?.searchType === SearchType.Department ||
+              dataForm?.searchType === SearchType.Province ||
+              dataForm?.searchType === SearchType.District ||
+              dataForm?.searchType === SearchType.MonthBirth ||
+              dataForm?.searchType === SearchType.Gender ||
+              dataForm?.searchType === SearchType.MaritalStatus ||
+              dataForm?.searchType === SearchType.Status) && (
               <div>
                 <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
                   Termino de búsqueda:
                 </span>{' '}
-                {(dataForm?.type === SearchType.Zone ||
-                  dataForm?.type === SearchType.OriginCountry ||
-                  dataForm?.type === SearchType.CodeHouse ||
-                  dataForm?.type === SearchType.NameHouse ||
-                  dataForm?.type === SearchType.Address ||
-                  dataForm?.type === SearchType.Department ||
-                  dataForm?.type === SearchType.Province ||
-                  dataForm?.type === SearchType.District) && (
+                {(dataForm?.searchType === SearchType.Zone ||
+                  dataForm?.searchType === SearchType.OriginCountry ||
+                  dataForm?.searchType === SearchType.CodeHouse ||
+                  dataForm?.searchType === SearchType.NameHouse ||
+                  dataForm?.searchType === SearchType.Address ||
+                  dataForm?.searchType === SearchType.Department ||
+                  dataForm?.searchType === SearchType.Province ||
+                  dataForm?.searchType === SearchType.District) && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                     {`${dataForm?.inputTerm}`}
                   </span>
                 )}
-                {dataForm?.type === SearchType.FirstName && (
+                {dataForm?.searchType === SearchType.FirstName && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                     {`${dataForm?.namesTerm}`}
                   </span>
                 )}
-                {dataForm?.type === SearchType.LastName && (
+                {dataForm?.searchType === SearchType.LastName && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                     {`${dataForm?.lastNamesTerm}`}
                   </span>
                 )}
-                {dataForm?.type === SearchType.FullName && (
+                {dataForm?.searchType === SearchType.FullName && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                     {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
                   </span>
                 )}
-                {dataForm?.type === SearchType.DateBirth && (
+                {dataForm?.searchType === SearchType.DateBirth && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                     {`${dataForm?.dateTerm?.from ? formatDate(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDate(dataForm?.dateTerm?.to)}` : ''}`}
                   </span>
                 )}
-                {(dataForm?.type === SearchType.MonthBirth ||
-                  dataForm?.type === SearchType.Gender ||
-                  dataForm?.type === SearchType.MaritalStatus ||
-                  dataForm?.type === SearchType.Status) && (
+                {(dataForm?.searchType === SearchType.MonthBirth ||
+                  dataForm?.searchType === SearchType.Gender ||
+                  dataForm?.searchType === SearchType.MaritalStatus ||
+                  dataForm?.searchType === SearchType.Status) && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                     {`${
                       Object.entries(SearchSelectionOptionNames).find(
@@ -1048,13 +1048,13 @@ export function DataTableSearchByTerm<TData, TValue>({
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
                   Object.entries(SearchTypeNames).find(
-                    ([key, value]) => key === dataForm?.type && value
+                    ([key, value]) => key === dataForm?.searchType && value
                   )?.[1]
                 }`}
               </span>
-              {(dataForm?.type === SearchType.FirstName ||
-                dataForm?.type === SearchType.LastName ||
-                dataForm?.type === SearchType.FullName) && (
+              {(dataForm?.searchType === SearchType.FirstName ||
+                dataForm?.searchType === SearchType.LastName ||
+                dataForm?.searchType === SearchType.FullName) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {' '}
                   -{' '}
@@ -1072,33 +1072,33 @@ export function DataTableSearchByTerm<TData, TValue>({
               <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
                 Termino de búsqueda:
               </span>{' '}
-              {(dataForm?.type === SearchType.Zone ||
-                dataForm?.type === SearchType.CodeHouse ||
-                dataForm?.type === SearchType.NameHouse ||
-                dataForm?.type === SearchType.Address ||
-                dataForm?.type === SearchType.Department ||
-                dataForm?.type === SearchType.Province ||
-                dataForm?.type === SearchType.District) && (
+              {(dataForm?.searchType === SearchType.Zone ||
+                dataForm?.searchType === SearchType.CodeHouse ||
+                dataForm?.searchType === SearchType.NameHouse ||
+                dataForm?.searchType === SearchType.Address ||
+                dataForm?.searchType === SearchType.Department ||
+                dataForm?.searchType === SearchType.Province ||
+                dataForm?.searchType === SearchType.District) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {`${dataForm?.inputTerm}`}
                 </span>
               )}
-              {dataForm?.type === SearchType.FirstName && (
+              {dataForm?.searchType === SearchType.FirstName && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {`${dataForm?.namesTerm}`}
                 </span>
               )}
-              {dataForm?.type === SearchType.LastName && (
+              {dataForm?.searchType === SearchType.LastName && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {`${dataForm?.lastNamesTerm}`}
                 </span>
               )}
-              {dataForm?.type === SearchType.FullName && (
+              {dataForm?.searchType === SearchType.FullName && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
                 </span>
               )}
-              {dataForm?.type === SearchType.Status && (
+              {dataForm?.searchType === SearchType.Status && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {`${
                     Object.entries(SearchSelectionOptionNames).find(
@@ -1168,23 +1168,23 @@ export function DataTableSearchByTerm<TData, TValue>({
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
                   Object.entries(SearchTypeNames).find(
-                    ([key, value]) => key === dataForm?.type && value
+                    ([key, value]) => key === dataForm?.searchType && value
                   )?.[1]
                 }`}
               </span>
-              {(dataForm?.type === SearchType.Tithe ||
-                dataForm?.type === SearchType.SundayWorship ||
-                dataForm?.type === SearchType.FamilyHouse ||
-                dataForm?.type === SearchType.GeneralFasting ||
-                dataForm?.type === SearchType.GeneralVigil ||
-                dataForm?.type === SearchType.ZonalFasting ||
-                dataForm?.type === SearchType.ZonalVigil ||
-                dataForm?.type === SearchType.SundaySchool ||
-                dataForm?.type === SearchType.YouthWorship ||
-                dataForm?.type === SearchType.Activities ||
-                dataForm?.type === SearchType.ChurchGround ||
-                dataForm?.type === SearchType.Special ||
-                dataForm?.type === SearchType.IncomeAdjustment) && (
+              {(dataForm?.searchType === SearchType.Tithe ||
+                dataForm?.searchType === SearchType.SundayWorship ||
+                dataForm?.searchType === SearchType.FamilyHouse ||
+                dataForm?.searchType === SearchType.GeneralFasting ||
+                dataForm?.searchType === SearchType.GeneralVigil ||
+                dataForm?.searchType === SearchType.ZonalFasting ||
+                dataForm?.searchType === SearchType.ZonalVigil ||
+                dataForm?.searchType === SearchType.SundaySchool ||
+                dataForm?.searchType === SearchType.YouthWorship ||
+                dataForm?.searchType === SearchType.Activities ||
+                dataForm?.searchType === SearchType.ChurchGround ||
+                dataForm?.searchType === SearchType.Special ||
+                dataForm?.searchType === SearchType.IncomeAdjustment) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {' '}
                   -{' '}
@@ -1239,7 +1239,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                   {`${dataForm?.dateTerm?.from ? formatDate(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDate(dataForm?.dateTerm?.to)}` : ''}`}
                 </span>
               )}
-              {dataForm?.type === SearchType.Status && (
+              {dataForm?.searchType === SearchType.Status && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {`${
                     Object.entries(SearchSelectionOptionNames).find(
@@ -1322,17 +1322,17 @@ export function DataTableSearchByTerm<TData, TValue>({
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
                   Object.entries(SearchTypeNames).find(
-                    ([key, value]) => key === dataForm?.type && value
+                    ([key, value]) => key === dataForm?.searchType && value
                   )?.[1]
                 }`}
               </span>
-              {(dataForm?.type === SearchType.OperationalExpenses ||
-                dataForm?.type === SearchType.MaintenanceAndRepairExpenses ||
-                dataForm?.type === SearchType.DecorationExpenses ||
-                dataForm?.type === SearchType.EquipmentAndTechnologyExpenses ||
-                dataForm?.type === SearchType.SuppliesExpenses ||
-                dataForm?.type === SearchType.ActivitiesAndEventsExpenses ||
-                dataForm?.type === SearchType.ExpensesAdjustment) && (
+              {(dataForm?.searchType === SearchType.OperationalExpenses ||
+                dataForm?.searchType === SearchType.MaintenanceAndRepairExpenses ||
+                dataForm?.searchType === SearchType.DecorationExpenses ||
+                dataForm?.searchType === SearchType.EquipmentAndTechnologyExpenses ||
+                dataForm?.searchType === SearchType.SuppliesExpenses ||
+                dataForm?.searchType === SearchType.ActivitiesAndEventsExpenses ||
+                dataForm?.searchType === SearchType.ExpensesAdjustment) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {' '}
                   -{' '}
@@ -1417,13 +1417,13 @@ export function DataTableSearchByTerm<TData, TValue>({
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
                   Object.entries(SearchTypeNames).find(
-                    ([key, value]) => key === dataForm?.type && value
+                    ([key, value]) => key === dataForm?.searchType && value
                   )?.[1]
                 }`}
               </span>
-              {(dataForm?.type === SearchType.FirstName ||
-                dataForm?.type === SearchType.LastName ||
-                dataForm?.type === SearchType.FullName) && (
+              {(dataForm?.searchType === SearchType.FirstName ||
+                dataForm?.searchType === SearchType.LastName ||
+                dataForm?.searchType === SearchType.FullName) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {' '}
                   -{' '}
@@ -1437,31 +1437,31 @@ export function DataTableSearchByTerm<TData, TValue>({
             </div>
 
             {/* Search Terms */}
-            {(dataForm?.type === SearchType.FirstName ||
-              dataForm?.type === SearchType.LastName ||
-              dataForm?.type === SearchType.FullName ||
-              dataForm?.type === SearchType.Roles ||
-              dataForm?.type === SearchType.Status) && (
+            {(dataForm?.searchType === SearchType.FirstName ||
+              dataForm?.searchType === SearchType.LastName ||
+              dataForm?.searchType === SearchType.FullName ||
+              dataForm?.searchType === SearchType.Roles ||
+              dataForm?.searchType === SearchType.Status) && (
               <div>
                 <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
                   Termino de búsqueda:
                 </span>{' '}
-                {dataForm?.type === SearchType.FirstName && (
+                {dataForm?.searchType === SearchType.FirstName && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                     {`${dataForm?.namesTerm}`}
                   </span>
                 )}
-                {dataForm?.type === SearchType.LastName && (
+                {dataForm?.searchType === SearchType.LastName && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                     {`${dataForm?.lastNamesTerm}`}
                   </span>
                 )}
-                {dataForm?.type === SearchType.FullName && (
+                {dataForm?.searchType === SearchType.FullName && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                     {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
                   </span>
                 )}
-                {dataForm?.type === SearchType.Roles && (
+                {dataForm?.searchType === SearchType.Roles && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                     {`${Object.entries(UserRoleNames)
                       .map(([key, value]) => {
@@ -1471,7 +1471,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                       .join(', ')}`}
                   </span>
                 )}
-                {dataForm?.type === SearchType.Status && (
+                {dataForm?.searchType === SearchType.Status && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                     {`${
                       Object.entries(SearchSelectionOptionNames).find(

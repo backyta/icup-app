@@ -1,12 +1,19 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
 import { FcExport } from 'react-icons/fc';
 
 import { SideMenuItem } from '@/shared/components';
 import { Button } from '@/shared/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/shared/components/ui/sheet';
 
+import { useAuthStore } from '@/stores';
 import { menuItems } from '@/shared/data';
 
 export function DropdownMenuLeft(): JSX.Element {
+  const logoutUser = useAuthStore((state) => state.logoutUser);
+  const userNames = useAuthStore((state) => state.user?.firstName ?? 'No User');
+  const userLastNames = useAuthStore((state) => state.user?.lastName ?? 'No User');
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -47,51 +54,55 @@ export function DropdownMenuLeft(): JSX.Element {
           </svg>
         </Button>
       </SheetTrigger>
+
       <SheetContent side={'left'} className='h-full w-[20rem] md:h-full md:w-full md:py-6'>
         <SheetHeader>
-          {/* Title and sub-title */}
           <div id='logo' className='py-1 text-center'>
             <a href='/dashboard' className='inline-flex gap-x-6 items-center justify-center'>
-              <h1 className='text-[1.85rem] font-bold font-dancing-script italic text-white '>
-                ICUP-App
+              <h1 className='text-[1.85rem] font-bold font-dancing-script italic text-white'>
+                ICUP - APP
               </h1>
               <span>
-                {/* <img className='rounded-full w-12 h-12' src='../public/logo.jpg' alt='' /> */}
+                <img
+                  className='rounded-full w-[3rem] h-[3rem] md:w-[4.5rem] md:h-[4.5rem] text-white'
+                  src='/src/assets/logo.png'
+                  alt='logo-iglesia'
+                />
               </span>
             </a>
             <p className='mt-2 text-md sm:w-[20rem] sm:mx-auto border-b border-slate-700 pb-2 text-white'>
-              Panel administrativo de la Iglesia.
+              Panel administrativo, registros y consultas.
             </p>
           </div>
-          {/* Profile */}
-          <div id='profile' className='pb-2 md:pb-8 px-6 text-center md:pt-2'>
+
+          <div id='profile' className='pb-2 md:pb-4 px-6 text-center md:pt-2'>
             <p className='text-lg text-white'>Bienvenido,</p>
-            <div className='inline-flex space-x-0 items-center'>
+            <div className='flex justify-center space-x-0 items-center h-auto'>
               <span>
                 <img
-                  className='rounded-full w-12 md:w-11 h-10'
-                  src='src/assets/men.png'
+                  className='rounded-full w-[5rem] h-[4rem] md:w-[4rem] md:h-[4rem]'
+                  src='src/assets/user-image.png'
                   alt='profile-image'
                 />
               </span>
 
-              <span className='text-md md:text-base font-medium text-white'>
-                Pepito Jose Ramirez Gomez
-              </span>
+              <span className='text-md md:text-base font-medium text-white'>{`${userNames} ${userLastNames}`}</span>
             </div>
           </div>
         </SheetHeader>
+
         <nav
           id='menu'
-          className='w-full px-10 flex flex-col items-center py-2  gap-y-[1rem] md:gap-y-[2.5rem]'
+          className='w-full px-10 flex flex-col items-center py-2 gap-y-[1rem] md:gap-y-[1.5rem]'
         >
           <div className='flex flex-col gap-y-2'>
             {menuItems.map((item) => (
               <SideMenuItem key={item.href} {...item} />
             ))}
           </div>
+
           {/* Logout */}
-          <a href='./dashboard' className='flex w-full text-center justify-center'>
+          <a onClick={logoutUser} className='flex w-full cursor-pointer text-center justify-center'>
             <FcExport className='text-2xl' />
             <span className='text-[20px] text-red-500 font-bold leading-5'>Salir</span>
           </a>

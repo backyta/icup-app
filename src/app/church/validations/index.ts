@@ -1,1 +1,2 @@
-export * from './form-church-schema';
+export * from './church-form-schema';
+export * from './search-by-term-form-schema';

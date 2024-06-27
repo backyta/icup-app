@@ -7,11 +7,11 @@ import { DropdownMenuLeft } from '@/shared/components/dropdown-menu';
 import { MenuBarTooltip, SideMenuItemIcons } from '@/shared/components/side-menu';
 
 import { menuItems } from '@/shared/data';
-
-// TODO 1 : Hacer tooltip en la barra lateral, con ShadCN tomar componente Tooltip e implementarlo.✔
-// NOTE : https://ui.shadcn.com/docs/components/tooltip
+import { useAuthStore } from '@/stores';
 
 export const SideMenu = (): JSX.Element => {
+  const logoutUser = useAuthStore((state) => state.logoutUser);
+
   return (
     <div className='bg-slate-900 md:min-h-screen z-10 text-slate-300 w-full md:w-[7.5rem]'>
       <ToggleSideBar />
@@ -26,15 +26,18 @@ export const SideMenu = (): JSX.Element => {
           >
             <h1 className='text-[1.7rem] md:text-[1.8rem] font-bold font-dancing-script italic text-white'>
               ICUP <span className='md:hidden'> - </span>
-              <span className='md:block text-[1.7rem] md:text-[1.7rem] md:text-center leading-3'>
-                App
+              <span className='md:block text-[1.6rem] md:text-[1.7rem] md:text-center leading-3'>
+                APP
               </span>
             </h1>
             <span>
-              {/* <img className='rounded-full w-12 h-12 ' src='../public/logo.jpg' alt='' /> */}
+              <img
+                className='rounded-full w-[3rem] h-[3rem] md:w-[4.5rem] md:h-[4.5rem]'
+                src='/src/assets/logo.png'
+                alt='logo-iglesia'
+              />
             </span>
           </a>
-          {/* <p className=' mt-2 text-md hidden'>Panel administrativo de la Iglesia.</p> */}
         </div>
         {/* Button */}
         <DropdownMenuLeft />
@@ -51,7 +54,7 @@ export const SideMenu = (): JSX.Element => {
         </div>
 
         {/* Logout */}
-        <a /* onClick={ logoutUser } */>
+        <a onClick={logoutUser} className='cursor-pointer'>
           <FcExport className='text-2xl md:text-3xl m-auto' />
         </a>
       </nav>

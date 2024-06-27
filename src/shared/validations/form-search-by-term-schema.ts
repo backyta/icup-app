@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
+// TODO : hacer esquema para cada modulo con lo necesario que se enviara al backend (limit, date term o input term o selects para el param /{firstName})
 import * as z from 'zod';
 
 import { UserRoles } from '@/app/user/enums';
