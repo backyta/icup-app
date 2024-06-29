@@ -5,27 +5,23 @@
 import { useState, useEffect } from 'react';
 
 import { type z } from 'zod';
-import { Toaster, toast } from 'sonner';
+import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router-dom';
 
 import { cn } from '@/shared/lib/utils';
 
+import { type FormSearchByTerm } from '@/shared/interfaces';
 import { formSearchGeneralSchema } from '@/shared/validations';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 
 import { useChurchStore } from '@/stores/church';
-import { getChurches } from '@/app/church/services';
-import { LoadingSpinner } from '@/layouts/components';
 
 import {
   churchInfoColumns as columns,
   GeneralChurchSearchDataTable,
 } from '@/app/church/components';
-
-import { type ErrorResponse, type ChurchResponse } from '@/app/church/interfaces';
+import { type ChurchResponse } from '@/app/church/interfaces';
 
 import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
@@ -47,7 +43,7 @@ import {
   FormMessage,
 } from '@/shared/components/ui/form';
 
-const dataFictitious: ChurchResponse[] = [
+const dataFictional: ChurchResponse[] = [
   {
     id: '-',
     churchName: '-',
@@ -64,7 +60,7 @@ const dataFictitious: ChurchResponse[] = [
     address: '-',
     referenceAddress: '-',
     status: 'active',
-    theirMainChurch: '940f1910-a490-4604-8725-56c8e2d412ba',
+    theirMainChurch: null,
   },
 ];
 
@@ -78,9 +74,8 @@ export const ChurchGeneralSearchPage = (): JSX.Element => {
   const setIsFiltersSearchGeneralDisabled = useChurchStore(
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
-  const setDataSearchGeneralResResponse = useChurchStore(
-    (state) => state.setDataSearchGeneralResponse
-  );
+
+  const [resultSearch, setResultSearch] = useState<FormSearchByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({
@@ -93,9 +88,6 @@ export const ChurchGeneralSearchPage = (): JSX.Element => {
       order: RecordOrder.Ascending,
     },
   });
-
-  //* Hooks (external libraries)
-  const navigate = useNavigate();
 
   //* Watchers
   const limit = form.watch('limit');
@@ -113,47 +105,17 @@ export const ChurchGeneralSearchPage = (): JSX.Element => {
     }
   }, [limit, offset, order]);
 
-  //* Mutation
-  const mutation = useMutation({
-    mutationFn: getChurches,
-    onError: (error: ErrorResponse) => {
-      if (error.message !== 'Unauthorized') {
-        toast.error(error.message, {
-          position: 'top-center',
-          className: 'justify-center',
-        });
-
-        setTimeout(() => {
-          setIsDisabledSubmitButton(false);
-        }, 1300);
-      }
-
-      if (error.message === 'Unauthorized') {
-        toast.error('Operación rechazada, el token expiro ingresa nuevamente.', {
-          position: 'top-center',
-          className: 'justify-center',
-        });
-
-        setTimeout(() => {
-          navigate('/');
-        }, 3500);
-      }
-    },
-    onSuccess: () => {
-      setIsFiltersSearchGeneralDisabled(false);
-      setIsDisabledSubmitButton(false);
-      form.reset();
-    },
-  });
-
   useEffect(() => {
-    setDataSearchGeneralResResponse(mutation.data);
-  }, [mutation.isPending]);
+    setIsFiltersSearchGeneralDisabled(true);
+  }, []);
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof formSearchGeneralSchema>): void {
+    setResultSearch(formData);
     setIsDisabledSubmitButton(true);
-    mutation.mutate(formData);
+    setIsFiltersSearchGeneralDisabled(false);
+    form.reset();
+    setIsDisabledSubmitButton(false);
   }
 
   return (
@@ -164,9 +126,9 @@ export const ChurchGeneralSearchPage = (): JSX.Element => {
       <hr className='md:p-[0.02rem] bg-slate-500' />
       <div className='flex items-center justify-start'>
         <h2 className='flex items-center text-left pl-4 py-2 sm:pt-4 sm:pb-2 sm:pl-[1.5rem] xl:pl-[2rem] 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-sky-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl'>
-          Buscar iglesias o anexos
+          Buscar iglesias
         </h2>
-        <span className='ml-3 bg-sky-300 text-slate-600 border text-center text-[10px] mt-[.6rem] sm:mt-5 -py-1 px-2 rounded-full font-bold uppercase'>
+        <span className='ml-5 bg-sky-300 text-slate-600 border text-center text-[10px] mt-[.6rem] sm:mt-5 -py-1 px-2 rounded-full font-bold uppercase'>
           En general
         </span>
       </div>
@@ -174,7 +136,7 @@ export const ChurchGeneralSearchPage = (): JSX.Element => {
         Explora, filtra y organiza los registros de iglesias según tus necesidades.
       </p>
 
-      <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-7 w-full'>
+      <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full'>
         {isFiltersSearchGeneralDisabled && (
           <Form {...form}>
             <form
@@ -337,17 +299,10 @@ export const ChurchGeneralSearchPage = (): JSX.Element => {
           {
             <GeneralChurchSearchDataTable
               columns={columns}
-              data={mutation.data ?? dataFictitious}
-              mutation={mutation}
+              data={dataFictional}
+              resultSearch={resultSearch}
             />
           }
-
-          {/* Spinner */}
-          {mutation.isPending && (
-            <div className='py-10'>
-              <LoadingSpinner />
-            </div>
-          )}
         </div>
       </div>
     </div>

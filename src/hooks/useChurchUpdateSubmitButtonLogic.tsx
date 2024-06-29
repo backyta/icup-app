@@ -3,10 +3,10 @@
 import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
-import { type ChurchData } from '@/app/church/interfaces';
+import { type ChurchFormData } from '@/app/church/interfaces';
 
 interface Options {
-  formChurchUpdate: UseFormReturn<ChurchData, any, ChurchData>;
+  formChurchUpdate: UseFormReturn<ChurchFormData, any, ChurchFormData>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -37,6 +37,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
       formChurchUpdate.formState.errors &&
       Object.values(formChurchUpdate.formState.errors).length > 0
     ) {
+      console.log('xd1');
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
@@ -58,6 +59,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
       theirMainChurch &&
       Object.values(formChurchUpdate.formState.errors).length === 0
     ) {
+      console.log('xd2');
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
     }

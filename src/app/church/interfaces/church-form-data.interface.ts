@@ -1,6 +1,5 @@
-import { type WorshipTimes } from "../enums/worship-times.enum";
-
-export interface ChurchData {
+import { type WorshipTimes } from "@/app/church/enums";
+export interface ChurchFormData {
   churchName: string;
   isAnexe?: boolean | undefined;
   worshipTimes: WorshipTimes[];
@@ -18,7 +17,7 @@ export interface ChurchData {
   theirMainChurch?: string | undefined;
 }
 
-export type ChurchDataKeys =
+export type ChurchFormDataKeys =
   |'churchName' 
   |'isAnexe' 
   |'worshipTimes'

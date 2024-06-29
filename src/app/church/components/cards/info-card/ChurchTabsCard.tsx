@@ -2,12 +2,10 @@
 
 import { format } from 'date-fns';
 
+import { PopoverDataTabs } from '@/app/church/components';
 import { type ChurchResponse } from '@/app/church/interfaces';
 import { type WorshipTimes, WorshipTimesNames } from '@/app/church/enums';
 
-import { PopoverDataTabs } from '@/app/church/components';
-
-import { Label } from '@/shared/components/ui/label';
 import {
   Card,
   CardContent,
@@ -15,6 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/shared/components/ui/card';
+import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 
 interface ChurchTabsCardProps {
@@ -174,7 +173,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               />
             </div>
 
-            <div className='space-y-1 col-start-1 col-end-4'>
+            <div className='space-y-1 col-start-1 col-end-3'>
               <Label className='text-[14px] md:text-[15px]'>Horarios de Culto</Label>
               <div className='px-2 pt-2 text-[14px] md:text-[14.5px]'>
                 <ul className='pl-5 flex flex-wrap gap-x-10 gap-y-2 list-disc'>
@@ -190,6 +189,15 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
                   )}
                 </ul>
               </div>
+            </div>
+
+            <div className='space-y-1 row-start-5 row-end-6 col-start-3 col-end-4'>
+              <Label className='text-[14px] md:text-[15px]'>Iglesia Principal</Label>
+              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                {data?.theirMainChurch
+                  ? `${data?.theirMainChurch?.churchName} ${data?.theirMainChurch?.district}`
+                  : 'Esta iglesia es la central.'}
+              </CardDescription>
             </div>
 
             <span className='col-start-1 col-end-4 text-[15px] md:text-[16px] font-bold text-yellow-500'>

@@ -7,6 +7,7 @@ export interface UserData {
   email: string,
   password: string,
   passwordConfirm: string,
+  gender: string,
   roles: UserRoles[],
   status?: string | undefined,
 }
@@ -16,6 +17,7 @@ export type UserDataKeys =
   | 'firstName'
   | 'lastName'
   | 'email'
+  | 'gender'
   | 'password'
   | 'passwordConfirm'
   | 'roles'

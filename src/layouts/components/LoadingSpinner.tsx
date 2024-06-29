@@ -1,4 +1,5 @@
 import { cn } from '@/shared/lib/utils';
+import { useLocation } from 'react-router-dom';
 
 const bibleVerses = [
   'El Señor es mi pastor; nada me faltará. - Salmos 23:1',
@@ -20,10 +21,15 @@ const getRandomVerse = (): string => {
 
 export const LoadingSpinner = (): JSX.Element => {
   const verse = getRandomVerse();
+  const { pathname } = useLocation();
 
   return (
     <div
-      className={cn('flex items-center justify-center min-h-full text-slate-100 dark:bg-slate-950')}
+      className={cn(
+        'min-h-screen flex items-center justify-center md:min-h-full text-slate-100 dark:bg-slate-950',
+        pathname === '/churches/search-churches' ||
+          (pathname === '/churches/search-by-term-churches' && 'min-h-full')
+      )}
     >
       <div className='flex flex-col items-center justify-center'>
         <div className='loader ease-linear rounded-full border-8 border-t-8 border-blue-500 h-32 w-32 mb-4'></div>

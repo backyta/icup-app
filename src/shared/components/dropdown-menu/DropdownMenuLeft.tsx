@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { FcExport } from 'react-icons/fc';
+import { FcExport, FcBusinessman, FcBusinesswoman } from 'react-icons/fc';
 
 import { SideMenuItem } from '@/shared/components';
 import { Button } from '@/shared/components/ui/button';
@@ -13,6 +13,7 @@ export function DropdownMenuLeft(): JSX.Element {
   const logoutUser = useAuthStore((state) => state.logoutUser);
   const userNames = useAuthStore((state) => state.user?.firstName ?? 'No User');
   const userLastNames = useAuthStore((state) => state.user?.lastName ?? 'No User');
+  const gender = useAuthStore((state) => state.user?.gender ?? undefined);
 
   return (
     <Sheet>
@@ -77,13 +78,13 @@ export function DropdownMenuLeft(): JSX.Element {
 
           <div id='profile' className='pb-2 md:pb-4 px-6 text-center md:pt-2'>
             <p className='text-lg text-white'>Bienvenido,</p>
-            <div className='flex justify-center space-x-0 items-center h-auto'>
+            <div className='flex justify-center gap-2 items-center h-auto'>
               <span>
-                <img
-                  className='rounded-full w-[5rem] h-[4rem] md:w-[4rem] md:h-[4rem]'
-                  src='src/assets/user-image.png'
-                  alt='profile-image'
-                />
+                {gender === 'male' ? (
+                  <FcBusinessman className='rounded-full text-[3.3rem]' />
+                ) : (
+                  <FcBusinesswoman className='rounded-full text-[3.3rem]' />
+                )}
               </span>
 
               <span className='text-md md:text-base font-medium text-white'>{`${userNames} ${userLastNames}`}</span>

@@ -1,14 +1,32 @@
 import { cn } from '@/shared/lib/utils';
 
-import { type Anexe } from '@/shared/interfaces';
+import {
+  type Copastor,
+  type Pastor,
+  type Supervisor,
+  type Anexe,
+  type Zone,
+  type Preacher,
+  type FamilyHouse,
+  type Disciple,
+} from '@/shared/interfaces';
 import { getFullName } from '@/shared/helpers';
 
 import { Button } from '@/shared/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
-// NOTE : Aqui problema con la data es de diferentes tipo Pastor Copastor,etc
+export type AllowedTypes =
+  | Anexe[]
+  | Pastor[]
+  | Copastor[]
+  | Supervisor[]
+  | Zone[]
+  | Preacher[]
+  | FamilyHouse[]
+  | Disciple[];
+
 interface PopoverDataProps {
-  data: Anexe | any;
+  data: AllowedTypes | undefined;
   title: string;
   firstValue: string;
   secondValue: string;

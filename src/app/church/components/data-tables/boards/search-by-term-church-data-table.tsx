@@ -1,6 +1,11 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { Toaster, toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 import {
   type ColumnDef,
@@ -15,9 +20,14 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 
-import { Button } from '@/shared/components/ui/button';
-import { Input } from '@/shared/components/ui/input';
+import { getChurchesByTerm } from '@/app/church/services';
+import { type QueryParams } from '@/app/church/interfaces';
 
+import { useChurchStore } from '@/stores/church';
+import { LoadingSpinner } from '@/layouts/components';
+
+import { type FormSearchByTerm } from '@/shared/interfaces';
+import { SearchType, SearchTypeNames, SearchSelectionOptionNames } from '@/shared/enums';
 import {
   Table,
   TableBody,
@@ -26,22 +36,19 @@ import {
   TableHeader,
   TableRow,
 } from '@/shared/components/ui/table';
-
-import { useChurchStore } from '@/stores/church';
-import { type FormSearchByTerm } from '@/shared/interfaces';
-import { SearchType, SearchTypeNames, SearchSelectionOptionNames } from '@/shared/enums';
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  mutation: any;
+  resultSearch: FormSearchByTerm | undefined;
   dataForm: FormSearchByTerm | undefined;
 }
 
 export function SearchByTermChurchDataTable<TData, TValue>({
   columns,
-  data,
-  mutation,
+  resultSearch,
   dataForm,
 }: DataTableProps<TData, TValue>): JSX.Element {
   //* States
@@ -56,10 +63,66 @@ export function SearchByTermChurchDataTable<TData, TValue>({
   const setIsFiltersSearchByTermDisabled = useChurchStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
+  const setDataSearchByTermResResponse = useChurchStore(
+    (state) => state.setDataSearchByTermResponse
+  );
+
+  const [isDisabledButton, setIsDisabledButton] = useState(false);
+
+  //* Hooks (external libraries)
+  const navigate = useNavigate();
+
+  //* Querys
+  const query = useQuery({
+    queryKey: ['churches-by-term', resultSearch],
+    queryFn: () => getChurchesByTerm(resultSearch as QueryParams),
+    enabled: !!resultSearch,
+    retry: 1,
+  });
+
+  // TODO : hacer lo mismo en movil para update page y delete page con el boton buscar (liomite y margenes)
+  // NOTE : revisar bien todo porque de estos se replicaran en los demas
+  //* Set data result query
+  useEffect(() => {
+    setDataSearchByTermResResponse(query.data);
+  }, [query?.isFetching]);
+
+  useEffect(() => {
+    if (query.error?.message && query.error?.message !== 'Unauthorized') {
+      toast.error(query?.error?.message, {
+        position: 'top-center',
+        className: 'justify-center',
+      });
+
+      setIsFiltersSearchByTermDisabled(true);
+    }
+
+    if (query.error?.message === 'Unauthorized') {
+      toast.error('Operación rechazada, el token expiro ingresa nuevamente.', {
+        position: 'top-center',
+        className: 'justify-center',
+      });
+
+      setIsFiltersSearchByTermDisabled(true);
+
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    }
+  }, [query?.error]);
+
+  useEffect(() => {
+    if (query?.isPending) {
+      setIsDisabledButton(true);
+      return;
+    }
+
+    setIsDisabledButton(false);
+  }, [query?.isPending]);
 
   //* Table
   const table = useReactTable({
-    data,
+    data: query.data as TData[],
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -87,7 +150,9 @@ export function SearchByTermChurchDataTable<TData, TValue>({
   };
 
   return (
-    <div className='md:w-full m-auto lg:w-full pt-3'>
+    <div className='md:w-full m-auto lg:w-full'>
+      <Toaster position='top-center' richColors />
+
       {!isFiltersSearchByTermDisabled && (
         <div>
           {/* Search Types */}
@@ -136,7 +201,7 @@ export function SearchByTermChurchDataTable<TData, TValue>({
           </div>
 
           {/* Inputs Filters */}
-          <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
+          <div className='pb-8 pt-4 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
             <Input
               placeholder='Filtro por nombre de iglesia...'
               value={(table.getColumn('churchName')?.getFilterValue() as string) ?? ''}
@@ -154,6 +219,7 @@ export function SearchByTermChurchDataTable<TData, TValue>({
               disabled={isFiltersSearchByTermDisabled}
             />
             <Button
+              disabled={isDisabledButton}
               variant='ghost'
               className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 bg-red-500 text-red-950 border-red-500 hover:bg-red-500 hover:text-white'
               onClick={() => {
@@ -164,6 +230,7 @@ export function SearchByTermChurchDataTable<TData, TValue>({
               Borrar
             </Button>
             <Button
+              disabled={isDisabledButton}
               variant='ghost'
               className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
               onClick={() => {
@@ -200,10 +267,10 @@ export function SearchByTermChurchDataTable<TData, TValue>({
             ))}
           </TableHeader>
 
-          {!isFiltersSearchByTermDisabled && !mutation.isPending && (
+          {!query?.error && !isFiltersSearchByTermDisabled && !query.isPending && (
             <TableBody>
-              {table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
+              {table?.getRowModel()?.rows?.length ? (
+                table?.getRowModel()?.rows.map((row) => (
                   <TableRow
                     className='text-center font-normal text-[13px] lg:text-[14px]'
                     key={row.id}
@@ -228,7 +295,7 @@ export function SearchByTermChurchDataTable<TData, TValue>({
         </Table>
       </div>
 
-      {!isFiltersSearchByTermDisabled && !mutation.isPending && (
+      {!query?.error && !isFiltersSearchByTermDisabled && !query.isPending && (
         <div className='flex items-center justify-end space-x-2 py-4'>
           <Button
             className='text-[13px] lg:text-sm'
@@ -252,6 +319,12 @@ export function SearchByTermChurchDataTable<TData, TValue>({
           >
             Siguiente
           </Button>
+        </div>
+      )}
+
+      {resultSearch && query?.isPending && (
+        <div className='py-10'>
+          <LoadingSpinner />
         </div>
       )}
     </div>

@@ -1,4 +1,15 @@
-import { type MainChurch, type CreatedBy, type UpdatedBy } from "@/shared/interfaces";
+import { 
+  type MainChurch, 
+  type CreatedBy, 
+  type UpdatedBy, 
+  type Anexe, 
+  type Pastor, type Copastor,
+  type Supervisor,
+  type Zone,
+  type Preacher,
+  type FamilyHouse,
+  type Disciple 
+} from '@/shared/interfaces';
 
 export interface ChurchColumns {
   id:               string;
@@ -19,14 +30,14 @@ export interface ChurchColumns {
   createdBy?:       CreatedBy;
   updatedAt?:       Date;
   updatedBy?:       UpdatedBy;
-  anexes?:          any[]; 
-  pastors?:         any[];
-  copastors?:       any[];
-  supervisors?:     any[];
-  zones?:           any[];
-  preachers?:       any[];
-  familyHouses?:    any[];
-  disciples?:       any[];
+  anexes?:          Anexe[]; 
+  pastors?:         Pastor[];
+  copastors?:       Copastor[];
+  supervisors?:     Supervisor[];
+  zones?:           Zone[];
+  preachers?:       Preacher[];
+  familyHouses?:    FamilyHouse[];
+  disciples?:       Disciple[];
   status:           string;
   theirMainChurch?: MainChurch | null;
 }

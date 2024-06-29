@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable n/handle-callback-err */
-/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
@@ -23,8 +20,8 @@ import { type ErrorResponse } from '@/app/church/interfaces';
 import { createChurch, getMainChurch } from '@/app/church/services';
 import { WorshipTimes, WorshipTimesNames } from '@/app/church/enums';
 
-import { useChurchCreateSubmitButtonLogic } from '@/hooks';
 import { LoadingSpinner } from '@/layouts/components';
+import { useChurchCreateSubmitButtonLogic } from '@/hooks';
 
 import { cn } from '@/shared/lib/utils';
 
@@ -78,7 +75,7 @@ export const ChurchCreatePage = (): JSX.Element => {
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
   const [isInputFoundingDateOpen, setIsInputFoundingDateOpen] = useState<boolean>(false);
 
-  //* External libraries
+  //* Hooks (external libraries)
   const { pathname } = useLocation();
   const navigate = useNavigate();
 

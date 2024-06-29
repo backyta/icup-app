@@ -1,15 +1,18 @@
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import { FamilyHouseInfoCard } from '@/app/family-house/components';
 import { type ChurchColumns } from '@/app/church/interfaces';
+import { ChurchDeleteCard, ChurchInfoCard } from '@/app/church/components';
 
 import { Button } from '@/shared/components/ui/button';
-import { ChurchDeleteCard } from '@/app/church/components';
 
 export const churchDeleteColumns: Array<ColumnDef<ChurchColumns, any>> = [
   {
     accessorKey: 'id',
+    cell: (info) => {
+      const id = info.getValue();
+      return id.substring(0, 7);
+    },
     header: ({ column }) => {
       return (
         <Button
@@ -37,23 +40,6 @@ export const churchDeleteColumns: Array<ColumnDef<ChurchColumns, any>> = [
           }}
         >
           Nombre
-          <ArrowUpDown className='ml-2 h-4 w-4' />
-        </Button>
-      );
-    },
-  },
-  {
-    accessorKey: 'email',
-    header: ({ column }) => {
-      return (
-        <Button
-          className='font-bold text-[13px] md:text-[14px]'
-          variant='ghost'
-          onClick={() => {
-            column.toggleSorting(column.getIsSorted() === 'asc');
-          }}
-        >
-          E-mail
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
@@ -113,15 +99,39 @@ export const churchDeleteColumns: Array<ColumnDef<ChurchColumns, any>> = [
 
   {
     id: 'showInfo',
-    cell: () => {
-      return <FamilyHouseInfoCard />;
+    accessorKey: 'id',
+    cell: (info) => {
+      const id = info.row.original.id;
+      return info.getValue() === '-' ? '-' : <ChurchInfoCard idRow={id} />;
+    },
+    header: () => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px] text-blue-500 hover:text-blue-500'
+          variant='ghost'
+        >
+          Info
+        </Button>
+      );
     },
   },
 
   {
     id: 'deleteInfo',
-    cell: () => {
-      return <ChurchDeleteCard />;
+    accessorKey: 'id',
+    cell: (info) => {
+      const id = info.row.original.id;
+      return info.getValue() === '-' ? '-' : <ChurchDeleteCard idRow={id} />;
+    },
+    header: () => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px] text-red-500 hover:text-red-500'
+          variant='ghost'
+        >
+          Eliminar
+        </Button>
+      );
     },
   },
 ];

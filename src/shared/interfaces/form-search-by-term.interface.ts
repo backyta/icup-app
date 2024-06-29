@@ -2,7 +2,7 @@ import { type UserRoles } from '@/app/user/enums';
 import { type SearchType } from '@/shared/enums';
 
 export interface FormSearchByTerm {
-  searchType: SearchType;
+  searchType?: SearchType;
   order: string;
   subType?: string | undefined;
   inputTerm?: string | undefined;

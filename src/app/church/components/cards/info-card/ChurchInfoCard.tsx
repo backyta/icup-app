@@ -5,8 +5,8 @@ import { useMediaQuery } from '@react-hook/media-query';
 import { BsFillPersonVcardFill } from 'react-icons/bs';
 
 import { cn } from '@/shared/lib/utils';
-import { useChurchStore } from '@/stores/church';
 
+import { useChurchStore } from '@/stores/church';
 import { ChurchTabsCard } from '@/app/church/components';
 
 import { Button } from '@/shared/components/ui/button';
@@ -41,9 +41,7 @@ export const ChurchInfoCard = ({ idRow }: ChurchInfoCardProps): JSX.Element => {
           <Button
             variant='outline'
             className={cn(
-              'mt-2 py-2 px-1 h-[2rem] bg-blue-400 text-white hover:bg-blue-500 hover:text-blue-950  dark:text-blue-950 dark:hover:bg-blue-500 dark:hover:text-white',
-              (pathname === '/churches/update-church' || pathname === '/churches/delete-church') &&
-                ''
+              'mt-2 py-2 px-1 h-[2rem] bg-blue-400 text-white hover:bg-blue-500 hover:text-blue-950  dark:text-blue-950 dark:hover:bg-blue-500 dark:hover:text-white'
             )}
           >
             <BsFillPersonVcardFill className='w-8 h-[1.65rem]' />
@@ -63,8 +61,7 @@ export const ChurchInfoCard = ({ idRow }: ChurchInfoCardProps): JSX.Element => {
         <Button
           variant='outline'
           className={cn(
-            'mt-2 py-2 px-1 h-[2rem] bg-blue-400 text-white hover:bg-blue-500 hover:text-blue-950  dark:text-blue-950 dark:hover:bg-blue-500 dark:hover:text-white',
-            (pathname === '/churches/update-church' || pathname === '/churches/delete-church') && ''
+            'mt-2 py-2 px-1 h-[2rem] bg-blue-400 text-white hover:bg-blue-500 hover:text-blue-950  dark:text-blue-950 dark:hover:bg-blue-500 dark:hover:text-white'
           )}
         >
           <BsFillPersonVcardFill className='w-8 h-[1.65rem]' />

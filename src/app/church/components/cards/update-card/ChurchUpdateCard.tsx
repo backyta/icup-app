@@ -3,11 +3,12 @@ import { useRef, useState } from 'react';
 import { useMediaQuery } from '@react-hook/media-query';
 import { GiArchiveRegister } from 'react-icons/gi';
 
+import { useChurchStore } from '@/stores/church';
+
 import { ChurchFormUpdate } from '@/app/church/components';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
-import { useChurchStore } from '@/stores/church';
 
 interface ChurchUpdateCardProps {
   idRow: string;
@@ -16,19 +17,17 @@ interface ChurchUpdateCardProps {
 export const ChurchUpdateCard = ({ idRow }: ChurchUpdateCardProps): JSX.Element => {
   //* States
   const dataSearchByTermResponse = useChurchStore((state) => state.dataSearchByTermResponse);
-
-  const [open, setOpen] = useState<boolean>(false);
-
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const topRef = useRef<HTMLDivElement>(null);
 
-  //* Library hooks
+  //* Hooks (external libraries)
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   //* Functions
   const currentChurch = dataSearchByTermResponse?.find((data) => data.id === idRow);
 
   const handleContainerClose = (): void => {
-    setOpen(false);
+    setIsOpen(false);
   };
 
   const handleContainerScroll = (): void => {
@@ -39,7 +38,7 @@ export const ChurchUpdateCard = ({ idRow }: ChurchUpdateCardProps): JSX.Element 
 
   if (isDesktop) {
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button
             variant='outline'
@@ -65,7 +64,7 @@ export const ChurchUpdateCard = ({ idRow }: ChurchUpdateCardProps): JSX.Element 
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button
           variant='outline'

@@ -2,39 +2,44 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-// import { dataChurches as data } from '@/app/church/data';
-
-// import { DataTableSearchByTerm } from '@/shared/components';
-// import { churchUpdateColumns } from '@/app/church/components';
-
 import { useEffect, useState } from 'react';
 
+import { Toaster } from 'sonner';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { Toaster, toast } from 'sonner';
-import { CalendarIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { type z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-import { getChurchesByTerm } from '@/app/church/services';
+import { cn } from '@/shared/lib/utils';
+import { CalendarIcon } from 'lucide-react';
+
 import { churchFormTermSearchSchema } from '@/app/church/validations';
-import { type ErrorResponse, type ChurchResponse } from '@/app/church/interfaces';
+import { type ChurchResponse } from '@/app/church/interfaces';
+
+import { useChurchStore } from '@/stores/church';
+
 import {
   churchUpdateColumns as columns,
   SearchByTermChurchDataTable,
 } from '@/app/church/components';
 
-import { cn } from '@/shared/lib/utils';
+import {
+  RecordOrder,
+  RecordOrderNames,
+  SearchSelectionOptionNames,
+  SearchType,
+  SearchTypeNames,
+} from '@/shared/enums';
+import {
+  validateSelectTermByTypeAndSubtype,
+  validateTypesAllowedByModule,
+  formatDateTermToTimestamp,
+} from '@/shared/helpers';
+import { type FormSearchByTerm } from '@/shared/interfaces';
 
-import { Calendar } from '@/shared/components/ui/calendar';
-import { Checkbox } from '@/shared/components/ui/checkbox';
-import { Button } from '@/shared/components/ui/button';
-import { Input } from '@/shared/components/ui/input';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Form,
   FormControl,
@@ -51,23 +56,11 @@ import {
   SelectItem,
   Select,
 } from '@/shared/components/ui/select';
-
-import { type FormSearchByTerm } from '@/shared/interfaces';
-import {
-  RecordOrder,
-  RecordOrderNames,
-  SearchSelectionOptionNames,
-  SearchType,
-  SearchTypeNames,
-} from '@/shared/enums';
-import {
-  validateSelectTermByTypeAndSubtype,
-  validateTypesAllowedByModule,
-  formatDateTermToTimestamp,
-} from '@/shared/helpers';
-
-import { useChurchStore } from '@/stores/church';
-import { LoadingSpinner } from '@/layouts/components';
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Calendar } from '@/shared/components/ui/calendar';
+import { Checkbox } from '@/shared/components/ui/checkbox';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
 const dataFictional: ChurchResponse[] = [
   {
@@ -100,16 +93,12 @@ export const ChurchUpdatePage = (): JSX.Element => {
   const setIsFiltersSearchByTermDisabled = useChurchStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
-  const setDataSearchByTermResResponse = useChurchStore(
-    (state) => state.setDataSearchByTermResponse
-  );
 
   const [dataForm, setDataForm] = useState<FormSearchByTerm>();
+  const [resultSearch, setResultSearch] = useState<FormSearchByTerm | undefined>();
 
   //* Hooks (external library)
   const { pathname } = useLocation();
-
-  const navigate = useNavigate();
 
   //* Forms
   const form = useForm<z.infer<typeof churchFormTermSearchSchema>>({
@@ -147,47 +136,13 @@ export const ChurchUpdatePage = (): JSX.Element => {
     }
   }, [limit, order]);
 
+  useEffect(() => {
+    setIsFiltersSearchByTermDisabled(true);
+  }, []);
+
   //* Helpers
   const disabledTypes = validateTypesAllowedByModule(pathname);
   const disabledSelectTerm = validateSelectTermByTypeAndSubtype(searchType);
-
-  //* Mutation
-  const mutation = useMutation({
-    mutationFn: getChurchesByTerm,
-    onError: (error: ErrorResponse) => {
-      if (error.message !== 'Unauthorized') {
-        toast.error(error.message, {
-          position: 'top-center',
-          className: 'justify-center',
-        });
-
-        setTimeout(() => {
-          setIsDisabledSubmitButton(false);
-        }, 1300);
-      }
-
-      if (error.message === 'Unauthorized') {
-        toast.error('Operación rechazada, el token expiro ingresa nuevamente.', {
-          position: 'top-center',
-          className: 'justify-center',
-        });
-
-        setTimeout(() => {
-          navigate('/');
-        }, 3500);
-      }
-    },
-    onSuccess: () => {
-      setIsFiltersSearchByTermDisabled(false);
-      setIsDisabledSubmitButton(false);
-      form.reset();
-    },
-  });
-
-  //* Aquí manda la data ficticia cuando vuele a entrar
-  useEffect(() => {
-    setDataSearchByTermResResponse(mutation.data);
-  }, [mutation.isPending]);
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof churchFormTermSearchSchema>): void {
@@ -201,9 +156,12 @@ export const ChurchUpdatePage = (): JSX.Element => {
       to: formData.dateTerm?.to ? formData.dateTerm?.to : newDateTermTo,
     });
 
-    mutation.mutate({ ...formData, dateTerm: newDateTerm });
+    setResultSearch({ ...formData, dateTerm: newDateTerm as any });
     setIsDisabledSubmitButton(true);
+    setIsFiltersSearchByTermDisabled(false);
     setDataForm(formData);
+    form.reset();
+    setIsDisabledSubmitButton(false);
   }
 
   return (
@@ -548,18 +506,11 @@ export const ChurchUpdatePage = (): JSX.Element => {
           {
             <SearchByTermChurchDataTable
               columns={columns}
-              data={mutation.data ?? dataFictional}
-              mutation={mutation}
+              data={dataFictional}
+              resultSearch={resultSearch}
               dataForm={dataForm}
             />
           }
-
-          {/* Spinner */}
-          {mutation.isPending && (
-            <div className='py-10'>
-              <LoadingSpinner />
-            </div>
-          )}
         </div>
       </div>
     </div>

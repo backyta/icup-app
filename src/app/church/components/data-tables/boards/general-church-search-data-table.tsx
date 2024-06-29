@@ -1,6 +1,11 @@
+/* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { Toaster, toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 import {
   type ColumnDef,
@@ -15,10 +20,13 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 
-import { useChurchStore } from '@/stores/church';
+import { getChurches } from '@/app/church/services';
+import { type QueryParams } from '@/app/church/interfaces';
 
-import { Input } from '@/shared/components/ui/input';
-import { Button } from '@/shared/components/ui/button';
+import { useChurchStore } from '@/stores/church';
+import { LoadingSpinner } from '@/layouts/components';
+import { type FormSearchByTerm } from '@/shared/interfaces';
+
 import {
   Table,
   TableBody,
@@ -27,17 +35,18 @@ import {
   TableHeader,
   TableRow,
 } from '@/shared/components/ui/table';
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  mutation: any;
+  resultSearch: FormSearchByTerm | undefined;
 }
 
 export function GeneralChurchSearchDataTable<TData, TValue>({
   columns,
-  data,
-  mutation,
+  resultSearch,
 }: DataTableProps<TData, TValue>): JSX.Element {
   //* States
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -51,10 +60,65 @@ export function GeneralChurchSearchDataTable<TData, TValue>({
   const setIsFiltersSearchGeneralDisabled = useChurchStore(
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
+  const setDataSearchGeneralResponse = useChurchStore(
+    (state) => state.setDataSearchGeneralResponse
+  );
+
+  const [isDisabledButton, setIsDisabledButton] = useState(false);
+
+  //* Hooks (external libraries)
+  const navigate = useNavigate();
+
+  //* Querys
+  const query = useQuery({
+    queryKey: ['general-churches', resultSearch],
+    queryFn: async () => getChurches(resultSearch as QueryParams),
+    enabled: !!resultSearch,
+    retry: 1,
+  });
+
+  //* Set data result query
+  useEffect(() => {
+    setDataSearchGeneralResponse(query.data);
+  }, [query?.isFetching]);
+
+  useEffect(() => {
+    if (query.error?.message && query.error?.message !== 'Unauthorized') {
+      toast.error(query?.error?.message, {
+        position: 'top-center',
+        className: 'justify-center',
+      });
+
+      setIsFiltersSearchGeneralDisabled(true);
+    }
+
+    if (query.error?.message === 'Unauthorized') {
+      toast.error('Operación rechazada, el token expiro ingresa nuevamente.', {
+        position: 'top-center',
+        className: 'justify-center',
+      });
+
+      setIsFiltersSearchGeneralDisabled(true);
+
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    }
+  }, [query?.error]);
+
+  //* Disabled button while query is pending
+  useEffect(() => {
+    if (query?.isPending) {
+      setIsDisabledButton(true);
+      return;
+    }
+
+    setIsDisabledButton(false);
+  }, [query?.isPending]);
 
   //* Table
   const table = useReactTable({
-    data,
+    data: query.data as TData[],
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -74,6 +138,7 @@ export function GeneralChurchSearchDataTable<TData, TValue>({
 
   return (
     <div>
+      <Toaster position='top-center' richColors />
       {!isFiltersSearchGeneralDisabled && (
         <div>
           <span className='text-offering-color font-bold text-[14px] md:text-[16px]'>
@@ -98,6 +163,7 @@ export function GeneralChurchSearchDataTable<TData, TValue>({
               disabled={isFiltersSearchGeneralDisabled}
             />
             <Button
+              disabled={isDisabledButton}
               variant='ghost'
               className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
               onClick={() => {
@@ -108,6 +174,7 @@ export function GeneralChurchSearchDataTable<TData, TValue>({
               Borrar
             </Button>
             <Button
+              disabled={isDisabledButton}
               variant='ghost'
               className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
               onClick={() => {
@@ -143,7 +210,7 @@ export function GeneralChurchSearchDataTable<TData, TValue>({
             ))}
           </TableHeader>
 
-          {!isFiltersSearchGeneralDisabled && !mutation.isPending && (
+          {!query?.error && !isFiltersSearchGeneralDisabled && !query.isPending && (
             <TableBody>
               {table.getRowModel().rows?.length ? (
                 table.getRowModel().rows.map((row) => (
@@ -171,7 +238,7 @@ export function GeneralChurchSearchDataTable<TData, TValue>({
         </Table>
       </div>
 
-      {!isFiltersSearchGeneralDisabled && !mutation.isPending && (
+      {!query?.error && !isFiltersSearchGeneralDisabled && !query.isPending && (
         <div className='flex items-center justify-end space-x-2 py-4'>
           <Button
             className='text-[13px] lg:text-[14px]'
@@ -195,6 +262,12 @@ export function GeneralChurchSearchDataTable<TData, TValue>({
           >
             Siguiente
           </Button>
+        </div>
+      )}
+
+      {resultSearch && query?.isPending && (
+        <div className='py-10'>
+          <LoadingSpinner />
         </div>
       )}
     </div>

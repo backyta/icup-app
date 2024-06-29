@@ -3,10 +3,10 @@
 import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
-import { type ChurchData } from '@/app/church/interfaces';
+import { type ChurchFormData } from '@/app/church/interfaces';
 
 interface Options {
-  formChurchCreate: UseFormReturn<ChurchData, any, ChurchData>;
+  formChurchCreate: UseFormReturn<ChurchFormData, any, ChurchFormData>;
   setIsSubmitButtonDisabled: (value: boolean) => void;
   setIsMessageErrorDisabled: (value: boolean) => void;
 }

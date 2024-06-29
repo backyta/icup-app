@@ -6,27 +6,36 @@ import { useEffect, useState } from 'react';
 
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { Toaster, toast } from 'sonner';
-import { CalendarIcon } from 'lucide-react';
+import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
-import { useMutation } from '@tanstack/react-query';
 
 import { type z } from 'zod';
+import { useLocation } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useLocation, useNavigate } from 'react-router-dom';
 
-import { getChurchesByTerm } from '@/app/church/services';
+import { CalendarIcon } from 'lucide-react';
+
+import { type ChurchResponse } from '@/app/church/interfaces';
 import { churchFormTermSearchSchema } from '@/app/church/validations';
-import { type ErrorResponse, type ChurchResponse } from '@/app/church/interfaces';
 import { churchInfoColumns as columns, SearchByTermChurchDataTable } from '@/app/church/components';
 
 import { cn } from '@/shared/lib/utils';
+import { useChurchStore } from '@/stores/church';
 
-import { Calendar } from '@/shared/components/ui/calendar';
-import { Checkbox } from '@/shared/components/ui/checkbox';
-import { Button } from '@/shared/components/ui/button';
-import { Input } from '@/shared/components/ui/input';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
+import {
+  RecordOrder,
+  RecordOrderNames,
+  SearchSelectionOptionNames,
+  SearchType,
+  SearchTypeNames,
+} from '@/shared/enums';
+import {
+  validateSelectTermByTypeAndSubtype,
+  validateTypesAllowedByModule,
+  formatDateTermToTimestamp,
+} from '@/shared/helpers';
+import { type FormSearchByTerm } from '@/shared/interfaces';
+
 import {
   Form,
   FormControl,
@@ -43,23 +52,11 @@ import {
   SelectItem,
   Select,
 } from '@/shared/components/ui/select';
-
-import { type FormSearchByTerm } from '@/shared/interfaces';
-import {
-  RecordOrder,
-  RecordOrderNames,
-  SearchSelectionOptionNames,
-  SearchType,
-  SearchTypeNames,
-} from '@/shared/enums';
-import {
-  validateSelectTermByTypeAndSubtype,
-  validateTypesAllowedByModule,
-  formatDateTermToTimestamp,
-} from '@/shared/helpers';
-
-import { useChurchStore } from '@/stores/church';
-import { LoadingSpinner } from '@/layouts/components';
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Calendar } from '@/shared/components/ui/calendar';
+import { Checkbox } from '@/shared/components/ui/checkbox';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
 const dataFictional: ChurchResponse[] = [
   {
@@ -78,7 +75,7 @@ const dataFictional: ChurchResponse[] = [
     address: '-',
     referenceAddress: '-',
     status: 'active',
-    theirMainChurch: '940f1910-a490-4604-8725-56c8e2d412ba',
+    theirMainChurch: null,
   },
 ];
 
@@ -92,16 +89,12 @@ export const ChurchSearchPageByTerm = (): JSX.Element => {
   const setIsFiltersSearchByTermDisabled = useChurchStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
-  const setDataSearchByTermResResponse = useChurchStore(
-    (state) => state.setDataSearchByTermResponse
-  );
 
   const [dataForm, setDataForm] = useState<FormSearchByTerm>();
+  const [resultSearch, setResultSearch] = useState<FormSearchByTerm | undefined>();
 
   //* Hooks (external library)
   const { pathname } = useLocation();
-
-  const navigate = useNavigate();
 
   //* Forms
   const form = useForm<z.infer<typeof churchFormTermSearchSchema>>({
@@ -139,47 +132,13 @@ export const ChurchSearchPageByTerm = (): JSX.Element => {
     }
   }, [limit, order]);
 
+  useEffect(() => {
+    setIsFiltersSearchByTermDisabled(true);
+  }, []);
+
   //* Helpers
   const disabledTypes = validateTypesAllowedByModule(pathname);
   const disabledSelectTerm = validateSelectTermByTypeAndSubtype(searchType);
-
-  //* Mutation
-  const mutation = useMutation({
-    mutationFn: getChurchesByTerm,
-    onError: (error: ErrorResponse) => {
-      if (error.message !== 'Unauthorized') {
-        toast.error(error.message, {
-          position: 'top-center',
-          className: 'justify-center',
-        });
-
-        setTimeout(() => {
-          setIsDisabledSubmitButton(false);
-        }, 1300);
-      }
-
-      if (error.message === 'Unauthorized') {
-        toast.error('Operación rechazada, el token expiro ingresa nuevamente.', {
-          position: 'top-center',
-          className: 'justify-center',
-        });
-
-        setTimeout(() => {
-          navigate('/');
-        }, 3500);
-      }
-    },
-    onSuccess: () => {
-      setIsFiltersSearchByTermDisabled(false);
-      setIsDisabledSubmitButton(false);
-      form.reset();
-    },
-  });
-
-  //* Aquí manda la data ficticia cuando vuele a entrar
-  useEffect(() => {
-    setDataSearchByTermResResponse(mutation.data);
-  }, [mutation.isPending]);
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof churchFormTermSearchSchema>): void {
@@ -193,9 +152,12 @@ export const ChurchSearchPageByTerm = (): JSX.Element => {
       to: formData.dateTerm?.to ? formData.dateTerm?.to : newDateTermTo,
     });
 
-    mutation.mutate({ ...formData, dateTerm: newDateTerm });
+    setResultSearch({ ...formData, dateTerm: newDateTerm as any });
     setIsDisabledSubmitButton(true);
+    setIsFiltersSearchByTermDisabled(false);
     setDataForm(formData);
+    form.reset();
+    setIsDisabledSubmitButton(false);
   }
 
   return (
@@ -208,9 +170,9 @@ export const ChurchSearchPageByTerm = (): JSX.Element => {
 
       <div className='flex items-center justify-start'>
         <h2 className='flex items-center text-left pl-4 py-2 sm:pt-4 sm:pb-2 sm:pl-[1.5rem] xl:pl-[2rem] 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-sky-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl'>
-          Buscar iglesias o anexos
+          Buscar iglesias
         </h2>
-        <span className='ml-3 bg-sky-300 text-slate-600 border text-center text-[10px] mt-[.6rem] sm:mt-5 -py-1 px-2 rounded-full font-bold uppercase'>
+        <span className='ml-5 bg-sky-300 text-slate-600 border text-center text-[10px] mt-[.6rem] sm:mt-5 -py-1 px-2 rounded-full font-bold uppercase'>
           Por tipo
         </span>
       </div>
@@ -218,12 +180,12 @@ export const ChurchSearchPageByTerm = (): JSX.Element => {
         Explora, filtra y organiza los registros de iglesias según tus necesidades.
       </p>
 
-      <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 w-full'>
+      <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full'>
         {isFiltersSearchByTermDisabled && (
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className='grid grid-cols-1 gap-4 gap-y-4 items-end mb-16 md:mb-12 md:grid-cols-3 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4 w-auto'
+              className='grid grid-cols-1 gap-4 gap-y-4 items-end mb-8 md:mb-12 md:grid-cols-3 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4 w-auto'
             >
               <FormField
                 control={form.control}
@@ -419,12 +381,12 @@ export const ChurchSearchPageByTerm = (): JSX.Element => {
                     )}
                   />
                 </div>
-                <div className='flex col-start-1 col-end-3 gap-2 md:gap-6 lg:gap-4 md:justify-start'>
+                <div className='flex col-start-1 col-end-3 justify-between sm:justify-normal sm:gap-6 md:gap-6 lg:gap-4 md:justify-start'>
                   <FormField
                     control={form.control}
                     name='limit'
                     render={({ field }) => (
-                      <FormItem className='2xl:w-[20rem]'>
+                      <FormItem className='w-[12rem] 2xl:w-[20rem]'>
                         <FormControl>
                           <Input
                             {...field}
@@ -486,12 +448,16 @@ export const ChurchSearchPageByTerm = (): JSX.Element => {
                 control={form.control}
                 name='order'
                 render={({ field }) => (
-                  <FormItem className='w-full col-start-auto col-end-auto lg:col-start-auto lg:col-end-auto'>
+                  <FormItem className='w-full row-start-3 row-end-4 md:col-start-auto md:col-end-auto md:row-start-auto md:row-end-auto '>
                     <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
                     <FormDescription className='text-[14px]'>
                       Elige el tipo de orden de los registros
                     </FormDescription>
-                    <Select value={field.value} onValueChange={field.onChange}>
+                    <Select
+                      onOpenChange={() => {}}
+                      value={field.value}
+                      onValueChange={field.onChange}
+                    >
                       <FormControl className='text-[14px]'>
                         <SelectTrigger>
                           {field.value ? (
@@ -526,7 +492,7 @@ export const ChurchSearchPageByTerm = (): JSX.Element => {
                   disabled={isDisabledSubmitButton}
                   type='submit'
                   variant='ghost'
-                  className='mx-auto mt-14 lg:mt-4 xl:mt-0 md:mt-0 md:col-start-2 md:col-end-3 lg:col-start-2 lg:col-end-3 lg:row-start-auto lg:row-end-auto xl:row-start-auto xl:row-end-auto xl:col-start-auto xl:col-end-auto w-[8rem] text-[13px] lg:text-[14px] h-[2.5rem] md:w-[15rem] lg:w-full xl:w-full xl:-ml-0 2xl:w-full 2xl:mx-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500  hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 hover:text-white'
+                  className='mx-auto mt-2 md:mt-3 xl:mt-0 md:col-start-2 md:col-end-3 lg:col-start-2 lg:col-end-3 lg:row-start-auto lg:row-end-auto xl:row-start-auto xl:row-end-auto xl:col-start-auto xl:col-end-auto w-full text-[13px] lg:text-[14px] h-[2.5rem] md:w-[15rem] lg:w-full xl:w-full xl:-ml-0 2xl:w-full 2xl:mx-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500  hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 hover:text-white'
                 >
                   Buscar
                 </Button>
@@ -540,18 +506,11 @@ export const ChurchSearchPageByTerm = (): JSX.Element => {
           {
             <SearchByTermChurchDataTable
               columns={columns}
-              data={mutation.data ?? dataFictional}
-              mutation={mutation}
+              data={dataFictional}
+              resultSearch={resultSearch}
               dataForm={dataForm}
             />
           }
-
-          {/* Spinner */}
-          {mutation.isPending && (
-            <div className='py-10'>
-              <LoadingSpinner />
-            </div>
-          )}
         </div>
       </div>
     </div>

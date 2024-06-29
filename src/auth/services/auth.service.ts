@@ -11,6 +11,7 @@ export interface LoginResponse {
   firstName: string;
   lastName: string;
   email: string;
+  gender: string;
   roles: UserRoles[];
   status: string;
   token: string;

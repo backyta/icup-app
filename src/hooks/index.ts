@@ -10,3 +10,4 @@ export * from './useZoneCreateSubmitButtonsLogic';
 export * from './useZoneUpdateSubmitButtonsLogic';
 export * from './useZoneDeleteSubmitButtonsLogic';
 export * from './useUserSubmitButtonLogic';
+export * from './useChurchUpdateSubmitButtonLogic';

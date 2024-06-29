@@ -2,9 +2,9 @@ import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
 import { type ChurchColumns } from '@/app/church/interfaces';
+import { ChurchInfoCard, ChurchUpdateCard } from '@/app/church/components';
 
 import { Button } from '@/shared/components/ui/button';
-import { ChurchInfoCard, ChurchUpdateCard } from '@/app/church/components';
 
 export const churchUpdateColumns: Array<ColumnDef<ChurchColumns, any>> = [
   {
