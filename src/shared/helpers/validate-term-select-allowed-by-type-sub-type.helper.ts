@@ -7,7 +7,7 @@ interface DisabledSelectTermResult {
 export const validateSelectTermByTypeAndSubtype = (type: string, subType:string | undefined = undefined): DisabledSelectTermResult | undefined => {
 
   //* Disabled Term Select
-  if (type === SearchType.MonthBirth) {
+  if (type === SearchType.BirthMonth) {
     return {
       disabledSelectTerm : [
         SearchSelectionOptionNames.male,

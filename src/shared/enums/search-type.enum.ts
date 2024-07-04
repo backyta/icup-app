@@ -9,8 +9,8 @@ export enum SearchType {
   FullName = 'full_name',
 
   //* Members, Pastor, Copastor, Supervisor, Preacher
-  DateBirth = 'date_birth', 
-  MonthBirth = 'month_birth', 
+  BirthDate = 'birth_date', 
+  BirthMonth = 'birth_month', 
   Gender = 'gender',
   MaritalStatus = 'marital_status',
 
@@ -74,8 +74,8 @@ export const SearchTypeNames: Record<SearchType, string> =  {
   last_name : 'Apellidos',
   full_name : 'Nombres y Apellidos',
   
-  date_birth: 'Fecha de nacimiento',
-  month_birth: 'Mes de nacimiento',
+  birth_date: 'Fecha de nacimiento',
+  birth_month: 'Mes de nacimiento',
   gender : 'Genero',
   marital_status : 'Estado civil',
   

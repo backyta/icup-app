@@ -2,7 +2,6 @@
 
 import { format } from 'date-fns';
 
-import { PopoverDataTabs } from '@/app/church/components';
 import { type ChurchResponse } from '@/app/church/interfaces';
 import { type WorshipTimes, WorshipTimesNames } from '@/app/church/enums';
 
@@ -15,6 +14,8 @@ import {
 } from '@/shared/components/ui/card';
 import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
+
+import { PopoverDataTabs } from '@/shared/components';
 
 interface ChurchTabsCardProps {
   data: ChurchResponse | undefined;
@@ -239,7 +240,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center md:grid md:col-start-3 md:col-end-4 md:row-start-7 md:row-end-8'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
-                Activo
+                {data?.status === 'active' ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>

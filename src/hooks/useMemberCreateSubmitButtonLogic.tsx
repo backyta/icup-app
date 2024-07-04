@@ -6,13 +6,13 @@ import { useEffect } from 'react';
 import { toast } from 'sonner';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums';
-import { type MemberData } from '@/shared/interfaces';
+import { type MemberRoles } from '@/shared/enums';
+import { type PastorFormData } from '@/app/pastor/interfaces';
 
 interface Options {
-  formMemberCrate: UseFormReturn<MemberData, any, MemberData>;
+  formMemberCrate: UseFormReturn<PastorFormData, any, PastorFormData>;
   pathname: string;
-  memberRoles: typeof MemberRole;
+  memberRoles: typeof MemberRoles;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
@@ -33,20 +33,20 @@ export const useMemberCreateSubmitButtonLogic = ({
   const firstName = formMemberCrate.watch('firstName');
   const lastName = formMemberCrate.watch('lastName');
   const gender = formMemberCrate.watch('gender');
-  const dateBirth = formMemberCrate.watch('dateBirth');
+  const birthDate = formMemberCrate.watch('birthDate');
   const conversionDate = formMemberCrate.watch('conversionDate');
   const maritalStatus = formMemberCrate.watch('maritalStatus');
-  const emailAddress = formMemberCrate.watch('emailAddress');
+  const email = formMemberCrate.watch('email');
   const phoneNumber = formMemberCrate.watch('phoneNumber');
   const originCountry = formMemberCrate.watch('originCountry');
   const numberChildren = formMemberCrate.watch('numberChildren');
-  const countryResidence = formMemberCrate.watch('countryResidence');
-  const departmentResidence = formMemberCrate.watch('departmentResidence');
-  const provinceResidence = formMemberCrate.watch('provinceResidence');
-  const districtResidence = formMemberCrate.watch('districtResidence');
-  const urbanSectorResidence = formMemberCrate.watch('urbanSectorResidence');
-  const addressResidence = formMemberCrate.watch('addressResidence');
-  const addressResidenceReference = formMemberCrate.watch('addressResidenceReference');
+  const country = formMemberCrate.watch('country');
+  const department = formMemberCrate.watch('department');
+  const province = formMemberCrate.watch('province');
+  const district = formMemberCrate.watch('district');
+  const urbanSector = formMemberCrate.watch('urbanSector');
+  const addressResidence = formMemberCrate.watch('address');
+  const addressResidenceReference = formMemberCrate.watch('referenceAddress');
 
   const theirFamilyHouse = formMemberCrate.watch('theirFamilyHouse');
   const theirPastor = formMemberCrate.watch('theirPastor');
@@ -69,18 +69,18 @@ export const useMemberCreateSubmitButtonLogic = ({
       firstName &&
       lastName &&
       gender &&
-      dateBirth &&
+      birthDate &&
       conversionDate &&
       maritalStatus &&
-      emailAddress &&
+      email &&
       phoneNumber &&
       originCountry &&
       numberChildren &&
-      countryResidence &&
-      departmentResidence &&
-      provinceResidence &&
-      districtResidence &&
-      urbanSectorResidence &&
+      country &&
+      department &&
+      province &&
+      district &&
+      urbanSector &&
       addressResidence &&
       addressResidenceReference &&
       roles.includes(memberRoles.Disciple) &&
@@ -98,19 +98,19 @@ export const useMemberCreateSubmitButtonLogic = ({
       firstName &&
       lastName &&
       gender &&
-      dateBirth &&
+      birthDate &&
       conversionDate &&
       maritalStatus &&
-      emailAddress &&
+      email &&
       phoneNumber &&
       originCountry &&
       numberChildren &&
-      countryResidence &&
-      departmentResidence &&
-      provinceResidence &&
-      districtResidence &&
+      country &&
+      department &&
+      province &&
+      district &&
       addressResidence &&
-      urbanSectorResidence &&
+      urbanSector &&
       addressResidenceReference &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
@@ -128,19 +128,19 @@ export const useMemberCreateSubmitButtonLogic = ({
       firstName &&
       lastName &&
       gender &&
-      dateBirth &&
+      birthDate &&
       conversionDate &&
       maritalStatus &&
-      emailAddress &&
+      email &&
       phoneNumber &&
       originCountry &&
       numberChildren &&
-      countryResidence &&
-      departmentResidence &&
-      provinceResidence &&
-      districtResidence &&
+      country &&
+      department &&
+      province &&
+      district &&
       addressResidence &&
-      urbanSectorResidence &&
+      urbanSector &&
       addressResidenceReference &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Preacher) &&
@@ -170,19 +170,19 @@ export const useMemberCreateSubmitButtonLogic = ({
       firstName &&
       lastName &&
       gender &&
-      dateBirth &&
+      birthDate &&
       conversionDate &&
       maritalStatus &&
-      emailAddress &&
+      email &&
       phoneNumber &&
       originCountry &&
       numberChildren &&
-      countryResidence &&
-      departmentResidence &&
-      provinceResidence &&
-      districtResidence &&
+      country &&
+      department &&
+      province &&
+      district &&
       addressResidence &&
-      urbanSectorResidence &&
+      urbanSector &&
       addressResidenceReference &&
       roles &&
       (theirFamilyHouse || theirPastor || theirCopastor || theirSupervisor) &&
@@ -197,19 +197,19 @@ export const useMemberCreateSubmitButtonLogic = ({
       !firstName ||
       !lastName ||
       !gender ||
-      !dateBirth ||
+      !birthDate ||
       !conversionDate ||
       !maritalStatus ||
-      !emailAddress ||
+      !email ||
       !phoneNumber ||
       !originCountry ||
       !numberChildren ||
-      !countryResidence ||
-      !departmentResidence ||
-      !provinceResidence ||
-      !districtResidence ||
+      !country ||
+      !department ||
+      !province ||
+      !district ||
       !addressResidence ||
-      !urbanSectorResidence ||
+      !urbanSector ||
       !addressResidence ||
       (addressResidenceReference && roles.length === 0)
     ) {
@@ -222,18 +222,18 @@ export const useMemberCreateSubmitButtonLogic = ({
     lastName,
     gender,
     conversionDate,
-    dateBirth,
+    birthDate,
     maritalStatus,
-    emailAddress,
+    email,
     phoneNumber,
     originCountry,
     numberChildren,
-    countryResidence,
-    departmentResidence,
-    provinceResidence,
-    districtResidence,
+    country,
+    department,
+    province,
+    district,
     addressResidence,
-    urbanSectorResidence,
+    urbanSector,
     addressResidenceReference,
     theirFamilyHouse,
     theirPastor,

@@ -60,20 +60,20 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 
 const dataFictional: ChurchResponse[] = [
   {
-    id: '-',
-    churchName: '-',
+    id: '',
+    churchName: '',
     isAnexe: false,
     worshipTimes: ['16:00'],
-    foundingDate: '2024-05-31',
+    foundingDate: new Date('2024-05-31'),
     email: 'iglesia.central@gmail.com',
-    phoneNumber: '-',
-    country: '-',
-    department: '-',
-    province: '-',
-    district: '-',
-    urbanSector: '-',
-    address: '-',
-    referenceAddress: '-',
+    phoneNumber: '',
+    country: '',
+    department: '',
+    province: '',
+    district: '',
+    urbanSector: '',
+    address: '',
+    referenceAddress: '',
     status: 'active',
     theirMainChurch: null,
   },
@@ -91,7 +91,7 @@ export const ChurchSearchPageByTerm = (): JSX.Element => {
   );
 
   const [dataForm, setDataForm] = useState<FormSearchByTerm>();
-  const [resultSearch, setResultSearch] = useState<FormSearchByTerm | undefined>();
+  const [searchParams, setSearchParams] = useState<FormSearchByTerm | undefined>();
 
   //* Hooks (external library)
   const { pathname } = useLocation();
@@ -152,7 +152,7 @@ export const ChurchSearchPageByTerm = (): JSX.Element => {
       to: formData.dateTerm?.to ? formData.dateTerm?.to : newDateTermTo,
     });
 
-    setResultSearch({ ...formData, dateTerm: newDateTerm as any });
+    setSearchParams({ ...formData, dateTerm: newDateTerm as any });
     setIsDisabledSubmitButton(true);
     setIsFiltersSearchByTermDisabled(false);
     setDataForm(formData);
@@ -172,7 +172,7 @@ export const ChurchSearchPageByTerm = (): JSX.Element => {
         <h2 className='flex items-center text-left pl-4 py-2 sm:pt-4 sm:pb-2 sm:pl-[1.5rem] xl:pl-[2rem] 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-sky-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl'>
           Buscar iglesias
         </h2>
-        <span className='ml-5 bg-sky-300 text-slate-600 border text-center text-[10px] mt-[.6rem] sm:mt-5 -py-1 px-2 rounded-full font-bold uppercase'>
+        <span className='ml-4 bg-sky-300 text-slate-600 border text-center text-[10px] mt-[.6rem] sm:mt-5 -py-1 px-2 rounded-full font-bold uppercase'>
           Por tipo
         </span>
       </div>
@@ -507,7 +507,8 @@ export const ChurchSearchPageByTerm = (): JSX.Element => {
             <SearchByTermChurchDataTable
               columns={columns}
               data={dataFictional}
-              resultSearch={resultSearch}
+              searchParams={searchParams}
+              setSearchParams={setSearchParams}
               dataForm={dataForm}
             />
           }

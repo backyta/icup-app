@@ -1,4 +1,4 @@
-export enum MemberRole {
+export enum MemberRoles {
   Disciple = 'disciple',
   Pastor = 'pastor',
   Copastor = 'copastor',
@@ -7,7 +7,7 @@ export enum MemberRole {
   Treasurer = 'treasurer',
 }
 
-export const MemberRoleNames: Record<MemberRole, string> = {
+export const MemberRolesNames: Record<MemberRoles, string> = {
   disciple: 'Discípulo',
   pastor: 'Pastor',
   copastor: 'Co-pastor',

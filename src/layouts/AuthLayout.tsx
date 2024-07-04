@@ -18,7 +18,7 @@ export const AuthLayout = (): JSX.Element => {
   }
 
   return (
-    <>
+    <div className='animate-fadeIn'>
       <ToggleLayoutLogin />
       <div className='bg-neutral-100 dark:bg-slate-950 flex h-screen overflow-hidden'>
         <div className='w-1/2 hidden lg:flex lg:flex-col items-center relative'>
@@ -39,6 +39,6 @@ export const AuthLayout = (): JSX.Element => {
           <Outlet />
         </div>
       </div>
-    </>
+    </div>
   );
 };

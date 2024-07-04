@@ -1,4 +1,4 @@
-export interface QueryParams {
+export interface ChurchQueryParams {
   inputTerm?:string;
   dateTerm?: string;
   selectTerm?:string;

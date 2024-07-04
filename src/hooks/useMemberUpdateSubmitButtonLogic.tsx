@@ -5,14 +5,14 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums';
+import { type MemberRoles } from '@/shared/enums';
 import { type MemberData } from '@/shared/interfaces';
 
 interface Options {
   formMemberUpdate: UseFormReturn<MemberData, any, MemberData>;
   pathname: string;
   isRelationSelectDisabled: boolean;
-  memberRoles: typeof MemberRole;
+  memberRoles: typeof MemberRoles;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }

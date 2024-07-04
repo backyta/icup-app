@@ -16,7 +16,7 @@ export const useChurchCreateSubmitButtonLogic = ({
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
 }: Options): void => {
-  // watchers
+  //* Watchers
   const nameChurch = formChurchCreate.watch('churchName');
   const foundingDate = formChurchCreate.watch('foundingDate');
   const worshipTimes = formChurchCreate.watch('worshipTimes');
@@ -32,7 +32,7 @@ export const useChurchCreateSubmitButtonLogic = ({
   const isAnexe = formChurchCreate.watch('isAnexe');
   const theirMainChurch = formChurchCreate.watch('theirMainChurch');
 
-  // effects
+  //* Effects
   useEffect(() => {
     if (
       formChurchCreate.formState.errors &&

@@ -5,9 +5,8 @@ export * from './useMemberCreateSubmitButtonLogic';
 export * from './useMemberUpdateSubmitButtonLogic';
 export * from './useFamilyHouseCreateSubmitButtonLogic';
 export * from './useFamilyHouseUpdateSubmitButtonLogic';
-export * from './useChurchCreateSubmitButtonLogic';
 export * from './useZoneCreateSubmitButtonsLogic';
 export * from './useZoneUpdateSubmitButtonsLogic';
 export * from './useZoneDeleteSubmitButtonsLogic';
 export * from './useUserSubmitButtonLogic';
-export * from './useChurchUpdateSubmitButtonLogic';
+

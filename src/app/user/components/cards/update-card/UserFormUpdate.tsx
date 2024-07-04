@@ -17,7 +17,7 @@ import { type UserDataKeys, type UserData } from '@/app/user/interfaces';
 
 import { cn } from '@/shared/lib/utils';
 
-import { UserRoleNames, UserRoles } from '@/app/user/enums';
+import { UserRolesNames, UserRoles } from '@/app/user/enums';
 
 import { Status } from '@/shared/enums';
 
@@ -379,7 +379,7 @@ export const UserFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                                   />
                                 </FormControl>
                                 <FormLabel className='text-sm lg:text-[15px] font-normal'>
-                                  {UserRoleNames[role]}
+                                  {UserRolesNames[role]}
                                 </FormLabel>
                               </FormItem>
                             );

@@ -16,12 +16,12 @@ import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { churchFormSchema } from '@/app/church/validations';
-import { type ErrorResponse } from '@/app/church/interfaces';
+import { type ErrorResponse } from '@/shared/interfaces';
 import { createChurch, getMainChurch } from '@/app/church/services';
 import { WorshipTimes, WorshipTimesNames } from '@/app/church/enums';
+import { useChurchCreateSubmitButtonLogic } from '@/app/church/hooks';
 
 import { LoadingSpinner } from '@/layouts/components';
-import { useChurchCreateSubmitButtonLogic } from '@/hooks';
 
 import { cn } from '@/shared/lib/utils';
 
@@ -133,8 +133,8 @@ export const ChurchCreatePage = (): JSX.Element => {
   }, [isAnexe]);
 
   //* Helpers
-  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
   const disabledDistricts = validateDistrictsAllowedByModule(pathname);
+  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
 
   //* Mutation
   const mutation = useMutation({

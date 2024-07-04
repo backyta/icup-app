@@ -25,9 +25,9 @@ import { FormChurchSkeleton } from '@/app/church/components';
 import { churchFormSchema } from '@/app/church/validations';
 import { getMainChurch, updateChurch } from '@/app/church/services';
 import { WorshipTimes, WorshipTimesNames } from '@/app/church/enums';
-import { type ErrorResponse, type ChurchResponse } from '@/app/church/interfaces';
+import { type ChurchResponse } from '@/app/church/interfaces';
 
-import { useChurchUpdateSubmitButtonLogic } from '@/hooks';
+import { useChurchUpdateSubmitButtonLogic } from '@/app/church/hooks';
 
 import {
   validateDistrictsAllowedByModule,
@@ -40,6 +40,7 @@ import {
   ProvinceNames,
   UrbanSectorNames,
 } from '@/shared/enums';
+import { type ErrorResponse } from '@/shared/interfaces';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -90,8 +91,8 @@ export const ChurchFormUpdate = ({
   const [isInputMainChurchOpen, setIsInputMainChurchOpen] = useState<boolean>(false);
   const [isInputFoundingDateOpen, setIsInputFoundingDateOpen] = useState<boolean>(false);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
-  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
+  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
 
   const [isLoadingData, setIsLoadingData] = useState(true);
 
@@ -129,17 +130,17 @@ export const ChurchFormUpdate = ({
 
   useEffect(() => {
     form.setValue('churchName', data?.churchName!);
-    form.setValue('foundingDate', new Date(data?.foundingDate.replace(/-/g, '/') as any));
+    form.setValue('foundingDate', new Date(String(data?.foundingDate).replace(/-/g, '/') as any));
     form.setValue('worshipTimes', data?.worshipTimes as WorshipTimes[]);
-    form.setValue('email', data?.email!);
-    form.setValue('phoneNumber', data?.phoneNumber!);
-    form.setValue('country', data?.country!);
-    form.setValue('department', data?.department!);
-    form.setValue('province', data?.province!);
-    form.setValue('district', data?.district!);
-    form.setValue('urbanSector', data?.urbanSector!);
-    form.setValue('address', data?.address!);
-    form.setValue('referenceAddress', data?.referenceAddress!);
+    form.setValue('email', data?.email ?? '');
+    form.setValue('phoneNumber', data?.phoneNumber ?? '');
+    form.setValue('country', data?.country ?? '');
+    form.setValue('department', data?.department ?? '');
+    form.setValue('province', data?.province ?? '');
+    form.setValue('district', data?.district ?? '');
+    form.setValue('urbanSector', data?.urbanSector ?? '');
+    form.setValue('address', data?.address ?? '');
+    form.setValue('referenceAddress', data?.referenceAddress ?? '');
     form.setValue('isAnexe', data?.isAnexe);
     form.setValue('theirMainChurch', data?.theirMainChurch?.id);
     form.setValue('status', data?.status);

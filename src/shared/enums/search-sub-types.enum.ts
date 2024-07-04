@@ -17,11 +17,6 @@ export enum SearchSubType {
   ByMemberLastNames = 'by_member_last_names',
   ByMemberFullName = 'by_member_full_name',
 
-  //* Pastor
-  ByPastorNames = 'by_pastor_names',
-  ByPastorLastNames = 'by_pastor_last_names',
-  ByPastorFullName = 'by_pastor_full_name',
-
   //* Copastor
   CopastorByPastorNames = 'copastor_by_pastor_names',
   CopastorByPastorLastNames = 'copastor_by_pastor_last_names',
@@ -188,11 +183,6 @@ export const SearchSubTypeNames: Record<SearchSubType, string> =  {
   member_by_preacher_names : 'Por nombres de su predicador',
   member_by_preacher_last_names : 'Por apellidos de su predicador',
   member_by_preacher_full_name : 'Por nombres y apellidos de su predicador',
-
-  //* Pastor
-  by_pastor_names: 'Por sus nombres', 
-  by_pastor_last_names: 'Por sus apellidos', 
-  by_pastor_full_name: 'Por sus nombres y apellidos', 
 
   //* Copastor
   copastor_by_pastor_names : 'Por nombres de su pastor',

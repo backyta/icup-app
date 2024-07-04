@@ -27,8 +27,11 @@ export const LoadingSpinner = (): JSX.Element => {
     <div
       className={cn(
         'min-h-screen flex items-center justify-center md:min-h-full text-slate-100 dark:bg-slate-950',
-        pathname === '/churches/search-churches' ||
-          (pathname === '/churches/search-by-term-churches' && 'min-h-full')
+        (pathname === '/churches/search-churches' ||
+          pathname === '/churches/search-by-term-churches' ||
+          pathname === '/churches/update-church' ||
+          pathname === '/churches/delete-church') &&
+          'min-h-full'
       )}
     >
       <div className='flex flex-col items-center justify-center'>

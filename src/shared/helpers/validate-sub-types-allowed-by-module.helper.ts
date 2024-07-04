@@ -17,9 +17,6 @@ import {
   SearchSubtypesFullNameLeaderModuleAllowed,
   SearchSubtypesLastNamesLeaderModuleAllowed,
   SearchSubtypesNamesLeaderModuleAllowed,
-  SearchSubtypesFullNamePastorModuleAllowed,
-  SearchSubtypesLastNamesPastorModuleAllowed,
-  SearchSubtypesNamesPastorModuleAllowed,
   SearchSubtypesOfferingIncomeSundayWorshipAllowed,
   SearchSubtypesTitheAllowed,
   SearchSubtypesFullNameUserModuleAllowed,
@@ -79,45 +76,6 @@ export const validateSubTypesAllowedByModule = (currentPath: string, type: strin
     return {
       disabledSearchSubTypes : [
         ...disabledDiscipleModuleFullNameSearchSubTypes
-      ],
-    }
-  }
-
-  //* Pastor
-  const disabledPastorModuleNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesNamesPastorModuleAllowed.includes(value as SearchSubType) ) 
-  const disabledPastorModuleLastNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesLastNamesPastorModuleAllowed.includes(value as SearchSubType) ) 
-  const disabledPastorModuleFullNameSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesFullNamePastorModuleAllowed.includes(value as SearchSubType) ) 
-  
-
-  if ((currentPath === '/pastors/search-by-term-pastors' || 
-        currentPath === '/pastors/update-pastor' || 
-        currentPath === '/pastors/delete-pastor') && 
-      type === SearchType.FirstName) {
-    return {
-      disabledSearchSubTypes : [
-        ...disabledPastorModuleNamesSearchSubTypes,
-      ],
-    }
-  }
-
-  if ((currentPath === '/pastors/search-by-term-pastors' || 
-        currentPath === '/pastors/update-pastor' || 
-        currentPath === '/pastors/delete-pastor') && 
-      type === SearchType.LastName) {
-    return {
-      disabledSearchSubTypes : [
-        ...disabledPastorModuleLastNamesSearchSubTypes
-      ],
-    }
-  }
-
-  if ((currentPath === '/pastors/search-by-term-pastors' || 
-        currentPath === '/pastors/update-pastor' || 
-        currentPath === '/pastors/delete-pastor') && 
-      type === SearchType.FullName) {
-    return {
-      disabledSearchSubTypes : [
-        ...disabledPastorModuleFullNameSearchSubTypes
       ],
     }
   }

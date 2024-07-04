@@ -14,7 +14,7 @@ import { userSchema } from '@/app/user/validations';
 
 import { useUserSubmitButtonLogic } from '@/hooks';
 
-import { UserRoles, UserRoleNames } from '@/app/user/enums';
+import { UserRoles, UserRolesNames } from '@/app/user/enums';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -286,7 +286,7 @@ export const UserCreatePage = (): JSX.Element => {
                               />
                             </FormControl>
                             <FormLabel className='text-[14px] font-medium'>
-                              {UserRoleNames[role]}
+                              {UserRolesNames[role]}
                             </FormLabel>
                           </FormItem>
                         );

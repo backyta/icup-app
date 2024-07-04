@@ -27,18 +27,6 @@ import { SearchSubType } from '@/shared/enums';
     SearchSubType.ByMemberFullName,
   ];
 
-  //* Pastor
-  export const SearchSubtypesNamesPastorModuleAllowed = [ 
-    SearchSubType.ByPastorNames,
-  ];
-
-  export const SearchSubtypesLastNamesPastorModuleAllowed = [ 
-    SearchSubType.ByPastorLastNames,
-  ];
-
-  export const SearchSubtypesFullNamePastorModuleAllowed = [ 
-    SearchSubType.ByPastorFullName,
-  ];
   
   //* Co-Pastor
   export const SearchSubtypesNamesCopastorModuleAllowed = [ 

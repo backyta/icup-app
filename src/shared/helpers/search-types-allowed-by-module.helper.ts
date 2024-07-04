@@ -2,7 +2,7 @@ import { SearchTypeNames } from '@/shared/enums';
 
 // ? Allowed Types by module
 
-//* Disciples
+//* Church
 // search, search by type and update
 export const SearchTypesChurchModuleAllowed = [ 
   SearchTypeNames.church_name,
@@ -33,8 +33,8 @@ export const SearchTypesDiscipleModuleAllowed = [
   SearchTypeNames.first_name,
   SearchTypeNames.last_name,
   SearchTypeNames.full_name,
-  SearchTypeNames.month_birth,
-  SearchTypeNames.date_birth,
+  SearchTypeNames.birth_month,
+  SearchTypeNames.birth_date,
   SearchTypeNames.gender,
   SearchTypeNames.marital_status,
   SearchTypeNames.zone,
@@ -45,6 +45,7 @@ export const SearchTypesDiscipleModuleAllowed = [
   SearchTypeNames.department,
   SearchTypeNames.province,
   SearchTypeNames.district,
+  SearchTypeNames.urban_sector,
   SearchTypeNames.status,
 ];
 
@@ -53,8 +54,8 @@ export const SearchTypeDisciplesModuleAllowedOnDeletePage = [
   SearchTypeNames.first_name,
   SearchTypeNames.last_name,
   SearchTypeNames.full_name,
-  SearchTypeNames.month_birth,
-  SearchTypeNames.date_birth,
+  SearchTypeNames.birth_month,
+  SearchTypeNames.birth_date,
   SearchTypeNames.gender,
   SearchTypeNames.marital_status,
   SearchTypeNames.zone,
@@ -65,6 +66,7 @@ export const SearchTypeDisciplesModuleAllowedOnDeletePage = [
   SearchTypeNames.department,
   SearchTypeNames.province,
   SearchTypeNames.district,
+  SearchTypeNames.urban_sector,
 ];
 
 //* Pastors
@@ -73,8 +75,8 @@ export const SearchTypesPastorModuleAllowed = [
   SearchTypeNames.first_name,
   SearchTypeNames.last_name,
   SearchTypeNames.full_name,
-  SearchTypeNames.month_birth,
-  SearchTypeNames.date_birth,
+  SearchTypeNames.birth_month,
+  SearchTypeNames.birth_date,
   SearchTypeNames.gender,
   SearchTypeNames.marital_status,
   SearchTypeNames.address,
@@ -82,6 +84,7 @@ export const SearchTypesPastorModuleAllowed = [
   SearchTypeNames.department,
   SearchTypeNames.province,
   SearchTypeNames.district,
+  SearchTypeNames.urban_sector,
   SearchTypeNames.status,
 ];
 
@@ -90,14 +93,15 @@ export const SearchTypesPastorModuleAllowedOnDeletePage = [
   SearchTypeNames.first_name,
   SearchTypeNames.last_name,
   SearchTypeNames.full_name,
-  SearchTypeNames.month_birth,
-  SearchTypeNames.date_birth,
+  SearchTypeNames.birth_month,
+  SearchTypeNames.birth_date,
   SearchTypeNames.gender,
   SearchTypeNames.marital_status,
   SearchTypeNames.address,
   SearchTypeNames.origin_country,
   SearchTypeNames.department,
   SearchTypeNames.province,
+  SearchTypeNames.urban_sector,
   SearchTypeNames.district,
 ];
 
@@ -107,8 +111,8 @@ export const SearchTypesCopastorModuleAllowed = [
   SearchTypeNames.first_name,
   SearchTypeNames.last_name,
   SearchTypeNames.full_name,
-  SearchTypeNames.month_birth,
-  SearchTypeNames.date_birth,
+  SearchTypeNames.birth_month,
+  SearchTypeNames.birth_date,
   SearchTypeNames.gender,
   SearchTypeNames.marital_status,
   SearchTypeNames.address,
@@ -116,6 +120,7 @@ export const SearchTypesCopastorModuleAllowed = [
   SearchTypeNames.department,
   SearchTypeNames.province,
   SearchTypeNames.district,
+  SearchTypeNames.urban_sector,
   SearchTypeNames.status,
 ];
 
@@ -124,8 +129,8 @@ export const SearchTypesCopastorModuleAllowedOnDeletePage = [
   SearchTypeNames.first_name,
   SearchTypeNames.last_name,
   SearchTypeNames.full_name,
-  SearchTypeNames.month_birth,
-  SearchTypeNames.date_birth,
+  SearchTypeNames.birth_month,
+  SearchTypeNames.birth_date,
   SearchTypeNames.gender,
   SearchTypeNames.marital_status,
   SearchTypeNames.address,
@@ -133,6 +138,7 @@ export const SearchTypesCopastorModuleAllowedOnDeletePage = [
   SearchTypeNames.department,
   SearchTypeNames.province,
   SearchTypeNames.district,
+  SearchTypeNames.urban_sector,
 ];
 
 //* Preachers
@@ -141,8 +147,8 @@ export const SearchTypesLeaderModuleAllowed = [
   SearchTypeNames.first_name,
   SearchTypeNames.last_name,
   SearchTypeNames.full_name,
-  SearchTypeNames.month_birth,
-  SearchTypeNames.date_birth,
+  SearchTypeNames.birth_month,
+  SearchTypeNames.birth_date,
   SearchTypeNames.gender,
   SearchTypeNames.marital_status,
   SearchTypeNames.zone,
@@ -153,6 +159,7 @@ export const SearchTypesLeaderModuleAllowed = [
   SearchTypeNames.department,
   SearchTypeNames.province,
   SearchTypeNames.district,
+  SearchTypeNames.urban_sector,
   SearchTypeNames.status,
 ];
 
@@ -161,8 +168,8 @@ export const SearchTypesLeaderModuleAllowedOnDeletePage = [
   SearchTypeNames.first_name,
   SearchTypeNames.last_name,
   SearchTypeNames.full_name,
-  SearchTypeNames.month_birth,
-  SearchTypeNames.date_birth,
+  SearchTypeNames.birth_month,
+  SearchTypeNames.birth_date,
   SearchTypeNames.gender,
   SearchTypeNames.marital_status,
   SearchTypeNames.zone,
@@ -172,10 +179,11 @@ export const SearchTypesLeaderModuleAllowedOnDeletePage = [
   SearchTypeNames.origin_country,
   SearchTypeNames.department,
   SearchTypeNames.province,
+  SearchTypeNames.urban_sector,
   SearchTypeNames.district,
 ];
 
-//* Family House
+//* Family Group
 // search, search by type and update
 export const SearchTypesFamilyHouseModuleAllowed = [
   SearchTypeNames.first_name,
@@ -188,6 +196,7 @@ export const SearchTypesFamilyHouseModuleAllowed = [
   SearchTypeNames.department,
   SearchTypeNames.province,
   SearchTypeNames.district,
+  SearchTypeNames.urban_sector,
   SearchTypeNames.status,
 ];
 
@@ -203,6 +212,7 @@ export const SearchTypesFamilyHouseModuleAllowedOnDeletePage = [
   SearchTypeNames.department,
   SearchTypeNames.province,
   SearchTypeNames.district,
+  SearchTypeNames.urban_sector,
 ];
 
 //* Offerings Income

@@ -41,7 +41,7 @@ export const PopoverDataTabs = ({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button className=' px-2 py-0  text-[12px]' variant='outline'>
+        <Button className=' px-2 py-0 text-[12px]' variant='outline'>
           Ver {title}...
         </Button>
       </PopoverTrigger>

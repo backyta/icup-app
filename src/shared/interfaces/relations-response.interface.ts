@@ -92,12 +92,13 @@ export interface MainChurch {
   address:          string;
   referenceAddress: string;
   createdAt:        Date;
-  updatedAt:        Date;
-  status:           string;
   createdBy:        CreatedBy;
-  updatedBy:        UpdatedBy;
+  updatedAt?:        Date;
+  updatedBy?:        UpdatedBy;
+  status:           string;
 }
 
+export type TheirChurch = MainChurch;
 
 
 

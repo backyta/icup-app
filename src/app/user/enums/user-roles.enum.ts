@@ -5,7 +5,7 @@ export enum UserRoles {
   User = 'user',
 }
 
-export const UserRoleNames: Record<UserRoles, string> = {
+export const UserRolesNames: Record<UserRoles, string> = {
   'super-user': 'Super-Usuario',
   'admin-user': 'Admin-Usuario',
   'treasurer-user': 'Tesorero-Usuario',

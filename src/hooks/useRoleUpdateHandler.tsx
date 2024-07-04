@@ -1,11 +1,11 @@
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums';
+import { type MemberRoles } from '@/shared/enums';
 import { type MemberData } from '@/shared/interfaces';
 
 interface Options {
   formMemberUpdate: UseFormReturn<MemberData, any, MemberData>;
-  memberRoles: typeof MemberRole;
+  memberRoles: typeof MemberRoles;
   setIsDisabledInput: React.Dispatch<React.SetStateAction<boolean>>;
   setIsDisabledPromoteButton: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -23,7 +23,7 @@ export const useRoleUpdateHandler = ({
   formMemberUpdate.setValue('theirSupervisor', '');
 
   // conditional level up role
-  const roles: MemberRole[] = formMemberUpdate.getValues('roles');
+  const roles: MemberRoles[] = formMemberUpdate.getValues('roles');
   const hasMember = roles.includes(memberRoles.Disciple);
   const hasPreacher = roles.includes(memberRoles.Preacher);
   const hasTreasurer = roles.includes(memberRoles.Treasurer);

@@ -16,7 +16,7 @@ export interface ChurchColumns {
   churchName:       string;
   isAnexe:          boolean;
   worshipTimes:     string[];
-  foundingDate:     string;
+  foundingDate:     Date;
   email:            string;
   phoneNumber:      string;
   country:          string;

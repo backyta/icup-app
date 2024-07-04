@@ -21,7 +21,7 @@ import {
 } from '@tanstack/react-table';
 
 import { getChurchesByTerm } from '@/app/church/services';
-import { type QueryParams } from '@/app/church/interfaces';
+import { type ChurchQueryParams } from '@/app/church/interfaces';
 
 import { useChurchStore } from '@/stores/church';
 import { LoadingSpinner } from '@/layouts/components';
@@ -42,13 +42,15 @@ import { Button } from '@/shared/components/ui/button';
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  resultSearch: FormSearchByTerm | undefined;
+  searchParams: FormSearchByTerm | undefined;
+  setSearchParams: React.Dispatch<React.SetStateAction<FormSearchByTerm | undefined>>;
   dataForm: FormSearchByTerm | undefined;
 }
 
 export function SearchByTermChurchDataTable<TData, TValue>({
   columns,
-  resultSearch,
+  searchParams,
+  setSearchParams,
   dataForm,
 }: DataTableProps<TData, TValue>): JSX.Element {
   //* States
@@ -74,14 +76,12 @@ export function SearchByTermChurchDataTable<TData, TValue>({
 
   //* Querys
   const query = useQuery({
-    queryKey: ['churches-by-term', resultSearch],
-    queryFn: () => getChurchesByTerm(resultSearch as QueryParams),
-    enabled: !!resultSearch,
+    queryKey: ['churches-by-term', searchParams],
+    queryFn: () => getChurchesByTerm(searchParams as ChurchQueryParams),
+    enabled: !!searchParams,
     retry: 1,
   });
 
-  // TODO : hacer lo mismo en movil para update page y delete page con el boton buscar (liomite y margenes)
-  // NOTE : revisar bien todo porque de estos se replicaran en los demas
   //* Set data result query
   useEffect(() => {
     setDataSearchByTermResResponse(query.data);
@@ -94,6 +94,7 @@ export function SearchByTermChurchDataTable<TData, TValue>({
         className: 'justify-center',
       });
 
+      setSearchParams(undefined);
       setIsFiltersSearchByTermDisabled(true);
     }
 
@@ -103,6 +104,7 @@ export function SearchByTermChurchDataTable<TData, TValue>({
         className: 'justify-center',
       });
 
+      setSearchParams(undefined);
       setIsFiltersSearchByTermDisabled(true);
 
       setTimeout(() => {
@@ -322,7 +324,7 @@ export function SearchByTermChurchDataTable<TData, TValue>({
         </div>
       )}
 
-      {resultSearch && query?.isPending && (
+      {searchParams && query?.isPending && (
         <div className='py-10'>
           <LoadingSpinner />
         </div>

@@ -16,7 +16,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
 }: Options): void => {
-  // watchers
+  //* Watchers
   const nameChurch = formChurchUpdate.watch('churchName');
   const foundingDate = formChurchUpdate.watch('foundingDate');
   const worshipTimes = formChurchUpdate.watch('worshipTimes');
@@ -31,13 +31,13 @@ export const useChurchUpdateSubmitButtonLogic = ({
   const referenceAddress = formChurchUpdate.watch('referenceAddress');
   const isAnexe = formChurchUpdate.watch('isAnexe');
   const theirMainChurch = formChurchUpdate.watch('theirMainChurch');
-  // effects
+
+  //* Effects
   useEffect(() => {
     if (
       formChurchUpdate.formState.errors &&
       Object.values(formChurchUpdate.formState.errors).length > 0
     ) {
-      console.log('xd1');
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
@@ -59,7 +59,6 @@ export const useChurchUpdateSubmitButtonLogic = ({
       theirMainChurch &&
       Object.values(formChurchUpdate.formState.errors).length === 0
     ) {
-      console.log('xd2');
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
     }

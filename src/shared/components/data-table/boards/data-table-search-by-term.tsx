@@ -30,7 +30,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 
-import { UserRoles, UserRoleNames } from '@/app/user/enums';
+import { UserRoles, UserRolesNames } from '@/app/user/enums';
 
 import { formSearchByTermSchema } from '@/shared/validations';
 import { type FormSearchByTerm } from '@/shared/interfaces';
@@ -353,8 +353,8 @@ export function DataTableSearchByTerm<TData, TValue>({
               type !== SearchType.FirstName &&
               type !== SearchType.LastName &&
               type !== SearchType.FullName &&
-              type !== SearchType.MonthBirth &&
-              type !== SearchType.DateBirth &&
+              type !== SearchType.BirthMonth &&
+              type !== SearchType.BirthDate &&
               type !== SearchType.Gender &&
               type !== SearchType.MaritalStatus &&
               type !== SearchType.Status &&
@@ -408,7 +408,7 @@ export function DataTableSearchByTerm<TData, TValue>({
             )}
 
             {(type === SearchType.FoundingDate ||
-              type === SearchType.DateBirth ||
+              type === SearchType.BirthDate ||
               type === SearchType.OperationalExpenses ||
               type === SearchType.MaintenanceAndRepairExpenses ||
               type === SearchType.DecorationExpenses ||
@@ -482,7 +482,7 @@ export function DataTableSearchByTerm<TData, TValue>({
             {(type === SearchType.Gender ||
               type === SearchType.MaritalStatus ||
               type === SearchType.Status ||
-              type === SearchType.MonthBirth ||
+              type === SearchType.BirthMonth ||
               subType === SearchSubType.OfferingByShift ||
               subType === SearchSubType.OfferingByDateShift) && (
               <FormField
@@ -570,7 +570,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                                   />
                                 </FormControl>
                                 <FormLabel className='text-[13px] md:text-[14px] font-normal'>
-                                  {UserRoleNames[role]}
+                                  {UserRolesNames[role]}
                                 </FormLabel>
                               </FormItem>
                             );
@@ -583,6 +583,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                 )}
               />
             )}
+
             {((subType && (type === SearchType.FirstName || type === SearchType.FullName)) ||
               subType === SearchSubType.TitheByNames ||
               subType === SearchSubType.TitheByFullName ||
@@ -922,7 +923,7 @@ export function DataTableSearchByTerm<TData, TValue>({
             {(dataForm?.searchType === SearchType.FirstName ||
               dataForm?.searchType === SearchType.LastName ||
               dataForm?.searchType === SearchType.FullName ||
-              dataForm?.searchType === SearchType.DateBirth ||
+              dataForm?.searchType === SearchType.BirthDate ||
               dataForm?.searchType === SearchType.Zone ||
               dataForm?.searchType === SearchType.OriginCountry ||
               dataForm?.searchType === SearchType.CodeHouse ||
@@ -931,7 +932,7 @@ export function DataTableSearchByTerm<TData, TValue>({
               dataForm?.searchType === SearchType.Department ||
               dataForm?.searchType === SearchType.Province ||
               dataForm?.searchType === SearchType.District ||
-              dataForm?.searchType === SearchType.MonthBirth ||
+              dataForm?.searchType === SearchType.BirthMonth ||
               dataForm?.searchType === SearchType.Gender ||
               dataForm?.searchType === SearchType.MaritalStatus ||
               dataForm?.searchType === SearchType.Status) && (
@@ -966,12 +967,12 @@ export function DataTableSearchByTerm<TData, TValue>({
                     {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
                   </span>
                 )}
-                {dataForm?.searchType === SearchType.DateBirth && (
+                {dataForm?.searchType === SearchType.BirthDate && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                     {`${dataForm?.dateTerm?.from ? formatDate(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDate(dataForm?.dateTerm?.to)}` : ''}`}
                   </span>
                 )}
-                {(dataForm?.searchType === SearchType.MonthBirth ||
+                {(dataForm?.searchType === SearchType.BirthMonth ||
                   dataForm?.searchType === SearchType.Gender ||
                   dataForm?.searchType === SearchType.MaritalStatus ||
                   dataForm?.searchType === SearchType.Status) && (
@@ -1463,7 +1464,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                 )}
                 {dataForm?.searchType === SearchType.Roles && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                    {`${Object.entries(UserRoleNames)
+                    {`${Object.entries(UserRolesNames)
                       .map(([key, value]) => {
                         return dataForm?.multiSelectTerm?.includes(key as UserRoles) ? value : null;
                       })

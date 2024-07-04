@@ -22,7 +22,7 @@ export const usePromoteButtonLogic = ({
   const gender = formMemberUpdate.watch('gender');
   const originCountry = formMemberUpdate.watch('originCountry');
   const maritalStatus = formMemberUpdate.watch('maritalStatus');
-  const dateBirth = formMemberUpdate.watch('dateBirth');
+  const birthDate = formMemberUpdate.watch('birthDate');
   const numberChildren = formMemberUpdate.watch('numberChildren');
   const conversionDate = formMemberUpdate.watch('conversionDate');
   const emailAddress = formMemberUpdate.watch('emailAddress');
@@ -82,7 +82,7 @@ export const usePromoteButtonLogic = ({
     gender,
     originCountry,
     maritalStatus,
-    dateBirth,
+    birthDate,
     numberChildren,
     conversionDate,
     emailAddress,

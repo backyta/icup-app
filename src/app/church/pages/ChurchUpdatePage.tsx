@@ -64,20 +64,20 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 
 const dataFictional: ChurchResponse[] = [
   {
-    id: '-',
-    churchName: '-',
+    id: '',
+    churchName: '',
     isAnexe: false,
     worshipTimes: ['16:00'],
-    foundingDate: '2024-05-31',
-    email: 'iglesia.central@gmail.com',
-    phoneNumber: '-',
-    country: '-',
-    department: '-',
-    province: '-',
-    district: '-',
-    urbanSector: '-',
-    address: '-',
-    referenceAddress: '-',
+    foundingDate: new Date('2024-05-31'),
+    email: '',
+    phoneNumber: '',
+    country: '',
+    department: '',
+    province: '',
+    district: '',
+    urbanSector: '',
+    address: '',
+    referenceAddress: '',
     status: 'active',
     theirMainChurch: null,
   },
@@ -95,7 +95,7 @@ export const ChurchUpdatePage = (): JSX.Element => {
   );
 
   const [dataForm, setDataForm] = useState<FormSearchByTerm>();
-  const [resultSearch, setResultSearch] = useState<FormSearchByTerm | undefined>();
+  const [searchParams, setSearchParams] = useState<FormSearchByTerm | undefined>();
 
   //* Hooks (external library)
   const { pathname } = useLocation();
@@ -156,7 +156,7 @@ export const ChurchUpdatePage = (): JSX.Element => {
       to: formData.dateTerm?.to ? formData.dateTerm?.to : newDateTermTo,
     });
 
-    setResultSearch({ ...formData, dateTerm: newDateTerm as any });
+    setSearchParams({ ...formData, dateTerm: newDateTerm as any });
     setIsDisabledSubmitButton(true);
     setIsFiltersSearchByTermDisabled(false);
     setDataForm(formData);
@@ -174,9 +174,9 @@ export const ChurchUpdatePage = (): JSX.Element => {
 
       <div className='flex items-center justify-start'>
         <h2 className='flex items-center text-left pl-4 py-2 sm:pt-4 sm:pb-2 sm:pl-[1.5rem] xl:pl-[2rem] 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-orange-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl'>
-          Buscar iglesias o anexos
+          Buscar iglesias
         </h2>
-        <span className='ml-3 bg-orange-300 text-slate-600 border text-center text-[10px] mt-[.6rem] sm:mt-5 -py-1 px-2 rounded-full font-bold uppercase'>
+        <span className='ml-4 bg-orange-300 text-slate-600 border text-center text-[10px] mt-[.6rem] sm:mt-5 -py-1 px-2 rounded-full font-bold uppercase'>
           Actualizar
         </span>
       </div>
@@ -184,12 +184,12 @@ export const ChurchUpdatePage = (): JSX.Element => {
         Elige tus opciones de búsqueda para actualizar registros de iglesias.
       </p>
 
-      <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 w-full'>
+      <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full'>
         {isFiltersSearchByTermDisabled && (
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className='grid grid-cols-1 gap-4 gap-y-4 items-end mb-16 md:mb-12 md:grid-cols-3 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4 w-auto'
+              className='grid grid-cols-1 gap-4 gap-y-4 items-end mb-8 md:mb-12 md:grid-cols-3 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4 w-auto'
             >
               <FormField
                 control={form.control}
@@ -385,12 +385,12 @@ export const ChurchUpdatePage = (): JSX.Element => {
                     )}
                   />
                 </div>
-                <div className='flex col-start-1 col-end-3 gap-2 md:gap-6 lg:gap-4 md:justify-start'>
+                <div className='flex col-start-1 col-end-3 justify-between sm:justify-normal sm:gap-6 md:gap-6 lg:gap-4 md:justify-start'>
                   <FormField
                     control={form.control}
                     name='limit'
                     render={({ field }) => (
-                      <FormItem className='2xl:w-[20rem]'>
+                      <FormItem className='w-[12rem] 2xl:w-[20rem]'>
                         <FormControl>
                           <Input
                             {...field}
@@ -452,12 +452,16 @@ export const ChurchUpdatePage = (): JSX.Element => {
                 control={form.control}
                 name='order'
                 render={({ field }) => (
-                  <FormItem className='w-full col-start-auto col-end-auto lg:col-start-auto lg:col-end-auto'>
+                  <FormItem className='w-full row-start-3 row-end-4 md:col-start-auto md:col-end-auto md:row-start-auto md:row-end-auto '>
                     <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
                     <FormDescription className='text-[14px]'>
                       Elige el tipo de orden de los registros
                     </FormDescription>
-                    <Select value={field.value} onValueChange={field.onChange}>
+                    <Select
+                      onOpenChange={() => {}}
+                      value={field.value}
+                      onValueChange={field.onChange}
+                    >
                       <FormControl className='text-[14px]'>
                         <SelectTrigger>
                           {field.value ? (
@@ -492,7 +496,7 @@ export const ChurchUpdatePage = (): JSX.Element => {
                   disabled={isDisabledSubmitButton}
                   type='submit'
                   variant='ghost'
-                  className='mx-auto mt-14 lg:mt-4 xl:mt-0 md:mt-0 md:col-start-2 md:col-end-3 lg:col-start-2 lg:col-end-3 lg:row-start-auto lg:row-end-auto xl:row-start-auto xl:row-end-auto xl:col-start-auto xl:col-end-auto w-[8rem] text-[13px] lg:text-[14px] h-[2.5rem] md:w-[15rem] lg:w-full xl:w-full xl:-ml-0 2xl:w-full 2xl:mx-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500  hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 hover:text-white'
+                  className='mx-auto mt-2 md:mt-3 xl:mt-0 md:col-start-2 md:col-end-3 lg:col-start-2 lg:col-end-3 lg:row-start-auto lg:row-end-auto xl:row-start-auto xl:row-end-auto xl:col-start-auto xl:col-end-auto w-full text-[13px] lg:text-[14px] h-[2.5rem] md:w-[15rem] lg:w-full xl:w-full xl:-ml-0 2xl:w-full 2xl:mx-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500  hover:bg-green-400 dark:bg-green-500 dark:hover:bg-green-400 hover:text-white'
                 >
                   Buscar
                 </Button>
@@ -507,7 +511,8 @@ export const ChurchUpdatePage = (): JSX.Element => {
             <SearchByTermChurchDataTable
               columns={columns}
               data={dataFictional}
-              resultSearch={resultSearch}
+              searchParams={searchParams}
+              setSearchParams={setSearchParams}
               dataForm={dataForm}
             />
           }

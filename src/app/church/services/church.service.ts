@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { isAxiosError } from 'axios';
+
 import { icupApi } from '@/api/icupApi';
-import { type ChurchFormData, type ChurchResponse, type QueryParams } from '@/app/church/interfaces';
+
 import { SearchType } from '@/shared/enums';
+import { type ChurchFormData, type ChurchResponse, type ChurchQueryParams } from '@/app/church/interfaces';
 
 //* Create church
 export const createChurch = async (formData:ChurchFormData ): Promise<ChurchResponse> => {
@@ -43,7 +45,7 @@ export const getMainChurch = async (): Promise<ChurchResponse[]> => {
 }
 
 //* Get all churches (paginated)
-export const getChurches = async ({limit, offset, all, order}: QueryParams): Promise<ChurchResponse[]> => {
+export const getChurches = async ({limit, offset, all, order}: ChurchQueryParams): Promise<ChurchResponse[]> => {
 
  let result: ChurchResponse[];
 
@@ -79,7 +81,7 @@ export const getChurches = async ({limit, offset, all, order}: QueryParams): Pro
 }
 
 // ? Get churches by term (paginated)
-export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selectTerm, limit, offset, all, order}: QueryParams): Promise<ChurchResponse[] | undefined> => {
+export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selectTerm, limit, offset, all, order}: ChurchQueryParams): Promise<ChurchResponse[] | undefined> => {
 
  let result: ChurchResponse[];
 

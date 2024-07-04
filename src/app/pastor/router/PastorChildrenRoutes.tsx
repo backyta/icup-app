@@ -1,5 +1,5 @@
-import { MemberCreatePage } from '@/shared/pages';
 import {
+  PastorCreatePage,
   PastorDeletePage,
   PastorsGeneralSearchPage,
   PastorsSearchPageByTerm,
@@ -9,7 +9,7 @@ import {
 export const PastorChildrenRoutes = [
   {
     path: '/pastors/create-pastor',
-    element: <MemberCreatePage />,
+    element: <PastorCreatePage />,
   },
   {
     path: '/pastors/search-pastors',

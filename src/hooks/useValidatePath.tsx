@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
-import { type MemberRole } from '@/shared/enums';
+import { type MemberRoles } from '@/shared/enums';
 
 interface Options {
   path: string;
-  memberRoles: typeof MemberRole;
+  memberRoles: typeof MemberRoles;
   isInputDisabled?: boolean;
 }
 
+// NOTE : eliminar los title y subtitle
 export const useValidatePath = ({ path, isInputDisabled, memberRoles }: Options) => {
   let titleValue;
   let subTitleValue;

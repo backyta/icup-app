@@ -165,11 +165,11 @@ export const formSearchByTermSchema = z
           data.type !== SearchType.FirstName && 
           data.type !== SearchType.LastName && 
           data.type !== SearchType.FullName && 
-          data.type !== SearchType.MonthBirth &&   
+          data.type !== SearchType.BirthMonth &&   
           data.type !== SearchType.Gender && 
           data.type !== SearchType.MaritalStatus && 
           data.type !== SearchType.Status && 
-          data.type !== SearchType.DateBirth && 
+          data.type !== SearchType.BirthDate && 
           data.type !== SearchType.Tithe && 
           data.type !== SearchType.SundayWorship && 
           data.type !== SearchType.FamilyHouse && 
@@ -211,7 +211,7 @@ export const formSearchByTermSchema = z
   .refine(
     (data) => {
       if (
-        data.type === SearchType.MonthBirth ||
+        data.type === SearchType.BirthMonth ||
         data.type === SearchType.Gender ||
           data.type === SearchType.MaritalStatus || 
           data.type === SearchType.Status ||
@@ -231,7 +231,7 @@ export const formSearchByTermSchema = z
     (data) => {
       if ( 
         data.type === SearchType.FoundingDate || 
-        data.type === SearchType.DateBirth || 
+        data.type === SearchType.BirthDate || 
         data.subType === SearchSubType.TitheByDate ||
         data.subType === SearchSubType.TitheByDateNames || 
         data.subType === SearchSubType.TitheByDateLastNames || 

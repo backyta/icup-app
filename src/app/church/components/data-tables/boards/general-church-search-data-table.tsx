@@ -21,7 +21,7 @@ import {
 } from '@tanstack/react-table';
 
 import { getChurches } from '@/app/church/services';
-import { type QueryParams } from '@/app/church/interfaces';
+import { type ChurchQueryParams } from '@/app/church/interfaces';
 
 import { useChurchStore } from '@/stores/church';
 import { LoadingSpinner } from '@/layouts/components';
@@ -41,12 +41,14 @@ import { Button } from '@/shared/components/ui/button';
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  resultSearch: FormSearchByTerm | undefined;
+  searchParams: FormSearchByTerm | undefined;
+  setSearchParams: React.Dispatch<React.SetStateAction<FormSearchByTerm | undefined>>;
 }
 
 export function GeneralChurchSearchDataTable<TData, TValue>({
   columns,
-  resultSearch,
+  searchParams,
+  setSearchParams,
 }: DataTableProps<TData, TValue>): JSX.Element {
   //* States
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -71,9 +73,9 @@ export function GeneralChurchSearchDataTable<TData, TValue>({
 
   //* Querys
   const query = useQuery({
-    queryKey: ['general-churches', resultSearch],
-    queryFn: async () => getChurches(resultSearch as QueryParams),
-    enabled: !!resultSearch,
+    queryKey: ['general-churches', searchParams],
+    queryFn: async () => getChurches(searchParams as ChurchQueryParams),
+    enabled: !!searchParams,
     retry: 1,
   });
 
@@ -89,6 +91,7 @@ export function GeneralChurchSearchDataTable<TData, TValue>({
         className: 'justify-center',
       });
 
+      setSearchParams(undefined);
       setIsFiltersSearchGeneralDisabled(true);
     }
 
@@ -98,6 +101,7 @@ export function GeneralChurchSearchDataTable<TData, TValue>({
         className: 'justify-center',
       });
 
+      setSearchParams(undefined);
       setIsFiltersSearchGeneralDisabled(true);
 
       setTimeout(() => {
@@ -265,7 +269,7 @@ export function GeneralChurchSearchDataTable<TData, TValue>({
         </div>
       )}
 
-      {resultSearch && query?.isPending && (
+      {searchParams && query?.isPending && (
         <div className='py-10'>
           <LoadingSpinner />
         </div>

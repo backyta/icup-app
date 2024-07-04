@@ -6,5 +6,5 @@ export const formatDateTermToTimestamp = (dateTerm: {from: Date | undefined, to:
   const fromTimestamp = new Date(dateTerm?.from as any).getTime();
   const toTimestamp = new Date(dateTerm?.to as any).getTime();
 
-  return `${fromTimestamp}-${toTimestamp}`;
+  return `${fromTimestamp}+${toTimestamp}`;
 }

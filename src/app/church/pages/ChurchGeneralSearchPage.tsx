@@ -23,8 +23,8 @@ import {
 } from '@/app/church/components';
 import { type ChurchResponse } from '@/app/church/interfaces';
 
-import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import {
   SelectValue,
@@ -45,20 +45,20 @@ import {
 
 const dataFictional: ChurchResponse[] = [
   {
-    id: '-',
-    churchName: '-',
+    id: '',
+    churchName: '',
     isAnexe: false,
     worshipTimes: ['16:00'],
-    foundingDate: '2024-05-31',
+    foundingDate: new Date('2024-05-31'),
     email: 'iglesia.central@gmail.com',
-    phoneNumber: '-',
-    country: '-',
-    department: '-',
-    province: '-',
-    district: '-',
-    urbanSector: '-',
-    address: '-',
-    referenceAddress: '-',
+    phoneNumber: '',
+    country: '',
+    department: '',
+    province: '',
+    district: '',
+    urbanSector: '',
+    address: '',
+    referenceAddress: '',
     status: 'active',
     theirMainChurch: null,
   },
@@ -75,7 +75,7 @@ export const ChurchGeneralSearchPage = (): JSX.Element => {
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
 
-  const [resultSearch, setResultSearch] = useState<FormSearchByTerm | undefined>();
+  const [searchParams, setSearchParams] = useState<FormSearchByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({
@@ -111,7 +111,7 @@ export const ChurchGeneralSearchPage = (): JSX.Element => {
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof formSearchGeneralSchema>): void {
-    setResultSearch(formData);
+    setSearchParams(formData);
     setIsDisabledSubmitButton(true);
     setIsFiltersSearchGeneralDisabled(false);
     form.reset();
@@ -300,7 +300,8 @@ export const ChurchGeneralSearchPage = (): JSX.Element => {
             <GeneralChurchSearchDataTable
               columns={columns}
               data={dataFictional}
-              resultSearch={resultSearch}
+              searchParams={searchParams}
+              setSearchParams={setSearchParams}
             />
           }
         </div>
