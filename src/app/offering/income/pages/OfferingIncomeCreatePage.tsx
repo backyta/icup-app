@@ -31,7 +31,7 @@ import {
 import { cn } from '@/shared/lib/utils';
 
 import { useOfferingIncomeSubmitButtonLogic } from '@/app/offering/income/hooks';
-import { zones, familyHouses } from '@/app/family-house/data';
+import { zones, familyHouses } from '@/app/family-group/data';
 
 import { disciples } from '@/shared/data';
 

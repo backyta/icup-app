@@ -7,25 +7,25 @@ import {
   type Supervisor,
   type Zone,
   type Preacher,
-  type FamilyHouse,
+  type FamilyGroup,
   type Disciple 
 } from '@/shared/interfaces';
 
 export interface ChurchColumns {
   id:               string;
-  churchName:       string;
-  isAnexe:          boolean;
-  worshipTimes:     string[];
-  foundingDate:     Date;
-  email:            string;
-  phoneNumber:      string;
-  country:          string;
-  department:       string;
-  province:         string;
-  district:         string;
-  urbanSector:      string;
-  address:          string;
-  referenceAddress: string;
+  churchName?:       string;
+  isAnexe?:          boolean;
+  worshipTimes?:     string[];
+  foundingDate?:     Date;
+  email?:            string;
+  phoneNumber?:      string;
+  country?:          string;
+  department?:       string;
+  province?:         string;
+  district?:         string;
+  urbanSector?:      string;
+  address?:          string;
+  referenceAddress?: string;
   createdAt?:       Date;
   createdBy?:       CreatedBy;
   updatedAt?:       Date;
@@ -36,7 +36,7 @@ export interface ChurchColumns {
   supervisors?:     Supervisor[];
   zones?:           Zone[];
   preachers?:       Preacher[];
-  familyHouses?:    FamilyHouse[];
+  familyHouses?:    FamilyGroup[];
   disciples?:       Disciple[];
   status:           string;
   theirMainChurch?: MainChurch | null;

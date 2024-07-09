@@ -1,14 +1,14 @@
 import { 
   type Copastor, 
   type Disciple, 
-  type FamilyHouse, 
+  type FamilyGroup, 
   type Preacher, 
   type Supervisor, 
   type Zone, 
   type CreatedBy,
   type UpdatedBy,
   type TheirChurch,
-} from "@/shared/interfaces";
+} from '@/shared/interfaces';
 
 export interface PastorResponse {
   id:               string;
@@ -39,7 +39,7 @@ export interface PastorResponse {
   supervisors?:     Supervisor[];
   zones?:           Zone[];
   preachers?:       Preacher[];
-  familyHouses?:    FamilyHouse[];
+  familyGroups?:    FamilyGroup[];
   disciples?:       Disciple[];
   status:           string;
   theirChurch?:     TheirChurch | null; 

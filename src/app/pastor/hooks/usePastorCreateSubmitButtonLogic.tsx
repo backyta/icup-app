@@ -105,6 +105,7 @@ export const usePastorCreateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
+    formPastorCrate.formState,
     firstName,
     lastName,
     gender,

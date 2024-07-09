@@ -164,7 +164,7 @@ export const ChurchCreatePage = (): JSX.Element => {
       }
     },
     onSuccess: () => {
-      toast.success('Iglesia creada exitosamente', {
+      toast.success('Registro creado exitosamente.', {
         position: 'top-center',
         className: 'justify-center',
       });

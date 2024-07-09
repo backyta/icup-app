@@ -1,8 +1,8 @@
 import {
   ChurchCreatePage,
   ChurchDeletePage,
-  ChurchGeneralSearchPage,
-  ChurchSearchPageByTerm,
+  ChurchesGeneralSearchPage,
+  ChurchesSearchPageByTerm,
   ChurchUpdatePage,
 } from '@/app/church/pages';
 
@@ -13,11 +13,11 @@ export const ChurchChildrenRoutes = [
   },
   {
     path: '/churches/search-churches',
-    element: <ChurchGeneralSearchPage />,
+    element: <ChurchesGeneralSearchPage />,
   },
   {
     path: '/churches/search-by-term-churches',
-    element: <ChurchSearchPageByTerm />,
+    element: <ChurchesSearchPageByTerm />,
   },
   {
     path: '/churches/update-church',

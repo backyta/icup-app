@@ -122,6 +122,9 @@ module.exports = {
         to: { opacity: 1 },
       },
     },
+    screens: {
+      'mid-xl': '1470px', 
+    },
   }
   },
   // eslint-disable-next-line no-undef

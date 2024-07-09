@@ -13,6 +13,7 @@ import {
 } from '@/shared/components/ui/card';
 import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
+
 import { PopoverDataTabs } from '@/shared/components';
 
 interface PastorTabsCardProps {
@@ -165,15 +166,15 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
             </div>
 
             <div className='space-y-1'>
-              <Label className='text-[14px] md:text-[15px]'>Casas Familiares</Label>
+              <Label className='text-[14px] md:text-[15px]'>Grupos Familiares</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.familyHouses?.length}
+                {data?.familyGroups?.length}
               </CardDescription>
               <PopoverDataTabs
-                data={data?.familyHouses}
-                title={'Casas'}
-                firstValue={'codeHouse'}
-                secondValue={'nameHouse'}
+                data={data?.familyGroups}
+                title={'Grupos'}
+                firstValue={'familyGroupCode'}
+                secondValue={'familyGroupName'}
               />
             </div>
 
@@ -344,9 +345,16 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
             </div>
 
             <div className='space-y-1'>
-              <Label className='text-[14px] md:text-[15px]'>{data?.address}</Label>
+              <Label className='text-[14px] md:text-[15px]'>Sector Urbano</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                Jr.Flores 123 - Payet 90 (Cerca al Parque Manco Capac)
+                {data?.urbanSector}
+              </CardDescription>
+            </div>
+
+            <div className='space-y-1'>
+              <Label className='text-[14px] md:text-[15px]'>Dirección</Label>
+              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                {data?.address}
               </CardDescription>
             </div>
 

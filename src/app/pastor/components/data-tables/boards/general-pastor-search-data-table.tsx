@@ -21,10 +21,12 @@ import {
 } from '@tanstack/react-table';
 
 import { getPastors } from '@/app/pastor/services';
-import { type ChurchQueryParams } from '@/app/church/interfaces';
+import { type PastorQueryParams } from '@/app/pastor/interfaces';
 
 import { usePastorStore } from '@/stores/pastor';
+
 import { LoadingSpinner } from '@/layouts/components';
+
 import { type FormSearchByTerm } from '@/shared/interfaces';
 
 import {
@@ -74,7 +76,7 @@ export function GeneralPastorSearchDataTable<TData, TValue>({
   //* Querys
   const query = useQuery({
     queryKey: ['general-pastors', searchParams],
-    queryFn: async () => getPastors(searchParams as ChurchQueryParams),
+    queryFn: async () => getPastors(searchParams as PastorQueryParams),
     enabled: !!searchParams,
     retry: 1,
   });

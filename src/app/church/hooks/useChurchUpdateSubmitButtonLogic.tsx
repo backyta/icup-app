@@ -30,6 +30,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
   const address = formChurchUpdate.watch('address');
   const referenceAddress = formChurchUpdate.watch('referenceAddress');
   const isAnexe = formChurchUpdate.watch('isAnexe');
+  const status = formChurchUpdate.watch('status');
   const theirMainChurch = formChurchUpdate.watch('theirMainChurch');
 
   //* Effects
@@ -101,6 +102,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
+    formChurchUpdate.formState,
     nameChurch,
     foundingDate,
     worshipTimes,
@@ -114,6 +116,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
     address,
     referenceAddress,
     isAnexe,
+    status,
     theirMainChurch,
   ]);
 };

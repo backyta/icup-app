@@ -1,21 +1,21 @@
 export enum SearchSubType {
 
-  //* Member
-  MemberByPastorNames = 'member_by_pastor_names',
-  MemberByPastorLastNames = 'member_by_pastor_last_names',
-  MemberByPastorFullName = 'member_by_pastor_full_name',
-  MemberByCopastorNames = 'member_by_copastor_names',
-  MemberByCopastorLastNames = 'member_by_copastor_last_names',
-  MemberByCopastorFullName = 'member_by_copastor_full_name',
-  MemberBySupervisorNames = 'member_by_supervisor_names',
-  MemberBySupervisorLastNames = 'member_by_supervisor_last_names',
-  MemberBySupervisorFullName = 'member_by_supervisor_full_name',
-  MemberByPreacherNames = 'member_by_preacher_names',
-  MemberByPreacherLastNames = 'member_by_preacher_last_names',
-  MemberByPreacherFullName = 'member_by_preacher_full_name',
-  ByMemberNames = 'by_member_names',
-  ByMemberLastNames = 'by_member_last_names',
-  ByMemberFullName = 'by_member_full_name',
+  //* Disciple
+  DiscipleByPastorNames = 'disciple_by_pastor_names',
+  DiscipleByPastorLastNames = 'disciple_by_pastor_last_names',
+  DiscipleByPastorFullName = 'disciple_by_pastor_full_name',
+  DiscipleByCopastorNames = 'disciple_by_copastor_names',
+  DiscipleByCopastorLastNames = 'disciple_by_copastor_last_names',
+  DiscipleByCopastorFullName = 'disciple_by_copastor_full_name',
+  DiscipleBySupervisorNames = 'disciple_by_supervisor_names',
+  DiscipleBySupervisorLastNames = 'disciple_by_supervisor_last_names',
+  DiscipleBySupervisorFullName = 'disciple_by_supervisor_full_name',
+  DiscipleByPreacherNames = 'disciple_by_preacher_names',
+  DiscipleByPreacherLastNames = 'disciple_by_preacher_last_names',
+  DiscipleByPreacherFullName = 'disciple_by_preacher_full_name',
+  ByDiscipleNames = 'by_disciple_names',
+  ByDiscipleLastNames = 'by_disciple_last_names',
+  ByDiscipleFullName = 'by_disciple_full_name',
 
   //* Copastor
   CopastorByPastorNames = 'copastor_by_pastor_names',
@@ -24,6 +24,31 @@ export enum SearchSubType {
   ByCopastorNames = 'by_copastor_names',
   ByCopastorLastNames = 'by_copastor_last_names',
   ByCopastorFullName = 'by_copastor_full_name',
+
+  //* Supervisor
+  SupervisorByPastorNames = 'supervisor_by_pastor_names',
+  SupervisorByPastorLastNames = 'supervisor_by_pastor_last_names',
+  SupervisorByPastorFullName = 'supervisor_by_pastor_full_name',
+  SupervisorByCopastorNames = 'supervisor_by_copastor_names',
+  SupervisorByCopastorLastNames = 'supervisor_by_copastor_last_names',
+  SupervisorByCopastorFullName = 'supervisor_by_copastor_full_name',
+  BySupervisorNames = 'by_supervisor_names',
+  BySupervisorLastNames = 'by_supervisor_last_names',
+  BySupervisorFullName = 'by_supervisor_full_name',
+
+  //* Preacher
+  PreacherByPastorNames = 'preacher_by_pastor_names',
+  PreacherByPastorLastNames = 'preacher_by_pastor_last_names',
+  PreacherByPastorFullName = 'preacher_by_pastor_full_name',
+  PreacherByCopastorNames = 'preacher_by_copastor_names',
+  PreacherByCopastorLastNames = 'preacher_by_copastor_last_names',
+  PreacherByCopastorFullName = 'preacher_by_copastor_full_name',
+  PreacherBySupervisorNames = 'preacher_by_supervisor_names',
+  PreacherBySupervisorLastNames = 'preacher_by_supervisor_last_names',
+  PreacherBySupervisorFullName = 'preacher_by_supervisor_full_name',
+  ByPreacherNames = 'by_preacher_names',
+  ByPreacherLastNames = 'by_preacher_last_names',
+  ByPreacherFullName = 'by_preacher_full_name',
 
   //* Leaders
   LeaderByPastorNames = 'leader_by_pastor_names',
@@ -167,22 +192,22 @@ export enum SearchSubType {
 
 export const SearchSubTypeNames: Record<SearchSubType, string> =  {
 
-  //* Member
-  by_member_names : 'Por sus nombres',
-  by_member_last_names : 'Por sus apellidos',
-  by_member_full_name : 'Por sus nombres y apellidos',
-  member_by_pastor_names : 'Por nombres de su pastor',
-  member_by_pastor_last_names : 'Por apellidos de su pastor',
-  member_by_pastor_full_name : 'Por nombres y apellidos de su pastor',
-  member_by_copastor_names : 'Por nombres de su co-pastor',
-  member_by_copastor_last_names : 'Por apellidos de su co-pastor',
-  member_by_copastor_full_name : 'Por nombres y apellidos de su co-pastor',
-  member_by_supervisor_names : 'Por nombres de su supervisor',
-  member_by_supervisor_last_names : 'Por apellidos de su supervisor',
-  member_by_supervisor_full_name : 'Por nombres y apellidos de su supervisor',
-  member_by_preacher_names : 'Por nombres de su predicador',
-  member_by_preacher_last_names : 'Por apellidos de su predicador',
-  member_by_preacher_full_name : 'Por nombres y apellidos de su predicador',
+  //* Disciple
+  by_disciple_names : 'Por sus nombres',
+  by_disciple_last_names : 'Por sus apellidos',
+  by_disciple_full_name : 'Por sus nombres y apellidos',
+  disciple_by_pastor_names : 'Por nombres de su pastor',
+  disciple_by_pastor_last_names : 'Por apellidos de su pastor',
+  disciple_by_pastor_full_name : 'Por nombres y apellidos de su pastor',
+  disciple_by_copastor_names : 'Por nombres de su co-pastor',
+  disciple_by_copastor_last_names : 'Por apellidos de su co-pastor',
+  disciple_by_copastor_full_name : 'Por nombres y apellidos de su co-pastor',
+  disciple_by_supervisor_names : 'Por nombres de su supervisor',
+  disciple_by_supervisor_last_names : 'Por apellidos de su supervisor',
+  disciple_by_supervisor_full_name : 'Por nombres y apellidos de su supervisor',
+  disciple_by_preacher_names : 'Por nombres de su predicador',
+  disciple_by_preacher_last_names : 'Por apellidos de su predicador',
+  disciple_by_preacher_full_name : 'Por nombres y apellidos de su predicador',
 
   //* Copastor
   copastor_by_pastor_names : 'Por nombres de su pastor',
@@ -191,6 +216,31 @@ export const SearchSubTypeNames: Record<SearchSubType, string> =  {
   by_copastor_names : 'Por sus nombres',
   by_copastor_last_names : 'Por sus apellidos',
   by_copastor_full_name : 'Por sus nombres y apellidos',
+
+  //* Supervisor
+  supervisor_by_pastor_names: 'Por nombres de su pastor',
+  supervisor_by_pastor_last_names: 'Por apellidos de su pastor',
+  supervisor_by_pastor_full_name: 'Por nombres y apellidos de su pastor',
+  supervisor_by_copastor_names: 'Por nombres de su co-pastor',
+  supervisor_by_copastor_last_names: 'Por apellidos de su co-pastor',
+  supervisor_by_copastor_full_name: 'Por nombres y apellidos de su co-pastor',
+  by_supervisor_names: 'Por sus nombres',
+  by_supervisor_last_names: 'Por sus apellidos',
+  by_supervisor_full_name: 'Por sus nombres y apellidos',
+
+  //* Preacher
+  preacher_by_pastor_names: 'Por nombres de su pastor',
+  preacher_by_pastor_last_names: 'Por apellidos de su pastor',
+  preacher_by_pastor_full_name: 'Por nombres y apellidos de su pastor',
+  preacher_by_copastor_names: 'Por nombres de su co-pastor',
+  preacher_by_copastor_last_names: 'Por apellidos de su co-pastor',
+  preacher_by_copastor_full_name: 'Por nombres y apellidos de su co-pastor',
+  preacher_by_supervisor_names: 'Por nombres de su supervisor',
+  preacher_by_supervisor_last_names: 'Por apellidos de su supervisor',
+  preacher_by_supervisor_full_name: 'Por nombres y apellidos de su supervisor',
+  by_preacher_names: '',
+  by_preacher_last_names: '',
+  by_preacher_full_name: '',
 
   //* Leaders
   leader_by_pastor_names : 'Por nombres de su pastor',

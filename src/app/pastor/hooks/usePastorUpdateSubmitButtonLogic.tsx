@@ -42,7 +42,6 @@ export const usePastorUpdateSubmitButtonLogic = ({
   const referenceAddress = formPastorUpdate.watch('referenceAddress');
   const roles = formPastorUpdate.watch('roles');
   const status = formPastorUpdate.watch('status');
-
   const theirChurch = formPastorUpdate.watch('theirChurch');
 
   //* Effects
@@ -107,6 +106,7 @@ export const usePastorUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
+    formPastorUpdate.formState,
     firstName,
     lastName,
     gender,

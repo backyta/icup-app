@@ -4,27 +4,27 @@ import { SearchSubType } from '@/shared/enums';
 
   //* Disciple
   export const SearchSubtypesNamesDiscipleModuleAllowed = [ 
-    SearchSubType.MemberByPastorNames,
-    SearchSubType.MemberByCopastorNames,
-    SearchSubType.MemberBySupervisorNames,
-    SearchSubType.MemberByPreacherNames,
-    SearchSubType.ByMemberNames,
+    SearchSubType.DiscipleByPastorNames,
+    SearchSubType.DiscipleByCopastorNames,
+    SearchSubType.DiscipleBySupervisorNames,
+    SearchSubType.DiscipleByPreacherNames,
+    SearchSubType.ByDiscipleNames,
   ];
 
   export const SearchSubtypesLastNamesDiscipleModuleAllowed = [ 
-    SearchSubType.MemberByPastorLastNames,
-    SearchSubType.MemberByCopastorLastNames,
-    SearchSubType.MemberBySupervisorLastNames,
-    SearchSubType.MemberByPreacherLastNames,
-    SearchSubType.ByMemberLastNames,
+    SearchSubType.DiscipleByPastorLastNames,
+    SearchSubType.DiscipleByCopastorLastNames,
+    SearchSubType.DiscipleBySupervisorLastNames,
+    SearchSubType.DiscipleByPreacherLastNames,
+    SearchSubType.ByDiscipleLastNames,
   ];
 
   export const SearchSubtypesFullNameDiscipleModuleAllowed = [ 
-    SearchSubType.MemberByPastorFullName,
-    SearchSubType.MemberByCopastorFullName,
-    SearchSubType.MemberBySupervisorFullName,
-    SearchSubType.MemberByPreacherFullName,
-    SearchSubType.ByMemberFullName,
+    SearchSubType.DiscipleByPastorFullName,
+    SearchSubType.DiscipleByCopastorFullName,
+    SearchSubType.DiscipleBySupervisorFullName,
+    SearchSubType.DiscipleByPreacherFullName,
+    SearchSubType.ByDiscipleFullName,
   ];
 
   

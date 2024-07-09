@@ -1,4 +1,4 @@
-export * from './field-name.enum';
+export * from './field-names.enum';
 export * from './marital-status.enum';
 export * from './member-role.enum';
 export * from './search-sub-types.enum';

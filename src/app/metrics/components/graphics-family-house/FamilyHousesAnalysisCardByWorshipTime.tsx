@@ -23,7 +23,7 @@ import {
   ComposedChart,
 } from 'recharts';
 
-import { zones } from '@/app/family-house/data';
+import { zones } from '@/app/family-group/data';
 
 import { chartFormValidationSchema } from '@/app/metrics/validations';
 

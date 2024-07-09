@@ -21,6 +21,14 @@ import { CalendarIcon } from 'lucide-react';
 import { cn } from '@/shared/lib/utils';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
+import { pastorFormSchema } from '@/app/pastor/validations';
+import { FormPastorSkeleton } from '@/app/pastor/components';
+import { type PastorResponse } from '@/app/pastor/interfaces';
+import { getAllChurches, updatePastor } from '@/app/pastor/services';
+import { usePastorUpdateSubmitButtonLogic } from '@/app/pastor/hooks';
+
+import { useValidatePath } from '@/hooks';
+
 import {
   validateDistrictsAllowedByModule,
   validateUrbanSectorsAllowedByDistrict,
@@ -36,6 +44,7 @@ import {
   ProvinceNames,
   UrbanSectorNames,
 } from '@/shared/enums';
+import { type ErrorResponse } from '@/shared/interfaces';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -68,14 +77,6 @@ import {
   SelectValue,
 } from '@/shared/components/ui/select';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
-import { type ErrorResponse } from '@/shared/interfaces';
-import { type PastorResponse } from '@/app/pastor/interfaces';
-import { pastorFormSchema } from '@/app/pastor/validations';
-import { useValidatePath } from '@/hooks';
-import { FormPastorSkeleton } from './FormPastorSkeleton';
-import { getAllChurches, updatePastor } from '@/app/pastor/services';
-import { LoadingSpinner } from '@/layouts/components';
-import { usePastorUpdateSubmitButtonLogic } from '@/app/pastor/hooks/usePastorUpdateSubmitButtonLogic';
 
 interface PastorFormUpdateProps {
   id: string;
@@ -143,7 +144,7 @@ export const PastorFormUpdate = ({
     form.setValue('originCountry', data?.originCountry ?? '');
     form.setValue('birthDate', new Date(String(data?.birthDate).replace(/-/g, '/')));
     form.setValue('maritalStatus', data?.maritalStatus ?? '');
-    form.setValue('numberChildren', (data?.numberChildren as any) ?? '0');
+    form.setValue('numberChildren', String(data?.numberChildren) ?? '0');
     form.setValue('conversionDate', new Date(String(data?.conversionDate).replace(/-/g, '/')));
     form.setValue('email', data?.email ?? '');
     form.setValue('phoneNumber', data?.phoneNumber ?? '');
@@ -212,7 +213,7 @@ export const PastorFormUpdate = ({
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['churches-by-term'] });
+      queryClient.invalidateQueries({ queryKey: ['pastors-by-term'] });
 
       toast.success('Cambios guardados correctamente', {
         position: 'top-center',
@@ -236,16 +237,11 @@ export const PastorFormUpdate = ({
     queryFn: getAllChurches,
   });
 
-  if (query.isLoading) return <LoadingSpinner />;
-
   //* Handler form
   const handleSubmit = (formData: z.infer<typeof pastorFormSchema>): void => {
     mutation.mutate({ id, formData });
   };
 
-  // TODO : Hacer skeleton correcto
-  // TODO : Probar la mutación
-  // TODO : Corregir los imports y console.log
   return (
     <Tabs
       defaultValue='general-info'
@@ -267,7 +263,7 @@ export const PastorFormUpdate = ({
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(handleSubmit)}
-                  className='w-full flex flex-col md:grid md:grid-cols-2 gap-x-10 gap-y-5 px-2 sm:px-12'
+                  className='w-full flex flex-col md:grid md:grid-cols-3 gap-x-10 gap-y-5 px-2 sm:px-12'
                 >
                   <div className='col-start-1 col-end-2'>
                     <legend className='font-bold text-[17px] sm:text-lg'>Datos generales</legend>
@@ -543,7 +539,7 @@ export const PastorFormUpdate = ({
                       name='status'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-5'>
                             <FormLabel className='text-[14px]'>Estado</FormLabel>
                             <Select
                               disabled={isInputDisabled}
@@ -562,6 +558,9 @@ export const PastorFormUpdate = ({
                               <SelectContent>
                                 <SelectItem className='text-[14px]' value='active'>
                                   Activo
+                                </SelectItem>
+                                <SelectItem className='text-[14px]' value='inactive'>
+                                  Inactivo
                                 </SelectItem>
                               </SelectContent>
                             </Select>
@@ -842,6 +841,7 @@ export const PastorFormUpdate = ({
                         );
                       }}
                     />
+
                     <FormField
                       control={form.control}
                       name='referenceAddress'

@@ -1,5 +1,5 @@
-import { MemberCreatePage } from '@/shared/pages';
 import {
+  CopastorCreatePage,
   CopastorDeletePage,
   CopastorsGeneralSearchPage,
   CopastorsSearchPageByTerm,
@@ -9,7 +9,7 @@ import {
 export const CopastorChildrenRoutes = [
   {
     path: '/copastors/create-copastor',
-    element: <MemberCreatePage />,
+    element: <CopastorCreatePage />,
   },
   {
     path: '/copastors/search-copastors',

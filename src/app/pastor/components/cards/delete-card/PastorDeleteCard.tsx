@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { MdDeleteForever } from 'react-icons/md';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { deletePastor } from '@/app/pastor/services';
+
 import { type ErrorResponse } from '@/shared/interfaces';
 
 import { Button } from '@/shared/components/ui/button';
@@ -83,24 +85,24 @@ export const PastorDeleteCard = ({ idRow }: PastorDeleteCardProps): JSX.Element 
       <DialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
         <div className='h-auto'>
           <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-2'>
-            ¿Estas seguro de eliminar a esta Iglesia?
+            ¿Estas seguro de eliminar a este Pastor?
           </h2>
           <p>
-            <span className='w-full text-left text-blue-500 font-bold mb-3 inline-block text-[16px] md:text-[18px]'>
+            <span className='text-blue-500 font-bold mb-3 inline-block text-[16px] md:text-[18px]'>
               Luego de eliminar sucederá lo siguiente:
             </span>
             <br />
-            <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-              ❌ El registro de esta Iglesia se colocara en estado{' '}
+            <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
+              ❌ El registro de este Pastor se colocara en estado{' '}
               <span className='font-bold'>INACTIVO.</span>
             </span>
-            <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-              ❌ El registro de esta Iglesia se eliminara de los lugares donde guardaba relación con
-              Discípulo, Predicador, Zona, Casa Familiar, Supervisor, Co-Pastor, Pastor.
+            <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
+              ❌ El registro de este Pastor se eliminara de los lugares donde guardaba relación con
+              Discípulo, Grupo Familiar, Predicador, Supervisor, Zona y Co-Pastor.
             </span>
-            <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-              ✅ Para poder activarla nuevamente deberá hacerlo desde la pestaña de{' '}
-              <span className='font-bold'>Actualizar Iglesia.</span>
+            <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
+              ✅ Para poder activarlo nuevamente deberás hacerlo desde la pestaña de{' '}
+              <span className='font-bold'>Actualizar Pastor.</span>
             </span>
             <br />
           </p>
@@ -109,13 +111,9 @@ export const PastorDeleteCard = ({ idRow }: PastorDeleteCardProps): JSX.Element 
           <Button
             disabled={isButtonDisabled}
             className='w-full md:w-auto bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
-            onClick={() => {
-              setIsCardOpen(false);
-            }}
           >
             No, cancelar
           </Button>
-
           <Button
             disabled={isButtonDisabled}
             onClick={() => {

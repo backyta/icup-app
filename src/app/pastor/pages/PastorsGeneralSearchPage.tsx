@@ -150,14 +150,14 @@ export const PastorsGeneralSearchPage = (): JSX.Element => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className=' grid grid-cols-2 gap-y-2 gap-x-6 items-end mb-16 md:mb-12 md:flex md:gap-4'
+              className='grid grid-cols-2 gap-y-2 gap-x-6 items-end mb-16 md:mb-12 lg:flex lg:justify-between 2xl:justify-normal'
             >
-              <div className='flex justify-between col-start-1 col-end-3 gap-8 sm:gap-10 md:gap-4'>
+              <div className='flex col-start-1 col-end-3 gap-8 sm:gap-10 lg:gap-4'>
                 <FormField
                   control={form.control}
                   name='limit'
                   render={({ field }) => (
-                    <FormItem className='sm:w-[20rem] md:w-auto'>
+                    <FormItem className='sm:w-[20rem] md:w-[14rem] lg:w-auto'>
                       <FormLabel className='text-[14px] font-bold'>Limite</FormLabel>
                       <FormDescription className='text-[14px]'>
                         ¿Cuantos registros necesitas?
@@ -192,12 +192,12 @@ export const PastorsGeneralSearchPage = (): JSX.Element => {
                     />
                   </div>
 
-                  <div className='flex col-start-1 col-end-3 gap-2 sm:gap-4 md:justify-start'>
+                  <div className='flex col-start-1 col-end-3 gap-4 sm:gap-6 lg:gap-4  md:justify-start'>
                     <FormField
                       control={form.control}
                       name='offset'
                       render={({ field }) => (
-                        <FormItem className='sm:w-[18rem] md:w-auto'>
+                        <FormItem className='sm:w-[18rem] md:w-[14rem] lg:w-auto'>
                           <FormControl>
                             <Input
                               disabled={form.getValues('all')}
@@ -251,7 +251,7 @@ export const PastorsGeneralSearchPage = (): JSX.Element => {
                 control={form.control}
                 name='order'
                 render={({ field }) => (
-                  <FormItem className='lg:min-w-[23rem]'>
+                  <FormItem className='w-auto lg:min-w-[22rem] mid-xl:min-w-[27rem]'>
                     <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
                     <FormDescription className='text-[14px]'>
                       Elige el tipo de orden de los registros
@@ -293,7 +293,7 @@ export const PastorsGeneralSearchPage = (): JSX.Element => {
                   type='submit'
                   variant='ghost'
                   className={cn(
-                    'm-auto md:m-0 mt-8 lg:m-0 w-full text-[13px] lg:text-[14px] h-[2.5rem] md:w-[16rem] px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500  dark:bg-green-500 hover:bg-green-500 hover:text-white'
+                    'm-auto md:m-0 mt-8 lg:m-0 w-full text-[13px] lg:text-[14px] h-[2.5rem]  md:w-[15rem] lg:w-[16rem] px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500  dark:bg-green-500 hover:bg-green-500 hover:text-white'
                   )}
                 >
                   Buscar

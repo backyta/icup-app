@@ -36,11 +36,11 @@ export interface Preacher {
   lastName:  string;
 }
 
-export interface FamilyHouse {
+export interface FamilyGroup {
   id: string,
-  houseName: string,
+  familyGroupName: string,
   zoneName: string,
-  codeHouse: string,
+  familyGroupCode: string,
   urbanSector: string
 }
 
@@ -93,13 +93,85 @@ export interface MainChurch {
   referenceAddress: string;
   createdAt:        Date;
   createdBy:        CreatedBy;
-  updatedAt?:        Date;
-  updatedBy?:        UpdatedBy;
+  updatedAt?:       Date;
+  updatedBy?:       UpdatedBy;
   status:           string;
 }
 
 export type TheirChurch = MainChurch;
 
+
+
+export interface TheirPastor {
+  id:               string;
+  firstName:        string;
+  lastName:         string;
+  gender:           string;
+  originCountry:    string;
+  birthDate:        Date;
+  age:              number;
+  maritalStatus:    string;
+  numberChildren:   number;
+  conversionDate:   Date;
+  email:            string;
+  phoneNumber:      string;
+  country:          string;
+  department:       string;
+  province:         string;
+  district:         string;
+  urbanSector:      string;
+  address:          string;
+  referenceAddress: string;
+  roles:            string[];
+  createdAt:        Date;
+  createdBy:        CreatedBy;
+  updatedAt?:       Date;
+  updatedBy?:       UpdatedBy;
+  status:           string;
+}
+
+export interface TheirCopastor {
+  id:               string;
+  firstName:        string;
+  lastName:         string;
+  gender:           string;
+  originCountry:    string;
+  birthDate:        Date;
+  age:              number;
+  maritalStatus:    string;
+  numberChildren:   number;
+  conversionDate:   Date;
+  email:            string;
+  phoneNumber:      string;
+  country:          string;
+  department:       string;
+  province:         string;
+  district:         string;
+  urbanSector:      string;
+  address:          string;
+  referenceAddress: string;
+  roles:            string[];
+  createdAt:        Date;
+  createdBy:        CreatedBy;
+  updatedAt?:       Date;
+  updatedBy?:       UpdatedBy;
+  status:           string;
+}
+
+export interface TheirZone {
+  id:         string;
+  zoneName:   string;
+  country:    string;
+  department: string;
+  province:   string;
+  district:   string;
+  createdAt:  Date;
+  createdBy:  CreatedBy;
+  updatedAt?: Date;
+  updatedBy?: UpdatedBy;
+  status:     string;
+
+}
 
 
 

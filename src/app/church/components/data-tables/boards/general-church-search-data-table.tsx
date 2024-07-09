@@ -24,7 +24,9 @@ import { getChurches } from '@/app/church/services';
 import { type ChurchQueryParams } from '@/app/church/interfaces';
 
 import { useChurchStore } from '@/stores/church';
+
 import { LoadingSpinner } from '@/layouts/components';
+
 import { type FormSearchByTerm } from '@/shared/interfaces';
 
 import {

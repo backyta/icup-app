@@ -20,7 +20,7 @@ import { cn } from '@/shared/lib/utils';
 import { useOfferingIncomeSubmitButtonLogic } from '@/app/offering/income/hooks';
 import { offeringIncomeFormSchema } from '@/app/offering/income/validations';
 
-import { familyHouses, zones } from '@/app/family-house/data';
+import { familyHouses, zones } from '@/app/family-group/data';
 
 import { Status } from '@/shared/enums';
 import { disciples } from '@/shared/data';

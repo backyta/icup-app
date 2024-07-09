@@ -7,15 +7,21 @@ import type * as z from 'zod';
 import { Toaster, toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { es } from 'date-fns/locale';
 import { format } from 'date-fns';
 
-import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { cn } from '@/shared/lib/utils';
 
+import { pastorFormSchema } from '@/app/pastor/validations';
+import { createPastor, getAllChurches } from '@/app/pastor/services';
+import { usePastorCreateSubmitButtonLogic } from '@/app/pastor/hooks';
+
 import { useValidatePath } from '@/hooks';
+import { LoadingSpinner } from '@/layouts/components';
 
 import {
   MemberRoles,
@@ -31,11 +37,11 @@ import {
   Department,
   Province,
 } from '@/shared/enums';
-
 import {
   validateDistrictsAllowedByModule,
   validateUrbanSectorsAllowedByDistrict,
 } from '@/shared/helpers';
+import { type ErrorResponse } from '@/shared/interfaces';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -67,12 +73,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form';
-import { pastorFormSchema } from '@/app/pastor/validations';
-import { usePastorCreateSubmitButtonLogic } from '../hooks/usePastorCreateSubmitButtonLogic';
-import { LoadingSpinner } from '@/layouts/components';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { createPastor, getAllChurches } from '@/app/pastor/services';
-import { type ErrorResponse } from '@/shared/interfaces';
 
 export const PastorCreatePage = (): JSX.Element => {
   //* States
@@ -110,7 +110,6 @@ export const PastorCreatePage = (): JSX.Element => {
       address: '',
       referenceAddress: '',
       roles: [MemberRoles.Disciple],
-      status: '',
       theirChurch: '',
     },
   });
@@ -140,8 +139,8 @@ export const PastorCreatePage = (): JSX.Element => {
   }, [district]);
 
   //* Helpers
-  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
   const disabledDistricts = validateDistrictsAllowedByModule(pathname);
+  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
 
   //* Mutation
   const mutation = useMutation({
@@ -171,7 +170,7 @@ export const PastorCreatePage = (): JSX.Element => {
       }
     },
     onSuccess: () => {
-      toast.success('Pastor creada exitosamente', {
+      toast.success('Registro creado exitosamente.', {
         position: 'top-center',
         className: 'justify-center',
       });
@@ -253,6 +252,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='lastName'
@@ -273,6 +273,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='gender'
@@ -307,6 +308,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='originCountry'
@@ -409,6 +411,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='numberChildren'
@@ -424,6 +427,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='conversionDate'
@@ -476,6 +480,7 @@ export const PastorCreatePage = (): JSX.Element => {
                 )}
               />
             </div>
+
             <div className='sm:col-start-2 sm:col-end-3'>
               <legend className='font-bold text-[17px] sm:text-lg'>Contacto / Vivienda</legend>
 
@@ -500,6 +505,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='phoneNumber'
@@ -520,6 +526,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='country'
@@ -554,6 +561,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='department'
@@ -588,6 +596,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='province'
@@ -622,6 +631,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='district'
@@ -660,6 +670,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='urbanSector'
@@ -698,6 +709,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='address'
@@ -718,6 +730,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='referenceAddress'

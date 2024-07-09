@@ -24,10 +24,13 @@ import { getChurchesByTerm } from '@/app/church/services';
 import { type ChurchQueryParams } from '@/app/church/interfaces';
 
 import { useChurchStore } from '@/stores/church';
+
 import { LoadingSpinner } from '@/layouts/components';
 
+import { formatDateDDMMYYYY } from '@/shared/helpers';
 import { type FormSearchByTerm } from '@/shared/interfaces';
 import { SearchType, SearchTypeNames, SearchSelectionOptionNames } from '@/shared/enums';
+
 import {
   Table,
   TableBody,
@@ -142,15 +145,6 @@ export function SearchByTermChurchDataTable<TData, TValue>({
     },
   });
 
-  //* Functions
-  const formatDate = (dateString: Date): string => {
-    const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const year = date.getFullYear().toString();
-    return `${day}/${month}/${year}`;
-  };
-
   return (
     <div className='md:w-full m-auto lg:w-full'>
       <Toaster position='top-center' richColors />
@@ -188,7 +182,7 @@ export function SearchByTermChurchDataTable<TData, TValue>({
             )}
             {dataForm?.searchType === SearchType.FoundingDate && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.dateTerm?.from ? formatDate(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDate(dataForm?.dateTerm?.to)}` : ''}`}
+                {`${dataForm?.dateTerm?.from ? formatDateDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDateDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
               </span>
             )}
             {dataForm?.searchType === SearchType.Status && (

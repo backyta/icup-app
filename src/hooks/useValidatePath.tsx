@@ -56,6 +56,19 @@ export const useValidatePath = ({ path, isInputDisabled, memberRoles }: Options)
     ];
   }
 
+  if (path === '/supervisors/create-supervisor') {
+    titleValue = 'Supervisor';
+    subTitleValue = 'supervisor';
+    disabledRoles = [
+      memberRoles.Disciple,
+      memberRoles.Pastor,
+      memberRoles.Copastor,
+      memberRoles.Preacher,
+      memberRoles.Treasurer,
+      memberRoles.Supervisor,
+    ];
+  }
+
   if (path === '/leaders/create-leader') {
     titleValue = 'Líder';
     subTitleValue = 'líder';

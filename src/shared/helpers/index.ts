@@ -10,3 +10,4 @@ export * from './validate-term-select-allowed-by-type-sub-type.helper';
 export * from './validate-types-allowed-by-module.helper';
 export * from './validate-urban-sectors-allowed-by-district.helper';
 export * from './format-names.helper';
+export * from './format-date-ddmmyyyy.helper';

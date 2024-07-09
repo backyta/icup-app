@@ -3,16 +3,16 @@
 import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
-import { type PastorResponse, type PastorFormData, type PastorQueryParams } from '@/app/pastor/interfaces';
+
 import { type ChurchResponse } from '@/app/church/interfaces';
+import { type PastorResponse, type PastorFormData, type PastorQueryParams } from '@/app/pastor/interfaces';
+
 import { SearchType } from '@/shared/enums';
 
 //* Create pastor
 export const createPastor = async (formData:PastorFormData ): Promise<PastorResponse> => {
   try {
     const {data} = await icupApi.post<PastorResponse>('/pastors', formData)
-
-    console.log(data);
     
     return data;
   } catch (error) {
@@ -44,7 +44,7 @@ export const getAllChurches = async (): Promise<ChurchResponse[]> => {
   }
 }
 
-//* Get all churches (paginated)
+//* Get all pastors (paginated)
 export const getPastors = async ({limit, offset, all, order}: PastorQueryParams): Promise<PastorResponse[]> => {
 
  let result: PastorResponse[];
@@ -81,8 +81,7 @@ export const getPastors = async ({limit, offset, all, order}: PastorQueryParams)
   }
 }
 
-// TODO : HACER todas las consultas del backend y poner en common el helper de transformar o devolver la data minimizada
-// ? Get churches by term (paginated)
+// ? Get pastors by term (paginated)
 export const getPastorsByTerm = async ({ 
   searchType, 
   inputTerm, 
@@ -345,19 +344,17 @@ export const updatePastor = async ({id, formData}: updatePastorOptions ): Promis
   }
 }
 
-// //! Delete church by ID
-// export const deleteChurch = async (id: string ): Promise<void> => {
-//   try {
-//     const {data} = await icupApi.delete(`/churches/${id}`)
+// //! Delete pastor by ID
+export const deletePastor = async (id: string ): Promise<void> => {
+  try {
+    const {data} = await icupApi.delete(`/pastors/${id}`)
 
-//     console.log(data);
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw (error.response.data)
+    }
     
-//     return data;
-//   } catch (error) {
-//     if (isAxiosError(error) && error.response) {
-//       throw (error.response.data)
-//     }
-    
-//     throw new Error('Ocurrió un error inesperado, hable con el administrador')
-//   }
-// }
+    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+  }
+}

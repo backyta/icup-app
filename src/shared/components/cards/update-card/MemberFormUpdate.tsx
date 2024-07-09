@@ -117,7 +117,7 @@ const data: MemberData = {
   urbanSectorResidence: UrbanSector.Payet,
   addressResidence: 'Jr. Cerro Alto 222, Mz.2 Lt.25',
   addressResidenceReference: 'Cerca a la esquina del parque Ollantaytambo',
-  roles: [MemberRoles.Disciple],
+  roles: [MemberRoles.Disciple, MemberRoles.Supervisor],
   theirPastor: 'id1',
   theirCopastor: 'id2',
   theirSupervisor: 'id3',

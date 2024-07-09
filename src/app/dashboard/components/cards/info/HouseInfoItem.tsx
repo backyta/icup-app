@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useMediaQuery } from '@react-hook/media-query';
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 
-import { FamilyHouseTabsCard } from '@/app/family-house/components';
+import { FamilyGroupTabsCard } from '@/app/family-group/components';
 
 import { CardContent } from '@/shared/components/ui/card';
 import { Button } from '@/shared/components/ui/button';
@@ -48,7 +48,7 @@ export function HouseInfoItem(): JSX.Element {
               </Button>
             </DialogTrigger>
             <DialogContent className='max-w-[690px] w-full justify-center py-6 max-h-full overflow-y-auto'>
-              <FamilyHouseTabsCard />
+              <FamilyGroupTabsCard />
             </DialogContent>
           </Dialog>
         </div>
@@ -89,7 +89,7 @@ export function HouseInfoItem(): JSX.Element {
           </DrawerTrigger>
           <DrawerContent>
             <div className='flex justify-center py-8 px-6 max-h-full overflow-y-auto'>
-              <FamilyHouseTabsCard />
+              <FamilyGroupTabsCard />
             </div>
           </DrawerContent>
         </Drawer>

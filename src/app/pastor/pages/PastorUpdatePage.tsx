@@ -172,6 +172,7 @@ export const PastorUpdatePage = (): JSX.Element => {
       lastNamesTerm: newLastNamesTerm,
       dateTerm: newDateTerm as any,
     });
+
     setIsDisabledSubmitButton(true);
     setIsFiltersSearchByTermDisabled(false);
     setDataForm(formData);

@@ -7,7 +7,7 @@ import {
   type Anexe,
   type Zone,
   type Preacher,
-  type FamilyHouse,
+  type FamilyGroup,
   type Disciple,
 } from '@/shared/interfaces';
 import { getFullName } from '@/shared/helpers';
@@ -22,7 +22,7 @@ export type AllowedTypes =
   | Supervisor[]
   | Zone[]
   | Preacher[]
-  | FamilyHouse[]
+  | FamilyGroup[]
   | Disciple[];
 
 interface PopoverDataProps {
@@ -59,7 +59,7 @@ export const PopoverDataTabs = ({
           </div>
           <div className='grid grid-cols-2 gap-2'>
             {data?.map((element: any) => {
-              if (title === 'Anexos' || title === 'Zonas' || title === 'Casas') {
+              if (title === 'Anexos' || title === 'Zonas' || title === 'Grupos') {
                 return <li key={element?.id}>{element?.[firstValue]}</li>;
               }
 

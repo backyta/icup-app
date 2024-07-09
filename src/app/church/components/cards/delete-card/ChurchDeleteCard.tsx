@@ -58,7 +58,7 @@ export const ChurchDeleteCard = ({ idRow }: ChurchDeleteCardProps): JSX.Element 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['churches-by-term'] });
 
-      toast.success('Iglesia eliminada correctamente', {
+      toast.success('Registro eliminado correctamente.', {
         position: 'top-center',
         className: 'justify-center',
       });
@@ -97,10 +97,10 @@ export const ChurchDeleteCard = ({ idRow }: ChurchDeleteCardProps): JSX.Element 
             </span>
             <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
               ❌ El registro de esta Iglesia se eliminara de los lugares donde guardaba relación con
-              Discípulo, Predicador, Zona, Casa Familiar, Supervisor, Co-Pastor, Pastor.
+              Discípulo, Predicador, Grupo Familiar, Zona, Supervisor, Co-Pastor y Pastor.
             </span>
             <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-              ✅ Para poder activarla nuevamente deberá hacerlo desde la pestaña de{' '}
+              ✅ Para poder activarla nuevamente deberás hacerlo desde la pestaña de{' '}
               <span className='font-bold'>Actualizar Iglesia.</span>
             </span>
             <br />

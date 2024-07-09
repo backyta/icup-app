@@ -32,6 +32,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
           Contacto
         </TabsTrigger>
       </TabsList>
+
       <TabsContent value='general-info'>
         <Card className='w-full'>
           <CardHeader className='text-center pb-4 pt-2'>
@@ -149,15 +150,15 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
             </div>
 
             <div className='space-y-1'>
-              <Label className='text-[14px] md:text-[15px]'>Casas Familiares</Label>
+              <Label className='text-[14px] md:text-[15px]'>Grupos Familiares</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.familyHouses?.length}
+                {data?.familyGroups?.length}
               </CardDescription>
               <PopoverDataTabs
-                data={data?.familyHouses}
-                title={'Casas'}
-                firstValue={'codeHouse'}
-                secondValue={'nameHouse'}
+                data={data?.familyGroups}
+                title={'Grupos'}
+                firstValue={'familyGroupCode'}
+                secondValue={'familyGroupName'}
               />
             </div>
 

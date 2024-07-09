@@ -21,12 +21,11 @@ import { CalendarIcon } from 'lucide-react';
 import { cn } from '@/shared/lib/utils';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { FormChurchSkeleton } from '@/app/church/components';
 import { churchFormSchema } from '@/app/church/validations';
+import { FormChurchSkeleton } from '@/app/church/components';
+import { type ChurchResponse } from '@/app/church/interfaces';
 import { getMainChurch, updateChurch } from '@/app/church/services';
 import { WorshipTimes, WorshipTimesNames } from '@/app/church/enums';
-import { type ChurchResponse } from '@/app/church/interfaces';
-
 import { useChurchUpdateSubmitButtonLogic } from '@/app/church/hooks';
 
 import {
@@ -93,7 +92,6 @@ export const ChurchFormUpdate = ({
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
-
   const [isLoadingData, setIsLoadingData] = useState(true);
 
   //* Hooks (external libraries)
