@@ -45,6 +45,7 @@ export const useSupervisorPromoteButtonLogic = ({
   const status = formSupervisorUpdate.watch('status');
 
   const theirPastor = formSupervisorUpdate.watch('theirPastor');
+  const theirCopastor = formSupervisorUpdate.watch('theirCopastor');
 
   //* Effects
   useEffect(() => {
@@ -103,6 +104,7 @@ export const useSupervisorPromoteButtonLogic = ({
     address,
     roles,
     theirPastor,
+    theirCopastor,
     status,
   ]);
 };

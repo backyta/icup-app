@@ -129,7 +129,7 @@ export const supervisorFormSchema = z
   })
   .refine(
     (data) => {
-      if (data.roles.includes(MemberRoles.Supervisor) && data.roles.includes(MemberRoles.Disciple)) {
+      if (data.roles.includes(MemberRoles.Supervisor) && data.roles.includes(MemberRoles.Disciple) && !data.isDirectRelationToPastor) {
         return !!data.theirCopastor; 
       }
       return true;
@@ -137,6 +137,18 @@ export const supervisorFormSchema = z
     {
       message: 'Es necesario asignar un Co-Pastor.',
       path: ['theirCopastor'],
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.roles.includes(MemberRoles.Supervisor) && data.roles.includes(MemberRoles.Disciple) && data.isDirectRelationToPastor) {
+        return !!data.theirPastor; 
+      }
+      return true;
+    },
+    {
+      message: 'Es necesario asignar un Pastor.',
+      path: ['theirPastor'],
     }
   )
   .refine(

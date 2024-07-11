@@ -44,6 +44,47 @@ import { SearchSubType } from '@/shared/enums';
     SearchSubType.ByCopastorFullName,
   ];
 
+  //* Supervisor
+  export const SearchSubtypesNamesSupervisorModuleAllowed = [ 
+    SearchSubType.SupervisorByPastorNames,
+    SearchSubType.SupervisorByCopastorNames,
+    SearchSubType.BySupervisorNames,
+  ];
+
+  export const SearchSubtypesLastNamesSupervisorModuleAllowed = [ 
+    SearchSubType.SupervisorByPastorLastNames,
+    SearchSubType.SupervisorByCopastorLastNames,
+    SearchSubType.BySupervisorLastNames,
+  ];
+
+  export const SearchSubtypesFullNameSupervisorModuleAllowed = [ 
+    SearchSubType.SupervisorByPastorFullName,
+    SearchSubType.SupervisorByCopastorFullName,
+    SearchSubType.BySupervisorFullName,
+  ];
+
+  //* Preacher
+  export const SearchSubtypesNamesPreacherModuleAllowed = [ 
+    SearchSubType.PreacherByPastorNames,
+    SearchSubType.PreacherByCopastorNames,
+    SearchSubType.PreacherBySupervisorNames,
+    SearchSubType.ByPreacherNames,
+  ];
+
+  export const SearchSubtypesLastNamesPreacherModuleAllowed = [ 
+    SearchSubType.PreacherByPastorLastNames,
+    SearchSubType.PreacherByCopastorLastNames,
+    SearchSubType.PreacherBySupervisorLastNames,
+    SearchSubType.ByPreacherLastNames,
+  ];
+
+  export const SearchSubtypesFullNamePreacherModuleAllowed = [ 
+    SearchSubType.PreacherByPastorFullName,
+    SearchSubType.PreacherByCopastorFullName,
+    SearchSubType.PreacherBySupervisorFullName,
+    SearchSubType.ByPreacherFullName,
+  ];
+
   //* Leader
   export const SearchSubtypesNamesLeaderModuleAllowed = [ 
     SearchSubType.LeaderByPastorNames,

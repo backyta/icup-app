@@ -10,12 +10,14 @@ interface Options {
   formChurchCreate: UseFormReturn<ChurchFormData, any, ChurchFormData>;
   setIsSubmitButtonDisabled: (value: boolean) => void;
   setIsMessageErrorDisabled: (value: boolean) => void;
+  isInputDisabled: boolean;
 }
 
 export const useChurchCreateSubmitButtonLogic = ({
   formChurchCreate,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
+  isInputDisabled,
 }: Options): void => {
   //* Watchers
   const nameChurch = formChurchCreate.watch('churchName');
@@ -58,7 +60,8 @@ export const useChurchCreateSubmitButtonLogic = ({
       referenceAddress &&
       isAnexe &&
       theirMainChurch &&
-      Object.values(formChurchCreate.formState.errors).length === 0
+      Object.values(formChurchCreate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
@@ -78,7 +81,8 @@ export const useChurchCreateSubmitButtonLogic = ({
       address &&
       referenceAddress &&
       !isAnexe &&
-      Object.values(formChurchCreate.formState.errors).length === 0
+      Object.values(formChurchCreate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);

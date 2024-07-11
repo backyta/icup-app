@@ -173,10 +173,18 @@ export const PastorFormUpdate = ({
 
   usePastorUpdateSubmitButtonLogic({
     formPastorUpdate: form,
+    isInputDisabled,
     memberRoles: MemberRoles,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
   });
+
+  //* Effects
+  useEffect(() => {
+    form.resetField('urbanSector', {
+      keepError: true,
+    });
+  }, [district]);
 
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
@@ -747,11 +755,6 @@ export const PastorFormUpdate = ({
                           <FormItem className='mt-3'>
                             <FormLabel className='text-[14px]'>Distrito</FormLabel>
                             <Select
-                              onOpenChange={() => {
-                                form.resetField('urbanSector', {
-                                  keepError: true,
-                                });
-                              }}
                               disabled={isInputDisabled}
                               value={field.value}
                               onValueChange={field.onChange}
@@ -938,7 +941,7 @@ export const PastorFormUpdate = ({
                                 Iglesia
                               </FormLabel>
                               <FormDescription className='text-[14px]'>
-                                Seleccione una iglesia a la que pertenece este pastor.
+                                Seleccione una iglesia a la que pertenecerá este pastor.
                               </FormDescription>
                               <Popover
                                 open={isInputTheirChurchOpen}

@@ -58,6 +58,9 @@ export const getSupervisors = async ({limit, offset, all, order}: SupervisorQuer
           order,
         },
       });
+
+      console.log(data);
+      
       
       result = data;
     }else {
@@ -97,8 +100,9 @@ export const getSupervisorsByTerm = async ({
 
  let result: SupervisorResponse[];
 
- //* Origin country, department, province, district, urban sector, address
+ //* Origin country, department, province, district, urban sector, address, zone
  if (searchType === SearchType.OriginCountry||
+     searchType === SearchType.Zone ||
      searchType === SearchType.Department ||
      searchType === SearchType.Province ||
      searchType === SearchType.District ||

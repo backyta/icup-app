@@ -21,15 +21,14 @@ import {
 } from '@tanstack/react-table';
 
 import { getChurchesByTerm } from '@/app/church/services';
-import { type ChurchQueryParams } from '@/app/church/interfaces';
+import { type ChurchFormSearchByTerm, type ChurchQueryParams } from '@/app/church/interfaces';
 
 import { useChurchStore } from '@/stores/church';
 
 import { LoadingSpinner } from '@/layouts/components';
 
 import { formatDateDDMMYYYY } from '@/shared/helpers';
-import { type FormSearchByTerm } from '@/shared/interfaces';
-import { SearchType, SearchTypeNames, SearchSelectionOptionNames } from '@/shared/enums';
+import { SearchTypeNames, SearchSelectionOptionNames } from '@/shared/enums';
 
 import {
   Table,
@@ -41,13 +40,14 @@ import {
 } from '@/shared/components/ui/table';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
+import { SearchTypeChurch } from '@/app/church/enums';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  searchParams: FormSearchByTerm | undefined;
-  setSearchParams: React.Dispatch<React.SetStateAction<FormSearchByTerm | undefined>>;
-  dataForm: FormSearchByTerm | undefined;
+  searchParams: ChurchFormSearchByTerm | undefined;
+  setSearchParams: React.Dispatch<React.SetStateAction<ChurchFormSearchByTerm | undefined>>;
+  dataForm: ChurchFormSearchByTerm | undefined;
 }
 
 export function SearchByTermChurchDataTable<TData, TValue>({
@@ -170,22 +170,22 @@ export function SearchByTermChurchDataTable<TData, TValue>({
             <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
               Termino de búsqueda:
             </span>{' '}
-            {(dataForm?.searchType === SearchType.ChurchName ||
-              dataForm?.searchType === SearchType.Department ||
-              dataForm?.searchType === SearchType.Province ||
-              dataForm?.searchType === SearchType.Address ||
-              dataForm?.searchType === SearchType.UrbanSector ||
-              dataForm?.searchType === SearchType.District) && (
+            {(dataForm?.searchType === SearchTypeChurch.ChurchName ||
+              dataForm?.searchType === SearchTypeChurch.Department ||
+              dataForm?.searchType === SearchTypeChurch.Province ||
+              dataForm?.searchType === SearchTypeChurch.Address ||
+              dataForm?.searchType === SearchTypeChurch.UrbanSector ||
+              dataForm?.searchType === SearchTypeChurch.District) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.inputTerm}`}
               </span>
             )}
-            {dataForm?.searchType === SearchType.FoundingDate && (
+            {dataForm?.searchType === SearchTypeChurch.FoundingDate && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.dateTerm?.from ? formatDateDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDateDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
               </span>
             )}
-            {dataForm?.searchType === SearchType.Status && (
+            {dataForm?.searchType === SearchTypeChurch.Status && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
                   Object.entries(SearchSelectionOptionNames).find(

@@ -116,19 +116,6 @@ export const SupervisorTabsCard = ({ data }: SupervisorTabsCardProps): JSX.Eleme
             {/* Relaciones */}
 
             <div className='space-y-1'>
-              <Label className='text-[14px] md:text-[15px]'>Zonas</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.zones?.length}
-              </CardDescription>
-              <PopoverDataTabs
-                data={data?.zones}
-                title={'Zonas'}
-                firstValue={'zoneName'}
-                secondValue={'urbanSector'}
-              />
-            </div>
-
-            <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Predicadores</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.preachers?.length}
@@ -136,6 +123,7 @@ export const SupervisorTabsCard = ({ data }: SupervisorTabsCardProps): JSX.Eleme
               <PopoverDataTabs
                 data={data?.preachers}
                 title={'Predicadores'}
+                nameModule={'Supervisor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -149,6 +137,7 @@ export const SupervisorTabsCard = ({ data }: SupervisorTabsCardProps): JSX.Eleme
               <PopoverDataTabs
                 data={data?.familyGroups}
                 title={'Grupos'}
+                nameModule={'Supervisor'}
                 firstValue={'familyGroupCode'}
                 secondValue={'familyGroupHouse'}
               />
@@ -162,6 +151,7 @@ export const SupervisorTabsCard = ({ data }: SupervisorTabsCardProps): JSX.Eleme
               <PopoverDataTabs
                 data={data?.disciples}
                 title={'Discípulos'}
+                nameModule={'Supervisor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -174,10 +164,16 @@ export const SupervisorTabsCard = ({ data }: SupervisorTabsCardProps): JSX.Eleme
             <div className='space-y-1 flex justify-between items-center row-start-7 row-end-8 col-start-1 col-end-4 md:grid md:col-auto md:row-auto'>
               <Label className='text-[14px] md:text-[15px]'>Creado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {`${data?.createdBy?.firstName} ${data?.createdBy?.lastName}`}
+                {data?.createdBy
+                  ? getFullName({
+                      firstNames: data?.createdBy?.firstName ?? '-',
+                      lastNames: data?.createdBy?.lastName ?? '-',
+                    })
+                  : '-'}
               </CardDescription>
             </div>
-            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-8 row-end-9 md:grid  md:row-start-7 md:row-end-8 md:col-start-2 md:col-end-4'>
+
+            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-8 row-end-9 md:grid  md:row-start-6 md:row-end-7 md:col-start-2 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Fecha de creación</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdAt
@@ -185,21 +181,27 @@ export const SupervisorTabsCard = ({ data }: SupervisorTabsCardProps): JSX.Eleme
                   : 'Fecha no disponible'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-9 row-end-10 md:grid md:row-auto  md:col-start-1 md:col-end-2'>
               <Label className='text-[14px] md:text-[15px]'>Actualizado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
-                  ? `${data?.updatedBy?.firstName} ${data?.updatedBy?.lastName}`
+                  ? getFullName({
+                      firstNames: data?.updatedBy?.firstName ?? '-',
+                      lastNames: data?.updatedBy?.lastName ?? '-',
+                    })
                   : '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-10 row-end-11 md:grid  md:row-auto md:col-start-2 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Ultima fecha de actualización</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedAt ? format(new Date(data?.updatedAt), 'dd/MM/yyyy') : '-'}
               </CardDescription>
             </div>
-            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-11 row-end-12 md:grid md:row-start-7 md:row-end-8 md:col-start-3 md:col-end-4'>
+
+            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-11 row-end-12 md:grid md:row-start-6 md:row-end-7 md:col-start-3 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
                 {data?.status === 'active' ? 'Activo' : 'Inactivo'}
@@ -226,46 +228,58 @@ export const SupervisorTabsCard = ({ data }: SupervisorTabsCardProps): JSX.Eleme
                 {data?.roles.map((rol) => rol.charAt(0).toUpperCase() + rol.slice(1)).join(' - ')}
               </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Iglesia</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.theirChurch?.churchName}
+                {data?.theirChurch
+                  ? `${data?.theirChurch?.churchName}`
+                  : 'Este supervisor no tiene una iglesia asignada.'}
               </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Pastor</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {getFullName({
-                  firstNames: data?.theirPastor?.firstName ?? '-',
-                  lastNames: data?.theirPastor?.lastName ?? '-',
-                })}
+                {data?.theirPastor
+                  ? `${data?.theirPastor?.firstName} ${data?.theirPastor?.lastName}`
+                  : 'Este supervisor no tiene un pastor asignado.'}
               </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Copastor</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {getFullName({
-                  firstNames: data?.theirCopastor?.firstName ?? '-',
-                  lastNames: data?.theirCopastor?.lastName ?? '-',
-                })}{' '}
+                {data?.theirCopastor
+                  ? `${data?.theirCopastor?.firstName} ${data?.theirCopastor?.lastName}`
+                  : 'Este supervisor no tiene un co-pastor asignado.'}
               </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Supervisor</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'> - </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Zona</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'> - </CardDescription>
+              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                {data?.theirZone
+                  ? `${data?.theirZone?.zoneName} (${data?.theirZone?.department} - ${data?.theirZone?.district})`
+                  : 'Este supervisor no tiene una zona asignada.'}
+              </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Predicador</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'> - </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Grupo Familiar</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>-</CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>

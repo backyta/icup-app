@@ -187,7 +187,7 @@ export const SupervisorUpdatePage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h1 className='text-center pt-3 md:pt-2  pb-4 font-sans text-2xl sm:text-3xl font-bold text-copastor-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+      <h1 className='text-center pt-3 md:pt-2  pb-4 font-sans text-2xl sm:text-3xl font-bold text-leader-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
         Modulo Supervisor
       </h1>
 
@@ -327,6 +327,7 @@ export const SupervisorUpdatePage = (): JSX.Element => {
               )}
 
               {(searchType === SearchType.OriginCountry ||
+                searchType === SearchType.Zone ||
                 searchType === SearchType.Department ||
                 searchType === SearchType.Province ||
                 searchType === SearchType.District ||

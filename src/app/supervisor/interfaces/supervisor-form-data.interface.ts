@@ -19,6 +19,7 @@ export interface SupervisorFormData {
   urbanSector: string;
   address: string;
   referenceAddress: string;
+  isDirectRelationToPastor?: boolean | undefined;
   roles: MemberRoles[];
   status?: string | undefined;
   theirCopastor?: string | undefined;
@@ -46,5 +47,6 @@ export type SupervisorFormDataKeys =
   | 'referenceAddress'
   | 'roles'
   | 'status'
+  | 'isDirectRelationToPastor'
   | 'theirCopastor'
   | 'theirPastor'

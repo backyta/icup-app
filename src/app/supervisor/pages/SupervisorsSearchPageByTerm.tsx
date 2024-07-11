@@ -23,7 +23,7 @@ import { type SupervisorResponse } from '@/app/supervisor/interfaces';
 import { supervisorFormTermSearchSchema } from '@/app/supervisor/validations';
 
 import { cn } from '@/shared/lib/utils';
-import { useCopastorStore } from '@/stores/copastor';
+import { useSupervisorStore } from '@/stores/supervisor';
 
 import {
   RecordOrder,
@@ -98,10 +98,10 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
   //* States
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
 
-  const isFiltersSearchByTermDisabled = useCopastorStore(
+  const isFiltersSearchByTermDisabled = useSupervisorStore(
     (state) => state.isFiltersSearchByTermDisabled
   );
-  const setIsFiltersSearchByTermDisabled = useCopastorStore(
+  const setIsFiltersSearchByTermDisabled = useSupervisorStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
 
@@ -189,7 +189,7 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h1 className='text-center pt-3 md:pt-2  pb-4 font-sans text-2xl sm:text-3xl font-bold text-copastor-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+      <h1 className='text-center pt-3 md:pt-2  pb-4 font-sans text-2xl sm:text-3xl font-bold text-leader-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
         Modulo Supervisor
       </h1>
 
@@ -329,6 +329,7 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
               )}
 
               {(searchType === SearchType.OriginCountry ||
+                searchType === SearchType.Zone ||
                 searchType === SearchType.Department ||
                 searchType === SearchType.Province ||
                 searchType === SearchType.District ||

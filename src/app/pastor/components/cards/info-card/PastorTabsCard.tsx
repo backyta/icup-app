@@ -15,6 +15,7 @@ import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 
 import { PopoverDataTabs } from '@/shared/components';
+import { getFullName } from '@/shared/helpers';
 
 interface PastorTabsCardProps {
   data: PastorResponse | undefined;
@@ -121,6 +122,7 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
               <PopoverDataTabs
                 data={data?.copastors}
                 title={'Co-Pastores'}
+                nameModule={'Pastor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -134,6 +136,7 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
               <PopoverDataTabs
                 data={data?.supervisors}
                 title={'Supervisores'}
+                nameModule={'Pastor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -147,6 +150,7 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
               <PopoverDataTabs
                 data={data?.zones}
                 title={'Zonas'}
+                nameModule={'Pastor'}
                 firstValue={'zoneName'}
                 secondValue={'urbanSector'}
               />
@@ -160,6 +164,7 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
               <PopoverDataTabs
                 data={data?.preachers}
                 title={'Predicadores'}
+                nameModule={'Pastor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -173,6 +178,7 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
               <PopoverDataTabs
                 data={data?.familyGroups}
                 title={'Grupos'}
+                nameModule={'Pastor'}
                 firstValue={'familyGroupCode'}
                 secondValue={'familyGroupName'}
               />
@@ -186,6 +192,7 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
               <PopoverDataTabs
                 data={data?.disciples}
                 title={'Discípulos'}
+                nameModule={'Pastor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -198,7 +205,12 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
             <div className='space-y-1 flex justify-between items-center row-start-7 row-end-8 col-start-1 col-end-4 md:grid md:col-auto md:row-auto'>
               <Label className='text-[14px] md:text-[15px]'>Creado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {`${data?.createdBy?.firstName} ${data?.createdBy?.lastName}`}
+                {data?.createdBy
+                  ? getFullName({
+                      firstNames: data?.createdBy?.firstName ?? '-',
+                      lastNames: data?.createdBy?.lastName ?? '-',
+                    })
+                  : '-'}
               </CardDescription>
             </div>
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-8 row-end-9 md:grid  md:row-start-7 md:row-end-8 md:col-start-2 md:col-end-4'>
@@ -213,7 +225,10 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
               <Label className='text-[14px] md:text-[15px]'>Actualizado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
-                  ? `${data?.updatedBy?.firstName} ${data?.updatedBy?.lastName}`
+                  ? getFullName({
+                      firstNames: data?.updatedBy?.firstName ?? '-',
+                      lastNames: data?.updatedBy?.lastName ?? '-',
+                    })
                   : '-'}
               </CardDescription>
             </div>
@@ -250,36 +265,46 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
                 {data?.roles.map((rol) => rol.charAt(0).toUpperCase() + rol.slice(1)).join(' - ')}
               </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Iglesia</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.theirChurch?.churchName}
+                {data?.theirChurch
+                  ? `${data?.theirChurch?.churchName}`
+                  : 'Este pastor no tiene una iglesia asignada.'}
               </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Pastor</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'> - </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Copastor</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'> - </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Supervisor</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'> - </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Zona</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'> - </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Predicador</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'> - </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Grupo Familiar</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>-</CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>

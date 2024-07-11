@@ -78,7 +78,7 @@ export function SearchByTermSupervisorDataTable<TData, TValue>({
 
   //* Querys
   const query = useQuery({
-    queryKey: ['copastors-by-term', searchParams],
+    queryKey: ['supervisors-by-term', searchParams],
     queryFn: () => getSupervisorsByTerm(searchParams as SupervisorQueryParams),
     enabled: !!searchParams,
     retry: 1,
@@ -170,6 +170,7 @@ export function SearchByTermSupervisorDataTable<TData, TValue>({
               Termino de búsqueda:
             </span>{' '}
             {(dataForm?.searchType === SearchType.OriginCountry ||
+              dataForm?.searchType === SearchType.Zone ||
               dataForm?.searchType === SearchType.Department ||
               dataForm?.searchType === SearchType.Province ||
               dataForm?.searchType === SearchType.District ||

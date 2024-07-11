@@ -151,6 +151,7 @@ export const ChurchFormUpdate = ({
   //* Custom hooks
   useChurchUpdateSubmitButtonLogic({
     formChurchUpdate: form,
+    isInputDisabled,
     setIsSubmitButtonDisabled,
     setIsMessageErrorDisabled,
   });

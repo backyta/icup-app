@@ -123,6 +123,7 @@ export const CopastorTabsCard = ({ data }: CopastorTabsCardProps): JSX.Element =
               <PopoverDataTabs
                 data={data?.supervisors}
                 title={'Supervisores'}
+                nameModule={'Copastor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -136,6 +137,7 @@ export const CopastorTabsCard = ({ data }: CopastorTabsCardProps): JSX.Element =
               <PopoverDataTabs
                 data={data?.zones}
                 title={'Zonas'}
+                nameModule={'Copastor'}
                 firstValue={'zoneName'}
                 secondValue={'urbanSector'}
               />
@@ -149,6 +151,7 @@ export const CopastorTabsCard = ({ data }: CopastorTabsCardProps): JSX.Element =
               <PopoverDataTabs
                 data={data?.preachers}
                 title={'Predicadores'}
+                nameModule={'Copastor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -162,6 +165,7 @@ export const CopastorTabsCard = ({ data }: CopastorTabsCardProps): JSX.Element =
               <PopoverDataTabs
                 data={data?.familyGroups}
                 title={'Grupos'}
+                nameModule={'Copastor'}
                 firstValue={'familyGroupCode'}
                 secondValue={'familyGroupHouse'}
               />
@@ -175,6 +179,7 @@ export const CopastorTabsCard = ({ data }: CopastorTabsCardProps): JSX.Element =
               <PopoverDataTabs
                 data={data?.disciples}
                 title={'Discípulos'}
+                nameModule={'Copastor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -187,7 +192,12 @@ export const CopastorTabsCard = ({ data }: CopastorTabsCardProps): JSX.Element =
             <div className='space-y-1 flex justify-between items-center row-start-7 row-end-8 col-start-1 col-end-4 md:grid md:col-auto md:row-auto'>
               <Label className='text-[14px] md:text-[15px]'>Creado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {`${data?.createdBy?.firstName} ${data?.createdBy?.lastName}`}
+                {data?.createdBy
+                  ? getFullName({
+                      firstNames: data?.createdBy?.firstName ?? '-',
+                      lastNames: data?.createdBy?.lastName ?? '-',
+                    })
+                  : '-'}
               </CardDescription>
             </div>
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-8 row-end-9 md:grid  md:row-start-7 md:row-end-8 md:col-start-2 md:col-end-4'>
@@ -202,7 +212,10 @@ export const CopastorTabsCard = ({ data }: CopastorTabsCardProps): JSX.Element =
               <Label className='text-[14px] md:text-[15px]'>Actualizado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
-                  ? `${data?.updatedBy?.firstName} ${data?.updatedBy?.lastName}`
+                  ? getFullName({
+                      firstNames: data?.updatedBy?.firstName ?? '-',
+                      lastNames: data?.updatedBy?.lastName ?? '-',
+                    })
                   : '-'}
               </CardDescription>
             </div>
@@ -239,41 +252,50 @@ export const CopastorTabsCard = ({ data }: CopastorTabsCardProps): JSX.Element =
                 {data?.roles.map((rol) => rol.charAt(0).toUpperCase() + rol.slice(1)).join(' - ')}
               </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Iglesia</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.theirChurch?.churchName}
+                {data?.theirChurch
+                  ? `${data?.theirChurch?.churchName}`
+                  : 'Este co-pastor no tiene una iglesia asignada.'}
               </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Pastor</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {getFullName({
-                  firstNames: data?.theirPastor?.firstName ?? '-',
-                  lastNames: data?.theirPastor?.lastName ?? '-',
-                })}
+                {data?.theirPastor
+                  ? `${data?.theirPastor?.firstName} ${data?.theirPastor?.lastName}`
+                  : 'Este co-pastor no tiene un pastor asignado.'}
               </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Copastor</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'> - </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Supervisor</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'> - </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Zona</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'> - </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Predicador</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'> - </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Grupo Familiar</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>-</CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>

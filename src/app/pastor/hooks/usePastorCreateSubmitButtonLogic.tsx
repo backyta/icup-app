@@ -14,6 +14,7 @@ interface Options {
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isMessageErrorDisabled: boolean;
+  isInputDisabled: boolean;
 }
 
 export const usePastorCreateSubmitButtonLogic = ({
@@ -22,6 +23,7 @@ export const usePastorCreateSubmitButtonLogic = ({
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
   isMessageErrorDisabled,
+  isInputDisabled,
 }: Options): void => {
   //* Watchers
   const firstName = formPastorCrate.watch('firstName');
@@ -75,7 +77,8 @@ export const usePastorCreateSubmitButtonLogic = ({
       theirChurch &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Pastor) &&
-      Object.values(formPastorCrate.formState.errors).length === 0
+      Object.values(formPastorCrate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);

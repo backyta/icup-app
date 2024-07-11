@@ -16,6 +16,7 @@ import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 
 import { PopoverDataTabs } from '@/shared/components';
+import { getFullName } from '@/shared/helpers';
 
 interface ChurchTabsCardProps {
   data: ChurchResponse | undefined;
@@ -78,6 +79,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
                 <PopoverDataTabs
                   data={data?.anexes}
                   title={'Anexos'}
+                  nameModule={'Iglesia'}
                   firstValue={'churchName'}
                   secondValue={'urbanSector'}
                 />
@@ -92,6 +94,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <PopoverDataTabs
                 data={data?.pastors}
                 title={'Pastores'}
+                nameModule={'Iglesia'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -105,6 +108,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <PopoverDataTabs
                 data={data?.copastors}
                 title={'Co-Pastores'}
+                nameModule={'Iglesia'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -118,6 +122,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <PopoverDataTabs
                 data={data?.supervisors}
                 title={'Supervisores'}
+                nameModule={'Iglesia'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -131,6 +136,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <PopoverDataTabs
                 data={data?.zones}
                 title={'Zonas'}
+                nameModule={'Iglesia'}
                 firstValue={'zoneName'}
                 secondValue={'urbanSector'}
               />
@@ -144,6 +150,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <PopoverDataTabs
                 data={data?.preachers}
                 title={'Predicadores'}
+                nameModule={'Iglesia'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -157,6 +164,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <PopoverDataTabs
                 data={data?.familyGroups}
                 title={'Grupos'}
+                nameModule={'Iglesia'}
                 firstValue={'familyGroupCode'}
                 secondValue={'familyGroupName'}
               />
@@ -170,6 +178,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <PopoverDataTabs
                 data={data?.disciples}
                 title={'Discípulos'}
+                nameModule={'Iglesia'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -196,9 +205,11 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
             <div className='space-y-1 row-start-5 row-end-6 col-start-3 col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Iglesia Principal</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.theirMainChurch
+                {data?.theirMainChurch && data?.isAnexe
                   ? `${data?.theirMainChurch?.churchName} ${data?.theirMainChurch?.district}`
-                  : 'Esta iglesia es la central.'}
+                  : !data?.theirMainChurch && data?.isAnexe
+                    ? `Esta iglesia anexo no tiene una iglesia principal asignada.`
+                    : `Esta es la iglesia central.`}
               </CardDescription>
             </div>
 
@@ -209,7 +220,12 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
             <div className='space-y-1 flex justify-between items-center col-start-1 col-end-4 md:grid md:col-auto md:row-auto'>
               <Label className='text-[14px] md:text-[15px]'>Creado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {`${data?.createdBy?.firstName} ${data?.createdBy?.lastName}`}
+                {data?.createdBy
+                  ? getFullName({
+                      firstNames: data?.createdBy?.firstName ?? '-',
+                      lastNames: data?.createdBy?.lastName ?? '-',
+                    })
+                  : '-'}
               </CardDescription>
             </div>
 
@@ -226,7 +242,10 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <Label className='text-[14px] md:text-[15px]'>Actualizado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
-                  ? `${data?.updatedBy?.firstName} ${data?.updatedBy?.lastName}`
+                  ? getFullName({
+                      firstNames: data?.updatedBy?.firstName ?? '-',
+                      lastNames: data?.updatedBy?.lastName ?? '-',
+                    })
                   : '-'}
               </CardDescription>
             </div>

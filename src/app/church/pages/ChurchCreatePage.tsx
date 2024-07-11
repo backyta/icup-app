@@ -108,6 +108,7 @@ export const ChurchCreatePage = (): JSX.Element => {
   //* Custom hooks
   useChurchCreateSubmitButtonLogic({
     formChurchCreate: form,
+    isInputDisabled,
     setIsSubmitButtonDisabled,
     setIsMessageErrorDisabled,
   });

@@ -14,6 +14,7 @@ interface Options {
   memberRoles: typeof MemberRoles;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  isInputDisabled: boolean;
 }
 
 export const useSupervisorUpdateSubmitButtonLogic = ({
@@ -21,6 +22,8 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
   memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
+
+  isInputDisabled,
 }: Options): void => {
   //* Watchers
   const firstName = formSupervisorUpdate.watch('firstName');
@@ -42,6 +45,7 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
   const referenceAddress = formSupervisorUpdate.watch('referenceAddress');
   const roles = formSupervisorUpdate.watch('roles');
   const status = formSupervisorUpdate.watch('status');
+  const isDirectRelationToPastor = formSupervisorUpdate.watch('isDirectRelationToPastor');
 
   const theirCopastor = formSupervisorUpdate.watch('theirCopastor');
   const theirPastor = formSupervisorUpdate.watch('theirPastor');
@@ -75,10 +79,12 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
       urbanSector &&
       referenceAddress &&
       roles.length !== 0 &&
+      !isDirectRelationToPastor &&
       theirCopastor &&
       roles.includes(memberRoles.Disciple) &&
-      roles.includes(memberRoles.Copastor) &&
-      Object.values(formSupervisorUpdate.formState.errors).length === 0
+      roles.includes(memberRoles.Supervisor) &&
+      Object.values(formSupervisorUpdate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
@@ -103,10 +109,42 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
       urbanSector &&
       referenceAddress &&
       roles.length !== 0 &&
+      isDirectRelationToPastor &&
+      theirPastor &&
       roles.includes(memberRoles.Disciple) &&
-      roles.includes(memberRoles.Pastor) &&
-      !theirPastor &&
-      Object.values(formSupervisorUpdate.formState.errors).length === 0
+      roles.includes(memberRoles.Supervisor) &&
+      Object.values(formSupervisorUpdate.formState.errors).length === 0 &&
+      !isInputDisabled
+    ) {
+      setIsSubmitButtonDisabled(false);
+      setIsMessageErrorDisabled(false);
+    }
+
+    if (
+      firstName &&
+      lastName &&
+      gender &&
+      birthDate &&
+      conversionDate &&
+      maritalStatus &&
+      email &&
+      phoneNumber &&
+      originCountry &&
+      numberChildren &&
+      country &&
+      department &&
+      province &&
+      district &&
+      address &&
+      urbanSector &&
+      referenceAddress &&
+      roles.length !== 0 &&
+      !isDirectRelationToPastor &&
+      roles.includes(memberRoles.Disciple) &&
+      roles.includes(memberRoles.Supervisor) &&
+      !theirCopastor &&
+      Object.values(formSupervisorUpdate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -132,9 +170,39 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
       referenceAddress &&
       roles.length !== 0 &&
       roles.includes(memberRoles.Disciple) &&
-      roles.includes(memberRoles.Pastor) &&
+      roles.includes(memberRoles.Copastor) &&
+      !theirPastor &&
+      Object.values(formSupervisorUpdate.formState.errors).length === 0 &&
+      !isInputDisabled
+    ) {
+      setIsSubmitButtonDisabled(true);
+      setIsMessageErrorDisabled(true);
+    }
+
+    if (
+      firstName &&
+      lastName &&
+      gender &&
+      birthDate &&
+      conversionDate &&
+      maritalStatus &&
+      email &&
+      phoneNumber &&
+      originCountry &&
+      numberChildren &&
+      country &&
+      department &&
+      province &&
+      district &&
+      address &&
+      urbanSector &&
+      referenceAddress &&
+      roles.length !== 0 &&
+      roles.includes(memberRoles.Disciple) &&
+      roles.includes(memberRoles.Copastor) &&
       theirPastor &&
-      Object.values(formSupervisorUpdate.formState.errors).length === 0
+      Object.values(formSupervisorUpdate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);

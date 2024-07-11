@@ -19,7 +19,11 @@ import {
   SearchTypesOfferingExpensesModuleAllowed,
   SearchTypesOfferingExpensesModuleAllowedOnDeleteAndUpdatePage,
   SearchTypesChurchModuleAllowed,
-  SearchTypeChurchModuleAllowedOnDeletePage
+  SearchTypeChurchModuleAllowedOnDeletePage,
+  SearchTypesSupervisorModuleAllowedOnDeletePage,
+  SearchTypesSupervisorModuleAllowed,
+  SearchTypesPreacherModuleAllowed,
+  SearchTypesPreacherModuleAllowedOnDeletePage
 } from "@/shared/helpers";
 
 interface DisabledSearchTypesResult {
@@ -39,7 +43,13 @@ export const validateTypesAllowedByModule = (currentPath: string): DisabledSearc
   const disabledPastorModuleSearchTypesOnDeletePage = Object.values(SearchTypeNames).filter(value => !SearchTypesPastorModuleAllowedOnDeletePage.includes(value) ) 
 
   const disabledCopastorModuleSearchTypes = Object.values(SearchTypeNames).filter(value => !SearchTypesCopastorModuleAllowed.includes(value) ) 
-  const disabledCopastorTypesOnDeletePage = Object.values(SearchTypeNames).filter(value => !SearchTypesCopastorModuleAllowedOnDeletePage.includes(value) ) 
+  const disabledCopastorModuleSearchTypesOnDeletePage = Object.values(SearchTypeNames).filter(value => !SearchTypesCopastorModuleAllowedOnDeletePage.includes(value) ) 
+
+  const disabledSupervisorModuleSearchTypes = Object.values(SearchTypeNames).filter(value => !SearchTypesSupervisorModuleAllowed.includes(value) ) 
+  const disabledSupervisorModuleSearchTypesOnDeletePage = Object.values(SearchTypeNames).filter(value => !SearchTypesSupervisorModuleAllowedOnDeletePage.includes(value) ) 
+
+  const disabledPreacherModuleSearchTypes = Object.values(SearchTypeNames).filter(value => !SearchTypesPreacherModuleAllowed.includes(value) ) 
+  const disabledPreacherModuleSearchTypesOnDeletePage = Object.values(SearchTypeNames).filter(value => !SearchTypesPreacherModuleAllowedOnDeletePage.includes(value) ) 
 
   const disabledLeaderModuleSearchTypes = Object.values(SearchTypeNames).filter(value => !SearchTypesLeaderModuleAllowed.includes(value) ) 
   const disabledLeaderModuleSearchTypesOnDeletePage = Object.values(SearchTypeNames).filter(value => !SearchTypesLeaderModuleAllowedOnDeletePage.includes(value) ) 
@@ -119,10 +129,45 @@ if ( currentPath === '/churches/delete-church') {
   if ( currentPath === '/copastors/delete-copastor') {
     return { 
      disabledSearchTypes : [
-      ...disabledCopastorTypesOnDeletePage
+      ...disabledCopastorModuleSearchTypesOnDeletePage
      ],
    }
   }
+
+  //* Supervisors
+  if (currentPath === '/supervisors/search-by-term-supervisors' || currentPath === '/supervisors/update-supervisor' ) {
+    return {
+      disabledSearchTypes : [
+        ...disabledSupervisorModuleSearchTypes
+      ],
+    }
+  }
+
+  if ( currentPath === '/supervisors/delete-supervisor') {
+  return {
+    disabledSearchTypes : [
+      ...disabledSupervisorModuleSearchTypesOnDeletePage
+    ],
+  }
+  }
+
+  //* Preachers
+  if (currentPath === '/preachers/search-by-term-preacher' || currentPath === '/preachers/update-preacher' ) {
+    return {
+      disabledSearchTypes : [
+        ...disabledPreacherModuleSearchTypes
+      ],
+    }
+  }
+
+  if ( currentPath === '/preachers/delete-preacher') {
+  return {
+    disabledSearchTypes : [
+      ...disabledPreacherModuleSearchTypesOnDeletePage
+    ],
+  }
+  }
+
 
   //* Leaders
   if (currentPath === '/leaders/search-by-term-leaders' || currentPath === '/leaders/update-leader' ) {

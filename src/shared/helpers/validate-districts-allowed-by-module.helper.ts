@@ -17,6 +17,10 @@ export const validateDistrictsAllowedByModule = ( path: string): DisabledDistric
        path === '/pastors/update-pastor' ||
        path === '/copastors/create-copastor' ||
        path === '/copastors/update-copastor' ||
+       path === '/supervisors/create-supervisor' ||
+       path === '/supervisors/update-supervisor' ||
+       path === '/preachers/create-preacher' ||
+       path === '/preachers/update-preacher' ||
        path === '/leaders/create-leader' ||
        path === '/leaders/update-leader' 
   ) {
@@ -27,7 +31,7 @@ export const validateDistrictsAllowedByModule = ( path: string): DisabledDistric
 
   if (path === '/family-houses/create-family-house' || path === '/family-houses/update-family-house') {
       return {
-        disabledDistricts: [ ...Object.values(DistrictNames).filter(value => !DistrictsFamilyHouseModuleAllowed.includes(value)) ]   
+        disabledDistricts: [ ...Object.values(DistrictNames).filter(value => !DistrictsFamilyHouseModuleAllowed.includes(value)) ]
     }
   }
   

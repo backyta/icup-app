@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import * as z from 'zod';
-import { SearchType, RecordOrder } from '@/shared/enums';
+import { RecordOrder } from '@/shared/enums';
+
+import { SearchTypeChurch } from '@/app/church/enums';
 
 export const churchFormTermSearchSchema = z
   .object({
-    searchType: z.nativeEnum(SearchType,{
+    searchType: z.nativeEnum(SearchTypeChurch,{
       required_error: "Por favor seleccione un tipo.",
     }),
     
@@ -36,12 +38,12 @@ export const churchFormTermSearchSchema = z
   })
   .refine(
     (data) => {
-      if (data.searchType === SearchType.ChurchName ||
-        data.searchType === SearchType.Department ||
-        data.searchType === SearchType.Province ||
-        data.searchType === SearchType.District ||
-        data.searchType === SearchType.UrbanSector ||
-        data.searchType === SearchType.Address 
+      if (data.searchType === SearchTypeChurch.ChurchName ||
+        data.searchType === SearchTypeChurch.Department ||
+        data.searchType === SearchTypeChurch.Province ||
+        data.searchType === SearchTypeChurch.District ||
+        data.searchType === SearchTypeChurch.UrbanSector ||
+        data.searchType === SearchTypeChurch.Address 
         ) {
         return !!data.inputTerm; 
       }
@@ -55,7 +57,7 @@ export const churchFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-          data.searchType === SearchType.Status
+          data.searchType === SearchTypeChurch.Status
         ) {
         return !!data.selectTerm; 
       }
@@ -69,7 +71,7 @@ export const churchFormTermSearchSchema = z
   .refine(
     (data) => {
       if ( 
-        data.searchType === SearchType.FoundingDate 
+        data.searchType === SearchTypeChurch.FoundingDate 
       ) {
         return !!data.dateTerm; 
       }

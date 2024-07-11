@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/shared/lib/utils';
 
-import { useCopastorStore } from '@/stores/copastor';
+import { useSupervisorStore } from '@/stores/supervisor';
 
 import {
   supervisorInfoColumns as columns,
@@ -76,10 +76,10 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
   //* States
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
 
-  const isFiltersSearchGeneralDisabled = useCopastorStore(
+  const isFiltersSearchGeneralDisabled = useSupervisorStore(
     (state) => state.isFiltersSearchGeneralDisabled
   );
-  const setIsFiltersSearchGeneralDisabled = useCopastorStore(
+  const setIsFiltersSearchGeneralDisabled = useSupervisorStore(
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
 
@@ -128,7 +128,7 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h1 className='text-center pt-3 md:pt-2 pb-4 font-sans text-2xl sm:text-3xl font-bold text-copastor-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+      <h1 className='text-center pt-3 md:pt-2 pb-4 font-sans text-2xl sm:text-3xl font-bold text-leader-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
         Modulo Supervisor
       </h1>
 

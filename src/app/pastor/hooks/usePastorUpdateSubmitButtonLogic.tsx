@@ -14,6 +14,7 @@ interface Options {
   memberRoles: typeof MemberRoles;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  isInputDisabled: boolean;
 }
 
 export const usePastorUpdateSubmitButtonLogic = ({
@@ -21,6 +22,7 @@ export const usePastorUpdateSubmitButtonLogic = ({
   memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
+  isInputDisabled,
 }: Options): void => {
   //* Watchers
   const firstName = formPastorUpdate.watch('firstName');
@@ -76,7 +78,8 @@ export const usePastorUpdateSubmitButtonLogic = ({
       theirChurch &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Pastor) &&
-      Object.values(formPastorUpdate.formState.errors).length === 0
+      Object.values(formPastorUpdate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);

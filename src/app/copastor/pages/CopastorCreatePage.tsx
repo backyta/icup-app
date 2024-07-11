@@ -126,6 +126,7 @@ export const CopastorCreatePage = (): JSX.Element => {
   useCopastorCreateSubmitButtonLogic({
     formCopastorCrate: form,
     memberRoles: MemberRoles,
+    isInputDisabled,
     isMessageErrorDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
@@ -828,7 +829,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                         Pastor
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Seleccione un Pastor para este Co-pastor.
+                        Seleccione un pastor para este co-pastor.
                       </FormDescription>
                       <Popover
                         open={isInputTheirPastorOpen}

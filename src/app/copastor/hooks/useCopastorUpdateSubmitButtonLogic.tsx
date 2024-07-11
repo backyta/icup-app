@@ -14,6 +14,7 @@ interface Options {
   memberRoles: typeof MemberRoles;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  isInputDisabled: boolean;
 }
 
 export const useCopastorUpdateSubmitButtonLogic = ({
@@ -21,6 +22,7 @@ export const useCopastorUpdateSubmitButtonLogic = ({
   memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
+  isInputDisabled,
 }: Options): void => {
   //* Watchers
   const firstName = formCopastorUpdate.watch('firstName');
@@ -78,7 +80,8 @@ export const useCopastorUpdateSubmitButtonLogic = ({
       theirPastor &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Copastor) &&
-      Object.values(formCopastorUpdate.formState.errors).length === 0
+      Object.values(formCopastorUpdate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
@@ -106,7 +109,8 @@ export const useCopastorUpdateSubmitButtonLogic = ({
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Pastor) &&
       !theirChurch &&
-      Object.values(formCopastorUpdate.formState.errors).length === 0
+      Object.values(formCopastorUpdate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -134,7 +138,8 @@ export const useCopastorUpdateSubmitButtonLogic = ({
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Pastor) &&
       theirChurch &&
-      Object.values(formCopastorUpdate.formState.errors).length === 0
+      Object.values(formCopastorUpdate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);

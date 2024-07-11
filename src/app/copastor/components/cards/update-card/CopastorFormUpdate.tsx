@@ -206,9 +206,17 @@ export const CopastorFormUpdate = ({
   useCopastorUpdateSubmitButtonLogic({
     formCopastorUpdate: form,
     memberRoles: MemberRoles,
+    isInputDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
   });
+
+  //* Effects
+  useEffect(() => {
+    form.resetField('urbanSector', {
+      keepError: true,
+    });
+  }, [district]);
 
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
@@ -229,6 +237,7 @@ export const CopastorFormUpdate = ({
 
         setTimeout(() => {
           setIsInputDisabled(false);
+          setIsRelationSelectDisabled(false);
           setIsSubmitButtonDisabled(false);
         }, 1500);
       }
@@ -257,6 +266,7 @@ export const CopastorFormUpdate = ({
       setTimeout(() => {
         onSubmit();
         setIsInputDisabled(false);
+        setIsRelationSelectDisabled(false);
       }, 1500);
 
       setTimeout(() => {
@@ -787,11 +797,6 @@ export const CopastorFormUpdate = ({
                           <FormItem className='mt-3'>
                             <FormLabel className='text-[14px]'>Distrito</FormLabel>
                             <Select
-                              onOpenChange={() => {
-                                form.resetField('urbanSector', {
-                                  keepError: true,
-                                });
-                              }}
                               disabled={isInputDisabled}
                               value={field.value}
                               onValueChange={field.onChange}
@@ -1000,7 +1005,7 @@ export const CopastorFormUpdate = ({
                                   Pastor
                                 </FormLabel>
                                 <FormDescription className='text-[14px]'>
-                                  Seleccione un Pastor para este Co-pastor.
+                                  Seleccione un pastor para este co-pastor.
                                 </FormDescription>
                                 <Popover
                                   open={isInputTheirPastorOpen}

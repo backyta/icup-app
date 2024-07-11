@@ -126,6 +126,7 @@ export const PastorCreatePage = (): JSX.Element => {
   usePastorCreateSubmitButtonLogic({
     formPastorCrate: form,
     memberRoles: MemberRoles,
+    isInputDisabled,
     isMessageErrorDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,

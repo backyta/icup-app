@@ -14,6 +14,7 @@ interface Options {
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isMessageErrorDisabled: boolean;
+  isInputDisabled: boolean;
 }
 
 export const useSupervisorCreateSubmitButtonLogic = ({
@@ -22,6 +23,7 @@ export const useSupervisorCreateSubmitButtonLogic = ({
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
   isMessageErrorDisabled,
+  isInputDisabled,
 }: Options): void => {
   //* Watchers
   const firstName = formSupervisorCrate.watch('firstName');
@@ -43,6 +45,7 @@ export const useSupervisorCreateSubmitButtonLogic = ({
   const roles = formSupervisorCrate.watch('roles');
   const referenceAddress = formSupervisorCrate.watch('referenceAddress');
   const theirCopastor = formSupervisorCrate.watch('theirCopastor');
+  const theirPastor = formSupervisorCrate.watch('theirPastor');
 
   //* Effects
   useEffect(() => {
@@ -72,10 +75,11 @@ export const useSupervisorCreateSubmitButtonLogic = ({
       urbanSector &&
       address &&
       referenceAddress &&
-      theirCopastor &&
+      (theirCopastor || theirPastor) &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
-      Object.values(formSupervisorCrate.formState.errors).length === 0
+      Object.values(formSupervisorCrate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
@@ -124,6 +128,7 @@ export const useSupervisorCreateSubmitButtonLogic = ({
     urbanSector,
     referenceAddress,
     theirCopastor,
+    theirPastor,
     roles,
   ]);
 

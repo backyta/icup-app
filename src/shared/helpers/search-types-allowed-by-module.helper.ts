@@ -141,7 +141,88 @@ export const SearchTypesCopastorModuleAllowedOnDeletePage = [
   SearchTypeNames.urban_sector,
 ];
 
-//* Preachers
+//* Supervisor
+// search, search by type and update
+export const SearchTypesSupervisorModuleAllowed = [    
+  SearchTypeNames.first_name,
+  SearchTypeNames.last_name,
+  SearchTypeNames.full_name,
+  SearchTypeNames.birth_month,
+  SearchTypeNames.birth_date,
+  SearchTypeNames.gender,
+  SearchTypeNames.marital_status,
+  SearchTypeNames.zone,
+  SearchTypeNames.address,
+  SearchTypeNames.origin_country,
+  SearchTypeNames.department,
+  SearchTypeNames.province,
+  SearchTypeNames.district,
+  SearchTypeNames.urban_sector,
+  SearchTypeNames.status,
+];
+
+// delete
+export const SearchTypesSupervisorModuleAllowedOnDeletePage = [    
+  SearchTypeNames.first_name,
+  SearchTypeNames.last_name,
+  SearchTypeNames.full_name,
+  SearchTypeNames.birth_month,
+  SearchTypeNames.birth_date,
+  SearchTypeNames.gender,
+  SearchTypeNames.marital_status,
+  SearchTypeNames.zone,
+  SearchTypeNames.address,
+  SearchTypeNames.origin_country,
+  SearchTypeNames.department,
+  SearchTypeNames.province,
+  SearchTypeNames.urban_sector,
+  SearchTypeNames.district,
+];
+
+//* Preacher
+// search, search by type and update
+export const SearchTypesPreacherModuleAllowed = [    
+  SearchTypeNames.first_name,
+  SearchTypeNames.last_name,
+  SearchTypeNames.full_name,
+  SearchTypeNames.birth_month,
+  SearchTypeNames.birth_date,
+  SearchTypeNames.gender,
+  SearchTypeNames.marital_status,
+  SearchTypeNames.zone,
+  SearchTypeNames.code_house,
+  SearchTypeNames.name_house,
+  SearchTypeNames.address,
+  SearchTypeNames.origin_country,
+  SearchTypeNames.department,
+  SearchTypeNames.province,
+  SearchTypeNames.district,
+  SearchTypeNames.urban_sector,
+  SearchTypeNames.status,
+];
+
+// delete
+export const SearchTypesPreacherModuleAllowedOnDeletePage = [    
+  SearchTypeNames.first_name,
+  SearchTypeNames.last_name,
+  SearchTypeNames.full_name,
+  SearchTypeNames.birth_month,
+  SearchTypeNames.birth_date,
+  SearchTypeNames.gender,
+  SearchTypeNames.marital_status,
+  SearchTypeNames.zone,
+  SearchTypeNames.code_house,
+  SearchTypeNames.name_house,
+  SearchTypeNames.address,
+  SearchTypeNames.origin_country,
+  SearchTypeNames.department,
+  SearchTypeNames.province,
+  SearchTypeNames.urban_sector,
+  SearchTypeNames.district,
+];
+
+
+//* Leader
 // search, search by type and update
 export const SearchTypesLeaderModuleAllowed = [    
   SearchTypeNames.first_name,

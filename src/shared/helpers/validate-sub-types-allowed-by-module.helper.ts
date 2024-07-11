@@ -32,6 +32,12 @@ import {
   SearchSubTypesOfferingIncomeUnitedWorshipAllowed,
   SearchSubTypesOfferingIncomeIncomeAdjustmentAllowed,
   SearchSubTypesOfferingExpensesExpensesAdjustmentAllowed,
+  SearchSubtypesNamesSupervisorModuleAllowed,
+  SearchSubtypesLastNamesSupervisorModuleAllowed,
+  SearchSubtypesFullNameSupervisorModuleAllowed,
+  SearchSubtypesNamesPreacherModuleAllowed,
+  SearchSubtypesLastNamesPreacherModuleAllowed,
+  SearchSubtypesFullNamePreacherModuleAllowed,
   } from '@/shared/helpers';
 
 
@@ -118,6 +124,83 @@ export const validateSubTypesAllowedByModule = (currentPath: string, type: strin
     }
   }
 
+  //* Supervisor
+  const disabledSupervisorModuleNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesNamesSupervisorModuleAllowed.includes(value as SearchSubType) ) 
+  const disabledSupervisorModuleLastNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesLastNamesSupervisorModuleAllowed.includes(value as SearchSubType) ) 
+  const disabledSupervisorModuleFullNameSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesFullNameSupervisorModuleAllowed.includes(value as SearchSubType) ) 
+  
+  if ((currentPath === '/supervisors/search-by-term-supervisors' || 
+        currentPath === '/supervisors/update-supervisor' || 
+        currentPath === '/supervisors/delete-supervisor') && 
+      type === SearchType.FirstName) {
+    return {
+      disabledSearchSubTypes : [
+        ...disabledSupervisorModuleNamesSearchSubTypes,
+      ],
+    }
+  }
+
+  if ((currentPath === '/supervisors/search-by-term-supervisors' || 
+        currentPath === '/supervisors/update-supervisor' || 
+        currentPath === '/supervisors/delete-supervisor')  && 
+      type === SearchType.LastName) {
+    return {
+      disabledSearchSubTypes : [
+        ...disabledSupervisorModuleLastNamesSearchSubTypes
+      ],
+    }
+  }
+
+  if ((currentPath === '/supervisors/search-by-term-supervisors' || 
+        currentPath === '/supervisors/update-supervisor' || 
+        currentPath === '/supervisors/delete-supervisor')  && 
+      type === SearchType.FullName) {
+    return {
+      disabledSearchSubTypes : [
+        ...disabledSupervisorModuleFullNameSearchSubTypes
+      ],
+    }
+  }
+
+   //* Preacher
+   const disabledPreacherModuleNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesNamesPreacherModuleAllowed.includes(value as SearchSubType) ) 
+   const disabledPreacherModuleLastNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesLastNamesPreacherModuleAllowed.includes(value as SearchSubType) ) 
+   const disabledPreacherModuleFullNameSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesFullNamePreacherModuleAllowed.includes(value as SearchSubType) ) 
+   
+   if ((currentPath === '/preachers/search-by-term-preachers' ||
+         currentPath === '/preachers/update-preacher' || 
+         currentPath === '/preachers/delete-preacher') && 
+       type === SearchType.FirstName) {
+     return {
+       disabledSearchSubTypes : [
+         ...disabledPreacherModuleNamesSearchSubTypes,
+       ],
+     }
+   }
+ 
+   if ((currentPath === '/preachers/search-by-term-preachers' ||
+         currentPath === '/preachers/update-preacher' || 
+         currentPath === '/preachers/delete-preacher')  && 
+       type === SearchType.LastName) {
+     return {
+       disabledSearchSubTypes : [
+         ...disabledPreacherModuleLastNamesSearchSubTypes
+       ],
+     }
+   }
+ 
+   if ((currentPath === '/preachers/search-by-term-preachers' || 
+         currentPath === '/preachers/update-preacher' || 
+         currentPath === '/preachers/delete-preacher')  && 
+       type === SearchType.FullName) {
+     return {
+       disabledSearchSubTypes : [
+         ...disabledPreacherModuleFullNameSearchSubTypes
+       ],
+     }
+   }
+
+   
   //* Leader
   const disabledLeaderModuleNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesNamesLeaderModuleAllowed.includes(value as SearchSubType) ) 
   const disabledLeaderModuleLastNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesLastNamesLeaderModuleAllowed.includes(value as SearchSubType) ) 

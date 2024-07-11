@@ -14,6 +14,7 @@ interface Options {
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isMessageErrorDisabled: boolean;
+  isInputDisabled: boolean;
 }
 
 export const useCopastorCreateSubmitButtonLogic = ({
@@ -22,6 +23,7 @@ export const useCopastorCreateSubmitButtonLogic = ({
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
   isMessageErrorDisabled,
+  isInputDisabled,
 }: Options): void => {
   //* Watchers
   const firstName = formCopastorCrate.watch('firstName');
@@ -75,7 +77,8 @@ export const useCopastorCreateSubmitButtonLogic = ({
       theirPastor &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Copastor) &&
-      Object.values(formCopastorCrate.formState.errors).length === 0
+      Object.values(formCopastorCrate.formState.errors).length === 0 &&
+      !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
@@ -99,7 +102,7 @@ export const useCopastorCreateSubmitButtonLogic = ({
       !address ||
       !urbanSector ||
       !address ||
-      (referenceAddress && roles.length === 0)
+      (referenceAddress && roles.length === 0 && !isInputDisabled)
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);

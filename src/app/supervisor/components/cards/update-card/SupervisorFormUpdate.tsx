@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
@@ -103,6 +104,8 @@ interface SupervisorFormUpdateProps {
   data: SupervisorResponse | undefined;
 }
 
+// TODO : falta hacer en backedn para cambiar un inactivo a activo y cambiar a relacion directa cuando esta sin copastor
+// TODO : revisar la relacion directo y cuando se podra hacer, corregir el backend y tmb en create
 export const SupervisorFormUpdate = ({
   id,
   data,
@@ -111,7 +114,7 @@ export const SupervisorFormUpdate = ({
 }: SupervisorFormUpdateProps): JSX.Element => {
   //* States
   const [isRelationSelectDisabled, setIsRelationSelectDisabled] = useState<boolean>(false);
-  const [isInputTheirChurchOpen, setIsInputTheirChurchOpen] = useState<boolean>(false);
+  const [isInputTheirCopastorOpen, setIsInputTheirCopastorOpen] = useState<boolean>(false);
   const [isInputTheirPastorOpen, setIsInputTheirPastorOpen] = useState<boolean>(false);
   const [isInputBirthDateOpen, setIsInputBirthDateOpen] = useState<boolean>(false);
   const [isInputConvertionDateOpen, setIsInputConvertionDateOpen] = useState<boolean>(false);
@@ -151,7 +154,9 @@ export const SupervisorFormUpdate = ({
       address: '',
       referenceAddress: '',
       roles: [MemberRoles.Disciple],
+      isDirectRelationToPastor: undefined,
       status: '',
+      theirCopastor: '',
       theirPastor: '',
     },
   });
@@ -160,6 +165,7 @@ export const SupervisorFormUpdate = ({
   const district = form.watch('district');
   const theirPastor = form.watch('theirPastor');
   const theirCopastor = form.watch('theirCopastor');
+  const isDirectRelationToPastor = form.watch('isDirectRelationToPastor');
 
   useEffect(() => {
     form.setValue('firstName', data?.firstName ?? '');
@@ -179,8 +185,10 @@ export const SupervisorFormUpdate = ({
     form.setValue('urbanSector', data?.urbanSector ?? '');
     form.setValue('address', data?.address ?? '');
     form.setValue('referenceAddress', data?.referenceAddress ?? '');
+    form.setValue('isDirectRelationToPastor', data?.isDirectRelationToPastor ?? undefined);
     form.setValue('roles', data?.roles as MemberRoles[]);
-    form.setValue('theirCopastor', data?.theirCopastor?.id);
+    form.setValue('theirCopastor', data?.theirCopastor?.id ?? '');
+    form.setValue('theirPastor', data?.theirPastor?.id ?? '');
     form.setValue('status', data?.status);
 
     setTimeout(() => {
@@ -204,9 +212,38 @@ export const SupervisorFormUpdate = ({
   useSupervisorUpdateSubmitButtonLogic({
     formSupervisorUpdate: form,
     memberRoles: MemberRoles,
+    isInputDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
   });
+
+  //* Effects
+  useEffect(() => {
+    form.resetField('urbanSector', {
+      keepError: true,
+    });
+  }, [district]);
+
+  useEffect(() => {
+    if (isDirectRelationToPastor) {
+      form.resetField('theirCopastor', {
+        keepError: true,
+      });
+    }
+
+    if (!isDirectRelationToPastor) {
+      form.resetField('theirPastor', {
+        keepError: true,
+      });
+    }
+  }, [isDirectRelationToPastor]);
+
+  useEffect(() => {
+    if (isDirectRelationToPastor && !theirPastor) {
+      setIsSubmitButtonDisabled(true);
+      setIsMessageErrorDisabled(true);
+    }
+  }, [isDirectRelationToPastor]);
 
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
@@ -227,6 +264,7 @@ export const SupervisorFormUpdate = ({
 
         setTimeout(() => {
           setIsInputDisabled(false);
+          setIsRelationSelectDisabled(false);
           setIsSubmitButtonDisabled(false);
         }, 1500);
       }
@@ -254,6 +292,7 @@ export const SupervisorFormUpdate = ({
 
       setTimeout(() => {
         onSubmit();
+        setIsRelationSelectDisabled(false);
         setIsInputDisabled(false);
       }, 1500);
 
@@ -285,7 +324,7 @@ export const SupervisorFormUpdate = ({
       className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
       <h2 className='text-center text-orange-500 pb-2 font-bold text-[20px] md:text-[24px]'>
-        Actualizar información del Co-Pastor
+        Actualizar información del Supervisor
       </h2>
 
       <TabsContent value='general-info'>
@@ -295,7 +334,7 @@ export const SupervisorFormUpdate = ({
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
               <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-4'>
-                Co-Pastor: {data?.firstName} - {data?.lastName}
+                Supervisor: {data?.firstName} - {data?.lastName}
               </div>
               <Form {...form}>
                 <form
@@ -785,11 +824,6 @@ export const SupervisorFormUpdate = ({
                           <FormItem className='mt-3'>
                             <FormLabel className='text-[14px]'>Distrito</FormLabel>
                             <Select
-                              onOpenChange={() => {
-                                form.resetField('urbanSector', {
-                                  keepError: true,
-                                });
-                              }}
                               disabled={isInputDisabled}
                               value={field.value}
                               onValueChange={field.onChange}
@@ -928,7 +962,7 @@ export const SupervisorFormUpdate = ({
                                 return (
                                   <FormItem
                                     key={role}
-                                    className='flex flex-row items-start space-x-3 space-y-0'
+                                    className='flex flex-row items-center space-x-3 space-y-0'
                                   >
                                     <FormControl>
                                       <Checkbox
@@ -962,6 +996,30 @@ export const SupervisorFormUpdate = ({
                       )}
                     />
 
+                    <FormField
+                      control={form.control}
+                      name='isDirectRelationToPastor'
+                      render={({ field }) => (
+                        <FormItem className='flex flex-row gap-2 items-center  mt-3 px-1 py-3 h-[2.5rem]'>
+                          <FormControl>
+                            <Checkbox
+                              className={cn(isInputDisabled && 'bg-slate-500')}
+                              disabled={isInputDisabled}
+                              checked={field?.value}
+                              onCheckedChange={(checked) => {
+                                field.onChange(checked);
+                              }}
+                            />
+                          </FormControl>
+                          <div className='space-y-1 leading-none'>
+                            <FormLabel className='text-[13px] md:text-[14px]'>
+                              ¿Esta registro sera relacionado directamente con un Pastor?
+                            </FormLabel>
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+
                     {isMessagePromoteDisabled && (
                       <span className='text-[13px] md:text-[14px] text-yellow-500 font-bold text-center'>
                         !SE HA PROMOVIDO CORRECTAMENTE! <br />
@@ -987,7 +1045,7 @@ export const SupervisorFormUpdate = ({
                       <legend className='font-bold col-start-1 col-end-3 text-[16px]'>
                         Relaciones
                       </legend>
-                      {!isMessagePromoteDisabled && (
+                      {!isMessagePromoteDisabled && !isDirectRelationToPastor && (
                         <FormField
                           control={form.control}
                           name='theirCopastor'
@@ -995,14 +1053,14 @@ export const SupervisorFormUpdate = ({
                             return (
                               <FormItem className='flex flex-col mt-4'>
                                 <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
-                                  Pastor
+                                  Co-Pastor
                                 </FormLabel>
                                 <FormDescription className='text-[14px]'>
-                                  Seleccione un Pastor para este Co-pastor.
+                                  Seleccione un pastor para este co-pastor.
                                 </FormDescription>
                                 <Popover
-                                  open={isInputTheirPastorOpen}
-                                  onOpenChange={setIsInputTheirPastorOpen}
+                                  open={isInputTheirCopastorOpen}
+                                  onOpenChange={setIsInputTheirCopastorOpen}
                                 >
                                   <PopoverTrigger asChild>
                                     <FormControl>
@@ -1016,8 +1074,8 @@ export const SupervisorFormUpdate = ({
                                         )}
                                       >
                                         {field.value
-                                          ? `${queryCopastors?.data?.find((pastor) => pastor.id === field.value)?.firstName} ${queryPastors?.data?.find((pastor) => pastor.id === field.value)?.lastName}`
-                                          : 'Busque y seleccione un pastor'}
+                                          ? `${queryCopastors?.data?.find((copastor) => copastor.id === field.value)?.firstName} ${queryCopastors?.data?.find((pastor) => pastor.id === field.value)?.lastName}`
+                                          : 'Busque y seleccione un co-pastor'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
                                     </FormControl>
@@ -1025,10 +1083,10 @@ export const SupervisorFormUpdate = ({
                                   <PopoverContent align='center' className='w-auto px-4 py-2'>
                                     <Command>
                                       <CommandInput
-                                        placeholder='Busque un pastor...'
+                                        placeholder='Busque un co-pastor...'
                                         className='h-9 text-[14px]'
                                       />
-                                      <CommandEmpty>Pastor no encontrado.</CommandEmpty>
+                                      <CommandEmpty>Co-Pastor no encontrado.</CommandEmpty>
                                       <CommandGroup className='max-h-[200px] h-auto'>
                                         {queryCopastors?.data?.map((copastor) => (
                                           <CommandItem
@@ -1037,7 +1095,7 @@ export const SupervisorFormUpdate = ({
                                             key={copastor.id}
                                             onSelect={() => {
                                               form.setValue('theirCopastor', copastor.id);
-                                              setIsInputTheirPastorOpen(false);
+                                              setIsInputTheirCopastorOpen(false);
                                             }}
                                           >
                                             {`${copastor?.firstName} ${copastor?.lastName}`}
@@ -1062,7 +1120,8 @@ export const SupervisorFormUpdate = ({
                         />
                       )}
 
-                      {isPromoteButtonDisabled && isInputDisabled && !theirPastor && (
+                      {((isPromoteButtonDisabled && isInputDisabled && theirPastor) ||
+                        isDirectRelationToPastor) && (
                         <FormField
                           control={form.control}
                           name='theirPastor'
@@ -1076,8 +1135,8 @@ export const SupervisorFormUpdate = ({
                                   Seleccione un pastor para este co-pastor.
                                 </FormDescription>
                                 <Popover
-                                  open={isInputTheirChurchOpen}
-                                  onOpenChange={setIsInputTheirChurchOpen}
+                                  open={isInputTheirPastorOpen}
+                                  onOpenChange={setIsInputTheirPastorOpen}
                                 >
                                   <PopoverTrigger asChild>
                                     <FormControl>
@@ -1092,7 +1151,7 @@ export const SupervisorFormUpdate = ({
                                       >
                                         {field.value
                                           ? `${queryPastors?.data?.find((pastor) => pastor.id === field.value)?.firstName} ${queryPastors?.data?.find((pastor) => pastor.id === field.value)?.lastName}`
-                                          : 'Busque y seleccione una iglesia'}
+                                          : 'Busque y seleccione un pastor'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
                                     </FormControl>
@@ -1100,7 +1159,7 @@ export const SupervisorFormUpdate = ({
                                   <PopoverContent align='center' className='w-auto px-4 py-2'>
                                     <Command>
                                       <CommandInput
-                                        placeholder='Busque una iglesia...'
+                                        placeholder='Busque una pastor...'
                                         className='h-9 text-[14px]'
                                       />
                                       <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
@@ -1112,7 +1171,7 @@ export const SupervisorFormUpdate = ({
                                             key={pastor.id}
                                             onSelect={() => {
                                               form.setValue('theirPastor', pastor.id);
-                                              setIsInputTheirChurchOpen(false);
+                                              setIsInputTheirPastorOpen(false);
                                             }}
                                           >
                                             {`${pastor?.firstName} ${pastor?.lastName}`}

@@ -118,6 +118,7 @@ export const supervisorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (data.searchType === SearchType.OriginCountry ||
+          data.searchType === SearchType.Zone ||
           data.searchType === SearchType.Department || 
           data.searchType === SearchType.Province || 
           data.searchType === SearchType.District || 
@@ -138,7 +139,7 @@ export const supervisorFormTermSearchSchema = z
       if (
           data.searchType === SearchType.BirthMonth ||
           data.searchType === SearchType.Gender ||
-          data.searchType === SearchType.MaritalStatus || 
+          data.searchType === SearchType.MaritalStatus ||
           data.searchType === SearchType.Status
         ) {
         return !!data.selectTerm; 

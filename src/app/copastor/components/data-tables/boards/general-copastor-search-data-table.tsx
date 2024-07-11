@@ -150,7 +150,7 @@ export function GeneralCopastorSearchDataTable<TData, TValue>({
           <span className='text-offering-color font-bold text-[14px] md:text-[16px]'>
             Búsqueda actual:
           </span>{' '}
-          <span className='font-medium text-[13px] md:text-[15px]'>Pastores (Todos)</span>
+          <span className='font-medium text-[13px] md:text-[15px]'>Co-Pastores (Todos)</span>
           <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center py-4 md:py-6 lg:py-4 lg:gap-6'>
             <Input
               placeholder='Filtro por nombres..'

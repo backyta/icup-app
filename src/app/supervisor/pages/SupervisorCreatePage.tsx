@@ -104,6 +104,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
       conversionDate: undefined,
       numberChildren: '',
       maritalStatus: '',
+      isDirectRelationToPastor: false,
       email: '',
       phoneNumber: '',
       country: Country.Peru,
@@ -119,6 +120,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
 
   //* Watchers
   const district = form.watch('district');
+  const theirPastor = form.watch('theirPastor');
   const isDirectRelationToPastor = form.watch('isDirectRelationToPastor');
 
   //* Custom hooks
@@ -130,6 +132,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
   useSupervisorCreateSubmitButtonLogic({
     formSupervisorCrate: form,
     memberRoles: MemberRoles,
+    isInputDisabled,
     isMessageErrorDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
@@ -141,6 +144,27 @@ export const SupervisorCreatePage = (): JSX.Element => {
       keepError: true,
     });
   }, [district]);
+
+  useEffect(() => {
+    if (isDirectRelationToPastor) {
+      form.resetField('theirCopastor', {
+        keepError: true,
+      });
+    }
+
+    if (!isDirectRelationToPastor) {
+      form.resetField('theirPastor', {
+        keepError: true,
+      });
+    }
+  }, [isDirectRelationToPastor]);
+
+  useEffect(() => {
+    if (isDirectRelationToPastor && !theirPastor) {
+      setIsSubmitButtonDisabled(true);
+      setIsMessageErrorDisabled(true);
+    }
+  }, [isDirectRelationToPastor]);
 
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
@@ -189,7 +213,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
       }, 1600);
 
       setTimeout(() => {
-        navigate('/pastors');
+        navigate('/supervisors');
       }, 2600);
     },
   });
@@ -209,6 +233,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof supervisorFormSchema>): void => {
+    console.log(formData);
     mutation.mutate(formData);
   };
 
@@ -879,7 +904,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                               >
                                 {field.value
                                   ? `${queryPastors.data?.find((pastor) => pastor.id === field.value)?.firstName} ${queryPastors.data?.find((pastor) => pastor.id === field.value)?.lastName}`
-                                  : 'Busque y seleccione un co-pastor'}
+                                  : 'Busque y seleccione un pastor'}
                                 <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                               </Button>
                             </FormControl>
@@ -898,7 +923,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                                     value={pastor.id}
                                     key={pastor.id}
                                     onSelect={() => {
-                                      form.setValue('theirCopastor', pastor.id);
+                                      form.setValue('theirPastor', pastor.id);
                                       setIsInputTheirCopastorOpen(false);
                                     }}
                                   >
@@ -933,7 +958,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                           Co-Pastor
                         </FormLabel>
                         <FormDescription className='text-[14px]'>
-                          Seleccione un Co-Pastor para este Supervisor.
+                          Seleccione un co-pastor para este supervisor.
                         </FormDescription>
                         <Popover
                           open={isInputTheirCopastorOpen}

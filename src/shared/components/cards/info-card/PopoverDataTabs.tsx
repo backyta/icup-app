@@ -28,6 +28,7 @@ export type AllowedTypes =
 interface PopoverDataProps {
   data: AllowedTypes | undefined;
   title: string;
+  nameModule: string;
   firstValue: string;
   secondValue: string;
 }
@@ -35,6 +36,7 @@ interface PopoverDataProps {
 export const PopoverDataTabs = ({
   data,
   title,
+  nameModule,
   firstValue,
   secondValue,
 }: PopoverDataProps): JSX.Element => {
@@ -55,7 +57,9 @@ export const PopoverDataTabs = ({
         <div className='grid gap-4'>
           <div className='space-y-2'>
             <h4 className='font-medium leading-none'>{title}</h4>
-            <p className='text-sm text-muted-foreground'>{title} que pertenecen a esta iglesia.</p>
+            <p className='text-sm text-muted-foreground'>
+              {title} que pertenecen a este {nameModule}.
+            </p>
           </div>
           <div className='grid grid-cols-2 gap-2'>
             {data?.map((element: any) => {
