@@ -152,7 +152,7 @@ export const MemberCreatePage = (): JSX.Element => {
           'text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-disciple-color text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]',
           titleValue === 'Pastor' && 'text-pastor-color',
           titleValue === 'Co-Pastor' && 'text-copastor-color',
-          titleValue === 'Líder' && 'text-leader-color'
+          titleValue === 'Líder' && 'text-supervisor-color'
         )}
       >
         Modulo {titleValue}

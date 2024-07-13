@@ -25,7 +25,7 @@ import { churchFormSchema } from '@/app/church/validations';
 import { FormChurchSkeleton } from '@/app/church/components';
 import { type ChurchResponse } from '@/app/church/interfaces';
 import { getMainChurch, updateChurch } from '@/app/church/services';
-import { WorshipTimes, WorshipTimesNames } from '@/app/church/enums';
+import { WorshipTimes, WorshipTimesKeys } from '@/app/church/enums';
 import { useChurchUpdateSubmitButtonLogic } from '@/app/church/hooks';
 
 import {
@@ -371,7 +371,7 @@ export const ChurchFormUpdate = ({
                                         />
                                       </FormControl>
                                       <FormLabel className='text-[14px] font-medium'>
-                                        {WorshipTimesNames[worshipTime]}
+                                        {WorshipTimesKeys[worshipTime]}
                                       </FormLabel>
                                     </FormItem>
                                   );

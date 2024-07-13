@@ -11,34 +11,27 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { type z } from 'zod';
-import { useLocation } from 'react-router-dom';
 
 import { cn } from '@/shared/lib/utils';
 import { CalendarIcon } from 'lucide-react';
-
-import { churchFormTermSearchSchema } from '@/app/church/validations';
-import { type ChurchResponse } from '@/app/church/interfaces';
-
-import { useChurchStore } from '@/stores/church';
 
 import {
   churchUpdateColumns as columns,
   SearchByTermChurchDataTable,
 } from '@/app/church/components';
+import { churchFormTermSearchSchema } from '@/app/church/validations';
+import {
+  SearchSelectionOptionChurchKeys,
+  SearchTypeChurch,
+  SearchTypeChurchKeys,
+} from '@/app/church/enums';
+import { type ChurchFormSearchByTerm, type ChurchResponse } from '@/app/church/interfaces';
 
-import {
-  RecordOrder,
-  RecordOrderNames,
-  SearchSelectionOptionNames,
-  SearchType,
-  SearchTypeNames,
-} from '@/shared/enums';
-import {
-  validateSelectTermByTypeAndSubtype,
-  validateTypesAllowedByModule,
-  formatDateTermToTimestamp,
-} from '@/shared/helpers';
-import { type FormSearchByTerm } from '@/shared/interfaces';
+import { useChurchStore } from '@/stores/church';
+
+import { RecordOrder, RecordOrderNames } from '@/shared/enums';
+
+import { formatDateTermToTimestamp } from '@/shared/helpers';
 
 import {
   Form,
@@ -94,11 +87,8 @@ export const ChurchUpdatePage = (): JSX.Element => {
     (state) => state.setIsFiltersSearchByTermDisabled
   );
 
-  const [dataForm, setDataForm] = useState<FormSearchByTerm>();
-  const [searchParams, setSearchParams] = useState<FormSearchByTerm | undefined>();
-
-  //* Hooks (external library)
-  const { pathname } = useLocation();
+  const [dataForm, setDataForm] = useState<ChurchFormSearchByTerm>();
+  const [searchParams, setSearchParams] = useState<ChurchFormSearchByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof churchFormTermSearchSchema>>({
@@ -139,10 +129,6 @@ export const ChurchUpdatePage = (): JSX.Element => {
   useEffect(() => {
     setIsFiltersSearchByTermDisabled(true);
   }, []);
-
-  //* Helpers
-  const disabledTypes = validateTypesAllowedByModule(pathname);
-  const disabledSelectTerm = validateSelectTermByTypeAndSubtype(searchType);
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof churchFormTermSearchSchema>): void {
@@ -221,9 +207,9 @@ export const ChurchUpdatePage = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(SearchTypeNames).map(([key, value]) => (
+                          {Object.entries(SearchTypeChurchKeys).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[13px] md:text-[14px] ${disabledTypes?.disabledSearchTypes?.includes(value) ? 'hidden' : ''}`}
+                              className={`text-[13px] md:text-[14px]`}
                               key={key}
                               value={key}
                             >
@@ -238,12 +224,12 @@ export const ChurchUpdatePage = (): JSX.Element => {
                 }}
               />
 
-              {(searchType === SearchType.ChurchName ||
-                searchType === SearchType.Department ||
-                searchType === SearchType.Province ||
-                searchType === SearchType.District ||
-                searchType === SearchType.UrbanSector ||
-                searchType === SearchType.Address) && (
+              {(searchType === SearchTypeChurch.ChurchName ||
+                searchType === SearchTypeChurch.Department ||
+                searchType === SearchTypeChurch.Province ||
+                searchType === SearchTypeChurch.District ||
+                searchType === SearchTypeChurch.UrbanSector ||
+                searchType === SearchTypeChurch.Address) && (
                 <FormField
                   control={form.control}
                   name='inputTerm'
@@ -266,7 +252,7 @@ export const ChurchUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {searchType === SearchType.FoundingDate && (
+              {searchType === SearchTypeChurch.FoundingDate && (
                 <FormField
                   control={form.control}
                   name='dateTerm'
@@ -323,7 +309,7 @@ export const ChurchUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {searchType === SearchType.Status && (
+              {searchType === SearchTypeChurch.Status && (
                 <FormField
                   control={form.control}
                   name='selectTerm'
@@ -352,9 +338,9 @@ export const ChurchUpdatePage = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {Object.entries(SearchSelectionOptionNames).map(([key, value]) => (
+                            {Object.entries(SearchSelectionOptionChurchKeys).map(([key, value]) => (
                               <SelectItem
-                                className={`text-[13px] md:text-[14px] ${disabledSelectTerm?.disabledSelectTerm?.includes(value) ? 'hidden' : ''}`}
+                                className={`text-[13px] md:text-[14px]`}
                                 key={key}
                                 value={key}
                               >

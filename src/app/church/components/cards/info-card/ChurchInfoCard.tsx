@@ -7,6 +7,7 @@ import { BsFillPersonVcardFill } from 'react-icons/bs';
 import { cn } from '@/shared/lib/utils';
 
 import { useChurchStore } from '@/stores/church';
+
 import { ChurchTabsCard } from '@/app/church/components';
 
 import { Button } from '@/shared/components/ui/button';

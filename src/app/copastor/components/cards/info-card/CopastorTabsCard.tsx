@@ -245,7 +245,7 @@ export const CopastorTabsCard = ({ data }: CopastorTabsCardProps): JSX.Element =
               Información eclesiástica y relaciones ministeriales.
             </CardDescription>
           </CardHeader>
-          <CardContent className='grid  grid-cols-2 pl-[4.2rem] gap-x-6 gap-y-4 md:gap-x-4 md:gap-y-8 md:pl-[7rem] md:pr-[2.5rem]'>
+          <CardContent className='grid  grid-cols-2 pl-[4.2rem] gap-x-6 gap-y-4 md:gap-x-10 md:gap-y-8 md:pl-[7.3rem] md:pr-[2rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Roles / Cargos</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -368,9 +368,9 @@ export const CopastorTabsCard = ({ data }: CopastorTabsCardProps): JSX.Element =
             </div>
 
             <div className='space-y-1'>
-              <Label className='text-[14px] md:text-[15px]'>{data?.address}</Label>
+              <Label className='text-[14px] md:text-[15px]'>Dirección</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                Jr.Flores 123 - Payet 90 (Cerca al Parque Manco Capac)
+                {data?.address}
               </CardDescription>
             </div>
 

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
-import { useMediaQuery } from '@react-hook/media-query';
 import { BsFillPersonVcardFill } from 'react-icons/bs';
+import { useMediaQuery } from '@react-hook/media-query';
 
 import { cn } from '@/shared/lib/utils';
 

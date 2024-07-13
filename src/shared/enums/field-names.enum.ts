@@ -18,6 +18,7 @@ export enum FieldNames {
   ReferenceAddress = 'referenceAddress',
   Roles = 'roles',
   Status = 'status',
+  IsDirectRelationToPastor = "isDirectRelationToPastor",
   TheirPastor = 'theirPastor',
   TheirCopastor = 'theirCopastor',
   TheirSupervisor = 'theirSupervisor',

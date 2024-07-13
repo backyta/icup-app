@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
 import { type MemberRoles } from '@/shared/enums';
+
 import { type PastorFormData } from '@/app/pastor/interfaces';
 
 interface Options {
@@ -102,7 +103,8 @@ export const usePastorCreateSubmitButtonLogic = ({
       !address ||
       !urbanSector ||
       !address ||
-      (referenceAddress && roles.length === 0)
+      !referenceAddress ||
+      roles.length === 0
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);

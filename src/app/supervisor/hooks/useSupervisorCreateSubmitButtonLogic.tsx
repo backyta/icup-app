@@ -103,7 +103,8 @@ export const useSupervisorCreateSubmitButtonLogic = ({
       !address ||
       !urbanSector ||
       !address ||
-      (referenceAddress && roles.length === 0)
+      referenceAddress ||
+      roles.length === 0
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);

@@ -1,17 +1,19 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import * as z from 'zod';
-import { SearchType, RecordOrder, SearchSubType } from '@/shared/enums';
+
+import { RecordOrder } from '@/shared/enums';
+import { SearchSubTypeCopastor, SearchTypeCopastor } from '@/app/copastor/enums';
 
 export const copastorFormTermSearchSchema = z
   .object({
-    searchType: z.nativeEnum(SearchType,{
+    searchType: z.nativeEnum(SearchTypeCopastor,{
       required_error: "Por favor seleccione un tipo.",
     }),
 
-    searchSubType: z.string(z.nativeEnum(SearchSubType ,{
+    searchSubType: z.nativeEnum(SearchSubTypeCopastor ,{
       required_error: "Por favor seleccione una opción.",
-    })).optional(),
+    }).optional(),
     
     inputTerm: z.string().max(30).optional(),
     selectTerm: z.string().max(30).optional(),
@@ -45,9 +47,9 @@ export const copastorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchType.FirstName || 
-        data.searchType === SearchType.LastName || 
-        data.searchType === SearchType.FullName 
+        data.searchType === SearchTypeCopastor.FirstName || 
+        data.searchType === SearchTypeCopastor.LastName || 
+        data.searchType === SearchTypeCopastor.FullName 
       ) {
         return !!data.searchSubType; 
       }
@@ -61,7 +63,7 @@ export const copastorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchType.FirstName
+        data.searchType === SearchTypeCopastor.FirstName
       ) {
         return !!data.namesTerm; 
       }
@@ -75,7 +77,7 @@ export const copastorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchType.LastName
+        data.searchType === SearchTypeCopastor.LastName
       ) {
         return !!data.lastNamesTerm;
       }
@@ -90,7 +92,7 @@ export const copastorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchType.FullName
+        data.searchType === SearchTypeCopastor.FullName
       ) {
         return !!data.lastNamesTerm; 
       }
@@ -104,7 +106,7 @@ export const copastorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchType.FullName
+        data.searchType === SearchTypeCopastor.FullName
       ) {
         return !!data.namesTerm; 
       }
@@ -117,12 +119,12 @@ export const copastorFormTermSearchSchema = z
   )
   .refine(
     (data) => {
-      if (data.searchType === SearchType.OriginCountry ||
-          data.searchType === SearchType.Department || 
-          data.searchType === SearchType.Province || 
-          data.searchType === SearchType.District || 
-          data.searchType === SearchType.UrbanSector || 
-          data.searchType === SearchType.Address
+      if (data.searchType === SearchTypeCopastor.OriginCountry ||
+          data.searchType === SearchTypeCopastor.Department || 
+          data.searchType === SearchTypeCopastor.Province || 
+          data.searchType === SearchTypeCopastor.District || 
+          data.searchType === SearchTypeCopastor.UrbanSector || 
+          data.searchType === SearchTypeCopastor.Address
           ) {
         return !!data.inputTerm; 
       }
@@ -136,10 +138,10 @@ export const copastorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-          data.searchType === SearchType.BirthMonth ||
-          data.searchType === SearchType.Gender ||
-          data.searchType === SearchType.MaritalStatus || 
-          data.searchType === SearchType.Status
+          data.searchType === SearchTypeCopastor.BirthMonth ||
+          data.searchType === SearchTypeCopastor.Gender ||
+          data.searchType === SearchTypeCopastor.MaritalStatus || 
+          data.searchType === SearchTypeCopastor.Status
         ) {
         return !!data.selectTerm; 
       }
@@ -153,7 +155,7 @@ export const copastorFormTermSearchSchema = z
   .refine(
     (data) => {
       if ( 
-        data.searchType === SearchType.BirthDate
+        data.searchType === SearchTypeCopastor.BirthDate
       ) {
         return !!data.dateTerm; 
       }

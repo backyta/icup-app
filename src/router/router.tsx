@@ -1,37 +1,38 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import { Root } from '@/Root';
+import { DashboardLayout, AuthLayout } from '@/layouts';
+
 // Direct pages
-import { DashboardLayout } from '@/layouts';
 import { DashboardPage } from '@/app/dashboard/pages';
+import { ChurchOptionsPage } from '@/app/church/pages';
 import { DiscipleOptionsPage } from '@/app/disciple/pages';
 import { PastorOptionsPage } from '@/app/pastor/pages';
 import { CopastorOptionsPage } from '@/app/copastor/pages';
 import { SupervisorOptionsPage } from '@/app/supervisor/pages';
-import { LeaderOptionsPage } from '@/app/leader/pages';
+import { PreacherOptionsPage } from '@/app/preacher/pages';
+// import { LeaderOptionsPage } from '@/app/leader/pages';
 import { FamilyGroupOptionsPage } from '@/app/family-group/pages';
 import { OfferingOptionsPage } from '@/app/offering/pages';
 import { OfferingIncomeOptionsPage } from '@/app/offering/income/pages';
 import { OfferingExpensesOptionsPage } from '@/app/offering/expenses/pages';
+import { MetricsOptionsPage } from '@/app/metrics/pages';
 import { UserOptionsPage } from '@/app/user/pages';
 
 // Routers by module
+import { ChurchChildrenRoutes } from '@/app/church/router';
 import { DiscipleChildrenRoutes } from '@/app/disciple/router';
 import { PastorChildrenRoutes } from '@/app/pastor/router';
 import { CopastorChildrenRoutes } from '@/app/copastor/router';
 import { SupervisorChildrenRoutes } from '@/app/supervisor/router';
-import { LeaderChildrenRoutes } from '@/app/leader/router';
+import { PreacherChildrenRoutes } from '@/app/preacher/router';
+// import { LeaderChildrenRoutes } from '@/app/leader/router';
 import { FamilyGroupChildrenRoutes } from '@/app/family-group/router';
 import { OfferingIncomeChildrenRoutes } from '@/app/offering/income/router';
 import { OfferingExpensesChildrenRoutes } from '@/app/offering/expenses/router';
 import { UserChildrenRoutes } from '@/app/user/router';
-
-import { Root } from '@/Root';
 import { MetricsChildrenRoutes } from '@/app/metrics/router';
-import { MetricsOptionsPage } from '@/app/metrics/pages';
-import { ChurchOptionsPage } from '@/app/church/pages';
-import { ChurchChildrenRoutes } from '@/app/church/router';
-import { AuthLayout } from '@/layouts/AuthLayout';
-import { AuthChildrenRoutes } from '@/auth/router/AuthChildrenRoutes';
+import { AuthChildrenRoutes } from '@/auth/router';
 
 export const router = createBrowserRouter([
   {
@@ -49,7 +50,8 @@ export const router = createBrowserRouter([
           { path: '/pastors', element: <PastorOptionsPage /> },
           { path: '/copastors', element: <CopastorOptionsPage /> },
           { path: '/supervisors', element: <SupervisorOptionsPage /> },
-          { path: '/leaders', element: <LeaderOptionsPage /> },
+          { path: '/preachers', element: <PreacherOptionsPage /> },
+          // { path: '/leaders', element: <LeaderOptionsPage /> },
           { path: '/family-groups', element: <FamilyGroupOptionsPage /> },
           { path: '/offerings', element: <OfferingOptionsPage /> },
           { path: '/offerings/income', element: <OfferingIncomeOptionsPage /> },
@@ -64,7 +66,8 @@ export const router = createBrowserRouter([
       { path: '/pastors', element: <DashboardLayout />, children: PastorChildrenRoutes },
       { path: '/copastors', element: <DashboardLayout />, children: CopastorChildrenRoutes },
       { path: '/supervisors', element: <DashboardLayout />, children: SupervisorChildrenRoutes },
-      { path: '/leaders', element: <DashboardLayout />, children: LeaderChildrenRoutes },
+      { path: '/preachers', element: <DashboardLayout />, children: PreacherChildrenRoutes },
+      // { path: '/leaders', element: <DashboardLayout />, children: LeaderChildrenRoutes },
       { path: '/family-groups', element: <DashboardLayout />, children: FamilyGroupChildrenRoutes },
 
       // Routes offering (income)

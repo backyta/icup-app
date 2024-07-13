@@ -136,7 +136,7 @@ export function DataTableSearchGeneral<TData, TValue>({
   //* Querys
   const query = useQuery({
     queryKey: ['churches'],
-    queryFn: () => getChurches({ limit, offset, order, all }),
+    queryFn: () => getChurches({ limit, offset, order, limitAll: all }),
   });
 
   if (query.isLoading) return <LoadingSpinner />;

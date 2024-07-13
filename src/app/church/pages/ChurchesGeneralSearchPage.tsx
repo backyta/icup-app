@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/shared/lib/utils';
 
-import { type FormSearchByTerm } from '@/shared/interfaces';
+import { type FormSearchGeneral } from '@/shared/interfaces';
 import { formSearchGeneralSchema } from '@/shared/validations';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 
@@ -75,7 +75,7 @@ export const ChurchesGeneralSearchPage = (): JSX.Element => {
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
 
-  const [searchParams, setSearchParams] = useState<FormSearchByTerm | undefined>();
+  const [searchParams, setSearchParams] = useState<FormSearchGeneral | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({

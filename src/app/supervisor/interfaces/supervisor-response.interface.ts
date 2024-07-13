@@ -1,10 +1,7 @@
 import { 
-  type Copastor, 
   type Disciple, 
   type FamilyGroup, 
   type Preacher, 
-  type Supervisor, 
-  type Zone, 
   type CreatedBy,
   type UpdatedBy,
   type TheirChurch,
@@ -39,9 +36,6 @@ export interface SupervisorResponse {
   createdBy?:       CreatedBy;
   updatedAt?:       Date;
   updatedBy?:       UpdatedBy;
-  copastors?:       Copastor[];
-  supervisors?:     Supervisor[];
-  zones?:           Zone[];
   preachers?:       Preacher[];
   familyGroups?:    FamilyGroup[];
   disciples?:       Disciple[];

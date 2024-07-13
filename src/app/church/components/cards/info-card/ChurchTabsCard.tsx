@@ -3,7 +3,7 @@
 import { format } from 'date-fns';
 
 import { type ChurchResponse } from '@/app/church/interfaces';
-import { type WorshipTimes, WorshipTimesNames } from '@/app/church/enums';
+import { type WorshipTimes, WorshipTimesKeys } from '@/app/church/enums';
 
 import {
   Card,
@@ -15,8 +15,8 @@ import {
 import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 
-import { PopoverDataTabs } from '@/shared/components';
 import { getFullName } from '@/shared/helpers';
+import { PopoverDataTabs } from '@/shared/components';
 
 interface ChurchTabsCardProps {
   data: ChurchResponse | undefined;
@@ -189,12 +189,10 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <div className='px-2 pt-2 text-[14px] md:text-[14.5px]'>
                 <ul className='pl-5 flex flex-wrap gap-x-10 gap-y-2 list-disc'>
                   {data?.worshipTimes.map((worshipTime) =>
-                    Object.keys(WorshipTimesNames).map(
+                    Object.keys(WorshipTimesKeys).map(
                       (worshipTimeName) =>
                         worshipTime === worshipTimeName && (
-                          <li key={worshipTime}>
-                            {WorshipTimesNames[worshipTime as WorshipTimes]}
-                          </li>
+                          <li key={worshipTime}>{WorshipTimesKeys[worshipTime as WorshipTimes]}</li>
                         )
                     )
                   )}
@@ -277,7 +275,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               Información de contacto y ubicación.
             </CardDescription>
           </CardHeader>
-          <CardContent className='grid grid-cols-2 pl-[3rem] sm:pl-[7rem] gap-x-8 gap-y-5 md:gap-x-16 md:gap-y-6 md:pl-[7.5rem] md:pr-[1rem]'>
+          <CardContent className='grid grid-cols-2 pl-[3rem] sm:pl-[7rem] gap-x-8 gap-y-5 md:gap-x-16 md:gap-y-6 md:pl-[7rem] md:pr-[1rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>E-mail</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>

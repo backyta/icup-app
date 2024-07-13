@@ -8,7 +8,6 @@ import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
 
 import { type z } from 'zod';
-import { useLocation } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { CalendarIcon } from 'lucide-react';
@@ -17,29 +16,28 @@ import {
   supervisorUpdateColumns as columns,
   SearchByTermSupervisorDataTable,
 } from '@/app/supervisor/components';
-import { type SupervisorResponse } from '@/app/supervisor/interfaces';
+import {
+  type SupervisorFormSearchByTerm,
+  type SupervisorResponse,
+} from '@/app/supervisor/interfaces';
+import {
+  SearchByBirthMonthSupervisorKeys,
+  SearchByFirstNamesSupervisorKeys,
+  SearchByFullNamesSupervisorKeys,
+  SearchByGenderSupervisorKeys,
+  SearchByLastNamesSupervisorKeys,
+  SearchByMaritalStatusSupervisorKeys,
+  SearchByStatusSupervisorKeys,
+  SearchTypeSupervisor,
+  SearchTypeSupervisorKeys,
+} from '@/app/supervisor/enums';
 import { supervisorFormTermSearchSchema } from '@/app/supervisor/validations';
 
 import { cn } from '@/shared/lib/utils';
 import { useSupervisorStore } from '@/stores/supervisor';
 
-import {
-  RecordOrder,
-  RecordOrderNames,
-  SearchSelectionOptionNames,
-  SearchSubTypeNames,
-  SearchType,
-  SearchTypeNames,
-} from '@/shared/enums';
-import {
-  validateSelectTermByTypeAndSubtype,
-  validateTypesAllowedByModule,
-  formatDateTermToTimestamp,
-  formatNames,
-  formatLastNames,
-  validateSubTypesAllowedByModule,
-} from '@/shared/helpers';
-import { type FormSearchByTerm } from '@/shared/interfaces';
+import { RecordOrder, RecordOrderNames } from '@/shared/enums';
+import { formatDateTermToTimestamp, formatNames, formatLastNames } from '@/shared/helpers';
 
 import {
   Form,
@@ -103,11 +101,8 @@ export const SupervisorUpdatePage = (): JSX.Element => {
     (state) => state.setIsFiltersSearchByTermDisabled
   );
 
-  const [dataForm, setDataForm] = useState<FormSearchByTerm>();
-  const [searchParams, setSearchParams] = useState<FormSearchByTerm | undefined>();
-
-  //* Hooks (external library)
-  const { pathname } = useLocation();
+  const [dataForm, setDataForm] = useState<SupervisorFormSearchByTerm>();
+  const [searchParams, setSearchParams] = useState<SupervisorFormSearchByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof supervisorFormTermSearchSchema>>({
@@ -151,11 +146,6 @@ export const SupervisorUpdatePage = (): JSX.Element => {
     setIsFiltersSearchByTermDisabled(true);
   }, []);
 
-  //* Helpers
-  const disabledTypes = validateTypesAllowedByModule(pathname);
-  const disabledSubTypes = validateSubTypesAllowedByModule(pathname, searchType);
-  const disabledSelectTerm = validateSelectTermByTypeAndSubtype(searchType);
-
   //* Form handler
   function onSubmit(formData: z.infer<typeof supervisorFormTermSearchSchema>): void {
     let newDateTermTo;
@@ -187,7 +177,7 @@ export const SupervisorUpdatePage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h1 className='text-center pt-3 md:pt-2  pb-4 font-sans text-2xl sm:text-3xl font-bold text-leader-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+      <h1 className='text-center pt-3 md:pt-2  pb-4 font-sans text-2xl sm:text-3xl font-bold text-supervisor-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
         Modulo Supervisor
       </h1>
 
@@ -233,6 +223,9 @@ export const SupervisorUpdatePage = (): JSX.Element => {
                           form.resetField('inputTerm', {
                             keepError: true,
                           });
+                          form.resetField('searchSubType', {
+                            keepError: true,
+                          });
                         }}
                         onValueChange={field.onChange}
                       >
@@ -242,9 +235,9 @@ export const SupervisorUpdatePage = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(SearchTypeNames).map(([key, value]) => (
+                          {Object.entries(SearchTypeSupervisorKeys).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[13px] md:text-[14px] ${disabledTypes?.disabledSearchTypes?.includes(value) ? 'hidden' : ''}`}
+                              className={`text-[13px] md:text-[14px]`}
                               key={key}
                               value={key}
                             >
@@ -259,9 +252,9 @@ export const SupervisorUpdatePage = (): JSX.Element => {
                 }}
               />
 
-              {(searchType === SearchType.FirstName ||
-                searchType === SearchType.LastName ||
-                searchType === SearchType.FullName) && (
+              {(searchType === SearchTypeSupervisor.FirstName ||
+                searchType === SearchTypeSupervisor.LastName ||
+                searchType === SearchTypeSupervisor.FullName) && (
                 <FormField
                   control={form.control}
                   name='searchSubType'
@@ -304,13 +297,15 @@ export const SupervisorUpdatePage = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {Object.entries(SearchSubTypeNames).map(([key, value]) => (
+                            {Object.entries(
+                              searchType === SearchTypeSupervisor.FirstName
+                                ? SearchByFirstNamesSupervisorKeys
+                                : searchType === SearchTypeSupervisor.LastName
+                                  ? SearchByLastNamesSupervisorKeys
+                                  : SearchByFullNamesSupervisorKeys
+                            ).map(([key, value]) => (
                               <SelectItem
-                                className={cn(
-                                  `text-[13px] md:text-[14px]`,
-                                  disabledSubTypes?.disabledSearchSubTypes?.includes(key) &&
-                                    'hidden'
-                                )}
+                                className={cn(`text-[13px] md:text-[14px]`)}
                                 key={key}
                                 value={key}
                               >
@@ -326,13 +321,13 @@ export const SupervisorUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchType.OriginCountry ||
-                searchType === SearchType.Zone ||
-                searchType === SearchType.Department ||
-                searchType === SearchType.Province ||
-                searchType === SearchType.District ||
-                searchType === SearchType.UrbanSector ||
-                searchType === SearchType.Address) && (
+              {(searchType === SearchTypeSupervisor.OriginCountry ||
+                searchType === SearchTypeSupervisor.Zone ||
+                searchType === SearchTypeSupervisor.Department ||
+                searchType === SearchTypeSupervisor.Province ||
+                searchType === SearchTypeSupervisor.District ||
+                searchType === SearchTypeSupervisor.UrbanSector ||
+                searchType === SearchTypeSupervisor.Address) && (
                 <FormField
                   control={form.control}
                   name='inputTerm'
@@ -355,7 +350,7 @@ export const SupervisorUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {searchType === SearchType.BirthDate && (
+              {searchType === SearchTypeSupervisor.BirthDate && (
                 <FormField
                   control={form.control}
                   name='dateTerm'
@@ -412,10 +407,10 @@ export const SupervisorUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchType.Status ||
-                searchType === SearchType.BirthMonth ||
-                searchType === SearchType.Gender ||
-                searchType === SearchType.MaritalStatus) && (
+              {(searchType === SearchTypeSupervisor.Status ||
+                searchType === SearchTypeSupervisor.BirthMonth ||
+                searchType === SearchTypeSupervisor.Gender ||
+                searchType === SearchTypeSupervisor.MaritalStatus) && (
                 <FormField
                   control={form.control}
                   name='selectTerm'
@@ -444,9 +439,17 @@ export const SupervisorUpdatePage = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {Object.entries(SearchSelectionOptionNames).map(([key, value]) => (
+                            {Object.entries(
+                              searchType === SearchTypeSupervisor.Gender
+                                ? SearchByGenderSupervisorKeys
+                                : searchType === SearchTypeSupervisor.BirthMonth
+                                  ? SearchByBirthMonthSupervisorKeys
+                                  : searchType === SearchTypeSupervisor.MaritalStatus
+                                    ? SearchByMaritalStatusSupervisorKeys
+                                    : SearchByStatusSupervisorKeys
+                            ).map(([key, value]) => (
                               <SelectItem
-                                className={`text-[13px] md:text-[14px] ${disabledSelectTerm?.disabledSelectTerm?.includes(value) ? 'hidden' : ''}`}
+                                className={cn(`text-[13px] md:text-[14px]`)}
                                 key={key}
                                 value={key}
                               >
@@ -462,7 +465,8 @@ export const SupervisorUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchType.FirstName || searchType === SearchType.FullName) && (
+              {(searchType === SearchTypeSupervisor.FirstName ||
+                searchType === SearchTypeSupervisor.FullName) && (
                 <FormField
                   control={form.control}
                   name='namesTerm'
@@ -485,7 +489,8 @@ export const SupervisorUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchType.LastName || searchType === SearchType.FullName) && (
+              {(searchType === SearchTypeSupervisor.LastName ||
+                searchType === SearchTypeSupervisor.FullName) && (
                 <FormField
                   control={form.control}
                   name='lastNamesTerm'

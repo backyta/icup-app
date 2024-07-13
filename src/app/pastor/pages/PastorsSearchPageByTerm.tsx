@@ -10,33 +10,28 @@ import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
 
 import { type z } from 'zod';
-import { useLocation } from 'react-router-dom';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/shared/lib/utils';
 import { CalendarIcon } from 'lucide-react';
 
-import { pastorInfoColumns as columns, SearchByTermPastorDataTable } from '@/app/pastor/components';
-import { type PastorResponse } from '@/app/pastor/interfaces';
+import {
+  SearchByBirthMonthPastorKeys,
+  SearchByGenderPastorKeys,
+  SearchByMaritalStatusPastorKeys,
+  SearchByStatusPastorKeys,
+  SearchTypePastor,
+  SearchTypePastorKeys,
+} from '@/app/pastor/enums';
 import { pastorFormTermSearchSchema } from '@/app/pastor/validations';
+import { type PastorResponse, type PastorFormSearchByTerm } from '@/app/pastor/interfaces';
+import { pastorInfoColumns as columns, SearchByTermPastorDataTable } from '@/app/pastor/components';
 
 import { usePastorStore } from '@/stores/pastor';
 
-import {
-  RecordOrder,
-  RecordOrderNames,
-  SearchSelectionOptionNames,
-  SearchType,
-  SearchTypeNames,
-} from '@/shared/enums';
-import {
-  validateSelectTermByTypeAndSubtype,
-  validateTypesAllowedByModule,
-  formatDateTermToTimestamp,
-  formatNames,
-  formatLastNames,
-} from '@/shared/helpers';
-import { type FormSearchByTerm } from '@/shared/interfaces';
+import { RecordOrder, RecordOrderNames } from '@/shared/enums';
+import { formatDateTermToTimestamp, formatNames, formatLastNames } from '@/shared/helpers';
 
 import {
   Form,
@@ -98,11 +93,8 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
     (state) => state.setIsFiltersSearchByTermDisabled
   );
 
-  const [dataForm, setDataForm] = useState<FormSearchByTerm>();
-  const [searchParams, setSearchParams] = useState<FormSearchByTerm | undefined>();
-
-  //* Hooks (external library)
-  const { pathname } = useLocation();
+  const [dataForm, setDataForm] = useState<PastorFormSearchByTerm>();
+  const [searchParams, setSearchParams] = useState<PastorFormSearchByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof pastorFormTermSearchSchema>>({
@@ -145,10 +137,6 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
   useEffect(() => {
     setIsFiltersSearchByTermDisabled(true);
   }, []);
-
-  //* Helpers
-  const disabledTypes = validateTypesAllowedByModule(pathname);
-  const disabledSelectTerm = validateSelectTermByTypeAndSubtype(searchType);
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof pastorFormTermSearchSchema>): void {
@@ -236,9 +224,9 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(SearchTypeNames).map(([key, value]) => (
+                          {Object.entries(SearchTypePastorKeys).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[13px] md:text-[14px] ${disabledTypes?.disabledSearchTypes?.includes(value) ? 'hidden' : ''}`}
+                              className={`text-[13px] md:text-[14px]`}
                               key={key}
                               value={key}
                             >
@@ -253,12 +241,12 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
                 }}
               />
 
-              {(searchType === SearchType.OriginCountry ||
-                searchType === SearchType.Department ||
-                searchType === SearchType.Province ||
-                searchType === SearchType.District ||
-                searchType === SearchType.UrbanSector ||
-                searchType === SearchType.Address) && (
+              {(searchType === SearchTypePastor.OriginCountry ||
+                searchType === SearchTypePastor.Department ||
+                searchType === SearchTypePastor.Province ||
+                searchType === SearchTypePastor.District ||
+                searchType === SearchTypePastor.UrbanSector ||
+                searchType === SearchTypePastor.Address) && (
                 <FormField
                   control={form.control}
                   name='inputTerm'
@@ -281,7 +269,7 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {searchType === SearchType.BirthDate && (
+              {searchType === SearchTypePastor.BirthDate && (
                 <FormField
                   control={form.control}
                   name='dateTerm'
@@ -338,10 +326,10 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchType.Status ||
-                searchType === SearchType.BirthMonth ||
-                searchType === SearchType.Gender ||
-                searchType === SearchType.MaritalStatus) && (
+              {(searchType === SearchTypePastor.Status ||
+                searchType === SearchTypePastor.BirthMonth ||
+                searchType === SearchTypePastor.Gender ||
+                searchType === SearchTypePastor.MaritalStatus) && (
                 <FormField
                   control={form.control}
                   name='selectTerm'
@@ -370,9 +358,17 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {Object.entries(SearchSelectionOptionNames).map(([key, value]) => (
+                            {Object.entries(
+                              searchType === SearchTypePastor.Gender
+                                ? SearchByGenderPastorKeys
+                                : searchType === SearchTypePastor.BirthMonth
+                                  ? SearchByBirthMonthPastorKeys
+                                  : searchType === SearchTypePastor.MaritalStatus
+                                    ? SearchByMaritalStatusPastorKeys
+                                    : SearchByStatusPastorKeys
+                            ).map(([key, value]) => (
                               <SelectItem
-                                className={`text-[13px] md:text-[14px] ${disabledSelectTerm?.disabledSelectTerm?.includes(value) ? 'hidden' : ''}`}
+                                className={cn(`text-[13px] md:text-[14px]`)}
                                 key={key}
                                 value={key}
                               >
@@ -388,7 +384,8 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchType.FirstName || searchType === SearchType.FullName) && (
+              {(searchType === SearchTypePastor.FirstName ||
+                searchType === SearchTypePastor.FullName) && (
                 <FormField
                   control={form.control}
                   name='namesTerm'
@@ -411,7 +408,8 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchType.LastName || searchType === SearchType.FullName) && (
+              {(searchType === SearchTypePastor.LastName ||
+                searchType === SearchTypePastor.FullName) && (
                 <FormField
                   control={form.control}
                   name='lastNamesTerm'

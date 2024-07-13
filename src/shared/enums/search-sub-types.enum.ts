@@ -238,9 +238,9 @@ export const SearchSubTypeNames: Record<SearchSubType, string> =  {
   preacher_by_supervisor_names: 'Por nombres de su supervisor',
   preacher_by_supervisor_last_names: 'Por apellidos de su supervisor',
   preacher_by_supervisor_full_name: 'Por nombres y apellidos de su supervisor',
-  by_preacher_names: '',
-  by_preacher_last_names: '',
-  by_preacher_full_name: '',
+  by_preacher_names: 'Por sus nombres',
+  by_preacher_last_names: 'Por sus apellidos',
+  by_preacher_full_name: 'Por sus nombres y apellidos',
 
   //* Leaders
   leader_by_pastor_names : 'Por nombres de su pastor',

@@ -3,7 +3,7 @@ export enum SearchSelectionOptionChurch {
   Inactive = 'inactive',
 }
 
-export const SearchSelectionOptionChurchNames: Record<SearchSelectionOptionChurch, string> =  {
+export const SearchSelectionOptionChurchKeys: Record<SearchSelectionOptionChurch, string> =  {
   // 'active' : 'Activo',
   'inactive' : 'Inactivo',
 }

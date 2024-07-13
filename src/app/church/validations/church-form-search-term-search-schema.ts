@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import * as z from 'zod';
-import { RecordOrder } from '@/shared/enums';
 
+import { RecordOrder } from '@/shared/enums';
 import { SearchTypeChurch } from '@/app/church/enums';
 
 export const churchFormTermSearchSchema = z

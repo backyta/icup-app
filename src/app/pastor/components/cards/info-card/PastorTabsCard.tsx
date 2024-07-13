@@ -14,8 +14,8 @@ import {
 import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 
-import { PopoverDataTabs } from '@/shared/components';
 import { getFullName } from '@/shared/helpers';
+import { PopoverDataTabs } from '@/shared/components';
 
 interface PastorTabsCardProps {
   data: PastorResponse | undefined;
@@ -258,7 +258,7 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
               Información eclesiástica y relaciones ministeriales.
             </CardDescription>
           </CardHeader>
-          <CardContent className='grid  grid-cols-2 pl-[4.2rem] gap-x-6 gap-y-4 md:gap-x-4 md:gap-y-8 md:pl-[7rem] md:pr-[2.5rem]'>
+          <CardContent className='grid  grid-cols-2 pl-[4.2rem] gap-x-6 gap-y-4 md:gap-x-4 md:gap-y-8 md:pl-[8.5rem] md:pr-[3rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Roles / Cargos</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -326,7 +326,7 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid grid-cols-2 pl-[3rem] sm:pl-[6rem] gap-x-8 gap-y-4  md:gap-x-16 md:gap-y-6 md:pl-[5.5rem] md:pr-[3rem]'>
+          <CardContent className='grid grid-cols-2 pl-[3rem] sm:pl-[6rem] gap-x-8 gap-y-4  md:gap-x-16 md:gap-y-6 md:pl-[6.5rem] md:pr-[2.5rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Correo Electrónico</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>

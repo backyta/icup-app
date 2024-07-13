@@ -4,10 +4,10 @@ import { format } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
+import { type CopastorColumns } from '@/app/copastor/interfaces';
 import { CopastorInfoCard, CopastorDeleteCard } from '@/app/copastor/components';
 
 import { Button } from '@/shared/components/ui/button';
-import { type CopastorColumns } from '@/app/copastor/interfaces';
 
 export const copastorDeleteColumns: Array<ColumnDef<CopastorColumns, any>> = [
   {

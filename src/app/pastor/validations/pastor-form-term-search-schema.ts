@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import * as z from 'zod';
-import { SearchType, RecordOrder } from '@/shared/enums';
+
+import { RecordOrder } from '@/shared/enums';
+import { SearchTypePastor } from '@/app/pastor/enums';
 
 export const pastorFormTermSearchSchema = z
   .object({
-    searchType: z.nativeEnum(SearchType,{
+    searchType: z.nativeEnum(SearchTypePastor,{
       required_error: "Por favor seleccione un tipo.",
     }),
     
@@ -41,7 +43,7 @@ export const pastorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchType.FirstName
+        data.searchType === SearchTypePastor.FirstName
       ) {
         return !!data.namesTerm; 
       }
@@ -55,7 +57,7 @@ export const pastorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchType.LastName
+        data.searchType === SearchTypePastor.LastName
       ) {
         return !!data.lastNamesTerm;
       }
@@ -70,7 +72,7 @@ export const pastorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchType.FullName
+        data.searchType === SearchTypePastor.FullName
       ) {
         return !!data.lastNamesTerm; 
       }
@@ -84,7 +86,7 @@ export const pastorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchType.FullName
+        data.searchType === SearchTypePastor.FullName
       ) {
         return !!data.namesTerm; 
       }
@@ -97,12 +99,12 @@ export const pastorFormTermSearchSchema = z
   )
   .refine(
     (data) => {
-      if (data.searchType === SearchType.OriginCountry ||
-          data.searchType === SearchType.Department || 
-          data.searchType === SearchType.Province || 
-          data.searchType === SearchType.District || 
-          data.searchType === SearchType.UrbanSector || 
-          data.searchType === SearchType.Address
+      if (data.searchType === SearchTypePastor.OriginCountry ||
+          data.searchType === SearchTypePastor.Department || 
+          data.searchType === SearchTypePastor.Province || 
+          data.searchType === SearchTypePastor.District || 
+          data.searchType === SearchTypePastor.UrbanSector || 
+          data.searchType === SearchTypePastor.Address
           ) {
         return !!data.inputTerm; 
       }
@@ -116,10 +118,10 @@ export const pastorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-          data.searchType === SearchType.BirthMonth ||
-          data.searchType === SearchType.Gender ||
-          data.searchType === SearchType.MaritalStatus || 
-          data.searchType === SearchType.Status
+          data.searchType === SearchTypePastor.BirthMonth ||
+          data.searchType === SearchTypePastor.Gender ||
+          data.searchType === SearchTypePastor.MaritalStatus || 
+          data.searchType === SearchTypePastor.Status
         ) {
         return !!data.selectTerm; 
       }
@@ -133,7 +135,7 @@ export const pastorFormTermSearchSchema = z
   .refine(
     (data) => {
       if ( 
-        data.searchType === SearchType.BirthDate
+        data.searchType === SearchTypePastor.BirthDate
       ) {
         return !!data.dateTerm; 
       }

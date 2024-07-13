@@ -20,6 +20,11 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 
+import {
+  SearchSelectionOptionChurchKeys,
+  SearchTypeChurch,
+  SearchTypeChurchKeys,
+} from '@/app/church/enums';
 import { getChurchesByTerm } from '@/app/church/services';
 import { type ChurchFormSearchByTerm, type ChurchQueryParams } from '@/app/church/interfaces';
 
@@ -28,7 +33,6 @@ import { useChurchStore } from '@/stores/church';
 import { LoadingSpinner } from '@/layouts/components';
 
 import { formatDateDDMMYYYY } from '@/shared/helpers';
-import { SearchTypeNames, SearchSelectionOptionNames } from '@/shared/enums';
 
 import {
   Table,
@@ -40,7 +44,6 @@ import {
 } from '@/shared/components/ui/table';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
-import { SearchTypeChurch } from '@/app/church/enums';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -158,7 +161,7 @@ export function SearchByTermChurchDataTable<TData, TValue>({
             </span>{' '}
             <span className='font-medium text-[13px] md:text-[14.5px] italic'>
               {`${
-                Object.entries(SearchTypeNames).find(
+                Object.entries(SearchTypeChurchKeys).find(
                   ([key, value]) => key === dataForm?.searchType && value
                 )?.[1] ?? ''
               }`}
@@ -188,7 +191,7 @@ export function SearchByTermChurchDataTable<TData, TValue>({
             {dataForm?.searchType === SearchTypeChurch.Status && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
-                  Object.entries(SearchSelectionOptionNames).find(
+                  Object.entries(SearchSelectionOptionChurchKeys).find(
                     ([key, value]) => key === dataForm?.selectTerm && value
                   )?.[1]
                 }`}

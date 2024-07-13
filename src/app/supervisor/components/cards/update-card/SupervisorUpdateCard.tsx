@@ -10,11 +10,11 @@ import { SupervisorFormUpdate } from '@/app/supervisor/components';
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 
-interface CopastorUpdateCardProps {
+interface SupervisorUpdateCardProps {
   idRow: string;
 }
 
-export const SupervisorUpdateCard = ({ idRow }: CopastorUpdateCardProps): JSX.Element => {
+export const SupervisorUpdateCard = ({ idRow }: SupervisorUpdateCardProps): JSX.Element => {
   //* States
   const dataSearchByTermResponse = useSupervisorStore((state) => state.dataSearchByTermResponse);
   const [isOpen, setIsOpen] = useState<boolean>(false);

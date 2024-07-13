@@ -4,7 +4,8 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { SearchType } from '@/shared/enums';
+import { SearchTypeChurch } from '@/app/church/enums';
+
 import { type ChurchFormData, type ChurchResponse, type ChurchQueryParams } from '@/app/church/interfaces';
 
 //* Create church
@@ -85,12 +86,12 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
 
  let result: ChurchResponse[];
 
- if (searchType === SearchType.ChurchName||
-     searchType === SearchType.Department || 
-     searchType === SearchType.Province || 
-     searchType === SearchType.District || 
-     searchType === SearchType.UrbanSector || 
-     searchType === SearchType.Address
+ if (searchType === SearchTypeChurch.ChurchName||
+     searchType === SearchTypeChurch.Department || 
+     searchType === SearchTypeChurch.Province || 
+     searchType === SearchTypeChurch.District || 
+     searchType === SearchTypeChurch.UrbanSector || 
+     searchType === SearchTypeChurch.Address
     ) {
     try {
       if ( all !== undefined && !all) {
@@ -125,7 +126,7 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
     }
  }
 
- if (searchType === SearchType.FoundingDate) {
+ if (searchType === SearchTypeChurch.FoundingDate) {
    try {
      if ( all !== undefined && !all) {
        const {data} = await icupApi<ChurchResponse[]>(`/churches/${dateTerm}` , {
@@ -159,7 +160,7 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
    }
  }
 
- if (searchType === SearchType.Status) {
+ if (searchType === SearchTypeChurch.Status) {
     try {
       if ( all !== undefined && !all) {
         const {data} = await icupApi<ChurchResponse[]>(`/churches/${selectTerm}` , {
@@ -204,8 +205,6 @@ export const updateChurch = async ({id, formData}: updateChurchOptions ): Promis
   try {
     const {data} = await icupApi.patch<ChurchResponse>(`/churches/${id}`, formData)
 
-
-    
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
@@ -220,8 +219,6 @@ export const updateChurch = async ({id, formData}: updateChurchOptions ): Promis
 export const deleteChurch = async (id: string ): Promise<void> => {
   try {
     const {data} = await icupApi.delete(`/churches/${id}`)
-
-    console.log(data);
     
     return data;
   } catch (error) {

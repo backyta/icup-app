@@ -10,7 +10,7 @@ export enum WorshipTimes {
  
 }
 
-export const WorshipTimesNames: Record<WorshipTimes, string> = {
+export const WorshipTimesKeys: Record<WorshipTimes, string> = {
   '9:00': '9:00 AM',
   '10:00': '10:00 AM',
   '11:00': '11:00 AM',

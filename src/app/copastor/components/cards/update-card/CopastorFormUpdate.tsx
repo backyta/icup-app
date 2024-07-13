@@ -21,10 +21,13 @@ import { CalendarIcon } from 'lucide-react';
 import { cn } from '@/shared/lib/utils';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { getAllPastors, updateCopastor } from '@/app/copastor/services';
 import { copastorFormSchema } from '@/app/copastor/validations';
 import { FormCopastorSkeleton } from '@/app/copastor/components';
 import { type CopastorResponse } from '@/app/copastor/interfaces';
+import { getAllPastors, updateCopastor } from '@/app/copastor/services';
+
+import { getAllChurches } from '@/app/pastor/services';
+
 import {
   useCopastorPromoteButtonLogic,
   useCopastorUpdateSubmitButtonLogic,
@@ -93,7 +96,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/shared/components/ui/alert-dialog';
-import { getAllChurches } from '@/app/pastor/services';
 
 interface CopastorFormUpdateProps {
   id: string;
@@ -102,7 +104,6 @@ interface CopastorFormUpdateProps {
   data: CopastorResponse | undefined;
 }
 
-// TODO : ver los any del promote button en update, y que funcione bien.
 export const CopastorFormUpdate = ({
   id,
   data,
@@ -618,7 +619,7 @@ export const CopastorFormUpdate = ({
                                 *El registro esta <span className='text-green-500'>activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
                                 debe eliminar el registro desde la pestaña{' '}
-                                <span className='font-bold text-red-500'>Eliminar Pastor. </span>
+                                <span className='font-bold text-red-500'>Eliminar Co-Pastor. </span>
                               </FormDescription>
                             )}
                             {form.getValues('status') === 'inactive' && (
@@ -976,11 +977,11 @@ export const CopastorFormUpdate = ({
                           {form.getValues('roles').includes(MemberRoles.Disciple) &&
                             form.getValues('roles').includes(MemberRoles.Pastor) && (
                               <div>
-                                <span className='text-red-500 text-left inline-block'>
-                                  Roles anteriores: Discípulo - Co-pastor
+                                <span className='text-red-500 text-center inline-block'>
+                                  Roles anteriores: Discípulo - Co-Pastor
                                 </span>
                                 <br />
-                                <span className='text-green-500 text-left inline-block'>
+                                <span className='text-green-500 text-center inline-block'>
                                   Roles nuevos: Discípulo - Pastor
                                 </span>
                               </div>
@@ -1184,13 +1185,14 @@ export const CopastorFormUpdate = ({
                             </span>
 
                             <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-                              ❌ Si era Co-pastor(a) y sube a Pastor(a) se borrara su relación con
-                              las zonas, grupos familiares, supervisores, predicadores y discípulos
+                              ❌ Si era Co-Pastor(a) y sube a Pastor(a) se borrara su relación con
+                              los discípulos, grupos familiares, predicadores, supervisores y zonas
                               que englobaba su cargo.
                             </span>
                             <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-                              ✅ Se deberá asignar otro Co-pastor(a) para los discípulos, casas y
-                              zonas que quedaron desamparados.
+                              ✅ Se deberá asignar otro Co-Pastor(a) para los discípulos, grupos
+                              familiares, predicadores, supervisores y zonas que se quedaron sin
+                              Co-Pastor.
                             </span>
 
                             <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>

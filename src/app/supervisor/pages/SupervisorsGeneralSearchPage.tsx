@@ -19,7 +19,7 @@ import {
 } from '@/app/supervisor/components';
 import { type SupervisorResponse } from '@/app/supervisor/interfaces';
 
-import { type FormSearchByTerm } from '@/shared/interfaces';
+import { type FormSearchGeneral } from '@/shared/interfaces';
 import { formSearchGeneralSchema } from '@/shared/validations';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 
@@ -83,7 +83,7 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
 
-  const [searchParams, setSearchParams] = useState<FormSearchByTerm | undefined>();
+  const [searchParams, setSearchParams] = useState<FormSearchGeneral | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({
@@ -128,7 +128,7 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h1 className='text-center pt-3 md:pt-2 pb-4 font-sans text-2xl sm:text-3xl font-bold text-leader-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+      <h1 className='text-center pt-3 md:pt-2 pb-4 font-sans text-2xl sm:text-3xl font-bold text-supervisor-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
         Modulo Supervisor
       </h1>
 

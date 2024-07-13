@@ -104,8 +104,6 @@ interface SupervisorFormUpdateProps {
   data: SupervisorResponse | undefined;
 }
 
-// TODO : falta hacer en backedn para cambiar un inactivo a activo y cambiar a relacion directa cuando esta sin copastor
-// TODO : revisar la relacion directo y cuando se podra hacer, corregir el backend y tmb en create
 export const SupervisorFormUpdate = ({
   id,
   data,
@@ -645,7 +643,9 @@ export const SupervisorFormUpdate = ({
                                 *El registro esta <span className='text-green-500'>activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
                                 debe eliminar el registro desde la pestaña{' '}
-                                <span className='font-bold text-red-500'>Eliminar Pastor. </span>
+                                <span className='font-bold text-red-500'>
+                                  Eliminar Supervisor.{' '}
+                                </span>
                               </FormDescription>
                             )}
                             {form.getValues('status') === 'inactive' && (
@@ -1025,14 +1025,28 @@ export const SupervisorFormUpdate = ({
                         !SE HA PROMOVIDO CORRECTAMENTE! <br />
                         <span className='text-[12px] md:text-[13px]'>
                           {form.getValues('roles').includes(MemberRoles.Disciple) &&
-                            form.getValues('roles').includes(MemberRoles.Pastor) && (
+                            form.getValues('roles').includes(MemberRoles.Copastor) &&
+                            !data?.roles.includes(MemberRoles.Treasurer) && (
                               <div>
-                                <span className='text-red-500 text-left inline-block'>
-                                  Roles anteriores: Discípulo - Co-pastor
+                                <span className='text-red-500 text-center inline-block'>
+                                  Roles anteriores: Discípulo - Supervisor
                                 </span>
                                 <br />
-                                <span className='text-green-500 text-left inline-block'>
-                                  Roles nuevos: Discípulo - Pastor
+                                <span className='text-green-500 text-center inline-block'>
+                                  Roles nuevos: Discípulo - Co-Pastor
+                                </span>
+                              </div>
+                            )}
+                          {form.getValues('roles').includes(MemberRoles.Disciple) &&
+                            form.getValues('roles').includes(MemberRoles.Copastor) &&
+                            data?.roles.includes(MemberRoles.Treasurer) && (
+                              <div>
+                                <span className='text-red-500 text-center inline-block'>
+                                  Roles anteriores: Discípulo - Supervisor - Tesorero
+                                </span>
+                                <br />
+                                <span className='text-green-500 text-center inline-block'>
+                                  Roles nuevos: Discípulo - Co-Pastor
                                 </span>
                               </div>
                             )}
@@ -1056,7 +1070,7 @@ export const SupervisorFormUpdate = ({
                                   Co-Pastor
                                 </FormLabel>
                                 <FormDescription className='text-[14px]'>
-                                  Seleccione un pastor para este co-pastor.
+                                  Seleccione un co-pastor para este supervisor.
                                 </FormDescription>
                                 <Popover
                                   open={isInputTheirCopastorOpen}
@@ -1162,7 +1176,7 @@ export const SupervisorFormUpdate = ({
                                         placeholder='Busque una pastor...'
                                         className='h-9 text-[14px]'
                                       />
-                                      <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
+                                      <CommandEmpty>Pastor no encontrado.</CommandEmpty>
                                       <CommandGroup className='max-h-[200px] h-auto'>
                                         {queryPastors?.data?.map((pastor) => (
                                           <CommandItem
@@ -1215,7 +1229,7 @@ export const SupervisorFormUpdate = ({
                       <AlertDialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
                         <AlertDialogHeader className='h-auto'>
                           <AlertDialogTitle className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-2'>
-                            ¿Estas seguro de promover a este Co-Pastor?
+                            ¿Estas seguro de promover a este Supervisor?
                           </AlertDialogTitle>
                           <AlertDialogDescription className={cn('h-[19.5rem] md:h-[17rem]')}>
                             <span className='w-full text-left text-blue-500 font-medium mb-3 inline-block text-[16px] md:text-[18px]'>
@@ -1234,13 +1248,13 @@ export const SupervisorFormUpdate = ({
                             </span>
 
                             <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-                              ❌ Si era Co-pastor(a) y sube a Pastor(a) se borrara su relación con
-                              las zonas, grupos familiares, supervisores, predicadores y discípulos
-                              que englobaba su cargo.
+                              ❌ Si era Supervisor(a) y sube a Co-Pastor(a) se borrara su relación
+                              con sus discípulos, grupos familiares, predicadores y zona que
+                              englobaba su cargo.
                             </span>
                             <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-                              ✅ Se deberá asignar otro Co-pastor(a) para los discípulos, casas y
-                              zonas que quedaron desamparados.
+                              ✅ Se deberá asignar otro Supervisor(a) para discípulos, grupos
+                              familiares, predicadores y zona que se quedaron sin Supervisor.
                             </span>
 
                             <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>

@@ -15,9 +15,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { CalendarIcon } from 'lucide-react';
 
 import {
-  SearchSelectionOptionChurchNames,
+  SearchSelectionOptionChurchKeys,
   SearchTypeChurch,
-  SearchTypeChurchNames,
+  SearchTypeChurchKeys,
 } from '@/app/church/enums';
 import { churchFormTermSearchSchema } from '@/app/church/validations';
 import { type ChurchResponse, type ChurchFormSearchByTerm } from '@/app/church/interfaces';
@@ -203,7 +203,7 @@ export const ChurchesSearchPageByTerm = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(SearchTypeChurchNames).map(([key, value]) => (
+                          {Object.entries(SearchTypeChurchKeys).map(([key, value]) => (
                             <SelectItem
                               className={`text-[13px] md:text-[14px]`}
                               key={key}
@@ -334,17 +334,15 @@ export const ChurchesSearchPageByTerm = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {Object.entries(SearchSelectionOptionChurchNames).map(
-                              ([key, value]) => (
-                                <SelectItem
-                                  className={`text-[13px] md:text-[14px]`}
-                                  key={key}
-                                  value={key}
-                                >
-                                  {value}
-                                </SelectItem>
-                              )
-                            )}
+                            {Object.entries(SearchSelectionOptionChurchKeys).map(([key, value]) => (
+                              <SelectItem
+                                className={`text-[13px] md:text-[14px]`}
+                                key={key}
+                                value={key}
+                              >
+                                {value}
+                              </SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                         <FormMessage />

@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
 import { type MemberRoles } from '@/shared/enums';
+
 import { type CopastorFormData } from '@/app/copastor/interfaces';
 
 interface Options {
@@ -102,7 +103,8 @@ export const useCopastorCreateSubmitButtonLogic = ({
       !address ||
       !urbanSector ||
       !address ||
-      (referenceAddress && roles.length === 0 && !isInputDisabled)
+      !referenceAddress ||
+      roles.length === 0
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);

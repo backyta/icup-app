@@ -10,7 +10,6 @@ import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
 
 import { type z } from 'zod';
-import { useLocation } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { CalendarIcon } from 'lucide-react';
@@ -19,29 +18,25 @@ import {
   copastorInfoColumns as columns,
   SearchByTermCopastorDataTable,
 } from '@/app/copastor/components';
-import { type CopastorResponse } from '@/app/copastor/interfaces';
+import {
+  SearchByBirthMonthCopastorKeys,
+  SearchByFirstNamesCopastorKeys,
+  SearchByFullNamesCopastorKeys,
+  SearchByGenderCopastorKeys,
+  SearchByLastNamesCopastorKeys,
+  SearchByMaritalStatusCopastorKeys,
+  SearchByStatusCopastorKeys,
+  SearchTypeCopastor,
+  SearchTypeCopastorKeys,
+} from '@/app/copastor/enums';
 import { copastorFormTermSearchSchema } from '@/app/copastor/validations';
+import { type CopastorFormSearchByTerm, type CopastorResponse } from '@/app/copastor/interfaces';
 
 import { cn } from '@/shared/lib/utils';
 import { useCopastorStore } from '@/stores/copastor';
 
-import {
-  RecordOrder,
-  RecordOrderNames,
-  SearchSelectionOptionNames,
-  SearchSubTypeNames,
-  SearchType,
-  SearchTypeNames,
-} from '@/shared/enums';
-import {
-  validateSelectTermByTypeAndSubtype,
-  validateTypesAllowedByModule,
-  formatDateTermToTimestamp,
-  formatNames,
-  formatLastNames,
-  validateSubTypesAllowedByModule,
-} from '@/shared/helpers';
-import { type FormSearchByTerm } from '@/shared/interfaces';
+import { RecordOrder, RecordOrderNames } from '@/shared/enums';
+import { formatDateTermToTimestamp, formatNames, formatLastNames } from '@/shared/helpers';
 
 import {
   Form,
@@ -104,11 +99,8 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
     (state) => state.setIsFiltersSearchByTermDisabled
   );
 
-  const [dataForm, setDataForm] = useState<FormSearchByTerm>();
-  const [searchParams, setSearchParams] = useState<FormSearchByTerm | undefined>();
-
-  //* Hooks (external library)
-  const { pathname } = useLocation();
+  const [dataForm, setDataForm] = useState<CopastorFormSearchByTerm>();
+  const [searchParams, setSearchParams] = useState<CopastorFormSearchByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof copastorFormTermSearchSchema>>({
@@ -151,11 +143,6 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
   useEffect(() => {
     setIsFiltersSearchByTermDisabled(true);
   }, []);
-
-  //* Helpers
-  const disabledTypes = validateTypesAllowedByModule(pathname);
-  const disabledSubTypes = validateSubTypesAllowedByModule(pathname, searchType);
-  const disabledSelectTerm = validateSelectTermByTypeAndSubtype(searchType);
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof copastorFormTermSearchSchema>): void {
@@ -234,6 +221,9 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                           form.resetField('inputTerm', {
                             keepError: true,
                           });
+                          form.resetField('searchSubType', {
+                            keepError: true,
+                          });
                         }}
                         onValueChange={field.onChange}
                       >
@@ -243,9 +233,9 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(SearchTypeNames).map(([key, value]) => (
+                          {Object.entries(SearchTypeCopastorKeys).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[13px] md:text-[14px] ${disabledTypes?.disabledSearchTypes?.includes(value) ? 'hidden' : ''}`}
+                              className={`text-[13px] md:text-[14px]`}
                               key={key}
                               value={key}
                             >
@@ -260,9 +250,9 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                 }}
               />
 
-              {(searchType === SearchType.FirstName ||
-                searchType === SearchType.LastName ||
-                searchType === SearchType.FullName) && (
+              {(searchType === SearchTypeCopastor.FirstName ||
+                searchType === SearchTypeCopastor.LastName ||
+                searchType === SearchTypeCopastor.FullName) && (
                 <FormField
                   control={form.control}
                   name='searchSubType'
@@ -305,13 +295,15 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {Object.entries(SearchSubTypeNames).map(([key, value]) => (
+                            {Object.entries(
+                              searchType === SearchTypeCopastor.FirstName
+                                ? SearchByFirstNamesCopastorKeys
+                                : searchType === SearchTypeCopastor.LastName
+                                  ? SearchByLastNamesCopastorKeys
+                                  : SearchByFullNamesCopastorKeys
+                            ).map(([key, value]) => (
                               <SelectItem
-                                className={cn(
-                                  `text-[13px] md:text-[14px]`,
-                                  disabledSubTypes?.disabledSearchSubTypes?.includes(key) &&
-                                    'hidden'
-                                )}
+                                className={cn(`text-[13px] md:text-[14px]`)}
                                 key={key}
                                 value={key}
                               >
@@ -327,12 +319,12 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchType.OriginCountry ||
-                searchType === SearchType.Department ||
-                searchType === SearchType.Province ||
-                searchType === SearchType.District ||
-                searchType === SearchType.UrbanSector ||
-                searchType === SearchType.Address) && (
+              {(searchType === SearchTypeCopastor.OriginCountry ||
+                searchType === SearchTypeCopastor.Department ||
+                searchType === SearchTypeCopastor.Province ||
+                searchType === SearchTypeCopastor.District ||
+                searchType === SearchTypeCopastor.UrbanSector ||
+                searchType === SearchTypeCopastor.Address) && (
                 <FormField
                   control={form.control}
                   name='inputTerm'
@@ -355,7 +347,7 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {searchType === SearchType.BirthDate && (
+              {searchType === SearchTypeCopastor.BirthDate && (
                 <FormField
                   control={form.control}
                   name='dateTerm'
@@ -412,10 +404,10 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchType.Status ||
-                searchType === SearchType.BirthMonth ||
-                searchType === SearchType.Gender ||
-                searchType === SearchType.MaritalStatus) && (
+              {(searchType === SearchTypeCopastor.Status ||
+                searchType === SearchTypeCopastor.BirthMonth ||
+                searchType === SearchTypeCopastor.Gender ||
+                searchType === SearchTypeCopastor.MaritalStatus) && (
                 <FormField
                   control={form.control}
                   name='selectTerm'
@@ -444,9 +436,17 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {Object.entries(SearchSelectionOptionNames).map(([key, value]) => (
+                            {Object.entries(
+                              searchType === SearchTypeCopastor.Gender
+                                ? SearchByGenderCopastorKeys
+                                : searchType === SearchTypeCopastor.BirthMonth
+                                  ? SearchByBirthMonthCopastorKeys
+                                  : searchType === SearchTypeCopastor.MaritalStatus
+                                    ? SearchByMaritalStatusCopastorKeys
+                                    : SearchByStatusCopastorKeys
+                            ).map(([key, value]) => (
                               <SelectItem
-                                className={`text-[13px] md:text-[14px] ${disabledSelectTerm?.disabledSelectTerm?.includes(value) ? 'hidden' : ''}`}
+                                className={cn(`text-[13px] md:text-[14px]`)}
                                 key={key}
                                 value={key}
                               >
@@ -462,7 +462,8 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchType.FirstName || searchType === SearchType.FullName) && (
+              {(searchType === SearchTypeCopastor.FirstName ||
+                searchType === SearchTypeCopastor.FullName) && (
                 <FormField
                   control={form.control}
                   name='namesTerm'
@@ -485,7 +486,8 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchType.LastName || searchType === SearchType.FullName) && (
+              {(searchType === SearchTypeCopastor.LastName ||
+                searchType === SearchTypeCopastor.FullName) && (
                 <FormField
                   control={form.control}
                   name='lastNamesTerm'

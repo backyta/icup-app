@@ -76,10 +76,10 @@ import {
   FormMessage,
 } from '@/shared/components/ui/form';
 
-// todo : faltan porba rewndpoints y aniadir algunos tipos de busqueda
 export const SupervisorCreatePage = (): JSX.Element => {
   //* States
   const [isInputTheirCopastorOpen, setIsInputTheirCopastorOpen] = useState<boolean>(false);
+  const [isInputTheirPastorOpen, setIsInputTheirPastorOpen] = useState<boolean>(false);
   const [isInputBirthDateOpen, setIsInputBirthDateOpen] = useState<boolean>(false);
   const [isInputConvertionDateOpen, setIsInputConvertionDateOpen] = useState<boolean>(false);
 
@@ -233,7 +233,6 @@ export const SupervisorCreatePage = (): JSX.Element => {
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof supervisorFormSchema>): void => {
-    console.log(formData);
     mutation.mutate(formData);
   };
 
@@ -241,7 +240,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <h1
         className={cn(
-          'text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-pastor-color text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]'
+          'text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-supervisor-color text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]'
         )}
       >
         Modulo Supervisor
@@ -888,8 +887,8 @@ export const SupervisorCreatePage = (): JSX.Element => {
                           Seleccione un Pastor para este Supervisor (enlace directo).
                         </FormDescription>
                         <Popover
-                          open={isInputTheirCopastorOpen}
-                          onOpenChange={setIsInputTheirCopastorOpen}
+                          open={isInputTheirPastorOpen}
+                          onOpenChange={setIsInputTheirPastorOpen}
                         >
                           <PopoverTrigger asChild>
                             <FormControl>
@@ -976,7 +975,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                                 )}
                               >
                                 {field.value
-                                  ? `${queryCopastors.data?.find((copastor) => copastor.id === field.value)?.firstName} ${queryCopastors.data?.find((pastor) => pastor.id === field.value)?.lastName}`
+                                  ? `${queryCopastors.data?.find((copastor) => copastor.id === field.value)?.firstName} ${queryCopastors.data?.find((copastor) => copastor.id === field.value)?.lastName}`
                                   : 'Busque y seleccione un co-pastor'}
                                 <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                               </Button>

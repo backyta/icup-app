@@ -20,16 +20,24 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 
+import {
+  type SupervisorFormSearchByTerm,
+  type SupervisorQueryParams,
+} from '@/app/supervisor/interfaces';
+import {
+  SearchSelectionOptionSupervisorKeys,
+  SearchSubTypeSupervisorKeys,
+  SearchTypeSupervisor,
+  SearchTypeSupervisorKeys,
+} from '@/app/supervisor/enums';
 import { getSupervisorsByTerm } from '@/app/supervisor/services';
-import { type SupervisorQueryParams } from '@/app/supervisor/interfaces';
 
 import { useSupervisorStore } from '@/stores/supervisor';
 
 import { LoadingSpinner } from '@/layouts/components';
 
 import { formatDateDDMMYYYY } from '@/shared/helpers';
-import { type FormSearchByTerm } from '@/shared/interfaces';
-import { SearchType, SearchTypeNames, SearchSelectionOptionNames } from '@/shared/enums';
+
 import {
   Table,
   TableBody,
@@ -44,9 +52,9 @@ import { Button } from '@/shared/components/ui/button';
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  searchParams: FormSearchByTerm | undefined;
-  setSearchParams: React.Dispatch<React.SetStateAction<FormSearchByTerm | undefined>>;
-  dataForm: FormSearchByTerm | undefined;
+  searchParams: SupervisorFormSearchByTerm | undefined;
+  setSearchParams: React.Dispatch<React.SetStateAction<SupervisorFormSearchByTerm | undefined>>;
+  dataForm: SupervisorFormSearchByTerm | undefined;
 }
 
 export function SearchByTermSupervisorDataTable<TData, TValue>({
@@ -157,11 +165,24 @@ export function SearchByTermSupervisorDataTable<TData, TValue>({
             </span>{' '}
             <span className='font-medium text-[13px] md:text-[14.5px] italic'>
               {`${
-                Object.entries(SearchTypeNames).find(
+                Object.entries(SearchTypeSupervisorKeys).find(
                   ([key, value]) => key === dataForm?.searchType && value
                 )?.[1]
               }`}
             </span>
+            {(dataForm?.searchType === SearchTypeSupervisor.FirstName ||
+              dataForm?.searchType === SearchTypeSupervisor.LastName ||
+              dataForm?.searchType === SearchTypeSupervisor.FullName) && (
+              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                {' '}
+                -{' '}
+                {`${
+                  Object.entries(SearchSubTypeSupervisorKeys).find(
+                    ([key, value]) => key === dataForm?.searchSubType && value
+                  )?.[1]
+                }`}
+              </span>
+            )}
           </div>
 
           {/* Search Terms */}
@@ -169,44 +190,44 @@ export function SearchByTermSupervisorDataTable<TData, TValue>({
             <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
               Termino de búsqueda:
             </span>{' '}
-            {(dataForm?.searchType === SearchType.OriginCountry ||
-              dataForm?.searchType === SearchType.Zone ||
-              dataForm?.searchType === SearchType.Department ||
-              dataForm?.searchType === SearchType.Province ||
-              dataForm?.searchType === SearchType.District ||
-              dataForm?.searchType === SearchType.UrbanSector ||
-              dataForm?.searchType === SearchType.Address) && (
+            {(dataForm?.searchType === SearchTypeSupervisor.OriginCountry ||
+              dataForm?.searchType === SearchTypeSupervisor.Zone ||
+              dataForm?.searchType === SearchTypeSupervisor.Department ||
+              dataForm?.searchType === SearchTypeSupervisor.Province ||
+              dataForm?.searchType === SearchTypeSupervisor.District ||
+              dataForm?.searchType === SearchTypeSupervisor.UrbanSector ||
+              dataForm?.searchType === SearchTypeSupervisor.Address) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.inputTerm}`}
               </span>
             )}
-            {dataForm?.searchType === SearchType.FirstName && (
+            {dataForm?.searchType === SearchTypeSupervisor.FirstName && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.namesTerm}`}
               </span>
             )}
-            {dataForm?.searchType === SearchType.LastName && (
+            {dataForm?.searchType === SearchTypeSupervisor.LastName && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.lastNamesTerm}`}
               </span>
             )}
-            {dataForm?.searchType === SearchType.FullName && (
+            {dataForm?.searchType === SearchTypeSupervisor.FullName && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
               </span>
             )}
-            {dataForm?.searchType === SearchType.BirthDate && (
+            {dataForm?.searchType === SearchTypeSupervisor.BirthDate && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.dateTerm?.from ? formatDateDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDateDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
               </span>
             )}
-            {(dataForm?.searchType === SearchType.BirthMonth ||
-              dataForm?.searchType === SearchType.Gender ||
-              dataForm?.searchType === SearchType.MaritalStatus ||
-              dataForm?.searchType === SearchType.Status) && (
+            {(dataForm?.searchType === SearchTypeSupervisor.BirthMonth ||
+              dataForm?.searchType === SearchTypeSupervisor.Gender ||
+              dataForm?.searchType === SearchTypeSupervisor.MaritalStatus ||
+              dataForm?.searchType === SearchTypeSupervisor.Status) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
-                  Object.entries(SearchSelectionOptionNames).find(
+                  Object.entries(SearchSelectionOptionSupervisorKeys).find(
                     ([key, value]) => key === dataForm?.selectTerm && value
                   )?.[1]
                 }`}

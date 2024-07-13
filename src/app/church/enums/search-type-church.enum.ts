@@ -10,7 +10,7 @@ export enum SearchTypeChurch {
   Status = 'status',
 }
 
-export const SearchTypeChurchNames: Record<SearchTypeChurch, string> =  {
+export const SearchTypeChurchKeys: Record<SearchTypeChurch, string> =  {
   church_name: 'Nombre Iglesia',
   founding_date: 'Fecha de Fundación',
   department : 'Departamento',

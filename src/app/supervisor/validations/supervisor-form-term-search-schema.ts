@@ -1,17 +1,19 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import * as z from 'zod';
-import { SearchType, RecordOrder, SearchSubType } from '@/shared/enums';
+
+import { RecordOrder } from '@/shared/enums';
+import { SearchSubTypeSupervisor, SearchTypeSupervisor } from '@/app/supervisor/enums';
 
 export const supervisorFormTermSearchSchema = z
   .object({
-    searchType: z.nativeEnum(SearchType,{
+    searchType: z.nativeEnum(SearchTypeSupervisor,{
       required_error: "Por favor seleccione un tipo.",
     }),
 
-    searchSubType: z.string(z.nativeEnum(SearchSubType ,{
+    searchSubType: z.nativeEnum(SearchSubTypeSupervisor ,{
       required_error: "Por favor seleccione una opción.",
-    })).optional(),
+    }).optional(),
     
     inputTerm: z.string().max(30).optional(),
     selectTerm: z.string().max(30).optional(),
@@ -45,9 +47,9 @@ export const supervisorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchType.FirstName || 
-        data.searchType === SearchType.LastName || 
-        data.searchType === SearchType.FullName 
+        data.searchType === SearchTypeSupervisor.FirstName || 
+        data.searchType === SearchTypeSupervisor.LastName || 
+        data.searchType === SearchTypeSupervisor.FullName 
       ) {
         return !!data.searchSubType; 
       }
@@ -61,7 +63,7 @@ export const supervisorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchType.FirstName
+        data.searchType === SearchTypeSupervisor.FirstName
       ) {
         return !!data.namesTerm; 
       }
@@ -75,7 +77,7 @@ export const supervisorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchType.LastName
+        data.searchType === SearchTypeSupervisor.LastName
       ) {
         return !!data.lastNamesTerm;
       }
@@ -90,7 +92,7 @@ export const supervisorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchType.FullName
+        data.searchType === SearchTypeSupervisor.FullName
       ) {
         return !!data.lastNamesTerm; 
       }
@@ -104,7 +106,7 @@ export const supervisorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchType.FullName
+        data.searchType === SearchTypeSupervisor.FullName
       ) {
         return !!data.namesTerm; 
       }
@@ -117,13 +119,13 @@ export const supervisorFormTermSearchSchema = z
   )
   .refine(
     (data) => {
-      if (data.searchType === SearchType.OriginCountry ||
-          data.searchType === SearchType.Zone ||
-          data.searchType === SearchType.Department || 
-          data.searchType === SearchType.Province || 
-          data.searchType === SearchType.District || 
-          data.searchType === SearchType.UrbanSector || 
-          data.searchType === SearchType.Address
+      if (data.searchType === SearchTypeSupervisor.OriginCountry ||
+          data.searchType === SearchTypeSupervisor.Zone ||
+          data.searchType === SearchTypeSupervisor.Department || 
+          data.searchType === SearchTypeSupervisor.Province || 
+          data.searchType === SearchTypeSupervisor.District || 
+          data.searchType === SearchTypeSupervisor.UrbanSector || 
+          data.searchType === SearchTypeSupervisor.Address
           ) {
         return !!data.inputTerm; 
       }
@@ -137,10 +139,10 @@ export const supervisorFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-          data.searchType === SearchType.BirthMonth ||
-          data.searchType === SearchType.Gender ||
-          data.searchType === SearchType.MaritalStatus ||
-          data.searchType === SearchType.Status
+          data.searchType === SearchTypeSupervisor.BirthMonth ||
+          data.searchType === SearchTypeSupervisor.Gender ||
+          data.searchType === SearchTypeSupervisor.MaritalStatus ||
+          data.searchType === SearchTypeSupervisor.Status
         ) {
         return !!data.selectTerm; 
       }
@@ -154,7 +156,7 @@ export const supervisorFormTermSearchSchema = z
   .refine(
     (data) => {
       if ( 
-        data.searchType === SearchType.BirthDate
+        data.searchType === SearchTypeSupervisor.BirthDate
       ) {
         return !!data.dateTerm; 
       }

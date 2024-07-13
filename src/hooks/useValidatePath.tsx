@@ -57,7 +57,6 @@ export const useValidatePath = ({ path, isInputDisabled, memberRoles }: Options)
     ];
   }
 
-  // TODO : ver el preacher si es treasurer subir de nivel juntos
   if (path === '/preachers/create-preacher' || path === '/preachers/update-preacher') {
     disabledRoles = [
       memberRoles.Disciple,
@@ -68,13 +67,15 @@ export const useValidatePath = ({ path, isInputDisabled, memberRoles }: Options)
     ];
   }
 
-  if (path === '/leaders/create-leader') {
-    disabledRoles = [memberRoles.Pastor, memberRoles.Copastor, memberRoles.Disciple];
-  }
-
-  // update
-  if (path === '/supervisors/update-supervisor' && isInputDisabled) {
-    disabledRoles = [...Object.values(memberRoles).filter((rol) => rol)];
+  if (isInputDisabled) {
+    disabledRoles = [
+      memberRoles.Disciple,
+      memberRoles.Pastor,
+      memberRoles.Copastor,
+      memberRoles.Preacher,
+      memberRoles.Supervisor,
+      memberRoles.Treasurer,
+    ];
   }
 
   return {

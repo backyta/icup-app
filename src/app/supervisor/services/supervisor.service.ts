@@ -4,12 +4,12 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
+import { type CopastorResponse } from '@/app/copastor/interfaces';
 import { type SupervisorResponse, type SupervisorFormData, type SupervisorQueryParams } from '@/app/supervisor/interfaces';
 
-import { SearchType } from '@/shared/enums';
-import { type CopastorResponse } from '@/app/copastor/interfaces';
+import { SearchTypeSupervisor } from '@/app/supervisor/enums';
 
-//* Create co-pastor
+//* Create Supervisor
 export const createSupervisor = async (formData:SupervisorFormData ): Promise<SupervisorResponse> => {
   try {
     const {data} = await icupApi.post<SupervisorResponse>('/supervisors', formData)
@@ -58,9 +58,6 @@ export const getSupervisors = async ({limit, offset, all, order}: SupervisorQuer
           order,
         },
       });
-
-      console.log(data);
-      
       
       result = data;
     }else {
@@ -101,13 +98,13 @@ export const getSupervisorsByTerm = async ({
  let result: SupervisorResponse[];
 
  //* Origin country, department, province, district, urban sector, address, zone
- if (searchType === SearchType.OriginCountry||
-     searchType === SearchType.Zone ||
-     searchType === SearchType.Department ||
-     searchType === SearchType.Province ||
-     searchType === SearchType.District ||
-     searchType === SearchType.UrbanSector ||
-     searchType === SearchType.Address
+ if (searchType === SearchTypeSupervisor.OriginCountry||
+     searchType === SearchTypeSupervisor.Zone ||
+     searchType === SearchTypeSupervisor.Department ||
+     searchType === SearchTypeSupervisor.Province ||
+     searchType === SearchTypeSupervisor.District ||
+     searchType === SearchTypeSupervisor.UrbanSector ||
+     searchType === SearchTypeSupervisor.Address
     ) {
     try {
         if ( all !== undefined && !all) {
@@ -143,7 +140,7 @@ export const getSupervisorsByTerm = async ({
  }
 
  //* Date Birth
-  if (searchType === SearchType.BirthDate) {
+  if (searchType === SearchTypeSupervisor.BirthDate) {
     try {
       if ( all !== undefined && !all) {
         const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${dateTerm}` , {
@@ -178,10 +175,10 @@ export const getSupervisorsByTerm = async ({
   }
 
  //* Status, Gender, Month Birth
-  if (searchType === SearchType.Status ||
-        searchType === SearchType.Gender ||
-        searchType === SearchType.BirthMonth ||
-        searchType === SearchType.MaritalStatus
+  if (searchType === SearchTypeSupervisor.Status ||
+        searchType === SearchTypeSupervisor.Gender ||
+        searchType === SearchTypeSupervisor.BirthMonth ||
+        searchType === SearchTypeSupervisor.MaritalStatus
       ) {
       try {
         if ( all !== undefined && !all) {
@@ -217,7 +214,7 @@ export const getSupervisorsByTerm = async ({
   }
 
  //* First Name
-  if (searchType === SearchType.FirstName
+  if (searchType === SearchTypeSupervisor.FirstName
       ) {
       try {
         if ( all !== undefined && !all) {
@@ -256,7 +253,7 @@ export const getSupervisorsByTerm = async ({
   }
 
  //* Last Name 
-  if (searchType === SearchType.LastName
+  if (searchType === SearchTypeSupervisor.LastName
       ) {
       try {
         if ( all !== undefined && !all) {
@@ -295,7 +292,7 @@ export const getSupervisorsByTerm = async ({
   }
 
  //* Full Name
-  if (searchType === SearchType.FullName
+  if (searchType === SearchTypeSupervisor.FullName
       ) {
       try {
         if ( all !== undefined && !all) {

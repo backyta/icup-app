@@ -78,19 +78,19 @@ export interface UpdatedBy {
 
 export interface MainChurch {
   id:               string;
-  churchName:       string;
-  isAnexe:          boolean;
-  worshipTimes:     string[];
-  foundingDate:     Date;
-  email:            string;
-  phoneNumber:      string;
-  country:          string;
-  department:       string;
-  province:         string;
-  district:         string;
-  urbanSector:      string;
-  address:          string;
-  referenceAddress: string;
+  churchName?:       string;
+  isAnexe?:          boolean;
+  worshipTimes?:     string[];
+  foundingDate?:     Date;
+  email?:            string;
+  phoneNumber?:      string;
+  country?:          string;
+  department?:       string;
+  province?:         string;
+  district?:         string;
+  urbanSector?:      string;
+  address?:          string;
+  referenceAddress?: string;
   createdAt:        Date;
   createdBy:        CreatedBy;
   updatedAt?:       Date;
@@ -104,25 +104,25 @@ export type TheirChurch = MainChurch;
 
 export interface TheirPastor {
   id:               string;
-  firstName:        string;
-  lastName:         string;
-  gender:           string;
-  originCountry:    string;
-  birthDate:        Date;
-  age:              number;
-  maritalStatus:    string;
-  numberChildren:   number;
-  conversionDate:   Date;
-  email:            string;
-  phoneNumber:      string;
-  country:          string;
-  department:       string;
-  province:         string;
-  district:         string;
-  urbanSector:      string;
-  address:          string;
-  referenceAddress: string;
-  roles:            string[];
+  firstName?:        string;
+  lastName?:         string;
+  gender?:           string;
+  originCountry?:    string;
+  birthDate?:        Date;
+  age?:              number;
+  maritalStatus?:    string;
+  numberChildren?:   number;
+  conversionDate?:   Date;
+  email?:            string;
+  phoneNumber?:      string;
+  country?:          string;
+  department?:       string;
+  province?:         string;
+  district?:         string;
+  urbanSector?:      string;
+  address?:          string;
+  referenceAddress?: string;
+  roles?:            string[];
   createdAt:        Date;
   createdBy:        CreatedBy;
   updatedAt?:       Date;
@@ -132,25 +132,81 @@ export interface TheirPastor {
 
 export interface TheirCopastor {
   id:               string;
-  firstName:        string;
-  lastName:         string;
-  gender:           string;
-  originCountry:    string;
-  birthDate:        Date;
-  age:              number;
-  maritalStatus:    string;
-  numberChildren:   number;
-  conversionDate:   Date;
-  email:            string;
-  phoneNumber:      string;
-  country:          string;
-  department:       string;
-  province:         string;
-  district:         string;
-  urbanSector:      string;
-  address:          string;
-  referenceAddress: string;
-  roles:            string[];
+  firstName?:        string;
+  lastName?:         string;
+  gender?:           string;
+  originCountry?:    string;
+  birthDate?:        Date;
+  age?:              number;
+  maritalStatus?:    string;
+  numberChildren?:   number;
+  conversionDate?:   Date;
+  email?:            string;
+  phoneNumber?:      string;
+  country?:          string;
+  department?:       string;
+  province?:         string;
+  district?:         string;
+  urbanSector?:      string;
+  address?:          string;
+  referenceAddress?: string;
+  roles?:            string[];
+  createdAt:        Date;
+  createdBy:        CreatedBy;
+  updatedAt?:       Date;
+  updatedBy?:       UpdatedBy;
+  status:           string;
+}
+
+export interface TheirSupervisor {
+  id:               string;
+  firstName?:        string;
+  lastName?:         string;
+  gender?:           string;
+  originCountry?:    string;
+  birthDate?:        Date;
+  age?:              number;
+  maritalStatus?:    string;
+  numberChildren?:   number;
+  conversionDate?:   Date;
+  email?:            string;
+  phoneNumber?:      string;
+  country?:          string;
+  department?:       string;
+  province?:         string;
+  district?:         string;
+  urbanSector?:      string;
+  address?:          string;
+  referenceAddress?: string;
+  isDirectRelationToPastor?:  boolean;
+  roles?:            string[];
+  createdAt:        Date;
+  createdBy:        CreatedBy;
+  updatedAt?:       Date;
+  updatedBy?:       UpdatedBy;
+  status:           string;
+}
+export interface TheirPreacher {
+  id:               string;
+  firstName?:        string;
+  lastName?:         string;
+  gender?:           string;
+  originCountry?:    string;
+  birthDate?:        Date;
+  age?:              number;
+  maritalStatus?:    string;
+  numberChildren?:   number;
+  conversionDate?:   Date;
+  email?:            string;
+  phoneNumber?:      string;
+  country?:          string;
+  department?:       string;
+  province?:         string;
+  district?:         string;
+  urbanSector?:      string;
+  address?:          string;
+  referenceAddress?: string;
+  roles?:            string[];
   createdAt:        Date;
   createdBy:        CreatedBy;
   updatedAt?:       Date;
@@ -160,17 +216,25 @@ export interface TheirCopastor {
 
 export interface TheirZone {
   id:         string;
-  zoneName:   string;
-  country:    string;
-  department: string;
-  province:   string;
-  district:   string;
+  zoneName?:   string;
+  country?:    string;
+  department?: string;
+  province?:   string;
+  district?:   string;
   createdAt:  Date;
   createdBy:  CreatedBy;
   updatedAt?: Date;
   updatedBy?: UpdatedBy;
   status:     string;
 
+}
+
+export interface TheirFamilyGroup {
+  id:              string;
+  familyGroupName: string;
+  familyGroupCode: string;
+  district:        string;
+  urbanSector:     string;
 }
 
 

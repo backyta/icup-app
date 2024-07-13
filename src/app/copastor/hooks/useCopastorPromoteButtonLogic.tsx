@@ -13,7 +13,6 @@ interface Options {
 }
 
 // TODO : optimizar los anys
-// TODO : ver en update el comportamiento raro de los inputs al cambiar y el botón
 export const useCopastorPromoteButtonLogic = ({
   formCopastorUpdate,
   fieldName,

@@ -1,6 +1,4 @@
 import { type MemberRoles } from '@/shared/enums';
-
-
 export interface PastorFormData {
   firstName: string;
   lastName: string;

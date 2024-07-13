@@ -6,11 +6,11 @@ import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
 import { CopastorInfoCard } from '@/app/copastor/components';
+import { type CopastorColumns } from '@/app/copastor/interfaces';
 
 import { getFullName } from '@/shared/helpers';
 
 import { Button } from '@/shared/components/ui/button';
-import { type CopastorColumns } from '@/app/copastor/interfaces';
 
 export const copastorInfoColumns: Array<ColumnDef<CopastorColumns, any>> = [
   {

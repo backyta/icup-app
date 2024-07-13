@@ -18,7 +18,7 @@ import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { churchFormSchema } from '@/app/church/validations';
 import { type ErrorResponse } from '@/shared/interfaces';
 import { createChurch, getMainChurch } from '@/app/church/services';
-import { WorshipTimes, WorshipTimesNames } from '@/app/church/enums';
+import { WorshipTimes, WorshipTimesKeys } from '@/app/church/enums';
 import { useChurchCreateSubmitButtonLogic } from '@/app/church/hooks';
 
 import { LoadingSpinner } from '@/layouts/components';
@@ -30,7 +30,6 @@ import { Input } from '@/shared/components/ui/input';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Calendar } from '@/shared/components/ui/calendar';
 import { Textarea } from '@/shared/components/ui/textarea';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Form,
   FormControl,
@@ -66,6 +65,7 @@ import {
   validateDistrictsAllowedByModule,
   validateUrbanSectorsAllowedByDistrict,
 } from '@/shared/helpers';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
 export const ChurchCreatePage = (): JSX.Element => {
   //* States
@@ -345,7 +345,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                                   />
                                 </FormControl>
                                 <FormLabel className='text-[14px] font-medium'>
-                                  {WorshipTimesNames[worshipTime]}
+                                  {WorshipTimesKeys[worshipTime]}
                                 </FormLabel>
                               </FormItem>
                             );

@@ -23,11 +23,11 @@ import {
 import { getCopastors } from '@/app/copastor/services';
 import { type CopastorQueryParams } from '@/app/copastor/interfaces';
 
-import { type FormSearchByTerm } from '@/shared/interfaces';
-
 import { useCopastorStore } from '@/stores/copastor';
 
 import { LoadingSpinner } from '@/layouts/components';
+
+import { type FormSearchGeneral } from '@/shared/interfaces';
 
 import {
   Table,
@@ -43,8 +43,8 @@ import { Button } from '@/shared/components/ui/button';
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  searchParams: FormSearchByTerm | undefined;
-  setSearchParams: React.Dispatch<React.SetStateAction<FormSearchByTerm | undefined>>;
+  searchParams: FormSearchGeneral | undefined;
+  setSearchParams: React.Dispatch<React.SetStateAction<FormSearchGeneral | undefined>>;
 }
 
 export function GeneralCopastorSearchDataTable<TData, TValue>({

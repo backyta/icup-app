@@ -139,7 +139,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
 
   return (
     <>
-      <h1 className='text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-family-house-color text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]'>
+      <h1 className='text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-family-group-color text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]'>
         Modulo Casa Familiar
       </h1>
 
