@@ -124,7 +124,6 @@ export const ChurchFormUpdate = ({
   //* Watchers
   const district = form.watch('district');
   const isAnexe = form.watch('isAnexe');
-  const theirMainChurch = form.watch('theirMainChurch');
 
   useEffect(() => {
     form.setValue('churchName', data?.churchName!);
@@ -145,7 +144,7 @@ export const ChurchFormUpdate = ({
 
     setTimeout(() => {
       setIsLoadingData(false);
-    }, 1000);
+    }, 1200);
   }, []);
 
   //* Custom hooks
@@ -213,6 +212,7 @@ export const ChurchFormUpdate = ({
   const query = useQuery({
     queryKey: ['mainChurch', id],
     queryFn: getMainChurch,
+    staleTime: 5 * 60 * 1000,
   });
 
   //* Handler form
@@ -714,10 +714,6 @@ export const ChurchFormUpdate = ({
                                 form.resetField('theirMainChurch', {
                                   keepError: true,
                                 });
-                                if (!theirMainChurch) {
-                                  setIsSubmitButtonDisabled(true);
-                                  setIsMessageErrorDisabled(true);
-                                }
                               }}
                             />
                           </FormControl>

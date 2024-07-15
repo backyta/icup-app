@@ -26,13 +26,13 @@ import { FormCopastorSkeleton } from '@/app/copastor/components';
 import { type CopastorResponse } from '@/app/copastor/interfaces';
 import { getAllPastors, updateCopastor } from '@/app/copastor/services';
 
-import { getAllChurches } from '@/app/pastor/services';
-
 import {
   useCopastorPromoteButtonLogic,
   useCopastorUpdateSubmitButtonLogic,
   useRoleUpdateCopastorHandler,
 } from '@/app/copastor/hooks';
+import { getAllChurches } from '@/app/pastor/services';
+import { FieldNamesCopastor } from '@/app/copastor/enums';
 
 import { useValidatePath } from '@/hooks';
 import { type ErrorResponse } from '@/shared/interfaces';
@@ -45,7 +45,6 @@ import {
   CountryNames,
   DepartmentNames,
   DistrictNames,
-  FieldNames,
   GenderNames,
   MaritalStatusNames,
   MemberRoles,
@@ -188,7 +187,7 @@ export const CopastorFormUpdate = ({
 
     setTimeout(() => {
       setIsLoadingData(false);
-    }, 1000);
+    }, 1200);
   }, []);
 
   //* Custom Hooks
@@ -200,7 +199,7 @@ export const CopastorFormUpdate = ({
 
   useCopastorPromoteButtonLogic({
     formCopastorUpdate: form,
-    fieldName: FieldNames,
+    fieldName: FieldNamesCopastor,
     setIsPromoteButtonDisabled,
   });
 
@@ -210,6 +209,7 @@ export const CopastorFormUpdate = ({
     isInputDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
+    isRelationSelectDisabled,
   });
 
   //* Effects
@@ -265,14 +265,14 @@ export const CopastorFormUpdate = ({
       }, 150);
 
       setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['copastors-by-term'] });
+      }, 500);
+
+      setTimeout(() => {
         onSubmit();
         setIsInputDisabled(false);
         setIsRelationSelectDisabled(false);
       }, 1500);
-
-      setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['copastors-by-term'] });
-      }, 600);
     },
   });
 
@@ -280,11 +280,13 @@ export const CopastorFormUpdate = ({
   const queryPastors = useQuery({
     queryKey: ['pastors', id],
     queryFn: getAllPastors,
+    staleTime: 5 * 60 * 1000,
   });
 
   const queryChurches = useQuery({
     queryKey: ['churches', id],
     queryFn: getAllChurches,
+    staleTime: 5 * 60 * 1000,
   });
 
   //* Handler form
@@ -1165,10 +1167,11 @@ export const CopastorFormUpdate = ({
                       </AlertDialogTrigger>
                       <AlertDialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
                         <AlertDialogHeader className='h-auto'>
-                          <AlertDialogTitle className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-2'>
-                            ¿Estas seguro de promover a este Co-Pastor?
+                          <AlertDialogTitle className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-2 flex flex-col'>
+                            <span>¿Estas seguro de promover a este</span>
+                            <span className='w-full text-center'>Co-Pastor?</span>
                           </AlertDialogTitle>
-                          <AlertDialogDescription className={cn('h-[19.5rem] md:h-[17rem]')}>
+                          <AlertDialogDescription className={cn('h-[22rem] md:h-[19rem]')}>
                             <span className='w-full text-left text-blue-500 font-medium mb-3 inline-block text-[16px] md:text-[18px]'>
                               Secuencia de pasos y acciones:
                             </span>

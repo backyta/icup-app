@@ -69,7 +69,7 @@ export const LoginPage = (): JSX.Element => {
         <img
           src='/src/assets/logo-sn.png'
           alt='Placeholder Image'
-          className='w-[30rem] md:w-[33rem] lg:w-[37rem] xl:w-[45rem] pb-10 mx-auto'
+          className='w-[30rem] md:w-[33rem] lg:w-[37rem] xl:w-[45rem] pb-8 md:pb-10 mx-auto'
         />
         <h1 className='text-4xl md:text-5xl lg:text-[3.60rem] xl:text-7xl text-center font-semibold text-blue-800 font-dancing-script mb-0 md:mb-4 lg:mb-4 xl:mb-2 xl:leading-[4.5rem]'>
           ICUP APP

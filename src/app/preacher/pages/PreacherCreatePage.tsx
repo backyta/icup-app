@@ -196,6 +196,7 @@ export const PreacherCreatePage = (): JSX.Element => {
   const querySupervisors = useQuery({
     queryKey: ['supervisors'],
     queryFn: getAllSupervisors,
+    staleTime: 5 * 60 * 1000,
   });
 
   if (querySupervisors.isLoading) return <LoadingSpinner />;

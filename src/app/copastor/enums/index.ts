@@ -2,3 +2,4 @@
 export * from './search-type-copastor.enum';
 export * from './search-sub-type-copastor.enum';
 export * from './search-selection-option-copastor.enum';
+export * from './field-names-copastor.enum';

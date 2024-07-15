@@ -41,12 +41,7 @@ export const usePreacherPromoteButtonLogic = ({
   const roles = formPreacherUpdate.watch('roles');
   const status = formPreacherUpdate.watch('status');
 
-  const theirCopastor = formPreacherUpdate.watch('theirCopastor');
   const theirSupervisor = formPreacherUpdate.watch('theirSupervisor');
-
-  // NOTE : replicar tal como en preacher y hacer sus propios field Names y ver el numero de roles en el array
-  // NOTE : después de eso revisar los update form hooks button para optimizar si alguno sobra o falta
-  // NOTE : finalmente pasar a modulo disciple y demas
 
   //* Effects
   useEffect(() => {
@@ -106,7 +101,6 @@ export const usePreacherPromoteButtonLogic = ({
     district,
     address,
     roles,
-    theirCopastor,
     theirSupervisor,
     status,
   ]);

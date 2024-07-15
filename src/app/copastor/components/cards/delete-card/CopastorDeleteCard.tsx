@@ -84,8 +84,9 @@ export const CopastorDeleteCard = ({ idRow }: CopastorDeleteCardProps): JSX.Elem
       </DialogTrigger>
       <DialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
         <div className='h-auto'>
-          <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-2'>
-            ¿Estas seguro de eliminar a este Co-Pastor?
+          <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-2 flex flex-col'>
+            <span>¿Estas seguro de promover a este</span>
+            <span className='w-full text-center'>Co-Pastor?</span>
           </h2>
           <p>
             <span className='text-blue-500 font-bold mb-3 inline-block text-[16px] md:text-[18px]'>

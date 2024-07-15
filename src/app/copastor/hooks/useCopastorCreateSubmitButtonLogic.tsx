@@ -58,23 +58,6 @@ export const useCopastorCreateSubmitButtonLogic = ({
     }
 
     if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      urbanSector &&
-      address &&
-      referenceAddress &&
       theirPastor &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Copastor) &&
@@ -104,6 +87,7 @@ export const useCopastorCreateSubmitButtonLogic = ({
       !urbanSector ||
       !address ||
       !referenceAddress ||
+      !theirPastor ||
       roles.length === 0
     ) {
       setIsSubmitButtonDisabled(true);

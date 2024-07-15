@@ -1,18 +1,15 @@
 import { useEffect, useState } from 'react';
-
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type FieldNames } from '@/shared/enums';
-
+import { type FieldNamesSupervisor } from '@/app/supervisor/enums';
 import { type SupervisorFormData } from '@/app/supervisor/interfaces';
 
 interface Options {
   formSupervisorUpdate: UseFormReturn<SupervisorFormData, any, SupervisorFormData>;
-  fieldName: typeof FieldNames;
+  fieldName: typeof FieldNamesSupervisor;
   setIsPromoteButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-// TODO : optimizar los anys
 export const useSupervisorPromoteButtonLogic = ({
   formSupervisorUpdate,
   fieldName,
@@ -43,19 +40,20 @@ export const useSupervisorPromoteButtonLogic = ({
   const roles = formSupervisorUpdate.watch('roles');
   const status = formSupervisorUpdate.watch('status');
 
-  const theirPastor = formSupervisorUpdate.watch('theirPastor');
   const theirCopastor = formSupervisorUpdate.watch('theirCopastor');
 
   //* Effects
   useEffect(() => {
-    const initialValues = formSupervisorUpdate.getValues([...(Object.values(fieldName) as any)]);
+    const initialValues = formSupervisorUpdate.getValues([...Object.values(fieldName)]);
     setFixedValues(initialValues);
   }, []);
 
   //* Validate and compare last and current values
   useEffect(() => {
     const previousValues: SupervisorFormData[] = lastValues;
-    const currentValues = formSupervisorUpdate.getValues([...(Object.values(fieldName) as any)]);
+    const currentValues: SupervisorFormData[] = formSupervisorUpdate.getValues([
+      ...Object.values(fieldName),
+    ]);
 
     if (
       previousValues.length !== 0 &&
@@ -69,14 +67,14 @@ export const useSupervisorPromoteButtonLogic = ({
       fixed: SupervisorFormData[],
       current: SupervisorFormData[]
     ): boolean => {
-      const sortedA = Array.isArray(fixed[15]) && fixed[15]?.sort();
-      const sortedB = Array.isArray(current[15]) && current[15]?.sort();
+      const sortedA = Array.isArray(fixed[17]) && fixed[17]?.sort();
+      const sortedB = Array.isArray(current[17]) && current[17]?.sort();
 
       return JSON.stringify(sortedA) === JSON.stringify(sortedB);
     };
 
     if (
-      arrayEqualsIgnoreOrder(fixedValues, currentValues as SupervisorFormData[]) &&
+      arrayEqualsIgnoreOrder(fixedValues, currentValues) &&
       JSON.stringify(fixedValues) === JSON.stringify(currentValues) &&
       status === 'active'
     ) {
@@ -102,7 +100,6 @@ export const useSupervisorPromoteButtonLogic = ({
     district,
     address,
     roles,
-    theirPastor,
     theirCopastor,
     status,
   ]);

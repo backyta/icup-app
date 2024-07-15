@@ -221,7 +221,7 @@ export const SupervisorTabsCard = ({ data }: SupervisorTabsCardProps): JSX.Eleme
               Información eclesiástica y relaciones ministeriales.
             </CardDescription>
           </CardHeader>
-          <CardContent className='grid  grid-cols-2 pl-[4.2rem] gap-x-6 gap-y-4 md:gap-x-10 md:gap-y-8 md:pl-[5.5rem] md:pr-[2.5rem]'>
+          <CardContent className='grid  grid-cols-2 pl-[3.5rem] gap-x-6 gap-y-4 md:gap-x-10 md:gap-y-8 md:pl-[5.5rem] md:pr-[2.5rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Roles / Cargos</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>

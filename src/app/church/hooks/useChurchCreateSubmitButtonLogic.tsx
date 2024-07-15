@@ -46,18 +46,6 @@ export const useChurchCreateSubmitButtonLogic = ({
     }
 
     if (
-      nameChurch &&
-      foundingDate &&
-      worshipTimes &&
-      emailAddress &&
-      phoneNumber &&
-      country &&
-      department &&
-      province &&
-      district &&
-      urbanSector &&
-      address &&
-      referenceAddress &&
       isAnexe &&
       theirMainChurch &&
       Object.values(formChurchCreate.formState.errors).length === 0 &&
@@ -67,19 +55,12 @@ export const useChurchCreateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(false);
     }
 
+    if (isAnexe && !theirMainChurch) {
+      setIsSubmitButtonDisabled(true);
+      setIsMessageErrorDisabled(true);
+    }
+
     if (
-      nameChurch &&
-      foundingDate &&
-      worshipTimes &&
-      emailAddress &&
-      phoneNumber &&
-      country &&
-      department &&
-      province &&
-      district &&
-      urbanSector &&
-      address &&
-      referenceAddress &&
       !isAnexe &&
       Object.values(formChurchCreate.formState.errors).length === 0 &&
       !isInputDisabled

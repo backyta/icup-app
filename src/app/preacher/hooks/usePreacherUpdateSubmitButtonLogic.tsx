@@ -15,6 +15,7 @@ interface Options {
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
+  isRelationSelectDisabled: boolean;
 }
 
 export const usePreacherUpdateSubmitButtonLogic = ({
@@ -22,7 +23,7 @@ export const usePreacherUpdateSubmitButtonLogic = ({
   memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
-
+  isRelationSelectDisabled,
   isInputDisabled,
 }: Options): void => {
   //* Watchers
@@ -57,34 +58,14 @@ export const usePreacherUpdateSubmitButtonLogic = ({
       formPreacherUpdate.formState.errors &&
       Object.values(formPreacherUpdate.formState.errors).length > 0
     ) {
-      console.log('entro');
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
 
     if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceAddress &&
-      roles.length !== 0 &&
-      !isDirectRelationToPastor &&
-      theirSupervisor &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Preacher) &&
+      theirSupervisor &&
       Object.values(formPreacherUpdate.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
@@ -93,154 +74,47 @@ export const usePreacherUpdateSubmitButtonLogic = ({
     }
 
     if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceAddress &&
-      roles.length !== 0 &&
-      theirCopastor &&
       !isDirectRelationToPastor &&
+      theirCopastor &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
       Object.values(formPreacherUpdate.formState.errors).length === 0 &&
-      !isInputDisabled
+      !isRelationSelectDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
     }
 
     if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceAddress &&
-      roles.length !== 0 &&
-      theirPastor &&
+      !isDirectRelationToPastor &&
+      roles.includes(memberRoles.Disciple) &&
+      roles.includes(memberRoles.Supervisor) &&
+      !theirCopastor
+    ) {
+      setIsSubmitButtonDisabled(true);
+      setIsMessageErrorDisabled(true);
+    }
+
+    if (
       isDirectRelationToPastor &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
+      theirPastor &&
       Object.values(formPreacherUpdate.formState.errors).length === 0 &&
-      !isInputDisabled
+      !isRelationSelectDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
     }
 
     if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceAddress &&
-      roles.length !== 0 &&
-      !isDirectRelationToPastor &&
-      roles.includes(memberRoles.Disciple) &&
-      roles.includes(memberRoles.Preacher) &&
-      !theirSupervisor &&
-      Object.values(formPreacherUpdate.formState.errors).length === 0 &&
-      !isInputDisabled
-    ) {
-      console.log('entro2');
-      setIsSubmitButtonDisabled(true);
-      setIsMessageErrorDisabled(true);
-    }
-
-    if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceAddress &&
-      roles.length !== 0 &&
-      !isDirectRelationToPastor &&
+      isDirectRelationToPastor &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
-      !theirCopastor &&
-      Object.values(formPreacherUpdate.formState.errors).length === 0 &&
-      !isInputDisabled
+      !theirPastor
     ) {
-      console.log('entro3');
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
-    }
-
-    if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceAddress &&
-      roles.length !== 0 &&
-      roles.includes(memberRoles.Disciple) &&
-      roles.includes(memberRoles.Supervisor) &&
-      theirCopastor &&
-      Object.values(formPreacherUpdate.formState.errors).length === 0 &&
-      !isInputDisabled
-    ) {
-      setIsSubmitButtonDisabled(false);
-      setIsMessageErrorDisabled(false);
     }
 
     if (

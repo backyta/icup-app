@@ -3,11 +3,9 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect } from 'react';
-
 import { type UseFormReturn } from 'react-hook-form';
 
 import { type MemberRoles } from '@/shared/enums';
-
 import { type CopastorFormData } from '@/app/copastor/interfaces';
 
 interface Options {
@@ -16,6 +14,7 @@ interface Options {
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
+  isRelationSelectDisabled: boolean;
 }
 
 export const useCopastorUpdateSubmitButtonLogic = ({
@@ -24,6 +23,7 @@ export const useCopastorUpdateSubmitButtonLogic = ({
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
   isInputDisabled,
+  isRelationSelectDisabled,
 }: Options): void => {
   //* Watchers
   const firstName = formCopastorUpdate.watch('firstName');
@@ -60,27 +60,9 @@ export const useCopastorUpdateSubmitButtonLogic = ({
     }
 
     if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceAddress &&
-      roles.length !== 0 &&
-      theirPastor &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Copastor) &&
+      theirPastor &&
       Object.values(formCopastorUpdate.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
@@ -89,58 +71,29 @@ export const useCopastorUpdateSubmitButtonLogic = ({
     }
 
     if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceAddress &&
-      roles.length !== 0 &&
       roles.includes(memberRoles.Disciple) &&
-      roles.includes(memberRoles.Pastor) &&
-      !theirChurch &&
-      Object.values(formCopastorUpdate.formState.errors).length === 0 &&
-      !isInputDisabled
+      roles.includes(memberRoles.Copastor) &&
+      !theirPastor
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
 
     if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceAddress &&
-      roles.length !== 0 &&
+      roles.includes(memberRoles.Disciple) &&
+      roles.includes(memberRoles.Pastor) &&
+      !theirChurch
+    ) {
+      setIsSubmitButtonDisabled(true);
+      setIsMessageErrorDisabled(true);
+    }
+
+    if (
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Pastor) &&
       theirChurch &&
       Object.values(formCopastorUpdate.formState.errors).length === 0 &&
-      !isInputDisabled
+      !isRelationSelectDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
@@ -162,8 +115,8 @@ export const useCopastorUpdateSubmitButtonLogic = ({
       !province ||
       !district ||
       !urbanSector ||
-      !referenceAddress ||
       !address ||
+      !referenceAddress ||
       roles.length === 0
     ) {
       setIsSubmitButtonDisabled(true);

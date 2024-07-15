@@ -30,7 +30,27 @@ export const LoadingSpinner = (): JSX.Element => {
         (pathname === '/churches/search-churches' ||
           pathname === '/churches/search-by-term-churches' ||
           pathname === '/churches/update-church' ||
-          pathname === '/churches/delete-church') &&
+          pathname === '/churches/delete-church' ||
+          pathname === '/pastors/search-pastors' ||
+          pathname === '/pastors/search-by-term-pastors' ||
+          pathname === '/pastors/update-pastor' ||
+          pathname === '/pastors/delete-pastor' ||
+          pathname === '/copastors/search-copastors' ||
+          pathname === '/copastors/search-by-term-copastors' ||
+          pathname === '/copastors/update-copastor' ||
+          pathname === '/copastors/delete-copastor' ||
+          pathname === '/supervisors/search-supervisors' ||
+          pathname === '/supervisors/search-by-term-supervisors' ||
+          pathname === '/supervisors/update-pastor-supervisor' ||
+          pathname === '/supervisors/delete-pastor-supervisor' ||
+          pathname === '/preachers/search-preachers' ||
+          pathname === '/preachers/search-by-term-preachers' ||
+          pathname === '/preachers/update-preacher' ||
+          pathname === '/preachers/delete-preacher' ||
+          pathname === '/disciples/search-disciples' ||
+          pathname === '/disciples/search-by-term-disciples' ||
+          pathname === '/disciples/update-disciple' ||
+          pathname === '/disciples/delete-disciple') &&
           'min-h-full'
       )}
     >

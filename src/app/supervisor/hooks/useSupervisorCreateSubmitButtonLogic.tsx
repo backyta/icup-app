@@ -43,6 +43,7 @@ export const useSupervisorCreateSubmitButtonLogic = ({
   const urbanSector = formSupervisorCrate.watch('urbanSector');
   const address = formSupervisorCrate.watch('address');
   const roles = formSupervisorCrate.watch('roles');
+  const isDirectRelationToPastor = formSupervisorCrate.watch('isDirectRelationToPastor');
   const referenceAddress = formSupervisorCrate.watch('referenceAddress');
   const theirCopastor = formSupervisorCrate.watch('theirCopastor');
   const theirPastor = formSupervisorCrate.watch('theirPastor');
@@ -58,24 +59,8 @@ export const useSupervisorCreateSubmitButtonLogic = ({
     }
 
     if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      urbanSector &&
-      address &&
-      referenceAddress &&
-      (theirCopastor || theirPastor) &&
+      isDirectRelationToPastor &&
+      theirPastor &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
       Object.values(formSupervisorCrate.formState.errors).length === 0 &&
@@ -83,6 +68,28 @@ export const useSupervisorCreateSubmitButtonLogic = ({
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
+    }
+
+    if (isDirectRelationToPastor && !theirPastor) {
+      setIsSubmitButtonDisabled(true);
+      setIsMessageErrorDisabled(true);
+    }
+
+    if (
+      !isDirectRelationToPastor &&
+      theirCopastor &&
+      roles.includes(memberRoles.Disciple) &&
+      roles.includes(memberRoles.Supervisor) &&
+      Object.values(formSupervisorCrate.formState.errors).length === 0 &&
+      !isInputDisabled
+    ) {
+      setIsSubmitButtonDisabled(false);
+      setIsMessageErrorDisabled(false);
+    }
+
+    if (!isDirectRelationToPastor && !theirCopastor) {
+      setIsSubmitButtonDisabled(true);
+      setIsMessageErrorDisabled(true);
     }
 
     if (
@@ -103,7 +110,7 @@ export const useSupervisorCreateSubmitButtonLogic = ({
       !address ||
       !urbanSector ||
       !address ||
-      referenceAddress ||
+      !referenceAddress ||
       roles.length === 0
     ) {
       setIsSubmitButtonDisabled(true);
@@ -127,6 +134,7 @@ export const useSupervisorCreateSubmitButtonLogic = ({
     district,
     address,
     urbanSector,
+    isDirectRelationToPastor,
     referenceAddress,
     theirCopastor,
     theirPastor,

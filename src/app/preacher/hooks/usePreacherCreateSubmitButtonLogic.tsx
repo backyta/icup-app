@@ -57,23 +57,6 @@ export const usePreacherCreateSubmitButtonLogic = ({
     }
 
     if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      urbanSector &&
-      address &&
-      referenceAddress &&
       theirSupervisor &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Preacher) &&
@@ -103,6 +86,7 @@ export const usePreacherCreateSubmitButtonLogic = ({
       !urbanSector ||
       !address ||
       !referenceAddress ||
+      !theirSupervisor ||
       roles.length === 0
     ) {
       setIsSubmitButtonDisabled(true);

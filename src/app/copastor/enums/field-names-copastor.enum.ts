@@ -1,4 +1,4 @@
-export enum FieldNamesPreacher {
+export enum FieldNamesCopastor {
   FirstName = 'firstName',
   LastName = 'lastName',
   Gender = 'gender',
@@ -18,7 +18,5 @@ export enum FieldNamesPreacher {
   ReferenceAddress = 'referenceAddress',
   Roles = 'roles',
   Status = 'status',
-  IsDirectRelationToPastor = "isDirectRelationToPastor",
-  TheirSupervisor = 'theirSupervisor',
+  TheirPastor = 'theirPastor',
 }
-

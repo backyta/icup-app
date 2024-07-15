@@ -15,6 +15,7 @@ interface Options {
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
+  isRelationSelectDisabled: boolean;
 }
 
 export const useSupervisorUpdateSubmitButtonLogic = ({
@@ -22,7 +23,7 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
   memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
-
+  isRelationSelectDisabled,
   isInputDisabled,
 }: Options): void => {
   //* Watchers
@@ -61,24 +62,6 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
     }
 
     if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceAddress &&
-      roles.length !== 0 &&
       !isDirectRelationToPastor &&
       theirCopastor &&
       roles.includes(memberRoles.Disciple) &&
@@ -90,25 +73,12 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(false);
     }
 
+    if (!isDirectRelationToPastor && !theirCopastor && !isInputDisabled) {
+      setIsSubmitButtonDisabled(true);
+      setIsMessageErrorDisabled(true);
+    }
+
     if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceAddress &&
-      roles.length !== 0 &&
       isDirectRelationToPastor &&
       theirPastor &&
       roles.includes(memberRoles.Disciple) &&
@@ -120,89 +90,17 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(false);
     }
 
-    if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceAddress &&
-      roles.length !== 0 &&
-      !isDirectRelationToPastor &&
-      roles.includes(memberRoles.Disciple) &&
-      roles.includes(memberRoles.Supervisor) &&
-      !theirCopastor &&
-      Object.values(formSupervisorUpdate.formState.errors).length === 0 &&
-      !isInputDisabled
-    ) {
+    if (isDirectRelationToPastor && !theirPastor && !isInputDisabled) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
 
     if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceAddress &&
-      roles.length !== 0 &&
-      roles.includes(memberRoles.Disciple) &&
-      roles.includes(memberRoles.Copastor) &&
-      !theirPastor &&
-      Object.values(formSupervisorUpdate.formState.errors).length === 0 &&
-      !isInputDisabled
-    ) {
-      setIsSubmitButtonDisabled(true);
-      setIsMessageErrorDisabled(true);
-    }
-
-    if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceAddress &&
-      roles.length !== 0 &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Copastor) &&
       theirPastor &&
       Object.values(formSupervisorUpdate.formState.errors).length === 0 &&
-      !isInputDisabled
+      !isRelationSelectDisabled
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
@@ -224,8 +122,8 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
       !province ||
       !district ||
       !urbanSector ||
-      !referenceAddress ||
       !address ||
+      !referenceAddress ||
       roles.length === 0
     ) {
       setIsSubmitButtonDisabled(true);

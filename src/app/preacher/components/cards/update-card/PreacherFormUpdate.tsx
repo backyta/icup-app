@@ -121,6 +121,7 @@ export const PreacherFormUpdate = ({
   const [isPromoteButtonDisabled, setIsPromoteButtonDisabled] = useState<boolean>(false);
 
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
+  const [isCheckBoxDisabled, setIsCheckBoxDisabled] = useState<boolean>(false);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(false);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
   const [isMessagePromoteDisabled, setIsMessagePromoteDisabled] = useState<boolean>(false);
@@ -187,13 +188,12 @@ export const PreacherFormUpdate = ({
     form.setValue('address', data?.address ?? '');
     form.setValue('referenceAddress', data?.referenceAddress ?? '');
     form.setValue('roles', data?.roles as MemberRoles[]);
-    form.setValue('theirCopastor', data?.theirCopastor?.id ?? '');
     form.setValue('theirSupervisor', data?.theirSupervisor?.id ?? '');
     form.setValue('status', data?.status);
 
     setTimeout(() => {
       setIsLoadingData(false);
-    }, 1000);
+    }, 1200);
   }, []);
 
   //* Custom Hooks
@@ -215,6 +215,7 @@ export const PreacherFormUpdate = ({
     isInputDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
+    isRelationSelectDisabled,
   });
 
   //* Effects
@@ -258,6 +259,7 @@ export const PreacherFormUpdate = ({
         setTimeout(() => {
           setIsInputDisabled(false);
           setIsRelationSelectDisabled(false);
+          setIsCheckBoxDisabled(false);
           setIsSubmitButtonDisabled(false);
         }, 1500);
       }
@@ -284,14 +286,15 @@ export const PreacherFormUpdate = ({
       }, 150);
 
       setTimeout(() => {
-        onSubmit();
-        setIsRelationSelectDisabled(false);
-        setIsInputDisabled(false);
-      }, 1500);
+        queryClient.invalidateQueries({ queryKey: ['preachers-by-term'] });
+      }, 500);
 
       setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['preachers-by-term'] });
-      }, 600);
+        onSubmit();
+        setIsRelationSelectDisabled(false);
+        setIsCheckBoxDisabled(false);
+        setIsInputDisabled(false);
+      }, 1500);
     },
   });
 
@@ -299,16 +302,19 @@ export const PreacherFormUpdate = ({
   const querySupervisors = useQuery({
     queryKey: ['supervisors', id],
     queryFn: getAllSupervisors,
+    staleTime: 5 * 60 * 1000,
   });
 
   const queryCopastors = useQuery({
     queryKey: ['copastors', id],
     queryFn: getAllCopastors,
+    staleTime: 5 * 60 * 1000,
   });
 
   const queryPastors = useQuery({
     queryKey: ['pastors', id],
     queryFn: getAllPastors,
+    staleTime: 5 * 60 * 1000,
   });
 
   //* Handler form
@@ -1119,8 +1125,8 @@ export const PreacherFormUpdate = ({
                             <FormItem className='flex flex-row gap-2 items-center  mt-3 px-1 py-3 h-[2.5rem]'>
                               <FormControl>
                                 <Checkbox
-                                  // className={cn(isInputDisabled && 'bg-slate-500')}
-                                  // disabled={isInputDisabled}
+                                  className={cn(isCheckBoxDisabled && 'bg-slate-500')}
+                                  disabled={isCheckBoxDisabled}
                                   checked={field?.value}
                                   onCheckedChange={(checked) => {
                                     field.onChange(checked);
@@ -1335,7 +1341,7 @@ export const PreacherFormUpdate = ({
                               con sus discípulos y grupo familiar.
                             </span>
                             <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-                              ✅ Se deberá asignar otro Predicador(a) para los discípulos, grupos
+                              ✅ Se deberá asignar otro Predicador(a) para los discípulos y grupos
                               familiares que se quedaron sin predicador.
                             </span>
 
@@ -1406,6 +1412,7 @@ export const PreacherFormUpdate = ({
                             setIsSubmitButtonDisabled(true);
                             setIsInputDisabled(true);
                             setIsRelationSelectDisabled(true);
+                            setIsCheckBoxDisabled(true);
                           }
                         }, 100);
                       }}

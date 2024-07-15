@@ -35,7 +35,7 @@ export const AuthLayout = (): JSX.Element => {
             className='w-full h-full '
           />
         </div>
-        <div className='lg:p-8 md:p-8 sm:20 p-8 w-full lg:w-1/2 flex flex-col justify-center items-center'>
+        <div className='lg:p-8 md:p-8 sm:20 p-8 pt-0 w-full lg:w-1/2 flex flex-col justify-center items-center'>
           <Outlet />
         </div>
       </div>

@@ -120,7 +120,6 @@ export const SupervisorCreatePage = (): JSX.Element => {
 
   //* Watchers
   const district = form.watch('district');
-  const theirPastor = form.watch('theirPastor');
   const isDirectRelationToPastor = form.watch('isDirectRelationToPastor');
 
   //* Custom hooks
@@ -156,13 +155,6 @@ export const SupervisorCreatePage = (): JSX.Element => {
       form.resetField('theirPastor', {
         keepError: true,
       });
-    }
-  }, [isDirectRelationToPastor]);
-
-  useEffect(() => {
-    if (isDirectRelationToPastor && !theirPastor) {
-      setIsSubmitButtonDisabled(true);
-      setIsMessageErrorDisabled(true);
     }
   }, [isDirectRelationToPastor]);
 
@@ -222,11 +214,13 @@ export const SupervisorCreatePage = (): JSX.Element => {
   const queryCopastors = useQuery({
     queryKey: ['copastors'],
     queryFn: getAllCopastors,
+    staleTime: 5 * 60 * 1000,
   });
 
   const queryPastors = useQuery({
     queryKey: ['pastors'],
     queryFn: getAllPastors,
+    staleTime: 5 * 60 * 1000,
   });
 
   if (queryCopastors.isLoading) return <LoadingSpinner />;
@@ -923,7 +917,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                                     key={pastor.id}
                                     onSelect={() => {
                                       form.setValue('theirPastor', pastor.id);
-                                      setIsInputTheirCopastorOpen(false);
+                                      setIsInputTheirPastorOpen(false);
                                     }}
                                   >
                                     {`${pastor?.firstName} ${pastor?.lastName}`}

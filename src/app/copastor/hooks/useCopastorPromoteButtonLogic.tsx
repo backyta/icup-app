@@ -2,17 +2,16 @@ import { useEffect, useState } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type FieldNames } from '@/shared/enums';
+import { type FieldNamesCopastor } from '@/app/copastor/enums';
 
 import { type CopastorFormData } from '@/app/copastor/interfaces';
 
 interface Options {
   formCopastorUpdate: UseFormReturn<CopastorFormData, any, CopastorFormData>;
-  fieldName: typeof FieldNames;
+  fieldName: typeof FieldNamesCopastor;
   setIsPromoteButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-// TODO : optimizar los anys
 export const useCopastorPromoteButtonLogic = ({
   formCopastorUpdate,
   fieldName,
@@ -47,14 +46,16 @@ export const useCopastorPromoteButtonLogic = ({
 
   //* Effects
   useEffect(() => {
-    const initialValues = formCopastorUpdate.getValues([...(Object.values(fieldName) as any)]);
+    const initialValues = formCopastorUpdate.getValues([...Object.values(fieldName)]);
     setFixedValues(initialValues);
   }, []);
 
   //* Validate and compare last and current values
   useEffect(() => {
     const previousValues: CopastorFormData[] = lastValues;
-    const currentValues = formCopastorUpdate.getValues([...(Object.values(fieldName) as any)]);
+    const currentValues: CopastorFormData[] = formCopastorUpdate.getValues([
+      ...Object.values(fieldName),
+    ]);
 
     if (
       previousValues.length !== 0 &&
@@ -68,14 +69,14 @@ export const useCopastorPromoteButtonLogic = ({
       fixed: CopastorFormData[],
       current: CopastorFormData[]
     ): boolean => {
-      const sortedA = Array.isArray(fixed[15]) && fixed[15]?.sort();
-      const sortedB = Array.isArray(current[15]) && current[15]?.sort();
+      const sortedA = Array.isArray(fixed[17]) && fixed[17]?.sort();
+      const sortedB = Array.isArray(current[17]) && current[17]?.sort();
 
       return JSON.stringify(sortedA) === JSON.stringify(sortedB);
     };
 
     if (
-      arrayEqualsIgnoreOrder(fixedValues, currentValues as CopastorFormData[]) &&
+      arrayEqualsIgnoreOrder(fixedValues, currentValues) &&
       JSON.stringify(fixedValues) === JSON.stringify(currentValues) &&
       status === 'active'
     ) {

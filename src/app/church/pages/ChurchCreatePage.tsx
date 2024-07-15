@@ -15,15 +15,29 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
+import { cn } from '@/shared/lib/utils';
+
 import { churchFormSchema } from '@/app/church/validations';
-import { type ErrorResponse } from '@/shared/interfaces';
 import { createChurch, getMainChurch } from '@/app/church/services';
 import { WorshipTimes, WorshipTimesKeys } from '@/app/church/enums';
 import { useChurchCreateSubmitButtonLogic } from '@/app/church/hooks';
 
-import { LoadingSpinner } from '@/layouts/components';
+import {
+  CountryNames,
+  Department,
+  DepartmentNames,
+  DistrictNames,
+  Province,
+  ProvinceNames,
+  UrbanSectorNames,
+} from '@/shared/enums';
+import {
+  validateDistrictsAllowedByModule,
+  validateUrbanSectorsAllowedByDistrict,
+} from '@/shared/helpers';
+import { type ErrorResponse } from '@/shared/interfaces';
 
-import { cn } from '@/shared/lib/utils';
+import { LoadingSpinner } from '@/layouts/components';
 
 import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
@@ -54,17 +68,6 @@ import {
   SelectValue,
 } from '@/shared/components/ui/select';
 
-import {
-  CountryNames,
-  DepartmentNames,
-  DistrictNames,
-  ProvinceNames,
-  UrbanSectorNames,
-} from '@/shared/enums';
-import {
-  validateDistrictsAllowedByModule,
-  validateUrbanSectorsAllowedByDistrict,
-} from '@/shared/helpers';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
 export const ChurchCreatePage = (): JSX.Element => {
@@ -89,8 +92,8 @@ export const ChurchCreatePage = (): JSX.Element => {
       country: '',
       email: '',
       phoneNumber: '',
-      department: '',
-      province: '',
+      department: Department.Lima,
+      province: Province.Lima,
       district: '',
       urbanSector: '',
       address: '',
@@ -103,7 +106,6 @@ export const ChurchCreatePage = (): JSX.Element => {
   //* Watchers
   const district = form.watch('district');
   const isAnexe = form.watch('isAnexe');
-  const theirMainChurch = form.watch('theirMainChurch');
 
   //* Custom hooks
   useChurchCreateSubmitButtonLogic({
@@ -124,13 +126,6 @@ export const ChurchCreatePage = (): JSX.Element => {
     form.resetField('theirMainChurch', {
       keepError: true,
     });
-  }, [isAnexe]);
-
-  useEffect(() => {
-    if (isAnexe && !theirMainChurch) {
-      setIsSubmitButtonDisabled(true);
-      setIsMessageErrorDisabled(true);
-    }
   }, [isAnexe]);
 
   //* Helpers
@@ -189,6 +184,7 @@ export const ChurchCreatePage = (): JSX.Element => {
   const { data, isLoading } = useQuery({
     queryKey: ['mainChurch'],
     queryFn: getMainChurch,
+    staleTime: 5 * 60 * 1000,
   });
 
   if (isLoading) return <LoadingSpinner />;

@@ -58,24 +58,6 @@ export const usePastorUpdateSubmitButtonLogic = ({
     }
 
     if (
-      firstName &&
-      lastName &&
-      gender &&
-      birthDate &&
-      conversionDate &&
-      maritalStatus &&
-      email &&
-      phoneNumber &&
-      originCountry &&
-      numberChildren &&
-      country &&
-      department &&
-      province &&
-      district &&
-      address &&
-      urbanSector &&
-      referenceAddress &&
-      roles.length !== 0 &&
       theirChurch &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Pastor) &&
@@ -102,8 +84,9 @@ export const usePastorUpdateSubmitButtonLogic = ({
       !province ||
       !district ||
       !urbanSector ||
-      !referenceAddress ||
       !address ||
+      !referenceAddress ||
+      !theirChurch ||
       roles.length === 0
     ) {
       setIsSubmitButtonDisabled(true);

@@ -161,7 +161,7 @@ export const PastorFormUpdate = ({
 
     setTimeout(() => {
       setIsLoadingData(false);
-    }, 1000);
+    }, 1200);
   }, []);
 
   //* Custom Hooks
@@ -243,6 +243,7 @@ export const PastorFormUpdate = ({
   const query = useQuery({
     queryKey: ['churches', id],
     queryFn: getAllChurches,
+    staleTime: 5 * 60 * 1000,
   });
 
   //* Handler form

@@ -22,17 +22,17 @@ import { CalendarIcon } from 'lucide-react';
 import { cn } from '@/shared/lib/utils';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { getAllPastors } from '@/app/copastor/services';
-
-import { getAllCopastors, updateSupervisor } from '@/app/supervisor/services';
-import { supervisorFormSchema } from '@/app/supervisor/validations';
-import { FormSupervisorSkeleton } from '@/app/supervisor/components';
-import { type SupervisorResponse } from '@/app/supervisor/interfaces';
 import {
   useSupervisorPromoteButtonLogic,
   useSupervisorUpdateSubmitButtonLogic,
   useRoleUpdateSupervisorHandler,
 } from '@/app/supervisor/hooks';
+import { getAllPastors } from '@/app/copastor/services';
+import { FieldNamesSupervisor } from '@/app/supervisor/enums';
+import { supervisorFormSchema } from '@/app/supervisor/validations';
+import { FormSupervisorSkeleton } from '@/app/supervisor/components';
+import { type SupervisorResponse } from '@/app/supervisor/interfaces';
+import { getAllCopastors, updateSupervisor } from '@/app/supervisor/services';
 
 import { useValidatePath } from '@/hooks';
 import { type ErrorResponse } from '@/shared/interfaces';
@@ -45,7 +45,6 @@ import {
   CountryNames,
   DepartmentNames,
   DistrictNames,
-  FieldNames,
   GenderNames,
   MaritalStatusNames,
   MemberRoles,
@@ -186,12 +185,11 @@ export const SupervisorFormUpdate = ({
     form.setValue('isDirectRelationToPastor', data?.isDirectRelationToPastor ?? undefined);
     form.setValue('roles', data?.roles as MemberRoles[]);
     form.setValue('theirCopastor', data?.theirCopastor?.id ?? '');
-    form.setValue('theirPastor', data?.theirPastor?.id ?? '');
     form.setValue('status', data?.status);
 
     setTimeout(() => {
       setIsLoadingData(false);
-    }, 1000);
+    }, 1200);
   }, []);
 
   //* Custom Hooks
@@ -203,7 +201,7 @@ export const SupervisorFormUpdate = ({
 
   useSupervisorPromoteButtonLogic({
     formSupervisorUpdate: form,
-    fieldName: FieldNames,
+    fieldName: FieldNamesSupervisor,
     setIsPromoteButtonDisabled,
   });
 
@@ -213,6 +211,7 @@ export const SupervisorFormUpdate = ({
     isInputDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
+    isRelationSelectDisabled,
   });
 
   //* Effects
@@ -289,14 +288,14 @@ export const SupervisorFormUpdate = ({
       }, 150);
 
       setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['supervisors-by-term'] });
+      }, 500);
+
+      setTimeout(() => {
         onSubmit();
         setIsRelationSelectDisabled(false);
         setIsInputDisabled(false);
       }, 1500);
-
-      setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['supervisors-by-term'] });
-      }, 600);
     },
   });
 
@@ -304,11 +303,13 @@ export const SupervisorFormUpdate = ({
   const queryCopastors = useQuery({
     queryKey: ['copastors', id],
     queryFn: getAllCopastors,
+    staleTime: 5 * 60 * 1000,
   });
 
   const queryPastors = useQuery({
     queryKey: ['pastors', id],
     queryFn: getAllPastors,
+    staleTime: 5 * 60 * 1000,
   });
 
   //* Handler form
@@ -1134,7 +1135,7 @@ export const SupervisorFormUpdate = ({
                         />
                       )}
 
-                      {((isPromoteButtonDisabled && isInputDisabled && theirPastor) ||
+                      {((isPromoteButtonDisabled && isInputDisabled && !theirCopastor) ||
                         isDirectRelationToPastor) && (
                         <FormField
                           control={form.control}
@@ -1231,7 +1232,7 @@ export const SupervisorFormUpdate = ({
                           <AlertDialogTitle className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-2'>
                             ¿Estas seguro de promover a este Supervisor?
                           </AlertDialogTitle>
-                          <AlertDialogDescription className={cn('h-[19.5rem] md:h-[17rem]')}>
+                          <AlertDialogDescription className={cn('h-[21rem] md:h-[18rem]')}>
                             <span className='w-full text-left text-blue-500 font-medium mb-3 inline-block text-[16px] md:text-[18px]'>
                               Secuencia de pasos y acciones:
                             </span>

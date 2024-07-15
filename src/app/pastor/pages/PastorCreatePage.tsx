@@ -195,6 +195,7 @@ export const PastorCreatePage = (): JSX.Element => {
   const { data, isLoading } = useQuery({
     queryKey: ['churches'],
     queryFn: getAllChurches,
+    staleTime: 5 * 60 * 1000,
   });
 
   if (isLoading) return <LoadingSpinner />;

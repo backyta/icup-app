@@ -195,6 +195,7 @@ export const CopastorCreatePage = (): JSX.Element => {
   const { data, isLoading } = useQuery({
     queryKey: ['pastors'],
     queryFn: getAllPastors,
+    staleTime: 5 * 60 * 1000,
   });
 
   if (isLoading) return <LoadingSpinner />;
