@@ -1,9 +1,9 @@
 
-import { type SearchSubTypePreacher, type SearchTypePreacher } from '@/app/preacher/enums';
+import { type PreacherSearchSubType, type PreacherSearchType } from '@/app/preacher/enums';
 
 export interface PreacherFormSearchByTerm {
-  searchType: SearchTypePreacher;
-  searchSubType?: SearchSubTypePreacher;
+  searchType: PreacherSearchType;
+  searchSubType?: PreacherSearchSubType;
   inputTerm?: string | undefined;
   selectTerm?: string | undefined;
   dateTerm?: {

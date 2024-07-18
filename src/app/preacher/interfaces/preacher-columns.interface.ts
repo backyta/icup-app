@@ -9,7 +9,8 @@ import {
   type Disciple, 
   type TheirPastor,
   type TheirChurch,
-  type TheirZone
+  type TheirZone,
+  type TheirCopastor
 } from '@/shared/interfaces';
 
 export interface PreacherColumns {
@@ -42,10 +43,10 @@ export interface PreacherColumns {
   preachers?:       Preacher[];
   familyHouses?:    FamilyGroup[];
   disciples?:       Disciple[];
-  status?:          string;
+  recordStatus?:    string;
   theirChurch?:     TheirChurch | null;
   theirPastor?:     TheirPastor | null;
-  theirCopastor?:   TheirPastor | null;
+  theirCopastor?:   TheirCopastor | null;
   theirZone?:       TheirZone | null;
 }
 

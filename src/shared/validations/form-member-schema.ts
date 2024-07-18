@@ -7,9 +7,9 @@ import {
   District, 
   Gender,
   MaritalStatus, 
-  MemberRoles, 
+  MemberRole, 
   Province, 
-  Status, 
+  RecordStatus, 
   UrbanSector 
 } from '@/shared/enums';
 
@@ -109,7 +109,7 @@ export const formMemberSchema = z
       .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
       .max(100, { message: 'El campo debe contener máximo 50 caracteres.' }),
 
-    roles: z.array(z.nativeEnum(MemberRoles),{
+    roles: z.array(z.nativeEnum(MemberRole),{
       required_error: "Debes seleccionar al menos un rol.",
     }).refine((value) => value.some((item) => item), {
       message: "Debes seleccionar al menos un rol.",
@@ -124,14 +124,14 @@ export const formMemberSchema = z
     createdBy: z.string().optional(),
     updatedBy: z.string().optional(),
 
-    status: z.string(z.nativeEnum(Status, {
+    status: z.string(z.nativeEnum(RecordStatus, {
       required_error: "Por favor seleccione una opción.",
     })).optional(),
     
   })
   .refine(
     (data) => {
-      if (data.roles.includes(MemberRoles.Copastor) && data.roles.includes(MemberRoles.Disciple)) {
+      if (data.roles.includes(MemberRole.Copastor) && data.roles.includes(MemberRole.Disciple)) {
         return !!data.theirPastor; 
       }
       return true;
@@ -143,7 +143,7 @@ export const formMemberSchema = z
   )
   .refine(
     (data) => {
-      if (data.roles.includes(MemberRoles.Supervisor) && data.roles.includes(MemberRoles.Disciple) ) {
+      if (data.roles.includes(MemberRole.Supervisor) && data.roles.includes(MemberRole.Disciple) ) {
         return !!data.theirCopastor; 
       }
       return true;
@@ -155,7 +155,7 @@ export const formMemberSchema = z
   )
   .refine(
     (data) => {
-      if ((data.roles.includes(MemberRoles.Preacher) && data.roles.includes(MemberRoles.Disciple))|| (data.roles.includes(MemberRoles.Preacher) && data.roles.includes(MemberRoles.Disciple) && data.roles.includes(MemberRoles.Treasurer))) {
+      if ((data.roles.includes(MemberRole.Preacher) && data.roles.includes(MemberRole.Disciple))|| (data.roles.includes(MemberRole.Preacher) && data.roles.includes(MemberRole.Disciple) && data.roles.includes(MemberRole.Treasurer))) {
         return !!data.theirSupervisor;
       }
       return true;
@@ -167,7 +167,7 @@ export const formMemberSchema = z
   )
   .refine(
     (data) => {
-      if (data.roles.includes(MemberRoles.Disciple) && !data.roles.includes(MemberRoles.Pastor) && !data.roles.includes(MemberRoles.Copastor) && !data.roles.includes(MemberRoles.Supervisor)  && !data.roles.includes(MemberRoles.Preacher)){
+      if (data.roles.includes(MemberRole.Disciple) && !data.roles.includes(MemberRole.Pastor) && !data.roles.includes(MemberRole.Copastor) && !data.roles.includes(MemberRole.Supervisor)  && !data.roles.includes(MemberRole.Preacher)){
         return !!data.theirFamilyHouse; 
       }
       return true;

@@ -2,7 +2,7 @@
 
 import * as z from 'zod';
 
-import { UserRoles } from '@/app/user/enums';
+import { UserRole } from '@/app/user/enums';
 import { SearchSubType, SearchType, RecordOrder } from '@/shared/enums';
 
 export const formSearchByTermSchema = z
@@ -18,7 +18,7 @@ export const formSearchByTermSchema = z
     inputTerm: z.string().max(30).optional(),
     selectTerm: z.string().max(30).optional(),
 
-    multiSelectTerm: z.array(z.nativeEnum(UserRoles),{
+    multiSelectTerm: z.array(z.nativeEnum(UserRole),{
       required_error: "Tienes que seleccionar al menos un rol.",
     }).refine((value) => value.some((item) => item), {
       message: "Tienes que seleccionar al menos un rol.",

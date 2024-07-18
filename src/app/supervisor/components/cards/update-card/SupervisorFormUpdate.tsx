@@ -28,7 +28,7 @@ import {
   useRoleUpdateSupervisorHandler,
 } from '@/app/supervisor/hooks';
 import { getAllPastors } from '@/app/copastor/services';
-import { FieldNamesSupervisor } from '@/app/supervisor/enums';
+import { SupervisorFieldNames } from '@/app/supervisor/enums';
 import { supervisorFormSchema } from '@/app/supervisor/validations';
 import { FormSupervisorSkeleton } from '@/app/supervisor/components';
 import { type SupervisorResponse } from '@/app/supervisor/interfaces';
@@ -47,8 +47,8 @@ import {
   DistrictNames,
   GenderNames,
   MaritalStatusNames,
-  MemberRoles,
-  MemberRolesNames,
+  MemberRole,
+  MemberRoleNames,
   ProvinceNames,
   UrbanSectorNames,
 } from '@/shared/enums';
@@ -150,9 +150,9 @@ export const SupervisorFormUpdate = ({
       urbanSector: '',
       address: '',
       referenceAddress: '',
-      roles: [MemberRoles.Disciple],
+      roles: [MemberRole.Disciple],
       isDirectRelationToPastor: undefined,
-      status: '',
+      recordStatus: '',
       theirCopastor: '',
       theirPastor: '',
     },
@@ -183,9 +183,9 @@ export const SupervisorFormUpdate = ({
     form.setValue('address', data?.address ?? '');
     form.setValue('referenceAddress', data?.referenceAddress ?? '');
     form.setValue('isDirectRelationToPastor', data?.isDirectRelationToPastor ?? undefined);
-    form.setValue('roles', data?.roles as MemberRoles[]);
+    form.setValue('roles', data?.roles as MemberRole[]);
     form.setValue('theirCopastor', data?.theirCopastor?.id ?? '');
-    form.setValue('status', data?.status);
+    form.setValue('recordStatus', data?.recordStatus);
 
     setTimeout(() => {
       setIsLoadingData(false);
@@ -196,18 +196,18 @@ export const SupervisorFormUpdate = ({
   const { disabledRoles } = useValidatePath({
     path: pathname,
     isInputDisabled,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
   });
 
   useSupervisorPromoteButtonLogic({
     formSupervisorUpdate: form,
-    fieldName: FieldNamesSupervisor,
+    fieldName: SupervisorFieldNames,
     setIsPromoteButtonDisabled,
   });
 
   useSupervisorUpdateSubmitButtonLogic({
     formSupervisorUpdate: form,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
     isInputDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
@@ -392,7 +392,7 @@ export const SupervisorFormUpdate = ({
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-3'>
-                            <FormLabel className='text-[14px]'>Genero</FormLabel>
+                            <FormLabel className='text-[14px]'>Género</FormLabel>
                             <Select
                               disabled={isInputDisabled}
                               value={field.value}
@@ -401,9 +401,9 @@ export const SupervisorFormUpdate = ({
                               <FormControl className='text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
-                                    <SelectValue placeholder='Selecciona el tipo de genero' />
+                                    <SelectValue placeholder='Selecciona el tipo de Género' />
                                   ) : (
-                                    'Selecciona el tipo de genero'
+                                    'Selecciona el tipo de Género'
                                   )}
                                 </SelectTrigger>
                               </FormControl>
@@ -611,7 +611,7 @@ export const SupervisorFormUpdate = ({
 
                     <FormField
                       control={form.control}
-                      name='status'
+                      name='recordStatus'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-5'>
@@ -639,7 +639,7 @@ export const SupervisorFormUpdate = ({
                                 </SelectItem>
                               </SelectContent>
                             </Select>
-                            {form.getValues('status') === 'active' && (
+                            {form.getValues('recordStatus') === 'active' && (
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
@@ -649,7 +649,7 @@ export const SupervisorFormUpdate = ({
                                 </span>
                               </FormDescription>
                             )}
-                            {form.getValues('status') === 'inactive' && (
+                            {form.getValues('recordStatus') === 'inactive' && (
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                                 * El registro esta <span className='text-red-500 '>Inactivo</span>,
                                 puede modificar el estado eligiendo otra opción.
@@ -953,7 +953,7 @@ export const SupervisorFormUpdate = ({
                               Seleccione los roles que desea asignar al discípulo.
                             </FormDescription>
                           </div>
-                          {Object.values(MemberRoles).map((role) => (
+                          {Object.values(MemberRole).map((role) => (
                             <FormField
                               key={role}
                               control={form.control}
@@ -970,7 +970,7 @@ export const SupervisorFormUpdate = ({
                                         checked={field.value?.includes(role)}
                                         disabled={isDisabled}
                                         onCheckedChange={(checked) => {
-                                          let updatedRoles: MemberRoles[] = [];
+                                          let updatedRoles: MemberRole[] = [];
                                           checked
                                             ? (updatedRoles = field.value
                                                 ? [...field.value, role]
@@ -985,7 +985,7 @@ export const SupervisorFormUpdate = ({
                                       />
                                     </FormControl>
                                     <FormLabel className='text-[14px] font-normal'>
-                                      {MemberRolesNames[role]}
+                                      {MemberRoleNames[role]}
                                     </FormLabel>
                                   </FormItem>
                                 );
@@ -1025,9 +1025,9 @@ export const SupervisorFormUpdate = ({
                       <span className='text-[13px] md:text-[14px] text-yellow-500 font-bold text-center'>
                         !SE HA PROMOVIDO CORRECTAMENTE! <br />
                         <span className='text-[12px] md:text-[13px]'>
-                          {form.getValues('roles').includes(MemberRoles.Disciple) &&
-                            form.getValues('roles').includes(MemberRoles.Copastor) &&
-                            !data?.roles.includes(MemberRoles.Treasurer) && (
+                          {form.getValues('roles').includes(MemberRole.Disciple) &&
+                            form.getValues('roles').includes(MemberRole.Copastor) &&
+                            !data?.roles.includes(MemberRole.Treasurer) && (
                               <div>
                                 <span className='text-red-500 text-center inline-block'>
                                   Roles anteriores: Discípulo - Supervisor
@@ -1038,9 +1038,9 @@ export const SupervisorFormUpdate = ({
                                 </span>
                               </div>
                             )}
-                          {form.getValues('roles').includes(MemberRoles.Disciple) &&
-                            form.getValues('roles').includes(MemberRoles.Copastor) &&
-                            data?.roles.includes(MemberRoles.Treasurer) && (
+                          {form.getValues('roles').includes(MemberRole.Disciple) &&
+                            form.getValues('roles').includes(MemberRole.Copastor) &&
+                            data?.roles.includes(MemberRole.Treasurer) && (
                               <div>
                                 <span className='text-red-500 text-center inline-block'>
                                   Roles anteriores: Discípulo - Supervisor - Tesorero
@@ -1244,15 +1244,16 @@ export const SupervisorFormUpdate = ({
                               ✅ Guardar estos datos para aplicar la promoción.
                             </span>
                             <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-                              ❌ De manera automática se borraran todas sus relaciones que tenia en
-                              el anterior cargo.
+                              ❌ De manera automática se eliminara el registro y se eliminaran todas
+                              sus relaciones que tenia en el anterior cargo.
                             </span>
 
                             <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-                              ❌ Si era Supervisor(a) y sube a Co-Pastor(a) se borrara su relación
+                              ❌ Si era Supervisor(a) y sube a Co-Pastor(a) se eliminara su relación
                               con sus discípulos, grupos familiares, predicadores y zona que
                               englobaba su cargo.
                             </span>
+
                             <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
                               ✅ Se deberá asignar otro Supervisor(a) para discípulos, grupos
                               familiares, predicadores y zona que se quedaron sin Supervisor.
@@ -1273,7 +1274,7 @@ export const SupervisorFormUpdate = ({
                             onClick={() => {
                               useRoleUpdateSupervisorHandler({
                                 formSupervisorUpdate: form,
-                                memberRoles: MemberRoles,
+                                memberRoles: MemberRole,
                                 setIsDisabledPromoteButton: setIsPromoteButtonDisabled,
                                 setIsDisabledInput: setIsInputDisabled,
                               });

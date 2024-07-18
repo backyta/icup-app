@@ -6,7 +6,7 @@ import { type UseFormReturn } from 'react-hook-form';
 
 import { type OfferingExpensesData } from '@/app/offering/expenses/interfaces';
 import { type TypesOfferingExpense } from '@/app/offering/expenses/enums';
-import { Status } from '@/shared/enums';
+import { RecordStatus } from '@/shared/enums';
 
 interface Options {
   formOfferingExpenses: UseFormReturn<OfferingExpensesData, any, OfferingExpensesData>;
@@ -90,7 +90,7 @@ export const useOfferingExpensesSubmitButtonLogic = ({
     }
 
     // update offering, status button submit block
-    if (status === Status.Inactive) {
+    if (status === RecordStatus.Inactive) {
       setIsSubmitButtonDisabled(true);
       setIsDropZoneDisabled(true);
     }
@@ -104,7 +104,7 @@ export const useOfferingExpensesSubmitButtonLogic = ({
     if (
       urlFiles &&
       urlFiles?.length < 3 &&
-      status === Status.Active &&
+      status === RecordStatus.Active &&
       (!isInputDisabled || !isDropZoneDisabled || !isFileButtonDisabled)
     ) {
       setIsDropZoneDisabled(false);

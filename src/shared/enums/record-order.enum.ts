@@ -1,4 +1,3 @@
-
 export enum RecordOrder {
   Ascending  = 'ASC',
   Descending = 'DESC',

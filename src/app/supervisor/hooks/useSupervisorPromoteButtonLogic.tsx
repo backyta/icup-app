@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type FieldNamesSupervisor } from '@/app/supervisor/enums';
+import { type SupervisorFieldNames } from '@/app/supervisor/enums';
 import { type SupervisorFormData } from '@/app/supervisor/interfaces';
 
 interface Options {
   formSupervisorUpdate: UseFormReturn<SupervisorFormData, any, SupervisorFormData>;
-  fieldName: typeof FieldNamesSupervisor;
+  fieldName: typeof SupervisorFieldNames;
   setIsPromoteButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -38,7 +38,7 @@ export const useSupervisorPromoteButtonLogic = ({
   const address = formSupervisorUpdate.watch('address');
   const referenceAddress = formSupervisorUpdate.watch('referenceAddress');
   const roles = formSupervisorUpdate.watch('roles');
-  const status = formSupervisorUpdate.watch('status');
+  const recordStatus = formSupervisorUpdate.watch('recordStatus');
 
   const theirCopastor = formSupervisorUpdate.watch('theirCopastor');
 
@@ -76,7 +76,7 @@ export const useSupervisorPromoteButtonLogic = ({
     if (
       arrayEqualsIgnoreOrder(fixedValues, currentValues) &&
       JSON.stringify(fixedValues) === JSON.stringify(currentValues) &&
-      status === 'active'
+      recordStatus === 'active'
     ) {
       setIsPromoteButtonDisabled(false);
     }
@@ -101,6 +101,6 @@ export const useSupervisorPromoteButtonLogic = ({
     address,
     roles,
     theirCopastor,
-    status,
+    recordStatus,
   ]);
 };

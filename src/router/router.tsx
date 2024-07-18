@@ -11,7 +11,6 @@ import { PastorOptionsPage } from '@/app/pastor/pages';
 import { CopastorOptionsPage } from '@/app/copastor/pages';
 import { SupervisorOptionsPage } from '@/app/supervisor/pages';
 import { PreacherOptionsPage } from '@/app/preacher/pages';
-// import { LeaderOptionsPage } from '@/app/leader/pages';
 import { FamilyGroupOptionsPage } from '@/app/family-group/pages';
 import { OfferingOptionsPage } from '@/app/offering/pages';
 import { OfferingIncomeOptionsPage } from '@/app/offering/income/pages';
@@ -26,7 +25,6 @@ import { PastorChildrenRoutes } from '@/app/pastor/router';
 import { CopastorChildrenRoutes } from '@/app/copastor/router';
 import { SupervisorChildrenRoutes } from '@/app/supervisor/router';
 import { PreacherChildrenRoutes } from '@/app/preacher/router';
-// import { LeaderChildrenRoutes } from '@/app/leader/router';
 import { FamilyGroupChildrenRoutes } from '@/app/family-group/router';
 import { OfferingIncomeChildrenRoutes } from '@/app/offering/income/router';
 import { OfferingExpensesChildrenRoutes } from '@/app/offering/expenses/router';
@@ -51,7 +49,6 @@ export const router = createBrowserRouter([
           { path: '/copastors', element: <CopastorOptionsPage /> },
           { path: '/supervisors', element: <SupervisorOptionsPage /> },
           { path: '/preachers', element: <PreacherOptionsPage /> },
-          // { path: '/leaders', element: <LeaderOptionsPage /> },
           { path: '/family-groups', element: <FamilyGroupOptionsPage /> },
           { path: '/offerings', element: <OfferingOptionsPage /> },
           { path: '/offerings/income', element: <OfferingIncomeOptionsPage /> },
@@ -67,7 +64,6 @@ export const router = createBrowserRouter([
       { path: '/copastors', element: <DashboardLayout />, children: CopastorChildrenRoutes },
       { path: '/supervisors', element: <DashboardLayout />, children: SupervisorChildrenRoutes },
       { path: '/preachers', element: <DashboardLayout />, children: PreacherChildrenRoutes },
-      // { path: '/leaders', element: <DashboardLayout />, children: LeaderChildrenRoutes },
       { path: '/family-groups', element: <DashboardLayout />, children: FamilyGroupChildrenRoutes },
 
       // Routes offering (income)

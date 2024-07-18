@@ -7,7 +7,7 @@ import { icupApi } from '@/api/icupApi';
 import { type CopastorResponse } from '@/app/copastor/interfaces';
 import { type SupervisorResponse, type SupervisorFormData, type SupervisorQueryParams } from '@/app/supervisor/interfaces';
 
-import { SearchTypeSupervisor } from '@/app/supervisor/enums';
+import { SupervisorSearchType } from '@/app/supervisor/enums';
 
 //* Create Supervisor
 export const createSupervisor = async (formData:SupervisorFormData ): Promise<SupervisorResponse> => {
@@ -98,13 +98,13 @@ export const getSupervisorsByTerm = async ({
  let result: SupervisorResponse[];
 
  //* Origin country, department, province, district, urban sector, address, zone
- if (searchType === SearchTypeSupervisor.OriginCountry||
-     searchType === SearchTypeSupervisor.Zone ||
-     searchType === SearchTypeSupervisor.Department ||
-     searchType === SearchTypeSupervisor.Province ||
-     searchType === SearchTypeSupervisor.District ||
-     searchType === SearchTypeSupervisor.UrbanSector ||
-     searchType === SearchTypeSupervisor.Address
+ if (searchType === SupervisorSearchType.OriginCountry||
+     searchType === SupervisorSearchType.Zone ||
+     searchType === SupervisorSearchType.Department ||
+     searchType === SupervisorSearchType.Province ||
+     searchType === SupervisorSearchType.District ||
+     searchType === SupervisorSearchType.UrbanSector ||
+     searchType === SupervisorSearchType.Address
     ) {
     try {
         if ( all !== undefined && !all) {
@@ -140,7 +140,7 @@ export const getSupervisorsByTerm = async ({
  }
 
  //* Date Birth
-  if (searchType === SearchTypeSupervisor.BirthDate) {
+  if (searchType === SupervisorSearchType.BirthDate) {
     try {
       if ( all !== undefined && !all) {
         const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${dateTerm}` , {
@@ -175,10 +175,10 @@ export const getSupervisorsByTerm = async ({
   }
 
  //* Status, Gender, Month Birth
-  if (searchType === SearchTypeSupervisor.Status ||
-        searchType === SearchTypeSupervisor.Gender ||
-        searchType === SearchTypeSupervisor.BirthMonth ||
-        searchType === SearchTypeSupervisor.MaritalStatus
+  if (searchType === SupervisorSearchType.RecordStatus ||
+        searchType === SupervisorSearchType.Gender ||
+        searchType === SupervisorSearchType.BirthMonth ||
+        searchType === SupervisorSearchType.MaritalStatus
       ) {
       try {
         if ( all !== undefined && !all) {
@@ -214,7 +214,7 @@ export const getSupervisorsByTerm = async ({
   }
 
  //* First Name
-  if (searchType === SearchTypeSupervisor.FirstName
+  if (searchType === SupervisorSearchType.FirstName
       ) {
       try {
         if ( all !== undefined && !all) {
@@ -253,7 +253,7 @@ export const getSupervisorsByTerm = async ({
   }
 
  //* Last Name 
-  if (searchType === SearchTypeSupervisor.LastName
+  if (searchType === SupervisorSearchType.LastName
       ) {
       try {
         if ( all !== undefined && !all) {
@@ -292,7 +292,7 @@ export const getSupervisorsByTerm = async ({
   }
 
  //* Full Name
-  if (searchType === SearchTypeSupervisor.FullName
+  if (searchType === SupervisorSearchType.FullName
       ) {
       try {
         if ( all !== undefined && !all) {

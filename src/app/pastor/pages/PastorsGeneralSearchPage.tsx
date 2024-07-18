@@ -66,7 +66,7 @@ const dataFictional: PastorResponse[] = [
     address: '',
     referenceAddress: '',
     roles: [],
-    status: '',
+    recordStatus: '',
     theirChurch: null,
   },
 ];

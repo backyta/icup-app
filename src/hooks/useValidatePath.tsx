@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
-import { type MemberRoles } from '@/shared/enums';
+import { type MemberRole } from '@/shared/enums';
 
 interface Options {
   path: string;
-  memberRoles: typeof MemberRoles;
+  memberRoles: typeof MemberRole;
   isInputDisabled?: boolean;
 }
 

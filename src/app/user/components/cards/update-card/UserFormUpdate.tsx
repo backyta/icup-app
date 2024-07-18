@@ -10,16 +10,16 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
-import { useUserSubmitButtonLogic } from '@/hooks';
+import { useUserCreateSubmitButtonLogic } from '@/app/user/hooks';
 
-import { userSchema } from '@/app/user/validations';
-import { type UserDataKeys, type UserData } from '@/app/user/interfaces';
+import { userFormSchema } from '@/app/user/validations';
+import { type UserFormDataKeys, type UserFormData } from '@/app/user/interfaces';
 
 import { cn } from '@/shared/lib/utils';
 
-import { UserRolesNames, UserRoles } from '@/app/user/enums';
+import { UserRoleNames, UserRole } from '@/app/user/enums';
 
-import { Status } from '@/shared/enums';
+import { RecordStatus } from '@/shared/enums';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -43,14 +43,14 @@ import {
   SelectValue,
 } from '@/shared/components/ui/select';
 
-const data: UserData = {
+const data: UserFormData = {
   firstName: 'Mario Luigi',
   lastName: 'Farfan Moreno',
   email: 'kevin.baca@example.com',
   password: 'Abcd123$',
   passwordConfirm: 'Abcd123$',
-  roles: [UserRoles.SuperUser],
-  status: Status.Inactive,
+  roles: [UserRole.SuperUser],
+  recordStatus: RecordStatus.Inactive,
 };
 
 interface Props {
@@ -73,9 +73,9 @@ export const UserFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
     useState<boolean>(true);
 
   //* Form
-  const form = useForm<z.infer<typeof userSchema>>({
+  const form = useForm<z.infer<typeof userFormSchema>>({
     mode: 'onChange',
-    resolver: zodResolver(userSchema),
+    resolver: zodResolver(userFormSchema),
     defaultValues: {
       firstName: '',
       lastName: '',
@@ -83,12 +83,12 @@ export const UserFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
       password: '',
       passwordConfirm: '',
       roles: [],
-      status: '',
+      recordStatus: '',
     },
   });
 
   //* Form handler
-  const handleSubmit = (values: z.infer<typeof userSchema>): void => {
+  const handleSubmit = (values: z.infer<typeof userFormSchema>): void => {
     console.log({ values });
   };
 
@@ -105,11 +105,11 @@ export const UserFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
   // NOTE : setear data hacer hook
   useEffect(() => {
     for (const key in data) {
-      form.setValue(key as UserDataKeys, data[key as UserDataKeys]);
+      form.setValue(key as UserFormDataKeys, data[key as UserFormDataKeys]);
     }
   }, []);
 
-  useUserSubmitButtonLogic({
+  useUserCreateSubmitButtonLogic({
     formUser: form,
     setIsSubmitButtonDisabled,
     setIsMessageErrorDisabled,
@@ -350,7 +350,7 @@ export const UserFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                           Seleccione los roles de acceso que tendrá el usuario.
                         </FormDescription>
                       </div>
-                      {Object.values(UserRoles).map((role) => (
+                      {Object.values(UserRole).map((role) => (
                         <FormField
                           key={role}
                           control={form.control}
@@ -366,7 +366,7 @@ export const UserFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                                     disabled={isInputDisabled}
                                     checked={field.value?.includes(role)}
                                     onCheckedChange={(checked) => {
-                                      let updatedRoles: UserRoles[] = [];
+                                      let updatedRoles: UserRole[] = [];
                                       checked
                                         ? (updatedRoles = field.value
                                             ? [...field.value, role]
@@ -379,7 +379,7 @@ export const UserFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                                   />
                                 </FormControl>
                                 <FormLabel className='text-sm lg:text-[15px] font-normal'>
-                                  {UserRolesNames[role]}
+                                  {UserRoleNames[role]}
                                 </FormLabel>
                               </FormItem>
                             );

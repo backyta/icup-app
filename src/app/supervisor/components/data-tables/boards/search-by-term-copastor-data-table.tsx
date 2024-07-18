@@ -25,10 +25,10 @@ import {
   type SupervisorQueryParams,
 } from '@/app/supervisor/interfaces';
 import {
-  SearchSelectionOptionSupervisorKeys,
-  SearchSubTypeSupervisorKeys,
-  SearchTypeSupervisor,
-  SearchTypeSupervisorKeys,
+  SupervisorSearchSelectOptionNames,
+  SupervisorSearchSubTypeNames,
+  SupervisorSearchType,
+  SupervisorSearchTypeNames,
 } from '@/app/supervisor/enums';
 import { getSupervisorsByTerm } from '@/app/supervisor/services';
 
@@ -165,19 +165,19 @@ export function SearchByTermSupervisorDataTable<TData, TValue>({
             </span>{' '}
             <span className='font-medium text-[13px] md:text-[14.5px] italic'>
               {`${
-                Object.entries(SearchTypeSupervisorKeys).find(
+                Object.entries(SupervisorSearchTypeNames).find(
                   ([key, value]) => key === dataForm?.searchType && value
                 )?.[1]
               }`}
             </span>
-            {(dataForm?.searchType === SearchTypeSupervisor.FirstName ||
-              dataForm?.searchType === SearchTypeSupervisor.LastName ||
-              dataForm?.searchType === SearchTypeSupervisor.FullName) && (
+            {(dataForm?.searchType === SupervisorSearchType.FirstName ||
+              dataForm?.searchType === SupervisorSearchType.LastName ||
+              dataForm?.searchType === SupervisorSearchType.FullName) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {' '}
                 -{' '}
                 {`${
-                  Object.entries(SearchSubTypeSupervisorKeys).find(
+                  Object.entries(SupervisorSearchSubTypeNames).find(
                     ([key, value]) => key === dataForm?.searchSubType && value
                   )?.[1]
                 }`}
@@ -190,44 +190,44 @@ export function SearchByTermSupervisorDataTable<TData, TValue>({
             <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
               Termino de búsqueda:
             </span>{' '}
-            {(dataForm?.searchType === SearchTypeSupervisor.OriginCountry ||
-              dataForm?.searchType === SearchTypeSupervisor.Zone ||
-              dataForm?.searchType === SearchTypeSupervisor.Department ||
-              dataForm?.searchType === SearchTypeSupervisor.Province ||
-              dataForm?.searchType === SearchTypeSupervisor.District ||
-              dataForm?.searchType === SearchTypeSupervisor.UrbanSector ||
-              dataForm?.searchType === SearchTypeSupervisor.Address) && (
+            {(dataForm?.searchType === SupervisorSearchType.OriginCountry ||
+              dataForm?.searchType === SupervisorSearchType.Zone ||
+              dataForm?.searchType === SupervisorSearchType.Department ||
+              dataForm?.searchType === SupervisorSearchType.Province ||
+              dataForm?.searchType === SupervisorSearchType.District ||
+              dataForm?.searchType === SupervisorSearchType.UrbanSector ||
+              dataForm?.searchType === SupervisorSearchType.Address) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.inputTerm}`}
               </span>
             )}
-            {dataForm?.searchType === SearchTypeSupervisor.FirstName && (
+            {dataForm?.searchType === SupervisorSearchType.FirstName && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.namesTerm}`}
               </span>
             )}
-            {dataForm?.searchType === SearchTypeSupervisor.LastName && (
+            {dataForm?.searchType === SupervisorSearchType.LastName && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.lastNamesTerm}`}
               </span>
             )}
-            {dataForm?.searchType === SearchTypeSupervisor.FullName && (
+            {dataForm?.searchType === SupervisorSearchType.FullName && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
               </span>
             )}
-            {dataForm?.searchType === SearchTypeSupervisor.BirthDate && (
+            {dataForm?.searchType === SupervisorSearchType.BirthDate && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.dateTerm?.from ? formatDateDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDateDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
               </span>
             )}
-            {(dataForm?.searchType === SearchTypeSupervisor.BirthMonth ||
-              dataForm?.searchType === SearchTypeSupervisor.Gender ||
-              dataForm?.searchType === SearchTypeSupervisor.MaritalStatus ||
-              dataForm?.searchType === SearchTypeSupervisor.Status) && (
+            {(dataForm?.searchType === SupervisorSearchType.BirthMonth ||
+              dataForm?.searchType === SupervisorSearchType.Gender ||
+              dataForm?.searchType === SupervisorSearchType.MaritalStatus ||
+              dataForm?.searchType === SupervisorSearchType.RecordStatus) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
-                  Object.entries(SearchSelectionOptionSupervisorKeys).find(
+                  Object.entries(SupervisorSearchSelectOptionNames).find(
                     ([key, value]) => key === dataForm?.selectTerm && value
                   )?.[1]
                 }`}

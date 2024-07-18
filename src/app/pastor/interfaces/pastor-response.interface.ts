@@ -41,7 +41,7 @@ export interface PastorResponse {
   preachers?:       Preacher[];
   familyGroups?:    FamilyGroup[];
   disciples?:       Disciple[];
-  status:           string;
+  recordStatus:           string;
   theirChurch?:     TheirChurch | null; 
 }
 

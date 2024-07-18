@@ -21,10 +21,10 @@ import {
 } from '@tanstack/react-table';
 
 import {
-  SearchSelectionOptionCopastorKeys,
-  SearchSubTypeCopastorKeys,
-  SearchTypeCopastor,
-  SearchTypeCopastorKeys,
+  CopastorSearchNamesSelectOption,
+  CopastorSearchSubTypeNames,
+  CopastorSearchType,
+  CopastorSearchTypeNames,
 } from '@/app/copastor/enums';
 import { getCopastorsByTerm } from '@/app/copastor/services';
 import { type CopastorFormSearchByTerm, type CopastorQueryParams } from '@/app/copastor/interfaces';
@@ -162,19 +162,19 @@ export function SearchByTermCopastorDataTable<TData, TValue>({
             </span>{' '}
             <span className='font-medium text-[13px] md:text-[14.5px] italic'>
               {`${
-                Object.entries(SearchTypeCopastorKeys).find(
+                Object.entries(CopastorSearchTypeNames).find(
                   ([key, value]) => key === dataForm?.searchType && value
                 )?.[1]
               }`}
             </span>
-            {(dataForm?.searchType === SearchTypeCopastor.FirstName ||
-              dataForm?.searchType === SearchTypeCopastor.LastName ||
-              dataForm?.searchType === SearchTypeCopastor.FullName) && (
+            {(dataForm?.searchType === CopastorSearchType.FirstName ||
+              dataForm?.searchType === CopastorSearchType.LastName ||
+              dataForm?.searchType === CopastorSearchType.FullName) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {' '}
                 -{' '}
                 {`${
-                  Object.entries(SearchSubTypeCopastorKeys).find(
+                  Object.entries(CopastorSearchSubTypeNames).find(
                     ([key, value]) => key === dataForm?.searchSubType && value
                   )?.[1]
                 }`}
@@ -187,43 +187,43 @@ export function SearchByTermCopastorDataTable<TData, TValue>({
             <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
               Termino de búsqueda:
             </span>{' '}
-            {(dataForm?.searchType === SearchTypeCopastor.OriginCountry ||
-              dataForm?.searchType === SearchTypeCopastor.Department ||
-              dataForm?.searchType === SearchTypeCopastor.Province ||
-              dataForm?.searchType === SearchTypeCopastor.District ||
-              dataForm?.searchType === SearchTypeCopastor.UrbanSector ||
-              dataForm?.searchType === SearchTypeCopastor.Address) && (
+            {(dataForm?.searchType === CopastorSearchType.OriginCountry ||
+              dataForm?.searchType === CopastorSearchType.Department ||
+              dataForm?.searchType === CopastorSearchType.Province ||
+              dataForm?.searchType === CopastorSearchType.District ||
+              dataForm?.searchType === CopastorSearchType.UrbanSector ||
+              dataForm?.searchType === CopastorSearchType.Address) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.inputTerm}`}
               </span>
             )}
-            {dataForm?.searchType === SearchTypeCopastor.FirstName && (
+            {dataForm?.searchType === CopastorSearchType.FirstName && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.namesTerm}`}
               </span>
             )}
-            {dataForm?.searchType === SearchTypeCopastor.LastName && (
+            {dataForm?.searchType === CopastorSearchType.LastName && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.lastNamesTerm}`}
               </span>
             )}
-            {dataForm?.searchType === SearchTypeCopastor.FullName && (
+            {dataForm?.searchType === CopastorSearchType.FullName && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
               </span>
             )}
-            {dataForm?.searchType === SearchTypeCopastor.BirthDate && (
+            {dataForm?.searchType === CopastorSearchType.BirthDate && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.dateTerm?.from ? formatDateDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDateDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
               </span>
             )}
-            {(dataForm?.searchType === SearchTypeCopastor.BirthMonth ||
-              dataForm?.searchType === SearchTypeCopastor.Gender ||
-              dataForm?.searchType === SearchTypeCopastor.MaritalStatus ||
-              dataForm?.searchType === SearchTypeCopastor.Status) && (
+            {(dataForm?.searchType === CopastorSearchType.BirthMonth ||
+              dataForm?.searchType === CopastorSearchType.Gender ||
+              dataForm?.searchType === CopastorSearchType.MaritalStatus ||
+              dataForm?.searchType === CopastorSearchType.RecordStatus) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
-                  Object.entries(SearchSelectionOptionCopastorKeys).find(
+                  Object.entries(CopastorSearchNamesSelectOption).find(
                     ([key, value]) => key === dataForm?.selectTerm && value
                   )?.[1]
                 }`}

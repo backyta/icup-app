@@ -6,12 +6,12 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRoles } from '@/shared/enums';
+import { type MemberRole } from '@/shared/enums';
 import { type SupervisorFormData } from '@/app/supervisor/interfaces';
 
 interface Options {
   formSupervisorUpdate: UseFormReturn<SupervisorFormData, any, SupervisorFormData>;
-  memberRoles: typeof MemberRoles;
+  memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
@@ -45,7 +45,7 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
   const address = formSupervisorUpdate.watch('address');
   const referenceAddress = formSupervisorUpdate.watch('referenceAddress');
   const roles = formSupervisorUpdate.watch('roles');
-  const status = formSupervisorUpdate.watch('status');
+  const recordStatus = formSupervisorUpdate.watch('recordStatus');
   const isDirectRelationToPastor = formSupervisorUpdate.watch('isDirectRelationToPastor');
 
   const theirCopastor = formSupervisorUpdate.watch('theirCopastor');
@@ -151,6 +151,6 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
     theirCopastor,
     theirPastor,
     roles,
-    status,
+    recordStatus,
   ]);
 };

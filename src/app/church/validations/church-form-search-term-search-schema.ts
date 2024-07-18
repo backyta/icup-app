@@ -3,11 +3,11 @@
 import * as z from 'zod';
 
 import { RecordOrder } from '@/shared/enums';
-import { SearchTypeChurch } from '@/app/church/enums';
+import { ChurchSearchType } from '@/app/church/enums';
 
 export const churchFormTermSearchSchema = z
   .object({
-    searchType: z.nativeEnum(SearchTypeChurch,{
+    searchType: z.nativeEnum(ChurchSearchType,{
       required_error: "Por favor seleccione un tipo.",
     }),
     
@@ -38,12 +38,12 @@ export const churchFormTermSearchSchema = z
   })
   .refine(
     (data) => {
-      if (data.searchType === SearchTypeChurch.ChurchName ||
-        data.searchType === SearchTypeChurch.Department ||
-        data.searchType === SearchTypeChurch.Province ||
-        data.searchType === SearchTypeChurch.District ||
-        data.searchType === SearchTypeChurch.UrbanSector ||
-        data.searchType === SearchTypeChurch.Address 
+      if (data.searchType === ChurchSearchType.ChurchName ||
+        data.searchType === ChurchSearchType.Department ||
+        data.searchType === ChurchSearchType.Province ||
+        data.searchType === ChurchSearchType.District ||
+        data.searchType === ChurchSearchType.UrbanSector ||
+        data.searchType === ChurchSearchType.Address 
         ) {
         return !!data.inputTerm; 
       }
@@ -57,7 +57,7 @@ export const churchFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-          data.searchType === SearchTypeChurch.Status
+          data.searchType === ChurchSearchType.RecordStatus
         ) {
         return !!data.selectTerm; 
       }
@@ -71,7 +71,7 @@ export const churchFormTermSearchSchema = z
   .refine(
     (data) => {
       if ( 
-        data.searchType === SearchTypeChurch.FoundingDate 
+        data.searchType === ChurchSearchType.FoundingDate 
       ) {
         return !!data.dateTerm; 
       }

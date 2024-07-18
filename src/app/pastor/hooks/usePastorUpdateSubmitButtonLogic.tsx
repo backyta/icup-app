@@ -6,13 +6,13 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRoles } from '@/shared/enums';
+import { type MemberRole } from '@/shared/enums';
 
 import { type PastorFormData } from '@/app/pastor/interfaces';
 
 interface Options {
   formPastorUpdate: UseFormReturn<PastorFormData, any, PastorFormData>;
-  memberRoles: typeof MemberRoles;
+  memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
@@ -44,7 +44,7 @@ export const usePastorUpdateSubmitButtonLogic = ({
   const address = formPastorUpdate.watch('address');
   const referenceAddress = formPastorUpdate.watch('referenceAddress');
   const roles = formPastorUpdate.watch('roles');
-  const status = formPastorUpdate.watch('status');
+  const recordStatus = formPastorUpdate.watch('recordStatus');
   const theirChurch = formPastorUpdate.watch('theirChurch');
 
   //* Effects
@@ -113,6 +113,6 @@ export const usePastorUpdateSubmitButtonLogic = ({
     referenceAddress,
     theirChurch,
     roles,
-    status,
+    recordStatus,
   ]);
 };

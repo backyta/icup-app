@@ -5,12 +5,12 @@
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRoles } from '@/shared/enums';
+import { type MemberRole } from '@/shared/enums';
 import { type CopastorFormData } from '@/app/copastor/interfaces';
 
 interface Options {
   formCopastorUpdate: UseFormReturn<CopastorFormData, any, CopastorFormData>;
-  memberRoles: typeof MemberRoles;
+  memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;

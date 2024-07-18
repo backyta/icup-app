@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type FieldNamesPreacher } from '@/app/preacher/enums';
+import { type PreacherFieldNames } from '@/app/preacher/enums';
 import { type PreacherFormData } from '@/app/preacher/interfaces';
 
 interface Options {
   formPreacherUpdate: UseFormReturn<PreacherFormData, any, PreacherFormData>;
-  fieldNames: typeof FieldNamesPreacher;
+  fieldNames: typeof PreacherFieldNames;
   setIsPromoteButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -39,7 +39,7 @@ export const usePreacherPromoteButtonLogic = ({
   const address = formPreacherUpdate.watch('address');
   const referenceAddress = formPreacherUpdate.watch('referenceAddress');
   const roles = formPreacherUpdate.watch('roles');
-  const status = formPreacherUpdate.watch('status');
+  const recordStatus = formPreacherUpdate.watch('recordStatus');
 
   const theirSupervisor = formPreacherUpdate.watch('theirSupervisor');
 
@@ -77,7 +77,7 @@ export const usePreacherPromoteButtonLogic = ({
     if (
       arrayEqualsIgnoreOrder(fixedValues, currentValues) &&
       JSON.stringify(fixedValues) === JSON.stringify(currentValues) &&
-      status === 'active'
+      recordStatus === 'active'
     ) {
       setIsPromoteButtonDisabled(false);
     }
@@ -102,6 +102,6 @@ export const usePreacherPromoteButtonLogic = ({
     address,
     roles,
     theirSupervisor,
-    status,
+    recordStatus,
   ]);
 };

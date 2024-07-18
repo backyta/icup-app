@@ -40,7 +40,7 @@ export interface PastorColumns {
   preachers?:       Preacher[];
   familyHouses?:    FamilyGroup[];
   disciples?:       Disciple[];
-  status?:           string;
+  recordStatus?:           string;
   theirChurch?:     TheirChurch | null; 
 }
 

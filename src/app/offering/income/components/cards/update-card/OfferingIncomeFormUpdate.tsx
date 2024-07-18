@@ -22,7 +22,7 @@ import { offeringIncomeFormSchema } from '@/app/offering/income/validations';
 
 import { familyHouses, zones } from '@/app/family-group/data';
 
-import { Status } from '@/shared/enums';
+import { RecordStatus } from '@/shared/enums';
 import { disciples } from '@/shared/data';
 
 import { CurrencyType, CurrencyTypeNames } from '@/app/offering/shared/enums';
@@ -83,7 +83,7 @@ const data: OfferingIncomeData = {
   // familyHouseID: familyHouses[1].value,
   // copastorID: copastors[2].value,
   memberID: 'id2',
-  status: Status.Active,
+  status: RecordStatus.Active,
 };
 
 interface Props {
@@ -211,12 +211,12 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
 
   // Inactive = Cannot eliminate anything
   useEffect(() => {
-    if (status === Status.Inactive) {
+    if (status === RecordStatus.Inactive) {
       setIsDropZoneDisabled(true);
       setIsFileButtonDisabled(true);
     }
 
-    if (status === Status.Active) {
+    if (status === RecordStatus.Active) {
       setIsDropZoneDisabled(false);
       setIsFileButtonDisabled(false);
     }
@@ -261,7 +261,7 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                 Registro de ingreso: 12KH453 - Marcelo Pacheco
               </div>
 
-              {status === Status.Active ? (
+              {status === RecordStatus.Active ? (
                 <span className='text-[11.5px] md:text-[12.5px] font-medium dark:text-slate-400 text-slate-500 md:pl-2'>
                   El estado del registro esta{' '}
                   <span className='font-bold text-green-500 uppercase'>Activo</span>, solo se podrá

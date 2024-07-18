@@ -1,3 +1,3 @@
 
-export * from './search-type-pastor.enum';
-export * from './search-selection-option-pastor.enum';
+export * from './pastor-search-type.enum';
+export * from './pastor-search-select-option.enum';

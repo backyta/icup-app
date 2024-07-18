@@ -6,7 +6,7 @@ import { SubTypesOfferingIncome, TypesOfferingIncome, TypesShiftOfferingIncome }
 
 import { CurrencyType  } from '@/app/offering/shared/enums';
 
-import { Status } from '@/shared/enums';
+import { RecordStatus } from '@/shared/enums';
 
 export const offeringIncomeFormSchema = z
   .object({
@@ -52,7 +52,7 @@ export const offeringIncomeFormSchema = z
     memberID: z.string().optional(),
     zoneID: z.string().optional(),
     
-    status: z.string(z.nativeEnum(Status, {
+    status: z.string(z.nativeEnum(RecordStatus, {
       required_error: "Por favor seleccione una opción.",
     })).optional(),
     

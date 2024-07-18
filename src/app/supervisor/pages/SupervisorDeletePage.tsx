@@ -24,15 +24,15 @@ import {
   type SupervisorResponse,
 } from '@/app/supervisor/interfaces';
 import {
-  SearchByBirthMonthSupervisorKeys,
-  SearchByFirstNamesSupervisorKeys,
-  SearchByFullNamesSupervisorKeys,
-  SearchByGenderSupervisorKeys,
-  SearchByLastNamesSupervisorKeys,
-  SearchByMaritalStatusSupervisorKeys,
-  SearchByStatusSupervisorKeys,
-  SearchTypeSupervisor,
-  SearchTypeSupervisorKeys,
+  SupervisorSearchNamesByBirthMonth,
+  SupervisorSearchNamesByFirstNames,
+  SupervisorSearchNamesByFullNames,
+  SupervisorSearchNamesByGender,
+  SupervisorSearchNamesByLastNames,
+  SupervisorSearchNamesByMaritalStatus,
+  SupervisorSearchNamesByStatus,
+  SupervisorSearchType,
+  SupervisorSearchTypeNames,
 } from '@/app/supervisor/enums';
 import { supervisorFormTermSearchSchema } from '@/app/supervisor/validations';
 
@@ -86,7 +86,7 @@ const dataFictional: SupervisorResponse[] = [
     address: '',
     referenceAddress: '',
     roles: [],
-    status: '',
+    recordStatus: '',
     theirPastor: null,
     theirCopastor: null,
   },
@@ -237,7 +237,7 @@ export const SupervisorDeletePage = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(SearchTypeSupervisorKeys).map(([key, value]) => (
+                          {Object.entries(SupervisorSearchTypeNames).map(([key, value]) => (
                             <SelectItem
                               className={`text-[13px] md:text-[14px]`}
                               key={key}
@@ -254,9 +254,9 @@ export const SupervisorDeletePage = (): JSX.Element => {
                 }}
               />
 
-              {(searchType === SearchTypeSupervisor.FirstName ||
-                searchType === SearchTypeSupervisor.LastName ||
-                searchType === SearchTypeSupervisor.FullName) && (
+              {(searchType === SupervisorSearchType.FirstName ||
+                searchType === SupervisorSearchType.LastName ||
+                searchType === SupervisorSearchType.FullName) && (
                 <FormField
                   control={form.control}
                   name='searchSubType'
@@ -300,11 +300,11 @@ export const SupervisorDeletePage = (): JSX.Element => {
                           </FormControl>
                           <SelectContent>
                             {Object.entries(
-                              searchType === SearchTypeSupervisor.FirstName
-                                ? SearchByFirstNamesSupervisorKeys
-                                : searchType === SearchTypeSupervisor.LastName
-                                  ? SearchByLastNamesSupervisorKeys
-                                  : SearchByFullNamesSupervisorKeys
+                              searchType === SupervisorSearchType.FirstName
+                                ? SupervisorSearchNamesByFirstNames
+                                : searchType === SupervisorSearchType.LastName
+                                  ? SupervisorSearchNamesByLastNames
+                                  : SupervisorSearchNamesByFullNames
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}
@@ -323,13 +323,13 @@ export const SupervisorDeletePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchTypeSupervisor.OriginCountry ||
-                searchType === SearchTypeSupervisor.Zone ||
-                searchType === SearchTypeSupervisor.Department ||
-                searchType === SearchTypeSupervisor.Province ||
-                searchType === SearchTypeSupervisor.District ||
-                searchType === SearchTypeSupervisor.UrbanSector ||
-                searchType === SearchTypeSupervisor.Address) && (
+              {(searchType === SupervisorSearchType.OriginCountry ||
+                searchType === SupervisorSearchType.Zone ||
+                searchType === SupervisorSearchType.Department ||
+                searchType === SupervisorSearchType.Province ||
+                searchType === SupervisorSearchType.District ||
+                searchType === SupervisorSearchType.UrbanSector ||
+                searchType === SupervisorSearchType.Address) && (
                 <FormField
                   control={form.control}
                   name='inputTerm'
@@ -352,7 +352,7 @@ export const SupervisorDeletePage = (): JSX.Element => {
                 />
               )}
 
-              {searchType === SearchTypeSupervisor.BirthDate && (
+              {searchType === SupervisorSearchType.BirthDate && (
                 <FormField
                   control={form.control}
                   name='dateTerm'
@@ -409,10 +409,10 @@ export const SupervisorDeletePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchTypeSupervisor.Status ||
-                searchType === SearchTypeSupervisor.BirthMonth ||
-                searchType === SearchTypeSupervisor.Gender ||
-                searchType === SearchTypeSupervisor.MaritalStatus) && (
+              {(searchType === SupervisorSearchType.RecordStatus ||
+                searchType === SupervisorSearchType.BirthMonth ||
+                searchType === SupervisorSearchType.Gender ||
+                searchType === SupervisorSearchType.MaritalStatus) && (
                 <FormField
                   control={form.control}
                   name='selectTerm'
@@ -442,13 +442,13 @@ export const SupervisorDeletePage = (): JSX.Element => {
                           </FormControl>
                           <SelectContent>
                             {Object.entries(
-                              searchType === SearchTypeSupervisor.Gender
-                                ? SearchByGenderSupervisorKeys
-                                : searchType === SearchTypeSupervisor.BirthMonth
-                                  ? SearchByBirthMonthSupervisorKeys
-                                  : searchType === SearchTypeSupervisor.MaritalStatus
-                                    ? SearchByMaritalStatusSupervisorKeys
-                                    : SearchByStatusSupervisorKeys
+                              searchType === SupervisorSearchType.Gender
+                                ? SupervisorSearchNamesByGender
+                                : searchType === SupervisorSearchType.BirthMonth
+                                  ? SupervisorSearchNamesByBirthMonth
+                                  : searchType === SupervisorSearchType.MaritalStatus
+                                    ? SupervisorSearchNamesByMaritalStatus
+                                    : SupervisorSearchNamesByStatus
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}
@@ -467,8 +467,8 @@ export const SupervisorDeletePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchTypeSupervisor.FirstName ||
-                searchType === SearchTypeSupervisor.FullName) && (
+              {(searchType === SupervisorSearchType.FirstName ||
+                searchType === SupervisorSearchType.FullName) && (
                 <FormField
                   control={form.control}
                   name='namesTerm'
@@ -491,8 +491,8 @@ export const SupervisorDeletePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchTypeSupervisor.LastName ||
-                searchType === SearchTypeSupervisor.FullName) && (
+              {(searchType === SupervisorSearchType.LastName ||
+                searchType === SupervisorSearchType.FullName) && (
                 <FormField
                   control={form.control}
                   name='lastNamesTerm'

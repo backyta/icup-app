@@ -1,4 +1,4 @@
-import { type MemberRoles } from '@/shared/enums';
+import { type MemberRole } from '@/shared/enums';
 export interface CopastorFormData {
   firstName: string;
   lastName: string;
@@ -17,8 +17,8 @@ export interface CopastorFormData {
   urbanSector: string;
   address: string;
   referenceAddress: string;
-  roles: MemberRoles[];
-  status?: string | undefined;
+  roles: MemberRole[];
+  recordStatus?: string | undefined;
   theirPastor?: string | undefined;
   theirChurch?: string | undefined;
 }
@@ -43,6 +43,6 @@ export type CopastorFormDataKeys =
   | 'address'
   | 'referenceAddress'
   | 'roles'
-  | 'status'
+  | 'recordStatus'
   | 'theirPastor'
   | 'theirChurch'

@@ -3,7 +3,7 @@
 import { format } from 'date-fns';
 
 import { type ChurchResponse } from '@/app/church/interfaces';
-import { type WorshipTimes, WorshipTimesKeys } from '@/app/church/enums';
+import { type ChurchWorshipTimes, ChurchWorshipTimesNames } from '@/app/church/enums';
 
 import {
   Card,
@@ -189,10 +189,12 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <div className='px-2 pt-2 text-[14px] md:text-[14.5px]'>
                 <ul className='pl-5 flex flex-wrap gap-x-10 gap-y-2 list-disc'>
                   {data?.worshipTimes.map((worshipTime) =>
-                    Object.keys(WorshipTimesKeys).map(
+                    Object.keys(ChurchWorshipTimesNames).map(
                       (worshipTimeName) =>
                         worshipTime === worshipTimeName && (
-                          <li key={worshipTime}>{WorshipTimesKeys[worshipTime as WorshipTimes]}</li>
+                          <li key={worshipTime}>
+                            {ChurchWorshipTimesNames[worshipTime as ChurchWorshipTimes]}
+                          </li>
                         )
                     )
                   )}
@@ -258,7 +260,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center md:grid md:col-start-3 md:col-end-4 md:row-start-7 md:row-end-8'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
-                {data?.status === 'active' ? 'Activo' : 'Inactivo'}
+                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>

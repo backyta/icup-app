@@ -21,7 +21,7 @@ export function DropdownMenuLeft(): JSX.Element {
         <Button
           id='button'
           type='button'
-          className='bg-slate-900 border border-white text-white hover:bg-slate-800 hover:text-white px-1 py-0 md:absolute mr-3 md:mr-0 md:left-[5.4rem] md:top-[11rem] md:rounded-full'
+          className='bg-slate-900 border border-white md:border-none text-white hover:bg-slate-800 hover:text-white px-1 py-0 md:absolute mr-3 md:mr-0 md:left-[5.4rem] md:top-[11rem] md:rounded-full'
           aria-controls='mobile-menu'
           aria-expanded='false'
         >

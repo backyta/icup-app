@@ -6,12 +6,12 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRoles } from '@/shared/enums';
+import { type MemberRole } from '@/shared/enums';
 import { type PreacherFormData } from '@/app/preacher/interfaces';
 
 interface Options {
   formPreacherUpdate: UseFormReturn<PreacherFormData, any, PreacherFormData>;
-  memberRoles: typeof MemberRoles;
+  memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
@@ -45,7 +45,7 @@ export const usePreacherUpdateSubmitButtonLogic = ({
   const address = formPreacherUpdate.watch('address');
   const referenceAddress = formPreacherUpdate.watch('referenceAddress');
   const roles = formPreacherUpdate.watch('roles');
-  const status = formPreacherUpdate.watch('status');
+  const recordStatus = formPreacherUpdate.watch('recordStatus');
   const isDirectRelationToPastor = formPreacherUpdate.watch('isDirectRelationToPastor');
 
   const theirSupervisor = formPreacherUpdate.watch('theirSupervisor');
@@ -164,6 +164,6 @@ export const usePreacherUpdateSubmitButtonLogic = ({
     theirPastor,
     isDirectRelationToPastor,
     roles,
-    status,
+    recordStatus,
   ]);
 };

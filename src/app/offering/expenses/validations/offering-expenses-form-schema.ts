@@ -5,7 +5,7 @@ import * as z from 'zod';
 import { TypesOfferingExpense, SubTypesOfferingExpense } from '@/app/offering/expenses/enums';
 import { CurrencyType  } from '@/app/offering/shared/enums';
 
-import { Status } from '@/shared/enums';
+import { RecordStatus } from '@/shared/enums';
 
 export const offeringExpensesFormSchema = z
   .object({
@@ -39,7 +39,7 @@ export const offeringExpensesFormSchema = z
 
     urlFile: z.array(z.string()).optional(),
     
-    status: z.string(z.nativeEnum(Status, {
+    status: z.string(z.nativeEnum(RecordStatus, {
       required_error: "Por favor seleccione una opción.",
     })).optional(),
     

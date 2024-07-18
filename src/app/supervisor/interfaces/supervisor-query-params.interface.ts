@@ -8,6 +8,8 @@ export interface SupervisorQueryParams {
   searchSubType?: string;
   limit?: string;
   offset?: string;
-  all?: boolean;
   order: string;
+
+  //* Validator for get all register (replicar)
+  all?: boolean;
 }

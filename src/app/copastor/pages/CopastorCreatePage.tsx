@@ -24,8 +24,8 @@ import { useValidatePath } from '@/hooks';
 import { LoadingSpinner } from '@/layouts/components';
 
 import {
-  MemberRoles,
-  MemberRolesNames,
+  MemberRole,
+  MemberRoleNames,
   MaritalStatusNames,
   GenderNames,
   CountryNames,
@@ -109,7 +109,7 @@ export const CopastorCreatePage = (): JSX.Element => {
       district: '',
       address: '',
       referenceAddress: '',
-      roles: [MemberRoles.Disciple],
+      roles: [MemberRole.Disciple],
       theirPastor: '',
     },
   });
@@ -120,12 +120,12 @@ export const CopastorCreatePage = (): JSX.Element => {
   //* Custom hooks
   const { disabledRoles } = useValidatePath({
     path: pathname,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
   });
 
   useCopastorCreateSubmitButtonLogic({
     formCopastorCrate: form,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
     isInputDisabled,
     isMessageErrorDisabled,
     setIsMessageErrorDisabled,
@@ -186,7 +186,7 @@ export const CopastorCreatePage = (): JSX.Element => {
       }, 1600);
 
       setTimeout(() => {
-        navigate('/pastors');
+        navigate('/copastors');
       }, 2600);
     },
   });
@@ -282,7 +282,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel className='text-[14px] font-medium'>Genero</FormLabel>
+                      <FormLabel className='text-[14px] font-medium'>Género</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         value={field.value}
@@ -291,9 +291,9 @@ export const CopastorCreatePage = (): JSX.Element => {
                         <FormControl>
                           <SelectTrigger>
                             {field.value ? (
-                              <SelectValue placeholder='Selecciona el tipo de genero' />
+                              <SelectValue placeholder='Selecciona el tipo de Género' />
                             ) : (
-                              'Selecciona el tipo de genero'
+                              'Selecciona el tipo de Género'
                             )}
                           </SelectTrigger>
                         </FormControl>
@@ -769,7 +769,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                         Seleccione los roles que desea asignar al discípulo.
                       </FormDescription>
                     </div>
-                    {Object.values(MemberRoles).map((role) => (
+                    {Object.values(MemberRole).map((role) => (
                       <FormField
                         key={role}
                         control={form.control}
@@ -786,7 +786,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                                   checked={field.value?.includes(role)}
                                   disabled={isDisabled}
                                   onCheckedChange={(checked) => {
-                                    let updatedRoles: MemberRoles[] = [];
+                                    let updatedRoles: MemberRole[] = [];
                                     checked
                                       ? (updatedRoles = field.value
                                           ? [...field.value, role]
@@ -800,7 +800,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                                 />
                               </FormControl>
                               <FormLabel className='text-[14px] font-normal'>
-                                {MemberRolesNames[role]}
+                                {MemberRoleNames[role]}
                               </FormLabel>
                             </FormItem>
                           );
@@ -917,7 +917,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                   }, 100);
                 }}
               >
-                Registrar Co-pastor
+                Registrar Co-Pastor
               </Button>
             </div>
           </form>

@@ -1,4 +1,4 @@
-import { type MemberRoles } from '@/shared/enums';
+import { type MemberRole } from '@/shared/enums';
 
 
 export interface PreacherFormData {
@@ -19,8 +19,8 @@ export interface PreacherFormData {
   urbanSector: string;
   address: string;
   referenceAddress: string;
-  roles: MemberRoles[];
-  status?: string | undefined;
+  roles: MemberRole[];
+  recordStatus?: string | undefined;
   isDirectRelationToPastor?: boolean | undefined;
   theirSupervisor?: string | undefined;
   theirCopastor?: string | undefined;
@@ -47,7 +47,7 @@ export type PreacherFormDataKeys =
   | 'address'
   | 'referenceAddress'
   | 'roles'
-  | 'status'
+  | 'recordStatus'
   | 'isDirectRelationToPastor'
   | 'theirSupervisor'
   | 'theirCopastor'

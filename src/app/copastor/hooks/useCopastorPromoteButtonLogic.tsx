@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type FieldNamesCopastor } from '@/app/copastor/enums';
+import { type CopastorFieldNames } from '@/app/copastor/enums';
 
 import { type CopastorFormData } from '@/app/copastor/interfaces';
 
 interface Options {
   formCopastorUpdate: UseFormReturn<CopastorFormData, any, CopastorFormData>;
-  fieldName: typeof FieldNamesCopastor;
+  fieldName: typeof CopastorFieldNames;
   setIsPromoteButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

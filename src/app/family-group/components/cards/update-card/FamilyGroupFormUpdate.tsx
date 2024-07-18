@@ -32,7 +32,7 @@ import {
   DistrictNames,
   Province,
   ProvinceNames,
-  Status,
+  RecordStatus,
   UrbanSector,
   UrbanSectorNames,
 } from '@/shared/enums';
@@ -80,7 +80,7 @@ const data: FamilyGroupData = {
   referenceComments: 'nuevo referencia',
   address: 'Av. Hayan Capac 123',
   theirPreacher: 'id2',
-  status: Status.Inactive,
+  status: RecordStatus.Inactive,
 };
 
 interface Props {

@@ -7,7 +7,7 @@ import { icupApi } from '@/api/icupApi';
 import { type ChurchResponse } from '@/app/church/interfaces';
 import { type PastorResponse, type PastorFormData, type PastorQueryParams } from '@/app/pastor/interfaces';
 
-import { SearchTypePastor } from '@/app/pastor/enums';
+import { PastorSearchType } from '@/app/pastor/enums';
 
 //* Create pastor
 export const createPastor = async (formData:PastorFormData ): Promise<PastorResponse> => {
@@ -97,12 +97,12 @@ export const getPastorsByTerm = async ({
  let result: PastorResponse[];
 
  //* Origin country, department, province, district, urban sector, address
- if (searchType === SearchTypePastor.OriginCountry||
-     searchType === SearchTypePastor.Department ||
-     searchType === SearchTypePastor.Province ||
-     searchType === SearchTypePastor.District ||
-     searchType === SearchTypePastor.UrbanSector ||
-     searchType === SearchTypePastor.Address
+ if (searchType === PastorSearchType.OriginCountry||
+     searchType === PastorSearchType.Department ||
+     searchType === PastorSearchType.Province ||
+     searchType === PastorSearchType.District ||
+     searchType === PastorSearchType.UrbanSector ||
+     searchType === PastorSearchType.Address
     ) {
     try {
         if ( all !== undefined && !all) {
@@ -138,7 +138,7 @@ export const getPastorsByTerm = async ({
  }
 
  //* Date Birth
-  if (searchType === SearchTypePastor.BirthDate) {
+  if (searchType === PastorSearchType.BirthDate) {
     try {
       if ( all !== undefined && !all) {
         const {data} = await icupApi<PastorResponse[]>(`/pastors/${dateTerm}` , {
@@ -173,10 +173,10 @@ export const getPastorsByTerm = async ({
   }
 
  //* Status, Gender, Month Birth
-  if (searchType === SearchTypePastor.Status ||
-        searchType === SearchTypePastor.Gender ||
-        searchType === SearchTypePastor.BirthMonth ||
-        searchType === SearchTypePastor.MaritalStatus
+  if (searchType === PastorSearchType.RecordStatus ||
+        searchType === PastorSearchType.Gender ||
+        searchType === PastorSearchType.BirthMonth ||
+        searchType === PastorSearchType.MaritalStatus
       ) {
       try {
         if ( all !== undefined && !all) {
@@ -212,7 +212,7 @@ export const getPastorsByTerm = async ({
   }
 
  //* First Name
-  if (searchType === SearchTypePastor.FirstName
+  if (searchType === PastorSearchType.FirstName
       ) {
       try {
         if ( all !== undefined && !all) {
@@ -249,7 +249,7 @@ export const getPastorsByTerm = async ({
   }
 
  //* Last Name 
-  if (searchType === SearchTypePastor.LastName
+  if (searchType === PastorSearchType.LastName
       ) {
       try {
         if ( all !== undefined && !all) {
@@ -286,7 +286,7 @@ export const getPastorsByTerm = async ({
   }
 
  //* Full Name
-  if (searchType === SearchTypePastor.FullName
+  if (searchType === PastorSearchType.FullName
       ) {
       try {
         if ( all !== undefined && !all) {

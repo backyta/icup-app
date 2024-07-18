@@ -1,5 +1,4 @@
-
-export * from './search-type-copastor.enum';
-export * from './search-sub-type-copastor.enum';
-export * from './search-selection-option-copastor.enum';
-export * from './field-names-copastor.enum';
+export * from './copastor-search-type.enum';
+export * from './copastor-search-sub-type.enum';
+export * from './copastor-search-select-option.enum';
+export * from './copastor-field-names.enum';

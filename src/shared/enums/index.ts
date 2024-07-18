@@ -5,7 +5,7 @@ export * from './search-sub-types.enum';
 export * from './search-type.enum';
 export * from './search-selection-option.enum';
 export * from './gender.enum';
-export * from './status.enum';
+export * from './record-status.enum';
 export * from './record-order.enum';
 export * from './country.enum';
 export * from './department.enum';

@@ -79,7 +79,7 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
               </CardDescription>
             </div>
             <div className='space-y-1'>
-              <Label className='text-[14px] md:text-[15px]'>Genero</Label>
+              <Label className='text-[14px] md:text-[15px]'>Género</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.gender}
               </CardDescription>
@@ -241,7 +241,7 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-11 row-end-12 md:grid md:row-start-7 md:row-end-8 md:col-start-3 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
-                {data?.status === 'active' ? 'Activo' : 'Inactivo'}
+                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>

@@ -10,7 +10,6 @@ export interface PreacherQueryParams {
   offset?: string;
   order: string;
 
-  //* Validator for get all register
+  //* Validator for get all register (replicar)
   all?: boolean;
 }
-

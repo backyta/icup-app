@@ -19,7 +19,7 @@ import { cn } from '@/shared/lib/utils';
 
 import { churchFormSchema } from '@/app/church/validations';
 import { createChurch, getMainChurch } from '@/app/church/services';
-import { WorshipTimes, WorshipTimesKeys } from '@/app/church/enums';
+import { ChurchWorshipTimes, ChurchWorshipTimesNames } from '@/app/church/enums';
 import { useChurchCreateSubmitButtonLogic } from '@/app/church/hooks';
 
 import {
@@ -311,7 +311,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                       </FormDescription>
                     </div>
                     <div className='flex flex-wrap space-x-5 space-y-1'>
-                      {Object.values(WorshipTimes).map((worshipTime) => (
+                      {Object.values(ChurchWorshipTimes).map((worshipTime) => (
                         <FormField
                           key={worshipTime}
                           control={form.control}
@@ -327,7 +327,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                                     disabled={isInputDisabled}
                                     checked={field.value?.includes(worshipTime)}
                                     onCheckedChange={(checked) => {
-                                      let updatedWorshipTimes: WorshipTimes[] = [];
+                                      let updatedWorshipTimes: ChurchWorshipTimes[] = [];
                                       checked
                                         ? (updatedWorshipTimes = field.value
                                             ? [...field.value, worshipTime]
@@ -341,7 +341,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                                   />
                                 </FormControl>
                                 <FormLabel className='text-[14px] font-medium'>
-                                  {WorshipTimesKeys[worshipTime]}
+                                  {ChurchWorshipTimesNames[worshipTime]}
                                 </FormLabel>
                               </FormItem>
                             );

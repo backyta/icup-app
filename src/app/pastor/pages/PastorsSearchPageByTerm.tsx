@@ -17,12 +17,12 @@ import { cn } from '@/shared/lib/utils';
 import { CalendarIcon } from 'lucide-react';
 
 import {
-  SearchByBirthMonthPastorKeys,
-  SearchByGenderPastorKeys,
-  SearchByMaritalStatusPastorKeys,
-  SearchByStatusPastorKeys,
-  SearchTypePastor,
-  SearchTypePastorKeys,
+  PastorSearchNamesByBirthMonth,
+  PastorSearchNamesByGender,
+  PastorSearchNamesByMaritalStatus,
+  PastorSearchNamesByStatus,
+  PastorSearchType,
+  PastorSearchTypeNames,
 } from '@/app/pastor/enums';
 import { pastorFormTermSearchSchema } from '@/app/pastor/validations';
 import { type PastorResponse, type PastorFormSearchByTerm } from '@/app/pastor/interfaces';
@@ -77,7 +77,7 @@ const dataFictional: PastorResponse[] = [
     address: '',
     referenceAddress: '',
     roles: [],
-    status: '',
+    recordStatus: '',
     theirChurch: null,
   },
 ];
@@ -224,7 +224,7 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(SearchTypePastorKeys).map(([key, value]) => (
+                          {Object.entries(PastorSearchTypeNames).map(([key, value]) => (
                             <SelectItem
                               className={`text-[13px] md:text-[14px]`}
                               key={key}
@@ -241,12 +241,12 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
                 }}
               />
 
-              {(searchType === SearchTypePastor.OriginCountry ||
-                searchType === SearchTypePastor.Department ||
-                searchType === SearchTypePastor.Province ||
-                searchType === SearchTypePastor.District ||
-                searchType === SearchTypePastor.UrbanSector ||
-                searchType === SearchTypePastor.Address) && (
+              {(searchType === PastorSearchType.OriginCountry ||
+                searchType === PastorSearchType.Department ||
+                searchType === PastorSearchType.Province ||
+                searchType === PastorSearchType.District ||
+                searchType === PastorSearchType.UrbanSector ||
+                searchType === PastorSearchType.Address) && (
                 <FormField
                   control={form.control}
                   name='inputTerm'
@@ -269,7 +269,7 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {searchType === SearchTypePastor.BirthDate && (
+              {searchType === PastorSearchType.BirthDate && (
                 <FormField
                   control={form.control}
                   name='dateTerm'
@@ -326,10 +326,10 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchTypePastor.Status ||
-                searchType === SearchTypePastor.BirthMonth ||
-                searchType === SearchTypePastor.Gender ||
-                searchType === SearchTypePastor.MaritalStatus) && (
+              {(searchType === PastorSearchType.RecordStatus ||
+                searchType === PastorSearchType.BirthMonth ||
+                searchType === PastorSearchType.Gender ||
+                searchType === PastorSearchType.MaritalStatus) && (
                 <FormField
                   control={form.control}
                   name='selectTerm'
@@ -359,13 +359,13 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
                           </FormControl>
                           <SelectContent>
                             {Object.entries(
-                              searchType === SearchTypePastor.Gender
-                                ? SearchByGenderPastorKeys
-                                : searchType === SearchTypePastor.BirthMonth
-                                  ? SearchByBirthMonthPastorKeys
-                                  : searchType === SearchTypePastor.MaritalStatus
-                                    ? SearchByMaritalStatusPastorKeys
-                                    : SearchByStatusPastorKeys
+                              searchType === PastorSearchType.Gender
+                                ? PastorSearchNamesByGender
+                                : searchType === PastorSearchType.BirthMonth
+                                  ? PastorSearchNamesByBirthMonth
+                                  : searchType === PastorSearchType.MaritalStatus
+                                    ? PastorSearchNamesByMaritalStatus
+                                    : PastorSearchNamesByStatus
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}
@@ -384,8 +384,8 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchTypePastor.FirstName ||
-                searchType === SearchTypePastor.FullName) && (
+              {(searchType === PastorSearchType.FirstName ||
+                searchType === PastorSearchType.FullName) && (
                 <FormField
                   control={form.control}
                   name='namesTerm'
@@ -408,8 +408,8 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchTypePastor.LastName ||
-                searchType === SearchTypePastor.FullName) && (
+              {(searchType === PastorSearchType.LastName ||
+                searchType === PastorSearchType.FullName) && (
                 <FormField
                   control={form.control}
                   name='lastNamesTerm'

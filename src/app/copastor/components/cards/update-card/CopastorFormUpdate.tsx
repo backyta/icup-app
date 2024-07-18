@@ -32,7 +32,7 @@ import {
   useRoleUpdateCopastorHandler,
 } from '@/app/copastor/hooks';
 import { getAllChurches } from '@/app/pastor/services';
-import { FieldNamesCopastor } from '@/app/copastor/enums';
+import { CopastorFieldNames } from '@/app/copastor/enums';
 
 import { useValidatePath } from '@/hooks';
 import { type ErrorResponse } from '@/shared/interfaces';
@@ -47,8 +47,8 @@ import {
   DistrictNames,
   GenderNames,
   MaritalStatusNames,
-  MemberRoles,
-  MemberRolesNames,
+  MemberRole,
+  MemberRoleNames,
   ProvinceNames,
   UrbanSectorNames,
 } from '@/shared/enums';
@@ -151,8 +151,8 @@ export const CopastorFormUpdate = ({
       urbanSector: '',
       address: '',
       referenceAddress: '',
-      roles: [MemberRoles.Disciple],
-      status: '',
+      roles: [MemberRole.Disciple],
+      recordStatus: '',
       theirPastor: '',
       theirChurch: '',
     },
@@ -181,9 +181,9 @@ export const CopastorFormUpdate = ({
     form.setValue('urbanSector', data?.urbanSector ?? '');
     form.setValue('address', data?.address ?? '');
     form.setValue('referenceAddress', data?.referenceAddress ?? '');
-    form.setValue('roles', data?.roles as MemberRoles[]);
+    form.setValue('roles', data?.roles as MemberRole[]);
     form.setValue('theirPastor', data?.theirPastor?.id);
-    form.setValue('status', data?.status);
+    form.setValue('status', data?.recordStatus);
 
     setTimeout(() => {
       setIsLoadingData(false);
@@ -194,18 +194,18 @@ export const CopastorFormUpdate = ({
   const { disabledRoles } = useValidatePath({
     path: pathname,
     isInputDisabled,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
   });
 
   useCopastorPromoteButtonLogic({
     formCopastorUpdate: form,
-    fieldName: FieldNamesCopastor,
+    fieldName: CopastorFieldNames,
     setIsPromoteButtonDisabled,
   });
 
   useCopastorUpdateSubmitButtonLogic({
     formCopastorUpdate: form,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
     isInputDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
@@ -369,7 +369,7 @@ export const CopastorFormUpdate = ({
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-3'>
-                            <FormLabel className='text-[14px]'>Genero</FormLabel>
+                            <FormLabel className='text-[14px]'>Género</FormLabel>
                             <Select
                               disabled={isInputDisabled}
                               value={field.value}
@@ -378,9 +378,9 @@ export const CopastorFormUpdate = ({
                               <FormControl className='text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
-                                    <SelectValue placeholder='Selecciona el tipo de genero' />
+                                    <SelectValue placeholder='Selecciona el tipo de Género' />
                                   ) : (
-                                    'Selecciona el tipo de genero'
+                                    'Selecciona el tipo de Género'
                                   )}
                                 </SelectTrigger>
                               </FormControl>
@@ -928,7 +928,7 @@ export const CopastorFormUpdate = ({
                               Seleccione los roles que desea asignar al discípulo.
                             </FormDescription>
                           </div>
-                          {Object.values(MemberRoles).map((role) => (
+                          {Object.values(MemberRole).map((role) => (
                             <FormField
                               key={role}
                               control={form.control}
@@ -945,7 +945,7 @@ export const CopastorFormUpdate = ({
                                         checked={field.value?.includes(role)}
                                         disabled={isDisabled}
                                         onCheckedChange={(checked) => {
-                                          let updatedRoles: MemberRoles[] = [];
+                                          let updatedRoles: MemberRole[] = [];
                                           checked
                                             ? (updatedRoles = field.value
                                                 ? [...field.value, role]
@@ -960,7 +960,7 @@ export const CopastorFormUpdate = ({
                                       />
                                     </FormControl>
                                     <FormLabel className='text-[14px] font-normal'>
-                                      {MemberRolesNames[role]}
+                                      {MemberRoleNames[role]}
                                     </FormLabel>
                                   </FormItem>
                                 );
@@ -976,8 +976,8 @@ export const CopastorFormUpdate = ({
                       <span className='text-[13px] md:text-[14px] text-yellow-500 font-bold text-center'>
                         !SE HA PROMOVIDO CORRECTAMENTE! <br />
                         <span className='text-[12px] md:text-[13px]'>
-                          {form.getValues('roles').includes(MemberRoles.Disciple) &&
-                            form.getValues('roles').includes(MemberRoles.Pastor) && (
+                          {form.getValues('roles').includes(MemberRole.Disciple) &&
+                            form.getValues('roles').includes(MemberRole.Pastor) && (
                               <div>
                                 <span className='text-red-500 text-center inline-block'>
                                   Roles anteriores: Discípulo - Co-Pastor
@@ -1183,15 +1183,16 @@ export const CopastorFormUpdate = ({
                               ✅ Guardar estos datos para aplicar la promoción.
                             </span>
                             <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-                              ❌ De manera automática se borraran todas sus relaciones que tenia en
-                              el anterior cargo.
+                              ❌ De manera automática se eliminara el registro y se eliminaran todas
+                              sus relaciones que tenia en el anterior cargo.
                             </span>
 
                             <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-                              ❌ Si era Co-Pastor(a) y sube a Pastor(a) se borrara su relación con
-                              los discípulos, grupos familiares, predicadores, supervisores y zonas
+                              ❌ Si era Co-Pastor(a) y sube a Pastor(a) se eliminara su relación con
+                              sus discípulos, grupos familiares, predicadores, supervisores y zonas
                               que englobaba su cargo.
                             </span>
+
                             <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
                               ✅ Se deberá asignar otro Co-Pastor(a) para los discípulos, grupos
                               familiares, predicadores, supervisores y zonas que se quedaron sin
@@ -1213,7 +1214,7 @@ export const CopastorFormUpdate = ({
                             onClick={() => {
                               useRoleUpdateCopastorHandler({
                                 formCopastorUpdate: form,
-                                memberRoles: MemberRoles,
+                                memberRoles: MemberRole,
                                 setIsDisabledPromoteButton: setIsPromoteButtonDisabled,
                                 setIsDisabledInput: setIsInputDisabled,
                               });

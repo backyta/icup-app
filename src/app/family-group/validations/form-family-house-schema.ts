@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import { Country, Department, District, Province, Status, UrbanSector } from '@/shared/enums';
+import { Country, Department, District, Province, RecordStatus, UrbanSector } from '@/shared/enums';
 
 export const formFamilyGroupSchema = z
   .object({
@@ -55,7 +55,7 @@ export const formFamilyGroupSchema = z
     zoneName: z.string({required_error: 
       'Por favor asigne un Zona.'}),
 
-    status: z.string(z.nativeEnum(Status, {
+    status: z.string(z.nativeEnum(RecordStatus, {
       required_error: "Por favor seleccione una opción.",
     })).optional(),
   })

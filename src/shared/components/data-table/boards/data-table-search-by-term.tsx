@@ -30,7 +30,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 
-import { UserRoles, UserRolesNames } from '@/app/user/enums';
+import { UserRole, UserRoleNames } from '@/app/user/enums';
 
 import { formSearchByTermSchema } from '@/shared/validations';
 import { type FormSearchByTerm } from '@/shared/interfaces';
@@ -534,7 +534,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                       Seleccione los roles que desea buscar
                     </FormDescription>
                     <div className='flex flex-wrap gap-y-1 justify-start sm:justify-around items-center'>
-                      {Object.values(UserRoles).map((role) => (
+                      {Object.values(UserRole).map((role) => (
                         <FormField
                           key={role}
                           control={form.control}
@@ -549,7 +549,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                                   <Checkbox
                                     checked={field.value?.includes(role)}
                                     onCheckedChange={(checked) => {
-                                      let updatedRoles: UserRoles[] = [];
+                                      let updatedRoles: UserRole[] = [];
                                       checked
                                         ? (updatedRoles = field.value
                                             ? [...field.value, role]
@@ -562,7 +562,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                                   />
                                 </FormControl>
                                 <FormLabel className='text-[13px] md:text-[14px] font-normal'>
-                                  {UserRolesNames[role]}
+                                  {UserRoleNames[role]}
                                 </FormLabel>
                               </FormItem>
                             );
@@ -1456,9 +1456,9 @@ export function DataTableSearchByTerm<TData, TValue>({
                 )}
                 {dataForm?.searchType === SearchType.Roles && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                    {`${Object.entries(UserRolesNames)
+                    {`${Object.entries(UserRoleNames)
                       .map(([key, value]) => {
-                        return dataForm?.multiSelectTerm?.includes(key as UserRoles) ? value : null;
+                        return dataForm?.multiSelectTerm?.includes(key as UserRole) ? value : null;
                       })
                       .filter((value) => value !== null)
                       .join(', ')}`}

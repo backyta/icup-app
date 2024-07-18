@@ -7,7 +7,7 @@ import { icupApi } from '@/api/icupApi';
 import { type SupervisorResponse } from '@/app/supervisor/interfaces';
 import { type PreacherResponse, type PreacherFormData, type PreacherQueryParams } from '@/app/preacher/interfaces';
 
-import { SearchTypePreacher } from '@/app/preacher/enums';
+import { PreacherSearchType } from '@/app/preacher/enums';
 
 
 //* Create Preacher
@@ -99,15 +99,15 @@ export const getPreachersByTerm = async ({
  let result: PreacherResponse[];
 
  //* Origin country, department, province, district, urban sector, address, zone
- if (searchType === SearchTypePreacher.OriginCountry||
-     searchType === SearchTypePreacher.Zone ||
-     searchType === SearchTypePreacher.FamilyGroupCode ||
-     searchType === SearchTypePreacher.FamilyGroupName ||
-     searchType === SearchTypePreacher.Department ||
-     searchType === SearchTypePreacher.Province ||
-     searchType === SearchTypePreacher.District ||
-     searchType === SearchTypePreacher.UrbanSector ||
-     searchType === SearchTypePreacher.Address
+ if (searchType === PreacherSearchType.OriginCountry||
+     searchType === PreacherSearchType.Zone ||
+     searchType === PreacherSearchType.FamilyGroupCode ||
+     searchType === PreacherSearchType.FamilyGroupName ||
+     searchType === PreacherSearchType.Department ||
+     searchType === PreacherSearchType.Province ||
+     searchType === PreacherSearchType.District ||
+     searchType === PreacherSearchType.UrbanSector ||
+     searchType === PreacherSearchType.Address
     ) {
     try {
         if ( all !== undefined && !all) {
@@ -143,7 +143,7 @@ export const getPreachersByTerm = async ({
  }
 
  //* Date Birth
-  if (searchType === SearchTypePreacher.BirthDate) {
+  if (searchType === PreacherSearchType.BirthDate) {
     try {
       if ( all !== undefined && !all) {
         const {data} = await icupApi<PreacherResponse[]>(`/preachers/${dateTerm}` , {
@@ -178,10 +178,10 @@ export const getPreachersByTerm = async ({
   }
 
  //* Status, Gender, Month Birth
-  if (searchType === SearchTypePreacher.Status ||
-        searchType === SearchTypePreacher.Gender ||
-        searchType === SearchTypePreacher.BirthMonth ||
-        searchType === SearchTypePreacher.MaritalStatus
+  if (searchType === PreacherSearchType.RecordStatus ||
+        searchType === PreacherSearchType.Gender ||
+        searchType === PreacherSearchType.BirthMonth ||
+        searchType === PreacherSearchType.MaritalStatus
       ) {
       try {
         if ( all !== undefined && !all) {
@@ -217,7 +217,7 @@ export const getPreachersByTerm = async ({
   }
 
  //* First Name
-  if (searchType === SearchTypePreacher.FirstName
+  if (searchType === PreacherSearchType.FirstName
       ) {
       try {
         if ( all !== undefined && !all) {
@@ -256,7 +256,7 @@ export const getPreachersByTerm = async ({
   }
 
  //* Last Name 
-  if (searchType === SearchTypePreacher.LastName
+  if (searchType === PreacherSearchType.LastName
       ) {
       try {
         if ( all !== undefined && !all) {
@@ -295,7 +295,7 @@ export const getPreachersByTerm = async ({
   }
 
  //* Full Name
-  if (searchType === SearchTypePreacher.FullName
+  if (searchType === PreacherSearchType.FullName
       ) {
       try {
         if ( all !== undefined && !all) {

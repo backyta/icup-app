@@ -1,5 +1,5 @@
-import { MemberCreatePage } from '@/shared/pages';
 import {
+  DiscipleCreatePage,
   DiscipleDeletePage,
   DisciplesGeneralSearchPage,
   DisciplesSearchPageByTerm,
@@ -9,7 +9,7 @@ import {
 export const DiscipleChildrenRoutes = [
   {
     path: '/disciples/create-disciple',
-    element: <MemberCreatePage />,
+    element: <DiscipleCreatePage />,
   },
   {
     path: '/disciples/search-disciples',

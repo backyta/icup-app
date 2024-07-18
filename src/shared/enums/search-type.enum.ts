@@ -76,7 +76,7 @@ export const SearchTypeNames: Record<SearchType, string> =  {
   
   birth_date: 'Fecha de nacimiento',
   birth_month: 'Mes de nacimiento',
-  gender : 'Genero',
+  gender : 'Género',
   marital_status : 'Estado civil',
   
   zone : 'Zona',

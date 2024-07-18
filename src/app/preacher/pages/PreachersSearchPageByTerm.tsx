@@ -21,15 +21,15 @@ import {
 } from '@/app/preacher/components';
 import { type PreacherFormSearchByTerm, type PreacherResponse } from '@/app/preacher/interfaces';
 import {
-  SearchByBirthMonthPreacherKeys,
-  SearchByFirstNamesPreacherKeys,
-  SearchByFullNamesPreacherKeys,
-  SearchByGenderPreacherKeys,
-  SearchByLastNamesPreacherKeys,
-  SearchByMaritalStatusPreacherKeys,
-  SearchByStatusPreacherKeys,
-  SearchTypePreacher,
-  SearchTypePreacherKeys,
+  PreacherSearchNamesByBirthMonth,
+  PreacherSearchNamesByFirstNames,
+  PreacherSearchNamesByFullNames,
+  PreacherSearchNamesByGender,
+  PreacherSearchNamesByLastNames,
+  PreacherSearchNamesByMaritalStatus,
+  PreacherSearchNamesByStatus,
+  PreacherSearchType,
+  PreacherSearchTypeNames,
 } from '@/app/preacher/enums';
 import { preacherFormTermSearchSchema } from '@/app/preacher/validations';
 
@@ -83,7 +83,7 @@ const dataFictional: PreacherResponse[] = [
     address: '',
     referenceAddress: '',
     roles: [],
-    status: '',
+    recordStatus: '',
     theirSupervisor: null,
     theirCopastor: null,
   },
@@ -234,7 +234,7 @@ export const PreachersSearchPageByTerm = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(SearchTypePreacherKeys).map(([key, value]) => (
+                          {Object.entries(PreacherSearchTypeNames).map(([key, value]) => (
                             <SelectItem
                               className={`text-[13px] md:text-[14px]`}
                               key={key}
@@ -251,9 +251,9 @@ export const PreachersSearchPageByTerm = (): JSX.Element => {
                 }}
               />
 
-              {(searchType === SearchTypePreacher.FirstName ||
-                searchType === SearchTypePreacher.LastName ||
-                searchType === SearchTypePreacher.FullName) && (
+              {(searchType === PreacherSearchType.FirstName ||
+                searchType === PreacherSearchType.LastName ||
+                searchType === PreacherSearchType.FullName) && (
                 <FormField
                   control={form.control}
                   name='searchSubType'
@@ -297,11 +297,11 @@ export const PreachersSearchPageByTerm = (): JSX.Element => {
                           </FormControl>
                           <SelectContent>
                             {Object.entries(
-                              searchType === SearchTypePreacher.FirstName
-                                ? SearchByFirstNamesPreacherKeys
-                                : searchType === SearchTypePreacher.LastName
-                                  ? SearchByLastNamesPreacherKeys
-                                  : SearchByFullNamesPreacherKeys
+                              searchType === PreacherSearchType.FirstName
+                                ? PreacherSearchNamesByFirstNames
+                                : searchType === PreacherSearchType.LastName
+                                  ? PreacherSearchNamesByLastNames
+                                  : PreacherSearchNamesByFullNames
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}
@@ -320,15 +320,15 @@ export const PreachersSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchTypePreacher.OriginCountry ||
-                searchType === SearchTypePreacher.Zone ||
-                searchType === SearchTypePreacher.FamilyGroupCode ||
-                searchType === SearchTypePreacher.FamilyGroupName ||
-                searchType === SearchTypePreacher.Department ||
-                searchType === SearchTypePreacher.Province ||
-                searchType === SearchTypePreacher.District ||
-                searchType === SearchTypePreacher.UrbanSector ||
-                searchType === SearchTypePreacher.Address) && (
+              {(searchType === PreacherSearchType.OriginCountry ||
+                searchType === PreacherSearchType.Zone ||
+                searchType === PreacherSearchType.FamilyGroupCode ||
+                searchType === PreacherSearchType.FamilyGroupName ||
+                searchType === PreacherSearchType.Department ||
+                searchType === PreacherSearchType.Province ||
+                searchType === PreacherSearchType.District ||
+                searchType === PreacherSearchType.UrbanSector ||
+                searchType === PreacherSearchType.Address) && (
                 <FormField
                   control={form.control}
                   name='inputTerm'
@@ -351,7 +351,7 @@ export const PreachersSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {searchType === SearchTypePreacher.BirthDate && (
+              {searchType === PreacherSearchType.BirthDate && (
                 <FormField
                   control={form.control}
                   name='dateTerm'
@@ -408,10 +408,10 @@ export const PreachersSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchTypePreacher.Status ||
-                searchType === SearchTypePreacher.BirthMonth ||
-                searchType === SearchTypePreacher.Gender ||
-                searchType === SearchTypePreacher.MaritalStatus) && (
+              {(searchType === PreacherSearchType.RecordStatus ||
+                searchType === PreacherSearchType.BirthMonth ||
+                searchType === PreacherSearchType.Gender ||
+                searchType === PreacherSearchType.MaritalStatus) && (
                 <FormField
                   control={form.control}
                   name='selectTerm'
@@ -441,13 +441,13 @@ export const PreachersSearchPageByTerm = (): JSX.Element => {
                           </FormControl>
                           <SelectContent>
                             {Object.entries(
-                              searchType === SearchTypePreacher.Gender
-                                ? SearchByGenderPreacherKeys
-                                : searchType === SearchTypePreacher.BirthMonth
-                                  ? SearchByBirthMonthPreacherKeys
-                                  : searchType === SearchTypePreacher.MaritalStatus
-                                    ? SearchByMaritalStatusPreacherKeys
-                                    : SearchByStatusPreacherKeys
+                              searchType === PreacherSearchType.Gender
+                                ? PreacherSearchNamesByGender
+                                : searchType === PreacherSearchType.BirthMonth
+                                  ? PreacherSearchNamesByBirthMonth
+                                  : searchType === PreacherSearchType.MaritalStatus
+                                    ? PreacherSearchNamesByMaritalStatus
+                                    : PreacherSearchNamesByStatus
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}
@@ -466,8 +466,8 @@ export const PreachersSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchTypePreacher.FirstName ||
-                searchType === SearchTypePreacher.FullName) && (
+              {(searchType === PreacherSearchType.FirstName ||
+                searchType === PreacherSearchType.FullName) && (
                 <FormField
                   control={form.control}
                   name='namesTerm'
@@ -490,8 +490,8 @@ export const PreachersSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchTypePreacher.LastName ||
-                searchType === SearchTypePreacher.FullName) && (
+              {(searchType === PreacherSearchType.LastName ||
+                searchType === PreacherSearchType.FullName) && (
                 <FormField
                   control={form.control}
                   name='lastNamesTerm'

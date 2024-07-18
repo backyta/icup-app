@@ -34,9 +34,9 @@ import {
   GenderNames,
   MaritalStatus,
   MaritalStatusNames,
-  MemberRolesNames,
-  MemberRoles,
-  Status,
+  MemberRoleNames,
+  MemberRole,
+  RecordStatus,
   Department,
   Country,
   Province,
@@ -117,12 +117,12 @@ const data: MemberData = {
   urbanSectorResidence: UrbanSector.Payet,
   addressResidence: 'Jr. Cerro Alto 222, Mz.2 Lt.25',
   addressResidenceReference: 'Cerca a la esquina del parque Ollantaytambo',
-  roles: [MemberRoles.Disciple, MemberRoles.Supervisor],
+  roles: [MemberRole.Disciple, MemberRole.Supervisor],
   theirPastor: 'id1',
   theirCopastor: 'id2',
   theirSupervisor: 'id3',
   theirFamilyHouse: 'id2',
-  status: Status.Inactive,
+  status: RecordStatus.Inactive,
 };
 
 interface Props {
@@ -184,7 +184,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
   const { disabledRoles, textValue } = useValidatePath({
     path: pathname,
     isInputDisabled,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
   });
 
   // NOTE : Hacer custom hook para setear
@@ -202,7 +202,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
 
   useMemberUpdateSubmitButtonLogic({
     formMemberUpdate: form,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
     isRelationSelectDisabled,
     pathname,
     setIsMessageErrorDisabled,
@@ -303,7 +303,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                     render={({ field }) => {
                       return (
                         <FormItem className='mt-3'>
-                          <FormLabel className='text-[14px]'>Genero</FormLabel>
+                          <FormLabel className='text-[14px]'>Género</FormLabel>
                           <Select
                             disabled={isInputDisabled}
                             value={field.value}
@@ -312,9 +312,9 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                             <FormControl className='text-[14px]'>
                               <SelectTrigger>
                                 {field.value ? (
-                                  <SelectValue placeholder='Selecciona el tipo de genero' />
+                                  <SelectValue placeholder='Selecciona el tipo de Género' />
                                 ) : (
-                                  'Selecciona el tipo de genero'
+                                  'Selecciona el tipo de Género'
                                 )}
                               </SelectTrigger>
                             </FormControl>
@@ -856,7 +856,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                             Seleccione los roles que desea asignar al discípulo.
                           </FormDescription>
                         </div>
-                        {Object.values(MemberRoles).map((role) => (
+                        {Object.values(MemberRole).map((role) => (
                           <FormField
                             key={role}
                             control={form.control}
@@ -873,7 +873,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                                       checked={field.value?.includes(role)}
                                       disabled={isDisabled}
                                       onCheckedChange={(checked) => {
-                                        let updatedRoles: MemberRoles[] = [];
+                                        let updatedRoles: MemberRole[] = [];
                                         checked
                                           ? (updatedRoles = field.value
                                               ? [...field.value, role]
@@ -887,7 +887,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                                     />
                                   </FormControl>
                                   <FormLabel className='text-[14px] font-normal'>
-                                    {MemberRolesNames[role]}
+                                    {MemberRoleNames[role]}
                                   </FormLabel>
                                 </FormItem>
                               );
@@ -903,8 +903,8 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                     <span className='text-[13px] md:text-[14px] text-yellow-500 font-bold text-center'>
                       !SE HA PROMOVIDO CORRECTAMENTE! <br />
                       <span className='text-[12px] md:text-[13px]'>
-                        {form.getValues('roles').includes(MemberRoles.Disciple) &&
-                          form.getValues('roles').includes(MemberRoles.Preacher) && (
+                        {form.getValues('roles').includes(MemberRole.Disciple) &&
+                          form.getValues('roles').includes(MemberRole.Preacher) && (
                             <div>
                               <span className='text-red-500 text-left inline-block'>
                                 Roles anteriores: Discípulo
@@ -916,9 +916,9 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                             </div>
                           )}
 
-                        {form.getValues('roles').includes(MemberRoles.Disciple) &&
-                          form.getValues('roles').includes(MemberRoles.Supervisor) &&
-                          !form.getValues('roles').includes(MemberRoles.Treasurer) && (
+                        {form.getValues('roles').includes(MemberRole.Disciple) &&
+                          form.getValues('roles').includes(MemberRole.Supervisor) &&
+                          !form.getValues('roles').includes(MemberRole.Treasurer) && (
                             <div>
                               <span className='text-red-500 text-left inline-block'>
                                 Roles anteriores: Discípulo - Predicador
@@ -930,9 +930,9 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                             </div>
                           )}
 
-                        {form.getValues('roles').includes(MemberRoles.Disciple) &&
-                          form.getValues('roles').includes(MemberRoles.Supervisor) &&
-                          form.getValues('roles').includes(MemberRoles.Treasurer) && (
+                        {form.getValues('roles').includes(MemberRole.Disciple) &&
+                          form.getValues('roles').includes(MemberRole.Supervisor) &&
+                          form.getValues('roles').includes(MemberRole.Treasurer) && (
                             <div>
                               <span className='text-red-500 text-left inline-block'>
                                 Roles anteriores: Discípulo - Predicador - Tesorero
@@ -944,8 +944,8 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                             </div>
                           )}
 
-                        {form.getValues('roles').includes(MemberRoles.Disciple) &&
-                          form.getValues('roles').includes(MemberRoles.Copastor) && (
+                        {form.getValues('roles').includes(MemberRole.Disciple) &&
+                          form.getValues('roles').includes(MemberRole.Copastor) && (
                             <div>
                               <span className='text-red-500 text-left inline-block'>
                                 Roles anteriores: Discípulo - Supervisor
@@ -957,8 +957,8 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                             </div>
                           )}
 
-                        {form.getValues('roles').includes(MemberRoles.Disciple) &&
-                          form.getValues('roles').includes(MemberRoles.Pastor) && (
+                        {form.getValues('roles').includes(MemberRole.Disciple) &&
+                          form.getValues('roles').includes(MemberRole.Pastor) && (
                             <div>
                               <span className='text-red-500 text-left inline-block'>
                                 Roles anteriores: Discípulo - Co-pastor
@@ -980,23 +980,23 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                       Relaciones
                     </legend>
                     {/* Validations */}
-                    {roles?.includes(MemberRoles.Disciple) &&
-                      roles?.includes(MemberRoles.Pastor) &&
-                      !roles?.includes(MemberRoles.Copastor) &&
-                      !roles?.includes(MemberRoles.Supervisor) &&
-                      !roles?.includes(MemberRoles.Preacher) &&
-                      !roles?.includes(MemberRoles.Treasurer) && (
+                    {roles?.includes(MemberRole.Disciple) &&
+                      roles?.includes(MemberRole.Pastor) &&
+                      !roles?.includes(MemberRole.Copastor) &&
+                      !roles?.includes(MemberRole.Supervisor) &&
+                      !roles?.includes(MemberRole.Preacher) &&
+                      !roles?.includes(MemberRole.Treasurer) && (
                         <span className='text-green-500 font-bold text-[13px]'>
                           No hay relaciones que asignar para estos roles elegidos.
                         </span>
                       )}
 
-                    {roles?.includes(MemberRoles.Disciple) &&
-                      roles?.includes(MemberRoles.Copastor) &&
-                      !roles?.includes(MemberRoles.Pastor) &&
-                      !roles?.includes(MemberRoles.Supervisor) &&
-                      !roles?.includes(MemberRoles.Preacher) &&
-                      !roles?.includes(MemberRoles.Treasurer) && (
+                    {roles?.includes(MemberRole.Disciple) &&
+                      roles?.includes(MemberRole.Copastor) &&
+                      !roles?.includes(MemberRole.Pastor) &&
+                      !roles?.includes(MemberRole.Supervisor) &&
+                      !roles?.includes(MemberRole.Preacher) &&
+                      !roles?.includes(MemberRole.Treasurer) && (
                         <FormField
                           control={form.control}
                           name='theirPastor'
@@ -1071,18 +1071,18 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                         />
                       )}
 
-                    {((roles?.includes(MemberRoles.Disciple) &&
-                      roles?.includes(MemberRoles.Supervisor) &&
-                      !roles?.includes(MemberRoles.Treasurer) &&
-                      !roles?.includes(MemberRoles.Pastor) &&
-                      !roles?.includes(MemberRoles.Copastor) &&
-                      !roles?.includes(MemberRoles.Preacher)) ||
-                      (roles?.includes(MemberRoles.Disciple) &&
-                        roles?.includes(MemberRoles.Supervisor) &&
-                        roles?.includes(MemberRoles.Treasurer) &&
-                        !roles?.includes(MemberRoles.Pastor) &&
-                        !roles?.includes(MemberRoles.Copastor) &&
-                        !roles?.includes(MemberRoles.Preacher))) && (
+                    {((roles?.includes(MemberRole.Disciple) &&
+                      roles?.includes(MemberRole.Supervisor) &&
+                      !roles?.includes(MemberRole.Treasurer) &&
+                      !roles?.includes(MemberRole.Pastor) &&
+                      !roles?.includes(MemberRole.Copastor) &&
+                      !roles?.includes(MemberRole.Preacher)) ||
+                      (roles?.includes(MemberRole.Disciple) &&
+                        roles?.includes(MemberRole.Supervisor) &&
+                        roles?.includes(MemberRole.Treasurer) &&
+                        !roles?.includes(MemberRole.Pastor) &&
+                        !roles?.includes(MemberRole.Copastor) &&
+                        !roles?.includes(MemberRole.Preacher))) && (
                       <FormField
                         control={form.control}
                         name='theirCopastor'
@@ -1158,18 +1158,18 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                       />
                     )}
 
-                    {((roles?.includes(MemberRoles.Disciple) &&
-                      roles?.includes(MemberRoles.Preacher) &&
-                      !roles?.includes(MemberRoles.Treasurer) &&
-                      !roles?.includes(MemberRoles.Pastor) &&
-                      !roles?.includes(MemberRoles.Copastor) &&
-                      !roles?.includes(MemberRoles.Supervisor)) ||
-                      (roles?.includes(MemberRoles.Disciple) &&
-                        roles?.includes(MemberRoles.Preacher) &&
-                        roles?.includes(MemberRoles.Treasurer) &&
-                        !roles?.includes(MemberRoles.Pastor) &&
-                        !roles?.includes(MemberRoles.Copastor) &&
-                        !roles?.includes(MemberRoles.Supervisor))) && (
+                    {((roles?.includes(MemberRole.Disciple) &&
+                      roles?.includes(MemberRole.Preacher) &&
+                      !roles?.includes(MemberRole.Treasurer) &&
+                      !roles?.includes(MemberRole.Pastor) &&
+                      !roles?.includes(MemberRole.Copastor) &&
+                      !roles?.includes(MemberRole.Supervisor)) ||
+                      (roles?.includes(MemberRole.Disciple) &&
+                        roles?.includes(MemberRole.Preacher) &&
+                        roles?.includes(MemberRole.Treasurer) &&
+                        !roles?.includes(MemberRole.Pastor) &&
+                        !roles?.includes(MemberRole.Copastor) &&
+                        !roles?.includes(MemberRole.Supervisor))) && (
                       <FormField
                         control={form.control}
                         name='theirSupervisor'
@@ -1245,12 +1245,12 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                       />
                     )}
 
-                    {roles?.includes(MemberRoles.Disciple) &&
-                      !roles?.includes(MemberRoles.Pastor) &&
-                      !roles?.includes(MemberRoles.Copastor) &&
-                      !roles?.includes(MemberRoles.Preacher) &&
-                      !roles?.includes(MemberRoles.Supervisor) &&
-                      !roles?.includes(MemberRoles.Treasurer) && (
+                    {roles?.includes(MemberRole.Disciple) &&
+                      !roles?.includes(MemberRole.Pastor) &&
+                      !roles?.includes(MemberRole.Copastor) &&
+                      !roles?.includes(MemberRole.Preacher) &&
+                      !roles?.includes(MemberRole.Supervisor) &&
+                      !roles?.includes(MemberRole.Treasurer) && (
                         <FormField
                           control={form.control}
                           name='theirFamilyHouse'
@@ -1459,7 +1459,7 @@ export const MemberFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
                             onClick={() => {
                               useRoleUpdateHandler({
                                 formMemberUpdate: form,
-                                memberRoles: MemberRoles,
+                                memberRoles: MemberRole,
                                 setIsDisabledPromoteButton: setIsPromoteButtonDisabled,
                                 setIsDisabledInput: setIsInputDisabled,
                               });

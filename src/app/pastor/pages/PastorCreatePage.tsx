@@ -24,8 +24,8 @@ import { useValidatePath } from '@/hooks';
 import { LoadingSpinner } from '@/layouts/components';
 
 import {
-  MemberRoles,
-  MemberRolesNames,
+  MemberRole,
+  MemberRoleNames,
   MaritalStatusNames,
   GenderNames,
   CountryNames,
@@ -109,7 +109,7 @@ export const PastorCreatePage = (): JSX.Element => {
       district: '',
       address: '',
       referenceAddress: '',
-      roles: [MemberRoles.Disciple],
+      roles: [MemberRole.Disciple],
       theirChurch: '',
     },
   });
@@ -120,12 +120,12 @@ export const PastorCreatePage = (): JSX.Element => {
   //* Custom hooks
   const { disabledRoles } = useValidatePath({
     path: pathname,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
   });
 
   usePastorCreateSubmitButtonLogic({
     formPastorCrate: form,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
     isInputDisabled,
     isMessageErrorDisabled,
     setIsMessageErrorDisabled,
@@ -282,7 +282,7 @@ export const PastorCreatePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel className='text-[14px] font-medium'>Genero</FormLabel>
+                      <FormLabel className='text-[14px] font-medium'>Género</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         value={field.value}
@@ -291,9 +291,9 @@ export const PastorCreatePage = (): JSX.Element => {
                         <FormControl>
                           <SelectTrigger>
                             {field.value ? (
-                              <SelectValue placeholder='Selecciona el tipo de genero' />
+                              <SelectValue placeholder='Selecciona el tipo de Género' />
                             ) : (
-                              'Selecciona el tipo de genero'
+                              'Selecciona el tipo de Género'
                             )}
                           </SelectTrigger>
                         </FormControl>
@@ -770,7 +770,7 @@ export const PastorCreatePage = (): JSX.Element => {
                         Seleccione los roles que desea asignar al discípulo.
                       </FormDescription>
                     </div>
-                    {Object.values(MemberRoles).map((role) => (
+                    {Object.values(MemberRole).map((role) => (
                       <FormField
                         key={role}
                         control={form.control}
@@ -787,7 +787,7 @@ export const PastorCreatePage = (): JSX.Element => {
                                   checked={field.value?.includes(role)}
                                   disabled={isDisabled}
                                   onCheckedChange={(checked) => {
-                                    let updatedRoles: MemberRoles[] = [];
+                                    let updatedRoles: MemberRole[] = [];
                                     checked
                                       ? (updatedRoles = field.value
                                           ? [...field.value, role]
@@ -801,7 +801,7 @@ export const PastorCreatePage = (): JSX.Element => {
                                 />
                               </FormControl>
                               <FormLabel className='text-[14px] font-normal'>
-                                {MemberRolesNames[role]}
+                                {MemberRoleNames[role]}
                               </FormLabel>
                             </FormItem>
                           );
@@ -918,7 +918,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   }, 100);
                 }}
               >
-                Registrar discípulo
+                Registrar Pastor
               </Button>
             </div>
           </form>

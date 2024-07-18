@@ -1,7 +1,7 @@
-import { type SearchTypeChurch } from '@/app/church/enums';
+import { type ChurchSearchType } from '@/app/church/enums';
 
 export interface ChurchFormSearchByTerm {
-  searchType: SearchTypeChurch;
+  searchType: ChurchSearchType;
   order: string;
   inputTerm?: string | undefined;
   selectTerm?: string | undefined;

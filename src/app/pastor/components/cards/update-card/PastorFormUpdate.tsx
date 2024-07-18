@@ -39,8 +39,8 @@ import {
   DistrictNames,
   GenderNames,
   MaritalStatusNames,
-  MemberRoles,
-  MemberRolesNames,
+  MemberRole,
+  MemberRoleNames,
   ProvinceNames,
   UrbanSectorNames,
 } from '@/shared/enums';
@@ -128,8 +128,8 @@ export const PastorFormUpdate = ({
       urbanSector: '',
       address: '',
       referenceAddress: '',
-      roles: [MemberRoles.Disciple],
-      status: '',
+      roles: [MemberRole.Disciple],
+      recordStatus: '',
       theirChurch: '',
     },
   });
@@ -155,9 +155,9 @@ export const PastorFormUpdate = ({
     form.setValue('urbanSector', data?.urbanSector ?? '');
     form.setValue('address', data?.address ?? '');
     form.setValue('referenceAddress', data?.referenceAddress ?? '');
-    form.setValue('roles', data?.roles as MemberRoles[]);
+    form.setValue('roles', data?.roles as MemberRole[]);
     form.setValue('theirChurch', data?.theirChurch?.id);
-    form.setValue('status', data?.status);
+    form.setValue('recordStatus', data?.recordStatus);
 
     setTimeout(() => {
       setIsLoadingData(false);
@@ -168,13 +168,13 @@ export const PastorFormUpdate = ({
   const { disabledRoles } = useValidatePath({
     path: pathname,
     isInputDisabled,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
   });
 
   usePastorUpdateSubmitButtonLogic({
     formPastorUpdate: form,
     isInputDisabled,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
   });
@@ -326,7 +326,7 @@ export const PastorFormUpdate = ({
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-3'>
-                            <FormLabel className='text-[14px]'>Genero</FormLabel>
+                            <FormLabel className='text-[14px]'>Género</FormLabel>
                             <Select
                               disabled={isInputDisabled}
                               value={field.value}
@@ -335,9 +335,9 @@ export const PastorFormUpdate = ({
                               <FormControl className='text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
-                                    <SelectValue placeholder='Selecciona el tipo de genero' />
+                                    <SelectValue placeholder='Selecciona el tipo de Género' />
                                   ) : (
-                                    'Selecciona el tipo de genero'
+                                    'Selecciona el tipo de Género'
                                   )}
                                 </SelectTrigger>
                               </FormControl>
@@ -545,7 +545,7 @@ export const PastorFormUpdate = ({
 
                     <FormField
                       control={form.control}
-                      name='status'
+                      name='recordStatus'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-5'>
@@ -573,7 +573,7 @@ export const PastorFormUpdate = ({
                                 </SelectItem>
                               </SelectContent>
                             </Select>
-                            {form.getValues('status') === 'active' && (
+                            {form.getValues('recordStatus') === 'active' && (
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
@@ -581,7 +581,7 @@ export const PastorFormUpdate = ({
                                 <span className='font-bold text-red-500'>Eliminar Pastor. </span>
                               </FormDescription>
                             )}
-                            {form.getValues('status') === 'inactive' && (
+                            {form.getValues('recordStatus') === 'inactive' && (
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                                 * El registro esta <span className='text-red-500 '>Inactivo</span>,
                                 puede modificar el estado eligiendo otra opción.
@@ -882,7 +882,7 @@ export const PastorFormUpdate = ({
                               Seleccione los roles que desea asignar al discípulo.
                             </FormDescription>
                           </div>
-                          {Object.values(MemberRoles).map((role) => (
+                          {Object.values(MemberRole).map((role) => (
                             <FormField
                               key={role}
                               control={form.control}
@@ -899,7 +899,7 @@ export const PastorFormUpdate = ({
                                         checked={field.value?.includes(role)}
                                         disabled={isDisabled}
                                         onCheckedChange={(checked) => {
-                                          let updatedRoles: MemberRoles[] = [];
+                                          let updatedRoles: MemberRole[] = [];
                                           checked
                                             ? (updatedRoles = field.value
                                                 ? [...field.value, role]
@@ -914,7 +914,7 @@ export const PastorFormUpdate = ({
                                       />
                                     </FormControl>
                                     <FormLabel className='text-[14px] font-normal'>
-                                      {MemberRolesNames[role]}
+                                      {MemberRoleNames[role]}
                                     </FormLabel>
                                   </FormItem>
                                 );

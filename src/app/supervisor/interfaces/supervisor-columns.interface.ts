@@ -43,7 +43,7 @@ export interface SupervisorColumns {
   preachers?:       Preacher[];
   familyHouses?:    FamilyGroup[];
   disciples?:       Disciple[];
-  status?:          string;
+  recordStatus?:          string;
   theirChurch?:     TheirChurch | null;
   theirPastor?:     TheirPastor | null;
   theirCopastor?:   TheirPastor | null;

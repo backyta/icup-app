@@ -38,7 +38,7 @@ export interface ChurchColumns {
   preachers?:       Preacher[];
   familyHouses?:    FamilyGroup[];
   disciples?:       Disciple[];
-  status:           string;
+  recordStatus?:           string;
   theirMainChurch?: MainChurch | null;
 }
 

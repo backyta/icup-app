@@ -4,7 +4,7 @@
 import { AxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
-import { type UserRoles } from '@/app/user/enums';
+import { type UserRole } from '@/app/user/enums';
 
 export interface LoginResponse {
   id: string;
@@ -12,7 +12,7 @@ export interface LoginResponse {
   lastName: string;
   email: string;
   gender: string;
-  roles: UserRoles[];
+  roles: UserRole[];
   status: string;
   token: string;
 }

@@ -25,7 +25,7 @@ import { churchFormSchema } from '@/app/church/validations';
 import { FormChurchSkeleton } from '@/app/church/components';
 import { type ChurchResponse } from '@/app/church/interfaces';
 import { getMainChurch, updateChurch } from '@/app/church/services';
-import { WorshipTimes, WorshipTimesKeys } from '@/app/church/enums';
+import { ChurchWorshipTimes, ChurchWorshipTimesNames } from '@/app/church/enums';
 import { useChurchUpdateSubmitButtonLogic } from '@/app/church/hooks';
 
 import {
@@ -116,7 +116,7 @@ export const ChurchFormUpdate = ({
       urbanSector: '',
       address: '',
       referenceAddress: '',
-      status: '',
+      recordStatus: '',
       theirMainChurch: '',
     },
   });
@@ -128,7 +128,7 @@ export const ChurchFormUpdate = ({
   useEffect(() => {
     form.setValue('churchName', data?.churchName!);
     form.setValue('foundingDate', new Date(String(data?.foundingDate).replace(/-/g, '/') as any));
-    form.setValue('worshipTimes', data?.worshipTimes as WorshipTimes[]);
+    form.setValue('worshipTimes', data?.worshipTimes as ChurchWorshipTimes[]);
     form.setValue('email', data?.email ?? '');
     form.setValue('phoneNumber', data?.phoneNumber ?? '');
     form.setValue('country', data?.country ?? '');
@@ -140,7 +140,7 @@ export const ChurchFormUpdate = ({
     form.setValue('referenceAddress', data?.referenceAddress ?? '');
     form.setValue('isAnexe', data?.isAnexe);
     form.setValue('theirMainChurch', data?.theirMainChurch?.id);
-    form.setValue('status', data?.status);
+    form.setValue('recordStatus', data?.recordStatus);
 
     setTimeout(() => {
       setIsLoadingData(false);
@@ -340,7 +340,7 @@ export const ChurchFormUpdate = ({
                             </FormDescription>
                           </div>
                           <div className='flex flex-wrap space-x-5 space-y-1'>
-                            {Object.values(WorshipTimes).map((worshipTime) => (
+                            {Object.values(ChurchWorshipTimes).map((worshipTime) => (
                               <FormField
                                 key={worshipTime}
                                 control={form.control}
@@ -356,7 +356,7 @@ export const ChurchFormUpdate = ({
                                           disabled={isInputDisabled}
                                           checked={field.value?.includes(worshipTime)}
                                           onCheckedChange={(checked) => {
-                                            let updatedWorshipTimes: WorshipTimes[] = [];
+                                            let updatedWorshipTimes: ChurchWorshipTimes[] = [];
                                             checked
                                               ? (updatedWorshipTimes = field.value
                                                   ? [...field.value, worshipTime]
@@ -371,7 +371,7 @@ export const ChurchFormUpdate = ({
                                         />
                                       </FormControl>
                                       <FormLabel className='text-[14px] font-medium'>
-                                        {WorshipTimesKeys[worshipTime]}
+                                        {ChurchWorshipTimesNames[worshipTime]}
                                       </FormLabel>
                                     </FormItem>
                                   );
@@ -802,7 +802,7 @@ export const ChurchFormUpdate = ({
 
                     <FormField
                       control={form.control}
-                      name='status'
+                      name='recordStatus'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-5'>
@@ -830,7 +830,7 @@ export const ChurchFormUpdate = ({
                                 </SelectItem>
                               </SelectContent>
                             </Select>
-                            {form.getValues('status') === 'active' && (
+                            {form.getValues('recordStatus') === 'active' && (
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
@@ -838,7 +838,7 @@ export const ChurchFormUpdate = ({
                                 <span className='font-bold text-red-500'>Eliminar Iglesia. </span>
                               </FormDescription>
                             )}
-                            {form.getValues('status') === 'inactive' && (
+                            {form.getValues('recordStatus') === 'inactive' && (
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                                 * El registro esta <span className='text-red-500 '>Inactivo</span>,
                                 puede modificar el estado eligiendo otra opción.

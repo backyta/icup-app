@@ -7,18 +7,19 @@ import { useState } from 'react';
 import type * as z from 'zod';
 import { Toaster, toast } from 'sonner';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from 'react-router-dom';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
+import { useMutation } from '@tanstack/react-query';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import { userSchema } from '@/app/user/validations';
+import { createUser } from '@/app/user/services';
+import { userFormSchema } from '@/app/user/validations';
+import { UserRole, UserRoleNames } from '@/app/user/enums';
+import { useUserCreateSubmitButtonLogic } from '@/app/user/hooks';
 
-import { useUserSubmitButtonLogic } from '@/hooks';
+import { GenderNames } from '@/shared/enums';
+import { type ErrorResponse } from '@/shared/interfaces';
 
-import { UserRoles, UserRolesNames } from '@/app/user/enums';
-
-import { Input } from '@/shared/components/ui/input';
-import { Button } from '@/shared/components/ui/button';
-import { Checkbox } from '@/shared/components/ui/checkbox';
 import {
   Form,
   FormControl,
@@ -28,6 +29,16 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/shared/components/ui/select';
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Checkbox } from '@/shared/components/ui/checkbox';
 
 export const UserCreatePage = (): JSX.Element => {
   //* States
@@ -43,12 +54,13 @@ export const UserCreatePage = (): JSX.Element => {
     useState<boolean>(true);
 
   //* Form
-  const form = useForm<z.infer<typeof userSchema>>({
+  const form = useForm<z.infer<typeof userFormSchema>>({
     mode: 'onChange',
-    resolver: zodResolver(userSchema),
+    resolver: zodResolver(userFormSchema),
     defaultValues: {
       firstName: '',
       lastName: '',
+      gender: '',
       email: '',
       password: '',
       passwordConfirm: '',
@@ -56,10 +68,8 @@ export const UserCreatePage = (): JSX.Element => {
     },
   });
 
-  //* Form handler
-  const handleSubmit = (values: z.infer<typeof userSchema>): void => {
-    console.log({ values });
-  };
+  //* Library hooks
+  const navigate = useNavigate();
 
   //* Password handler
   const toggleShowPassword = (): void => {
@@ -71,14 +81,75 @@ export const UserCreatePage = (): JSX.Element => {
   };
 
   //* Custom hooks
-  useUserSubmitButtonLogic({
-    formUser: form,
+  useUserCreateSubmitButtonLogic({
+    formCreateUser: form,
     setIsSubmitButtonDisabled,
     setIsMessageErrorDisabled,
     setIsMessageErrorPasswordDisabled,
     setIsMessageErrorRolesDisabled,
-    handleSubmit,
+    isInputDisabled,
   });
+
+  //* Mutation
+  const mutation = useMutation({
+    mutationFn: createUser,
+    onError: (error: ErrorResponse) => {
+      if (error.message !== 'Unauthorized') {
+        toast.error(error.message, {
+          position: 'top-center',
+          className: 'justify-center',
+        });
+
+        setTimeout(() => {
+          setIsInputDisabled(false);
+          setIsSubmitButtonDisabled(false);
+        }, 1500);
+      }
+
+      if (error.message === 'Unauthorized') {
+        toast.error('Operación rechazada, el token expiro ingresa nuevamente.', {
+          position: 'top-center',
+          className: 'justify-center',
+        });
+
+        setTimeout(() => {
+          navigate('/');
+        }, 3500);
+      }
+    },
+    onSuccess: () => {
+      toast.success('Registro creado exitosamente.', {
+        position: 'top-center',
+        className: 'justify-center',
+      });
+
+      setTimeout(() => {
+        setIsInputDisabled(false);
+        setIsSubmitButtonDisabled(false);
+      }, 1500);
+
+      setTimeout(() => {
+        form.reset();
+      }, 1600);
+
+      setTimeout(() => {
+        navigate('/users');
+      }, 2600);
+    },
+  });
+
+  //* Form handler
+  const handleSubmit = (formData: z.infer<typeof userFormSchema>): void => {
+    console.log();
+    mutation.mutate({
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      gender: formData.gender,
+      email: formData.email,
+      password: formData.password,
+      roles: formData.roles,
+    });
+  };
 
   return (
     <>
@@ -123,6 +194,7 @@ export const UserCreatePage = (): JSX.Element => {
                 );
               }}
             />
+
             <FormField
               control={form.control}
               name='lastName'
@@ -145,9 +217,45 @@ export const UserCreatePage = (): JSX.Element => {
                 );
               }}
             />
+
             <FormField
               control={form.control}
-              name='emailAddress'
+              name='gender'
+              render={({ field }) => {
+                return (
+                  <FormItem className=''>
+                    <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Género</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      disabled={isInputDisabled}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          {field.value ? (
+                            <SelectValue placeholder='Selecciona el tipo de género' />
+                          ) : (
+                            'Selecciona el tipo de género'
+                          )}
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {Object.entries(GenderNames).map(([key, value]) => (
+                          <SelectItem className={`text-[14px]`} key={key} value={key}>
+                            {value}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+
+            <FormField
+              control={form.control}
+              name='email'
               render={({ field }) => {
                 return (
                   <FormItem>
@@ -168,6 +276,7 @@ export const UserCreatePage = (): JSX.Element => {
                 );
               }}
             />
+
             <FormField
               control={form.control}
               name='password'
@@ -200,6 +309,7 @@ export const UserCreatePage = (): JSX.Element => {
                 );
               }}
             />
+
             <FormField
               control={form.control}
               name='passwordConfirm'
@@ -259,7 +369,7 @@ export const UserCreatePage = (): JSX.Element => {
                       Seleccione los roles de acceso que tendrá el usuario.
                     </FormDescription>
                   </div>
-                  {Object.values(UserRoles).map((role) => (
+                  {Object.values(UserRole).map((role) => (
                     <FormField
                       key={role}
                       control={form.control}
@@ -275,7 +385,7 @@ export const UserCreatePage = (): JSX.Element => {
                                 disabled={isInputDisabled}
                                 checked={field.value?.includes(role)}
                                 onCheckedChange={(checked) => {
-                                  let updatedRoles: UserRoles[] = [];
+                                  let updatedRoles: UserRole[] = [];
                                   checked
                                     ? (updatedRoles = field.value ? [...field.value, role] : [role])
                                     : (updatedRoles =
@@ -286,7 +396,7 @@ export const UserCreatePage = (): JSX.Element => {
                               />
                             </FormControl>
                             <FormLabel className='text-[14px] font-medium'>
-                              {UserRolesNames[role]}
+                              {UserRoleNames[role]}
                             </FormLabel>
                           </FormItem>
                         );
@@ -322,33 +432,12 @@ export const UserCreatePage = (): JSX.Element => {
                 type='submit'
                 className='w-full text-[14px]'
                 onClick={() => {
-                  // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
-                  // NOTE : hacer petición al backend para crear
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
-                      toast.success('Usuario registrado correctamente', {
-                        position: 'top-center',
-                        className: 'justify-center',
-                      });
-
-                      setIsInputDisabled(true);
                       setIsSubmitButtonDisabled(true);
+                      setIsInputDisabled(true);
                     }
                   }, 100);
-
-                  setTimeout(() => {
-                    if (Object.keys(form.formState.errors).length === 0) {
-                      setIsSubmitButtonDisabled(false);
-                    }
-                  }, 1700);
-
-                  setTimeout(() => {
-                    if (Object.keys(form.formState.errors).length === 0) {
-                      setIsInputDisabled(false);
-                      setIsSubmitButtonDisabled(false);
-                      form.reset();
-                    }
-                  }, 1700);
                 }}
               >
                 Registrar Usuario

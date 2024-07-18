@@ -6,13 +6,13 @@ import { useEffect } from 'react';
 import { toast } from 'sonner';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRoles } from '@/shared/enums';
+import { type MemberRole } from '@/shared/enums';
 import { type PastorFormData } from '@/app/pastor/interfaces';
 
 interface Options {
   formMemberCrate: UseFormReturn<PastorFormData, any, PastorFormData>;
   pathname: string;
-  memberRoles: typeof MemberRoles;
+  memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;

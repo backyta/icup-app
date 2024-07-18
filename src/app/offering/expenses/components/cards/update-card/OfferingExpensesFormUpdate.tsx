@@ -35,7 +35,7 @@ import {
 import { CurrencyType, CurrencyTypeNames } from '@/app/offering/shared/enums';
 import { type RejectedProps, type FilesProps } from '@/app/offering/shared/interfaces';
 
-import { Status } from '@/shared/enums';
+import { RecordStatus } from '@/shared/enums';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -72,7 +72,7 @@ const data: OfferingExpensesData = {
   // familyHouseID: familyHouses[1].value,
   // copastorID: copastors[2].value,
   // memberID: 'id2',
-  status: Status.Active,
+  status: RecordStatus.Active,
 };
 
 interface Props {
@@ -195,12 +195,12 @@ export const OfferingExpensesFormUpdate = ({ onClose, onScroll }: Props): JSX.El
   };
 
   useEffect(() => {
-    if (status === Status.Inactive) {
+    if (status === RecordStatus.Inactive) {
       setIsDropZoneDisabled(true);
       setIsFileButtonDisabled(true);
     }
 
-    if (status === Status.Active) {
+    if (status === RecordStatus.Active) {
       setIsDropZoneDisabled(false);
       setIsFileButtonDisabled(false);
     }
@@ -244,7 +244,7 @@ export const OfferingExpensesFormUpdate = ({ onClose, onScroll }: Props): JSX.El
                 Registro de salida: 12KH453 - Marcelo Pacheco
               </div>
 
-              {status === Status.Active ? (
+              {status === RecordStatus.Active ? (
                 <span className='text-[11.5px] md:text-[12px] font-medium dark:text-slate-400 text-slate-500 md:pl-2'>
                   El estado del registro esta{' '}
                   <span className='font-bold text-green-500 uppercase'>Activo</span>, solo se podrá

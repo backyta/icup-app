@@ -1,4 +1,4 @@
-import { type UserRoles } from '@/app/user/enums';
+import { type UserRole } from '@/app/user/enums';
 import { type SearchType } from '@/shared/enums';
 
 export interface FormSearchByTerm {
@@ -7,7 +7,7 @@ export interface FormSearchByTerm {
   subType?: string | undefined;
   inputTerm?: string | undefined;
   selectTerm?: string | undefined;
-  multiSelectTerm?: UserRoles[] | undefined;
+  multiSelectTerm?: UserRole[] | undefined;
   dateTerm?: {
         from: Date;
         to?: Date | undefined;

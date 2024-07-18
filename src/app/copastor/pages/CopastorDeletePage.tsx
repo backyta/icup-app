@@ -18,15 +18,15 @@ import {
   SearchByTermCopastorDataTable,
 } from '@/app/copastor/components';
 import {
-  SearchByBirthMonthCopastorKeys,
-  SearchByFirstNamesCopastorKeys,
-  SearchByFullNamesCopastorKeys,
-  SearchByGenderCopastorKeys,
-  SearchByLastNamesCopastorKeys,
-  SearchByMaritalStatusCopastorKeys,
-  SearchByStatusCopastorKeys,
-  SearchTypeCopastor,
-  SearchTypeCopastorKeys,
+  CopastorSearchNamesByBirthMonth,
+  CopastorSearchNamesByFirstNames,
+  CopastorSearchNamesByFullNames,
+  CopastorSearchNamesByGender,
+  CopastorSearchNamesByLastNames,
+  CopastorSearchNamesByMaritalStatus,
+  CopastorSearchNamesByStatus,
+  CopastorSearchType,
+  CopastorSearchTypeNames,
 } from '@/app/copastor/enums';
 import { copastorFormTermSearchSchema } from '@/app/copastor/validations';
 import { type CopastorFormSearchByTerm, type CopastorResponse } from '@/app/copastor/interfaces';
@@ -81,7 +81,7 @@ const dataFictional: CopastorResponse[] = [
     address: '',
     referenceAddress: '',
     roles: [],
-    status: '',
+    recordStatus: '',
     theirPastor: null,
     theirChurch: null,
   },
@@ -232,7 +232,7 @@ export const CopastorDeletePage = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(SearchTypeCopastorKeys).map(([key, value]) => (
+                          {Object.entries(CopastorSearchTypeNames).map(([key, value]) => (
                             <SelectItem
                               className={`text-[13px] md:text-[14px]`}
                               key={key}
@@ -249,9 +249,9 @@ export const CopastorDeletePage = (): JSX.Element => {
                 }}
               />
 
-              {(searchType === SearchTypeCopastor.FirstName ||
-                searchType === SearchTypeCopastor.LastName ||
-                searchType === SearchTypeCopastor.FullName) && (
+              {(searchType === CopastorSearchType.FirstName ||
+                searchType === CopastorSearchType.LastName ||
+                searchType === CopastorSearchType.FullName) && (
                 <FormField
                   control={form.control}
                   name='searchSubType'
@@ -295,11 +295,11 @@ export const CopastorDeletePage = (): JSX.Element => {
                           </FormControl>
                           <SelectContent>
                             {Object.entries(
-                              searchType === SearchTypeCopastor.FirstName
-                                ? SearchByFirstNamesCopastorKeys
-                                : searchType === SearchTypeCopastor.LastName
-                                  ? SearchByLastNamesCopastorKeys
-                                  : SearchByFullNamesCopastorKeys
+                              searchType === CopastorSearchType.FirstName
+                                ? CopastorSearchNamesByFirstNames
+                                : searchType === CopastorSearchType.LastName
+                                  ? CopastorSearchNamesByLastNames
+                                  : CopastorSearchNamesByFullNames
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}
@@ -318,12 +318,12 @@ export const CopastorDeletePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchTypeCopastor.OriginCountry ||
-                searchType === SearchTypeCopastor.Department ||
-                searchType === SearchTypeCopastor.Province ||
-                searchType === SearchTypeCopastor.District ||
-                searchType === SearchTypeCopastor.UrbanSector ||
-                searchType === SearchTypeCopastor.Address) && (
+              {(searchType === CopastorSearchType.OriginCountry ||
+                searchType === CopastorSearchType.Department ||
+                searchType === CopastorSearchType.Province ||
+                searchType === CopastorSearchType.District ||
+                searchType === CopastorSearchType.UrbanSector ||
+                searchType === CopastorSearchType.Address) && (
                 <FormField
                   control={form.control}
                   name='inputTerm'
@@ -346,7 +346,7 @@ export const CopastorDeletePage = (): JSX.Element => {
                 />
               )}
 
-              {searchType === SearchTypeCopastor.BirthDate && (
+              {searchType === CopastorSearchType.BirthDate && (
                 <FormField
                   control={form.control}
                   name='dateTerm'
@@ -403,10 +403,10 @@ export const CopastorDeletePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchTypeCopastor.Status ||
-                searchType === SearchTypeCopastor.BirthMonth ||
-                searchType === SearchTypeCopastor.Gender ||
-                searchType === SearchTypeCopastor.MaritalStatus) && (
+              {(searchType === CopastorSearchType.RecordStatus ||
+                searchType === CopastorSearchType.BirthMonth ||
+                searchType === CopastorSearchType.Gender ||
+                searchType === CopastorSearchType.MaritalStatus) && (
                 <FormField
                   control={form.control}
                   name='selectTerm'
@@ -436,13 +436,13 @@ export const CopastorDeletePage = (): JSX.Element => {
                           </FormControl>
                           <SelectContent>
                             {Object.entries(
-                              searchType === SearchTypeCopastor.Gender
-                                ? SearchByGenderCopastorKeys
-                                : searchType === SearchTypeCopastor.BirthMonth
-                                  ? SearchByBirthMonthCopastorKeys
-                                  : searchType === SearchTypeCopastor.MaritalStatus
-                                    ? SearchByMaritalStatusCopastorKeys
-                                    : SearchByStatusCopastorKeys
+                              searchType === CopastorSearchType.Gender
+                                ? CopastorSearchNamesByGender
+                                : searchType === CopastorSearchType.BirthMonth
+                                  ? CopastorSearchNamesByBirthMonth
+                                  : searchType === CopastorSearchType.MaritalStatus
+                                    ? CopastorSearchNamesByMaritalStatus
+                                    : CopastorSearchNamesByStatus
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}
@@ -461,8 +461,8 @@ export const CopastorDeletePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchTypeCopastor.FirstName ||
-                searchType === SearchTypeCopastor.FullName) && (
+              {(searchType === CopastorSearchType.FirstName ||
+                searchType === CopastorSearchType.FullName) && (
                 <FormField
                   control={form.control}
                   name='namesTerm'
@@ -485,8 +485,8 @@ export const CopastorDeletePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SearchTypeCopastor.LastName ||
-                searchType === SearchTypeCopastor.FullName) && (
+              {(searchType === CopastorSearchType.LastName ||
+                searchType === CopastorSearchType.FullName) && (
                 <FormField
                   control={form.control}
                   name='lastNamesTerm'

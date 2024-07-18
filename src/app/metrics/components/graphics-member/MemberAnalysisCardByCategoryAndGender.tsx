@@ -80,7 +80,7 @@ export const MemberAnalysisCardByCategoryAndGender = (): JSX.Element => {
   return (
     <Card className='bg-slate-50/40 dark:bg-slate-900/40  flex flex-col col-start-2 col-end-3 h-[22rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <h3 className='p-2 text-center font-bold mb-2 sm:mb-0 text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.50em] 2xl:text-3xl inline-block'>
-        Miembros (categoría y genero)
+        Miembros (categoría y Género)
       </h3>
       <ResponsiveContainer
         width='100%'

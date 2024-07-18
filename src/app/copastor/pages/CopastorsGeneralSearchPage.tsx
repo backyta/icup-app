@@ -65,7 +65,7 @@ const dataFictional: CopastorResponse[] = [
     address: '',
     referenceAddress: '',
     roles: [],
-    status: '',
+    recordStatus: '',
     theirChurch: null,
     theirPastor: null,
   },

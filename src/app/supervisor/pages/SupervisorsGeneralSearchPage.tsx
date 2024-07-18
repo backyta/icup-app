@@ -66,7 +66,7 @@ const dataFictional: SupervisorResponse[] = [
     address: '',
     referenceAddress: '',
     roles: [],
-    status: '',
+    recordStatus: '',
     theirCopastor: null,
     theirPastor: null,
   },

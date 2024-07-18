@@ -25,7 +25,7 @@ import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { getAllCopastors } from '@/app/supervisor/services';
 import { getAllPastors } from '@/app/copastor/services';
 
-import { FieldNamesPreacher } from '@/app/preacher/enums';
+import { PreacherFieldNames } from '@/app/preacher/enums';
 import { preacherFormSchema } from '@/app/preacher/validations';
 import { FormPreacherSkeleton } from '@/app/preacher/components';
 import { type PreacherResponse } from '@/app/preacher/interfaces';
@@ -49,8 +49,8 @@ import {
   DistrictNames,
   GenderNames,
   MaritalStatusNames,
-  MemberRoles,
-  MemberRolesNames,
+  MemberRole,
+  MemberRoleNames,
   ProvinceNames,
   UrbanSectorNames,
 } from '@/shared/enums';
@@ -154,8 +154,8 @@ export const PreacherFormUpdate = ({
       urbanSector: '',
       address: '',
       referenceAddress: '',
-      roles: [MemberRoles.Disciple],
-      status: '',
+      roles: [MemberRole.Disciple],
+      recordStatus: '',
       theirCopastor: '',
       theirSupervisor: '',
       theirPastor: '',
@@ -187,9 +187,9 @@ export const PreacherFormUpdate = ({
     form.setValue('urbanSector', data?.urbanSector ?? '');
     form.setValue('address', data?.address ?? '');
     form.setValue('referenceAddress', data?.referenceAddress ?? '');
-    form.setValue('roles', data?.roles as MemberRoles[]);
+    form.setValue('roles', data?.roles as MemberRole[]);
     form.setValue('theirSupervisor', data?.theirSupervisor?.id ?? '');
-    form.setValue('status', data?.status);
+    form.setValue('recordStatus', data?.recordStatus);
 
     setTimeout(() => {
       setIsLoadingData(false);
@@ -200,18 +200,18 @@ export const PreacherFormUpdate = ({
   const { disabledRoles } = useValidatePath({
     path: pathname,
     isInputDisabled,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
   });
 
   usePreacherPromoteButtonLogic({
     formPreacherUpdate: form,
-    fieldNames: FieldNamesPreacher,
+    fieldNames: PreacherFieldNames,
     setIsPromoteButtonDisabled,
   });
 
   usePreacherUpdateSubmitButtonLogic({
     formPreacherUpdate: form,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
     isInputDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
@@ -397,7 +397,7 @@ export const PreacherFormUpdate = ({
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-3'>
-                            <FormLabel className='text-[14px]'>Genero</FormLabel>
+                            <FormLabel className='text-[14px]'>Género</FormLabel>
                             <Select
                               disabled={isInputDisabled}
                               value={field.value}
@@ -406,9 +406,9 @@ export const PreacherFormUpdate = ({
                               <FormControl className='text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
-                                    <SelectValue placeholder='Selecciona el tipo de genero' />
+                                    <SelectValue placeholder='Selecciona el tipo de Género' />
                                   ) : (
-                                    'Selecciona el tipo de genero'
+                                    'Selecciona el tipo de Género'
                                   )}
                                 </SelectTrigger>
                               </FormControl>
@@ -616,7 +616,7 @@ export const PreacherFormUpdate = ({
 
                     <FormField
                       control={form.control}
-                      name='status'
+                      name='recordStatus'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-5'>
@@ -644,7 +644,7 @@ export const PreacherFormUpdate = ({
                                 </SelectItem>
                               </SelectContent>
                             </Select>
-                            {form.getValues('status') === 'active' && (
+                            {form.getValues('recordStatus') === 'active' && (
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
@@ -654,7 +654,7 @@ export const PreacherFormUpdate = ({
                                 </span>
                               </FormDescription>
                             )}
-                            {form.getValues('status') === 'inactive' && (
+                            {form.getValues('recordStatus') === 'inactive' && (
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                                 * El registro esta <span className='text-red-500 '>Inactivo</span>,
                                 puede modificar el estado eligiendo otra opción.
@@ -958,7 +958,7 @@ export const PreacherFormUpdate = ({
                               Seleccione los roles que desea asignar al discípulo.
                             </FormDescription>
                           </div>
-                          {Object.values(MemberRoles).map((role) => (
+                          {Object.values(MemberRole).map((role) => (
                             <FormField
                               key={role}
                               control={form.control}
@@ -975,7 +975,7 @@ export const PreacherFormUpdate = ({
                                         checked={field.value?.includes(role)}
                                         disabled={isDisabled}
                                         onCheckedChange={(checked) => {
-                                          let updatedRoles: MemberRoles[] = [];
+                                          let updatedRoles: MemberRole[] = [];
                                           checked
                                             ? (updatedRoles = field.value
                                                 ? [...field.value, role]
@@ -990,7 +990,7 @@ export const PreacherFormUpdate = ({
                                       />
                                     </FormControl>
                                     <FormLabel className='text-[14px] font-normal'>
-                                      {MemberRolesNames[role]}
+                                      {MemberRoleNames[role]}
                                     </FormLabel>
                                   </FormItem>
                                 );
@@ -1006,9 +1006,9 @@ export const PreacherFormUpdate = ({
                       <span className='text-[13px] md:text-[14px] text-yellow-500 font-bold text-center'>
                         !SE HA PROMOVIDO CORRECTAMENTE! <br />
                         <span className='text-[12px] md:text-[13px]'>
-                          {form.getValues('roles').includes(MemberRoles.Disciple) &&
-                            form.getValues('roles').includes(MemberRoles.Supervisor) &&
-                            !form.getValues('roles').includes(MemberRoles.Treasurer) && (
+                          {form.getValues('roles').includes(MemberRole.Disciple) &&
+                            form.getValues('roles').includes(MemberRole.Supervisor) &&
+                            !form.getValues('roles').includes(MemberRole.Treasurer) && (
                               <div>
                                 <span className='text-red-500 text-center inline-block'>
                                   Roles anteriores: Discípulo - Predicador
@@ -1020,9 +1020,9 @@ export const PreacherFormUpdate = ({
                               </div>
                             )}
 
-                          {form.getValues('roles').includes(MemberRoles.Disciple) &&
-                            form.getValues('roles').includes(MemberRoles.Supervisor) &&
-                            form.getValues('roles').includes(MemberRoles.Treasurer) && (
+                          {form.getValues('roles').includes(MemberRole.Disciple) &&
+                            form.getValues('roles').includes(MemberRole.Supervisor) &&
+                            form.getValues('roles').includes(MemberRole.Treasurer) && (
                               <div>
                                 <span className='text-red-500  text-center inline-block'>
                                   Roles anteriores: Discípulo - Predicador - Tesorero
@@ -1332,13 +1332,13 @@ export const PreacherFormUpdate = ({
                               ✅ Guardar estos datos para aplicar la promoción.
                             </span>
                             <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-                              ❌ De manera automática se borraran todas sus relaciones que tenia en
-                              el anterior cargo.
+                              ❌ De manera automática se eliminara el registro y se eliminaran todas
+                              sus relaciones que tenia en el anterior cargo.
                             </span>
 
                             <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-                              ❌ Si era Predicador(a) y sube a Supervisor(a), se borrara su relación
-                              con sus discípulos y grupo familiar.
+                              ❌ Si era Predicador(a) y sube a Supervisor(a), se eliminara su
+                              relación con sus discípulos y grupo familiar.
                             </span>
                             <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
                               ✅ Se deberá asignar otro Predicador(a) para los discípulos y grupos
@@ -1360,7 +1360,7 @@ export const PreacherFormUpdate = ({
                             onClick={() => {
                               useRoleUpdatePreacherHandler({
                                 formPreacherUpdate: form,
-                                memberRoles: MemberRoles,
+                                memberRoles: MemberRole,
                                 setIsDisabledPromoteButton: setIsPromoteButtonDisabled,
                                 setIsDisabledInput: setIsInputDisabled,
                               });

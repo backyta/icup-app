@@ -1,3 +1,3 @@
-export * from './worship-times.enum';
-export * from './search-type-church.enum';
-export * from './search-selection-option-church.enum';
+export * from './church-worship-times.enum';
+export * from './church-search-type.enum';
+export * from './church-search-select-option.enum';

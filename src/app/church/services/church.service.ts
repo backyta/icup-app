@@ -4,7 +4,7 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { SearchTypeChurch } from '@/app/church/enums';
+import { ChurchSearchType } from '@/app/church/enums';
 
 import { type ChurchFormData, type ChurchResponse, type ChurchQueryParams } from '@/app/church/interfaces';
 
@@ -86,12 +86,12 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
 
  let result: ChurchResponse[];
 
- if (searchType === SearchTypeChurch.ChurchName||
-     searchType === SearchTypeChurch.Department || 
-     searchType === SearchTypeChurch.Province || 
-     searchType === SearchTypeChurch.District || 
-     searchType === SearchTypeChurch.UrbanSector || 
-     searchType === SearchTypeChurch.Address
+ if (searchType === ChurchSearchType.ChurchName||
+     searchType === ChurchSearchType.Department || 
+     searchType === ChurchSearchType.Province || 
+     searchType === ChurchSearchType.District || 
+     searchType === ChurchSearchType.UrbanSector || 
+     searchType === ChurchSearchType.Address
     ) {
     try {
       if ( all !== undefined && !all) {
@@ -126,7 +126,7 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
     }
  }
 
- if (searchType === SearchTypeChurch.FoundingDate) {
+ if (searchType === ChurchSearchType.FoundingDate) {
    try {
      if ( all !== undefined && !all) {
        const {data} = await icupApi<ChurchResponse[]>(`/churches/${dateTerm}` , {
@@ -160,7 +160,7 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
    }
  }
 
- if (searchType === SearchTypeChurch.Status) {
+ if (searchType === ChurchSearchType.RecordStatus) {
     try {
       if ( all !== undefined && !all) {
         const {data} = await icupApi<ChurchResponse[]>(`/churches/${selectTerm}` , {

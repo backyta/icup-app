@@ -1,9 +1,9 @@
 
-import { type SearchSubTypeSupervisor, type SearchTypeSupervisor } from '@/app/supervisor/enums';
+import { type SupervisorSearchSubType, type SupervisorSearchType } from '@/app/supervisor/enums';
 
 export interface SupervisorFormSearchByTerm {
-  searchType?: SearchTypeSupervisor;
-  searchSubType?: SearchSubTypeSupervisor | undefined;
+  searchType?: SupervisorSearchType;
+  searchSubType?: SupervisorSearchSubType | undefined;
   order: string;
   inputTerm?: string | undefined;
   selectTerm?: string | undefined;

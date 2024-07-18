@@ -3,15 +3,15 @@
 import * as z from 'zod';
 
 import { RecordOrder } from '@/shared/enums';
-import { SearchSubTypePreacher, SearchTypePreacher } from '@/app/preacher/enums';
+import { PreacherSearchSubType, PreacherSearchType } from '@/app/preacher/enums';
 
 export const preacherFormTermSearchSchema = z
   .object({
-    searchType: z.nativeEnum(SearchTypePreacher,{
+    searchType: z.nativeEnum(PreacherSearchType,{
       required_error: "Por favor seleccione un tipo.",
     }),
 
-    searchSubType: z.nativeEnum(SearchSubTypePreacher ,{
+    searchSubType: z.nativeEnum(PreacherSearchSubType ,{
       required_error: "Por favor seleccione una opción.",
     }).optional(),
     
@@ -47,9 +47,9 @@ export const preacherFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchTypePreacher.FirstName || 
-        data.searchType === SearchTypePreacher.LastName || 
-        data.searchType === SearchTypePreacher.FullName 
+        data.searchType === PreacherSearchType.FirstName || 
+        data.searchType === PreacherSearchType.LastName || 
+        data.searchType === PreacherSearchType.FullName 
       ) {
         return !!data.searchSubType; 
       }
@@ -63,7 +63,7 @@ export const preacherFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchTypePreacher.FirstName
+        data.searchType === PreacherSearchType.FirstName
       ) {
         return !!data.namesTerm; 
       }
@@ -77,7 +77,7 @@ export const preacherFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchTypePreacher.LastName
+        data.searchType === PreacherSearchType.LastName
       ) {
         return !!data.lastNamesTerm;
       }
@@ -92,7 +92,7 @@ export const preacherFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchTypePreacher.FullName
+        data.searchType === PreacherSearchType.FullName
       ) {
         return !!data.lastNamesTerm; 
       }
@@ -106,7 +106,7 @@ export const preacherFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === SearchTypePreacher.FullName
+        data.searchType === PreacherSearchType.FullName
       ) {
         return !!data.namesTerm; 
       }
@@ -119,15 +119,15 @@ export const preacherFormTermSearchSchema = z
   )
   .refine(
     (data) => {
-      if (data.searchType === SearchTypePreacher.OriginCountry ||
-          data.searchType === SearchTypePreacher.Zone ||
-          data.searchType === SearchTypePreacher.FamilyGroupCode ||
-          data.searchType === SearchTypePreacher.FamilyGroupName ||
-          data.searchType === SearchTypePreacher.Department || 
-          data.searchType === SearchTypePreacher.Province || 
-          data.searchType === SearchTypePreacher.District || 
-          data.searchType === SearchTypePreacher.UrbanSector || 
-          data.searchType === SearchTypePreacher.Address
+      if (data.searchType === PreacherSearchType.OriginCountry ||
+          data.searchType === PreacherSearchType.Zone ||
+          data.searchType === PreacherSearchType.FamilyGroupCode ||
+          data.searchType === PreacherSearchType.FamilyGroupName ||
+          data.searchType === PreacherSearchType.Department || 
+          data.searchType === PreacherSearchType.Province || 
+          data.searchType === PreacherSearchType.District || 
+          data.searchType === PreacherSearchType.UrbanSector || 
+          data.searchType === PreacherSearchType.Address
           ) {
         return !!data.inputTerm; 
       }
@@ -141,10 +141,10 @@ export const preacherFormTermSearchSchema = z
   .refine(
     (data) => {
       if (
-          data.searchType === SearchTypePreacher.BirthMonth ||
-          data.searchType === SearchTypePreacher.Gender ||
-          data.searchType === SearchTypePreacher.MaritalStatus ||
-          data.searchType === SearchTypePreacher.Status
+          data.searchType === PreacherSearchType.BirthMonth ||
+          data.searchType === PreacherSearchType.Gender ||
+          data.searchType === PreacherSearchType.MaritalStatus ||
+          data.searchType === PreacherSearchType.RecordStatus
         ) {
         return !!data.selectTerm; 
       }
@@ -158,7 +158,7 @@ export const preacherFormTermSearchSchema = z
   .refine(
     (data) => {
       if ( 
-        data.searchType === SearchTypePreacher.BirthDate
+        data.searchType === PreacherSearchType.BirthDate
       ) {
         return !!data.dateTerm; 
       }

@@ -7,9 +7,9 @@ import {
   District, 
   Gender,
   MaritalStatus, 
-  MemberRoles, 
+  MemberRole, 
   Province, 
-  Status, 
+  RecordStatus, 
   UrbanSector 
 } from '@/shared/enums';
 
@@ -108,13 +108,13 @@ export const pastorFormSchema = z
       .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
       .max(100, { message: 'El campo debe contener máximo 50 caracteres.' }),
 
-    roles: z.array(z.nativeEnum(MemberRoles),{
+    roles: z.array(z.nativeEnum(MemberRole),{
       required_error: "Debes seleccionar al menos un rol.",
     }).refine((value) => value.some((item) => item), {
       message: "Debes seleccionar al menos un rol.",
     }),
 
-    status: z.string(z.nativeEnum(Status, {
+    recordStatus: z.string(z.nativeEnum(RecordStatus, {
       required_error: "Por favor seleccione una opción.",
     })).optional(),
 
@@ -124,7 +124,7 @@ export const pastorFormSchema = z
   })
   .refine(
     (data) => {
-      if (data.roles.includes(MemberRoles.Pastor) && data.roles.includes(MemberRoles.Disciple)) {
+      if (data.roles.includes(MemberRole.Pastor) && data.roles.includes(MemberRole.Disciple)) {
         return !!data.theirChurch; 
       }
       return true;

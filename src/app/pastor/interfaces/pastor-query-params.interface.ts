@@ -7,6 +7,8 @@ export interface PastorQueryParams {
   searchType?: string;
   limit?: string;
   offset?: string;
-  all?: boolean;
   order: string;
+
+  //* Validator for get all register (replicar)
+  all?: boolean;
 }

@@ -59,7 +59,7 @@ const dataFictional: ChurchResponse[] = [
     urbanSector: '',
     address: '',
     referenceAddress: '',
-    status: 'active',
+    recordStatus: 'active',
     theirMainChurch: null,
   },
 ];

@@ -41,7 +41,7 @@ export interface CopastorColumns {
   preachers?:       Preacher[];
   familyHouses?:    FamilyGroup[];
   disciples?:       Disciple[];
-  status?:           string;
+  recordStatus?:           string;
   theirPastor?:     TheirPastor | null; 
   theirChurch?:     TheirChurch | null; 
 }

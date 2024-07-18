@@ -20,9 +20,9 @@ import {
   SearchByTermChurchDataTable,
 } from '@/app/church/components';
 import {
-  SearchSelectionOptionChurchKeys,
-  SearchTypeChurch,
-  SearchTypeChurchKeys,
+  ChurchSearchSelectOptionNames,
+  ChurchSearchType,
+  ChurchSearchTypeNames,
 } from '@/app/church/enums';
 import { churchFormTermSearchSchema } from '@/app/church/validations';
 import { type ChurchFormSearchByTerm, type ChurchResponse } from '@/app/church/interfaces';
@@ -63,14 +63,14 @@ const dataFictional: ChurchResponse[] = [
     foundingDate: new Date('2024-05-31'),
     email: '',
     phoneNumber: '',
-    country: '-',
-    department: '-',
-    province: '-',
-    district: '-',
-    urbanSector: '-',
-    address: '-',
-    referenceAddress: '-',
-    status: 'active',
+    country: '',
+    department: '',
+    province: '',
+    district: '',
+    urbanSector: '',
+    address: '',
+    referenceAddress: '',
+    recordStatus: 'active',
     theirMainChurch: null,
   },
 ];
@@ -205,7 +205,7 @@ export const ChurchDeletePage = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(SearchTypeChurchKeys).map(([key, value]) => (
+                          {Object.entries(ChurchSearchTypeNames).map(([key, value]) => (
                             <SelectItem
                               className={`text-[13px] md:text-[14px]`}
                               key={key}
@@ -222,12 +222,12 @@ export const ChurchDeletePage = (): JSX.Element => {
                 }}
               />
 
-              {(searchType === SearchTypeChurch.ChurchName ||
-                searchType === SearchTypeChurch.Department ||
-                searchType === SearchTypeChurch.Province ||
-                searchType === SearchTypeChurch.District ||
-                searchType === SearchTypeChurch.UrbanSector ||
-                searchType === SearchTypeChurch.Address) && (
+              {(searchType === ChurchSearchType.ChurchName ||
+                searchType === ChurchSearchType.Department ||
+                searchType === ChurchSearchType.Province ||
+                searchType === ChurchSearchType.District ||
+                searchType === ChurchSearchType.UrbanSector ||
+                searchType === ChurchSearchType.Address) && (
                 <FormField
                   control={form.control}
                   name='inputTerm'
@@ -250,7 +250,7 @@ export const ChurchDeletePage = (): JSX.Element => {
                 />
               )}
 
-              {searchType === SearchTypeChurch.FoundingDate && (
+              {searchType === ChurchSearchType.FoundingDate && (
                 <FormField
                   control={form.control}
                   name='dateTerm'
@@ -307,7 +307,7 @@ export const ChurchDeletePage = (): JSX.Element => {
                 />
               )}
 
-              {searchType === SearchTypeChurch.Status && (
+              {searchType === ChurchSearchType.RecordStatus && (
                 <FormField
                   control={form.control}
                   name='selectTerm'
@@ -336,7 +336,7 @@ export const ChurchDeletePage = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {Object.entries(SearchSelectionOptionChurchKeys).map(([key, value]) => (
+                            {Object.entries(ChurchSearchSelectOptionNames).map(([key, value]) => (
                               <SelectItem
                                 className={`text-[13px] md:text-[14px]`}
                                 key={key}

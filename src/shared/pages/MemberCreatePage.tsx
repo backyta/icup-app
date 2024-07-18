@@ -19,8 +19,8 @@ import { useMemberCreateSubmitButtonLogic, useValidatePath } from '@/hooks';
 
 import { formMemberSchema } from '@/shared/validations';
 import {
-  MemberRoles,
-  MemberRolesNames,
+  MemberRole,
+  MemberRoleNames,
   MaritalStatusNames,
   GenderNames,
   CountryNames,
@@ -105,7 +105,7 @@ export const MemberCreatePage = (): JSX.Element => {
       districtResidence: '',
       addressResidence: '',
       addressResidenceReference: '',
-      roles: [MemberRoles.Disciple],
+      roles: [MemberRole.Disciple],
     },
   });
 
@@ -121,12 +121,12 @@ export const MemberCreatePage = (): JSX.Element => {
   //* Custom hooks
   const { titleValue, subTitleValue, disabledRoles } = useValidatePath({
     path: pathname,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
   });
 
   useMemberCreateSubmitButtonLogic({
     formMemberCrate: form,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
     isMessageErrorDisabled,
     isInputDisabled,
     pathname,
@@ -223,7 +223,7 @@ export const MemberCreatePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel className='text-[14px] font-medium'>Genero</FormLabel>
+                      <FormLabel className='text-[14px] font-medium'>Género</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         value={field.value}
@@ -232,9 +232,9 @@ export const MemberCreatePage = (): JSX.Element => {
                         <FormControl>
                           <SelectTrigger>
                             {field.value ? (
-                              <SelectValue placeholder='Selecciona el tipo de genero' />
+                              <SelectValue placeholder='Selecciona el tipo de Género' />
                             ) : (
-                              'Selecciona el tipo de genero'
+                              'Selecciona el tipo de Género'
                             )}
                           </SelectTrigger>
                         </FormControl>
@@ -699,7 +699,7 @@ export const MemberCreatePage = (): JSX.Element => {
                         Seleccione los roles que desea asignar al discípulo.
                       </FormDescription>
                     </div>
-                    {Object.values(MemberRoles).map((role) => (
+                    {Object.values(MemberRole).map((role) => (
                       <FormField
                         key={role}
                         control={form.control}
@@ -716,7 +716,7 @@ export const MemberCreatePage = (): JSX.Element => {
                                   checked={field.value?.includes(role)}
                                   disabled={isDisabled}
                                   onCheckedChange={(checked) => {
-                                    let updatedRoles: MemberRoles[] = [];
+                                    let updatedRoles: MemberRole[] = [];
                                     checked
                                       ? (updatedRoles = field.value
                                           ? [...field.value, role]
@@ -730,7 +730,7 @@ export const MemberCreatePage = (): JSX.Element => {
                                 />
                               </FormControl>
                               <FormLabel className='text-[14px] font-normal'>
-                                {MemberRolesNames[role]}
+                                {MemberRoleNames[role]}
                               </FormLabel>
                             </FormItem>
                           );
@@ -750,23 +750,23 @@ export const MemberCreatePage = (): JSX.Element => {
                 Relaciones
               </legend>
               {/* Validations */}
-              {roles?.includes(MemberRoles.Disciple) &&
-                roles?.includes(MemberRoles.Pastor) &&
-                !roles?.includes(MemberRoles.Copastor) &&
-                !roles?.includes(MemberRoles.Supervisor) &&
-                !roles?.includes(MemberRoles.Preacher) &&
-                !roles?.includes(MemberRoles.Treasurer) && (
+              {roles?.includes(MemberRole.Disciple) &&
+                roles?.includes(MemberRole.Pastor) &&
+                !roles?.includes(MemberRole.Copastor) &&
+                !roles?.includes(MemberRole.Supervisor) &&
+                !roles?.includes(MemberRole.Preacher) &&
+                !roles?.includes(MemberRole.Treasurer) && (
                   <span className='text-green-500 font-bold text-[14px]'>
                     No hay relaciones que asignar para estos roles elegidos.
                   </span>
                 )}
 
-              {roles?.includes(MemberRoles.Disciple) &&
-                roles?.includes(MemberRoles.Copastor) &&
-                !roles?.includes(MemberRoles.Pastor) &&
-                !roles?.includes(MemberRoles.Supervisor) &&
-                !roles?.includes(MemberRoles.Preacher) &&
-                !roles?.includes(MemberRoles.Treasurer) && (
+              {roles?.includes(MemberRole.Disciple) &&
+                roles?.includes(MemberRole.Copastor) &&
+                !roles?.includes(MemberRole.Pastor) &&
+                !roles?.includes(MemberRole.Supervisor) &&
+                !roles?.includes(MemberRole.Preacher) &&
+                !roles?.includes(MemberRole.Treasurer) && (
                   <FormField
                     control={form.control}
                     name='theirPastor'
@@ -836,18 +836,18 @@ export const MemberCreatePage = (): JSX.Element => {
                   />
                 )}
 
-              {((roles?.includes(MemberRoles.Disciple) &&
-                roles?.includes(MemberRoles.Supervisor) &&
-                !roles?.includes(MemberRoles.Treasurer) &&
-                !roles?.includes(MemberRoles.Pastor) &&
-                !roles?.includes(MemberRoles.Copastor) &&
-                !roles?.includes(MemberRoles.Preacher)) ||
-                (roles?.includes(MemberRoles.Disciple) &&
-                  roles?.includes(MemberRoles.Supervisor) &&
-                  roles?.includes(MemberRoles.Treasurer) &&
-                  !roles?.includes(MemberRoles.Pastor) &&
-                  !roles?.includes(MemberRoles.Copastor) &&
-                  !roles?.includes(MemberRoles.Preacher))) && (
+              {((roles?.includes(MemberRole.Disciple) &&
+                roles?.includes(MemberRole.Supervisor) &&
+                !roles?.includes(MemberRole.Treasurer) &&
+                !roles?.includes(MemberRole.Pastor) &&
+                !roles?.includes(MemberRole.Copastor) &&
+                !roles?.includes(MemberRole.Preacher)) ||
+                (roles?.includes(MemberRole.Disciple) &&
+                  roles?.includes(MemberRole.Supervisor) &&
+                  roles?.includes(MemberRole.Treasurer) &&
+                  !roles?.includes(MemberRole.Pastor) &&
+                  !roles?.includes(MemberRole.Copastor) &&
+                  !roles?.includes(MemberRole.Preacher))) && (
                 <FormField
                   control={form.control}
                   name='theirCopastor'
@@ -918,18 +918,18 @@ export const MemberCreatePage = (): JSX.Element => {
                 />
               )}
 
-              {((roles?.includes(MemberRoles.Disciple) &&
-                roles?.includes(MemberRoles.Preacher) &&
-                !roles?.includes(MemberRoles.Treasurer) &&
-                !roles?.includes(MemberRoles.Pastor) &&
-                !roles?.includes(MemberRoles.Copastor) &&
-                !roles?.includes(MemberRoles.Supervisor)) ||
-                (roles?.includes(MemberRoles.Disciple) &&
-                  roles?.includes(MemberRoles.Preacher) &&
-                  roles?.includes(MemberRoles.Treasurer) &&
-                  !roles?.includes(MemberRoles.Pastor) &&
-                  !roles?.includes(MemberRoles.Copastor) &&
-                  !roles?.includes(MemberRoles.Supervisor))) && (
+              {((roles?.includes(MemberRole.Disciple) &&
+                roles?.includes(MemberRole.Preacher) &&
+                !roles?.includes(MemberRole.Treasurer) &&
+                !roles?.includes(MemberRole.Pastor) &&
+                !roles?.includes(MemberRole.Copastor) &&
+                !roles?.includes(MemberRole.Supervisor)) ||
+                (roles?.includes(MemberRole.Disciple) &&
+                  roles?.includes(MemberRole.Preacher) &&
+                  roles?.includes(MemberRole.Treasurer) &&
+                  !roles?.includes(MemberRole.Pastor) &&
+                  !roles?.includes(MemberRole.Copastor) &&
+                  !roles?.includes(MemberRole.Supervisor))) && (
                 <FormField
                   control={form.control}
                   name='theirSupervisor'
@@ -1005,12 +1005,12 @@ export const MemberCreatePage = (): JSX.Element => {
               )}
 
               {pathname !== '/leaders/create-leader' &&
-                roles?.includes(MemberRoles.Disciple) &&
-                !roles?.includes(MemberRoles.Pastor) &&
-                !roles?.includes(MemberRoles.Copastor) &&
-                !roles?.includes(MemberRoles.Preacher) &&
-                !roles?.includes(MemberRoles.Supervisor) &&
-                !roles?.includes(MemberRoles.Treasurer) && (
+                roles?.includes(MemberRole.Disciple) &&
+                !roles?.includes(MemberRole.Pastor) &&
+                !roles?.includes(MemberRole.Copastor) &&
+                !roles?.includes(MemberRole.Preacher) &&
+                !roles?.includes(MemberRole.Supervisor) &&
+                !roles?.includes(MemberRole.Treasurer) && (
                   <FormField
                     control={form.control}
                     name='theirFamilyHouse'

@@ -7,7 +7,7 @@ import { icupApi } from '@/api/icupApi';
 import { type PastorResponse } from '@/app/pastor/interfaces';
 import { type CopastorResponse, type CopastorFormData, type CopastorQueryParams } from '@/app/copastor/interfaces';
 
-import { SearchTypeCopastor } from '@/app/copastor/enums';
+import { CopastorSearchType } from '@/app/copastor/enums';
 
 //* Create co-pastor
 export const createCopastor = async (formData:CopastorFormData ): Promise<CopastorResponse> => {
@@ -98,12 +98,12 @@ export const getCopastorsByTerm = async ({
  let result: CopastorResponse[];
 
  //* Origin country, department, province, district, urban sector, address
- if (searchType === SearchTypeCopastor.OriginCountry||
-     searchType === SearchTypeCopastor.Department ||
-     searchType === SearchTypeCopastor.Province ||
-     searchType === SearchTypeCopastor.District ||
-     searchType === SearchTypeCopastor.UrbanSector ||
-     searchType === SearchTypeCopastor.Address
+ if (searchType === CopastorSearchType.OriginCountry||
+     searchType === CopastorSearchType.Department ||
+     searchType === CopastorSearchType.Province ||
+     searchType === CopastorSearchType.District ||
+     searchType === CopastorSearchType.UrbanSector ||
+     searchType === CopastorSearchType.Address
     ) {
     try {
         if ( all !== undefined && !all) {
@@ -139,7 +139,7 @@ export const getCopastorsByTerm = async ({
  }
 
  //* Date Birth
-  if (searchType === SearchTypeCopastor.BirthDate) {
+  if (searchType === CopastorSearchType.BirthDate) {
     try {
       if ( all !== undefined && !all) {
         const {data} = await icupApi<CopastorResponse[]>(`/copastors/${dateTerm}` , {
@@ -174,10 +174,10 @@ export const getCopastorsByTerm = async ({
   }
 
  //* Status, Gender, Month Birth
-  if (searchType === SearchTypeCopastor.Status ||
-        searchType === SearchTypeCopastor.Gender ||
-        searchType === SearchTypeCopastor.BirthMonth ||
-        searchType === SearchTypeCopastor.MaritalStatus
+  if (searchType === CopastorSearchType.RecordStatus ||
+        searchType === CopastorSearchType.Gender ||
+        searchType === CopastorSearchType.BirthMonth ||
+        searchType === CopastorSearchType.MaritalStatus
       ) {
       try {
         if ( all !== undefined && !all) {
@@ -213,7 +213,7 @@ export const getCopastorsByTerm = async ({
   }
 
  //* First Name
-  if (searchType === SearchTypeCopastor.FirstName
+  if (searchType === CopastorSearchType.FirstName
       ) {
       try {
         if ( all !== undefined && !all) {
@@ -252,7 +252,7 @@ export const getCopastorsByTerm = async ({
   }
 
  //* Last Name 
-  if (searchType === SearchTypeCopastor.LastName
+  if (searchType === CopastorSearchType.LastName
       ) {
       try {
         if ( all !== undefined && !all) {
@@ -291,7 +291,7 @@ export const getCopastorsByTerm = async ({
   }
 
  //* Full Name
-  if (searchType === SearchTypeCopastor.FullName
+  if (searchType === CopastorSearchType.FullName
       ) {
       try {
         if ( all !== undefined && !all) {

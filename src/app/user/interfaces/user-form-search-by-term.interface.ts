@@ -1,0 +1,17 @@
+import { type DiscipleSearchSubType, type DiscipleSearchType } from '@/app/disciple/enums';
+
+export interface UserFormSearchByTerm {
+  searchType: DiscipleSearchType;
+  searchSubType?: DiscipleSearchSubType | undefined;
+  order: string;
+  inputTerm?: string | undefined;
+  selectTerm?: string | undefined;
+  dateTerm?: {
+        from: Date;
+        to?: Date | undefined;
+    } | undefined;
+  namesTerm?: string | undefined;
+  lastNamesTerm?: string | undefined;
+  limit?: string | undefined;
+  limitAll?: boolean | undefined;
+}

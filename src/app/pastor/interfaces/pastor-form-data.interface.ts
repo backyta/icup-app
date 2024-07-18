@@ -1,4 +1,4 @@
-import { type MemberRoles } from '@/shared/enums';
+import { type MemberRole } from '@/shared/enums';
 export interface PastorFormData {
   firstName: string;
   lastName: string;
@@ -17,8 +17,8 @@ export interface PastorFormData {
   urbanSector: string;
   address: string;
   referenceAddress: string;
-  roles: MemberRoles[];
-  status?: string | undefined;
+  roles: MemberRole[];
+  recordStatus?: string | undefined;
   theirChurch?: string | undefined;
 }
 

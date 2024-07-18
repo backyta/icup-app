@@ -24,8 +24,8 @@ import { useValidatePath } from '@/hooks';
 import { LoadingSpinner } from '@/layouts/components';
 
 import {
-  MemberRoles,
-  MemberRolesNames,
+  MemberRole,
+  MemberRoleNames,
   MaritalStatusNames,
   GenderNames,
   CountryNames,
@@ -109,7 +109,7 @@ export const PreacherCreatePage = (): JSX.Element => {
       district: '',
       address: '',
       referenceAddress: '',
-      roles: [MemberRoles.Disciple],
+      roles: [MemberRole.Disciple],
       theirCopastor: '',
       theirSupervisor: '',
     },
@@ -121,12 +121,12 @@ export const PreacherCreatePage = (): JSX.Element => {
   //* Custom hooks
   const { disabledRoles } = useValidatePath({
     path: pathname,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
   });
 
   usePreacherCreateSubmitButtonLogic({
     formPreacherCrate: form,
-    memberRoles: MemberRoles,
+    memberRoles: MemberRole,
     isInputDisabled,
     isMessageErrorDisabled,
     setIsMessageErrorDisabled,
@@ -187,7 +187,7 @@ export const PreacherCreatePage = (): JSX.Element => {
       }, 1600);
 
       setTimeout(() => {
-        navigate('/supervisors');
+        navigate('/preachers');
       }, 2600);
     },
   });
@@ -283,7 +283,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel className='text-[14px] font-medium'>Genero</FormLabel>
+                      <FormLabel className='text-[14px] font-medium'>Género</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         value={field.value}
@@ -292,9 +292,9 @@ export const PreacherCreatePage = (): JSX.Element => {
                         <FormControl>
                           <SelectTrigger>
                             {field.value ? (
-                              <SelectValue placeholder='Selecciona el tipo de genero' />
+                              <SelectValue placeholder='Selecciona el tipo de Género' />
                             ) : (
-                              'Selecciona el tipo de genero'
+                              'Selecciona el tipo de Género'
                             )}
                           </SelectTrigger>
                         </FormControl>
@@ -770,7 +770,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                         Seleccione los roles que desea asignar al discípulo.
                       </FormDescription>
                     </div>
-                    {Object.values(MemberRoles).map((role) => (
+                    {Object.values(MemberRole).map((role) => (
                       <FormField
                         key={role}
                         control={form.control}
@@ -787,7 +787,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                                   checked={field.value?.includes(role)}
                                   disabled={isDisabled}
                                   onCheckedChange={(checked) => {
-                                    let updatedRoles: MemberRoles[] = [];
+                                    let updatedRoles: MemberRole[] = [];
                                     checked
                                       ? (updatedRoles = field.value
                                           ? [...field.value, role]
@@ -801,7 +801,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                                 />
                               </FormControl>
                               <FormLabel className='text-[14px] font-normal'>
-                                {MemberRolesNames[role]}
+                                {MemberRoleNames[role]}
                               </FormLabel>
                             </FormItem>
                           );
@@ -918,7 +918,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                   }, 100);
                 }}
               >
-                Registrar Co-pastor
+                Registrar Predicador
               </Button>
             </div>
           </form>

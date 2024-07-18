@@ -1,4 +1,4 @@
-import { type MemberRoles } from '@/shared/enums';
+import { type MemberRole } from '@/shared/enums';
 
 
 export interface SupervisorFormData {
@@ -20,8 +20,8 @@ export interface SupervisorFormData {
   address: string;
   referenceAddress: string;
   isDirectRelationToPastor?: boolean | undefined;
-  roles: MemberRoles[];
-  status?: string | undefined;
+  roles: MemberRole[];
+  recordStatus?: string | undefined;
   theirCopastor?: string | undefined;
   theirPastor?: string | undefined;
 }
@@ -46,7 +46,7 @@ export type SupervisorFormDataKeys =
   | 'address'
   | 'referenceAddress'
   | 'roles'
-  | 'status'
+  | 'recordStatus'
   | 'isDirectRelationToPastor'
   | 'theirCopastor'
   | 'theirPastor'

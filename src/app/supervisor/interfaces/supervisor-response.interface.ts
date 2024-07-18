@@ -39,7 +39,7 @@ export interface SupervisorResponse {
   preachers?:       Preacher[];
   familyGroups?:    FamilyGroup[];
   disciples?:       Disciple[];
-  status:           string;
+  recordStatus?:    string;
   theirCopastor?:   TheirCopastor | null;
   theirPastor?:     TheirPastor | null;
   theirChurch?:     TheirChurch | null;

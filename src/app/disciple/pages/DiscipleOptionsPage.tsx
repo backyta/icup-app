@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { NavLink } from 'react-router-dom';
-
-import { RiDeleteBin2Fill } from 'react-icons/ri';
-import { FcClearFilters, FcSearch, FcSportsMode, FcSupport } from 'react-icons/fc';
-
-import { WhiteCard } from '@/shared/components';
-import { useAuthStore } from '@/stores';
 import { useEffect } from 'react';
+
+import { NavLink } from 'react-router-dom';
+import { RiDeleteBin2Fill } from 'react-icons/ri';
+import { FcClearFilters, FcPodiumWithSpeaker, FcSearch, FcSupport } from 'react-icons/fc';
+
+import { useAuthStore } from '@/stores';
+import { WhiteCard } from '@/shared/components';
 
 export const DiscipleOptionsPage = (): JSX.Element => {
   const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
@@ -25,7 +25,7 @@ export const DiscipleOptionsPage = (): JSX.Element => {
       </p>
       <hr className='p-[0.015rem] bg-slate-500' />
 
-      <div className='w-full px-[2.5rem] py-6 sm:px-[7rem]  md:px-[4.5rem] lg:px-[3rem] xl:px-[3rem] xl:py-6 2xl:px-16 grid gap-8 md:gap-6 xl:gap-5 2xl:gap-4 grid-cols-1 grid-rows-1 lg:grid-cols-2 lg:grid-rows-1 2xl:grid-cols-4 2xl:grid-rows-auto h-auto 2xl:h-[43rem]'>
+      <div className='w-full px-[2rem] py-6 sm:px-[7rem] md:px-[4rem] lg:px-[3rem] xl:px-[3rem] 2xl:px-16 grid gap-8 md:gap-6 xl:gap-5 2xl:gap-4 grid-cols-1 grid-rows-1 lg:grid-cols-2 lg:grid-rows-1 2xl:grid-cols-4 2xl:grid-rows-1 h-auto 2xl:h-[43rem]'>
         <NavLink
           key='/disciples/create-disciple'
           to='/disciples/create-disciple'
@@ -33,7 +33,7 @@ export const DiscipleOptionsPage = (): JSX.Element => {
           className='row-start-1 row-end-2 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-2 lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-2 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-1 2xl:col-end-2'
         >
           <WhiteCard className='md:h-[11rem]' centered>
-            <FcSportsMode className='text-[5rem] lg:text-[8rem] xl:text-[7rem]' />
+            <FcPodiumWithSpeaker className='text-[10rem] lg:text-[8rem] xl:text-[7rem]' />
             <h2 className='text-green-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Registrar Discípulo
             </h2>
@@ -66,7 +66,7 @@ export const DiscipleOptionsPage = (): JSX.Element => {
           end
           className='row-start-3 row-end-4 lg:row-start-1 lg:row-end-2 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-2 xl:col-end-3 2xl:row-start-2 2xl:row-end-3 2xl:col-start-2 2xl:col-end-3'
         >
-          <WhiteCard className='md:h-[10rem]' centered>
+          <WhiteCard className='md:h-[11rem]' centered>
             <FcClearFilters className='text-[10rem] lg:text-[6rem] xl:text-[6rem]' />
             <h2 className='text-sky-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Consultar Discípulos

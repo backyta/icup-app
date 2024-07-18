@@ -38,7 +38,7 @@ export interface PreacherResponse {
   updatedBy?:       UpdatedBy;
   familyGroups?:    FamilyGroup[];
   disciples?:       Disciple[];
-  status:           string;
+  recordStatus?:    string;
   theirChurch?:     TheirChurch | null;
   theirPastor?:     TheirPastor | null;
   theirCopastor?:   TheirCopastor | null;

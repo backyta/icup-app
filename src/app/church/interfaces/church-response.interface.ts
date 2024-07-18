@@ -39,7 +39,7 @@ export interface ChurchResponse {
   preachers?:       Preacher[];
   familyGroups?:    FamilyGroup[];
   disciples?:       Disciple[];
-  status:           string;
+  recordStatus:           string;
   theirMainChurch?: MainChurch | null; 
 }
 

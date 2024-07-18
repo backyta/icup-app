@@ -22,17 +22,15 @@ import {
 
 import { type PreacherFormSearchByTerm, type PreacherQueryParams } from '@/app/preacher/interfaces';
 import {
-  SearchSelectionOptionPreacherKeys,
-  SearchSubTypePreacherKeys,
-  SearchTypePreacher,
-  SearchTypePreacherKeys,
+  PreacherSearchSelectOptionNames,
+  PreacherSearchSubTypeNames,
+  PreacherSearchType,
+  PreacherSearchTypeNames,
 } from '@/app/preacher/enums';
 import { getPreachersByTerm } from '@/app/preacher/services';
 
 import { usePreacherStore } from '@/stores/preacher';
-
 import { LoadingSpinner } from '@/layouts/components';
-
 import { formatDateDDMMYYYY } from '@/shared/helpers';
 
 import {
@@ -162,19 +160,19 @@ export function SearchByTermPreacherDataTable<TData, TValue>({
             </span>{' '}
             <span className='font-medium text-[13px] md:text-[14.5px] italic'>
               {`${
-                Object.entries(SearchTypePreacherKeys).find(
+                Object.entries(PreacherSearchTypeNames).find(
                   ([key, value]) => key === dataForm?.searchType && value
                 )?.[1]
               }`}
             </span>
-            {(dataForm?.searchType === SearchTypePreacher.FirstName ||
-              dataForm?.searchType === SearchTypePreacher.LastName ||
-              dataForm?.searchType === SearchTypePreacher.FullName) && (
+            {(dataForm?.searchType === PreacherSearchType.FirstName ||
+              dataForm?.searchType === PreacherSearchType.LastName ||
+              dataForm?.searchType === PreacherSearchType.FullName) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {' '}
                 -{' '}
                 {`${
-                  Object.entries(SearchSubTypePreacherKeys).find(
+                  Object.entries(PreacherSearchSubTypeNames).find(
                     ([key, value]) => key === dataForm?.searchSubType && value
                   )?.[1]
                 }`}
@@ -187,46 +185,46 @@ export function SearchByTermPreacherDataTable<TData, TValue>({
             <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
               Termino de búsqueda:
             </span>{' '}
-            {(dataForm?.searchType === SearchTypePreacher.OriginCountry ||
-              dataForm?.searchType === SearchTypePreacher.Zone ||
-              dataForm?.searchType === SearchTypePreacher.FamilyGroupCode ||
-              dataForm?.searchType === SearchTypePreacher.FamilyGroupName ||
-              dataForm?.searchType === SearchTypePreacher.Department ||
-              dataForm?.searchType === SearchTypePreacher.Province ||
-              dataForm?.searchType === SearchTypePreacher.District ||
-              dataForm?.searchType === SearchTypePreacher.UrbanSector ||
-              dataForm?.searchType === SearchTypePreacher.Address) && (
+            {(dataForm?.searchType === PreacherSearchType.OriginCountry ||
+              dataForm?.searchType === PreacherSearchType.Zone ||
+              dataForm?.searchType === PreacherSearchType.FamilyGroupCode ||
+              dataForm?.searchType === PreacherSearchType.FamilyGroupName ||
+              dataForm?.searchType === PreacherSearchType.Department ||
+              dataForm?.searchType === PreacherSearchType.Province ||
+              dataForm?.searchType === PreacherSearchType.District ||
+              dataForm?.searchType === PreacherSearchType.UrbanSector ||
+              dataForm?.searchType === PreacherSearchType.Address) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.inputTerm}`}
               </span>
             )}
-            {dataForm?.searchType === SearchTypePreacher.FirstName && (
+            {dataForm?.searchType === PreacherSearchType.FirstName && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.namesTerm}`}
               </span>
             )}
-            {dataForm?.searchType === SearchTypePreacher.LastName && (
+            {dataForm?.searchType === PreacherSearchType.LastName && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.lastNamesTerm}`}
               </span>
             )}
-            {dataForm?.searchType === SearchTypePreacher.FullName && (
+            {dataForm?.searchType === PreacherSearchType.FullName && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
               </span>
             )}
-            {dataForm?.searchType === SearchTypePreacher.BirthDate && (
+            {dataForm?.searchType === PreacherSearchType.BirthDate && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.dateTerm?.from ? formatDateDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDateDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
               </span>
             )}
-            {(dataForm?.searchType === SearchTypePreacher.BirthMonth ||
-              dataForm?.searchType === SearchTypePreacher.Gender ||
-              dataForm?.searchType === SearchTypePreacher.MaritalStatus ||
-              dataForm?.searchType === SearchTypePreacher.Status) && (
+            {(dataForm?.searchType === PreacherSearchType.BirthMonth ||
+              dataForm?.searchType === PreacherSearchType.Gender ||
+              dataForm?.searchType === PreacherSearchType.MaritalStatus ||
+              dataForm?.searchType === PreacherSearchType.RecordStatus) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
-                  Object.entries(SearchSelectionOptionPreacherKeys).find(
+                  Object.entries(PreacherSearchSelectOptionNames).find(
                     ([key, value]) => key === dataForm?.selectTerm && value
                   )?.[1]
                 }`}
