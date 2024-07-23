@@ -6,21 +6,21 @@ import { useEffect, useState } from 'react';
 import type * as z from 'zod';
 import { Toaster, toast } from 'sonner';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
-import { cn } from '@/shared/lib/utils';
+import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { discipleFormSchema } from '@/app/disciple/validations';
 import { useDiscipleCreateSubmitButtonLogic } from '@/app/disciple/hooks';
 import { createDisciple, getAllFamilyGroups } from '@/app/disciple/services';
 
-import { useValidatePath } from '@/hooks';
+import { cn } from '@/shared/lib/utils';
+import { useRoleValidationByPath } from '@/hooks';
 import { LoadingSpinner } from '@/layouts/components';
 
 import {
@@ -117,7 +117,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
   const district = form.watch('district');
 
   //* Custom hooks
-  const { disabledRoles } = useValidatePath({
+  const { disabledRoles } = useRoleValidationByPath({
     path: pathname,
     memberRoles: MemberRole,
   });

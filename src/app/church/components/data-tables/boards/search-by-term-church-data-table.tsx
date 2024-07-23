@@ -8,16 +8,16 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 import {
-  type ColumnDef,
   flexRender,
-  type SortingState,
-  getPaginationRowModel,
-  type ColumnFiltersState,
-  getFilteredRowModel,
-  getSortedRowModel,
-  type VisibilityState,
-  getCoreRowModel,
   useReactTable,
+  getCoreRowModel,
+  getSortedRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  type ColumnDef,
+  type SortingState,
+  type VisibilityState,
+  type ColumnFiltersState,
 } from '@tanstack/react-table';
 
 import {
@@ -26,7 +26,7 @@ import {
   ChurchSearchTypeNames,
 } from '@/app/church/enums';
 import { getChurchesByTerm } from '@/app/church/services';
-import { type ChurchFormSearchByTerm, type ChurchQueryParams } from '@/app/church/interfaces';
+import { type ChurchSearchFormByTerm, type ChurchQueryParams } from '@/app/church/interfaces';
 
 import { useChurchStore } from '@/stores/church';
 
@@ -48,9 +48,9 @@ import { Button } from '@/shared/components/ui/button';
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  searchParams: ChurchFormSearchByTerm | undefined;
-  setSearchParams: React.Dispatch<React.SetStateAction<ChurchFormSearchByTerm | undefined>>;
-  dataForm: ChurchFormSearchByTerm | undefined;
+  searchParams: ChurchSearchFormByTerm | undefined;
+  setSearchParams: React.Dispatch<React.SetStateAction<ChurchSearchFormByTerm | undefined>>;
+  dataForm: ChurchSearchFormByTerm | undefined;
 }
 
 export function SearchByTermChurchDataTable<TData, TValue>({

@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from '@react-hook/media-query';
-import { BsFillPersonVcardFill } from 'react-icons/bs';
 
 import { cn } from '@/shared/lib/utils';
+import { BsFillPersonVcardFill } from 'react-icons/bs';
 
 import { useChurchStore } from '@/stores/church';
 
@@ -50,7 +50,7 @@ export const ChurchInfoCard = ({ idRow }: ChurchInfoCardProps): JSX.Element => {
         </DialogTrigger>
 
         <DialogContent className='max-w-[690px] w-full justify-center py-6 max-h-full overflow-y-auto overflow-x-hidden'>
-          <ChurchTabsCard data={currentChurch} />
+          <ChurchTabsCard data={currentChurch} id={idRow} />
         </DialogContent>
       </Dialog>
     );
@@ -70,7 +70,7 @@ export const ChurchInfoCard = ({ idRow }: ChurchInfoCardProps): JSX.Element => {
       </DrawerTrigger>
       <DrawerContent>
         <div className='flex justify-center py-8 px-6 max-h-full overflow-y-auto overflow-x-hidden'>
-          <ChurchTabsCard data={currentChurch} />
+          <ChurchTabsCard data={currentChurch} id={idRow} />
         </div>
       </DrawerContent>
     </Drawer>

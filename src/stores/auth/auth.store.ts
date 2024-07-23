@@ -6,7 +6,6 @@ import { AuthService } from '@/auth/services/auth.service';
 
 import { type User } from '@/app/user/interfaces';
 
-
 export interface AuthState {
   status: AuthStatus;
   token?: string;
@@ -29,7 +28,7 @@ export const storeApi: StateCreator<AuthState> = (set) => ({
 
     } catch (error) {
       set({ status: 'unauthorized', token: undefined, user: undefined});
-      throw new Error('Unauthorized');
+      throw error;
     }
   },
 

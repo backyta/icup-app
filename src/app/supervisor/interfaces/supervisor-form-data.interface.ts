@@ -1,6 +1,5 @@
 import { type MemberRole } from '@/shared/enums';
 
-
 export interface SupervisorFormData {
   firstName: string;
   lastName: string;

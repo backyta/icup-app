@@ -4,22 +4,24 @@
 import { useEffect, useState } from 'react';
 
 import type * as z from 'zod';
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
 import { Toaster, toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation, useQuery } from '@tanstack/react-query';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useMutation, useQuery } from '@tanstack/react-query';
+
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { cn } from '@/shared/lib/utils';
+import { LoadingSpinner } from '@/layouts/components';
 
 import { churchFormSchema } from '@/app/church/validations';
 import { createChurch, getMainChurch } from '@/app/church/services';
-import { ChurchWorshipTimes, ChurchWorshipTimesNames } from '@/app/church/enums';
+import { ChurchWorshipTime, ChurchWorshipTimeNames } from '@/app/church/enums';
 import { useChurchCreateSubmitButtonLogic } from '@/app/church/hooks';
 
 import {
@@ -37,13 +39,6 @@ import {
 } from '@/shared/helpers';
 import { type ErrorResponse } from '@/shared/interfaces';
 
-import { LoadingSpinner } from '@/layouts/components';
-
-import { Button } from '@/shared/components/ui/button';
-import { Input } from '@/shared/components/ui/input';
-import { Checkbox } from '@/shared/components/ui/checkbox';
-import { Calendar } from '@/shared/components/ui/calendar';
-import { Textarea } from '@/shared/components/ui/textarea';
 import {
   Form,
   FormControl,
@@ -67,7 +62,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/components/ui/select';
-
+import { Button } from '@/shared/components/ui/button';
+import { Input } from '@/shared/components/ui/input';
+import { Checkbox } from '@/shared/components/ui/checkbox';
+import { Calendar } from '@/shared/components/ui/calendar';
+import { Textarea } from '@/shared/components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
 export const ChurchCreatePage = (): JSX.Element => {
@@ -195,7 +194,7 @@ export const ChurchCreatePage = (): JSX.Element => {
   };
 
   return (
-    <div className='animate-fadeInPage'>
+    <div id='menu' className='animate-fadeInPage'>
       <h1 className='text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-slate-500 dark:text-slate-400 text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]'>
         Modulo Iglesia
       </h1>
@@ -311,7 +310,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                       </FormDescription>
                     </div>
                     <div className='flex flex-wrap space-x-5 space-y-1'>
-                      {Object.values(ChurchWorshipTimes).map((worshipTime) => (
+                      {Object.values(ChurchWorshipTime).map((worshipTime) => (
                         <FormField
                           key={worshipTime}
                           control={form.control}
@@ -327,7 +326,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                                     disabled={isInputDisabled}
                                     checked={field.value?.includes(worshipTime)}
                                     onCheckedChange={(checked) => {
-                                      let updatedWorshipTimes: ChurchWorshipTimes[] = [];
+                                      let updatedWorshipTimes: ChurchWorshipTime[] = [];
                                       checked
                                         ? (updatedWorshipTimes = field.value
                                             ? [...field.value, worshipTime]
@@ -341,7 +340,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                                   />
                                 </FormControl>
                                 <FormLabel className='text-[14px] font-medium'>
-                                  {ChurchWorshipTimesNames[worshipTime]}
+                                  {ChurchWorshipTimeNames[worshipTime]}
                                 </FormLabel>
                               </FormItem>
                             );

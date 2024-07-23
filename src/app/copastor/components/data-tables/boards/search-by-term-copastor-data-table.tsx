@@ -8,16 +8,16 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 import {
-  type ColumnDef,
   flexRender,
-  type SortingState,
-  getPaginationRowModel,
-  type ColumnFiltersState,
-  getFilteredRowModel,
-  getSortedRowModel,
-  type VisibilityState,
-  getCoreRowModel,
   useReactTable,
+  getCoreRowModel,
+  getSortedRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  type ColumnDef,
+  type SortingState,
+  type VisibilityState,
+  type ColumnFiltersState,
 } from '@tanstack/react-table';
 
 import {
@@ -27,7 +27,7 @@ import {
   CopastorSearchTypeNames,
 } from '@/app/copastor/enums';
 import { getCopastorsByTerm } from '@/app/copastor/services';
-import { type CopastorFormSearchByTerm, type CopastorQueryParams } from '@/app/copastor/interfaces';
+import { type CopastorSearchFormByTerm, type CopastorQueryParams } from '@/app/copastor/interfaces';
 
 import { useCopastorStore } from '@/stores/copastor';
 
@@ -49,9 +49,9 @@ import { Button } from '@/shared/components/ui/button';
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  searchParams: CopastorFormSearchByTerm | undefined;
-  setSearchParams: React.Dispatch<React.SetStateAction<CopastorFormSearchByTerm | undefined>>;
-  dataForm: CopastorFormSearchByTerm | undefined;
+  searchParams: CopastorSearchFormByTerm | undefined;
+  setSearchParams: React.Dispatch<React.SetStateAction<CopastorSearchFormByTerm | undefined>>;
+  dataForm: CopastorSearchFormByTerm | undefined;
 }
 
 export function SearchByTermCopastorDataTable<TData, TValue>({

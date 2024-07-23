@@ -9,7 +9,6 @@ import { DiscipleInfoCard } from '@/app/disciple/components';
 import { type DiscipleColumns } from '@/app/disciple/interfaces';
 
 import { getFullName } from '@/shared/helpers';
-
 import { Button } from '@/shared/components/ui/button';
 
 export const discipleInfoColumns: Array<ColumnDef<DiscipleColumns, any>> = [

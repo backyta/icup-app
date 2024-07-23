@@ -39,7 +39,6 @@ export const useSupervisorPromoteButtonLogic = ({
   const referenceAddress = formSupervisorUpdate.watch('referenceAddress');
   const roles = formSupervisorUpdate.watch('roles');
   const recordStatus = formSupervisorUpdate.watch('recordStatus');
-
   const theirCopastor = formSupervisorUpdate.watch('theirCopastor');
 
   //* Effects

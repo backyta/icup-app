@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
+import { useEffect } from 'react';
+
 import { format } from 'date-fns';
 
 import { type PreacherResponse } from '@/app/preacher/interfaces';
 
 import { getFullName } from '@/shared/helpers';
-import { PopoverDataTabs } from '@/shared/components';
+import { PopoverDataCardTabs } from '@/shared/components';
 
 import {
   Card,
@@ -18,10 +20,38 @@ import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 
 interface PreacherTabsCardProps {
+  id: string;
   data: PreacherResponse | undefined;
 }
 
-export const PreacherTabsCard = ({ data }: PreacherTabsCardProps): JSX.Element => {
+export const PreacherTabsCard = ({ data, id }: PreacherTabsCardProps): JSX.Element => {
+  //* Effects
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (id) {
+      const url = new URL(window.location.href);
+
+      if (url.pathname === '/preachers/search-preachers')
+        url.pathname = `/preachers/search-preachers/${id}/info`;
+
+      if (url.pathname === '/preachers/search-preachers-by-term')
+        url.pathname = `/preachers/search-preachers-by-term/${id}/info`;
+
+      if (url.pathname === '/preachers/update-preacher')
+        url.pathname = `/preachers/update-preacher/${id}/info`;
+
+      if (url.pathname === '/preachers/delete-preacher')
+        url.pathname = `/preachers/delete-preacher/${id}/info`;
+
+      window.history.replaceState({}, '', url);
+    }
+
+    return () => {
+      window.history.replaceState({}, '', originalUrl);
+    };
+  }, [id]);
+
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full grid-cols-3 px-auto'>
@@ -120,7 +150,7 @@ export const PreacherTabsCard = ({ data }: PreacherTabsCardProps): JSX.Element =
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.disciples?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.disciples}
                 title={'Discípulos'}
                 nameModule={'Supervisor'}

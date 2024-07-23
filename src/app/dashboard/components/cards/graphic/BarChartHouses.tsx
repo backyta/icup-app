@@ -1,169 +1,207 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { useState } from 'react';
-
-import { type z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMediaQuery } from '@react-hook/media-query';
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Legend,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
-
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 
 import { cn } from '@/shared/lib/utils';
-import { CalendarIcon } from '@radix-ui/react-icons';
 
-import { barChartFormSchema } from '@/app/dashboard/validations';
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '@/shared/components/ui/chart';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/shared/components/ui/card';
 
-import { Card } from '@/shared/components/ui/card';
-import { Button } from '@/shared/components/ui/button';
-import { Calendar } from '@/shared/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
+import { dashBoardChartFormSchema } from '@/app/dashboard/validations';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { type z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/components/ui/form';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
+import { Button } from '@/shared/components/ui/button';
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from '@/shared/components/ui/command';
+import { years } from '@/shared/data';
 
-// NOTE : Colocar fechas y cantidades del mes anterior, por defecto, hacer un efecto cada 30 o 32 días.
-// NOTE : hacer que el calendario seleccione máximo 3 meses (12 domingos), quitar fechas.
-// NOTE : hacer que se muestren por defecto 7 domingos, cuando entre uno nuevo sale el primero o se empuja
-
-const data = [
-  { Discípulos: 5, Casa: 'A-1', Ofrenda: 25.5 },
-  { Discípulos: 3, Casa: 'A-2', Ofrenda: 30.2 },
-  { Discípulos: 9, Casa: 'A-3', Ofrenda: 18.2 },
-  { Discípulos: 8, Casa: 'A-4', Ofrenda: 9.2 },
-  { Discípulos: 4, Casa: 'B-1', Ofrenda: 44.8 },
-  { Discípulos: 8, Casa: 'B-2', Ofrenda: 17.2 },
-  { Discípulos: 10, Casa: 'B-3', Ofrenda: 23.3 },
-  { Discípulos: 3, Casa: 'B-4', Ofrenda: 32.1 },
-  { Discípulos: 7, Casa: 'C-1', Ofrenda: 45.4 },
-  { Discípulos: 6, Casa: 'C-2', Ofrenda: 21.9 },
-  { Discípulos: 12, Casa: 'C-3', Ofrenda: 50.3 },
-  { Discípulos: 4, Casa: 'C-4', Ofrenda: 10.3 },
+// TODO : se podría traer las ofrendas de casa y ver cual casa gano por semana,
+// TODO : 10 casas no mas y lanzar el top acumulativo de ofrendas casa ves que se ingresa el dato se suma al acumulado
+// TODO : y en el de info solo se muestra los datos de la casas (hacer formulario por anio)
+// TODO : mantener el estilo y colocar un formulario con anio arriba derecha
+const chartData = [
+  { 'family-group-code': 'A-1', discípulos: 5, ofrenda: 25.5 },
+  { 'family-group-code': 'A-2', discípulos: 6, ofrenda: 30.2 },
+  { 'family-group-code': 'A-3', discípulos: 9, ofrenda: 18.2 },
+  { 'family-group-code': 'A-4', discípulos: 8, ofrenda: 9.2 },
+  { 'family-group-code': 'B-1', discípulos: 5, ofrenda: 44.8 },
+  { 'family-group-code': 'B-2', discípulos: 8, ofrenda: 17.2 },
+  { 'family-group-code': 'B-3', discípulos: 10, ofrenda: 23.3 },
+  { 'family-group-code': 'B-4', discípulos: 5, ofrenda: 32.1 },
+  { 'family-group-code': 'C-1', discípulos: 7, ofrenda: 45.4 },
+  { 'family-group-code': 'C-2', discípulos: 6, ofrenda: 21.9 },
 ];
+
+const chartConfig = {
+  ofrenda: {
+    label: 'Ofrenda',
+    color: '#029012',
+  },
+  discípulos: {
+    label: 'Discípulos',
+    color: '#0ED0D0',
+  },
+} satisfies ChartConfig;
 
 export const BarChartHouse = (): JSX.Element => {
   //* States
-  const [open, setOpen] = useState(false);
-  const isDesktop = useMediaQuery('(min-width: 768px)');
+  const [isInputSearchYearOpen, setIsInputSearchYearOpen] = useState<boolean>(false);
 
   //* Form
-  const form = useForm<z.infer<typeof barChartFormSchema>>({
-    resolver: zodResolver(barChartFormSchema),
+  const form = useForm<z.infer<typeof dashBoardChartFormSchema>>({
+    resolver: zodResolver(dashBoardChartFormSchema),
     mode: 'onChange',
-    defaultValues: {},
+    defaultValues: {
+      year: '2024',
+    },
   });
 
   //* Form handler
-  function onSubmit(values: z.infer<typeof barChartFormSchema>): void {
+  const handleSubmit = (values: z.infer<typeof dashBoardChartFormSchema>): void => {
     console.log({ values });
-  }
+  };
 
   return (
-    <Card className='flex flex-col row-start-2 row-end-3 col-start-1 col-end-3 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 lg:row-start-2 lg:row-end-3 xl:col-start-4 xl:col-end-7 xl:row-start-1 xl:row-end-2 h-[18rem] lg:h-[20rem] xl:h-[25rem] 2xl:h-[26rem]  mt-0 border-slate-500'>
-      <div className='flex flex-col sm:flex-row items-center justify-between md:p-2 p-3 lg:p-3 xl:p-2 2xl:p-4'>
-        <h3 className='font-bold mb-2 sm:mb-0 text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.50rem] 2xl:text-3xl inline-block'>
-          Ofrendas - Casa Familiar
-        </h3>
+    <Card className='flex flex-col row-start-2 row-end-3 col-start-1 col-end-3 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 lg:row-start-2 lg:row-end-3 xl:col-start-4 xl:col-end-7 xl:row-start-1 xl:row-end-2 h-[20rem] lg:h-[22rem] xl:h-[25rem] 2xl:h-[26rem] mt-0 border-slate-500'>
+      <div className='grid grid-cols-4 justify-center items-center'>
+        <CardHeader className='flex flex-col items-center justify-center p-2 col-span-3'>
+          <CardTitle className='font-bold pl-[5rem] md:pl-[12rem] lg:pl-[16rem] xl:pl-[6.8rem] 2xl:pl-[8.5rem] 3-xl:pl-[16rem] text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.50rem] 2xl:text-[1.75rem] inline-block'>
+            Ofrendas - Grupo Familiar
+          </CardTitle>
+          <CardDescription className='text-[14.5px] pl-[5rem] md:pl-[12rem] lg:pl-[16rem] xl:pl-[6.8rem] 2xl:pl-[8.5rem] 3-xl:pl-[16rem] text-center'>
+            Top de ofrendas por grupo familiar (anual)
+          </CardDescription>
+        </CardHeader>
 
-        <Form {...form}>
-          <form>
-            <FormField
-              control={form.control}
-              name='dateTerm'
-              render={({ field }) => (
-                <FormItem>
-                  <Popover open={open} onOpenChange={setOpen}>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={'outline'}
-                          className={cn(
-                            'w-[224px] text-left font-normal justify-center p-4 text-[12px] md:text-[13px]',
-                            !field.value && 'text-muted-foreground'
-                          )}
-                        >
-                          <CalendarIcon className='mr-[0.1rem] h-4 w-4' />
-                          {field?.value?.from ? (
-                            field?.value.to ? (
-                              <>
-                                {format(field?.value.from, 'LLL dd, y', {
-                                  locale: es,
-                                })}{' '}
-                                -{' '}
-                                {format(field?.value.to, 'LLL dd, y', {
-                                  locale: es,
-                                })}
-                              </>
-                            ) : (
-                              format(field?.value.from, 'LLL dd, y')
-                            )
-                          ) : (
-                            <span className='text-[14px] md:text-[15px]'>Elige las fechas</span>
-                          )}
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className='w-auto p-0' align='start'>
-                      <Calendar
-                        initialFocus
-                        mode='range'
-                        selected={field.value}
-                        onSelect={(date) => {
-                          field.onChange(date);
-
-                          if (date?.from && date?.to) {
-                            form.handleSubmit(onSubmit)();
-                            setOpen(false);
-                          }
-                        }}
-                        numberOfMonths={2}
-                      />
-                    </PopoverContent>
-                  </Popover>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </form>
-        </Form>
+        <div className='col-span-1 flex justify-center -pl-[2rem]'>
+          <Form {...form}>
+            <form className='flex'>
+              <FormField
+                control={form.control}
+                name='year'
+                render={({ field }) => {
+                  return (
+                    <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
+                      <Popover open={isInputSearchYearOpen} onOpenChange={setIsInputSearchYearOpen}>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant='outline'
+                              role='combobox'
+                              className={cn(
+                                'justify-between w-full text-center px-2',
+                                !field.value &&
+                                  'text-slate-500 dark:text-slate-200 font-normal px-2'
+                              )}
+                            >
+                              {field.value
+                                ? years.find((year) => year.value === field.value)?.label
+                                : 'Año'}
+                              <CaretSortIcon className='h-4 w-4 shrink-0' />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent align='center' className='w-auto px-4 py-2'>
+                          <Command>
+                            <CommandInput
+                              placeholder='Busque un año...'
+                              className='h-9 text-[14px]'
+                            />
+                            <CommandEmpty>Año no encontrado.</CommandEmpty>
+                            <CommandGroup className='max-h-[100px] h-auto'>
+                              {years.map((year) => (
+                                <CommandItem
+                                  className='text-[14px]'
+                                  value={year.label}
+                                  key={year.value}
+                                  onSelect={() => {
+                                    form.setValue('year', year.value);
+                                    year && form.handleSubmit(handleSubmit)();
+                                    setIsInputSearchYearOpen(false);
+                                  }}
+                                >
+                                  {year.label}
+                                  <CheckIcon
+                                    className={cn(
+                                      'ml-auto h-4 w-4',
+                                      year.value === field.value ? 'opacity-100' : 'opacity-0'
+                                    )}
+                                  />
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+            </form>
+          </Form>
+        </div>
       </div>
-      <ResponsiveContainer
-        width='100%'
-        height={
-          form.formState.errors.dateTerm?.message && isDesktop
-            ? '75%'
-            : form.formState.errors.dateTerm?.message && !isDesktop
-              ? '60%'
-              : '100%'
-        }
-        aspect={0}
-      >
-        <BarChart
-          data={data}
-          width={500}
-          height={300}
-          margin={{ top: 5, right: 20, left: -20, bottom: 10 }}
-        >
-          <CartesianGrid strokeDasharray='3 3'></CartesianGrid>
-          <XAxis dataKey='Casa' />
-          <YAxis />
-          <Tooltip />
 
-          {!form.formState.errors.dateTerm?.message && <Legend wrapperStyle={{ left: 0 }} />}
-          <Bar dataKey='Ofrenda' fill='#029012' />
-          <Bar dataKey='Discípulos' fill='#0ED0D0' />
-        </BarChart>
-      </ResponsiveContainer>
+      <CardContent className='h-full py-0'>
+        <ChartContainer
+          config={chartConfig}
+          className={cn('w-full h-[225px] sm:h-[240px] lg:h-[275px] xl:h-[325px] 2xl:h-[335px]')}
+        >
+          <BarChart
+            accessibilityLayer
+            data={chartData}
+            margin={{ top: 5, right: 5, left: -32, bottom: 10 }}
+          >
+            <CartesianGrid vertical={true} />
+            <XAxis
+              dataKey='family-group-code'
+              tickLine={false}
+              tickMargin={10}
+              axisLine={true}
+              tickFormatter={(value) => value.slice(0, 6)}
+              className='text-[12px] sm:text-[14px]'
+            />
+
+            <YAxis className='text-[12px] sm:text-[14px]' />
+            <ChartTooltip
+              cursor={false}
+              content={
+                <ChartTooltipContent className='text-[12px] sm:text-[14px]' indicator='dot' />
+              }
+            />
+
+            <ChartLegend content={<ChartLegendContent className='text-[12px] sm:text-[14px]' />} />
+
+            <Bar dataKey='discípulos' fill='var(--color-discípulos)' radius={4} />
+            <Bar dataKey='ofrenda' fill='var(--color-ofrenda)' radius={4} />
+          </BarChart>
+        </ChartContainer>
+      </CardContent>
     </Card>
   );
 };

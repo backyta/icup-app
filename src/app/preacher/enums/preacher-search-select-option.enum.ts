@@ -54,7 +54,7 @@ export const PreacherSearchSelectOptionNames: Record<PreacherSearchSelectOption,
  [PreacherSearchSelectOption.Divorced] : 'Divorciado(a)',
  [PreacherSearchSelectOption.Other] : 'Otro',
 
-  //* Status
+ //* Record Status
  [PreacherSearchSelectOption.Inactive] : 'Inactivo',
 }
 
@@ -117,11 +117,11 @@ export const PreacherSearchNamesByMaritalStatus: Record<PreacherSearchByMaritalS
   [PreacherSearchByMaritalStatus.Other] : 'Otro',
 }
 
-//* Status
-export enum PreacherSearchByStatus {
+ //* Record Status
+export enum PreacherSearchByRecordStatus {
   Inactive = 'inactive',
 }
 
-export const PreacherSearchNamesByStatus: Record<PreacherSearchByStatus, string> =  {
-  [PreacherSearchByStatus.Inactive] : 'Inactivo',
+export const PreacherSearchNamesByRecordStatus: Record<PreacherSearchByRecordStatus, string> =  {
+  [PreacherSearchByRecordStatus.Inactive] : 'Inactivo',
 }

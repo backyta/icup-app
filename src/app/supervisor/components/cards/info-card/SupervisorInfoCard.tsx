@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
-import { useMediaQuery } from '@react-hook/media-query';
 import { BsFillPersonVcardFill } from 'react-icons/bs';
+import { useMediaQuery } from '@react-hook/media-query';
 
 import { cn } from '@/shared/lib/utils';
 
@@ -50,7 +50,7 @@ export const SupervisorInfoCard = ({ idRow }: CopastorInfoCardProps): JSX.Elemen
         </DialogTrigger>
 
         <DialogContent className='max-w-[690px] w-full justify-center py-6 max-h-full overflow-y-auto overflow-x-hidden'>
-          <SupervisorTabsCard data={currentSupervisor} />
+          <SupervisorTabsCard data={currentSupervisor} id={idRow} />
         </DialogContent>
       </Dialog>
     );
@@ -70,7 +70,7 @@ export const SupervisorInfoCard = ({ idRow }: CopastorInfoCardProps): JSX.Elemen
       </DrawerTrigger>
       <DrawerContent>
         <div className='flex justify-center py-8 px-6 max-h-full overflow-y-auto overflow-x-hidden'>
-          <SupervisorTabsCard data={currentSupervisor} />
+          <SupervisorTabsCard data={currentSupervisor} id={idRow} />
         </div>
       </DrawerContent>
     </Drawer>

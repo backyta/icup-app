@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from '@react-hook/media-query';
+
 import { BsFillPersonVcardFill } from 'react-icons/bs';
 
 import { cn } from '@/shared/lib/utils';
@@ -50,7 +51,7 @@ export const PreacherInfoCard = ({ idRow }: PreacherInfoCardProps): JSX.Element 
         </DialogTrigger>
 
         <DialogContent className='max-w-[690px] w-full justify-center py-6 max-h-full overflow-y-auto overflow-x-hidden'>
-          <PreacherTabsCard data={currentSupervisor} />
+          <PreacherTabsCard data={currentSupervisor} id={idRow} />
         </DialogContent>
       </Dialog>
     );
@@ -70,7 +71,7 @@ export const PreacherInfoCard = ({ idRow }: PreacherInfoCardProps): JSX.Element 
       </DrawerTrigger>
       <DrawerContent>
         <div className='flex justify-center py-8 px-6 max-h-full overflow-y-auto overflow-x-hidden'>
-          <PreacherTabsCard data={currentSupervisor} />
+          <PreacherTabsCard data={currentSupervisor} id={idRow} />
         </div>
       </DrawerContent>
     </Drawer>

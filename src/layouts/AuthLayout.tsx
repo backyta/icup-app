@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { useAuthStore } from '@/stores';
+
 import { Navigate, Outlet } from 'react-router-dom';
+
 import { LoadingSpinner } from '@/layouts/components/LoadingSpinner';
+
+import { useAuthStore } from '@/stores';
 import { ToggleLayoutLogin } from '@/shared/components/toggle-theme';
 
 export const AuthLayout = (): JSX.Element => {
@@ -30,7 +33,7 @@ export const AuthLayout = (): JSX.Element => {
           </span>
 
           <img
-            src='/src/assets/jesus-image.jpg'
+            src='/src/assets/jesus-image.webp'
             alt='Placeholder Image'
             className='w-full h-full '
           />

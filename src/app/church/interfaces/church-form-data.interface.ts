@@ -1,8 +1,8 @@
-import { type ChurchWorshipTimes } from '@/app/church/enums';
+import { type ChurchWorshipTime } from '@/app/church/enums';
 export interface ChurchFormData {
   churchName: string;
   isAnexe?: boolean | undefined;
-  worshipTimes: ChurchWorshipTimes[];
+  worshipTimes: ChurchWorshipTime[];
   foundingDate: Date;
   email: string,
   phoneNumber: string,

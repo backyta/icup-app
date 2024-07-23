@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
+import { useEffect } from 'react';
+
 import { format } from 'date-fns';
 
 import { type SupervisorResponse } from '@/app/supervisor/interfaces';
 
 import { getFullName } from '@/shared/helpers';
-import { PopoverDataTabs } from '@/shared/components';
+import { PopoverDataCardTabs } from '@/shared/components';
 
 import {
   Card,
@@ -18,10 +20,38 @@ import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 
 interface SupervisorTabsCardProps {
+  id: string;
   data: SupervisorResponse | undefined;
 }
 
-export const SupervisorTabsCard = ({ data }: SupervisorTabsCardProps): JSX.Element => {
+export const SupervisorTabsCard = ({ data, id }: SupervisorTabsCardProps): JSX.Element => {
+  //* Effects
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (id) {
+      const url = new URL(window.location.href);
+
+      if (url.pathname === '/supervisors/search-supervisors')
+        url.pathname = `/supervisors/search-supervisors/${id}/info`;
+
+      if (url.pathname === '/supervisors/search-supervisors-by-term')
+        url.pathname = `/supervisors/search-supervisors-by-term/${id}/info`;
+
+      if (url.pathname === '/supervisors/update-supervisor')
+        url.pathname = `/supervisors/update-supervisor/${id}/info`;
+
+      if (url.pathname === '/supervisors/delete-supervisor')
+        url.pathname = `/supervisors/delete-supervisor/${id}/info`;
+
+      window.history.replaceState({}, '', url);
+    }
+
+    return () => {
+      window.history.replaceState({}, '', originalUrl);
+    };
+  }, [id]);
+
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full grid-cols-3 px-auto'>
@@ -120,7 +150,7 @@ export const SupervisorTabsCard = ({ data }: SupervisorTabsCardProps): JSX.Eleme
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.preachers?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.preachers}
                 title={'Predicadores'}
                 nameModule={'Supervisor'}
@@ -134,7 +164,7 @@ export const SupervisorTabsCard = ({ data }: SupervisorTabsCardProps): JSX.Eleme
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.familyGroups?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.familyGroups}
                 title={'Grupos'}
                 nameModule={'Supervisor'}
@@ -148,7 +178,7 @@ export const SupervisorTabsCard = ({ data }: SupervisorTabsCardProps): JSX.Eleme
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.disciples?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.disciples}
                 title={'Discípulos'}
                 nameModule={'Supervisor'}

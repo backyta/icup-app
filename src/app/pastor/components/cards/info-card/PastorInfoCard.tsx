@@ -2,13 +2,13 @@ import { useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from '@react-hook/media-query';
+
 import { BsFillPersonVcardFill } from 'react-icons/bs';
 
-import { cn } from '@/shared/lib/utils';
-
 import { usePastorStore } from '@/stores/pastor';
-
 import { PastorTabsCard } from '@/app/pastor/components';
+
+import { cn } from '@/shared/lib/utils';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
@@ -50,7 +50,7 @@ export const PastorInfoCard = ({ idRow }: PastorInfoCardProps): JSX.Element => {
         </DialogTrigger>
 
         <DialogContent className='max-w-[690px] w-full justify-center py-6 max-h-full overflow-y-auto overflow-x-hidden'>
-          <PastorTabsCard data={currentPastor} />
+          <PastorTabsCard data={currentPastor} id={idRow} />
         </DialogContent>
       </Dialog>
     );
@@ -70,7 +70,7 @@ export const PastorInfoCard = ({ idRow }: PastorInfoCardProps): JSX.Element => {
       </DrawerTrigger>
       <DrawerContent>
         <div className='flex justify-center py-8 px-6 max-h-full overflow-y-auto overflow-x-hidden'>
-          <PastorTabsCard data={currentPastor} />
+          <PastorTabsCard data={currentPastor} id={idRow} />
         </div>
       </DrawerContent>
     </Drawer>

@@ -9,7 +9,6 @@ import { CopastorInfoCard } from '@/app/copastor/components';
 import { type CopastorColumns } from '@/app/copastor/interfaces';
 
 import { getFullName } from '@/shared/helpers';
-
 import { Button } from '@/shared/components/ui/button';
 
 export const copastorInfoColumns: Array<ColumnDef<CopastorColumns, any>> = [

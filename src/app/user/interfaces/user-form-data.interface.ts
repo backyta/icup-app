@@ -4,8 +4,8 @@ export interface UserFormData {
   firstName: string,
   lastName:string,
   email: string,
-  password: string,
-  passwordConfirm?: string,
+  password?: string | undefined,
+  passwordConfirm?: string  | undefined,
   gender: string,
   roles: UserRole[],
   recordStatus?: string | undefined,
@@ -21,6 +21,5 @@ export type UserFormDataKeys =
   | 'passwordConfirm'
   | 'roles'
   | 'status';
-
 
 export type User = Omit<UserFormData, 'password' | 'passwordConfirm'>;

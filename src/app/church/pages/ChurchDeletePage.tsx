@@ -4,28 +4,28 @@
 
 import { useEffect, useState } from 'react';
 
+import { type z } from 'zod';
 import { Toaster } from 'sonner';
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { type z } from 'zod';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 import { cn } from '@/shared/lib/utils';
 import { CalendarIcon } from 'lucide-react';
 
 import {
-  churchDeleteColumns as columns,
-  SearchByTermChurchDataTable,
-} from '@/app/church/components';
-import {
   ChurchSearchSelectOptionNames,
   ChurchSearchType,
   ChurchSearchTypeNames,
 } from '@/app/church/enums';
-import { churchFormTermSearchSchema } from '@/app/church/validations';
-import { type ChurchFormSearchByTerm, type ChurchResponse } from '@/app/church/interfaces';
+import {
+  churchDeleteColumns as columns,
+  SearchByTermChurchDataTable,
+} from '@/app/church/components';
+import { churchSearchByTermFormSchema } from '@/app/church/validations';
+import { type ChurchSearchFormByTerm, type ChurchResponse } from '@/app/church/interfaces';
 
 import { useChurchStore } from '@/stores/church';
 
@@ -85,12 +85,12 @@ export const ChurchDeletePage = (): JSX.Element => {
     (state) => state.setIsFiltersSearchByTermDisabled
   );
 
-  const [dataForm, setDataForm] = useState<ChurchFormSearchByTerm>();
-  const [searchParams, setSearchParams] = useState<ChurchFormSearchByTerm | undefined>();
+  const [dataForm, setDataForm] = useState<ChurchSearchFormByTerm>();
+  const [searchParams, setSearchParams] = useState<ChurchSearchFormByTerm | undefined>();
 
   //* Forms
-  const form = useForm<z.infer<typeof churchFormTermSearchSchema>>({
-    resolver: zodResolver(churchFormTermSearchSchema),
+  const form = useForm<z.infer<typeof churchSearchByTermFormSchema>>({
+    resolver: zodResolver(churchSearchByTermFormSchema),
     mode: 'onChange',
     defaultValues: {
       limit: '10',
@@ -129,7 +129,7 @@ export const ChurchDeletePage = (): JSX.Element => {
   }, []);
 
   //* Form handler
-  function onSubmit(formData: z.infer<typeof churchFormTermSearchSchema>): void {
+  function onSubmit(formData: z.infer<typeof churchSearchByTermFormSchema>): void {
     let newDateTermTo;
     if (!formData.dateTerm?.to) {
       newDateTermTo = formData.dateTerm?.from;

@@ -11,22 +11,24 @@ import { type z } from 'zod';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+
 import { CalendarIcon } from 'lucide-react';
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { cn } from '@/shared/lib/utils';
-import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { churchFormSchema } from '@/app/church/validations';
 import { FormChurchSkeleton } from '@/app/church/components';
 import { type ChurchResponse } from '@/app/church/interfaces';
 import { getMainChurch, updateChurch } from '@/app/church/services';
-import { ChurchWorshipTimes, ChurchWorshipTimesNames } from '@/app/church/enums';
 import { useChurchUpdateSubmitButtonLogic } from '@/app/church/hooks';
+import { ChurchWorshipTime, ChurchWorshipTimeNames } from '@/app/church/enums';
 
 import {
   validateDistrictsAllowedByModule,
@@ -41,13 +43,6 @@ import {
 } from '@/shared/enums';
 import { type ErrorResponse } from '@/shared/interfaces';
 
-import { Input } from '@/shared/components/ui/input';
-import { Button } from '@/shared/components/ui/button';
-import { Checkbox } from '@/shared/components/ui/checkbox';
-import { Calendar } from '@/shared/components/ui/calendar';
-import { Textarea } from '@/shared/components/ui/textarea';
-import { Card, CardContent } from '@/shared/components/ui/card';
-import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 import {
   Form,
   FormControl,
@@ -71,6 +66,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/components/ui/select';
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Checkbox } from '@/shared/components/ui/checkbox';
+import { Calendar } from '@/shared/components/ui/calendar';
+import { Textarea } from '@/shared/components/ui/textarea';
+import { Card, CardContent } from '@/shared/components/ui/card';
+import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
 interface ChurchFormUpdateProps {
@@ -80,6 +82,7 @@ interface ChurchFormUpdateProps {
   data: ChurchResponse | undefined;
 }
 
+// TODO : no se podrá eliminar al usuario que tenga rol super admin (hacer desde el bakcend)
 export const ChurchFormUpdate = ({
   id,
   data,
@@ -97,6 +100,7 @@ export const ChurchFormUpdate = ({
   //* Hooks (external libraries)
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  // const location = useLocation();
 
   //* Form
   const form = useForm<z.infer<typeof churchFormSchema>>({
@@ -128,7 +132,7 @@ export const ChurchFormUpdate = ({
   useEffect(() => {
     form.setValue('churchName', data?.churchName!);
     form.setValue('foundingDate', new Date(String(data?.foundingDate).replace(/-/g, '/') as any));
-    form.setValue('worshipTimes', data?.worshipTimes as ChurchWorshipTimes[]);
+    form.setValue('worshipTimes', data?.worshipTimes as ChurchWorshipTime[]);
     form.setValue('email', data?.email ?? '');
     form.setValue('phoneNumber', data?.phoneNumber ?? '');
     form.setValue('country', data?.country ?? '');
@@ -154,6 +158,22 @@ export const ChurchFormUpdate = ({
     setIsSubmitButtonDisabled,
     setIsMessageErrorDisabled,
   });
+
+  //* Effects
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (id) {
+      const url = new URL(window.location.href);
+      url.pathname = `/churches/update-church/${id}/edit`;
+
+      window.history.replaceState({}, '', url);
+    }
+
+    return () => {
+      window.history.replaceState({}, '', originalUrl);
+    };
+  }, [id]);
 
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
@@ -190,8 +210,6 @@ export const ChurchFormUpdate = ({
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['churches-by-term'] });
-
       toast.success('Cambios guardados correctamente', {
         position: 'top-center',
         className: 'justify-center',
@@ -200,6 +218,10 @@ export const ChurchFormUpdate = ({
       setTimeout(() => {
         onScroll();
       }, 150);
+
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['churches-by-term'] });
+      }, 500);
 
       setTimeout(() => {
         onSubmit();
@@ -340,7 +362,7 @@ export const ChurchFormUpdate = ({
                             </FormDescription>
                           </div>
                           <div className='flex flex-wrap space-x-5 space-y-1'>
-                            {Object.values(ChurchWorshipTimes).map((worshipTime) => (
+                            {Object.values(ChurchWorshipTime).map((worshipTime) => (
                               <FormField
                                 key={worshipTime}
                                 control={form.control}
@@ -356,7 +378,7 @@ export const ChurchFormUpdate = ({
                                           disabled={isInputDisabled}
                                           checked={field.value?.includes(worshipTime)}
                                           onCheckedChange={(checked) => {
-                                            let updatedWorshipTimes: ChurchWorshipTimes[] = [];
+                                            let updatedWorshipTimes: ChurchWorshipTime[] = [];
                                             checked
                                               ? (updatedWorshipTimes = field.value
                                                   ? [...field.value, worshipTime]
@@ -371,7 +393,7 @@ export const ChurchFormUpdate = ({
                                         />
                                       </FormControl>
                                       <FormLabel className='text-[14px] font-medium'>
-                                        {ChurchWorshipTimesNames[worshipTime]}
+                                        {ChurchWorshipTimeNames[worshipTime]}
                                       </FormLabel>
                                     </FormItem>
                                   );

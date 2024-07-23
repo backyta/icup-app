@@ -4,14 +4,13 @@
 
 import { useEffect, useState } from 'react';
 
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { type z } from 'zod';
 import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
-
-import { type z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
 
 import {
@@ -19,8 +18,8 @@ import {
   ChurchSearchType,
   ChurchSearchTypeNames,
 } from '@/app/church/enums';
-import { churchFormTermSearchSchema } from '@/app/church/validations';
-import { type ChurchResponse, type ChurchFormSearchByTerm } from '@/app/church/interfaces';
+import { churchSearchByTermFormSchema } from '@/app/church/validations';
+import { type ChurchResponse, type ChurchSearchFormByTerm } from '@/app/church/interfaces';
 import { churchInfoColumns as columns, SearchByTermChurchDataTable } from '@/app/church/components';
 
 import { cn } from '@/shared/lib/utils';
@@ -58,7 +57,7 @@ const dataFictional: ChurchResponse[] = [
     isAnexe: false,
     worshipTimes: ['16:00'],
     foundingDate: new Date('2024-05-31'),
-    email: 'iglesia.central@gmail.com',
+    email: '',
     phoneNumber: '',
     country: '',
     department: '',
@@ -83,12 +82,12 @@ export const ChurchesSearchPageByTerm = (): JSX.Element => {
     (state) => state.setIsFiltersSearchByTermDisabled
   );
 
-  const [dataForm, setDataForm] = useState<ChurchFormSearchByTerm>();
-  const [searchParams, setSearchParams] = useState<ChurchFormSearchByTerm | undefined>();
+  const [dataForm, setDataForm] = useState<ChurchSearchFormByTerm>();
+  const [searchParams, setSearchParams] = useState<ChurchSearchFormByTerm | undefined>();
 
   //* Forms
-  const form = useForm<z.infer<typeof churchFormTermSearchSchema>>({
-    resolver: zodResolver(churchFormTermSearchSchema),
+  const form = useForm<z.infer<typeof churchSearchByTermFormSchema>>({
+    resolver: zodResolver(churchSearchByTermFormSchema),
     mode: 'onChange',
     defaultValues: {
       limit: '10',
@@ -127,7 +126,7 @@ export const ChurchesSearchPageByTerm = (): JSX.Element => {
   }, []);
 
   //* Form handler
-  function onSubmit(formData: z.infer<typeof churchFormTermSearchSchema>): void {
+  function onSubmit(formData: z.infer<typeof churchSearchByTermFormSchema>): void {
     let newDateTermTo;
     if (!formData.dateTerm?.to) {
       newDateTermTo = formData.dateTerm?.from;

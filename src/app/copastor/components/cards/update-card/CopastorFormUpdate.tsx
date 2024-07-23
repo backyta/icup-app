@@ -16,10 +16,11 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+
 import { CalendarIcon } from 'lucide-react';
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { cn } from '@/shared/lib/utils';
-import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { copastorFormSchema } from '@/app/copastor/validations';
 import { FormCopastorSkeleton } from '@/app/copastor/components';
@@ -32,9 +33,10 @@ import {
   useRoleUpdateCopastorHandler,
 } from '@/app/copastor/hooks';
 import { getAllChurches } from '@/app/pastor/services';
+
 import { CopastorFieldNames } from '@/app/copastor/enums';
 
-import { useValidatePath } from '@/hooks';
+import { useRoleValidationByPath } from '@/hooks';
 import { type ErrorResponse } from '@/shared/interfaces';
 
 import {
@@ -53,13 +55,6 @@ import {
   UrbanSectorNames,
 } from '@/shared/enums';
 
-import { Input } from '@/shared/components/ui/input';
-import { Button } from '@/shared/components/ui/button';
-import { Checkbox } from '@/shared/components/ui/checkbox';
-import { Calendar } from '@/shared/components/ui/calendar';
-import { Textarea } from '@/shared/components/ui/textarea';
-import { Card, CardContent } from '@/shared/components/ui/card';
-import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 import {
   Form,
   FormControl,
@@ -83,7 +78,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/components/ui/select';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -95,6 +89,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/shared/components/ui/alert-dialog';
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Checkbox } from '@/shared/components/ui/checkbox';
+import { Calendar } from '@/shared/components/ui/calendar';
+import { Textarea } from '@/shared/components/ui/textarea';
+import { Card, CardContent } from '@/shared/components/ui/card';
+import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
 interface CopastorFormUpdateProps {
   id: string;
@@ -183,7 +185,7 @@ export const CopastorFormUpdate = ({
     form.setValue('referenceAddress', data?.referenceAddress ?? '');
     form.setValue('roles', data?.roles as MemberRole[]);
     form.setValue('theirPastor', data?.theirPastor?.id);
-    form.setValue('status', data?.recordStatus);
+    form.setValue('recordStatus', data?.recordStatus);
 
     setTimeout(() => {
       setIsLoadingData(false);
@@ -191,9 +193,8 @@ export const CopastorFormUpdate = ({
   }, []);
 
   //* Custom Hooks
-  const { disabledRoles } = useValidatePath({
+  const { disabledRoles } = useRoleValidationByPath({
     path: pathname,
-    isInputDisabled,
     memberRoles: MemberRole,
   });
 
@@ -218,6 +219,21 @@ export const CopastorFormUpdate = ({
       keepError: true,
     });
   }, [district]);
+
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (id) {
+      const url = new URL(window.location.href);
+      url.pathname = `/copastors/update-copastor/${id}/edit`;
+
+      window.history.replaceState({}, '', url);
+    }
+
+    return () => {
+      window.history.replaceState({}, '', originalUrl);
+    };
+  }, [id]);
 
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
@@ -588,7 +604,7 @@ export const CopastorFormUpdate = ({
 
                     <FormField
                       control={form.control}
-                      name='status'
+                      name='recordStatus'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-5'>
@@ -616,7 +632,7 @@ export const CopastorFormUpdate = ({
                                 </SelectItem>
                               </SelectContent>
                             </Select>
-                            {form.getValues('status') === 'active' && (
+                            {form.getValues('recordStatus') === 'active' && (
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
@@ -624,7 +640,7 @@ export const CopastorFormUpdate = ({
                                 <span className='font-bold text-red-500'>Eliminar Co-Pastor. </span>
                               </FormDescription>
                             )}
-                            {form.getValues('status') === 'inactive' && (
+                            {form.getValues('recordStatus') === 'inactive' && (
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                                 * El registro esta <span className='text-red-500 '>Inactivo</span>,
                                 puede modificar el estado eligiendo otra opción.

@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
 import { type MemberRole } from '@/shared/enums';
-
 import { type PastorFormData } from '@/app/pastor/interfaces';
 
 interface Options {

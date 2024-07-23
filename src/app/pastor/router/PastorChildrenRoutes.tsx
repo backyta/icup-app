@@ -16,7 +16,7 @@ export const PastorChildrenRoutes = [
     element: <PastorsGeneralSearchPage />,
   },
   {
-    path: '/pastors/search-by-term-pastors',
+    path: '/pastors/search-pastors-by-term',
     element: <PastorsSearchPageByTerm />,
   },
   {

@@ -20,7 +20,7 @@ import {
   SearchByTermSupervisorDataTable,
 } from '@/app/supervisor/components';
 import {
-  type SupervisorFormSearchByTerm,
+  type SupervisorSearchFormByTerm,
   type SupervisorResponse,
 } from '@/app/supervisor/interfaces';
 import {
@@ -30,11 +30,11 @@ import {
   SupervisorSearchNamesByGender,
   SupervisorSearchNamesByLastNames,
   SupervisorSearchNamesByMaritalStatus,
-  SupervisorSearchNamesByStatus,
+  SupervisorSearchNamesByRecordStatus,
   SupervisorSearchType,
   SupervisorSearchTypeNames,
 } from '@/app/supervisor/enums';
-import { supervisorFormTermSearchSchema } from '@/app/supervisor/validations';
+import { supervisorSearchByTermFormSchema } from '@/app/supervisor/validations';
 
 import { useSupervisorStore } from '@/stores/supervisor';
 
@@ -103,12 +103,12 @@ export const SupervisorDeletePage = (): JSX.Element => {
     (state) => state.setIsFiltersSearchByTermDisabled
   );
 
-  const [dataForm, setDataForm] = useState<SupervisorFormSearchByTerm>();
-  const [searchParams, setSearchParams] = useState<SupervisorFormSearchByTerm | undefined>();
+  const [dataForm, setDataForm] = useState<SupervisorSearchFormByTerm>();
+  const [searchParams, setSearchParams] = useState<SupervisorSearchFormByTerm | undefined>();
 
   //* Forms
-  const form = useForm<z.infer<typeof supervisorFormTermSearchSchema>>({
-    resolver: zodResolver(supervisorFormTermSearchSchema),
+  const form = useForm<z.infer<typeof supervisorSearchByTermFormSchema>>({
+    resolver: zodResolver(supervisorSearchByTermFormSchema),
     mode: 'onChange',
     defaultValues: {
       limit: '10',
@@ -149,7 +149,7 @@ export const SupervisorDeletePage = (): JSX.Element => {
   }, []);
 
   //* Form handler
-  function onSubmit(formData: z.infer<typeof supervisorFormTermSearchSchema>): void {
+  function onSubmit(formData: z.infer<typeof supervisorSearchByTermFormSchema>): void {
     let newDateTermTo;
     if (!formData.dateTerm?.to) {
       newDateTermTo = formData.dateTerm?.from;
@@ -448,7 +448,7 @@ export const SupervisorDeletePage = (): JSX.Element => {
                                   ? SupervisorSearchNamesByBirthMonth
                                   : searchType === SupervisorSearchType.MaritalStatus
                                     ? SupervisorSearchNamesByMaritalStatus
-                                    : SupervisorSearchNamesByStatus
+                                    : SupervisorSearchNamesByRecordStatus
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}

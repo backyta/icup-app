@@ -21,7 +21,6 @@ export const menuItems: MenuItem[] = [
   { title: 'Co-Pastores', subTitle: 'Modulo de Co-Pastores', href: '/copastors', Icon: FcBusinesswoman },
   { title: 'Supervisores', subTitle: 'Modulo de Supervisores', href: '/supervisors', Icon: FcManager },
   { title: 'Predicadores', subTitle: 'Modulo de Lideres', href: '/preachers', Icon: FcConferenceCall },
-  // { title: 'Lideres', subTitle: 'Modulo de Lideres', href: '/leaders', Icon: FcConferenceCall },
   { title: 'Discípulos', subTitle: 'Modulo de Discípulos', href: '/disciples', Icon: FcSportsMode  },
   { title: 'Grupos Familiares', subTitle: 'Modulo de Grupos Familiares', href: '/family-groups', Icon: FcHome },
   { title: 'Ofrendas', subTitle: 'Modulo de Ofrendas', href: '/offerings', Icon: FcLike },

@@ -5,10 +5,9 @@ import { isAxiosError } from 'axios';
 import { icupApi } from '@/api/icupApi';
 
 import { type SupervisorResponse } from '@/app/supervisor/interfaces';
-import { type PreacherResponse, type PreacherFormData, type PreacherQueryParams } from '@/app/preacher/interfaces';
 
 import { PreacherSearchType } from '@/app/preacher/enums';
-
+import { type PreacherResponse, type PreacherFormData, type PreacherQueryParams } from '@/app/preacher/interfaces';
 
 //* Create Preacher
 export const createPreacher = async (formData:PreacherFormData ): Promise<PreacherResponse> => {
@@ -81,7 +80,7 @@ export const getPreachers = async ({limit, offset, all, order}: PreacherQueryPar
   }
 }
 
-// ? Get supervisors by term (paginated)
+// ? Get preachers by term (paginated)
 export const getPreachersByTerm = async ({ 
   searchType, 
   searchSubType, 

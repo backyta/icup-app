@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
@@ -23,6 +24,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form';
+import { AxiosError } from 'axios';
 
 export const LoginPage = (): JSX.Element => {
   //* Stores and states
@@ -55,9 +57,14 @@ export const LoginPage = (): JSX.Element => {
       await loginUser(values.email, values.password);
       navigate('/dashboard');
     } catch (error) {
-      toast.error('Credenciales invalidas, revise el correo y la contraseña.', {
-        position: 'top-right',
-      });
+      if (error instanceof AxiosError) {
+        if (error?.response?.data?.error === 'Unauthorized') {
+          toast.error(error?.response?.data?.message, {
+            position: 'top-right',
+          });
+        }
+        return;
+      }
 
       throw new Error('No se pudo autenticar.');
     }
@@ -67,7 +74,7 @@ export const LoginPage = (): JSX.Element => {
     <>
       <div className='flex flex-col -mt-28'>
         <img
-          src='/src/assets/logo-sn.png'
+          src='/src/assets/logo-sn.webp'
           alt='Placeholder Image'
           className='w-[30rem] md:w-[33rem] lg:w-[37rem] xl:w-[45rem] pb-8 md:pb-10 mx-auto'
         />

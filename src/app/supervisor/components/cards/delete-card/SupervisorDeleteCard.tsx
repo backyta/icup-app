@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
@@ -28,6 +29,22 @@ export const SupervisorDeleteCard = ({ idRow }: SupervisorDeleteCardProps): JSX.
 
   //* QueryClient
   const queryClient = useQueryClient();
+
+  //* Effects
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (idRow && isCardOpen) {
+      const url = new URL(window.location.href);
+      url.pathname = `/supervisors/delete-supervisor/${idRow}/remove`;
+
+      window.history.replaceState({}, '', url);
+
+      return () => {
+        window.history.replaceState({}, '', originalUrl);
+      };
+    }
+  }, [idRow, isCardOpen]);
 
   //* Mutation
   const mutation = useMutation({
@@ -100,7 +117,7 @@ export const SupervisorDeleteCard = ({ idRow }: SupervisorDeleteCardProps): JSX.
               ❌ El registro de este Supervisor se eliminara de los lugares donde guardaba relación
               con Discípulo, Predicador, Grupo Familiar y Zona.
             </span>
-            <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
+            <span className='inline-block text-[14px] md:text-[15px]'>
               ✅ Para poder activarlo nuevamente deberá hacerlo desde la pestaña de{' '}
               <span className='font-bold'>Actualizar Supervisor.</span>
             </span>

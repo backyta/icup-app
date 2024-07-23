@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
 import { type CopastorFieldNames } from '@/app/copastor/enums';
-
 import { type CopastorFormData } from '@/app/copastor/interfaces';
 
 interface Options {
@@ -40,7 +39,7 @@ export const useCopastorPromoteButtonLogic = ({
   const address = formCopastorUpdate.watch('address');
   const referenceAddress = formCopastorUpdate.watch('referenceAddress');
   const roles = formCopastorUpdate.watch('roles');
-  const status = formCopastorUpdate.watch('status');
+  const recordStatus = formCopastorUpdate.watch('recordStatus');
 
   const theirPastor = formCopastorUpdate.watch('theirPastor');
 
@@ -78,7 +77,7 @@ export const useCopastorPromoteButtonLogic = ({
     if (
       arrayEqualsIgnoreOrder(fixedValues, currentValues) &&
       JSON.stringify(fixedValues) === JSON.stringify(currentValues) &&
-      status === 'active'
+      recordStatus === 'active'
     ) {
       setIsPromoteButtonDisabled(false);
     }
@@ -103,6 +102,6 @@ export const useCopastorPromoteButtonLogic = ({
     address,
     roles,
     theirPastor,
-    status,
+    recordStatus,
   ]);
 };

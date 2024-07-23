@@ -1,26 +1,85 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useState } from 'react';
 
 import { Toaster, toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import { MdDeleteForever } from 'react-icons/md';
+
+import { deleteUser } from '@/app/user/services';
+
+import { type ErrorResponse } from '@/shared/interfaces';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 
-export const UserDeleteCard = (): JSX.Element => {
+interface UserDeleteCardProps {
+  idRow: string;
+}
+
+export const UserDeleteCard = ({ idRow }: UserDeleteCardProps): JSX.Element => {
   //* States
   const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
-  const [isButtonsDisabled, setIsButtonsDisabled] = useState<boolean>(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
+
+  //* Hooks (external libraries)
+  const navigate = useNavigate();
+
+  //* QueryClient
+  const queryClient = useQueryClient();
+
+  //* Mutation
+  const mutation = useMutation({
+    mutationFn: deleteUser,
+    onError: (error: ErrorResponse) => {
+      if (error.message !== 'Unauthorized') {
+        toast.error(error.message, {
+          position: 'top-center',
+          className: 'justify-center',
+        });
+
+        setTimeout(() => {
+          setIsCardOpen(false);
+          setIsButtonDisabled(false);
+        }, 2000);
+      }
+
+      if (error.message === 'Unauthorized') {
+        toast.error('Operación rechazada, el token expiro ingresa nuevamente.', {
+          position: 'top-center',
+          className: 'justify-center',
+        });
+
+        setTimeout(() => {
+          navigate('/');
+        }, 3500);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users-by-term'] });
+
+      toast.success('Registro eliminado correctamente.', {
+        position: 'top-center',
+        className: 'justify-center',
+      });
+
+      setTimeout(() => {
+        setIsCardOpen(false);
+      }, 2000);
+    },
+  });
 
   return (
     <Dialog open={isCardOpen} onOpenChange={setIsCardOpen}>
       <DialogTrigger asChild>
         <Button
           onClick={() => {
-            setIsButtonsDisabled(false);
+            setIsButtonDisabled(false);
           }}
-          className='mt-2 lg:-ml-5 xl:-ml-7 2xl:-ml-10 mr-4 py-2 px-1 h-[2rem] bg-red-400 text-white hover:bg-red-500 hover:text-red-950  dark:text-red-950 dark:hover:bg-red-500 dark:hover:text-white'
+          className='mt-2 py-2 px-1 h-[2rem] bg-red-400 text-white hover:bg-red-500 hover:text-red-950  dark:text-red-950 dark:hover:bg-red-500 dark:hover:text-white'
         >
           <MdDeleteForever className='w-8 h-[1.65rem]' />
         </Button>
@@ -36,17 +95,16 @@ export const UserDeleteCard = (): JSX.Element => {
               Luego de eliminar sucederá lo siguiente:
             </span>
             <br />
-            {/* TODO : ver que no tiene relación con nadie no poner ese aviso, porque es una tabla propia son relaciones */}
+
             <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
               ❌ El registro de este Usuario se colocara en estado{' '}
               <span className='font-bold'>INACTIVO.</span>
             </span>
             <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-              ❌ El registro de este Usuario se eliminara de los lugares donde guardaba relación con
-              Casa Familiar, Discípulo, Pastor, Co-Pastor, Predicador o Supervisor.
+              ❌ El registro ya no tendrá acceso al sistema ni a ninguna funcionalidad de esta.
             </span>
-            <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-              ✅ Para poder activarla nuevamente deberá hacerlo desde la pestaña de{' '}
+            <span className='w-full text-left inline-block text-[14px] md:text-[15px]'>
+              ✅ Para poder activarlo nuevamente deberá hacerlo desde la pestaña de{' '}
               <span className='font-bold'>Actualizar Usuario.</span>
             </span>
             <br />
@@ -55,7 +113,7 @@ export const UserDeleteCard = (): JSX.Element => {
         <div className='flex justify-end gap-x-4'>
           <Toaster position='top-center' richColors />
           <Button
-            disabled={isButtonsDisabled}
+            disabled={isButtonDisabled}
             className='bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
             onClick={() => {
               setIsCardOpen(false);
@@ -64,21 +122,12 @@ export const UserDeleteCard = (): JSX.Element => {
             No, cancelar
           </Button>
           <Button
-            disabled={isButtonsDisabled}
+            disabled={isButtonDisabled}
             onClick={() => {
-              // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
-              // NOTE : Colocar función que envié la solicitud al backend para eliminar
-              toast.success('Usuario eliminado exitosamente', {
-                position: 'top-center',
-                className: 'justify-center',
-              });
-              setIsButtonsDisabled(true);
-
-              setTimeout(() => {
-                setIsCardOpen(false);
-              }, 1300);
+              setIsButtonDisabled(true);
+              mutation.mutate(idRow);
             }}
-            className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
+            className='w-full md:w-auto bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
           >
             Sí, eliminar
           </Button>

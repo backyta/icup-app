@@ -40,7 +40,6 @@ export const useDisciplePromoteButtonLogic = ({
   const referenceAddress = formDiscipleUpdate.watch('referenceAddress');
   const roles = formDiscipleUpdate.watch('roles');
   const recordStatus = formDiscipleUpdate.watch('recordStatus');
-
   const theirFamilyGroup = formDiscipleUpdate.watch('theirFamilyGroup');
 
   //* Effects

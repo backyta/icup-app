@@ -3,36 +3,35 @@
 
 import { useEffect, useState } from 'react';
 
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { type z } from 'zod';
 import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
-
-import { type z } from 'zod';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { cn } from '@/shared/lib/utils';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
+
 import { CalendarIcon } from 'lucide-react';
 
 import {
   preacherDeleteColumns as columns,
   SearchByTermPreacherDataTable,
 } from '@/app/preacher/components';
-import { type PreacherFormSearchByTerm, type PreacherResponse } from '@/app/preacher/interfaces';
+import { type PreacherSearchFormByTerm, type PreacherResponse } from '@/app/preacher/interfaces';
 import {
+  PreacherSearchType,
+  PreacherSearchTypeNames,
+  PreacherSearchNamesByGender,
   PreacherSearchNamesByBirthMonth,
   PreacherSearchNamesByFirstNames,
   PreacherSearchNamesByFullNames,
-  PreacherSearchNamesByGender,
   PreacherSearchNamesByLastNames,
   PreacherSearchNamesByMaritalStatus,
-  PreacherSearchNamesByStatus,
-  PreacherSearchType,
-  PreacherSearchTypeNames,
+  PreacherSearchNamesByRecordStatus,
 } from '@/app/preacher/enums';
-import { preacherFormTermSearchSchema } from '@/app/preacher/validations';
+import { preacherSearchByTermFormSchema } from '@/app/preacher/validations';
 
+import { cn } from '@/shared/lib/utils';
 import { usePreacherStore } from '@/stores/preacher';
 
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
@@ -99,12 +98,12 @@ export const PreacherDeletePage = (): JSX.Element => {
     (state) => state.setIsFiltersSearchByTermDisabled
   );
 
-  const [dataForm, setDataForm] = useState<PreacherFormSearchByTerm>();
-  const [searchParams, setSearchParams] = useState<PreacherFormSearchByTerm | undefined>();
+  const [dataForm, setDataForm] = useState<PreacherSearchFormByTerm>();
+  const [searchParams, setSearchParams] = useState<PreacherSearchFormByTerm | undefined>();
 
   //* Forms
-  const form = useForm<z.infer<typeof preacherFormTermSearchSchema>>({
-    resolver: zodResolver(preacherFormTermSearchSchema),
+  const form = useForm<z.infer<typeof preacherSearchByTermFormSchema>>({
+    resolver: zodResolver(preacherSearchByTermFormSchema),
     mode: 'onChange',
     defaultValues: {
       limit: '10',
@@ -145,7 +144,7 @@ export const PreacherDeletePage = (): JSX.Element => {
   }, []);
 
   //* Form handler
-  function onSubmit(formData: z.infer<typeof preacherFormTermSearchSchema>): void {
+  function onSubmit(formData: z.infer<typeof preacherSearchByTermFormSchema>): void {
     let newDateTermTo;
     if (!formData.dateTerm?.to) {
       newDateTermTo = formData.dateTerm?.from;
@@ -446,7 +445,7 @@ export const PreacherDeletePage = (): JSX.Element => {
                                   ? PreacherSearchNamesByBirthMonth
                                   : searchType === PreacherSearchType.MaritalStatus
                                     ? PreacherSearchNamesByMaritalStatus
-                                    : PreacherSearchNamesByStatus
+                                    : PreacherSearchNamesByRecordStatus
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}

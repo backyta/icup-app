@@ -8,16 +8,16 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 import {
-  type ColumnDef,
   flexRender,
-  type SortingState,
-  getPaginationRowModel,
-  type ColumnFiltersState,
-  getFilteredRowModel,
-  getSortedRowModel,
-  type VisibilityState,
-  getCoreRowModel,
   useReactTable,
+  getCoreRowModel,
+  getSortedRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  type ColumnDef,
+  type SortingState,
+  type VisibilityState,
+  type ColumnFiltersState,
 } from '@tanstack/react-table';
 
 import {
@@ -27,7 +27,7 @@ import {
   DiscipleSearchTypeNames,
 } from '@/app/disciple/enums';
 import { getDisciplesByTerm } from '@/app/disciple/services';
-import { type DiscipleFormSearchByTerm, type DiscipleQueryParams } from '@/app/disciple/interfaces';
+import { type DiscipleSearchFormByTerm, type DiscipleQueryParams } from '@/app/disciple/interfaces';
 
 import { useDiscipleStore } from '@/stores/disciple';
 import { LoadingSpinner } from '@/layouts/components';
@@ -47,9 +47,9 @@ import { Button } from '@/shared/components/ui/button';
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  searchParams: DiscipleFormSearchByTerm | undefined;
-  setSearchParams: React.Dispatch<React.SetStateAction<DiscipleFormSearchByTerm | undefined>>;
-  dataForm: DiscipleFormSearchByTerm | undefined;
+  searchParams: DiscipleSearchFormByTerm | undefined;
+  setSearchParams: React.Dispatch<React.SetStateAction<DiscipleSearchFormByTerm | undefined>>;
+  dataForm: DiscipleSearchFormByTerm | undefined;
 }
 
 export function SearchByTermDiscipleDataTable<TData, TValue>({

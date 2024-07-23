@@ -15,5 +15,5 @@ export interface FormSearchByTerm {
   namesTerm?: string | undefined;
   lastNamesTerm?: string | undefined;
   limit?: string | undefined;
-  limitAll?: boolean | undefined;
+ all?: boolean | undefined;
 }

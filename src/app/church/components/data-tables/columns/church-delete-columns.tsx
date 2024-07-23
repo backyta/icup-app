@@ -1,10 +1,10 @@
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
+import { Button } from '@/shared/components/ui/button';
+
 import { type ChurchColumns } from '@/app/church/interfaces';
 import { ChurchDeleteCard, ChurchInfoCard } from '@/app/church/components';
-
-import { Button } from '@/shared/components/ui/button';
 
 export const churchDeleteColumns: Array<ColumnDef<ChurchColumns, any>> = [
   {

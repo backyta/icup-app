@@ -4,31 +4,31 @@
 
 import { useEffect, useState } from 'react';
 
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { type z } from 'zod';
 import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
-
-import { type z } from 'zod';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { cn } from '@/shared/lib/utils';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
+
 import { CalendarIcon } from 'lucide-react';
+
+import { cn } from '@/shared/lib/utils';
+
+import { usePastorStore } from '@/stores/pastor';
 
 import {
   PastorSearchNamesByBirthMonth,
   PastorSearchNamesByGender,
   PastorSearchNamesByMaritalStatus,
-  PastorSearchNamesByStatus,
+  PastorSearchNamesByRecordStatus,
   PastorSearchType,
   PastorSearchTypeNames,
 } from '@/app/pastor/enums';
-import { pastorFormTermSearchSchema } from '@/app/pastor/validations';
-import { type PastorResponse, type PastorFormSearchByTerm } from '@/app/pastor/interfaces';
+import { pastorSearchByTermFormSchema } from '@/app/pastor/validations';
+import { type PastorResponse, type PastorSearchFormByTerm } from '@/app/pastor/interfaces';
 import { pastorInfoColumns as columns, SearchByTermPastorDataTable } from '@/app/pastor/components';
-
-import { usePastorStore } from '@/stores/pastor';
 
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 import { formatDateTermToTimestamp, formatNames, formatLastNames } from '@/shared/helpers';
@@ -93,12 +93,12 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
     (state) => state.setIsFiltersSearchByTermDisabled
   );
 
-  const [dataForm, setDataForm] = useState<PastorFormSearchByTerm>();
-  const [searchParams, setSearchParams] = useState<PastorFormSearchByTerm | undefined>();
+  const [dataForm, setDataForm] = useState<PastorSearchFormByTerm>();
+  const [searchParams, setSearchParams] = useState<PastorSearchFormByTerm | undefined>();
 
   //* Forms
-  const form = useForm<z.infer<typeof pastorFormTermSearchSchema>>({
-    resolver: zodResolver(pastorFormTermSearchSchema),
+  const form = useForm<z.infer<typeof pastorSearchByTermFormSchema>>({
+    resolver: zodResolver(pastorSearchByTermFormSchema),
     mode: 'onChange',
     defaultValues: {
       limit: '10',
@@ -139,7 +139,7 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
   }, []);
 
   //* Form handler
-  function onSubmit(formData: z.infer<typeof pastorFormTermSearchSchema>): void {
+  function onSubmit(formData: z.infer<typeof pastorSearchByTermFormSchema>): void {
     let newDateTermTo;
     if (!formData.dateTerm?.to) {
       newDateTermTo = formData.dateTerm?.from;
@@ -365,7 +365,7 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
                                   ? PastorSearchNamesByBirthMonth
                                   : searchType === PastorSearchType.MaritalStatus
                                     ? PastorSearchNamesByMaritalStatus
-                                    : PastorSearchNamesByStatus
+                                    : PastorSearchNamesByRecordStatus
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}

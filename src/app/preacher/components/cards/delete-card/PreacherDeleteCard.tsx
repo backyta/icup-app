@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
@@ -25,6 +26,22 @@ export const PreacherDeleteCard = ({ idRow }: PreacherDeleteCardProps): JSX.Elem
 
   //* Hooks (external libraries)
   const navigate = useNavigate();
+
+  //* Effects
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (idRow && isCardOpen) {
+      const url = new URL(window.location.href);
+      url.pathname = `/preachers/delete-preacher/${idRow}/remove`;
+
+      window.history.replaceState({}, '', url);
+
+      return () => {
+        window.history.replaceState({}, '', originalUrl);
+      };
+    }
+  }, [idRow, isCardOpen]);
 
   //* QueryClient
   const queryClient = useQueryClient();
@@ -96,7 +113,7 @@ export const PreacherDeleteCard = ({ idRow }: PreacherDeleteCardProps): JSX.Elem
               ❌ El registro de este Predicador se colocara en estado{' '}
               <span className='font-bold'>INACTIVO.</span>
             </span>
-            <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
+            <span className='inline-block text-[14px] md:text-[15px]'>
               ❌ El registro de este Predicador se eliminara de los lugares donde guardaba relación
               con Discípulo y Grupo Familiar.
             </span>

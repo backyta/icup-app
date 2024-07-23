@@ -4,10 +4,10 @@ import { format } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import { PastorInfoCard, PastorDeleteCard } from '@/app/pastor/components';
-
 import { Button } from '@/shared/components/ui/button';
+
 import { type PastorColumns } from '@/app/pastor/interfaces';
+import { PastorInfoCard, PastorDeleteCard } from '@/app/pastor/components';
 
 export const pastorDeleteColumns: Array<ColumnDef<PastorColumns, any>> = [
   {

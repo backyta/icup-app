@@ -6,24 +6,27 @@ import { useEffect, useState } from 'react';
 import type * as z from 'zod';
 import { Toaster, toast } from 'sonner';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { zodResolver } from '@hookform/resolvers/zod';
+
 import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
-import { cn } from '@/shared/lib/utils';
-
 import { preacherFormSchema } from '@/app/preacher/validations';
 import { createPreacher, getAllSupervisors } from '@/app/preacher/services';
 import { usePreacherCreateSubmitButtonLogic } from '@/app/preacher/hooks';
 
-import { useValidatePath } from '@/hooks';
+import { cn } from '@/shared/lib/utils';
+import { useRoleValidationByPath } from '@/hooks';
 import { LoadingSpinner } from '@/layouts/components';
 
 import {
+  Country,
+  Province,
+  Department,
   MemberRole,
   MemberRoleNames,
   MaritalStatusNames,
@@ -33,9 +36,6 @@ import {
   ProvinceNames,
   DistrictNames,
   UrbanSectorNames,
-  Country,
-  Department,
-  Province,
 } from '@/shared/enums';
 import {
   validateDistrictsAllowedByModule,
@@ -119,7 +119,7 @@ export const PreacherCreatePage = (): JSX.Element => {
   const district = form.watch('district');
 
   //* Custom hooks
-  const { disabledRoles } = useValidatePath({
+  const { disabledRoles } = useRoleValidationByPath({
     path: pathname,
     memberRoles: MemberRole,
   });

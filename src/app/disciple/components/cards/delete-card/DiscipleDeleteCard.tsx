@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
@@ -24,6 +25,22 @@ export const DiscipleDeleteCard = ({ idRow }: DiscipleDeleteCardProps): JSX.Elem
 
   //* Hooks (external libraries)
   const navigate = useNavigate();
+
+  //* Effects
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (idRow && isCardOpen) {
+      const url = new URL(window.location.href);
+      url.pathname = `/disciples/delete-disciple/${idRow}/remove`;
+
+      window.history.replaceState({}, '', url);
+
+      return () => {
+        window.history.replaceState({}, '', originalUrl);
+      };
+    }
+  }, [idRow, isCardOpen]);
 
   //* QueryClient
   const queryClient = useQueryClient();
@@ -84,7 +101,7 @@ export const DiscipleDeleteCard = ({ idRow }: DiscipleDeleteCardProps): JSX.Elem
       <DialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
         <div className='h-auto'>
           <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-2 flex flex-col'>
-            <span>¿Estas seguro de promover a este</span>
+            <span>¿Estas seguro de eliminar a este</span>
             <span className='w-full text-center'>Discípulo?</span>
           </h2>
           <p>
@@ -100,7 +117,7 @@ export const DiscipleDeleteCard = ({ idRow }: DiscipleDeleteCardProps): JSX.Elem
               ❌ El registro de este Discípulo se eliminara de los lugares donde guardaba relación
               con Predicador y Grupo Familiar, Supervisor, Zona, Co-Pastor, Pastor e Iglesia.
             </span>
-            <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
+            <span className='inline-block text-[14px] md:text-[15px]'>
               ✅ Para poder activarlo nuevamente deberá hacerlo desde la pestaña de{' '}
               <span className='font-bold'>Actualizar Discípulo.</span>
             </span>

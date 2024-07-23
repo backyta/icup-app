@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
-import { MdDeleteForever } from 'react-icons/md';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import { MdDeleteForever } from 'react-icons/md';
 
 import { deleteChurch } from '@/app/church/services';
 
@@ -25,6 +27,22 @@ export const ChurchDeleteCard = ({ idRow }: ChurchDeleteCardProps): JSX.Element 
 
   //* Hooks (external libraries)
   const navigate = useNavigate();
+
+  //* Effects
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (idRow && isCardOpen) {
+      const url = new URL(window.location.href);
+      url.pathname = `/churches/delete-church/${idRow}/remove`;
+
+      window.history.replaceState({}, '', url);
+
+      return () => {
+        window.history.replaceState({}, '', originalUrl);
+      };
+    }
+  }, [idRow, isCardOpen]);
 
   //* QueryClient
   const queryClient = useQueryClient();
@@ -100,7 +118,7 @@ export const ChurchDeleteCard = ({ idRow }: ChurchDeleteCardProps): JSX.Element 
               ❌ El registro de esta Iglesia se eliminara de los lugares donde guardaba relación con
               Discípulo, Predicador, Grupo Familiar, Zona, Supervisor, Co-Pastor y Pastor.
             </span>
-            <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
+            <span className='w-full text-left inline-block text-[14px] md:text-[15px]'>
               ✅ Para poder activarla nuevamente deberás hacerlo desde la pestaña de{' '}
               <span className='font-bold'>Actualizar Iglesia.</span>
             </span>

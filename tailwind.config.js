@@ -125,6 +125,7 @@ module.exports = {
     },
     screens: {
       'mid-xl': '1470px', 
+      '3-xl': '2000px', 
     },
   }
   },

@@ -9,7 +9,6 @@ import { SupervisorInfoCard } from '@/app/supervisor/components';
 import { type SupervisorColumns } from '@/app/supervisor/interfaces';
 
 import { getFullName } from '@/shared/helpers';
-
 import { Button } from '@/shared/components/ui/button';
 
 export const supervisorInfoColumns: Array<ColumnDef<SupervisorColumns, any>> = [

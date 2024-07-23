@@ -3,10 +3,10 @@
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
+import { Button } from '@/shared/components/ui/button';
+
 import { ChurchInfoCard } from '@/app/church/components';
 import { type ChurchColumns } from '@/app/church/interfaces';
-
-import { Button } from '@/shared/components/ui/button';
 
 export const churchInfoColumns: Array<ColumnDef<ChurchColumns, any>> = [
   {

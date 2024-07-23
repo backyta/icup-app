@@ -1,6 +1,5 @@
 import { type MemberRole } from '@/shared/enums';
 
-
 export interface PreacherFormData {
   firstName: string;
   lastName: string;

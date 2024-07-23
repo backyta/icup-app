@@ -3,30 +3,30 @@
 
 import { useEffect, useState } from 'react';
 
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { type z } from 'zod';
 import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
-
-import { type z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 import { CalendarIcon } from 'lucide-react';
 
 import {
-  pastorDeleteColumns as columns,
-  SearchByTermPastorDataTable,
-} from '@/app/pastor/components';
-import {
   PastorSearchNamesByBirthMonth,
   PastorSearchNamesByGender,
   PastorSearchNamesByMaritalStatus,
-  PastorSearchNamesByStatus,
+  PastorSearchNamesByRecordStatus,
   PastorSearchType,
   PastorSearchTypeNames,
 } from '@/app/pastor/enums';
-import { pastorFormTermSearchSchema } from '@/app/pastor/validations';
-import { type PastorFormSearchByTerm, type PastorResponse } from '@/app/pastor/interfaces';
+import {
+  pastorDeleteColumns as columns,
+  SearchByTermPastorDataTable,
+} from '@/app/pastor/components';
+import { pastorSearchByTermFormSchema } from '@/app/pastor/validations';
+import { type PastorSearchFormByTerm, type PastorResponse } from '@/app/pastor/interfaces';
 
 import { cn } from '@/shared/lib/utils';
 import { usePastorStore } from '@/stores/pastor';
@@ -94,12 +94,12 @@ export const PastorDeletePage = (): JSX.Element => {
     (state) => state.setIsFiltersSearchByTermDisabled
   );
 
-  const [dataForm, setDataForm] = useState<PastorFormSearchByTerm>();
-  const [searchParams, setSearchParams] = useState<PastorFormSearchByTerm | undefined>();
+  const [dataForm, setDataForm] = useState<PastorSearchFormByTerm>();
+  const [searchParams, setSearchParams] = useState<PastorSearchFormByTerm | undefined>();
 
   //* Forms
-  const form = useForm<z.infer<typeof pastorFormTermSearchSchema>>({
-    resolver: zodResolver(pastorFormTermSearchSchema),
+  const form = useForm<z.infer<typeof pastorSearchByTermFormSchema>>({
+    resolver: zodResolver(pastorSearchByTermFormSchema),
     mode: 'onChange',
     defaultValues: {
       limit: '10',
@@ -140,7 +140,7 @@ export const PastorDeletePage = (): JSX.Element => {
   }, []);
 
   //* Form handler
-  function onSubmit(formData: z.infer<typeof pastorFormTermSearchSchema>): void {
+  function onSubmit(formData: z.infer<typeof pastorSearchByTermFormSchema>): void {
     let newDateTermTo;
     if (!formData.dateTerm?.to) {
       newDateTermTo = formData.dateTerm?.from;
@@ -178,7 +178,7 @@ export const PastorDeletePage = (): JSX.Element => {
 
       <div className='flex items-center justify-start'>
         <h2 className='flex items-center text-left pl-4 py-2 sm:pt-4 sm:pb-2 sm:pl-[1.5rem] xl:pl-[2rem] 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-red-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl'>
-          Buscar pastores
+          Eliminar pastores
         </h2>
         <span className='ml-3 bg-red-300 text-slate-600 border text-center text-[10px] mt-[.6rem] sm:mt-5 -py-1 px-2 rounded-full font-bold uppercase'>
           Eliminar
@@ -366,7 +366,7 @@ export const PastorDeletePage = (): JSX.Element => {
                                   ? PastorSearchNamesByBirthMonth
                                   : searchType === PastorSearchType.MaritalStatus
                                     ? PastorSearchNamesByMaritalStatus
-                                    : PastorSearchNamesByStatus
+                                    : PastorSearchNamesByRecordStatus
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}

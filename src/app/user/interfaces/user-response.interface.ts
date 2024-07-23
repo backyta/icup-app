@@ -1,4 +1,4 @@
-import { type CreatedBy, type UpdatedBy } from "@/shared/interfaces";
+import { type CreatedBy, type UpdatedBy } from '@/shared/interfaces';
 
 export interface UserResponse {
   id:           string;

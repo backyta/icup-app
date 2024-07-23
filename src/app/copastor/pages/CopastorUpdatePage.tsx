@@ -2,13 +2,13 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { useEffect, useState } from 'react';
 
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { type z } from 'zod';
 import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
-
-import { type z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 import { CalendarIcon } from 'lucide-react';
 
@@ -23,12 +23,12 @@ import {
   CopastorSearchNamesByGender,
   CopastorSearchNamesByLastNames,
   CopastorSearchNamesByMaritalStatus,
-  CopastorSearchNamesByStatus,
+  CopastorSearchNamesByRecordStatus,
   CopastorSearchType,
   CopastorSearchTypeNames,
 } from '@/app/copastor/enums';
-import { copastorFormTermSearchSchema } from '@/app/copastor/validations';
-import { type CopastorFormSearchByTerm, type CopastorResponse } from '@/app/copastor/interfaces';
+import { copastorSearchByTermFormSchema } from '@/app/copastor/validations';
+import { type CopastorSearchFormByTerm, type CopastorResponse } from '@/app/copastor/interfaces';
 
 import { cn } from '@/shared/lib/utils';
 import { useCopastorStore } from '@/stores/copastor';
@@ -97,12 +97,12 @@ export const CopastorUpdatePage = (): JSX.Element => {
     (state) => state.setIsFiltersSearchByTermDisabled
   );
 
-  const [dataForm, setDataForm] = useState<CopastorFormSearchByTerm>();
-  const [searchParams, setSearchParams] = useState<CopastorFormSearchByTerm | undefined>();
+  const [dataForm, setDataForm] = useState<CopastorSearchFormByTerm>();
+  const [searchParams, setSearchParams] = useState<CopastorSearchFormByTerm | undefined>();
 
   //* Forms
-  const form = useForm<z.infer<typeof copastorFormTermSearchSchema>>({
-    resolver: zodResolver(copastorFormTermSearchSchema),
+  const form = useForm<z.infer<typeof copastorSearchByTermFormSchema>>({
+    resolver: zodResolver(copastorSearchByTermFormSchema),
     mode: 'onChange',
     defaultValues: {
       limit: '10',
@@ -143,7 +143,7 @@ export const CopastorUpdatePage = (): JSX.Element => {
   }, []);
 
   //* Form handler
-  function onSubmit(formData: z.infer<typeof copastorFormTermSearchSchema>): void {
+  function onSubmit(formData: z.infer<typeof copastorSearchByTermFormSchema>): void {
     let newDateTermTo;
     if (!formData.dateTerm?.to) {
       newDateTermTo = formData.dateTerm?.from;
@@ -440,7 +440,7 @@ export const CopastorUpdatePage = (): JSX.Element => {
                                   ? CopastorSearchNamesByBirthMonth
                                   : searchType === CopastorSearchType.MaritalStatus
                                     ? CopastorSearchNamesByMaritalStatus
-                                    : CopastorSearchNamesByStatus
+                                    : CopastorSearchNamesByRecordStatus
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}

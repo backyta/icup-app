@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
+import { useEffect } from 'react';
+
 import { format } from 'date-fns';
 
 import { getFullName } from '@/shared/helpers';
@@ -16,10 +18,38 @@ import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 
 interface DiscipleTabsCardProps {
+  id: string;
   data: DiscipleResponse | undefined;
 }
 
-export const DiscipleTabsCard = ({ data }: DiscipleTabsCardProps): JSX.Element => {
+export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Element => {
+  //* Effects
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (id) {
+      const url = new URL(window.location.href);
+
+      if (url.pathname === '/disciples/search-disciples')
+        url.pathname = `/disciples/search-disciples/${id}/info`;
+
+      if (url.pathname === '/disciples/search-disciples-by-term')
+        url.pathname = `/disciples/search-disciples-by-term/${id}/info`;
+
+      if (url.pathname === '/disciples/update-disciple')
+        url.pathname = `/disciples/update-disciple/${id}/info`;
+
+      if (url.pathname === '/disciples/delete-disciple')
+        url.pathname = `/disciples/delete-disciple/${id}/info`;
+
+      window.history.replaceState({}, '', url);
+    }
+
+    return () => {
+      window.history.replaceState({}, '', originalUrl);
+    };
+  }, [id]);
+
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full grid-cols-3 px-auto'>

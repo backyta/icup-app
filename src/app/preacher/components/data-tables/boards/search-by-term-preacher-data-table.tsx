@@ -8,26 +8,26 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 import {
-  type ColumnDef,
   flexRender,
-  type SortingState,
-  getPaginationRowModel,
-  type ColumnFiltersState,
-  getFilteredRowModel,
-  getSortedRowModel,
-  type VisibilityState,
-  getCoreRowModel,
   useReactTable,
+  getCoreRowModel,
+  getSortedRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  type ColumnDef,
+  type SortingState,
+  type VisibilityState,
+  type ColumnFiltersState,
 } from '@tanstack/react-table';
 
-import { type PreacherFormSearchByTerm, type PreacherQueryParams } from '@/app/preacher/interfaces';
 import {
-  PreacherSearchSelectOptionNames,
-  PreacherSearchSubTypeNames,
   PreacherSearchType,
   PreacherSearchTypeNames,
+  PreacherSearchSubTypeNames,
+  PreacherSearchSelectOptionNames,
 } from '@/app/preacher/enums';
 import { getPreachersByTerm } from '@/app/preacher/services';
+import { type PreacherSearchFormByTerm, type PreacherQueryParams } from '@/app/preacher/interfaces';
 
 import { usePreacherStore } from '@/stores/preacher';
 import { LoadingSpinner } from '@/layouts/components';
@@ -47,9 +47,9 @@ import { Button } from '@/shared/components/ui/button';
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  searchParams: PreacherFormSearchByTerm | undefined;
-  setSearchParams: React.Dispatch<React.SetStateAction<PreacherFormSearchByTerm | undefined>>;
-  dataForm: PreacherFormSearchByTerm | undefined;
+  searchParams: PreacherSearchFormByTerm | undefined;
+  setSearchParams: React.Dispatch<React.SetStateAction<PreacherSearchFormByTerm | undefined>>;
+  dataForm: PreacherSearchFormByTerm | undefined;
 }
 
 export function SearchByTermPreacherDataTable<TData, TValue>({
@@ -78,7 +78,6 @@ export function SearchByTermPreacherDataTable<TData, TValue>({
 
   //* Hooks (external libraries)
   const navigate = useNavigate();
-  console.log(searchParams);
   //* Querys
   const query = useQuery({
     queryKey: ['preachers-by-term', searchParams],

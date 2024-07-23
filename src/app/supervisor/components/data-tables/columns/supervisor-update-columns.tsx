@@ -4,10 +4,10 @@ import { format } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
+import { Button } from '@/shared/components/ui/button';
+
 import { type SupervisorColumns } from '@/app/supervisor/interfaces';
 import { SupervisorInfoCard, SupervisorUpdateCard } from '@/app/supervisor/components';
-
-import { Button } from '@/shared/components/ui/button';
 
 export const supervisorUpdateColumns: Array<ColumnDef<SupervisorColumns, any>> = [
   {

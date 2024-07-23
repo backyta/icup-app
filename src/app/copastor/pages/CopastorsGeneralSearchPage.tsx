@@ -23,9 +23,6 @@ import { type FormSearchGeneral } from '@/shared/interfaces';
 import { formSearchGeneralSchema } from '@/shared/validations';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 
-import { Button } from '@/shared/components/ui/button';
-import { Input } from '@/shared/components/ui/input';
-import { Checkbox } from '@/shared/components/ui/checkbox';
 import {
   SelectValue,
   SelectTrigger,
@@ -42,6 +39,9 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form';
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Checkbox } from '@/shared/components/ui/checkbox';
 
 const dataFictional: CopastorResponse[] = [
   {

@@ -49,7 +49,7 @@ export const DiscipleInfoCard = ({ idRow }: DiscipleInfoCardProps): JSX.Element 
         </DialogTrigger>
 
         <DialogContent className='max-w-[690px] w-full justify-center py-6 max-h-full overflow-y-auto overflow-x-hidden'>
-          <DiscipleTabsCard data={currentDisciple} />
+          <DiscipleTabsCard data={currentDisciple} id={idRow} />
         </DialogContent>
       </Dialog>
     );
@@ -69,7 +69,7 @@ export const DiscipleInfoCard = ({ idRow }: DiscipleInfoCardProps): JSX.Element 
       </DrawerTrigger>
       <DrawerContent>
         <div className='flex justify-center py-8 px-6 max-h-full overflow-y-auto overflow-x-hidden'>
-          <DiscipleTabsCard data={currentDisciple} />
+          <DiscipleTabsCard data={currentDisciple} id={idRow} />
         </div>
       </DrawerContent>
     </Drawer>

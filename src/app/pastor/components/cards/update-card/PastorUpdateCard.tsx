@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
 
 import { useMediaQuery } from '@react-hook/media-query';
+
 import { GiArchiveRegister } from 'react-icons/gi';
 
 import { usePastorStore } from '@/stores/pastor';
-
 import { PastorFormUpdate } from '@/app/pastor/components';
 
 import { Button } from '@/shared/components/ui/button';

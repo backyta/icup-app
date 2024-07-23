@@ -1,7 +1,5 @@
-
 import { type PreacherSearchSubType, type PreacherSearchType } from '@/app/preacher/enums';
-
-export interface PreacherFormSearchByTerm {
+export interface PreacherSearchFormByTerm {
   searchType: PreacherSearchType;
   searchSubType?: PreacherSearchSubType;
   inputTerm?: string | undefined;
@@ -14,5 +12,5 @@ export interface PreacherFormSearchByTerm {
   lastNamesTerm?: string | undefined;
   order: string;
   limit?: string | undefined;
-  limitAll?: boolean | undefined;
+  all?: boolean | undefined;
 }

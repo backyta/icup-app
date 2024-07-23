@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
-import { MdDeleteForever } from 'react-icons/md';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import { MdDeleteForever } from 'react-icons/md';
 
 import { deletePastor } from '@/app/pastor/services';
 
@@ -25,6 +27,22 @@ export const PastorDeleteCard = ({ idRow }: PastorDeleteCardProps): JSX.Element 
 
   //* Hooks (external libraries)
   const navigate = useNavigate();
+
+  //* Effects
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (idRow && isCardOpen) {
+      const url = new URL(window.location.href);
+      url.pathname = `/pastors/delete-pastor/${idRow}/remove`;
+
+      window.history.replaceState({}, '', url);
+
+      return () => {
+        window.history.replaceState({}, '', originalUrl);
+      };
+    }
+  }, [idRow, isCardOpen]);
 
   //* QueryClient
   const queryClient = useQueryClient();
@@ -59,7 +77,7 @@ export const PastorDeleteCard = ({ idRow }: PastorDeleteCardProps): JSX.Element 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pastors-by-term'] });
 
-      toast.success('Pastor eliminado correctamente', {
+      toast.success('Registro eliminado correctamente.', {
         position: 'top-center',
         className: 'justify-center',
       });
@@ -100,7 +118,7 @@ export const PastorDeleteCard = ({ idRow }: PastorDeleteCardProps): JSX.Element 
               ❌ El registro de este Pastor se eliminara de los lugares donde guardaba relación con
               Discípulo, Grupo Familiar, Predicador, Supervisor, Zona y Co-Pastor.
             </span>
-            <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
+            <span className='inline-block text-[14px] md:text-[15px]'>
               ✅ Para poder activarlo nuevamente deberás hacerlo desde la pestaña de{' '}
               <span className='font-bold'>Actualizar Pastor.</span>
             </span>

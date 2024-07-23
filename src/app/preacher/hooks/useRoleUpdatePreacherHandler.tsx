@@ -1,7 +1,6 @@
 import { type UseFormReturn } from 'react-hook-form';
 
 import { type MemberRole } from '@/shared/enums';
-
 import { type PreacherFormData } from '@/app/preacher/interfaces';
 
 interface Options {

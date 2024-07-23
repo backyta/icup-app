@@ -8,28 +8,28 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 import {
-  type ColumnDef,
   flexRender,
-  type SortingState,
-  getPaginationRowModel,
-  type ColumnFiltersState,
-  getFilteredRowModel,
-  getSortedRowModel,
-  type VisibilityState,
-  getCoreRowModel,
   useReactTable,
+  getCoreRowModel,
+  getSortedRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  type ColumnDef,
+  type SortingState,
+  type VisibilityState,
+  type ColumnFiltersState,
 } from '@tanstack/react-table';
 
-import {
-  type SupervisorFormSearchByTerm,
-  type SupervisorQueryParams,
-} from '@/app/supervisor/interfaces';
 import {
   SupervisorSearchSelectOptionNames,
   SupervisorSearchSubTypeNames,
   SupervisorSearchType,
   SupervisorSearchTypeNames,
 } from '@/app/supervisor/enums';
+import {
+  type SupervisorSearchFormByTerm,
+  type SupervisorQueryParams,
+} from '@/app/supervisor/interfaces';
 import { getSupervisorsByTerm } from '@/app/supervisor/services';
 
 import { useSupervisorStore } from '@/stores/supervisor';
@@ -52,9 +52,9 @@ import { Button } from '@/shared/components/ui/button';
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  searchParams: SupervisorFormSearchByTerm | undefined;
-  setSearchParams: React.Dispatch<React.SetStateAction<SupervisorFormSearchByTerm | undefined>>;
-  dataForm: SupervisorFormSearchByTerm | undefined;
+  searchParams: SupervisorSearchFormByTerm | undefined;
+  setSearchParams: React.Dispatch<React.SetStateAction<SupervisorSearchFormByTerm | undefined>>;
+  dataForm: SupervisorSearchFormByTerm | undefined;
 }
 
 export function SearchByTermSupervisorDataTable<TData, TValue>({

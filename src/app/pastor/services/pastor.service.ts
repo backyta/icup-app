@@ -5,9 +5,10 @@ import { isAxiosError } from 'axios';
 import { icupApi } from '@/api/icupApi';
 
 import { type ChurchResponse } from '@/app/church/interfaces';
-import { type PastorResponse, type PastorFormData, type PastorQueryParams } from '@/app/pastor/interfaces';
 
 import { PastorSearchType } from '@/app/pastor/enums';
+import { type PastorResponse, type PastorFormData, type PastorQueryParams } from '@/app/pastor/interfaces';
+
 
 //* Create pastor
 export const createPastor = async (formData:PastorFormData ): Promise<PastorResponse> => {

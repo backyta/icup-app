@@ -1,10 +1,10 @@
 import { useRef, useState } from 'react';
 
 import { useMediaQuery } from '@react-hook/media-query';
+
 import { GiArchiveRegister } from 'react-icons/gi';
 
 import { useCopastorStore } from '@/stores/copastor';
-
 import { CopastorFormUpdate } from '@/app/copastor/components';
 
 import { Button } from '@/shared/components/ui/button';

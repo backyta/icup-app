@@ -1,37 +1,52 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import { Root } from '@/Root';
 import { DashboardLayout, AuthLayout } from '@/layouts';
 
-// Direct pages
+// ?  Direct pages
+//* Members
 import { DashboardPage } from '@/app/dashboard/pages';
 import { ChurchOptionsPage } from '@/app/church/pages';
-import { DiscipleOptionsPage } from '@/app/disciple/pages';
 import { PastorOptionsPage } from '@/app/pastor/pages';
 import { CopastorOptionsPage } from '@/app/copastor/pages';
 import { SupervisorOptionsPage } from '@/app/supervisor/pages';
 import { PreacherOptionsPage } from '@/app/preacher/pages';
+import { DiscipleOptionsPage } from '@/app/disciple/pages';
+//* Family groups and zones
 import { FamilyGroupOptionsPage } from '@/app/family-group/pages';
+//* Offerings
 import { OfferingOptionsPage } from '@/app/offering/pages';
 import { OfferingIncomeOptionsPage } from '@/app/offering/income/pages';
 import { OfferingExpensesOptionsPage } from '@/app/offering/expenses/pages';
+//* Metrics and charts
 import { MetricsOptionsPage } from '@/app/metrics/pages';
+//* Users
 import { UserOptionsPage } from '@/app/user/pages';
 
-// Routers by module
+// ? Routers by module
+//* Members
 import { ChurchChildrenRoutes } from '@/app/church/router';
-import { DiscipleChildrenRoutes } from '@/app/disciple/router';
 import { PastorChildrenRoutes } from '@/app/pastor/router';
 import { CopastorChildrenRoutes } from '@/app/copastor/router';
 import { SupervisorChildrenRoutes } from '@/app/supervisor/router';
 import { PreacherChildrenRoutes } from '@/app/preacher/router';
+import { DiscipleChildrenRoutes } from '@/app/disciple/router';
+//* Family groups and zones
 import { FamilyGroupChildrenRoutes } from '@/app/family-group/router';
+//* Offering
 import { OfferingIncomeChildrenRoutes } from '@/app/offering/income/router';
 import { OfferingExpensesChildrenRoutes } from '@/app/offering/expenses/router';
-import { UserChildrenRoutes } from '@/app/user/router';
+//* Metrics and charts
 import { MetricsChildrenRoutes } from '@/app/metrics/router';
+//* Users
+import { UserChildrenRoutes } from '@/app/user/router';
+//* Auth
 import { AuthChildrenRoutes } from '@/auth/router';
 
+//* NotFound page
+import { NotFoundPage } from '@/pages';
+
+// ? Browser router
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -41,14 +56,14 @@ export const router = createBrowserRouter([
         path: '/',
         element: <DashboardLayout />,
         children: [
-          // Main modules pages
+          // * Main pages by module
           { path: '/dashboard', element: <DashboardPage /> },
           { path: '/churches', element: <ChurchOptionsPage /> },
-          { path: '/disciples', element: <DiscipleOptionsPage /> },
           { path: '/pastors', element: <PastorOptionsPage /> },
           { path: '/copastors', element: <CopastorOptionsPage /> },
           { path: '/supervisors', element: <SupervisorOptionsPage /> },
           { path: '/preachers', element: <PreacherOptionsPage /> },
+          { path: '/disciples', element: <DiscipleOptionsPage /> },
           { path: '/family-groups', element: <FamilyGroupOptionsPage /> },
           { path: '/offerings', element: <OfferingOptionsPage /> },
           { path: '/offerings/income', element: <OfferingIncomeOptionsPage /> },
@@ -57,7 +72,9 @@ export const router = createBrowserRouter([
           { path: '/users', element: <UserOptionsPage /> },
         ],
       },
-      // Specific routes for each type of module
+
+      // ? Children routes and pages by module
+      //* Members
       { path: '/churches', element: <DashboardLayout />, children: ChurchChildrenRoutes },
       { path: '/disciples', element: <DashboardLayout />, children: DiscipleChildrenRoutes },
       { path: '/pastors', element: <DashboardLayout />, children: PastorChildrenRoutes },
@@ -66,28 +83,36 @@ export const router = createBrowserRouter([
       { path: '/preachers', element: <DashboardLayout />, children: PreacherChildrenRoutes },
       { path: '/family-groups', element: <DashboardLayout />, children: FamilyGroupChildrenRoutes },
 
-      // Routes offering (income)
+      //* Offering income
       {
         path: '/offerings/income',
         element: <DashboardLayout />,
         children: OfferingIncomeChildrenRoutes,
       },
 
-      // Routes offering (expenses)
+      //* Offering expenses
       {
         path: '/offerings/expenses',
         element: <DashboardLayout />,
         children: OfferingExpensesChildrenRoutes,
       },
 
-      // Routes user
+      //* Users
       { path: '/users', element: <DashboardLayout />, children: UserChildrenRoutes },
 
-      // Routes metrics
+      //* Metrics and charts
       { path: '/metrics', element: <DashboardLayout />, children: MetricsChildrenRoutes },
 
-      /// Auth Routes
+      //* Auth
       { path: '/auth', element: <AuthLayout />, children: AuthChildrenRoutes },
     ],
+  },
+  {
+    path: '*',
+    element: <Navigate to='/404' />,
+  },
+  {
+    path: '/404',
+    element: <NotFoundPage />,
   },
 ]);

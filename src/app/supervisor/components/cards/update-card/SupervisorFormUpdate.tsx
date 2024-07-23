@@ -17,9 +17,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { CalendarIcon } from 'lucide-react';
 
-import { cn } from '@/shared/lib/utils';
+import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import {
@@ -34,7 +33,8 @@ import { FormSupervisorSkeleton } from '@/app/supervisor/components';
 import { type SupervisorResponse } from '@/app/supervisor/interfaces';
 import { getAllCopastors, updateSupervisor } from '@/app/supervisor/services';
 
-import { useValidatePath } from '@/hooks';
+import { cn } from '@/shared/lib/utils';
+import { useRoleValidationByPath } from '@/hooks';
 import { type ErrorResponse } from '@/shared/interfaces';
 
 import {
@@ -53,13 +53,6 @@ import {
   UrbanSectorNames,
 } from '@/shared/enums';
 
-import { Input } from '@/shared/components/ui/input';
-import { Button } from '@/shared/components/ui/button';
-import { Checkbox } from '@/shared/components/ui/checkbox';
-import { Calendar } from '@/shared/components/ui/calendar';
-import { Textarea } from '@/shared/components/ui/textarea';
-import { Card, CardContent } from '@/shared/components/ui/card';
-import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 import {
   Form,
   FormControl,
@@ -83,7 +76,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/components/ui/select';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -95,6 +87,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/shared/components/ui/alert-dialog';
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Checkbox } from '@/shared/components/ui/checkbox';
+import { Calendar } from '@/shared/components/ui/calendar';
+import { Textarea } from '@/shared/components/ui/textarea';
+import { Card, CardContent } from '@/shared/components/ui/card';
+import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
 interface SupervisorFormUpdateProps {
   id: string;
@@ -193,9 +193,8 @@ export const SupervisorFormUpdate = ({
   }, []);
 
   //* Custom Hooks
-  const { disabledRoles } = useValidatePath({
+  const { disabledRoles } = useRoleValidationByPath({
     path: pathname,
-    isInputDisabled,
     memberRoles: MemberRole,
   });
 
@@ -241,6 +240,21 @@ export const SupervisorFormUpdate = ({
       setIsMessageErrorDisabled(true);
     }
   }, [isDirectRelationToPastor]);
+
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (id) {
+      const url = new URL(window.location.href);
+      url.pathname = `/supervisors/update-supervisor/${id}/edit`;
+
+      window.history.replaceState({}, '', url);
+    }
+
+    return () => {
+      window.history.replaceState({}, '', originalUrl);
+    };
+  }, [id]);
 
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);

@@ -8,30 +8,30 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 import {
-  type ColumnDef,
   flexRender,
-  type SortingState,
-  getPaginationRowModel,
-  type ColumnFiltersState,
-  getFilteredRowModel,
-  getSortedRowModel,
-  type VisibilityState,
-  getCoreRowModel,
   useReactTable,
+  getCoreRowModel,
+  getSortedRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  type ColumnDef,
+  type SortingState,
+  type VisibilityState,
+  type ColumnFiltersState,
 } from '@tanstack/react-table';
 
 import {
-  DiscipleSearchSelectOptionNames,
-  DiscipleSearchSubTypeNames,
-  DiscipleSearchType,
-  DiscipleSearchTypeNames,
-} from '@/app/disciple/enums';
-import { getDisciplesByTerm } from '@/app/disciple/services';
-import { type DiscipleFormSearchByTerm, type DiscipleQueryParams } from '@/app/disciple/interfaces';
+  type UserRole,
+  UserRoleNames,
+  UserSearchType,
+  UserSearchTypeNames,
+  UserSearchSelectOptionNames,
+} from '@/app/user/enums';
+import { getUsersByTerm } from '@/app/user/services';
+import { type UserSearchFormByTerm, type UserQueryParams } from '@/app/user/interfaces';
 
-import { useDiscipleStore } from '@/stores/disciple';
+import { useUserStore } from '@/stores/user';
 import { LoadingSpinner } from '@/layouts/components';
-import { formatDateDDMMYYYY } from '@/shared/helpers';
 
 import {
   Table,
@@ -47,12 +47,11 @@ import { Button } from '@/shared/components/ui/button';
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  searchParams: DiscipleFormSearchByTerm | undefined;
-  setSearchParams: React.Dispatch<React.SetStateAction<DiscipleFormSearchByTerm | undefined>>;
-  dataForm: DiscipleFormSearchByTerm | undefined;
+  searchParams: UserSearchFormByTerm | undefined;
+  setSearchParams: React.Dispatch<React.SetStateAction<UserSearchFormByTerm | undefined>>;
+  dataForm: UserSearchFormByTerm | undefined;
 }
 
-// TODO : Continuar aquí terminar usuario y pasar a grupos familiares
 export function SearchByTermUserDataTable<TData, TValue>({
   columns,
   searchParams,
@@ -65,15 +64,13 @@ export function SearchByTermUserDataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
 
-  const isFiltersSearchByTermDisabled = useDiscipleStore(
+  const isFiltersSearchByTermDisabled = useUserStore(
     (state) => state.isFiltersSearchByTermDisabled
   );
-  const setIsFiltersSearchByTermDisabled = useDiscipleStore(
+  const setIsFiltersSearchByTermDisabled = useUserStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
-  const setDataSearchByTermResResponse = useDiscipleStore(
-    (state) => state.setDataSearchByTermResponse
-  );
+  const setDataSearchByTermResResponse = useUserStore((state) => state.setDataSearchByTermResponse);
 
   const [isDisabledButton, setIsDisabledButton] = useState(false);
 
@@ -82,8 +79,8 @@ export function SearchByTermUserDataTable<TData, TValue>({
 
   //* Querys
   const query = useQuery({
-    queryKey: ['disciples-by-term', searchParams],
-    queryFn: () => getDisciplesByTerm(searchParams as DiscipleQueryParams),
+    queryKey: ['users-by-term', searchParams],
+    queryFn: () => getUsersByTerm(searchParams as UserQueryParams),
     enabled: !!searchParams,
     retry: 1,
   });
@@ -161,24 +158,11 @@ export function SearchByTermUserDataTable<TData, TValue>({
             </span>{' '}
             <span className='font-medium text-[13px] md:text-[14.5px] italic'>
               {`${
-                Object.entries(DiscipleSearchTypeNames).find(
+                Object.entries(UserSearchTypeNames).find(
                   ([key, value]) => key === dataForm?.searchType && value
                 )?.[1]
               }`}
             </span>
-            {(dataForm?.searchType === DiscipleSearchType.FirstName ||
-              dataForm?.searchType === DiscipleSearchType.LastName ||
-              dataForm?.searchType === DiscipleSearchType.FullName) && (
-              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {' '}
-                -{' '}
-                {`${
-                  Object.entries(DiscipleSearchSubTypeNames).find(
-                    ([key, value]) => key === dataForm?.searchSubType && value
-                  )?.[1]
-                }`}
-              </span>
-            )}
           </div>
 
           {/* Search Terms */}
@@ -186,46 +170,38 @@ export function SearchByTermUserDataTable<TData, TValue>({
             <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
               Termino de búsqueda:
             </span>{' '}
-            {(dataForm?.searchType === DiscipleSearchType.OriginCountry ||
-              dataForm?.searchType === DiscipleSearchType.Department ||
-              dataForm?.searchType === DiscipleSearchType.Province ||
-              dataForm?.searchType === DiscipleSearchType.District ||
-              dataForm?.searchType === DiscipleSearchType.UrbanSector ||
-              dataForm?.searchType === DiscipleSearchType.Address) && (
-              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.inputTerm}`}
-              </span>
-            )}
-            {dataForm?.searchType === DiscipleSearchType.FirstName && (
+            {dataForm?.searchType === UserSearchType.FirstName && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.namesTerm}`}
               </span>
             )}
-            {dataForm?.searchType === DiscipleSearchType.LastName && (
+            {dataForm?.searchType === UserSearchType.LastName && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.lastNamesTerm}`}
               </span>
             )}
-            {dataForm?.searchType === DiscipleSearchType.FullName && (
+            {dataForm?.searchType === UserSearchType.FullName && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
               </span>
             )}
-            {dataForm?.searchType === DiscipleSearchType.BirthDate && (
-              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.dateTerm?.from ? formatDateDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDateDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
-              </span>
-            )}
-            {(dataForm?.searchType === DiscipleSearchType.BirthMonth ||
-              dataForm?.searchType === DiscipleSearchType.Gender ||
-              dataForm?.searchType === DiscipleSearchType.MaritalStatus ||
-              dataForm?.searchType === DiscipleSearchType.RecordStatus) && (
+            {dataForm?.searchType === UserSearchType.RecordStatus && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
-                  Object.entries(DiscipleSearchSelectOptionNames).find(
+                  Object.entries(UserSearchSelectOptionNames).find(
                     ([key, value]) => key === dataForm?.selectTerm && value
                   )?.[1]
                 }`}
+              </span>
+            )}
+            {dataForm?.searchType === UserSearchType.Roles && (
+              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                {`${Object.entries(UserRoleNames)
+                  .map(([key, value]) => {
+                    return dataForm?.multiSelectTerm?.includes(key as UserRole) ? value : null;
+                  })
+                  .filter((value) => value !== null)
+                  .join(' - ')}`}
               </span>
             )}
           </div>

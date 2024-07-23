@@ -3,13 +3,14 @@
 
 import { useEffect, useState } from 'react';
 
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { type z } from 'zod';
 import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
-
-import { type z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
+
 import { CalendarIcon } from 'lucide-react';
 
 import {
@@ -23,12 +24,12 @@ import {
   DiscipleSearchNamesByGender,
   DiscipleSearchNamesByLastNames,
   DiscipleSearchByMaritalStatus,
-  DiscipleSearchNamesByStatus,
+  DiscipleSearchNamesByRecordStatus,
   DiscipleSearchType,
   DiscipleSearchTypeNames,
 } from '@/app/disciple/enums';
-import { discipleFormTermSearchSchema } from '@/app/disciple/validations';
-import { type DiscipleFormSearchByTerm, type DiscipleResponse } from '@/app/disciple/interfaces';
+import { discipleSearchByTermFormSchema } from '@/app/disciple/validations';
+import { type DiscipleSearchFormByTerm, type DiscipleResponse } from '@/app/disciple/interfaces';
 
 import { useDiscipleStore } from '@/stores/disciple';
 
@@ -97,12 +98,12 @@ export const DiscipleDeletePage = (): JSX.Element => {
     (state) => state.setIsFiltersSearchByTermDisabled
   );
 
-  const [dataForm, setDataForm] = useState<DiscipleFormSearchByTerm>();
-  const [searchParams, setSearchParams] = useState<DiscipleFormSearchByTerm | undefined>();
+  const [dataForm, setDataForm] = useState<DiscipleSearchFormByTerm>();
+  const [searchParams, setSearchParams] = useState<DiscipleSearchFormByTerm | undefined>();
 
   //* Forms
-  const form = useForm<z.infer<typeof discipleFormTermSearchSchema>>({
-    resolver: zodResolver(discipleFormTermSearchSchema),
+  const form = useForm<z.infer<typeof discipleSearchByTermFormSchema>>({
+    resolver: zodResolver(discipleSearchByTermFormSchema),
     mode: 'onChange',
     defaultValues: {
       limit: '10',
@@ -143,7 +144,7 @@ export const DiscipleDeletePage = (): JSX.Element => {
   }, []);
 
   //* Form handler
-  function onSubmit(formData: z.infer<typeof discipleFormTermSearchSchema>): void {
+  function onSubmit(formData: z.infer<typeof discipleSearchByTermFormSchema>): void {
     let newDateTermTo;
     if (!formData.dateTerm?.to) {
       newDateTermTo = formData.dateTerm?.from;
@@ -441,7 +442,7 @@ export const DiscipleDeletePage = (): JSX.Element => {
                                   ? DiscipleSearchNamesByBirthMonth
                                   : searchType === DiscipleSearchType.MaritalStatus
                                     ? DiscipleSearchByMaritalStatus
-                                    : DiscipleSearchNamesByStatus
+                                    : DiscipleSearchNamesByRecordStatus
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}

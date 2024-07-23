@@ -3,7 +3,7 @@ import { type ColumnDef } from '@tanstack/react-table';
 
 import { type UserColumns } from '@/app/user/interfaces';
 import { type UserRole, UserRoleNames } from '@/app/user/enums';
-import { UserInfoCard, UserUpdateCard } from '@/app/user/components';
+import { UserInfoCard, UserUpdateCard, UserPasswordUpdateCard } from '@/app/user/components';
 
 import { Button } from '@/shared/components/ui/button';
 
@@ -138,6 +138,24 @@ export const userUpdateColumns: Array<ColumnDef<UserColumns, any>> = [
           variant='ghost'
         >
           Actualizar
+        </Button>
+      );
+    },
+  },
+  {
+    id: 'updateInfo',
+    accessorKey: 'id',
+    cell: (info) => {
+      const id = info.row.original.id;
+      return info.getValue() === '-' ? '-' : <UserPasswordUpdateCard idRow={id} />;
+    },
+    header: () => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px] text-purple-500 hover:text-purple-500'
+          variant='ghost'
+        >
+          Contraseña
         </Button>
       );
     },

@@ -4,4 +4,4 @@ export * from './form-search-by-term.interface';
 export * from './member-columns.interface';
 export * from './relations-response.interface';
 export * from './error-response.interface';
-export * from './church-form-search-general.interface';
+export * from './form-search-general.interface';

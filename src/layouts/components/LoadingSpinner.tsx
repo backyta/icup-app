@@ -50,7 +50,12 @@ export const LoadingSpinner = (): JSX.Element => {
           pathname === '/disciples/search-disciples' ||
           pathname === '/disciples/search-by-term-disciples' ||
           pathname === '/disciples/update-disciple' ||
-          pathname === '/disciples/delete-disciple') &&
+          pathname === '/disciples/delete-disciple' ||
+          pathname === '/users/search-users' ||
+          pathname === '/users/search-by-term-users' ||
+          pathname === '/users/update-user' ||
+          pathname === '/users/delete-user' ||
+          pathname === '/dashboard') &&
           'min-h-full'
       )}
     >

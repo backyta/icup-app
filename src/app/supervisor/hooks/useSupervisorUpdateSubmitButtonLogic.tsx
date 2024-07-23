@@ -47,7 +47,6 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
   const roles = formSupervisorUpdate.watch('roles');
   const recordStatus = formSupervisorUpdate.watch('recordStatus');
   const isDirectRelationToPastor = formSupervisorUpdate.watch('isDirectRelationToPastor');
-
   const theirCopastor = formSupervisorUpdate.watch('theirCopastor');
   const theirPastor = formSupervisorUpdate.watch('theirPastor');
 

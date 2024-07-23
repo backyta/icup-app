@@ -4,10 +4,10 @@ import { format } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import { PreacherInfoCard, PreacherDeleteCard } from '@/app/preacher/components';
-
 import { Button } from '@/shared/components/ui/button';
+
 import { type PreacherColumns } from '@/app/preacher/interfaces';
+import { PreacherInfoCard, PreacherDeleteCard } from '@/app/preacher/components';
 
 export const preacherDeleteColumns: Array<ColumnDef<PreacherColumns, any>> = [
   {

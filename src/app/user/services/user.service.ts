@@ -4,9 +4,8 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { type UserResponse, type UserFormData, type UserQueryParams } from '@/app/user/interfaces';
-
 import { UserSearchType } from '@/app/user/enums';
+import { type UserResponse, type UserFormData, type UserQueryParams, type UserPasswordUpdateFormData } from '@/app/user/interfaces';
 
 //* Create user
 export const createUser = async (formData:UserFormData ): Promise<UserResponse> => {
@@ -60,7 +59,8 @@ export const getUsers = async ({limit, offset, all, order}: UserQueryParams): Pr
 }
 
 // ? Get users by term (paginated)
-export const getUserByTerm = async ({ 
+export const getUsersByTerm = async ({ 
+  multiSelectTerm,
   searchType, 
   selectTerm, 
   namesTerm,
@@ -73,10 +73,43 @@ export const getUserByTerm = async ({
 
  let result: UserResponse[];
 
-  // TODO : falta hacer el checkbox crear un tipo para este, esta como array
+  //* Multi Select (roles)
+  if (searchType === UserSearchType.Roles) {
+    try {
+      if ( all !== undefined && !all) {
+        const {data} = await icupApi<UserResponse[]>(`/users/${multiSelectTerm}` , {
+          params: {
+            limit,
+            offset,
+            order,
+            'search-type': searchType
+          },
+        });
+        
+        result = data;
+      }else {
+        const {data} = await icupApi<UserResponse[]>(`/users/${selectTerm}` , {
+          params: {
+            order,
+            'search-type': searchType
+          },
+        });
+        result = data;
+      }
+    
+      return result;
+    
+    } catch (error) {
+      if (isAxiosError(error) && error.response) {
+        throw (error.response.data)
+      }
+      
+      throw new Error('Ocurrió un error inesperado, hable con el administrador')
+    }
+  }
 
- //* Record status
-  if (searchType === UserSearchType.RecordStatus) {
+ //* Record status and gender
+  if (searchType === UserSearchType.RecordStatus || searchType === UserSearchType.Gender) {
       try {
         if ( all !== undefined && !all) {
           const {data} = await icupApi<UserResponse[]>(`/users/${selectTerm}` , {
@@ -225,7 +258,7 @@ export const getUserByTerm = async ({
 // //* Update user by ID
 export interface updateUserOptions {
   id: string;
-  formData: UserFormData;
+  formData: UserFormData | UserPasswordUpdateFormData;
 }
 
 export const updateUser = async ({id, formData}: updateUserOptions ): Promise<UserResponse> => {
@@ -245,7 +278,7 @@ export const updateUser = async ({id, formData}: updateUserOptions ): Promise<Us
 // //! Delete user by ID
 export const deleteUser = async (id: string ): Promise<void> => {
   try {
-    const {data} = await icupApi.delete(`/disciples/${id}`)
+    const {data} = await icupApi.delete(`/users/${id}`)
 
     return data;
   } catch (error) {

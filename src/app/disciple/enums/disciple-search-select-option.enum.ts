@@ -29,7 +29,7 @@ export enum DiscipleSearchSelectOption {
 }
 
 export const DiscipleSearchSelectOptionNames: Record<DiscipleSearchSelectOption, string> =  {
-  //* Month birth
+  //* Birth Month
   [DiscipleSearchSelectOption.January]: 'Enero',
   [DiscipleSearchSelectOption.February]: 'Febrero',
   [DiscipleSearchSelectOption.March]: 'Marzo',
@@ -54,7 +54,7 @@ export const DiscipleSearchSelectOptionNames: Record<DiscipleSearchSelectOption,
   [DiscipleSearchSelectOption.Divorced]: 'Divorciado(a)',
   [DiscipleSearchSelectOption.Other]: 'Otro',
 
-  //* Status
+ //* Record Status
   [DiscipleSearchSelectOption.Inactive]: 'Inactivo',
 }
 
@@ -117,11 +117,11 @@ export const DiscipleSearchNamesByMaritalStatus: Record<DiscipleSearchByMaritalS
   [DiscipleSearchByMaritalStatus.Other]: 'Otro',
 }
 
-//* Status
-export enum DiscipleSearchByStatus {
+//* Record Status
+export enum DiscipleSearchByRecordStatus {
   Inactive = 'inactive',
 }
 
-export const DiscipleSearchNamesByStatus: Record<DiscipleSearchByStatus, string> =  {
-  [DiscipleSearchByStatus.Inactive]: 'Inactivo',
+export const DiscipleSearchNamesByRecordStatus: Record<DiscipleSearchByRecordStatus, string> =  {
+  [DiscipleSearchByRecordStatus.Inactive]: 'Inactivo',
 }

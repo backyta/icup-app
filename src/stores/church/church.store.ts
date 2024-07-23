@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 import { type ChurchResponse } from '@/app/church/interfaces';
-// import { type FormSearchByTerm } from '@/shared/interfaces';
 import { create, type StateCreator } from 'zustand';
 
 interface ChurchStore {

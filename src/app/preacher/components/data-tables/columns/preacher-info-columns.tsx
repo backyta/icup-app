@@ -9,7 +9,6 @@ import { PreacherInfoCard } from '@/app/preacher/components';
 import { type PreacherColumns } from '@/app/preacher/interfaces';
 
 import { getFullName } from '@/shared/helpers';
-
 import { Button } from '@/shared/components/ui/button';
 
 export const preacherInfoColumns: Array<ColumnDef<PreacherColumns, any>> = [

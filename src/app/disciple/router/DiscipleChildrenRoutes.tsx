@@ -16,7 +16,7 @@ export const DiscipleChildrenRoutes = [
     element: <DisciplesGeneralSearchPage />,
   },
   {
-    path: '/disciples/search-by-term-disciples',
+    path: '/disciples/search-disciples-by-term',
     element: <DisciplesSearchPageByTerm />,
   },
   {

@@ -13,27 +13,16 @@ import { cn } from '@/shared/lib/utils';
 
 import { usePastorStore } from '@/stores/pastor';
 
+import {
+  pastorInfoColumns as columns,
+  GeneralPastorSearchDataTable,
+} from '@/app/pastor/components';
 import { type PastorResponse } from '@/app/pastor/interfaces';
 
 import { type FormSearchGeneral } from '@/shared/interfaces';
 import { formSearchGeneralSchema } from '@/shared/validations';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 
-import {
-  pastorInfoColumns as columns,
-  GeneralPastorSearchDataTable,
-} from '@/app/pastor/components';
-
-import { Button } from '@/shared/components/ui/button';
-import { Input } from '@/shared/components/ui/input';
-import { Checkbox } from '@/shared/components/ui/checkbox';
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  Select,
-} from '@/shared/components/ui/select';
 import {
   Form,
   FormControl,
@@ -43,6 +32,16 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form';
+import {
+  SelectValue,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  Select,
+} from '@/shared/components/ui/select';
+import { Button } from '@/shared/components/ui/button';
+import { Input } from '@/shared/components/ui/input';
+import { Checkbox } from '@/shared/components/ui/checkbox';
 
 const dataFictional: PastorResponse[] = [
   {

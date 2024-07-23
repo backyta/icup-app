@@ -2,13 +2,14 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { useEffect, useState } from 'react';
 
+import { type z } from 'zod';
 import { Toaster } from 'sonner';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { useForm } from 'react-hook-form';
 
-import { type z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { CalendarIcon } from 'lucide-react';
 
 import {
@@ -16,18 +17,18 @@ import {
   SearchByTermDiscipleDataTable,
 } from '@/app/disciple/components';
 import {
+  DiscipleSearchType,
+  DiscipleSearchTypeNames,
   DiscipleSearchNamesByBirthMonth,
   DiscipleSearchNamesByFirstNames,
   DiscipleSearchNamesByFullNames,
   DiscipleSearchNamesByGender,
   DiscipleSearchNamesByLastNames,
   DiscipleSearchByMaritalStatus,
-  DiscipleSearchNamesByStatus,
-  DiscipleSearchType,
-  DiscipleSearchTypeNames,
+  DiscipleSearchNamesByRecordStatus,
 } from '@/app/disciple/enums';
-import { discipleFormTermSearchSchema } from '@/app/disciple/validations';
-import { type DiscipleFormSearchByTerm, type DiscipleResponse } from '@/app/disciple/interfaces';
+import { discipleSearchByTermFormSchema } from '@/app/disciple/validations';
+import { type DiscipleSearchFormByTerm, type DiscipleResponse } from '@/app/disciple/interfaces';
 
 import { cn } from '@/shared/lib/utils';
 import { useDiscipleStore } from '@/stores/disciple';
@@ -96,12 +97,12 @@ export const DiscipleUpdatePage = (): JSX.Element => {
     (state) => state.setIsFiltersSearchByTermDisabled
   );
 
-  const [dataForm, setDataForm] = useState<DiscipleFormSearchByTerm>();
-  const [searchParams, setSearchParams] = useState<DiscipleFormSearchByTerm | undefined>();
+  const [dataForm, setDataForm] = useState<DiscipleSearchFormByTerm>();
+  const [searchParams, setSearchParams] = useState<DiscipleSearchFormByTerm | undefined>();
 
   //* Forms
-  const form = useForm<z.infer<typeof discipleFormTermSearchSchema>>({
-    resolver: zodResolver(discipleFormTermSearchSchema),
+  const form = useForm<z.infer<typeof discipleSearchByTermFormSchema>>({
+    resolver: zodResolver(discipleSearchByTermFormSchema),
     mode: 'onChange',
     defaultValues: {
       limit: '10',
@@ -142,7 +143,7 @@ export const DiscipleUpdatePage = (): JSX.Element => {
   }, []);
 
   //* Form handler
-  function onSubmit(formData: z.infer<typeof discipleFormTermSearchSchema>): void {
+  function onSubmit(formData: z.infer<typeof discipleSearchByTermFormSchema>): void {
     let newDateTermTo;
     if (!formData.dateTerm?.to) {
       newDateTermTo = formData.dateTerm?.from;
@@ -439,7 +440,7 @@ export const DiscipleUpdatePage = (): JSX.Element => {
                                   ? DiscipleSearchNamesByBirthMonth
                                   : searchType === DiscipleSearchType.MaritalStatus
                                     ? DiscipleSearchByMaritalStatus
-                                    : DiscipleSearchNamesByStatus
+                                    : DiscipleSearchNamesByRecordStatus
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}

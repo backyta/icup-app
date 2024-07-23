@@ -16,7 +16,7 @@ export const CopastorChildrenRoutes = [
     element: <CopastorsGeneralSearchPage />,
   },
   {
-    path: '/copastors/search-by-term-copastors',
+    path: '/copastors/search-copastors-by-term',
     element: <CopastorsSearchPageByTerm />,
   },
   {

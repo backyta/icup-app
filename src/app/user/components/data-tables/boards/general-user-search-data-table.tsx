@@ -8,23 +8,25 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 import {
-  type ColumnDef,
   flexRender,
-  type SortingState,
-  getPaginationRowModel,
-  type ColumnFiltersState,
-  getFilteredRowModel,
-  getSortedRowModel,
-  type VisibilityState,
-  getCoreRowModel,
   useReactTable,
+  getCoreRowModel,
+  getSortedRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  type ColumnDef,
+  type SortingState,
+  type VisibilityState,
+  type ColumnFiltersState,
 } from '@tanstack/react-table';
 
 import { getUsers } from '@/app/user/services';
 import { type UserQueryParams } from '@/app/user/interfaces';
 
 import { useUserStore } from '@/stores/user';
+
 import { LoadingSpinner } from '@/layouts/components';
+
 import { type FormSearchGeneral } from '@/shared/interfaces';
 
 import {

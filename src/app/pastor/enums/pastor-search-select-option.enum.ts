@@ -24,7 +24,7 @@ export enum PastorSearchSelectOption {
   Divorced = 'divorced',
   Other = 'other',
 
-  //* Status
+   //* Record Status
   Inactive = 'inactive',
 }
 
@@ -54,7 +54,7 @@ export const PastorSearchSelectOptionNames: Record<PastorSearchSelectOption, str
   [PastorSearchSelectOption.Divorced]: 'Divorciado(a)',
   [PastorSearchSelectOption.Other]: 'Otro',
 
-  //* Estado
+ //* Record Status
   [PastorSearchSelectOption.Inactive]: 'Inactivo',
 };
 
@@ -116,11 +116,12 @@ export const PastorSearchNamesByMaritalStatus: Record<PastorSearchByMaritalStatu
   [PastorSearchByMaritalStatus.Divorced]: 'Divorciado(a)',
   [PastorSearchByMaritalStatus.Other]: 'Otro',
 };
-//* Status
-export enum PastorSearchByStatus {
+
+ //* Record Status
+export enum PastorSearchByRecordStatus {
   Inactive = 'inactive',
 }
 
-export const PastorSearchNamesByStatus: Record<PastorSearchByStatus, string> = {
-  [PastorSearchByStatus.Inactive]: 'Inactivo',
+export const PastorSearchNamesByRecordStatus: Record<PastorSearchByRecordStatus, string> = {
+  [PastorSearchByRecordStatus.Inactive]: 'Inactivo',
 };

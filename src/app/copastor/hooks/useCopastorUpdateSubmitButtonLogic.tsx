@@ -44,7 +44,7 @@ export const useCopastorUpdateSubmitButtonLogic = ({
   const address = formCopastorUpdate.watch('address');
   const referenceAddress = formCopastorUpdate.watch('referenceAddress');
   const roles = formCopastorUpdate.watch('roles');
-  const status = formCopastorUpdate.watch('status');
+  const recordStatus = formCopastorUpdate.watch('recordStatus');
 
   const theirPastor = formCopastorUpdate.watch('theirPastor');
   const theirChurch = formCopastorUpdate.watch('theirChurch');
@@ -144,6 +144,6 @@ export const useCopastorUpdateSubmitButtonLogic = ({
     theirPastor,
     theirChurch,
     roles,
-    status,
+    recordStatus,
   ]);
 };

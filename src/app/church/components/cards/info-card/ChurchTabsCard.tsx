@@ -1,9 +1,14 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
+import { useEffect } from 'react';
+
 import { format } from 'date-fns';
 
 import { type ChurchResponse } from '@/app/church/interfaces';
-import { type ChurchWorshipTimes, ChurchWorshipTimesNames } from '@/app/church/enums';
+import { type ChurchWorshipTime, ChurchWorshipTimeNames } from '@/app/church/enums';
+
+import { getFullName } from '@/shared/helpers';
+import { PopoverDataCardTabs } from '@/shared/components';
 
 import {
   Card,
@@ -15,14 +20,39 @@ import {
 import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 
-import { getFullName } from '@/shared/helpers';
-import { PopoverDataTabs } from '@/shared/components';
-
 interface ChurchTabsCardProps {
+  id: string;
   data: ChurchResponse | undefined;
 }
 
-export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
+export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element => {
+  //* Effects
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (id) {
+      const url = new URL(window.location.href);
+
+      if (url.pathname === '/churches/search-churches')
+        url.pathname = `/churches/search-churches/${id}/info`;
+
+      if (url.pathname === '/churches/search-churches-by-term')
+        url.pathname = `/churches/search-churches-by-term/${id}/info`;
+
+      if (url.pathname === '/churches/update-church')
+        url.pathname = `/churches/update-church/${id}/info`;
+
+      if (url.pathname === '/churches/delete-church')
+        url.pathname = `/churches/delete-church/${id}/info`;
+
+      window.history.replaceState({}, '', url);
+    }
+
+    return () => {
+      window.history.replaceState({}, '', originalUrl);
+    };
+  }, [id]);
+
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full grid-cols-2 px-auto'>
@@ -76,7 +106,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
                 <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                   {data?.anexes?.length}
                 </CardDescription>
-                <PopoverDataTabs
+                <PopoverDataCardTabs
                   data={data?.anexes}
                   title={'Anexos'}
                   nameModule={'Iglesia'}
@@ -91,7 +121,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.pastors?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.pastors}
                 title={'Pastores'}
                 nameModule={'Iglesia'}
@@ -105,7 +135,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.copastors?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.copastors}
                 title={'Co-Pastores'}
                 nameModule={'Iglesia'}
@@ -119,7 +149,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.supervisors?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.supervisors}
                 title={'Supervisores'}
                 nameModule={'Iglesia'}
@@ -133,7 +163,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.zones?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.zones}
                 title={'Zonas'}
                 nameModule={'Iglesia'}
@@ -147,7 +177,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.preachers?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.preachers}
                 title={'Predicadores'}
                 nameModule={'Iglesia'}
@@ -161,7 +191,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.familyGroups?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.familyGroups}
                 title={'Grupos'}
                 nameModule={'Iglesia'}
@@ -175,7 +205,7 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.disciples?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.disciples}
                 title={'Discípulos'}
                 nameModule={'Iglesia'}
@@ -189,11 +219,11 @@ export const ChurchTabsCard = ({ data }: ChurchTabsCardProps): JSX.Element => {
               <div className='px-2 pt-2 text-[14px] md:text-[14.5px]'>
                 <ul className='pl-5 flex flex-wrap gap-x-10 gap-y-2 list-disc'>
                   {data?.worshipTimes.map((worshipTime) =>
-                    Object.keys(ChurchWorshipTimesNames).map(
+                    Object.keys(ChurchWorshipTimeNames).map(
                       (worshipTimeName) =>
                         worshipTime === worshipTimeName && (
                           <li key={worshipTime}>
-                            {ChurchWorshipTimesNames[worshipTime as ChurchWorshipTimes]}
+                            {ChurchWorshipTimeNames[worshipTime as ChurchWorshipTime]}
                           </li>
                         )
                     )

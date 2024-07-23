@@ -1,7 +1,6 @@
 import * as z from 'zod';
 
-import { ChurchWorshipTimes } from '@/app/church/enums';
-
+import { ChurchWorshipTime } from '@/app/church/enums';
 import { Country, Department, District, Province, RecordStatus, UrbanSector } from '@/shared/enums';
 
 export const churchFormSchema = z
@@ -13,7 +12,7 @@ export const churchFormSchema = z
 
     isAnexe: z.boolean().optional(),
     
-    worshipTimes: z.array(z.nativeEnum(ChurchWorshipTimes),{
+    worshipTimes: z.array(z.nativeEnum(ChurchWorshipTime),{
       required_error: "Tienes que seleccionar al menos un horario.",
     }).refine((value) => value.some((item) => item), {
       message: "Tienes que seleccionar al menos un horario.",

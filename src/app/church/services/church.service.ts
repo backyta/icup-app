@@ -5,7 +5,6 @@ import { isAxiosError } from 'axios';
 import { icupApi } from '@/api/icupApi';
 
 import { ChurchSearchType } from '@/app/church/enums';
-
 import { type ChurchFormData, type ChurchResponse, type ChurchQueryParams } from '@/app/church/interfaces';
 
 //* Create church

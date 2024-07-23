@@ -1,2 +1,2 @@
 export * from './supervisor-form-schema';
-export * from './supervisor-form-term-search-schema';
+export * from './supervisor-search-by-term-form-schema';

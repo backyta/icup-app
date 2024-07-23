@@ -16,9 +16,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { CalendarIcon } from 'lucide-react';
 
-import { cn } from '@/shared/lib/utils';
+import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import {
@@ -34,13 +33,10 @@ import { getAllFamilyGroups, updateDisciple } from '@/app/disciple/services';
 
 import { getAllSupervisors } from '@/app/preacher/services';
 
-import { useValidatePath } from '@/hooks';
+import { cn } from '@/shared/lib/utils';
+import { useRoleValidationByPath } from '@/hooks';
 import { type ErrorResponse } from '@/shared/interfaces';
 
-import {
-  validateDistrictsAllowedByModule,
-  validateUrbanSectorsAllowedByDistrict,
-} from '@/shared/helpers';
 import {
   CountryNames,
   DepartmentNames,
@@ -52,6 +48,10 @@ import {
   ProvinceNames,
   UrbanSectorNames,
 } from '@/shared/enums';
+import {
+  validateDistrictsAllowedByModule,
+  validateUrbanSectorsAllowedByDistrict,
+} from '@/shared/helpers';
 
 import {
   Form,
@@ -110,7 +110,6 @@ export const DiscipleFormUpdate = ({
   onScroll,
 }: DiscipleFormUpdateProps): JSX.Element => {
   //* States
-
   const [isRelationSelectDisabled, setIsRelationSelectDisabled] = useState<boolean>(false);
   const [isInputTheirSupervisorOpen, setIsInputTheirSupervisorOpen] = useState<boolean>(false);
   const [isInputTheirFamilyGroupOpen, setIsInputTheirFamilyGroupOpen] = useState<boolean>(false);
@@ -191,9 +190,8 @@ export const DiscipleFormUpdate = ({
   }, []);
 
   //* Custom Hooks
-  const { disabledRoles } = useValidatePath({
+  const { disabledRoles } = useRoleValidationByPath({
     path: pathname,
-    isInputDisabled,
     memberRoles: MemberRole,
   });
 
@@ -218,6 +216,21 @@ export const DiscipleFormUpdate = ({
       keepError: true,
     });
   }, [district]);
+
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (id) {
+      const url = new URL(window.location.href);
+      url.pathname = `/disciples/update-disciple/${id}/edit`;
+
+      window.history.replaceState({}, '', url);
+    }
+
+    return () => {
+      window.history.replaceState({}, '', originalUrl);
+    };
+  }, [id]);
 
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);

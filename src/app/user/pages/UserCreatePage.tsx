@@ -140,7 +140,6 @@ export const UserCreatePage = (): JSX.Element => {
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof userFormSchema>): void => {
-    console.log();
     mutation.mutate({
       firstName: formData.firstName,
       lastName: formData.lastName,
@@ -152,7 +151,7 @@ export const UserCreatePage = (): JSX.Element => {
   };
 
   return (
-    <>
+    <div className='animate-fadeInPage'>
       <h1 className='text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-user-color text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]'>
         Modulo Usuario
       </h1>
@@ -446,6 +445,6 @@ export const UserCreatePage = (): JSX.Element => {
           </form>
         </Form>
       </div>
-    </>
+    </div>
   );
 };

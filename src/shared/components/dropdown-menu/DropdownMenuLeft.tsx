@@ -66,7 +66,7 @@ export function DropdownMenuLeft(): JSX.Element {
               <span>
                 <img
                   className='rounded-full w-[3rem] h-[3rem] md:w-[4.5rem] md:h-[4.5rem] text-white'
-                  src='/src/assets/logo.png'
+                  src='/src/assets/logo.webp'
                   alt='logo-iglesia'
                 />
               </span>

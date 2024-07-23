@@ -8,7 +8,6 @@ import { RiDeleteBin2Fill } from 'react-icons/ri';
 import { FcClearFilters, FcSearch, FcSupport } from 'react-icons/fc';
 
 import { useAuthStore } from '@/stores';
-
 import { WhiteCard } from '@/shared/components';
 
 export const ChurchOptionsPage = (): JSX.Element => {

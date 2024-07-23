@@ -5,9 +5,9 @@ import { isAxiosError } from 'axios';
 import { icupApi } from '@/api/icupApi';
 
 import { type CopastorResponse } from '@/app/copastor/interfaces';
-import { type SupervisorResponse, type SupervisorFormData, type SupervisorQueryParams } from '@/app/supervisor/interfaces';
 
 import { SupervisorSearchType } from '@/app/supervisor/enums';
+import { type SupervisorResponse, type SupervisorFormData, type SupervisorQueryParams } from '@/app/supervisor/interfaces';
 
 //* Create Supervisor
 export const createSupervisor = async (formData:SupervisorFormData ): Promise<SupervisorResponse> => {

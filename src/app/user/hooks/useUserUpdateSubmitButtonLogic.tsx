@@ -2,60 +2,52 @@
 
 import { useEffect } from 'react';
 
-import { type z } from 'zod';
 import { type UseFormReturn } from 'react-hook-form';
-
-import { type userFormSchema } from '@/app/user/validations';
 import { type UserFormData } from '@/app/user/interfaces';
 
 interface Options {
-  formUser: UseFormReturn<UserFormData, any, UserFormData>;
-  setIsSubmitButtonDisabled: (value: boolean) => void;
-  setIsMessageErrorDisabled: (value: boolean) => void;
-  setIsMessageErrorPasswordDisabled: (value: boolean) => void;
-  setIsMessageErrorRolesDisabled: (value: boolean) => void;
-  handleSubmit: (values: z.infer<typeof userFormSchema>) => void;
+  formUpdateUser: UseFormReturn<UserFormData, any, UserFormData>;
+  setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  isInputDisabled: boolean;
 }
 
-export const useUserSubmitButtonLogic = ({
-  formUser,
+export const useUserUpdateSubmitButtonLogic = ({
+  formUpdateUser,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
-  setIsMessageErrorPasswordDisabled,
-  setIsMessageErrorRolesDisabled,
-  handleSubmit,
+  isInputDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = formUser.watch('firstName');
-  const lastName = formUser.watch('lastName');
-  const email = formUser.watch('email');
-  const password = formUser.watch('password');
-  const passwordConfirm = formUser.watch('passwordConfirm');
-  const roles = formUser.watch('roles');
-  const recordStatus = formUser.watch('recordStatus');
+  const firstName = formUpdateUser.watch('firstName');
+  const lastName = formUpdateUser.watch('lastName');
+  const email = formUpdateUser.watch('email');
+  const gender = formUpdateUser.watch('gender');
+  const roles = formUpdateUser.watch('roles');
+  const recordStatus = formUpdateUser.watch('recordStatus');
 
   //* Effects
   useEffect(() => {
-    if (firstName && lastName && email && password && passwordConfirm && roles) {
-      setIsSubmitButtonDisabled(false);
-      setIsMessageErrorDisabled(false);
-      setIsMessageErrorPasswordDisabled(false);
-      setIsMessageErrorRolesDisabled(false);
-    }
-
-    if (!firstName || !lastName || !email || !password || !passwordConfirm || !roles) {
+    if (
+      formUpdateUser.formState.errors &&
+      Object.values(formUpdateUser.formState.errors).length > 0
+    ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
 
-    if (password !== passwordConfirm) {
+    if (firstName && lastName && email && roles && gender && !isInputDisabled) {
+      setIsSubmitButtonDisabled(false);
+      setIsMessageErrorDisabled(false);
+    }
+
+    if (!firstName || !lastName || !email || !roles || !gender) {
       setIsSubmitButtonDisabled(true);
-      setIsMessageErrorPasswordDisabled(true);
+      setIsMessageErrorDisabled(true);
     }
 
     if (roles?.length === 0) {
       setIsSubmitButtonDisabled(true);
-      setIsMessageErrorRolesDisabled(true);
     }
-  }, [firstName, lastName, email, password, passwordConfirm, roles, handleSubmit, recordStatus]);
+  }, [formUpdateUser.formState, firstName, lastName, email, roles, gender, recordStatus]);
 };

@@ -16,18 +16,18 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+
 import { CalendarIcon } from 'lucide-react';
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { cn } from '@/shared/lib/utils';
-import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+import { useRoleValidationByPath } from '@/hooks';
 
 import { pastorFormSchema } from '@/app/pastor/validations';
 import { FormPastorSkeleton } from '@/app/pastor/components';
 import { type PastorResponse } from '@/app/pastor/interfaces';
 import { getAllChurches, updatePastor } from '@/app/pastor/services';
 import { usePastorUpdateSubmitButtonLogic } from '@/app/pastor/hooks';
-
-import { useValidatePath } from '@/hooks';
 
 import {
   validateDistrictsAllowedByModule,
@@ -46,13 +46,6 @@ import {
 } from '@/shared/enums';
 import { type ErrorResponse } from '@/shared/interfaces';
 
-import { Input } from '@/shared/components/ui/input';
-import { Button } from '@/shared/components/ui/button';
-import { Checkbox } from '@/shared/components/ui/checkbox';
-import { Calendar } from '@/shared/components/ui/calendar';
-import { Textarea } from '@/shared/components/ui/textarea';
-import { Card, CardContent } from '@/shared/components/ui/card';
-import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 import {
   Form,
   FormControl,
@@ -76,6 +69,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/components/ui/select';
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Checkbox } from '@/shared/components/ui/checkbox';
+import { Calendar } from '@/shared/components/ui/calendar';
+import { Textarea } from '@/shared/components/ui/textarea';
+import { Card, CardContent } from '@/shared/components/ui/card';
+import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
 interface PastorFormUpdateProps {
@@ -137,6 +137,7 @@ export const PastorFormUpdate = ({
   //* Watchers
   const district = form.watch('district');
 
+  //* Set data
   useEffect(() => {
     form.setValue('firstName', data?.firstName ?? '');
     form.setValue('lastName', data?.lastName ?? '');
@@ -165,9 +166,8 @@ export const PastorFormUpdate = ({
   }, []);
 
   //* Custom Hooks
-  const { disabledRoles } = useValidatePath({
+  const { disabledRoles } = useRoleValidationByPath({
     path: pathname,
-    isInputDisabled,
     memberRoles: MemberRole,
   });
 
@@ -185,6 +185,21 @@ export const PastorFormUpdate = ({
       keepError: true,
     });
   }, [district]);
+
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (id) {
+      const url = new URL(window.location.href);
+      url.pathname = `/pastors/update-pastor/${id}/edit`;
+
+      window.history.replaceState({}, '', url);
+    }
+
+    return () => {
+      window.history.replaceState({}, '', originalUrl);
+    };
+  }, [id]);
 
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
@@ -221,9 +236,7 @@ export const PastorFormUpdate = ({
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['pastors-by-term'] });
-
-      toast.success('Cambios guardados correctamente', {
+      toast.success('Cambios guardados correctamente.', {
         position: 'top-center',
         className: 'justify-center',
       });
@@ -231,6 +244,10 @@ export const PastorFormUpdate = ({
       setTimeout(() => {
         onScroll();
       }, 150);
+
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['pastors-by-term'] });
+      }, 500);
 
       setTimeout(() => {
         onSubmit();
@@ -267,7 +284,7 @@ export const PastorFormUpdate = ({
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
               <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-4'>
-                Pastor: {data?.firstName} - {data?.lastName}
+                Pastor: {data?.firstName} {data?.lastName}
               </div>
               <Form {...form}>
                 <form

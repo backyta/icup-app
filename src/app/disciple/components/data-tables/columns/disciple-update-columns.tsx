@@ -4,10 +4,10 @@ import { format } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
+import { Button } from '@/shared/components/ui/button';
+
 import { type DiscipleColumns } from '@/app/disciple/interfaces';
 import { DiscipleInfoCard, DiscipleUpdateCard } from '@/app/disciple/components';
-
-import { Button } from '@/shared/components/ui/button';
 
 export const discipleUpdateColumns: Array<ColumnDef<DiscipleColumns, any>> = [
   {

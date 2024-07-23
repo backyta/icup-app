@@ -5,9 +5,10 @@ import { isAxiosError } from 'axios';
 import { icupApi } from '@/api/icupApi';
 
 import { type PastorResponse } from '@/app/pastor/interfaces';
-import { type CopastorResponse, type CopastorFormData, type CopastorQueryParams } from '@/app/copastor/interfaces';
 
 import { CopastorSearchType } from '@/app/copastor/enums';
+import { type CopastorResponse, type CopastorFormData, type CopastorQueryParams } from '@/app/copastor/interfaces';
+
 
 //* Create co-pastor
 export const createCopastor = async (formData:CopastorFormData ): Promise<CopastorResponse> => {
@@ -79,7 +80,7 @@ export const getCopastors = async ({limit, offset, all, order}: CopastorQueryPar
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
-
+// TODO : revisar los servicio si funcionan con el !all (valores falsy)
 // ? Get co-pastors by term (paginated)
 export const getCopastorsByTerm = async ({ 
   searchType, 

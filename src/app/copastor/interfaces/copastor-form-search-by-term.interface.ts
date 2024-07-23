@@ -1,6 +1,6 @@
 import { type CopastorSearchSubType, type CopastorSearchType } from '@/app/copastor/enums';
 
-export interface CopastorFormSearchByTerm {
+export interface CopastorSearchFormByTerm {
   searchType: CopastorSearchType;
   searchSubType?: CopastorSearchSubType | undefined;
   order: string;
@@ -13,5 +13,5 @@ export interface CopastorFormSearchByTerm {
   namesTerm?: string | undefined;
   lastNamesTerm?: string | undefined;
   limit?: string | undefined;
-  limitAll?: boolean | undefined;
+  all?: boolean | undefined;
 }

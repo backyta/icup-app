@@ -2,14 +2,15 @@
 /* eslint-disable no-constant-condition */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
+import { useEffect } from 'react';
+
 import { Navigate, Outlet } from 'react-router-dom';
 
 import { useAuthStore } from '@/stores';
 
-import { ToggleLayout } from '@/shared/components/toggle-theme';
 import { SideMenu } from '@/shared/components/side-menu';
+import { ToggleLayout } from '@/shared/components/toggle-theme';
 import { LoadingSpinner } from '@/layouts/components/LoadingSpinner';
-import { useEffect } from 'react';
 
 export const DashboardLayout = (): JSX.Element => {
   const authStatus = useAuthStore((state) => state.status);

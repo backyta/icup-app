@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
+import { useEffect } from 'react';
+
 import { format } from 'date-fns';
 
 import { type PastorResponse } from '@/app/pastor/interfaces';
@@ -15,13 +17,41 @@ import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 
 import { getFullName } from '@/shared/helpers';
-import { PopoverDataTabs } from '@/shared/components';
+import { PopoverDataCardTabs } from '@/shared/components';
 
 interface PastorTabsCardProps {
+  id: string;
   data: PastorResponse | undefined;
 }
 
-export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
+export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element => {
+  //* Effects
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (id) {
+      const url = new URL(window.location.href);
+
+      if (url.pathname === '/pastors/search-pastors')
+        url.pathname = `/pastors/search-pastors/${id}/info`;
+
+      if (url.pathname === '/pastors/search-pastors-by-term')
+        url.pathname = `/pastors/search-pastors-by-term/${id}/info`;
+
+      if (url.pathname === '/pastors/update-pastor')
+        url.pathname = `/pastors/update-pastor/${id}/info`;
+
+      if (url.pathname === '/pastors/delete-pastor')
+        url.pathname = `/pastors/delete-pastor/${id}/info`;
+
+      window.history.replaceState({}, '', url);
+    }
+
+    return () => {
+      window.history.replaceState({}, '', originalUrl);
+    };
+  }, [id]);
+
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full grid-cols-3 px-auto'>
@@ -119,7 +149,7 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.copastors?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.copastors}
                 title={'Co-Pastores'}
                 nameModule={'Pastor'}
@@ -133,7 +163,7 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.supervisors?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.supervisors}
                 title={'Supervisores'}
                 nameModule={'Pastor'}
@@ -147,7 +177,7 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.zones?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.zones}
                 title={'Zonas'}
                 nameModule={'Pastor'}
@@ -161,7 +191,7 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.preachers?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.preachers}
                 title={'Predicadores'}
                 nameModule={'Pastor'}
@@ -175,7 +205,7 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.familyGroups?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.familyGroups}
                 title={'Grupos'}
                 nameModule={'Pastor'}
@@ -189,7 +219,7 @@ export const PastorTabsCard = ({ data }: PastorTabsCardProps): JSX.Element => {
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.disciples?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.disciples}
                 title={'Discípulos'}
                 nameModule={'Pastor'}

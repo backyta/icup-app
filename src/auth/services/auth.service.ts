@@ -22,14 +22,15 @@ export class AuthService {
   static login = async(email: string, password: string): Promise<LoginResponse> => {
     try {
       const { data } = await icupApi.post<LoginResponse>('/auth/login',{ email, password })
- 
+
       return data;
       
     } catch (error) {
       if (error instanceof AxiosError) {
-        throw new Error(error.response?.data)
+        throw error;
       }
-      throw new Error('Unable to login')
+
+      throw new Error('No se puede iniciar sesión, hable con el administrador.')
     }
   }
 

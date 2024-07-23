@@ -17,26 +17,28 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { CalendarIcon } from 'lucide-react';
 
-import { cn } from '@/shared/lib/utils';
+import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { getAllCopastors } from '@/app/supervisor/services';
+import { cn } from '@/shared/lib/utils';
+
 import { getAllPastors } from '@/app/copastor/services';
 
+import { getAllCopastors } from '@/app/supervisor/services';
+
+import {
+  useRoleUpdatePreacherHandler,
+  usePreacherPromoteButtonLogic,
+  usePreacherUpdateSubmitButtonLogic,
+} from '@/app/preacher/hooks';
 import { PreacherFieldNames } from '@/app/preacher/enums';
 import { preacherFormSchema } from '@/app/preacher/validations';
 import { FormPreacherSkeleton } from '@/app/preacher/components';
 import { type PreacherResponse } from '@/app/preacher/interfaces';
-import {
-  usePreacherPromoteButtonLogic,
-  usePreacherUpdateSubmitButtonLogic,
-  useRoleUpdatePreacherHandler,
-} from '@/app/preacher/hooks';
 import { getAllSupervisors, updatePreacher } from '@/app/preacher/services';
 
-import { useValidatePath } from '@/hooks';
+import { useRoleValidationByPath } from '@/hooks';
 import { type ErrorResponse } from '@/shared/interfaces';
 
 import {
@@ -55,13 +57,6 @@ import {
   UrbanSectorNames,
 } from '@/shared/enums';
 
-import { Input } from '@/shared/components/ui/input';
-import { Button } from '@/shared/components/ui/button';
-import { Checkbox } from '@/shared/components/ui/checkbox';
-import { Calendar } from '@/shared/components/ui/calendar';
-import { Textarea } from '@/shared/components/ui/textarea';
-import { Card, CardContent } from '@/shared/components/ui/card';
-import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 import {
   Form,
   FormControl,
@@ -85,7 +80,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/components/ui/select';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -97,6 +91,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/shared/components/ui/alert-dialog';
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Checkbox } from '@/shared/components/ui/checkbox';
+import { Calendar } from '@/shared/components/ui/calendar';
+import { Textarea } from '@/shared/components/ui/textarea';
+import { Card, CardContent } from '@/shared/components/ui/card';
+import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
 interface PreacherFormUpdateProps {
   id: string;
@@ -197,9 +199,8 @@ export const PreacherFormUpdate = ({
   }, []);
 
   //* Custom Hooks
-  const { disabledRoles } = useValidatePath({
+  const { disabledRoles } = useRoleValidationByPath({
     path: pathname,
-    isInputDisabled,
     memberRoles: MemberRole,
   });
 
@@ -238,6 +239,21 @@ export const PreacherFormUpdate = ({
       });
     }
   }, [isDirectRelationToPastor]);
+
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (id) {
+      const url = new URL(window.location.href);
+      url.pathname = `/preachers/update-preacher/${id}/edit`;
+
+      window.history.replaceState({}, '', url);
+    }
+
+    return () => {
+      window.history.replaceState({}, '', originalUrl);
+    };
+  }, [id]);
 
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);

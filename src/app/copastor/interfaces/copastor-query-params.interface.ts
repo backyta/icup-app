@@ -10,6 +10,6 @@ export interface CopastorQueryParams {
   offset?: string;
   order: string;
 
-  //* Validator for get all register (replicar)
+  //* Validator for get all register
   all?: boolean;
 }

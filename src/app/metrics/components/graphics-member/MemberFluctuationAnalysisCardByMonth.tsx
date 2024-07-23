@@ -7,7 +7,7 @@ import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMediaQuery } from '@react-hook/media-query';
-import { barChartFormSchema } from '@/app/dashboard/validations';
+// import { barChartFormSchema } from '@/app/dashboard/validations';
 
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';

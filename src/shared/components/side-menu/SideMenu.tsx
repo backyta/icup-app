@@ -33,7 +33,7 @@ export const SideMenu = (): JSX.Element => {
             <span>
               <img
                 className='rounded-full w-[3rem] h-[3rem] md:w-[4.5rem] md:h-[4.5rem]'
-                src='/src/assets/logo.png'
+                src='/src/assets/logo.webp'
                 alt='logo-iglesia'
               />
             </span>
@@ -44,7 +44,7 @@ export const SideMenu = (): JSX.Element => {
       </div>
 
       {/* Menu Icon Items */}
-      <nav id='menu' className='w-full px-8 py-6 md:flex md:flex-col gap-y-[3rem] hidden'>
+      <nav id='menu' className='w-full px-8 py-6 md:flex md:flex-col gap-y-[3rem] hidden '>
         <div className='flex flex-col gap-y-1 justify-center items-left'>
           {menuItems.map((item) => (
             <MenuBarTooltip key={item.href} item={item}>

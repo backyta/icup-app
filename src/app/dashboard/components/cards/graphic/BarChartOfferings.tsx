@@ -1,161 +1,170 @@
-/* eslint-disable no-constant-condition */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-misused-promises */
 
-import { useState } from 'react';
-
-import { type z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMediaQuery } from '@react-hook/media-query';
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Legend,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
-
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 
 import { cn } from '@/shared/lib/utils';
-import { CalendarIcon } from '@radix-ui/react-icons';
 
-import { barChartFormSchema } from '@/app/dashboard/validations';
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '@/shared/components/ui/chart';
 
-import { Card } from '@/shared/components/ui/card';
-import { Button } from '@/shared/components/ui/button';
-import { Calendar } from '@/shared/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
-import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/components/ui/form';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/shared/components/ui/card';
 
-const data = [
-  { date: '02/03', Dia: 75.5, Tarde: 85.5 },
-  { date: '09/03', Dia: 90.2, Tarde: 55.7 },
-  { date: '16/03', Dia: 45.2, Tarde: 100.2 },
-  { date: '23/03', Dia: 62.8, Tarde: 45.2 },
-  { date: '30/03', Dia: 85.2, Tarde: 39.7 },
-  { date: '06/04', Dia: 43.3, Tarde: 54.4 },
-  { date: '13/04', Dia: 43.3, Tarde: 23.4 },
+const chartData = [
+  { date: '02/03', dia: 75.5, tarde: 85.5 },
+  { date: '09/03', dia: 90.2, tarde: 55.7 },
+  { date: '16/03', dia: 45.2, tarde: 100.2 },
+  { date: '23/03', dia: 62.8, tarde: 45.2 },
+  { date: '30/03', dia: 85.2, tarde: 39.7 },
+  { date: '06/04', dia: 43.3, tarde: 54.4 },
+  { date: '13/04', dia: 43.3, tarde: 23.4 },
 ];
 
+const chartConfig = {
+  dia: {
+    label: 'Dia',
+    color: '#F09330',
+  },
+  tarde: {
+    label: 'Tarde',
+    color: '#0284C7',
+  },
+} satisfies ChartConfig;
+
 export const BarChartOfferings = (): JSX.Element => {
-  //* States
-  const [open, setOpen] = useState(false);
-  const isDesktop = useMediaQuery('(min-width: 768px)');
-
   //* Form
-  const form = useForm<z.infer<typeof barChartFormSchema>>({
-    resolver: zodResolver(barChartFormSchema),
-    mode: 'onChange',
-    defaultValues: {},
-  });
-
-  //* Form handler
-  function onSubmit(values: z.infer<typeof barChartFormSchema>): void {
-    console.log({ values });
-  }
 
   return (
-    <Card className='flex flex-col row-start-1 row-end-2 col-start-1 col-end-3 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-3 lg:row-start-1 lg:row-end-2 xl:col-start-1 xl:col-end-4 xl:row-start-1 xl:row-end-2 h-[18rem] lg:h-[20rem] xl:h-[25rem] 2xl:h-[26rem] m-0 border-slate-400'>
-      <div className='flex flex-col sm:flex-row items-center justify-between p-3 md:p-3 lg:p-3 xl:p-2 2xl:p-4'>
-        <h3 className='font-bold mb-2 sm:mb-0 text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.50em] 2xl:text-3xl inline-block'>
+    <Card className='flex flex-col row-start-1 row-end-2 col-start-1 col-end-3 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-3 lg:row-start-1 lg:row-end-2 xl:col-start-1 xl:col-end-4 xl:row-start-1 xl:row-end-2 h-[20rem] lg:h-[22rem] xl:h-[25rem] 2xl:h-[26rem] m-0 border-slate-400'>
+      <CardHeader className='flex flex-col items-center justify-between p-2'>
+        <CardTitle className='font-bold text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.50em] 2xl:text-[1.75rem] inline-block'>
           Ofrendas - Dominicales
-        </h3>
-        <Form {...form}>
-          <form>
-            <FormField
-              control={form.control}
-              name='dateTerm'
-              render={({ field }) => (
-                <FormItem>
-                  <Popover open={open} onOpenChange={setOpen}>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant={'outline'}
-                          className={cn(
-                            'w-[224px] text-left font-normal justify-center p-4 text-[12px] md:text-[13px]',
-                            !field.value && 'text-muted-foreground'
-                          )}
-                        >
-                          <CalendarIcon className='mr-[0.1rem] h-4 w-4' />
-                          {field?.value?.from ? (
-                            field?.value.to ? (
-                              <>
-                                {format(field?.value.from, 'LLL dd, y', {
-                                  locale: es,
-                                })}{' '}
-                                -{' '}
-                                {format(field?.value.to, 'LLL dd, y', {
-                                  locale: es,
-                                })}
-                              </>
-                            ) : (
-                              format(field?.value.from, 'LLL dd, y')
-                            )
-                          ) : (
-                            <span className='text-[14px] md:text-[15px]'>Elige las fechas</span>
-                          )}
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className='w-auto p-0' align='start'>
-                      <Calendar
-                        initialFocus
-                        mode='range'
-                        selected={field.value}
-                        onSelect={(date) => {
-                          field.onChange(date);
-                          if (date?.from && date?.to) {
-                            form.handleSubmit(onSubmit)();
-                            setOpen(false);
-                          }
-                        }}
-                        numberOfMonths={2}
-                      />
-                    </PopoverContent>
-                  </Popover>
-                  <FormMessage className='text-center' />
-                </FormItem>
-              )}
-            />
-          </form>
-        </Form>
-      </div>
-      <ResponsiveContainer
-        width='100%'
-        height={
-          form.formState.errors.dateTerm?.message && isDesktop
-            ? '75%'
-            : form.formState.errors.dateTerm?.message && !isDesktop
-              ? '60%'
-              : '100%'
-        }
-        aspect={0}
-      >
-        <BarChart
-          data={data}
-          width={500}
-          height={300}
-          margin={{ top: 5, right: 20, left: -20, bottom: 10 }}
+        </CardTitle>
+        <CardDescription className='text-[14.5px]'>Ultimas ofrendas dominicales</CardDescription>
+      </CardHeader>
+
+      <CardContent className='h-full py-0'>
+        <ChartContainer
+          config={chartConfig}
+          className={cn('w-full h-[245px] lg:h-[275px] xl:h-[325px] 2xl:h-[335px]')}
         >
-          <CartesianGrid strokeDasharray='3 3'></CartesianGrid>
-          <XAxis dataKey='date' />
-          <YAxis />
-          <Tooltip />
+          <BarChart
+            accessibilityLayer
+            data={chartData}
+            margin={{ top: 5, right: 5, left: -32, bottom: 10 }}
+          >
+            <CartesianGrid vertical={true} />
+            <XAxis
+              dataKey='date'
+              tickLine={false}
+              tickMargin={10}
+              axisLine={true}
+              tickFormatter={(value) => value.slice(0, 6)}
+              className='text-[12px] sm:text-[14px]'
+            />
 
-          {!form.formState.errors.dateTerm?.message && <Legend wrapperStyle={{ left: 0 }} />}
+            <YAxis className='text-[12px] sm:text-[14px]' />
+            <ChartTooltip
+              cursor={false}
+              content={
+                <ChartTooltipContent className='text-[12px] sm:text-[14px]' indicator='dot' />
+              }
+            />
 
-          <Bar dataKey='Dia' fill='#F09330' />
-          <Bar dataKey='Tarde' fill='#0284C7' />
-        </BarChart>
-      </ResponsiveContainer>
+            <ChartLegend content={<ChartLegendContent className='text-[12px] sm:text-[14px]' />} />
+
+            <Bar dataKey='dia' fill='var(--color-dia)' radius={4} />
+            <Bar dataKey='tarde' fill='var(--color-tarde)' radius={4} />
+          </BarChart>
+        </ChartContainer>
+      </CardContent>
     </Card>
   );
 };
+
+// className={cn(
+//   !form.formState.errors.dateTerm?.message &&
+//     'w-full h-[210px] sm:h-[245px] lg:h-[275px] xl:h-[330px]',
+//   form.formState.errors.dateTerm?.message && 'md:h-[260px] h-[300px] w-full'
+// )}
+//   const [open, setOpen] = useState(false);
+// function onSubmit(values: z.infer<typeof barChartFormSchema>): void {
+//   console.log({ values });
+// }
+// const form = useForm<z.infer<typeof barChartFormSchema>>({
+//   resolver: zodResolver(barChartFormSchema),
+//   mode: 'onChange',
+//   defaultValues: {},
+// });
+/* <Form {...form}>
+    <form>
+      <FormField
+        control={form.control}
+        name='dateTerm'
+        render={({ field }) => (
+          <FormItem>
+            <Popover open={open} onOpenChange={setOpen}>
+              <PopoverTrigger asChild>
+                <FormControl>
+                  <Button
+                    variant={'outline'}
+                    className={cn(
+                      'w-[224px] text-left font-normal justify-center p-4 text-[12px] md:text-[13px]',
+                      !field.value && 'text-muted-foreground'
+                    )}
+                  >
+                    <CalendarIcon className='mr-[0.1rem] h-4 w-4' />
+                    {field?.value?.from ? (
+                      field?.value.to ? (
+                        <>
+                          {format(field?.value.from, 'LLL dd, y', {
+                            locale: es,
+                          })}{' '}
+                          -{' '}
+                          {format(field?.value.to, 'LLL dd, y', {
+                            locale: es,
+                          })}
+                        </>
+                      ) : (
+                        format(field?.value.from, 'LLL dd, y')
+                      )
+                    ) : (
+                      <span className='text-[14px] md:text-[15px]'>Elige las fechas</span>
+                    )}
+                  </Button>
+                </FormControl>
+              </PopoverTrigger>
+              <PopoverContent className='w-auto p-0' align='start'>
+                <Calendar
+                  initialFocus
+                  mode='range'
+                  selected={field.value}
+                  onSelect={(date) => {
+                    field.onChange(date);
+                    if (date?.from && date?.to) {
+                      form.handleSubmit(onSubmit)();
+                      setOpen(false);
+                    }
+                  }}
+                  numberOfMonths={2}
+                />
+              </PopoverContent>
+            </Popover>
+            <FormMessage className='text-center' />
+          </FormItem>
+        )}
+      />
+    </form>
+  </Form> */

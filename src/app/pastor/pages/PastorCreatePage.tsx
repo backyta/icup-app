@@ -6,13 +6,14 @@ import { useEffect, useState } from 'react';
 import type * as z from 'zod';
 import { Toaster, toast } from 'sonner';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+
+import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { cn } from '@/shared/lib/utils';
 
@@ -20,7 +21,7 @@ import { pastorFormSchema } from '@/app/pastor/validations';
 import { createPastor, getAllChurches } from '@/app/pastor/services';
 import { usePastorCreateSubmitButtonLogic } from '@/app/pastor/hooks';
 
-import { useValidatePath } from '@/hooks';
+import { useRoleValidationByPath } from '@/hooks';
 import { LoadingSpinner } from '@/layouts/components';
 
 import {
@@ -43,12 +44,6 @@ import {
 } from '@/shared/helpers';
 import { type ErrorResponse } from '@/shared/interfaces';
 
-import { Input } from '@/shared/components/ui/input';
-import { Button } from '@/shared/components/ui/button';
-import { Calendar } from '@/shared/components/ui/calendar';
-import { Checkbox } from '@/shared/components/ui/checkbox';
-import { Textarea } from '@/shared/components/ui/textarea';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Command,
   CommandEmpty,
@@ -63,7 +58,6 @@ import {
   SelectItem,
   Select,
 } from '@/shared/components/ui/select';
-
 import {
   Form,
   FormControl,
@@ -73,6 +67,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form';
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Calendar } from '@/shared/components/ui/calendar';
+import { Checkbox } from '@/shared/components/ui/checkbox';
+import { Textarea } from '@/shared/components/ui/textarea';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
 export const PastorCreatePage = (): JSX.Element => {
   //* States
@@ -118,7 +118,7 @@ export const PastorCreatePage = (): JSX.Element => {
   const district = form.watch('district');
 
   //* Custom hooks
-  const { disabledRoles } = useValidatePath({
+  const { disabledRoles } = useRoleValidationByPath({
     path: pathname,
     memberRoles: MemberRole,
   });

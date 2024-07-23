@@ -16,7 +16,7 @@ export const PreacherChildrenRoutes = [
     element: <PreachersGeneralSearchPage />,
   },
   {
-    path: '/preachers/search-by-term-preachers',
+    path: '/preachers/search-preachers-by-term',
     element: <PreachersSearchPageByTerm />,
   },
   {

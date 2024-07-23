@@ -42,9 +42,9 @@ export interface CopastorResponse {
   preachers?:       Preacher[];
   familyGroups?:    FamilyGroup[];
   disciples?:       Disciple[];
-  recordStatus:           string;
+  recordStatus:     string;
   theirPastor?:     TheirPastor | null;
-  theirChurch?:      TheirChurch | null;
+  theirChurch?:     TheirChurch | null;
 }
 
 

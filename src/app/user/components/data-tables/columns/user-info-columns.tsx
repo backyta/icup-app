@@ -7,7 +7,6 @@ import { type UserRole, UserRoleNames } from '@/app/user/enums';
 
 import { Button } from '@/shared/components/ui/button';
 
-// TODO : reducir las columnas a las que se muestran y las posibles, pero no todos.
 export const userInfoColumns: Array<ColumnDef<UserColumns, any>> = [
   {
     accessorKey: 'id',

@@ -1,6 +1,6 @@
 import { type DiscipleSearchSubType, type DiscipleSearchType } from '@/app/disciple/enums';
 
-export interface DiscipleFormSearchByTerm {
+export interface DiscipleSearchFormByTerm {
   searchType: DiscipleSearchType;
   searchSubType?: DiscipleSearchSubType | undefined;
   order: string;
@@ -13,5 +13,5 @@ export interface DiscipleFormSearchByTerm {
   namesTerm?: string | undefined;
   lastNamesTerm?: string | undefined;
   limit?: string | undefined;
-  limitAll?: boolean | undefined;
+  all?: boolean | undefined;
 }

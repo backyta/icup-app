@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
+import { useEffect } from 'react';
+
 import { format } from 'date-fns';
 
 import { type CopastorResponse } from '@/app/copastor/interfaces';
 
 import { getFullName } from '@/shared/helpers';
-import { PopoverDataTabs } from '@/shared/components';
+import { PopoverDataCardTabs } from '@/shared/components';
 
 import {
   Card,
@@ -18,10 +20,38 @@ import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 
 interface CopastorTabsCardProps {
+  id: string;
   data: CopastorResponse | undefined;
 }
 
-export const CopastorTabsCard = ({ data }: CopastorTabsCardProps): JSX.Element => {
+export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Element => {
+  //* Effects
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (id) {
+      const url = new URL(window.location.href);
+
+      if (url.pathname === '/copastors/search-copastors')
+        url.pathname = `/copastors/search-copastors/${id}/info`;
+
+      if (url.pathname === '/copastors/search-copastors-by-term')
+        url.pathname = `/copastors/search-copastors-by-term/${id}/info`;
+
+      if (url.pathname === '/copastors/update-copastor')
+        url.pathname = `/copastors/update-copastor/${id}/info`;
+
+      if (url.pathname === '/copastors/delete-copastor')
+        url.pathname = `/copastors/delete-copastor/${id}/info`;
+
+      window.history.replaceState({}, '', url);
+    }
+
+    return () => {
+      window.history.replaceState({}, '', originalUrl);
+    };
+  }, [id]);
+
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full grid-cols-3 px-auto'>
@@ -120,7 +150,7 @@ export const CopastorTabsCard = ({ data }: CopastorTabsCardProps): JSX.Element =
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.supervisors?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.supervisors}
                 title={'Supervisores'}
                 nameModule={'Copastor'}
@@ -134,7 +164,7 @@ export const CopastorTabsCard = ({ data }: CopastorTabsCardProps): JSX.Element =
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.zones?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.zones}
                 title={'Zonas'}
                 nameModule={'Copastor'}
@@ -148,7 +178,7 @@ export const CopastorTabsCard = ({ data }: CopastorTabsCardProps): JSX.Element =
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.preachers?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.preachers}
                 title={'Predicadores'}
                 nameModule={'Copastor'}
@@ -162,7 +192,7 @@ export const CopastorTabsCard = ({ data }: CopastorTabsCardProps): JSX.Element =
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.familyGroups?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.familyGroups}
                 title={'Grupos'}
                 nameModule={'Copastor'}
@@ -176,7 +206,7 @@ export const CopastorTabsCard = ({ data }: CopastorTabsCardProps): JSX.Element =
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.disciples?.length}
               </CardDescription>
-              <PopoverDataTabs
+              <PopoverDataCardTabs
                 data={data?.disciples}
                 title={'Discípulos'}
                 nameModule={'Copastor'}

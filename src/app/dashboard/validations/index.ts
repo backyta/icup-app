@@ -1,1 +1,1 @@
-export * from './bar-chart-form-schema';
+export * from './dashboard-chart-form-schema';

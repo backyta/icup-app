@@ -8,6 +8,6 @@ export const DistrictsMemberModuleAllowed = [
  DistrictNames['Puente Piedra'],
 ];
 
-export const DistrictsFamilyHouseModuleAllowed = [
+export const DistrictsFamilyGroupModuleAllowed = [
   DistrictNames.Independencia,
 ];

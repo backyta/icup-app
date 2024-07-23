@@ -1,6 +1,6 @@
 import { DistrictNames } from '@/shared/enums';
 import { 
-  DistrictsFamilyHouseModuleAllowed,
+  DistrictsFamilyGroupModuleAllowed,
   DistrictsMemberModuleAllowed,
 } from '@/shared/helpers';
 
@@ -20,18 +20,16 @@ export const validateDistrictsAllowedByModule = ( path: string): DisabledDistric
        path === '/supervisors/create-supervisor' ||
        path === '/supervisors/update-supervisor' ||
        path === '/preachers/create-preacher' ||
-       path === '/preachers/update-preacher' ||
-       path === '/leaders/create-leader' ||
-       path === '/leaders/update-leader' 
+       path === '/preachers/update-preacher' 
   ) {
       return {
         disabledDistricts: [ ...Object.values(DistrictNames).filter(value => !DistrictsMemberModuleAllowed.includes(value)) ]   
     }
   }
 
-  if (path === '/family-houses/create-family-house' || path === '/family-houses/update-family-house') {
+  if (path === '/family-groups/create-family-groups' || path === '/family-groups/update-family-groups') {
       return {
-        disabledDistricts: [ ...Object.values(DistrictNames).filter(value => !DistrictsFamilyHouseModuleAllowed.includes(value)) ]
+        disabledDistricts: [ ...Object.values(DistrictNames).filter(value => !DistrictsFamilyGroupModuleAllowed.includes(value)) ]
     }
   }
   

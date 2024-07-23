@@ -4,7 +4,6 @@ import { GiArchiveRegister } from 'react-icons/gi';
 import { useMediaQuery } from '@react-hook/media-query';
 
 import { useChurchStore } from '@/stores/church';
-
 import { ChurchFormUpdate } from '@/app/church/components';
 
 import { Button } from '@/shared/components/ui/button';

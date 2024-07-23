@@ -16,7 +16,7 @@ export const SupervisorChildrenRoutes = [
     element: <SupervisorsGeneralSearchPage />,
   },
   {
-    path: '/supervisors/search-by-term-supervisors',
+    path: '/supervisors/search-supervisors-by-term',
     element: <SupervisorsSearchPageByTerm />,
   },
   {

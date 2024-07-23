@@ -24,7 +24,7 @@ export enum SupervisorSearchSelectOption {
    Divorced = 'divorced',
    Other = 'other',
  
-   //* Status
+  //* Record Status
    Inactive = 'inactive',
 }
 
@@ -54,7 +54,7 @@ export const SupervisorSearchSelectOptionNames: Record<SupervisorSearchSelectOpt
   [SupervisorSearchSelectOption.Divorced]: 'Divorciado(a)',
   [SupervisorSearchSelectOption.Other]: 'Otro',
 
-  //* Status
+ //* Record Status
   [SupervisorSearchSelectOption.Inactive]: 'Inactivo',
 };
 
@@ -117,11 +117,11 @@ export const SupervisorSearchNamesByMaritalStatus: Record<SupervisorSearchByMari
   [SupervisorSearchByMaritalStatus.Other]: 'Otro',
 }
 
-//* Status
-export enum SupervisorSearchByStatus {
+//* Record Status
+export enum SupervisorSearchByRecordStatus {
   Inactive = 'inactive',
 }
 
-export const SupervisorSearchNamesByStatus: Record<SupervisorSearchByStatus, string> =  {
-  [SupervisorSearchByStatus.Inactive]: 'Inactivo',
+export const SupervisorSearchNamesByRecordStatus: Record<SupervisorSearchByRecordStatus, string> =  {
+  [SupervisorSearchByRecordStatus.Inactive]: 'Inactivo',
 }

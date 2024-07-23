@@ -6,9 +6,9 @@ import { useEffect, useState } from 'react';
 import type * as z from 'zod';
 import { Toaster, toast } from 'sonner';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { format } from 'date-fns';
@@ -22,22 +22,22 @@ import { useSupervisorCreateSubmitButtonLogic } from '@/app/supervisor/hooks';
 
 import { getAllPastors } from '@/app/copastor/services';
 
-import { useValidatePath } from '@/hooks';
+import { useRoleValidationByPath } from '@/hooks';
 import { LoadingSpinner } from '@/layouts/components';
 
 import {
+  Country,
+  Province,
+  Department,
   MemberRole,
-  MemberRoleNames,
-  MaritalStatusNames,
   GenderNames,
   CountryNames,
-  DepartmentNames,
-  ProvinceNames,
   DistrictNames,
+  ProvinceNames,
+  DepartmentNames,
+  MemberRoleNames,
   UrbanSectorNames,
-  Country,
-  Department,
-  Province,
+  MaritalStatusNames,
 } from '@/shared/enums';
 import {
   validateDistrictsAllowedByModule,
@@ -45,12 +45,6 @@ import {
 } from '@/shared/helpers';
 import { type ErrorResponse } from '@/shared/interfaces';
 
-import { Input } from '@/shared/components/ui/input';
-import { Button } from '@/shared/components/ui/button';
-import { Calendar } from '@/shared/components/ui/calendar';
-import { Checkbox } from '@/shared/components/ui/checkbox';
-import { Textarea } from '@/shared/components/ui/textarea';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Command,
   CommandEmpty,
@@ -65,7 +59,6 @@ import {
   SelectItem,
   Select,
 } from '@/shared/components/ui/select';
-
 import {
   Form,
   FormControl,
@@ -75,6 +68,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form';
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Calendar } from '@/shared/components/ui/calendar';
+import { Checkbox } from '@/shared/components/ui/checkbox';
+import { Textarea } from '@/shared/components/ui/textarea';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
 export const SupervisorCreatePage = (): JSX.Element => {
   //* States
@@ -123,7 +122,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
   const isDirectRelationToPastor = form.watch('isDirectRelationToPastor');
 
   //* Custom hooks
-  const { disabledRoles } = useValidatePath({
+  const { disabledRoles } = useRoleValidationByPath({
     path: pathname,
     memberRoles: MemberRole,
   });

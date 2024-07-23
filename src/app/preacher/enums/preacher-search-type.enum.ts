@@ -16,7 +16,6 @@ export enum PreacherSearchType {
   UrbanSector = 'urban_sector',
   Address = 'address',
   RecordStatus = 'record_status',
-
 }
 
 export const PreacherSearchTypeNames: Record<PreacherSearchType, string> =  {
