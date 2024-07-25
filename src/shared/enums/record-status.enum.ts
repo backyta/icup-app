@@ -4,6 +4,6 @@ export enum RecordStatus {
 }
 
 export const RecordStatusNames: Record<RecordStatus, string> = {
-  active : 'Activo',
-  inactive : 'Inactivo',
-}
+  [RecordStatus.Active]: 'Activo',
+  [RecordStatus.Inactive]: 'Inactivo',
+};

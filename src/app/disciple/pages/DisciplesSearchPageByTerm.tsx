@@ -22,19 +22,19 @@ import {
   DiscipleSearchType,
   DiscipleSearchTypeNames,
   DiscipleSearchNamesByGender,
-  DiscipleSearchByMaritalStatus,
   DiscipleSearchNamesByBirthMonth,
   DiscipleSearchNamesByFirstNames,
   DiscipleSearchNamesByFullNames,
   DiscipleSearchNamesByLastNames,
   DiscipleSearchNamesByRecordStatus,
+  DiscipleSearchNamesByMaritalStatus,
 } from '@/app/disciple/enums';
 import { discipleSearchByTermFormSchema } from '@/app/disciple/validations';
 import { type DiscipleSearchFormByTerm, type DiscipleResponse } from '@/app/disciple/interfaces';
 
-import { cn } from '@/shared/lib/utils';
-
 import { useDiscipleStore } from '@/stores/disciple';
+
+import { cn } from '@/shared/lib/utils';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 import { formatDateTermToTimestamp, formatNames, formatLastNames } from '@/shared/helpers';
 
@@ -107,6 +107,7 @@ export const DisciplesSearchPageByTerm = (): JSX.Element => {
     resolver: zodResolver(discipleSearchByTermFormSchema),
     mode: 'onChange',
     defaultValues: {
+      searchSubType: '' as any,
       limit: '10',
       inputTerm: '',
       namesTerm: '',
@@ -143,6 +144,10 @@ export const DisciplesSearchPageByTerm = (): JSX.Element => {
   useEffect(() => {
     setIsFiltersSearchByTermDisabled(true);
   }, []);
+
+  useEffect(() => {
+    form.setValue('searchSubType', undefined);
+  }, [searchType]);
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof discipleSearchByTermFormSchema>): void {
@@ -319,7 +324,8 @@ export const DisciplesSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === DiscipleSearchType.OriginCountry ||
+              {(searchType === DiscipleSearchType.ZoneName ||
+                searchType === DiscipleSearchType.OriginCountry ||
                 searchType === DiscipleSearchType.Department ||
                 searchType === DiscipleSearchType.Province ||
                 searchType === DiscipleSearchType.District ||
@@ -442,7 +448,7 @@ export const DisciplesSearchPageByTerm = (): JSX.Element => {
                                 : searchType === DiscipleSearchType.BirthMonth
                                   ? DiscipleSearchNamesByBirthMonth
                                   : searchType === DiscipleSearchType.MaritalStatus
-                                    ? DiscipleSearchByMaritalStatus
+                                    ? DiscipleSearchNamesByMaritalStatus
                                     : DiscipleSearchNamesByRecordStatus
                             ).map(([key, value]) => (
                               <SelectItem

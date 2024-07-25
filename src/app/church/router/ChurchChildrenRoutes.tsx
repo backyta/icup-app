@@ -16,7 +16,7 @@ export const ChurchChildrenRoutes = [
     element: <ChurchesGeneralSearchPage />,
   },
   {
-    path: '/churches/search-by-term-churches',
+    path: '/churches/search-churches-by-term',
     element: <ChurchesSearchPageByTerm />,
   },
   {

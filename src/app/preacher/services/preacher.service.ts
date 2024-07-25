@@ -30,7 +30,7 @@ export const getAllSupervisors = async (): Promise<SupervisorResponse[]> => {
     const {data} = await icupApi<SupervisorResponse[]>('/supervisors' , {
       params: {
         order: 'ASC'
-      },
+      },  
     }
     );
   
@@ -50,7 +50,7 @@ export const getPreachers = async ({limit, offset, all, order}: PreacherQueryPar
  let result: PreacherResponse[];
 
   try {
-    if ( all !== undefined && !all) {
+    if (!all) {
       const {data} = await icupApi<PreacherResponse[]>('/preachers' , {
         params: {
           limit,
@@ -99,7 +99,7 @@ export const getPreachersByTerm = async ({
 
  //* Origin country, department, province, district, urban sector, address, zone
  if (searchType === PreacherSearchType.OriginCountry||
-     searchType === PreacherSearchType.Zone ||
+     searchType === PreacherSearchType.ZoneName ||
      searchType === PreacherSearchType.FamilyGroupCode ||
      searchType === PreacherSearchType.FamilyGroupName ||
      searchType === PreacherSearchType.Department ||
@@ -109,7 +109,7 @@ export const getPreachersByTerm = async ({
      searchType === PreacherSearchType.Address
     ) {
     try {
-        if ( all !== undefined && !all) {
+        if (!all) {
             const {data} = await icupApi<PreacherResponse[]>(`/preachers/${inputTerm}` , {
           params: {
             limit,
@@ -144,7 +144,7 @@ export const getPreachersByTerm = async ({
  //* Date Birth
   if (searchType === PreacherSearchType.BirthDate) {
     try {
-      if ( all !== undefined && !all) {
+      if (!all) {
         const {data} = await icupApi<PreacherResponse[]>(`/preachers/${dateTerm}` , {
           params: {
             limit,
@@ -183,7 +183,7 @@ export const getPreachersByTerm = async ({
         searchType === PreacherSearchType.MaritalStatus
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<PreacherResponse[]>(`/preachers/${selectTerm}` , {
             params: {
               limit,
@@ -219,7 +219,7 @@ export const getPreachersByTerm = async ({
   if (searchType === PreacherSearchType.FirstName
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<PreacherResponse[]>(`/preachers/${namesTerm}` , {
             params: {
               limit,
@@ -258,7 +258,7 @@ export const getPreachersByTerm = async ({
   if (searchType === PreacherSearchType.LastName
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<PreacherResponse[]>(`/preachers/${lastNamesTerm}` , {
             params: {
               limit,
@@ -297,7 +297,7 @@ export const getPreachersByTerm = async ({
   if (searchType === PreacherSearchType.FullName
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<PreacherResponse[]>(`/preachers/${namesTerm}-${lastNamesTerm}` , {
             params: {
               limit,

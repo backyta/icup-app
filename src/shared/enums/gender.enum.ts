@@ -4,6 +4,6 @@ export enum Gender {
 }
 
 export const GenderNames: Record<Gender, string> = {
-  male : 'Masculino',
-  female : 'Femenino',
-}
+  [Gender.Male]: 'Masculino',
+  [Gender.Female]: 'Femenino',
+};

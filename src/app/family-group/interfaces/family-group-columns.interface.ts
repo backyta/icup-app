@@ -1,9 +1,12 @@
+import { type UpdatedBy } from "@/shared/interfaces";
+
 export interface FamilyGroupColumns {
-  id: string;
-  zone: string;
-  code: string;
-  name_house: string;
-  count_members: number;
-  district: string;
-  updated_by?: string;
+  id:                    string;
+  familyGroupName?:      string;
+  familyGroupCode?:      string;
+  district?:             string;
+  urbanSector?:          string;
+  updatedAt?:            Date;
+  updatedBy?:            UpdatedBy;
+  recordStatus?:         string;
 }

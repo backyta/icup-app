@@ -82,7 +82,6 @@ interface ChurchFormUpdateProps {
   data: ChurchResponse | undefined;
 }
 
-// TODO : no se podrá eliminar al usuario que tenga rol super admin (hacer desde el bakcend)
 export const ChurchFormUpdate = ({
   id,
   data,

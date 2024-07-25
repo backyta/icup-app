@@ -81,19 +81,19 @@ export const PreacherTabsCard = ({ data, id }: PreacherTabsCardProps): JSX.Eleme
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Nombres</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.firstName}
+                {data?.firstName ?? '-'}
               </CardDescription>
             </div>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Apellidos</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.lastName}
+                {data?.lastName ?? '-'}
               </CardDescription>
             </div>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>País de Origen</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.originCountry}
+                {data?.originCountry ?? '-'}
               </CardDescription>
             </div>
             <div className='space-y-1'>
@@ -105,13 +105,13 @@ export const PreacherTabsCard = ({ data, id }: PreacherTabsCardProps): JSX.Eleme
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Edad</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.age}
+                {data?.age ?? '-'}
               </CardDescription>
             </div>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Género</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.gender}
+                {data?.gender ?? '-'}
               </CardDescription>
             </div>
             <div className='space-y-1'>
@@ -139,7 +139,7 @@ export const PreacherTabsCard = ({ data, id }: PreacherTabsCardProps): JSX.Eleme
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Numero de hijos</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.numberChildren}
+                {data?.numberChildren ?? '-'}
               </CardDescription>
             </div>
 
@@ -178,9 +178,7 @@ export const PreacherTabsCard = ({ data, id }: PreacherTabsCardProps): JSX.Eleme
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-8 row-end-9 md:grid  md:row-start-6 md:row-end-7 md:col-start-2 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Fecha de creación</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.createdAt
-                  ? format(new Date(data?.createdAt), 'dd/MM/yyyy')
-                  : 'Fecha no disponible'}
+                {data?.createdAt ? format(new Date(data?.createdAt), 'dd/MM/yyyy') : '-'}
               </CardDescription>
             </div>
 
@@ -277,11 +275,6 @@ export const PreacherTabsCard = ({ data, id }: PreacherTabsCardProps): JSX.Eleme
             </div>
 
             <div className='space-y-1'>
-              <Label className='text-[14px] md:text-[15px]'>Predicador</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'> - </CardDescription>
-            </div>
-
-            <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Grupo Familiar</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirFamilyGroup
@@ -293,7 +286,7 @@ export const PreacherTabsCard = ({ data, id }: PreacherTabsCardProps): JSX.Eleme
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
-                Activo
+                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>
@@ -315,70 +308,70 @@ export const PreacherTabsCard = ({ data, id }: PreacherTabsCardProps): JSX.Eleme
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Correo Electrónico</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.email}
+                {data?.email ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Teléfono / Celular</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.phoneNumber}
+                {data?.phoneNumber ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>País</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.country}
+                {data?.country ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Departamento</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.department}
+                {data?.department ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Provincia</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.province}
+                {data?.province ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Distrito</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.district}
+                {data?.district ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Sector Urbano</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.urbanSector}
+                {data?.urbanSector ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Dirección</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.address}
+                {data?.address ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Referencia de ubicación</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.referenceAddress}
+                {data?.referenceAddress ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
-                Activo
+                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>

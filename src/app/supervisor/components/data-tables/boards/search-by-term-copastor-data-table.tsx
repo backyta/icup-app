@@ -191,7 +191,7 @@ export function SearchByTermSupervisorDataTable<TData, TValue>({
               Termino de búsqueda:
             </span>{' '}
             {(dataForm?.searchType === SupervisorSearchType.OriginCountry ||
-              dataForm?.searchType === SupervisorSearchType.Zone ||
+              dataForm?.searchType === SupervisorSearchType.ZoneName ||
               dataForm?.searchType === SupervisorSearchType.Department ||
               dataForm?.searchType === SupervisorSearchType.Province ||
               dataForm?.searchType === SupervisorSearchType.District ||

@@ -1,14 +1,20 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import { FamilyGroupInfoCard, FamilyGroupUpdateCard } from '@/app/family-group/components';
-import { type FamilyGroupColumns } from '@/app/family-group/interfaces';
-
 import { Button } from '@/shared/components/ui/button';
+
+import { type FamilyGroupColumns } from '@/app/family-group/interfaces';
+import { FamilyGroupInfoCard, FamilyGroupUpdateCard } from '@/app/family-group/components';
 
 export const familyGroupUpdateColumns: Array<ColumnDef<FamilyGroupColumns, any>> = [
   {
     accessorKey: 'id',
+    cell: (info) => {
+      const id = info.getValue();
+      return id.substring(0, 7);
+    },
     header: ({ column }) => {
       return (
         <Button
@@ -25,7 +31,7 @@ export const familyGroupUpdateColumns: Array<ColumnDef<FamilyGroupColumns, any>>
     },
   },
   {
-    accessorKey: 'name_house',
+    accessorKey: 'familyGroupName',
     header: ({ column }) => {
       return (
         <Button
@@ -42,24 +48,7 @@ export const familyGroupUpdateColumns: Array<ColumnDef<FamilyGroupColumns, any>>
     },
   },
   {
-    accessorKey: 'zone',
-    header: ({ column }) => {
-      return (
-        <Button
-          className='font-bold text-[13px] md:text-[14px]'
-          variant='ghost'
-          onClick={() => {
-            column.toggleSorting(column.getIsSorted() === 'asc');
-          }}
-        >
-          Zona
-          <ArrowUpDown className='ml-2 h-4 w-4' />
-        </Button>
-      );
-    },
-  },
-  {
-    accessorKey: 'code',
+    accessorKey: 'familyGroupCode',
     header: ({ column }) => {
       return (
         <Button
@@ -93,7 +82,7 @@ export const familyGroupUpdateColumns: Array<ColumnDef<FamilyGroupColumns, any>>
     },
   },
   {
-    accessorKey: 'count_members',
+    accessorKey: 'urbanSector',
     header: ({ column }) => {
       return (
         <Button
@@ -103,7 +92,7 @@ export const familyGroupUpdateColumns: Array<ColumnDef<FamilyGroupColumns, any>>
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Nro. discípulos
+          Sec. Urbano
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
@@ -112,15 +101,39 @@ export const familyGroupUpdateColumns: Array<ColumnDef<FamilyGroupColumns, any>>
 
   {
     id: 'showInfo',
-    cell: () => {
-      return <FamilyGroupInfoCard />;
+    accessorKey: 'id',
+    cell: (info) => {
+      const id = info.row.original.id;
+      return info.getValue() === '-' ? '-' : <FamilyGroupInfoCard idRow={id} />;
+    },
+    header: () => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px] text-blue-500 hover:text-blue-500'
+          variant='ghost'
+        >
+          Info
+        </Button>
+      );
     },
   },
 
   {
     id: 'updateInfo',
-    cell: () => {
-      return <FamilyGroupUpdateCard />;
+    accessorKey: 'id',
+    cell: (info) => {
+      const id = info.row.original.id;
+      return info.getValue() === '-' ? '-' : <FamilyGroupUpdateCard idRow={id} />;
+    },
+    header: () => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px] text-orange-500 hover:text-orange-500'
+          variant='ghost'
+        >
+          Actualizar
+        </Button>
+      );
     },
   },
 ];

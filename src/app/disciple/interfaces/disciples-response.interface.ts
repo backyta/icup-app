@@ -41,7 +41,7 @@ export interface DiscipleResponse {
   theirPastor?:       TheirPastor | null;
   theirCopastor?:     TheirCopastor | null;
   theirSupervisor?:   TheirSupervisor | null; 
-  TheirPreacher?:     TheirPreacher | null; 
+  theirPreacher?:     TheirPreacher | null; 
   theirZone?:         TheirZone | null;
   theirFamilyGroup?:  TheirFamilyGroup | null; 
 }

@@ -50,7 +50,7 @@ export const getChurches = async ({limit, offset, all, order}: ChurchQueryParams
  let result: ChurchResponse[];
 
   try {
-    if ( all !== undefined && !all) {
+    if (!all) {
       const {data} = await icupApi<ChurchResponse[]>('/churches' , {
         params: {
           limit,
@@ -93,7 +93,7 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
      searchType === ChurchSearchType.Address
     ) {
     try {
-      if ( all !== undefined && !all) {
+      if (!all) {
         const {data} = await icupApi<ChurchResponse[]>(`/churches/${inputTerm}` , {
           params: {
             limit,
@@ -127,7 +127,7 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
 
  if (searchType === ChurchSearchType.FoundingDate) {
    try {
-     if ( all !== undefined && !all) {
+     if (!all) {
        const {data} = await icupApi<ChurchResponse[]>(`/churches/${dateTerm}` , {
          params: {
            limit,
@@ -161,7 +161,7 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
 
  if (searchType === ChurchSearchType.RecordStatus) {
     try {
-      if ( all !== undefined && !all) {
+      if (!all) {
         const {data} = await icupApi<ChurchResponse[]>(`/churches/${selectTerm}` , {
           params: {
             limit,

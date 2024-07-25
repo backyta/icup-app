@@ -3,5 +3,5 @@ export enum Province {
 }
 
 export const ProvinceNames: Record<Province, string> = {
-  Lima : 'Lima',
+  [Province.Lima] : 'Lima',
 }

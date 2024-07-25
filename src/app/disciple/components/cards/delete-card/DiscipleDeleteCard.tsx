@@ -124,10 +124,14 @@ export const DiscipleDeleteCard = ({ idRow }: DiscipleDeleteCardProps): JSX.Elem
             <br />
           </p>
         </div>
+
         <div className='flex justify-center md:justify-end gap-x-4'>
           <Button
             disabled={isButtonDisabled}
             className='w-full md:w-auto bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
+            onClick={() => {
+              setIsCardOpen(false);
+            }}
           >
             No, cancelar
           </Button>

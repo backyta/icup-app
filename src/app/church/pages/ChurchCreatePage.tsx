@@ -25,6 +25,7 @@ import { ChurchWorshipTime, ChurchWorshipTimeNames } from '@/app/church/enums';
 import { useChurchCreateSubmitButtonLogic } from '@/app/church/hooks';
 
 import {
+  Country,
   CountryNames,
   Department,
   DepartmentNames,
@@ -69,6 +70,7 @@ import { Calendar } from '@/shared/components/ui/calendar';
 import { Textarea } from '@/shared/components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
+// TODO : ver si se agrega el motivo de eliminación cuando se inactiva a un miembro (recaída, problemas) y su cuadro de comentarios, ver ejemplo de ofrendas
 export const ChurchCreatePage = (): JSX.Element => {
   //* States
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
@@ -88,9 +90,9 @@ export const ChurchCreatePage = (): JSX.Element => {
     defaultValues: {
       churchName: '',
       isAnexe: false,
-      country: '',
       email: '',
       phoneNumber: '',
+      country: Country.Peru,
       department: Department.Lima,
       province: Province.Lima,
       district: '',

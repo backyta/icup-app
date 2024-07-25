@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 
-import { Toaster, toast } from 'sonner';
+import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -110,8 +110,8 @@ export const UserDeleteCard = ({ idRow }: UserDeleteCardProps): JSX.Element => {
             <br />
           </p>
         </div>
+
         <div className='flex justify-end gap-x-4'>
-          <Toaster position='top-center' richColors />
           <Button
             disabled={isButtonDisabled}
             className='bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'

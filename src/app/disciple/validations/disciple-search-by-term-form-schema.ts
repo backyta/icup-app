@@ -57,7 +57,7 @@ export const discipleSearchByTermFormSchema = z
     },
     {
       message: 'El sub-tipo es requerido',
-      path: ['subType'],
+      path: ['searchSubType'],
     }
   )
   .refine(

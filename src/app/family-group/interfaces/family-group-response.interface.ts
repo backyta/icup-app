@@ -14,7 +14,6 @@ import {
 export interface FamilyGroupResponse {
   id:                string;
   familyGroupName:   string;
-  zoneName:          string;
   familyGroupNumber: number;
   familyGroupCode:   string;
   worshipTime:       string;
@@ -25,8 +24,8 @@ export interface FamilyGroupResponse {
   urbanSector:       string;
   address:           string;
   referenceAddress:  string;
-  status:            string;
-  disciples:         Disciple[];
+  recordStatus:      string;
+  disciples?:       Disciple[];
   createdAt?:       Date;
   createdBy?:       CreatedBy;
   updatedAt?:       Date;
@@ -35,7 +34,7 @@ export interface FamilyGroupResponse {
   theirPastor?:     TheirPastor | null;
   theirCopastor?:   TheirCopastor | null;
   theirSupervisor?: TheirSupervisor | null; 
-  TheirPreacher?:   TheirPreacher | null; 
+  theirPreacher?:   TheirPreacher | null; 
   theirZone?:       TheirZone | null;
 }
 

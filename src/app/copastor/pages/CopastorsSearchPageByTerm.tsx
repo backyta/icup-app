@@ -107,6 +107,7 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
     resolver: zodResolver(copastorSearchByTermFormSchema),
     mode: 'onChange',
     defaultValues: {
+      searchSubType: '' as any,
       limit: '10',
       inputTerm: '',
       namesTerm: '',
@@ -144,6 +145,10 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
     setIsFiltersSearchByTermDisabled(true);
   }, []);
 
+  useEffect(() => {
+    form.setValue('searchSubType', undefined);
+  }, [searchType]);
+
   //* Form handler
   function onSubmit(formData: z.infer<typeof copastorSearchByTermFormSchema>): void {
     let newDateTermTo;
@@ -159,6 +164,7 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
     const newNamesTerm = formatNames(formData?.namesTerm);
     const newLastNamesTerm = formatLastNames(formData?.lastNamesTerm);
 
+    formData.searchSubType = undefined;
     setSearchParams({
       ...formData,
       namesTerm: newNamesTerm,

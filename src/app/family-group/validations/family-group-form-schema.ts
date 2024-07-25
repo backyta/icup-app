@@ -1,10 +1,9 @@
 import * as z from 'zod';
 import { Country, Department, District, Province, RecordStatus, UrbanSector } from '@/shared/enums';
 
-export const formFamilyGroupSchema = z
+export const familyGroupFormSchema = z
   .object({
-    
-    houseName: z.string()
+    familyGroupName: z.string()
     .min(1, { message: 'El campo debe contener al menos 1 carácter.'})
     .max(25, { message: 'El campo debe contener máximo 25 caracteres.'}),
     
@@ -47,15 +46,15 @@ export const formFamilyGroupSchema = z
     referenceAddress: z.string()
       .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
       .max(100, { message: 'El campo debe contener máximo 50 caracteres.' })
-      .optional(),
+      ,
 
     theirPreacher: z.string({required_error: 
-      'Por favor asigne un Predicador.'}),
+      'Por favor asigne un Predicador.'}).optional(),
 
-    zoneName: z.string({required_error: 
-      'Por favor asigne un Zona.'}),
+    theirZone: z.string({required_error: 
+      'Por favor asigne una Zona.'}).optional(),
 
-    status: z.string(z.nativeEnum(RecordStatus, {
+    recordStatus: z.string(z.nativeEnum(RecordStatus, {
       required_error: "Por favor seleccione una opción.",
     })).optional(),
   })

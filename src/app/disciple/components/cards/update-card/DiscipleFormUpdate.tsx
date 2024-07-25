@@ -27,7 +27,7 @@ import {
 } from '@/app/disciple/hooks';
 import { DiscipleFieldNames } from '@/app/disciple/enums';
 import { discipleFormSchema } from '@/app/disciple/validations';
-import { FormDiscipleSkeleton } from '@/app/disciple/components';
+import { DiscipleFormSkeleton } from '@/app/disciple/components';
 import { type DiscipleResponse } from '@/app/disciple/interfaces';
 import { getAllFamilyGroups, updateDisciple } from '@/app/disciple/services';
 
@@ -318,7 +318,7 @@ export const DiscipleFormUpdate = ({
 
       <TabsContent value='general-info'>
         <Card className='w-full'>
-          {isLoadingData && <FormDiscipleSkeleton />}
+          {isLoadingData && <DiscipleFormSkeleton />}
 
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
@@ -631,7 +631,7 @@ export const DiscipleFormUpdate = ({
                             </Select>
                             {form.getValues('recordStatus') === 'active' && (
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
-                                *El registro esta <span className='text-green-500'>activo</span>,
+                                *El registro esta <span className='text-green-500'>Activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
                                 debe eliminar el registro desde la pestaña{' '}
                                 <span className='font-bold text-red-500'>Eliminar Co-Pastor. </span>

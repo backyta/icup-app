@@ -61,8 +61,8 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
         </NavLink>
 
         <NavLink
-          key='/family-groups/search-by-term-family-groups'
-          to='/family-groups/search-by-term-family-groups'
+          key='/family-groups/search-family-groups-by-term'
+          to='/family-groups/search-family-groups-by-term'
           end
           className='row-start-3 row-end-4 lg:row-start-1 lg:row-end-2 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-2 xl:col-end-3 2xl:row-start-2 2xl:row-end-3 2xl:col-start-2 2xl:col-end-3'
         >

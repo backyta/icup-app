@@ -109,6 +109,7 @@ export const SupervisorUpdatePage = (): JSX.Element => {
     resolver: zodResolver(supervisorSearchByTermFormSchema),
     mode: 'onChange',
     defaultValues: {
+      searchSubType: '' as any,
       limit: '10',
       inputTerm: '',
       namesTerm: '',
@@ -145,6 +146,10 @@ export const SupervisorUpdatePage = (): JSX.Element => {
   useEffect(() => {
     setIsFiltersSearchByTermDisabled(true);
   }, []);
+
+  useEffect(() => {
+    form.setValue('searchSubType', undefined);
+  }, [searchType]);
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof supervisorSearchByTermFormSchema>): void {
@@ -322,7 +327,7 @@ export const SupervisorUpdatePage = (): JSX.Element => {
               )}
 
               {(searchType === SupervisorSearchType.OriginCountry ||
-                searchType === SupervisorSearchType.Zone ||
+                searchType === SupervisorSearchType.ZoneName ||
                 searchType === SupervisorSearchType.Department ||
                 searchType === SupervisorSearchType.Province ||
                 searchType === SupervisorSearchType.District ||

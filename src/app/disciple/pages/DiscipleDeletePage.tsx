@@ -23,10 +23,10 @@ import {
   DiscipleSearchNamesByFullNames,
   DiscipleSearchNamesByGender,
   DiscipleSearchNamesByLastNames,
-  DiscipleSearchByMaritalStatus,
   DiscipleSearchNamesByRecordStatus,
   DiscipleSearchType,
   DiscipleSearchTypeNames,
+  DiscipleSearchNamesByMaritalStatus,
 } from '@/app/disciple/enums';
 import { discipleSearchByTermFormSchema } from '@/app/disciple/validations';
 import { type DiscipleSearchFormByTerm, type DiscipleResponse } from '@/app/disciple/interfaces';
@@ -106,6 +106,7 @@ export const DiscipleDeletePage = (): JSX.Element => {
     resolver: zodResolver(discipleSearchByTermFormSchema),
     mode: 'onChange',
     defaultValues: {
+      searchSubType: '' as any,
       limit: '10',
       inputTerm: '',
       namesTerm: '',
@@ -142,6 +143,10 @@ export const DiscipleDeletePage = (): JSX.Element => {
   useEffect(() => {
     setIsFiltersSearchByTermDisabled(true);
   }, []);
+
+  useEffect(() => {
+    form.setValue('searchSubType', undefined);
+  }, [searchType]);
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof discipleSearchByTermFormSchema>): void {
@@ -441,7 +446,7 @@ export const DiscipleDeletePage = (): JSX.Element => {
                                 : searchType === DiscipleSearchType.BirthMonth
                                   ? DiscipleSearchNamesByBirthMonth
                                   : searchType === DiscipleSearchType.MaritalStatus
-                                    ? DiscipleSearchByMaritalStatus
+                                    ? DiscipleSearchNamesByMaritalStatus
                                     : DiscipleSearchNamesByRecordStatus
                             ).map(([key, value]) => (
                               <SelectItem

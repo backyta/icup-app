@@ -51,7 +51,7 @@ export const getPastors = async ({limit, offset, all, order}: PastorQueryParams)
  let result: PastorResponse[];
 
   try {
-    if ( all !== undefined && !all) {
+    if (!all) {
       const {data} = await icupApi<PastorResponse[]>('/pastors' , {
         params: {
           limit,
@@ -106,7 +106,7 @@ export const getPastorsByTerm = async ({
      searchType === PastorSearchType.Address
     ) {
     try {
-        if ( all !== undefined && !all) {
+        if (!all) {
             const {data} = await icupApi<PastorResponse[]>(`/pastors/${inputTerm}` , {
           params: {
             limit,
@@ -141,7 +141,7 @@ export const getPastorsByTerm = async ({
  //* Date Birth
   if (searchType === PastorSearchType.BirthDate) {
     try {
-      if ( all !== undefined && !all) {
+      if (!all) {
         const {data} = await icupApi<PastorResponse[]>(`/pastors/${dateTerm}` , {
           params: {
             limit,
@@ -180,7 +180,7 @@ export const getPastorsByTerm = async ({
         searchType === PastorSearchType.MaritalStatus
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<PastorResponse[]>(`/pastors/${selectTerm}` , {
             params: {
               limit,
@@ -216,7 +216,7 @@ export const getPastorsByTerm = async ({
   if (searchType === PastorSearchType.FirstName
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<PastorResponse[]>(`/pastors/${namesTerm}` , {
             params: {
               limit,
@@ -253,7 +253,7 @@ export const getPastorsByTerm = async ({
   if (searchType === PastorSearchType.LastName
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<PastorResponse[]>(`/pastors/${lastNamesTerm}` , {
             params: {
               limit,
@@ -290,7 +290,7 @@ export const getPastorsByTerm = async ({
   if (searchType === PastorSearchType.FullName
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<PastorResponse[]>(`/pastors/${namesTerm}-${lastNamesTerm}` , {
             params: {
               limit,

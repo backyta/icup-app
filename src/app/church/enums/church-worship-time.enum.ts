@@ -9,7 +9,6 @@ export enum ChurchWorshipTime {
   Time2000 = '20:00',
 }
 
-// TODO : EN EL BACKEND REPLICAR ESTO LOS OBJETOS DE MAPEO
 export const ChurchWorshipTimeNames: Record<ChurchWorshipTime, string> = {
   [ChurchWorshipTime.Time0900]: '9:00 AM',
   [ChurchWorshipTime.Time1000]: '10:00 AM',

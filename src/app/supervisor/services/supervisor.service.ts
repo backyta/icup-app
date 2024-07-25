@@ -50,7 +50,7 @@ export const getSupervisors = async ({limit, offset, all, order}: SupervisorQuer
  let result: SupervisorResponse[];
 
   try {
-    if ( all !== undefined && !all) {
+    if (!all) {
       const {data} = await icupApi<SupervisorResponse[]>('/supervisors' , {
         params: {
           limit,
@@ -99,7 +99,7 @@ export const getSupervisorsByTerm = async ({
 
  //* Origin country, department, province, district, urban sector, address, zone
  if (searchType === SupervisorSearchType.OriginCountry||
-     searchType === SupervisorSearchType.Zone ||
+     searchType === SupervisorSearchType.ZoneName ||
      searchType === SupervisorSearchType.Department ||
      searchType === SupervisorSearchType.Province ||
      searchType === SupervisorSearchType.District ||
@@ -107,7 +107,7 @@ export const getSupervisorsByTerm = async ({
      searchType === SupervisorSearchType.Address
     ) {
     try {
-        if ( all !== undefined && !all) {
+        if (!all) {
             const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${inputTerm}` , {
           params: {
             limit,
@@ -142,7 +142,7 @@ export const getSupervisorsByTerm = async ({
  //* Date Birth
   if (searchType === SupervisorSearchType.BirthDate) {
     try {
-      if ( all !== undefined && !all) {
+      if (!all) {
         const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${dateTerm}` , {
           params: {
             limit,
@@ -181,7 +181,7 @@ export const getSupervisorsByTerm = async ({
         searchType === SupervisorSearchType.MaritalStatus
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${selectTerm}` , {
             params: {
               limit,
@@ -217,7 +217,7 @@ export const getSupervisorsByTerm = async ({
   if (searchType === SupervisorSearchType.FirstName
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${namesTerm}` , {
             params: {
               limit,
@@ -256,7 +256,7 @@ export const getSupervisorsByTerm = async ({
   if (searchType === SupervisorSearchType.LastName
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${lastNamesTerm}` , {
             params: {
               limit,
@@ -295,7 +295,7 @@ export const getSupervisorsByTerm = async ({
   if (searchType === SupervisorSearchType.FullName
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${namesTerm}-${lastNamesTerm}` , {
             params: {
               limit,

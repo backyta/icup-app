@@ -28,7 +28,7 @@ export const getUsers = async ({limit, offset, all, order}: UserQueryParams): Pr
  let result: UserResponse[];
 
   try {
-    if ( all !== undefined && !all) {
+    if (!all) {
       const {data} = await icupApi<UserResponse[]>('/users' , {
         params: {
           limit,
@@ -76,7 +76,7 @@ export const getUsersByTerm = async ({
   //* Multi Select (roles)
   if (searchType === UserSearchType.Roles) {
     try {
-      if ( all !== undefined && !all) {
+      if (!all) {
         const {data} = await icupApi<UserResponse[]>(`/users/${multiSelectTerm}` , {
           params: {
             limit,
@@ -111,7 +111,7 @@ export const getUsersByTerm = async ({
  //* Record status and gender
   if (searchType === UserSearchType.RecordStatus || searchType === UserSearchType.Gender) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<UserResponse[]>(`/users/${selectTerm}` , {
             params: {
               limit,
@@ -147,7 +147,7 @@ export const getUsersByTerm = async ({
   if (searchType === UserSearchType.FirstName
   ) {
   try {
-    if ( all !== undefined && !all) {
+    if (!all) {
       const {data} = await icupApi<UserResponse[]>(`/users/${namesTerm}` , {
         params: {
           limit,
@@ -184,7 +184,7 @@ export const getUsersByTerm = async ({
   if (searchType === UserSearchType.LastName
   ) {
   try {
-    if ( all !== undefined && !all) {
+    if (!all) {
       const {data} = await icupApi<UserResponse[]>(`/users/${lastNamesTerm}` , {
         params: {
           limit,
@@ -221,7 +221,7 @@ export const getUsersByTerm = async ({
   if (searchType === UserSearchType.FullName
   ) {
   try {
-    if ( all !== undefined && !all) {
+    if (!all) {
       const {data} = await icupApi<UserResponse[]>(`/users/${namesTerm}-${lastNamesTerm}` , {
         params: {
           limit,

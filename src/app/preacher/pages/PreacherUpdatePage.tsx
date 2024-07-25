@@ -105,6 +105,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
     resolver: zodResolver(preacherSearchByTermFormSchema),
     mode: 'onChange',
     defaultValues: {
+      searchSubType: '' as any,
       limit: '10',
       inputTerm: '',
       namesTerm: '',
@@ -141,6 +142,10 @@ export const PreacherUpdatePage = (): JSX.Element => {
   useEffect(() => {
     setIsFiltersSearchByTermDisabled(true);
   }, []);
+
+  useEffect(() => {
+    form.setValue('searchSubType', undefined);
+  }, [searchType]);
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof preacherSearchByTermFormSchema>): void {
@@ -318,7 +323,9 @@ export const PreacherUpdatePage = (): JSX.Element => {
               )}
 
               {(searchType === PreacherSearchType.OriginCountry ||
-                searchType === PreacherSearchType.Zone ||
+                searchType === PreacherSearchType.ZoneName ||
+                searchType === PreacherSearchType.FamilyGroupCode ||
+                searchType === PreacherSearchType.FamilyGroupName ||
                 searchType === PreacherSearchType.Department ||
                 searchType === PreacherSearchType.Province ||
                 searchType === PreacherSearchType.District ||

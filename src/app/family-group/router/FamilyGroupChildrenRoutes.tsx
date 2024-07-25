@@ -1,8 +1,8 @@
 import {
   FamilyGroupCreatePage,
   FamilyGroupDeletePage,
-  FamilyGroupGeneralSearchPage,
-  FamilyGroupSearchPageByTerm,
+  FamilyGroupsGeneralSearchPage,
+  FamilyGroupsSearchPageByTerm,
   FamilyGroupUpdatePage,
 } from '@/app/family-group/pages';
 
@@ -13,11 +13,11 @@ export const FamilyGroupChildrenRoutes = [
   },
   {
     path: '/family-groups/search-family-groups',
-    element: <FamilyGroupGeneralSearchPage />,
+    element: <FamilyGroupsGeneralSearchPage />,
   },
   {
-    path: '/family-groups/search-by-term-family-groups',
-    element: <FamilyGroupSearchPageByTerm />,
+    path: '/family-groups/search-family-groups-by-term',
+    element: <FamilyGroupsSearchPageByTerm />,
   },
   {
     path: '/family-groups/update-family-group',

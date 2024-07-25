@@ -83,7 +83,9 @@ export const BarChartOfferings = (): JSX.Element => {
               }
             />
 
-            <ChartLegend content={<ChartLegendContent className='text-[12px] sm:text-[14px]' />} />
+            <ChartLegend
+              content={<ChartLegendContent className='ml-10 text-[12px] sm:text-[14px]' />}
+            />
 
             <Bar dataKey='dia' fill='var(--color-dia)' radius={4} />
             <Bar dataKey='tarde' fill='var(--color-tarde)' radius={4} />

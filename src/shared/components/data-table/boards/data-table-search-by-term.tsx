@@ -74,7 +74,7 @@ import {
   SearchType,
   SearchTypeNames,
   SearchSubTypeNames,
-  SearchSelectionOptionNames,
+  SearchSelectOptionNames,
   SearchSubType,
   RecordOrder,
   RecordOrderNames,
@@ -505,7 +505,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(SearchSelectionOptionNames).map(([key, value]) => (
+                          {Object.entries(SearchSelectOptionNames).map(([key, value]) => (
                             <SelectItem
                               className={`text-[13px] md:text-[14px] ${disabledSelectTerm?.disabledSelectTerm?.includes(value) ? 'hidden' : ''}`}
                               key={key}
@@ -814,7 +814,7 @@ export function DataTableSearchByTerm<TData, TValue>({
               {dataForm?.searchType === SearchType.Status && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {`${
-                    Object.entries(SearchSelectionOptionNames).find(
+                    Object.entries(SearchSelectOptionNames).find(
                       ([key, value]) => key === dataForm?.selectTerm && value
                     )?.[1]
                   }`}
@@ -970,7 +970,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                   dataForm?.searchType === SearchType.Status) && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                     {`${
-                      Object.entries(SearchSelectionOptionNames).find(
+                      Object.entries(SearchSelectOptionNames).find(
                         ([key, value]) => key === dataForm?.selectTerm && value
                       )?.[1]
                     }`}
@@ -1094,7 +1094,7 @@ export function DataTableSearchByTerm<TData, TValue>({
               {dataForm?.searchType === SearchType.Status && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {`${
-                    Object.entries(SearchSelectionOptionNames).find(
+                    Object.entries(SearchSelectOptionNames).find(
                       ([key, value]) => key === dataForm?.selectTerm && value
                     )?.[1]
                   }`}
@@ -1235,7 +1235,7 @@ export function DataTableSearchByTerm<TData, TValue>({
               {dataForm?.searchType === SearchType.Status && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {`${
-                    Object.entries(SearchSelectionOptionNames).find(
+                    Object.entries(SearchSelectOptionNames).find(
                       ([key, value]) => key === dataForm?.selectTerm && value
                     )?.[1]
                   }`}
@@ -1247,7 +1247,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                   {' '}
                   -{' '}
                   {`${
-                    Object.entries(SearchSelectionOptionNames).find(
+                    Object.entries(SearchSelectOptionNames).find(
                       ([key, value]) => key === dataForm?.selectTerm && value
                     )?.[1]
                   }`}
@@ -1467,7 +1467,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                 {dataForm?.searchType === SearchType.Status && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                     {`${
-                      Object.entries(SearchSelectionOptionNames).find(
+                      Object.entries(SearchSelectOptionNames).find(
                         ([key, value]) => key === dataForm?.selectTerm && value
                       )?.[1]
                     }`}

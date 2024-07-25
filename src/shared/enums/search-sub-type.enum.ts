@@ -1,5 +1,4 @@
 export enum SearchSubType {
-
   //* Disciple
   DiscipleByPastorNames = 'disciple_by_pastor_names',
   DiscipleByPastorLastNames = 'disciple_by_pastor_last_names',

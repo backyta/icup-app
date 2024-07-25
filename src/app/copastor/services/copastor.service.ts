@@ -51,7 +51,7 @@ export const getCopastors = async ({limit, offset, all, order}: CopastorQueryPar
  let result: CopastorResponse[];
 
   try {
-    if ( all !== undefined && !all) {
+    if (!all) {
       const {data} = await icupApi<CopastorResponse[]>('/copastors' , {
         params: {
           limit,
@@ -80,7 +80,7 @@ export const getCopastors = async ({limit, offset, all, order}: CopastorQueryPar
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
-// TODO : revisar los servicio si funcionan con el !all (valores falsy)
+
 // ? Get co-pastors by term (paginated)
 export const getCopastorsByTerm = async ({ 
   searchType, 
@@ -107,7 +107,7 @@ export const getCopastorsByTerm = async ({
      searchType === CopastorSearchType.Address
     ) {
     try {
-        if ( all !== undefined && !all) {
+        if (!all) {
             const {data} = await icupApi<CopastorResponse[]>(`/copastors/${inputTerm}` , {
           params: {
             limit,
@@ -142,7 +142,7 @@ export const getCopastorsByTerm = async ({
  //* Date Birth
   if (searchType === CopastorSearchType.BirthDate) {
     try {
-      if ( all !== undefined && !all) {
+      if (!all) {
         const {data} = await icupApi<CopastorResponse[]>(`/copastors/${dateTerm}` , {
           params: {
             limit,
@@ -181,7 +181,7 @@ export const getCopastorsByTerm = async ({
         searchType === CopastorSearchType.MaritalStatus
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<CopastorResponse[]>(`/copastors/${selectTerm}` , {
             params: {
               limit,
@@ -217,7 +217,7 @@ export const getCopastorsByTerm = async ({
   if (searchType === CopastorSearchType.FirstName
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<CopastorResponse[]>(`/copastors/${namesTerm}` , {
             params: {
               limit,
@@ -256,7 +256,7 @@ export const getCopastorsByTerm = async ({
   if (searchType === CopastorSearchType.LastName
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<CopastorResponse[]>(`/copastors/${lastNamesTerm}` , {
             params: {
               limit,
@@ -295,7 +295,7 @@ export const getCopastorsByTerm = async ({
   if (searchType === CopastorSearchType.FullName
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<CopastorResponse[]>(`/copastors/${namesTerm}-${lastNamesTerm}` , {
             params: {
               limit,

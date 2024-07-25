@@ -57,7 +57,7 @@ export const supervisorSearchByTermFormSchema = z
     },
     {
       message: 'El sub-tipo es requerido',
-      path: ['subType'],
+      path: ['searchSubType'],
     }
   )
   .refine(
@@ -120,7 +120,7 @@ export const supervisorSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (data.searchType === SupervisorSearchType.OriginCountry ||
-          data.searchType === SupervisorSearchType.Zone ||
+          data.searchType === SupervisorSearchType.ZoneName ||
           data.searchType === SupervisorSearchType.Department || 
           data.searchType === SupervisorSearchType.Province || 
           data.searchType === SupervisorSearchType.District || 

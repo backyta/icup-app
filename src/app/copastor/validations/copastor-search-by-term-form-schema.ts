@@ -57,7 +57,7 @@ export const copastorSearchByTermFormSchema = z
     },
     {
       message: 'El sub-tipo es requerido',
-      path: ['subType'],
+      path: ['searchSubType'],
     }
   )
   .refine(

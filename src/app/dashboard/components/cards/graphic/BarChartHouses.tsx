@@ -41,8 +41,6 @@ import { years } from '@/shared/data';
 
 // TODO : se podría traer las ofrendas de casa y ver cual casa gano por semana,
 // TODO : 10 casas no mas y lanzar el top acumulativo de ofrendas casa ves que se ingresa el dato se suma al acumulado
-// TODO : y en el de info solo se muestra los datos de la casas (hacer formulario por anio)
-// TODO : mantener el estilo y colocar un formulario con anio arriba derecha
 const chartData = [
   { 'family-group-code': 'A-1', discípulos: 5, ofrenda: 25.5 },
   { 'family-group-code': 'A-2', discípulos: 6, ofrenda: 30.2 },
@@ -195,7 +193,9 @@ export const BarChartHouse = (): JSX.Element => {
               }
             />
 
-            <ChartLegend content={<ChartLegendContent className='text-[12px] sm:text-[14px]' />} />
+            <ChartLegend
+              content={<ChartLegendContent className='ml-10 text-[12px] sm:text-[14px]' />}
+            />
 
             <Bar dataKey='discípulos' fill='var(--color-discípulos)' radius={4} />
             <Bar dataKey='ofrenda' fill='var(--color-ofrenda)' radius={4} />

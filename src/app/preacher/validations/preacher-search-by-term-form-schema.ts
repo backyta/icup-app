@@ -57,7 +57,7 @@ export const preacherSearchByTermFormSchema = z
     },
     {
       message: 'El sub-tipo es requerido',
-      path: ['subType'],
+      path: ['searchSubType'],
     }
   )
   .refine(
@@ -120,7 +120,7 @@ export const preacherSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (data.searchType === PreacherSearchType.OriginCountry ||
-          data.searchType === PreacherSearchType.Zone ||
+          data.searchType === PreacherSearchType.ZoneName ||
           data.searchType === PreacherSearchType.FamilyGroupCode ||
           data.searchType === PreacherSearchType.FamilyGroupName ||
           data.searchType === PreacherSearchType.Department || 

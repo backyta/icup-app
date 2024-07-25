@@ -18,14 +18,14 @@ interface Props {
 
 export const ZoneCreateCard = ({ isDisabled, formFamilyHouse }: Props): JSX.Element => {
   //* States
-  const isCreateCardOpen = useFamilyHouseStore((state) => state.isCreateCardOpen);
-  const setIsCreateCardOpen = useFamilyHouseStore((state) => state.setIsCreateCardOpen);
+  // const isCreateCardOpen = useFamilyHouseStore((state) => state.isCreateCardOpen);
+  // const setIsCreateCardOpen = useFamilyHouseStore((state) => state.setIsCreateCardOpen);
 
-  const setIsInputDisabled = useFamilyHouseStore((state) => state.setIsInputDisabled);
-  const setIsInputZoneDisabled = useFamilyHouseStore((state) => state.setIsInputZoneDisabled);
-  const setIsInputPreacherDisabled = useFamilyHouseStore(
-    (state) => state.setIsInputPreacherDisabled
-  );
+  // const setIsInputDisabled = useFamilyHouseStore((state) => state.setIsInputDisabled);
+  // const setIsInputZoneDisabled = useFamilyHouseStore((state) => state.setIsInputZoneDisabled);
+  // const setIsInputPreacherDisabled = useFamilyHouseStore(
+  //   (state) => state.setIsInputPreacherDisabled
+  // );
 
   const topRef = useRef<HTMLDivElement>(null);
 
@@ -44,8 +44,8 @@ export const ZoneCreateCard = ({ isDisabled, formFamilyHouse }: Props): JSX.Elem
   useEffect(() => {
     if (!isCreateCardOpen) {
       setIsInputZoneDisabled(false);
-      setIsInputPreacherDisabled(true);
-      setIsInputDisabled(true);
+      // setIsInputPreacherDisabled(true);
+      // setIsInputDisabled(true);
     }
   }, [isCreateCardOpen]);
 

@@ -1,5 +1,5 @@
 export enum UrbanSector {
-  // Independencia 
+  //* Independencia 
   Payet = 'Payet',
   Tahuantinsuyo = 'Tahuantinsuyo',
   Independencia = 'Independencia',
@@ -7,7 +7,7 @@ export enum UrbanSector {
   Unificada = 'Unificada',
   Industrial = 'Industrial',
 
-  // Puente Piedra
+  //* Puente Piedra
   Ensenada = 'Ensenada',
   Laderas = 'Laderas',
   Chillón = 'Chillón',
@@ -28,30 +28,30 @@ export enum UrbanSector {
 }
 
 export const UrbanSectorNames: Record<UrbanSector, string> = {
-  // Independencia
-  Payet : 'Sect. Payet',
-  Tahuantinsuyo : 'Sect. Tahuantinsuyo',
-  Independencia : 'Sect. Independencia',
-  Ermitaño : 'Sect. Ermitaño',
-  Unificada : 'Sect. Unificada',
-  Industrial : 'Sect. Industrial',
+  //* Independencia
+  [UrbanSector.Payet]: 'Sect. Payet',
+  [UrbanSector.Tahuantinsuyo]: 'Sect. Tahuantinsuyo',
+  [UrbanSector.Independencia]: 'Sect. Independencia',
+  [UrbanSector.Ermitaño]: 'Sect. Ermitaño',
+  [UrbanSector.Unificada]: 'Sect. Unificada',
+  [UrbanSector.Industrial]: 'Sect. Industrial',
 
-  // Puente Piedra
-  Ensenada: 'Sect. Ensenada',
-  Laderas: 'Sect. Laderas',
-  Chillón: 'Sect. Chillón',
-  'Shangri La': 'Sect. Shangri-La',
-  'Tambo Inga Oeste': 'Sect. Tambo Inga Oeste',
-  'Tambo Inga Este': 'Sect. Tambo Inga Este',
-  'Pampa Libre': 'Sect. Pampa Libre',
-  Gallinazos: 'Sect. Gallinazos',
-  'Santa Rosa': 'Sect. Santa Rosa',
-  Cercado: 'Sect. Cercado',
-  'Las Vegas': 'Sect. Las Vegas',
-  'La Grama': 'Sect. La Grama',
-  Copacabana: 'Sect. Copacabana',
-  'El Dorado': 'Sect. El Dorado',
-  'Leoncio Prado': 'Sect. Leoncio Prado',
-  Jerusalén: 'Sect. Jerusalén',
-  Lomas: 'Sect. Lomas',
-}
+  //* Puente Piedra
+  [UrbanSector.Ensenada]: 'Sect. Ensenada',
+  [UrbanSector.Laderas]: 'Sect. Laderas',
+  [UrbanSector.Chillón]: 'Sect. Chillón',
+  [UrbanSector.ShangriLa]: 'Sect. Shangri-La',
+  [UrbanSector.TamboIngaOeste]: 'Sect. Tambo Inga Oeste',
+  [UrbanSector.TamboIngaEste]: 'Sect. Tambo Inga Este',
+  [UrbanSector.PampaLibre]: 'Sect. Pampa Libre',
+  [UrbanSector.Gallinazos]: 'Sect. Gallinazos',
+  [UrbanSector.SantaRosa]: 'Sect. Santa Rosa',
+  [UrbanSector.Cercado]: 'Sect. Cercado',
+  [UrbanSector.LasVegas]: 'Sect. Las Vegas',
+  [UrbanSector.LaGrama]: 'Sect. La Grama',
+  [UrbanSector.Copacabana]: 'Sect. Copacabana',
+  [UrbanSector.ElDorado]: 'Sect. El Dorado',
+  [UrbanSector.LeoncioPrado]: 'Sect. Leoncio Prado',
+  [UrbanSector.Jerusalén]: 'Sect. Jerusalén',
+  [UrbanSector.Lomas]: 'Sect. Lomas',
+};

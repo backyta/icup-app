@@ -1,22 +1,20 @@
-
-export interface FamilyGroupData {
-  zoneName: string;
-  houseName: string;
+export interface FamilyGroupFormData {
+  familyGroupName: string;
   worshipTime: string;
   country: string;
   department: string;
   province: string;
   district: string;
-  urbanSector: string;
+  urbanSector: string
   address: string;
-  referenceAddress?: string | undefined;
-  theirPreacher: string;
-  status?: string | undefined;
+  referenceAddress: string;
+  theirPreacher?: string | undefined;
+  theirZone?: string | undefined;
+  recordStatus?: string | undefined;
 }
 
-export type FamilyGroupDataKeys =
-  |'zoneName' 
-  |'houseName' 
+export type FamilyGroupFormDataKeys =
+  |'familyGroupName' 
   |'worshipTime'
   |'country' 
   |'department' 
@@ -26,4 +24,5 @@ export type FamilyGroupDataKeys =
   |'address' 
   |'referenceAddress'
   |'theirPreacher'
-  |'status';
+  |'theirZone'
+  |'recordStatus';

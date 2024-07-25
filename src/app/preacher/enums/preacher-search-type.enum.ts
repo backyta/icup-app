@@ -7,7 +7,8 @@ export enum PreacherSearchType {
   Gender = 'gender',
   MaritalStatus = 'marital_status',
   OriginCountry = 'origin_country' ,
-  Zone = 'zone',
+  ZoneName = 'zone_name',
+  ZoneId = 'zone_id',
   FamilyGroupCode = 'family_group_code',
   FamilyGroupName = 'family_group_name',
   Department = 'department',
@@ -18,7 +19,7 @@ export enum PreacherSearchType {
   RecordStatus = 'record_status',
 }
 
-export const PreacherSearchTypeNames: Record<PreacherSearchType, string> =  {
+export const PreacherSearchTypeNames: Partial<Record<PreacherSearchType, string>> =  {
   [PreacherSearchType.FirstName]: 'Nombres',
   [PreacherSearchType.LastName]: 'Apellidos',
   [PreacherSearchType.FullName]: 'Nombres y Apellidos',
@@ -27,7 +28,7 @@ export const PreacherSearchTypeNames: Record<PreacherSearchType, string> =  {
   [PreacherSearchType.Gender]: 'Género',
   [PreacherSearchType.MaritalStatus]: 'Estado civil',
   [PreacherSearchType.OriginCountry]: 'País de origen',
-  [PreacherSearchType.Zone]: 'Zona',
+  [PreacherSearchType.ZoneName]: 'Nombre de Zona',
   [PreacherSearchType.FamilyGroupCode]: 'Código de grupo familiar',
   [PreacherSearchType.FamilyGroupName]: 'Nombre de grupo familiar',
   [PreacherSearchType.Department]: 'Departamento',
@@ -37,3 +38,4 @@ export const PreacherSearchTypeNames: Record<PreacherSearchType, string> =  {
   [PreacherSearchType.Address]: 'Dirección',
   [PreacherSearchType.RecordStatus]: 'Estado de registro',
 }
+

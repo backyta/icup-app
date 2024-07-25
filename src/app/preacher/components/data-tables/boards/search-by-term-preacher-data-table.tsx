@@ -185,7 +185,7 @@ export function SearchByTermPreacherDataTable<TData, TValue>({
               Termino de búsqueda:
             </span>{' '}
             {(dataForm?.searchType === PreacherSearchType.OriginCountry ||
-              dataForm?.searchType === PreacherSearchType.Zone ||
+              dataForm?.searchType === PreacherSearchType.ZoneName ||
               dataForm?.searchType === PreacherSearchType.FamilyGroupCode ||
               dataForm?.searchType === PreacherSearchType.FamilyGroupName ||
               dataForm?.searchType === PreacherSearchType.Department ||

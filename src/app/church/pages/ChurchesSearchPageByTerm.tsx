@@ -14,7 +14,7 @@ import { es } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
 
 import {
-  ChurchSearchSelectOptionNames,
+  ChurchSearchNamesByRecordStatus,
   ChurchSearchType,
   ChurchSearchTypeNames,
 } from '@/app/church/enums';
@@ -333,7 +333,10 @@ export const ChurchesSearchPageByTerm = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {Object.entries(ChurchSearchSelectOptionNames).map(([key, value]) => (
+                            {Object.entries(
+                              searchType === ChurchSearchType.RecordStatus &&
+                                ChurchSearchNamesByRecordStatus
+                            ).map(([key, value]) => (
                               <SelectItem
                                 className={`text-[13px] md:text-[14px]`}
                                 key={key}

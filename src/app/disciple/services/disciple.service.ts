@@ -9,7 +9,7 @@ import { type FamilyGroupResponse } from '@/app/family-group/interfaces';
 import { DiscipleSearchType } from '@/app/disciple/enums';
 import { type DiscipleResponse, type DiscipleFormData, type DiscipleQueryParams } from '@/app/disciple/interfaces';
 
-
+// TODO : revisar la zona que no esta en los sevicios de los demas modulos
 //* Create disciple
 export const createDisciple = async (formData:DiscipleFormData ): Promise<DiscipleResponse> => {
   try {
@@ -51,7 +51,7 @@ export const getDisciples = async ({limit, offset, all, order}: DiscipleQueryPar
  let result: DiscipleResponse[];
 
   try {
-    if ( all !== undefined && !all) {
+    if (!all) {
       const {data} = await icupApi<DiscipleResponse[]>('/disciples' , {
         params: {
           limit,
@@ -99,7 +99,8 @@ export const getDisciplesByTerm = async ({
  let result: DiscipleResponse[];
 
  //* Origin country, department, province, district, urban sector, address
- if (searchType === DiscipleSearchType.OriginCountry||
+ if (searchType === DiscipleSearchType.ZoneName||
+     searchType === DiscipleSearchType.OriginCountry||
      searchType === DiscipleSearchType.Department ||
      searchType === DiscipleSearchType.Province ||
      searchType === DiscipleSearchType.District ||
@@ -107,7 +108,7 @@ export const getDisciplesByTerm = async ({
      searchType === DiscipleSearchType.Address
     ) {
     try {
-        if ( all !== undefined && !all) {
+        if (!all) {
             const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${inputTerm}` , {
           params: {
             limit,
@@ -142,7 +143,7 @@ export const getDisciplesByTerm = async ({
  //* Date Birth
   if (searchType === DiscipleSearchType.BirthDate) {
     try {
-      if ( all !== undefined && !all) {
+      if (!all) {
         const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${dateTerm}` , {
           params: {
             limit,
@@ -181,7 +182,7 @@ export const getDisciplesByTerm = async ({
         searchType === DiscipleSearchType.MaritalStatus
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${selectTerm}` , {
             params: {
               limit,
@@ -217,7 +218,7 @@ export const getDisciplesByTerm = async ({
   if (searchType === DiscipleSearchType.FirstName
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${namesTerm}` , {
             params: {
               limit,
@@ -256,7 +257,7 @@ export const getDisciplesByTerm = async ({
   if (searchType === DiscipleSearchType.LastName
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${lastNamesTerm}` , {
             params: {
               limit,
@@ -295,7 +296,7 @@ export const getDisciplesByTerm = async ({
   if (searchType === DiscipleSearchType.FullName
       ) {
       try {
-        if ( all !== undefined && !all) {
+        if (!all) {
           const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${namesTerm}-${lastNamesTerm}` , {
             params: {
               limit,

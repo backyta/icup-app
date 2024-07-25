@@ -106,6 +106,7 @@ export const CopastorDeletePage = (): JSX.Element => {
     resolver: zodResolver(copastorSearchByTermFormSchema),
     mode: 'onChange',
     defaultValues: {
+      searchSubType: '' as any,
       limit: '10',
       inputTerm: '',
       namesTerm: '',
@@ -142,6 +143,10 @@ export const CopastorDeletePage = (): JSX.Element => {
   useEffect(() => {
     setIsFiltersSearchByTermDisabled(true);
   }, []);
+
+  useEffect(() => {
+    form.setValue('searchSubType', undefined);
+  }, [searchType]);
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof copastorSearchByTermFormSchema>): void {
