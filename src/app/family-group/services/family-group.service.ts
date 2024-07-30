@@ -4,13 +4,12 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { type FamilyGroupResponse , type FamilyGroupFormData, type FamilyGroupQueryParams } from '@/app/family-group/interfaces';
+import { type FamilyGroupResponse , type FamilyGroupFormData, type FamilyGroupQueryParams, type FamilyGroupPreacherUpdateFormData } from '@/app/family-group/interfaces';
 
 import { type ZoneResponse } from '@/app/zone/interfaces';
 
 import { FamilyGroupSearchType } from '@/app/family-group/enums';
 import { type PreacherResponse } from '@/app/preacher/interfaces';
-
 
 //* Create family-group
 export const createFamilyGroup = async (formData:FamilyGroupFormData ): Promise<FamilyGroupResponse> => {
@@ -68,19 +67,27 @@ export const getAllPreachers = async (): Promise<PreacherResponse[]> => {
 }
 
 //* Get preachers by zone
-export const getPreachersByZone = async (
-  searchType: string, 
-  theirZone: string
-): Promise<PreacherResponse[]> => {
+export interface GetPreachersByZoneOptions {
+  searchType: string;
+  zoneId: string;
+  isNull: string;
+}
+
+export const getPreachersByZone = async ({
+  searchType,
+  zoneId,
+  isNull,
+ }:GetPreachersByZoneOptions): Promise<PreacherResponse[]> => {
   try {
-    const {data} = await icupApi<PreacherResponse[]>(`/preachers/${theirZone}` , {
+    const {data} = await icupApi<PreacherResponse[]>(`/preachers/${zoneId}` , {
       params: {
         order: 'ASC',
-        'search-type': searchType
+        'search-type': searchType,
+        isNull,
       },
     }
-    );
-    
+  );
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
@@ -339,12 +346,12 @@ export const getFamilyGroupsByTerm = async ({
 }
 
 // //* Update family group by ID
-export interface updateFamilyGroupOptions {
+export interface UpdateFamilyGroupOptions {
   id: string;
-  formData: FamilyGroupFormData;
+  formData: FamilyGroupFormData | FamilyGroupPreacherUpdateFormData;
 }
 
-export const updateFamilyGroup = async ({id, formData}: updateFamilyGroupOptions ): Promise<FamilyGroupResponse> => {
+export const updateFamilyGroup = async ({id, formData}: UpdateFamilyGroupOptions ): Promise<FamilyGroupResponse> => {
   try {
     const {data} = await icupApi.patch<FamilyGroupResponse>(`/family-groups/${id}`, formData)
 

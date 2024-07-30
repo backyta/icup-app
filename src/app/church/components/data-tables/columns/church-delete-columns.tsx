@@ -117,7 +117,7 @@ export const churchDeleteColumns: Array<ColumnDef<ChurchColumns, any>> = [
   },
 
   {
-    id: 'deleteInfo',
+    id: 'deleteRecord',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.row.original.id;

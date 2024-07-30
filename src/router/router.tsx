@@ -14,6 +14,7 @@ import { PreacherOptionsPage } from '@/app/preacher/pages';
 import { DiscipleOptionsPage } from '@/app/disciple/pages';
 //* Family groups and zones
 import { FamilyGroupOptionsPage } from '@/app/family-group/pages';
+import { ZoneOptionsPage } from '@/app/zone/pages';
 //* Offerings
 import { OfferingOptionsPage } from '@/app/offering/pages';
 import { OfferingIncomeOptionsPage } from '@/app/offering/income/pages';
@@ -33,6 +34,7 @@ import { PreacherChildrenRoutes } from '@/app/preacher/router';
 import { DiscipleChildrenRoutes } from '@/app/disciple/router';
 //* Family groups and zones
 import { FamilyGroupChildrenRoutes } from '@/app/family-group/router';
+import { ZoneChildrenRoutes } from '@/app/zone/router';
 //* Offering
 import { OfferingIncomeChildrenRoutes } from '@/app/offering/income/router';
 import { OfferingExpensesChildrenRoutes } from '@/app/offering/expenses/router';
@@ -65,6 +67,7 @@ export const router = createBrowserRouter([
           { path: '/preachers', element: <PreacherOptionsPage /> },
           { path: '/disciples', element: <DiscipleOptionsPage /> },
           { path: '/family-groups', element: <FamilyGroupOptionsPage /> },
+          { path: '/zones', element: <ZoneOptionsPage /> },
           { path: '/offerings', element: <OfferingOptionsPage /> },
           { path: '/offerings/income', element: <OfferingIncomeOptionsPage /> },
           { path: '/offerings/expenses', element: <OfferingExpensesOptionsPage /> },
@@ -82,6 +85,7 @@ export const router = createBrowserRouter([
       { path: '/supervisors', element: <DashboardLayout />, children: SupervisorChildrenRoutes },
       { path: '/preachers', element: <DashboardLayout />, children: PreacherChildrenRoutes },
       { path: '/family-groups', element: <DashboardLayout />, children: FamilyGroupChildrenRoutes },
+      { path: '/zones', element: <DashboardLayout />, children: ZoneChildrenRoutes },
 
       //* Offering income
       {

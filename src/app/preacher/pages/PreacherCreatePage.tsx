@@ -125,7 +125,7 @@ export const PreacherCreatePage = (): JSX.Element => {
   });
 
   usePreacherCreateSubmitButtonLogic({
-    formPreacherCrate: form,
+    preacherCreateForm: form,
     memberRoles: MemberRole,
     isInputDisabled,
     isMessageErrorDisabled,

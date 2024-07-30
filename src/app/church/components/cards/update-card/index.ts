@@ -1,3 +1,3 @@
-export * from './ChurchFormUpdate';
+export * from './ChurchUpdateForm';
 export * from './ChurchUpdateCard';
-export * from './FormChurchSkeleton';
+export * from './ChurchFormSkeleton';

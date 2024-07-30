@@ -4,7 +4,7 @@ import { GiArchiveRegister } from 'react-icons/gi';
 import { useMediaQuery } from '@react-hook/media-query';
 
 import { useDiscipleStore } from '@/stores/disciple';
-import { DiscipleFormUpdate } from '@/app/disciple/components';
+import { DiscipleUpdateForm } from '@/app/disciple/components';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
@@ -51,7 +51,7 @@ export const DiscipleUpdateCard = ({ idRow }: DiscipleUpdateCardProps): JSX.Elem
           ref={topRef}
           className='md:max-w-[740px] lg:max-w-[1050px] xl:max-w-[1160px] w-full max-h-full justify-center pt-[0.9rem] pb-[1.3rem] overflow-x-hidden overflow-y-auto'
         >
-          <DiscipleFormUpdate
+          <DiscipleUpdateForm
             id={idRow}
             data={currentDisciple}
             onSubmit={handleContainerClose}
@@ -77,7 +77,7 @@ export const DiscipleUpdateCard = ({ idRow }: DiscipleUpdateCardProps): JSX.Elem
         ref={topRef}
         className='max-w-auto sm:max-w-[590px] w-full max-h-full justify-center pt-6 pb-4 px-8 overflow-y-auto overflow-x-hidden'
       >
-        <DiscipleFormUpdate
+        <DiscipleUpdateForm
           id={idRow}
           data={currentDisciple}
           onSubmit={handleContainerClose}

@@ -9,7 +9,6 @@ import { type FamilyGroupResponse } from '@/app/family-group/interfaces';
 import { DiscipleSearchType } from '@/app/disciple/enums';
 import { type DiscipleResponse, type DiscipleFormData, type DiscipleQueryParams } from '@/app/disciple/interfaces';
 
-// TODO : revisar la zona que no esta en los sevicios de los demas modulos
 //* Create disciple
 export const createDisciple = async (formData:DiscipleFormData ): Promise<DiscipleResponse> => {
   try {
@@ -333,12 +332,12 @@ export const getDisciplesByTerm = async ({
 }
 
 // //* Update disciple by ID
-export interface updateDiscipleOptions {
+export interface UpdateDiscipleOptions {
   id: string;
   formData: DiscipleFormData;
 }
 
-export const updateDisciple = async ({id, formData}: updateDiscipleOptions ): Promise<DiscipleResponse> => {
+export const updateDisciple = async ({id, formData}: UpdateDiscipleOptions ): Promise<DiscipleResponse> => {
   try {
     const {data} = await icupApi.patch<DiscipleResponse>(`/disciples/${id}`, formData)
 

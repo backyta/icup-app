@@ -332,12 +332,12 @@ export const getSupervisorsByTerm = async ({
 }
 
 // //* Update supervisor by ID
-export interface updateSupervisorOptions {
+export interface UpdateSupervisorOptions {
   id: string;
   formData: SupervisorFormData;
 }
 
-export const updateSupervisor = async ({id, formData}: updateSupervisorOptions ): Promise<SupervisorResponse> => {
+export const updateSupervisor = async ({id, formData}: UpdateSupervisorOptions ): Promise<SupervisorResponse> => {
   try {
     const {data} = await icupApi.patch<SupervisorResponse>(`/supervisors/${id}`, formData)
 

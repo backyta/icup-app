@@ -10,7 +10,7 @@ import { type MemberRole } from '@/shared/enums';
 import { type PastorFormData } from '@/app/pastor/interfaces';
 
 interface Options {
-  formPastorUpdate: UseFormReturn<PastorFormData, any, PastorFormData>;
+  pastorUpdateForm: UseFormReturn<PastorFormData, any, PastorFormData>;
   memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,39 +18,39 @@ interface Options {
 }
 
 export const usePastorUpdateSubmitButtonLogic = ({
-  formPastorUpdate,
+  pastorUpdateForm,
   memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
   isInputDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = formPastorUpdate.watch('firstName');
-  const lastName = formPastorUpdate.watch('lastName');
-  const gender = formPastorUpdate.watch('gender');
-  const birthDate = formPastorUpdate.watch('birthDate');
-  const originCountry = formPastorUpdate.watch('originCountry');
-  const maritalStatus = formPastorUpdate.watch('maritalStatus');
-  const numberChildren = formPastorUpdate.watch('numberChildren');
-  const conversionDate = formPastorUpdate.watch('conversionDate');
-  const email = formPastorUpdate.watch('email');
-  const phoneNumber = formPastorUpdate.watch('phoneNumber');
-  const country = formPastorUpdate.watch('country');
-  const department = formPastorUpdate.watch('department');
-  const province = formPastorUpdate.watch('province');
-  const district = formPastorUpdate.watch('district');
-  const urbanSector = formPastorUpdate.watch('urbanSector');
-  const address = formPastorUpdate.watch('address');
-  const referenceAddress = formPastorUpdate.watch('referenceAddress');
-  const roles = formPastorUpdate.watch('roles');
-  const recordStatus = formPastorUpdate.watch('recordStatus');
-  const theirChurch = formPastorUpdate.watch('theirChurch');
+  const firstName = pastorUpdateForm.watch('firstName');
+  const lastName = pastorUpdateForm.watch('lastName');
+  const gender = pastorUpdateForm.watch('gender');
+  const birthDate = pastorUpdateForm.watch('birthDate');
+  const originCountry = pastorUpdateForm.watch('originCountry');
+  const maritalStatus = pastorUpdateForm.watch('maritalStatus');
+  const numberChildren = pastorUpdateForm.watch('numberChildren');
+  const conversionDate = pastorUpdateForm.watch('conversionDate');
+  const email = pastorUpdateForm.watch('email');
+  const phoneNumber = pastorUpdateForm.watch('phoneNumber');
+  const country = pastorUpdateForm.watch('country');
+  const department = pastorUpdateForm.watch('department');
+  const province = pastorUpdateForm.watch('province');
+  const district = pastorUpdateForm.watch('district');
+  const urbanSector = pastorUpdateForm.watch('urbanSector');
+  const address = pastorUpdateForm.watch('address');
+  const referenceAddress = pastorUpdateForm.watch('referenceAddress');
+  const roles = pastorUpdateForm.watch('roles');
+  const recordStatus = pastorUpdateForm.watch('recordStatus');
+  const theirChurch = pastorUpdateForm.watch('theirChurch');
 
   //* Effects
   useEffect(() => {
     if (
-      formPastorUpdate.formState.errors &&
-      Object.values(formPastorUpdate.formState.errors).length > 0
+      pastorUpdateForm.formState.errors &&
+      Object.values(pastorUpdateForm.formState.errors).length > 0
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -60,7 +60,7 @@ export const usePastorUpdateSubmitButtonLogic = ({
       theirChurch &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Pastor) &&
-      Object.values(formPastorUpdate.formState.errors).length === 0 &&
+      Object.values(pastorUpdateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -92,7 +92,7 @@ export const usePastorUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    formPastorUpdate.formState,
+    pastorUpdateForm.formState,
     firstName,
     lastName,
     gender,

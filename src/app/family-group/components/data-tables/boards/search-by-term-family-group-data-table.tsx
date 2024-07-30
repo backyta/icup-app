@@ -55,7 +55,6 @@ interface DataTableProps<TData, TValue> {
   dataForm: FamilyGroupSearchFormByTerm | undefined;
 }
 
-// TODO : quitar los asyncs de las queryFunc
 export function SearchByTermFamilyGroupDataTable<TData, TValue>({
   columns,
   searchParams,

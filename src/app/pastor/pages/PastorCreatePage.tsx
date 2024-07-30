@@ -124,7 +124,7 @@ export const PastorCreatePage = (): JSX.Element => {
   });
 
   usePastorCreateSubmitButtonLogic({
-    formPastorCrate: form,
+    pastorCreateForm: form,
     memberRoles: MemberRole,
     isInputDisabled,
     isMessageErrorDisabled,

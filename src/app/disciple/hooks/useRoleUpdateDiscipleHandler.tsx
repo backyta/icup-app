@@ -4,23 +4,23 @@ import { type MemberRole } from '@/shared/enums';
 import { type DiscipleFormData } from '@/app/disciple/interfaces';
 
 interface Options {
-  formDiscipleUpdate: UseFormReturn<DiscipleFormData, any, DiscipleFormData>;
+  discipleUpdateForm: UseFormReturn<DiscipleFormData, any, DiscipleFormData>;
   memberRoles: typeof MemberRole;
   setIsDisabledInput: React.Dispatch<React.SetStateAction<boolean>>;
   setIsDisabledPromoteButton: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useRoleUpdateDiscipleHandler = ({
-  formDiscipleUpdate,
+  discipleUpdateForm,
   memberRoles,
   setIsDisabledInput,
   setIsDisabledPromoteButton,
 }: Options): void => {
   //* Delete old relation
-  formDiscipleUpdate.setValue('theirFamilyGroup', '');
+  discipleUpdateForm.setValue('theirFamilyGroup', '');
 
   //* Conditional level up role
-  const roles: MemberRole[] = formDiscipleUpdate.getValues('roles');
+  const roles: MemberRole[] = discipleUpdateForm.getValues('roles');
   const hasMember = roles.includes(memberRoles.Disciple);
   const hasPreacher = roles.includes(memberRoles.Preacher);
   const hasTreasurer = roles.includes(memberRoles.Treasurer);
@@ -30,7 +30,7 @@ export const useRoleUpdateDiscipleHandler = ({
 
   //* disciple --> preacher
   if (hasMember && !hasCopastor && !hasSupervisor && !hasPreacher && !hasTreasurer && !hasPastor) {
-    formDiscipleUpdate.setValue('roles', [memberRoles.Disciple, memberRoles.Preacher]);
+    discipleUpdateForm.setValue('roles', [memberRoles.Disciple, memberRoles.Preacher]);
   }
 
   //* Set disabled states

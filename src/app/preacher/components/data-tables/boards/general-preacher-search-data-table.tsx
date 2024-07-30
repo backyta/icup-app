@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
@@ -76,7 +77,7 @@ export function GeneralPreacherSearchDataTable<TData, TValue>({
   //* Querys
   const query = useQuery({
     queryKey: ['general-preachers', searchParams],
-    queryFn: async () => getPreachers(searchParams as PreacherQueryParams),
+    queryFn: () => getPreachers(searchParams as PreacherQueryParams),
     enabled: !!searchParams,
     retry: 1,
   });

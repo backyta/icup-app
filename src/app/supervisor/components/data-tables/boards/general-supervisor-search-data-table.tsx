@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
@@ -76,7 +77,7 @@ export function GeneralSupervisorSearchDataTable<TData, TValue>({
   //* Querys
   const query = useQuery({
     queryKey: ['general-supervisors', searchParams],
-    queryFn: async () => getSupervisors(searchParams as SupervisorQueryParams),
+    queryFn: () => getSupervisors(searchParams as SupervisorQueryParams),
     enabled: !!searchParams,
     retry: 1,
   });

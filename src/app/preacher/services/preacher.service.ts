@@ -334,12 +334,12 @@ export const getPreachersByTerm = async ({
 }
 
 // //* Update preacher by ID
-export interface updatePreacherOptions {
+export interface UpdatePreacherOptions {
   id: string;
   formData: PreacherFormData;
 }
 
-export const updatePreacher = async ({id, formData}: updatePreacherOptions ): Promise<PreacherResponse> => {
+export const updatePreacher = async ({id, formData}: UpdatePreacherOptions ): Promise<PreacherResponse> => {
   console.log(formData);
   
   try {

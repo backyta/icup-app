@@ -70,7 +70,7 @@ import { Calendar } from '@/shared/components/ui/calendar';
 import { Textarea } from '@/shared/components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
-// TODO : ver si se agrega el motivo de eliminación cuando se inactiva a un miembro (recaída, problemas) y su cuadro de comentarios, ver ejemplo de ofrendas
+// TODO : seguir con el delete de casa familiar y luego las zonas
 export const ChurchCreatePage = (): JSX.Element => {
   //* States
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
@@ -110,7 +110,7 @@ export const ChurchCreatePage = (): JSX.Element => {
 
   //* Custom hooks
   useChurchCreateSubmitButtonLogic({
-    formChurchCreate: form,
+    churchCreateForm: form,
     isInputDisabled,
     setIsSubmitButtonDisabled,
     setIsMessageErrorDisabled,

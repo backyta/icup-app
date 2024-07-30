@@ -9,7 +9,7 @@ import { type MemberRole } from '@/shared/enums';
 import { type DiscipleFormData } from '@/app/disciple/interfaces';
 
 interface Options {
-  formDiscipleUpdate: UseFormReturn<DiscipleFormData, any, DiscipleFormData>;
+  discipleUpdateForm: UseFormReturn<DiscipleFormData, any, DiscipleFormData>;
   memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,7 +18,7 @@ interface Options {
 }
 
 export const useDiscipleUpdateSubmitButtonLogic = ({
-  formDiscipleUpdate,
+  discipleUpdateForm,
   memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
@@ -26,33 +26,33 @@ export const useDiscipleUpdateSubmitButtonLogic = ({
   isRelationSelectDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = formDiscipleUpdate.watch('firstName');
-  const lastName = formDiscipleUpdate.watch('lastName');
-  const gender = formDiscipleUpdate.watch('gender');
-  const birthDate = formDiscipleUpdate.watch('birthDate');
-  const originCountry = formDiscipleUpdate.watch('originCountry');
-  const maritalStatus = formDiscipleUpdate.watch('maritalStatus');
-  const numberChildren = formDiscipleUpdate.watch('numberChildren');
-  const conversionDate = formDiscipleUpdate.watch('conversionDate');
-  const email = formDiscipleUpdate.watch('email');
-  const phoneNumber = formDiscipleUpdate.watch('phoneNumber');
-  const country = formDiscipleUpdate.watch('country');
-  const department = formDiscipleUpdate.watch('department');
-  const province = formDiscipleUpdate.watch('province');
-  const district = formDiscipleUpdate.watch('district');
-  const urbanSector = formDiscipleUpdate.watch('urbanSector');
-  const address = formDiscipleUpdate.watch('address');
-  const referenceAddress = formDiscipleUpdate.watch('referenceAddress');
-  const roles = formDiscipleUpdate.watch('roles');
-  const recordStatus = formDiscipleUpdate.watch('recordStatus');
-  const theirFamilyGroup = formDiscipleUpdate.watch('theirFamilyGroup');
-  const theirSupervisor = formDiscipleUpdate.watch('theirSupervisor');
+  const firstName = discipleUpdateForm.watch('firstName');
+  const lastName = discipleUpdateForm.watch('lastName');
+  const gender = discipleUpdateForm.watch('gender');
+  const birthDate = discipleUpdateForm.watch('birthDate');
+  const originCountry = discipleUpdateForm.watch('originCountry');
+  const maritalStatus = discipleUpdateForm.watch('maritalStatus');
+  const numberChildren = discipleUpdateForm.watch('numberChildren');
+  const conversionDate = discipleUpdateForm.watch('conversionDate');
+  const email = discipleUpdateForm.watch('email');
+  const phoneNumber = discipleUpdateForm.watch('phoneNumber');
+  const country = discipleUpdateForm.watch('country');
+  const department = discipleUpdateForm.watch('department');
+  const province = discipleUpdateForm.watch('province');
+  const district = discipleUpdateForm.watch('district');
+  const urbanSector = discipleUpdateForm.watch('urbanSector');
+  const address = discipleUpdateForm.watch('address');
+  const referenceAddress = discipleUpdateForm.watch('referenceAddress');
+  const roles = discipleUpdateForm.watch('roles');
+  const recordStatus = discipleUpdateForm.watch('recordStatus');
+  const theirFamilyGroup = discipleUpdateForm.watch('theirFamilyGroup');
+  const theirSupervisor = discipleUpdateForm.watch('theirSupervisor');
 
   //* Effects
   useEffect(() => {
     if (
-      formDiscipleUpdate.formState.errors &&
-      Object.values(formDiscipleUpdate.formState.errors).length > 0
+      discipleUpdateForm.formState.errors &&
+      Object.values(discipleUpdateForm.formState.errors).length > 0
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -62,7 +62,7 @@ export const useDiscipleUpdateSubmitButtonLogic = ({
       roles.includes(memberRoles.Disciple) &&
       !roles.includes(memberRoles.Preacher) &&
       theirFamilyGroup &&
-      Object.values(formDiscipleUpdate.formState.errors).length === 0 &&
+      Object.values(discipleUpdateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -91,7 +91,7 @@ export const useDiscipleUpdateSubmitButtonLogic = ({
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Preacher) &&
       theirSupervisor &&
-      Object.values(formDiscipleUpdate.formState.errors).length === 0 &&
+      Object.values(discipleUpdateForm.formState.errors).length === 0 &&
       !isRelationSelectDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -122,7 +122,7 @@ export const useDiscipleUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    formDiscipleUpdate.formState,
+    discipleUpdateForm.formState,
     firstName,
     lastName,
     gender,

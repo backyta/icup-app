@@ -6,13 +6,13 @@ import { type CopastorFieldNames } from '@/app/copastor/enums';
 import { type CopastorFormData } from '@/app/copastor/interfaces';
 
 interface Options {
-  formCopastorUpdate: UseFormReturn<CopastorFormData, any, CopastorFormData>;
+  copastorUpdateForm: UseFormReturn<CopastorFormData, any, CopastorFormData>;
   fieldName: typeof CopastorFieldNames;
   setIsPromoteButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useCopastorPromoteButtonLogic = ({
-  formCopastorUpdate,
+  copastorUpdateForm,
   fieldName,
   setIsPromoteButtonDisabled,
 }: Options): any => {
@@ -21,38 +21,38 @@ export const useCopastorPromoteButtonLogic = ({
   const [lastValues, setLastValues] = useState<CopastorFormData[]>([]);
 
   //* Watchers
-  const firstName = formCopastorUpdate.watch('firstName');
-  const lastName = formCopastorUpdate.watch('lastName');
-  const gender = formCopastorUpdate.watch('gender');
-  const birthDate = formCopastorUpdate.watch('birthDate');
-  const originCountry = formCopastorUpdate.watch('originCountry');
-  const maritalStatus = formCopastorUpdate.watch('maritalStatus');
-  const numberChildren = formCopastorUpdate.watch('numberChildren');
-  const conversionDate = formCopastorUpdate.watch('conversionDate');
-  const email = formCopastorUpdate.watch('email');
-  const phoneNumber = formCopastorUpdate.watch('phoneNumber');
-  const country = formCopastorUpdate.watch('country');
-  const department = formCopastorUpdate.watch('department');
-  const province = formCopastorUpdate.watch('province');
-  const district = formCopastorUpdate.watch('district');
-  const urbanSector = formCopastorUpdate.watch('urbanSector');
-  const address = formCopastorUpdate.watch('address');
-  const referenceAddress = formCopastorUpdate.watch('referenceAddress');
-  const roles = formCopastorUpdate.watch('roles');
-  const recordStatus = formCopastorUpdate.watch('recordStatus');
+  const firstName = copastorUpdateForm.watch('firstName');
+  const lastName = copastorUpdateForm.watch('lastName');
+  const gender = copastorUpdateForm.watch('gender');
+  const birthDate = copastorUpdateForm.watch('birthDate');
+  const originCountry = copastorUpdateForm.watch('originCountry');
+  const maritalStatus = copastorUpdateForm.watch('maritalStatus');
+  const numberChildren = copastorUpdateForm.watch('numberChildren');
+  const conversionDate = copastorUpdateForm.watch('conversionDate');
+  const email = copastorUpdateForm.watch('email');
+  const phoneNumber = copastorUpdateForm.watch('phoneNumber');
+  const country = copastorUpdateForm.watch('country');
+  const department = copastorUpdateForm.watch('department');
+  const province = copastorUpdateForm.watch('province');
+  const district = copastorUpdateForm.watch('district');
+  const urbanSector = copastorUpdateForm.watch('urbanSector');
+  const address = copastorUpdateForm.watch('address');
+  const referenceAddress = copastorUpdateForm.watch('referenceAddress');
+  const roles = copastorUpdateForm.watch('roles');
+  const recordStatus = copastorUpdateForm.watch('recordStatus');
 
-  const theirPastor = formCopastorUpdate.watch('theirPastor');
+  const theirPastor = copastorUpdateForm.watch('theirPastor');
 
   //* Effects
   useEffect(() => {
-    const initialValues = formCopastorUpdate.getValues([...Object.values(fieldName)]);
+    const initialValues = copastorUpdateForm.getValues([...Object.values(fieldName)]);
     setFixedValues(initialValues);
   }, []);
 
   //* Validate and compare last and current values
   useEffect(() => {
     const previousValues: CopastorFormData[] = lastValues;
-    const currentValues: CopastorFormData[] = formCopastorUpdate.getValues([
+    const currentValues: CopastorFormData[] = copastorUpdateForm.getValues([
       ...Object.values(fieldName),
     ]);
 

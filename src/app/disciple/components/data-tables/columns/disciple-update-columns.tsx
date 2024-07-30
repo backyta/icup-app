@@ -127,7 +127,7 @@ export const discipleUpdateColumns: Array<ColumnDef<DiscipleColumns, any>> = [
   },
 
   {
-    id: 'updateInfo',
+    id: 'editInfo',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.row.original.id;

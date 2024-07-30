@@ -332,12 +332,12 @@ export const getCopastorsByTerm = async ({
 }
 
 // //* Update co-pastor by ID
-export interface updateCopastorOptions {
+export interface UpdateCopastorOptions {
   id: string;
   formData: CopastorFormData;
 }
 
-export const updateCopastor = async ({id, formData}: updateCopastorOptions ): Promise<CopastorResponse> => {
+export const updateCopastor = async ({id, formData}: UpdateCopastorOptions ): Promise<CopastorResponse> => {
   try {
     const {data} = await icupApi.patch<CopastorResponse>(`/copastors/${id}`, formData)
 

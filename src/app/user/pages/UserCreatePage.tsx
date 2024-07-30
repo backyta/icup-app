@@ -165,11 +165,11 @@ export const UserCreatePage = (): JSX.Element => {
         Por favor llena los siguientes datos para crear un nuevo usuario.
       </p>
 
-      <div className='flex min-h-screen flex-col items-center justify-between px-8 py-4 sm:px-10 sm:py-6 2xl:px-36 2xl:py-10'>
+      <div className='flex min-h-full flex-col items-center justify-between px-8 py-4 sm:px-10 sm:py-6 2xl:px-36 2xl:py-10'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            className='max-w-md w-full flex flex-col gap-5'
+            className='max-w-md w-full flex flex-col gap-4'
           >
             <FormField
               control={form.control}

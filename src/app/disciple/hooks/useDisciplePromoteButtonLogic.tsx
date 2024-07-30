@@ -6,13 +6,13 @@ import { type DiscipleFieldNames } from '@/app/disciple/enums';
 import { type DiscipleFormData } from '@/app/disciple/interfaces';
 
 interface Options {
-  formDiscipleUpdate: UseFormReturn<DiscipleFormData, any, DiscipleFormData>;
+  discipleUpdateForm: UseFormReturn<DiscipleFormData, any, DiscipleFormData>;
   fieldName: typeof DiscipleFieldNames;
   setIsPromoteButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useDisciplePromoteButtonLogic = ({
-  formDiscipleUpdate,
+  discipleUpdateForm,
   fieldName,
   setIsPromoteButtonDisabled,
 }: Options): any => {
@@ -21,37 +21,37 @@ export const useDisciplePromoteButtonLogic = ({
   const [lastValues, setLastValues] = useState<DiscipleFormData[]>([]);
 
   //* Watchers
-  const firstName = formDiscipleUpdate.watch('firstName');
-  const lastName = formDiscipleUpdate.watch('lastName');
-  const gender = formDiscipleUpdate.watch('gender');
-  const birthDate = formDiscipleUpdate.watch('birthDate');
-  const originCountry = formDiscipleUpdate.watch('originCountry');
-  const maritalStatus = formDiscipleUpdate.watch('maritalStatus');
-  const numberChildren = formDiscipleUpdate.watch('numberChildren');
-  const conversionDate = formDiscipleUpdate.watch('conversionDate');
-  const email = formDiscipleUpdate.watch('email');
-  const phoneNumber = formDiscipleUpdate.watch('phoneNumber');
-  const country = formDiscipleUpdate.watch('country');
-  const department = formDiscipleUpdate.watch('department');
-  const province = formDiscipleUpdate.watch('province');
-  const district = formDiscipleUpdate.watch('district');
-  const urbanSector = formDiscipleUpdate.watch('urbanSector');
-  const address = formDiscipleUpdate.watch('address');
-  const referenceAddress = formDiscipleUpdate.watch('referenceAddress');
-  const roles = formDiscipleUpdate.watch('roles');
-  const recordStatus = formDiscipleUpdate.watch('recordStatus');
-  const theirFamilyGroup = formDiscipleUpdate.watch('theirFamilyGroup');
+  const firstName = discipleUpdateForm.watch('firstName');
+  const lastName = discipleUpdateForm.watch('lastName');
+  const gender = discipleUpdateForm.watch('gender');
+  const birthDate = discipleUpdateForm.watch('birthDate');
+  const originCountry = discipleUpdateForm.watch('originCountry');
+  const maritalStatus = discipleUpdateForm.watch('maritalStatus');
+  const numberChildren = discipleUpdateForm.watch('numberChildren');
+  const conversionDate = discipleUpdateForm.watch('conversionDate');
+  const email = discipleUpdateForm.watch('email');
+  const phoneNumber = discipleUpdateForm.watch('phoneNumber');
+  const country = discipleUpdateForm.watch('country');
+  const department = discipleUpdateForm.watch('department');
+  const province = discipleUpdateForm.watch('province');
+  const district = discipleUpdateForm.watch('district');
+  const urbanSector = discipleUpdateForm.watch('urbanSector');
+  const address = discipleUpdateForm.watch('address');
+  const referenceAddress = discipleUpdateForm.watch('referenceAddress');
+  const roles = discipleUpdateForm.watch('roles');
+  const recordStatus = discipleUpdateForm.watch('recordStatus');
+  const theirFamilyGroup = discipleUpdateForm.watch('theirFamilyGroup');
 
   //* Effects
   useEffect(() => {
-    const initialValues = formDiscipleUpdate.getValues([...Object.values(fieldName)]);
+    const initialValues = discipleUpdateForm.getValues([...Object.values(fieldName)]);
     setFixedValues(initialValues);
   }, []);
 
   //* Validate and compare last and current values
   useEffect(() => {
     const previousValues: DiscipleFormData[] = lastValues;
-    const currentValues: DiscipleFormData[] = formDiscipleUpdate.getValues([
+    const currentValues: DiscipleFormData[] = discipleUpdateForm.getValues([
       ...Object.values(fieldName),
     ]);
 

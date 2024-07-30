@@ -107,7 +107,6 @@ export const preacherDeleteColumns: Array<ColumnDef<PreacherColumns, any>> = [
       );
     },
   },
-
   {
     id: 'showInfo',
     accessorKey: 'id',
@@ -126,9 +125,8 @@ export const preacherDeleteColumns: Array<ColumnDef<PreacherColumns, any>> = [
       );
     },
   },
-
   {
-    id: 'deleteInfo',
+    id: 'deleteRecord',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.row.original.id;

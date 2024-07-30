@@ -128,7 +128,7 @@ export const preacherUpdateColumns: Array<ColumnDef<PreacherColumns, any>> = [
   },
 
   {
-    id: 'updateInfo',
+    id: 'editInfo',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.row.original.id;

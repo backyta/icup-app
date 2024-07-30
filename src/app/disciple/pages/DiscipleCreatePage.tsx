@@ -123,7 +123,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
   });
 
   useDiscipleCreateSubmitButtonLogic({
-    formDiscipleCreate: form,
+    discipleCreateForm: form,
     memberRoles: MemberRole,
     isInputDisabled,
     isMessageErrorDisabled,

@@ -9,7 +9,7 @@ import { type MemberRole } from '@/shared/enums';
 import { type SupervisorFormData } from '@/app/supervisor/interfaces';
 
 interface Options {
-  formSupervisorCrate: UseFormReturn<SupervisorFormData, any, SupervisorFormData>;
+  supervisorCreateForm: UseFormReturn<SupervisorFormData, any, SupervisorFormData>;
   memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,7 +18,7 @@ interface Options {
 }
 
 export const useSupervisorCreateSubmitButtonLogic = ({
-  formSupervisorCrate,
+  supervisorCreateForm,
   memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
@@ -26,33 +26,33 @@ export const useSupervisorCreateSubmitButtonLogic = ({
   isInputDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = formSupervisorCrate.watch('firstName');
-  const lastName = formSupervisorCrate.watch('lastName');
-  const gender = formSupervisorCrate.watch('gender');
-  const birthDate = formSupervisorCrate.watch('birthDate');
-  const conversionDate = formSupervisorCrate.watch('conversionDate');
-  const maritalStatus = formSupervisorCrate.watch('maritalStatus');
-  const email = formSupervisorCrate.watch('email');
-  const phoneNumber = formSupervisorCrate.watch('phoneNumber');
-  const originCountry = formSupervisorCrate.watch('originCountry');
-  const numberChildren = formSupervisorCrate.watch('numberChildren');
-  const country = formSupervisorCrate.watch('country');
-  const department = formSupervisorCrate.watch('department');
-  const province = formSupervisorCrate.watch('province');
-  const district = formSupervisorCrate.watch('district');
-  const urbanSector = formSupervisorCrate.watch('urbanSector');
-  const address = formSupervisorCrate.watch('address');
-  const roles = formSupervisorCrate.watch('roles');
-  const isDirectRelationToPastor = formSupervisorCrate.watch('isDirectRelationToPastor');
-  const referenceAddress = formSupervisorCrate.watch('referenceAddress');
-  const theirCopastor = formSupervisorCrate.watch('theirCopastor');
-  const theirPastor = formSupervisorCrate.watch('theirPastor');
+  const firstName = supervisorCreateForm.watch('firstName');
+  const lastName = supervisorCreateForm.watch('lastName');
+  const gender = supervisorCreateForm.watch('gender');
+  const birthDate = supervisorCreateForm.watch('birthDate');
+  const conversionDate = supervisorCreateForm.watch('conversionDate');
+  const maritalStatus = supervisorCreateForm.watch('maritalStatus');
+  const email = supervisorCreateForm.watch('email');
+  const phoneNumber = supervisorCreateForm.watch('phoneNumber');
+  const originCountry = supervisorCreateForm.watch('originCountry');
+  const numberChildren = supervisorCreateForm.watch('numberChildren');
+  const country = supervisorCreateForm.watch('country');
+  const department = supervisorCreateForm.watch('department');
+  const province = supervisorCreateForm.watch('province');
+  const district = supervisorCreateForm.watch('district');
+  const urbanSector = supervisorCreateForm.watch('urbanSector');
+  const address = supervisorCreateForm.watch('address');
+  const roles = supervisorCreateForm.watch('roles');
+  const isDirectRelationToPastor = supervisorCreateForm.watch('isDirectRelationToPastor');
+  const referenceAddress = supervisorCreateForm.watch('referenceAddress');
+  const theirCopastor = supervisorCreateForm.watch('theirCopastor');
+  const theirPastor = supervisorCreateForm.watch('theirPastor');
 
   //* Effects
   useEffect(() => {
     if (
-      formSupervisorCrate.formState.errors &&
-      Object.values(formSupervisorCrate.formState.errors).length > 0
+      supervisorCreateForm.formState.errors &&
+      Object.values(supervisorCreateForm.formState.errors).length > 0
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -63,7 +63,7 @@ export const useSupervisorCreateSubmitButtonLogic = ({
       theirPastor &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
-      Object.values(formSupervisorCrate.formState.errors).length === 0 &&
+      Object.values(supervisorCreateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -80,7 +80,7 @@ export const useSupervisorCreateSubmitButtonLogic = ({
       theirCopastor &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
-      Object.values(formSupervisorCrate.formState.errors).length === 0 &&
+      Object.values(supervisorCreateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -117,7 +117,7 @@ export const useSupervisorCreateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    formSupervisorCrate.formState,
+    supervisorCreateForm.formState,
     firstName,
     lastName,
     gender,
@@ -142,6 +142,6 @@ export const useSupervisorCreateSubmitButtonLogic = ({
   ]);
 
   useEffect(() => {
-    formSupervisorCrate.setValue('roles', [memberRoles.Disciple, memberRoles.Supervisor]);
+    supervisorCreateForm.setValue('roles', [memberRoles.Disciple, memberRoles.Supervisor]);
   }, [isMessageErrorDisabled]);
 };

@@ -256,12 +256,12 @@ export const getUsersByTerm = async ({
 }
 
 // //* Update user by ID
-export interface updateUserOptions {
+export interface UpdateUserOptions {
   id: string;
   formData: UserFormData | UserPasswordUpdateFormData;
 }
 
-export const updateUser = async ({id, formData}: updateUserOptions ): Promise<UserResponse> => {
+export const updateUser = async ({id, formData}: UpdateUserOptions ): Promise<UserResponse> => {
   try {
     const {data} = await icupApi.patch<UserResponse>(`/users/${id}`, formData)
 

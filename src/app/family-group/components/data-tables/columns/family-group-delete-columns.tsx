@@ -119,7 +119,7 @@ export const familyGroupDeleteColumns: Array<ColumnDef<FamilyGroupColumns, any>>
   },
 
   {
-    id: 'deleteInfo',
+    id: 'deleteRecord',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.row.original.id;

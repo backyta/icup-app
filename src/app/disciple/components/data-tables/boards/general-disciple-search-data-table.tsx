@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
@@ -74,7 +75,7 @@ export function GeneralDiscipleSearchDataTable<TData, TValue>({
   //* Querys
   const query = useQuery({
     queryKey: ['general-disciples', searchParams],
-    queryFn: async () => getDisciples(searchParams as DiscipleQueryParams),
+    queryFn: () => getDisciples(searchParams as DiscipleQueryParams),
     enabled: !!searchParams,
     retry: 1,
   });

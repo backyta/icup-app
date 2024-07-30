@@ -129,7 +129,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
   });
 
   useSupervisorCreateSubmitButtonLogic({
-    formSupervisorCrate: form,
+    supervisorCreateForm: form,
     memberRoles: MemberRole,
     isInputDisabled,
     isMessageErrorDisabled,

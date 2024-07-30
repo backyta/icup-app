@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { ImKey2 } from 'react-icons/im';
 import { useMediaQuery } from '@react-hook/media-query';
 
-import { UserPasswordFormUpdate } from '@/app/user/components';
+import { UserPasswordUpdateForm } from '@/app/user/components';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
@@ -46,7 +46,7 @@ export const UserPasswordUpdateCard = ({ idRow }: UserPasswordUpdateCardProps): 
           ref={topRef}
           className='md:max-w-[540px] lg:max-w-[500px] xl:max-w-[600px] w-full max-h-full justify-center pt-[0.9rem] pb-[1.3rem] overflow-x-hidden overflow-y-auto'
         >
-          <UserPasswordFormUpdate
+          <UserPasswordUpdateForm
             id={idRow}
             onSubmit={handleContainerClose}
             onScroll={handleContainerScroll}
@@ -71,7 +71,7 @@ export const UserPasswordUpdateCard = ({ idRow }: UserPasswordUpdateCardProps): 
         ref={topRef}
         className='max-w-auto sm:max-w-[490px] w-full max-h-full justify-center pt-6 pb-4 px-8 overflow-y-auto overflow-x-hidden'
       >
-        <UserPasswordFormUpdate
+        <UserPasswordUpdateForm
           id={idRow}
           onSubmit={handleContainerClose}
           onScroll={handleContainerScroll}

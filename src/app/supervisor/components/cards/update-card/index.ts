@@ -1,3 +1,3 @@
-export * from './SupervisorFormUpdate';
+export * from './SupervisorUpdateForm';
 export * from './SupervisorUpdateCard';
-export * from './FormSupervisorSkeleton';
+export * from './SupervisorFormSkeleton';

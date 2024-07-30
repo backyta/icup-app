@@ -151,7 +151,7 @@ export const FamilyGroupsSearchPageByTerm = (): JSX.Element => {
   }
 
   return (
-    <div>
+    <div className='animate-fadeInPage'>
       <h1 className='text-center pt-3 md:pt-2 pb-4 font-sans text-2xl sm:text-3xl font-bold text-family-group-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
         Modulo Grupo Familiar
       </h1>

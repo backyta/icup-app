@@ -9,7 +9,7 @@ import { type MemberRole } from '@/shared/enums';
 import { type PreacherFormData } from '@/app/preacher/interfaces';
 
 interface Options {
-  formPreacherCrate: UseFormReturn<PreacherFormData, any, PreacherFormData>;
+  preacherCreateForm: UseFormReturn<PreacherFormData, any, PreacherFormData>;
   memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,7 +18,7 @@ interface Options {
 }
 
 export const usePreacherCreateSubmitButtonLogic = ({
-  formPreacherCrate,
+  preacherCreateForm,
   memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
@@ -26,31 +26,31 @@ export const usePreacherCreateSubmitButtonLogic = ({
   isInputDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = formPreacherCrate.watch('firstName');
-  const lastName = formPreacherCrate.watch('lastName');
-  const gender = formPreacherCrate.watch('gender');
-  const birthDate = formPreacherCrate.watch('birthDate');
-  const conversionDate = formPreacherCrate.watch('conversionDate');
-  const maritalStatus = formPreacherCrate.watch('maritalStatus');
-  const email = formPreacherCrate.watch('email');
-  const phoneNumber = formPreacherCrate.watch('phoneNumber');
-  const originCountry = formPreacherCrate.watch('originCountry');
-  const numberChildren = formPreacherCrate.watch('numberChildren');
-  const country = formPreacherCrate.watch('country');
-  const department = formPreacherCrate.watch('department');
-  const province = formPreacherCrate.watch('province');
-  const district = formPreacherCrate.watch('district');
-  const urbanSector = formPreacherCrate.watch('urbanSector');
-  const address = formPreacherCrate.watch('address');
-  const roles = formPreacherCrate.watch('roles');
-  const referenceAddress = formPreacherCrate.watch('referenceAddress');
-  const theirSupervisor = formPreacherCrate.watch('theirSupervisor');
+  const firstName = preacherCreateForm.watch('firstName');
+  const lastName = preacherCreateForm.watch('lastName');
+  const gender = preacherCreateForm.watch('gender');
+  const birthDate = preacherCreateForm.watch('birthDate');
+  const conversionDate = preacherCreateForm.watch('conversionDate');
+  const maritalStatus = preacherCreateForm.watch('maritalStatus');
+  const email = preacherCreateForm.watch('email');
+  const phoneNumber = preacherCreateForm.watch('phoneNumber');
+  const originCountry = preacherCreateForm.watch('originCountry');
+  const numberChildren = preacherCreateForm.watch('numberChildren');
+  const country = preacherCreateForm.watch('country');
+  const department = preacherCreateForm.watch('department');
+  const province = preacherCreateForm.watch('province');
+  const district = preacherCreateForm.watch('district');
+  const urbanSector = preacherCreateForm.watch('urbanSector');
+  const address = preacherCreateForm.watch('address');
+  const roles = preacherCreateForm.watch('roles');
+  const referenceAddress = preacherCreateForm.watch('referenceAddress');
+  const theirSupervisor = preacherCreateForm.watch('theirSupervisor');
 
   //* Effects
   useEffect(() => {
     if (
-      formPreacherCrate.formState.errors &&
-      Object.values(formPreacherCrate.formState.errors).length > 0
+      preacherCreateForm.formState.errors &&
+      Object.values(preacherCreateForm.formState.errors).length > 0
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -60,7 +60,7 @@ export const usePreacherCreateSubmitButtonLogic = ({
       theirSupervisor &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Preacher) &&
-      Object.values(formPreacherCrate.formState.errors).length === 0 &&
+      Object.values(preacherCreateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -93,7 +93,7 @@ export const usePreacherCreateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    formPreacherCrate.formState,
+    preacherCreateForm.formState,
     firstName,
     lastName,
     gender,
@@ -116,6 +116,6 @@ export const usePreacherCreateSubmitButtonLogic = ({
   ]);
 
   useEffect(() => {
-    formPreacherCrate.setValue('roles', [memberRoles.Disciple, memberRoles.Preacher]);
+    preacherCreateForm.setValue('roles', [memberRoles.Disciple, memberRoles.Preacher]);
   }, [isMessageErrorDisabled]);
 };

@@ -10,7 +10,7 @@ import { type MemberRole } from '@/shared/enums';
 import { type PreacherFormData } from '@/app/preacher/interfaces';
 
 interface Options {
-  formPreacherUpdate: UseFormReturn<PreacherFormData, any, PreacherFormData>;
+  preacherUpdateForm: UseFormReturn<PreacherFormData, any, PreacherFormData>;
   memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,7 +19,7 @@ interface Options {
 }
 
 export const usePreacherUpdateSubmitButtonLogic = ({
-  formPreacherUpdate,
+  preacherUpdateForm,
   memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
@@ -27,36 +27,36 @@ export const usePreacherUpdateSubmitButtonLogic = ({
   isInputDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = formPreacherUpdate.watch('firstName');
-  const lastName = formPreacherUpdate.watch('lastName');
-  const gender = formPreacherUpdate.watch('gender');
-  const birthDate = formPreacherUpdate.watch('birthDate');
-  const originCountry = formPreacherUpdate.watch('originCountry');
-  const maritalStatus = formPreacherUpdate.watch('maritalStatus');
-  const numberChildren = formPreacherUpdate.watch('numberChildren');
-  const conversionDate = formPreacherUpdate.watch('conversionDate');
-  const email = formPreacherUpdate.watch('email');
-  const phoneNumber = formPreacherUpdate.watch('phoneNumber');
-  const country = formPreacherUpdate.watch('country');
-  const department = formPreacherUpdate.watch('department');
-  const province = formPreacherUpdate.watch('province');
-  const district = formPreacherUpdate.watch('district');
-  const urbanSector = formPreacherUpdate.watch('urbanSector');
-  const address = formPreacherUpdate.watch('address');
-  const referenceAddress = formPreacherUpdate.watch('referenceAddress');
-  const roles = formPreacherUpdate.watch('roles');
-  const recordStatus = formPreacherUpdate.watch('recordStatus');
-  const isDirectRelationToPastor = formPreacherUpdate.watch('isDirectRelationToPastor');
+  const firstName = preacherUpdateForm.watch('firstName');
+  const lastName = preacherUpdateForm.watch('lastName');
+  const gender = preacherUpdateForm.watch('gender');
+  const birthDate = preacherUpdateForm.watch('birthDate');
+  const originCountry = preacherUpdateForm.watch('originCountry');
+  const maritalStatus = preacherUpdateForm.watch('maritalStatus');
+  const numberChildren = preacherUpdateForm.watch('numberChildren');
+  const conversionDate = preacherUpdateForm.watch('conversionDate');
+  const email = preacherUpdateForm.watch('email');
+  const phoneNumber = preacherUpdateForm.watch('phoneNumber');
+  const country = preacherUpdateForm.watch('country');
+  const department = preacherUpdateForm.watch('department');
+  const province = preacherUpdateForm.watch('province');
+  const district = preacherUpdateForm.watch('district');
+  const urbanSector = preacherUpdateForm.watch('urbanSector');
+  const address = preacherUpdateForm.watch('address');
+  const referenceAddress = preacherUpdateForm.watch('referenceAddress');
+  const roles = preacherUpdateForm.watch('roles');
+  const recordStatus = preacherUpdateForm.watch('recordStatus');
+  const isDirectRelationToPastor = preacherUpdateForm.watch('isDirectRelationToPastor');
 
-  const theirSupervisor = formPreacherUpdate.watch('theirSupervisor');
-  const theirCopastor = formPreacherUpdate.watch('theirCopastor');
-  const theirPastor = formPreacherUpdate.watch('theirPastor');
+  const theirSupervisor = preacherUpdateForm.watch('theirSupervisor');
+  const theirCopastor = preacherUpdateForm.watch('theirCopastor');
+  const theirPastor = preacherUpdateForm.watch('theirPastor');
 
   //* Effects
   useEffect(() => {
     if (
-      formPreacherUpdate.formState.errors &&
-      Object.values(formPreacherUpdate.formState.errors).length > 0
+      preacherUpdateForm.formState.errors &&
+      Object.values(preacherUpdateForm.formState.errors).length > 0
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -66,7 +66,7 @@ export const usePreacherUpdateSubmitButtonLogic = ({
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Preacher) &&
       theirSupervisor &&
-      Object.values(formPreacherUpdate.formState.errors).length === 0 &&
+      Object.values(preacherUpdateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -78,7 +78,7 @@ export const usePreacherUpdateSubmitButtonLogic = ({
       theirCopastor &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
-      Object.values(formPreacherUpdate.formState.errors).length === 0 &&
+      Object.values(preacherUpdateForm.formState.errors).length === 0 &&
       !isRelationSelectDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -100,7 +100,7 @@ export const usePreacherUpdateSubmitButtonLogic = ({
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
       theirPastor &&
-      Object.values(formPreacherUpdate.formState.errors).length === 0 &&
+      Object.values(preacherUpdateForm.formState.errors).length === 0 &&
       !isRelationSelectDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -141,7 +141,7 @@ export const usePreacherUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    formPreacherUpdate.formState,
+    preacherUpdateForm.formState,
     firstName,
     lastName,
     gender,

@@ -9,7 +9,7 @@ import { type MemberRole } from '@/shared/enums';
 import { type DiscipleFormData } from '@/app/disciple/interfaces';
 
 interface Options {
-  formDiscipleCreate: UseFormReturn<DiscipleFormData, any, DiscipleFormData>;
+  discipleCreateForm: UseFormReturn<DiscipleFormData, any, DiscipleFormData>;
   memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,7 +18,7 @@ interface Options {
 }
 
 export const useDiscipleCreateSubmitButtonLogic = ({
-  formDiscipleCreate,
+  discipleCreateForm,
   memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
@@ -26,31 +26,31 @@ export const useDiscipleCreateSubmitButtonLogic = ({
   isInputDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = formDiscipleCreate.watch('firstName');
-  const lastName = formDiscipleCreate.watch('lastName');
-  const gender = formDiscipleCreate.watch('gender');
-  const birthDate = formDiscipleCreate.watch('birthDate');
-  const conversionDate = formDiscipleCreate.watch('conversionDate');
-  const maritalStatus = formDiscipleCreate.watch('maritalStatus');
-  const email = formDiscipleCreate.watch('email');
-  const phoneNumber = formDiscipleCreate.watch('phoneNumber');
-  const originCountry = formDiscipleCreate.watch('originCountry');
-  const numberChildren = formDiscipleCreate.watch('numberChildren');
-  const country = formDiscipleCreate.watch('country');
-  const department = formDiscipleCreate.watch('department');
-  const province = formDiscipleCreate.watch('province');
-  const district = formDiscipleCreate.watch('district');
-  const urbanSector = formDiscipleCreate.watch('urbanSector');
-  const address = formDiscipleCreate.watch('address');
-  const roles = formDiscipleCreate.watch('roles');
-  const referenceAddress = formDiscipleCreate.watch('referenceAddress');
-  const theirFamilyGroup = formDiscipleCreate.watch('theirFamilyGroup');
+  const firstName = discipleCreateForm.watch('firstName');
+  const lastName = discipleCreateForm.watch('lastName');
+  const gender = discipleCreateForm.watch('gender');
+  const birthDate = discipleCreateForm.watch('birthDate');
+  const conversionDate = discipleCreateForm.watch('conversionDate');
+  const maritalStatus = discipleCreateForm.watch('maritalStatus');
+  const email = discipleCreateForm.watch('email');
+  const phoneNumber = discipleCreateForm.watch('phoneNumber');
+  const originCountry = discipleCreateForm.watch('originCountry');
+  const numberChildren = discipleCreateForm.watch('numberChildren');
+  const country = discipleCreateForm.watch('country');
+  const department = discipleCreateForm.watch('department');
+  const province = discipleCreateForm.watch('province');
+  const district = discipleCreateForm.watch('district');
+  const urbanSector = discipleCreateForm.watch('urbanSector');
+  const address = discipleCreateForm.watch('address');
+  const roles = discipleCreateForm.watch('roles');
+  const referenceAddress = discipleCreateForm.watch('referenceAddress');
+  const theirFamilyGroup = discipleCreateForm.watch('theirFamilyGroup');
 
   //* Effects
   useEffect(() => {
     if (
-      formDiscipleCreate.formState.errors &&
-      Object.values(formDiscipleCreate.formState.errors).length > 0
+      discipleCreateForm.formState.errors &&
+      Object.values(discipleCreateForm.formState.errors).length > 0
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -59,7 +59,7 @@ export const useDiscipleCreateSubmitButtonLogic = ({
     if (
       theirFamilyGroup &&
       roles.includes(memberRoles.Disciple) &&
-      Object.values(formDiscipleCreate.formState.errors).length === 0 &&
+      Object.values(discipleCreateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -92,7 +92,7 @@ export const useDiscipleCreateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    formDiscipleCreate.formState,
+    discipleCreateForm.formState,
     firstName,
     lastName,
     gender,
@@ -115,6 +115,6 @@ export const useDiscipleCreateSubmitButtonLogic = ({
   ]);
 
   useEffect(() => {
-    formDiscipleCreate.setValue('roles', [memberRoles.Disciple]);
+    discipleCreateForm.setValue('roles', [memberRoles.Disciple]);
   }, [isMessageErrorDisabled]);
 };

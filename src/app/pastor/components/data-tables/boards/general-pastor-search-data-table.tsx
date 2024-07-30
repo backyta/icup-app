@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
@@ -74,7 +75,7 @@ export function GeneralPastorSearchDataTable<TData, TValue>({
   //* Querys
   const query = useQuery({
     queryKey: ['general-pastors', searchParams],
-    queryFn: async () => getPastors(searchParams as PastorQueryParams),
+    queryFn: () => getPastors(searchParams as PastorQueryParams),
     enabled: !!searchParams,
     retry: 1,
   });

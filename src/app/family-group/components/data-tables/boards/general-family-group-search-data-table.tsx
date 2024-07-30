@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
@@ -75,7 +76,7 @@ export function GeneralFamilyGroupSearchDataTable<TData, TValue>({
   //* Querys
   const query = useQuery({
     queryKey: ['general-family-groups', searchParams],
-    queryFn: async () => getFamilyGroups(searchParams as FamilyGroupQueryParams),
+    queryFn: () => getFamilyGroups(searchParams as FamilyGroupQueryParams),
     enabled: !!searchParams,
     retry: 1,
   });

@@ -125,7 +125,7 @@ export const userUpdateColumns: Array<ColumnDef<UserColumns, any>> = [
   },
 
   {
-    id: 'updateInfo',
+    id: 'editInfo',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.row.original.id;
@@ -143,7 +143,7 @@ export const userUpdateColumns: Array<ColumnDef<UserColumns, any>> = [
     },
   },
   {
-    id: 'updateInfo',
+    id: 'changePassword',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.row.original.id;

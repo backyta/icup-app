@@ -9,7 +9,7 @@ import { type MemberRole } from '@/shared/enums';
 import { type PastorFormData } from '@/app/pastor/interfaces';
 
 interface Options {
-  formPastorCrate: UseFormReturn<PastorFormData, any, PastorFormData>;
+  pastorCreateForm: UseFormReturn<PastorFormData, any, PastorFormData>;
   memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,7 +18,7 @@ interface Options {
 }
 
 export const usePastorCreateSubmitButtonLogic = ({
-  formPastorCrate,
+  pastorCreateForm,
   memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
@@ -26,31 +26,31 @@ export const usePastorCreateSubmitButtonLogic = ({
   isInputDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = formPastorCrate.watch('firstName');
-  const lastName = formPastorCrate.watch('lastName');
-  const gender = formPastorCrate.watch('gender');
-  const birthDate = formPastorCrate.watch('birthDate');
-  const conversionDate = formPastorCrate.watch('conversionDate');
-  const maritalStatus = formPastorCrate.watch('maritalStatus');
-  const email = formPastorCrate.watch('email');
-  const phoneNumber = formPastorCrate.watch('phoneNumber');
-  const originCountry = formPastorCrate.watch('originCountry');
-  const numberChildren = formPastorCrate.watch('numberChildren');
-  const country = formPastorCrate.watch('country');
-  const department = formPastorCrate.watch('department');
-  const province = formPastorCrate.watch('province');
-  const district = formPastorCrate.watch('district');
-  const urbanSector = formPastorCrate.watch('urbanSector');
-  const address = formPastorCrate.watch('address');
-  const roles = formPastorCrate.watch('roles');
-  const referenceAddress = formPastorCrate.watch('referenceAddress');
-  const theirChurch = formPastorCrate.watch('theirChurch');
+  const firstName = pastorCreateForm.watch('firstName');
+  const lastName = pastorCreateForm.watch('lastName');
+  const gender = pastorCreateForm.watch('gender');
+  const birthDate = pastorCreateForm.watch('birthDate');
+  const conversionDate = pastorCreateForm.watch('conversionDate');
+  const maritalStatus = pastorCreateForm.watch('maritalStatus');
+  const email = pastorCreateForm.watch('email');
+  const phoneNumber = pastorCreateForm.watch('phoneNumber');
+  const originCountry = pastorCreateForm.watch('originCountry');
+  const numberChildren = pastorCreateForm.watch('numberChildren');
+  const country = pastorCreateForm.watch('country');
+  const department = pastorCreateForm.watch('department');
+  const province = pastorCreateForm.watch('province');
+  const district = pastorCreateForm.watch('district');
+  const urbanSector = pastorCreateForm.watch('urbanSector');
+  const address = pastorCreateForm.watch('address');
+  const roles = pastorCreateForm.watch('roles');
+  const referenceAddress = pastorCreateForm.watch('referenceAddress');
+  const theirChurch = pastorCreateForm.watch('theirChurch');
 
   //* Effects
   useEffect(() => {
     if (
-      formPastorCrate.formState.errors &&
-      Object.values(formPastorCrate.formState.errors).length > 0
+      pastorCreateForm.formState.errors &&
+      Object.values(pastorCreateForm.formState.errors).length > 0
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -60,7 +60,7 @@ export const usePastorCreateSubmitButtonLogic = ({
       theirChurch &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Pastor) &&
-      Object.values(formPastorCrate.formState.errors).length === 0 &&
+      Object.values(pastorCreateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -93,7 +93,7 @@ export const usePastorCreateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    formPastorCrate.formState,
+    pastorCreateForm.formState,
     firstName,
     lastName,
     gender,
@@ -116,6 +116,6 @@ export const usePastorCreateSubmitButtonLogic = ({
   ]);
 
   useEffect(() => {
-    formPastorCrate.setValue('roles', [memberRoles.Disciple, memberRoles.Pastor]);
+    pastorCreateForm.setValue('roles', [memberRoles.Disciple, memberRoles.Pastor]);
   }, [isMessageErrorDisabled]);
 };

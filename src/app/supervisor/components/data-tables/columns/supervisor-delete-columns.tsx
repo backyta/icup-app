@@ -128,7 +128,7 @@ export const supervisorDeleteColumns: Array<ColumnDef<SupervisorColumns, any>> =
   },
 
   {
-    id: 'deleteInfo',
+    id: 'deleteRecord',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.row.original.id;

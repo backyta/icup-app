@@ -10,7 +10,7 @@ import { type MemberRole } from '@/shared/enums';
 import { type SupervisorFormData } from '@/app/supervisor/interfaces';
 
 interface Options {
-  formSupervisorUpdate: UseFormReturn<SupervisorFormData, any, SupervisorFormData>;
+  supervisorUpdateForm: UseFormReturn<SupervisorFormData, any, SupervisorFormData>;
   memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,7 +19,7 @@ interface Options {
 }
 
 export const useSupervisorUpdateSubmitButtonLogic = ({
-  formSupervisorUpdate,
+  supervisorUpdateForm,
   memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
@@ -27,34 +27,34 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
   isInputDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = formSupervisorUpdate.watch('firstName');
-  const lastName = formSupervisorUpdate.watch('lastName');
-  const gender = formSupervisorUpdate.watch('gender');
-  const birthDate = formSupervisorUpdate.watch('birthDate');
-  const originCountry = formSupervisorUpdate.watch('originCountry');
-  const maritalStatus = formSupervisorUpdate.watch('maritalStatus');
-  const numberChildren = formSupervisorUpdate.watch('numberChildren');
-  const conversionDate = formSupervisorUpdate.watch('conversionDate');
-  const email = formSupervisorUpdate.watch('email');
-  const phoneNumber = formSupervisorUpdate.watch('phoneNumber');
-  const country = formSupervisorUpdate.watch('country');
-  const department = formSupervisorUpdate.watch('department');
-  const province = formSupervisorUpdate.watch('province');
-  const district = formSupervisorUpdate.watch('district');
-  const urbanSector = formSupervisorUpdate.watch('urbanSector');
-  const address = formSupervisorUpdate.watch('address');
-  const referenceAddress = formSupervisorUpdate.watch('referenceAddress');
-  const roles = formSupervisorUpdate.watch('roles');
-  const recordStatus = formSupervisorUpdate.watch('recordStatus');
-  const isDirectRelationToPastor = formSupervisorUpdate.watch('isDirectRelationToPastor');
-  const theirCopastor = formSupervisorUpdate.watch('theirCopastor');
-  const theirPastor = formSupervisorUpdate.watch('theirPastor');
+  const firstName = supervisorUpdateForm.watch('firstName');
+  const lastName = supervisorUpdateForm.watch('lastName');
+  const gender = supervisorUpdateForm.watch('gender');
+  const birthDate = supervisorUpdateForm.watch('birthDate');
+  const originCountry = supervisorUpdateForm.watch('originCountry');
+  const maritalStatus = supervisorUpdateForm.watch('maritalStatus');
+  const numberChildren = supervisorUpdateForm.watch('numberChildren');
+  const conversionDate = supervisorUpdateForm.watch('conversionDate');
+  const email = supervisorUpdateForm.watch('email');
+  const phoneNumber = supervisorUpdateForm.watch('phoneNumber');
+  const country = supervisorUpdateForm.watch('country');
+  const department = supervisorUpdateForm.watch('department');
+  const province = supervisorUpdateForm.watch('province');
+  const district = supervisorUpdateForm.watch('district');
+  const urbanSector = supervisorUpdateForm.watch('urbanSector');
+  const address = supervisorUpdateForm.watch('address');
+  const referenceAddress = supervisorUpdateForm.watch('referenceAddress');
+  const roles = supervisorUpdateForm.watch('roles');
+  const recordStatus = supervisorUpdateForm.watch('recordStatus');
+  const isDirectRelationToPastor = supervisorUpdateForm.watch('isDirectRelationToPastor');
+  const theirCopastor = supervisorUpdateForm.watch('theirCopastor');
+  const theirPastor = supervisorUpdateForm.watch('theirPastor');
 
   //* Effects
   useEffect(() => {
     if (
-      formSupervisorUpdate.formState.errors &&
-      Object.values(formSupervisorUpdate.formState.errors).length > 0
+      supervisorUpdateForm.formState.errors &&
+      Object.values(supervisorUpdateForm.formState.errors).length > 0
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -65,7 +65,7 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
       theirCopastor &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
-      Object.values(formSupervisorUpdate.formState.errors).length === 0 &&
+      Object.values(supervisorUpdateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -82,7 +82,7 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
       theirPastor &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
-      Object.values(formSupervisorUpdate.formState.errors).length === 0 &&
+      Object.values(supervisorUpdateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -98,7 +98,7 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Copastor) &&
       theirPastor &&
-      Object.values(formSupervisorUpdate.formState.errors).length === 0 &&
+      Object.values(supervisorUpdateForm.formState.errors).length === 0 &&
       !isRelationSelectDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -129,7 +129,7 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    formSupervisorUpdate.formState,
+    supervisorUpdateForm.formState,
     firstName,
     lastName,
     gender,

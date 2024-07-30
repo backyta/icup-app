@@ -195,12 +195,12 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
 }
 
 //* Update church by ID
-export interface updateChurchOptions {
+export interface UpdateChurchOptions {
   id: string;
   formData: ChurchFormData;
 }
 
-export const updateChurch = async ({id, formData}: updateChurchOptions ): Promise<ChurchResponse> => {
+export const updateChurch = async ({id, formData}: UpdateChurchOptions ): Promise<ChurchResponse> => {
   try {
     const {data} = await icupApi.patch<ChurchResponse>(`/churches/${id}`, formData)
 

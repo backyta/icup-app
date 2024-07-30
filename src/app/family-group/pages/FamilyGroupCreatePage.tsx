@@ -202,7 +202,12 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
 
   const preachersQuery = useQuery({
     queryKey: ['preachers-by-zone', theirZone],
-    queryFn: () => getPreachersByZone(PreacherSearchType.ZoneId, theirZone ?? ''),
+    queryFn: () =>
+      getPreachersByZone({
+        searchType: PreacherSearchType.ZoneId,
+        zoneId: theirZone ?? '',
+        isNull: 'true',
+      }),
     enabled: !!theirZone,
     retry: 1,
   });

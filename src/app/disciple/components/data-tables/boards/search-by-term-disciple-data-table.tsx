@@ -52,7 +52,6 @@ interface DataTableProps<TData, TValue> {
   dataForm: DiscipleSearchFormByTerm | undefined;
 }
 
-// TODO : quitar los asyncs de las queryFunc
 export function SearchByTermDiscipleDataTable<TData, TValue>({
   columns,
   searchParams,

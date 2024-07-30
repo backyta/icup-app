@@ -6,7 +6,11 @@ import { type ColumnDef } from '@tanstack/react-table';
 import { Button } from '@/shared/components/ui/button';
 
 import { type FamilyGroupColumns } from '@/app/family-group/interfaces';
-import { FamilyGroupInfoCard, FamilyGroupUpdateCard } from '@/app/family-group/components';
+import {
+  FamilyGroupInfoCard,
+  FamilyGroupPreacherUpdateCard,
+  FamilyGroupUpdateCard,
+} from '@/app/family-group/components';
 
 export const familyGroupUpdateColumns: Array<ColumnDef<FamilyGroupColumns, any>> = [
   {
@@ -117,9 +121,8 @@ export const familyGroupUpdateColumns: Array<ColumnDef<FamilyGroupColumns, any>>
       );
     },
   },
-
   {
-    id: 'updateInfo',
+    id: 'editInfo',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.row.original.id;
@@ -132,6 +135,24 @@ export const familyGroupUpdateColumns: Array<ColumnDef<FamilyGroupColumns, any>>
           variant='ghost'
         >
           Actualizar
+        </Button>
+      );
+    },
+  },
+  {
+    id: 'changePreacher',
+    accessorKey: 'id',
+    cell: (info) => {
+      const id = info.row.original.id;
+      return info.getValue() === '-' ? '-' : <FamilyGroupPreacherUpdateCard idRow={id} />;
+    },
+    header: () => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px] text-emerald-500 hover:text-emerald-500'
+          variant='ghost'
+        >
+          Predicador
         </Button>
       );
     },

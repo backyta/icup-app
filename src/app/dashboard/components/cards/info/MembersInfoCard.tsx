@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 import { getDisciples } from '@/app/disciple/services';
 import { type DiscipleQueryParams } from '@/app/disciple/interfaces';
 
@@ -19,7 +20,7 @@ export function MembersInfoCard(): JSX.Element {
   //* Querys
   const query = useQuery({
     queryKey: ['last-disciples', searchParams],
-    queryFn: async () => await getDisciples(searchParams as DiscipleQueryParams),
+    queryFn: () => getDisciples(searchParams as DiscipleQueryParams),
     staleTime: 5 * 60 * 1000,
     retry: 1,
   });

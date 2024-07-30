@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
@@ -75,7 +76,7 @@ export function GeneralChurchSearchDataTable<TData, TValue>({
   //* Querys
   const query = useQuery({
     queryKey: ['general-churches', searchParams],
-    queryFn: async () => getChurches(searchParams as ChurchQueryParams),
+    queryFn: () => getChurches(searchParams as ChurchQueryParams),
     enabled: !!searchParams,
     retry: 1,
   });

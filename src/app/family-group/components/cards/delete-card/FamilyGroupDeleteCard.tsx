@@ -18,7 +18,6 @@ interface FamilyGroupDeleteCardProps {
   idRow: string;
 }
 
-// TODO : agregar una caja de texto con el motivo de eliminación bloquear el boton hasta que no lo coloque
 export const FamilyGroupDeleteCard = ({ idRow }: FamilyGroupDeleteCardProps): JSX.Element => {
   //* States
   const [isCardOpen, setIsCardOpen] = useState<boolean>(false);

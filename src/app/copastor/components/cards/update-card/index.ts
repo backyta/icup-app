@@ -1,3 +1,3 @@
-export * from './CopastorFormUpdate';
+export * from './CopastorUpdateForm';
 export * from './CopastorUpdateCard';
-export * from './FormCopastorSkeleton';
+export * from './CopastorFormSkeleton';

@@ -5,7 +5,7 @@ import { useMediaQuery } from '@react-hook/media-query';
 import { GiArchiveRegister } from 'react-icons/gi';
 
 import { useCopastorStore } from '@/stores/copastor';
-import { CopastorFormUpdate } from '@/app/copastor/components';
+import { CopastorUpdateForm } from '@/app/copastor/components';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
@@ -52,7 +52,7 @@ export const CopastorUpdateCard = ({ idRow }: CopastorUpdateCardProps): JSX.Elem
           ref={topRef}
           className='md:max-w-[740px] lg:max-w-[1050px] xl:max-w-[1160px] w-full max-h-full justify-center pt-[0.9rem] pb-[1.3rem] overflow-x-hidden overflow-y-auto'
         >
-          <CopastorFormUpdate
+          <CopastorUpdateForm
             id={idRow}
             data={currentCopastor}
             onSubmit={handleContainerClose}
@@ -78,7 +78,7 @@ export const CopastorUpdateCard = ({ idRow }: CopastorUpdateCardProps): JSX.Elem
         ref={topRef}
         className='max-w-auto sm:max-w-[590px] w-full max-h-full justify-center pt-6 pb-4 px-8 overflow-y-auto overflow-x-hidden'
       >
-        <CopastorFormUpdate
+        <CopastorUpdateForm
           id={idRow}
           data={currentCopastor}
           onSubmit={handleContainerClose}

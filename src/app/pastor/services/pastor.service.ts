@@ -325,12 +325,12 @@ export const getPastorsByTerm = async ({
 }
 
 // //* Update pastor by ID
-export interface updatePastorOptions {
+export interface UpdatePastorOptions {
   id: string;
   formData: PastorFormData;
 }
 
-export const updatePastor = async ({id, formData}: updatePastorOptions ): Promise<PastorResponse> => {
+export const updatePastor = async ({id, formData}: UpdatePastorOptions ): Promise<PastorResponse> => {
   try {
     const {data} = await icupApi.patch<PastorResponse>(`/pastors/${id}`, formData)
 

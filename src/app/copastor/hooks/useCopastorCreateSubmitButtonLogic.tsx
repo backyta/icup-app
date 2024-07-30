@@ -9,7 +9,7 @@ import { type MemberRole } from '@/shared/enums';
 import { type CopastorFormData } from '@/app/copastor/interfaces';
 
 interface Options {
-  formCopastorCrate: UseFormReturn<CopastorFormData, any, CopastorFormData>;
+  copastorCreateForm: UseFormReturn<CopastorFormData, any, CopastorFormData>;
   memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,7 +18,7 @@ interface Options {
 }
 
 export const useCopastorCreateSubmitButtonLogic = ({
-  formCopastorCrate,
+  copastorCreateForm,
   memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
@@ -26,31 +26,31 @@ export const useCopastorCreateSubmitButtonLogic = ({
   isInputDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = formCopastorCrate.watch('firstName');
-  const lastName = formCopastorCrate.watch('lastName');
-  const gender = formCopastorCrate.watch('gender');
-  const birthDate = formCopastorCrate.watch('birthDate');
-  const conversionDate = formCopastorCrate.watch('conversionDate');
-  const maritalStatus = formCopastorCrate.watch('maritalStatus');
-  const email = formCopastorCrate.watch('email');
-  const phoneNumber = formCopastorCrate.watch('phoneNumber');
-  const originCountry = formCopastorCrate.watch('originCountry');
-  const numberChildren = formCopastorCrate.watch('numberChildren');
-  const country = formCopastorCrate.watch('country');
-  const department = formCopastorCrate.watch('department');
-  const province = formCopastorCrate.watch('province');
-  const district = formCopastorCrate.watch('district');
-  const urbanSector = formCopastorCrate.watch('urbanSector');
-  const address = formCopastorCrate.watch('address');
-  const roles = formCopastorCrate.watch('roles');
-  const referenceAddress = formCopastorCrate.watch('referenceAddress');
-  const theirPastor = formCopastorCrate.watch('theirPastor');
+  const firstName = copastorCreateForm.watch('firstName');
+  const lastName = copastorCreateForm.watch('lastName');
+  const gender = copastorCreateForm.watch('gender');
+  const birthDate = copastorCreateForm.watch('birthDate');
+  const conversionDate = copastorCreateForm.watch('conversionDate');
+  const maritalStatus = copastorCreateForm.watch('maritalStatus');
+  const email = copastorCreateForm.watch('email');
+  const phoneNumber = copastorCreateForm.watch('phoneNumber');
+  const originCountry = copastorCreateForm.watch('originCountry');
+  const numberChildren = copastorCreateForm.watch('numberChildren');
+  const country = copastorCreateForm.watch('country');
+  const department = copastorCreateForm.watch('department');
+  const province = copastorCreateForm.watch('province');
+  const district = copastorCreateForm.watch('district');
+  const urbanSector = copastorCreateForm.watch('urbanSector');
+  const address = copastorCreateForm.watch('address');
+  const roles = copastorCreateForm.watch('roles');
+  const referenceAddress = copastorCreateForm.watch('referenceAddress');
+  const theirPastor = copastorCreateForm.watch('theirPastor');
 
   //* Effects
   useEffect(() => {
     if (
-      formCopastorCrate.formState.errors &&
-      Object.values(formCopastorCrate.formState.errors).length > 0
+      copastorCreateForm.formState.errors &&
+      Object.values(copastorCreateForm.formState.errors).length > 0
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -60,7 +60,7 @@ export const useCopastorCreateSubmitButtonLogic = ({
       theirPastor &&
       roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Copastor) &&
-      Object.values(formCopastorCrate.formState.errors).length === 0 &&
+      Object.values(copastorCreateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -93,7 +93,7 @@ export const useCopastorCreateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    formCopastorCrate.formState,
+    copastorCreateForm.formState,
     firstName,
     lastName,
     gender,
@@ -116,6 +116,6 @@ export const useCopastorCreateSubmitButtonLogic = ({
   ]);
 
   useEffect(() => {
-    formCopastorCrate.setValue('roles', [memberRoles.Disciple, memberRoles.Copastor]);
+    copastorCreateForm.setValue('roles', [memberRoles.Disciple, memberRoles.Copastor]);
   }, [isMessageErrorDisabled]);
 };

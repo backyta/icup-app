@@ -6,39 +6,39 @@ import { type UseFormReturn } from 'react-hook-form';
 import { type ChurchFormData } from '@/app/church/interfaces';
 
 interface Options {
-  formChurchCreate: UseFormReturn<ChurchFormData, any, ChurchFormData>;
+  churchCreateForm: UseFormReturn<ChurchFormData, any, ChurchFormData>;
   setIsSubmitButtonDisabled: (value: boolean) => void;
   setIsMessageErrorDisabled: (value: boolean) => void;
   isInputDisabled: boolean;
 }
 
 export const useChurchCreateSubmitButtonLogic = ({
-  formChurchCreate,
+  churchCreateForm,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
   isInputDisabled,
 }: Options): void => {
   //* Watchers
-  const nameChurch = formChurchCreate.watch('churchName');
-  const foundingDate = formChurchCreate.watch('foundingDate');
-  const worshipTimes = formChurchCreate.watch('worshipTimes');
-  const emailAddress = formChurchCreate.watch('email');
-  const phoneNumber = formChurchCreate.watch('phoneNumber');
-  const country = formChurchCreate.watch('country');
-  const department = formChurchCreate.watch('department');
-  const province = formChurchCreate.watch('province');
-  const district = formChurchCreate.watch('district');
-  const urbanSector = formChurchCreate.watch('urbanSector');
-  const address = formChurchCreate.watch('address');
-  const referenceAddress = formChurchCreate.watch('referenceAddress');
-  const isAnexe = formChurchCreate.watch('isAnexe');
-  const theirMainChurch = formChurchCreate.watch('theirMainChurch');
+  const nameChurch = churchCreateForm.watch('churchName');
+  const foundingDate = churchCreateForm.watch('foundingDate');
+  const worshipTimes = churchCreateForm.watch('worshipTimes');
+  const emailAddress = churchCreateForm.watch('email');
+  const phoneNumber = churchCreateForm.watch('phoneNumber');
+  const country = churchCreateForm.watch('country');
+  const department = churchCreateForm.watch('department');
+  const province = churchCreateForm.watch('province');
+  const district = churchCreateForm.watch('district');
+  const urbanSector = churchCreateForm.watch('urbanSector');
+  const address = churchCreateForm.watch('address');
+  const referenceAddress = churchCreateForm.watch('referenceAddress');
+  const isAnexe = churchCreateForm.watch('isAnexe');
+  const theirMainChurch = churchCreateForm.watch('theirMainChurch');
 
   //* Effects
   useEffect(() => {
     if (
-      formChurchCreate.formState.errors &&
-      Object.values(formChurchCreate.formState.errors).length > 0
+      churchCreateForm.formState.errors &&
+      Object.values(churchCreateForm.formState.errors).length > 0
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -47,7 +47,7 @@ export const useChurchCreateSubmitButtonLogic = ({
     if (
       isAnexe &&
       theirMainChurch &&
-      Object.values(formChurchCreate.formState.errors).length === 0 &&
+      Object.values(churchCreateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -61,7 +61,7 @@ export const useChurchCreateSubmitButtonLogic = ({
 
     if (
       !isAnexe &&
-      Object.values(formChurchCreate.formState.errors).length === 0 &&
+      Object.values(churchCreateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -86,7 +86,7 @@ export const useChurchCreateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    formChurchCreate.formState,
+    churchCreateForm.formState,
     nameChurch,
     foundingDate,
     worshipTimes,

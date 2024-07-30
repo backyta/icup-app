@@ -6,40 +6,40 @@ import { type UseFormReturn } from 'react-hook-form';
 import { type ChurchFormData } from '@/app/church/interfaces';
 
 interface Options {
-  formChurchUpdate: UseFormReturn<ChurchFormData, any, ChurchFormData>;
+  churchUpdateForm: UseFormReturn<ChurchFormData, any, ChurchFormData>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
 }
 
 export const useChurchUpdateSubmitButtonLogic = ({
-  formChurchUpdate,
+  churchUpdateForm,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
   isInputDisabled,
 }: Options): void => {
   //* Watchers
-  const nameChurch = formChurchUpdate.watch('churchName');
-  const foundingDate = formChurchUpdate.watch('foundingDate');
-  const worshipTimes = formChurchUpdate.watch('worshipTimes');
-  const email = formChurchUpdate.watch('email');
-  const phoneNumber = formChurchUpdate.watch('phoneNumber');
-  const country = formChurchUpdate.watch('country');
-  const department = formChurchUpdate.watch('department');
-  const province = formChurchUpdate.watch('province');
-  const district = formChurchUpdate.watch('district');
-  const urbanSector = formChurchUpdate.watch('urbanSector');
-  const address = formChurchUpdate.watch('address');
-  const referenceAddress = formChurchUpdate.watch('referenceAddress');
-  const isAnexe = formChurchUpdate.watch('isAnexe');
-  const recordStatus = formChurchUpdate.watch('recordStatus');
-  const theirMainChurch = formChurchUpdate.watch('theirMainChurch');
+  const nameChurch = churchUpdateForm.watch('churchName');
+  const foundingDate = churchUpdateForm.watch('foundingDate');
+  const worshipTimes = churchUpdateForm.watch('worshipTimes');
+  const email = churchUpdateForm.watch('email');
+  const phoneNumber = churchUpdateForm.watch('phoneNumber');
+  const country = churchUpdateForm.watch('country');
+  const department = churchUpdateForm.watch('department');
+  const province = churchUpdateForm.watch('province');
+  const district = churchUpdateForm.watch('district');
+  const urbanSector = churchUpdateForm.watch('urbanSector');
+  const address = churchUpdateForm.watch('address');
+  const referenceAddress = churchUpdateForm.watch('referenceAddress');
+  const isAnexe = churchUpdateForm.watch('isAnexe');
+  const recordStatus = churchUpdateForm.watch('recordStatus');
+  const theirMainChurch = churchUpdateForm.watch('theirMainChurch');
 
   //* Effects
   useEffect(() => {
     if (
-      formChurchUpdate.formState.errors &&
-      Object.values(formChurchUpdate.formState.errors).length > 0
+      churchUpdateForm.formState.errors &&
+      Object.values(churchUpdateForm.formState.errors).length > 0
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -48,7 +48,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
     if (
       isAnexe &&
       theirMainChurch &&
-      Object.values(formChurchUpdate.formState.errors).length === 0 &&
+      Object.values(churchUpdateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -62,7 +62,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
 
     if (
       !isAnexe &&
-      Object.values(formChurchUpdate.formState.errors).length === 0 &&
+      Object.values(churchUpdateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
       setIsSubmitButtonDisabled(false);
@@ -87,7 +87,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    formChurchUpdate.formState,
+    churchUpdateForm.formState,
     nameChurch,
     foundingDate,
     worshipTimes,

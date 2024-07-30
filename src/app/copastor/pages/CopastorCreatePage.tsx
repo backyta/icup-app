@@ -125,7 +125,7 @@ export const CopastorCreatePage = (): JSX.Element => {
   });
 
   useCopastorCreateSubmitButtonLogic({
-    formCopastorCrate: form,
+    copastorCreateForm: form,
     memberRoles: MemberRole,
     isInputDisabled,
     isMessageErrorDisabled,
