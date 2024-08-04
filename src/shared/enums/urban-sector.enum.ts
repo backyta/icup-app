@@ -55,3 +55,5 @@ export const UrbanSectorNames: Record<UrbanSector, string> = {
   [UrbanSector.Jerusalén]: 'Sect. Jerusalén',
   [UrbanSector.Lomas]: 'Sect. Lomas',
 };
+
+// TODO : agregar provincias distritos y sectores urbanos

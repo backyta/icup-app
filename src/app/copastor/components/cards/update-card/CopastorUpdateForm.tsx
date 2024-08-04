@@ -20,29 +20,25 @@ import { es } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { cn } from '@/shared/lib/utils';
-
-import { copastorFormSchema } from '@/app/copastor/validations';
-import { CopastorFormSkeleton } from '@/app/copastor/components';
-import { type CopastorResponse } from '@/app/copastor/interfaces';
-import { getAllPastors, updateCopastor } from '@/app/copastor/services';
-
 import {
   useCopastorPromoteButtonLogic,
   useCopastorUpdateSubmitButtonLogic,
   useRoleUpdateCopastorHandler,
 } from '@/app/copastor/hooks';
+import { copastorFormSchema } from '@/app/copastor/validations';
+import { CopastorFormSkeleton } from '@/app/copastor/components';
+import { type CopastorResponse } from '@/app/copastor/interfaces';
+import { getAllPastors, updateCopastor } from '@/app/copastor/services';
+
 import { getAllChurches } from '@/app/pastor/services';
 
 import { CopastorFieldNames } from '@/app/copastor/enums';
 
 import { useRoleValidationByPath } from '@/hooks';
+
+import { cn } from '@/shared/lib/utils';
 import { type ErrorResponse } from '@/shared/interfaces';
 
-import {
-  validateDistrictsAllowedByModule,
-  validateUrbanSectorsAllowedByDistrict,
-} from '@/shared/helpers';
 import {
   CountryNames,
   DepartmentNames,
@@ -54,6 +50,10 @@ import {
   ProvinceNames,
   UrbanSectorNames,
 } from '@/shared/enums';
+import {
+  validateDistrictsAllowedByModule,
+  validateUrbanSectorsAllowedByDistrict,
+} from '@/shared/helpers';
 
 import {
   Form,
@@ -112,7 +112,6 @@ export const CopastorUpdateForm = ({
   onScroll,
 }: CopastorFormUpdateProps): JSX.Element => {
   //* States
-
   const [isRelationSelectDisabled, setIsRelationSelectDisabled] = useState<boolean>(false);
   const [isInputTheirChurchOpen, setIsInputTheirChurchOpen] = useState<boolean>(false);
   const [isInputTheirPastorOpen, setIsInputTheirPastorOpen] = useState<boolean>(false);
@@ -607,7 +606,7 @@ export const CopastorUpdateForm = ({
                       name='recordStatus'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-5'>
+                          <FormItem className='mt-3'>
                             <FormLabel className='text-[14px]'>Estado</FormLabel>
                             <Select
                               disabled={isInputDisabled}

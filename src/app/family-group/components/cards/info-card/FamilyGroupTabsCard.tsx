@@ -31,16 +31,16 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
       const url = new URL(window.location.href);
 
       if (url.pathname === '/family-groups/search-family-groups')
-        url.pathname = `/family-groups/search-family-groups/${id}/info`;
+        url.pathname = `/family-groups/search-family-groups/${id}/view`;
 
       if (url.pathname === '/family-groups/search-family-groups-by-term')
-        url.pathname = `/family-groups/search-family-groups-by-term/${id}/info`;
+        url.pathname = `/family-groups/search-family-groups-by-term/${id}/view`;
 
       if (url.pathname === '/family-groups/update-family-group')
-        url.pathname = `/family-groups/update-family-group/${id}/info`;
+        url.pathname = `/family-groups/update-family-group/${id}/view`;
 
       if (url.pathname === '/family-groups/delete-family-group')
-        url.pathname = `/family-groups/delete-family-group/${id}/info`;
+        url.pathname = `/family-groups/delete-family-group/${id}/view`;
 
       window.history.replaceState({}, '', url);
     }
@@ -267,23 +267,16 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
             </div>
 
             <div className='space-y-1'>
-              <Label className='text-[14px] md:text-[15px]'>Provincia</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.province ?? '-'}
-              </CardDescription>
-            </div>
-
-            <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Departamento</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.department ?? '-'}
+                {data?.province ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Provincia</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.province ?? '-'}
+                {data?.department ?? '-'}
               </CardDescription>
             </div>
 
@@ -291,6 +284,13 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
               <Label className='text-[14px] md:text-[15px]'>Distrito</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.district ?? '-'}
+              </CardDescription>
+            </div>
+
+            <div className='space-y-1'>
+              <Label className='text-[14px] md:text-[15px]'>Sector Urbano</Label>
+              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                {data?.urbanSector ?? '-'}
               </CardDescription>
             </div>
 

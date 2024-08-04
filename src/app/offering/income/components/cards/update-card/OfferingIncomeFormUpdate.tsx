@@ -29,16 +29,16 @@ import { CurrencyType, CurrencyTypeNames } from '@/app/offering/shared/enums';
 import { type RejectedProps, type FilesProps } from '@/app/offering/shared/interfaces';
 
 import {
-  SubTypesOfferingIncome,
-  SubTypesOfferingIncomeNames,
-  TypesOfferingIncome,
-  TypesOfferingIncomeNames,
-  TypesShiftOfferingIncomeNames,
+  OfferingIncomeCreateSubType,
+  OfferingIncomeCreateSubTypeNames,
+  OfferingIncomeCreateType,
+  OfferingIncomeCreateTypeNames,
+  TypeShiftOfferingIncomeNames,
 } from '@/app/offering/income/enums';
 
 import {
-  type OfferingIncomeData,
-  type OfferingIncomeDataKeys,
+  type OfferingIncomeFormData,
+  type OfferingIncomeFormDataKeys,
 } from '@/app/offering/income/interfaces';
 
 import { Input } from '@/shared/components/ui/input';
@@ -72,7 +72,7 @@ import {
   Select,
 } from '@/shared/components/ui/select';
 
-const data: OfferingIncomeData = {
+const data: OfferingIncomeFormData = {
   type: 'tithe',
   // subType: '',
   amount: '20',
@@ -112,16 +112,16 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
     mode: 'onChange',
     resolver: zodResolver(offeringIncomeFormSchema),
     defaultValues: {
-      type: '',
-      subType: '',
+      searchType: '',
+      searchSubType: '',
       amount: '',
       date: undefined,
       currency: '',
       comments: '',
-      urlFile: [],
-      familyHouseID: '',
-      memberID: '',
-      zoneID: '',
+      urlFiles: [],
+      theirFamilyGroup: '',
+      theirDisciple: '',
+      theirZone: '',
       status: '',
     },
   });
@@ -226,14 +226,14 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
   // NOTE : hacer custom hooks para setear
   useEffect(() => {
     for (const key in data) {
-      form.setValue(key as OfferingIncomeDataKeys, data[key as OfferingIncomeDataKeys]);
+      form.setValue(key as OfferingIncomeFormDataKeys, data[key as OfferingIncomeFormDataKeys]);
     }
   }, []);
 
   useOfferingIncomeSubmitButtonLogic({
     formOfferingIncome: form,
-    typesOfferingIncome: TypesOfferingIncome,
-    subTypesOffering: SubTypesOfferingIncome,
+    typesOfferingIncome: OfferingIncomeCreateType,
+    subTypesOffering: OfferingIncomeCreateSubType,
     isInputDisabled,
     isDropZoneDisabled,
     isFileButtonDisabled,
@@ -309,7 +309,7 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              {Object.entries(TypesOfferingIncomeNames).map(([key, value]) => (
+                              {Object.entries(OfferingIncomeCreateTypeNames).map(([key, value]) => (
                                 <SelectItem key={key} value={key}>
                                   {value}
                                 </SelectItem>
@@ -322,7 +322,7 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                     }}
                   />
 
-                  {type === TypesOfferingIncome.Offering && (
+                  {type === OfferingIncomeCreateType.Offering && (
                     <FormField
                       control={form.control}
                       name='subType'
@@ -346,11 +346,13 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
-                                {Object.entries(SubTypesOfferingIncomeNames).map(([key, value]) => (
-                                  <SelectItem key={key} value={key}>
-                                    {value}
-                                  </SelectItem>
-                                ))}
+                                {Object.entries(OfferingIncomeCreateSubTypeNames).map(
+                                  ([key, value]) => (
+                                    <SelectItem key={key} value={key}>
+                                      {value}
+                                    </SelectItem>
+                                  )
+                                )}
                               </SelectContent>
                             </Select>
                             <FormMessage />
@@ -359,8 +361,8 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                       }}
                     />
                   )}
-                  {(subType === SubTypesOfferingIncome.SundayWorship ||
-                    subType === SubTypesOfferingIncome.SundaySchool) && (
+                  {(subType === OfferingIncomeCreateSubType.SundayWorship ||
+                    subType === OfferingIncomeCreateSubType.SundaySchool) && (
                     <FormField
                       control={form.control}
                       name='shift'
@@ -388,7 +390,7 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
-                                {Object.entries(TypesShiftOfferingIncomeNames).map(
+                                {Object.entries(TypeShiftOfferingIncomeNames).map(
                                   ([key, value]) => (
                                     <SelectItem key={key} value={key}>
                                       {value}
@@ -547,11 +549,11 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                     }}
                   />
 
-                  {(type === TypesOfferingIncome.Tithe ||
-                    (type === TypesOfferingIncome.Offering &&
-                      subType === SubTypesOfferingIncome.Special) ||
-                    (type === TypesOfferingIncome.Offering &&
-                      subType === SubTypesOfferingIncome.ChurchGround)) && (
+                  {(type === OfferingIncomeCreateType.Tithe ||
+                    (type === OfferingIncomeCreateType.Offering &&
+                      subType === OfferingIncomeCreateSubType.Special) ||
+                    (type === OfferingIncomeCreateType.Offering &&
+                      subType === OfferingIncomeCreateSubType.ChurchGround)) && (
                     <FormField
                       control={form.control}
                       name='memberID'
@@ -619,8 +621,8 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                       )}
                     />
                   )}
-                  {type === TypesOfferingIncome.Offering &&
-                    subType === SubTypesOfferingIncome.FamilyHouse && (
+                  {type === OfferingIncomeCreateType.Offering &&
+                    subType === OfferingIncomeCreateSubType.FamilyGroup && (
                       <FormField
                         control={form.control}
                         name='familyHouseID'
@@ -696,10 +698,10 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                       />
                     )}
 
-                  {((type === TypesOfferingIncome.Offering &&
-                    subType === SubTypesOfferingIncome.ZonalFasting) ||
-                    (type === TypesOfferingIncome.Offering &&
-                      subType === SubTypesOfferingIncome.ZonalVigil)) && (
+                  {((type === OfferingIncomeCreateType.Offering &&
+                    subType === OfferingIncomeCreateSubType.ZonalFasting) ||
+                    (type === OfferingIncomeCreateType.Offering &&
+                      subType === OfferingIncomeCreateSubType.ZonalVigil)) && (
                     <FormField
                       control={form.control}
                       name='zoneID'

@@ -2,24 +2,22 @@
 
 import * as z from 'zod';
 
-import { SubTypesOfferingIncome, TypesOfferingIncome, TypesShiftOfferingIncome } from '@/app/offering/income/enums';
-
-import { CurrencyType  } from '@/app/offering/shared/enums';
-
 import { RecordStatus } from '@/shared/enums';
+import { CurrencyType  } from '@/app/offering/shared/enums';
+import { OfferingIncomeCreateSubType, OfferingIncomeCreateType, TypeShiftOfferingIncome } from '@/app/offering/income/enums';
+
 
 export const offeringIncomeFormSchema = z
   .object({
-    
-    type: z.string(z.nativeEnum(TypesOfferingIncome,{
+    searchType: z.string(z.nativeEnum(OfferingIncomeCreateType,{
       required_error: "Por favor seleccione un tipo.",
     })),
 
-    subType: z.string(z.nativeEnum(SubTypesOfferingIncome,{
+    searchSubType: z.string(z.nativeEnum(OfferingIncomeCreateSubType,{
       required_error: "Por favor seleccione una opción.",
     })).optional(),
 
-    shift: z.string(z.nativeEnum(TypesShiftOfferingIncome,{
+    shift: z.string(z.nativeEnum(TypeShiftOfferingIncome,{
       required_error: "Por favor seleccione una opción.",
     })).optional(),
     
@@ -46,11 +44,11 @@ export const offeringIncomeFormSchema = z
     .max(100, {message: 'El campo debe contener máximo 100 caracteres'})
     .optional(),   
      
-    urlFile: z.array(z.string()).optional(),
+    urlFiles: z.array(z.string()).optional(),
 
-    familyHouseID: z.string().optional(),
-    memberID: z.string().optional(),
-    zoneID: z.string().optional(),
+    theirFamilyGroup: z.string().optional(),
+    theirDisciple: z.string().optional(),
+    theirZone: z.string().optional(),
     
     status: z.string(z.nativeEnum(RecordStatus, {
       required_error: "Por favor seleccione una opción.",
@@ -59,83 +57,83 @@ export const offeringIncomeFormSchema = z
   })
   .refine(
     (data) => {
-      if (data.type === 'offering') {
-        return !!data.subType; 
+      if (data.searchType === 'offering') {
+        return !!data.searchSubType; 
       }
       return true;
     },
     {
-      message: 'El sub-tipo es requerido',
+      message: 'El sub-tipo es requerido.',
       path: ['subType'],
     }
   )
   .refine(
     (data) => {
-      if (data.type === TypesOfferingIncome.Tithe) {
-        return !!data.memberID; 
+      if (data.searchType === OfferingIncomeCreateType.Tithe) {
+        return !!data.theirDisciple; 
       }
       return true;
     },
     {
-      message: 'Member ID es requerido',
-      path: ['memberID'],
+      message: 'El discípulo es requerido.',
+      path: ['discipleId'],
     }
   )
   .refine(
     (data) => {
-      if (data.type === TypesOfferingIncome.Offering && 
-        (data.subType === SubTypesOfferingIncome.Special || 
-          data.subType === SubTypesOfferingIncome.ChurchGround)) 
+      if (data.searchType === OfferingIncomeCreateType.Offering && 
+        (data.searchSubType === OfferingIncomeCreateSubType.Special || 
+          data.searchSubType === OfferingIncomeCreateSubType.ChurchGround)) 
       {
-        return !!data.memberID; 
+        return !!data.theirDisciple; 
       }
       return true;
     },
     {
-      message: 'Por favor elige un discípulo',
-      path: ['memberID'],
+      message: 'El discípulo es requerido.',
+      path: ['discipleId'],
     }
   )
   .refine(
     (data) => {
-      if (data.type === TypesOfferingIncome.Offering && 
-        data.subType === SubTypesOfferingIncome.ZonalFasting) 
+      if (data.searchType === OfferingIncomeCreateType.Offering && 
+        data.searchSubType === OfferingIncomeCreateSubType.ZonalFasting) 
       {
-        return !!data.zoneID; 
-      }
-      return true;
-    },
-    {
-      message: 'Por favor elige un copastor',
-      path: ['copastorID'],
-    }
-  )
-  .refine(
-    (data) => {
-      if (data.type === TypesOfferingIncome.Offering && 
-        data.subType === SubTypesOfferingIncome.ZonalVigil) 
-      {
-        return !!data.zoneID; 
+        return !!data.theirZone; 
       }
       return true;
     },
     {
       message: 'Por favor elige un copastor',
-      path: ['copastorID'],
+      path: ['copastorId'],
     }
   )
   .refine(
     (data) => {
-      if (data.type === TypesOfferingIncome.Offering && 
-        data.subType === SubTypesOfferingIncome.FamilyHouse) 
+      if (data.searchType === OfferingIncomeCreateType.Offering && 
+        data.searchSubType === OfferingIncomeCreateSubType.ZonalVigil) 
       {
-        return !!data.familyHouseID; 
+        return !!data.theirZone; 
+      }
+      return true;
+    },
+    {
+      message: 'Por favor elige un copastor',
+      path: ['copastorId'],
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.searchType === OfferingIncomeCreateType.Offering && 
+        data.searchSubType === OfferingIncomeCreateSubType.FamilyGroup) 
+      {
+        return !!data.theirFamilyGroup; 
       }
       return true;
     },
     {
       message: 'Por favor elige una casa familiar',
-      path: ['familyHomeID'],
+      path: ['familyGroupId'],
     }
   );
 

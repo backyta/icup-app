@@ -5,7 +5,7 @@ import { isAxiosError } from 'axios';
 import { icupApi } from '@/api/icupApi';
 
 import { ZoneSearchType } from '@/app/zone/enums';
-import { type ZoneFormData, type ZoneResponse, type ZoneQueryParams } from '@/app/zone/interfaces';
+import { type ZoneFormData, type ZoneResponse, type ZoneQueryParams, type ZoneSupervisorUpdateFormData } from '@/app/zone/interfaces';
 
 //* Create zone
 export const createZone = async (formData:ZoneFormData ): Promise<ZoneResponse> => {
@@ -142,7 +142,7 @@ export const getZonesByTerm = async ({ searchType, inputTerm, selectTerm, limit,
 //* Update zone by ID
 export interface UpdateZoneOptions {
   id: string;
-  formData: ZoneFormData;
+  formData: ZoneFormData | ZoneSupervisorUpdateFormData;
 }
 
 export const updateZone = async ({id, formData}: UpdateZoneOptions ): Promise<ZoneResponse> => {

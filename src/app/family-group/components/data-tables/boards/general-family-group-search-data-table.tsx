@@ -26,8 +26,8 @@ import { type FamilyGroupQueryParams } from '@/app/family-group/interfaces';
 
 import { useFamilyGroupStore } from '@/stores/family-group';
 
-import { LoadingSpinner } from '@/layouts/components';
-import { type FormSearchGeneral } from '@/shared/interfaces';
+import { LoadingSpinner } from '@/shared/components';
+import { type GeneralSearchForm } from '@/shared/interfaces';
 
 import {
   Table,
@@ -43,8 +43,8 @@ import { Button } from '@/shared/components/ui/button';
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  searchParams: FormSearchGeneral | undefined;
-  setSearchParams: React.Dispatch<React.SetStateAction<FormSearchGeneral | undefined>>;
+  searchParams: GeneralSearchForm | undefined;
+  setSearchParams: React.Dispatch<React.SetStateAction<GeneralSearchForm | undefined>>;
 }
 
 export function GeneralFamilyGroupSearchDataTable<TData, TValue>({

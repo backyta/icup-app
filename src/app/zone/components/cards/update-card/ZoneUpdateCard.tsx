@@ -3,19 +3,19 @@ import { useRef, useState } from 'react';
 import { GiArchiveRegister } from 'react-icons/gi';
 import { useMediaQuery } from '@react-hook/media-query';
 
-import { useChurchStore } from '@/stores/church';
-import { ChurchUpdateForm } from '@/app/church/components';
+import { useZoneStore } from '@/stores/zone';
+import { ZoneUpdateForm } from '@/app/zone/components';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 
-interface ChurchUpdateCardProps {
+interface ZoneUpdateCardProps {
   idRow: string;
 }
 
-export const ZoneUpdateCard = ({ idRow }: ChurchUpdateCardProps): JSX.Element => {
+export const ZoneUpdateCard = ({ idRow }: ZoneUpdateCardProps): JSX.Element => {
   //* States
-  const dataSearchByTermResponse = useChurchStore((state) => state.dataSearchByTermResponse);
+  const dataSearchByTermResponse = useZoneStore((state) => state.dataSearchByTermResponse);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const topRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +23,7 @@ export const ZoneUpdateCard = ({ idRow }: ChurchUpdateCardProps): JSX.Element =>
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   //* Functions
-  const currentChurch = dataSearchByTermResponse?.find((data) => data.id === idRow);
+  const currentZone = dataSearchByTermResponse?.find((data) => data.id === idRow);
 
   const handleContainerClose = (): void => {
     setIsOpen(false);
@@ -51,9 +51,9 @@ export const ZoneUpdateCard = ({ idRow }: ChurchUpdateCardProps): JSX.Element =>
           ref={topRef}
           className='md:max-w-[740px] lg:max-w-[1050px] xl:max-w-[1160px] w-full max-h-full justify-center pt-[0.9rem] pb-[1.3rem] overflow-x-hidden overflow-y-auto'
         >
-          <ChurchUpdateForm
+          <ZoneUpdateForm
             id={idRow}
-            data={currentChurch}
+            data={currentZone}
             onSubmit={handleContainerClose}
             onScroll={handleContainerScroll}
           />
@@ -77,9 +77,9 @@ export const ZoneUpdateCard = ({ idRow }: ChurchUpdateCardProps): JSX.Element =>
         ref={topRef}
         className='max-w-auto sm:max-w-[590px] w-full max-h-full justify-center pt-6 pb-4 px-8 overflow-y-auto overflow-x-hidden'
       >
-        <ChurchUpdateForm
+        <ZoneUpdateForm
           id={idRow}
-          data={currentChurch}
+          data={currentZone}
           onSubmit={handleContainerClose}
           onScroll={handleContainerScroll}
         />

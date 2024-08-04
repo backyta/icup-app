@@ -22,7 +22,7 @@ import { createFamilyGroup, getPreachersByZone, getAllZones } from '@/app/family
 
 import { PreacherSearchType } from '@/app/preacher/enums';
 
-import { LoadingSpinner } from '@/layouts/components';
+import { LoadingSpinner } from '@/shared/components';
 
 import { cn } from '@/shared/lib/utils';
 import { type ErrorResponse } from '@/shared/interfaces';

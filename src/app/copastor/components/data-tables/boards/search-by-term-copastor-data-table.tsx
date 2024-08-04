@@ -31,9 +31,8 @@ import { type CopastorSearchFormByTerm, type CopastorQueryParams } from '@/app/c
 
 import { useCopastorStore } from '@/stores/copastor';
 
-import { LoadingSpinner } from '@/layouts/components';
-
-import { formatDateDDMMYYYY } from '@/shared/helpers';
+import { LoadingSpinner } from '@/shared/components';
+import { formatterDateToDDMMYYYY } from '@/shared/helpers';
 
 import {
   Table,
@@ -214,7 +213,7 @@ export function SearchByTermCopastorDataTable<TData, TValue>({
             )}
             {dataForm?.searchType === CopastorSearchType.BirthDate && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.dateTerm?.from ? formatDateDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDateDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
+                {`${dataForm?.dateTerm?.from ? formatterDateToDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatterDateToDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
               </span>
             )}
             {(dataForm?.searchType === CopastorSearchType.BirthMonth ||

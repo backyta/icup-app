@@ -16,13 +16,13 @@ import { es } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { cn } from '@/shared/lib/utils';
-import { LoadingSpinner } from '@/layouts/components';
-
 import { churchFormSchema } from '@/app/church/validations';
 import { createChurch, getMainChurch } from '@/app/church/services';
-import { ChurchWorshipTime, ChurchWorshipTimeNames } from '@/app/church/enums';
 import { useChurchCreateSubmitButtonLogic } from '@/app/church/hooks';
+import { ChurchWorshipTime, ChurchWorshipTimeNames } from '@/app/church/enums';
+
+import { cn } from '@/shared/lib/utils';
+import { LoadingSpinner } from '@/shared/components';
 
 import {
   Country,
@@ -70,7 +70,6 @@ import { Calendar } from '@/shared/components/ui/calendar';
 import { Textarea } from '@/shared/components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
-// TODO : seguir con el delete de casa familiar y luego las zonas
 export const ChurchCreatePage = (): JSX.Element => {
   //* States
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
@@ -365,7 +364,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         E-mail
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Asigne un e-mail que tendrá la iglesia.
+                        Asignar un e-mail a la iglesia.
                       </FormDescription>
                       <FormControl>
                         <Input
@@ -392,7 +391,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         Numero de teléfono
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Asigne un numero telefónico que tendrá la iglesia.
+                        Asignar un numero telefónico a la iglesia.
                       </FormDescription>
                       <FormControl>
                         <Input
@@ -456,7 +455,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         Departamento
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Asignar el departamento al que pertenece la casa familiar.
+                        Asignar el departamento al que pertenece la iglesia.
                       </FormDescription>
                       <Select
                         disabled={isInputDisabled}
@@ -654,7 +653,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                       <FormControl>
                         <Textarea
                           disabled={isInputDisabled}
-                          placeholder='Comentarios sobre la dirección referencia de la iglesia...'
+                          placeholder='Comentarios sobre la referencia de ubicación de la iglesia...'
                           {...field}
                         />
                       </FormControl>

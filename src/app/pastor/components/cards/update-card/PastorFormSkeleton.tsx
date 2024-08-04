@@ -156,7 +156,7 @@ export const PastorFormSkeleton = (): JSX.Element => {
           </div>
 
           <div className='sm:col-start-2 w-full'>
-            <Skeleton className='h-10 w-full mt-6' />
+            <Skeleton className='h-10 w-full mt-5' />
             <div className='flex flex-col  justify-center items-center mt-3'>
               <Skeleton className='text-center h-4 w-64 mt-2' />
               <Skeleton className='text-center h-4 w-60 mt-2' />

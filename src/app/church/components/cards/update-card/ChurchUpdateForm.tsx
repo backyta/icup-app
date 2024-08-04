@@ -21,8 +21,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { cn } from '@/shared/lib/utils';
-
 import { churchFormSchema } from '@/app/church/validations';
 import { ChurchFormSkeleton } from '@/app/church/components';
 import { type ChurchResponse } from '@/app/church/interfaces';
@@ -30,6 +28,7 @@ import { getMainChurch, updateChurch } from '@/app/church/services';
 import { useChurchUpdateSubmitButtonLogic } from '@/app/church/hooks';
 import { ChurchWorshipTime, ChurchWorshipTimeNames } from '@/app/church/enums';
 
+import { cn } from '@/shared/lib/utils';
 import {
   validateDistrictsAllowedByModule,
   validateUrbanSectorsAllowedByDistrict,
@@ -507,7 +506,7 @@ export const ChurchUpdateForm = ({
                               Departamento
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar el departamento al que pertenece la casa familiar.
+                              Asignar el departamento al que pertenece la iglesia.
                             </FormDescription>
                             <Select
                               disabled={isInputDisabled}
@@ -710,7 +709,7 @@ export const ChurchUpdateForm = ({
                             <FormControl>
                               <Textarea
                                 disabled={isInputDisabled}
-                                placeholder='Comentarios sobre la dirección referencia de la iglesia...'
+                                placeholder='Comentarios sobre la ubicación de referencia de la iglesia...'
                                 {...field}
                               />
                             </FormControl>
@@ -825,7 +824,7 @@ export const ChurchUpdateForm = ({
                       name='recordStatus'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-5'>
+                          <FormItem className='mt-3'>
                             <FormLabel className='text-[14px]'>Estado</FormLabel>
                             <Select
                               disabled={isInputDisabled}

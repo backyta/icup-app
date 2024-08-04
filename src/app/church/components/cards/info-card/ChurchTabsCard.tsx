@@ -25,6 +25,7 @@ interface ChurchTabsCardProps {
   data: ChurchResponse | undefined;
 }
 
+// TODO : ver los popovers tamanios y el scroll
 export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element => {
   //* Effects
   useEffect(() => {
@@ -34,16 +35,16 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
       const url = new URL(window.location.href);
 
       if (url.pathname === '/churches/search-churches')
-        url.pathname = `/churches/search-churches/${id}/info`;
+        url.pathname = `/churches/search-churches/${id}/view`;
 
       if (url.pathname === '/churches/search-churches-by-term')
-        url.pathname = `/churches/search-churches-by-term/${id}/info`;
+        url.pathname = `/churches/search-churches-by-term/${id}/view`;
 
       if (url.pathname === '/churches/update-church')
-        url.pathname = `/churches/update-church/${id}/info`;
+        url.pathname = `/churches/update-church/${id}/view`;
 
       if (url.pathname === '/churches/delete-church')
-        url.pathname = `/churches/delete-church/${id}/info`;
+        url.pathname = `/churches/delete-church/${id}/view`;
 
       window.history.replaceState({}, '', url);
     }
@@ -71,7 +72,7 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               Información General
             </CardTitle>
             <CardDescription className='text-[14px] md:text-[15px]'>
-              Información general.
+              Información general de la iglesia.
             </CardDescription>
           </CardHeader>
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
@@ -13,10 +14,10 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { cn } from '@/shared/lib/utils';
-import { LoadingSpinner } from '@/layouts/components';
+import { LoadingSpinner } from '@/shared/components';
 
-import { zoneFormSchema } from '@/app/zone/validations';
 import { createZone } from '@/app/zone/services';
+import { zoneFormSchema } from '@/app/zone/validations';
 import { useZoneCreateSubmitButtonLogic } from '@/app/zone/hooks';
 
 import {
@@ -59,11 +60,10 @@ import { Input } from '@/shared/components/ui/input';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import { getAllSupervisors } from '@/app/preacher/services';
 
-// TODO : ver llaves de query keys repetidas
 export const ZoneCreatePage = (): JSX.Element => {
   //* States
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
-  const [isInputMainChurchOpen, setIsInputMainChurchOpen] = useState<boolean>(false);
+  const [isInputTheirSupervisorOpen, setIsInputTheirSupervisorOpen] = useState<boolean>(false);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
 
@@ -150,8 +150,8 @@ export const ZoneCreatePage = (): JSX.Element => {
 
   //* Querys
   const { data, isLoading } = useQuery({
-    queryKey: ['supervisors'],
-    queryFn: getAllSupervisors,
+    queryKey: ['supervisors-for-zone'],
+    queryFn: () => getAllSupervisors({ isNull: 'true' }),
     staleTime: 5 * 60 * 1000,
   });
 
@@ -162,11 +162,10 @@ export const ZoneCreatePage = (): JSX.Element => {
     mutation.mutate(formData);
   };
 
-  // todo : evitar el error de que supervisor esta siendo urlizado, traer solo los que estan disponibles o sin una zona. (hacer queyr prameter opcional)
   return (
     <div id='menu' className='animate-fadeInPage'>
-      <h1 className='text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-teal-500 dark:text-teal-400 text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]'>
-        Modulo Zone
+      <h1 className='text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-cyan-400 dark:text-cyan-500 text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]'>
+        Modulo Zona
       </h1>
 
       <hr className='md:p-[0.02rem] bg-slate-500' />
@@ -383,7 +382,10 @@ export const ZoneCreatePage = (): JSX.Element => {
                     <FormDescription className='text-[14px]'>
                       Seleccione un supervisor para esta zona.
                     </FormDescription>
-                    <Popover open={isInputMainChurchOpen} onOpenChange={setIsInputMainChurchOpen}>
+                    <Popover
+                      open={isInputTheirSupervisorOpen}
+                      onOpenChange={setIsInputTheirSupervisorOpen}
+                    >
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
@@ -406,7 +408,12 @@ export const ZoneCreatePage = (): JSX.Element => {
                             className='h-9 text-[14px]'
                           />
                           <CommandEmpty>Supervisor no encontrado.</CommandEmpty>
-                          <CommandGroup className='max-h-[200px] h-auto'>
+                          <CommandGroup
+                            className={cn(
+                              'max-h-[200px] h-auto',
+                              data?.length === 0 && 'w-[340px]'
+                            )}
+                          >
                             {data?.map((supervisor) => (
                               <CommandItem
                                 className='text-[14px]'
@@ -414,7 +421,7 @@ export const ZoneCreatePage = (): JSX.Element => {
                                 key={supervisor?.id}
                                 onSelect={() => {
                                   form.setValue('theirSupervisor', supervisor?.id);
-                                  setIsInputMainChurchOpen(false);
+                                  setIsInputTheirSupervisorOpen(false);
                                 }}
                               >
                                 {`${supervisor?.firstName} ${supervisor?.lastName}`}
@@ -428,7 +435,10 @@ export const ZoneCreatePage = (): JSX.Element => {
                             ))}
 
                             {data?.length === 0 && (
-                              <CommandItem>{'No hay supervisores disponibles'}</CommandItem>
+                              <p className='text-[14.5px] text-red-500 text-center'>
+                                ❌ No se encontró supervisores disponibles, todos están asignados a
+                                una zona.
+                              </p>
                             )}
                           </CommandGroup>
                         </Command>

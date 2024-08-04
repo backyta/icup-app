@@ -140,7 +140,7 @@ export const familyGroupUpdateColumns: Array<ColumnDef<FamilyGroupColumns, any>>
     },
   },
   {
-    id: 'changePreacher',
+    id: 'exchangePreacher',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.row.original.id;

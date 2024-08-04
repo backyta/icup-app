@@ -15,12 +15,12 @@ import { CalendarIcon } from 'lucide-react';
 import { usePastorStore } from '@/stores/pastor';
 
 import {
-  PastorSearchNamesByBirthMonth,
-  PastorSearchNamesByGender,
-  PastorSearchNamesByMaritalStatus,
-  PastorSearchNamesByRecordStatus,
   PastorSearchType,
   PastorSearchTypeNames,
+  PastorSearchNamesByGender,
+  PastorSearchNamesByBirthMonth,
+  PastorSearchNamesByMaritalStatus,
+  PastorSearchNamesByRecordStatus,
 } from '@/app/pastor/enums';
 import {
   pastorUpdateColumns as columns,
@@ -30,9 +30,8 @@ import { pastorSearchByTermFormSchema } from '@/app/pastor/validations';
 import { type PastorSearchFormByTerm, type PastorResponse } from '@/app/pastor/interfaces';
 
 import { cn } from '@/shared/lib/utils';
-
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-import { formatDateTermToTimestamp, formatNames, formatLastNames } from '@/shared/helpers';
+import { formatterDateTermToTimestamp, formatterNames, formatLastNames } from '@/shared/helpers';
 
 import {
   Form,
@@ -146,12 +145,12 @@ export const PastorUpdatePage = (): JSX.Element => {
       newDateTermTo = formData.dateTerm?.from;
     }
 
-    const newDateTerm = formatDateTermToTimestamp({
+    const newDateTerm = formatterDateTermToTimestamp({
       from: formData.dateTerm?.from,
       to: formData.dateTerm?.to ? formData.dateTerm?.to : newDateTermTo,
     });
 
-    const newNamesTerm = formatNames(formData?.namesTerm);
+    const newNamesTerm = formatterNames(formData?.namesTerm);
     const newLastNamesTerm = formatLastNames(formData?.lastNamesTerm);
 
     setSearchParams({

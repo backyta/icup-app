@@ -9,8 +9,6 @@ import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { cn } from '@/shared/lib/utils';
-
 import { usePastorStore } from '@/stores/pastor';
 
 import {
@@ -19,7 +17,8 @@ import {
 } from '@/app/pastor/components';
 import { type PastorResponse } from '@/app/pastor/interfaces';
 
-import { type FormSearchGeneral } from '@/shared/interfaces';
+import { cn } from '@/shared/lib/utils';
+import { type GeneralSearchForm } from '@/shared/interfaces';
 import { formSearchGeneralSchema } from '@/shared/validations';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 
@@ -81,7 +80,7 @@ export const PastorsGeneralSearchPage = (): JSX.Element => {
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
 
-  const [searchParams, setSearchParams] = useState<FormSearchGeneral | undefined>();
+  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({

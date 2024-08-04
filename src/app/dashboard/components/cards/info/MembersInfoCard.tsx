@@ -4,7 +4,7 @@ import { type DiscipleQueryParams } from '@/app/disciple/interfaces';
 
 import { MemberInfoItem } from '@/app/dashboard/components';
 
-import { LoadingSpinner } from '@/layouts/components';
+import { LoadingSpinner } from '@/shared/components';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card';
 
 import { useQuery } from '@tanstack/react-query';

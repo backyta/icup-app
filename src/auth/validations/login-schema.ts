@@ -10,9 +10,6 @@ export const loginSchema = z
     }),
 
     password: z.string()
-    // .regex(new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$"), 
-    // 'La contraseña no cumple con los requisitos mínimos'),
-    
   })
  
   

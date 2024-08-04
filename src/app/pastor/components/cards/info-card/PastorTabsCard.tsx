@@ -33,16 +33,16 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
       const url = new URL(window.location.href);
 
       if (url.pathname === '/pastors/search-pastors')
-        url.pathname = `/pastors/search-pastors/${id}/info`;
+        url.pathname = `/pastors/search-pastors/${id}/view`;
 
       if (url.pathname === '/pastors/search-pastors-by-term')
-        url.pathname = `/pastors/search-pastors-by-term/${id}/info`;
+        url.pathname = `/pastors/search-pastors-by-term/${id}/view`;
 
       if (url.pathname === '/pastors/update-pastor')
-        url.pathname = `/pastors/update-pastor/${id}/info`;
+        url.pathname = `/pastors/update-pastor/${id}/view`;
 
       if (url.pathname === '/pastors/delete-pastor')
-        url.pathname = `/pastors/delete-pastor/${id}/info`;
+        url.pathname = `/pastors/delete-pastor/${id}/view`;
 
       window.history.replaceState({}, '', url);
     }

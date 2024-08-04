@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 import { MdDeleteForever } from 'react-icons/md';
 
 import { offeringDeleteFormSchema } from '@/app/offering/shared/validations';
-import { TypesReasonEliminationOfferingIncomeNames } from '@/app/offering/income/enums';
+import { TypeReasonEliminationOfferingIncomeNames } from '@/app/offering/income/enums';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
@@ -144,7 +144,7 @@ export const OfferingIncomeDeleteCard = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(TypesReasonEliminationOfferingIncomeNames).map(
+                          {Object.entries(TypeReasonEliminationOfferingIncomeNames).map(
                             ([key, value]) => (
                               <SelectItem key={key} value={key}>
                                 {value}

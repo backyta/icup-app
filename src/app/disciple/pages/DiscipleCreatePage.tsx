@@ -21,7 +21,7 @@ import { createDisciple, getAllFamilyGroups } from '@/app/disciple/services';
 
 import { cn } from '@/shared/lib/utils';
 import { useRoleValidationByPath } from '@/hooks';
-import { LoadingSpinner } from '@/layouts/components';
+import { LoadingSpinner } from '@/shared/components';
 
 import {
   MemberRole,

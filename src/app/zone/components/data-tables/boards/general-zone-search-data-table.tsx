@@ -20,14 +20,14 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table';
 
-import { getChurches } from '@/app/church/services';
-import { type ChurchQueryParams } from '@/app/church/interfaces';
+import { getZones } from '@/app/zone/services';
+import { type ZoneQueryParams } from '@/app/zone/interfaces';
 
-import { useChurchStore } from '@/stores/church';
+import { useZoneStore } from '@/stores/zone';
 
-import { LoadingSpinner } from '@/layouts/components';
+import { LoadingSpinner } from '@/shared/components';
 
-import { type FormSearchGeneral } from '@/shared/interfaces';
+import { type GeneralSearchForm } from '@/shared/interfaces';
 
 import {
   Table,
@@ -43,8 +43,8 @@ import { Button } from '@/shared/components/ui/button';
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  searchParams: FormSearchGeneral | undefined;
-  setSearchParams: React.Dispatch<React.SetStateAction<FormSearchGeneral | undefined>>;
+  searchParams: GeneralSearchForm | undefined;
+  setSearchParams: React.Dispatch<React.SetStateAction<GeneralSearchForm | undefined>>;
 }
 
 export function GeneralZoneSearchDataTable<TData, TValue>({
@@ -58,15 +58,13 @@ export function GeneralZoneSearchDataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
 
-  const isFiltersSearchGeneralDisabled = useChurchStore(
+  const isFiltersSearchGeneralDisabled = useZoneStore(
     (state) => state.isFiltersSearchGeneralDisabled
   );
-  const setIsFiltersSearchGeneralDisabled = useChurchStore(
+  const setIsFiltersSearchGeneralDisabled = useZoneStore(
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
-  const setDataSearchGeneralResponse = useChurchStore(
-    (state) => state.setDataSearchGeneralResponse
-  );
+  const setDataSearchGeneralResponse = useZoneStore((state) => state.setDataSearchGeneralResponse);
 
   const [isDisabledButton, setIsDisabledButton] = useState(false);
 
@@ -75,8 +73,8 @@ export function GeneralZoneSearchDataTable<TData, TValue>({
 
   //* Querys
   const query = useQuery({
-    queryKey: ['general-churches', searchParams],
-    queryFn: () => getChurches(searchParams as ChurchQueryParams),
+    queryKey: ['general-zones', searchParams],
+    queryFn: () => getZones(searchParams as ZoneQueryParams),
     enabled: !!searchParams,
     retry: 1,
   });
@@ -150,14 +148,12 @@ export function GeneralZoneSearchDataTable<TData, TValue>({
           <span className='text-offering-color font-bold text-[14px] md:text-[16px]'>
             Búsqueda actual:
           </span>{' '}
-          <span className='font-medium text-[13px] md:text-[15px]'>Iglesias y anexos (Todas)</span>
+          <span className='font-medium text-[13px] md:text-[15px]'>Zonas (Todas)</span>
           <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center py-4 md:py-6 lg:py-4 lg:gap-6'>
             <Input
-              placeholder='Filtro por nombre de iglesia...'
-              value={(table.getColumn('churchName')?.getFilterValue() as string) ?? ''}
-              onChange={(event) =>
-                table.getColumn('churchName')?.setFilterValue(event.target.value)
-              }
+              placeholder='Filtro por nombre de zona...'
+              value={(table.getColumn('zoneName')?.getFilterValue() as string) ?? ''}
+              onChange={(event) => table.getColumn('zoneName')?.setFilterValue(event.target.value)}
               className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
               disabled={isFiltersSearchGeneralDisabled}
             />
@@ -173,7 +169,7 @@ export function GeneralZoneSearchDataTable<TData, TValue>({
               variant='ghost'
               className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
               onClick={() => {
-                table.getColumn('churchName')?.setFilterValue('');
+                table.getColumn('zoneName')?.setFilterValue('');
                 table.getColumn('district')?.setFilterValue('');
               }}
             >
@@ -185,7 +181,7 @@ export function GeneralZoneSearchDataTable<TData, TValue>({
               className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
               onClick={() => {
                 setIsFiltersSearchGeneralDisabled(true);
-                table.getColumn('churchName')?.setFilterValue('');
+                table.getColumn('zoneName')?.setFilterValue('');
                 table.getColumn('district')?.setFilterValue('');
               }}
             >

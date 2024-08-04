@@ -3,12 +3,13 @@
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
+import { getFullName } from '@/shared/helpers';
 import { Button } from '@/shared/components/ui/button';
 
-import { ChurchInfoCard } from '@/app/church/components';
-import { type ChurchColumns } from '@/app/church/interfaces';
+import { ZoneInfoCard } from '@/app/zone/components';
+import { type ZoneColumns } from '@/app/zone/interfaces';
 
-export const zoneInfoColumns: Array<ColumnDef<ChurchColumns, any>> = [
+export const zoneInfoColumns: Array<ColumnDef<ZoneColumns, any>> = [
   {
     accessorKey: 'id',
     cell: (info) => {
@@ -31,7 +32,7 @@ export const zoneInfoColumns: Array<ColumnDef<ChurchColumns, any>> = [
     },
   },
   {
-    accessorKey: 'churchName',
+    accessorKey: 'zoneName',
     header: ({ column }) => {
       return (
         <Button
@@ -48,7 +49,7 @@ export const zoneInfoColumns: Array<ColumnDef<ChurchColumns, any>> = [
     },
   },
   {
-    accessorKey: 'phoneNumber',
+    accessorKey: 'department',
     header: ({ column }) => {
       return (
         <Button
@@ -58,7 +59,24 @@ export const zoneInfoColumns: Array<ColumnDef<ChurchColumns, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Nro. Teléfono
+          Departamento
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: 'province',
+    header: ({ column }) => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px]'
+          variant='ghost'
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+        >
+          Provincia
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );
@@ -82,28 +100,11 @@ export const zoneInfoColumns: Array<ColumnDef<ChurchColumns, any>> = [
     },
   },
   {
-    accessorKey: 'urbanSector',
-    header: ({ column }) => {
-      return (
-        <Button
-          className='font-bold text-[13px] md:text-[14px]'
-          variant='ghost'
-          onClick={() => {
-            column.toggleSorting(column.getIsSorted() === 'asc');
-          }}
-        >
-          Sector Urbano
-          <ArrowUpDown className='ml-2 h-4 w-4' />
-        </Button>
-      );
-    },
-  },
-  {
     accessorKey: 'updatedBy',
     cell: (info) => {
-      const firstName = info.getValue()?.firstName;
-      const lastName = info.getValue()?.lastName;
-      return firstName && lastName ? `${firstName} ${lastName}` : '-';
+      const firstNames = info.getValue()?.firstName;
+      const lastNames = info.getValue()?.lastName;
+      return firstNames && lastNames ? getFullName({ firstNames, lastNames }) : '-';
     },
     header: ({ column }) => {
       return (
@@ -125,7 +126,7 @@ export const zoneInfoColumns: Array<ColumnDef<ChurchColumns, any>> = [
     accessorKey: 'id',
     cell: (info) => {
       const id = info.row.original.id;
-      return info.getValue() === '-' ? '-' : <ChurchInfoCard idRow={id} />;
+      return info.getValue() === '-' ? '-' : <ZoneInfoCard idRow={id} />;
     },
     header: () => {
       return (

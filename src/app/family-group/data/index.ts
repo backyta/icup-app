@@ -1,1 +1,1 @@
-export * from './data-family-groups';
+export * from './data-family-group';

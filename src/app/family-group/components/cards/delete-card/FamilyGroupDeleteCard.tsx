@@ -93,7 +93,7 @@ export const FamilyGroupDeleteCard = ({ idRow }: FamilyGroupDeleteCardProps): JS
           onClick={() => {
             setIsButtonDisabled(false);
           }}
-          className='mt-2 lg:-ml-5 xl:-ml-7 2xl:-ml-9 mr-4 py-2 px-1 h-[2rem] bg-red-400 text-white hover:bg-red-500 hover:text-red-950  dark:text-red-950 dark:hover:bg-red-500 dark:hover:text-white'
+          className='mt-2 py-2 px-1 h-[2rem] bg-red-400 text-white hover:bg-red-500 hover:text-red-950  dark:text-red-950 dark:hover:bg-red-500 dark:hover:text-white'
         >
           <MdDeleteForever className='w-8 h-[1.65rem]' />
         </Button>

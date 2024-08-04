@@ -1,5 +1,5 @@
 
-import { SubTypesOfferingIncomeNames } from '@/app/offering/income/enums';
+import { OfferingIncomeCreateSubTypeNames } from '@/app/offering/income/enums';
 import { CurrencyType } from '@/app/offering/shared/enums';
 
 import { type OfferingColumns } from '@/app/offering/shared/interfaces';
@@ -9,7 +9,7 @@ export const dataOfferingsIncome: OfferingColumns[] =
   {
     "id": "1",
     "type": "Ofrenda",
-    "sub_type": SubTypesOfferingIncomeNames.special,
+    "sub_type": OfferingIncomeCreateSubTypeNames.special,
     "amount": 25,
     "currency": CurrencyType.Soles,
     "updated_by": "Pepito Gomez",
@@ -27,7 +27,7 @@ export const dataOfferingsIncome: OfferingColumns[] =
   {
     "id": "3",
     "type": "Ofrenda",
-    "sub_type": SubTypesOfferingIncomeNames.youth_worship,
+    "sub_type": OfferingIncomeCreateSubTypeNames.youth_worship,
     "amount": 150,
     "currency": CurrencyType.Euros,
     "updated_by": "Pepito Gomez",
@@ -45,7 +45,7 @@ export const dataOfferingsIncome: OfferingColumns[] =
   {
     "id": "5",
     "type": "Ofrenda",
-    "sub_type": SubTypesOfferingIncomeNames.zonal_fasting,
+    "sub_type": OfferingIncomeCreateSubTypeNames.zonal_fasting,
     "amount": 50,
     "currency": CurrencyType.Dollars,
     "updated_by": "Pepito Gomez",
@@ -63,7 +63,7 @@ export const dataOfferingsIncome: OfferingColumns[] =
   {
     "id": "7",
     "type": "Ofrenda",
-    "sub_type": SubTypesOfferingIncomeNames.sunday_worship,
+    "sub_type": OfferingIncomeCreateSubTypeNames.sunday_worship,
     "amount": 100,
     "currency": CurrencyType.Soles,
     "updated_by": "Pepito Gomez",
@@ -81,7 +81,7 @@ export const dataOfferingsIncome: OfferingColumns[] =
   {
     "id": "9",
     "type": "Ofrenda",
-    "sub_type": SubTypesOfferingIncomeNames.activities,
+    "sub_type": OfferingIncomeCreateSubTypeNames.activities,
     "amount": 300,
     "currency": CurrencyType.Euros,
     "updated_by": "Pepito Gomez",
@@ -99,7 +99,7 @@ export const dataOfferingsIncome: OfferingColumns[] =
   {
     "id": "11",
     "type": "Ofrenda",
-    "sub_type": SubTypesOfferingIncomeNames.general_vigil,
+    "sub_type": OfferingIncomeCreateSubTypeNames.general_vigil,
     "amount": 180,
     "currency": CurrencyType.Dollars,
     "updated_by": "Pepito Gomez",
@@ -117,7 +117,7 @@ export const dataOfferingsIncome: OfferingColumns[] =
   {
     "id": "13",
     "type": "Ofrenda",
-    "sub_type": SubTypesOfferingIncomeNames.church_ground,
+    "sub_type": OfferingIncomeCreateSubTypeNames.church_ground,
     "amount": 80,
     "currency": CurrencyType.Euros,
     "updated_by": "Pepito Gomez",
@@ -135,7 +135,7 @@ export const dataOfferingsIncome: OfferingColumns[] =
   {
     "id": "15",
     "type": "Ofrenda",
-    "sub_type": SubTypesOfferingIncomeNames.sunday_school,
+    "sub_type": OfferingIncomeCreateSubTypeNames.sunday_school,
     "amount": 250,
     "currency": CurrencyType.Soles,
     "updated_by": "Pepito Gomez",
@@ -153,7 +153,7 @@ export const dataOfferingsIncome: OfferingColumns[] =
   {
     "id": "17",
     "type": "Ofrenda",
-    "sub_type": SubTypesOfferingIncomeNames.family_house,
+    "sub_type": OfferingIncomeCreateSubTypeNames.family_house,
     "amount": 120,
     "currency": CurrencyType.Dollars,
     "updated_by": "Pepito Gomez",
@@ -171,7 +171,7 @@ export const dataOfferingsIncome: OfferingColumns[] =
   {
     "id": "19",
     "type": "Ofrenda",
-    "sub_type": SubTypesOfferingIncomeNames.zonal_vigil,
+    "sub_type": OfferingIncomeCreateSubTypeNames.zonal_vigil,
     "amount": 90,
     "currency": CurrencyType.Soles,
     "updated_by": "Pepito Gomez",

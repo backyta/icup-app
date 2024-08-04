@@ -87,7 +87,7 @@ export enum SearchSubType {
   TitheByDateLastNames = 'tithe_by_date_last_names',
   TitheByDateFullName = 'tithe_by_date_full_name',
 
-  // ! Offering Income
+  //! Offering Income
   //* Family House, Fasting Zonal, Fasting General, Vigil Zonal, vigilia General, Ground Church, Activities, Youngs
   OfferingByDate = 'offering_by_date',
 
@@ -116,7 +116,7 @@ export enum SearchSubType {
   OfferingByLastNames = 'offering_by_last_names',
   OfferingByFullName = 'offering_by_full_name',
 
-  // ! Offering Expenses
+  //! Offering Expenses
   //* Operational Expenses
   VenueRental = "venue_rental",
   PublicServices = "public_services",

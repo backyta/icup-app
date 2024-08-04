@@ -22,7 +22,7 @@ import { cn } from '@/shared/lib/utils';
 import { useUserStore } from '@/stores/user';
 
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-import { formatNames, formatLastNames, formatArrayRolesToString } from '@/shared/helpers';
+import { formatterNames, formatLastNames, formatterArrayRolesToString } from '@/shared/helpers';
 
 import {
   Form,
@@ -113,10 +113,10 @@ export const UserDeletePage = (): JSX.Element => {
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof userSearchByTermFormSchema>): void {
-    const newNamesTerm = formatNames(formData?.namesTerm);
+    const newNamesTerm = formatterNames(formData?.namesTerm);
     const newLastNamesTerm = formatLastNames(formData?.lastNamesTerm);
 
-    const formatRoles = formatArrayRolesToString(formData.multiSelectTerm);
+    const formatRoles = formatterArrayRolesToString(formData.multiSelectTerm);
 
     setSearchParams({
       ...formData,

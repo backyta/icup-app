@@ -5,7 +5,7 @@ import * as z from 'zod';
 import { RecordOrder } from '@/shared/enums';
 import { ZoneSearchType } from '@/app/zone/enums';
 
-export const churchSearchByTermFormSchema = z 
+export const zoneSearchByTermFormSchema = z 
   .object({
     searchType: z.nativeEnum(ZoneSearchType,{
       required_error: "Por favor seleccione un tipo.",
@@ -35,6 +35,7 @@ export const churchSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (data.searchType === ZoneSearchType.ZoneName ||
+        data.searchType === ZoneSearchType.Country ||
         data.searchType === ZoneSearchType.Department ||
         data.searchType === ZoneSearchType.Province ||
         data.searchType === ZoneSearchType.District

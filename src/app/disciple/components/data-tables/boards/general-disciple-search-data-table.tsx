@@ -25,8 +25,8 @@ import { getDisciples } from '@/app/disciple/services';
 import { type DiscipleQueryParams } from '@/app/disciple/interfaces';
 
 import { useDiscipleStore } from '@/stores/disciple';
-import { LoadingSpinner } from '@/layouts/components';
-import { type FormSearchGeneral } from '@/shared/interfaces';
+import { LoadingSpinner } from '@/shared/components';
+import { type GeneralSearchForm } from '@/shared/interfaces';
 
 import {
   Table,
@@ -42,8 +42,8 @@ import { Button } from '@/shared/components/ui/button';
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  searchParams: FormSearchGeneral | undefined;
-  setSearchParams: React.Dispatch<React.SetStateAction<FormSearchGeneral | undefined>>;
+  searchParams: GeneralSearchForm | undefined;
+  setSearchParams: React.Dispatch<React.SetStateAction<GeneralSearchForm | undefined>>;
 }
 
 export function GeneralDiscipleSearchDataTable<TData, TValue>({

@@ -20,19 +20,13 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table';
 
-import {
-  ChurchSearchSelectOptionNames,
-  ChurchSearchType,
-  ChurchSearchTypeNames,
-} from '@/app/church/enums';
-import { getChurchesByTerm } from '@/app/church/services';
-import { type ChurchSearchFormByTerm, type ChurchQueryParams } from '@/app/church/interfaces';
+import { getZonesByTerm } from '@/app/zone/services';
+import { type ZoneSearchFormByTerm, type ZoneQueryParams } from '@/app/zone/interfaces';
+import { ZoneSearchSelectOptionNames, ZoneSearchType, ZoneSearchTypeNames } from '@/app/zone/enums';
 
-import { useChurchStore } from '@/stores/church';
+import { useZoneStore } from '@/stores/zone';
 
-import { LoadingSpinner } from '@/layouts/components';
-
-import { formatDateDDMMYYYY } from '@/shared/helpers';
+import { LoadingSpinner } from '@/shared/components';
 
 import {
   Table,
@@ -48,9 +42,9 @@ import { Button } from '@/shared/components/ui/button';
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  searchParams: ChurchSearchFormByTerm | undefined;
-  setSearchParams: React.Dispatch<React.SetStateAction<ChurchSearchFormByTerm | undefined>>;
-  dataForm: ChurchSearchFormByTerm | undefined;
+  searchParams: ZoneSearchFormByTerm | undefined;
+  setSearchParams: React.Dispatch<React.SetStateAction<ZoneSearchFormByTerm | undefined>>;
+  dataForm: ZoneSearchFormByTerm | undefined;
 }
 
 export function SearchByTermZoneDataTable<TData, TValue>({
@@ -65,15 +59,13 @@ export function SearchByTermZoneDataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
 
-  const isFiltersSearchByTermDisabled = useChurchStore(
+  const isFiltersSearchByTermDisabled = useZoneStore(
     (state) => state.isFiltersSearchByTermDisabled
   );
-  const setIsFiltersSearchByTermDisabled = useChurchStore(
+  const setIsFiltersSearchByTermDisabled = useZoneStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
-  const setDataSearchByTermResResponse = useChurchStore(
-    (state) => state.setDataSearchByTermResponse
-  );
+  const setDataSearchByTermResResponse = useZoneStore((state) => state.setDataSearchByTermResponse);
 
   const [isDisabledButton, setIsDisabledButton] = useState(false);
 
@@ -82,8 +74,8 @@ export function SearchByTermZoneDataTable<TData, TValue>({
 
   //* Querys
   const query = useQuery({
-    queryKey: ['churches-by-term', searchParams],
-    queryFn: () => getChurchesByTerm(searchParams as ChurchQueryParams),
+    queryKey: ['zones-by-term', searchParams],
+    queryFn: () => getZonesByTerm(searchParams as ZoneQueryParams),
     enabled: !!searchParams,
     retry: 1,
   });
@@ -161,7 +153,7 @@ export function SearchByTermZoneDataTable<TData, TValue>({
             </span>{' '}
             <span className='font-medium text-[13px] md:text-[14.5px] italic'>
               {`${
-                Object.entries(ChurchSearchTypeNames).find(
+                Object.entries(ZoneSearchTypeNames).find(
                   ([key, value]) => key === dataForm?.searchType && value
                 )?.[1] ?? ''
               }`}
@@ -173,25 +165,19 @@ export function SearchByTermZoneDataTable<TData, TValue>({
             <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
               Termino de búsqueda:
             </span>{' '}
-            {(dataForm?.searchType === ChurchSearchType.ChurchName ||
-              dataForm?.searchType === ChurchSearchType.Department ||
-              dataForm?.searchType === ChurchSearchType.Province ||
-              dataForm?.searchType === ChurchSearchType.Address ||
-              dataForm?.searchType === ChurchSearchType.UrbanSector ||
-              dataForm?.searchType === ChurchSearchType.District) && (
+            {(dataForm?.searchType === ZoneSearchType.ZoneName ||
+              dataForm?.searchType === ZoneSearchType.Country ||
+              dataForm?.searchType === ZoneSearchType.Department ||
+              dataForm?.searchType === ZoneSearchType.Province ||
+              dataForm?.searchType === ZoneSearchType.District) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.inputTerm}`}
               </span>
             )}
-            {dataForm?.searchType === ChurchSearchType.FoundingDate && (
-              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.dateTerm?.from ? formatDateDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDateDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
-              </span>
-            )}
-            {dataForm?.searchType === ChurchSearchType.RecordStatus && (
+            {dataForm?.searchType === ZoneSearchType.RecordStatus && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
-                  Object.entries(ChurchSearchSelectOptionNames).find(
+                  Object.entries(ZoneSearchSelectOptionNames).find(
                     ([key, value]) => key === dataForm?.selectTerm && value
                   )?.[1]
                 }`}
@@ -202,16 +188,14 @@ export function SearchByTermZoneDataTable<TData, TValue>({
           {/* Inputs Filters */}
           <div className='pb-8 pt-4 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
             <Input
-              placeholder='Filtro por nombre de iglesia...'
-              value={(table.getColumn('churchName')?.getFilterValue() as string) ?? ''}
-              onChange={(event) =>
-                table.getColumn('churchName')?.setFilterValue(event.target.value)
-              }
+              placeholder='Filtro por nombre de zona...'
+              value={(table.getColumn('zoneName')?.getFilterValue() as string) ?? ''}
+              onChange={(event) => table.getColumn('zoneName')?.setFilterValue(event.target.value)}
               className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
               disabled={isFiltersSearchByTermDisabled}
             />
             <Input
-              placeholder='Filtro por distrito de la iglesia...'
+              placeholder='Filtro por distrito de la zona...'
               value={(table.getColumn('district')?.getFilterValue() as string) ?? ''}
               onChange={(event) => table.getColumn('district')?.setFilterValue(event.target.value)}
               className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
@@ -222,7 +206,7 @@ export function SearchByTermZoneDataTable<TData, TValue>({
               variant='ghost'
               className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 bg-red-500 text-red-950 border-red-500 hover:bg-red-500 hover:text-white'
               onClick={() => {
-                table.getColumn('churchName')?.setFilterValue('');
+                table.getColumn('zoneName')?.setFilterValue('');
                 table.getColumn('district')?.setFilterValue('');
               }}
             >
@@ -234,7 +218,7 @@ export function SearchByTermZoneDataTable<TData, TValue>({
               className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
               onClick={() => {
                 setIsFiltersSearchByTermDisabled(true);
-                table.getColumn('churchName')?.setFilterValue('');
+                table.getColumn('zoneName')?.setFilterValue('');
                 table.getColumn('district')?.setFilterValue('');
               }}
             >

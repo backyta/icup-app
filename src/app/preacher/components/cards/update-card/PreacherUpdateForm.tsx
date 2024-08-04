@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
@@ -39,7 +40,6 @@ import { type PreacherResponse } from '@/app/preacher/interfaces';
 import { getAllSupervisors, updatePreacher } from '@/app/preacher/services';
 
 import { useRoleValidationByPath } from '@/hooks';
-import { type ErrorResponse } from '@/shared/interfaces';
 
 import {
   validateDistrictsAllowedByModule,
@@ -56,6 +56,7 @@ import {
   ProvinceNames,
   UrbanSectorNames,
 } from '@/shared/enums';
+import { type ErrorResponse } from '@/shared/interfaces';
 
 import {
   Form,
@@ -317,7 +318,7 @@ export const PreacherUpdateForm = ({
   //* Querys
   const querySupervisors = useQuery({
     queryKey: ['supervisors', id],
-    queryFn: getAllSupervisors,
+    queryFn: () => getAllSupervisors({ isNull: 'false' }),
     staleTime: 5 * 60 * 1000,
   });
 
@@ -635,7 +636,7 @@ export const PreacherUpdateForm = ({
                       name='recordStatus'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-5'>
+                          <FormItem className='mt-3'>
                             <FormLabel className='text-[14px]'>Estado</FormLabel>
                             <Select
                               disabled={isInputDisabled}

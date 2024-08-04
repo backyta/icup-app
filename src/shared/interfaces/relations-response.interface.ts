@@ -213,6 +213,33 @@ export interface TheirPreacher {
   updatedBy?:       UpdatedBy;
   status:           string;
 }
+export interface TheirDisciple {
+  id:               string;
+  firstName?:        string;
+  lastName?:         string;
+  gender?:           string;
+  originCountry?:    string;
+  birthDate?:        Date;
+  age?:              number;
+  maritalStatus?:    string;
+  numberChildren?:   number;
+  conversionDate?:   Date;
+  email?:            string;
+  phoneNumber?:      string;
+  country?:          string;
+  department?:       string;
+  province?:         string;
+  district?:         string;
+  urbanSector?:      string;
+  address?:          string;
+  referenceAddress?: string;
+  roles?:            string[];
+  createdAt:        Date;
+  createdBy:        CreatedBy;
+  updatedAt?:       Date;
+  updatedBy?:       UpdatedBy;
+  status:           string;
+}
 
 export interface TheirZone {
   id:         string;
@@ -226,7 +253,6 @@ export interface TheirZone {
   updatedAt?: Date;
   updatedBy?: UpdatedBy;
   status:     string;
-
 }
 
 export interface TheirFamilyGroup {
@@ -236,13 +262,3 @@ export interface TheirFamilyGroup {
   district:        string;
   urbanSector:     string;
 }
-
-
-
-
-
-
-
-
-
-

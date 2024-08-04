@@ -2,7 +2,7 @@
 
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { LoadingSpinner } from '@/layouts/components/LoadingSpinner';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
 import { useAuthStore } from '@/stores';
 import { ToggleLayoutLogin } from '@/shared/components/toggle-theme';

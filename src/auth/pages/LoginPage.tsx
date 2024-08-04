@@ -5,6 +5,7 @@
 import { useState } from 'react';
 
 import { type z } from 'zod';
+import { AxiosError } from 'axios';
 import { Toaster, toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -24,7 +25,6 @@ import {
   FormLabel,
   FormMessage,
 } from '@/shared/components/ui/form';
-import { AxiosError } from 'axios';
 
 export const LoginPage = (): JSX.Element => {
   //* Stores and states

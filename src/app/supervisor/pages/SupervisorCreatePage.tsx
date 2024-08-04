@@ -23,7 +23,7 @@ import { useSupervisorCreateSubmitButtonLogic } from '@/app/supervisor/hooks';
 import { getAllPastors } from '@/app/copastor/services';
 
 import { useRoleValidationByPath } from '@/hooks';
-import { LoadingSpinner } from '@/layouts/components';
+import { LoadingSpinner } from '@/shared/components';
 
 import {
   Country,
@@ -75,7 +75,6 @@ import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Textarea } from '@/shared/components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
-// TODO : ver el error del cache cuando se manda un link diferente se va a 404 y borra el cache pero desde un link interno lo mantiene, si no redirigir todo dashboard
 export const SupervisorCreatePage = (): JSX.Element => {
   //* States
   const [isInputTheirCopastorOpen, setIsInputTheirCopastorOpen] = useState<boolean>(false);

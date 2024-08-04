@@ -19,7 +19,7 @@ import {
 } from '@/app/preacher/components';
 import { type PreacherResponse } from '@/app/preacher/interfaces';
 
-import { type FormSearchGeneral } from '@/shared/interfaces';
+import { type GeneralSearchForm } from '@/shared/interfaces';
 import { formSearchGeneralSchema } from '@/shared/validations';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 
@@ -82,7 +82,7 @@ export const PreachersGeneralSearchPage = (): JSX.Element => {
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
 
-  const [searchParams, setSearchParams] = useState<FormSearchGeneral | undefined>();
+  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({

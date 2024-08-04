@@ -4,15 +4,18 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type OfferingIncomeData } from '@/app/offering/income/interfaces';
-import { type TypesOfferingIncome, type SubTypesOfferingIncome } from '@/app/offering/income/enums';
+import { type OfferingIncomeFormData } from '@/app/offering/income/interfaces';
+import {
+  type OfferingIncomeCreateType,
+  type OfferingIncomeCreateSubType,
+} from '@/app/offering/income/enums';
 
 import { RecordStatus } from '@/shared/enums';
 
 interface Options {
-  formOfferingIncome: UseFormReturn<OfferingIncomeData, any, OfferingIncomeData>;
-  typesOfferingIncome: typeof TypesOfferingIncome;
-  subTypesOffering: typeof SubTypesOfferingIncome;
+  formOfferingIncome: UseFormReturn<OfferingIncomeFormData, any, OfferingIncomeFormData>;
+  typesOfferingIncome: typeof OfferingIncomeCreateType;
+  subTypesOffering: typeof OfferingIncomeCreateSubType;
 
   isInputDisabled: boolean;
   isDropZoneDisabled: boolean;
@@ -94,7 +97,7 @@ export const useOfferingIncomeSubmitButtonLogic = ({
 
     if (
       type === 'offering' &&
-      subType === subTypesOffering.FamilyHouse &&
+      subType === subTypesOffering.FamilyGroup &&
       amount &&
       currency &&
       familyHouseID &&
@@ -137,7 +140,7 @@ export const useOfferingIncomeSubmitButtonLogic = ({
       subType !== subTypesOffering.ZonalFasting &&
       subType !== subTypesOffering.ChurchGround &&
       subType !== subTypesOffering.ZonalVigil &&
-      subType !== subTypesOffering.FamilyHouse &&
+      subType !== subTypesOffering.FamilyGroup &&
       amount &&
       currency &&
       !memberID &&
@@ -206,7 +209,7 @@ export const useOfferingIncomeSubmitButtonLogic = ({
       formOfferingIncome.resetField('zoneID', { keepDirty: true });
     }
 
-    if (type === typesOfferingIncome.Offering && subType === subTypesOffering.FamilyHouse) {
+    if (type === typesOfferingIncome.Offering && subType === subTypesOffering.FamilyGroup) {
       formOfferingIncome.resetField('memberID', { keepDirty: true });
       formOfferingIncome.resetField('zoneID', { keepDirty: true });
     }
@@ -230,7 +233,7 @@ export const useOfferingIncomeSubmitButtonLogic = ({
       type === typesOfferingIncome.Offering &&
       subType !== subTypesOffering.Special &&
       subType !== subTypesOffering.ChurchGround &&
-      subType !== subTypesOffering.FamilyHouse &&
+      subType !== subTypesOffering.FamilyGroup &&
       subType !== subTypesOffering.ZonalVigil &&
       subType !== subTypesOffering.ZonalFasting
     ) {

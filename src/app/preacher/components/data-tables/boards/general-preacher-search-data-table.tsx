@@ -26,9 +26,9 @@ import { type PreacherQueryParams } from '@/app/preacher/interfaces';
 
 import { usePreacherStore } from '@/stores/preacher';
 
-import { LoadingSpinner } from '@/layouts/components';
+import { LoadingSpinner } from '@/shared/components';
 
-import { type FormSearchGeneral } from '@/shared/interfaces';
+import { type GeneralSearchForm } from '@/shared/interfaces';
 
 import {
   Table,
@@ -44,8 +44,8 @@ import { Button } from '@/shared/components/ui/button';
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
-  searchParams: FormSearchGeneral | undefined;
-  setSearchParams: React.Dispatch<React.SetStateAction<FormSearchGeneral | undefined>>;
+  searchParams: GeneralSearchForm | undefined;
+  setSearchParams: React.Dispatch<React.SetStateAction<GeneralSearchForm | undefined>>;
 }
 
 export function GeneralPreacherSearchDataTable<TData, TValue>({

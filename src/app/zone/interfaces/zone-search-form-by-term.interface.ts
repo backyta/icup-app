@@ -1,6 +1,6 @@
 import { type ZoneSearchType } from '@/app/zone/enums';
 
-export interface ChurchSearchFormByTerm {
+export interface ZoneSearchFormByTerm {
   searchType: ZoneSearchType;
   order: string;
   inputTerm?: string | undefined;

@@ -29,9 +29,9 @@ import { type ErrorResponse } from '@/shared/interfaces';
 
 import {
   CountryNames,
-  DepartmentNames,
   DistrictNames,
   ProvinceNames,
+  DepartmentNames,
   UrbanSectorNames,
 } from '@/shared/enums';
 import {
@@ -177,6 +177,10 @@ export const FamilyGroupUpdateForm = ({
   //* QueryClient
   const queryClient = useQueryClient();
 
+  // TODO : no debería eliminarse el grupo familiar porque afecta la relación con si ofrenda
+  // TODO : el id de casa se mantiene lo que cambia son sus su zona o supervisor o predicador, código o numero
+  // TODO : si se cambia de predicadores normal porque se mantiene su identificador,
+  // TODO : si se cambia de supervisor la zona de las casas tmb cambia su código pero su id sigue igual (revisar)
   //* Mutation
   const mutation = useMutation({
     mutationFn: updateFamilyGroup,
@@ -259,7 +263,8 @@ export const FamilyGroupUpdateForm = ({
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
               <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-4'>
-                Grupo Familiar: {`${data?.familyGroupCode} - ${data?.familyGroupName}`}
+                Grupo Familiar:{' '}
+                {`${data?.familyGroupCode ?? 'Sin código'} - ${data?.familyGroupName}`}
               </div>
               <Form {...form}>
                 <form

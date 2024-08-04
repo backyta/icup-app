@@ -33,16 +33,16 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
       const url = new URL(window.location.href);
 
       if (url.pathname === '/copastors/search-copastors')
-        url.pathname = `/copastors/search-copastors/${id}/info`;
+        url.pathname = `/copastors/search-copastors/${id}/view`;
 
       if (url.pathname === '/copastors/search-copastors-by-term')
-        url.pathname = `/copastors/search-copastors-by-term/${id}/info`;
+        url.pathname = `/copastors/search-copastors-by-term/${id}/view`;
 
       if (url.pathname === '/copastors/update-copastor')
-        url.pathname = `/copastors/update-copastor/${id}/info`;
+        url.pathname = `/copastors/update-copastor/${id}/view`;
 
       if (url.pathname === '/copastors/delete-copastor')
-        url.pathname = `/copastors/delete-copastor/${id}/info`;
+        url.pathname = `/copastors/delete-copastor/${id}/view`;
 
       window.history.replaceState({}, '', url);
     }

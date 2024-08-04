@@ -37,7 +37,7 @@ import { cn } from '@/shared/lib/utils';
 import { useSupervisorStore } from '@/stores/supervisor';
 
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-import { formatDateTermToTimestamp, formatNames, formatLastNames } from '@/shared/helpers';
+import { formatterDateTermToTimestamp, formatterNames, formatLastNames } from '@/shared/helpers';
 
 import {
   Form,
@@ -158,12 +158,12 @@ export const SupervisorUpdatePage = (): JSX.Element => {
       newDateTermTo = formData.dateTerm?.from;
     }
 
-    const newDateTerm = formatDateTermToTimestamp({
+    const newDateTerm = formatterDateTermToTimestamp({
       from: formData.dateTerm?.from,
       to: formData.dateTerm?.to ? formData.dateTerm?.to : newDateTermTo,
     });
 
-    const newNamesTerm = formatNames(formData?.namesTerm);
+    const newNamesTerm = formatterNames(formData?.namesTerm);
     const newLastNamesTerm = formatLastNames(formData?.lastNamesTerm);
 
     setSearchParams({

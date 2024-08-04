@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
@@ -12,36 +13,23 @@ import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
-
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
+import { updateZone } from '@/app/zone/services';
+import { zoneFormSchema } from '@/app/zone/validations';
+import { ZoneFormSkeleton } from '@/app/zone/components';
+import { type ZoneResponse } from '@/app/zone/interfaces';
+import { useZoneUpdateSubmitButtonLogic } from '@/app/zone/hooks';
+
+import { getAllSupervisors } from '@/app/preacher/services';
+
 import { cn } from '@/shared/lib/utils';
-
-import { churchFormSchema } from '@/app/church/validations';
-import { ChurchFormSkeleton } from '@/app/church/components';
-import { type ChurchResponse } from '@/app/church/interfaces';
-import { getMainChurch, updateChurch } from '@/app/church/services';
-import { useChurchUpdateSubmitButtonLogic } from '@/app/church/hooks';
-import { ChurchWorshipTime, ChurchWorshipTimeNames } from '@/app/church/enums';
-
-import {
-  validateDistrictsAllowedByModule,
-  validateUrbanSectorsAllowedByDistrict,
-} from '@/shared/helpers';
-import {
-  CountryNames,
-  DepartmentNames,
-  DistrictNames,
-  ProvinceNames,
-  UrbanSectorNames,
-} from '@/shared/enums';
 import { type ErrorResponse } from '@/shared/interfaces';
+import { validateDistrictsAllowedByModule } from '@/shared/helpers';
+import { CountryNames, DepartmentNames, DistrictNames, ProvinceNames } from '@/shared/enums';
 
 import {
   Form,
@@ -68,18 +56,15 @@ import {
 } from '@/shared/components/ui/select';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
-import { Checkbox } from '@/shared/components/ui/checkbox';
-import { Calendar } from '@/shared/components/ui/calendar';
-import { Textarea } from '@/shared/components/ui/textarea';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
-interface ChurchFormUpdateProps {
+interface ZoneFormUpdateProps {
   id: string;
   onSubmit: () => void;
   onScroll: () => void;
-  data: ChurchResponse | undefined;
+  data: ZoneResponse | undefined;
 }
 
 export const ZoneUpdateForm = ({
@@ -87,10 +72,11 @@ export const ZoneUpdateForm = ({
   data,
   onSubmit,
   onScroll,
-}: ChurchFormUpdateProps): JSX.Element => {
+}: ZoneFormUpdateProps): JSX.Element => {
   //* States
-  const [isInputMainChurchOpen, setIsInputMainChurchOpen] = useState<boolean>(false);
-  const [isInputFoundingDateOpen, setIsInputFoundingDateOpen] = useState<boolean>(false);
+  const [isInputTheirSupervisorOpen, setIsInputTheirSupervisorOpen] = useState<boolean>(false);
+  const [isInputTheirSupervisorDisabled, setIsInputTheirSupervisorDisabled] =
+    useState<boolean>(true);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
@@ -101,47 +87,27 @@ export const ZoneUpdateForm = ({
   const navigate = useNavigate();
 
   //* Form
-  const form = useForm<z.infer<typeof churchFormSchema>>({
+  const form = useForm<z.infer<typeof zoneFormSchema>>({
     mode: 'onChange',
-    resolver: zodResolver(churchFormSchema),
+    resolver: zodResolver(zoneFormSchema),
     defaultValues: {
-      churchName: '',
-      email: '',
-      foundingDate: undefined,
-      worshipTimes: [],
-      isAnexe: false,
-      phoneNumber: '',
+      zoneName: '',
       country: '',
       department: '',
       province: '',
       district: '',
-      urbanSector: '',
-      address: '',
-      referenceAddress: '',
       recordStatus: '',
-      theirMainChurch: '',
+      theirSupervisor: '',
     },
   });
 
-  //* Watchers
-  const district = form.watch('district');
-  const isAnexe = form.watch('isAnexe');
-
   useEffect(() => {
-    form.setValue('churchName', data?.churchName!);
-    form.setValue('foundingDate', new Date(String(data?.foundingDate).replace(/-/g, '/') as any));
-    form.setValue('worshipTimes', data?.worshipTimes as ChurchWorshipTime[]);
-    form.setValue('email', data?.email ?? '');
-    form.setValue('phoneNumber', data?.phoneNumber ?? '');
+    form.setValue('zoneName', data?.zoneName ?? '');
     form.setValue('country', data?.country ?? '');
     form.setValue('department', data?.department ?? '');
     form.setValue('province', data?.province ?? '');
     form.setValue('district', data?.district ?? '');
-    form.setValue('urbanSector', data?.urbanSector ?? '');
-    form.setValue('address', data?.address ?? '');
-    form.setValue('referenceAddress', data?.referenceAddress ?? '');
-    form.setValue('isAnexe', data?.isAnexe);
-    form.setValue('theirMainChurch', data?.theirMainChurch?.id);
+    form.setValue('theirSupervisor', data?.theirSupervisor?.id);
     form.setValue('recordStatus', data?.recordStatus);
 
     setTimeout(() => {
@@ -150,8 +116,8 @@ export const ZoneUpdateForm = ({
   }, []);
 
   //* Custom hooks
-  useChurchUpdateSubmitButtonLogic({
-    churchUpdateForm: form,
+  useZoneUpdateSubmitButtonLogic({
+    zoneUpdateForm: form,
     isInputDisabled,
     setIsSubmitButtonDisabled,
     setIsMessageErrorDisabled,
@@ -163,7 +129,7 @@ export const ZoneUpdateForm = ({
 
     if (id) {
       const url = new URL(window.location.href);
-      url.pathname = `/churches/update-church/${id}/edit`;
+      url.pathname = `/zones/update-zone/${id}/edit`;
 
       window.history.replaceState({}, '', url);
     }
@@ -174,7 +140,6 @@ export const ZoneUpdateForm = ({
   }, [id]);
 
   //* Helpers
-  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
   const disabledDistricts = validateDistrictsAllowedByModule(pathname);
 
   //* QueryClient
@@ -182,7 +147,7 @@ export const ZoneUpdateForm = ({
 
   //* Mutation
   const mutation = useMutation({
-    mutationFn: updateChurch,
+    mutationFn: updateZone,
     onError: (error: ErrorResponse) => {
       if (error.message !== 'Unauthorized') {
         toast.error(error.message, {
@@ -218,7 +183,7 @@ export const ZoneUpdateForm = ({
       }, 150);
 
       setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['churches-by-term'] });
+        queryClient.invalidateQueries({ queryKey: ['zones-by-term'] });
       }, 500);
 
       setTimeout(() => {
@@ -229,14 +194,14 @@ export const ZoneUpdateForm = ({
   });
 
   //* Querys
-  const query = useQuery({
-    queryKey: ['mainChurch', id],
-    queryFn: getMainChurch,
+  const supervisorsQuery = useQuery({
+    queryKey: ['supervisors'],
+    queryFn: () => getAllSupervisors({ isNull: 'false' }),
     staleTime: 5 * 60 * 1000,
   });
 
   //* Form handler
-  const handleSubmit = (formData: z.infer<typeof churchFormSchema>): void => {
+  const handleSubmit = (formData: z.infer<typeof zoneFormSchema>): void => {
     mutation.mutate({ id, formData });
   };
 
@@ -251,12 +216,12 @@ export const ZoneUpdateForm = ({
 
       <TabsContent value='general-info'>
         <Card className='w-full'>
-          {isLoadingData && <ChurchFormSkeleton />}
+          {isLoadingData && <ZoneFormSkeleton />}
 
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
               <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-4'>
-                Iglesia: {data?.churchName} - {data?.district}
+                Zona: {data?.zoneName} - {data?.district}
               </div>
               <Form {...form}>
                 <form
@@ -266,7 +231,7 @@ export const ZoneUpdateForm = ({
                   <div className='col-start-1 col-end-2'>
                     <FormField
                       control={form.control}
-                      name='churchName'
+                      name='zoneName'
                       render={({ field }) => {
                         return (
                           <FormItem>
@@ -274,179 +239,12 @@ export const ZoneUpdateForm = ({
                               Nombre
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar una nombre a la iglesia.
+                              Asignar una nombre a la zona.
                             </FormDescription>
                             <FormControl>
                               <Input
                                 disabled={isInputDisabled}
                                 placeholder='Eje: Iglesia Roca Fuerte...'
-                                type='text'
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        );
-                      }}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name='foundingDate'
-                      render={({ field }) => (
-                        <FormItem className='flex flex-col mt-4'>
-                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                            Fecha de fundación
-                          </FormLabel>
-                          <Popover
-                            open={isInputFoundingDateOpen}
-                            onOpenChange={setIsInputFoundingDateOpen}
-                          >
-                            <PopoverTrigger asChild>
-                              <FormControl>
-                                <Button
-                                  disabled={isInputDisabled}
-                                  variant={'outline'}
-                                  className={cn(
-                                    'w-full pl-3 text-left font-normal',
-                                    !field.value && 'text-muted-foreground'
-                                  )}
-                                >
-                                  {field.value ? (
-                                    format(field.value, 'LLL dd, y', { locale: es })
-                                  ) : (
-                                    <span className='text-sm md:text-[14px] lg:text-sm'>
-                                      Selecciona la fecha de fundación
-                                    </span>
-                                  )}
-                                  <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
-                                </Button>
-                              </FormControl>
-                            </PopoverTrigger>
-                            <PopoverContent className='w-auto p-0' align='start'>
-                              <Calendar
-                                mode='single'
-                                selected={field.value}
-                                onSelect={(date) => {
-                                  field.onChange(date);
-                                  setIsInputFoundingDateOpen(false);
-                                }}
-                                disabled={(date) =>
-                                  date > new Date() || date < new Date('1900-01-01')
-                                }
-                                initialFocus
-                              />
-                            </PopoverContent>
-                          </Popover>
-                          <FormDescription className='pl-2 text-blue-600 text-[11.5px] xl:text-[12.5px] font-bold italic'>
-                            * Fecha en la que se fundo o se creo la iglesia.
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name='worshipTimes'
-                      render={() => (
-                        <FormItem>
-                          <div className='mt-3'>
-                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                              Horarios
-                            </FormLabel>
-                            <FormDescription className='text-[14px]'>
-                              Seleccione los horarios que tendrá la iglesia.
-                            </FormDescription>
-                          </div>
-                          <div className='flex flex-wrap space-x-5 space-y-1'>
-                            {Object.values(ChurchWorshipTime).map((worshipTime) => (
-                              <FormField
-                                key={worshipTime}
-                                control={form.control}
-                                name='worshipTimes'
-                                render={({ field }) => {
-                                  return (
-                                    <FormItem
-                                      key={worshipTime}
-                                      className='flex items-center space-x-2 space-y-0'
-                                    >
-                                      <FormControl className='grid'>
-                                        <Checkbox
-                                          disabled={isInputDisabled}
-                                          checked={field.value?.includes(worshipTime)}
-                                          onCheckedChange={(checked) => {
-                                            let updatedWorshipTimes: ChurchWorshipTime[] = [];
-                                            checked
-                                              ? (updatedWorshipTimes = field.value
-                                                  ? [...field.value, worshipTime]
-                                                  : [worshipTime])
-                                              : (updatedWorshipTimes =
-                                                  field.value?.filter(
-                                                    (value) => value !== worshipTime
-                                                  ) ?? []);
-
-                                            field.onChange(updatedWorshipTimes);
-                                          }}
-                                        />
-                                      </FormControl>
-                                      <FormLabel className='text-[14px] font-medium'>
-                                        {ChurchWorshipTimeNames[worshipTime]}
-                                      </FormLabel>
-                                    </FormItem>
-                                  );
-                                }}
-                              />
-                            ))}
-                          </div>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name='email'
-                      render={({ field }) => {
-                        return (
-                          <FormItem className='mt-3'>
-                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                              E-mail
-                            </FormLabel>
-                            <FormDescription className='text-[14px]'>
-                              Asigne un e-mail que tendrá la iglesia.
-                            </FormDescription>
-                            <FormControl>
-                              <Input
-                                disabled={isInputDisabled}
-                                placeholder='Eje: iglesia.central@example.com'
-                                type='email'
-                                autoComplete='username'
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        );
-                      }}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name='phoneNumber'
-                      render={({ field }) => {
-                        return (
-                          <FormItem className='mt-3'>
-                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                              Numero de teléfono
-                            </FormLabel>
-                            <FormDescription className='text-[14px]'>
-                              Asigne un numero telefónico que tendrá la iglesia.
-                            </FormDescription>
-                            <FormControl>
-                              <Input
-                                disabled={isInputDisabled}
-                                placeholder='Eje: 999 999 999'
                                 type='text'
                                 {...field}
                               />
@@ -594,11 +392,6 @@ export const ZoneUpdateForm = ({
                             <Select
                               disabled={isInputDisabled}
                               onValueChange={field.onChange}
-                              onOpenChange={() => {
-                                form.resetField('urbanSector', {
-                                  defaultValue: '',
-                                });
-                              }}
                               value={field.value}
                             >
                               <FormControl>
@@ -630,202 +423,92 @@ export const ZoneUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='urbanSector'
+                      name='theirSupervisor'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3 md:mt-5'>
+                          <FormItem className='mt-3'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                              Sector Urbano
+                              Supervisor
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar el sector urbano al que pertenece la iglesia.
+                              Seleccione un supervisor para esta zona.
                             </FormDescription>
-                            <Select
-                              disabled={isInputDisabled}
-                              onValueChange={field.onChange}
-                              value={field.value}
+                            <Popover
+                              open={isInputTheirSupervisorOpen}
+                              onOpenChange={setIsInputTheirSupervisorOpen}
                             >
-                              <FormControl>
-                                <SelectTrigger>
-                                  {field.value ? (
-                                    <SelectValue placeholder='Selecciona el sector urbano' />
-                                  ) : (
-                                    'Selecciona el sector urbano'
-                                  )}
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {Object.entries(UrbanSectorNames).map(([key, value]) => (
-                                  <SelectItem
-                                    className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
-                                    key={key}
-                                    value={key}
+                              <PopoverTrigger asChild>
+                                <FormControl>
+                                  <Button
+                                    value={field.value}
+                                    disabled={isInputTheirSupervisorDisabled}
+                                    variant='outline'
+                                    role='combobox'
+                                    className={cn(
+                                      'w-full justify-between',
+                                      !field.value && 'font-normal',
+                                      isInputTheirSupervisorDisabled &&
+                                        'dark:bg-gray-100  dark:text-black bg-gray-200'
+                                    )}
                                   >
-                                    {value}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
+                                    {field.value
+                                      ? `${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.firstName} ${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.lastName}`
+                                      : 'Busque y seleccione una iglesia'}
+                                    <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                                  </Button>
+                                </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent align='center' className='w-auto px-4 py-2'>
+                                <Command>
+                                  <CommandInput
+                                    placeholder='Busque un supervisor...'
+                                    className='h-9 text-[14px]'
+                                  />
+                                  <CommandEmpty>Supervisor no encontrado.</CommandEmpty>
+                                  <CommandGroup className='max-h-[200px] h-auto'>
+                                    {supervisorsQuery?.data?.map((supervisor) => (
+                                      <CommandItem
+                                        className='text-[14px]'
+                                        value={supervisor.id}
+                                        key={supervisor.id}
+                                        onSelect={() => {
+                                          form.setValue('theirSupervisor', supervisor.id);
+                                          setIsInputTheirSupervisorOpen(false);
+                                        }}
+                                      >
+                                        {`${supervisor?.firstName} ${supervisor?.lastName}`}
+                                        <CheckIcon
+                                          className={cn(
+                                            'ml-auto h-4 w-4',
+                                            supervisor.id === field.value
+                                              ? 'opacity-100'
+                                              : 'opacity-0'
+                                          )}
+                                        />
+                                      </CommandItem>
+                                    ))}
+                                    {supervisorsQuery.data?.length === 0 && (
+                                      <p className='text-[14.5px] text-red-500 text-center'>
+                                        ❌ No se encontró supervisores disponibles, todos están
+                                        asignados a una zona.
+                                      </p>
+                                    )}
+                                  </CommandGroup>
+                                </Command>
+                              </PopoverContent>
+                            </Popover>
                             <FormMessage />
                           </FormItem>
                         );
                       }}
                     />
-
-                    <FormField
-                      control={form.control}
-                      name='address'
-                      render={({ field }) => {
-                        return (
-                          <FormItem className='mt-3 md:mt-5'>
-                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                              Dirección
-                            </FormLabel>
-                            <FormDescription className='text-[14px]'>
-                              Asignar la dirección de la iglesia.
-                            </FormDescription>
-                            <FormControl>
-                              <Input
-                                disabled={isInputDisabled}
-                                placeholder='Ej: Av. Central 123 - Mz.A Lt.3'
-                                type='text'
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        );
-                      }}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name='referenceAddress'
-                      render={({ field }) => {
-                        return (
-                          <FormItem className='mt-3 md:mt-5'>
-                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                              Referencia de dirección
-                            </FormLabel>
-                            <FormControl>
-                              <Textarea
-                                disabled={isInputDisabled}
-                                placeholder='Comentarios sobre la dirección referencia de la iglesia...'
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        );
-                      }}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name='isAnexe'
-                      render={({ field }) => (
-                        <FormItem className='flex flex-row gap-2 items-end mt-3 px-1 py-3 h-[2.5rem]'>
-                          <FormControl>
-                            <Checkbox
-                              disabled={isInputDisabled}
-                              checked={field?.value}
-                              onCheckedChange={(checked) => {
-                                field.onChange(checked);
-                                form.resetField('theirMainChurch', {
-                                  keepError: true,
-                                });
-                              }}
-                            />
-                          </FormControl>
-                          <div className='space-y-1 leading-none'>
-                            <FormLabel className='text-[13px] md:text-[14px]'>
-                              ¿Esta iglesia sera un anexo?
-                            </FormLabel>
-                          </div>
-                        </FormItem>
-                      )}
-                    />
-
-                    {isAnexe && (
-                      <FormField
-                        control={form.control}
-                        name='theirMainChurch'
-                        render={({ field }) => {
-                          return (
-                            <FormItem className='mt-3'>
-                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                                Iglesia Principal
-                              </FormLabel>
-                              <FormDescription className='text-[14px]'>
-                                Seleccione una iglesia principal para este anexo.
-                              </FormDescription>
-                              <Popover
-                                open={isInputMainChurchOpen}
-                                onOpenChange={setIsInputMainChurchOpen}
-                              >
-                                <PopoverTrigger asChild>
-                                  <FormControl>
-                                    <Button
-                                      value={field.value}
-                                      disabled={isInputDisabled}
-                                      variant='outline'
-                                      role='combobox'
-                                      className={cn('w-full justify-between ')}
-                                    >
-                                      {field.value
-                                        ? query?.data?.find((church) => church.id === field.value)
-                                            ?.churchName
-                                        : 'Busque y seleccione una iglesia'}
-                                      <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
-                                    </Button>
-                                  </FormControl>
-                                </PopoverTrigger>
-                                <PopoverContent align='center' className='w-auto px-4 py-2'>
-                                  <Command>
-                                    <CommandInput
-                                      placeholder='Busque una iglesia...'
-                                      className='h-9 text-[14px]'
-                                    />
-                                    <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
-                                    <CommandGroup className='max-h-[200px] h-auto'>
-                                      {query?.data?.map((church) => (
-                                        <CommandItem
-                                          className='text-[14px]'
-                                          value={church.id}
-                                          key={church.id}
-                                          onSelect={() => {
-                                            form.setValue('theirMainChurch', church.id);
-                                            setIsInputMainChurchOpen(false);
-                                          }}
-                                        >
-                                          {church.churchName}
-                                          <CheckIcon
-                                            className={cn(
-                                              'ml-auto h-4 w-4',
-                                              church.id === field.value
-                                                ? 'opacity-100'
-                                                : 'opacity-0'
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
-                                  </Command>
-                                </PopoverContent>
-                              </Popover>
-                              <FormMessage />
-                            </FormItem>
-                          );
-                        }}
-                      />
-                    )}
 
                     <FormField
                       control={form.control}
                       name='recordStatus'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-5'>
+                          <FormItem className='mt-3'>
                             <FormLabel className='text-[14px]'>Estado</FormLabel>
                             <Select
                               disabled={isInputDisabled}
@@ -852,7 +535,7 @@ export const ZoneUpdateForm = ({
                             </Select>
                             {form.getValues('recordStatus') === 'active' && (
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
-                                *El registro esta <span className='text-green-500'>activo</span>,
+                                *El registro esta <span className='text-green-500'>Activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
                                 debe eliminar el registro desde la pestaña{' '}
                                 <span className='font-bold text-red-500'>Eliminar Iglesia. </span>
@@ -895,6 +578,7 @@ export const ZoneUpdateForm = ({
                         setTimeout(() => {
                           if (Object.keys(form.formState.errors).length === 0) {
                             setIsSubmitButtonDisabled(true);
+                            setIsInputTheirSupervisorDisabled(true);
                             setIsInputDisabled(true);
                           }
                         }, 100);

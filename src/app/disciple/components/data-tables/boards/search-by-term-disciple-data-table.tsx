@@ -30,8 +30,8 @@ import { getDisciplesByTerm } from '@/app/disciple/services';
 import { type DiscipleSearchFormByTerm, type DiscipleQueryParams } from '@/app/disciple/interfaces';
 
 import { useDiscipleStore } from '@/stores/disciple';
-import { LoadingSpinner } from '@/layouts/components';
-import { formatDateDDMMYYYY } from '@/shared/helpers';
+import { LoadingSpinner } from '@/shared/components';
+import { formatterDateToDDMMYYYY } from '@/shared/helpers';
 
 import {
   Table,
@@ -212,7 +212,7 @@ export function SearchByTermDiscipleDataTable<TData, TValue>({
             )}
             {dataForm?.searchType === DiscipleSearchType.BirthDate && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.dateTerm?.from ? formatDateDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDateDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
+                {`${dataForm?.dateTerm?.from ? formatterDateToDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatterDateToDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
               </span>
             )}
             {(dataForm?.searchType === DiscipleSearchType.BirthMonth ||

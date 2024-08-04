@@ -22,7 +22,7 @@ import { createPastor, getAllChurches } from '@/app/pastor/services';
 import { usePastorCreateSubmitButtonLogic } from '@/app/pastor/hooks';
 
 import { useRoleValidationByPath } from '@/hooks';
-import { LoadingSpinner } from '@/layouts/components';
+import { LoadingSpinner } from '@/shared/components';
 
 import {
   MemberRole,

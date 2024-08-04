@@ -15,7 +15,7 @@ import { useUserStore } from '@/stores/user';
 import { type UserResponse } from '@/app/user/interfaces';
 import { userInfoColumns as columns, GeneralUserSearchDataTable } from '@/app/user/components';
 
-import { type FormSearchGeneral } from '@/shared/interfaces';
+import { type GeneralSearchForm } from '@/shared/interfaces';
 import { formSearchGeneralSchema } from '@/shared/validations';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 
@@ -62,7 +62,7 @@ export const UsersGeneralSearchPage = (): JSX.Element => {
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
 
-  const [searchParams, setSearchParams] = useState<FormSearchGeneral | undefined>();
+  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({

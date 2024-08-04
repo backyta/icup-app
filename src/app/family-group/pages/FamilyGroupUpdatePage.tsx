@@ -29,7 +29,7 @@ import { useFamilyGroupStore } from '@/stores/family-group';
 
 import { cn } from '@/shared/lib/utils';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-import { formatNames, formatLastNames } from '@/shared/helpers';
+import { formatterNames, formatLastNames } from '@/shared/helpers';
 
 import {
   Form,
@@ -133,7 +133,7 @@ export const FamilyGroupUpdatePage = (): JSX.Element => {
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof familyGroupSearchByTermFormSchema>): void {
-    const newNamesTerm = formatNames(formData?.namesTerm);
+    const newNamesTerm = formatterNames(formData?.namesTerm);
     const newLastNamesTerm = formatLastNames(formData?.lastNamesTerm);
 
     setSearchParams({

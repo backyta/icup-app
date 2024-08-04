@@ -8,7 +8,7 @@ export const icupApi = axios.create({
   headers: {}
 })
 
-//* Interceptors (leer el storage de zustand)
+//* Interceptors (read zustand storage)
 // Any request that passes through the API executes the interceptor
 
 icupApi.interceptors.request.use(

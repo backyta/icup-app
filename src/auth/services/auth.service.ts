@@ -40,7 +40,7 @@ export class AuthService {
 
       return data;
     } catch (error) {
-      throw new Error('Unauthorized')
+      throw new Error('Sin autorización')
     }
   }
 }

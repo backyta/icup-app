@@ -31,7 +31,7 @@ import { getUsersByTerm } from '@/app/user/services';
 import { type UserSearchFormByTerm, type UserQueryParams } from '@/app/user/interfaces';
 
 import { useUserStore } from '@/stores/user';
-import { LoadingSpinner } from '@/layouts/components';
+import { LoadingSpinner } from '@/shared/components';
 
 import {
   Table,

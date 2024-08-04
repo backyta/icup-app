@@ -33,16 +33,16 @@ export const PreacherTabsCard = ({ data, id }: PreacherTabsCardProps): JSX.Eleme
       const url = new URL(window.location.href);
 
       if (url.pathname === '/preachers/search-preachers')
-        url.pathname = `/preachers/search-preachers/${id}/info`;
+        url.pathname = `/preachers/search-preachers/${id}/view`;
 
       if (url.pathname === '/preachers/search-preachers-by-term')
-        url.pathname = `/preachers/search-preachers-by-term/${id}/info`;
+        url.pathname = `/preachers/search-preachers-by-term/${id}/view`;
 
       if (url.pathname === '/preachers/update-preacher')
-        url.pathname = `/preachers/update-preacher/${id}/info`;
+        url.pathname = `/preachers/update-preacher/${id}/view`;
 
       if (url.pathname === '/preachers/delete-preacher')
-        url.pathname = `/preachers/delete-preacher/${id}/info`;
+        url.pathname = `/preachers/delete-preacher/${id}/view`;
 
       window.history.replaceState({}, '', url);
     }
@@ -153,7 +153,7 @@ export const PreacherTabsCard = ({ data, id }: PreacherTabsCardProps): JSX.Eleme
               <PopoverDataCardTabs
                 data={data?.disciples}
                 title={'Discípulos'}
-                nameModule={'Supervisor'}
+                nameModule={'Predicador'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />

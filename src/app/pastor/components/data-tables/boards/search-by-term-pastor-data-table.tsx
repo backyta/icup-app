@@ -29,8 +29,9 @@ import { getPastorsByTerm } from '@/app/pastor/services';
 import { type PastorQueryParams, type PastorSearchFormByTerm } from '@/app/pastor/interfaces';
 
 import { usePastorStore } from '@/stores/pastor';
-import { LoadingSpinner } from '@/layouts/components';
-import { formatDateDDMMYYYY } from '@/shared/helpers';
+
+import { LoadingSpinner } from '@/shared/components';
+import { formatterDateToDDMMYYYY } from '@/shared/helpers';
 
 import {
   Table,
@@ -198,7 +199,7 @@ export function SearchByTermPastorDataTable<TData, TValue>({
             )}
             {dataForm?.searchType === PastorSearchType.BirthDate && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.dateTerm?.from ? formatDateDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDateDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
+                {`${dataForm?.dateTerm?.from ? formatterDateToDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatterDateToDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
               </span>
             )}
             {(dataForm?.searchType === PastorSearchType.BirthMonth ||

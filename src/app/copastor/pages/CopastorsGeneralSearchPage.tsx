@@ -19,7 +19,7 @@ import {
 } from '@/app/copastor/components';
 import { type CopastorResponse } from '@/app/copastor/interfaces';
 
-import { type FormSearchGeneral } from '@/shared/interfaces';
+import { type GeneralSearchForm } from '@/shared/interfaces';
 import { formSearchGeneralSchema } from '@/shared/validations';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 
@@ -82,7 +82,7 @@ export const CopastorsGeneralSearchPage = (): JSX.Element => {
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
 
-  const [searchParams, setSearchParams] = useState<FormSearchGeneral | undefined>();
+  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({

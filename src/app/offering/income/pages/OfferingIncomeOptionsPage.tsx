@@ -16,7 +16,7 @@ export const OfferingIncomeOptionsPage = (): JSX.Element => {
   }, []);
 
   return (
-    <>
+    <div className='animate-fadeIn'>
       <h1 className='text-center pb-2 pt-1 md:pt-2 md:pb-2 font-sans text-2xl sm:text-3xl font-bold text-green-600 text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
         Modulo Ingreso de Ofrendas
       </h1>
@@ -111,6 +111,6 @@ export const OfferingIncomeOptionsPage = (): JSX.Element => {
           </WhiteCard>
         </NavLink>
       </div>
-    </>
+    </div>
   );
 };

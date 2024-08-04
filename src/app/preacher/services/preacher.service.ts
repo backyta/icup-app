@@ -25,11 +25,16 @@ export const createPreacher = async (formData:PreacherFormData ): Promise<Preach
 }
 
 //* Get all supervisors
-export const getAllSupervisors = async (): Promise<SupervisorResponse[]> => {
+export interface GetAllSupervisorsByZoneOptions {
+  isNull: string;
+}
+
+export const getAllSupervisors = async ({isNull}: GetAllSupervisorsByZoneOptions): Promise<SupervisorResponse[]> => {
   try {
     const {data} = await icupApi<SupervisorResponse[]>('/supervisors' , {
       params: {
-        order: 'ASC'
+        order: 'ASC',
+        isNull
       },  
     }
     );
@@ -333,15 +338,13 @@ export const getPreachersByTerm = async ({
   }
 }
 
-// //* Update preacher by ID
+//* Update preacher by ID
 export interface UpdatePreacherOptions {
   id: string;
   formData: PreacherFormData;
 }
 
 export const updatePreacher = async ({id, formData}: UpdatePreacherOptions ): Promise<PreacherResponse> => {
-  console.log(formData);
-  
   try {
     const {data} = await icupApi.patch<PreacherResponse>(`/preachers/${id}`, formData)
 
@@ -355,7 +358,7 @@ export const updatePreacher = async ({id, formData}: UpdatePreacherOptions ): Pr
   }
 }
 
-// //! Delete preacher by ID
+//! Delete preacher by ID
 export const deletePreacher = async (id: string ): Promise<void> => {
   try {
     const {data} = await icupApi.delete(`/preachers/${id}`)

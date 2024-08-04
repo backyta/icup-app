@@ -15,14 +15,14 @@ import { es } from 'date-fns/locale';
 
 import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { cn } from '@/shared/lib/utils';
-
 import { copastorFormSchema } from '@/app/copastor/validations';
 import { createCopastor, getAllPastors } from '@/app/copastor/services';
 import { useCopastorCreateSubmitButtonLogic } from '@/app/copastor/hooks';
 
 import { useRoleValidationByPath } from '@/hooks';
-import { LoadingSpinner } from '@/layouts/components';
+
+import { cn } from '@/shared/lib/utils';
+import { LoadingSpinner } from '@/shared/components';
 
 import {
   MemberRole,
@@ -414,6 +414,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='numberChildren'

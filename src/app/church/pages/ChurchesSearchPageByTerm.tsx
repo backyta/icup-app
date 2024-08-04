@@ -22,10 +22,10 @@ import { churchSearchByTermFormSchema } from '@/app/church/validations';
 import { type ChurchResponse, type ChurchSearchFormByTerm } from '@/app/church/interfaces';
 import { churchInfoColumns as columns, SearchByTermChurchDataTable } from '@/app/church/components';
 
-import { cn } from '@/shared/lib/utils';
 import { useChurchStore } from '@/stores/church';
 
-import { formatDateTermToTimestamp } from '@/shared/helpers';
+import { cn } from '@/shared/lib/utils';
+import { formatterDateTermToTimestamp } from '@/shared/helpers';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 
 import {
@@ -132,7 +132,7 @@ export const ChurchesSearchPageByTerm = (): JSX.Element => {
       newDateTermTo = formData.dateTerm?.from;
     }
 
-    const newDateTerm = formatDateTermToTimestamp({
+    const newDateTerm = formatterDateTermToTimestamp({
       from: formData.dateTerm?.from,
       to: formData.dateTerm?.to ? formData.dateTerm?.to : newDateTermTo,
     });

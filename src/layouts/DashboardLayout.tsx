@@ -10,7 +10,7 @@ import { useAuthStore } from '@/stores';
 
 import { SideMenu } from '@/shared/components/side-menu';
 import { ToggleLayout } from '@/shared/components/toggle-theme';
-import { LoadingSpinner } from '@/layouts/components/LoadingSpinner';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
 export const DashboardLayout = (): JSX.Element => {
   const authStatus = useAuthStore((state) => state.status);

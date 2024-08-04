@@ -12,37 +12,37 @@ export const FamilyGroupFormSkeleton = (): JSX.Element => {
           <div className='col-start-1 col-end-2'>
             <div>
               <Skeleton className='h-4 w-24 mt-8' />
-              <Skeleton className='h-3 w-56 mt-4' />
+              <Skeleton className='h-3 w-56 mt-3' />
               <Skeleton className='h-8 w-full mt-2' />
             </div>
 
             <div>
-              <Skeleton className='h-4 w-24 mt-8' />
-              <Skeleton className='h-3 w-56 mt-4' />
+              <Skeleton className='h-4 w-24 mt-7' />
+              <Skeleton className='h-3 w-56 mt-3' />
               <Skeleton className='h-8 w-full mt-2' />
             </div>
 
             <div>
-              <Skeleton className='h-4 w-24 mt-8' />
-              <Skeleton className='h-3 w-56 mt-4' />
+              <Skeleton className='h-4 w-24 mt-7' />
+              <Skeleton className='h-3 w-56 mt-3' />
               <Skeleton className='h-8 w-full mt-2' />
             </div>
 
             <div>
-              <Skeleton className='h-4 w-24 mt-8' />
-              <Skeleton className='h-3 w-56 mt-4' />
+              <Skeleton className='h-4 w-24 mt-7' />
+              <Skeleton className='h-3 w-56 mt-3' />
               <Skeleton className='h-8 w-full mt-2' />
             </div>
 
             <div>
-              <Skeleton className='h-4 w-24 mt-8' />
-              <Skeleton className='h-3 w-56 mt-4' />
+              <Skeleton className='h-4 w-24 mt-6' />
+              <Skeleton className='h-3 w-56 mt-3' />
               <Skeleton className='h-8 w-full mt-2' />
             </div>
 
             <div>
-              <Skeleton className='h-4 w-24 mt-8' />
-              <Skeleton className='h-3 w-56 mt-4' />
+              <Skeleton className='h-4 w-24 mt-6' />
+              <Skeleton className='h-3 w-56 mt-3' />
               <Skeleton className='h-8 w-full mt-2' />
             </div>
           </div>
@@ -50,38 +50,37 @@ export const FamilyGroupFormSkeleton = (): JSX.Element => {
           <div className='col-start-2 col-end-3'>
             <div>
               <Skeleton className='h-4 w-24 mt-8' />
-              <Skeleton className='h-3 w-56 mt-4' />
+              <Skeleton className='h-3 w-56 mt-3' />
               <Skeleton className='h-8 w-full mt-2' />
             </div>
 
             <div>
-              <Skeleton className='h-4 w-24 mt-8' />
-              <Skeleton className='h-3 w-56 mt-4' />
+              <Skeleton className='h-4 w-24 mt-7' />
+              <Skeleton className='h-3 w-56 mt-3' />
               <Skeleton className='h-8 w-full mt-2' />
             </div>
 
             <div>
-              <Skeleton className='h-4 w-24 mt-8' />
+              <Skeleton className='h-4 w-24 mt-7' />
               <Skeleton className='h-20 w-full mt-2' />
             </div>
 
             <div>
               <Skeleton className='h-4 w-24 mt-7' />
-              <Skeleton className='h-3 w-56 mt-4' />
+              <Skeleton className='h-3 w-56 mt-3' />
               <Skeleton className='h-8 w-full mt-2' />
             </div>
 
             <div>
-              <Skeleton className='h-4 w-24 mt-7' />
-              <Skeleton className='h-3 w-56 mt-4' />
+              <Skeleton className='h-4 w-24 mt-6' />
+              <Skeleton className='h-3 w-56 mt-3' />
               <Skeleton className='h-8 w-full mt-2' />
             </div>
 
             <div>
-              <Skeleton className='h-4 w-24 mt-8' />
+              <Skeleton className='h-4 w-24 mt-6' />
               <Skeleton className='h-8 w-full mt-2' />
               <Skeleton className='h-3 w-full mt-2' />
-              <Skeleton className='h-3 w-72 mt-2' />
             </div>
           </div>
 

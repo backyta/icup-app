@@ -30,8 +30,8 @@ import { getPreachersByTerm } from '@/app/preacher/services';
 import { type PreacherSearchFormByTerm, type PreacherQueryParams } from '@/app/preacher/interfaces';
 
 import { usePreacherStore } from '@/stores/preacher';
-import { LoadingSpinner } from '@/layouts/components';
-import { formatDateDDMMYYYY } from '@/shared/helpers';
+import { LoadingSpinner } from '@/shared/components';
+import { formatterDateToDDMMYYYY } from '@/shared/helpers';
 
 import {
   Table,
@@ -214,7 +214,7 @@ export function SearchByTermPreacherDataTable<TData, TValue>({
             )}
             {dataForm?.searchType === PreacherSearchType.BirthDate && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.dateTerm?.from ? formatDateDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDateDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
+                {`${dataForm?.dateTerm?.from ? formatterDateToDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatterDateToDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
               </span>
             )}
             {(dataForm?.searchType === PreacherSearchType.BirthMonth ||

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
@@ -298,7 +299,7 @@ export const DiscipleUpdateForm = ({
 
   const querySupervisors = useQuery({
     queryKey: ['supervisors', id],
-    queryFn: getAllSupervisors,
+    queryFn: () => getAllSupervisors({ isNull: 'false' }),
     staleTime: 5 * 60 * 1000,
   });
 
@@ -604,7 +605,7 @@ export const DiscipleUpdateForm = ({
                       name='recordStatus'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-5'>
+                          <FormItem className='mt-3'>
                             <FormLabel className='text-[14px]'>Estado</FormLabel>
                             <Select
                               disabled={isInputDisabled}

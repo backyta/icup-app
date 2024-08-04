@@ -1,12 +1,12 @@
 import { SearchSubTypeNames, SearchType, type SearchSubType } from '@/shared/enums';
 import { 
   SearchSubTypesOfferingIncomeActivitiesAllowed,
-  SearchSubtypesFullNameCopastorModuleAllowed,
-  SearchSubtypesLastNamesCopastorModuleAllowed,
-  SearchSubtypesNamesCopastorModuleAllowed,
-  SearchSubtypesFullNameDiscipleModuleAllowed,
-  SearchSubtypesLastNamesDiscipleModuleAllowed,
-  SearchSubtypesNamesDiscipleModuleAllowed,
+  SearchCopastorFullNamesSubTypesAllowedByModule,
+  SearchCopastorLastNamesSubTypesAllowedByModule,
+  SearchCopastorNamesSubTypesAllowedByModule,
+  SearchDiscipleFullNamesSubTypesAllowedByModule,
+  SearchDiscipleLastNamesSubTypesAllowedByModule,
+  SearchDiscipleNamesSubTypesAllowedByModule,
   SearchSubtypesOfferingIncomeFamilyHouseAllowed,
   SearchSubtypesFullNameFamilyHouseModuleAllowed,
   SearchSubtypesLastNamesFamilyHouseModuleAllowed,
@@ -32,12 +32,12 @@ import {
   SearchSubTypesOfferingIncomeUnitedWorshipAllowed,
   SearchSubTypesOfferingIncomeIncomeAdjustmentAllowed,
   SearchSubTypesOfferingExpensesExpensesAdjustmentAllowed,
-  SearchSubtypesNamesSupervisorModuleAllowed,
-  SearchSubtypesLastNamesSupervisorModuleAllowed,
-  SearchSubtypesFullNameSupervisorModuleAllowed,
-  SearchSubtypesNamesPreacherModuleAllowed,
-  SearchSubtypesLastNamesPreacherModuleAllowed,
-  SearchSubtypesFullNamePreacherModuleAllowed,
+  SearchSupervisorNamesSubTypesAllowedByModule,
+  SearchSupervisorLastNamesSubTypesAllowedByModule,
+  SearchSupervisorFullNamesSubTypesAllowedByModule,
+  SearchPreacherNamesSubTypesAllowedByModule,
+  SearchPreacherLastNamesSubTypesAllowedByModule,
+  SearchPreacherFullNamesSubTypesAllowedByModule,
   } from '@/shared/helpers';
 
 
@@ -49,9 +49,9 @@ export const validateSubTypesAllowedByModule = (currentPath: string, type: strin
 
   //* Disabled Sub-types by module
   //* Disciple
-  const disabledDiscipleModuleNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesNamesDiscipleModuleAllowed.includes(value as SearchSubType) ) 
-  const disabledDiscipleModuleLastNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesLastNamesDiscipleModuleAllowed.includes(value as SearchSubType) ) 
-  const disabledDiscipleModuleFullNameSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesFullNameDiscipleModuleAllowed.includes(value as SearchSubType) ) 
+  const disabledDiscipleModuleNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchDiscipleNamesSubTypesAllowedByModule.includes(value as SearchSubType) ) 
+  const disabledDiscipleModuleLastNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchDiscipleLastNamesSubTypesAllowedByModule.includes(value as SearchSubType) ) 
+  const disabledDiscipleModuleFullNameSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchDiscipleFullNamesSubTypesAllowedByModule.includes(value as SearchSubType) ) 
 
   if ((currentPath === '/disciples/search-by-term-disciples' || 
         currentPath === '/disciples/update-disciple' || 
@@ -87,9 +87,9 @@ export const validateSubTypesAllowedByModule = (currentPath: string, type: strin
   }
 
   //* Co-Pastor
-  const disabledCopastorModuleNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesNamesCopastorModuleAllowed.includes(value as SearchSubType) ) 
-  const disabledCopastorModuleLastNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesLastNamesCopastorModuleAllowed.includes(value as SearchSubType) ) 
-  const disabledCopastorModuleFullNameSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesFullNameCopastorModuleAllowed.includes(value as SearchSubType) ) 
+  const disabledCopastorModuleNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchCopastorNamesSubTypesAllowedByModule.includes(value as SearchSubType) ) 
+  const disabledCopastorModuleLastNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchCopastorLastNamesSubTypesAllowedByModule.includes(value as SearchSubType) ) 
+  const disabledCopastorModuleFullNameSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchCopastorFullNamesSubTypesAllowedByModule.includes(value as SearchSubType) ) 
   
   if ((currentPath === '/copastors/search-by-term-copastors' || 
         currentPath === '/copastors/update-copastor' || 
@@ -125,9 +125,9 @@ export const validateSubTypesAllowedByModule = (currentPath: string, type: strin
   }
 
   //* Supervisor
-  const disabledSupervisorModuleNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesNamesSupervisorModuleAllowed.includes(value as SearchSubType) ) 
-  const disabledSupervisorModuleLastNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesLastNamesSupervisorModuleAllowed.includes(value as SearchSubType) ) 
-  const disabledSupervisorModuleFullNameSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesFullNameSupervisorModuleAllowed.includes(value as SearchSubType) ) 
+  const disabledSupervisorModuleNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSupervisorNamesSubTypesAllowedByModule.includes(value as SearchSubType) ) 
+  const disabledSupervisorModuleLastNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSupervisorLastNamesSubTypesAllowedByModule.includes(value as SearchSubType) ) 
+  const disabledSupervisorModuleFullNameSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSupervisorFullNamesSubTypesAllowedByModule.includes(value as SearchSubType) ) 
   
   if ((currentPath === '/supervisors/search-by-term-supervisors' || 
         currentPath === '/supervisors/update-supervisor' || 
@@ -163,9 +163,9 @@ export const validateSubTypesAllowedByModule = (currentPath: string, type: strin
   }
 
    //* Preacher
-   const disabledPreacherModuleNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesNamesPreacherModuleAllowed.includes(value as SearchSubType) ) 
-   const disabledPreacherModuleLastNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesLastNamesPreacherModuleAllowed.includes(value as SearchSubType) ) 
-   const disabledPreacherModuleFullNameSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchSubtypesFullNamePreacherModuleAllowed.includes(value as SearchSubType) ) 
+   const disabledPreacherModuleNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchPreacherNamesSubTypesAllowedByModule.includes(value as SearchSubType) ) 
+   const disabledPreacherModuleLastNamesSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchPreacherLastNamesSubTypesAllowedByModule.includes(value as SearchSubType) ) 
+   const disabledPreacherModuleFullNameSearchSubTypes = Object.keys(SearchSubTypeNames).filter(value => !SearchPreacherFullNamesSubTypesAllowedByModule.includes(value as SearchSubType) ) 
    
    if ((currentPath === '/preachers/search-by-term-preachers' ||
          currentPath === '/preachers/update-preacher' || 

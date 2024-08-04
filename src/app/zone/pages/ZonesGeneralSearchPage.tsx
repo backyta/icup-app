@@ -11,17 +11,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/shared/lib/utils';
 
-import { type FormSearchGeneral } from '@/shared/interfaces';
+import { type GeneralSearchForm } from '@/shared/interfaces';
 import { formSearchGeneralSchema } from '@/shared/validations';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 
-import { useChurchStore } from '@/stores/church';
+import { useZoneStore } from '@/stores/zone';
 
-import {
-  churchInfoColumns as columns,
-  GeneralChurchSearchDataTable,
-} from '@/app/church/components';
-import { type ChurchResponse } from '@/app/church/interfaces';
+import { type ZoneResponse } from '@/app/zone/interfaces';
+import { zoneInfoColumns as columns, GeneralZoneSearchDataTable } from '@/app/zone/components';
 
 import {
   SelectValue,
@@ -43,24 +40,16 @@ import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 
-const dataFictional: ChurchResponse[] = [
+const dataFictional: ZoneResponse[] = [
   {
     id: '',
-    churchName: '',
-    isAnexe: false,
-    worshipTimes: ['16:00'],
-    foundingDate: new Date('2024-05-31'),
-    email: 'iglesia.central@gmail.com',
-    phoneNumber: '',
+    zoneName: '',
     country: '',
     department: '',
     province: '',
     district: '',
-    urbanSector: '',
-    address: '',
-    referenceAddress: '',
     recordStatus: 'active',
-    theirMainChurch: null,
+    theirSupervisor: null,
   },
 ];
 
@@ -68,14 +57,14 @@ export const ZonesGeneralSearchPage = (): JSX.Element => {
   //* States
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
 
-  const isFiltersSearchGeneralDisabled = useChurchStore(
+  const isFiltersSearchGeneralDisabled = useZoneStore(
     (state) => state.isFiltersSearchGeneralDisabled
   );
-  const setIsFiltersSearchGeneralDisabled = useChurchStore(
+  const setIsFiltersSearchGeneralDisabled = useZoneStore(
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
 
-  const [searchParams, setSearchParams] = useState<FormSearchGeneral | undefined>();
+  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({
@@ -120,20 +109,20 @@ export const ZonesGeneralSearchPage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h1 className='text-center pt-2 pb-4 font-sans text-2xl sm:text-3xl font-bold text-slate-500 dark:text-slate-400 text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
-        Modulo Iglesia
+      <h1 className='text-center pt-2 pb-4 font-sans text-2xl sm:text-3xl font-bold text-cyan-400 dark:text-cyan-500 text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+        Modulo Zona
       </h1>
       <hr className='md:p-[0.02rem] bg-slate-500' />
       <div className='flex items-center justify-start'>
         <h2 className='flex items-center text-left pl-4 py-2 sm:pt-4 sm:pb-2 sm:pl-[1.5rem] xl:pl-[2rem] 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-sky-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl'>
-          Buscar iglesias
+          Buscar zonas
         </h2>
         <span className='ml-5 bg-sky-300 text-slate-600 border text-center text-[10px] mt-[.6rem] sm:mt-5 -py-1 px-2 rounded-full font-bold uppercase'>
           En general
         </span>
       </div>
       <p className='dark:text-slate-300 text-left font-sans font-bold px-4 text-[12.5px] md:text-[15px] xl:text-base sm:px-[1.5rem] xl:px-[2rem]'>
-        Explora, filtra y organiza los registros de iglesias según tus necesidades.
+        Explora, filtra y organiza los registros de zonas según tus necesidades.
       </p>
 
       <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full'>
@@ -297,7 +286,7 @@ export const ZonesGeneralSearchPage = (): JSX.Element => {
         {/* Table */}
         <div className='w-full'>
           {
-            <GeneralChurchSearchDataTable
+            <GeneralZoneSearchDataTable
               columns={columns}
               data={dataFictional}
               searchParams={searchParams}

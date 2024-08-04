@@ -33,7 +33,7 @@ import {
 import { UserRole, UserRoleNames } from '@/app/user/enums';
 
 import { formSearchByTermSchema } from '@/shared/validations';
-import { type FormSearchByTerm } from '@/shared/interfaces';
+import { type SearchByTermForm } from '@/shared/interfaces';
 import { Calendar } from '@/shared/components/ui/calendar';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Button } from '@/shared/components/ui/button';
@@ -68,7 +68,7 @@ import {
   validateTypesAllowedByModule,
   validateSubTypesAllowedByModule,
   validateSelectTermByTypeAndSubtype,
-  formatDateDDMMYYYY,
+  formatterDateToDDMMYYYY,
 } from '@/shared/helpers';
 import {
   SearchType,
@@ -98,7 +98,7 @@ export function DataTableSearchByTerm<TData, TValue>({
 
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
 
-  const [dataForm, setDataForm] = useState<FormSearchByTerm>();
+  const [dataForm, setDataForm] = useState<SearchByTermForm>();
 
   const [rowSelection, setRowSelection] = useState({});
 
@@ -808,7 +808,7 @@ export function DataTableSearchByTerm<TData, TValue>({
               )}
               {dataForm?.searchType === SearchType.FoundingDate && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                  {`${dataForm?.dateTerm?.from ? formatDateDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDateDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
+                  {`${dataForm?.dateTerm?.from ? formatterDateToDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatterDateToDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
                 </span>
               )}
               {dataForm?.searchType === SearchType.Status && (
@@ -961,7 +961,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                 )}
                 {dataForm?.searchType === SearchType.BirthDate && (
                   <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                    {`${dataForm?.dateTerm?.from ? formatDateDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDateDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
+                    {`${dataForm?.dateTerm?.from ? formatterDateToDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatterDateToDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
                   </span>
                 )}
                 {(dataForm?.searchType === SearchType.BirthMonth ||
@@ -1229,7 +1229,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                 dataForm?.subType === SearchSubType.OfferingByDateZone ||
                 dataForm?.subType === SearchSubType.OfferingByDateCodeHouse) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                  {`${dataForm?.dateTerm?.from ? formatDateDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDateDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
+                  {`${dataForm?.dateTerm?.from ? formatterDateToDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatterDateToDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
                 </span>
               )}
               {dataForm?.searchType === SearchType.Status && (
@@ -1346,7 +1346,7 @@ export function DataTableSearchByTerm<TData, TValue>({
                 Termino de búsqueda:
               </span>{' '}
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.dateTerm?.from ? formatDateDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDateDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
+                {`${dataForm?.dateTerm?.from ? formatterDateToDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatterDateToDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
               </span>
             </div>
 

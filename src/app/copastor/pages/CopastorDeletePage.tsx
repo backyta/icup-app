@@ -18,15 +18,15 @@ import {
   SearchByTermCopastorDataTable,
 } from '@/app/copastor/components';
 import {
-  CopastorSearchNamesByBirthMonth,
-  CopastorSearchNamesByFirstNames,
-  CopastorSearchNamesByFullNames,
-  CopastorSearchNamesByGender,
-  CopastorSearchNamesByLastNames,
-  CopastorSearchNamesByMaritalStatus,
-  CopastorSearchNamesByRecordStatus,
   CopastorSearchType,
   CopastorSearchTypeNames,
+  CopastorSearchNamesByGender,
+  CopastorSearchNamesByFullNames,
+  CopastorSearchNamesByLastNames,
+  CopastorSearchNamesByFirstNames,
+  CopastorSearchNamesByBirthMonth,
+  CopastorSearchNamesByRecordStatus,
+  CopastorSearchNamesByMaritalStatus,
 } from '@/app/copastor/enums';
 import { copastorSearchByTermFormSchema } from '@/app/copastor/validations';
 import { type CopastorSearchFormByTerm, type CopastorResponse } from '@/app/copastor/interfaces';
@@ -35,7 +35,7 @@ import { cn } from '@/shared/lib/utils';
 import { useCopastorStore } from '@/stores/copastor';
 
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-import { formatDateTermToTimestamp, formatNames, formatLastNames } from '@/shared/helpers';
+import { formatterDateTermToTimestamp, formatterNames, formatLastNames } from '@/shared/helpers';
 
 import {
   Form,
@@ -155,12 +155,12 @@ export const CopastorDeletePage = (): JSX.Element => {
       newDateTermTo = formData.dateTerm?.from;
     }
 
-    const newDateTerm = formatDateTermToTimestamp({
+    const newDateTerm = formatterDateTermToTimestamp({
       from: formData.dateTerm?.from,
       to: formData.dateTerm?.to ? formData.dateTerm?.to : newDateTermTo,
     });
 
-    const newNamesTerm = formatNames(formData?.namesTerm);
+    const newNamesTerm = formatterNames(formData?.namesTerm);
     const newLastNamesTerm = formatLastNames(formData?.lastNamesTerm);
 
     setSearchParams({

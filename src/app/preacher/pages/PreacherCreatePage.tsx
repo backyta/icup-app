@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
@@ -16,12 +17,12 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 import { preacherFormSchema } from '@/app/preacher/validations';
-import { createPreacher, getAllSupervisors } from '@/app/preacher/services';
 import { usePreacherCreateSubmitButtonLogic } from '@/app/preacher/hooks';
+import { createPreacher, getAllSupervisors } from '@/app/preacher/services';
 
 import { cn } from '@/shared/lib/utils';
 import { useRoleValidationByPath } from '@/hooks';
-import { LoadingSpinner } from '@/layouts/components';
+import { LoadingSpinner } from '@/shared/components';
 
 import {
   Country,
@@ -195,7 +196,7 @@ export const PreacherCreatePage = (): JSX.Element => {
   //* Querys
   const querySupervisors = useQuery({
     queryKey: ['supervisors'],
-    queryFn: getAllSupervisors,
+    queryFn: () => getAllSupervisors({ isNull: 'false' }),
     staleTime: 5 * 60 * 1000,
   });
 

@@ -8,7 +8,9 @@ import { FcClearFilters, FcSearch, FcSupport, FcFlowChart } from 'react-icons/fc
 
 import { useAuthStore } from '@/stores';
 import { WhiteCard } from '@/shared/components';
+import { toast, Toaster } from 'sonner';
 
+// TODO : lanzar sonner de acuerdo a los roles
 export const ZoneOptionsPage = (): JSX.Element => {
   const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
 
@@ -18,7 +20,8 @@ export const ZoneOptionsPage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeIn'>
-      <h1 className='text-center pb-2 pt-1 md:pt-2 md:pb-2 font-sans text-2xl sm:text-3xl font-bold text-teal-500 dark:text-teal-400 text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
+      <Toaster position='top-center' richColors />
+      <h1 className='text-center pb-2 pt-1 md:pt-2 md:pb-2 font-sans text-2xl sm:text-3xl font-bold text-cyan-400 dark:text-cyan-500 text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
         Modulo Zona
       </h1>
       <p className='text-center font-sans text-sm sm:text-md md:text-[15px] font-bold px-4 pb-4 lg:text-base xl:text-lg'>
@@ -96,16 +99,23 @@ export const ZoneOptionsPage = (): JSX.Element => {
         </NavLink>
 
         <NavLink
-          key='/zones/delete-zone'
-          to='/zones/delete-zone'
+          key='/zones'
+          to='/zones'
           end
           className='row-start-5 row-end-6 lg:row-start-3 lg:row-end-4 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-4 2xl:col-end-5'
+          onClick={() => {
+            toast.error('Acceso no permitido.', {
+              position: 'top-center',
+              className: 'justify-center',
+            });
+          }}
         >
           <WhiteCard className='md:h-[11rem]' centered>
             <RiDeleteBin2Fill className='text-[10rem] lg:text-[7rem] xl:text-[6rem] text-red-500' />
             <h2 className='text-red-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Eliminar Zona
             </h2>
+
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
               Eliminar el registro de una zona.
             </p>

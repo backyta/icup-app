@@ -16,7 +16,6 @@ import {
   preacherUpdateColumns as columns,
   SearchByTermPreacherDataTable,
 } from '@/app/preacher/components';
-import { type PreacherSearchFormByTerm, type PreacherResponse } from '@/app/preacher/interfaces';
 import {
   PreacherSearchType,
   PreacherSearchTypeNames,
@@ -29,12 +28,13 @@ import {
   PreacherSearchNamesByRecordStatus,
 } from '@/app/preacher/enums';
 import { preacherSearchByTermFormSchema } from '@/app/preacher/validations';
+import { type PreacherSearchFormByTerm, type PreacherResponse } from '@/app/preacher/interfaces';
 
-import { cn } from '@/shared/lib/utils';
 import { usePreacherStore } from '@/stores/preacher';
 
+import { cn } from '@/shared/lib/utils';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-import { formatDateTermToTimestamp, formatNames, formatLastNames } from '@/shared/helpers';
+import { formatterDateTermToTimestamp, formatterNames, formatLastNames } from '@/shared/helpers';
 
 import {
   Form,
@@ -154,12 +154,12 @@ export const PreacherUpdatePage = (): JSX.Element => {
       newDateTermTo = formData.dateTerm?.from;
     }
 
-    const newDateTerm = formatDateTermToTimestamp({
+    const newDateTerm = formatterDateTermToTimestamp({
       from: formData.dateTerm?.from,
       to: formData.dateTerm?.to ? formData.dateTerm?.to : newDateTermTo,
     });
 
-    const newNamesTerm = formatNames(formData?.namesTerm);
+    const newNamesTerm = formatterNames(formData?.namesTerm);
     const newLastNamesTerm = formatLastNames(formData?.lastNamesTerm);
 
     setSearchParams({

@@ -18,10 +18,10 @@ export interface ZoneResponse {
   department:       string;
   province:         string;
   district:         string;
-  status:           string;
-  disciples:        Disciple[];
-  preachers:        Preacher[];
-  familyGroups:     FamilyGroup[];
+  recordStatus:     string;
+  disciples?:        Disciple[];
+  preachers?:        Preacher[];
+  familyGroups?:     FamilyGroup[];
   createdAt?:       Date;
   createdBy?:       CreatedBy;
   updatedAt?:       Date;

@@ -6,22 +6,22 @@ import { useMediaQuery } from '@react-hook/media-query';
 import { cn } from '@/shared/lib/utils';
 import { BsFillPersonVcardFill } from 'react-icons/bs';
 
-import { useChurchStore } from '@/stores/church';
+import { useZoneStore } from '@/stores/zone';
 
-import { ChurchTabsCard } from '@/app/church/components';
+import { ZoneTabsCard } from '@/app/zone/components';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/shared/components/ui/drawer';
 
-interface ChurchInfoCardProps {
+interface ZoneInfoCardProps {
   idRow: string;
 }
 
-export const ZoneInfoCard = ({ idRow }: ChurchInfoCardProps): JSX.Element => {
+export const ZoneInfoCard = ({ idRow }: ZoneInfoCardProps): JSX.Element => {
   //* States
-  const dataSearchGeneralResponse = useChurchStore((state) => state.dataSearchGeneralResponse);
-  const dataSearchByTermResponse = useChurchStore((state) => state.dataSearchByTermResponse);
+  const dataSearchGeneralResponse = useZoneStore((state) => state.dataSearchGeneralResponse);
+  const dataSearchByTermResponse = useZoneStore((state) => state.dataSearchByTermResponse);
 
   const [open, setOpen] = useState<boolean>(false);
 
@@ -30,8 +30,8 @@ export const ZoneInfoCard = ({ idRow }: ChurchInfoCardProps): JSX.Element => {
   const { pathname } = useLocation();
 
   //* Functions
-  const currentChurch =
-    pathname === '/churches/search-churches'
+  const currentZone =
+    pathname === '/zones/search-zones'
       ? dataSearchGeneralResponse?.find((data) => data.id === idRow)
       : dataSearchByTermResponse?.find((data) => data.id === idRow);
 
@@ -50,7 +50,7 @@ export const ZoneInfoCard = ({ idRow }: ChurchInfoCardProps): JSX.Element => {
         </DialogTrigger>
 
         <DialogContent className='max-w-[690px] w-full justify-center py-6 max-h-full overflow-y-auto overflow-x-hidden'>
-          <ChurchTabsCard data={currentChurch} id={idRow} />
+          <ZoneTabsCard data={currentZone} id={idRow} />
         </DialogContent>
       </Dialog>
     );
@@ -70,7 +70,7 @@ export const ZoneInfoCard = ({ idRow }: ChurchInfoCardProps): JSX.Element => {
       </DrawerTrigger>
       <DrawerContent>
         <div className='flex justify-center py-8 px-6 max-h-full overflow-y-auto overflow-x-hidden'>
-          <ChurchTabsCard data={currentChurch} id={idRow} />
+          <ZoneTabsCard data={currentZone} id={idRow} />
         </div>
       </DrawerContent>
     </Drawer>

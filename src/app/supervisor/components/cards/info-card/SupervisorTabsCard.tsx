@@ -33,16 +33,16 @@ export const SupervisorTabsCard = ({ data, id }: SupervisorTabsCardProps): JSX.E
       const url = new URL(window.location.href);
 
       if (url.pathname === '/supervisors/search-supervisors')
-        url.pathname = `/supervisors/search-supervisors/${id}/info`;
+        url.pathname = `/supervisors/search-supervisors/${id}/view`;
 
       if (url.pathname === '/supervisors/search-supervisors-by-term')
-        url.pathname = `/supervisors/search-supervisors-by-term/${id}/info`;
+        url.pathname = `/supervisors/search-supervisors-by-term/${id}/view`;
 
       if (url.pathname === '/supervisors/update-supervisor')
-        url.pathname = `/supervisors/update-supervisor/${id}/info`;
+        url.pathname = `/supervisors/update-supervisor/${id}/view`;
 
       if (url.pathname === '/supervisors/delete-supervisor')
-        url.pathname = `/supervisors/delete-supervisor/${id}/info`;
+        url.pathname = `/supervisors/delete-supervisor/${id}/view`;
 
       window.history.replaceState({}, '', url);
     }
@@ -222,7 +222,7 @@ export const SupervisorTabsCard = ({ data, id }: SupervisorTabsCardProps): JSX.E
               </CardDescription>
             </div>
 
-            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-10 row-end-11 md:grid  md:row-auto md:col-start-2 md:col-end-4'>
+            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-10 row-end-11 md:grid  md:row-auto md:col-auto'>
               <Label className='text-[14px] md:text-[15px]'>Ultima fecha de actualización</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedAt ? format(new Date(data?.updatedAt), 'dd/MM/yyyy') : '-'}

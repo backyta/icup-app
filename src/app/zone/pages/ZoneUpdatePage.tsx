@@ -9,29 +9,19 @@ import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import {
+  ZoneSearchNamesByRecordStatus,
+  ZoneSearchType,
+  ZoneSearchTypeNames,
+} from '@/app/zone/enums';
+import { zoneSearchByTermFormSchema } from '@/app/zone/validations';
+import { type ZoneResponse, type ZoneSearchFormByTerm } from '@/app/zone/interfaces';
+import { zoneUpdateColumns as columns, SearchByTermZoneDataTable } from '@/app/zone/components';
+
+import { useZoneStore } from '@/stores/zone';
 
 import { cn } from '@/shared/lib/utils';
-import { CalendarIcon } from 'lucide-react';
-
-import {
-  churchUpdateColumns as columns,
-  SearchByTermChurchDataTable,
-} from '@/app/church/components';
-import { churchSearchByTermFormSchema } from '@/app/church/validations';
-import {
-  ChurchSearchSelectOptionNames,
-  ChurchSearchType,
-  ChurchSearchTypeNames,
-} from '@/app/church/enums';
-import { type ChurchSearchFormByTerm, type ChurchResponse } from '@/app/church/interfaces';
-
-import { useChurchStore } from '@/stores/church';
-
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-
-import { formatDateTermToTimestamp } from '@/shared/helpers';
 
 import {
   Form,
@@ -51,28 +41,18 @@ import {
 } from '@/shared/components/ui/select';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
-import { Calendar } from '@/shared/components/ui/calendar';
 import { Checkbox } from '@/shared/components/ui/checkbox';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
-const dataFictional: ChurchResponse[] = [
+const dataFictional: ZoneResponse[] = [
   {
     id: '',
-    churchName: '',
-    isAnexe: false,
-    worshipTimes: ['16:00'],
-    foundingDate: new Date('2024-05-31'),
-    email: '',
-    phoneNumber: '',
+    zoneName: '',
     country: '',
     department: '',
     province: '',
     district: '',
-    urbanSector: '',
-    address: '',
-    referenceAddress: '',
     recordStatus: 'active',
-    theirMainChurch: null,
+    theirSupervisor: null,
   },
 ];
 
@@ -80,25 +60,24 @@ export const ZoneUpdatePage = (): JSX.Element => {
   //* States
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
 
-  const isFiltersSearchByTermDisabled = useChurchStore(
+  const isFiltersSearchByTermDisabled = useZoneStore(
     (state) => state.isFiltersSearchByTermDisabled
   );
-  const setIsFiltersSearchByTermDisabled = useChurchStore(
+  const setIsFiltersSearchByTermDisabled = useZoneStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
 
-  const [dataForm, setDataForm] = useState<ChurchSearchFormByTerm>();
-  const [searchParams, setSearchParams] = useState<ChurchSearchFormByTerm | undefined>();
+  const [dataForm, setDataForm] = useState<ZoneSearchFormByTerm>();
+  const [searchParams, setSearchParams] = useState<ZoneSearchFormByTerm | undefined>();
 
   //* Forms
-  const form = useForm<z.infer<typeof churchSearchByTermFormSchema>>({
-    resolver: zodResolver(churchSearchByTermFormSchema),
+  const form = useForm<z.infer<typeof zoneSearchByTermFormSchema>>({
+    resolver: zodResolver(zoneSearchByTermFormSchema),
     mode: 'onChange',
     defaultValues: {
       limit: '10',
       inputTerm: '',
       selectTerm: '',
-      dateTerm: undefined,
       all: false,
       order: RecordOrder.Ascending,
     },
@@ -131,18 +110,8 @@ export const ZoneUpdatePage = (): JSX.Element => {
   }, []);
 
   //* Form handler
-  function onSubmit(formData: z.infer<typeof churchSearchByTermFormSchema>): void {
-    let newDateTermTo;
-    if (!formData.dateTerm?.to) {
-      newDateTermTo = formData.dateTerm?.from;
-    }
-
-    const newDateTerm = formatDateTermToTimestamp({
-      from: formData.dateTerm?.from,
-      to: formData.dateTerm?.to ? formData.dateTerm?.to : newDateTermTo,
-    });
-
-    setSearchParams({ ...formData, dateTerm: newDateTerm as any });
+  function onSubmit(formData: z.infer<typeof zoneSearchByTermFormSchema>): void {
+    setSearchParams({ ...formData });
     setIsDisabledSubmitButton(true);
     setIsFiltersSearchByTermDisabled(false);
     setDataForm(formData);
@@ -152,22 +121,22 @@ export const ZoneUpdatePage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h1 className='text-center pt-3 md:pt-2 pb-4 font-sans text-2xl sm:text-3xl font-bold text-slate-500 dark:text-slate-400 text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
-        Modulo Iglesia
+      <h1 className='text-center pt-3 md:pt-2 pb-4 font-sans text-2xl sm:text-3xl font-bold text-cyan-400 dark:text-cyan-500 text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+        Modulo Zona
       </h1>
 
       <hr className='md:p-[0.02rem] bg-slate-500' />
 
       <div className='flex items-center justify-start'>
         <h2 className='flex items-center text-left pl-4 py-2 sm:pt-4 sm:pb-2 sm:pl-[1.5rem] xl:pl-[2rem] 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-orange-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl'>
-          Buscar iglesias
+          Buscar zonas
         </h2>
-        <span className='ml-4 bg-orange-300 text-slate-600 border text-center text-[10px] mt-[.6rem] sm:mt-5 -py-1 px-2 rounded-full font-bold uppercase'>
+        <span className='ml-3 bg-orange-300 text-slate-600 border text-center text-[10px] mt-[.6rem] sm:mt-5 -py-1 px-2 rounded-full font-bold uppercase'>
           Actualizar
         </span>
       </div>
       <p className='dark:text-slate-300 text-left font-sans font-bold px-4 text-[12.5px] md:text-[15px] xl:text-base sm:px-[1.5rem] xl:px-[2rem]'>
-        Elige tus opciones de búsqueda para actualizar registros de iglesias.
+        Explora, filtra y organiza los registros de zonas según tus necesidades.
       </p>
 
       <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full'>
@@ -189,9 +158,6 @@ export const ZoneUpdatePage = (): JSX.Element => {
                       </FormDescription>
                       <Select
                         onOpenChange={() => {
-                          form.resetField('dateTerm', {
-                            keepError: true,
-                          });
                           form.resetField('selectTerm', {
                             keepError: true,
                           });
@@ -207,7 +173,7 @@ export const ZoneUpdatePage = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(ChurchSearchTypeNames).map(([key, value]) => (
+                          {Object.entries(ZoneSearchTypeNames).map(([key, value]) => (
                             <SelectItem
                               className={`text-[13px] md:text-[14px]`}
                               key={key}
@@ -224,12 +190,11 @@ export const ZoneUpdatePage = (): JSX.Element => {
                 }}
               />
 
-              {(searchType === ChurchSearchType.ChurchName ||
-                searchType === ChurchSearchType.Department ||
-                searchType === ChurchSearchType.Province ||
-                searchType === ChurchSearchType.District ||
-                searchType === ChurchSearchType.UrbanSector ||
-                searchType === ChurchSearchType.Address) && (
+              {(searchType === ZoneSearchType.ZoneName ||
+                searchType === ZoneSearchType.Country ||
+                searchType === ZoneSearchType.Department ||
+                searchType === ZoneSearchType.Province ||
+                searchType === ZoneSearchType.District) && (
                 <FormField
                   control={form.control}
                   name='inputTerm'
@@ -252,64 +217,7 @@ export const ZoneUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {searchType === ChurchSearchType.FoundingDate && (
-                <FormField
-                  control={form.control}
-                  name='dateTerm'
-                  render={({ field }) => (
-                    <FormItem className=''>
-                      <FormLabel className='text-[14px] font-bold'>Termino (fecha)</FormLabel>
-                      <FormDescription className='text-[14px]'>
-                        Buscar por fecha o rango de fechas
-                      </FormDescription>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant={'outline'}
-                              className={cn(
-                                'w-full text-left font-normal justify-center p-4 text-[13px] md:text-[14px]',
-                                !field.value && 'text-muted-foreground'
-                              )}
-                            >
-                              <CalendarIcon className='mr-[0.1rem] h-4 w-4' />
-                              {field?.value?.from ? (
-                                field?.value.to ? (
-                                  <>
-                                    {format(field?.value.from, 'LLL dd, y', {
-                                      locale: es,
-                                    })}{' '}
-                                    -{' '}
-                                    {format(field?.value.to, 'LLL dd, y', {
-                                      locale: es,
-                                    })}
-                                  </>
-                                ) : (
-                                  format(field?.value.from, 'LLL dd, y')
-                                )
-                              ) : (
-                                <span className='text-[13px] md:text-[14px]'>Elige una fecha</span>
-                              )}
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className='w-auto p-0' align='start'>
-                          <Calendar
-                            initialFocus
-                            mode='range'
-                            selected={field.value}
-                            onSelect={field.onChange}
-                            numberOfMonths={2}
-                          />
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
-
-              {searchType === ChurchSearchType.RecordStatus && (
+              {searchType === ZoneSearchType.RecordStatus && (
                 <FormField
                   control={form.control}
                   name='selectTerm'
@@ -338,7 +246,10 @@ export const ZoneUpdatePage = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {Object.entries(ChurchSearchSelectOptionNames).map(([key, value]) => (
+                            {Object.entries(
+                              searchType === ZoneSearchType.RecordStatus &&
+                                ZoneSearchNamesByRecordStatus
+                            ).map(([key, value]) => (
                               <SelectItem
                                 className={`text-[13px] md:text-[14px]`}
                                 key={key}
@@ -494,7 +405,7 @@ export const ZoneUpdatePage = (): JSX.Element => {
         {/* Table */}
         <div className='w-full'>
           {
-            <SearchByTermChurchDataTable
+            <SearchByTermZoneDataTable
               columns={columns}
               data={dataFictional}
               searchParams={searchParams}

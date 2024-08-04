@@ -3,6 +3,7 @@
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
+import { getFullName } from '@/shared/helpers';
 import { Button } from '@/shared/components/ui/button';
 
 import { ChurchInfoCard } from '@/app/church/components';
@@ -101,9 +102,9 @@ export const churchInfoColumns: Array<ColumnDef<ChurchColumns, any>> = [
   {
     accessorKey: 'updatedBy',
     cell: (info) => {
-      const firstName = info.getValue()?.firstName;
-      const lastName = info.getValue()?.lastName;
-      return firstName && lastName ? `${firstName} ${lastName}` : '-';
+      const firstNames = info.getValue()?.firstName;
+      const lastNames = info.getValue()?.lastName;
+      return firstNames && lastNames ? getFullName({ firstNames, lastNames }) : '-';
     },
     header: ({ column }) => {
       return (

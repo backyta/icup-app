@@ -9,12 +9,6 @@ import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { cn } from '@/shared/lib/utils';
-
-import { type FormSearchGeneral } from '@/shared/interfaces';
-import { formSearchGeneralSchema } from '@/shared/validations';
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-
 import { useChurchStore } from '@/stores/church';
 
 import {
@@ -22,6 +16,11 @@ import {
   GeneralChurchSearchDataTable,
 } from '@/app/church/components';
 import { type ChurchResponse } from '@/app/church/interfaces';
+
+import { cn } from '@/shared/lib/utils';
+import { type GeneralSearchForm } from '@/shared/interfaces';
+import { formSearchGeneralSchema } from '@/shared/validations';
+import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 
 import {
   SelectValue,
@@ -75,7 +74,7 @@ export const ChurchesGeneralSearchPage = (): JSX.Element => {
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
 
-  const [searchParams, setSearchParams] = useState<FormSearchGeneral | undefined>();
+  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({

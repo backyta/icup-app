@@ -23,7 +23,7 @@ import {
 
 import { chartFormValidationSchema } from '@/app/metrics/validations';
 
-import { SubTypesOfferingIncome } from '@/app/offering/income/enums';
+import { OfferingIncomeCreateSubType } from '@/app/offering/income/enums';
 
 import { subTypes, years } from '@/shared/data';
 
@@ -226,7 +226,7 @@ export const ComparativeOfferingIncomeAnalysisCardBySubType = (): JSX.Element =>
     resolver: zodResolver(chartFormValidationSchema),
     mode: 'onChange',
     defaultValues: {
-      subType: SubTypesOfferingIncome.FamilyHouse,
+      subType: OfferingIncomeCreateSubType.FamilyGroup,
       year: '2024',
     },
   });
@@ -242,13 +242,13 @@ export const ComparativeOfferingIncomeAnalysisCardBySubType = (): JSX.Element =>
 
   //* Effects
   useEffect(() => {
-    if (year === '2025' && subType === SubTypesOfferingIncome.FamilyHouse) {
+    if (year === '2025' && subType === OfferingIncomeCreateSubType.FamilyGroup) {
       setDataResult(data2025);
     }
-    if (year === '2026' && subType === SubTypesOfferingIncome.FamilyHouse) {
+    if (year === '2026' && subType === OfferingIncomeCreateSubType.FamilyGroup) {
       setDataResult(data2026);
     }
-    if (year === '2024' && subType === SubTypesOfferingIncome.FamilyHouse) {
+    if (year === '2024' && subType === OfferingIncomeCreateSubType.FamilyGroup) {
       setDataResult(data2024);
     }
     if (!subType) {

@@ -436,7 +436,7 @@ export const FamilyGroupPreacherUpdateForm = ({
                 los Grupos Familiares.
               </p>
               <p className='text-[12px] md:text-[13px] mb-2 font-medium '>
-                ✅ Al ejecutar el intercambio el Predicador y los Discípulos pasaran al otro Grupo
+                ✅ Al ejecutar el intercambio el predicador y los discípulos pasaran al otro Grupo
                 Familiar y viceversa.
               </p>
               <p className='text-[12px] md:text-[13px] mb-2 font-medium '>

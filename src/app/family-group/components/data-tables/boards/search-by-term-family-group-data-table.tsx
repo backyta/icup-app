@@ -21,10 +21,10 @@ import {
 } from '@tanstack/react-table';
 
 import {
-  FamilyGroupSearchSelectOptionNames,
-  FamilyGroupSearchSubTypeNames,
   FamilyGroupSearchType,
   FamilyGroupSearchTypeNames,
+  FamilyGroupSearchSubTypeNames,
+  FamilyGroupSearchSelectOptionNames,
 } from '@/app/family-group/enums';
 import {
   type FamilyGroupSearchFormByTerm,
@@ -34,7 +34,7 @@ import { getFamilyGroupsByTerm } from '@/app/family-group/services';
 
 import { useFamilyGroupStore } from '@/stores/family-group';
 
-import { LoadingSpinner } from '@/layouts/components';
+import { LoadingSpinner } from '@/shared/components';
 
 import {
   Table,

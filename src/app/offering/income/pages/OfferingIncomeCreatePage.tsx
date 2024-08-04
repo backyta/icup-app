@@ -4,36 +4,32 @@
 
 import { useCallback, useEffect, useState } from 'react';
 
-import { useDropzone } from 'react-dropzone';
-import { TiDeleteOutline } from 'react-icons/ti';
-
 import type * as z from 'zod';
 import { Toaster, toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { useDropzone } from 'react-dropzone';
+import { TiDeleteOutline } from 'react-icons/ti';
 
 import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { CurrencyTypeNames } from '@/app/offering/shared/enums';
 import { type FilesProps, type RejectedProps } from '@/app/offering/shared/interfaces';
 
-import { offeringIncomeFormSchema } from '@/app/offering/income/validations';
 import {
-  SubTypesOfferingIncome,
-  SubTypesOfferingIncomeNames,
-  TypesOfferingIncome,
-  TypesOfferingIncomeNames,
-  TypesShiftOfferingIncomeNames,
+  OfferingIncomeCreateSubType,
+  OfferingIncomeCreateSubTypeNames,
+  OfferingIncomeCreateType,
+  OfferingIncomeCreateTypeNames,
+  TypeShiftOfferingIncomeNames,
 } from '@/app/offering/income/enums';
+import { offeringIncomeFormSchema } from '@/app/offering/income/validations';
+import { useOfferingIncomeSubmitButtonLogic } from '@/app/offering/income/hooks';
 
 import { cn } from '@/shared/lib/utils';
-
-import { useOfferingIncomeSubmitButtonLogic } from '@/app/offering/income/hooks';
-import { zones, familyHouses } from '@/app/family-group/data';
-
-import { disciples } from '@/shared/data';
 
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -63,7 +59,13 @@ import {
   SelectItem,
   Select,
 } from '@/shared/components/ui/select';
+import { useQuery } from '@tanstack/react-query';
+import { getAllFamilyGroups } from '@/app/disciple/services';
+import { getAllZones } from '@/app/family-group/services';
+import { getAllDisciples } from '../services';
+import { LoadingSpinner } from '@/shared/components';
 
+// TODO : Hacer los typos y sub tipos de busqueda y el boton de regitro hook. tratar de dejar todo listo para conectar con el back
 export const OfferingIncomeCreatePage = (): JSX.Element => {
   //* States
   const [isInputRelationOpen, setIsInputRelationOpen] = useState<boolean>(false);
@@ -72,13 +74,12 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   const [files, setFiles] = useState<FilesProps[]>([]);
   const [rejected, setRejected] = useState<RejectedProps[]>([]);
 
-  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
-
-  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isDropZoneDisabled, setIsDropZoneDisabled] = useState<boolean>(false);
 
   const [isFileButtonDisabled, setIsFileButtonDisabled] = useState<boolean>(false);
 
+  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
 
   //* Form
@@ -86,30 +87,25 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
     mode: 'onChange',
     resolver: zodResolver(offeringIncomeFormSchema),
     defaultValues: {
-      type: '',
-      subType: '',
+      searchType: '',
+      searchSubType: '',
       amount: '',
       date: undefined,
       currency: '',
       comments: '',
-      urlFile: [],
-      familyHouseID: '',
-      memberID: '',
-      zoneID: '',
+      urlFiles: [],
+      theirFamilyGroup: '',
+      theirDisciple: '',
+      theirZone: '',
     },
   });
 
-  //* Form handler
-  const handleSubmit = (values: z.infer<typeof offeringIncomeFormSchema>): void => {
-    console.log({ values });
-  };
-
   //* Watchers
-  const type = form.watch('type');
-  const subType = form.watch('subType');
-  const urlFiles = form.watch('urlFile');
+  const searchType = form.watch('searchType');
+  const searchSubType = form.watch('searchSubType');
+  const urlFiles = form.watch('urlFiles');
 
-  //* DropZone functions, hooks, effects
+  //* DropZone functions
   const onDrop = useCallback(
     (acceptedFiles: any[], rejectedFiles: any[]) => {
       if (acceptedFiles?.length) {
@@ -135,7 +131,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
           ...mappedFiles.map((file) => file.name),
         ];
 
-        form.setValue('urlFile', allFileNames); // Actualiza el campo de formulario con las URLs de los archivos
+        form.setValue('urlFiles', allFileNames); // Actualiza el campo de formulario con las URLs de los archivos
       }
 
       if (rejectedFiles?.length) {
@@ -165,7 +161,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
 
   useEffect(() => {
     const allFileNames = [...files.map((file) => file.name)];
-    form.setValue('urlFile', allFileNames);
+    form.setValue('urlFiles', allFileNames);
   }, [files]);
 
   const removeFile = (name: any): void => {
@@ -184,8 +180,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   //* Custom hooks
   useOfferingIncomeSubmitButtonLogic({
     formOfferingIncome: form,
-    typesOfferingIncome: TypesOfferingIncome,
-    subTypesOffering: SubTypesOfferingIncome,
+    typesOfferingIncome: OfferingIncomeCreateType,
+    subTypesOffering: OfferingIncomeCreateSubType,
     isInputDisabled,
     isDropZoneDisabled,
     isFileButtonDisabled,
@@ -194,8 +190,34 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
     setIsDropZoneDisabled,
   });
 
+  //* Querys
+  const disciplesQuery = useQuery({
+    queryKey: ['disciples'],
+    queryFn: getAllDisciples,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const familyGroupsQuery = useQuery({
+    queryKey: ['family-groups'],
+    queryFn: getAllFamilyGroups,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const zonesQuery = useQuery({
+    queryKey: ['zones'],
+    queryFn: getAllZones,
+    staleTime: 5 * 60 * 1000,
+  });
+
+  if (disciplesQuery?.isLoading) return <LoadingSpinner />;
+
+  //* Form handler
+  const handleSubmit = (values: z.infer<typeof offeringIncomeFormSchema>): void => {
+    console.log({ values });
+  };
+
   return (
-    <>
+    <div className='animate-fadeInPage'>
       <h1 className='text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-offering-color text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]'>
         Modulo Ofrendas
       </h1>
@@ -218,7 +240,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
             <div className='md:col-start-1 md:col-end-2'>
               <FormField
                 control={form.control}
-                name='type'
+                name='searchType'
                 render={({ field }) => {
                   return (
                     <FormItem>
@@ -241,7 +263,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(TypesOfferingIncomeNames).map(([key, value]) => (
+                          {Object.entries(OfferingIncomeCreateTypeNames).map(([key, value]) => (
                             <SelectItem key={key} value={key}>
                               {value}
                             </SelectItem>
@@ -254,10 +276,10 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 }}
               />
 
-              {type === TypesOfferingIncome.Offering && (
+              {searchType === OfferingIncomeCreateType.Offering && (
                 <FormField
                   control={form.control}
-                  name='subType'
+                  name='searchSubType'
                   render={({ field }) => {
                     return (
                       <FormItem className='mt-4'>
@@ -282,11 +304,13 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {Object.entries(SubTypesOfferingIncomeNames).map(([key, value]) => (
-                              <SelectItem key={key} value={key}>
-                                {value}
-                              </SelectItem>
-                            ))}
+                            {Object.entries(OfferingIncomeCreateSubTypeNames).map(
+                              ([key, value]) => (
+                                <SelectItem key={key} value={key}>
+                                  {value}
+                                </SelectItem>
+                              )
+                            )}
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -295,8 +319,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   }}
                 />
               )}
-              {(subType === SubTypesOfferingIncome.SundayWorship ||
-                subType === SubTypesOfferingIncome.SundaySchool) && (
+              {(searchSubType === OfferingIncomeCreateSubType.SundayWorship ||
+                searchSubType === OfferingIncomeCreateSubType.SundaySchool) && (
                 <FormField
                   control={form.control}
                   name='shift'
@@ -324,7 +348,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {Object.entries(TypesShiftOfferingIncomeNames).map(([key, value]) => (
+                            {Object.entries(TypeShiftOfferingIncomeNames).map(([key, value]) => (
                               <SelectItem key={key} value={key}>
                                 {value}
                               </SelectItem>
@@ -458,13 +482,13 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                     <FormItem className='mt-4'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
                         Comentarios
-                        {type !== TypesOfferingIncome.IncomeAdjustment && (
+                        {searchType !== OfferingIncomeCreateType.IncomeAdjustment && (
                           <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
                             Opcional
                           </span>
                         )}
                       </FormLabel>
-                      {type === TypesOfferingIncome.IncomeAdjustment && (
+                      {searchType === OfferingIncomeCreateType.IncomeAdjustment && (
                         <FormDescription>
                           Escribe una breve descripción sobre el ajuste
                         </FormDescription>
@@ -473,7 +497,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                         <Textarea
                           disabled={isInputDisabled}
                           placeholder={`${
-                            type === TypesOfferingIncome.IncomeAdjustment
+                            searchType === OfferingIncomeCreateType.IncomeAdjustment
                               ? `Motivos y comentarios sobre el ajuste...`
                               : 'Comentarios referente al registro de la ofrenda..'
                           }`}
@@ -485,14 +509,15 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   );
                 }}
               />
-              {(type === TypesOfferingIncome.Tithe ||
-                (type === TypesOfferingIncome.Offering &&
-                  subType === SubTypesOfferingIncome.Special) ||
-                (type === TypesOfferingIncome.Offering &&
-                  subType === SubTypesOfferingIncome.ChurchGround)) && (
+
+              {(searchType === OfferingIncomeCreateType.Tithe ||
+                (searchType === OfferingIncomeCreateType.Offering &&
+                  searchSubType === OfferingIncomeCreateSubType.Special) ||
+                (searchType === OfferingIncomeCreateType.Offering &&
+                  searchSubType === OfferingIncomeCreateSubType.ChurchGround)) && (
                 <FormField
                   control={form.control}
-                  name='memberID'
+                  name='theirDisciple'
                   render={({ field }) => (
                     <FormItem className='flex flex-col mt-4'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
@@ -514,7 +539,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                               )}
                             >
                               {field.value
-                                ? disciples.find((member) => member.value === field.value)?.label
+                                ? `${disciplesQuery?.data?.find((disciple) => disciple.id === field.value)?.firstName} ${disciplesQuery?.data?.find((disciple) => disciple.id === field.value)?.lastName}`
                                 : 'Busque y seleccione un discípulo'}
                               <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                             </Button>
@@ -528,21 +553,21 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                             />
                             <CommandEmpty>Discípulo no encontrado.</CommandEmpty>
                             <CommandGroup className='max-h-[200px] h-auto'>
-                              {disciples.map((member) => (
+                              {disciplesQuery?.data?.map((disciple) => (
                                 <CommandItem
                                   className='text-[14px]'
-                                  value={member.label}
-                                  key={member.value}
+                                  value={disciple.id}
+                                  key={disciple.id}
                                   onSelect={() => {
-                                    form.setValue('memberID', member.value);
+                                    form.setValue('theirDisciple', disciple.id);
                                     setIsInputRelationOpen(false);
                                   }}
                                 >
-                                  {member.label}
+                                  {`${disciple?.firstName} ${disciple?.lastName}`}
                                   <CheckIcon
                                     className={cn(
                                       'ml-auto h-4 w-4',
-                                      member.value === field.value ? 'opacity-100' : 'opacity-0'
+                                      disciple.id === field.value ? 'opacity-100' : 'opacity-0'
                                     )}
                                   />
                                 </CommandItem>
@@ -556,18 +581,19 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   )}
                 />
               )}
-              {type === TypesOfferingIncome.Offering &&
-                subType === SubTypesOfferingIncome.FamilyHouse && (
+
+              {searchType === OfferingIncomeCreateType.Offering &&
+                searchSubType === OfferingIncomeCreateSubType.FamilyGroup && (
                   <FormField
                     control={form.control}
-                    name='familyHouseID'
+                    name='theirFamilyGroup'
                     render={({ field }) => (
                       <FormItem className='flex flex-col mt-4'>
                         <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                          Casa Familiar
+                          Grupo Familiar
                         </FormLabel>
                         <FormDescription className='text-[14px]'>
-                          Selecciones una casa familiar para asignarla al registro.
+                          Seleccione un grupo familiar para asignarlo al registro.
                         </FormDescription>
                         <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
                           <PopoverTrigger asChild>
@@ -582,10 +608,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                 )}
                               >
                                 {field.value
-                                  ? familyHouses.find(
-                                      (familyHouse) => familyHouse.value === field.value
-                                    )?.label
-                                  : 'Busque y seleccione una casa familiar'}
+                                  ? `${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupCode} - ${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupName}`
+                                  : 'Busque y seleccione un grupo familiar'}
                                 <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                               </Button>
                             </FormControl>
@@ -593,28 +617,26 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           <PopoverContent align='center' className='w-auto px-4 py-2'>
                             <Command>
                               <CommandInput
-                                placeholder='Busque una casa familiar...'
+                                placeholder='Busque un grupo familiar...'
                                 className='h-9 text-[14px]'
                               />
-                              <CommandEmpty>Casa familiar no encontrada.</CommandEmpty>
+                              <CommandEmpty>Grupo familiar no encontrado.</CommandEmpty>
                               <CommandGroup className='max-h-[200px] h-auto'>
-                                {familyHouses.map((familyHouse) => (
+                                {familyGroupsQuery?.data?.map((familyGroup) => (
                                   <CommandItem
                                     className='text-[14px]'
-                                    value={familyHouse.label}
-                                    key={familyHouse.value}
+                                    value={familyGroup.id}
+                                    key={familyGroup.id}
                                     onSelect={() => {
-                                      form.setValue('familyHouseID', familyHouse.value);
+                                      form.setValue('theirFamilyGroup', familyGroup.id);
                                       setIsInputRelationOpen(false);
                                     }}
                                   >
-                                    {familyHouse.label}
+                                    {`${familyGroup?.familyGroupCode} ${familyGroup?.familyGroupName}`}
                                     <CheckIcon
                                       className={cn(
                                         'ml-auto h-4 w-4',
-                                        familyHouse.value === field.value
-                                          ? 'opacity-100'
-                                          : 'opacity-0'
+                                        familyGroup.id === field.value ? 'opacity-100' : 'opacity-0'
                                       )}
                                     />
                                   </CommandItem>
@@ -630,13 +652,13 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   />
                 )}
 
-              {((type === TypesOfferingIncome.Offering &&
-                subType === SubTypesOfferingIncome.ZonalFasting) ||
-                (type === TypesOfferingIncome.Offering &&
-                  subType === SubTypesOfferingIncome.ZonalVigil)) && (
+              {((searchType === OfferingIncomeCreateType.Offering &&
+                searchSubType === OfferingIncomeCreateSubType.ZonalFasting) ||
+                (searchType === OfferingIncomeCreateType.Offering &&
+                  searchSubType === OfferingIncomeCreateSubType.ZonalVigil)) && (
                 <FormField
                   control={form.control}
-                  name='zoneID'
+                  name='theirZone'
                   render={({ field }) => (
                     <FormItem className='flex flex-col mt-4'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Zona</FormLabel>
@@ -656,7 +678,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                               )}
                             >
                               {field.value
-                                ? zones.find((zone) => zone.value === field.value)?.label
+                                ? zonesQuery?.data?.find((zone) => zone.id === field.value)
+                                    ?.zoneName
                                 : 'Busque y seleccione una zona'}
                               <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                             </Button>
@@ -670,21 +693,21 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                             />
                             <CommandEmpty>Zona no encontrada.</CommandEmpty>
                             <CommandGroup className='max-h-[200px] h-auto'>
-                              {zones.map((zone) => (
+                              {zonesQuery?.data?.map((zone) => (
                                 <CommandItem
                                   className='text-[14px]'
-                                  value={zone.label}
-                                  key={zone.value}
+                                  value={zone.id}
+                                  key={zone.id}
                                   onSelect={() => {
-                                    form.setValue('zoneID', zone.value);
+                                    form.setValue('theirZone', zone.id);
                                     setIsInputRelationOpen(false);
                                   }}
                                 >
-                                  {zone.label}
+                                  {zone.zoneName}
                                   <CheckIcon
                                     className={cn(
                                       'ml-auto h-4 w-4',
-                                      zone.value === field.value ? 'opacity-100' : 'opacity-0'
+                                      zone.id === field.value ? 'opacity-100' : 'opacity-0'
                                     )}
                                   />
                                 </CommandItem>
@@ -703,7 +726,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
             <div className='md:col-start-2 md:col-end-3 border-l-2 border-slate-200 dark:border-slate-800 pl-6'>
               <FormField
                 control={form.control}
-                name='urlFile'
+                name='urlFiles'
                 render={() => {
                   return (
                     <FormItem className='mt-4 md:mt-0'>
@@ -840,8 +863,6 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 type='submit'
                 className='w-full text-[14px] md:text-[14.5px]'
                 onClick={() => {
-                  // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
-                  // NOTE : hacer petición al backend para crear
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
                       toast.success('Ofrenda registrada correctamente', {
@@ -876,6 +897,6 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
           </form>
         </Form>
       </div>
-    </>
+    </div>
   );
 };

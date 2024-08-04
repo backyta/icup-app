@@ -1,6 +1,7 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 
 import { Root } from '@/Root';
+import { RedirectIfMatch } from '@/router';
 import { DashboardLayout, AuthLayout } from '@/layouts';
 
 // ?  Direct pages
@@ -113,7 +114,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <Navigate to='/404' />,
+    element: <RedirectIfMatch />,
   },
   {
     path: '/404',

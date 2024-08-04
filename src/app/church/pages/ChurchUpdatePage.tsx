@@ -12,7 +12,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
-import { cn } from '@/shared/lib/utils';
 import { CalendarIcon } from 'lucide-react';
 
 import {
@@ -29,9 +28,9 @@ import { type ChurchSearchFormByTerm, type ChurchResponse } from '@/app/church/i
 
 import { useChurchStore } from '@/stores/church';
 
+import { cn } from '@/shared/lib/utils';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-
-import { formatDateTermToTimestamp } from '@/shared/helpers';
+import { formatterDateTermToTimestamp } from '@/shared/helpers';
 
 import {
   Form,
@@ -137,7 +136,7 @@ export const ChurchUpdatePage = (): JSX.Element => {
       newDateTermTo = formData.dateTerm?.from;
     }
 
-    const newDateTerm = formatDateTermToTimestamp({
+    const newDateTerm = formatterDateTermToTimestamp({
       from: formData.dateTerm?.from,
       to: formData.dateTerm?.to ? formData.dateTerm?.to : newDateTermTo,
     });

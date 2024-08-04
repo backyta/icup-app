@@ -34,9 +34,8 @@ import { getSupervisorsByTerm } from '@/app/supervisor/services';
 
 import { useSupervisorStore } from '@/stores/supervisor';
 
-import { LoadingSpinner } from '@/layouts/components';
-
-import { formatDateDDMMYYYY } from '@/shared/helpers';
+import { LoadingSpinner } from '@/shared/components';
+import { formatterDateToDDMMYYYY } from '@/shared/helpers';
 
 import {
   Table,
@@ -218,7 +217,7 @@ export function SearchByTermSupervisorDataTable<TData, TValue>({
             )}
             {dataForm?.searchType === SupervisorSearchType.BirthDate && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.dateTerm?.from ? formatDateDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatDateDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
+                {`${dataForm?.dateTerm?.from ? formatterDateToDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${formatterDateToDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
               </span>
             )}
             {(dataForm?.searchType === SupervisorSearchType.BirthMonth ||

@@ -331,7 +331,7 @@ export const getSupervisorsByTerm = async ({
   }
 }
 
-// //* Update supervisor by ID
+//* Update supervisor by ID
 export interface UpdateSupervisorOptions {
   id: string;
   formData: SupervisorFormData;
@@ -351,7 +351,7 @@ export const updateSupervisor = async ({id, formData}: UpdateSupervisorOptions )
   }
 }
 
-// //! Delete supervisor by ID
+//! Delete supervisor by ID
 export const deleteSupervisor = async (id: string ): Promise<void> => {
   try {
     const {data} = await icupApi.delete(`/supervisors/${id}`)
