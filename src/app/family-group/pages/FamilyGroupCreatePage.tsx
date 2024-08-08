@@ -39,6 +39,7 @@ import {
   UrbanSectorNames,
 } from '@/shared/enums';
 import {
+  getFullNames,
   validateDistrictsAllowedByModule,
   validateUrbanSectorsAllowedByDistrict,
 } from '@/shared/helpers';
@@ -71,6 +72,7 @@ import { Button } from '@/shared/components/ui/button';
 import { Textarea } from '@/shared/components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
+// TODO : fijarse el stealtime si afecta donde se usa y si no mantenerlo para evitar consultas extras
 export const FamilyGroupCreatePage = (): JSX.Element => {
   //* States
   const [isInputTheirPreacherOpen, setIsInputTheirPreacherOpen] = useState<boolean>(false);
@@ -636,7 +638,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                               {zonesQuery?.data?.map((zone) => (
                                 <CommandItem
                                   className='text-[14px]'
-                                  value={zone.id}
+                                  value={zone.zoneName}
                                   key={zone.id}
                                   onSelect={() => {
                                     form.setValue('theirZone', zone?.id);
@@ -730,7 +732,10 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                                 {preachersQuery.data?.map((preacher) => (
                                   <CommandItem
                                     className='text-[14px]'
-                                    value={preacher.id}
+                                    value={getFullNames({
+                                      firstNames: preacher.firstName,
+                                      lastNames: preacher.lastName,
+                                    })}
                                     key={preacher.id}
                                     onSelect={() => {
                                       form.setValue('theirPreacher', preacher.id);
@@ -795,55 +800,6 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
             </div>
           </form>
         </Form>
-
-        {/* Zone, create, update, delete */}
-        {/* <div className='max-w-[90%] w-full flex flex-col gap-6'>
-          <hr className='md:p-[0.02rem] bg-slate-500 w-full' />
-
-          <div className='flex flex-col gap-4 xl:grid xl:grid-cols-3 justify-center items-center'>
-            <div className='w-full flex flex-col md:grid md:grid-cols-2 xl:flex gap-2 items-center lg:mx-auto lg:w-[90%]'>
-              <div className='text-center'>
-                <h1 className='text-center font-bold text-green-500 text-[22px] sm:text-[1.3rem] md:text-[1.5rem] lg:text-[1.6rem] xl:text-[1.6rem] 2xl:text-[1.7rem]'>
-                  Crear
-                </h1>
-                <p className='font-bold text-[13px] md:text-[14px]'>
-                  Crear el registro de una nueva zona.
-                </p>
-              </div>
-              <div className='mx-auto w-[70%] md:w-[60%]'>
-                <ZoneCreateCard formFamilyHouse={form} isDisabled={isZoneButtonsDisabled} />
-              </div>
-            </div>
-
-            <div className='w-full flex flex-col md:grid md:grid-cols-2 xl:flex gap-2 items-center lg:m-auto lg:w-[90%]'>
-              <div className='text-center'>
-                <h1 className='text-center font-bold text-orange-500 text-[22px] sm:text-[1.3rem] md:text-[1.5rem] lg:text-[1.6rem] xl:text-[1.6rem] 2xl:text-[1.7rem]'>
-                  Actualizar
-                </h1>
-                <p className='font-bold text-[13px] md:text-[14px]'>
-                  Modificar los datos del registro de una zona.
-                </p>
-              </div>
-              <div className='mx-auto w-[70%] md:w-[60%]'>
-                <ZoneUpdateCard formFamilyHouse={form} isDisabled={isZoneButtonsDisabled} />
-              </div>
-            </div>
-
-            <div className='w-full flex flex-col md:grid md:grid-cols-2 xl:flex  gap-2 items-center lg:m-auto lg:w-[90%]'>
-              <div className='text-center'>
-                <h1 className='text-center font-bold text-red-500 text-[22px] sm:text-[1.3rem] md:text-[1.5rem] lg:text-[1.6rem] xl:text-[1.6rem] 2xl:text-[1.7rem]'>
-                  Eliminar
-                </h1>
-                <p className='font-bold text-[13px] md:text-[14px]'>
-                  Eliminar el registro de una zona.
-                </p>
-              </div>
-              <div className='mx-auto w-[70%] md:w-[60%]'>
-                <ZoneDeleteCard formFamilyHouse={form} isDisabled={isZoneButtonsDisabled} />
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );

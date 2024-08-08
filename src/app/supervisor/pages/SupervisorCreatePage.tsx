@@ -40,6 +40,7 @@ import {
   MaritalStatusNames,
 } from '@/shared/enums';
 import {
+  getFullNames,
   validateDistrictsAllowedByModule,
   validateUrbanSectorsAllowedByDistrict,
 } from '@/shared/helpers';
@@ -985,7 +986,10 @@ export const SupervisorCreatePage = (): JSX.Element => {
                                 {queryCopastors.data?.map((copastor) => (
                                   <CommandItem
                                     className='text-[14px]'
-                                    value={copastor.id}
+                                    value={getFullNames({
+                                      firstNames: copastor.firstName,
+                                      lastNames: copastor.lastName,
+                                    })}
                                     key={copastor.id}
                                     onSelect={() => {
                                       form.setValue('theirCopastor', copastor.id);

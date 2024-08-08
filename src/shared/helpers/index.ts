@@ -1,6 +1,6 @@
 export * from './districts-allowed-by-module.helper';
 export * from './formatter-date-to-timestamp.helper';
-export * from './get-full-name.helper';
+export * from './get-full-names.helper';
 export * from './search-allowed-sub-types-by-module.helper';
 export * from './search-types-allowed-by-module.helper';
 export * from './urban-sectors-allowed-by-district.helper';
@@ -12,3 +12,4 @@ export * from './validate-urban-sectors-allowed-by-district.helper';
 export * from './formatter-names.helper';
 export * from './formatter-date-to-ddmmyyyy.helper';
 export * from './formatter-array-roles-to-string.helper';
+export * from './get-code-and-name-family-group.helper';

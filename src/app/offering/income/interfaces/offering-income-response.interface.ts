@@ -24,10 +24,3 @@ export interface OfferingIncomeResponse {
   theirZone?:         TheirZone | null; 
   theirDisciple?:     TheirDisciple | null; 
 }
-
-
-
-
-
-
-

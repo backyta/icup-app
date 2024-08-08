@@ -866,7 +866,7 @@ export const PastorCreatePage = (): JSX.Element => {
                               {data?.map((church) => (
                                 <CommandItem
                                   className='text-[14px]'
-                                  value={church.id}
+                                  value={church.churchName}
                                   key={church.id}
                                   onSelect={() => {
                                     form.setValue('theirChurch', church.id);

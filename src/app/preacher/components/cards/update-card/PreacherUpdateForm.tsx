@@ -42,6 +42,7 @@ import { getAllSupervisors, updatePreacher } from '@/app/preacher/services';
 import { useRoleValidationByPath } from '@/hooks';
 
 import {
+  getFullNames,
   validateDistrictsAllowedByModule,
   validateUrbanSectorsAllowedByDistrict,
 } from '@/shared/helpers';
@@ -1105,7 +1106,10 @@ export const PreacherUpdateForm = ({
                                         {querySupervisors?.data?.map((supervisor) => (
                                           <CommandItem
                                             className='text-[14px]'
-                                            value={supervisor.id}
+                                            value={getFullNames({
+                                              firstNames: supervisor.firstName,
+                                              lastNames: supervisor.lastName,
+                                            })}
                                             key={supervisor.id}
                                             onSelect={() => {
                                               form.setValue('theirSupervisor', supervisor.id);
@@ -1209,7 +1213,10 @@ export const PreacherUpdateForm = ({
                                           {queryCopastors?.data?.map((copastor) => (
                                             <CommandItem
                                               className='text-[14px]'
-                                              value={copastor.id}
+                                              value={getFullNames({
+                                                firstNames: copastor.firstName,
+                                                lastNames: copastor.lastName,
+                                              })}
                                               key={copastor.id}
                                               onSelect={() => {
                                                 form.setValue('theirCopastor', copastor.id);
@@ -1284,7 +1291,10 @@ export const PreacherUpdateForm = ({
                                         {queryPastors?.data?.map((pastor) => (
                                           <CommandItem
                                             className='text-[14px]'
-                                            value={pastor.id}
+                                            value={getFullNames({
+                                              firstNames: pastor.firstName,
+                                              lastNames: pastor.lastName,
+                                            })}
                                             key={pastor.id}
                                             onSelect={() => {
                                               form.setValue('theirPastor', pastor.id);

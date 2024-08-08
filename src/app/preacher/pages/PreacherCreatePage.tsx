@@ -39,6 +39,7 @@ import {
   UrbanSectorNames,
 } from '@/shared/enums';
 import {
+  getFullNames,
   validateDistrictsAllowedByModule,
   validateUrbanSectorsAllowedByDistrict,
 } from '@/shared/helpers';
@@ -867,7 +868,10 @@ export const PreacherCreatePage = (): JSX.Element => {
                               {querySupervisors.data?.map((supervisor) => (
                                 <CommandItem
                                   className='text-[14px]'
-                                  value={supervisor.id}
+                                  value={getFullNames({
+                                    firstNames: supervisor.firstName,
+                                    lastNames: supervisor.lastName,
+                                  })}
                                   key={supervisor.id}
                                   onSelect={() => {
                                     form.setValue('theirSupervisor', supervisor.id);

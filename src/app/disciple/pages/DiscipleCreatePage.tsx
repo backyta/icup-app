@@ -38,6 +38,7 @@ import {
   Province,
 } from '@/shared/enums';
 import {
+  getCodeAndNameFamilyGroup,
   validateDistrictsAllowedByModule,
   validateUrbanSectorsAllowedByDistrict,
 } from '@/shared/helpers';
@@ -847,7 +848,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                               )}
                             >
                               {field.value
-                                ? `${data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupName}`
+                                ? `${data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupName} - ${data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupCode}`
                                 : 'Busque y seleccione un grupo familiar'}
                               <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                             </Button>
@@ -864,14 +865,17 @@ export const DiscipleCreatePage = (): JSX.Element => {
                               {data?.map((familyGroup) => (
                                 <CommandItem
                                   className='text-[14px]'
-                                  value={familyGroup.id}
+                                  value={getCodeAndNameFamilyGroup({
+                                    code: familyGroup.familyGroupCode,
+                                    name: familyGroup.familyGroupName,
+                                  })}
                                   key={familyGroup.id}
                                   onSelect={() => {
                                     form.setValue('theirFamilyGroup', familyGroup?.id);
                                     setIsInputTheirFamilyGroupOpen(false);
                                   }}
                                 >
-                                  {`${familyGroup?.familyGroupName}`}
+                                  {`${familyGroup?.familyGroupName} - ${familyGroup?.familyGroupCode}`}
                                   <CheckIcon
                                     className={cn(
                                       'ml-auto h-4 w-4',

@@ -995,7 +995,7 @@ export const PastorUpdateForm = ({
                                       {query?.data?.map((church) => (
                                         <CommandItem
                                           className='text-[14px]'
-                                          value={church.id}
+                                          value={church.churchName}
                                           key={church.id}
                                           onSelect={() => {
                                             form.setValue('theirChurch', church.id);

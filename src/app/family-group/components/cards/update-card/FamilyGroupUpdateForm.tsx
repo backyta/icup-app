@@ -35,6 +35,7 @@ import {
   UrbanSectorNames,
 } from '@/shared/enums';
 import {
+  getFullNames,
   validateDistrictsAllowedByModule,
   validateUrbanSectorsAllowedByDistrict,
 } from '@/shared/helpers';
@@ -177,7 +178,7 @@ export const FamilyGroupUpdateForm = ({
   //* QueryClient
   const queryClient = useQueryClient();
 
-  // TODO : no debería eliminarse el grupo familiar porque afecta la relación con si ofrenda
+  // TODO : no debería eliminarse el grupo familiar porque afecta la relación con si ofrenda (falso revisar)
   // TODO : el id de casa se mantiene lo que cambia son sus su zona o supervisor o predicador, código o numero
   // TODO : si se cambia de predicadores normal porque se mantiene su identificador,
   // TODO : si se cambia de supervisor la zona de las casas tmb cambia su código pero su id sigue igual (revisar)
@@ -644,7 +645,7 @@ export const FamilyGroupUpdateForm = ({
                                     {zonesQuery?.data?.map((zone) => (
                                       <CommandItem
                                         className='text-[14px]'
-                                        value={zone.id}
+                                        value={zone.zoneName}
                                         key={zone.id}
                                         onSelect={() => {
                                           form.setValue('theirZone', zone?.id);
@@ -729,7 +730,10 @@ export const FamilyGroupUpdateForm = ({
                                       {preachersQuery.data?.map((preacher) => (
                                         <CommandItem
                                           className='text-[14px]'
-                                          value={preacher.id}
+                                          value={getFullNames({
+                                            firstNames: preacher.firstName,
+                                            lastNames: preacher.lastName,
+                                          })}
                                           key={preacher.id}
                                           onSelect={() => {
                                             form.setValue('theirPreacher', preacher.id);

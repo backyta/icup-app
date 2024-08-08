@@ -59,6 +59,8 @@ export const getChurches = async ({limit, offset, all, order}: ChurchQueryParams
         },
       });
       
+      console.log(data);
+      
       result = data;
     }else {
       const {data} = await icupApi<ChurchResponse[]>('/churches' , {
@@ -170,6 +172,9 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
             'search-type': searchType
           },
         });
+
+        console.log(data);
+        
         
         result = data;
       }else {

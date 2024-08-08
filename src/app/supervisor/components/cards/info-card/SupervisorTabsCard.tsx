@@ -2,11 +2,11 @@
 
 import { useEffect } from 'react';
 
-import { format } from 'date-fns';
+import { format, addDays } from 'date-fns';
 
 import { type SupervisorResponse } from '@/app/supervisor/interfaces';
 
-import { getFullName } from '@/shared/helpers';
+import { getInitialFullNames } from '@/shared/helpers';
 import { PopoverDataCardTabs } from '@/shared/components';
 
 import {
@@ -99,7 +99,9 @@ export const SupervisorTabsCard = ({ data, id }: SupervisorTabsCardProps): JSX.E
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Fecha de Nacimiento</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.birthDate ? format(new Date(data?.birthDate), 'dd/MM/yyyy') : '-'}
+                {data?.birthDate
+                  ? format(new Date(addDays(data?.birthDate, 1)), 'dd/MM/yyyy')
+                  : '-'}
               </CardDescription>
             </div>
             <div className='space-y-1'>
@@ -117,7 +119,9 @@ export const SupervisorTabsCard = ({ data, id }: SupervisorTabsCardProps): JSX.E
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Fecha de Conversion</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.conversionDate ? format(new Date(data?.conversionDate), 'dd/MM/yyyy') : '-'}
+                {data?.conversionDate
+                  ? format(new Date(addDays(data?.conversionDate, 1)), 'dd/MM/yyyy')
+                  : '-'}
               </CardDescription>
             </div>
 
@@ -195,7 +199,7 @@ export const SupervisorTabsCard = ({ data, id }: SupervisorTabsCardProps): JSX.E
               <Label className='text-[14px] md:text-[15px]'>Creado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdBy
-                  ? getFullName({
+                  ? getInitialFullNames({
                       firstNames: data?.createdBy?.firstName ?? '-',
                       lastNames: data?.createdBy?.lastName ?? '-',
                     })
@@ -214,7 +218,7 @@ export const SupervisorTabsCard = ({ data, id }: SupervisorTabsCardProps): JSX.E
               <Label className='text-[14px] md:text-[15px]'>Actualizado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
-                  ? getFullName({
+                  ? getInitialFullNames({
                       firstNames: data?.updatedBy?.firstName ?? '-',
                       lastNames: data?.updatedBy?.lastName ?? '-',
                     })

@@ -13,6 +13,24 @@ import { type OfferingIncomeQueryParams, type OfferingIncomeFormData, type Offer
 //* Create offering income
 export const createOfferingIncome = async (formData:OfferingIncomeFormData ): Promise<OfferingIncomeResponse> => {
   try {
+    console.log(formData);
+    
+    const {data} = await icupApi.post<OfferingIncomeResponse>('/offerings-income', formData)
+    
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw (error.response.data)
+    }
+    
+    throw new Error('Ocurrió un error inesperado')
+  }
+}
+
+export const uploadImages = async (formData:OfferingIncomeFormData ): Promise<OfferingIncomeResponse> => {
+  try {
+    console.log(formData);
+    
     const {data} = await icupApi.post<OfferingIncomeResponse>('/offerings-income', formData)
     
     return data;
@@ -34,7 +52,7 @@ export const getAllDisciples = async (): Promise<DiscipleResponse[]> => {
       },
     }
     );
-  
+    
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {

@@ -39,6 +39,7 @@ import {
   Province,
 } from '@/shared/enums';
 import {
+  getFullNames,
   validateDistrictsAllowedByModule,
   validateUrbanSectorsAllowedByDistrict,
 } from '@/shared/helpers';
@@ -867,7 +868,10 @@ export const CopastorCreatePage = (): JSX.Element => {
                               {data?.map((pastor) => (
                                 <CommandItem
                                   className='text-[14px]'
-                                  value={pastor.id}
+                                  value={getFullNames({
+                                    firstNames: pastor.firstName,
+                                    lastNames: pastor.lastName,
+                                  })}
                                   key={pastor.id}
                                   onSelect={() => {
                                     form.setValue('theirPastor', pastor.id);

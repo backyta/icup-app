@@ -1,28 +1,32 @@
-import { type CurrencyType } from '@/app/offering/shared/enums';
-
 export interface OfferingIncomeFormData {
-  searchType: string,
-  searchSubType?: string | undefined,
+  type: string,
+  subType?: string | undefined,
+  shift?: string | undefined,
   amount: string,
   date: Date;
-  currency: string | CurrencyType,
+  currency: string,
   comments?: string | undefined,
-  urlFile?: string[] | undefined,
-  familyHouseID?: string | undefined,
-  memberID?: string | undefined,
-  zoneID?: string | undefined,
-  status?: string | undefined,
+  urlFiles?: string[] | undefined,
+  imageUrls?: string[] | undefined,
+  memberType?: string | undefined,
+  familyGroupId?: string | undefined,
+  memberId?: string | undefined,
+  zoneId?: string | undefined,
+  recordStatus?: string | undefined,
 }
 
 export type OfferingIncomeFormDataKeys =
   | 'searchType'
   | 'searchSubType'
+  | 'memberType'
   | 'amount'
+  | 'shift'
   | 'currency'
   | 'comments'
-  | 'urlFile'
-  | 'familyHouseID'
-  | 'memberID'
-  | 'zoneID'
-  | 'status'
+  | 'urlFiles'
+  | 'imageUrls'
+  | 'familyGroupId'
+  | 'memberId'
+  | 'zoneId'
+  | 'recordStatus'
 

@@ -10,7 +10,7 @@ import {
   type FamilyGroup,
   type Disciple,
 } from '@/shared/interfaces';
-import { getFullName } from '@/shared/helpers';
+import { getInitialFullNames } from '@/shared/helpers';
 
 import { Button } from '@/shared/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
@@ -71,7 +71,7 @@ export const PopoverDataCardTabs = ({
                 <div key={element?.id}>
                   <li>
                     <span className='mr-2' key={element?.id}>
-                      {getFullName({
+                      {getInitialFullNames({
                         firstNames: element?.[firstValue],
                         lastNames: element?.[secondValue],
                       })}

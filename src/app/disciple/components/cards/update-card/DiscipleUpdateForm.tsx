@@ -50,6 +50,8 @@ import {
   UrbanSectorNames,
 } from '@/shared/enums';
 import {
+  getCodeAndNameFamilyGroup,
+  getFullNames,
   validateDistrictsAllowedByModule,
   validateUrbanSectorsAllowedByDistrict,
 } from '@/shared/helpers';
@@ -1056,7 +1058,10 @@ export const DiscipleUpdateForm = ({
                                         {queryFamilyGroups?.data?.map((familyGroup) => (
                                           <CommandItem
                                             className='text-[14px]'
-                                            value={familyGroup.id}
+                                            value={getCodeAndNameFamilyGroup({
+                                              code: familyGroup.familyGroupCode,
+                                              name: familyGroup.familyGroupName,
+                                            })}
                                             key={familyGroup.id}
                                             onSelect={() => {
                                               form.setValue('theirFamilyGroup', familyGroup?.id);
@@ -1131,7 +1136,10 @@ export const DiscipleUpdateForm = ({
                                         {querySupervisors?.data?.map((supervisor) => (
                                           <CommandItem
                                             className='text-[14px]'
-                                            value={supervisor.id}
+                                            value={getFullNames({
+                                              firstNames: supervisor.firstName,
+                                              lastNames: supervisor.lastName,
+                                            })}
                                             key={supervisor.id}
                                             onSelect={() => {
                                               form.setValue('theirSupervisor', supervisor.id);

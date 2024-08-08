@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/await-thenable */
+/* eslint-disable @typescript-eslint/no-confusing-void-expression */
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type * as z from 'zod';
-import { Toaster, toast } from 'sonner';
+import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -16,26 +19,36 @@ import { TiDeleteOutline } from 'react-icons/ti';
 
 import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { CurrencyTypeNames } from '@/app/offering/shared/enums';
-import { type FilesProps, type RejectedProps } from '@/app/offering/shared/interfaces';
-
 import {
-  OfferingIncomeCreateSubType,
-  OfferingIncomeCreateSubTypeNames,
+  MemberType,
+  MemberTypeNames,
   OfferingIncomeCreateType,
+  OfferingIncomeCreateSubType,
+  OfferingIncomeShiftTypeNames,
   OfferingIncomeCreateTypeNames,
-  TypeShiftOfferingIncomeNames,
+  OfferingIncomeCreateSubTypeNames,
 } from '@/app/offering/income/enums';
+import {
+  useFileDropZone,
+  useMemberQueries,
+  useOfferingIncomeCreateSubmitButtonLogic,
+  useOfferingIncomeMutation,
+} from '@/app/offering/income/hooks';
 import { offeringIncomeFormSchema } from '@/app/offering/income/validations';
-import { useOfferingIncomeSubmitButtonLogic } from '@/app/offering/income/hooks';
+
+import { type FilesProps, type RejectedProps } from '@/app/offering/shared/interfaces';
+import { CurrencyTypeNames } from '@/app/offering/shared/enums';
+import { useUploadImagesMutation } from '@/app/offering/shared/hooks';
+
+import { type PreacherResponse } from '@/app/preacher/interfaces';
+import { type DiscipleResponse } from '@/app/disciple/interfaces';
+import { type SupervisorResponse } from '@/app/supervisor/interfaces';
+import { type CopastorResponse } from '@/app/copastor/interfaces';
+import { type PastorResponse } from '@/app/pastor/interfaces';
 
 import { cn } from '@/shared/lib/utils';
+import { getCodeAndNameFamilyGroup, getFullNames } from '@/shared/helpers';
 
-import { Input } from '@/shared/components/ui/input';
-import { Button } from '@/shared/components/ui/button';
-import { Calendar } from '@/shared/components/ui/calendar';
-import { Textarea } from '@/shared/components/ui/textarea';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import {
   Form,
   FormControl,
@@ -59,17 +72,25 @@ import {
   SelectItem,
   Select,
 } from '@/shared/components/ui/select';
-import { useQuery } from '@tanstack/react-query';
-import { getAllFamilyGroups } from '@/app/disciple/services';
-import { getAllZones } from '@/app/family-group/services';
-import { getAllDisciples } from '../services';
-import { LoadingSpinner } from '@/shared/components';
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Calendar } from '@/shared/components/ui/calendar';
+import { Textarea } from '@/shared/components/ui/textarea';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
-// TODO : Hacer los typos y sub tipos de busqueda y el boton de regitro hook. tratar de dejar todo listo para conectar con el back
+type QueryDataResponse =
+  | DiscipleResponse[]
+  | PreacherResponse[]
+  | SupervisorResponse[]
+  | CopastorResponse[]
+  | PastorResponse[];
+
 export const OfferingIncomeCreatePage = (): JSX.Element => {
   //* States
   const [isInputRelationOpen, setIsInputRelationOpen] = useState<boolean>(false);
   const [isInputDateOpen, setIsInputDateOpen] = useState<boolean>(false);
+
+  const [queryData, setQueryData] = useState<QueryDataResponse>();
 
   const [files, setFiles] = useState<FilesProps[]>([]);
   const [rejected, setRejected] = useState<RejectedProps[]>([]);
@@ -82,106 +103,39 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
 
+  const [isInputMemberDisabled, setIsInputMemberDisabled] = useState<boolean>(true);
+  const [isInputMemberOpen, setIsInputMemberOpen] = useState<boolean>(false);
+
   //* Form
   const form = useForm<z.infer<typeof offeringIncomeFormSchema>>({
     mode: 'onChange',
     resolver: zodResolver(offeringIncomeFormSchema),
     defaultValues: {
-      searchType: '',
-      searchSubType: '',
+      type: '',
+      subType: '',
+      memberType: '',
+      shift: '',
       amount: '',
       date: undefined,
       currency: '',
       comments: '',
-      urlFiles: [],
-      theirFamilyGroup: '',
-      theirDisciple: '',
-      theirZone: '',
+      fileNames: [],
+      familyGroupId: '',
+      memberId: '',
+      zoneId: '',
     },
   });
 
   //* Watchers
-  const searchType = form.watch('searchType');
-  const searchSubType = form.watch('searchSubType');
-  const urlFiles = form.watch('urlFiles');
-
-  //* DropZone functions
-  const onDrop = useCallback(
-    (acceptedFiles: any[], rejectedFiles: any[]) => {
-      if (acceptedFiles?.length) {
-        const mappedFiles = acceptedFiles.map((file) =>
-          Object.assign(file, { preview: URL.createObjectURL(file) })
-        );
-
-        // Verifica si ya existe un archivo con el mismo nombre
-        mappedFiles.forEach((newFile) => {
-          const existingFileIndex = files.findIndex(
-            (existingFile) => existingFile.name === newFile.name
-          );
-
-          if (existingFileIndex !== -1) {
-            setFiles((previousFiles) => [...previousFiles]);
-          } else {
-            setFiles((previousFiles) => [...previousFiles, newFile]);
-          }
-        });
-
-        const allFileNames = [
-          ...files.map((file) => file.name),
-          ...mappedFiles.map((file) => file.name),
-        ];
-
-        form.setValue('urlFiles', allFileNames); // Actualiza el campo de formulario con las URLs de los archivos
-      }
-
-      if (rejectedFiles?.length) {
-        setRejected((previousFiles) => [...previousFiles, ...rejectedFiles]);
-      }
-    },
-    [form, files, setFiles]
-  );
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: {
-      'image/*': [],
-    },
-    maxSize: 1024 * 1000,
-    onDrop,
-    disabled: isDropZoneDisabled,
-  });
-
-  useEffect(() => {
-    // Revoke the data uris to avoid memory leaks
-    return () => {
-      files.forEach((file) => {
-        URL.revokeObjectURL(file.preview);
-      });
-    };
-  }, [files]);
-
-  useEffect(() => {
-    const allFileNames = [...files.map((file) => file.name)];
-    form.setValue('urlFiles', allFileNames);
-  }, [files]);
-
-  const removeFile = (name: any): void => {
-    setFiles((files) => files.filter((file) => file.name !== name));
-  };
-
-  const removeAll = (): void => {
-    setFiles([]);
-    setRejected([]);
-  };
-
-  const removeRejected = (name: any): void => {
-    setRejected((files) => files.filter(({ file }) => file.name !== name));
-  };
+  const searchType = form.watch('type');
+  const searchSubType = form.watch('subType');
+  const memberType = form.watch('memberType');
 
   //* Custom hooks
-  useOfferingIncomeSubmitButtonLogic({
-    formOfferingIncome: form,
-    typesOfferingIncome: OfferingIncomeCreateType,
-    subTypesOffering: OfferingIncomeCreateSubType,
+  useOfferingIncomeCreateSubmitButtonLogic({
+    offeringIncomeCreateForm: form,
+    offeringIncomeTypes: OfferingIncomeCreateType,
+    offeringIncomeSubTypes: OfferingIncomeCreateSubType,
     isInputDisabled,
     isDropZoneDisabled,
     isFileButtonDisabled,
@@ -190,30 +144,103 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
     setIsDropZoneDisabled,
   });
 
-  //* Querys
-  const disciplesQuery = useQuery({
-    queryKey: ['disciples'],
-    queryFn: getAllDisciples,
-    staleTime: 5 * 60 * 1000,
+  const {
+    pastorsQuery,
+    copastorsQuery,
+    supervisorsQuery,
+    preachersQuery,
+    disciplesQuery,
+    zonesQuery,
+    familyGroupsQuery,
+  } = useMemberQueries(memberType);
+
+  const { onDrop, removeAll, removeFile, removeRejected } = useFileDropZone({
+    offeringIncomeCreateForm: form,
+    files,
+    setFiles,
+    setRejected,
   });
 
-  const familyGroupsQuery = useQuery({
-    queryKey: ['family-groups'],
-    queryFn: getAllFamilyGroups,
-    staleTime: 5 * 60 * 1000,
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: {
+      'image/*': [],
+    },
+    maxSize: 1024 * 1000, // 1KB
+    onDrop,
+    disabled: isDropZoneDisabled,
   });
 
-  const zonesQuery = useQuery({
-    queryKey: ['zones'],
-    queryFn: getAllZones,
-    staleTime: 5 * 60 * 1000,
+  const offeringIncomeMutation = useOfferingIncomeMutation({
+    offeringIncomeCreateForm: form,
+    setFiles,
+    setIsInputDisabled,
+    setIsSubmitButtonDisabled,
   });
 
-  if (disciplesQuery?.isLoading) return <LoadingSpinner />;
+  const uploadImagesMutation = useUploadImagesMutation();
+
+  //* Effects
+  useEffect(() => {
+    if (memberType === MemberType.Disciple) {
+      setQueryData(disciplesQuery.data);
+    }
+    if (memberType === MemberType.Preacher) {
+      setQueryData(preachersQuery.data);
+    }
+    if (memberType === MemberType.Supervisor) {
+      setQueryData(supervisorsQuery.data);
+    }
+    if (memberType === MemberType.Copastor) {
+      setQueryData(copastorsQuery.data);
+    }
+    if (memberType === MemberType.Pastor) {
+      setQueryData(pastorsQuery.data);
+    }
+  }, [pastorsQuery, copastorsQuery, supervisorsQuery, preachersQuery, disciplesQuery]);
+
+  useEffect(() => {
+    if (memberType) {
+      setIsInputMemberDisabled(false);
+    }
+    if (!memberType) {
+      setIsInputMemberDisabled(true);
+    }
+    form.resetField('memberId', {
+      keepError: true,
+    });
+  }, [memberType]);
 
   //* Form handler
-  const handleSubmit = (values: z.infer<typeof offeringIncomeFormSchema>): void => {
-    console.log({ values });
+  const handleSubmit = async (
+    formData: z.infer<typeof offeringIncomeFormSchema>
+  ): Promise<void> => {
+    try {
+      const uploadResult = await uploadImagesMutation.mutateAsync({
+        files: files as any,
+        action: 'income',
+        type: formData.type,
+        subType: formData.subType,
+      });
+      const imageUrls = uploadResult.imageUrls;
+
+      await offeringIncomeMutation.mutateAsync({
+        type: formData.type,
+        subType: formData.subType,
+        shift: formData.shift,
+        amount: formData.amount,
+        currency: formData.currency,
+        date: formData.date,
+        comments: formData.comments,
+        memberType: formData.memberType,
+        memberId: formData.memberId,
+        familyGroupId: formData.familyGroupId,
+        zoneId: formData.zoneId,
+        recordStatus: formData.recordStatus,
+        imageUrls: imageUrls as any,
+      });
+    } catch (error) {
+      console.error('Error al enviar el formulario:', error);
+    }
   };
 
   return (
@@ -240,7 +267,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
             <div className='md:col-start-1 md:col-end-2'>
               <FormField
                 control={form.control}
-                name='searchType'
+                name='type'
                 render={({ field }) => {
                   return (
                     <FormItem>
@@ -279,7 +306,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
               {searchType === OfferingIncomeCreateType.Offering && (
                 <FormField
                   control={form.control}
-                  name='searchSubType'
+                  name='subType'
                   render={({ field }) => {
                     return (
                       <FormItem className='mt-4'>
@@ -319,6 +346,282 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   }}
                 />
               )}
+
+              {((searchType === OfferingIncomeCreateType.Offering &&
+                searchSubType === OfferingIncomeCreateSubType.Special) ||
+                (searchType === OfferingIncomeCreateType.Offering &&
+                  searchSubType === OfferingIncomeCreateSubType.ChurchGround)) && (
+                <FormField
+                  control={form.control}
+                  name='memberType'
+                  render={({ field }) => {
+                    return (
+                      <FormItem className='mt-3'>
+                        <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                          Tipo de Miembro
+                        </FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          value={field.value}
+                          disabled={isInputDisabled}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              {field.value ? (
+                                <SelectValue placeholder='Selecciona el tipo de miembro' />
+                              ) : (
+                                'Selecciona el tipo de miembro'
+                              )}
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {Object.entries(MemberTypeNames).map(([key, value]) => (
+                              <SelectItem className={`text-[14px]`} key={key} value={key}>
+                                {value}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+              )}
+
+              {((searchType === OfferingIncomeCreateType.Offering &&
+                searchSubType === OfferingIncomeCreateSubType.Special) ||
+                (searchType === OfferingIncomeCreateType.Offering &&
+                  searchSubType === OfferingIncomeCreateSubType.ChurchGround)) && (
+                <FormField
+                  control={form.control}
+                  name='memberId'
+                  render={({ field }) => (
+                    <FormItem className='flex flex-col mt-4'>
+                      <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                        Miembro
+                      </FormLabel>
+                      <FormDescription className='text-[14px]'>
+                        Seleccione un miembro para asignarlo al registro.
+                      </FormDescription>
+                      {disciplesQuery?.isFetching ||
+                      preachersQuery?.isFetching ||
+                      supervisorsQuery?.isFetching ||
+                      copastorsQuery?.isFetching ||
+                      pastorsQuery?.isFetching ? (
+                        <div className='pt-2 font-black text-[16px] text-center dark:text-gray-300 text-gray-500'>
+                          <span>Cargando información...</span>
+                        </div>
+                      ) : (
+                        <Popover open={isInputMemberOpen} onOpenChange={setIsInputMemberOpen}>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                disabled={isInputMemberDisabled}
+                                variant='outline'
+                                role='combobox'
+                                className={cn(
+                                  'w-full justify-between ',
+                                  !field.value && 'font-normal',
+                                  isInputMemberDisabled &&
+                                    'dark:bg-gray-100  dark:text-black bg-gray-200'
+                                )}
+                              >
+                                {field.value
+                                  ? `${queryData?.find((member) => member.id === field.value)?.firstName} ${queryData?.find((member) => member.id === field.value)?.lastName}`
+                                  : 'Busque y seleccione un miembro'}
+                                <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent align='center' className='w-auto px-4 py-2'>
+                            <Command>
+                              <CommandInput
+                                placeholder='Busque un miembro...'
+                                className='h-9 text-[14px]'
+                              />
+                              <CommandEmpty>Miembro no encontrado.</CommandEmpty>
+                              <CommandGroup className='max-h-[200px] h-auto'>
+                                {queryData?.map((member) => (
+                                  <CommandItem
+                                    className='text-[14px]'
+                                    value={getFullNames({
+                                      firstNames: member.firstName,
+                                      lastNames: member.lastName,
+                                    })}
+                                    key={member.id}
+                                    onSelect={() => {
+                                      form.setValue('memberId', member.id);
+                                      setIsInputMemberOpen(false);
+                                    }}
+                                  >
+                                    {`${member?.firstName} ${member?.lastName}`}
+                                    <CheckIcon
+                                      className={cn(
+                                        'ml-auto h-4 w-4',
+                                        member.id === field.value ? 'opacity-100' : 'opacity-0'
+                                      )}
+                                    />
+                                  </CommandItem>
+                                )) ?? (
+                                  <p className='text-[14.5px] text-red-500 text-center'>
+                                    ❌ No se encontró miembros disponibles.
+                                  </p>
+                                )}
+                              </CommandGroup>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+                      )}
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+
+              {searchType === OfferingIncomeCreateType.Offering &&
+                searchSubType === OfferingIncomeCreateSubType.FamilyGroup && (
+                  <FormField
+                    control={form.control}
+                    name='familyGroupId'
+                    render={({ field }) => (
+                      <FormItem className='flex flex-col mt-4'>
+                        <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                          Grupo Familiar
+                        </FormLabel>
+                        <FormDescription className='text-[14px]'>
+                          Seleccione un grupo familiar para asignarlo al registro.
+                        </FormDescription>
+                        <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                disabled={isInputDisabled}
+                                variant='outline'
+                                role='combobox'
+                                className={cn(
+                                  'w-full justify-between',
+                                  !field.value && 'text-slate-500 font-normal'
+                                )}
+                              >
+                                {field.value
+                                  ? `${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupName} - ${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupCode}`
+                                  : 'Busque y seleccione un grupo familiar'}
+                                <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent align='center' className='w-auto px-4 py-2'>
+                            <Command>
+                              <CommandInput
+                                placeholder='Busque un grupo familiar...'
+                                className='h-9 text-[14px]'
+                              />
+                              <CommandEmpty>Grupo familiar no encontrado.</CommandEmpty>
+                              <CommandGroup className='max-h-[200px] h-auto'>
+                                {familyGroupsQuery?.data?.map((familyGroup) => (
+                                  <CommandItem
+                                    className='text-[14px]'
+                                    value={getCodeAndNameFamilyGroup({
+                                      code: familyGroup.familyGroupCode,
+                                      name: familyGroup.familyGroupName,
+                                    })}
+                                    key={familyGroup.id}
+                                    onSelect={() => {
+                                      form.setValue('familyGroupId', familyGroup.id);
+                                      setIsInputRelationOpen(false);
+                                    }}
+                                  >
+                                    {`${familyGroup?.familyGroupName} ${familyGroup?.familyGroupCode}`}
+                                    <CheckIcon
+                                      className={cn(
+                                        'ml-auto h-4 w-4',
+                                        familyGroup.id === field.value ? 'opacity-100' : 'opacity-0'
+                                      )}
+                                    />
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
+
+              {((searchType === OfferingIncomeCreateType.Offering &&
+                searchSubType === OfferingIncomeCreateSubType.ZonalFasting) ||
+                (searchType === OfferingIncomeCreateType.Offering &&
+                  searchSubType === OfferingIncomeCreateSubType.ZonalVigil)) && (
+                <FormField
+                  control={form.control}
+                  name='zoneId'
+                  render={({ field }) => (
+                    <FormItem className='flex flex-col mt-4'>
+                      <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Zona</FormLabel>
+                      <FormDescription className='text-[14px]'>
+                        Selecciones una zona para asignarlo al registro.
+                      </FormDescription>
+                      <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              disabled={isInputDisabled}
+                              variant='outline'
+                              role='combobox'
+                              className={cn(
+                                'w-full justify-between',
+                                !field.value && 'text-slate-500 font-normal'
+                              )}
+                            >
+                              {field.value
+                                ? zonesQuery?.data?.find((zone) => zone.id === field.value)
+                                    ?.zoneName
+                                : 'Busque y seleccione una zona'}
+                              <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent align='center' className='w-auto px-4 py-2'>
+                          <Command>
+                            <CommandInput
+                              placeholder='Busque una zona...'
+                              className='h-9 text-[14px]'
+                            />
+                            <CommandEmpty>Zona no encontrada.</CommandEmpty>
+                            <CommandGroup className='max-h-[200px] h-auto'>
+                              {zonesQuery?.data?.map((zone) => (
+                                <CommandItem
+                                  className='text-[14px]'
+                                  value={zone.zoneName}
+                                  key={zone.id}
+                                  onSelect={() => {
+                                    form.setValue('zoneId', zone.id);
+                                    setIsInputRelationOpen(false);
+                                  }}
+                                >
+                                  {zone.zoneName}
+                                  <CheckIcon
+                                    className={cn(
+                                      'ml-auto h-4 w-4',
+                                      zone.id === field.value ? 'opacity-100' : 'opacity-0'
+                                    )}
+                                  />
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+
               {(searchSubType === OfferingIncomeCreateSubType.SundayWorship ||
                 searchSubType === OfferingIncomeCreateSubType.SundaySchool) && (
                 <FormField
@@ -348,7 +651,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {Object.entries(TypeShiftOfferingIncomeNames).map(([key, value]) => (
+                            {Object.entries(OfferingIncomeShiftTypeNames).map(([key, value]) => (
                               <SelectItem key={key} value={key}>
                                 {value}
                               </SelectItem>
@@ -474,6 +777,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   </FormItem>
                 )}
               />
+
               <FormField
                 control={form.control}
                 name='comments'
@@ -509,224 +813,12 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   );
                 }}
               />
-
-              {(searchType === OfferingIncomeCreateType.Tithe ||
-                (searchType === OfferingIncomeCreateType.Offering &&
-                  searchSubType === OfferingIncomeCreateSubType.Special) ||
-                (searchType === OfferingIncomeCreateType.Offering &&
-                  searchSubType === OfferingIncomeCreateSubType.ChurchGround)) && (
-                <FormField
-                  control={form.control}
-                  name='theirDisciple'
-                  render={({ field }) => (
-                    <FormItem className='flex flex-col mt-4'>
-                      <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                        Discípulo
-                      </FormLabel>
-                      <FormDescription className='text-[14px]'>
-                        Seleccione un discípulo para asignarlo al registro.
-                      </FormDescription>
-                      <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              disabled={isInputDisabled}
-                              variant='outline'
-                              role='combobox'
-                              className={cn(
-                                'w-full justify-between',
-                                !field.value && 'text-slate-500 font-normal'
-                              )}
-                            >
-                              {field.value
-                                ? `${disciplesQuery?.data?.find((disciple) => disciple.id === field.value)?.firstName} ${disciplesQuery?.data?.find((disciple) => disciple.id === field.value)?.lastName}`
-                                : 'Busque y seleccione un discípulo'}
-                              <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent align='center' className='w-auto px-4 py-2'>
-                          <Command>
-                            <CommandInput
-                              placeholder='Busque un discípulo...'
-                              className='h-9 text-[14px]'
-                            />
-                            <CommandEmpty>Discípulo no encontrado.</CommandEmpty>
-                            <CommandGroup className='max-h-[200px] h-auto'>
-                              {disciplesQuery?.data?.map((disciple) => (
-                                <CommandItem
-                                  className='text-[14px]'
-                                  value={disciple.id}
-                                  key={disciple.id}
-                                  onSelect={() => {
-                                    form.setValue('theirDisciple', disciple.id);
-                                    setIsInputRelationOpen(false);
-                                  }}
-                                >
-                                  {`${disciple?.firstName} ${disciple?.lastName}`}
-                                  <CheckIcon
-                                    className={cn(
-                                      'ml-auto h-4 w-4',
-                                      disciple.id === field.value ? 'opacity-100' : 'opacity-0'
-                                    )}
-                                  />
-                                </CommandItem>
-                              ))}
-                            </CommandGroup>
-                          </Command>
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
-
-              {searchType === OfferingIncomeCreateType.Offering &&
-                searchSubType === OfferingIncomeCreateSubType.FamilyGroup && (
-                  <FormField
-                    control={form.control}
-                    name='theirFamilyGroup'
-                    render={({ field }) => (
-                      <FormItem className='flex flex-col mt-4'>
-                        <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                          Grupo Familiar
-                        </FormLabel>
-                        <FormDescription className='text-[14px]'>
-                          Seleccione un grupo familiar para asignarlo al registro.
-                        </FormDescription>
-                        <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
-                          <PopoverTrigger asChild>
-                            <FormControl>
-                              <Button
-                                disabled={isInputDisabled}
-                                variant='outline'
-                                role='combobox'
-                                className={cn(
-                                  'w-full justify-between',
-                                  !field.value && 'text-slate-500 font-normal'
-                                )}
-                              >
-                                {field.value
-                                  ? `${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupCode} - ${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupName}`
-                                  : 'Busque y seleccione un grupo familiar'}
-                                <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
-                              </Button>
-                            </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent align='center' className='w-auto px-4 py-2'>
-                            <Command>
-                              <CommandInput
-                                placeholder='Busque un grupo familiar...'
-                                className='h-9 text-[14px]'
-                              />
-                              <CommandEmpty>Grupo familiar no encontrado.</CommandEmpty>
-                              <CommandGroup className='max-h-[200px] h-auto'>
-                                {familyGroupsQuery?.data?.map((familyGroup) => (
-                                  <CommandItem
-                                    className='text-[14px]'
-                                    value={familyGroup.id}
-                                    key={familyGroup.id}
-                                    onSelect={() => {
-                                      form.setValue('theirFamilyGroup', familyGroup.id);
-                                      setIsInputRelationOpen(false);
-                                    }}
-                                  >
-                                    {`${familyGroup?.familyGroupCode} ${familyGroup?.familyGroupName}`}
-                                    <CheckIcon
-                                      className={cn(
-                                        'ml-auto h-4 w-4',
-                                        familyGroup.id === field.value ? 'opacity-100' : 'opacity-0'
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
-                              </CommandGroup>
-                            </Command>
-                          </PopoverContent>
-                        </Popover>
-
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                )}
-
-              {((searchType === OfferingIncomeCreateType.Offering &&
-                searchSubType === OfferingIncomeCreateSubType.ZonalFasting) ||
-                (searchType === OfferingIncomeCreateType.Offering &&
-                  searchSubType === OfferingIncomeCreateSubType.ZonalVigil)) && (
-                <FormField
-                  control={form.control}
-                  name='theirZone'
-                  render={({ field }) => (
-                    <FormItem className='flex flex-col mt-4'>
-                      <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Zona</FormLabel>
-                      <FormDescription className='text-[14px]'>
-                        Selecciones una zona para asignarlo al registro.
-                      </FormDescription>
-                      <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              disabled={isInputDisabled}
-                              variant='outline'
-                              role='combobox'
-                              className={cn(
-                                'w-full justify-between',
-                                !field.value && 'text-slate-500 font-normal'
-                              )}
-                            >
-                              {field.value
-                                ? zonesQuery?.data?.find((zone) => zone.id === field.value)
-                                    ?.zoneName
-                                : 'Busque y seleccione una zona'}
-                              <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent align='center' className='w-auto px-4 py-2'>
-                          <Command>
-                            <CommandInput
-                              placeholder='Busque una zona...'
-                              className='h-9 text-[14px]'
-                            />
-                            <CommandEmpty>Zona no encontrada.</CommandEmpty>
-                            <CommandGroup className='max-h-[200px] h-auto'>
-                              {zonesQuery?.data?.map((zone) => (
-                                <CommandItem
-                                  className='text-[14px]'
-                                  value={zone.id}
-                                  key={zone.id}
-                                  onSelect={() => {
-                                    form.setValue('theirZone', zone.id);
-                                    setIsInputRelationOpen(false);
-                                  }}
-                                >
-                                  {zone.zoneName}
-                                  <CheckIcon
-                                    className={cn(
-                                      'ml-auto h-4 w-4',
-                                      zone.id === field.value ? 'opacity-100' : 'opacity-0'
-                                    )}
-                                  />
-                                </CommandItem>
-                              ))}
-                            </CommandGroup>
-                          </Command>
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              )}
             </div>
 
             <div className='md:col-start-2 md:col-end-3 border-l-2 border-slate-200 dark:border-slate-800 pl-6'>
               <FormField
                 control={form.control}
-                name='urlFiles'
+                name='fileNames'
                 render={() => {
                   return (
                     <FormItem className='mt-4 md:mt-0'>
@@ -755,13 +847,12 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                         </div>
                       </FormControl>
                       <FormMessage />
-                      {urlFiles && urlFiles.length > 3 ? (
+                      {files && files.length > 3 ? (
                         <span className='text-red-500 font-bold text-[11.5px] md:text-[12.5px] text-center mx-auto justify-center flex'>
                           ❌ Sobrepasa el limite, elige como máximo solo 3 imágenes.
                         </span>
                       ) : (
                         <span className='font-bold text-[11.5px] md:text-[12.5px] pl-6 mt-1 flex flex-col'>
-                          {' '}
                           <span>✅ Máximo 3 archivos.</span>
                           <span>✅ El campo se bloqueara al llegar o pasar los 3 archivos.</span>
                         </span>
@@ -770,6 +861,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <section className='mt-10'>
                 <div className='flex gap-4 items-center justify-between'>
                   <h2 className='text-[16px] md:text-[18px] font-bold'>Pre-visualización</h2>
@@ -826,7 +918,9 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                         <p className='mt-2 text-neutral-500 text-sm font-medium'>{file.name}</p>
                         <ul className='text-[14px] text-red-400 flex gap-3 font-medium'>
                           {errors.map((error) => (
-                            <li key={error.code}>{error.message}</li>
+                            <li
+                              key={error.code}
+                            >{`${error.message === 'File type must be image/*' ? 'Tipo de archivo debe ser una imagen.' : error.message}`}</li>
                           ))}
                         </ul>
                       </div>
@@ -838,7 +932,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           removeRejected(file.name);
                         }}
                       >
-                        remove
+                        remover
                       </button>
                     </li>
                   ))}
@@ -861,37 +955,24 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
               <Button
                 disabled={isSubmitButtonDisabled}
                 type='submit'
-                className='w-full text-[14px] md:text-[14.5px]'
+                className={cn(
+                  'w-full text-[14px] md:text-[14.5px]',
+                  uploadImagesMutation?.isPending &&
+                    'bg-emerald-500 disabled:opacity-100 disabled:md:text-[14.5px] text-white'
+                )}
                 onClick={() => {
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
-                      toast.success('Ofrenda registrada correctamente', {
-                        position: 'top-center',
-                        className: 'justify-center',
-                      });
                       setIsInputDisabled(true);
                       setIsDropZoneDisabled(true);
+                      setIsInputMemberDisabled(true);
                       setIsFileButtonDisabled(true);
                       setIsSubmitButtonDisabled(true);
                     }
                   }, 100);
-
-                  setTimeout(() => {
-                    if (Object.keys(form.formState.errors).length === 0) {
-                      setIsSubmitButtonDisabled(false);
-                    }
-                  }, 1700);
-
-                  setTimeout(() => {
-                    if (Object.keys(form.formState.errors).length === 0) {
-                      setIsInputDisabled(false);
-                      setFiles([]);
-                      form.reset();
-                    }
-                  }, 1700);
                 }}
               >
-                Registrar
+                {uploadImagesMutation?.isPending ? 'Procesando...' : 'Registrar'}
               </Button>
             </div>
           </form>

@@ -9,6 +9,7 @@ import { type FamilyGroupResponse } from '@/app/family-group/interfaces';
 import { DiscipleSearchType } from '@/app/disciple/enums';
 import { type DiscipleResponse, type DiscipleFormData, type DiscipleQueryParams } from '@/app/disciple/interfaces';
 
+
 //* Create disciple
 export const createDisciple = async (formData:DiscipleFormData ): Promise<DiscipleResponse> => {
   try {
@@ -58,6 +59,9 @@ export const getDisciples = async ({limit, offset, all, order}: DiscipleQueryPar
           order,
         },
       });
+
+      console.log(data);
+      
       
       result = data;
     }else {

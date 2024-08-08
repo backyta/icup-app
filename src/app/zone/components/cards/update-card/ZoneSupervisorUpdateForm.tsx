@@ -25,6 +25,7 @@ import { useZoneSupervisorUpdateSubmitButtonLogic } from '@/app/zone/hooks';
 import { getAllSupervisors } from '@/app/preacher/services';
 
 import { cn } from '@/shared/lib/utils';
+import { getFullNames } from '@/shared/helpers';
 import { type ErrorResponse } from '@/shared/interfaces';
 
 import {
@@ -319,7 +320,10 @@ export const ZoneSupervisorUpdateForm = ({
                                       supervisor.id !== data?.theirSupervisor?.id ? (
                                         <CommandItem
                                           className='text-[14px]'
-                                          value={supervisor.id}
+                                          value={getFullNames({
+                                            firstNames: supervisor.firstName,
+                                            lastNames: supervisor.lastName,
+                                          })}
                                           key={supervisor.id}
                                           onSelect={() => {
                                             form.setValue('newTheirSupervisor', supervisor.id);

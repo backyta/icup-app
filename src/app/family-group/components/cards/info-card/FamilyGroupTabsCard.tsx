@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react';
 
-import { format } from 'date-fns';
+import { format, addDays } from 'date-fns';
 
-import { getFullName } from '@/shared/helpers';
+import { getInitialFullNames } from '@/shared/helpers';
 import { type FamilyGroupResponse } from '@/app/family-group/interfaces';
 
 import {
@@ -112,7 +112,7 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
                   {data?.disciples?.length !== undefined && data?.disciples?.length > 0 ? (
                     data?.disciples?.map((disciple) => (
                       <li key={disciple.id}>
-                        {getFullName({
+                        {getInitialFullNames({
                           firstNames: disciple?.firstName ?? '-',
                           lastNames: disciple?.lastName ?? '-',
                         })}
@@ -133,7 +133,7 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
               <Label className='text-[14px] md:text-[15px]'>Creado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdBy
-                  ? getFullName({
+                  ? getInitialFullNames({
                       firstNames: data?.createdBy?.firstName ?? '-',
                       lastNames: data?.createdBy?.lastName ?? '-',
                     })
@@ -150,7 +150,7 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
               <Label className='text-[14px] md:text-[15px]'>Actualizado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
-                  ? getFullName({
+                  ? getInitialFullNames({
                       firstNames: data?.updatedBy?.firstName ?? '-',
                       lastNames: data?.updatedBy?.lastName ?? '-',
                     })

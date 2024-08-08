@@ -126,6 +126,7 @@ export const ChurchUpdateForm = ({
   const district = form.watch('district');
   const isAnexe = form.watch('isAnexe');
 
+  console.log(data);
   useEffect(() => {
     form.setValue('churchName', data?.churchName!);
     form.setValue('foundingDate', new Date(String(data?.foundingDate).replace(/-/g, '/') as any));

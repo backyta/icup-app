@@ -40,6 +40,7 @@ import { useRoleValidationByPath } from '@/hooks';
 import { type ErrorResponse } from '@/shared/interfaces';
 
 import {
+  getFullNames,
   validateDistrictsAllowedByModule,
   validateUrbanSectorsAllowedByDistrict,
 } from '@/shared/helpers';
@@ -1122,7 +1123,10 @@ export const SupervisorUpdateForm = ({
                                         {queryCopastors?.data?.map((copastor) => (
                                           <CommandItem
                                             className='text-[14px]'
-                                            value={copastor.id}
+                                            value={getFullNames({
+                                              firstNames: copastor.firstName,
+                                              lastNames: copastor.lastName,
+                                            })}
                                             key={copastor.id}
                                             onSelect={() => {
                                               form.setValue('theirCopastor', copastor.id);
@@ -1198,7 +1202,10 @@ export const SupervisorUpdateForm = ({
                                         {queryPastors?.data?.map((pastor) => (
                                           <CommandItem
                                             className='text-[14px]'
-                                            value={pastor.id}
+                                            value={getFullNames({
+                                              firstNames: pastor.firstName,
+                                              lastNames: pastor.lastName,
+                                            })}
                                             key={pastor.id}
                                             onSelect={() => {
                                               form.setValue('theirPastor', pastor.id);

@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react';
 
-import { format } from 'date-fns';
+import { addDays, format } from 'date-fns';
 
-import { getFullName } from '@/shared/helpers';
+import { getInitialFullNames } from '@/shared/helpers';
 import { type DiscipleResponse } from '@/app/disciple/interfaces';
 
 import {
@@ -97,7 +97,9 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Fecha de Nacimiento</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.birthDate ? format(new Date(data?.birthDate), 'dd/MM/yyyy') : '-'}
+                {data?.birthDate
+                  ? format(new Date(addDays(data?.birthDate, 1)), 'dd/MM/yyyy')
+                  : '-'}
               </CardDescription>
             </div>
             <div className='space-y-1'>
@@ -115,7 +117,9 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Fecha de Conversion</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.conversionDate ? format(new Date(data?.conversionDate), 'dd/MM/yyyy') : '-'}
+                {data?.conversionDate
+                  ? format(new Date(addDays(data?.conversionDate, 1)), 'dd/MM/yyyy')
+                  : '-'}
               </CardDescription>
             </div>
 
@@ -149,7 +153,7 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
               <Label className='text-[14px] md:text-[15px]'>Creado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdBy
-                  ? getFullName({
+                  ? getInitialFullNames({
                       firstNames: data?.createdBy?.firstName ?? '-',
                       lastNames: data?.createdBy?.lastName ?? '-',
                     })
@@ -166,7 +170,7 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
               <Label className='text-[14px] md:text-[15px]'>Actualizado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
-                  ? getFullName({
+                  ? getInitialFullNames({
                       firstNames: data?.updatedBy?.firstName ?? '-',
                       lastNames: data?.updatedBy?.lastName ?? '-',
                     })

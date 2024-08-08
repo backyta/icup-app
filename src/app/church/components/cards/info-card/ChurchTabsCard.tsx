@@ -2,12 +2,12 @@
 
 import { useEffect } from 'react';
 
-import { format } from 'date-fns';
+import { format, addDays } from 'date-fns';
 
 import { type ChurchResponse } from '@/app/church/interfaces';
 import { type ChurchWorshipTime, ChurchWorshipTimeNames } from '@/app/church/enums';
 
-import { getFullName } from '@/shared/helpers';
+import { getInitialFullNames } from '@/shared/helpers';
 import { PopoverDataCardTabs } from '@/shared/components';
 
 import {
@@ -54,6 +54,8 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
     };
   }, [id]);
 
+  console.log(data?.theirMainChurch);
+
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full grid-cols-2 px-auto'>
@@ -87,7 +89,9 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Fecha de Fundación</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.foundingDate ? format(new Date(data.foundingDate), 'dd/MM/yyyy') : '-'}
+                {data?.foundingDate
+                  ? format(new Date(addDays(data.foundingDate, 1)), 'dd/MM/yyyy')
+                  : '-'}
               </CardDescription>
             </div>
 
@@ -239,10 +243,10 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               <Label className='text-[14px] md:text-[15px]'>Iglesia Principal</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirMainChurch && data?.isAnexe
-                  ? `${data?.theirMainChurch?.churchName} ${data?.theirMainChurch?.district}`
-                  : !data?.theirMainChurch && data?.isAnexe
-                    ? `Esta iglesia anexo no tiene una iglesia principal asignada.`
-                    : `Esta es la iglesia central.`}
+                  ? `${data?.theirMainChurch?.churchName ?? 'No tiene'} ${data?.theirMainChurch?.district ?? 'una iglesia principal asignada.'}`
+                  : !data?.isAnexe
+                    ? `Esta es la iglesia central.`
+                    : `Esta iglesia anexo no tiene una iglesia principal asignada.`}
               </CardDescription>
             </div>
 
@@ -254,7 +258,7 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               <Label className='text-[14px] md:text-[15px]'>Creado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdBy
-                  ? getFullName({
+                  ? getInitialFullNames({
                       firstNames: data?.createdBy?.firstName ?? '-',
                       lastNames: data?.createdBy?.lastName ?? '-',
                     })
@@ -273,7 +277,7 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               <Label className='text-[14px] md:text-[15px]'>Actualizado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
-                  ? getFullName({
+                  ? getInitialFullNames({
                       firstNames: data?.updatedBy?.firstName ?? '-',
                       lastNames: data?.updatedBy?.lastName ?? '-',
                     })

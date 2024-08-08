@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 
-import { format } from 'date-fns';
+import { format, addDays } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
@@ -90,7 +90,8 @@ export const pastorUpdateColumns: Array<ColumnDef<PastorColumns, any>> = [
     accessorKey: 'birthDate',
     cell: (info) => {
       const birthDate = info.getValue();
-      return format(new Date(birthDate), 'dd/MM/yyyy');
+      const adjustedDate = birthDate ? addDays(birthDate, 1) : null;
+      return format(new Date(adjustedDate), 'dd/MM/yyyy');
     },
     header: ({ column }) => {
       return (

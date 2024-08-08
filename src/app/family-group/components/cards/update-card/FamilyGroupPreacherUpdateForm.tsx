@@ -25,6 +25,7 @@ import { useFamilyGroupPreacherUpdateSubmitButtonLogic } from '@/app/family-grou
 import { PreacherSearchType } from '@/app/preacher/enums';
 
 import { cn } from '@/shared/lib/utils';
+import { getFullNames } from '@/shared/helpers';
 import { type ErrorResponse } from '@/shared/interfaces';
 
 import {
@@ -332,7 +333,10 @@ export const FamilyGroupPreacherUpdateForm = ({
                                       preacher.id !== data?.theirPreacher?.id ? (
                                         <CommandItem
                                           className='text-[14px]'
-                                          value={preacher.id}
+                                          value={getFullNames({
+                                            firstNames: preacher.firstName,
+                                            lastNames: preacher.lastName,
+                                          })}
                                           key={preacher.id}
                                           onSelect={() => {
                                             form.setValue('newTheirPreacher', preacher.id);

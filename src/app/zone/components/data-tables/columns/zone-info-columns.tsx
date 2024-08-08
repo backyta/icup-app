@@ -3,7 +3,7 @@
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import { getFullName } from '@/shared/helpers';
+import { getInitialFullNames } from '@/shared/helpers';
 import { Button } from '@/shared/components/ui/button';
 
 import { ZoneInfoCard } from '@/app/zone/components';
@@ -104,7 +104,7 @@ export const zoneInfoColumns: Array<ColumnDef<ZoneColumns, any>> = [
     cell: (info) => {
       const firstNames = info.getValue()?.firstName;
       const lastNames = info.getValue()?.lastName;
-      return firstNames && lastNames ? getFullName({ firstNames, lastNames }) : '-';
+      return firstNames && lastNames ? getInitialFullNames({ firstNames, lastNames }) : '-';
     },
     header: ({ column }) => {
       return (

@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { format } from 'date-fns';
+import { format, addDays } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
 import { DiscipleInfoCard } from '@/app/disciple/components';
 import { type DiscipleColumns } from '@/app/disciple/interfaces';
 
-import { getFullName } from '@/shared/helpers';
+import { getInitialFullNames } from '@/shared/helpers';
 import { Button } from '@/shared/components/ui/button';
 
 export const discipleInfoColumns: Array<ColumnDef<DiscipleColumns, any>> = [
@@ -92,7 +92,8 @@ export const discipleInfoColumns: Array<ColumnDef<DiscipleColumns, any>> = [
     accessorKey: 'birthDate',
     cell: (info) => {
       const birthDate = info.getValue();
-      return format(new Date(birthDate), 'dd/MM/yyyy');
+      const adjustedDate = birthDate ? addDays(birthDate, 1) : null;
+      return format(new Date(adjustedDate), 'dd/MM/yyyy');
     },
     header: ({ column }) => {
       return (
@@ -114,7 +115,7 @@ export const discipleInfoColumns: Array<ColumnDef<DiscipleColumns, any>> = [
     cell: (info) => {
       const firstNames = info.getValue()?.firstName;
       const lastNames = info.getValue()?.lastName;
-      return firstNames && lastNames ? getFullName({ firstNames, lastNames }) : '-';
+      return firstNames && lastNames ? getInitialFullNames({ firstNames, lastNames }) : '-';
     },
     header: ({ column }) => {
       return (

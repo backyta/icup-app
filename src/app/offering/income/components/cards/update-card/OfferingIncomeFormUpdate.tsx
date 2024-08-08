@@ -17,7 +17,7 @@ import { TiDeleteOutline } from 'react-icons/ti';
 
 import { cn } from '@/shared/lib/utils';
 
-import { useOfferingIncomeSubmitButtonLogic } from '@/app/offering/income/hooks';
+import { useOfferingIncomeCreateSubmitButtonLogic } from '@/app/offering/income/hooks';
 import { offeringIncomeFormSchema } from '@/app/offering/income/validations';
 
 import { familyHouses, zones } from '@/app/family-group/data';
@@ -33,7 +33,7 @@ import {
   OfferingIncomeCreateSubTypeNames,
   OfferingIncomeCreateType,
   OfferingIncomeCreateTypeNames,
-  TypeShiftOfferingIncomeNames,
+  OfferingIncomeShiftTypeNames,
 } from '@/app/offering/income/enums';
 
 import {
@@ -112,16 +112,16 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
     mode: 'onChange',
     resolver: zodResolver(offeringIncomeFormSchema),
     defaultValues: {
-      searchType: '',
-      searchSubType: '',
+      type: '',
+      subType: '',
       amount: '',
       date: undefined,
       currency: '',
       comments: '',
-      urlFiles: [],
-      theirFamilyGroup: '',
+      fileNames: [],
+      familyGroupId: '',
       theirDisciple: '',
-      theirZone: '',
+      zoneId: '',
       status: '',
     },
   });
@@ -230,10 +230,10 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
     }
   }, []);
 
-  useOfferingIncomeSubmitButtonLogic({
+  useOfferingIncomeCreateSubmitButtonLogic({
     formOfferingIncome: form,
-    typesOfferingIncome: OfferingIncomeCreateType,
-    subTypesOffering: OfferingIncomeCreateSubType,
+    offeringIncomeTypes: OfferingIncomeCreateType,
+    offeringIncomeSubTypes: OfferingIncomeCreateSubType,
     isInputDisabled,
     isDropZoneDisabled,
     isFileButtonDisabled,
@@ -390,7 +390,7 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
-                                {Object.entries(TypeShiftOfferingIncomeNames).map(
+                                {Object.entries(OfferingIncomeShiftTypeNames).map(
                                   ([key, value]) => (
                                     <SelectItem key={key} value={key}>
                                       {value}

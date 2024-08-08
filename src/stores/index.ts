@@ -7,3 +7,4 @@ export * from './zone';
 export * from './preacher';
 export * from './family-group';
 export * from './disciple';
+export * from './offering-income';

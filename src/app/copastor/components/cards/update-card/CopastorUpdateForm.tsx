@@ -51,6 +51,7 @@ import {
   UrbanSectorNames,
 } from '@/shared/enums';
 import {
+  getFullNames,
   validateDistrictsAllowedByModule,
   validateUrbanSectorsAllowedByDistrict,
 } from '@/shared/helpers';
@@ -1058,7 +1059,10 @@ export const CopastorUpdateForm = ({
                                         {queryPastors?.data?.map((pastor) => (
                                           <CommandItem
                                             className='text-[14px]'
-                                            value={pastor.id}
+                                            value={getFullNames({
+                                              firstNames: pastor.firstName,
+                                              lastNames: pastor.lastName,
+                                            })}
                                             key={pastor.id}
                                             onSelect={() => {
                                               form.setValue('theirPastor', pastor.id);
@@ -1135,7 +1139,7 @@ export const CopastorUpdateForm = ({
                                         {queryChurches?.data?.map((church) => (
                                           <CommandItem
                                             className='text-[14px]'
-                                            value={church.id}
+                                            value={church.churchName}
                                             key={church.id}
                                             onSelect={() => {
                                               form.setValue('theirChurch', church.id);

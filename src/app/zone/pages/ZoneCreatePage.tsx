@@ -29,7 +29,7 @@ import {
   Province,
   ProvinceNames,
 } from '@/shared/enums';
-import { validateDistrictsAllowedByModule } from '@/shared/helpers';
+import { getFullNames, validateDistrictsAllowedByModule } from '@/shared/helpers';
 import { type ErrorResponse } from '@/shared/interfaces';
 
 import {
@@ -417,7 +417,10 @@ export const ZoneCreatePage = (): JSX.Element => {
                             {data?.map((supervisor) => (
                               <CommandItem
                                 className='text-[14px]'
-                                value={supervisor?.id}
+                                value={getFullNames({
+                                  firstNames: supervisor.firstName,
+                                  lastNames: supervisor.lastName,
+                                })}
                                 key={supervisor?.id}
                                 onSelect={() => {
                                   form.setValue('theirSupervisor', supervisor?.id);

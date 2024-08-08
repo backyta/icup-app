@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 
 import { type UserResponse } from '@/app/user/interfaces';
 
-import { getFullName } from '@/shared/helpers';
+import { getInitialFullNames } from '@/shared/helpers';
 import { type UserRole, UserRoleNames } from '@/app/user/enums';
 
 import {
@@ -79,7 +79,7 @@ export const UserTabsCard = ({ data }: UserTabsCardProps): JSX.Element => {
               <Label className='text-[14px] md:text-[15px]'>Creado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdBy
-                  ? getFullName({
+                  ? getInitialFullNames({
                       firstNames: data?.createdBy?.firstName ?? '-',
                       lastNames: data?.createdBy?.lastName ?? '-',
                     })
@@ -98,7 +98,7 @@ export const UserTabsCard = ({ data }: UserTabsCardProps): JSX.Element => {
               <Label className='text-[14px] md:text-[15px]'>Actualizado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
-                  ? getFullName({
+                  ? getInitialFullNames({
                       firstNames: data?.updatedBy?.firstName ?? '-',
                       lastNames: data?.updatedBy?.lastName ?? '-',
                     })

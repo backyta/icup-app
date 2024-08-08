@@ -28,7 +28,7 @@ import { getAllSupervisors } from '@/app/preacher/services';
 
 import { cn } from '@/shared/lib/utils';
 import { type ErrorResponse } from '@/shared/interfaces';
-import { validateDistrictsAllowedByModule } from '@/shared/helpers';
+import { getFullNames, validateDistrictsAllowedByModule } from '@/shared/helpers';
 import { CountryNames, DepartmentNames, DistrictNames, ProvinceNames } from '@/shared/enums';
 
 import {
@@ -469,7 +469,10 @@ export const ZoneUpdateForm = ({
                                     {supervisorsQuery?.data?.map((supervisor) => (
                                       <CommandItem
                                         className='text-[14px]'
-                                        value={supervisor.id}
+                                        value={getFullNames({
+                                          firstNames: supervisor.firstName,
+                                          lastNames: supervisor.lastName,
+                                        })}
                                         key={supervisor.id}
                                         onSelect={() => {
                                           form.setValue('theirSupervisor', supervisor.id);
