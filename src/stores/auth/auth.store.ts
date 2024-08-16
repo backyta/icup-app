@@ -1,10 +1,10 @@
 import { create, type StateCreator } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
-import { type AuthStatus } from '@/auth/interfaces';
-import { AuthService } from '@/auth/services/auth.service';
+import { type AuthStatus } from '@/modules/auth/interfaces';
+import { AuthService } from '@/modules/auth/services/auth.service';
 
-import { type User } from '@/app/user/interfaces';
+import { type User } from '@/modules/user/interfaces';
 
 export interface AuthState {
   status: AuthStatus;
@@ -34,7 +34,7 @@ export const storeApi: StateCreator<AuthState> = (set) => ({
 
   checkAuthStatus: async () => {
     try {
-      const { token , ...user } = await AuthService.checkStatus();
+      const { token , ...user } = await AuthService.checkAuthStatus();
       set({ status: 'authorized', token, user })
     } catch (error) {
 

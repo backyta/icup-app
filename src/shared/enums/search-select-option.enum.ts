@@ -67,3 +67,5 @@ export const SearchSelectOptionNames: Record<SearchSelectOption, string> = {
   [SearchSelectOption.Day]: 'Dia',
   [SearchSelectOption.Afternoon]: 'Tarde',
 };
+
+// todo : eliminar esto cuando sea necesario al final

@@ -27,6 +27,8 @@ export interface Supervisor {
 export interface Zone {
   id:       string;
   zoneName: string;
+  department: string;
+  province: string;
   district: string;
 }
 
@@ -39,8 +41,8 @@ export interface Preacher {
 export interface FamilyGroup {
   id: string,
   familyGroupName: string,
-  zoneName: string,
   familyGroupCode: string,
+  district: string
   urbanSector: string
 }
 
@@ -99,7 +101,6 @@ export interface MainChurch {
 }
 
 export type TheirChurch = MainChurch;
-
 
 
 export interface TheirPastor {

@@ -10,6 +10,7 @@ interface DisabledUrbanSectorsResult {
   disabledUrbanSectors: string[];
 }
 
+// TODO : mejorar esto junto con agregar mas distritos y sectores urbanos
 export const validateUrbanSectorsAllowedByDistrict = ( district: string): DisabledUrbanSectorsResult | undefined => {
   
   //* Disabled Urban Sectors

@@ -4,6 +4,7 @@ interface DisabledSelectTermResult {
   disabledSelectTerm: string[];
 }
 
+// TODO : eliminar esto tmb cuando ya este todo
 export const validateSelectTermByTypeAndSubtype = (type: string, subType:string | undefined = undefined): DisabledSelectTermResult | undefined => {
 
   //* Disabled Term Select

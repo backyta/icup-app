@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
+
 import { NavLink, useLocation } from 'react-router-dom';
 import type { IconType } from 'react-icons';
+
 import { cn } from '@/shared/lib/utils';
 
 interface Props {

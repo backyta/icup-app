@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
+import { useEffect } from 'react';
+
 import { NavLink } from 'react-router-dom';
 import type { IconType } from 'react-icons';
 
-import { SheetClose } from '@/shared/components/ui/sheet';
 import { useAuthStore } from '@/stores';
-import { useEffect } from 'react';
+
+import { SheetClose } from '@/shared/components/ui/sheet';
 
 interface Props {
   href: string;

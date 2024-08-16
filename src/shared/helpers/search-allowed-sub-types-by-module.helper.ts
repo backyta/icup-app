@@ -1,7 +1,7 @@
 import { SearchSubType } from '@/shared/enums';
 
 
-// TODO : eliminar esto y su validación porque cada modulo ya tiene
+// TODO : eliminar esto y su validación porque cada modulo ya tiene (cuando ya se acabe los todos los modulos)
 // * Subtypes allowed 
 
   //* Disciple

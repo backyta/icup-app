@@ -2,10 +2,10 @@
 
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
-
 import { useAuthStore } from '@/stores';
+
 import { ToggleLayoutLogin } from '@/shared/components/toggle-theme';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
 export const AuthLayout = (): JSX.Element => {
   const authStatus = useAuthStore((state) => state.status);

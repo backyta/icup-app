@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 
-import { type CopastorResponse } from '@/app/copastor/interfaces';
 import { create, type StateCreator } from 'zustand';
+import { type CopastorResponse } from '@/modules/copastor/interfaces';
 
 interface CopastorStore {
   // Properties

@@ -1,11 +1,12 @@
 import type React from 'react';
 
 import { type IconType } from 'react-icons';
+
 import {
-  TooltipContent,
   Tooltip,
-  TooltipProvider,
   TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
 } from '@/shared/components/ui/tooltip';
 
 interface MenuBarItem {

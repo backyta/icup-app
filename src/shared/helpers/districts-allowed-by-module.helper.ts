@@ -1,13 +1,19 @@
 import { DistrictNames } from '@/shared/enums';
 
-//* Allowed Districts by module
-
-// module members = disciple - pastors - copastors - supervisors - preacher
-export const DistrictsMemberModuleAllowed = [
+// ? Allowed Districts by module
+//* Disciple - Pastor - Copastor - Supervisor - Preacher
+export const MemberModuleDistrictsAllowed = [
  DistrictNames.Independencia,
  DistrictNames['Puente Piedra'],
 ];
 
-export const DistrictsFamilyGroupModuleAllowed = [
+//* Family group
+export const FamilyGroupModuleDistrictsAllowed = [
   DistrictNames.Independencia,
+];
+
+//* Zone
+export const ZoneModuleDistrictsAllowed = [
+  DistrictNames.Independencia,
+  DistrictNames['Puente Piedra'],
 ];

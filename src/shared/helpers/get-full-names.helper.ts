@@ -4,7 +4,6 @@ interface Options {
 }
 
 export const getInitialFullNames = ( {firstNames, lastNames}: Options): string => {
-
   const firstName = firstNames.split(" ");
   const lastName = lastNames.split(" ");
 
@@ -12,7 +11,6 @@ export const getInitialFullNames = ( {firstNames, lastNames}: Options): string =
 }
 
 export const getFullNames = ( {firstNames, lastNames}: Options): string => {
-
   const firstName = firstNames.split(" ");
   const lastName = lastNames.split(" ");
 

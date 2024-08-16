@@ -119,3 +119,4 @@ export const SearchTypeNames: Record<SearchType, string> =  {
   income_adjustment: 'Ajustes por Ingreso',
   expenses_adjustment: 'Ajustes por Salida',
 }
+// todo : eliminar esto cuando sea necesario al final

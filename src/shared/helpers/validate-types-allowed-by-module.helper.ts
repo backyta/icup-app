@@ -30,6 +30,7 @@ interface DisabledSearchTypesResult {
   disabledSearchTypes: string[];
 }
 
+// TODO : eliminar esto tmb cuando todo ya este
 export const validateTypesAllowedByModule = (currentPath: string): DisabledSearchTypesResult | undefined => {
   
   //* Disabled Types by module

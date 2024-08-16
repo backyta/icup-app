@@ -2,7 +2,7 @@
 
 import * as z from 'zod';
 
-import { UserRole } from '@/app/user/enums';
+import { UserRole } from '@/modules/user/enums';
 import { SearchSubType, SearchType, RecordOrder } from '@/shared/enums';
 
 export const formSearchByTermSchema = z

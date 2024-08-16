@@ -45,6 +45,8 @@ import {
     disabledSearchSubTypes: string[];
 }
 
+
+// TODO : esto ya no sirve eliminar tmb cuando se termine
 export const validateSubTypesAllowedByModule = (currentPath: string, type: string ): DisabledSearchSubTypesResult | undefined => {
 
   //* Disabled Sub-types by module

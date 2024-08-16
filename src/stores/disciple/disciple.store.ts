@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 
-import { type DiscipleResponse } from '@/app/disciple/interfaces';
 import { create, type StateCreator } from 'zustand';
+import { type DiscipleResponse } from '@/modules/disciple/interfaces';
 
 interface DiscipleStore {
   // Properties

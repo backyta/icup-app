@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 
-import { type SupervisorResponse } from '@/app/supervisor/interfaces';
 import { create, type StateCreator } from 'zustand';
+import { type SupervisorResponse } from '@/modules/supervisor/interfaces';
 
 interface SupervisorStore {
   // Properties

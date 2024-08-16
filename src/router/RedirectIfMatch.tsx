@@ -8,7 +8,7 @@ export const RedirectIfMatch = (): JSX.Element => {
     return <Navigate to='/churches/search-churches' />;
   }
   if (location.pathname.startsWith('/churches/search-churches-by-term/')) {
-    return <Navigate to='/churches/search-churches' />;
+    return <Navigate to='/churches/search-churches-by-term' />;
   }
   if (location.pathname.startsWith('/churches/update-church/')) {
     return <Navigate to='/churches/update-church' />;
@@ -22,7 +22,7 @@ export const RedirectIfMatch = (): JSX.Element => {
     return <Navigate to='/pastors/search-pastors' />;
   }
   if (location.pathname.startsWith('/pastors/search-pastors-by-term/')) {
-    return <Navigate to='/pastors/search-pastors' />;
+    return <Navigate to='/pastors/search-pastors-by-term' />;
   }
   if (location.pathname.startsWith('/pastors/update-pastor/')) {
     return <Navigate to='/pastors/update-pastor' />;
@@ -36,7 +36,7 @@ export const RedirectIfMatch = (): JSX.Element => {
     return <Navigate to='/copastors/search-copastors' />;
   }
   if (location.pathname.startsWith('/copastors/search-copastors-by-term/')) {
-    return <Navigate to='/copastors/search-copastors' />;
+    return <Navigate to='/copastors/search-copastors-by-term' />;
   }
   if (location.pathname.startsWith('/copastors/update-copastor/')) {
     return <Navigate to='/copastors/update-copastor' />;
@@ -50,7 +50,7 @@ export const RedirectIfMatch = (): JSX.Element => {
     return <Navigate to='/supervisors/search-supervisors' />;
   }
   if (location.pathname.startsWith('/supervisors/search-supervisors-by-term/')) {
-    return <Navigate to='/supervisors/search-supervisors' />;
+    return <Navigate to='/supervisors/search-supervisors-by-term' />;
   }
   if (location.pathname.startsWith('/supervisors/update-supervisor/')) {
     return <Navigate to='/supervisors/update-supervisor' />;
@@ -64,7 +64,7 @@ export const RedirectIfMatch = (): JSX.Element => {
     return <Navigate to='/zones/search-zones' />;
   }
   if (location.pathname.startsWith('/zones/search-zones-by-term/')) {
-    return <Navigate to='/zones/search-zones' />;
+    return <Navigate to='/zones/search-zones-by-term' />;
   }
   if (location.pathname.startsWith('/zones/update-zone/')) {
     return <Navigate to='/zones/update-zone' />;
@@ -78,7 +78,7 @@ export const RedirectIfMatch = (): JSX.Element => {
     return <Navigate to='/preachers/search-preachers' />;
   }
   if (location.pathname.startsWith('/preachers/search-preachers-by-term/')) {
-    return <Navigate to='/preachers/search-preachers' />;
+    return <Navigate to='/preachers/search-preachers-by-term' />;
   }
   if (location.pathname.startsWith('/preachers/update-preacher/')) {
     return <Navigate to='/preachers/update-preacher' />;
@@ -92,7 +92,7 @@ export const RedirectIfMatch = (): JSX.Element => {
     return <Navigate to='/family-groups/search-family-groups' />;
   }
   if (location.pathname.startsWith('/family-groups/search-family-groups-by-term/')) {
-    return <Navigate to='/family-groups/search-family-groups' />;
+    return <Navigate to='/family-groups/search-family-groups-by-term' />;
   }
   if (location.pathname.startsWith('/family-groups/update-family-group/')) {
     return <Navigate to='/family-groups/update-family-group' />;
@@ -106,7 +106,7 @@ export const RedirectIfMatch = (): JSX.Element => {
     return <Navigate to='/disciples/search-disciples' />;
   }
   if (location.pathname.startsWith('/disciples/search-disciples-by-term/')) {
-    return <Navigate to='/disciples/search-disciples' />;
+    return <Navigate to='/disciples/search-disciples-by-term' />;
   }
   if (location.pathname.startsWith('/disciples/update-disciple/')) {
     return <Navigate to='/disciples/update-disciple' />;
@@ -120,13 +120,27 @@ export const RedirectIfMatch = (): JSX.Element => {
     return <Navigate to='/users/search-users' />;
   }
   if (location.pathname.startsWith('/users/search-users-by-term/')) {
-    return <Navigate to='/users/search-users' />;
+    return <Navigate to='/users/search-users-by-term' />;
   }
   if (location.pathname.startsWith('/users/update-user/')) {
     return <Navigate to='/users/update-user' />;
   }
   if (location.pathname.startsWith('/users/delete-user/')) {
     return <Navigate to='/users/delete-user' />;
+  }
+
+  // If starts with offering income
+  if (location.pathname.startsWith('/offerings/income/search-offerings-income/')) {
+    return <Navigate to='/offerings/income/search-offerings-income' />;
+  }
+  if (location.pathname.startsWith('/offerings/income/search-offerings-income-by-term/')) {
+    return <Navigate to='/offerings/income/search-offerings-income-by-term' />;
+  }
+  if (location.pathname.startsWith('/offerings/income/update-offering-income/')) {
+    return <Navigate to='/offerings/income/update-offering-income' />;
+  }
+  if (location.pathname.startsWith('/offerings/income/delete-offering-income/')) {
+    return <Navigate to='/offerings/income/delete-offering-income' />;
   }
 
   // Si no coincide con el patrón, muestra el componente 404 o redirige de otra forma

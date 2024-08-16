@@ -4,8 +4,7 @@ interface Options {
 }
 
 export const getCodeAndNameFamilyGroup = ( {code, name}: Options): string => {
-
-  return `${name } ${code}` 
+  return `${name} ${code}` 
 }
 
 

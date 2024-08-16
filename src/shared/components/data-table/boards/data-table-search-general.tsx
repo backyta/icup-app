@@ -56,7 +56,7 @@ import {
   FormMessage,
 } from '@/shared/components/ui/form';
 import { useQuery } from '@tanstack/react-query';
-import { getChurches } from '@/app/church/services';
+import { getChurches } from '@/modules/church/services';
 import { LoadingSpinner } from '@/shared/components';
 
 interface DataTableProps<TData, TValue> {

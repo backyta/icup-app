@@ -2,12 +2,13 @@
 
 import { FcExport, FcBusinessman, FcBusinesswoman } from 'react-icons/fc';
 
+import { useAuthStore } from '@/stores';
+
+import { menuItems } from '@/shared/data';
+
 import { SideMenuItem } from '@/shared/components';
 import { Button } from '@/shared/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/shared/components/ui/sheet';
-
-import { useAuthStore } from '@/stores';
-import { menuItems } from '@/shared/data';
 
 export function DropdownMenuLeft(): JSX.Element {
   const logoutUser = useAuthStore((state) => state.logoutUser);

@@ -1,15 +1,16 @@
+import { useLocation } from 'react-router-dom';
 import { Moon, Sun } from 'lucide-react';
 
+import { cn } from '@/shared/lib/utils';
 import { useTheme } from '@/shared/components';
-import { Button } from '@/shared/components/ui/button';
+
 import {
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuContent,
 } from '@/shared/components/ui/dropdown-menu';
-import { cn } from '@/shared/lib/utils';
-import { useLocation } from 'react-router-dom';
+import { Button } from '@/shared/components/ui/button';
 
 export function ModeToggle(): JSX.Element {
   const { pathname } = useLocation();

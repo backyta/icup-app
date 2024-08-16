@@ -1,7 +1,8 @@
 import { DistrictNames } from '@/shared/enums';
 import { 
-  DistrictsFamilyGroupModuleAllowed,
-  DistrictsMemberModuleAllowed,
+  FamilyGroupModuleDistrictsAllowed,
+  MemberModuleDistrictsAllowed,
+  ZoneModuleDistrictsAllowed,
 } from '@/shared/helpers';
 
 interface DisabledDistrictsResult {
@@ -23,13 +24,19 @@ export const validateDistrictsAllowedByModule = ( path: string): DisabledDistric
        path === '/preachers/update-preacher' 
   ) {
       return {
-        disabledDistricts: [ ...Object.values(DistrictNames).filter(value => !DistrictsMemberModuleAllowed.includes(value)) ]   
+        disabledDistricts: [ ...Object.values(DistrictNames).filter(value => !MemberModuleDistrictsAllowed.includes(value)) ]   
     }
   }
 
   if (path === '/family-groups/create-family-groups' || path === '/family-groups/update-family-groups') {
       return {
-        disabledDistricts: [ ...Object.values(DistrictNames).filter(value => !DistrictsFamilyGroupModuleAllowed.includes(value)) ]
+        disabledDistricts: [ ...Object.values(DistrictNames).filter(value => !FamilyGroupModuleDistrictsAllowed.includes(value)) ]
+    }
+  }
+
+  if (path === '/zones/create-zone' || path === '/zones/update-zone') {
+      return {
+        disabledDistricts: [ ...Object.values(DistrictNames).filter(value => !ZoneModuleDistrictsAllowed.includes(value)) ]
     }
   }
   

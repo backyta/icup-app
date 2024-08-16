@@ -1,2 +1,2 @@
-export * from './PopoverDataCardTabs';
+export * from './PopoverDataCard';
 export * from './WhiteCard';

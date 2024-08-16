@@ -381,3 +381,5 @@ export const SearchSubTypeNames: Record<SearchSubType, string> =  {
   other_related_expenses : ' Otros gastos relacionados',
 }
 
+
+// todo : eliminar esto cuando sea necesario al final

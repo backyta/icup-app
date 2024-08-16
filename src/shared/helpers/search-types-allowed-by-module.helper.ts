@@ -2,6 +2,7 @@ import { SearchTypeNames } from '@/shared/enums';
 
 // ? Allowed Types by module
 
+// TODO : eliminar esto cuando se acabe tods los modulos porque ya tienen
 //* Church
 // search, search by type and update
 export const SearchTypesChurchModuleAllowed = [ 

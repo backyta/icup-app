@@ -1,10 +1,9 @@
 import { UrbanSectorNames } from '@/shared/enums';
 
-//* Allowed Urban Sector by district
+// ? Allowed Urban Sector by district
 
-// module members = disciple - pastors - copastors - leaders
+//* Independencia
 export const UrbanSectorsIndependenciaAllowed = [
- // Independencia
  UrbanSectorNames.Independencia,
  UrbanSectorNames.Ermitaño,
  UrbanSectorNames.Tahuantinsuyo,
@@ -13,6 +12,7 @@ export const UrbanSectorsIndependenciaAllowed = [
  UrbanSectorNames.Industrial,
 ];
 
+//* Punte Piedra
 export const UrbanSectorsPuentePiedraAllowed = [
   UrbanSectorNames.Ensenada,
   UrbanSectorNames.Laderas,
@@ -32,3 +32,5 @@ export const UrbanSectorsPuentePiedraAllowed = [
   UrbanSectorNames.Jerusalén,
   UrbanSectorNames.Lomas,
 ];
+
+// TODO : hacer mas y tmb distritos con sus validaciones

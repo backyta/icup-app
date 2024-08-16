@@ -1,0 +1,149 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
+import { addDays, format } from 'date-fns';
+import { ArrowUpDown } from 'lucide-react';
+import { type ColumnDef } from '@tanstack/react-table';
+
+import {
+  OfferingIncomeInfoCard,
+  OfferingIncomeUpdateCard,
+} from '@/modules/offering/income/components';
+
+import { Button } from '@/shared/components/ui/button';
+
+import { CurrencyTypeNames } from '@/modules/offering/shared/enums';
+
+import { type OfferingIncomeColumns } from '@/modules/offering/income/interfaces';
+
+export const offeringIncomeUpdateColumns: Array<ColumnDef<OfferingIncomeColumns, any>> = [
+  {
+    accessorKey: 'id',
+    cell: (info) => {
+      const id = info.getValue();
+      return id.substring(0, 7);
+    },
+    header: ({ column }) => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px]'
+          variant='ghost'
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+        >
+          ID
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: 'type',
+    header: ({ column }) => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px]'
+          variant='ghost'
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+        >
+          Tipo
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: 'subType',
+    header: ({ column }) => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px]'
+          variant='ghost'
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+        >
+          Sub-tipo
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: 'amount',
+    header: ({ column }) => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px]'
+          variant='ghost'
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+        >
+          Monto
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: 'currency',
+    cell: (info) => {
+      const currency = info.getValue();
+      const entry = Object.entries(CurrencyTypeNames).find(([key]) => key === currency);
+      return entry ? entry[1] : 'Moneda desconocida';
+    },
+    header: ({ column }) => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px]'
+          variant='ghost'
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+        >
+          Divisa
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
+  },
+  {
+    accessorKey: 'date',
+    cell: (info) => {
+      const date = info.getValue();
+      const adjustedDate = date ? addDays(date, 1) : null;
+      return format(new Date(adjustedDate), 'dd/MM/yyyy');
+    },
+    header: ({ column }) => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px]'
+          variant='ghost'
+          onClick={() => {
+            column.toggleSorting(column.getIsSorted() === 'asc');
+          }}
+        >
+          Fecha
+          <ArrowUpDown className='ml-2 h-4 w-4' />
+        </Button>
+      );
+    },
+  },
+  {
+    id: 'showInfo',
+    cell: () => {
+      return <OfferingIncomeInfoCard />;
+    },
+  },
+
+  {
+    id: 'updateInfo',
+    cell: () => {
+      return <OfferingIncomeUpdateCard />;
+    },
+  },
+];

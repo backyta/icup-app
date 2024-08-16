@@ -6,48 +6,48 @@ import { DashboardLayout, AuthLayout } from '@/layouts';
 
 // ?  Direct pages
 //* Members
-import { DashboardPage } from '@/app/dashboard/pages';
-import { ChurchOptionsPage } from '@/app/church/pages';
-import { PastorOptionsPage } from '@/app/pastor/pages';
-import { CopastorOptionsPage } from '@/app/copastor/pages';
-import { SupervisorOptionsPage } from '@/app/supervisor/pages';
-import { PreacherOptionsPage } from '@/app/preacher/pages';
-import { DiscipleOptionsPage } from '@/app/disciple/pages';
+import { DashboardPage } from '@/modules/dashboard/pages';
+import { ChurchOptionsPage } from '@/modules/church/pages';
+import { PastorOptionsPage } from '@/modules/pastor/pages';
+import { CopastorOptionsPage } from '@/modules/copastor/pages';
+import { SupervisorOptionsPage } from '@/modules/supervisor/pages';
+import { PreacherOptionsPage } from '@/modules/preacher/pages';
+import { DiscipleOptionsPage } from '@/modules/disciple/pages';
 //* Family groups and zones
-import { FamilyGroupOptionsPage } from '@/app/family-group/pages';
-import { ZoneOptionsPage } from '@/app/zone/pages';
+import { FamilyGroupOptionsPage } from '@/modules/family-group/pages';
+import { ZoneOptionsPage } from '@/modules/zone/pages';
 //* Offerings
-import { OfferingOptionsPage } from '@/app/offering/pages';
-import { OfferingIncomeOptionsPage } from '@/app/offering/income/pages';
-import { OfferingExpensesOptionsPage } from '@/app/offering/expenses/pages';
+import { OfferingOptionsPage } from '@/modules/offering/pages';
+import { OfferingIncomeOptionsPage } from '@/modules/offering/income/pages';
+import { OfferingExpensesOptionsPage } from '@/modules/offering/expenses/pages';
 //* Metrics and charts
-import { MetricsOptionsPage } from '@/app/metrics/pages';
+import { MetricsOptionsPage } from '@/modules/metrics/pages';
 //* Users
-import { UserOptionsPage } from '@/app/user/pages';
+import { UserOptionsPage } from '@/modules/user/pages';
 
 // ? Routers by module
 //* Members
-import { ChurchChildrenRoutes } from '@/app/church/router';
-import { PastorChildrenRoutes } from '@/app/pastor/router';
-import { CopastorChildrenRoutes } from '@/app/copastor/router';
-import { SupervisorChildrenRoutes } from '@/app/supervisor/router';
-import { PreacherChildrenRoutes } from '@/app/preacher/router';
-import { DiscipleChildrenRoutes } from '@/app/disciple/router';
+import { ChurchChildrenRoutes } from '@/modules/church/router';
+import { PastorChildrenRoutes } from '@/modules/pastor/router';
+import { CopastorChildrenRoutes } from '@/modules/copastor/router';
+import { SupervisorChildrenRoutes } from '@/modules/supervisor/router';
+import { PreacherChildrenRoutes } from '@/modules/preacher/router';
+import { DiscipleChildrenRoutes } from '@/modules/disciple/router';
 //* Family groups and zones
-import { FamilyGroupChildrenRoutes } from '@/app/family-group/router';
-import { ZoneChildrenRoutes } from '@/app/zone/router';
+import { FamilyGroupChildrenRoutes } from '@/modules/family-group/router';
+import { ZoneChildrenRoutes } from '@/modules/zone/router';
 //* Offering
-import { OfferingIncomeChildrenRoutes } from '@/app/offering/income/router';
-import { OfferingExpensesChildrenRoutes } from '@/app/offering/expenses/router';
+import { OfferingIncomeChildrenRoutes } from '@/modules/offering/income/router';
+import { OfferingExpensesChildrenRoutes } from '@/modules/offering/expenses/router';
 //* Metrics and charts
-import { MetricsChildrenRoutes } from '@/app/metrics/router';
+import { MetricsChildrenRoutes } from '@/modules/metrics/router';
 //* Users
-import { UserChildrenRoutes } from '@/app/user/router';
+import { UserChildrenRoutes } from '@/modules/user/router';
 //* Auth
-import { AuthChildrenRoutes } from '@/auth/router';
+import { AuthChildrenRoutes } from '@/modules/auth/router';
 
 //* NotFound page
-import { NotFoundPage } from '@/pages';
+import { NotFoundPage } from '@/shared/pages';
 
 // ? Browser router
 export const router = createBrowserRouter([

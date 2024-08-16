@@ -1,0 +1,66 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
+
+import { useEffect } from 'react';
+import { type UseFormReturn } from 'react-hook-form';
+
+import { type ChurchWorshipTime } from '@/modules/church/enums';
+import { type ChurchResponse, type ChurchFormData } from '@/modules/church/interfaces';
+
+interface Options {
+  id: string;
+  data: ChurchResponse | undefined;
+  setIsLoadingData: React.Dispatch<React.SetStateAction<boolean>>;
+  churchUpdateForm: UseFormReturn<ChurchFormData, any, ChurchFormData>;
+}
+
+export const useChurchUpdateEffects = ({
+  id,
+  data,
+  setIsLoadingData,
+  churchUpdateForm,
+}: Options): void => {
+  //* Set data
+  useEffect(() => {
+    churchUpdateForm.setValue('churchName', data?.churchName!);
+    churchUpdateForm.setValue(
+      'foundingDate',
+      new Date(String(data?.foundingDate).replace(/-/g, '/') as any)
+    );
+    churchUpdateForm.setValue('worshipTimes', data?.worshipTimes as ChurchWorshipTime[]);
+    churchUpdateForm.setValue('email', data?.email ?? '');
+    churchUpdateForm.setValue('phoneNumber', data?.phoneNumber ?? '');
+    churchUpdateForm.setValue('country', data?.country ?? '');
+    churchUpdateForm.setValue('department', data?.department ?? '');
+    churchUpdateForm.setValue('province', data?.province ?? '');
+    churchUpdateForm.setValue('district', data?.district ?? '');
+    churchUpdateForm.setValue('urbanSector', data?.urbanSector ?? '');
+    churchUpdateForm.setValue('address', data?.address ?? '');
+    churchUpdateForm.setValue('referenceAddress', data?.referenceAddress ?? '');
+    churchUpdateForm.setValue('isAnexe', data?.isAnexe);
+    churchUpdateForm.setValue('theirMainChurch', data?.theirMainChurch?.id);
+    churchUpdateForm.setValue('recordStatus', data?.recordStatus);
+
+    setTimeout(() => {
+      setIsLoadingData(false);
+    }, 1200);
+  }, []);
+
+  //* Generate dynamic url
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (id) {
+      const url = new URL(window.location.href);
+      url.pathname = `/churches/update-church/${id}/edit`;
+
+      window.history.replaceState({}, '', url);
+    }
+
+    return () => {
+      window.history.replaceState({}, '', originalUrl);
+    };
+  }, [id]);
+};
