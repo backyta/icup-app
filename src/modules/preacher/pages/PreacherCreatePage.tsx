@@ -153,7 +153,7 @@ export const PreacherCreatePage = (): JSX.Element => {
     setIsSubmitButtonDisabled,
   });
 
-  //* Querys
+  //* Queries
   const querySupervisors = useQuery({
     queryKey: ['supervisors'],
     queryFn: () => getAllSupervisors({ isNull: 'false' }),

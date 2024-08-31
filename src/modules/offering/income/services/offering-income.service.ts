@@ -6,8 +6,12 @@ import { icupApi } from '@/api/icupApi';
 
 import { type DiscipleResponse } from '@/modules/disciple/interfaces';
 
+import { 
+  type OfferingIncomeResponse,
+  type OfferingIncomeFormData, 
+  type OfferingIncomeQueryParams, 
+} from '@/modules/offering/income/interfaces';
 import { OfferingIncomeSearchSubType, OfferingIncomeSearchType } from '@/modules/offering/income/enums';
-import { type OfferingIncomeQueryParams, type OfferingIncomeFormData, type OfferingIncomeResponse } from '@/modules/offering/income/interfaces';
 
 
 //* Create offering income
@@ -103,10 +107,14 @@ export const getOfferingsIncomeByTerm = async ({
  if (searchType === OfferingIncomeSearchType.SundayWorship||
      searchType === OfferingIncomeSearchType.SundaySchool
     ) {
-      const term = searchSubType === OfferingIncomeSearchSubType.OfferingByShift 
+      const term = searchSubType === OfferingIncomeSearchSubType.OfferingByShift
         ? selectTerm 
         : searchSubType === OfferingIncomeSearchSubType.OfferingByDate
           ? dateTerm
+        : searchSubType === OfferingIncomeSearchSubType.OfferingByChurch
+          ? selectTerm
+          : searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate
+          ?`${selectTerm}&${dateTerm}`
           : `${selectTerm}&${dateTerm}`
     try {
         if (!all) {
@@ -200,6 +208,8 @@ export const getOfferingsIncomeByTerm = async ({
         ? inputTerm
         : searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate
           ? `${inputTerm}&${dateTerm}`
+            : searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate
+            ? `${selectTerm}&${dateTerm}`
             : searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorNames
             ? namesTerm
             : searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorLastNames
@@ -241,7 +251,7 @@ export const getOfferingsIncomeByTerm = async ({
     }
   }
 
- //* Special and fround church
+ //* Special and ground church
   if (searchType === OfferingIncomeSearchType.Special || searchType === OfferingIncomeSearchType.ChurchGround ) {
     const term = searchSubType === OfferingIncomeSearchSubType.OfferingByDate
       ? dateTerm
@@ -293,9 +303,15 @@ export const getOfferingsIncomeByTerm = async ({
     searchType === OfferingIncomeSearchType.UnitedWorship  || 
     searchType === OfferingIncomeSearchType.Activities || 
     searchType === OfferingIncomeSearchType.IncomeAdjustment ) {  
+
+      const term = searchSubType === OfferingIncomeSearchSubType.OfferingByDate
+      ? dateTerm
+      : searchSubType === OfferingIncomeSearchSubType.OfferingByChurch
+      ? selectTerm
+        : `${selectTerm}&${dateTerm}`
     try {
       if (!all) {
-        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${dateTerm}` , {
+        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${term}` , {
           params: {
             limit,
             offset,
@@ -307,7 +323,7 @@ export const getOfferingsIncomeByTerm = async ({
         
         result = data;
       }else {
-        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${dateTerm}` , {
+        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${term}` , {
           params: {
             order,
             'search-type': searchType,
@@ -328,8 +344,8 @@ export const getOfferingsIncomeByTerm = async ({
     }
   }
 
- //* Status, Gender, Month Birth
-  if (searchType === OfferingIncomeSearchType.RecordStatus ) {
+ //* Record Status
+  if (searchType === OfferingIncomeSearchType.RecordStatus) {
       try {
         if (!all) {
           const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${selectTerm}` , {

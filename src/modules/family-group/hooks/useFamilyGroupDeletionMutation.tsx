@@ -56,7 +56,7 @@ export const useFamilyGroupDeletionMutation = ({
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['family-groups-by-term'] });
-      }, 1800);
+      }, 1000);
 
       setTimeout(() => {
         setIsCardOpen(false);

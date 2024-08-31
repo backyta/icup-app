@@ -50,12 +50,14 @@ export const usePreacherDeletionMutation = ({
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['preachers-by-term'] });
-
       toast.success('Registro eliminado correctamente.', {
         position: 'top-center',
         className: 'justify-center',
       });
+
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['preachers-by-term'] });
+      }, 1000);
 
       setTimeout(() => {
         setIsCardOpen(false);

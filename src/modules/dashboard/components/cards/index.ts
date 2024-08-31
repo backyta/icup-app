@@ -1,2 +1,2 @@
-export * from './graphic';
+export * from './charts';
 export * from './info';

@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { NavLink } from 'react-router-dom';
 
-import { FcBearish, FcBullish } from 'react-icons/fc';
-import { WhiteCard } from '@/shared/components';
-import { useAuthStore } from '@/stores';
 import { useEffect } from 'react';
+
+import { NavLink } from 'react-router-dom';
+import { FcBearish, FcBullish } from 'react-icons/fc';
+
+import { useAuthStore } from '@/stores';
+import { WhiteCard } from '@/shared/components';
 
 export const OfferingOptionsPage = (): JSX.Element => {
   const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);

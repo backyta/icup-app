@@ -49,7 +49,7 @@ export const useCopastorUpdateEffects = ({
 
     setTimeout(() => {
       setIsLoadingData(false);
-    }, 1200);
+    }, 1000);
   }, []);
 
   //* Controller district and urban sector

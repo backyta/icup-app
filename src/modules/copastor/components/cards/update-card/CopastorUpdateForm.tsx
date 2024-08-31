@@ -202,7 +202,7 @@ export const CopastorUpdateForm = ({
     setIsRelationSelectDisabled,
   });
 
-  //* Querys
+  //* Queries
   const queryPastors = useQuery({
     queryKey: ['pastors', id],
     queryFn: getAllPastors,

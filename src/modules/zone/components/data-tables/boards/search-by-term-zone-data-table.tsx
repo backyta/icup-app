@@ -76,7 +76,7 @@ export function SearchByTermZoneDataTable<TData, TValue>({
   //* Hooks (external libraries)
   const navigate = useNavigate();
 
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['zones-by-term', searchParams],
     queryFn: () => getZonesByTerm(searchParams as ZoneQueryParams),

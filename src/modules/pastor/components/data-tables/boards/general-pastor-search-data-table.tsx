@@ -73,7 +73,7 @@ export function GeneralPastorSearchDataTable<TData, TValue>({
   //* Hooks (external libraries)
   const navigate = useNavigate();
 
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['general-pastors', searchParams],
     queryFn: () => getPastors(searchParams as PastorQueryParams),

@@ -6,13 +6,12 @@ import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
 import { OfferingIncomeInfoCard } from '@/modules/offering/income/components';
+import { type OfferingIncomeColumns } from '@/modules/offering/income/interfaces';
 
 import { getInitialFullNames } from '@/shared/helpers';
+
 import { Button } from '@/shared/components/ui/button';
-
 import { CurrencyTypeNames } from '@/modules/offering/shared/enums';
-
-import { type OfferingIncomeColumns } from '@/modules/offering/income/interfaces';
 
 export const offeringIncomeInfoColumns: Array<ColumnDef<OfferingIncomeColumns, any>> = [
   {

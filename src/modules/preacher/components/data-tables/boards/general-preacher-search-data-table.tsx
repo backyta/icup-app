@@ -74,7 +74,7 @@ export function GeneralPreacherSearchDataTable<TData, TValue>({
   //* Hooks (external libraries)
   const navigate = useNavigate();
 
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['general-preachers', searchParams],
     queryFn: () => getPreachers(searchParams as PreacherQueryParams),

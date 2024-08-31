@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
@@ -13,18 +14,18 @@ import { useQuery } from '@tanstack/react-query';
 
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { type ZoneResponse } from '@/modules/zone/interfaces';
-import { zoneSupervisorUpdateFormSchema } from '@/modules/zone/validations';
 import {
   useZoneSupervisorUpdateEffects,
   useZoneSupervisorUpdateMutation,
   useZoneSupervisorUpdateSubmitButtonLogic,
 } from '@/modules/zone/hooks';
-
-import { getAllSupervisors } from '@/modules/preacher/services';
+import { type ZoneResponse } from '@/modules/zone/interfaces';
+import { SupervisorSearchType } from '@/modules/supervisor/enums';
+import { getAllSupervisorsByCopastor } from '@/modules/zone/services';
+import { zoneSupervisorUpdateFormSchema } from '@/modules/zone/validations';
 
 import { cn } from '@/shared/lib/utils';
-import { getFullNames } from '@/shared/helpers';
+import { getFullNames, getInitialFullNames } from '@/shared/helpers';
 
 import {
   Form,
@@ -80,15 +81,20 @@ export const ZoneSupervisorUpdateForm = ({
     },
   });
 
-  //* Querys
+  //* Queries
   const supervisorsQuery = useQuery({
-    queryKey: ['supervisors'],
+    queryKey: ['supervisors-by-copastor', data?.theirCopastor?.id],
     queryFn: () =>
-      getAllSupervisors({
+      getAllSupervisorsByCopastor({
+        searchType: SupervisorSearchType.CopastorId,
+        copastorId: data?.theirCopastor?.id ?? '',
         isNull: 'false',
       }),
+    enabled: !!data?.theirCopastor?.id,
     retry: 1,
   });
+
+  console.log(supervisorsQuery.data);
 
   //* Custom Hooks
   useZoneSupervisorUpdateEffects({
@@ -135,6 +141,15 @@ export const ZoneSupervisorUpdateForm = ({
       <TabsContent value='general-info' className='overflow-y-auto'>
         <Card className='w-full'>
           <CardContent className='py-4 px-4'>
+            <div className='font-bold text-[16px] mb-5'>
+              Copastor:{' '}
+              <span className='font-black text-blue-500 text-[18px]'>
+                {getInitialFullNames({
+                  firstNames: data?.theirCopastor?.firstName ?? '',
+                  lastNames: data?.theirCopastor?.lastName ?? '',
+                })}
+              </span>
+            </div>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(handleSubmit)}
@@ -249,7 +264,7 @@ export const ZoneSupervisorUpdateForm = ({
                                           })}
                                           key={supervisor.id}
                                           onSelect={() => {
-                                            form.setValue('newTheirSupervisor', supervisor.id);
+                                            form.setValue('newTheirSupervisor', supervisor?.id);
                                             setIsInputTheirSupervisorOpen(false);
                                           }}
                                         >
@@ -266,8 +281,8 @@ export const ZoneSupervisorUpdateForm = ({
                                       ) : null
                                     ) ?? (
                                       <p className='text-[14.5px] text-red-500 text-center'>
-                                        ❌ No se encontró predicadores disponibles, todos están
-                                        asignados a un grupo familiar.
+                                        ❌ No se encontró supervisores disponibles, todos están
+                                        asignados a una zona.
                                       </p>
                                     )}
                                   </CommandGroup>
@@ -345,8 +360,15 @@ export const ZoneSupervisorUpdateForm = ({
               </p>
 
               <p className='text-[12px] md:text-[13px] mb-2 font-medium '>
-                ✅ Al ejecutar el intercambio el supervisor, los grupos familiares y los discípulos
-                pasaran a la otra Zona y viceversa.
+                ✅ Solo se podrá hacer intercambio entre los supervisores que tengan el mismo
+                Co-Pastor.
+              </p>
+              <p className='text-[12px] md:text-[13px] mb-2 font-medium '>
+                ✅ Al ejecutar el intercambio el supervisor pasara a la otra Zona y viceversa.
+              </p>
+              <p className='text-[12px] md:text-[13px] mb-2 font-medium '>
+                ✅ Si quieres intercambiar por otro Supervisor, primero deberás actualizar ese
+                Supervisor al Co-Pastor correspondiente.
               </p>
             </div>
           </CardContent>

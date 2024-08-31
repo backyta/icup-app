@@ -585,8 +585,6 @@ export const OfferingExpensesCreatePage = (): JSX.Element => {
                 type='submit'
                 className='w-full text-[14px] md:text-[14.5px]'
                 onClick={() => {
-                  // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
-                  // NOTE : hacer petición al backend para crear
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
                       toast.success('Ofrenda registrada correctamente', {

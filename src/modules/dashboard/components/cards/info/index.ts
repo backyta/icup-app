@@ -1,4 +1,4 @@
-export * from './HouseInfoItem';
-export * from './HousesInfoCard';
+export * from './FamilyGroupInfoItem';
+export * from './TopFamilyGroupsCard';
 export * from './MemberInfoItem';
-export * from './MembersInfoCard';
+export * from './LastMembersCard';

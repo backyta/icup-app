@@ -6,15 +6,13 @@ import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
 import {
-  OfferingIncomeDeleteCard,
   OfferingIncomeInfoCard,
+  OfferingIncomeDeleteCard,
 } from '@/modules/offering/income/components';
+import { type OfferingIncomeColumns } from '@/modules/offering/income/interfaces';
 
 import { Button } from '@/shared/components/ui/button';
-
 import { CurrencyTypeNames } from '@/modules/offering/shared/enums';
-
-import { type OfferingIncomeColumns } from '@/modules/offering/income/interfaces';
 
 export const offeringIncomeDeleteColumns: Array<ColumnDef<OfferingIncomeColumns, any>> = [
   {
@@ -135,8 +133,20 @@ export const offeringIncomeDeleteColumns: Array<ColumnDef<OfferingIncomeColumns,
   },
   {
     id: 'showInfo',
-    cell: () => {
-      return <OfferingIncomeInfoCard />;
+    accessorKey: 'id',
+    cell: (info) => {
+      const id = info.row.original.id;
+      return info.getValue() === '-' ? '-' : <OfferingIncomeInfoCard idRow={id} />;
+    },
+    header: () => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px] text-blue-500 hover:text-blue-500'
+          variant='ghost'
+        >
+          Info
+        </Button>
+      );
     },
   },
   {

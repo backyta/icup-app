@@ -14,10 +14,10 @@ export enum SupervisorSearchType {
   UrbanSector = 'urban_sector',
   Address = 'address',
   RecordStatus = 'record_status',
-
+  CopastorId = 'copastor_id',
 }
 
-export const SupervisorSearchTypeNames: Record<SupervisorSearchType, string> =  {
+export const SupervisorSearchTypeNames:Partial< Record<SupervisorSearchType, string>> =  {
   [SupervisorSearchType.FirstName]: 'Nombres',
   [SupervisorSearchType.LastName]: 'Apellidos',
   [SupervisorSearchType.FullName]: 'Nombres y Apellidos',

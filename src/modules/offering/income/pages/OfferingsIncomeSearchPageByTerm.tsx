@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { type z } from 'zod';
 import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
+import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { format } from 'date-fns';
@@ -20,30 +21,33 @@ import {
 } from '@/modules/offering/income/components';
 import {
   OfferingIncomeSearchType,
-  OfferingIncomeSearchTypeNames,
-  OfferingIncomeSearchBySundayWorshipAndSundaySchoolNames,
-  OfferingIncomeSearchByFamilyGroupNames,
-  OfferingIncomeSearchNamesByFastingAndVigilGeneral,
-  OfferingIncomeSearchNamesByFastingAndVigilZonal,
-  OfferingIncomeSearchByYoungWorshipNames,
-  OfferingIncomeSearchByUnitedWorshipNames,
-  OfferingIncomeSearchByActivitiesNames,
-  OfferingIncomeSearchByIncomeAdjustmentNames,
-  OfferingIncomeSearchByGroundChurchAndSpecialNames,
-  OfferingIncomeSearchNamesByRecordStatus,
   OfferingIncomeSearchSubType,
+  OfferingIncomeSearchTypeNames,
   OfferingIncomeSearchNamesByShift,
   OfferingIncomeSearchNamesByMemberType,
+  OfferingIncomeSearchByActivitiesNames,
+  OfferingIncomeSearchByFamilyGroupNames,
+  OfferingIncomeSearchNamesByRecordStatus,
+  OfferingIncomeSearchByYoungWorshipNames,
+  OfferingIncomeSearchByUnitedWorshipNames,
+  OfferingIncomeSearchByIncomeAdjustmentNames,
+  OfferingIncomeSearchNamesByFastingAndVigilZonal,
+  OfferingIncomeSearchByGroundChurchAndSpecialNames,
+  OfferingIncomeSearchNamesByFastingAndVigilGeneral,
+  OfferingIncomeSearchBySundayWorshipAndSundaySchoolNames,
 } from '@/modules/offering/income/enums';
-import { offeringIncomeSearchByTermFormSchema } from '@/modules/offering/income/validations';
 import {
-  type OfferingIncomeSearchFormByTerm,
   type OfferingIncomeResponse,
+  type OfferingIncomeSearchFormByTerm,
 } from '@/modules/offering/income/interfaces';
+import { offeringIncomeSearchByTermFormSchema } from '@/modules/offering/income/validations';
 
 import { useOfferingIncomeStore } from '@/stores/offering-income';
 
+import { getAllChurches } from '@/modules/pastor/services';
+
 import { cn } from '@/shared/lib/utils';
+
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 import { dateFormatterTermToTimestamp, namesFormatter, lastNamesFormatter } from '@/shared/helpers';
 
@@ -76,6 +80,7 @@ const dataFictional: OfferingIncomeResponse[] = [
     subType: '',
     amount: '',
     currency: '',
+    shift: '',
     date: new Date('2024-05-21'),
     comments: '',
     imageUrls: [],
@@ -153,6 +158,12 @@ export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
     form.setValue('searchSubType', undefined);
   }, [searchType]);
 
+  //* Queries
+  const churchesQuery = useQuery({
+    queryKey: ['churches'],
+    queryFn: getAllChurches,
+  });
+
   //* Form handler
   function onSubmit(formData: z.infer<typeof offeringIncomeSearchByTermFormSchema>): void {
     let newDateTermTo;
@@ -174,7 +185,7 @@ export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
       lastNamesTerm: newLastNamesTerm,
       dateTerm: newDateTerm as any,
     });
-    console.log(formData);
+
     setIsDisabledSubmitButton(true);
     setIsFiltersSearchByTermDisabled(false);
     setDataForm(formData);
@@ -399,6 +410,7 @@ export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
                 (searchSubType === OfferingIncomeSearchSubType.OfferingByDate ||
                   searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCodeDate ||
                   searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate ||
+                  searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate ||
                   searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate) && (
                   <FormField
                     control={form.control}
@@ -461,10 +473,18 @@ export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
               {(searchType === OfferingIncomeSearchType.RecordStatus ||
                 ((searchType === OfferingIncomeSearchType.SundaySchool ||
                   searchType === OfferingIncomeSearchType.SundayWorship ||
+                  searchType === OfferingIncomeSearchType.GeneralFasting ||
+                  searchType === OfferingIncomeSearchType.GeneralVigil ||
+                  searchType === OfferingIncomeSearchType.Activities ||
+                  searchType === OfferingIncomeSearchType.UnitedWorship ||
+                  searchType === OfferingIncomeSearchType.YouthWorship ||
+                  searchType === OfferingIncomeSearchType.IncomeAdjustment ||
                   searchType === OfferingIncomeSearchType.Special ||
                   searchType === OfferingIncomeSearchType.ChurchGround) &&
                   (searchSubType === OfferingIncomeSearchSubType.OfferingByShift ||
                     searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate ||
+                    searchSubType === OfferingIncomeSearchSubType.OfferingByChurch ||
+                    searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate ||
                     searchSubType === OfferingIncomeSearchSubType.OfferingByContributorNames ||
                     searchSubType === OfferingIncomeSearchSubType.OfferingByContributorLastNames ||
                     searchSubType ===
@@ -497,22 +517,35 @@ export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {Object.entries(
-                              searchType === OfferingIncomeSearchType.RecordStatus
-                                ? OfferingIncomeSearchNamesByRecordStatus
-                                : searchType === OfferingIncomeSearchType.SundaySchool ||
-                                    searchType === OfferingIncomeSearchType.SundayWorship
-                                  ? OfferingIncomeSearchNamesByShift
-                                  : OfferingIncomeSearchNamesByMemberType
-                            ).map(([key, value]) => (
-                              <SelectItem
-                                className={cn(`text-[13px] md:text-[14px]`)}
-                                key={key}
-                                value={key}
-                              >
-                                {value}
-                              </SelectItem>
-                            ))}
+                            {searchSubType !== OfferingIncomeSearchSubType.OfferingByChurchDate &&
+                            searchSubType !== OfferingIncomeSearchSubType.OfferingByChurch
+                              ? Object.entries(
+                                  searchType === OfferingIncomeSearchType.RecordStatus
+                                    ? OfferingIncomeSearchNamesByRecordStatus
+                                    : searchSubType ===
+                                          OfferingIncomeSearchSubType.OfferingByShift ||
+                                        searchSubType ===
+                                          OfferingIncomeSearchSubType.OfferingByShiftDate
+                                      ? OfferingIncomeSearchNamesByShift
+                                      : OfferingIncomeSearchNamesByMemberType
+                                ).map(([key, value]) => (
+                                  <SelectItem
+                                    className={cn(`text-[13px] md:text-[14px]`)}
+                                    key={key}
+                                    value={key}
+                                  >
+                                    {value}
+                                  </SelectItem>
+                                ))
+                              : churchesQuery?.data?.map((church) => (
+                                  <SelectItem
+                                    className={cn(`text-[13px] md:text-[14px]`)}
+                                    key={church.id}
+                                    value={church.id}
+                                  >
+                                    {church.churchName}
+                                  </SelectItem>
+                                ))}
                           </SelectContent>
                         </Select>
                         <FormMessage />

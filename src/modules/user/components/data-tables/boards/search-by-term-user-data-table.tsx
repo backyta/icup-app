@@ -77,7 +77,7 @@ export function SearchByTermUserDataTable<TData, TValue>({
   //* Hooks (external libraries)
   const navigate = useNavigate();
 
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['users-by-term', searchParams],
     queryFn: () => getUsersByTerm(searchParams as UserQueryParams),

@@ -72,7 +72,7 @@ export function GeneralDiscipleSearchDataTable<TData, TValue>({
   //* Hooks (external libraries)
   const navigate = useNavigate();
 
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['general-disciples', searchParams],
     queryFn: () => getDisciples(searchParams as DiscipleQueryParams),

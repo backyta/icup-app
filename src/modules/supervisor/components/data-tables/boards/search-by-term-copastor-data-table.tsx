@@ -83,7 +83,7 @@ export function SearchByTermSupervisorDataTable<TData, TValue>({
   //* Hooks (external libraries)
   const navigate = useNavigate();
 
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['supervisors-by-term', searchParams],
     queryFn: () => getSupervisorsByTerm(searchParams as SupervisorQueryParams),

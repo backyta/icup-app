@@ -6,6 +6,7 @@ import { icupApi } from '@/api/icupApi';
 
 import { ZoneSearchType } from '@/modules/zone/enums';
 import { type ZoneFormData, type ZoneResponse, type ZoneQueryParams, type ZoneSupervisorUpdateFormData } from '@/modules/zone/interfaces';
+import { type SupervisorResponse } from '@/modules/supervisor/interfaces';
 
 //* Create zone
 export const createZone = async (formData:ZoneFormData ): Promise<ZoneResponse> => {
@@ -58,6 +59,40 @@ export const getZones = async ({limit, offset, all, order}: ZoneQueryParams): Pr
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
+
+//* Get supervisors by copastor
+export interface GetSupervisorsByCopastorOptions {
+  searchType: string;
+  copastorId: string;
+  isNull: string;
+}
+
+export const getAllSupervisorsByCopastor = async ({
+  searchType,
+  copastorId,
+  isNull,
+ }:GetSupervisorsByCopastorOptions): Promise<SupervisorResponse[]> => {
+  try {
+    const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${copastorId}` , {
+      params: {
+        order: 'ASC',
+        'search-type': searchType,
+        isNull,
+      },
+    }
+  );
+  console.log(data);
+  
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw (error.response.data)
+    }
+    
+    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+  }
+}
+
 
 // ? Get zones by term (paginated)
 export const getZonesByTerm = async ({ searchType, inputTerm, selectTerm, limit, offset, all, order}: ZoneQueryParams): Promise<ZoneResponse[] | undefined> => {
@@ -159,7 +194,7 @@ export const updateZone = async ({id, formData}: UpdateZoneOptions ): Promise<Zo
 }
 
 //! Delete zone by ID
-export const deleteChurch = async (id: string ): Promise<void> => {
+export const deleteZone = async (id: string ): Promise<void> => {
   try {
     const {data} = await icupApi.delete(`/zones/${id}`)
     

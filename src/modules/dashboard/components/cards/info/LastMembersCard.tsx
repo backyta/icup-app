@@ -1,27 +1,32 @@
 /* eslint-disable @typescript-eslint/promise-function-async */
-import { getDisciples } from '@/modules/disciple/services';
-import { type DiscipleQueryParams } from '@/modules/disciple/interfaces';
-
-import { MemberInfoItem } from '@/modules/dashboard/components';
-
-import { LoadingSpinner } from '@/shared/components';
-import { Card, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card';
 
 import { useQuery } from '@tanstack/react-query';
 
-const searchParams = {
-  limit: '7',
-  all: false,
-  offset: '0',
-  order: 'DESC',
-};
+import { getDisciples } from '@/modules/disciple/services';
+
+import { LoadingSpinner } from '@/shared/components';
+
+import { MemberInfoItem } from '@/modules/dashboard/components';
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/shared/components/ui/card';
 
 export function MembersInfoCard(): JSX.Element {
-  //* Querys
+  //* Queries
   const query = useQuery({
-    queryKey: ['last-disciples', searchParams],
-    queryFn: () => getDisciples(searchParams as DiscipleQueryParams),
-    staleTime: 5 * 60 * 1000,
+    queryKey: ['last-disciples'],
+    queryFn: () =>
+      getDisciples({
+        limit: '10',
+        all: false,
+        offset: '0',
+        order: 'DESC',
+      }),
     retry: 1,
   });
 
@@ -36,7 +41,9 @@ export function MembersInfoCard(): JSX.Element {
         </CardDescription>
       </CardHeader>
       {query.isLoading ? (
-        <LoadingSpinner />
+        <CardContent className='h-[45rem]'>
+          <LoadingSpinner />
+        </CardContent>
       ) : (
         query.data?.map((data) => <MemberInfoItem key={data.id} data={data} />)
       )}

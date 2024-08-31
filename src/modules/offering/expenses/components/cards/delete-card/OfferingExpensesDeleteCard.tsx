@@ -167,8 +167,6 @@ export const OfferingExpensesDeleteCard = (): JSX.Element => {
                   type='submit'
                   className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
                   onClick={() => {
-                    // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
-                    // NOTE : hacer petición al backend para borrar
                     toast.success('Registro eliminado exitosamente', {
                       position: 'top-center',
                       className: 'justify-center',
@@ -184,7 +182,6 @@ export const OfferingExpensesDeleteCard = (): JSX.Element => {
                     }, 1300);
                   }}
                 >
-                  {/* Colocar función que envié la solicitud al backend onClick */}
                   Sí, eliminar
                 </Button>
               </div>

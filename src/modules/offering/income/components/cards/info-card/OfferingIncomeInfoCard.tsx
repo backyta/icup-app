@@ -7,6 +7,7 @@ import { useMediaQuery } from '@react-hook/media-query';
 import { cn } from '@/shared/lib/utils';
 
 import { useOfferingIncomeStore } from '@/stores/offering-income';
+
 import { OfferingIncomeTabsCard } from '@/modules/offering/income/components';
 
 import { Button } from '@/shared/components/ui/button';

@@ -1,20 +1,27 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 
 import { useQuery } from '@tanstack/react-query';
 
 import { MemberType } from '@/modules/offering/income/enums';
 
+import { getAllChurches } from '@/modules/pastor/services';
 import { getAllPastors } from '@/modules/copastor/services';
-import { getAllFamilyGroups } from '@/modules/disciple/services';
-import { getAllCopastors } from '@/modules/supervisor/services';
 import { getAllSupervisors } from '@/modules/preacher/services';
+import { getAllCopastors } from '@/modules/supervisor/services';
+import { getAllFamilyGroups } from '@/modules/disciple/services';
 import { getAllDisciples } from '@/modules/offering/income/services';
 import { getAllPreachers, getAllZones } from '@/modules/family-group/services';
 
 export const useMemberQueries = (memberType: string | undefined) => {
-  //* Querys
+  //* Queries
+  const churchesQuery = useQuery({
+    queryKey: ['churches'],
+    queryFn: getAllChurches,
+    retry: 1,
+  });
+
   const pastorsQuery = useQuery({
     queryKey: ['pastors'],
     queryFn: getAllPastors,
@@ -68,5 +75,6 @@ export const useMemberQueries = (memberType: string | undefined) => {
     disciplesQuery,
     familyGroupsQuery,
     zonesQuery,
+    churchesQuery,
   };
 };

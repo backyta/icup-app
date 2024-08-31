@@ -7,7 +7,8 @@ import {
   type Supervisor,
   type Copastor,
   type Pastor,
-  type FamilyGroup
+  type FamilyGroup,
+  type Anexe
 } from '@/shared/interfaces';
 
 export interface OfferingIncomeResponse {
@@ -17,6 +18,7 @@ export interface OfferingIncomeResponse {
   amount:             string;
   currency:           string;
   comments:           string;
+  shift:              string;
   date:               Date;
   imageUrls:          string[];
   createdAt?:         Date;
@@ -26,6 +28,7 @@ export interface OfferingIncomeResponse {
   recordStatus:       string;
   memberType?:        string;
   familyGroup?:       FamilyGroup | null; 
+  church?:            Anexe | null; 
   zone?:              Zone | null; 
   disciple?:          Disciple | null; 
   preacher?:          Preacher | null; 

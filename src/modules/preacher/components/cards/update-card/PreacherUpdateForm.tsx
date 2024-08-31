@@ -210,7 +210,7 @@ export const PreacherUpdateForm = ({
     setIsCheckBoxDisabled,
   });
 
-  //* Querys
+  //* Queries
   const querySupervisors = useQuery({
     queryKey: ['supervisors', id],
     queryFn: () => getAllSupervisors({ isNull: 'false' }),

@@ -79,7 +79,7 @@ export function SearchByTermChurchDataTable<TData, TValue>({
   //* Hooks (external libraries)
   const navigate = useNavigate();
 
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['churches-by-term', searchParams],
     queryFn: () => getChurchesByTerm(searchParams as ChurchQueryParams),

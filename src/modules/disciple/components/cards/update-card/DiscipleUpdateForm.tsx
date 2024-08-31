@@ -200,7 +200,7 @@ export const DiscipleUpdateForm = ({
     setIsRelationSelectDisabled,
   });
 
-  //* Querys
+  //* Queries
   const queryFamilyGroups = useQuery({
     queryKey: ['family-groups', id],
     queryFn: getAllFamilyGroups,

@@ -49,12 +49,14 @@ export const useSupervisorDeletionMutation = ({
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['supervisors-by-term'] });
-
       toast.success('Registro eliminado correctamente.', {
         position: 'top-center',
         className: 'justify-center',
       });
+
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['supervisors-by-term'] });
+      }, 1000);
 
       setTimeout(() => {
         setIsCardOpen(false);

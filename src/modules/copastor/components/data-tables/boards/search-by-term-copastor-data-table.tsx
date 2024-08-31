@@ -83,7 +83,7 @@ export function SearchByTermCopastorDataTable<TData, TValue>({
   //* Hooks (external libraries)
   const navigate = useNavigate();
 
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['copastors-by-term', searchParams],
     queryFn: () => getCopastorsByTerm(searchParams as CopastorQueryParams),

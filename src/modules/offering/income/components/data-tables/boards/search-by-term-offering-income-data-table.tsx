@@ -22,23 +22,26 @@ import {
 } from '@tanstack/react-table';
 
 import {
-  OfferingIncomeCreationSubTypeNames,
-  OfferingIncomeCreationTypeNames,
-  OfferingIncomeSearchSelectOptionNames,
-  OfferingIncomeSearchSubType,
-  OfferingIncomeSearchSubTypeNames,
   OfferingIncomeSearchType,
+  OfferingIncomeSearchSubType,
   OfferingIncomeSearchTypeNames,
+  OfferingIncomeCreationTypeNames,
+  OfferingIncomeSearchSubTypeNames,
+  OfferingIncomeCreationSubTypeNames,
+  OfferingIncomeSearchSelectOptionNames,
 } from '@/modules/offering/income/enums';
-import { getOfferingsIncomeByTerm } from '@/modules/offering/income/services';
 import {
-  type OfferingIncomeSearchFormByTerm,
   type OfferingIncomeQueryParams,
+  type OfferingIncomeSearchFormByTerm,
 } from '@/modules/offering/income/interfaces';
+import { getOfferingsIncomeByTerm } from '@/modules/offering/income/services';
 
-import { useOfferingIncomeStore } from '@/stores/offering-income';
+import { getAllChurches } from '@/modules/pastor/services';
+
 import { LoadingSpinner } from '@/shared/components';
 import { dateFormatterToDDMMYYYY } from '@/shared/helpers';
+
+import { useOfferingIncomeStore } from '@/stores/offering-income';
 
 import {
   Table,
@@ -66,10 +69,10 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
   dataForm,
 }: DataTableProps<TData, TValue>): JSX.Element {
   //* States
+  const [rowSelection, setRowSelection] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = useState({});
 
   const isFiltersSearchByTermDisabled = useOfferingIncomeStore(
     (state) => state.isFiltersSearchByTermDisabled
@@ -81,18 +84,24 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
     (state) => state.setDataSearchByTermResponse
   );
 
-  const [isDisabledButton, setIsDisabledButton] = useState(false);
   const [translatedData, setTranslatedData] = useState([]);
+  const [isDisabledButton, setIsDisabledButton] = useState(false);
 
   //* Hooks (external libraries)
   const navigate = useNavigate();
 
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['offerings-income-by-term', searchParams],
     queryFn: () => getOfferingsIncomeByTerm(searchParams as OfferingIncomeQueryParams),
     enabled: !!searchParams,
     retry: 1,
+  });
+
+  //* Queries
+  const churchesQuery = useQuery({
+    queryKey: ['churches'],
+    queryFn: getAllChurches,
   });
 
   //* Set data result query
@@ -126,6 +135,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
     }
   }, [query?.error]);
 
+  //* Disabled button while query is pending
   useEffect(() => {
     if (query?.isPending) {
       setIsDisabledButton(true);
@@ -135,6 +145,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
     setIsDisabledButton(false);
   }, [query?.isPending]);
 
+  //* Transform data to Spanish
   useEffect(() => {
     if (query.data) {
       const transformedData = query.data.map((item) => ({
@@ -219,6 +230,21 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
             <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
               Termino de búsqueda:
             </span>{' '}
+            {(dataForm?.searchType === OfferingIncomeSearchType.ChurchGround ||
+              dataForm?.searchType === OfferingIncomeSearchType.Special) &&
+              (dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorNames ||
+                dataForm?.searchSubType ===
+                  OfferingIncomeSearchSubType.OfferingByContributorLastNames ||
+                dataForm?.searchSubType ===
+                  OfferingIncomeSearchSubType.OfferingByContributorFullName) && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {`${
+                    Object.entries(OfferingIncomeSearchSelectOptionNames).find(
+                      ([key, value]) => key === dataForm?.selectTerm && value
+                    )?.[1]
+                  } - `}
+                </span>
+              )}
             {(dataForm?.searchType === OfferingIncomeSearchType.FamilyGroup ||
               dataForm?.searchType === OfferingIncomeSearchType.ZonalFasting ||
               dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil) &&
@@ -270,11 +296,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
                 dataForm?.searchSubType ===
                   OfferingIncomeSearchSubType.OfferingBySupervisorFullName) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                  {`${dataForm?.lastNamesTerm}`}
-                </span>
-              ) && (
-                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                  {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
+                  {`${dataForm?.namesTerm} ${dataForm?.lastNamesTerm} `}
                 </span>
               )}
             {(dataForm?.searchType === OfferingIncomeSearchType.Activities ||
@@ -293,23 +315,48 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               (dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByDate ||
                 dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCodeDate ||
                 dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate ||
-                dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate) && (
+                dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate ||
+                dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                  {`${dataForm?.dateTerm?.from ? dateFormatterToDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${dateFormatterToDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
+                  {dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate ||
+                  dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCodeDate
+                    ? ` - ${dataForm?.dateTerm?.from ? dateFormatterToDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${dateFormatterToDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`
+                    : `${dataForm?.dateTerm?.from ? dateFormatterToDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${dateFormatterToDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
                 </span>
               )}
             {(dataForm?.searchType === OfferingIncomeSearchType.RecordStatus ||
-              ((dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
-                dataForm?.searchType === OfferingIncomeSearchType.SundayWorship) &&
-                (dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByShift ||
-                  dataForm?.searchSubType ===
-                    OfferingIncomeSearchSubType.OfferingByShiftDate))) && (
+              dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
+              dataForm?.searchType === OfferingIncomeSearchType.SundayWorship) &&
+              (dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByShift ||
+                dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate) && (
+                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                  {dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate
+                    ? ` - ${
+                        Object.entries(OfferingIncomeSearchSelectOptionNames).find(
+                          ([key, value]) => key === dataForm?.selectTerm && value
+                        )?.[1]
+                      }`
+                    : `${
+                        Object.entries(OfferingIncomeSearchSelectOptionNames).find(
+                          ([key, value]) => key === dataForm?.selectTerm && value
+                        )?.[1]
+                      }`}
+                </span>
+              )}
+            {(((dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
+              dataForm?.searchType === OfferingIncomeSearchType.SundayWorship ||
+              dataForm?.searchType === OfferingIncomeSearchType.Activities ||
+              dataForm?.searchType === OfferingIncomeSearchType.GeneralFasting ||
+              dataForm?.searchType === OfferingIncomeSearchType.GeneralVigil ||
+              dataForm?.searchType === OfferingIncomeSearchType.UnitedWorship ||
+              dataForm?.searchType === OfferingIncomeSearchType.YouthWorship) &&
+              (dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByChurch ||
+                dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate)) ||
+              dataForm?.searchType === OfferingIncomeSearchType.IncomeAdjustment) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${
-                  Object.entries(OfferingIncomeSearchSelectOptionNames).find(
-                    ([key, value]) => key === dataForm?.selectTerm && value
-                  )?.[1]
-                }`}
+                {dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate
+                  ? ` - ${churchesQuery?.data?.find((item) => item?.id === dataForm?.selectTerm)?.churchName}`
+                  : `${churchesQuery?.data?.find((item) => item?.id === dataForm?.selectTerm)?.churchName}`}
               </span>
             )}
           </div>

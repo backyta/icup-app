@@ -7,11 +7,13 @@ import {
   type FamilyGroupResponse,
   type FamilyGroupFormData,
 } from '@/modules/family-group/interfaces';
+import { RecordStatus } from '@/shared/enums';
 
 interface Options {
   id: string;
   data: FamilyGroupResponse | undefined;
   setIsLoadingData: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsInputTheirPreacherDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   familyGroupUpdateForm: UseFormReturn<FamilyGroupFormData, any, FamilyGroupFormData>;
 }
 
@@ -19,9 +21,12 @@ export const useFamilyGroupUpdateEffects = ({
   id,
   data,
   setIsLoadingData,
+  setIsInputTheirPreacherDisabled,
   familyGroupUpdateForm,
 }: Options): void => {
   const district = familyGroupUpdateForm.watch('district');
+  const theirZone = familyGroupUpdateForm.watch('theirZone');
+  const theirPreacher = familyGroupUpdateForm.watch('theirPreacher');
 
   //* Set data
   useEffect(() => {
@@ -63,4 +68,20 @@ export const useFamilyGroupUpdateEffects = ({
       window.history.replaceState({}, '', originalUrl);
     };
   }, [id]);
+
+  useEffect(() => {
+    if (theirPreacher) {
+      setIsInputTheirPreacherDisabled(true);
+    }
+  }, [theirPreacher]);
+
+  useEffect(() => {
+    if (theirZone && !theirPreacher && data?.recordStatus === RecordStatus.Inactive) {
+      setIsInputTheirPreacherDisabled(false);
+    }
+
+    familyGroupUpdateForm.resetField('theirPreacher', {
+      keepError: true,
+    });
+  }, [theirZone]);
 };

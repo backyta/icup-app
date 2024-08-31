@@ -85,8 +85,6 @@ interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
 }
-// NOTE : del componente padre que llama a este, hacer el fetch y mandar el ID, y el onDelete
-// NOTE : para que actualize la lista, (pero tmb ver la manera de transformar el id a serial)
 
 export function DataTableSearchByTerm<TData, TValue>({
   columns,

@@ -166,7 +166,7 @@ export const PastorUpdateForm = ({
     setIsSubmitButtonDisabled,
   });
 
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['churches', id],
     queryFn: getAllChurches,

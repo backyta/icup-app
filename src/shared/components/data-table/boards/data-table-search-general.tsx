@@ -131,9 +131,7 @@ export function DataTableSearchGeneral<TData, TValue>({
     }
   }, [limit, offset, order]);
 
-  // NOTE : NO TENDRIA QUE HACERLO AQUI si no en el page para que pase la info aca como data
-  // NOTE : pasar el query en el handle form
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['churches'],
     queryFn: () => getChurches({ limit, offset, recordOrder: order, limitAll: all }),

@@ -74,7 +74,7 @@ export const ZoneUpdateForm = ({
   //* States
   const [isInputTheirSupervisorOpen, setIsInputTheirSupervisorOpen] = useState<boolean>(false);
   const [isInputTheirSupervisorDisabled, setIsInputTheirSupervisorDisabled] =
-    useState<boolean>(true);
+    useState<boolean>(false);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
@@ -121,11 +121,17 @@ export const ZoneUpdateForm = ({
     onScroll,
     setIsInputDisabled,
     setIsSubmitButtonDisabled,
+    setIsInputTheirSupervisorDisabled,
   });
 
-  //* Querys
+  //* Queries
   const supervisorsQuery = useQuery({
-    queryKey: ['supervisors'],
+    queryKey: ['available-supervisors'],
+    queryFn: () => getAllSupervisors({ isNull: 'true' }),
+  });
+
+  const supervisorQuery = useQuery({
+    queryKey: ['supervisor'],
     queryFn: () => getAllSupervisors({ isNull: 'false' }),
   });
 
@@ -375,13 +381,11 @@ export const ZoneUpdateForm = ({
                                     role='combobox'
                                     className={cn(
                                       'w-full justify-between',
-                                      !field.value && 'font-normal',
-                                      isInputTheirSupervisorDisabled &&
-                                        'dark:bg-gray-100  dark:text-black bg-gray-200'
+                                      !field.value && 'font-normal'
                                     )}
                                   >
                                     {field.value
-                                      ? `${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.firstName} ${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.lastName}`
+                                      ? `${supervisorQuery?.data?.find((supervisor) => supervisor.id === field.value)?.firstName} ${supervisorQuery?.data?.find((supervisor) => supervisor.id === field.value)?.lastName}`
                                       : 'Busque y seleccione una iglesia'}
                                     <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                   </Button>
@@ -394,7 +398,7 @@ export const ZoneUpdateForm = ({
                                     className='h-9 text-[14px]'
                                   />
                                   <CommandEmpty>Supervisor no encontrado.</CommandEmpty>
-                                  <CommandGroup className='max-h-[200px] h-auto'>
+                                  <CommandGroup className='max-h-[200px] h-auto w-[350px]'>
                                     {supervisorsQuery?.data?.map((supervisor) => (
                                       <CommandItem
                                         className='text-[14px]'

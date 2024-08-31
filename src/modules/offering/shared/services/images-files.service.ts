@@ -5,11 +5,12 @@ import { icupApi } from '@/api/icupApi';
 
 import { type UploadImageResponse } from '@/modules/offering/shared/interfaces';
 
+//* Upload Images
 export interface UploadImagesOptions{
-  files:File[],
+  files: File[],
   action: 'income' | 'expenses',
   type: string,
-  subType?: string | undefined,
+  subType?: string | undefined | null,
 }
 
 export const uploadImages = async ({files, action, type, subType}:UploadImagesOptions): Promise<UploadImageResponse> => {
@@ -37,4 +38,32 @@ export const uploadImages = async ({files, action, type, subType}:UploadImagesOp
     throw new Error('Ocurrió un error inesperado')
   }
 }
+
+//! Delete Image
+export interface DeleteImageOptions{
+  publicId: string,
+  path: string,
+  secureUrl: string,
+}
+
+export const deleteImage = async ({publicId, path, secureUrl}: DeleteImageOptions): Promise<void> => {
+  try {
+    const {data} = await icupApi.delete(`/files/${publicId}`,{
+      params: {
+        path,
+        secureUrl
+      },
+    })
+    
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw (error.response.data)
+    }
+    
+    throw new Error('Ocurrió un error inesperado')
+  }
+}
+
+
 

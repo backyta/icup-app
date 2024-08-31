@@ -14,6 +14,7 @@ interface Options {
   onScroll: () => void;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsInputTheirSupervisorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useZoneUpdateMutation = ({
@@ -21,6 +22,7 @@ export const useZoneUpdateMutation = ({
   onScroll,
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
+  setIsInputTheirSupervisorDisabled,
 }: Options): UseMutationResult<ZoneResponse, ErrorResponse, UpdateZoneOptions, unknown> => {
   const navigate = useNavigate();
 
@@ -40,6 +42,7 @@ export const useZoneUpdateMutation = ({
         setTimeout(() => {
           setIsInputDisabled(false);
           setIsSubmitButtonDisabled(false);
+          setIsInputTheirSupervisorDisabled(false);
         }, 1500);
       }
 

@@ -6,9 +6,10 @@ export interface OfferingIncomeFormData {
   date: Date;
   currency: string,
   comments?: string | undefined,
-  urlFiles?: string[] | undefined,
+  fileNames?: string[] | undefined,
   imageUrls?: string[] | undefined,
   memberType?: string | undefined,
+  churchId?: string | undefined,
   familyGroupId?: string | undefined,
   memberId?: string | undefined,
   zoneId?: string | undefined,
@@ -16,17 +17,18 @@ export interface OfferingIncomeFormData {
 }
 
 export type OfferingIncomeFormDataKeys =
-  | 'searchType'
-  | 'searchSubType'
+  | 'type'
+  | 'subType'
   | 'memberType'
   | 'amount'
   | 'shift'
   | 'currency'
   | 'comments'
-  | 'urlFiles'
+  | 'fileNames'
   | 'imageUrls'
   | 'familyGroupId'
   | 'memberId'
   | 'zoneId'
+  | 'churchId'
   | 'recordStatus'
 

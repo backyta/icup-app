@@ -17,7 +17,7 @@ import { DiscipleOptionsPage } from '@/modules/disciple/pages';
 import { FamilyGroupOptionsPage } from '@/modules/family-group/pages';
 import { ZoneOptionsPage } from '@/modules/zone/pages';
 //* Offerings
-import { OfferingOptionsPage } from '@/modules/offering/pages';
+import { OfferingOptionsPage } from '@/modules/offering/shared/pages';
 import { OfferingIncomeOptionsPage } from '@/modules/offering/income/pages';
 import { OfferingExpensesOptionsPage } from '@/modules/offering/expenses/pages';
 //* Metrics and charts

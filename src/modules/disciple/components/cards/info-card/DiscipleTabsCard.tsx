@@ -7,7 +7,7 @@ import { addDays, format } from 'date-fns';
 import { getInitialFullNames } from '@/shared/helpers';
 import { type DiscipleResponse } from '@/modules/disciple/interfaces';
 
-import { type MemberRole, MemberRoleNames } from '@/shared/enums';
+import { type Gender, GenderNames, type MemberRole, MemberRoleNames } from '@/shared/enums';
 
 import {
   Card,
@@ -113,7 +113,7 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Género</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.gender ?? '-'}
+                {GenderNames[data?.gender as Gender] ?? '-'}
               </CardDescription>
             </div>
             <div className='space-y-1'>

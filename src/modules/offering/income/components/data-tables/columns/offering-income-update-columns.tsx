@@ -9,12 +9,10 @@ import {
   OfferingIncomeInfoCard,
   OfferingIncomeUpdateCard,
 } from '@/modules/offering/income/components';
+import { type OfferingIncomeColumns } from '@/modules/offering/income/interfaces';
 
 import { Button } from '@/shared/components/ui/button';
-
 import { CurrencyTypeNames } from '@/modules/offering/shared/enums';
-
-import { type OfferingIncomeColumns } from '@/modules/offering/income/interfaces';
 
 export const offeringIncomeUpdateColumns: Array<ColumnDef<OfferingIncomeColumns, any>> = [
   {
@@ -135,15 +133,38 @@ export const offeringIncomeUpdateColumns: Array<ColumnDef<OfferingIncomeColumns,
   },
   {
     id: 'showInfo',
-    cell: () => {
-      return <OfferingIncomeInfoCard />;
+    accessorKey: 'id',
+    cell: (info) => {
+      const id = info.row.original.id;
+      return info.getValue() === '-' ? '-' : <OfferingIncomeInfoCard idRow={id} />;
+    },
+    header: () => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px] text-blue-500 hover:text-blue-500'
+          variant='ghost'
+        >
+          Info
+        </Button>
+      );
     },
   },
-
   {
-    id: 'updateInfo',
-    cell: () => {
-      return <OfferingIncomeUpdateCard />;
+    id: 'editInfo',
+    accessorKey: 'id',
+    cell: (info) => {
+      const id = info.row.original.id;
+      return info.getValue() === '-' ? '-' : <OfferingIncomeUpdateCard idRow={id} />;
+    },
+    header: () => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px] text-orange-500 hover:text-orange-500'
+          variant='ghost'
+        >
+          Actualizar
+        </Button>
+      );
     },
   },
 ];

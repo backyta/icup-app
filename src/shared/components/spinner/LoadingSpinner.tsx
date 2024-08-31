@@ -59,9 +59,16 @@ export const LoadingSpinner = (): JSX.Element => {
           'min-h-full'
       )}
     >
-      <div className='flex flex-col items-center justify-center'>
-        <div className='loader ease-linear rounded-full border-8 border-t-8 border-blue-500 h-32 w-32 mb-4'></div>
-        <h2 className='text-center text-black dark:text-white text-xl font-semibold'>{verse}</h2>
+      <div className='flex flex-col items-center justify-center px-4'>
+        <div
+          className={cn(
+            'loader ease-linear rounded-full border-8 border-t-8 border-blue-500 h-32 w-32 mb-4 ',
+            pathname === '/dashboard' && '-mt-10'
+          )}
+        ></div>
+        <h2 className='text-center text-black dark:text-white text-[14px] md:text-[18px] font-semibold'>
+          {verse}
+        </h2>
       </div>
     </div>
   );

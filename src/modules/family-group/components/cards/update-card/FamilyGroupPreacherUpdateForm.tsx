@@ -80,7 +80,7 @@ export const FamilyGroupPreacherUpdateForm = ({
     },
   });
 
-  //* Querys
+  //* Queries
   const preachersQuery = useQuery({
     queryKey: ['preachers-by-zone', data?.theirZone?.id],
     queryFn: () =>
@@ -364,8 +364,8 @@ export const FamilyGroupPreacherUpdateForm = ({
                 los Grupos Familiares.
               </p>
               <p className='text-[12px] md:text-[13px] mb-2 font-medium '>
-                ✅ Al ejecutar el intercambio el predicador y los discípulos pasaran al otro Grupo
-                Familiar y viceversa.
+                ✅ Al ejecutar el intercambio el predicador pasara al otro Grupo Familiar y
+                viceversa.
               </p>
               <p className='text-[12px] md:text-[13px] mb-2 font-medium '>
                 ✅ Si quieres intercambiar por otro Predicador, primero deberás actualizar ese

@@ -1,39 +1,44 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
-import { useMutation, type UseMutationResult } from '@tanstack/react-query';
-import { type UseFormReturn } from 'react-hook-form';
+import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
+import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces';
 import {
-  type OfferingIncomeResponse,
-  type OfferingIncomeFormData,
-} from '@/modules/offering/income/interfaces';
-import { createOfferingIncome } from '@/modules/offering/income/services';
+  updateOfferingIncome,
+  type UpdateOfferingIncomeOptions,
+} from '@/modules/offering/income/services';
 
 import { type ErrorResponse } from '@/shared/interfaces';
-import { type FilesProps } from '@/modules/offering/shared/interfaces';
 
 interface Options {
-  offeringIncomeCreateForm: UseFormReturn<OfferingIncomeFormData, any, OfferingIncomeFormData>;
+  onSubmit: () => void;
+  onScroll: () => void;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  setFiles: React.Dispatch<React.SetStateAction<FilesProps[]>>;
 }
 
-export const useOfferingIncomeMutation = ({
-  offeringIncomeCreateForm,
+export const useOfferingIncomeUpdateMutation = ({
+  onSubmit,
+  onScroll,
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
-  setFiles,
 }: Options): UseMutationResult<
   OfferingIncomeResponse,
   ErrorResponse,
-  OfferingIncomeFormData,
+  UpdateOfferingIncomeOptions,
   unknown
 > => {
+  //* Library Hooks
   const navigate = useNavigate();
 
+  //* QueryClient
+  const queryClient = useQueryClient();
+
+  //* Mutation
   const mutation = useMutation({
-    mutationFn: createOfferingIncome,
+    mutationFn: updateOfferingIncome,
     onError: (error: ErrorResponse) => {
       if (error.message !== 'Unauthorized') {
         toast.error(error.message, {
@@ -59,24 +64,23 @@ export const useOfferingIncomeMutation = ({
       }
     },
     onSuccess: () => {
-      toast.success('Registro creado exitosamente.', {
+      toast.success('Cambios guardados correctamente.', {
         position: 'top-center',
         className: 'justify-center',
       });
 
       setTimeout(() => {
+        onScroll();
+      }, 150);
+
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['offerings-income-by-term'] });
+      }, 500);
+
+      setTimeout(() => {
+        onSubmit();
         setIsInputDisabled(false);
-        setIsSubmitButtonDisabled(false);
       }, 1500);
-
-      setTimeout(() => {
-        offeringIncomeCreateForm.reset();
-        setFiles([]);
-      }, 1600);
-
-      setTimeout(() => {
-        navigate('/offerings/income');
-      }, 2400);
     },
   });
 

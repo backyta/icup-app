@@ -147,14 +147,14 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
     setIsSubmitButtonDisabled,
   });
 
-  //* Querys
+  //* Queries
   const zonesQuery = useQuery({
     queryKey: ['zones'],
     queryFn: getAllZones,
   });
 
   const preachersQuery = useQuery({
-    queryKey: ['preachers-by-zone', theirZone],
+    queryKey: ['creation-preachers-by-zone', theirZone],
     queryFn: () =>
       getAllPreachersByZone({
         searchType: PreacherSearchType.ZoneId,

@@ -57,7 +57,7 @@ export const useDiscipleDeletionMutation = ({
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['disciples-by-term'] });
-      }, 1800);
+      }, 1000);
 
       setTimeout(() => {
         setIsCardOpen(false);

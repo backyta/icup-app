@@ -82,7 +82,7 @@ export function SearchByTermFamilyGroupDataTable<TData, TValue>({
   //* Hooks (external libraries)
   const navigate = useNavigate();
 
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['family-groups-by-term', searchParams],
     queryFn: () => getFamilyGroupsByTerm(searchParams as FamilyGroupQueryParams),

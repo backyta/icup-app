@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
@@ -12,6 +13,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
+import { PreacherSearchType } from '@/modules/preacher/enums';
+
 import { FamilyGroupWorshipTimeNames } from '@/modules/family-group/enums';
 import { familyGroupFormSchema } from '@/modules/family-group/validations';
 import { FamilyGroupFormSkeleton } from '@/modules/family-group/components';
@@ -21,7 +24,11 @@ import {
   useFamilyGroupUpdateMutation,
   useFamilyGroupUpdateSubmitButtonLogic,
 } from '@/modules/family-group/hooks';
-import { getAllPreachers, getAllZones } from '@/modules/family-group/services';
+import {
+  getAllPreachers,
+  getAllPreachersByZone,
+  getAllZones,
+} from '@/modules/family-group/services';
 
 import { cn } from '@/shared/lib/utils';
 
@@ -31,6 +38,7 @@ import {
   ProvinceNames,
   DepartmentNames,
   UrbanSectorNames,
+  RecordStatus,
 } from '@/shared/enums';
 import {
   getFullNames,
@@ -74,11 +82,6 @@ interface FamilyGroupFormUpdateProps {
   onScroll: () => void;
   data: FamilyGroupResponse | undefined;
 }
-
-// TODO : no debería eliminarse el grupo familiar porque afecta la relación con si ofrenda (falso revisar)
-// TODO : el id de casa se mantiene lo que cambia son sus su zona o supervisor o predicador, código o numero
-// TODO : si se cambia de predicadores normal porque se mantiene su identificador,
-// TODO : si se cambia de supervisor la zona de las casas tmb cambia su código pero su id sigue igual (revisar)
 
 export const FamilyGroupUpdateForm = ({
   id,
@@ -124,6 +127,7 @@ export const FamilyGroupUpdateForm = ({
 
   //* Watchers
   const district = form.watch('district');
+  const theirZone = form.watch('theirZone');
 
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
@@ -134,6 +138,7 @@ export const FamilyGroupUpdateForm = ({
     id,
     data,
     setIsLoadingData,
+    setIsInputTheirPreacherDisabled,
     familyGroupUpdateForm: form,
   });
 
@@ -151,7 +156,7 @@ export const FamilyGroupUpdateForm = ({
     setIsSubmitButtonDisabled,
   });
 
-  //* Querys
+  //* Queries
   const zonesQuery = useQuery({
     queryKey: ['zones'],
     queryFn: getAllZones,
@@ -160,6 +165,18 @@ export const FamilyGroupUpdateForm = ({
   const preachersQuery = useQuery({
     queryKey: ['preachers'],
     queryFn: getAllPreachers,
+  });
+
+  const preachersByZoneQuery = useQuery({
+    queryKey: ['update-preachers-by-zone', theirZone],
+    queryFn: () =>
+      getAllPreachersByZone({
+        searchType: PreacherSearchType.ZoneId,
+        zoneId: theirZone ?? '',
+        isNull: 'true',
+      }),
+    enabled: !!theirZone,
+    retry: 1,
   });
 
   //* Form handler
@@ -602,7 +619,8 @@ export const FamilyGroupUpdateForm = ({
                             <FormDescription className='text-[14px]'>
                               Seleccione un predicador para esta grupo familiar.
                             </FormDescription>
-                            {preachersQuery?.isFetching ? (
+                            {preachersByZoneQuery?.isFetching &&
+                            data?.recordStatus === RecordStatus.Inactive ? (
                               <div className='pt-2 font-black text-[16px] text-center dark:text-gray-300 text-gray-500'>
                                 <span>Cargando predicadores...</span>
                               </div>
@@ -624,9 +642,13 @@ export const FamilyGroupUpdateForm = ({
                                           'dark:bg-gray-100  dark:text-black bg-gray-200'
                                       )}
                                     >
-                                      {field.value
-                                        ? `${preachersQuery.data?.find((preacher) => preacher.id === field.value)?.firstName} ${preachersQuery.data?.find((preacher) => preacher.id === field.value)?.lastName}`
-                                        : 'Busque y seleccione un predicador'}
+                                      {field.value ||
+                                      (field.value && data?.recordStatus === RecordStatus.Active)
+                                        ? `${preachersQuery?.data?.find((preacher) => preacher.id === field.value)?.firstName} ${preachersQuery?.data?.find((preacher) => preacher.id === field.value)?.lastName}`
+                                        : field.value &&
+                                            data?.recordStatus === RecordStatus.Inactive
+                                          ? `${preachersByZoneQuery?.data?.find((preacher) => preacher.id === field.value)?.firstName} ${preachersByZoneQuery?.data?.find((preacher) => preacher.id === field.value)?.lastName}`
+                                          : 'Busque y seleccione un predicador'}
                                       <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                     </Button>
                                   </FormControl>
@@ -637,44 +659,79 @@ export const FamilyGroupUpdateForm = ({
                                       placeholder='Busque un predicador...'
                                       className='h-9 text-[14px]'
                                     />
-                                    {preachersQuery?.data && (
-                                      <CommandEmpty>Predicador no encontrado.</CommandEmpty>
-                                    )}
+                                    {data?.recordStatus === RecordStatus.Active
+                                      ? preachersQuery?.data && (
+                                          <CommandEmpty>Predicador no encontrado.</CommandEmpty>
+                                        )
+                                      : preachersByZoneQuery?.data && (
+                                          <CommandEmpty>Predicador no encontrado.</CommandEmpty>
+                                        )}
                                     <CommandGroup
                                       className={cn(
                                         'max-h-[200px] h-auto ',
-                                        !preachersQuery.data && 'w-[320px]'
+                                        (!preachersQuery.data || !preachersByZoneQuery.data) &&
+                                          'w-[320px]'
                                       )}
                                     >
-                                      {preachersQuery.data?.map((preacher) => (
-                                        <CommandItem
-                                          className='text-[14px]'
-                                          value={getFullNames({
-                                            firstNames: preacher.firstName,
-                                            lastNames: preacher.lastName,
-                                          })}
-                                          key={preacher.id}
-                                          onSelect={() => {
-                                            form.setValue('theirPreacher', preacher.id);
-                                            setIsInputTheirPreacherOpen(false);
-                                          }}
-                                        >
-                                          {`${preacher?.firstName} ${preacher?.lastName}`}
-                                          <CheckIcon
-                                            className={cn(
-                                              'ml-auto h-4 w-4',
-                                              preacher.id === field.value
-                                                ? 'opacity-100'
-                                                : 'opacity-0'
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      )) ?? (
-                                        <p className='text-[14.5px] text-red-500 text-center'>
-                                          ❌ No se encontró predicadores disponibles, todos están
-                                          asignados a un grupo familiar.
-                                        </p>
-                                      )}
+                                      {data?.recordStatus === RecordStatus.Active
+                                        ? preachersQuery?.data?.map((preacher) => (
+                                            <CommandItem
+                                              className='text-[14px]'
+                                              value={getFullNames({
+                                                firstNames: preacher.firstName,
+                                                lastNames: preacher.lastName,
+                                              })}
+                                              key={preacher.id}
+                                              onSelect={() => {
+                                                form.setValue('theirPreacher', preacher.id);
+                                                setIsInputTheirPreacherOpen(false);
+                                              }}
+                                            >
+                                              {`${preacher?.firstName} ${preacher?.lastName}`}
+                                              <CheckIcon
+                                                className={cn(
+                                                  'ml-auto h-4 w-4',
+                                                  preacher.id === field.value
+                                                    ? 'opacity-100'
+                                                    : 'opacity-0'
+                                                )}
+                                              />
+                                            </CommandItem>
+                                          )) ?? (
+                                            <p className='text-[14.5px] text-red-500 text-center'>
+                                              ❌ No se encontró predicadores disponibles, todos
+                                              están asignados a un grupo familiar.
+                                            </p>
+                                          )
+                                        : preachersByZoneQuery?.data?.map((preacher) => (
+                                            <CommandItem
+                                              className='text-[14px]'
+                                              value={getFullNames({
+                                                firstNames: preacher.firstName,
+                                                lastNames: preacher.lastName,
+                                              })}
+                                              key={preacher.id}
+                                              onSelect={() => {
+                                                form.setValue('theirPreacher', preacher.id);
+                                                setIsInputTheirPreacherOpen(false);
+                                              }}
+                                            >
+                                              {`${preacher?.firstName} ${preacher?.lastName}`}
+                                              <CheckIcon
+                                                className={cn(
+                                                  'ml-auto h-4 w-4',
+                                                  preacher.id === field.value
+                                                    ? 'opacity-100'
+                                                    : 'opacity-0'
+                                                )}
+                                              />
+                                            </CommandItem>
+                                          )) ?? (
+                                            <p className='text-[14.5px] text-red-500 text-center'>
+                                              ❌ No se encontró predicadores disponibles, todos
+                                              están asignados a un grupo familiar.
+                                            </p>
+                                          )}
                                     </CommandGroup>
                                   </Command>
                                 </PopoverContent>

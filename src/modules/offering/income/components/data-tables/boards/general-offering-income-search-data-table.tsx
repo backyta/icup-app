@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/promise-function-async */
-/* eslint-disable @typescript-eslint/return-await */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect, useState } from 'react';
@@ -22,6 +22,10 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table';
 
+import {
+  OfferingIncomeCreationTypeNames,
+  OfferingIncomeCreationSubTypeNames,
+} from '@/modules/offering/income/enums';
 import { getOfferingsIncome } from '@/modules/offering/income/services';
 import { type OfferingIncomeQueryParams } from '@/modules/offering/income/interfaces';
 
@@ -40,10 +44,6 @@ import {
 } from '@/shared/components/ui/table';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
-import {
-  OfferingIncomeCreationSubTypeNames,
-  OfferingIncomeCreationTypeNames,
-} from '../../../enums';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -58,10 +58,10 @@ export function GeneralOfferingIncomeSearchDataTable<TData, TValue>({
   setSearchParams,
 }: DataTableProps<TData, TValue>): JSX.Element {
   //* States
+  const [rowSelection, setRowSelection] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = useState({});
 
   const isFiltersSearchGeneralDisabled = useOfferingIncomeStore(
     (state) => state.isFiltersSearchGeneralDisabled
@@ -73,13 +73,13 @@ export function GeneralOfferingIncomeSearchDataTable<TData, TValue>({
     (state) => state.setDataSearchGeneralResponse
   );
 
-  const [isDisabledButton, setIsDisabledButton] = useState(false);
   const [translatedData, setTranslatedData] = useState([]);
+  const [isDisabledButton, setIsDisabledButton] = useState(false);
 
   //* Hooks (external libraries)
   const navigate = useNavigate();
 
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['general-offerings-income', searchParams],
     queryFn: () => getOfferingsIncome(searchParams as OfferingIncomeQueryParams),
@@ -128,6 +128,7 @@ export function GeneralOfferingIncomeSearchDataTable<TData, TValue>({
     setIsDisabledButton(false);
   }, [query?.isPending]);
 
+  //* Transform data to Spanish
   useEffect(() => {
     if (query.data) {
       const transformedData = query.data.map((item) => ({

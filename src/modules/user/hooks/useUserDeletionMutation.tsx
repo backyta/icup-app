@@ -50,12 +50,14 @@ export const useUserDeletionMutation = ({
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['users-by-term'] });
-
       toast.success('Registro eliminado correctamente.', {
         position: 'top-center',
         className: 'justify-center',
       });
+
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['users-by-term'] });
+      }, 1000);
 
       setTimeout(() => {
         setIsCardOpen(false);

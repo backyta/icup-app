@@ -4,15 +4,13 @@ import * as z from 'zod';
 
 import { 
   MemberType, 
-  OfferingIncomeCreationSubType, 
   OfferingIncomeCreationType, 
+  OfferingIncomeCreationSubType, 
   OfferingIncomeCreationShiftType 
 } from '@/modules/offering/income/enums';
 
 import { RecordStatus } from '@/shared/enums';
 import { CurrencyType  } from '@/modules/offering/shared/enums';
-
-
 
 export const offeringIncomeFormSchema = z
   .object({
@@ -58,6 +56,7 @@ export const offeringIncomeFormSchema = z
       required_error: "Por favor seleccione una opción válida.",
     })).optional(),
 
+    churchId: z.string().optional(),
     familyGroupId: z.string().optional(),
     memberId: z.string().optional(),
     zoneId: z.string().optional(),
@@ -91,7 +90,7 @@ export const offeringIncomeFormSchema = z
     },
     {
       message: 'El discípulo es requerido.',
-      path: ['member'],
+      path: ['memberId'],
     }
   )
   .refine(
@@ -105,7 +104,7 @@ export const offeringIncomeFormSchema = z
     },
     {
       message: 'Por favor elige una zona',
-      path: ['zone'],
+      path: ['zoneId'],
     }
   )
   .refine(
@@ -119,7 +118,7 @@ export const offeringIncomeFormSchema = z
     },
     {
       message: 'Por favor elige una zona',
-      path: ['zone'],
+      path: ['zoneId'],
     }
   )
   .refine(
@@ -133,7 +132,29 @@ export const offeringIncomeFormSchema = z
     },
     {
       message: 'Por favor elige un grupo familiar',
-      path: ['familyGroup'],
+      path: ['familyGroupId'],
+    }
+  )
+  .refine(
+    (data) => {
+      if ((data.type === OfferingIncomeCreationType.IncomeAdjustment ||
+        (data.type === OfferingIncomeCreationType.Offering &&
+          (data.subType === OfferingIncomeCreationSubType.SundaySchool ||
+            data.subType === OfferingIncomeCreationSubType.SundayWorship ||
+            data.subType === OfferingIncomeCreationSubType.Activities ||
+            data.subType === OfferingIncomeCreationSubType.GeneralFasting ||
+            data.subType === OfferingIncomeCreationSubType.GeneralVigil ||
+            data.subType === OfferingIncomeCreationSubType.WorshipUnited ||
+            data.subType === OfferingIncomeCreationSubType.YouthWorship))) 
+      ) 
+      {
+        return !!data.churchId; 
+      }
+      return true;
+    },
+    {
+      message: 'Por favor elige una iglesia',
+      path: ['churchId'],
     }
   );
 

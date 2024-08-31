@@ -6,3 +6,4 @@ export * from './useZoneUpdateMutation';
 export * from './useZoneUpdateEffects';
 export * from './useZoneSupervisorUpdateMutation';
 export * from './useZoneSupervisorUpdateEffects';
+export * from './useZoneDeletionMutation';

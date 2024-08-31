@@ -1,1 +1,1 @@
-export * from './upload-images.service';
+export * from './images-files.service';

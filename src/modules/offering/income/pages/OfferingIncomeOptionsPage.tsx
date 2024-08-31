@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { NavLink } from 'react-router-dom';
 
-import { FcClearFilters, FcDonate, FcSearch, FcSupport } from 'react-icons/fc';
+import { useEffect } from 'react';
+
+import { NavLink } from 'react-router-dom';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
+import { FcClearFilters, FcDonate, FcSearch, FcSupport } from 'react-icons/fc';
+
+import { useAuthStore } from '@/stores';
 
 import { WhiteCard } from '@/shared/components';
-import { useAuthStore } from '@/stores';
-import { useEffect } from 'react';
 
 export const OfferingIncomeOptionsPage = (): JSX.Element => {
   const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);

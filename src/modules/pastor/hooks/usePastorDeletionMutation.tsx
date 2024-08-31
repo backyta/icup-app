@@ -56,7 +56,7 @@ export const usePastorDeletionMutation = ({
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['pastors-by-term'] });
-      }, 1800);
+      }, 1000);
 
       setTimeout(() => {
         setIsCardOpen(false);

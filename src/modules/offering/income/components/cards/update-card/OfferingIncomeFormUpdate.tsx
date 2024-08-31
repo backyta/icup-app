@@ -1,53 +1,55 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 
-import { type z } from 'zod';
-import { Toaster, toast } from 'sonner';
+import type * as z from 'zod';
+import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useDropzone } from 'react-dropzone';
+
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-
-import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+import { useDropzone } from 'react-dropzone';
 import { TiDeleteOutline } from 'react-icons/ti';
 
-import { cn } from '@/shared/lib/utils';
-
-import { useOfferingIncomeCreateSubmitButtonLogic } from '@/modules/offering/income/hooks';
-import { offeringIncomeFormSchema } from '@/modules/offering/income/validations';
-
-import { familyHouses, zones } from '@/modules/family-group/data';
-
-import { RecordStatus } from '@/shared/enums';
-import { disciples } from '@/shared/data';
-
-import { CurrencyType, CurrencyTypeNames } from '@/modules/offering/shared/enums';
-import { type RejectedProps, type FilesProps } from '@/modules/offering/shared/interfaces';
+import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import {
-  OfferingIncomeCreationSubType,
-  OfferingIncomeCreationSubTypeNames,
+  MemberType,
+  MemberTypeNames,
   OfferingIncomeCreationType,
-  OfferingIncomeCreationTypeNames,
+  OfferingIncomeCreationSubType,
   OfferingIncomeCreationShiftTypeNames,
+  OfferingIncomeCreationTypeNames,
+  OfferingIncomeCreationSubTypeNames,
 } from '@/modules/offering/income/enums';
-
 import {
-  type OfferingIncomeFormData,
-  type OfferingIncomeFormDataKeys,
-} from '@/modules/offering/income/interfaces';
+  useFileDropZone,
+  useMemberQueries,
+  useOfferingIncomeSetData,
+  useOfferingIncomeUpdateMutation,
+  useOfferingIncomeUpdateSubmitButtonLogic,
+} from '@/modules/offering/income/hooks';
 
-import { Input } from '@/shared/components/ui/input';
-import { Button } from '@/shared/components/ui/button';
-import { Textarea } from '@/shared/components/ui/textarea';
-import { Calendar } from '@/shared/components/ui/calendar';
-import { Card, CardContent } from '@/shared/components/ui/card';
-import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
+import { CurrencyTypeNames } from '@/modules/offering/shared/enums';
+import { useImagesUploadMutation } from '@/modules/offering/shared/hooks';
+import { offeringIncomeFormSchema } from '@/modules/offering/income/validations';
+import { OfferingIncomeFormSkeleton } from '@/modules/offering/income/components';
+import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces';
+
+import { DestroyImageButton } from '@/modules/offering/shared/components';
+import { type FilesProps, type RejectedProps } from '@/modules/offering/shared/interfaces';
+
+import { type PastorResponse } from '@/modules/pastor/interfaces';
+import { type CopastorResponse } from '@/modules/copastor/interfaces';
+import { type PreacherResponse } from '@/modules/preacher/interfaces';
+import { type DiscipleResponse } from '@/modules/disciple/interfaces';
+import { type SupervisorResponse } from '@/modules/supervisor/interfaces';
+
+import { cn } from '@/shared/lib/utils';
+import { getCodeAndNameFamilyGroup, getFullNames } from '@/shared/helpers';
+
 import {
   Form,
   FormControl,
@@ -71,42 +73,56 @@ import {
   SelectItem,
   Select,
 } from '@/shared/components/ui/select';
+import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
+import { Calendar } from '@/shared/components/ui/calendar';
+import { Textarea } from '@/shared/components/ui/textarea';
+import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
+import { Card, CardContent } from '@/shared/components/ui/card';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
-const data: OfferingIncomeFormData = {
-  type: 'tithe',
-  // subType: '',
-  amount: '20',
-  date: new Date('12-12-2000'),
-  currency: CurrencyType.Euros,
-  comments: 'Diezmo entregado 2 días después 12/03/24',
-  urlFile: [], // pasar el link del get de la imagen de cloudinary
-  // familyHouseID: familyHouses[1].value,
-  // copastorID: copastors[2].value,
-  memberID: 'id2',
-  status: RecordStatus.Active,
-};
+type QueryDataResponse =
+  | DiscipleResponse[]
+  | PreacherResponse[]
+  | SupervisorResponse[]
+  | CopastorResponse[]
+  | PastorResponse[];
 
-interface Props {
-  onClose: () => void;
+interface OfferingIncomeFormUpdateProps {
+  id: string;
+  onSubmit: () => void;
   onScroll: () => void;
+  data: OfferingIncomeResponse | undefined;
 }
 
-export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Element => {
+export const OfferingIncomeFormUpdate = ({
+  id,
+  onSubmit,
+  onScroll,
+  data,
+}: OfferingIncomeFormUpdateProps): JSX.Element => {
   //* States
   const [isInputRelationOpen, setIsInputRelationOpen] = useState<boolean>(false);
   const [isInputDateOpen, setIsInputDateOpen] = useState<boolean>(false);
 
+  const [queryData, setQueryData] = useState<QueryDataResponse>();
+
   const [files, setFiles] = useState<FilesProps[]>([]);
   const [rejected, setRejected] = useState<RejectedProps[]>([]);
 
-  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
-
-  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(true);
   const [isDropZoneDisabled, setIsDropZoneDisabled] = useState<boolean>(false);
+
   const [isFileButtonDisabled, setIsFileButtonDisabled] = useState<boolean>(false);
 
+  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
 
+  const [isInputMemberOpen, setIsInputMemberOpen] = useState<boolean>(false);
+
+  const [isLoadingData, setIsLoadingData] = useState(true);
+
+  // TODO : seguir con el delete de offering
   //* Form
   const form = useForm<z.infer<typeof offeringIncomeFormSchema>>({
     mode: 'onChange',
@@ -114,124 +130,36 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
     defaultValues: {
       type: '',
       subType: '',
+      memberType: '',
+      shift: '',
       amount: '',
       date: undefined,
       currency: '',
       comments: '',
       fileNames: [],
       familyGroupId: '',
-      theirDisciple: '',
+      memberId: '',
       zoneId: '',
-      status: '',
+      churchId: '',
     },
   });
-
-  //* Form handler
-  const handleSubmit = (values: z.infer<typeof offeringIncomeFormSchema>): void => {
-    console.log({ values });
-  };
 
   //* Watchers
-  const type = form.watch('type');
-  const subType = form.watch('subType');
-  const status = form.watch('status');
-  const urlFiles = form.watch('urlFile');
-
-  //* DropZone functions, hooks, effects
-  const onDrop = useCallback(
-    (acceptedFiles: any[], rejectedFiles: any[]) => {
-      if (acceptedFiles?.length) {
-        const mappedFiles = acceptedFiles.map((file) =>
-          Object.assign(file, { preview: URL.createObjectURL(file) })
-        );
-
-        // Check if a file with the same name already exists
-        mappedFiles.forEach((newFile) => {
-          const existingFileIndex = files.findIndex(
-            (existingFile) => existingFile.name === newFile.name
-          );
-
-          if (existingFileIndex !== -1) {
-            setFiles((previousFiles) => [...previousFiles]);
-          } else {
-            setFiles((previousFiles) => [...previousFiles, newFile]);
-          }
-        });
-
-        const allFileNames = [
-          ...files.map((file) => file.name),
-          ...mappedFiles.map((file) => file.name),
-        ];
-
-        form.setValue('urlFile', allFileNames); // Update form field with file URLs
-      }
-
-      if (rejectedFiles?.length) {
-        setRejected((previousFiles) => [...previousFiles, ...rejectedFiles]);
-      }
-    },
-    [form, files, setFiles]
-  );
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: {
-      'image/*': [],
-    },
-    maxSize: 1024 * 1000,
-    onDrop,
-    disabled: isDropZoneDisabled,
-  });
-
-  useEffect(() => {
-    // Revoke the data uris to avoid memory leaks
-    return () => {
-      files.forEach((file) => {
-        URL.revokeObjectURL(file.preview);
-      });
-    };
-  }, [files]);
-
-  useEffect(() => {
-    const allFileNames = [...files.map((file) => file.name)];
-    form.setValue('urlFile', allFileNames);
-  }, [files]);
-
-  const removeFile = (name: any): void => {
-    setFiles((files) => files.filter((file) => file.name !== name));
-  };
-
-  const removeAll = (): void => {
-    setFiles([]);
-    setRejected([]);
-  };
-
-  const removeRejected = (name: any): void => {
-    setRejected((files) => files.filter(({ file }) => file.name !== name));
-  };
-
-  // Inactive = Cannot eliminate anything
-  useEffect(() => {
-    if (status === RecordStatus.Inactive) {
-      setIsDropZoneDisabled(true);
-      setIsFileButtonDisabled(true);
-    }
-
-    if (status === RecordStatus.Active) {
-      setIsDropZoneDisabled(false);
-      setIsFileButtonDisabled(false);
-    }
-  }, [status]);
+  const searchType = form.watch('type');
+  const searchSubType = form.watch('subType');
+  const memberType = form.watch('memberType');
 
   //* Custom hooks
-  // NOTE : hacer custom hooks para setear
-  useEffect(() => {
-    for (const key in data) {
-      form.setValue(key as OfferingIncomeFormDataKeys, data[key as OfferingIncomeFormDataKeys]);
-    }
-  }, []);
+  useOfferingIncomeSetData({
+    id,
+    data,
+    setIsLoadingData,
+    setFiles,
+    offeringIncomeUpdateForm: form,
+  });
 
-  useOfferingIncomeCreateSubmitButtonLogic({
-    formOfferingIncome: form,
+  useOfferingIncomeUpdateSubmitButtonLogic({
+    offeringIncomeUpdateForm: form,
     offeringIncomeTypes: OfferingIncomeCreationType,
     offeringIncomeSubTypes: OfferingIncomeCreationSubType,
     isInputDisabled,
@@ -240,7 +168,110 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
     setIsSubmitButtonDisabled,
     setIsMessageErrorDisabled,
     setIsDropZoneDisabled,
+    files,
   });
+
+  const {
+    churchesQuery,
+    pastorsQuery,
+    copastorsQuery,
+    supervisorsQuery,
+    preachersQuery,
+    disciplesQuery,
+    zonesQuery,
+    familyGroupsQuery,
+  } = useMemberQueries(memberType);
+
+  const { onDrop, removeFile, removeCloudFile, removeRejected } = useFileDropZone({
+    offeringIncomeForm: form,
+    files,
+    setFiles,
+    setRejected,
+  });
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: {
+      'image/*': [],
+    },
+    maxSize: 1024 * 1000, // 1KB
+    onDrop,
+    disabled: isDropZoneDisabled,
+  });
+
+  const offeringIncomeUpdateMutation = useOfferingIncomeUpdateMutation({
+    onSubmit,
+    onScroll,
+    setIsInputDisabled,
+    setIsSubmitButtonDisabled,
+  });
+
+  const uploadImagesMutation = useImagesUploadMutation();
+
+  //* Effects
+  useEffect(() => {
+    if (memberType === MemberType.Disciple) {
+      setQueryData(disciplesQuery.data);
+    }
+    if (memberType === MemberType.Preacher) {
+      setQueryData(preachersQuery.data);
+    }
+    if (memberType === MemberType.Supervisor) {
+      setQueryData(supervisorsQuery.data);
+    }
+    if (memberType === MemberType.Copastor) {
+      setQueryData(copastorsQuery.data);
+    }
+    if (memberType === MemberType.Pastor) {
+      setQueryData(pastorsQuery.data);
+    }
+  }, [pastorsQuery, copastorsQuery, supervisorsQuery, preachersQuery, disciplesQuery]);
+
+  //* Form handler
+  const handleSubmit = async (
+    formData: z.infer<typeof offeringIncomeFormSchema>
+  ): Promise<void> => {
+    const filesOnly = files.filter((item) => item instanceof File);
+
+    let imageUrls;
+
+    try {
+      if (filesOnly.length >= 1) {
+        const uploadResult = await uploadImagesMutation.mutateAsync({
+          files: filesOnly as any,
+          action: 'income',
+          type: formData.type,
+          subType: formData.subType,
+        });
+
+        imageUrls = uploadResult.imageUrls;
+      }
+    } catch (error) {
+      toast.error('Error en enviar el formulario, hable con el administrador.', {
+        position: 'top-center',
+        className: 'justify-center',
+      });
+    }
+
+    await offeringIncomeUpdateMutation.mutateAsync({
+      id,
+      formData: {
+        type: formData.type,
+        subType: !formData.subType ? undefined : formData.subType,
+        shift: formData.shift,
+        amount: formData.amount,
+        currency: formData.currency,
+        date: formData.date,
+        comments: formData.comments,
+        memberType: formData.memberType,
+        memberId: formData.memberId,
+        familyGroupId: formData.familyGroupId,
+        zoneId: formData.zoneId,
+        churchId: formData.churchId,
+        recordStatus: formData.recordStatus,
+        imageUrls: imageUrls ?? [],
+      },
+    });
+  };
 
   return (
     <Tabs
@@ -249,106 +280,80 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
     >
       <div className='text-center'>
         <h2 className='text-orange-500  font-bold text-[20px] md:text-[24px]'>
-          Actualizar información del registro
+          Actualizar información del registro de Ofrenda
         </h2>
       </div>
 
       <TabsContent value='general-info'>
         <Card className='w-full'>
-          <CardContent className='py-3 px-4'>
-            <div className='flex flex-col mb-4 pl-4'>
-              <div className='dark:text-slate-300 text-slate-500 font-bold text-[17px]'>
-                Registro de ingreso: 12KH453 - Marcelo Pacheco
+          {isLoadingData && <OfferingIncomeFormSkeleton />}
+
+          {!isLoadingData && (
+            <CardContent className='py-3 px-4'>
+              <div className='flex flex-col mb-4 pl-4'>
+                <span className='dark:text-amber-400 font-bold text-[14px] md:text-[16px] text-amber-500'>
+                  Tipo de registro:{' '}
+                  {`${OfferingIncomeCreationTypeNames[data?.type as OfferingIncomeCreationType]} ${data?.subType ? '-' : ''} ${OfferingIncomeCreationSubTypeNames[data?.subType as OfferingIncomeCreationSubType] ?? ''}`}
+                </span>
+                <span className='dark:text-slate-300 text-slate-500 font-bold text-[13px] md:text-[14.5px] ml-1'>
+                  Pertenencia:{' '}
+                  {`${
+                    data?.type === OfferingIncomeCreationType.IncomeAdjustment ||
+                    data?.subType === OfferingIncomeCreationSubType.SundaySchool ||
+                    data?.subType === OfferingIncomeCreationSubType.SundayWorship ||
+                    data?.subType === OfferingIncomeCreationSubType.GeneralFasting ||
+                    data?.subType === OfferingIncomeCreationSubType.GeneralVigil ||
+                    data?.subType === OfferingIncomeCreationSubType.YouthWorship ||
+                    data?.subType === OfferingIncomeCreationSubType.Activities
+                      ? data?.church?.churchName
+                      : data?.subType === OfferingIncomeCreationSubType.FamilyGroup
+                        ? `${data?.familyGroup?.familyGroupCode} - ${data?.familyGroup?.familyGroupName}`
+                        : data?.subType === OfferingIncomeCreationSubType.ZonalFasting ||
+                            data?.subType === OfferingIncomeCreationSubType.ZonalVigil
+                          ? `${data?.zone?.zoneName} - ${data?.zone?.district}`
+                          : data?.memberType === MemberType.Disciple
+                            ? `${data?.disciple?.firstName} ${data?.disciple?.lastName}`
+                            : data?.memberType === MemberType.Preacher
+                              ? `${data?.preacher?.firstName} ${data?.preacher?.lastName}`
+                              : data?.memberType === MemberType.Supervisor
+                                ? `${data?.supervisor?.firstName} ${data?.supervisor?.lastName}`
+                                : data?.memberType === MemberType.Copastor
+                                  ? `${data?.copastor?.firstName} ${data?.copastor?.lastName}`
+                                  : `${data?.pastor?.firstName} ${data?.pastor?.lastName}`
+                  }`}
+                </span>
               </div>
 
-              {status === RecordStatus.Active ? (
-                <span className='text-[11.5px] md:text-[12.5px] font-medium dark:text-slate-400 text-slate-500 md:pl-2'>
-                  El estado del registro esta{' '}
-                  <span className='font-bold text-green-500 uppercase'>Activo</span>, solo se podrá
-                  añadir o actualizar sus imágenes.
-                </span>
-              ) : (
-                <span className='text-[11.5px] md:text-[12.5px] font-medium dark:text-slate-400 text-slate-500 md:pl-2'>
-                  El estado del registro esta{' '}
-                  <span className='font-bold text-red-500 uppercase'>Inactivo</span>, no se podrá
-                  actualizar ningún campo.
-                </span>
-              )}
-            </div>
-
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(handleSubmit)}
-                className='w-full flex flex-col md:grid sm:grid-cols-2 gap-x-8 gap-y-6 px-2 sm:px-8'
-              >
-                <div className='lg:col-start-1 lg:col-end-2'>
-                  <FormField
-                    control={form.control}
-                    name='type'
-                    render={({ field }) => {
-                      return (
-                        <FormItem>
-                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                            Tipo
-                          </FormLabel>
-                          <FormDescription className='text-[14px]'>
-                            Asignar una un tipo de ofrenda al registro.
-                          </FormDescription>
-                          <Select
-                            disabled={isInputDisabled}
-                            value={field.value}
-                            onValueChange={field.onChange}
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                {field.value ? (
-                                  <SelectValue placeholder='Selecciona una tipo de ofrenda' />
-                                ) : (
-                                  'Selecciona una tipo de ofrenda'
-                                )}
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              {Object.entries(OfferingIncomeCreationTypeNames).map(
-                                ([key, value]) => (
-                                  <SelectItem key={key} value={key}>
-                                    {value}
-                                  </SelectItem>
-                                )
-                              )}
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-
-                  {type === OfferingIncomeCreationType.Offering && (
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(handleSubmit)}
+                  className='w-full flex flex-col md:grid md:grid-cols-2 gap-x-8 gap-y-4'
+                >
+                  <div className='md:col-start-1 md:col-end-2'>
                     <FormField
                       control={form.control}
-                      name='subType'
+                      name='type'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                              Sub-Tipo
+                              Tipo
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar una un sub-tipo de ofrenda al registro.
+                              Asignar un tipo de ofrenda al registro.
                             </FormDescription>
-                            <Select disabled={isInputDisabled} onValueChange={field.onChange}>
+                            <Select disabled value={field.value} onValueChange={field.onChange}>
                               <FormControl>
                                 <SelectTrigger>
                                   {field.value ? (
-                                    <SelectValue placeholder='Selecciona una sub-tipo de ofrenda' />
+                                    <SelectValue placeholder='Selecciona una tipo de ofrenda' />
                                   ) : (
-                                    'Selecciona una sub-tipo de ofrenda'
+                                    'Selecciona una tipo de ofrenda'
                                   )}
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
-                                {Object.entries(OfferingIncomeCreationSubTypeNames).map(
+                                {Object.entries(OfferingIncomeCreationTypeNames).map(
                                   ([key, value]) => (
                                     <SelectItem key={key} value={key}>
                                       {value}
@@ -362,20 +367,486 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                         );
                       }}
                     />
-                  )}
-                  {(subType === OfferingIncomeCreationSubType.SundayWorship ||
-                    subType === OfferingIncomeCreationSubType.SundaySchool) && (
-                    <FormField
-                      control={form.control}
-                      name='shift'
-                      render={({ field }) => {
-                        return (
-                          <FormItem className='mt-3'>
+
+                    {searchType === OfferingIncomeCreationType.Offering && (
+                      <FormField
+                        control={form.control}
+                        name='subType'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className='mt-4'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                                Sub-Tipo
+                              </FormLabel>
+                              <FormDescription className='text-[14px]'>
+                                Asignar un sub-tipo de ofrenda al registro.
+                              </FormDescription>
+                              <Select disabled value={field.value} onValueChange={field.onChange}>
+                                <FormControl>
+                                  <SelectTrigger>
+                                    {field.value ? (
+                                      <SelectValue placeholder='Selecciona una sub-tipo de ofrenda' />
+                                    ) : (
+                                      'Selecciona una sub-tipo de ofrenda'
+                                    )}
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  {Object.entries(OfferingIncomeCreationSubTypeNames).map(
+                                    ([key, value]) => (
+                                      <SelectItem key={key} value={key}>
+                                        {value}
+                                      </SelectItem>
+                                    )
+                                  )}
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          );
+                        }}
+                      />
+                    )}
+
+                    {((searchType === OfferingIncomeCreationType.Offering &&
+                      searchSubType === OfferingIncomeCreationSubType.Special) ||
+                      (searchType === OfferingIncomeCreationType.Offering &&
+                        searchSubType === OfferingIncomeCreationSubType.ChurchGround)) && (
+                      <FormField
+                        control={form.control}
+                        name='memberType'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className='mt-3'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                                Tipo de Miembro
+                              </FormLabel>
+                              <Select disabled onValueChange={field.onChange} value={field.value}>
+                                <FormControl>
+                                  <SelectTrigger>
+                                    {field.value ? (
+                                      <SelectValue placeholder='Selecciona el tipo de miembro' />
+                                    ) : (
+                                      'Selecciona el tipo de miembro'
+                                    )}
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  {Object.entries(MemberTypeNames).map(([key, value]) => (
+                                    <SelectItem className={`text-[14px]`} key={key} value={key}>
+                                      {value}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          );
+                        }}
+                      />
+                    )}
+
+                    {((searchType === OfferingIncomeCreationType.Offering &&
+                      searchSubType === OfferingIncomeCreationSubType.Special) ||
+                      (searchType === OfferingIncomeCreationType.Offering &&
+                        searchSubType === OfferingIncomeCreationSubType.ChurchGround)) && (
+                      <FormField
+                        control={form.control}
+                        name='memberId'
+                        render={({ field }) => (
+                          <FormItem className='flex flex-col mt-4'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                              Turno
+                              Miembro
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Elige el turno de la ofrenda para el registro.
+                              Seleccione un miembro para asignarlo al registro.
+                            </FormDescription>
+                            {disciplesQuery?.isFetching ||
+                            preachersQuery?.isFetching ||
+                            supervisorsQuery?.isFetching ||
+                            copastorsQuery?.isFetching ||
+                            pastorsQuery?.isFetching ? (
+                              <div className='pt-2 font-black text-[16px] text-center dark:text-gray-300 text-gray-500'>
+                                <span>Cargando información...</span>
+                              </div>
+                            ) : (
+                              <Popover open={isInputMemberOpen} onOpenChange={setIsInputMemberOpen}>
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      disabled
+                                      variant='outline'
+                                      role='combobox'
+                                      className={cn(
+                                        'w-full justify-between ',
+                                        !field.value && 'font-normal'
+                                      )}
+                                    >
+                                      {field.value
+                                        ? `${queryData?.find((member) => member.id === field.value)?.firstName} ${queryData?.find((member) => member.id === field.value)?.lastName}`
+                                        : 'Busque y seleccione un miembro'}
+                                      <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent align='center' className='w-auto px-4 py-2'>
+                                  <Command>
+                                    <CommandInput
+                                      placeholder='Busque un miembro...'
+                                      className='h-9 text-[14px]'
+                                    />
+                                    <CommandEmpty>Miembro no encontrado.</CommandEmpty>
+                                    <CommandGroup className='max-h-[200px] h-auto'>
+                                      {queryData?.map((member) => (
+                                        <CommandItem
+                                          className='text-[14px]'
+                                          value={getFullNames({
+                                            firstNames: member.firstName,
+                                            lastNames: member.lastName,
+                                          })}
+                                          key={member.id}
+                                          onSelect={() => {
+                                            form.setValue('memberId', member.id);
+                                            setIsInputMemberOpen(false);
+                                          }}
+                                        >
+                                          {`${member?.firstName} ${member?.lastName}`}
+                                          <CheckIcon
+                                            className={cn(
+                                              'ml-auto h-4 w-4',
+                                              member.id === field.value
+                                                ? 'opacity-100'
+                                                : 'opacity-0'
+                                            )}
+                                          />
+                                        </CommandItem>
+                                      )) ?? (
+                                        <p className='text-[14.5px] text-red-500 text-center'>
+                                          ❌ No se encontró miembros disponibles.
+                                        </p>
+                                      )}
+                                    </CommandGroup>
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
+                            )}
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+
+                    {searchType === OfferingIncomeCreationType.Offering &&
+                      searchSubType === OfferingIncomeCreationSubType.FamilyGroup && (
+                        <FormField
+                          control={form.control}
+                          name='familyGroupId'
+                          render={({ field }) => (
+                            <FormItem className='flex flex-col mt-4'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                                Grupo Familiar
+                              </FormLabel>
+                              <FormDescription className='text-[14px]'>
+                                Seleccione un grupo familiar para asignarlo al registro.
+                              </FormDescription>
+                              <Popover
+                                open={isInputRelationOpen}
+                                onOpenChange={setIsInputRelationOpen}
+                              >
+                                <PopoverTrigger asChild>
+                                  <FormControl>
+                                    <Button
+                                      disabled
+                                      variant='outline'
+                                      role='combobox'
+                                      className={cn(
+                                        'w-full justify-between',
+                                        !field.value && 'text-slate-500 font-normal'
+                                      )}
+                                    >
+                                      {field.value
+                                        ? `${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupName} - ${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupCode}`
+                                        : 'Busque y seleccione un grupo familiar'}
+                                      <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent align='center' className='w-auto px-4 py-2'>
+                                  <Command>
+                                    <CommandInput
+                                      placeholder='Busque un grupo familiar...'
+                                      className='h-9 text-[14px]'
+                                    />
+                                    <CommandEmpty>Grupo familiar no encontrado.</CommandEmpty>
+                                    <CommandGroup className='max-h-[200px] h-auto'>
+                                      {familyGroupsQuery?.data?.map((familyGroup) => (
+                                        <CommandItem
+                                          className='text-[14px]'
+                                          value={getCodeAndNameFamilyGroup({
+                                            code: familyGroup.familyGroupCode,
+                                            name: familyGroup.familyGroupName,
+                                          })}
+                                          key={familyGroup.id}
+                                          onSelect={() => {
+                                            form.setValue('familyGroupId', familyGroup.id);
+                                            setIsInputRelationOpen(false);
+                                          }}
+                                        >
+                                          {`${familyGroup?.familyGroupName} ${familyGroup?.familyGroupCode}`}
+                                          <CheckIcon
+                                            className={cn(
+                                              'ml-auto h-4 w-4',
+                                              familyGroup.id === field.value
+                                                ? 'opacity-100'
+                                                : 'opacity-0'
+                                            )}
+                                          />
+                                        </CommandItem>
+                                      ))}
+                                    </CommandGroup>
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
+
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      )}
+
+                    {(searchType === OfferingIncomeCreationType.IncomeAdjustment ||
+                      (searchType === OfferingIncomeCreationType.Offering &&
+                        (searchSubType === OfferingIncomeCreationSubType.SundaySchool ||
+                          searchSubType === OfferingIncomeCreationSubType.SundayWorship ||
+                          searchSubType === OfferingIncomeCreationSubType.Activities ||
+                          searchSubType === OfferingIncomeCreationSubType.GeneralFasting ||
+                          searchSubType === OfferingIncomeCreationSubType.GeneralVigil ||
+                          searchSubType === OfferingIncomeCreationSubType.WorshipUnited ||
+                          searchSubType === OfferingIncomeCreationSubType.YouthWorship))) && (
+                      <FormField
+                        control={form.control}
+                        name='churchId'
+                        render={({ field }) => (
+                          <FormItem className='flex flex-col mt-4'>
+                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                              Iglesia
+                            </FormLabel>
+                            <FormDescription className='text-[14px]'>
+                              Seleccione una iglesia para asignarla al registro.
+                            </FormDescription>
+                            <Popover
+                              open={isInputRelationOpen}
+                              onOpenChange={setIsInputRelationOpen}
+                            >
+                              <PopoverTrigger asChild>
+                                <FormControl>
+                                  <Button
+                                    disabled
+                                    variant='outline'
+                                    role='combobox'
+                                    className={cn(
+                                      'w-full justify-between',
+                                      !field.value && 'text-slate-500 font-normal'
+                                    )}
+                                  >
+                                    {field.value
+                                      ? churchesQuery?.data?.find((zone) => zone.id === field.value)
+                                          ?.churchName
+                                      : 'Busque y seleccione una iglesia'}
+                                    <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                                  </Button>
+                                </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent align='center' className='w-auto px-4 py-2'>
+                                <Command>
+                                  <CommandInput
+                                    placeholder='Busque una iglesia...'
+                                    className='h-9 text-[14px]'
+                                  />
+                                  <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
+                                  <CommandGroup className='max-h-[200px] h-auto'>
+                                    {churchesQuery?.data?.map((church) => (
+                                      <CommandItem
+                                        className='text-[14px]'
+                                        value={church.churchName}
+                                        key={church.id}
+                                        onSelect={() => {
+                                          form.setValue('churchId', church.id);
+                                          setIsInputRelationOpen(false);
+                                        }}
+                                      >
+                                        {church.churchName}
+                                        <CheckIcon
+                                          className={cn(
+                                            'ml-auto h-4 w-4',
+                                            church.id === field.value ? 'opacity-100' : 'opacity-0'
+                                          )}
+                                        />
+                                      </CommandItem>
+                                    ))}
+                                  </CommandGroup>
+                                </Command>
+                              </PopoverContent>
+                            </Popover>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+
+                    {((searchType === OfferingIncomeCreationType.Offering &&
+                      searchSubType === OfferingIncomeCreationSubType.ZonalFasting) ||
+                      (searchType === OfferingIncomeCreationType.Offering &&
+                        searchSubType === OfferingIncomeCreationSubType.ZonalVigil)) && (
+                      <FormField
+                        control={form.control}
+                        name='zoneId'
+                        render={({ field }) => (
+                          <FormItem className='flex flex-col mt-4'>
+                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                              Zona
+                            </FormLabel>
+                            <FormDescription className='text-[14px]'>
+                              Seleccione una zona para asignarlo al registro.
+                            </FormDescription>
+                            <Popover
+                              open={isInputRelationOpen}
+                              onOpenChange={setIsInputRelationOpen}
+                            >
+                              <PopoverTrigger asChild>
+                                <FormControl>
+                                  <Button
+                                    disabled
+                                    variant='outline'
+                                    role='combobox'
+                                    className={cn(
+                                      'w-full justify-between',
+                                      !field.value && 'text-slate-500 font-normal'
+                                    )}
+                                  >
+                                    {field.value
+                                      ? zonesQuery?.data?.find((zone) => zone.id === field.value)
+                                          ?.zoneName
+                                      : 'Busque y seleccione una zona'}
+                                    <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                                  </Button>
+                                </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent align='center' className='w-auto px-4 py-2'>
+                                <Command>
+                                  <CommandInput
+                                    placeholder='Busque una zona...'
+                                    className='h-9 text-[14px]'
+                                  />
+                                  <CommandEmpty>Zona no encontrada.</CommandEmpty>
+                                  <CommandGroup className='max-h-[200px] h-auto'>
+                                    {zonesQuery?.data?.map((zone) => (
+                                      <CommandItem
+                                        className='text-[14px]'
+                                        value={zone.zoneName}
+                                        key={zone.id}
+                                        onSelect={() => {
+                                          form.setValue('zoneId', zone.id);
+                                          setIsInputRelationOpen(false);
+                                        }}
+                                      >
+                                        {zone.zoneName}
+                                        <CheckIcon
+                                          className={cn(
+                                            'ml-auto h-4 w-4',
+                                            zone.id === field.value ? 'opacity-100' : 'opacity-0'
+                                          )}
+                                        />
+                                      </CommandItem>
+                                    ))}
+                                  </CommandGroup>
+                                </Command>
+                              </PopoverContent>
+                            </Popover>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+
+                    {(searchSubType === OfferingIncomeCreationSubType.SundayWorship ||
+                      searchSubType === OfferingIncomeCreationSubType.SundaySchool) && (
+                      <FormField
+                        control={form.control}
+                        name='shift'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className='mt-4'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                                Turno
+                              </FormLabel>
+                              <FormDescription className='text-[14px]'>
+                                Elige el turno de la ofrenda para el registro.
+                              </FormDescription>
+                              <Select disabled value={field.value} onValueChange={field.onChange}>
+                                <FormControl>
+                                  <SelectTrigger>
+                                    {field.value ? (
+                                      <SelectValue placeholder='Selecciona un turno para la ofrenda' />
+                                    ) : (
+                                      'Selecciona un turno para la ofrenda'
+                                    )}
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  {Object.entries(OfferingIncomeCreationShiftTypeNames).map(
+                                    ([key, value]) => (
+                                      <SelectItem key={key} value={key}>
+                                        {value}
+                                      </SelectItem>
+                                    )
+                                  )}
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          );
+                        }}
+                      />
+                    )}
+
+                    <FormField
+                      control={form.control}
+                      name='amount'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='mt-4'>
+                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                              Monto
+                            </FormLabel>
+                            <FormDescription className='text-[14px]'>
+                              Digita la cantidad o monto de la ofrenda.
+                            </FormDescription>
+                            <FormControl>
+                              <Input
+                                disabled={isInputDisabled}
+                                placeholder='Monto total de la ofrenda'
+                                type='text'
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        );
+                      }}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name='currency'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='mt-4'>
+                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                              Divisa / Moneda
+                            </FormLabel>
+                            <FormDescription className='text-[14px]'>
+                              Asignar un tipo de divisa o moneda al registro.
                             </FormDescription>
                             <Select
                               disabled={isInputDisabled}
@@ -385,20 +856,18 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                               <FormControl>
                                 <SelectTrigger>
                                   {field.value ? (
-                                    <SelectValue placeholder='Selecciona un turno para la ofrenda' />
+                                    <SelectValue placeholder='Selecciona una tipo de divisa o moneda' />
                                   ) : (
-                                    'Selecciona un turno para la ofrenda'
+                                    'Selecciona una tipo de divisa o moneda'
                                   )}
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
-                                {Object.entries(OfferingIncomeCreationShiftTypeNames).map(
-                                  ([key, value]) => (
-                                    <SelectItem key={key} value={key}>
-                                      {value}
-                                    </SelectItem>
-                                  )
-                                )}
+                                {Object.entries(CurrencyTypeNames).map(([key, value]) => (
+                                  <SelectItem key={key} value={key}>
+                                    {value}
+                                  </SelectItem>
+                                ))}
                               </SelectContent>
                             </Select>
                             <FormMessage />
@@ -406,592 +875,336 @@ export const OfferingIncomeFormUpdate = ({ onClose, onScroll }: Props): JSX.Elem
                         );
                       }}
                     />
-                  )}
-                  <FormField
-                    control={form.control}
-                    name='amount'
-                    render={({ field }) => {
-                      return (
-                        <FormItem className='mt-3'>
-                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                            Monto
-                          </FormLabel>
-                          <FormDescription className='text-[14px]'>
-                            Digita la cantidad o monto de la ofrenda.
-                          </FormDescription>
-                          <FormControl>
-                            <Input
-                              disabled={isInputDisabled}
-                              placeholder='Monto total de la ofrenda'
-                              type='text'
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
 
-                  <FormField
-                    control={form.control}
-                    name='currency'
-                    render={({ field }) => {
-                      return (
-                        <FormItem className='mt-3'>
-                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                            Divisa / Moneda
-                          </FormLabel>
-                          <FormDescription className='text-[14px]'>
-                            Asignar una un tipo de divisa o moneda al registro.
-                          </FormDescription>
-                          <Select disabled={isInputDisabled} onValueChange={field.onChange}>
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue
-                                  placeholder={
-                                    field.value === CurrencyType.Dollars
-                                      ? CurrencyTypeNames.dollars
-                                      : field.value === CurrencyType.Soles
-                                        ? CurrencyTypeNames.soles
-                                        : CurrencyTypeNames.euros
-                                  }
-                                />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              {Object.entries(CurrencyTypeNames).map(([key, value]) => (
-                                <SelectItem key={key} value={key}>
-                                  {value}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name='date'
-                    render={({ field }) => (
-                      <FormItem className='flex flex-col mt-3'>
-                        <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                          Fecha
-                        </FormLabel>
-                        <FormDescription className='text-[14px]'>
-                          Elige la fecha de deposito de la ofrenda.
-                        </FormDescription>
-                        <Popover open={isInputDateOpen} onOpenChange={setIsInputDateOpen}>
-                          <PopoverTrigger asChild>
-                            <FormControl>
-                              <Button
-                                disabled={isInputDisabled}
-                                variant={'outline'}
-                                className={cn(
-                                  'w-full pl-3 text-left font-normal',
-                                  !field.value && 'text-muted-foreground'
-                                )}
-                              >
-                                {field.value ? (
-                                  format(field.value, 'LLL dd, y', { locale: es })
-                                ) : (
-                                  <span className='text-sm md:text-[12px] lg:text-sm'>
-                                    Seleccione la fecha de la ofrenda
-                                  </span>
-                                )}
-                                <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
-                              </Button>
-                            </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent className='w-auto p-0' align='start'>
-                            <Calendar
-                              mode='single'
-                              selected={field.value}
-                              onSelect={(date) => {
-                                field.onChange(date);
-                                setIsInputDateOpen(false);
-                              }}
-                              disabled={(date) =>
-                                date > new Date() || date < new Date('1900-01-01')
-                              }
-                              initialFocus
-                            />
-                          </PopoverContent>
-                        </Popover>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name='comments'
-                    render={({ field }) => {
-                      return (
-                        <FormItem className='mt-3'>
-                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
-                            Comentarios
-                            <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
-                              Opcional
-                            </span>
-                          </FormLabel>
-                          <FormControl>
-                            <Textarea
-                              disabled={isInputDisabled}
-                              placeholder='Comentarios referente al registro de la ofrenda...'
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-
-                  {(type === OfferingIncomeCreationType.Tithe ||
-                    (type === OfferingIncomeCreationType.Offering &&
-                      subType === OfferingIncomeCreationSubType.Special) ||
-                    (type === OfferingIncomeCreationType.Offering &&
-                      subType === OfferingIncomeCreationSubType.ChurchGround)) && (
                     <FormField
                       control={form.control}
-                      name='memberID'
+                      name='date'
                       render={({ field }) => (
-                        <FormItem className='flex flex-col mt-3'>
+                        <FormItem className='flex flex-col mt-4'>
                           <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                            Discípulo
+                            Fecha
                           </FormLabel>
                           <FormDescription className='text-[14px]'>
-                            Seleccione un discípulo para asignarlo al registro.
+                            Elige la fecha de deposito de la ofrenda.
                           </FormDescription>
-                          <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
+                          <Popover open={isInputDateOpen} onOpenChange={setIsInputDateOpen}>
                             <PopoverTrigger asChild>
                               <FormControl>
                                 <Button
                                   disabled={isInputDisabled}
-                                  variant='outline'
-                                  role='combobox'
+                                  variant={'outline'}
                                   className={cn(
-                                    'w-full justify-between',
-                                    !field.value && 'text-slate-500 font-normal'
+                                    'w-full pl-3 text-left font-normal',
+                                    !field.value && 'text-muted-foreground'
                                   )}
                                 >
-                                  {field.value
-                                    ? disciples.find((member) => member.value === field.value)
-                                        ?.label
-                                    : 'Busque y seleccione un discípulo'}
-                                  <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                                  {field.value ? (
+                                    format(field.value, 'LLL dd, y', { locale: es })
+                                  ) : (
+                                    <span className='text-sm md:text-[12px] lg:text-sm'>
+                                      Seleccione la fecha de la ofrenda
+                                    </span>
+                                  )}
+                                  <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                                 </Button>
                               </FormControl>
                             </PopoverTrigger>
-                            <PopoverContent align='center' className='w-auto px-4 py-2'>
-                              <Command>
-                                <CommandInput
-                                  placeholder='Busque un discípulo...'
-                                  className='h-9 text-[14px]'
-                                />
-                                <CommandEmpty>Discípulo no encontrado.</CommandEmpty>
-                                <CommandGroup className='max-h-[200px] h-auto'>
-                                  {disciples.map((member) => (
-                                    <CommandItem
-                                      className='text-[14px]'
-                                      value={member.label}
-                                      key={member.value}
-                                      onSelect={() => {
-                                        form.setValue('memberID', member.value);
-                                        setIsInputRelationOpen(false);
-                                      }}
-                                    >
-                                      {member.label}
-                                      <CheckIcon
-                                        className={cn(
-                                          'ml-auto h-4 w-4',
-                                          member.value === field.value ? 'opacity-100' : 'opacity-0'
-                                        )}
-                                      />
-                                    </CommandItem>
-                                  ))}
-                                </CommandGroup>
-                              </Command>
+                            <PopoverContent className='w-auto p-0' align='start'>
+                              <Calendar
+                                mode='single'
+                                selected={field.value}
+                                onSelect={(date) => {
+                                  field.onChange(date);
+                                  setIsInputDateOpen(false);
+                                }}
+                                disabled={
+                                  searchSubType !== OfferingIncomeCreationSubType.SundayWorship &&
+                                  searchSubType !== OfferingIncomeCreationSubType.SundaySchool &&
+                                  searchSubType !== OfferingIncomeCreationSubType.FamilyGroup
+                                    ? (date) => date > new Date() || date < new Date('1900-01-01')
+                                    : (date) => {
+                                        const today = new Date();
+                                        const minDate = new Date('1900-01-01');
+                                        const dayOfWeek = date.getDay();
+                                        return dayOfWeek !== 0 || date > today || date < minDate;
+                                      }
+                                }
+                                initialFocus
+                              />
                             </PopoverContent>
                           </Popover>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
-                  )}
-                  {type === OfferingIncomeCreationType.Offering &&
-                    subType === OfferingIncomeCreationSubType.FamilyGroup && (
-                      <FormField
-                        control={form.control}
-                        name='familyHouseID'
-                        render={({ field }) => (
-                          <FormItem className='flex flex-col mt-3'>
-                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                              Casa Familiar
-                            </FormLabel>
-                            <FormDescription className='text-[14px]'>
-                              Selecciones una casa familiar para asignarla al registro.
-                            </FormDescription>
-                            <Popover
-                              open={isInputRelationOpen}
-                              onOpenChange={setIsInputRelationOpen}
-                            >
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button
-                                    disabled={isInputDisabled}
-                                    variant='outline'
-                                    role='combobox'
-                                    className={cn(
-                                      'w-full justify-between',
-                                      !field.value && 'text-slate-500 font-normal'
-                                    )}
-                                  >
-                                    {field.value
-                                      ? familyHouses.find(
-                                          (familyHouse) => familyHouse.value === field.value
-                                        )?.label
-                                      : 'Busque y seleccione una casa familiar'}
-                                    <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent align='center' className='w-auto px-4 py-2'>
-                                <Command>
-                                  <CommandInput
-                                    placeholder='Busque una casa familiar...'
-                                    className='h-9 text-sm lg:text-[15px]'
-                                  />
-                                  <CommandEmpty>Casa familiar no encontrada.</CommandEmpty>
-                                  <CommandGroup className='max-h-[200px] h-auto'>
-                                    {familyHouses.map((familyHouse) => (
-                                      <CommandItem
-                                        className='text-[14px]'
-                                        value={familyHouse.label}
-                                        key={familyHouse.value}
-                                        onSelect={() => {
-                                          form.setValue('familyHouseID', familyHouse.value);
-                                          setIsInputRelationOpen(false);
-                                        }}
-                                      >
-                                        {familyHouse.label}
-                                        <CheckIcon
-                                          className={cn(
-                                            'ml-auto h-4 w-4',
-                                            familyHouse.value === field.value
-                                              ? 'opacity-100'
-                                              : 'opacity-0'
-                                          )}
-                                        />
-                                      </CommandItem>
-                                    ))}
-                                  </CommandGroup>
-                                </Command>
-                              </PopoverContent>
-                            </Popover>
 
+                    <FormField
+                      control={form.control}
+                      name='comments'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='mt-4'>
+                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
+                              Comentarios
+                              <span className='ml-3 inline-block bg-orange-200 text-orange-600 border text-[10px] font-bold uppercase px-2 py-[2px] rounded-full mr-1'>
+                                Requerido
+                              </span>
+                            </FormLabel>
+                            {searchType === OfferingIncomeCreationType.IncomeAdjustment && (
+                              <FormDescription>
+                                Escribe una breve descripción sobre el ajuste.
+                              </FormDescription>
+                            )}
+                            <FormControl>
+                              <Textarea
+                                disabled={isInputDisabled}
+                                placeholder={`${
+                                  searchType === OfferingIncomeCreationType.IncomeAdjustment
+                                    ? `Motivos y comentarios sobre el ajuste...`
+                                    : 'Comentarios referente al registro de la ofrenda..'
+                                }`}
+                                {...field}
+                              />
+                            </FormControl>
                             <FormMessage />
                           </FormItem>
-                        )}
-                      />
-                    )}
+                        );
+                      }}
+                    />
 
-                  {((type === OfferingIncomeCreationType.Offering &&
-                    subType === OfferingIncomeCreationSubType.ZonalFasting) ||
-                    (type === OfferingIncomeCreationType.Offering &&
-                      subType === OfferingIncomeCreationSubType.ZonalVigil)) && (
                     <FormField
                       control={form.control}
-                      name='zoneID'
-                      render={({ field }) => (
-                        <FormItem className='flex flex-col mt-3'>
-                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                            Zone
-                          </FormLabel>
-                          <FormDescription className='text-[14px]'>
-                            Selecciones un zona para asignarlo al registro.
-                          </FormDescription>
-                          <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
-                            <PopoverTrigger asChild>
-                              <FormControl>
-                                <Button
-                                  disabled={isInputDisabled}
-                                  variant='outline'
-                                  role='combobox'
-                                  className={cn(
-                                    'w-full justify-between',
-                                    !field.value && 'text-slate-500 font-normal'
+                      name='recordStatus'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='mt-3'>
+                            <FormLabel className='text-[14px] font-bold'>Estado</FormLabel>
+                            <Select
+                              disabled={isInputDisabled}
+                              value={field.value}
+                              onValueChange={field.onChange}
+                            >
+                              <FormControl className='text-[13px] md:text-[14px]'>
+                                <SelectTrigger>
+                                  {field.value === 'active' ? (
+                                    <SelectValue placeholder='Activo' />
+                                  ) : (
+                                    <SelectValue placeholder='Inactivo' />
                                   )}
-                                >
-                                  {field.value
-                                    ? zones.find((zone) => zone.value === field.value)?.label
-                                    : 'Busque y seleccione una zona'}
-                                  <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
-                                </Button>
+                                </SelectTrigger>
                               </FormControl>
-                            </PopoverTrigger>
-                            <PopoverContent align='center' className='w-auto px-4 py-2'>
-                              <Command>
-                                <CommandInput
-                                  placeholder='Busque una zona...'
-                                  className='h-9 text-sm lg:text-[15px]'
-                                />
-                                <CommandEmpty>Zona no encontrada.</CommandEmpty>
-                                <CommandGroup className='max-h-[200px] h-auto'>
-                                  {zones.map((zone) => (
-                                    <CommandItem
-                                      className='text-[14px]'
-                                      value={zone.label}
-                                      key={zone.value}
-                                      onSelect={() => {
-                                        form.setValue('zoneID', zone.value);
-                                        setIsInputRelationOpen(false);
-                                      }}
-                                    >
-                                      {zone.label}
-                                      <CheckIcon
-                                        className={cn(
-                                          'ml-auto h-4 w-4',
-                                          zone.value === field.value ? 'opacity-100' : 'opacity-0'
-                                        )}
-                                      />
-                                    </CommandItem>
-                                  ))}
-                                </CommandGroup>
-                              </Command>
-                            </PopoverContent>
-                          </Popover>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+                              <SelectContent>
+                                <SelectItem className='text-[14px]' value='active'>
+                                  Activo
+                                </SelectItem>
+                                <SelectItem className='text-[14px]' value='inactive'>
+                                  Inactivo
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
+                            {form.getValues('recordStatus') === 'active' && (
+                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                                *El registro esta <span className='text-green-500'>Activo</span>,
+                                para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
+                                debe eliminar el registro desde la pestaña{' '}
+                                <span className='font-bold text-red-500'>
+                                  Eliminar Ingreso de Ofrenda.{' '}
+                                </span>
+                              </FormDescription>
+                            )}
+                            {form.getValues('recordStatus') === 'inactive' && (
+                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                                * El registro esta <span className='text-red-500 '>Inactivo</span>,
+                                puede modificar el estado eligiendo otra opción.
+                              </FormDescription>
+                            )}
+                            <FormMessage />
+                          </FormItem>
+                        );
+                      }}
                     />
+                  </div>
+
+                  <div className='md:col-start-2 md:col-end-3 border-l-2 border-slate-200 dark:border-slate-800 pl-6'>
+                    <FormField
+                      control={form.control}
+                      name='fileNames'
+                      render={() => {
+                        return (
+                          <FormItem className='mt-4 md:mt-0'>
+                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
+                              Subir imagen{' '}
+                              <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
+                                Opcional
+                              </span>
+                            </FormLabel>
+                            <FormControl>
+                              <div
+                                {...getRootProps({
+                                  className:
+                                    'font-medium text-sm sm:text-[15px] p-10 sm:p-12 md:p-16 max-w-[25rem] md:max-w-[25rem] m-auto border border-dashed border-black dark:border-white hover:bg-green-200 dark:hover:text-black ease-in duration-200 text-center',
+                                })}
+                              >
+                                <input {...getInputProps()} className='m-auto w-[20rem]' />
+
+                                {isDragActive ? (
+                                  <p>Suelte sus archivos aquí ...</p>
+                                ) : (
+                                  <p>
+                                    Arrastre y suelte sus archivos aquí, o haga clic para
+                                    seleccionar.
+                                  </p>
+                                )}
+                              </div>
+                            </FormControl>
+                            <FormMessage />
+                            {files && files.length > 3 ? (
+                              <span className='text-red-500 font-bold text-[11.5px] md:text-[12.5px] text-center mx-auto justify-center flex'>
+                                ❌ Sobrepasa el limite, elige como máximo solo 3 imágenes.
+                              </span>
+                            ) : (
+                              <span className='font-bold text-[11.5px] md:text-[12.5px] pl-6 mt-1 flex flex-col'>
+                                <span>✅ Máximo 3 archivos.</span>
+                                <span>
+                                  ✅ El campo se bloqueara al llegar o pasar los 3 archivos.
+                                </span>
+                              </span>
+                            )}
+                          </FormItem>
+                        );
+                      }}
+                    />
+
+                    <section className='mt-10'>
+                      <div className='flex gap-4 items-center justify-between'>
+                        <h2 className='text-[16px] md:text-[18px] font-bold'>Pre-visualización</h2>
+                      </div>
+
+                      {/* Accepted files */}
+                      <h3 className='text-[14.5px] lg:text-[16px] font-semibold mt-5 border-b pb-3'>
+                        Archivos Aceptados
+                      </h3>
+                      <ul className='mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-2 gap-x-5 gap-y-20'>
+                        {files.map((file, index) => (
+                          <li
+                            key={file.name ?? file}
+                            className='py-2 flex flex-col relative h-32 rounded-md shadow-md shadow-gray-400 dark:shadow-slate-900 bg-white dark:bg-slate-900 text-slate-900 dark:text-gray-100'
+                          >
+                            <img
+                              src={file.preview ?? file}
+                              alt={file.name ?? file}
+                              width={100}
+                              height={100}
+                              onLoad={() => {
+                                URL.revokeObjectURL(file.preview ?? file);
+                              }}
+                              className='h-full w-full object-contain rounded-md'
+                            />
+                            {file?.name ? (
+                              <button
+                                type='button'
+                                disabled={isFileButtonDisabled}
+                                className='border-none p-0 bg-secondary-400 rounded-full flex justify-center items-center absolute -top-3 -right-3 dark:hover:bg-slate-950 hover:bg-white'
+                                onClick={() => {
+                                  removeFile(file.name);
+                                }}
+                              >
+                                <TiDeleteOutline className='w-8 h-8 p-0  rounded-full fill-red-500 dark:hover:bg-white hover:bg-slate-200' />
+                              </button>
+                            ) : (
+                              <DestroyImageButton
+                                secureUrl={file as any}
+                                removeCloudFile={removeCloudFile}
+                              />
+                            )}
+
+                            <p className='mt-4 text-center text-slate-500 text-[11px] md:text-[12px] font-medium'>
+                              <a href={file as any} target='_blank' rel='noreferrer'>
+                                {file.name ??
+                                  (file as any)
+                                    .split('/')
+                                    .slice(0, 3)
+                                    .join('/')
+                                    .replace('cloudinary.com', `cloudinary-image-${index + 1}.com`)}
+                              </a>
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* Rejected Files */}
+                      <h3 className='text-[14.5px] lg:text-[16px] font-semibold mt-20 border-b pb-3'>
+                        Archivos rechazados
+                      </h3>
+                      <ul className='mt-2 flex flex-col'>
+                        {rejected.map(({ file, errors }) => (
+                          <li key={file.name} className='flex items-start justify-between'>
+                            <div>
+                              <p className='mt-2 text-neutral-500 text-sm font-medium'>
+                                {file.name}
+                              </p>
+                              <ul className='text-[14px] text-red-400 flex gap-3 font-medium'>
+                                {errors.map((error) => (
+                                  <li
+                                    key={error.code}
+                                  >{`${error.message === 'File type must be image/*' ? 'Tipo de archivo debe ser una imagen.' : 'Debe ser un archivo menor a 1000KB.'}`}</li>
+                                ))}
+                              </ul>
+                            </div>
+                            <button
+                              type='button'
+                              disabled={isFileButtonDisabled}
+                              className='mt-1 py-1 text-[11px] md:text-[11.5px] uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md px-3 hover:bg-red-500 hover:text-white ease-in duration-200 transition-colors'
+                              onClick={() => {
+                                removeRejected(file.name);
+                              }}
+                            >
+                              remover
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </section>
+                  </div>
+
+                  {isMessageErrorDisabled ? (
+                    <p className='-mb-5 mt-6 md:-mb-2 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 mx-auto md:w-[100%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
+                      ❌ Datos incompletos, completa todos los campos para crear el registro.
+                    </p>
+                  ) : (
+                    <p className='-mt-2 order-last md:-mt-3 md:row-start-4 md:row-end-5 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
+                      ¡Campos completados correctamente! <br />
+                    </p>
                   )}
 
-                  <FormField
-                    control={form.control}
-                    name='status'
-                    render={({ field }) => {
-                      return (
-                        <FormItem className='mt-3'>
-                          <FormLabel className='text-[14px]'>Estado</FormLabel>
-                          <Select disabled={isInputDisabled} onValueChange={field.onChange}>
-                            <FormControl className='text-[13px] md:text-[14px]'>
-                              <SelectTrigger>
-                                {field.value === 'active' ? (
-                                  <SelectValue placeholder='Activo' />
-                                ) : (
-                                  <SelectValue placeholder='Inactivo' />
-                                )}
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem className='text-[13px] md:text-[14px]' value='active'>
-                                Activo
-                              </SelectItem>
-                            </SelectContent>
-                          </Select>
-                          {form.getValues('status') === 'active' && (
-                            <FormDescription className='pl-2 text-[12px] md:text-[12.5px] font-bold'>
-                              *El registro esta <span className='text-green-500'>Activo</span>, para
-                              colocarlo como <span className='text-red-500'>Inactivo</span> eliminar
-                              el registro desde la pestaña{' '}
-                              <span className='font-bold text-red-500'>Eliminar Ingreso.</span>
-                            </FormDescription>
-                          )}
-                          {form.getValues('status') === 'inactive' && (
-                            <FormDescription className='pl-2 text-[12px] md:text-[12.5px] font-bold'>
-                              * El registro esta <span className='text-red-500'>Inactivo</span>, y
-                              su estado no se puede modificar.
-                            </FormDescription>
-                          )}
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-                </div>
-
-                <div className='lg:col-start-2 lg:col-end-3 border-l-2 border-slate-200 dark:border-slate-800 pl-8'>
-                  <FormField
-                    control={form.control}
-                    name='urlFile'
-                    render={() => {
-                      return (
-                        <FormItem className='mt-4 md:mt-0'>
-                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
-                            Subir imagen
-                            <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
-                              Opcional
-                            </span>
-                          </FormLabel>
-                          <FormControl>
-                            <div
-                              {...getRootProps({
-                                className:
-                                  'font-medium text-sm sm:text-[15px] p-10 sm:p-12 md:p-16 max-w-[25rem] md:max-w-[25rem] m-auto border border-dashed border-black dark:border-white hover:bg-green-200 dark:hover:text-black ease-in duration-200 text-center',
-                              })}
-                            >
-                              <input {...getInputProps()} className='m-auto w-[20rem]' />
-
-                              {isDragActive ? (
-                                <p>Suelte sus archivos aquí ...</p>
-                              ) : (
-                                <p>
-                                  Arrastre y suelte sus archivos aquí, o haga clic para seleccionar.
-                                </p>
-                              )}
-                            </div>
-                          </FormControl>
-                          <FormMessage />
-                          {urlFiles && urlFiles.length > 3 ? (
-                            <span className='text-red-500 font-bold text-[11.5px] md:text-[12.5px] text-center mx-auto justify-center flex'>
-                              ❌ Sobrepasa el limite, elige como máximo solo 3 imágenes.
-                            </span>
-                          ) : (
-                            <span className='font-bold text-[11.5px] md:text-[12.5px] pl-6 mt-1 flex flex-col'>
-                              {' '}
-                              <span>✅ Máximo 3 archivos.</span>
-                              <span>
-                                ✅ El campo se bloqueara al llegar o pasar los 3 archivos.
-                              </span>
-                            </span>
-                          )}
-                        </FormItem>
-                      );
-                    }}
-                  />
-                  <section className='mt-10'>
-                    <div className='flex gap-4 items-center justify-between'>
-                      <h2 className='text-[16px] md:text-[18px] font-bold'>Pre-visualización</h2>
-                      <button
-                        disabled={isFileButtonDisabled}
-                        type='button'
-                        onClick={removeAll}
-                        className='mt-1 text-[10px] md:text-[11px] w-[8rem] md:w-[10rem] p-2 uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md  hover:bg-secondary-400 hover:text-white ease-in duration-200 hover:bg-red-500 transition-colors'
-                      >
-                        Remover todos los archivos
-                      </button>
-                    </div>
-
-                    {/* Accepted files */}
-                    <h3 className='text-[14.5px] lg:text-[16px] font-semibold mt-5 border-b pb-3'>
-                      Archivos Aceptados
-                    </h3>
-                    <ul className='mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-2 gap-x-5 gap-y-20'>
-                      {files.map((file) => (
-                        <li key={file.name} className='relative h-32 rounded-md shadow-lg'>
-                          <img
-                            src={file.preview}
-                            alt={file.name}
-                            width={100}
-                            height={100}
-                            onLoad={() => {
-                              URL.revokeObjectURL(file.preview);
-                            }}
-                            className='h-full w-full object-contain rounded-md'
-                          />
-                          <button
-                            disabled={isFileButtonDisabled}
-                            type='button'
-                            className='w-7 h-7 border border-secondary-400 bg-secondary-400 rounded-full flex justify-center items-center absolute -top-3 -right-3 hover:bg-white transition-colors'
-                            onClick={() => {
-                              removeFile(file.name);
-                            }}
-                          >
-                            <TiDeleteOutline className='w-12 h-12 fill-red-500 hover:fill-secondary-400 transition-colors' />
-                          </button>
-                          <p className='mt-2 text-neutral-500 text-[12px] font-medium'>
-                            {file.name}
-                          </p>
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* Rejected Files */}
-                    <h3 className='text-[14.5px] lg:text-[16px] font-semibold mt-20 border-b pb-3'>
-                      Archivos rechazados
-                    </h3>
-                    <ul className='mt-2 flex flex-col'>
-                      {rejected.map(({ file, errors }) => (
-                        <li key={file.name} className='flex items-start justify-between'>
-                          <div>
-                            <p className='mt-2 text-neutral-500 text-sm font-medium'>{file.name}</p>
-                            <ul className='text-[14px] text-red-400 flex gap-3 font-medium'>
-                              {errors.map((error) => (
-                                <li key={error.code}>{error.message}</li>
-                              ))}
-                            </ul>
-                          </div>
-                          <button
-                            disabled={isFileButtonDisabled}
-                            type='button'
-                            className='mt-1 py-1 text-[11px] md:text-[12px] uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md px-3 hover:bg-red-500 hover:text-white ease-in duration-200 transition-colors'
-                            onClick={() => {
-                              removeRejected(file.name);
-                            }}
-                          >
-                            remover
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                </div>
-
-                {isMessageErrorDisabled ? (
-                  <p className='-mb-6 mt-4 md:-mb-6 md:mt-0 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
-                    ❌ Datos incompletos, completa todos los campos para guardar el registro.
-                  </p>
-                ) : (
-                  <p className='-mt-4 order-last md:-mt-3 md:row-start-3 md:row-end-4 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
-                    ¡Campos completados correctamente! <br /> Para finalizar por favor guarde los
-                    cambios
-                  </p>
-                )}
-
-                <div className='w-full md:w-[20rem] md:mx-auto col-start-1 col-end-3 text-sm md:text-md xl:text-base mt-2 md:mt-2'>
-                  <Toaster position='top-center' richColors />
-                  <Button
-                    disabled={isSubmitButtonDisabled}
-                    type='submit'
-                    className='w-full text-[14px]'
-                    onClick={() => {
-                      // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
-                      // NOTE : hacer petición al backend para actualizar
-                      setTimeout(() => {
-                        if (Object.keys(form.formState.errors).length === 0) {
-                          toast.success('Cambios guardados correctamente', {
-                            position: 'top-center',
-                            className: 'justify-center',
-                          });
-                          setIsInputDisabled(true);
-                          setIsDropZoneDisabled(true);
-                          setIsFileButtonDisabled(true);
-                          setIsSubmitButtonDisabled(true);
-                        }
-                      }, 100);
-
-                      setTimeout(() => {
-                        onScroll();
-                      }, 150);
-
-                      setTimeout(() => {
-                        if (Object.keys(form.formState.errors).length === 0) {
-                          onClose();
-                        }
-                      }, 1700);
-                    }}
-                  >
-                    Guardar cambios
-                  </Button>
-                </div>
-              </form>
-            </Form>
-          </CardContent>
+                  <div className='mt-2 col-start-1 col-end-3 row-start-3 row-end-4 w-full md:w-[20rem] md:m-auto'>
+                    <Button
+                      disabled={isSubmitButtonDisabled}
+                      type='submit'
+                      className={cn(
+                        'w-full text-[14px] md:text-[14.5px]',
+                        uploadImagesMutation?.isPending &&
+                          'bg-emerald-500 disabled:opacity-100 disabled:md:text-[14.5px] text-white'
+                      )}
+                      onClick={() => {
+                        setTimeout(() => {
+                          if (Object.keys(form.formState.errors).length === 0) {
+                            setIsInputDisabled(true);
+                            setIsDropZoneDisabled(true);
+                            // setIsInputMemberDisabled(true);
+                            setIsFileButtonDisabled(true);
+                            setIsSubmitButtonDisabled(true);
+                          }
+                        }, 100);
+                      }}
+                    >
+                      {uploadImagesMutation?.isPending ? 'Procesando...' : 'Guardar Cambios'}
+                    </Button>
+                  </div>
+                </form>
+              </Form>
+            </CardContent>
+          )}
         </Card>
       </TabsContent>
     </Tabs>

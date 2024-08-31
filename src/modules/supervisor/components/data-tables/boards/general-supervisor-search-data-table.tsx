@@ -74,7 +74,7 @@ export function GeneralSupervisorSearchDataTable<TData, TValue>({
   //* Hooks (external libraries)
   const navigate = useNavigate();
 
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['general-supervisors', searchParams],
     queryFn: () => getSupervisors(searchParams as SupervisorQueryParams),

@@ -23,23 +23,23 @@ import { type GeneralSearchForm } from '@/shared/interfaces';
 import { formSearchGeneralSchema } from '@/shared/validations';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 import {
-  SelectValue,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
   Select,
+  SelectItem,
+  SelectValue,
+  SelectContent,
+  SelectTrigger,
 } from '@/shared/components/ui/select';
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
   FormLabel,
+  FormField,
   FormMessage,
+  FormControl,
+  FormDescription,
 } from '@/shared/components/ui/form';
-import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 
 const dataFictional: OfferingIncomeResponse[] = [
@@ -48,6 +48,7 @@ const dataFictional: OfferingIncomeResponse[] = [
     type: '',
     subType: '',
     amount: '',
+    shift: '',
     currency: '',
     date: new Date('2024-05-21'),
     comments: '',

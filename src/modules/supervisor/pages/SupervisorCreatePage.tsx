@@ -171,7 +171,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
     setIsSubmitButtonDisabled,
   });
 
-  //* Querys
+  //* Queries
   const queryCopastors = useQuery({
     queryKey: ['copastors'],
     queryFn: getAllCopastors,

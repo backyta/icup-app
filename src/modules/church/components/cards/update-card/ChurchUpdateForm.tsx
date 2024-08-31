@@ -151,7 +151,7 @@ export const ChurchUpdateForm = ({
     setIsSubmitButtonDisabled,
   });
 
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['mainChurch', id],
     queryFn: getMainChurch,

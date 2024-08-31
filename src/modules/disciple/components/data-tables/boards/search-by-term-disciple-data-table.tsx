@@ -82,7 +82,7 @@ export function SearchByTermDiscipleDataTable<TData, TValue>({
   //* Hooks (external libraries)
   const navigate = useNavigate();
 
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['disciples-by-term', searchParams],
     queryFn: () => getDisciplesByTerm(searchParams as DiscipleQueryParams),

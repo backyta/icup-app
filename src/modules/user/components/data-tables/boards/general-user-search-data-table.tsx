@@ -72,7 +72,7 @@ export function GeneralUserSearchDataTable<TData, TValue>({
   //* Hooks (external libraries)
   const navigate = useNavigate();
 
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['general-users', searchParams],
     queryFn: () => getUsers(searchParams as UserQueryParams),

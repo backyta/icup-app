@@ -39,11 +39,11 @@ export interface Preacher {
 }
 
 export interface FamilyGroup {
-  id: string,
-  familyGroupName: string,
-  familyGroupCode: string,
-  district: string
-  urbanSector: string
+  id: string;
+  familyGroupName: string;
+  familyGroupCode: string;
+  district: string;
+  urbanSector: string;
 }
 
 export interface Disciple {

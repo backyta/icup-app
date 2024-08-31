@@ -100,7 +100,7 @@ export const ZoneCreatePage = (): JSX.Element => {
     setIsSubmitButtonDisabled,
   });
 
-  //* Querys
+  //* Queries
   const { data, isLoading } = useQuery({
     queryKey: ['supervisors-for-zone'],
     queryFn: () => getAllSupervisors({ isNull: 'true' }),

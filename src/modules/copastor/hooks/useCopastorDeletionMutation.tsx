@@ -56,7 +56,7 @@ export const useCopastorDeletionMutation = ({
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['copastors-by-term'] });
-      }, 1800);
+      }, 1000);
 
       setTimeout(() => {
         setIsCardOpen(false);

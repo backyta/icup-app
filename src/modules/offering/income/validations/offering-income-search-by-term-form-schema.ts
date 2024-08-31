@@ -17,7 +17,7 @@ export const offeringIncomeSearchByTermFormSchema = z
     }).optional(),
     
     inputTerm: z.string().max(30).optional(),
-    selectTerm: z.string().max(30).optional(),
+    selectTerm: z.string().max(40).optional(),
 
     dateTerm: z.object({from: z.date(), to: z.date().optional()}, {
       required_error: "Por favor seleccione una fecha.",
@@ -67,7 +67,7 @@ export const offeringIncomeSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El sub-tipo es requerido',
+      message: 'El sub-tipo es requerido.',
       path: ['searchSubType'],
     }
   )
@@ -91,7 +91,7 @@ export const offeringIncomeSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El nombre es requerido',
+      message: 'El nombre es requerido.',
       path: ['namesTerm'],
     }
   )
@@ -115,7 +115,7 @@ export const offeringIncomeSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El apellido es requerido',
+      message: 'El apellido es requerido.',
       path: ['lastNamesTerm'],
     }
   )
@@ -135,7 +135,7 @@ export const offeringIncomeSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El termino es requerido',
+      message: 'El termino es requerido.',
       path: ['inputTerm'],
     }
   )
@@ -145,10 +145,18 @@ export const offeringIncomeSearchByTermFormSchema = z
         (data.searchType === OfferingIncomeSearchType.RecordStatus ||
           ((data.searchType === OfferingIncomeSearchType.SundaySchool ||
             data.searchType === OfferingIncomeSearchType.SundayWorship ||
+            data.searchType === OfferingIncomeSearchType.GeneralFasting ||
+            data.searchType === OfferingIncomeSearchType.GeneralVigil ||
+            data.searchType === OfferingIncomeSearchType.Activities ||
+            data.searchType === OfferingIncomeSearchType.UnitedWorship ||
+            data.searchType === OfferingIncomeSearchType.YouthWorship ||
+            data.searchType === OfferingIncomeSearchType.IncomeAdjustment ||
             data.searchType === OfferingIncomeSearchType.Special ||
             data.searchType === OfferingIncomeSearchType.ChurchGround) &&
             (data.searchSubType === OfferingIncomeSearchSubType.OfferingByShift ||
               data.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate ||
+              data.searchSubType === OfferingIncomeSearchSubType.OfferingByChurch ||
+              data.searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate ||
               data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorNames ||
               data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorLastNames ||
               data.searchSubType ===
@@ -159,7 +167,7 @@ export const offeringIncomeSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'Por favor seleccione una opción',
+      message: 'Por favor seleccione una opción.',
       path: ['selectTerm'],
     }
   )
@@ -182,14 +190,15 @@ export const offeringIncomeSearchByTermFormSchema = z
           (data.searchSubType === OfferingIncomeSearchSubType.OfferingByDate ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCodeDate ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate ||
-            data.searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate)
+            data.searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate ||
+            data.searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate) 
       ) {
         return !!data.dateTerm; 
       }
       return true;
     },
     {
-      message: 'Por favor seleccione una fecha',
+      message: 'Por favor seleccione una fecha.',
       path: ['dateTerm'],
     }
   )

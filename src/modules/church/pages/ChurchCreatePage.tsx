@@ -141,7 +141,7 @@ export const ChurchCreatePage = (): JSX.Element => {
     setIsSubmitButtonDisabled,
   });
 
-  //* Querys
+  //* Queries
   const { data, isLoading } = useQuery({
     queryKey: ['mainChurch'],
     queryFn: getMainChurch,

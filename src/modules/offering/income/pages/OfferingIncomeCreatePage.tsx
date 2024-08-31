@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect, useState } from 'react';
 
@@ -27,13 +27,13 @@ import {
 import {
   useFileDropZone,
   useMemberQueries,
-  useOfferingIncomeCreateSubmitButtonLogic,
-  useOfferingIncomeMutation,
+  useOfferingIncomeCreationSubmitButtonLogic,
+  useOfferingIncomeCreationMutation,
 } from '@/modules/offering/income/hooks';
 import { offeringIncomeFormSchema } from '@/modules/offering/income/validations';
 
 import { CurrencyTypeNames } from '@/modules/offering/shared/enums';
-import { useUploadImagesMutation } from '@/modules/offering/shared/hooks';
+import { useImagesUploadMutation } from '@/modules/offering/shared/hooks';
 import { type FilesProps, type RejectedProps } from '@/modules/offering/shared/interfaces';
 
 import { type PastorResponse } from '@/modules/pastor/interfaces';
@@ -119,6 +119,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
       familyGroupId: '',
       memberId: '',
       zoneId: '',
+      churchId: '',
     },
   });
 
@@ -128,8 +129,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   const memberType = form.watch('memberType');
 
   //* Custom hooks
-  useOfferingIncomeCreateSubmitButtonLogic({
-    offeringIncomeCreateForm: form,
+  useOfferingIncomeCreationSubmitButtonLogic({
+    offeringIncomeCreationForm: form,
     offeringIncomeTypes: OfferingIncomeCreationType,
     offeringIncomeSubTypes: OfferingIncomeCreationSubType,
     isInputDisabled,
@@ -141,6 +142,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   });
 
   const {
+    churchesQuery,
     pastorsQuery,
     copastorsQuery,
     supervisorsQuery,
@@ -151,7 +153,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   } = useMemberQueries(memberType);
 
   const { onDrop, removeAll, removeFile, removeRejected } = useFileDropZone({
-    offeringIncomeCreateForm: form,
+    offeringIncomeForm: form,
     files,
     setFiles,
     setRejected,
@@ -166,14 +168,14 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
     disabled: isDropZoneDisabled,
   });
 
-  const offeringIncomeMutation = useOfferingIncomeMutation({
-    offeringIncomeCreateForm: form,
+  const offeringIncomeCreationMutation = useOfferingIncomeCreationMutation({
+    offeringIncomeCreationForm: form,
     setFiles,
     setIsInputDisabled,
     setIsSubmitButtonDisabled,
   });
 
-  const uploadImagesMutation = useUploadImagesMutation();
+  const uploadImagesMutation = useImagesUploadMutation();
 
   //* Effects
   useEffect(() => {
@@ -210,8 +212,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   const handleSubmit = async (
     formData: z.infer<typeof offeringIncomeFormSchema>
   ): Promise<void> => {
+    let imageUrls;
     try {
-      let imageUrls;
       if (files.length >= 1) {
         const uploadResult = await uploadImagesMutation.mutateAsync({
           files: files as any,
@@ -222,28 +224,29 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
 
         imageUrls = uploadResult.imageUrls;
       }
-
-      await offeringIncomeMutation.mutateAsync({
-        type: formData.type,
-        subType: !formData.subType ? undefined : formData.subType,
-        shift: formData.shift,
-        amount: formData.amount,
-        currency: formData.currency,
-        date: formData.date,
-        comments: formData.comments,
-        memberType: formData.memberType,
-        memberId: formData.memberId,
-        familyGroupId: formData.familyGroupId,
-        zoneId: formData.zoneId,
-        recordStatus: formData.recordStatus,
-        imageUrls: (imageUrls as any) ?? [],
-      });
     } catch (error) {
       toast.error('Error en enviar el formulario, hable con el administrador.', {
         position: 'top-center',
         className: 'justify-center',
       });
     }
+
+    await offeringIncomeCreationMutation.mutateAsync({
+      type: formData.type,
+      subType: !formData.subType ? undefined : formData.subType,
+      shift: formData.shift,
+      amount: formData.amount,
+      currency: formData.currency,
+      date: formData.date,
+      comments: formData.comments,
+      memberType: formData.memberType,
+      memberId: formData.memberId,
+      familyGroupId: formData.familyGroupId,
+      zoneId: formData.zoneId,
+      churchId: formData.churchId,
+      recordStatus: formData.recordStatus,
+      imageUrls: (imageUrls as any) ?? [],
+    });
   };
 
   return (
@@ -425,9 +428,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                 role='combobox'
                                 className={cn(
                                   'w-full justify-between ',
-                                  !field.value && 'font-normal',
-                                  isInputMemberDisabled &&
-                                    'dark:bg-gray-100  dark:text-black bg-gray-200'
+                                  !field.value && 'font-normal'
                                 )}
                               >
                                 {field.value
@@ -555,6 +556,83 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   />
                 )}
 
+              {(searchType === OfferingIncomeCreationType.IncomeAdjustment ||
+                (searchType === OfferingIncomeCreationType.Offering &&
+                  (searchSubType === OfferingIncomeCreationSubType.SundaySchool ||
+                    searchSubType === OfferingIncomeCreationSubType.SundayWorship ||
+                    searchSubType === OfferingIncomeCreationSubType.Activities ||
+                    searchSubType === OfferingIncomeCreationSubType.GeneralFasting ||
+                    searchSubType === OfferingIncomeCreationSubType.GeneralVigil ||
+                    searchSubType === OfferingIncomeCreationSubType.WorshipUnited ||
+                    searchSubType === OfferingIncomeCreationSubType.YouthWorship))) && (
+                <FormField
+                  control={form.control}
+                  name='churchId'
+                  render={({ field }) => (
+                    <FormItem className='flex flex-col mt-4'>
+                      <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                        Iglesia
+                      </FormLabel>
+                      <FormDescription className='text-[14px]'>
+                        Seleccione una iglesia para asignarla al registro.
+                      </FormDescription>
+                      <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              disabled={isInputDisabled}
+                              variant='outline'
+                              role='combobox'
+                              className={cn(
+                                'w-full justify-between',
+                                !field.value && 'text-slate-500 font-normal'
+                              )}
+                            >
+                              {field.value
+                                ? churchesQuery?.data?.find((zone) => zone.id === field.value)
+                                    ?.churchName
+                                : 'Busque y seleccione una iglesia'}
+                              <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent align='center' className='w-auto px-4 py-2'>
+                          <Command>
+                            <CommandInput
+                              placeholder='Busque una iglesia...'
+                              className='h-9 text-[14px]'
+                            />
+                            <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
+                            <CommandGroup className='max-h-[200px] h-auto'>
+                              {churchesQuery?.data?.map((church) => (
+                                <CommandItem
+                                  className='text-[14px]'
+                                  value={church.churchName}
+                                  key={church.id}
+                                  onSelect={() => {
+                                    form.setValue('churchId', church.id);
+                                    setIsInputRelationOpen(false);
+                                  }}
+                                >
+                                  {church.churchName}
+                                  <CheckIcon
+                                    className={cn(
+                                      'ml-auto h-4 w-4',
+                                      church.id === field.value ? 'opacity-100' : 'opacity-0'
+                                    )}
+                                  />
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </Command>
+                        </PopoverContent>
+                      </Popover>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+
               {((searchType === OfferingIncomeCreationType.Offering &&
                 searchSubType === OfferingIncomeCreationSubType.ZonalFasting) ||
                 (searchType === OfferingIncomeCreationType.Offering &&
@@ -566,7 +644,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                     <FormItem className='flex flex-col mt-4'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Zona</FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Selecciones una zona para asignarlo al registro.
+                        Seleccione una zona para asignarlo al registro.
                       </FormDescription>
                       <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
                         <PopoverTrigger asChild>
@@ -773,7 +851,18 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                             field.onChange(date);
                             setIsInputDateOpen(false);
                           }}
-                          disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
+                          disabled={
+                            searchSubType !== OfferingIncomeCreationSubType.SundayWorship &&
+                            searchSubType !== OfferingIncomeCreationSubType.SundaySchool &&
+                            searchSubType !== OfferingIncomeCreationSubType.FamilyGroup
+                              ? (date) => date > new Date() || date < new Date('1900-01-01')
+                              : (date) => {
+                                  const today = new Date();
+                                  const minDate = new Date('1900-01-01');
+                                  const dayOfWeek = date.getDay();
+                                  return dayOfWeek !== 0 || date > today || date < minDate;
+                                }
+                          }
                           initialFocus
                         />
                       </PopoverContent>

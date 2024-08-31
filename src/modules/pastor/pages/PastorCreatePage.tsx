@@ -152,7 +152,7 @@ export const PastorCreatePage = (): JSX.Element => {
     setIsSubmitButtonDisabled,
   });
 
-  //* Querys
+  //* Queries
   const { data, isLoading } = useQuery({
     queryKey: ['churches'],
     queryFn: getAllChurches,

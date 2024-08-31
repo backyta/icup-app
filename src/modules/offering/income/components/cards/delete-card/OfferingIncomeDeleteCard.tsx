@@ -4,17 +4,15 @@
 import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Toaster, toast } from 'sonner';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { MdDeleteForever } from 'react-icons/md';
 
 import { offeringDeleteFormSchema } from '@/modules/offering/shared/validations';
-import { TypeReasonEliminationOfferingIncomeNames } from '@/modules/offering/income/enums';
+import { OfferingIncomeReasonEliminationTypeNames } from '@/modules/offering/income/enums';
 
-import { Button } from '@/shared/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 import {
   Form,
   FormControl,
@@ -31,9 +29,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/components/ui/select';
-
-// NOTE : podría usar zustand para tomar el estado del id del estado global y eliminar y tmb.
-// NOTE : tomaría el onDelete.
+import { Button } from '@/shared/components/ui/button';
+import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 
 export const OfferingIncomeDeleteCard = (): JSX.Element => {
   //* States
@@ -71,11 +68,6 @@ export const OfferingIncomeDeleteCard = (): JSX.Element => {
     values.userID = 'id-1';
     console.log({ values });
   };
-  /* 
-  Para que metería el ID de la ofrenda en la tabla casa for ejemplo seria un array de varias ofrendas
-  solo hacer la relación ela tabla de ofrenda income, discípulo, zona va acompañado de super, casa,
-  si la zona se elimina cuando se se setea una nueva zona al super y se cambia en todos,
-  si el super esta inactive se puede asignar igual la zona, y actualizar a otro super activo a esta zona y se actualizara en las ofrendas tmb */
 
   return (
     <Dialog open={isCardOpen} onOpenChange={setIsCardOpen}>
@@ -144,7 +136,7 @@ export const OfferingIncomeDeleteCard = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(TypeReasonEliminationOfferingIncomeNames).map(
+                          {Object.entries(OfferingIncomeReasonEliminationTypeNames).map(
                             ([key, value]) => (
                               <SelectItem key={key} value={key}>
                                 {value}
@@ -175,8 +167,6 @@ export const OfferingIncomeDeleteCard = (): JSX.Element => {
                   type='submit'
                   className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
                   onClick={() => {
-                    // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
-                    // NOTE : hacer petición al backend para eliminar
                     toast.success('Registro eliminado exitosamente', {
                       position: 'top-center',
                       className: 'justify-center',
@@ -192,7 +182,6 @@ export const OfferingIncomeDeleteCard = (): JSX.Element => {
                     }, 1300);
                   }}
                 >
-                  {/* Colocar función que envié la solicitud al backend onClick */}
                   Sí, eliminar
                 </Button>
               </div>

@@ -42,7 +42,7 @@ export const OfferingIncomeSearchNamesByShift: Record<OfferingIncomeSearchByShif
   [OfferingIncomeSearchByShift.Afternoon]: 'Tarde',
 }
 
-//* Shift
+//* Member types
 export enum OfferingIncomeSearchByMemberType {
   Pastor = 'pastor',
   Copastor = 'copastor',
@@ -58,4 +58,5 @@ export const OfferingIncomeSearchNamesByMemberType: Record<OfferingIncomeSearchB
   [OfferingIncomeSearchByMemberType.Preacher]: 'Predicador',
   [OfferingIncomeSearchByMemberType.Disciple]: 'Discípulo',
 }
+
 

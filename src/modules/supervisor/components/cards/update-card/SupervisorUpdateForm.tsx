@@ -206,7 +206,7 @@ export const SupervisorUpdateForm = ({
     setIsRelationSelectDisabled,
   });
 
-  //* Querys
+  //* Queries
   const queryCopastors = useQuery({
     queryKey: ['copastors', id],
     queryFn: getAllCopastors,

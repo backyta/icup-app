@@ -1,4 +1,4 @@
-export enum TypeReasonEliminationOfferingIncome {
+export enum OfferingIncomeReasonEliminationType {
   TypeSelectionError = 'type_selection_error',
   SubTypeSelectionError = 'sub_type_selection_error',
   ShiftSelectionError = 'shift_selection_error',
@@ -10,7 +10,7 @@ export enum TypeReasonEliminationOfferingIncome {
   DateError= 'date_error',
 }
 
-export const TypeReasonEliminationOfferingIncomeNames: Record<TypeReasonEliminationOfferingIncome, string> = {
+export const OfferingIncomeReasonEliminationTypeNames: Record<OfferingIncomeReasonEliminationType, string> = {
   type_selection_error : '❌ Error en selección de tipo',
   sub_type_selection_error : '❌ Error en selección de sub-tipo',
   shift_selection_error : '❌ Error en selección de turno',

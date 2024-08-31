@@ -3,14 +3,14 @@ import {
 } from '@/shared/interfaces';
 
 export interface OfferingIncomeColumns {
-  id:          string;
-  type?:       string;
+  id:            string;
+  type?:         string;
   subType?:      string;
-  amount?:         string;
-  currency?:      string;
+  amount?:       string;
+  currency?:     string;
   date?:         Date;
-  updatedAt?:        Date;
-  updatedBy?:        UpdatedBy;
-  recordStatus?:     string;
+  updatedAt?:    Date;
+  updatedBy?:    UpdatedBy;
+  recordStatus?: string;
 }
 

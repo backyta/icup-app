@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import { format } from 'date-fns';
 
 import {
+  type MemberType,
+  MemberTypeNames,
   OfferingIncomeCreationSubTypeNames,
   OfferingIncomeCreationTypeNames,
 } from '@/modules/offering/income/enums';
@@ -106,7 +108,7 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
             </div>
             <div className='space-y-1 col-start-2 col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Comentarios</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+              <CardDescription className='px-2 text-[14px] md:text-[14.5px] overflow-hidden text-ellipsis'>
                 {!data?.comments ? '-' : data?.comments}
               </CardDescription>
             </div>
@@ -139,7 +141,7 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Tipo de Miembro</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.memberType ?? '-'}
+                {data?.memberType ? MemberTypeNames[data?.memberType as MemberType] : '-'}
               </CardDescription>
             </div>
             <div className='space-y-1'>

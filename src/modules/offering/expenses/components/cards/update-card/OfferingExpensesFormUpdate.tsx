@@ -207,7 +207,6 @@ export const OfferingExpensesFormUpdate = ({ onClose, onScroll }: Props): JSX.El
   }, [status]);
 
   //* Custom hooks
-  // NOTE : hacer custom hooks para setear
   useEffect(() => {
     for (const key in data) {
       form.setValue(key as OfferingExpensesDataKeys, data[key as OfferingExpensesDataKeys]);
@@ -685,8 +684,6 @@ export const OfferingExpensesFormUpdate = ({ onClose, onScroll }: Props): JSX.El
                     type='submit'
                     className='w-full text-[14px]'
                     onClick={() => {
-                      // NOTE : agregar promesa cuando se consulte hacer timer y luego mostrar toast (fetch real)
-                      // NOTE : hacer petición al backend para actualizar
                       setTimeout(() => {
                         if (Object.keys(form.formState.errors).length === 0) {
                           toast.success('Cambios guardados correctamente', {

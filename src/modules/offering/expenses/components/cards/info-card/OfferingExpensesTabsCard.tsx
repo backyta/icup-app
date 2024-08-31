@@ -8,7 +8,6 @@ import {
 import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 
-// NOTE : Validar el tipo y subtipo y según eso mostrar discípulo, zona o casa
 export const OfferingExpensesTabsCard = (): JSX.Element => {
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>

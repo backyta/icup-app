@@ -2,10 +2,11 @@
 
 import { useMutation, type UseMutationResult } from '@tanstack/react-query';
 
-import { uploadImages, type UploadImagesOptions } from '@/modules/offering/shared/services';
 import { type UploadImageResponse } from '@/modules/offering/shared/interfaces';
 
-export const useUploadImagesMutation = (): UseMutationResult<
+import { uploadImages, type UploadImagesOptions } from '@/modules/offering/shared/services';
+
+export const useImagesUploadMutation = (): UseMutationResult<
   UploadImageResponse,
   Error,
   UploadImagesOptions,

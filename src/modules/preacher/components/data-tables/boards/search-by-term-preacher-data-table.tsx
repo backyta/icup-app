@@ -81,7 +81,7 @@ export function SearchByTermPreacherDataTable<TData, TValue>({
 
   //* Hooks (external libraries)
   const navigate = useNavigate();
-  //* Querys
+  //* Queries
   const query = useQuery({
     queryKey: ['preachers-by-term', searchParams],
     queryFn: () => getPreachersByTerm(searchParams as PreacherQueryParams),
