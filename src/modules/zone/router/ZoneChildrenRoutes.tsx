@@ -1,30 +1,30 @@
 import {
+  ZoneDeletePage,
   ZoneUpdatePage,
   ZoneCreatePage,
   ZonesSearchPageByTerm,
   ZonesGeneralSearchPage,
-  ZoneDeletePage,
 } from '@/modules/zone/pages';
 
 export const ZoneChildrenRoutes = [
   {
-    path: '/zones/create-zone',
+    path: '/zones/create',
     element: <ZoneCreatePage />,
   },
   {
-    path: '/zones/search-zones',
+    path: '/zones/general-search',
     element: <ZonesGeneralSearchPage />,
   },
   {
-    path: '/zones/search-zones-by-term',
+    path: '/zones/search-by-term',
     element: <ZonesSearchPageByTerm />,
   },
   {
-    path: '/zones/update-zone',
+    path: '/zones/update',
     element: <ZoneUpdatePage />,
   },
   {
-    path: '/zones/delete-zone',
+    path: '/zones/delete',
     element: <ZoneDeletePage />,
   },
 ];

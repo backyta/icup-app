@@ -19,6 +19,7 @@ export const usePastorCreationMutation = ({
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
 }: Options): UseMutationResult<PastorResponse, ErrorResponse, PastorFormData, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* Mutation

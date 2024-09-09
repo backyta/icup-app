@@ -52,10 +52,10 @@ export function GeneralDiscipleSearchDataTable<TData, TValue>({
   setSearchParams,
 }: DataTableProps<TData, TValue>): JSX.Element {
   //* States
+  const [rowSelection, setRowSelection] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = useState({});
 
   const isFiltersSearchGeneralDisabled = useDiscipleStore(
     (state) => state.isFiltersSearchGeneralDisabled

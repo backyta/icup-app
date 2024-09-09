@@ -25,7 +25,7 @@ export const SupervisorDeleteCard = ({ idRow }: SupervisorDeleteCardProps): JSX.
 
     if (idRow && isCardOpen) {
       const url = new URL(window.location.href);
-      url.pathname = `/supervisors/delete-supervisor/${idRow}/remove`;
+      url.pathname = `/supervisors/delete/${idRow}/remove`;
 
       window.history.replaceState({}, '', url);
 

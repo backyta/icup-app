@@ -4,10 +4,10 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
+import { type ErrorResponse } from '@/shared/interfaces';
+
 import { type ChurchResponse } from '@/modules/church/interfaces';
 import { updateChurch, type UpdateChurchOptions } from '@/modules/church/services';
-
-import { type ErrorResponse } from '@/shared/interfaces';
 
 interface Options {
   onSubmit: () => void;
@@ -22,6 +22,7 @@ export const useChurchUpdateMutation = ({
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
 }: Options): UseMutationResult<ChurchResponse, ErrorResponse, UpdateChurchOptions, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* QueryClient
@@ -66,7 +67,7 @@ export const useChurchUpdateMutation = ({
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['churches-by-term'] });
-      }, 500);
+      }, 700);
 
       setTimeout(() => {
         onSubmit();

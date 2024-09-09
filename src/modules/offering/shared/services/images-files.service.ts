@@ -3,17 +3,18 @@
 import { isAxiosError } from 'axios';
 import { icupApi } from '@/api/icupApi';
 
+import { type OfferingFileType } from '@/modules/offering/shared/enums';
 import { type UploadImageResponse } from '@/modules/offering/shared/interfaces';
 
 //* Upload Images
 export interface UploadImagesOptions{
   files: File[],
-  action: 'income' | 'expenses',
+  fileType: OfferingFileType,
   type: string,
   subType?: string | undefined | null,
 }
 
-export const uploadImages = async ({files, action, type, subType}:UploadImagesOptions): Promise<UploadImageResponse> => {
+export const uploadImages = async ({files, fileType, type, subType}:UploadImagesOptions): Promise<UploadImageResponse> => {
   try {
     const newFormData = new FormData();
 
@@ -23,7 +24,7 @@ export const uploadImages = async ({files, action, type, subType}:UploadImagesOp
 
     const {data} = await icupApi.post<UploadImageResponse>('/files/upload', newFormData ,{
       params: {
-        action,
+        fileType,
         type,
         subType: !subType ? null : subType 
       },
@@ -44,14 +45,16 @@ export interface DeleteImageOptions{
   publicId: string,
   path: string,
   secureUrl: string,
+  fileType: OfferingFileType,
 }
 
-export const deleteImage = async ({publicId, path, secureUrl}: DeleteImageOptions): Promise<void> => {
+export const deleteImage = async ({publicId, path, secureUrl, fileType}: DeleteImageOptions): Promise<void> => {
   try {
     const {data} = await icupApi.delete(`/files/${publicId}`,{
       params: {
         path,
-        secureUrl
+        secureUrl,
+        fileType
       },
     })
     

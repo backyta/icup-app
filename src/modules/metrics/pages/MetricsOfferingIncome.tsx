@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import {
   OfferingIncomeAnalysisCardBySundayWorship,
   OfferingIncomeProportionCards,
@@ -13,6 +15,10 @@ import {
 } from '@/modules/metrics/components/graphics-offering-income';
 
 export const MetricsOfferingIncome = (): JSX.Element => {
+  useEffect(() => {
+    document.title = 'Modulo Métricas - IcupApp';
+  }, []);
+
   return (
     <div>
       <h2 className='text-center text-green-500 text-[1.6rem] sm:text-[1.8rem] md:text-[2rem] lg:text-[2.5rem] xl:text-[3rem] font-sans font-bold pt-2 leading-tight'>

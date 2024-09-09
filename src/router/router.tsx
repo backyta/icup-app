@@ -10,16 +10,16 @@ import { DashboardPage } from '@/modules/dashboard/pages';
 import { ChurchOptionsPage } from '@/modules/church/pages';
 import { PastorOptionsPage } from '@/modules/pastor/pages';
 import { CopastorOptionsPage } from '@/modules/copastor/pages';
-import { SupervisorOptionsPage } from '@/modules/supervisor/pages';
-import { PreacherOptionsPage } from '@/modules/preacher/pages';
 import { DiscipleOptionsPage } from '@/modules/disciple/pages';
+import { PreacherOptionsPage } from '@/modules/preacher/pages';
+import { SupervisorOptionsPage } from '@/modules/supervisor/pages';
 //* Family groups and zones
-import { FamilyGroupOptionsPage } from '@/modules/family-group/pages';
 import { ZoneOptionsPage } from '@/modules/zone/pages';
+import { FamilyGroupOptionsPage } from '@/modules/family-group/pages';
 //* Offerings
 import { OfferingOptionsPage } from '@/modules/offering/shared/pages';
 import { OfferingIncomeOptionsPage } from '@/modules/offering/income/pages';
-import { OfferingExpensesOptionsPage } from '@/modules/offering/expenses/pages';
+import { OfferingExpenseOptionsPage } from '@/modules/offering/expense/pages';
 //* Metrics and charts
 import { MetricsOptionsPage } from '@/modules/metrics/pages';
 //* Users
@@ -30,15 +30,15 @@ import { UserOptionsPage } from '@/modules/user/pages';
 import { ChurchChildrenRoutes } from '@/modules/church/router';
 import { PastorChildrenRoutes } from '@/modules/pastor/router';
 import { CopastorChildrenRoutes } from '@/modules/copastor/router';
-import { SupervisorChildrenRoutes } from '@/modules/supervisor/router';
 import { PreacherChildrenRoutes } from '@/modules/preacher/router';
 import { DiscipleChildrenRoutes } from '@/modules/disciple/router';
+import { SupervisorChildrenRoutes } from '@/modules/supervisor/router';
 //* Family groups and zones
-import { FamilyGroupChildrenRoutes } from '@/modules/family-group/router';
 import { ZoneChildrenRoutes } from '@/modules/zone/router';
+import { FamilyGroupChildrenRoutes } from '@/modules/family-group/router';
 //* Offering
 import { OfferingIncomeChildrenRoutes } from '@/modules/offering/income/router';
-import { OfferingExpensesChildrenRoutes } from '@/modules/offering/expenses/router';
+import { OfferingExpenseChildrenRoutes } from '@/modules/offering/expense/router';
 //* Metrics and charts
 import { MetricsChildrenRoutes } from '@/modules/metrics/router';
 //* Users
@@ -70,8 +70,8 @@ export const router = createBrowserRouter([
           { path: '/family-groups', element: <FamilyGroupOptionsPage /> },
           { path: '/zones', element: <ZoneOptionsPage /> },
           { path: '/offerings', element: <OfferingOptionsPage /> },
-          { path: '/offerings/income', element: <OfferingIncomeOptionsPage /> },
-          { path: '/offerings/expenses', element: <OfferingExpensesOptionsPage /> },
+          { path: '/offerings/incomes', element: <OfferingIncomeOptionsPage /> },
+          { path: '/offerings/expenses', element: <OfferingExpenseOptionsPage /> },
           { path: '/metrics', element: <MetricsOptionsPage /> },
           { path: '/users', element: <UserOptionsPage /> },
         ],
@@ -90,7 +90,7 @@ export const router = createBrowserRouter([
 
       //* Offering income
       {
-        path: '/offerings/income',
+        path: '/offerings/incomes',
         element: <DashboardLayout />,
         children: OfferingIncomeChildrenRoutes,
       },
@@ -99,7 +99,7 @@ export const router = createBrowserRouter([
       {
         path: '/offerings/expenses',
         element: <DashboardLayout />,
-        children: OfferingExpensesChildrenRoutes,
+        children: OfferingExpenseChildrenRoutes,
       },
 
       //* Users

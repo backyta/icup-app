@@ -44,11 +44,11 @@ import {
   FormDescription,
 } from '@/shared/components/ui/form';
 import {
+  Select,
+  SelectItem,
   SelectValue,
   SelectTrigger,
   SelectContent,
-  SelectItem,
-  Select,
 } from '@/shared/components/ui/select';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -85,7 +85,9 @@ const dataFictional: PastorResponse[] = [
 
 export const PastorDeletePage = (): JSX.Element => {
   //* States
+  const [dataForm, setDataForm] = useState<PastorSearchFormByTerm>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
+  const [searchParams, setSearchParams] = useState<PastorSearchFormByTerm | undefined>();
 
   const isFiltersSearchByTermDisabled = usePastorStore(
     (state) => state.isFiltersSearchByTermDisabled
@@ -93,9 +95,6 @@ export const PastorDeletePage = (): JSX.Element => {
   const setIsFiltersSearchByTermDisabled = usePastorStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
-
-  const [dataForm, setDataForm] = useState<PastorSearchFormByTerm>();
-  const [searchParams, setSearchParams] = useState<PastorSearchFormByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof pastorSearchByTermFormSchema>>({
@@ -137,6 +136,10 @@ export const PastorDeletePage = (): JSX.Element => {
 
   useEffect(() => {
     setIsFiltersSearchByTermDisabled(true);
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Modulo Pastor - IcupApp';
   }, []);
 
   //* Form handler

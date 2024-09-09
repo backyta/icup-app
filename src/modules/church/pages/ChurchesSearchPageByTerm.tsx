@@ -129,6 +129,10 @@ export const ChurchesSearchPageByTerm = (): JSX.Element => {
     setIsFiltersSearchByTermDisabled(true);
   }, []);
 
+  useEffect(() => {
+    document.title = 'Modulo Iglesia - IcupApp';
+  }, []);
+
   //* Form handler
   function onSubmit(formData: z.infer<typeof churchSearchByTermFormSchema>): void {
     let newDateTermTo;

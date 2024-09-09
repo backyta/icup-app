@@ -79,14 +79,14 @@ import {
 } from '@/shared/components/ui/select';
 import {
   AlertDialog,
+  AlertDialogTitle,
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogTitle,
   AlertDialogTrigger,
+  AlertDialogDescription,
 } from '@/shared/components/ui/alert-dialog';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -973,7 +973,7 @@ export const SupervisorUpdateForm = ({
                           name='theirCopastor'
                           render={({ field }) => {
                             return (
-                              <FormItem className='flex flex-col mt-4'>
+                              <FormItem className='mt-4'>
                                 <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
                                   Co-Pastor
                                 </FormLabel>
@@ -1052,7 +1052,7 @@ export const SupervisorUpdateForm = ({
                           name='theirPastor'
                           render={({ field }) => {
                             return (
-                              <FormItem className='flex flex-col mt-4'>
+                              <FormItem className='mt-4'>
                                 <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
                                   Pastor
                                 </FormLabel>

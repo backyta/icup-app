@@ -7,19 +7,24 @@ import { cn } from '@/shared/lib/utils';
 
 import { Button } from '@/shared/components/ui/button';
 
+import { type OfferingFileType } from '@/modules/offering/shared/enums';
 import { useImageDeletionMutation } from '@/modules/offering/shared/hooks';
 import { extractPath, extractPublicId } from '@/modules/offering/shared/helpers';
 
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 
 interface ButtonDestroyProps {
+  fileType: OfferingFileType;
   secureUrl: string;
+  isDeleteFileButtonDisabled: boolean;
   removeCloudFile: (name: any) => void;
 }
 
 export const DestroyImageButton = ({
+  fileType,
   secureUrl,
   removeCloudFile,
+  isDeleteFileButtonDisabled,
 }: ButtonDestroyProps): JSX.Element => {
   //* States
   const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
@@ -35,6 +40,7 @@ export const DestroyImageButton = ({
     <Dialog open={isCardOpen} onOpenChange={setIsCardOpen}>
       <DialogTrigger asChild>
         <Button
+          disabled={isDeleteFileButtonDisabled}
           onClick={() => {
             setIsButtonDisabled(false);
           }}
@@ -91,6 +97,7 @@ export const DestroyImageButton = ({
               await imageDeletionMutation.mutateAsync({
                 publicId: extractPublicId(secureUrl),
                 path: extractPath(secureUrl),
+                fileType,
                 secureUrl,
               });
               removeCloudFile(secureUrl);

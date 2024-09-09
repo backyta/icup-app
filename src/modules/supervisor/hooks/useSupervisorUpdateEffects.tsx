@@ -60,9 +60,13 @@ export const useSupervisorUpdateEffects = ({
     supervisorUpdateForm.setValue('theirCopastor', data?.theirCopastor?.id ?? '');
     supervisorUpdateForm.setValue('recordStatus', data?.recordStatus);
 
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setIsLoadingData(false);
     }, 1200);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   //* Controller district and urban sector
@@ -100,7 +104,7 @@ export const useSupervisorUpdateEffects = ({
 
     if (id) {
       const url = new URL(window.location.href);
-      url.pathname = `/supervisors/update-supervisor/${id}/edit`;
+      url.pathname = `/supervisors/update/${id}/edit`;
 
       window.history.replaceState({}, '', url);
     }

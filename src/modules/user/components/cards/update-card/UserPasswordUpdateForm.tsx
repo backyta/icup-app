@@ -87,7 +87,7 @@ export const UserPasswordUpdateForm = ({
 
     if (id) {
       const url = new URL(window.location.href);
-      url.pathname = `/users/update-user/${id}/edit-password`;
+      url.pathname = `/users/update/${id}/edit-password`;
 
       window.history.replaceState({}, '', url);
     }

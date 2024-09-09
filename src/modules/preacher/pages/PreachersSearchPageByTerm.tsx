@@ -23,9 +23,9 @@ import {
   PreacherSearchTypeNames,
   PreacherSearchNamesByGender,
   PreacherSearchNamesByBirthMonth,
-  PreacherSearchNamesByFirstNames,
-  PreacherSearchNamesByFullNames,
-  PreacherSearchNamesByLastNames,
+  SubTypeNamesPreacherSearchByFirstNames,
+  SubTypeNamesPreacherSearchByFullNames,
+  SubTypeNamesPreacherSearchByLastNames,
   PreacherSearchNamesByMaritalStatus,
   PreacherSearchNamesByRecordStatus,
 } from '@/modules/preacher/enums';
@@ -93,7 +93,9 @@ const dataFictional: PreacherResponse[] = [
 
 export const PreachersSearchPageByTerm = (): JSX.Element => {
   //* States
+  const [dataForm, setDataForm] = useState<PreacherSearchFormByTerm>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
+  const [searchParams, setSearchParams] = useState<PreacherSearchFormByTerm | undefined>();
 
   const isFiltersSearchByTermDisabled = usePreacherStore(
     (state) => state.isFiltersSearchByTermDisabled
@@ -101,9 +103,6 @@ export const PreachersSearchPageByTerm = (): JSX.Element => {
   const setIsFiltersSearchByTermDisabled = usePreacherStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
-
-  const [dataForm, setDataForm] = useState<PreacherSearchFormByTerm>();
-  const [searchParams, setSearchParams] = useState<PreacherSearchFormByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof preacherSearchByTermFormSchema>>({
@@ -151,6 +150,10 @@ export const PreachersSearchPageByTerm = (): JSX.Element => {
   useEffect(() => {
     form.setValue('searchSubType', undefined);
   }, [searchType]);
+
+  useEffect(() => {
+    document.title = 'Modulo Predicador - IcupApp';
+  }, []);
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof preacherSearchByTermFormSchema>): void {
@@ -311,10 +314,10 @@ export const PreachersSearchPageByTerm = (): JSX.Element => {
                           <SelectContent>
                             {Object.entries(
                               searchType === PreacherSearchType.FirstName
-                                ? PreacherSearchNamesByFirstNames
+                                ? SubTypeNamesPreacherSearchByFirstNames
                                 : searchType === PreacherSearchType.LastName
-                                  ? PreacherSearchNamesByLastNames
-                                  : PreacherSearchNamesByFullNames
+                                  ? SubTypeNamesPreacherSearchByLastNames
+                                  : SubTypeNamesPreacherSearchByFullNames
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}

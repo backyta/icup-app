@@ -20,10 +20,10 @@ import {
   CopastorSearchType,
   CopastorSearchTypeNames,
   CopastorSearchNamesByGender,
-  CopastorSearchNamesByFullNames,
-  CopastorSearchNamesByLastNames,
+  SubTypeNamesCopastorSearchByFullNames,
+  SubTypeNamesCopastorSearchByLastNames,
   CopastorSearchNamesByBirthMonth,
-  CopastorSearchNamesByFirstNames,
+  SubTypeNamesCopastorSearchByFirstNames,
   CopastorSearchNamesByRecordStatus,
   CopastorSearchNamesByMaritalStatus,
 } from '@/modules/copastor/enums';
@@ -91,7 +91,9 @@ const dataFictional: CopastorResponse[] = [
 
 export const CopastorUpdatePage = (): JSX.Element => {
   //* States
+  const [dataForm, setDataForm] = useState<CopastorSearchFormByTerm>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
+  const [searchParams, setSearchParams] = useState<CopastorSearchFormByTerm | undefined>();
 
   const isFiltersSearchByTermDisabled = useCopastorStore(
     (state) => state.isFiltersSearchByTermDisabled
@@ -99,9 +101,6 @@ export const CopastorUpdatePage = (): JSX.Element => {
   const setIsFiltersSearchByTermDisabled = useCopastorStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
-
-  const [dataForm, setDataForm] = useState<CopastorSearchFormByTerm>();
-  const [searchParams, setSearchParams] = useState<CopastorSearchFormByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof copastorSearchByTermFormSchema>>({
@@ -149,6 +148,10 @@ export const CopastorUpdatePage = (): JSX.Element => {
   useEffect(() => {
     form.setValue('searchSubType', undefined);
   }, [searchType]);
+
+  useEffect(() => {
+    document.title = 'Modulo Co-Pastor - IcupApp';
+  }, []);
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof copastorSearchByTermFormSchema>): void {
@@ -309,10 +312,10 @@ export const CopastorUpdatePage = (): JSX.Element => {
                           <SelectContent>
                             {Object.entries(
                               searchType === CopastorSearchType.FirstName
-                                ? CopastorSearchNamesByFirstNames
+                                ? SubTypeNamesCopastorSearchByFirstNames
                                 : searchType === CopastorSearchType.LastName
-                                  ? CopastorSearchNamesByLastNames
-                                  : CopastorSearchNamesByFullNames
+                                  ? SubTypeNamesCopastorSearchByLastNames
+                                  : SubTypeNamesCopastorSearchByFullNames
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}

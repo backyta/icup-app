@@ -927,7 +927,7 @@ export const CopastorUpdateForm = ({
                           name='theirPastor'
                           render={({ field }) => {
                             return (
-                              <FormItem className='flex flex-col mt-4'>
+                              <FormItem className='mt-4'>
                                 <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
                                   Pastor
                                 </FormLabel>
@@ -1005,7 +1005,7 @@ export const CopastorUpdateForm = ({
                           name='theirChurch'
                           render={({ field }) => {
                             return (
-                              <FormItem className='flex flex-col mt-4'>
+                              <FormItem className='mt-4'>
                                 <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
                                   Iglesia
                                 </FormLabel>

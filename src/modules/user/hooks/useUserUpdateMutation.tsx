@@ -4,10 +4,10 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
+import { type ErrorResponse } from '@/shared/interfaces';
+
 import { type UserResponse } from '@/modules/user/interfaces';
 import { updateUser, type UpdateUserOptions } from '@/modules/user/services';
-
-import { type ErrorResponse } from '@/shared/interfaces';
 
 interface Options {
   onSubmit: () => void;
@@ -22,6 +22,7 @@ export const useUserUpdateMutation = ({
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
 }: Options): UseMutationResult<UserResponse, ErrorResponse, UpdateUserOptions, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* QueryClient
@@ -66,7 +67,7 @@ export const useUserUpdateMutation = ({
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['users-by-term'] });
-      }, 500);
+      }, 700);
 
       setTimeout(() => {
         onSubmit();

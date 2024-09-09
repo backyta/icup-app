@@ -32,7 +32,7 @@ export const PreacherInfoCard = ({ idRow }: PreacherInfoCardProps): JSX.Element 
 
   //* Functions
   const currentSupervisor =
-    pathname === '/preachers/search-preachers'
+    pathname === '/preachers/general-search'
       ? dataSearchGeneralResponse?.find((data) => data.id === idRow)
       : dataSearchByTermResponse?.find((data) => data.id === idRow);
 

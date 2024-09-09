@@ -13,7 +13,6 @@ import {
 } from '@/modules/offering/income/interfaces';
 import { OfferingIncomeSearchSubType, OfferingIncomeSearchType } from '@/modules/offering/income/enums';
 
-
 //* Create offering income
 export const createOfferingIncome = async (formData:OfferingIncomeFormData ): Promise<OfferingIncomeResponse> => {
   try {
@@ -116,6 +115,7 @@ export const getOfferingsIncomeByTerm = async ({
           : searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate
           ?`${selectTerm}&${dateTerm}`
           : `${selectTerm}&${dateTerm}`
+
     try {
         if (!all) {
             const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${term}` , {
@@ -164,7 +164,7 @@ export const getOfferingsIncomeByTerm = async ({
             : searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherLastNames
               ? lastNamesTerm
               : `${namesTerm}-${lastNamesTerm}`
-              
+
     try {
       if (!all) {
         const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${term}` , {
@@ -401,9 +401,18 @@ export const updateOfferingIncome = async ({id, formData}: UpdateOfferingIncomeO
 }
 
 //! Delete offering income by ID
-export const deleteOfferingIncome = async (id: string ): Promise<void> => {
+export interface DeleteOfferingIncomeOptions {
+  id: string;
+  reasonEliminationType: string;
+}
+
+export const deleteOfferingIncome = async ({id, reasonEliminationType}: DeleteOfferingIncomeOptions ): Promise<void> => {
   try {
-    const {data} = await icupApi.delete(`/offerings-income/${id}`)
+    const {data} = await icupApi.delete(`/offerings-income/${id}`,{
+      params: {
+        reasonEliminationType,
+      },
+    })
 
     return data;
   } catch (error) {

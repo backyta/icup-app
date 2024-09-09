@@ -16,9 +16,9 @@ interface PastorUpdateCardProps {
 
 export const PastorUpdateCard = ({ idRow }: PastorUpdateCardProps): JSX.Element => {
   //* States
-  const dataSearchByTermResponse = usePastorStore((state) => state.dataSearchByTermResponse);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const topRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const dataSearchByTermResponse = usePastorStore((state) => state.dataSearchByTermResponse);
 
   //* Hooks (external libraries)
   const isDesktop = useMediaQuery('(min-width: 768px)');

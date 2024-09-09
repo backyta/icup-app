@@ -14,10 +14,10 @@ import { getProportionFamilyGroups } from '@/modules/dashboard/services';
 
 import {
   Card,
+  CardTitle,
+  CardHeader,
   CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle,
 } from '@/shared/components/ui/card';
 import { Button } from '@/shared/components/ui/button';
 

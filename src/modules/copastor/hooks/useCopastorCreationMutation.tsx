@@ -19,6 +19,7 @@ export const useCopastorCreationMutation = ({
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
 }: Options): UseMutationResult<CopastorResponse, ErrorResponse, CopastorFormData, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* Mutation

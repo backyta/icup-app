@@ -48,9 +48,13 @@ export const usePreacherUpdateEffects = ({
     preacherUpdateForm.setValue('theirSupervisor', data?.theirSupervisor?.id ?? '');
     preacherUpdateForm.setValue('recordStatus', data?.recordStatus);
 
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setIsLoadingData(false);
     }, 1200);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   //* Controller district and urban sector
@@ -81,7 +85,7 @@ export const usePreacherUpdateEffects = ({
 
     if (id) {
       const url = new URL(window.location.href);
-      url.pathname = `/preachers/update-preacher/${id}/edit`;
+      url.pathname = `/preachers/update/${id}/edit`;
 
       window.history.replaceState({}, '', url);
     }

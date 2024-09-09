@@ -47,9 +47,13 @@ export const usePastorUpdateEffects = ({
     pastorUpdateForm.setValue('theirChurch', data?.theirChurch?.id);
     pastorUpdateForm.setValue('recordStatus', data?.recordStatus);
 
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setIsLoadingData(false);
     }, 1200);
+
+    return () => {
+      clearTimeout(timeoutId); // Limpiar el timeout cuando el componente se desmonte
+    };
   }, []);
 
   //* Controller district and urban sector
@@ -65,7 +69,7 @@ export const usePastorUpdateEffects = ({
 
     if (id) {
       const url = new URL(window.location.href);
-      url.pathname = `/pastors/update-pastor/${id}/edit`;
+      url.pathname = `/pastors/update/${id}/edit`;
 
       window.history.replaceState({}, '', url);
     }

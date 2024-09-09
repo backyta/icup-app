@@ -6,15 +6,23 @@ import { format, addDays } from 'date-fns';
 
 import { type CopastorResponse } from '@/modules/copastor/interfaces';
 
+import { cn } from '@/shared/lib/utils';
+
+import {
+  type Gender,
+  GenderNames,
+  type MemberRole,
+  MemberRoleNames,
+  RecordStatus,
+} from '@/shared/enums';
 import { PopoverDataCard } from '@/shared/components';
 import { getInitialFullNames } from '@/shared/helpers';
-import { type Gender, GenderNames, type MemberRole, MemberRoleNames } from '@/shared/enums';
 
 import {
   Card,
+  CardTitle,
   CardHeader,
   CardContent,
-  CardTitle,
   CardDescription,
 } from '@/shared/components/ui/card';
 import { Label } from '@/shared/components/ui/label';
@@ -33,17 +41,15 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
     if (id) {
       const url = new URL(window.location.href);
 
-      if (url.pathname === '/copastors/search-copastors')
-        url.pathname = `/copastors/search-copastors/${id}/view`;
+      if (url.pathname === '/copastors/general-search')
+        url.pathname = `/copastors/general-search/${id}/view`;
 
-      if (url.pathname === '/copastors/search-copastors-by-term')
-        url.pathname = `/copastors/search-copastors-by-term/${id}/view`;
+      if (url.pathname === '/copastors/search-by-term')
+        url.pathname = `/copastors/search-by-term/${id}/view`;
 
-      if (url.pathname === '/copastors/update-copastor')
-        url.pathname = `/copastors/update-copastor/${id}/view`;
+      if (url.pathname === '/copastors/update') url.pathname = `/copastors/update/${id}/view`;
 
-      if (url.pathname === '/copastors/delete-copastor')
-        url.pathname = `/copastors/delete-copastor/${id}/view`;
+      if (url.pathname === '/copastors/delete') url.pathname = `/copastors/delete/${id}/view`;
 
       window.history.replaceState({}, '', url);
     }
@@ -235,12 +241,14 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
                   : '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-8 row-end-9 md:grid  md:row-start-7 md:row-end-8 md:col-start-2 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Fecha de creación</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdAt ? format(new Date(data?.createdAt), 'dd/MM/yyyy') : '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-9 row-end-10 md:grid md:row-auto  md:col-start-1 md:col-end-2'>
               <Label className='text-[14px] md:text-[15px]'>Actualizado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -252,16 +260,25 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
                   : '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-10 row-end-11 md:grid  md:row-auto md:col-start-2 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Ultima fecha de actualización</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.updatedAt ? format(new Date(data?.updatedAt), 'dd/MM/yyyy') : '-'}
+                {data?.updatedAt
+                  ? `${format(new Date(data?.updatedAt), 'dd/MM/yyyy')} - ${`${format(new Date(data?.updatedAt), 'hh:mm a')}`}`
+                  : '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-11 row-end-12 md:grid md:row-start-7 md:row-end-8 md:col-start-3 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
-                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
+              <CardDescription
+                className={cn(
+                  'px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold',
+                  data?.recordStatus !== RecordStatus.Active && 'text-red-600'
+                )}
+              >
+                {data?.recordStatus === RecordStatus.Active ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>
@@ -331,8 +348,13 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
-                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
+              <CardDescription
+                className={cn(
+                  'px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold',
+                  data?.recordStatus !== RecordStatus.Active && 'text-red-600'
+                )}
+              >
+                {data?.recordStatus === RecordStatus.Active ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>
@@ -417,8 +439,13 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
-                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
+              <CardDescription
+                className={cn(
+                  'px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold',
+                  data?.recordStatus !== RecordStatus.Active && 'text-red-600'
+                )}
+              >
+                {data?.recordStatus === RecordStatus.Active ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>

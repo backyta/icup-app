@@ -2,15 +2,15 @@
 
 import * as z from 'zod';
 import { 
-  Country, 
-  Department, 
-  District, 
   Gender,
-  MaritalStatus, 
-  MemberRole, 
+  Country, 
   Province, 
+  District, 
+  MemberRole, 
+  Department, 
+  UrbanSector, 
   RecordStatus, 
-  UrbanSector 
+  MaritalStatus, 
 } from '@/shared/enums';
 
 export const pastorFormSchema = z

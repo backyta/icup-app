@@ -20,8 +20,8 @@ interface CopastorInfoCardProps {
 
 export const CopastorInfoCard = ({ idRow }: CopastorInfoCardProps): JSX.Element => {
   //* States
-  const dataSearchGeneralResponse = useCopastorStore((state) => state.dataSearchGeneralResponse);
   const dataSearchByTermResponse = useCopastorStore((state) => state.dataSearchByTermResponse);
+  const dataSearchGeneralResponse = useCopastorStore((state) => state.dataSearchGeneralResponse);
 
   const [open, setOpen] = useState<boolean>(false);
 
@@ -31,7 +31,7 @@ export const CopastorInfoCard = ({ idRow }: CopastorInfoCardProps): JSX.Element 
 
   //* Functions
   const currentCopastor =
-    pathname === '/copastors/search-copastors'
+    pathname === '/copastors/general-search'
       ? dataSearchGeneralResponse?.find((data) => data.id === idRow)
       : dataSearchByTermResponse?.find((data) => data.id === idRow);
 

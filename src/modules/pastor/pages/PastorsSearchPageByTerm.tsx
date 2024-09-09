@@ -24,12 +24,12 @@ import {
   PastorSearchNamesByRecordStatus,
   PastorSearchNamesByMaritalStatus,
 } from '@/modules/pastor/enums';
+import {
+  SearchByTermPastorDataTable,
+  pastorInfoColumns as columns,
+} from '@/modules/pastor/components';
 import { pastorSearchByTermFormSchema } from '@/modules/pastor/validations';
 import { type PastorResponse, type PastorSearchFormByTerm } from '@/modules/pastor/interfaces';
-import {
-  pastorInfoColumns as columns,
-  SearchByTermPastorDataTable,
-} from '@/modules/pastor/components';
 
 import { cn } from '@/shared/lib/utils';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
@@ -86,7 +86,9 @@ const dataFictional: PastorResponse[] = [
 
 export const PastorsSearchPageByTerm = (): JSX.Element => {
   //* States
+  const [dataForm, setDataForm] = useState<PastorSearchFormByTerm>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
+  const [searchParams, setSearchParams] = useState<PastorSearchFormByTerm | undefined>();
 
   const isFiltersSearchByTermDisabled = usePastorStore(
     (state) => state.isFiltersSearchByTermDisabled
@@ -94,9 +96,6 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
   const setIsFiltersSearchByTermDisabled = usePastorStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
-
-  const [dataForm, setDataForm] = useState<PastorSearchFormByTerm>();
-  const [searchParams, setSearchParams] = useState<PastorSearchFormByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof pastorSearchByTermFormSchema>>({
@@ -138,6 +137,10 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
 
   useEffect(() => {
     setIsFiltersSearchByTermDisabled(true);
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Modulo Pastor - IcupApp';
   }, []);
 
   //* Form handler

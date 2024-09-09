@@ -1,18 +1,24 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
+
+import { useEffect } from 'react';
+
 import {
-  TopFamilyGroupsOfferingsCard,
   HousesInfoCard,
   MembersInfoCard,
   LatestsSundayOfferingsCard,
+  TopFamilyGroupsOfferingsCard,
 } from '@/modules/dashboard/components';
 import { useAuthStore } from '@/stores';
-import { useEffect } from 'react';
 
 export const DashboardPage = (): JSX.Element => {
   const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
 
   useEffect(() => {
     checkAuthStatus();
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Panel Administrativo';
   }, []);
 
   return (

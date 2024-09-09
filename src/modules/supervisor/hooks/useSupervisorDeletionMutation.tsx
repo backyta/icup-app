@@ -16,6 +16,7 @@ export const useSupervisorDeletionMutation = ({
   setIsCardOpen,
   setIsButtonDisabled,
 }: Options): UseMutationResult<void, ErrorResponse, string, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* QueryClient

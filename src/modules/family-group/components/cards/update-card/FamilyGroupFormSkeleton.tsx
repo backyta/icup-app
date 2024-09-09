@@ -85,8 +85,8 @@ export const FamilyGroupFormSkeleton = (): JSX.Element => {
           </div>
 
           <div className='col-start-1 col-end-3 w-[20rem] mx-auto'>
-            <Skeleton className='h-10  mt-5' />
-            <div className='flex flex-col  justify-center items-center mt-3'>
+            <Skeleton className='h-10 mt-3' />
+            <div className='flex flex-col  justify-center items-center mt-1'>
               <Skeleton className='text-center h-4 w-64 mt-2' />
               <Skeleton className='text-center h-4 w-60 mt-2' />
             </div>

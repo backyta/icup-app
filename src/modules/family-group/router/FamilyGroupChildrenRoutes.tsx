@@ -1,30 +1,30 @@
 import {
   FamilyGroupCreatePage,
+  FamilyGroupUpdatePage,
   FamilyGroupDeletePage,
   FamilyGroupsGeneralSearchPage,
   FamilyGroupsSearchPageByTerm,
-  FamilyGroupUpdatePage,
 } from '@/modules/family-group/pages';
 
 export const FamilyGroupChildrenRoutes = [
   {
-    path: '/family-groups/create-family-group',
+    path: '/family-groups/create',
     element: <FamilyGroupCreatePage />,
   },
   {
-    path: '/family-groups/search-family-groups',
+    path: '/family-groups/general-search',
     element: <FamilyGroupsGeneralSearchPage />,
   },
   {
-    path: '/family-groups/search-family-groups-by-term',
+    path: '/family-groups/search-by-term',
     element: <FamilyGroupsSearchPageByTerm />,
   },
   {
-    path: '/family-groups/update-family-group',
+    path: '/family-groups/update',
     element: <FamilyGroupUpdatePage />,
   },
   {
-    path: '/family-groups/delete-family-group',
+    path: '/family-groups/delete',
     element: <FamilyGroupDeletePage />,
   },
 ];

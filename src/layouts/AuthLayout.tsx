@@ -8,9 +8,11 @@ import { ToggleLayoutLogin } from '@/shared/components/toggle-theme';
 import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
 export const AuthLayout = (): JSX.Element => {
+  //* States
   const authStatus = useAuthStore((state) => state.status);
   const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
 
+  //* Auth
   if (authStatus === 'pending') {
     checkAuthStatus();
     return <LoadingSpinner />;

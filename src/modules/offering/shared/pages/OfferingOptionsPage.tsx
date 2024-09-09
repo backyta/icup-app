@@ -9,10 +9,16 @@ import { useAuthStore } from '@/stores';
 import { WhiteCard } from '@/shared/components';
 
 export const OfferingOptionsPage = (): JSX.Element => {
+  //* States
   const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
 
+  //* Auth
   useEffect(() => {
     checkAuthStatus();
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Modulo Ofrenda - IcupApp';
   }, []);
 
   return (
@@ -27,8 +33,8 @@ export const OfferingOptionsPage = (): JSX.Element => {
 
       <div className='w-full px-8 py-6 flex flex-col gap-10 lg:grid md:gap-8 lg:h-[45rem] 2xl:h-[43rem]'>
         <NavLink
-          key='/offerings/income'
-          to='/offerings/income'
+          key='/offerings/incomes'
+          to='/offerings/incomes'
           end
           className='row-start-1 row-end-3 col-start-1 col-end-3'
         >

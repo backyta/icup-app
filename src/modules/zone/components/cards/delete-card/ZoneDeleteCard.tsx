@@ -25,7 +25,7 @@ export const ZoneDeleteCard = ({ idRow }: ZoneDeleteCardProps): JSX.Element => {
 
     if (idRow && isCardOpen) {
       const url = new URL(window.location.href);
-      url.pathname = `/zones/delete-zone/${idRow}/remove`;
+      url.pathname = `/zones/delete/${idRow}/remove`;
 
       window.history.replaceState({}, '', url);
 

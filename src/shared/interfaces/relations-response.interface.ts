@@ -262,4 +262,9 @@ export interface TheirFamilyGroup {
   familyGroupCode: string;
   district:        string;
   urbanSector:     string;
+  createdAt:  Date;
+  createdBy:  CreatedBy;
+  updatedAt?: Date;
+  updatedBy?: UpdatedBy;
+  status:     string;
 }

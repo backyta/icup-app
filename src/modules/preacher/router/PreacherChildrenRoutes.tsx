@@ -8,23 +8,23 @@ import {
 
 export const PreacherChildrenRoutes = [
   {
-    path: '/preachers/create-preacher',
+    path: '/preachers/create',
     element: <PreacherCreatePage />,
   },
   {
-    path: '/preachers/search-preachers',
+    path: '/preachers/general-search',
     element: <PreachersGeneralSearchPage />,
   },
   {
-    path: '/preachers/search-preachers-by-term',
+    path: '/preachers/search-by-term',
     element: <PreachersSearchPageByTerm />,
   },
   {
-    path: '/preachers/update-preacher',
+    path: '/preachers/update',
     element: <PreacherUpdatePage />,
   },
   {
-    path: '/preachers/delete-preacher',
+    path: '/preachers/delete',
     element: <PreacherDeletePage />,
   },
 ];

@@ -7,10 +7,10 @@ import { type ColumnDef } from '@tanstack/react-table';
 
 import { getInitialFullNames } from '@/shared/helpers';
 
+import { Button } from '@/shared/components/ui/button';
+
 import { SupervisorInfoCard } from '@/modules/supervisor/components';
 import { type SupervisorColumns } from '@/modules/supervisor/interfaces';
-
-import { Button } from '@/shared/components/ui/button';
 
 export const supervisorInfoColumns: Array<ColumnDef<SupervisorColumns, any>> = [
   {

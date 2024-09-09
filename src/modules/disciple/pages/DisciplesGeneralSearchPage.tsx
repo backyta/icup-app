@@ -73,6 +73,7 @@ const dataFictional: DiscipleResponse[] = [
 
 export const DisciplesGeneralSearchPage = (): JSX.Element => {
   //* States
+  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
 
   const isFiltersSearchGeneralDisabled = useDiscipleStore(
@@ -81,8 +82,6 @@ export const DisciplesGeneralSearchPage = (): JSX.Element => {
   const setIsFiltersSearchGeneralDisabled = useDiscipleStore(
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
-
-  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({
@@ -114,6 +113,10 @@ export const DisciplesGeneralSearchPage = (): JSX.Element => {
 
   useEffect(() => {
     setIsFiltersSearchGeneralDisabled(true);
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Modulo Discípulo - IcupApp';
   }, []);
 
   //* Form handler

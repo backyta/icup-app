@@ -30,9 +30,9 @@ import { ChurchWorshipTime, ChurchWorshipTimeNames } from '@/modules/church/enum
 
 import {
   CountryNames,
-  DepartmentNames,
   DistrictNames,
   ProvinceNames,
+  DepartmentNames,
   UrbanSectorNames,
 } from '@/shared/enums';
 import {
@@ -44,26 +44,26 @@ import { cn } from '@/shared/lib/utils';
 
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
   FormLabel,
+  FormField,
   FormMessage,
+  FormControl,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import {
   Command,
+  CommandItem,
   CommandEmpty,
   CommandGroup,
   CommandInput,
-  CommandItem,
 } from '@/shared/components/ui/command';
 import {
   Select,
-  SelectContent,
   SelectItem,
-  SelectTrigger,
   SelectValue,
+  SelectTrigger,
+  SelectContent,
 } from '@/shared/components/ui/select';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -122,8 +122,8 @@ export const ChurchUpdateForm = ({
   });
 
   //* Watchers
-  const district = form.watch('district');
   const isAnexe = form.watch('isAnexe');
+  const district = form.watch('district');
 
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
@@ -216,7 +216,7 @@ export const ChurchUpdateForm = ({
                       control={form.control}
                       name='foundingDate'
                       render={({ field }) => (
-                        <FormItem className='flex flex-col mt-4'>
+                        <FormItem className='mt-4'>
                           <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                             Fecha de fundación
                           </FormLabel>

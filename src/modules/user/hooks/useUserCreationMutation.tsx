@@ -19,6 +19,7 @@ export const useUserCreationMutation = ({
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
 }: Options): UseMutationResult<UserResponse, ErrorResponse, UserFormData, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* Mutation

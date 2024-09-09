@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect, useState } from 'react';
 
@@ -27,7 +27,6 @@ import {
 } from '@/modules/pastor/hooks';
 
 import { useRoleValidationByPath } from '@/shared/hooks';
-import { LoadingSpinner } from '@/shared/components';
 
 import {
   Country,
@@ -56,20 +55,20 @@ import {
   CommandInput,
 } from '@/shared/components/ui/command';
 import {
+  Select,
+  SelectItem,
   SelectValue,
   SelectTrigger,
   SelectContent,
-  SelectItem,
-  Select,
 } from '@/shared/components/ui/select';
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
+  FormField,
   FormLabel,
   FormMessage,
+  FormControl,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -136,6 +135,10 @@ export const PastorCreatePage = (): JSX.Element => {
     });
   }, [district]);
 
+  useEffect(() => {
+    document.title = 'Modulo Pastor - IcupApp';
+  }, []);
+
   //* Helpers
   const disabledDistricts = validateDistrictsAllowedByModule(pathname);
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
@@ -153,12 +156,10 @@ export const PastorCreatePage = (): JSX.Element => {
   });
 
   //* Queries
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ['churches'],
     queryFn: getAllChurches,
   });
-
-  if (isLoading) return <LoadingSpinner />;
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof pastorFormSchema>): void => {
@@ -296,7 +297,7 @@ export const PastorCreatePage = (): JSX.Element => {
                 control={form.control}
                 name='birthDate'
                 render={({ field }) => (
-                  <FormItem className='flex flex-col mt-4'>
+                  <FormItem className='mt-4'>
                     <FormLabel className='text-[14px] font-medium'>Fecha de nacimiento</FormLabel>
                     <Popover open={isInputBirthDateOpen} onOpenChange={setIsInputBirthDateOpen}>
                       <PopoverTrigger asChild>
@@ -394,7 +395,7 @@ export const PastorCreatePage = (): JSX.Element => {
                 control={form.control}
                 name='conversionDate'
                 render={({ field }) => (
-                  <FormItem className='flex flex-col mt-4'>
+                  <FormItem className='mt-4'>
                     <FormLabel className='text-[14px] font-medium'>Fecha de conversión</FormLabel>
                     <Popover
                       open={isInputConvertionDateOpen}
@@ -786,7 +787,7 @@ export const PastorCreatePage = (): JSX.Element => {
                 name='theirChurch'
                 render={({ field }) => {
                   return (
-                    <FormItem className='flex flex-col mt-4'>
+                    <FormItem className='mt-4'>
                       <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
                         Iglesia
                       </FormLabel>

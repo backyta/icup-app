@@ -150,9 +150,21 @@ export const offeringIncomeDeleteColumns: Array<ColumnDef<OfferingIncomeColumns,
     },
   },
   {
-    id: 'deleteInfo',
-    cell: () => {
-      return <OfferingIncomeDeleteCard />;
+    id: 'deleteRecord',
+    accessorKey: 'id',
+    cell: (info) => {
+      const id = info.row.original.id;
+      return info.getValue() === '-' ? '-' : <OfferingIncomeDeleteCard idRow={id} />;
+    },
+    header: () => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px] text-red-500 hover:text-red-500'
+          variant='ghost'
+        >
+          Eliminar
+        </Button>
+      );
     },
   },
 ];

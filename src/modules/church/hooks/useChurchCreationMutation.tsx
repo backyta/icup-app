@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { type UseFormReturn } from 'react-hook-form';
 import { useMutation, type UseMutationResult } from '@tanstack/react-query';
 
+import { type ErrorResponse } from '@/shared/interfaces';
+
 import { createChurch } from '@/modules/church/services';
 import { type ChurchFormData, type ChurchResponse } from '@/modules/church/interfaces';
-
-import { type ErrorResponse } from '@/shared/interfaces';
 
 interface Options {
   churchCreationForm: UseFormReturn<ChurchFormData, any, ChurchFormData>;
@@ -19,8 +19,10 @@ export const useChurchCreationMutation = ({
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
 }: Options): UseMutationResult<ChurchResponse, ErrorResponse, ChurchFormData, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
+  //* Mutation
   const mutation = useMutation({
     mutationFn: createChurch,
     onError: (error: ErrorResponse) => {

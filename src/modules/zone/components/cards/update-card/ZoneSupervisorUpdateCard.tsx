@@ -18,9 +18,9 @@ export const ZoneSupervisorUpdateCard = ({
   idRow,
 }: FamilyGroupPreacherUpdateCardProps): JSX.Element => {
   //* States
-  const dataSearchByTermResponse = useZoneStore((state) => state.dataSearchByTermResponse);
   const [open, setOpen] = useState(false);
   const topRef = useRef<HTMLDivElement>(null);
+  const dataSearchByTermResponse = useZoneStore((state) => state.dataSearchByTermResponse);
 
   //* Library hooks
   const isDesktop = useMediaQuery('(min-width: 768px)');

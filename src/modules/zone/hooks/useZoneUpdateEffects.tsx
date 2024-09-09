@@ -28,9 +28,13 @@ export const useUpdateZoneEffects = ({
     zoneUpdateForm.setValue('theirSupervisor', data?.theirSupervisor?.id);
     zoneUpdateForm.setValue('recordStatus', data?.recordStatus);
 
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setIsLoadingData(false);
     }, 1200);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   //* Generate dynamic url
@@ -39,7 +43,7 @@ export const useUpdateZoneEffects = ({
 
     if (id) {
       const url = new URL(window.location.href);
-      url.pathname = `/zones/update-zone/${id}/edit`;
+      url.pathname = `/zones/update/${id}/edit`;
 
       window.history.replaceState({}, '', url);
     }

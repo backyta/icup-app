@@ -84,7 +84,9 @@ const dataFictional: PastorResponse[] = [
 
 export const PastorUpdatePage = (): JSX.Element => {
   //* States
+  const [dataForm, setDataForm] = useState<PastorSearchFormByTerm>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
+  const [searchParams, setSearchParams] = useState<PastorSearchFormByTerm | undefined>();
 
   const isFiltersSearchByTermDisabled = usePastorStore(
     (state) => state.isFiltersSearchByTermDisabled
@@ -92,9 +94,6 @@ export const PastorUpdatePage = (): JSX.Element => {
   const setIsFiltersSearchByTermDisabled = usePastorStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
-
-  const [dataForm, setDataForm] = useState<PastorSearchFormByTerm>();
-  const [searchParams, setSearchParams] = useState<PastorSearchFormByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof pastorSearchByTermFormSchema>>({
@@ -136,6 +135,10 @@ export const PastorUpdatePage = (): JSX.Element => {
 
   useEffect(() => {
     setIsFiltersSearchByTermDisabled(true);
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Modulo Pastor - IcupApp';
   }, []);
 
   //* Form handler

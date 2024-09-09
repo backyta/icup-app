@@ -26,8 +26,6 @@ import { getAllPreachersByZone, getAllZones } from '@/modules/family-group/servi
 
 import { PreacherSearchType } from '@/modules/preacher/enums';
 
-import { LoadingSpinner } from '@/shared/components';
-
 import { cn } from '@/shared/lib/utils';
 
 import {
@@ -129,6 +127,10 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
     });
   }, [theirZone]);
 
+  useEffect(() => {
+    document.title = 'Modulo Grupo Familiar - IcupApp';
+  }, []);
+
   //* Helpers
   const disabledDistricts = validateDistrictsAllowedByModule(pathname);
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
@@ -164,8 +166,6 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
     enabled: !!theirZone,
     retry: 1,
   });
-
-  if (zonesQuery.isLoading) return <LoadingSpinner />;
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof familyGroupFormSchema>): void => {

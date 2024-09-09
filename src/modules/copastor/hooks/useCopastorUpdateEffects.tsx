@@ -65,7 +65,7 @@ export const useCopastorUpdateEffects = ({
 
     if (id) {
       const url = new URL(window.location.href);
-      url.pathname = `/copastors/update-copastor/${id}/edit`;
+      url.pathname = `/copastors/update/${id}/edit`;
 
       window.history.replaceState({}, '', url);
     }

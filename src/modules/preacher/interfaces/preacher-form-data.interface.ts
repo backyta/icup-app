@@ -30,7 +30,6 @@ export type PreacherFormDataKeys =
   | 'firstName'
   | 'lastName'
   | 'gender'
-  | 'churchName'
   | 'originCountry'
   | 'birthDate'
   | 'maritalStatus'

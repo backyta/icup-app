@@ -58,7 +58,7 @@ export const ZoneFormSkeleton = (): JSX.Element => {
 
           <div className='mt-2 md:mt-1 md:col-start-1 md:col-end-3 md:row-start-3 md:row-end-4 w-full md:w-[20rem] md:m-auto'>
             <Skeleton className='h-10 w-full' />
-            <div className='flex flex-col  justify-center items-center mt-3'>
+            <div className='flex flex-col  justify-center items-center mt-1'>
               <Skeleton className='text-center h-4 w-64 mt-2' />
               <Skeleton className='text-center h-4 w-64 mt-2' />
             </div>

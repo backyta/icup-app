@@ -25,7 +25,7 @@ export const UserDeleteCard = ({ idRow }: UserDeleteCardProps): JSX.Element => {
 
     if (idRow && isCardOpen) {
       const url = new URL(window.location.href);
-      url.pathname = `/users/delete-user/${idRow}/remove`;
+      url.pathname = `/users/delete/${idRow}/remove`;
 
       window.history.replaceState({}, '', url);
 

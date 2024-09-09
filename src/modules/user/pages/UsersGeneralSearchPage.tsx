@@ -20,23 +20,23 @@ import { formSearchGeneralSchema } from '@/shared/validations';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 
 import {
+  Select,
+  SelectItem,
   SelectValue,
   SelectTrigger,
   SelectContent,
-  SelectItem,
-  Select,
 } from '@/shared/components/ui/select';
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
   FormLabel,
+  FormField,
+  FormControl,
   FormMessage,
+  FormDescription,
 } from '@/shared/components/ui/form';
-import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
+import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 
 const dataFictional: UserResponse[] = [
@@ -53,6 +53,7 @@ const dataFictional: UserResponse[] = [
 
 export const UsersGeneralSearchPage = (): JSX.Element => {
   //* States
+  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
 
   const isFiltersSearchGeneralDisabled = useUserStore(
@@ -61,8 +62,6 @@ export const UsersGeneralSearchPage = (): JSX.Element => {
   const setIsFiltersSearchGeneralDisabled = useUserStore(
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
-
-  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({
@@ -94,6 +93,10 @@ export const UsersGeneralSearchPage = (): JSX.Element => {
 
   useEffect(() => {
     setIsFiltersSearchGeneralDisabled(true);
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Modulo Usuario - IcupApp';
   }, []);
 
   //* Form handler

@@ -22,9 +22,9 @@ interface Options {
 export const useOfferingIncomeSetData = ({
   id,
   data,
+  setFiles,
   setIsLoadingData,
   offeringIncomeUpdateForm,
-  setFiles,
 }: Options): void => {
   //* Set data
   useEffect(() => {
@@ -50,9 +50,13 @@ export const useOfferingIncomeSetData = ({
     setFiles(data?.imageUrls as any);
     offeringIncomeUpdateForm.setValue('recordStatus', data?.recordStatus);
 
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setIsLoadingData(false);
     }, 1200);
+
+    return () => {
+      clearTimeout(timeoutId); // Limpiar el timeout cuando el componente se desmonte
+    };
   }, []);
 
   //* Generate dynamic url
@@ -61,7 +65,7 @@ export const useOfferingIncomeSetData = ({
 
     if (id) {
       const url = new URL(window.location.href);
-      url.pathname = `/offerings/income/update-offering-income/${id}/edit`;
+      url.pathname = `/offerings/incomes/update/${id}/edit`;
 
       window.history.replaceState({}, '', url);
     }

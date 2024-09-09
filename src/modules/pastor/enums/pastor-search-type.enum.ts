@@ -31,5 +31,3 @@ export const PastorSearchTypeNames: Record<PastorSearchType, string> = {
   [PastorSearchType.Address]: 'Dirección',
   [PastorSearchType.RecordStatus]: 'Estado de registro',
 };
-
-// TODO : rol de consejo de ancianos ?? esta por encima del pastor o hacer rol extra en tabla (para que cresa el sistema)

@@ -11,27 +11,27 @@ import {
 import { type OfferingIncomeFormData } from '@/modules/offering/income/interfaces';
 
 interface Options {
-  offeringIncomeCreationForm: UseFormReturn<OfferingIncomeFormData, any, OfferingIncomeFormData>;
-  offeringIncomeTypes: typeof OfferingIncomeCreationType;
-  offeringIncomeSubTypes: typeof OfferingIncomeCreationSubType;
-  isInputDisabled: boolean;
   isDropZoneDisabled: boolean;
-  isFileButtonDisabled: boolean;
-  setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  isDeleteFileButtonDisabled: boolean;
+  isInputDisabled: boolean;
+  offeringIncomeCreationForm: UseFormReturn<OfferingIncomeFormData, any, OfferingIncomeFormData>;
+  offeringIncomeCreationSubType: typeof OfferingIncomeCreationSubType;
+  offeringIncomeCreationType: typeof OfferingIncomeCreationType;
   setIsDropZoneDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useOfferingIncomeCreationSubmitButtonLogic = ({
-  offeringIncomeCreationForm,
-  offeringIncomeTypes,
-  offeringIncomeSubTypes,
   isDropZoneDisabled,
+  isDeleteFileButtonDisabled,
   isInputDisabled,
-  isFileButtonDisabled,
-  setIsSubmitButtonDisabled,
-  setIsMessageErrorDisabled,
+  offeringIncomeCreationForm,
+  offeringIncomeCreationSubType,
+  offeringIncomeCreationType,
   setIsDropZoneDisabled,
+  setIsMessageErrorDisabled,
+  setIsSubmitButtonDisabled,
 }: Options): void => {
   //* Watchers
   const type = offeringIncomeCreationForm.watch('type');
@@ -44,6 +44,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
   const fileNames = offeringIncomeCreationForm.watch('fileNames');
   const memberType = offeringIncomeCreationForm.watch('memberType');
   const memberId = offeringIncomeCreationForm.watch('memberId');
+  const churchId = offeringIncomeCreationForm.watch('churchId');
   const zoneId = offeringIncomeCreationForm.watch('zoneId');
   const familyGroupId = offeringIncomeCreationForm.watch('familyGroupId');
 
@@ -59,22 +60,23 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
 
     //* Income adjustment
     if (
-      type === offeringIncomeTypes.IncomeAdjustment &&
+      type === offeringIncomeCreationType.IncomeAdjustment &&
       !subType &&
       amount &&
       currency &&
       date &&
       comments &&
+      churchId &&
       Object.values(offeringIncomeCreationForm.formState.errors).length === 0 &&
-      (!isInputDisabled || !isDropZoneDisabled || !isFileButtonDisabled)
+      (!isInputDisabled || !isDropZoneDisabled || !isDeleteFileButtonDisabled)
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
     }
 
     if (
-      type === offeringIncomeTypes.IncomeAdjustment &&
-      (!amount || !currency || !date || !comments)
+      type === offeringIncomeCreationType.IncomeAdjustment &&
+      (!churchId || !amount || !currency || !date || !comments)
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -82,24 +84,26 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
 
     //* Sunday worship
     if (
-      type === offeringIncomeTypes.Offering &&
-      (subType === offeringIncomeSubTypes.SundayWorship ||
-        subType === offeringIncomeSubTypes.SundaySchool) &&
+      type === offeringIncomeCreationType.Offering &&
+      (subType === offeringIncomeCreationSubType.SundayWorship ||
+        subType === offeringIncomeCreationSubType.SundaySchool) &&
       amount &&
+      date &&
       currency &&
       shift &&
+      churchId &&
       Object.values(offeringIncomeCreationForm.formState.errors).length === 0 &&
-      (!isInputDisabled || !isDropZoneDisabled || !isFileButtonDisabled)
+      (!isInputDisabled || !isDropZoneDisabled || !isDeleteFileButtonDisabled)
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
     }
 
     if (
-      type === offeringIncomeTypes.Offering &&
-      (subType === offeringIncomeSubTypes.SundayWorship ||
-        subType === offeringIncomeSubTypes.SundaySchool) &&
-      (!amount || !currency || !shift)
+      type === offeringIncomeCreationType.Offering &&
+      (subType === offeringIncomeCreationSubType.SundayWorship ||
+        subType === offeringIncomeCreationSubType.SundaySchool) &&
+      (!churchId || !date || !amount || !currency || !shift)
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -107,22 +111,23 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
 
     //* Family group
     if (
-      type === offeringIncomeTypes.Offering &&
-      subType === offeringIncomeSubTypes.FamilyGroup &&
+      type === offeringIncomeCreationType.Offering &&
+      subType === offeringIncomeCreationSubType.FamilyGroup &&
       amount &&
+      date &&
       currency &&
       familyGroupId &&
       Object.values(offeringIncomeCreationForm.formState.errors).length === 0 &&
-      (!isInputDisabled || !isDropZoneDisabled || !isFileButtonDisabled)
+      (!isInputDisabled || !isDropZoneDisabled || !isDeleteFileButtonDisabled)
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
     }
 
     if (
-      type === offeringIncomeTypes.Offering &&
-      subType === offeringIncomeSubTypes.FamilyGroup &&
-      (!amount || !currency || !familyGroupId)
+      type === offeringIncomeCreationType.Offering &&
+      subType === offeringIncomeCreationSubType.FamilyGroup &&
+      (!date || !amount || !currency || !familyGroupId)
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -130,24 +135,25 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
 
     //* Zone
     if (
-      type === offeringIncomeTypes.Offering &&
-      (subType === offeringIncomeSubTypes.ZonalVigil ||
-        subType === offeringIncomeSubTypes.ZonalFasting) &&
+      type === offeringIncomeCreationType.Offering &&
+      (subType === offeringIncomeCreationSubType.ZonalVigil ||
+        subType === offeringIncomeCreationSubType.ZonalFasting) &&
       amount &&
       currency &&
       zoneId &&
+      date &&
       Object.values(offeringIncomeCreationForm.formState.errors).length === 0 &&
-      (!isInputDisabled || !isDropZoneDisabled || !isFileButtonDisabled)
+      (!isInputDisabled || !isDropZoneDisabled || !isDeleteFileButtonDisabled)
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
     }
 
     if (
-      type === offeringIncomeTypes.Offering &&
-      (subType === offeringIncomeSubTypes.ZonalVigil ||
-        subType === offeringIncomeSubTypes.ZonalFasting) &&
-      (!amount || !currency || !zoneId)
+      type === offeringIncomeCreationType.Offering &&
+      (subType === offeringIncomeCreationSubType.ZonalVigil ||
+        subType === offeringIncomeCreationSubType.ZonalFasting) &&
+      (!date || !amount || !currency || !zoneId)
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -155,47 +161,50 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
 
     //* Member
     if (
-      type === offeringIncomeTypes.Offering &&
-      (subType === offeringIncomeSubTypes.Special ||
-        subType === offeringIncomeSubTypes.ChurchGround) &&
+      type === offeringIncomeCreationType.Offering &&
+      (subType === offeringIncomeCreationSubType.Special ||
+        subType === offeringIncomeCreationSubType.ChurchGround) &&
       memberType &&
       amount &&
       currency &&
       memberId &&
+      date &&
       Object.values(offeringIncomeCreationForm.formState.errors).length === 0 &&
-      (!isInputDisabled || !isDropZoneDisabled || !isFileButtonDisabled)
+      (!isInputDisabled || !isDropZoneDisabled || !isDeleteFileButtonDisabled)
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
     }
 
     if (
-      type === offeringIncomeTypes.Offering &&
-      (subType === offeringIncomeSubTypes.Special ||
-        subType === offeringIncomeSubTypes.ChurchGround) &&
-      (!amount || !currency || !memberId || !memberType)
+      type === offeringIncomeCreationType.Offering &&
+      (subType === offeringIncomeCreationSubType.Special ||
+        subType === offeringIncomeCreationSubType.ChurchGround) &&
+      (!date || !amount || !currency || !memberId || !memberType)
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
 
     if (
-      type === offeringIncomeTypes.Offering &&
-      subType !== offeringIncomeSubTypes.Special &&
-      subType !== offeringIncomeSubTypes.ChurchGround &&
-      subType !== offeringIncomeSubTypes.ZonalFasting &&
-      subType !== offeringIncomeSubTypes.ZonalVigil &&
-      subType !== offeringIncomeSubTypes.FamilyGroup &&
-      subType !== offeringIncomeSubTypes.SundaySchool &&
-      subType !== offeringIncomeSubTypes.SundayWorship &&
+      type === offeringIncomeCreationType.Offering &&
+      subType !== offeringIncomeCreationSubType.Special &&
+      subType !== offeringIncomeCreationSubType.ChurchGround &&
+      subType !== offeringIncomeCreationSubType.ZonalFasting &&
+      subType !== offeringIncomeCreationSubType.ZonalVigil &&
+      subType !== offeringIncomeCreationSubType.FamilyGroup &&
+      subType !== offeringIncomeCreationSubType.SundaySchool &&
+      subType !== offeringIncomeCreationSubType.SundayWorship &&
       amount &&
       currency &&
+      churchId &&
       !shift &&
       !memberId &&
       !familyGroupId &&
       !zoneId &&
+      date &&
       Object.values(offeringIncomeCreationForm.formState.errors).length === 0 &&
-      (!isInputDisabled || !isDropZoneDisabled || !isFileButtonDisabled)
+      (!isInputDisabled || !isDropZoneDisabled || !isDeleteFileButtonDisabled)
     ) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
@@ -216,7 +225,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     if (
       fileNames &&
       fileNames?.length < 3 &&
-      (!isInputDisabled || !isDropZoneDisabled || !isFileButtonDisabled)
+      (!isInputDisabled || !isDropZoneDisabled || !isDeleteFileButtonDisabled)
     ) {
       setIsDropZoneDisabled(false);
     }
@@ -230,6 +239,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     memberId,
     date,
     zoneId,
+    churchId,
     familyGroupId,
     fileNames,
   ]);
@@ -237,12 +247,13 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
   //* Reset relations
   useEffect(() => {
     if (
-      type === offeringIncomeTypes.Offering &&
-      (subType === offeringIncomeSubTypes.SundayWorship ||
-        subType === offeringIncomeSubTypes.SundaySchool)
+      type === offeringIncomeCreationType.Offering &&
+      (subType === offeringIncomeCreationSubType.SundayWorship ||
+        subType === offeringIncomeCreationSubType.SundaySchool)
     ) {
       offeringIncomeCreationForm.resetField('familyGroupId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('zoneId', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('churchId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberType', { keepDirty: true });
       offeringIncomeCreationForm.resetField('shift', { keepDirty: true });
@@ -253,12 +264,13 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeTypes.Offering &&
-      (subType === offeringIncomeSubTypes.ChurchGround ||
-        subType === offeringIncomeSubTypes.Special)
+      type === offeringIncomeCreationType.Offering &&
+      (subType === offeringIncomeCreationSubType.ChurchGround ||
+        subType === offeringIncomeCreationSubType.Special)
     ) {
       offeringIncomeCreationForm.resetField('familyGroupId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('zoneId', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('churchId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('amount', { keepDirty: true });
       offeringIncomeCreationForm.resetField('date', { keepDirty: true });
       offeringIncomeCreationForm.resetField('currency', { keepDirty: true });
@@ -266,9 +278,13 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       offeringIncomeCreationForm.resetField('shift', { keepDirty: true });
     }
 
-    if (type === offeringIncomeTypes.Offering && subType === offeringIncomeSubTypes.FamilyGroup) {
+    if (
+      type === offeringIncomeCreationType.Offering &&
+      subType === offeringIncomeCreationSubType.FamilyGroup
+    ) {
       offeringIncomeCreationForm.resetField('memberId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberType', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('churchId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('zoneId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('amount', { keepDirty: true });
       offeringIncomeCreationForm.resetField('date', { keepDirty: true });
@@ -278,11 +294,12 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeTypes.Offering &&
-      (subType === offeringIncomeSubTypes.ZonalVigil ||
-        subType === offeringIncomeSubTypes.ZonalFasting)
+      type === offeringIncomeCreationType.Offering &&
+      (subType === offeringIncomeCreationSubType.ZonalVigil ||
+        subType === offeringIncomeCreationSubType.ZonalFasting)
     ) {
       offeringIncomeCreationForm.resetField('memberId', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('churchId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberType', { keepDirty: true });
       offeringIncomeCreationForm.resetField('familyGroupId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('amount', { keepDirty: true });
@@ -292,9 +309,10 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       offeringIncomeCreationForm.resetField('shift', { keepDirty: true });
     }
 
-    if (type === offeringIncomeTypes.IncomeAdjustment) {
+    if (type === offeringIncomeCreationType.IncomeAdjustment) {
       offeringIncomeCreationForm.resetField('subType', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberId', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('churchId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberType', { keepDirty: true });
       offeringIncomeCreationForm.resetField('familyGroupId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('zoneId', { keepDirty: true });
@@ -306,14 +324,15 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeTypes.Offering &&
-      subType !== offeringIncomeSubTypes.Special &&
-      subType !== offeringIncomeSubTypes.ChurchGround &&
-      subType !== offeringIncomeSubTypes.FamilyGroup &&
-      subType !== offeringIncomeSubTypes.ZonalVigil &&
-      subType !== offeringIncomeSubTypes.ZonalFasting
+      type === offeringIncomeCreationType.Offering &&
+      subType !== offeringIncomeCreationSubType.Special &&
+      subType !== offeringIncomeCreationSubType.ChurchGround &&
+      subType !== offeringIncomeCreationSubType.FamilyGroup &&
+      subType !== offeringIncomeCreationSubType.ZonalVigil &&
+      subType !== offeringIncomeCreationSubType.ZonalFasting
     ) {
       offeringIncomeCreationForm.resetField('memberId', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('churchId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberType', { keepDirty: true });
       offeringIncomeCreationForm.resetField('familyGroupId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('zoneId', { keepDirty: true });

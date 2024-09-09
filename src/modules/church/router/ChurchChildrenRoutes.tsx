@@ -8,23 +8,23 @@ import {
 
 export const ChurchChildrenRoutes = [
   {
-    path: '/churches/create-church',
+    path: '/churches/create',
     element: <ChurchCreatePage />,
   },
   {
-    path: '/churches/search-churches',
+    path: '/churches/general-search',
     element: <ChurchesGeneralSearchPage />,
   },
   {
-    path: '/churches/search-churches-by-term',
+    path: '/churches/search-by-term',
     element: <ChurchesSearchPageByTerm />,
   },
   {
-    path: '/churches/update-church',
+    path: '/churches/update',
     element: <ChurchUpdatePage />,
   },
   {
-    path: '/churches/delete-church',
+    path: '/churches/delete',
     element: <ChurchDeletePage />,
   },
 ];

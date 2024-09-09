@@ -31,7 +31,7 @@ export const SupervisorInfoCard = ({ idRow }: CopastorInfoCardProps): JSX.Elemen
 
   //* Functions
   const currentSupervisor =
-    pathname === '/supervisors/search-supervisors'
+    pathname === '/supervisors/general-search'
       ? dataSearchGeneralResponse?.find((data) => data.id === idRow)
       : dataSearchByTermResponse?.find((data) => data.id === idRow);
 

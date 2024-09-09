@@ -33,39 +33,39 @@ import {
   validateUrbanSectorsAllowedByDistrict,
 } from '@/shared/helpers';
 import {
-  CountryNames,
-  DepartmentNames,
-  DistrictNames,
-  GenderNames,
-  MaritalStatusNames,
   MemberRole,
-  MemberRoleNames,
+  GenderNames,
+  CountryNames,
   ProvinceNames,
+  DistrictNames,
+  DepartmentNames,
+  MemberRoleNames,
   UrbanSectorNames,
+  MaritalStatusNames,
 } from '@/shared/enums';
 
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
   FormLabel,
+  FormField,
   FormMessage,
+  FormControl,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import {
   Command,
-  CommandEmpty,
+  CommandItem,
   CommandGroup,
   CommandInput,
-  CommandItem,
+  CommandEmpty,
 } from '@/shared/components/ui/command';
 import {
   Select,
-  SelectContent,
   SelectItem,
-  SelectTrigger,
   SelectValue,
+  SelectTrigger,
+  SelectContent,
 } from '@/shared/components/ui/select';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -863,7 +863,7 @@ export const PastorUpdateForm = ({
                         name='theirChurch'
                         render={({ field }) => {
                           return (
-                            <FormItem className='flex flex-col mt-4'>
+                            <FormItem className='mt-4'>
                               <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
                                 Iglesia
                               </FormLabel>

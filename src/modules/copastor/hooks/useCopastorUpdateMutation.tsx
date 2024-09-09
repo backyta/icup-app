@@ -4,10 +4,10 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
+import { type ErrorResponse } from '@/shared/interfaces';
+
 import { type CopastorResponse } from '@/modules/copastor/interfaces';
 import { updateCopastor, type UpdateCopastorOptions } from '@/modules/copastor/services';
-
-import { type ErrorResponse } from '@/shared/interfaces';
 
 interface Options {
   onSubmit: () => void;
@@ -24,7 +24,9 @@ export const useCopastorUpdateMutation = ({
   setIsSubmitButtonDisabled,
   setIsRelationSelectDisabled,
 }: Options): UseMutationResult<CopastorResponse, ErrorResponse, UpdateCopastorOptions, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
+
   //* QueryClient
   const queryClient = useQueryClient();
 
@@ -68,7 +70,7 @@ export const useCopastorUpdateMutation = ({
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['copastors-by-term'] });
-      }, 500);
+      }, 700);
 
       setTimeout(() => {
         onSubmit();

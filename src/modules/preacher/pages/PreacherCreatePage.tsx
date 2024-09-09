@@ -25,7 +25,6 @@ import { getAllSupervisors } from '@/modules/preacher/services';
 import { preacherFormSchema } from '@/modules/preacher/validations';
 
 import { cn } from '@/shared/lib/utils';
-import { LoadingSpinner } from '@/shared/components';
 import { useRoleValidationByPath } from '@/shared/hooks';
 
 import {
@@ -128,6 +127,10 @@ export const PreacherCreatePage = (): JSX.Element => {
     });
   }, [district]);
 
+  useEffect(() => {
+    document.title = 'Modulo Predicador - IcupApp';
+  }, []);
+
   //* Helpers
   const disabledDistricts = validateDistrictsAllowedByModule(pathname);
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
@@ -158,8 +161,6 @@ export const PreacherCreatePage = (): JSX.Element => {
     queryKey: ['supervisors'],
     queryFn: () => getAllSupervisors({ isNull: 'false' }),
   });
-
-  if (querySupervisors.isLoading) return <LoadingSpinner />;
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof preacherFormSchema>): void => {
@@ -297,7 +298,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                 control={form.control}
                 name='birthDate'
                 render={({ field }) => (
-                  <FormItem className='flex flex-col mt-4'>
+                  <FormItem className='mt-4'>
                     <FormLabel className='text-[14px] font-medium'>Fecha de nacimiento</FormLabel>
                     <Popover open={isInputBirthDateOpen} onOpenChange={setIsInputBirthDateOpen}>
                       <PopoverTrigger asChild>
@@ -394,7 +395,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                 control={form.control}
                 name='conversionDate'
                 render={({ field }) => (
-                  <FormItem className='flex flex-col mt-4'>
+                  <FormItem className='mt-4'>
                     <FormLabel className='text-[14px] font-medium'>Fecha de conversión</FormLabel>
                     <Popover
                       open={isInputConvertionDateOpen}
@@ -786,7 +787,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                 name='theirSupervisor'
                 render={({ field }) => {
                   return (
-                    <FormItem className='flex flex-col mt-4'>
+                    <FormItem className='mt-4'>
                       <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
                         Supervisor
                       </FormLabel>

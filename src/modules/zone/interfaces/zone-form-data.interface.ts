@@ -11,8 +11,8 @@ export interface ZoneFormData {
 export type ZoneFormDataKeys =
   |'zoneName'  
   |'country' 
-  |'department' 
   |'province' 
   |'district' 
+  |'department' 
   |'recordStatus'
   |'theirSupervisor';

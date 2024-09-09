@@ -5,10 +5,10 @@ import { useEffect, useState } from 'react';
 
 import { MdDeleteForever } from 'react-icons/md';
 
+import { useDiscipleDeletionMutation } from '@/modules/disciple/hooks';
+
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
-
-import { useDiscipleDeletionMutation } from '@/modules/disciple/hooks';
 
 interface DiscipleDeleteCardProps {
   idRow: string;
@@ -25,7 +25,7 @@ export const DiscipleDeleteCard = ({ idRow }: DiscipleDeleteCardProps): JSX.Elem
 
     if (idRow && isCardOpen) {
       const url = new URL(window.location.href);
-      url.pathname = `/disciples/delete-disciple/${idRow}/remove`;
+      url.pathname = `/disciples/delete/${idRow}/remove`;
 
       window.history.replaceState({}, '', url);
 

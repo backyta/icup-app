@@ -8,23 +8,23 @@ import {
 
 export const OfferingIncomeChildrenRoutes = [
   {
-    path: '/offerings/income/create-offering-income',
+    path: '/offerings/incomes/create',
     element: <OfferingIncomeCreatePage />,
   },
   {
-    path: '/offerings/income/search-offerings-income',
+    path: '/offerings/incomes/general-search',
     element: <OfferingsIncomeGeneralSearchPage />,
   },
   {
-    path: '/offerings/income/search-by-term-offerings-income',
+    path: '/offerings/incomes/search-by-term',
     element: <OfferingsIncomeSearchPageByTerm />,
   },
   {
-    path: '/offerings/income/update-offering-income',
+    path: '/offerings/incomes/update',
     element: <OfferingIncomeUpdatePage />,
   },
   {
-    path: '/offerings/income/delete-offering-income',
+    path: '/offerings/incomes/delete',
     element: <OfferingIncomeDeletePage />,
   },
 ];

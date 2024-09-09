@@ -4,16 +4,19 @@ import { useEffect } from 'react';
 
 import { format } from 'date-fns';
 
+import { cn } from '@/shared/lib/utils';
+
 import { type ZoneResponse } from '@/modules/zone/interfaces';
 
+import { RecordStatus } from '@/shared/enums';
 import { getInitialFullNames } from '@/shared/helpers';
 
 import {
   Card,
+  CardTitle,
+  CardHeader,
   CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle,
 } from '@/shared/components/ui/card';
 import { Label } from '@/shared/components/ui/label';
 import { PopoverDataCard } from '@/shared/components';
@@ -32,14 +35,15 @@ export const ZoneTabsCard = ({ data, id }: ZoneTabsCardProps): JSX.Element => {
     if (id) {
       const url = new URL(window.location.href);
 
-      if (url.pathname === '/zones/search-zones') url.pathname = `/zones/search-zones/${id}/view`;
+      if (url.pathname === '/zones/general-search')
+        url.pathname = `/zones/general-search/${id}/view`;
 
-      if (url.pathname === '/zones/search-zones-by-term')
-        url.pathname = `/zones/search-zones-by-term/${id}/view`;
+      if (url.pathname === '/zones/search-by-term')
+        url.pathname = `/zones/search-by-term/${id}/view`;
 
-      if (url.pathname === '/zones/update-zone') url.pathname = `/zones/update-zone/${id}/view`;
+      if (url.pathname === '/zones/update') url.pathname = `/zones/update/${id}/view`;
 
-      if (url.pathname === '/zones/delete-zone') url.pathname = `/zones/delete-zone/${id}/view`;
+      if (url.pathname === '/zones/delete') url.pathname = `/zones/delete/${id}/view`;
 
       window.history.replaceState({}, '', url);
     }
@@ -117,7 +121,7 @@ export const ZoneTabsCard = ({ data, id }: ZoneTabsCardProps): JSX.Element => {
               <PopoverDataCard
                 data={data?.preachers}
                 title={'Predicadores'}
-                nameModule={'Supervisor'}
+                nameModule={'Zona'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -131,9 +135,9 @@ export const ZoneTabsCard = ({ data, id }: ZoneTabsCardProps): JSX.Element => {
               <PopoverDataCard
                 data={data?.familyGroups}
                 title={'Grupos'}
-                nameModule={'Supervisor'}
+                nameModule={'Zona'}
                 firstValue={'familyGroupCode'}
-                secondValue={'familyGroupHouse'}
+                secondValue={'familyGroupName'}
               />
             </div>
 
@@ -145,7 +149,7 @@ export const ZoneTabsCard = ({ data, id }: ZoneTabsCardProps): JSX.Element => {
               <PopoverDataCard
                 data={data?.disciples}
                 title={'Discípulos'}
-                nameModule={'Supervisor'}
+                nameModule={'Zona'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -189,14 +193,21 @@ export const ZoneTabsCard = ({ data, id }: ZoneTabsCardProps): JSX.Element => {
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center md:grid  md:col-start-2 md:col-end-4 md:row-auto'>
               <Label className='text-[14px] md:text-[15px]'>Ultima fecha de actualización</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.updatedAt ? format(new Date(data?.updatedAt), 'dd/MM/yyyy') : '-'}
+                {data?.updatedAt
+                  ? `${format(new Date(data?.updatedAt), 'dd/MM/yyyy')} - ${`${format(new Date(data?.updatedAt), 'hh:mm a')}`}`
+                  : '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center md:grid md:col-start-3 md:col-end-4 md:row-start-5 md:row-end-6'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
-                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
+              <CardDescription
+                className={cn(
+                  'px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold',
+                  data?.recordStatus !== RecordStatus.Active && 'text-red-600'
+                )}
+              >
+                {data?.recordStatus === RecordStatus.Active ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>
@@ -267,8 +278,13 @@ export const ZoneTabsCard = ({ data, id }: ZoneTabsCardProps): JSX.Element => {
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
-                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
+              <CardDescription
+                className={cn(
+                  'px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold',
+                  data?.recordStatus !== RecordStatus.Active && 'text-red-600'
+                )}
+              >
+                {data?.recordStatus === RecordStatus.Active ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>

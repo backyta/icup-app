@@ -5,9 +5,9 @@ import { isAxiosError } from 'axios';
 import { icupApi } from '@/api/icupApi';
 
 import { DashboardSearchType } from '@/modules/dashboard/enums';
-import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces';
-import { type DashboardQueryParams } from '@/modules/dashboard/interface';
+import { type DashboardQueryParams } from '@/modules/dashboard/interfaces';
 import { type FamilyGroupResponse } from '@/modules/family-group/interfaces';
+import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces';
 
 
 // ? Get offerings income by term (paginated)

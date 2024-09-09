@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
 import { type ErrorResponse } from '@/shared/interfaces';
-
 import { deleteImage, type DeleteImageOptions } from '@/modules/offering/shared/services';
 
 interface Options {
@@ -17,6 +16,7 @@ export const useImageDeletionMutation = ({
   setIsCardOpen,
   setIsButtonDisabled,
 }: Options): UseMutationResult<void, ErrorResponse, DeleteImageOptions, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* QueryClient
@@ -50,7 +50,7 @@ export const useImageDeletionMutation = ({
       }
     },
     onSuccess: () => {
-      toast.success('Registro eliminado correctamente.', {
+      toast.success('Imagen eliminada correctamente.', {
         position: 'top-center',
         className: 'justify-center',
       });

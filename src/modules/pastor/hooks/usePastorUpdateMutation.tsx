@@ -4,10 +4,10 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
+import { type ErrorResponse } from '@/shared/interfaces';
+
 import { type PastorResponse } from '@/modules/pastor/interfaces';
 import { updatePastor, type UpdatePastorOptions } from '@/modules/pastor/services';
-
-import { type ErrorResponse } from '@/shared/interfaces';
 
 interface Options {
   onSubmit: () => void;
@@ -22,6 +22,7 @@ export const usePastorUpdateMutation = ({
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
 }: Options): UseMutationResult<PastorResponse, ErrorResponse, UpdatePastorOptions, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* QueryClient
@@ -66,7 +67,7 @@ export const usePastorUpdateMutation = ({
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['pastors-by-term'] });
-      }, 500);
+      }, 700);
 
       setTimeout(() => {
         onSubmit();

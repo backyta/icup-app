@@ -1,9 +1,8 @@
 import { useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
-import { useMediaQuery } from '@react-hook/media-query';
-
 import { BsFillPersonVcardFill } from 'react-icons/bs';
+import { useMediaQuery } from '@react-hook/media-query';
 
 import { useChurchStore } from '@/stores/church';
 
@@ -30,9 +29,9 @@ export const ChurchInfoCard = ({ idRow }: ChurchInfoCardProps): JSX.Element => {
   const isDesktop = useMediaQuery('(min-width: 768px)');
   const { pathname } = useLocation();
 
-  //* Functions
+  //* Set data
   const currentChurch =
-    pathname === '/churches/search-churches'
+    pathname === '/churches/general-search'
       ? dataSearchGeneralResponse?.find((data) => data.id === idRow)
       : dataSearchByTermResponse?.find((data) => data.id === idRow);
 

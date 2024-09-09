@@ -25,7 +25,7 @@ export const PreacherDeleteCard = ({ idRow }: PreacherDeleteCardProps): JSX.Elem
 
     if (idRow && isCardOpen) {
       const url = new URL(window.location.href);
-      url.pathname = `/preachers/delete-preacher/${idRow}/remove`;
+      url.pathname = `/preachers/delete/${idRow}/remove`;
 
       window.history.replaceState({}, '', url);
 

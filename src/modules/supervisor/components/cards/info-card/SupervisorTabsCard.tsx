@@ -6,9 +6,17 @@ import { format, addDays } from 'date-fns';
 
 import { type SupervisorResponse } from '@/modules/supervisor/interfaces';
 
+import { cn } from '@/shared/lib/utils';
+
+import {
+  type Gender,
+  GenderNames,
+  type MemberRole,
+  MemberRoleNames,
+  RecordStatus,
+} from '@/shared/enums';
 import { PopoverDataCard } from '@/shared/components';
 import { getInitialFullNames } from '@/shared/helpers';
-import { type Gender, GenderNames, type MemberRole, MemberRoleNames } from '@/shared/enums';
 
 import {
   Card,
@@ -33,17 +41,15 @@ export const SupervisorTabsCard = ({ data, id }: SupervisorTabsCardProps): JSX.E
     if (id) {
       const url = new URL(window.location.href);
 
-      if (url.pathname === '/supervisors/search-supervisors')
-        url.pathname = `/supervisors/search-supervisors/${id}/view`;
+      if (url.pathname === '/supervisors/general-search')
+        url.pathname = `/supervisors/general-search/${id}/view`;
 
-      if (url.pathname === '/supervisors/search-supervisors-by-term')
-        url.pathname = `/supervisors/search-supervisors-by-term/${id}/view`;
+      if (url.pathname === '/supervisors/search-by-term')
+        url.pathname = `/supervisors/search-by-term/${id}/view`;
 
-      if (url.pathname === '/supervisors/update-supervisor')
-        url.pathname = `/supervisors/update-supervisor/${id}/view`;
+      if (url.pathname === '/supervisors/update') url.pathname = `/supervisors/update/${id}/view`;
 
-      if (url.pathname === '/supervisors/delete-supervisor')
-        url.pathname = `/supervisors/delete-supervisor/${id}/view`;
+      if (url.pathname === '/supervisors/delete') url.pathname = `/supervisors/delete/${id}/view`;
 
       window.history.replaceState({}, '', url);
     }
@@ -230,14 +236,21 @@ export const SupervisorTabsCard = ({ data, id }: SupervisorTabsCardProps): JSX.E
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-10 row-end-11 md:grid  md:row-auto md:col-auto'>
               <Label className='text-[14px] md:text-[15px]'>Ultima fecha de actualización</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.updatedAt ? format(new Date(data?.updatedAt), 'dd/MM/yyyy') : '-'}
+                {data?.updatedAt
+                  ? `${format(new Date(data?.updatedAt), 'dd/MM/yyyy')} - ${`${format(new Date(data?.updatedAt), 'hh:mm a')}`}`
+                  : '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-11 row-end-12 md:grid md:row-start-6 md:row-end-7 md:col-start-3 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
-                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
+              <CardDescription
+                className={cn(
+                  'px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold',
+                  data?.recordStatus !== RecordStatus.Active && 'text-red-600'
+                )}
+              >
+                {data?.recordStatus === RecordStatus.Active ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>
@@ -324,8 +337,13 @@ export const SupervisorTabsCard = ({ data, id }: SupervisorTabsCardProps): JSX.E
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
-                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
+              <CardDescription
+                className={cn(
+                  'px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold',
+                  data?.recordStatus !== RecordStatus.Active && 'text-red-600'
+                )}
+              >
+                {data?.recordStatus === RecordStatus.Active ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>
@@ -409,8 +427,13 @@ export const SupervisorTabsCard = ({ data, id }: SupervisorTabsCardProps): JSX.E
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
-                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
+              <CardDescription
+                className={cn(
+                  'px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold',
+                  data?.recordStatus !== RecordStatus.Active && 'text-red-600'
+                )}
+              >
+                {data?.recordStatus === RecordStatus.Active ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>

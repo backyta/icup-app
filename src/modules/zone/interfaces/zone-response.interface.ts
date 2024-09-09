@@ -1,14 +1,14 @@
 
 import { 
+  type Preacher,
+  type Disciple,
   type CreatedBy,
   type UpdatedBy,
   type TheirChurch,
+  type FamilyGroup,
   type TheirPastor,
   type TheirCopastor,
   type TheirSupervisor,
-  type Disciple,
-  type Preacher,
-  type FamilyGroup,
 } from '@/shared/interfaces';
 
 export interface ZoneResponse {

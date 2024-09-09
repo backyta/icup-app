@@ -7,7 +7,6 @@ import { RiDeleteBin2Fill } from 'react-icons/ri';
 import { FcClearFilters, FcPodiumWithSpeaker, FcSearch, FcSupport } from 'react-icons/fc';
 
 import { useAuthStore } from '@/stores';
-
 import { WhiteCard } from '@/shared/components';
 
 export const PreacherOptionsPage = (): JSX.Element => {
@@ -15,6 +14,10 @@ export const PreacherOptionsPage = (): JSX.Element => {
 
   useEffect(() => {
     checkAuthStatus();
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Modulo Predicador - IcupApp';
   }, []);
 
   return (
@@ -29,8 +32,8 @@ export const PreacherOptionsPage = (): JSX.Element => {
 
       <div className='w-full px-[2rem] py-6 sm:px-[7rem] md:px-[4rem] lg:px-[3rem] xl:px-[3rem] 2xl:px-16 grid gap-8 md:gap-6 xl:gap-5 2xl:gap-4 grid-cols-1 grid-rows-1 lg:grid-cols-2 lg:grid-rows-1 2xl:grid-cols-4 2xl:grid-rows-1 h-auto 2xl:h-[43rem]'>
         <NavLink
-          key='/preachers/create-preacher'
-          to='/preachers/create-preacher'
+          key='/preachers/create'
+          to='/preachers/create'
           end
           className='row-start-1 row-end-2 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-2 lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-2 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-1 2xl:col-end-2'
         >
@@ -46,8 +49,8 @@ export const PreacherOptionsPage = (): JSX.Element => {
         </NavLink>
 
         <NavLink
-          key='/preachers/search-preachers'
-          to='/preachers/search-preachers'
+          key='/preachers/general-search'
+          to='/preachers/general-search'
           end
           className='row-start-2 row-end-3 lg:row-start-3 lg:row-end-4 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-3 xl:col-start-2 xl:col-end-3 2xl:row-start-1 2xl:row-end-2 2xl:col-start-2 2xl:col-end-3 '
         >
@@ -63,8 +66,8 @@ export const PreacherOptionsPage = (): JSX.Element => {
         </NavLink>
 
         <NavLink
-          key='/preachers/search-preachers-by-term'
-          to='/preachers/search-preachers-by-term'
+          key='/preachers/search-by-term'
+          to='/preachers/search-by-term'
           end
           className='row-start-3 row-end-4 lg:row-start-1 lg:row-end-2 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-2 xl:col-end-3 2xl:row-start-2 2xl:row-end-3 2xl:col-start-2 2xl:col-end-3'
         >
@@ -80,8 +83,8 @@ export const PreacherOptionsPage = (): JSX.Element => {
         </NavLink>
 
         <NavLink
-          key='/preachers/update-preacher'
-          to='/preachers/update-preacher'
+          key='/preachers/update'
+          to='/preachers/update'
           end
           className='row-start-4 row-end-5 lg:h-full lg:row-start-2 lg:row-end-3 lg:col-start-2 lg:col-end-3 xl:row-start-2 xl:row-end-3 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-3 2xl:col-end-4'
         >
@@ -97,8 +100,8 @@ export const PreacherOptionsPage = (): JSX.Element => {
         </NavLink>
 
         <NavLink
-          key='/preachers/delete-preacher'
-          to='/preachers/delete-preacher'
+          key='/preachers/delete'
+          to='/preachers/delete'
           end
           className='row-start-5 row-end-6 lg:row-start-3 lg:row-end-4 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-4 2xl:col-end-5'
         >

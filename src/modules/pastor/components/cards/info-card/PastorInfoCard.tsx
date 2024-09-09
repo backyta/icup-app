@@ -31,7 +31,7 @@ export const PastorInfoCard = ({ idRow }: PastorInfoCardProps): JSX.Element => {
 
   //* Functions
   const currentPastor =
-    pathname === '/pastors/search-pastors'
+    pathname === '/pastors/general-search'
       ? dataSearchGeneralResponse?.find((data) => data.id === idRow)
       : dataSearchByTermResponse?.find((data) => data.id === idRow);
 

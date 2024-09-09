@@ -14,10 +14,10 @@ import {
 import {
   FamilyGroupSearchType,
   FamilyGroupSearchTypeNames,
-  FamilyGroupSearchNamesByFullNames,
-  FamilyGroupSearchNamesByLastNames,
-  FamilyGroupSearchNamesByFirstNames,
   FamilyGroupSearchNamesByRecordStatus,
+  SubTypeNamesFamilyGroupSearchByFullNames,
+  SubTypeNamesFamilyGroupSearchByLastNames,
+  SubTypeNamesFamilyGroupSearchByFirstNames,
 } from '@/modules/family-group/enums';
 import {
   type FamilyGroupResponse,
@@ -73,7 +73,9 @@ const dataFictional: FamilyGroupResponse[] = [
 
 export const FamilyGroupUpdatePage = (): JSX.Element => {
   //* States
+  const [dataForm, setDataForm] = useState<FamilyGroupSearchFormByTerm>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
+  const [searchParams, setSearchParams] = useState<FamilyGroupSearchFormByTerm | undefined>();
 
   const isFiltersSearchByTermDisabled = useFamilyGroupStore(
     (state) => state.isFiltersSearchByTermDisabled
@@ -81,9 +83,6 @@ export const FamilyGroupUpdatePage = (): JSX.Element => {
   const setIsFiltersSearchByTermDisabled = useFamilyGroupStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
-
-  const [dataForm, setDataForm] = useState<FamilyGroupSearchFormByTerm>();
-  const [searchParams, setSearchParams] = useState<FamilyGroupSearchFormByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof familyGroupSearchByTermFormSchema>>({
@@ -130,6 +129,10 @@ export const FamilyGroupUpdatePage = (): JSX.Element => {
   useEffect(() => {
     form.setValue('searchSubType', undefined);
   }, [searchType]);
+
+  useEffect(() => {
+    document.title = 'Modulo Grupo Familiar - IcupApp';
+  }, []);
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof familyGroupSearchByTermFormSchema>): void {
@@ -273,10 +276,10 @@ export const FamilyGroupUpdatePage = (): JSX.Element => {
                           <SelectContent>
                             {Object.entries(
                               searchType === FamilyGroupSearchType.FirstName
-                                ? FamilyGroupSearchNamesByFirstNames
+                                ? SubTypeNamesFamilyGroupSearchByFirstNames
                                 : searchType === FamilyGroupSearchType.LastName
-                                  ? FamilyGroupSearchNamesByLastNames
-                                  : FamilyGroupSearchNamesByFullNames
+                                  ? SubTypeNamesFamilyGroupSearchByLastNames
+                                  : SubTypeNamesFamilyGroupSearchByFullNames
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}

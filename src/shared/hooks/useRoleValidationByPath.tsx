@@ -12,7 +12,7 @@ export const useRoleValidationByPath = ({ path, memberRoles }: Options) => {
   let disabledRoles;
 
   //* Create and Update forms
-  if (path === '/disciples/create-disciple' || path === '/disciples/update-disciple') {
+  if (path === '/disciples/create' || path === '/disciples/update') {
     disabledRoles = [
       memberRoles.Disciple,
       memberRoles.Pastor,
@@ -23,7 +23,7 @@ export const useRoleValidationByPath = ({ path, memberRoles }: Options) => {
     ];
   }
 
-  if (path === '/pastors/create-pastor' || path === '/pastors/update-pastor') {
+  if (path === '/pastors/create' || path === '/pastors/update') {
     disabledRoles = [
       memberRoles.Disciple,
       memberRoles.Pastor,
@@ -34,7 +34,7 @@ export const useRoleValidationByPath = ({ path, memberRoles }: Options) => {
     ];
   }
 
-  if (path === '/copastors/create-copastor' || path === '/copastors/update-copastor') {
+  if (path === '/copastors/create' || path === '/copastors/update') {
     disabledRoles = [
       memberRoles.Disciple,
       memberRoles.Pastor,
@@ -45,7 +45,7 @@ export const useRoleValidationByPath = ({ path, memberRoles }: Options) => {
     ];
   }
 
-  if (path === '/supervisors/create-supervisor' || path === '/supervisors/update-supervisor') {
+  if (path === '/supervisors/create' || path === '/supervisors/update') {
     disabledRoles = [
       memberRoles.Disciple,
       memberRoles.Pastor,
@@ -55,7 +55,7 @@ export const useRoleValidationByPath = ({ path, memberRoles }: Options) => {
     ];
   }
 
-  if (path === '/preachers/create-preacher' || path === '/preachers/update-preacher') {
+  if (path === '/preachers/create' || path === '/preachers/update') {
     disabledRoles = [
       memberRoles.Disciple,
       memberRoles.Pastor,

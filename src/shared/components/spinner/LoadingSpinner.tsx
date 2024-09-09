@@ -26,43 +26,13 @@ export const LoadingSpinner = (): JSX.Element => {
   return (
     <div
       className={cn(
-        'min-h-screen flex items-center justify-center md:min-h-full text-slate-100 dark:bg-slate-950',
-        (pathname === '/churches/search-churches' ||
-          pathname === '/churches/search-by-term-churches' ||
-          pathname === '/churches/update-church' ||
-          pathname === '/churches/delete-church' ||
-          pathname === '/pastors/search-pastors' ||
-          pathname === '/pastors/search-by-term-pastors' ||
-          pathname === '/pastors/update-pastor' ||
-          pathname === '/pastors/delete-pastor' ||
-          pathname === '/copastors/search-copastors' ||
-          pathname === '/copastors/search-by-term-copastors' ||
-          pathname === '/copastors/update-copastor' ||
-          pathname === '/copastors/delete-copastor' ||
-          pathname === '/supervisors/search-supervisors' ||
-          pathname === '/supervisors/search-by-term-supervisors' ||
-          pathname === '/supervisors/update-pastor-supervisor' ||
-          pathname === '/supervisors/delete-pastor-supervisor' ||
-          pathname === '/preachers/search-preachers' ||
-          pathname === '/preachers/search-by-term-preachers' ||
-          pathname === '/preachers/update-preacher' ||
-          pathname === '/preachers/delete-preacher' ||
-          pathname === '/disciples/search-disciples' ||
-          pathname === '/disciples/search-by-term-disciples' ||
-          pathname === '/disciples/update-disciple' ||
-          pathname === '/disciples/delete-disciple' ||
-          pathname === '/users/search-users' ||
-          pathname === '/users/search-by-term-users' ||
-          pathname === '/users/update-user' ||
-          pathname === '/users/delete-user' ||
-          pathname === '/dashboard') &&
-          'min-h-full'
+        'min-h-screen flex items-center justify-center md:min-h-full text-slate-100 dark:bg-slate-950'
       )}
     >
       <div className='flex flex-col items-center justify-center px-4'>
         <div
           className={cn(
-            'loader ease-linear rounded-full border-8 border-t-8 border-blue-500 h-32 w-32 mb-4 ',
+            'loader ease-linear rounded-full border-8 border-t-8 border-blue-500 h-32 w-32 mb-4',
             pathname === '/dashboard' && '-mt-10'
           )}
         ></div>

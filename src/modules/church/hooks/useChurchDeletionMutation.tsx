@@ -4,9 +4,8 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
-import { deleteChurch } from '@/modules/church/services';
-
 import { type ErrorResponse } from '@/shared/interfaces';
+import { deleteChurch } from '@/modules/church/services';
 
 interface Options {
   setIsButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,6 +16,7 @@ export const useChurchDeletionMutation = ({
   setIsButtonDisabled,
   setIsCardOpen,
 }: Options): UseMutationResult<void, ErrorResponse, string, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* QueryClient

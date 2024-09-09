@@ -4,10 +4,10 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
+import { type ErrorResponse } from '@/shared/interfaces';
+
 import { type FamilyGroupResponse } from '@/modules/family-group/interfaces';
 import { updateFamilyGroup, type UpdateFamilyGroupOptions } from '@/modules/family-group/services';
-
-import { type ErrorResponse } from '@/shared/interfaces';
 
 interface Options {
   onScroll: () => void;
@@ -31,6 +31,7 @@ export const useFamilyGroupPreacherUpdateMutation = ({
   UpdateFamilyGroupOptions,
   unknown
 > => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* QueryClient
@@ -77,7 +78,7 @@ export const useFamilyGroupPreacherUpdateMutation = ({
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['family-groups-by-term'] });
         queryClient.invalidateQueries({ queryKey: ['preachers-by-zone', data?.theirZone?.id] });
-      }, 500);
+      }, 700);
 
       setTimeout(() => {
         onSubmit();

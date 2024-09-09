@@ -7,16 +7,16 @@ import { type ChurchFormData } from '@/modules/church/interfaces';
 
 interface Options {
   churchUpdateForm: UseFormReturn<ChurchFormData, any, ChurchFormData>;
+  isInputDisabled: boolean;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  isInputDisabled: boolean;
 }
 
 export const useChurchUpdateSubmitButtonLogic = ({
   churchUpdateForm,
+  isInputDisabled,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
-  isInputDisabled,
 }: Options): void => {
   //* Watchers
   const nameChurch = churchUpdateForm.watch('churchName');

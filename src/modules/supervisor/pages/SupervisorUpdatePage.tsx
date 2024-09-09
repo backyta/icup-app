@@ -24,10 +24,10 @@ import {
   SupervisorSearchType,
   SupervisorSearchTypeNames,
   SupervisorSearchNamesByGender,
-  SupervisorSearchNamesByLastNames,
-  SupervisorSearchNamesByFullNames,
+  SubTypeNamesSupervisorSearchByLastNames,
+  SubTypeNamesSupervisorSearchByFullNames,
   SupervisorSearchNamesByBirthMonth,
-  SupervisorSearchNamesByFirstNames,
+  SubTypeNamesSupervisorSearchByFirstNames,
   SupervisorSearchNamesByRecordStatus,
   SupervisorSearchNamesByMaritalStatus,
 } from '@/modules/supervisor/enums';
@@ -92,7 +92,9 @@ const dataFictional: SupervisorResponse[] = [
 
 export const SupervisorUpdatePage = (): JSX.Element => {
   //* States
+  const [dataForm, setDataForm] = useState<SupervisorSearchFormByTerm>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
+  const [searchParams, setSearchParams] = useState<SupervisorSearchFormByTerm | undefined>();
 
   const isFiltersSearchByTermDisabled = useSupervisorStore(
     (state) => state.isFiltersSearchByTermDisabled
@@ -100,9 +102,6 @@ export const SupervisorUpdatePage = (): JSX.Element => {
   const setIsFiltersSearchByTermDisabled = useSupervisorStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
-
-  const [dataForm, setDataForm] = useState<SupervisorSearchFormByTerm>();
-  const [searchParams, setSearchParams] = useState<SupervisorSearchFormByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof supervisorSearchByTermFormSchema>>({
@@ -150,6 +149,10 @@ export const SupervisorUpdatePage = (): JSX.Element => {
   useEffect(() => {
     form.setValue('searchSubType', undefined);
   }, [searchType]);
+
+  useEffect(() => {
+    document.title = 'Modulo Supervisor - IcupApp';
+  }, []);
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof supervisorSearchByTermFormSchema>): void {
@@ -310,10 +313,10 @@ export const SupervisorUpdatePage = (): JSX.Element => {
                           <SelectContent>
                             {Object.entries(
                               searchType === SupervisorSearchType.FirstName
-                                ? SupervisorSearchNamesByFirstNames
+                                ? SubTypeNamesSupervisorSearchByFirstNames
                                 : searchType === SupervisorSearchType.LastName
-                                  ? SupervisorSearchNamesByLastNames
-                                  : SupervisorSearchNamesByFullNames
+                                  ? SubTypeNamesSupervisorSearchByLastNames
+                                  : SubTypeNamesSupervisorSearchByFullNames
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}

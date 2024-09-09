@@ -21,14 +21,13 @@ import { cn } from '@/shared/lib/utils';
 import { supervisorFormSchema } from '@/modules/supervisor/validations';
 import { getAllCopastors } from '@/modules/supervisor/services';
 import {
-  useSupervisorCreationSubmitButtonLogic,
   useSupervisorCreationMutation,
+  useSupervisorCreationSubmitButtonLogic,
 } from '@/modules/supervisor/hooks';
 
 import { getAllPastors } from '@/modules/copastor/services';
 
 import { useRoleValidationByPath } from '@/shared/hooks';
-import { LoadingSpinner } from '@/shared/components';
 
 import {
   Country,
@@ -146,6 +145,10 @@ export const SupervisorCreatePage = (): JSX.Element => {
     }
   }, [isDirectRelationToPastor]);
 
+  useEffect(() => {
+    document.title = 'Modulo Supervisor - IcupApp';
+  }, []);
+
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
   const disabledDistricts = validateDistrictsAllowedByModule(pathname);
@@ -181,8 +184,6 @@ export const SupervisorCreatePage = (): JSX.Element => {
     queryKey: ['pastors'],
     queryFn: getAllPastors,
   });
-
-  if (queryCopastors.isLoading) return <LoadingSpinner />;
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof supervisorFormSchema>): void => {
@@ -320,7 +321,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                 control={form.control}
                 name='birthDate'
                 render={({ field }) => (
-                  <FormItem className='flex flex-col mt-4'>
+                  <FormItem className='mt-4'>
                     <FormLabel className='text-[14px] font-medium'>Fecha de nacimiento</FormLabel>
                     <Popover open={isInputBirthDateOpen} onOpenChange={setIsInputBirthDateOpen}>
                       <PopoverTrigger asChild>
@@ -417,7 +418,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                 control={form.control}
                 name='conversionDate'
                 render={({ field }) => (
-                  <FormItem className='flex flex-col mt-4'>
+                  <FormItem className='mt-4'>
                     <FormLabel className='text-[14px] font-medium'>Fecha de conversión</FormLabel>
                     <Popover
                       open={isInputConvertionDateOpen}
@@ -832,7 +833,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                   name='theirPastor'
                   render={({ field }) => {
                     return (
-                      <FormItem className='flex flex-col mt-4'>
+                      <FormItem className='mt-4'>
                         <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
                           Pastor
                         </FormLabel>
@@ -905,7 +906,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                   name='theirCopastor'
                   render={({ field }) => {
                     return (
-                      <FormItem className='flex flex-col mt-4'>
+                      <FormItem className='mt-4'>
                         <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
                           Co-Pastor
                         </FormLabel>

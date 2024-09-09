@@ -39,11 +39,11 @@ import { dateFormatterToDDMMYYYY } from '@/shared/helpers';
 
 import {
   Table,
+  TableRow,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
 } from '@/shared/components/ui/table';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -63,10 +63,10 @@ export function SearchByTermCopastorDataTable<TData, TValue>({
   dataForm,
 }: DataTableProps<TData, TValue>): JSX.Element {
   //* States
+  const [rowSelection, setRowSelection] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = useState({});
 
   const isFiltersSearchByTermDisabled = useCopastorStore(
     (state) => state.isFiltersSearchByTermDisabled

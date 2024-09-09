@@ -2,18 +2,17 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { getDisciples } from '@/modules/disciple/services';
-
 import { LoadingSpinner } from '@/shared/components';
 
+import { getDisciples } from '@/modules/disciple/services';
 import { MemberInfoItem } from '@/modules/dashboard/components';
 
 import {
   Card,
+  CardTitle,
+  CardHeader,
   CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle,
 } from '@/shared/components/ui/card';
 
 export function MembersInfoCard(): JSX.Element {

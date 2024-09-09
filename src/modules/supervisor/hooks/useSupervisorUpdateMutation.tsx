@@ -29,7 +29,9 @@ export const useSupervisorUpdateMutation = ({
   UpdateSupervisorOptions,
   unknown
 > => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
+
   //* QueryClient
   const queryClient = useQueryClient();
 
@@ -73,7 +75,7 @@ export const useSupervisorUpdateMutation = ({
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['supervisors-by-term'] });
-      }, 500);
+      }, 700);
 
       setTimeout(() => {
         onSubmit();

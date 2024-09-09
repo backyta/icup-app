@@ -19,6 +19,7 @@ export const usePreacherCreationMutation = ({
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
 }: Options): UseMutationResult<PreacherResponse, ErrorResponse, PreacherFormData, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* Mutation

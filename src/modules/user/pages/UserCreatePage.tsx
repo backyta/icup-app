@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type * as z from 'zod';
 import { Toaster } from 'sonner';
@@ -74,6 +74,11 @@ export const UserCreatePage = (): JSX.Element => {
   const toggleShowPasswordConfirm = (): void => {
     setShowPasswordConfirm(!showPasswordConfirm);
   };
+
+  //* Effects
+  useEffect(() => {
+    document.title = 'Modulo Usuario - IcupApp';
+  }, []);
 
   //* Custom hooks
   useUserCreationSubmitButtonLogic({

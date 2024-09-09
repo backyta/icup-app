@@ -15,6 +15,10 @@ export const MetricsOptionsPage = (): JSX.Element => {
     checkAuthStatus();
   }, []);
 
+  useEffect(() => {
+    document.title = 'Modulo Métricas - IcupApp';
+  }, []);
+
   return (
     <div className='animate-fadeIn'>
       <h1 className='text-center pb-2 pt-3 md:pt-2 md:pb-2 font-sans text-2xl sm:text-3xl font-bold text-emerald-500 text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>

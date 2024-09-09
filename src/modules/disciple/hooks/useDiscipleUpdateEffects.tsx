@@ -47,10 +47,15 @@ export const useDiscipleUpdateEffects = ({
     discipleUpdateForm.setValue('theirFamilyGroup', data?.theirFamilyGroup?.id);
     discipleUpdateForm.setValue('recordStatus', data?.recordStatus);
 
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setIsLoadingData(false);
     }, 1200);
+
+    return () => {
+      clearTimeout(timeoutId); // Limpiar el timeout cuando el componente se desmonte
+    };
   }, []);
+
   //* Controller district and urban sector
   useEffect(() => {
     discipleUpdateForm.resetField('urbanSector', {
@@ -64,7 +69,7 @@ export const useDiscipleUpdateEffects = ({
 
     if (id) {
       const url = new URL(window.location.href);
-      url.pathname = `/disciples/update-disciple/${id}/edit`;
+      url.pathname = `/disciples/update/${id}/edit`;
 
       window.history.replaceState({}, '', url);
     }

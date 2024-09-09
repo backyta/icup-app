@@ -24,7 +24,7 @@ export const userUpdatePasswordFormSchema = z
       return data.newPassword === data.newPasswordConfirm;
     },
     {
-      message: 'Las contraseñas no coinciden',
+      message: 'Las contraseñas no coinciden.',
       path: ['newPasswordConfirm'],
     }
   )

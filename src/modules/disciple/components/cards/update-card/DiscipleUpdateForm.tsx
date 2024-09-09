@@ -924,7 +924,7 @@ export const DiscipleUpdateForm = ({
                           name='theirFamilyGroup'
                           render={({ field }) => {
                             return (
-                              <FormItem className='flex flex-col mt-4'>
+                              <FormItem className='mt-4'>
                                 <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
                                   Grupo Familiar
                                 </FormLabel>
@@ -1002,7 +1002,7 @@ export const DiscipleUpdateForm = ({
                           name='theirSupervisor'
                           render={({ field }) => {
                             return (
-                              <FormItem className='flex flex-col mt-4'>
+                              <FormItem className='mt-4'>
                                 <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
                                   Supervisor
                                 </FormLabel>

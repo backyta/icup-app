@@ -27,6 +27,7 @@ export const useFamilyGroupUpdateMutation = ({
   UpdateFamilyGroupOptions,
   unknown
 > => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* QueryClient
@@ -71,7 +72,7 @@ export const useFamilyGroupUpdateMutation = ({
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['family-groups-by-term'] });
-      }, 500);
+      }, 700);
 
       setTimeout(() => {
         onSubmit();

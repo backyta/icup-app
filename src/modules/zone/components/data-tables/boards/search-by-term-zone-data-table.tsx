@@ -58,10 +58,10 @@ export function SearchByTermZoneDataTable<TData, TValue>({
   dataForm,
 }: DataTableProps<TData, TValue>): JSX.Element {
   //* States
+  const [rowSelection, setRowSelection] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = useState({});
 
   const isFiltersSearchByTermDisabled = useZoneStore(
     (state) => state.isFiltersSearchByTermDisabled

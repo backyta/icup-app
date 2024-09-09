@@ -8,7 +8,6 @@ import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { userDeleteColumns as columns, SearchByTermUserDataTable } from '@/modules/user/components';
 import {
   UserSearchType,
   UserSearchTypeNames,
@@ -17,6 +16,7 @@ import {
 } from '@/modules/user/enums';
 import { userSearchByTermFormSchema } from '@/modules/user/validations';
 import { type UserSearchFormByTerm, type UserResponse } from '@/modules/user/interfaces';
+import { userDeleteColumns as columns, SearchByTermUserDataTable } from '@/modules/user/components';
 
 import { cn } from '@/shared/lib/utils';
 import { useUserStore } from '@/stores/user';
@@ -58,7 +58,9 @@ const dataFictional: UserResponse[] = [
 
 export const UserDeletePage = (): JSX.Element => {
   //* States
+  const [dataForm, setDataForm] = useState<UserSearchFormByTerm>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
+  const [searchParams, setSearchParams] = useState<UserSearchFormByTerm | undefined>();
 
   const isFiltersSearchByTermDisabled = useUserStore(
     (state) => state.isFiltersSearchByTermDisabled
@@ -66,9 +68,6 @@ export const UserDeletePage = (): JSX.Element => {
   const setIsFiltersSearchByTermDisabled = useUserStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
-
-  const [dataForm, setDataForm] = useState<UserSearchFormByTerm>();
-  const [searchParams, setSearchParams] = useState<UserSearchFormByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof userSearchByTermFormSchema>>({
@@ -109,6 +108,10 @@ export const UserDeletePage = (): JSX.Element => {
 
   useEffect(() => {
     setIsFiltersSearchByTermDisabled(true);
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Modulo Usuario - IcupApp';
   }, []);
 
   //* Form handler

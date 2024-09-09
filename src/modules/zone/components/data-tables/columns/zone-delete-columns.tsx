@@ -6,8 +6,8 @@ import { type ColumnDef } from '@tanstack/react-table';
 import { getInitialFullNames } from '@/shared/helpers';
 import { Button } from '@/shared/components/ui/button';
 
-import { ZoneInfoCard, ZoneDeleteCard } from '@/modules/zone/components';
 import { type ZoneColumns } from '@/modules/zone/interfaces';
+import { ZoneInfoCard, ZoneDeleteCard } from '@/modules/zone/components';
 
 export const zoneDeleteColumns: Array<ColumnDef<ZoneColumns, any>> = [
   {

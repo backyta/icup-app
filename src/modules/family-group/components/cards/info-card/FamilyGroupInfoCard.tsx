@@ -30,7 +30,7 @@ export const FamilyGroupInfoCard = ({ idRow }: FamilyGroupInfoCardProps): JSX.El
 
   //* Functions
   const currentFamilyGroup =
-    pathname === '/family-groups/search-family-groups'
+    pathname === '/family-groups/general-search'
       ? dataSearchGeneralResponse?.find((data) => data.id === idRow)
       : dataSearchByTermResponse?.find((data) => data.id === idRow);
 

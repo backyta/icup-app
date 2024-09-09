@@ -26,6 +26,7 @@ export const usePreacherUpdateMutation = ({
   setIsRelationSelectDisabled,
   setIsCheckBoxDisabled,
 }: Options): UseMutationResult<PreacherResponse, ErrorResponse, UpdatePreacherOptions, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* QueryClient
@@ -72,7 +73,7 @@ export const usePreacherUpdateMutation = ({
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['preachers-by-term'] });
-      }, 500);
+      }, 700);
 
       setTimeout(() => {
         onSubmit();

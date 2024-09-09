@@ -28,7 +28,6 @@ export type CopastorFormDataKeys =
   | 'firstName'
   | 'lastName'
   | 'gender'
-  | 'churchName'
   | 'originCountry'
   | 'birthDate'
   | 'maritalStatus'

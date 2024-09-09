@@ -25,16 +25,16 @@ import {
   OfferingIncomeSearchTypeNames,
   OfferingIncomeSearchNamesByShift,
   OfferingIncomeSearchNamesByMemberType,
-  OfferingIncomeSearchByActivitiesNames,
-  OfferingIncomeSearchByFamilyGroupNames,
   OfferingIncomeSearchNamesByRecordStatus,
-  OfferingIncomeSearchByYoungWorshipNames,
-  OfferingIncomeSearchByUnitedWorshipNames,
-  OfferingIncomeSearchByIncomeAdjustmentNames,
-  OfferingIncomeSearchNamesByFastingAndVigilZonal,
-  OfferingIncomeSearchByGroundChurchAndSpecialNames,
-  OfferingIncomeSearchNamesByFastingAndVigilGeneral,
-  OfferingIncomeSearchBySundayWorshipAndSundaySchoolNames,
+  SubTypeNamesOfferingIncomeSearchByActivities,
+  SubTypeNamesOfferingIncomeSearchByFamilyGroup,
+  SubTypeNamesOfferingIncomeSearchByYoungWorship,
+  SubTypeNamesOfferingIncomeSearchByUnitedWorship,
+  SubTypeNamesOfferingIncomeSearchByIncomeAdjustment,
+  SubTypeNamesOfferingIncomeSearchByFastingAndVigilZonal,
+  SubTypeNamesOfferingIncomeSearchByGroundChurchAndSpecial,
+  SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneral,
+  SubTypeNamesOfferingIncomeSearchBySundayWorshipAndSundaySchool,
 } from '@/modules/offering/income/enums';
 import {
   type OfferingIncomeResponse,
@@ -93,12 +93,15 @@ const dataFictional: OfferingIncomeResponse[] = [
     supervisor: null,
     copastor: null,
     pastor: null,
+    church: null,
   },
 ];
 
 export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
   //* States
+  const [dataForm, setDataForm] = useState<OfferingIncomeSearchFormByTerm>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
+  const [searchParams, setSearchParams] = useState<OfferingIncomeSearchFormByTerm | undefined>();
 
   const isFiltersSearchByTermDisabled = useOfferingIncomeStore(
     (state) => state.isFiltersSearchByTermDisabled
@@ -106,9 +109,6 @@ export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
   const setIsFiltersSearchByTermDisabled = useOfferingIncomeStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
-
-  const [dataForm, setDataForm] = useState<OfferingIncomeSearchFormByTerm>();
-  const [searchParams, setSearchParams] = useState<OfferingIncomeSearchFormByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof offeringIncomeSearchByTermFormSchema>>({
@@ -157,6 +157,10 @@ export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
   useEffect(() => {
     form.setValue('searchSubType', undefined);
   }, [searchType]);
+
+  useEffect(() => {
+    document.title = 'Modulo Ofrenda - IcupApp';
+  }, []);
 
   //* Queries
   const churchesQuery = useQuery({
@@ -328,25 +332,25 @@ export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
                             {Object.entries(
                               searchType === OfferingIncomeSearchType.SundayWorship ||
                                 searchType === OfferingIncomeSearchType.SundaySchool
-                                ? OfferingIncomeSearchBySundayWorshipAndSundaySchoolNames
+                                ? SubTypeNamesOfferingIncomeSearchBySundayWorshipAndSundaySchool
                                 : searchType === OfferingIncomeSearchType.FamilyGroup
-                                  ? OfferingIncomeSearchByFamilyGroupNames
+                                  ? SubTypeNamesOfferingIncomeSearchByFamilyGroup
                                   : searchType === OfferingIncomeSearchType.ZonalVigil ||
                                       searchType === OfferingIncomeSearchType.ZonalFasting
-                                    ? OfferingIncomeSearchNamesByFastingAndVigilZonal
+                                    ? SubTypeNamesOfferingIncomeSearchByFastingAndVigilZonal
                                     : searchType === OfferingIncomeSearchType.GeneralFasting ||
                                         searchType === OfferingIncomeSearchType.GeneralVigil
-                                      ? OfferingIncomeSearchNamesByFastingAndVigilGeneral
+                                      ? SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneral
                                       : searchType === OfferingIncomeSearchType.YouthWorship
-                                        ? OfferingIncomeSearchByYoungWorshipNames
+                                        ? SubTypeNamesOfferingIncomeSearchByYoungWorship
                                         : searchType === OfferingIncomeSearchType.UnitedWorship
-                                          ? OfferingIncomeSearchByUnitedWorshipNames
+                                          ? SubTypeNamesOfferingIncomeSearchByUnitedWorship
                                           : searchType === OfferingIncomeSearchType.Activities
-                                            ? OfferingIncomeSearchByActivitiesNames
+                                            ? SubTypeNamesOfferingIncomeSearchByActivities
                                             : searchType === OfferingIncomeSearchType.Special ||
                                                 searchType === OfferingIncomeSearchType.ChurchGround
-                                              ? OfferingIncomeSearchByGroundChurchAndSpecialNames
-                                              : OfferingIncomeSearchByIncomeAdjustmentNames
+                                              ? SubTypeNamesOfferingIncomeSearchByGroundChurchAndSpecial
+                                              : SubTypeNamesOfferingIncomeSearchByIncomeAdjustment
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}

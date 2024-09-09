@@ -15,9 +15,9 @@ interface ZoneUpdateCardProps {
 
 export const ZoneUpdateCard = ({ idRow }: ZoneUpdateCardProps): JSX.Element => {
   //* States
-  const dataSearchByTermResponse = useZoneStore((state) => state.dataSearchByTermResponse);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const topRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const dataSearchByTermResponse = useZoneStore((state) => state.dataSearchByTermResponse);
 
   //* Hooks (external libraries)
   const isDesktop = useMediaQuery('(min-width: 768px)');

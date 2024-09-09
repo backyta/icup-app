@@ -109,6 +109,10 @@ export const ChurchesGeneralSearchPage = (): JSX.Element => {
     setIsFiltersSearchGeneralDisabled(true);
   }, []);
 
+  useEffect(() => {
+    document.title = 'Modulo Iglesia - IcupApp';
+  }, []);
+
   //* Form handler
   function onSubmit(formData: z.infer<typeof formSearchGeneralSchema>): void {
     setSearchParams(formData);

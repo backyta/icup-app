@@ -12,32 +12,31 @@ interface DisabledDistrictsResult {
 export const validateDistrictsAllowedByModule = ( path: string): DisabledDistrictsResult | undefined => {
 
   //* Disabled Districts
-  if (path === '/disciples/create-disciple' || 
-       path === '/disciples/update-disciple' ||
-       path === '/pastors/create-pastor' ||
-       path === '/pastors/update-pastor' ||
-       path === '/copastors/create-copastor' ||
-       path === '/copastors/update-copastor' ||
-       path === '/supervisors/create-supervisor' ||
-       path === '/supervisors/update-supervisor' ||
-       path === '/preachers/create-preacher' ||
-       path === '/preachers/update-preacher' 
+  if (path === '/disciples/create' || 
+       path === '/disciples/update' ||
+       path === '/pastors/create' ||
+       path === '/pastors/update' ||
+       path === '/copastors/create' ||
+       path === '/copastors/update' ||
+       path === '/supervisors/create' ||
+       path === '/supervisors/update' ||
+       path === '/preachers/create' ||
+       path === '/preachers/update' 
   ) {
       return {
         disabledDistricts: [ ...Object.values(DistrictNames).filter(value => !MemberModuleDistrictsAllowed.includes(value)) ]   
     }
   }
 
-  if (path === '/family-groups/create-family-groups' || path === '/family-groups/update-family-groups') {
+  if (path === '/family-groups/create' || path === '/family-groups/update') {
       return {
         disabledDistricts: [ ...Object.values(DistrictNames).filter(value => !FamilyGroupModuleDistrictsAllowed.includes(value)) ]
     }
   }
 
-  if (path === '/zones/create-zone' || path === '/zones/update-zone') {
+  if (path === '/zones/create' || path === '/zones/update') {
       return {
         disabledDistricts: [ ...Object.values(DistrictNames).filter(value => !ZoneModuleDistrictsAllowed.includes(value)) ]
     }
   }
-  
 }

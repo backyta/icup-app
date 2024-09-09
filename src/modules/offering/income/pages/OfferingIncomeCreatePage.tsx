@@ -20,21 +20,20 @@ import {
   MemberTypeNames,
   OfferingIncomeCreationType,
   OfferingIncomeCreationSubType,
-  OfferingIncomeCreationShiftTypeNames,
   OfferingIncomeCreationTypeNames,
   OfferingIncomeCreationSubTypeNames,
+  OfferingIncomeCreationShiftTypeNames,
 } from '@/modules/offering/income/enums';
 import {
-  useFileDropZone,
-  useMemberQueries,
-  useOfferingIncomeCreationSubmitButtonLogic,
+  useOfferingIncomeFileDropZone,
   useOfferingIncomeCreationMutation,
+  useOfferingIncomeCreationSubmitButtonLogic,
 } from '@/modules/offering/income/hooks';
 import { offeringIncomeFormSchema } from '@/modules/offering/income/validations';
 
-import { CurrencyTypeNames } from '@/modules/offering/shared/enums';
-import { useImagesUploadMutation } from '@/modules/offering/shared/hooks';
-import { type FilesProps, type RejectedProps } from '@/modules/offering/shared/interfaces';
+import { CurrencyTypeNames, OfferingFileType } from '@/modules/offering/shared/enums';
+import { useImagesUploadMutation, useModuleQueries } from '@/modules/offering/shared/hooks';
+import { type FilesProps, type RejectionProps } from '@/modules/offering/shared/interfaces';
 
 import { type PastorResponse } from '@/modules/pastor/interfaces';
 import { type CopastorResponse } from '@/modules/copastor/interfaces';
@@ -89,11 +88,11 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   const [queryData, setQueryData] = useState<QueryDataResponse>();
 
   const [files, setFiles] = useState<FilesProps[]>([]);
-  const [rejected, setRejected] = useState<RejectedProps[]>([]);
+  const [rejected, setRejected] = useState<RejectionProps[]>([]);
 
   const [isDropZoneDisabled, setIsDropZoneDisabled] = useState<boolean>(false);
 
-  const [isFileButtonDisabled, setIsFileButtonDisabled] = useState<boolean>(false);
+  const [isDeleteFileButtonDisabled, setIsDeleteFileButtonDisabled] = useState<boolean>(false);
 
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
@@ -124,21 +123,21 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   });
 
   //* Watchers
-  const searchType = form.watch('type');
-  const searchSubType = form.watch('subType');
+  const type = form.watch('type');
+  const subType = form.watch('subType');
   const memberType = form.watch('memberType');
 
   //* Custom hooks
   useOfferingIncomeCreationSubmitButtonLogic({
-    offeringIncomeCreationForm: form,
-    offeringIncomeTypes: OfferingIncomeCreationType,
-    offeringIncomeSubTypes: OfferingIncomeCreationSubType,
-    isInputDisabled,
     isDropZoneDisabled,
-    isFileButtonDisabled,
-    setIsSubmitButtonDisabled,
-    setIsMessageErrorDisabled,
+    isDeleteFileButtonDisabled,
+    isInputDisabled,
+    offeringIncomeCreationForm: form,
+    offeringIncomeCreationSubType: OfferingIncomeCreationSubType,
+    offeringIncomeCreationType: OfferingIncomeCreationType,
     setIsDropZoneDisabled,
+    setIsMessageErrorDisabled,
+    setIsSubmitButtonDisabled,
   });
 
   const {
@@ -150,9 +149,9 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
     disciplesQuery,
     zonesQuery,
     familyGroupsQuery,
-  } = useMemberQueries(memberType);
+  } = useModuleQueries(memberType);
 
-  const { onDrop, removeAll, removeFile, removeRejected } = useFileDropZone({
+  const { onDrop, removeAll, removeFile, removeRejected } = useOfferingIncomeFileDropZone({
     offeringIncomeForm: form,
     files,
     setFiles,
@@ -169,10 +168,10 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   });
 
   const offeringIncomeCreationMutation = useOfferingIncomeCreationMutation({
-    offeringIncomeCreationForm: form,
     setFiles,
     setIsInputDisabled,
     setIsSubmitButtonDisabled,
+    offeringIncomeCreationForm: form,
   });
 
   const uploadImagesMutation = useImagesUploadMutation();
@@ -208,18 +207,23 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
     });
   }, [memberType]);
 
+  useEffect(() => {
+    document.title = 'Modulo Ofrenda - IcupApp';
+  }, []);
+
   //* Form handler
   const handleSubmit = async (
     formData: z.infer<typeof offeringIncomeFormSchema>
   ): Promise<void> => {
+    console.log(formData);
     let imageUrls;
     try {
       if (files.length >= 1) {
         const uploadResult = await uploadImagesMutation.mutateAsync({
           files: files as any,
-          action: 'income',
+          fileType: OfferingFileType.Income,
           type: formData.type,
-          subType: formData.subType,
+          subType: formData.subType ?? null,
         });
 
         imageUrls = uploadResult.imageUrls;
@@ -309,7 +313,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 }}
               />
 
-              {searchType === OfferingIncomeCreationType.Offering && (
+              {type === OfferingIncomeCreationType.Offering && (
                 <FormField
                   control={form.control}
                   name='subType'
@@ -353,10 +357,10 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 />
               )}
 
-              {((searchType === OfferingIncomeCreationType.Offering &&
-                searchSubType === OfferingIncomeCreationSubType.Special) ||
-                (searchType === OfferingIncomeCreationType.Offering &&
-                  searchSubType === OfferingIncomeCreationSubType.ChurchGround)) && (
+              {((type === OfferingIncomeCreationType.Offering &&
+                subType === OfferingIncomeCreationSubType.Special) ||
+                (type === OfferingIncomeCreationType.Offering &&
+                  subType === OfferingIncomeCreationSubType.ChurchGround)) && (
                 <FormField
                   control={form.control}
                   name='memberType'
@@ -395,15 +399,15 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 />
               )}
 
-              {((searchType === OfferingIncomeCreationType.Offering &&
-                searchSubType === OfferingIncomeCreationSubType.Special) ||
-                (searchType === OfferingIncomeCreationType.Offering &&
-                  searchSubType === OfferingIncomeCreationSubType.ChurchGround)) && (
+              {((type === OfferingIncomeCreationType.Offering &&
+                subType === OfferingIncomeCreationSubType.Special) ||
+                (type === OfferingIncomeCreationType.Offering &&
+                  subType === OfferingIncomeCreationSubType.ChurchGround)) && (
                 <FormField
                   control={form.control}
                   name='memberId'
                   render={({ field }) => (
-                    <FormItem className='flex flex-col mt-4'>
+                    <FormItem className='mt-4'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Miembro
                       </FormLabel>
@@ -483,13 +487,13 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 />
               )}
 
-              {searchType === OfferingIncomeCreationType.Offering &&
-                searchSubType === OfferingIncomeCreationSubType.FamilyGroup && (
+              {type === OfferingIncomeCreationType.Offering &&
+                subType === OfferingIncomeCreationSubType.FamilyGroup && (
                   <FormField
                     control={form.control}
                     name='familyGroupId'
                     render={({ field }) => (
-                      <FormItem className='flex flex-col mt-4'>
+                      <FormItem className='mt-4'>
                         <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                           Grupo Familiar
                         </FormLabel>
@@ -556,25 +560,25 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   />
                 )}
 
-              {(searchType === OfferingIncomeCreationType.IncomeAdjustment ||
-                (searchType === OfferingIncomeCreationType.Offering &&
-                  (searchSubType === OfferingIncomeCreationSubType.SundaySchool ||
-                    searchSubType === OfferingIncomeCreationSubType.SundayWorship ||
-                    searchSubType === OfferingIncomeCreationSubType.Activities ||
-                    searchSubType === OfferingIncomeCreationSubType.GeneralFasting ||
-                    searchSubType === OfferingIncomeCreationSubType.GeneralVigil ||
-                    searchSubType === OfferingIncomeCreationSubType.WorshipUnited ||
-                    searchSubType === OfferingIncomeCreationSubType.YouthWorship))) && (
+              {(type === OfferingIncomeCreationType.IncomeAdjustment ||
+                (type === OfferingIncomeCreationType.Offering &&
+                  (subType === OfferingIncomeCreationSubType.SundaySchool ||
+                    subType === OfferingIncomeCreationSubType.SundayWorship ||
+                    subType === OfferingIncomeCreationSubType.Activities ||
+                    subType === OfferingIncomeCreationSubType.GeneralFasting ||
+                    subType === OfferingIncomeCreationSubType.GeneralVigil ||
+                    subType === OfferingIncomeCreationSubType.WorshipUnited ||
+                    subType === OfferingIncomeCreationSubType.YouthWorship))) && (
                 <FormField
                   control={form.control}
                   name='churchId'
                   render={({ field }) => (
-                    <FormItem className='flex flex-col mt-4'>
+                    <FormItem className='mt-4'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Iglesia
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Seleccione una iglesia para asignarla al registro.
+                        Selecciona una iglesia para asignarla al registro.
                       </FormDescription>
                       <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
                         <PopoverTrigger asChild>
@@ -633,15 +637,15 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 />
               )}
 
-              {((searchType === OfferingIncomeCreationType.Offering &&
-                searchSubType === OfferingIncomeCreationSubType.ZonalFasting) ||
-                (searchType === OfferingIncomeCreationType.Offering &&
-                  searchSubType === OfferingIncomeCreationSubType.ZonalVigil)) && (
+              {((type === OfferingIncomeCreationType.Offering &&
+                subType === OfferingIncomeCreationSubType.ZonalFasting) ||
+                (type === OfferingIncomeCreationType.Offering &&
+                  subType === OfferingIncomeCreationSubType.ZonalVigil)) && (
                 <FormField
                   control={form.control}
                   name='zoneId'
                   render={({ field }) => (
-                    <FormItem className='flex flex-col mt-4'>
+                    <FormItem className='mt-4'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Zona</FormLabel>
                       <FormDescription className='text-[14px]'>
                         Seleccione una zona para asignarlo al registro.
@@ -703,8 +707,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchSubType === OfferingIncomeCreationSubType.SundayWorship ||
-                searchSubType === OfferingIncomeCreationSubType.SundaySchool) && (
+              {(subType === OfferingIncomeCreationSubType.SundayWorship ||
+                subType === OfferingIncomeCreationSubType.SundaySchool) && (
                 <FormField
                   control={form.control}
                   name='shift'
@@ -816,7 +820,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 control={form.control}
                 name='date'
                 render={({ field }) => (
-                  <FormItem className='flex flex-col mt-4'>
+                  <FormItem className='mt-4'>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Fecha</FormLabel>
                     <FormDescription className='text-[14px]'>
                       Elige la fecha de deposito de la ofrenda.
@@ -852,9 +856,9 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                             setIsInputDateOpen(false);
                           }}
                           disabled={
-                            searchSubType !== OfferingIncomeCreationSubType.SundayWorship &&
-                            searchSubType !== OfferingIncomeCreationSubType.SundaySchool &&
-                            searchSubType !== OfferingIncomeCreationSubType.FamilyGroup
+                            subType !== OfferingIncomeCreationSubType.SundayWorship &&
+                            subType !== OfferingIncomeCreationSubType.SundaySchool &&
+                            subType !== OfferingIncomeCreationSubType.FamilyGroup
                               ? (date) => date > new Date() || date < new Date('1900-01-01')
                               : (date) => {
                                   const today = new Date();
@@ -880,18 +884,18 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                     <FormItem className='mt-4'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
                         Comentarios
-                        {searchType !== OfferingIncomeCreationType.IncomeAdjustment && (
+                        {type !== OfferingIncomeCreationType.IncomeAdjustment && (
                           <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
                             Opcional
                           </span>
                         )}
-                        {searchType === OfferingIncomeCreationType.IncomeAdjustment && (
+                        {type === OfferingIncomeCreationType.IncomeAdjustment && (
                           <span className='ml-3 inline-block bg-orange-200 text-orange-600 border text-[10px] font-bold uppercase px-2 py-[2px] rounded-full mr-1'>
                             Requerido
                           </span>
                         )}
                       </FormLabel>
-                      {searchType === OfferingIncomeCreationType.IncomeAdjustment && (
+                      {type === OfferingIncomeCreationType.IncomeAdjustment && (
                         <FormDescription>
                           Escribe una breve descripción sobre el ajuste
                         </FormDescription>
@@ -900,7 +904,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                         <Textarea
                           disabled={isInputDisabled}
                           placeholder={`${
-                            searchType === OfferingIncomeCreationType.IncomeAdjustment
+                            type === OfferingIncomeCreationType.IncomeAdjustment
                               ? `Motivos y comentarios sobre el ajuste...`
                               : 'Comentarios referente al registro de la ofrenda..'
                           }`}
@@ -966,7 +970,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   <h2 className='text-[16px] md:text-[18px] font-bold'>Pre-visualización</h2>
                   <button
                     type='button'
-                    disabled={isFileButtonDisabled}
+                    disabled={isDeleteFileButtonDisabled}
                     onClick={removeAll}
                     className='mt-1 text-[10.5px] md:text-[11px] w-[8rem] md:w-[10rem] p-2 uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md  hover:bg-secondary-400 hover:text-white ease-in duration-200 hover:bg-red-500 transition-colors'
                   >
@@ -993,7 +997,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                       />
                       <button
                         type='button'
-                        disabled={isFileButtonDisabled}
+                        disabled={isDeleteFileButtonDisabled}
                         className='w-7 h-7 border border-secondary-400 bg-secondary-400 rounded-full flex justify-center items-center absolute -top-3 -right-3 hover:bg-white transition-colors'
                         onClick={() => {
                           removeFile(file.name);
@@ -1025,7 +1029,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                       </div>
                       <button
                         type='button'
-                        disabled={isFileButtonDisabled}
+                        disabled={isDeleteFileButtonDisabled}
                         className='mt-1 py-1 text-[11px] md:text-[11.5px] uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md px-3 hover:bg-red-500 hover:text-white ease-in duration-200 transition-colors'
                         onClick={() => {
                           removeRejected(file.name);
@@ -1065,7 +1069,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                       setIsInputDisabled(true);
                       setIsDropZoneDisabled(true);
                       setIsInputMemberDisabled(true);
-                      setIsFileButtonDisabled(true);
+                      setIsDeleteFileButtonDisabled(true);
                       setIsSubmitButtonDisabled(true);
                     }
                   }, 100);

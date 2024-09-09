@@ -73,6 +73,7 @@ const dataFictional: CopastorResponse[] = [
 
 export const CopastorsGeneralSearchPage = (): JSX.Element => {
   //* States
+  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
 
   const isFiltersSearchGeneralDisabled = useCopastorStore(
@@ -81,8 +82,6 @@ export const CopastorsGeneralSearchPage = (): JSX.Element => {
   const setIsFiltersSearchGeneralDisabled = useCopastorStore(
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
-
-  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({
@@ -114,6 +113,10 @@ export const CopastorsGeneralSearchPage = (): JSX.Element => {
 
   useEffect(() => {
     setIsFiltersSearchGeneralDisabled(true);
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Modulo Co-Pastor - IcupApp';
   }, []);
 
   //* Form handler

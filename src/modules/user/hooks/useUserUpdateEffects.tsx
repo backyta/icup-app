@@ -29,9 +29,13 @@ export const useUserUpdateEffects = ({
     userUpdateForm.setValue('roles', data?.roles as UserRole[]);
     userUpdateForm.setValue('recordStatus', data?.recordStatus);
 
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setIsLoadingData(false);
     }, 1200);
+
+    return () => {
+      clearTimeout(timeoutId); // Limpiar el timeout cuando el componente se desmonte
+    };
   }, []);
 
   //* Generate dynamic url
@@ -40,7 +44,7 @@ export const useUserUpdateEffects = ({
 
     if (id) {
       const url = new URL(window.location.href);
-      url.pathname = `/users/update-user/${id}/edit`;
+      url.pathname = `/users/update/${id}/edit`;
 
       window.history.replaceState({}, '', url);
     }

@@ -30,7 +30,7 @@ export const DiscipleInfoCard = ({ idRow }: DiscipleInfoCardProps): JSX.Element 
 
   //* Functions
   const currentDisciple =
-    pathname === '/disciples/search-disciples'
+    pathname === '/disciples/general-search'
       ? dataSearchGeneralResponse?.find((data) => data.id === idRow)
       : dataSearchByTermResponse?.find((data) => data.id === idRow);
 

@@ -24,6 +24,7 @@ export const useZoneSupervisorUpdateMutation = ({
   setIsSubmitButtonDisabled,
   setIsInputTheirSupervisorDisabled,
 }: Options): UseMutationResult<ZoneResponse, ErrorResponse, UpdateZoneOptions, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* QueryClient
@@ -70,7 +71,7 @@ export const useZoneSupervisorUpdateMutation = ({
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['zones-by-term'] });
         queryClient.invalidateQueries({ queryKey: ['supervisors'] });
-      }, 500);
+      }, 700);
 
       setTimeout(() => {
         onSubmit();

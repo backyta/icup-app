@@ -8,23 +8,23 @@ import {
 
 export const CopastorChildrenRoutes = [
   {
-    path: '/copastors/create-copastor',
+    path: '/copastors/create',
     element: <CopastorCreatePage />,
   },
   {
-    path: '/copastors/search-copastors',
+    path: '/copastors/general-search',
     element: <CopastorsGeneralSearchPage />,
   },
   {
-    path: '/copastors/search-copastors-by-term',
+    path: '/copastors/search-by-term',
     element: <CopastorsSearchPageByTerm />,
   },
   {
-    path: '/copastors/update-copastor',
+    path: '/copastors/update',
     element: <CopastorUpdatePage />,
   },
   {
-    path: '/copastors/delete-copastor',
+    path: '/copastors/delete',
     element: <CopastorDeletePage />,
   },
 ];

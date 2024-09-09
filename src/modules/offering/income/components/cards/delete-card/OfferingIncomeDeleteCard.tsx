@@ -4,23 +4,23 @@
 import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
-import { Toaster, toast } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { MdDeleteForever } from 'react-icons/md';
 
 import { offeringDeleteFormSchema } from '@/modules/offering/shared/validations';
+import { useOfferingIncomeDeletionMutation } from '@/modules/offering/income/hooks';
 import { OfferingIncomeReasonEliminationTypeNames } from '@/modules/offering/income/enums';
 
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
   FormLabel,
+  FormField,
+  FormControl,
   FormMessage,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import {
   Select,
@@ -32,7 +32,11 @@ import {
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 
-export const OfferingIncomeDeleteCard = (): JSX.Element => {
+interface OfferingIncomeDeleteCardProps {
+  idRow: string;
+}
+
+export const OfferingIncomeDeleteCard = ({ idRow }: OfferingIncomeDeleteCardProps): JSX.Element => {
   //* States
   const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
@@ -43,30 +47,54 @@ export const OfferingIncomeDeleteCard = (): JSX.Element => {
     mode: 'onChange',
     resolver: zodResolver(offeringDeleteFormSchema),
     defaultValues: {
-      reasonType: '',
-      date: undefined,
-      userID: '',
+      reasonEliminationType: '',
     },
   });
 
   //* Watchers
-  const reasonType = form.watch('reasonType');
+  const reasonEliminationType = form.watch('reasonEliminationType');
 
   //* Effects
   useEffect(() => {
-    if (reasonType === '') {
+    if (reasonEliminationType === '') {
       setIsButtonDisabled(true);
     }
-    if (reasonType !== '') {
+    if (reasonEliminationType !== '') {
       setIsButtonDisabled(false);
     }
-  }, [form, reasonType]);
+  }, [form, reasonEliminationType]);
+
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (idRow && isCardOpen) {
+      const url = new URL(window.location.href);
+      url.pathname = `/offerings/incomes/delete/${idRow}/remove`;
+
+      window.history.replaceState({}, '', url);
+
+      return () => {
+        window.history.replaceState({}, '', originalUrl);
+      };
+    }
+  }, [idRow, isCardOpen]);
+
+  //* Custom hooks
+  const offeringIncomeDeletionMutation = useOfferingIncomeDeletionMutation({
+    setIsSelectInputDisabled,
+    setIsCardOpen,
+    setIsButtonDisabled,
+  });
 
   //* Form handler
-  const handleSubmit = (values: z.infer<typeof offeringDeleteFormSchema>): void => {
-    values.date = new Date();
-    values.userID = 'id-1';
-    console.log({ values });
+  const handleSubmit = (formData: z.infer<typeof offeringDeleteFormSchema>): void => {
+    setIsSelectInputDisabled(true);
+    setIsButtonDisabled(true);
+
+    offeringIncomeDeletionMutation.mutate({
+      id: idRow,
+      reasonEliminationType: formData.reasonEliminationType,
+    });
   };
 
   return (
@@ -76,7 +104,7 @@ export const OfferingIncomeDeleteCard = (): JSX.Element => {
           onClick={() => {
             form.reset();
           }}
-          className='mt-2 lg:-ml-5 xl:-ml-7 2xl:-ml-8 mr-4 py-2 px-1 h-[2rem] bg-red-400 text-white hover:bg-red-500 hover:text-red-950  dark:text-red-950 dark:hover:bg-red-500 dark:hover:text-white'
+          className='mt-2 py-2 px-1 h-[2rem] bg-red-400 text-white hover:bg-red-500 hover:text-red-950  dark:text-red-950 dark:hover:bg-red-500 dark:hover:text-white'
         >
           <MdDeleteForever className='w-8 h-[1.65rem]' />
         </Button>
@@ -93,7 +121,7 @@ export const OfferingIncomeDeleteCard = (): JSX.Element => {
             <br />
             <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
               ❌ El registro de este Ingreso de Ofrenda se colocara en estado{' '}
-              <span className='font-bold text-red-500'>INACTIVO.</span>
+              <span className='font-bold '>INACTIVO.</span>
             </span>
             <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
               ❌ Este registro no podrá ser activado nuevamente, se quedara inactivo de modo
@@ -101,9 +129,9 @@ export const OfferingIncomeDeleteCard = (): JSX.Element => {
             </span>
             <span className='w-full text-left mb-2 text-[14px] md:text-[15px] flex flex-col'>
               ✅ Se añadirán a los comentarios del registro:
-              <span className='pl-8'>- El motivo de eliminación</span>
-              <span className='pl-8'>- La fecha en la que se elimino</span>
-              <span className='pl-8'>- El usuario que ejecuto esta acción</span>
+              <span className='pl-8'>- El motivo de eliminación.</span>
+              <span className='pl-8'>- La fecha en la que se elimino.</span>
+              <span className='pl-8'>- El usuario que ejecuto esta acción.</span>
             </span>
             <br />
           </p>
@@ -111,7 +139,7 @@ export const OfferingIncomeDeleteCard = (): JSX.Element => {
             <form onSubmit={form.handleSubmit(handleSubmit)}>
               <FormField
                 control={form.control}
-                name='reasonType'
+                name='reasonEliminationType'
                 render={({ field }) => {
                   return (
                     <FormItem className='mb-4 mt-4'>
@@ -151,7 +179,6 @@ export const OfferingIncomeDeleteCard = (): JSX.Element => {
                 }}
               />
               <div className='flex justify-end gap-x-4'>
-                <Toaster position='top-center' richColors />
                 <Button
                   type='button'
                   disabled={isButtonDisabled}
@@ -166,21 +193,6 @@ export const OfferingIncomeDeleteCard = (): JSX.Element => {
                   disabled={isButtonDisabled}
                   type='submit'
                   className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
-                  onClick={() => {
-                    toast.success('Registro eliminado exitosamente', {
-                      position: 'top-center',
-                      className: 'justify-center',
-                    });
-                    setTimeout(() => {
-                      setIsButtonDisabled(true);
-                      setIsSelectInputDisabled(true);
-                    }, 100);
-
-                    setTimeout(() => {
-                      setIsSelectInputDisabled(false);
-                      setIsCardOpen(false);
-                    }, 1300);
-                  }}
                 >
                   Sí, eliminar
                 </Button>

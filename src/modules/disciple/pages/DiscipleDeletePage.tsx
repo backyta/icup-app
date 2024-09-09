@@ -21,9 +21,9 @@ import {
   DiscipleSearchType,
   DiscipleSearchTypeNames,
   DiscipleSearchNamesByGender,
-  DiscipleSearchNamesByFullNames,
-  DiscipleSearchNamesByLastNames,
-  DiscipleSearchNamesByFirstNames,
+  SubTypeNamesDiscipleSearchByFullNames,
+  SubTypeNamesDiscipleSearchByLastNames,
+  SubTypeNamesDiscipleSearchByFirstNames,
   DiscipleSearchNamesByBirthMonth,
   DiscipleSearchNamesByRecordStatus,
   DiscipleSearchNamesByMaritalStatus,
@@ -92,7 +92,9 @@ const dataFictional: DiscipleResponse[] = [
 
 export const DiscipleDeletePage = (): JSX.Element => {
   //* States
+  const [dataForm, setDataForm] = useState<DiscipleSearchFormByTerm>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
+  const [searchParams, setSearchParams] = useState<DiscipleSearchFormByTerm | undefined>();
 
   const isFiltersSearchByTermDisabled = useDiscipleStore(
     (state) => state.isFiltersSearchByTermDisabled
@@ -100,9 +102,6 @@ export const DiscipleDeletePage = (): JSX.Element => {
   const setIsFiltersSearchByTermDisabled = useDiscipleStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
-
-  const [dataForm, setDataForm] = useState<DiscipleSearchFormByTerm>();
-  const [searchParams, setSearchParams] = useState<DiscipleSearchFormByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof discipleSearchByTermFormSchema>>({
@@ -150,6 +149,10 @@ export const DiscipleDeletePage = (): JSX.Element => {
   useEffect(() => {
     form.setValue('searchSubType', undefined);
   }, [searchType]);
+
+  useEffect(() => {
+    document.title = 'Modulo Discípulo - IcupApp';
+  }, []);
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof discipleSearchByTermFormSchema>): void {
@@ -313,10 +316,10 @@ export const DiscipleDeletePage = (): JSX.Element => {
                           <SelectContent>
                             {Object.entries(
                               searchType === DiscipleSearchType.FirstName
-                                ? DiscipleSearchNamesByFirstNames
+                                ? SubTypeNamesDiscipleSearchByFirstNames
                                 : searchType === DiscipleSearchType.LastName
-                                  ? DiscipleSearchNamesByLastNames
-                                  : DiscipleSearchNamesByFullNames
+                                  ? SubTypeNamesDiscipleSearchByLastNames
+                                  : SubTypeNamesDiscipleSearchByFullNames
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}

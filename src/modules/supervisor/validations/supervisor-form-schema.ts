@@ -3,14 +3,14 @@
 import * as z from 'zod';
 import { 
   Country, 
-  Department, 
-  District, 
   Gender,
-  MaritalStatus, 
-  MemberRole, 
+  District, 
   Province, 
+  Department, 
+  MemberRole, 
+  UrbanSector,
   RecordStatus, 
-  UrbanSector 
+  MaritalStatus, 
 } from '@/shared/enums';
 
 export const supervisorFormSchema = z

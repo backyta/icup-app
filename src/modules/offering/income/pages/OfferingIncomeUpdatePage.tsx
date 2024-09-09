@@ -24,21 +24,21 @@ import {
   OfferingIncomeSearchSubType,
   OfferingIncomeSearchTypeNames,
   OfferingIncomeSearchNamesByShift,
-  OfferingIncomeSearchByActivitiesNames,
   OfferingIncomeSearchNamesByMemberType,
-  OfferingIncomeSearchByFamilyGroupNames,
-  OfferingIncomeSearchByYoungWorshipNames,
   OfferingIncomeSearchNamesByRecordStatus,
-  OfferingIncomeSearchByUnitedWorshipNames,
-  OfferingIncomeSearchByIncomeAdjustmentNames,
-  OfferingIncomeSearchNamesByFastingAndVigilZonal,
-  OfferingIncomeSearchNamesByFastingAndVigilGeneral,
-  OfferingIncomeSearchByGroundChurchAndSpecialNames,
-  OfferingIncomeSearchBySundayWorshipAndSundaySchoolNames,
+  SubTypeNamesOfferingIncomeSearchByActivities,
+  SubTypeNamesOfferingIncomeSearchByFamilyGroup,
+  SubTypeNamesOfferingIncomeSearchByYoungWorship,
+  SubTypeNamesOfferingIncomeSearchByUnitedWorship,
+  SubTypeNamesOfferingIncomeSearchByIncomeAdjustment,
+  SubTypeNamesOfferingIncomeSearchByFastingAndVigilZonal,
+  SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneral,
+  SubTypeNamesOfferingIncomeSearchByGroundChurchAndSpecial,
+  SubTypeNamesOfferingIncomeSearchBySundayWorshipAndSundaySchool,
 } from '@/modules/offering/income/enums';
 import {
-  type OfferingIncomeSearchFormByTerm,
   type OfferingIncomeResponse,
+  type OfferingIncomeSearchFormByTerm,
 } from '@/modules/offering/income/interfaces';
 import { offeringIncomeSearchByTermFormSchema } from '@/modules/offering/income/validations';
 
@@ -53,19 +53,19 @@ import { dateFormatterTermToTimestamp, namesFormatter, lastNamesFormatter } from
 
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
+  FormField,
   FormLabel,
   FormMessage,
+  FormControl,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import {
+  Select,
+  SelectItem,
   SelectValue,
   SelectTrigger,
   SelectContent,
-  SelectItem,
-  Select,
 } from '@/shared/components/ui/select';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -93,6 +93,7 @@ const dataFictional: OfferingIncomeResponse[] = [
     supervisor: null,
     copastor: null,
     pastor: null,
+    church: null,
   },
 ];
 
@@ -157,6 +158,10 @@ export const OfferingIncomeUpdatePage = (): JSX.Element => {
   useEffect(() => {
     form.setValue('searchSubType', undefined);
   }, [searchType]);
+
+  useEffect(() => {
+    document.title = 'Modulo Ofrenda - IcupApp';
+  }, []);
 
   //* Queries
   const churchesQuery = useQuery({
@@ -328,25 +333,25 @@ export const OfferingIncomeUpdatePage = (): JSX.Element => {
                             {Object.entries(
                               searchType === OfferingIncomeSearchType.SundayWorship ||
                                 searchType === OfferingIncomeSearchType.SundaySchool
-                                ? OfferingIncomeSearchBySundayWorshipAndSundaySchoolNames
+                                ? SubTypeNamesOfferingIncomeSearchBySundayWorshipAndSundaySchool
                                 : searchType === OfferingIncomeSearchType.FamilyGroup
-                                  ? OfferingIncomeSearchByFamilyGroupNames
+                                  ? SubTypeNamesOfferingIncomeSearchByFamilyGroup
                                   : searchType === OfferingIncomeSearchType.ZonalVigil ||
                                       searchType === OfferingIncomeSearchType.ZonalFasting
-                                    ? OfferingIncomeSearchNamesByFastingAndVigilZonal
+                                    ? SubTypeNamesOfferingIncomeSearchByFastingAndVigilZonal
                                     : searchType === OfferingIncomeSearchType.GeneralFasting ||
                                         searchType === OfferingIncomeSearchType.GeneralVigil
-                                      ? OfferingIncomeSearchNamesByFastingAndVigilGeneral
+                                      ? SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneral
                                       : searchType === OfferingIncomeSearchType.YouthWorship
-                                        ? OfferingIncomeSearchByYoungWorshipNames
+                                        ? SubTypeNamesOfferingIncomeSearchByYoungWorship
                                         : searchType === OfferingIncomeSearchType.UnitedWorship
-                                          ? OfferingIncomeSearchByUnitedWorshipNames
+                                          ? SubTypeNamesOfferingIncomeSearchByUnitedWorship
                                           : searchType === OfferingIncomeSearchType.Activities
-                                            ? OfferingIncomeSearchByActivitiesNames
+                                            ? SubTypeNamesOfferingIncomeSearchByActivities
                                             : searchType === OfferingIncomeSearchType.Special ||
                                                 searchType === OfferingIncomeSearchType.ChurchGround
-                                              ? OfferingIncomeSearchByGroundChurchAndSpecialNames
-                                              : OfferingIncomeSearchByIncomeAdjustmentNames
+                                              ? SubTypeNamesOfferingIncomeSearchByGroundChurchAndSpecial
+                                              : SubTypeNamesOfferingIncomeSearchByIncomeAdjustment
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}

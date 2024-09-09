@@ -8,23 +8,23 @@ import {
 
 export const SupervisorChildrenRoutes = [
   {
-    path: '/supervisors/create-supervisor',
+    path: '/supervisors/create',
     element: <SupervisorCreatePage />,
   },
   {
-    path: '/supervisors/search-supervisors',
+    path: '/supervisors/general-search',
     element: <SupervisorsGeneralSearchPage />,
   },
   {
-    path: '/supervisors/search-supervisors-by-term',
+    path: '/supervisors/search-by-term',
     element: <SupervisorsSearchPageByTerm />,
   },
   {
-    path: '/supervisors/update-supervisor',
+    path: '/supervisors/update',
     element: <SupervisorUpdatePage />,
   },
   {
-    path: '/supervisors/delete-supervisor',
+    path: '/supervisors/delete',
     element: <SupervisorDeletePage />,
   },
 ];

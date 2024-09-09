@@ -8,23 +8,23 @@ import {
 
 export const PastorChildrenRoutes = [
   {
-    path: '/pastors/create-pastor',
+    path: '/pastors/create',
     element: <PastorCreatePage />,
   },
   {
-    path: '/pastors/search-pastors',
+    path: '/pastors/general-search',
     element: <PastorsGeneralSearchPage />,
   },
   {
-    path: '/pastors/search-pastors-by-term',
+    path: '/pastors/search-by-term',
     element: <PastorsSearchPageByTerm />,
   },
   {
-    path: '/pastors/update-pastor',
+    path: '/pastors/update',
     element: <PastorUpdatePage />,
   },
   {
-    path: '/pastors/delete-pastor',
+    path: '/pastors/delete',
     element: <PastorDeletePage />,
   },
 ];

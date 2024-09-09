@@ -184,6 +184,8 @@ export const FamilyGroupUpdateForm = ({
     familyGroupUpdateMutation.mutate({ id, formData });
   };
 
+  console.log(data?.theirPreacher);
+
   return (
     <Tabs
       defaultValue='general-info'
@@ -201,7 +203,7 @@ export const FamilyGroupUpdateForm = ({
             <CardContent className='py-3 px-4'>
               <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-4'>
                 Grupo Familiar:{' '}
-                {`${data?.familyGroupCode ?? 'Sin código'} - ${data?.familyGroupName}`}
+                {`${data?.familyGroupName} (${data?.familyGroupCode ?? 'Sin código'})`}
               </div>
               <Form {...form}>
                 <form
@@ -620,7 +622,8 @@ export const FamilyGroupUpdateForm = ({
                               Seleccione un predicador para esta grupo familiar.
                             </FormDescription>
                             {preachersByZoneQuery?.isFetching &&
-                            data?.recordStatus === RecordStatus.Inactive ? (
+                            (data?.recordStatus === RecordStatus.Inactive ||
+                              !data?.theirPreacher) ? (
                               <div className='pt-2 font-black text-[16px] text-center dark:text-gray-300 text-gray-500'>
                                 <span>Cargando predicadores...</span>
                               </div>
@@ -646,7 +649,8 @@ export const FamilyGroupUpdateForm = ({
                                       (field.value && data?.recordStatus === RecordStatus.Active)
                                         ? `${preachersQuery?.data?.find((preacher) => preacher.id === field.value)?.firstName} ${preachersQuery?.data?.find((preacher) => preacher.id === field.value)?.lastName}`
                                         : field.value &&
-                                            data?.recordStatus === RecordStatus.Inactive
+                                            (data?.recordStatus === RecordStatus.Inactive ||
+                                              !data?.theirPreacher)
                                           ? `${preachersByZoneQuery?.data?.find((preacher) => preacher.id === field.value)?.firstName} ${preachersByZoneQuery?.data?.find((preacher) => preacher.id === field.value)?.lastName}`
                                           : 'Busque y seleccione un predicador'}
                                       <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
@@ -659,7 +663,8 @@ export const FamilyGroupUpdateForm = ({
                                       placeholder='Busque un predicador...'
                                       className='h-9 text-[14px]'
                                     />
-                                    {data?.recordStatus === RecordStatus.Active
+                                    {data?.recordStatus === RecordStatus.Active &&
+                                    data?.theirPreacher?.id
                                       ? preachersQuery?.data && (
                                           <CommandEmpty>Predicador no encontrado.</CommandEmpty>
                                         )
@@ -673,7 +678,8 @@ export const FamilyGroupUpdateForm = ({
                                           'w-[320px]'
                                       )}
                                     >
-                                      {data?.recordStatus === RecordStatus.Active
+                                      {data?.recordStatus === RecordStatus.Active &&
+                                      data.theirPreacher?.id
                                         ? preachersQuery?.data?.map((preacher) => (
                                             <CommandItem
                                               className='text-[14px]'

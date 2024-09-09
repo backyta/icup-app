@@ -1,12 +1,12 @@
 import { 
+  type Zone,
   type Copastor, 
-  type Disciple, 
-  type FamilyGroup, 
   type Preacher, 
-  type Supervisor, 
-  type Zone, 
+  type Disciple, 
   type CreatedBy,
   type UpdatedBy,
+  type Supervisor, 
+  type FamilyGroup, 
   type TheirChurch,
 } from '@/shared/interfaces';
 

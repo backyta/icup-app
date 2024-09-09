@@ -4,15 +4,18 @@ import { useEffect } from 'react';
 
 import { format } from 'date-fns';
 
+import { cn } from '@/shared/lib/utils';
+import { RecordStatus } from '@/shared/enums';
+
 import { getInitialFullNames } from '@/shared/helpers';
 import { type FamilyGroupResponse } from '@/modules/family-group/interfaces';
 
 import {
   Card,
+  CardTitle,
+  CardHeader,
   CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle,
 } from '@/shared/components/ui/card';
 import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
@@ -30,17 +33,17 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
     if (id) {
       const url = new URL(window.location.href);
 
-      if (url.pathname === '/family-groups/search-family-groups')
-        url.pathname = `/family-groups/search-family-groups/${id}/view`;
+      if (url.pathname === '/family-groups/general-search')
+        url.pathname = `/family-groups/general-search/${id}/view`;
 
-      if (url.pathname === '/family-groups/search-family-groups-by-term')
-        url.pathname = `/family-groups/search-family-groups-by-term/${id}/view`;
+      if (url.pathname === '/family-groups/search-by-term')
+        url.pathname = `/family-groups/search-by-term/${id}/view`;
 
-      if (url.pathname === '/family-groups/update-family-group')
-        url.pathname = `/family-groups/update-family-group/${id}/view`;
+      if (url.pathname === '/family-groups/update')
+        url.pathname = `/family-groups/update/${id}/view`;
 
-      if (url.pathname === '/family-groups/delete-family-group')
-        url.pathname = `/family-groups/delete-family-group/${id}/view`;
+      if (url.pathname === '/family-groups/delete')
+        url.pathname = `/family-groups/delete/${id}/view`;
 
       window.history.replaceState({}, '', url);
     }
@@ -140,12 +143,14 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
                   : '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-6 row-end-7 md:grid md:row-start-5 md:row-end-6 md:col-start-2 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Fecha de creación</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdAt ? format(new Date(data?.createdAt), 'dd/MM/yyyy') : '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-7 row-end-8 md:grid md:row-auto  md:col-start-1 md:col-end-2'>
               <Label className='text-[14px] md:text-[15px]'>Actualizado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -157,16 +162,25 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
                   : '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-8 row-end-9 md:grid  md:row-auto md:col-start-2 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Ultima fecha de actualización</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.updatedAt ? format(new Date(data?.updatedAt), 'dd/MM/yyyy') : '-'}
+                {data?.updatedAt
+                  ? `${format(new Date(data?.updatedAt), 'dd/MM/yyyy')} - ${`${format(new Date(data?.updatedAt), 'hh:mm a')}`}`
+                  : '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-9 row-end-10 md:grid md:row-start-5 md:row-end-6 md:col-start-3 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
-                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
+              <CardDescription
+                className={cn(
+                  'px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold',
+                  data?.recordStatus !== RecordStatus.Active && 'text-red-600'
+                )}
+              >
+                {data?.recordStatus === RecordStatus.Active ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>
@@ -240,8 +254,13 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
-              <CardDescription className='px-2 text-green-600 font-bold'>
-                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
+              <CardDescription
+                className={cn(
+                  'px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold',
+                  data?.recordStatus !== RecordStatus.Active && 'text-red-600'
+                )}
+              >
+                {data?.recordStatus === RecordStatus.Active ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>
@@ -310,8 +329,13 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
-              <CardDescription className='px-2 text-green-600 font-bold'>
-                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
+              <CardDescription
+                className={cn(
+                  'px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold',
+                  data?.recordStatus !== RecordStatus.Active && 'text-red-600'
+                )}
+              >
+                {data?.recordStatus === RecordStatus.Active ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>

@@ -62,10 +62,10 @@ export function SearchByTermPreacherDataTable<TData, TValue>({
   dataForm,
 }: DataTableProps<TData, TValue>): JSX.Element {
   //* States
+  const [rowSelection, setRowSelection] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = useState({});
 
   const isFiltersSearchByTermDisabled = usePreacherStore(
     (state) => state.isFiltersSearchByTermDisabled
@@ -81,6 +81,7 @@ export function SearchByTermPreacherDataTable<TData, TValue>({
 
   //* Hooks (external libraries)
   const navigate = useNavigate();
+
   //* Queries
   const query = useQuery({
     queryKey: ['preachers-by-term', searchParams],

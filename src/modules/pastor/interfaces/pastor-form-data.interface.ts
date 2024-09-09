@@ -26,7 +26,6 @@ export type PastorFormDataKeys =
   | 'firstName'
   | 'lastName'
   | 'gender'
-  | 'churchName'
   | 'originCountry'
   | 'birthDate'
   | 'maritalStatus'

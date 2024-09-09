@@ -7,6 +7,8 @@ import { format, addDays } from 'date-fns';
 import { type ChurchResponse } from '@/modules/church/interfaces';
 import { type ChurchWorshipTime, ChurchWorshipTimeNames } from '@/modules/church/enums';
 
+import { cn } from '@/shared/lib/utils';
+import { RecordStatus } from '@/shared/enums';
 import { PopoverDataCard } from '@/shared/components';
 import { getInitialFullNames } from '@/shared/helpers';
 
@@ -33,17 +35,15 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
     if (id) {
       const url = new URL(window.location.href);
 
-      if (url.pathname === '/churches/search-churches')
-        url.pathname = `/churches/search-churches/${id}/view`;
+      if (url.pathname === '/churches/general-search')
+        url.pathname = `/churches/general-search/${id}/view`;
 
-      if (url.pathname === '/churches/search-churches-by-term')
-        url.pathname = `/churches/search-churches-by-term/${id}/view`;
+      if (url.pathname === '/churches/search-by-term')
+        url.pathname = `/churches/search-by-term/${id}/view`;
 
-      if (url.pathname === '/churches/update-church')
-        url.pathname = `/churches/update-church/${id}/view`;
+      if (url.pathname === '/churches/update') url.pathname = `/churches/update/${id}/view`;
 
-      if (url.pathname === '/churches/delete-church')
-        url.pathname = `/churches/delete-church/${id}/view`;
+      if (url.pathname === '/churches/delete') url.pathname = `/churches/delete/${id}/view`;
 
       window.history.replaceState({}, '', url);
     }
@@ -285,14 +285,21 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center md:grid md:col-start-2 md:col-end-4 md:row-auto'>
               <Label className='text-[14px] md:text-[15px]'>Ultima fecha de actualización</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.updatedAt ? format(new Date(data?.updatedAt), 'dd/MM/yyyy') : '-'}
+                {data?.updatedAt
+                  ? `${format(new Date(data?.updatedAt), 'dd/MM/yyyy')} - ${`${format(new Date(data?.updatedAt), 'hh:mm a')}`}`
+                  : '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center md:grid md:col-start-3 md:col-end-4 md:row-start-7 md:row-end-8'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
-                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
+              <CardDescription
+                className={cn(
+                  'px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold',
+                  data?.recordStatus !== RecordStatus.Active && 'text-red-600'
+                )}
+              >
+                {data?.recordStatus === RecordStatus.Active ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>
@@ -375,8 +382,13 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
-              <CardDescription className='px-2 text-green-600 font-bold'>
-                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
+              <CardDescription
+                className={cn(
+                  'px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold',
+                  data?.recordStatus !== RecordStatus.Active && 'text-red-600'
+                )}
+              >
+                {data?.recordStatus === RecordStatus.Active ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>

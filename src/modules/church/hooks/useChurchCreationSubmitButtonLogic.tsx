@@ -3,21 +3,20 @@
 import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
-
 import { type ChurchFormData } from '@/modules/church/interfaces';
 
 interface Options {
   churchCreationForm: UseFormReturn<ChurchFormData, any, ChurchFormData>;
+  isInputDisabled: boolean;
   setIsSubmitButtonDisabled: (value: boolean) => void;
   setIsMessageErrorDisabled: (value: boolean) => void;
-  isInputDisabled: boolean;
 }
 
 export const useChurchCreationSubmitButtonLogic = ({
   churchCreationForm,
+  isInputDisabled,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
-  isInputDisabled,
 }: Options): void => {
   //* Watchers
   const nameChurch = churchCreationForm.watch('churchName');

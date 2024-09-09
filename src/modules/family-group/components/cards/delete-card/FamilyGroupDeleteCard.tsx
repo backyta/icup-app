@@ -25,7 +25,7 @@ export const FamilyGroupDeleteCard = ({ idRow }: FamilyGroupDeleteCardProps): JS
 
     if (idRow && isCardOpen) {
       const url = new URL(window.location.href);
-      url.pathname = `/family-groups/delete-family-group/${idRow}/remove`;
+      url.pathname = `/family-groups/delete/${idRow}/remove`;
 
       window.history.replaceState({}, '', url);
 

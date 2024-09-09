@@ -13,25 +13,27 @@ import { type ErrorResponse } from '@/shared/interfaces';
 import { type FilesProps } from '@/modules/offering/shared/interfaces';
 
 interface Options {
-  offeringIncomeCreationForm: UseFormReturn<OfferingIncomeFormData, any, OfferingIncomeFormData>;
+  setFiles: React.Dispatch<React.SetStateAction<FilesProps[]>>;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  setFiles: React.Dispatch<React.SetStateAction<FilesProps[]>>;
+  offeringIncomeCreationForm: UseFormReturn<OfferingIncomeFormData, any, OfferingIncomeFormData>;
 }
 
 export const useOfferingIncomeCreationMutation = ({
-  offeringIncomeCreationForm,
-  setIsInputDisabled,
-  setIsSubmitButtonDisabled,
   setFiles,
+  setIsInputDisabled,
+  offeringIncomeCreationForm,
+  setIsSubmitButtonDisabled,
 }: Options): UseMutationResult<
   OfferingIncomeResponse,
   ErrorResponse,
   OfferingIncomeFormData,
   unknown
 > => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
+  //* Hooks
   const mutation = useMutation({
     mutationFn: createOfferingIncome,
     onError: (error: ErrorResponse) => {
@@ -74,9 +76,9 @@ export const useOfferingIncomeCreationMutation = ({
         setFiles([]);
       }, 1600);
 
-      setTimeout(() => {
-        navigate('/offerings/income');
-      }, 2400);
+      // setTimeout(() => {
+      //   navigate('/offerings/incomes');
+      // }, 2400);
     },
   });
 

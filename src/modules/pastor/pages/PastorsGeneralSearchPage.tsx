@@ -12,8 +12,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { usePastorStore } from '@/stores/pastor';
 
 import {
-  GeneralPastorSearchDataTable,
   pastorInfoColumns as columns,
+  GeneralPastorSearchDataTable,
 } from '@/modules/pastor/components';
 import { type PastorResponse } from '@/modules/pastor/interfaces';
 
@@ -71,6 +71,7 @@ const dataFictional: PastorResponse[] = [
 
 export const PastorsGeneralSearchPage = (): JSX.Element => {
   //* States
+  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
 
   const isFiltersSearchGeneralDisabled = usePastorStore(
@@ -79,8 +80,6 @@ export const PastorsGeneralSearchPage = (): JSX.Element => {
   const setIsFiltersSearchGeneralDisabled = usePastorStore(
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
-
-  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({
@@ -112,6 +111,10 @@ export const PastorsGeneralSearchPage = (): JSX.Element => {
 
   useEffect(() => {
     setIsFiltersSearchGeneralDisabled(true);
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Modulo Pastor - IcupApp';
   }, []);
 
   //* Form handler

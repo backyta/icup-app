@@ -43,9 +43,13 @@ export const useChurchUpdateEffects = ({
     churchUpdateForm.setValue('theirMainChurch', data?.theirMainChurch?.id);
     churchUpdateForm.setValue('recordStatus', data?.recordStatus);
 
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setIsLoadingData(false);
     }, 1200);
+
+    return () => {
+      clearTimeout(timeoutId); // Limpiar el timeout cuando el componente se desmonte
+    };
   }, []);
 
   //* Generate dynamic url
@@ -54,7 +58,7 @@ export const useChurchUpdateEffects = ({
 
     if (id) {
       const url = new URL(window.location.href);
-      url.pathname = `/churches/update-church/${id}/edit`;
+      url.pathname = `/churches/update/${id}/edit`;
 
       window.history.replaceState({}, '', url);
     }

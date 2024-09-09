@@ -8,7 +8,6 @@ import { FamilyGroupInfoCard } from '@/modules/family-group/components';
 import { type FamilyGroupColumns } from '@/modules/family-group/interfaces';
 
 import { getInitialFullNames } from '@/shared/helpers';
-
 import { Button } from '@/shared/components/ui/button';
 
 export const familyGroupInfoColumns: Array<ColumnDef<FamilyGroupColumns, any>> = [

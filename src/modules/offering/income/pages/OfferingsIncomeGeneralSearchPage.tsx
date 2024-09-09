@@ -62,11 +62,13 @@ const dataFictional: OfferingIncomeResponse[] = [
     supervisor: null,
     copastor: null,
     pastor: null,
+    church: null,
   },
 ];
 
 export const OfferingsIncomeGeneralSearchPage = (): JSX.Element => {
   //* States
+  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
 
   const isFiltersSearchGeneralDisabled = useOfferingIncomeStore(
@@ -75,8 +77,6 @@ export const OfferingsIncomeGeneralSearchPage = (): JSX.Element => {
   const setIsFiltersSearchGeneralDisabled = useOfferingIncomeStore(
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
-
-  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({
@@ -108,6 +108,10 @@ export const OfferingsIncomeGeneralSearchPage = (): JSX.Element => {
 
   useEffect(() => {
     setIsFiltersSearchGeneralDisabled(true);
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Modulo Ofrenda - IcupApp';
   }, []);
 
   //* Form handler

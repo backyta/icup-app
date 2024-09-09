@@ -27,7 +27,6 @@ import { churchFormSchema } from '@/modules/church/validations';
 import { ChurchWorshipTime, ChurchWorshipTimeNames } from '@/modules/church/enums';
 
 import { cn } from '@/shared/lib/utils';
-import { LoadingSpinner } from '@/shared/components';
 
 import {
   Country,
@@ -123,6 +122,10 @@ export const ChurchCreatePage = (): JSX.Element => {
     });
   }, [isAnexe]);
 
+  useEffect(() => {
+    document.title = 'Modulo Iglesia - IcupApp';
+  }, []);
+
   //* Helpers
   const disabledDistricts = validateDistrictsAllowedByModule(pathname);
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
@@ -142,12 +145,10 @@ export const ChurchCreatePage = (): JSX.Element => {
   });
 
   //* Queries
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ['mainChurch'],
     queryFn: getMainChurch,
   });
-
-  if (isLoading) return <LoadingSpinner />;
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof churchFormSchema>): void => {
@@ -207,7 +208,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                 control={form.control}
                 name='foundingDate'
                 render={({ field }) => (
-                  <FormItem className='flex flex-col mt-4'>
+                  <FormItem className='mt-4'>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                       Fecha de fundación
                     </FormLabel>

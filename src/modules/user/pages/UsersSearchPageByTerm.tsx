@@ -61,7 +61,9 @@ const dataFictional: UserResponse[] = [
 
 export const UsersSearchPageByTerm = (): JSX.Element => {
   //* States
+  const [dataForm, setDataForm] = useState<UserSearchFormByTerm>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
+  const [searchParams, setSearchParams] = useState<UserSearchFormByTerm | undefined>();
 
   const isFiltersSearchByTermDisabled = useUserStore(
     (state) => state.isFiltersSearchByTermDisabled
@@ -69,9 +71,6 @@ export const UsersSearchPageByTerm = (): JSX.Element => {
   const setIsFiltersSearchByTermDisabled = useUserStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
-
-  const [dataForm, setDataForm] = useState<UserSearchFormByTerm>();
-  const [searchParams, setSearchParams] = useState<UserSearchFormByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof userSearchByTermFormSchema>>({
@@ -112,6 +111,10 @@ export const UsersSearchPageByTerm = (): JSX.Element => {
 
   useEffect(() => {
     setIsFiltersSearchByTermDisabled(true);
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Modulo Usuario - IcupApp';
   }, []);
 
   //* Form handler

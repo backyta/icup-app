@@ -3,9 +3,8 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
-import { deleteCopastor } from '@/modules/copastor/services';
-
 import { type ErrorResponse } from '@/shared/interfaces';
+import { deleteCopastor } from '@/modules/copastor/services';
 
 interface Options {
   setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,6 +15,7 @@ export const useCopastorDeletionMutation = ({
   setIsCardOpen,
   setIsButtonDisabled,
 }: Options): UseMutationResult<void, ErrorResponse, string, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* QueryClient

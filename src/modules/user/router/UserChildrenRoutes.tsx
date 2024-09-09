@@ -8,23 +8,23 @@ import {
 
 export const UserChildrenRoutes = [
   {
-    path: '/users/create-user',
+    path: '/users/create',
     element: <UserCreatePage />,
   },
   {
-    path: '/users/search-users',
+    path: '/users/general-search',
     element: <UsersGeneralSearchPage />,
   },
   {
-    path: '/users/search-by-term-users',
+    path: '/users/search-by-term',
     element: <UsersSearchPageByTerm />,
   },
   {
-    path: '/users/update-user',
+    path: '/users/update',
     element: <UserUpdatePage />,
   },
   {
-    path: '/users/delete-user',
+    path: '/users/delete',
     element: <UserDeletePage />,
   },
 ];

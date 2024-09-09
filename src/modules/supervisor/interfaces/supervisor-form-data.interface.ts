@@ -29,7 +29,6 @@ export type SupervisorFormDataKeys =
   | 'firstName'
   | 'lastName'
   | 'gender'
-  | 'churchName'
   | 'originCountry'
   | 'birthDate'
   | 'maritalStatus'

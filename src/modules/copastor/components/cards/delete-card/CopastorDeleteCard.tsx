@@ -25,7 +25,7 @@ export const CopastorDeleteCard = ({ idRow }: CopastorDeleteCardProps): JSX.Elem
 
     if (idRow && isCardOpen) {
       const url = new URL(window.location.href);
-      url.pathname = `/copastors/delete-copastor/${idRow}/remove`;
+      url.pathname = `/copastors/delete/${idRow}/remove`;
 
       window.history.replaceState({}, '', url);
 

@@ -9,16 +9,16 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import {
-  familyGroupInfoColumns as columns,
   SearchByTermFamilyGroupDataTable,
+  familyGroupInfoColumns as columns,
 } from '@/modules/family-group/components';
 import {
   FamilyGroupSearchType,
   FamilyGroupSearchTypeNames,
-  FamilyGroupSearchNamesByFirstNames,
-  FamilyGroupSearchNamesByFullNames,
-  FamilyGroupSearchNamesByLastNames,
   FamilyGroupSearchNamesByRecordStatus,
+  SubTypeNamesFamilyGroupSearchByFirstNames,
+  SubTypeNamesFamilyGroupSearchByFullNames,
+  SubTypeNamesFamilyGroupSearchByLastNames,
 } from '@/modules/family-group/enums';
 import {
   type FamilyGroupResponse,
@@ -74,7 +74,8 @@ const dataFictional: FamilyGroupResponse[] = [
 
 export const FamilyGroupsSearchPageByTerm = (): JSX.Element => {
   //* States
-  const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
+  const [dataForm, setDataForm] = useState<FamilyGroupSearchFormByTerm>();
+  const [searchParams, setSearchParams] = useState<FamilyGroupSearchFormByTerm | undefined>();
 
   const isFiltersSearchByTermDisabled = useFamilyGroupStore(
     (state) => state.isFiltersSearchByTermDisabled
@@ -83,8 +84,7 @@ export const FamilyGroupsSearchPageByTerm = (): JSX.Element => {
     (state) => state.setIsFiltersSearchByTermDisabled
   );
 
-  const [dataForm, setDataForm] = useState<FamilyGroupSearchFormByTerm>();
-  const [searchParams, setSearchParams] = useState<FamilyGroupSearchFormByTerm | undefined>();
+  const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
 
   //* Forms
   const form = useForm<z.infer<typeof familyGroupSearchByTermFormSchema>>({
@@ -131,6 +131,10 @@ export const FamilyGroupsSearchPageByTerm = (): JSX.Element => {
   useEffect(() => {
     form.setValue('searchSubType', undefined);
   }, [searchType]);
+
+  useEffect(() => {
+    document.title = 'Modulo Grupo Familiar - IcupApp';
+  }, []);
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof familyGroupSearchByTermFormSchema>): void {
@@ -274,10 +278,10 @@ export const FamilyGroupsSearchPageByTerm = (): JSX.Element => {
                           <SelectContent>
                             {Object.entries(
                               searchType === FamilyGroupSearchType.FirstName
-                                ? FamilyGroupSearchNamesByFirstNames
+                                ? SubTypeNamesFamilyGroupSearchByFirstNames
                                 : searchType === FamilyGroupSearchType.LastName
-                                  ? FamilyGroupSearchNamesByLastNames
-                                  : FamilyGroupSearchNamesByFullNames
+                                  ? SubTypeNamesFamilyGroupSearchByLastNames
+                                  : SubTypeNamesFamilyGroupSearchByFullNames
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}

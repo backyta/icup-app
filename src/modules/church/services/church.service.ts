@@ -85,6 +85,7 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
 
  let result: ChurchResponse[];
 
+ //* Others types
  if (searchType === ChurchSearchType.ChurchName||
      searchType === ChurchSearchType.Department || 
      searchType === ChurchSearchType.Province || 
@@ -125,6 +126,7 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
     }
  }
 
+ //* Founding date
  if (searchType === ChurchSearchType.FoundingDate) {
    try {
      if (!all) {
@@ -159,6 +161,7 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
    }
  }
 
+ //* Record Status
  if (searchType === ChurchSearchType.RecordStatus) {
     try {
       if (!all) {

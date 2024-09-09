@@ -1,9 +1,9 @@
-export interface RejectedProps {
-  errors: ErrorsProps[];
+export interface RejectionProps {
+  errors: ErrorProps[];
   file: File;
 }
 
-interface ErrorsProps{
+interface ErrorProps{
   code: string;
   message: string;
 }

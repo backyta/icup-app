@@ -27,7 +27,6 @@ import { copastorFormSchema } from '@/modules/copastor/validations';
 import { useRoleValidationByPath } from '@/shared/hooks';
 
 import { cn } from '@/shared/lib/utils';
-import { LoadingSpinner } from '@/shared/components';
 
 import {
   Country,
@@ -129,6 +128,10 @@ export const CopastorCreatePage = (): JSX.Element => {
     });
   }, [district]);
 
+  useEffect(() => {
+    document.title = 'Modulo Co-Pastor - IcupApp';
+  }, []);
+
   //* Helpers
   const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
   const disabledDistricts = validateDistrictsAllowedByModule(pathname);
@@ -155,12 +158,10 @@ export const CopastorCreatePage = (): JSX.Element => {
   });
 
   //* Queries
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ['pastors'],
     queryFn: getAllPastors,
   });
-
-  if (isLoading) return <LoadingSpinner />;
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof copastorFormSchema>): void => {
@@ -298,7 +299,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                 control={form.control}
                 name='birthDate'
                 render={({ field }) => (
-                  <FormItem className='flex flex-col mt-4'>
+                  <FormItem className='mt-4'>
                     <FormLabel className='text-[14px] font-medium'>Fecha de nacimiento</FormLabel>
                     <Popover open={isInputBirthDateOpen} onOpenChange={setIsInputBirthDateOpen}>
                       <PopoverTrigger asChild>
@@ -396,7 +397,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                 control={form.control}
                 name='conversionDate'
                 render={({ field }) => (
-                  <FormItem className='flex flex-col mt-4'>
+                  <FormItem className='mt-4'>
                     <FormLabel className='text-[14px] font-medium'>Fecha de conversión</FormLabel>
                     <Popover
                       open={isInputConvertionDateOpen}
@@ -788,7 +789,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                 name='theirPastor'
                 render={({ field }) => {
                   return (
-                    <FormItem className='flex flex-col mt-4'>
+                    <FormItem className='mt-4'>
                       <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
                         Pastor
                       </FormLabel>

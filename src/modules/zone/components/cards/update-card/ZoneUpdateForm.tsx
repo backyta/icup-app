@@ -72,13 +72,13 @@ export const ZoneUpdateForm = ({
   onScroll,
 }: ZoneFormUpdateProps): JSX.Element => {
   //* States
+  const [isLoadingData, setIsLoadingData] = useState(true);
+  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
+  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
+  const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
   const [isInputTheirSupervisorOpen, setIsInputTheirSupervisorOpen] = useState<boolean>(false);
   const [isInputTheirSupervisorDisabled, setIsInputTheirSupervisorDisabled] =
     useState<boolean>(false);
-  const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
-  const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
-  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
-  const [isLoadingData, setIsLoadingData] = useState(true);
 
   //* Hooks (external libraries)
   const { pathname } = useLocation();

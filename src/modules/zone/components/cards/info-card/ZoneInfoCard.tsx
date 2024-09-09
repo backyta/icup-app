@@ -31,7 +31,7 @@ export const ZoneInfoCard = ({ idRow }: ZoneInfoCardProps): JSX.Element => {
 
   //* Functions
   const currentZone =
-    pathname === '/zones/search-zones'
+    pathname === '/zones/general-search'
       ? dataSearchGeneralResponse?.find((data) => data.id === idRow)
       : dataSearchByTermResponse?.find((data) => data.id === idRow);
 

@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 
 import { useEffect, useState } from 'react';
 
@@ -18,19 +20,22 @@ import { cn } from '@/shared/lib/utils';
 import { LoadingSpinner } from '@/shared/components';
 import { type FamilyGroup } from '@/shared/interfaces';
 import { dateFormatterToDDMMYY } from '@/shared/helpers';
+import { CurrencyType } from '@/modules/offering/shared/enums';
 
 import { getAllChurches } from '@/modules/pastor/services';
 import { DashboardSearchType } from '@/modules/dashboard/enums';
 
-import { getOfferingsForBarChartByTerm } from '@/modules/dashboard/services';
+import { type Offering } from '@/modules/dashboard/interfaces';
+import { RenderTooltipContent } from '@/modules/dashboard/components';
 import { dashBoardSearchFormSchema } from '@/modules/dashboard/validations';
+import { getOfferingsForBarChartByTerm } from '@/modules/dashboard/services';
 
 import {
   Command,
+  CommandItem,
   CommandEmpty,
   CommandGroup,
   CommandInput,
-  CommandItem,
 } from '@/shared/components/ui/command';
 import {
   ChartLegend,
@@ -51,75 +56,34 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/components/ui/form';
 
 const chartConfig = {
-  accumulatedOffering: {
-    label: 'Ofrenda',
+  accumulatedOfferingPEN: {
+    label: 'Ofrenda PEN',
     color: '#029012',
+  },
+  accumulatedOfferingUSD: {
+    label: 'Ofrenda USD',
+    color: '#813cb4',
+  },
+  accumulatedOfferingEUR: {
+    label: 'Ofrenda EUR',
+    // color: '#1F77B4',
+    color: '#279fb3',
   },
 } satisfies ChartConfig;
 
-interface ListOfferings {
-  offering: number;
-  date: string | Date;
-}
-
 interface ResultDataOptions {
   date: string | Date;
-  accumulatedOffering: number;
+  accumulatedOfferingPEN: number;
+  accumulatedOfferingUSD: number;
+  accumulatedOfferingEUR: number;
   familyGroup?: FamilyGroup | undefined;
   familyGroupCode?: string | undefined;
-  lastOffering: number;
-  allOfferings: ListOfferings[];
+  allOfferings: Offering[];
 }
 
 interface SearchParamsOptions {
   selectTerm?: string;
 }
-
-//* Tooltip
-const renderTooltipContent = (props: any): JSX.Element => {
-  const { payload, label } = props;
-
-  return (
-    <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
-      <p className='font-medium text-[12px] sm:text-[14px]'>{`${label}`}</p>
-      <ul className='list grid gap-1.5 '>
-        {payload.map((entry: any, index: any) => (
-          <li
-            key={`item-${index}`}
-            className='flex items-center font-medium text-[12.5px] sm:text-[14px]'
-          >
-            <span
-              className='inline-block h-2.5 w-2.5 rounded-[2px] mr-2'
-              style={{
-                backgroundColor: entry.color,
-                border: `1px solid ${entry.color}`,
-              }}
-            ></span>
-            <span className='font-semibold'>{`Ultima Ofrenda:`}</span>
-            <span className='pl-1 font-normal dark:text-white text-black'>{`${entry?.payload?.lastOffering} soles - ${entry?.payload?.date}`}</span>
-          </li>
-        ))}
-      </ul>
-      <li className='pl-1 font-medium text-[12px] sm:text-[13.5px]'>
-        <span className='-ml-2'>{`Pred: ${payload[0]?.payload?.familyGroup?.theirPreacher?.firstName} ${payload[0]?.payload?.familyGroup?.theirPreacher?.lastName}`}</span>
-      </li>
-      <li className='pl-1 font-medium text-[12px] sm:text-[13.5px]'>
-        <span className='-ml-2'>{`Miembros: ${payload[0]?.payload?.familyGroup?.disciples.length}`}</span>
-      </li>
-
-      {/* <p className='font-medium text-[12.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-        Ofrendas y fechas:
-        <ul>
-          {payload[0]?.payload?.allOfferings?.map((offering: any, index: number) => (
-            <li key={index}>{`${offering.date}: ${offering.offering} soles`}</li>
-          ))}
-        </ul>
-      </p> */}
-
-      <p className='font-medium text-[12.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>{`Total acumulado: ${payload[0]?.payload?.accumulatedOffering} soles`}</p>
-    </div>
-  );
-};
 
 export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
   //* States
@@ -161,6 +125,7 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
   });
 
   //* Effects
+  // Default church
   useEffect(() => {
     if (churchesQuery.data) {
       const church = churchesQuery?.data?.map((church) => church?.id)[0];
@@ -178,18 +143,30 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
         const existing = acc.find((item) => item.familyGroup?.id === offering.familyGroup?.id);
 
         if (existing) {
-          existing.accumulatedOffering += +offering.amount;
-          existing.allOfferings.push({ offering: +offering.amount, date: formattedDate });
+          if (offering.currency === CurrencyType.PEN) {
+            existing.accumulatedOfferingPEN += +offering.amount;
+          } else if (offering.currency === CurrencyType.USD) {
+            existing.accumulatedOfferingUSD += +offering.amount;
+          } else if (offering.currency === CurrencyType.EUR) {
+            existing.accumulatedOfferingEUR += +offering.amount;
+          }
+
+          existing.allOfferings.push({
+            offering: +offering.amount,
+            currency: offering.currency,
+            date: formattedDate,
+          });
         } else {
           acc.push({
             date: formattedDate,
-            accumulatedOffering: offering.amount ? +offering.amount : 0,
+            accumulatedOfferingPEN: offering.currency === CurrencyType.PEN ? +offering.amount : 0,
+            accumulatedOfferingUSD: offering.currency === CurrencyType.USD ? +offering.amount : 0,
+            accumulatedOfferingEUR: offering.currency === CurrencyType.EUR ? +offering.amount : 0,
             familyGroup: offering?.familyGroup ? offering?.familyGroup : undefined,
-            familyGroupCode: offering.familyGroup?.familyGroupCode
-              ? offering.familyGroup?.familyGroupCode
-              : '',
-            lastOffering: +offering.amount,
-            allOfferings: [{ offering: +offering.amount, date: formattedDate }],
+            familyGroupCode: offering.familyGroup?.familyGroupCode ?? '',
+            allOfferings: [
+              { offering: +offering.amount, currency: offering.currency, date: formattedDate },
+            ],
           });
         }
 
@@ -197,7 +174,13 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
       }, []);
 
       const top10ResultData = resultData
-        .sort((a, b) => b.accumulatedOffering - a.accumulatedOffering)
+        .sort(
+          (a, b) =>
+            b.accumulatedOfferingPEN +
+            b.accumulatedOfferingUSD +
+            b.accumulatedOfferingEUR -
+            (a.accumulatedOfferingPEN + a.accumulatedOfferingUSD + a.accumulatedOfferingEUR)
+        )
         .slice(0, 10);
 
       setResultData(top10ResultData);
@@ -328,15 +311,28 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
                 />
 
                 <YAxis className='text-[12px] sm:text-[14px]' />
-                <ChartTooltip cursor={false} content={renderTooltipContent} />
+                <ChartTooltip cursor={false} content={RenderTooltipContent as any} />
 
                 <ChartLegend
                   content={<ChartLegendContent className='ml-10 text-[12px] sm:text-[14px]' />}
                 />
 
                 <Bar
-                  dataKey='accumulatedOffering'
-                  fill='var(--color-accumulatedOffering)'
+                  dataKey='accumulatedOfferingPEN'
+                  stackId='a'
+                  fill='var(--color-accumulatedOfferingPEN)'
+                  radius={4}
+                />
+                <Bar
+                  dataKey='accumulatedOfferingUSD'
+                  stackId='a'
+                  fill='var(--color-accumulatedOfferingUSD)'
+                  radius={4}
+                />
+                <Bar
+                  dataKey='accumulatedOfferingEUR'
+                  stackId='a'
+                  fill='var(--color-accumulatedOfferingEUR)'
                   radius={4}
                 />
               </BarChart>

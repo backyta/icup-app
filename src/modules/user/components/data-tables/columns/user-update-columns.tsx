@@ -1,11 +1,11 @@
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
+import { Button } from '@/shared/components/ui/button';
+
 import { type UserColumns } from '@/modules/user/interfaces';
 import { type UserRole, UserRoleNames } from '@/modules/user/enums';
 import { UserInfoCard, UserUpdateCard, UserPasswordUpdateCard } from '@/modules/user/components';
-
-import { Button } from '@/shared/components/ui/button';
 
 export const userUpdateColumns: Array<ColumnDef<UserColumns, any>> = [
   {

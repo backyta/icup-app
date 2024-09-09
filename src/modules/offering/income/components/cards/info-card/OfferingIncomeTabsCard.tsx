@@ -4,26 +4,31 @@ import { useEffect } from 'react';
 
 import { format } from 'date-fns';
 
+import { cn } from '@/shared/lib/utils';
+
 import {
   type MemberType,
   MemberTypeNames,
-  OfferingIncomeCreationSubTypeNames,
   OfferingIncomeCreationTypeNames,
+  OfferingIncomeCreationSubTypeNames,
+  OfferingIncomeCreationShiftTypeNames,
+  type OfferingIncomeCreationShiftType,
 } from '@/modules/offering/income/enums';
+import { RecordStatus } from '@/shared/enums';
+import { getInitialFullNames } from '@/shared/helpers';
 import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces';
+
+import { CurrencyTypeNames } from '@/modules/offering/shared/enums';
 
 import {
   Card,
+  CardTitle,
+  CardHeader,
   CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle,
 } from '@/shared/components/ui/card';
 import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
-
-import { getInitialFullNames } from '@/shared/helpers';
-import { CurrencyTypeNames } from '@/modules/offering/shared/enums';
 
 interface OfferingIncomeTabsCardProps {
   id: string;
@@ -38,17 +43,17 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
     if (id) {
       const url = new URL(window.location.href);
 
-      if (url.pathname === '/offerings/income/search-offerings-income')
-        url.pathname = `/offerings/income/search-offerings-income/${id}/view`;
+      if (url.pathname === '/offerings/incomes/general-search')
+        url.pathname = `/offerings/incomes/general-search/${id}/view`;
 
-      if (url.pathname === '/offerings/income/search-offerings-income-by-term')
-        url.pathname = `/offerings/income/search-offerings-income-by-term/${id}/view`;
+      if (url.pathname === '/offerings/incomes/search-by-term')
+        url.pathname = `/offerings/incomes/search-by-term/${id}/view`;
 
-      if (url.pathname === '/offerings/income/update-offering-income')
-        url.pathname = `/offerings/income/update-offering-income/${id}/view`;
+      if (url.pathname === '/offerings/incomes/update')
+        url.pathname = `/offerings/incomes/update/${id}/view`;
 
-      if (url.pathname === '/offerings/income/delete-offering-income')
-        url.pathname = `/offerings/income/delete-offering-income/${id}/view`;
+      if (url.pathname === '/offerings/incomes/delete')
+        url.pathname = `/offerings/incomes/delete/${id}/view`;
 
       window.history.replaceState({}, '', url);
     }
@@ -94,6 +99,16 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
               </CardDescription>
             </div>
             <div className='space-y-1'>
+              <Label className='text-[14px] md:text-[15px]'>Turno</Label>
+              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                {data?.shift
+                  ? OfferingIncomeCreationShiftTypeNames[
+                      data?.shift as OfferingIncomeCreationShiftType
+                    ]
+                  : '-'}
+              </CardDescription>
+            </div>
+            <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Monto</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.amount ?? '-'}
@@ -106,7 +121,7 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
                   '-'}
               </CardDescription>
             </div>
-            <div className='space-y-1 col-start-2 col-end-4'>
+            <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Comentarios</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] overflow-hidden text-ellipsis'>
                 {!data?.comments ? '-' : data?.comments}
@@ -135,47 +150,69 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
                 </ul>
               </div>
             </div>
-            <Label className='col-start-1 col-end-4 text-[15px] md:text-[16px] font-bold text-emerald-500'>
+
+            <Label className='md:-mb-3 col-start-1 col-end-4 text-[15px] md:text-[16px] font-bold text-emerald-500'>
               Pertenecía de la ofrenda
             </Label>
-            <div className='space-y-1'>
-              <Label className='text-[14px] md:text-[15px]'>Tipo de Miembro</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.memberType ? MemberTypeNames[data?.memberType as MemberType] : '-'}
-              </CardDescription>
-            </div>
-            <div className='space-y-1'>
-              <Label className='text-[14px] md:text-[15px]'>Miembro</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.disciple?.firstName
-                  ? `${data?.disciple?.firstName} ${data?.disciple?.lastName}`
-                  : data?.preacher?.firstName
-                    ? `${data?.preacher?.firstName} ${data?.preacher?.lastName}`
-                    : data?.supervisor?.firstName
-                      ? `${data?.supervisor?.firstName} ${data?.supervisor?.lastName}`
-                      : data?.copastor?.firstName
-                        ? `${data?.copastor?.firstName} ${data?.copastor?.lastName}`
-                        : data?.pastor?.firstName
-                          ? `${data?.pastor?.firstName} ${data?.pastor?.lastName}`
-                          : '-'}
-              </CardDescription>
-            </div>
-            <div className='space-y-1'>
-              <Label className='text-[14px] md:text-[15px]'>Zona</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.zone?.id ? `${data?.zone?.zoneName} - ${data?.zone?.district}` : '-'}
-              </CardDescription>
-            </div>
-            <div className='space-y-1 col-start-1 col-end-3'>
-              <Label className='text-[14px] md:text-[15px] '>Grupo Familiar</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.familyGroup?.id
-                  ? `${data?.familyGroup?.familyGroupName} - ${data?.familyGroup?.urbanSector} (${data?.familyGroup?.familyGroupCode})`
-                  : '-'}
-              </CardDescription>
-            </div>
+            {data?.memberType && (
+              <>
+                <div className='col-start-1 col-end-4  space-y-1'>
+                  <Label className='text-[14px] md:text-[15px]'>Tipo de Miembro</Label>
+                  <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                    {data?.memberType ? MemberTypeNames[data?.memberType as MemberType] : '-'}
+                  </CardDescription>
+                </div>
+                <div className='space-y-1'>
+                  <Label className='text-[14px] md:text-[15px]'>Miembro</Label>
+                  <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                    {data?.disciple?.firstName
+                      ? `${data?.disciple?.firstName} ${data?.disciple?.lastName}`
+                      : data?.preacher?.firstName
+                        ? `${data?.preacher?.firstName} ${data?.preacher?.lastName}`
+                        : data?.supervisor?.firstName
+                          ? `${data?.supervisor?.firstName} ${data?.supervisor?.lastName}`
+                          : data?.copastor?.firstName
+                            ? `${data?.copastor?.firstName} ${data?.copastor?.lastName}`
+                            : data?.pastor?.firstName
+                              ? `${data?.pastor?.firstName} ${data?.pastor?.lastName}`
+                              : '-'}
+                  </CardDescription>
+                </div>
+              </>
+            )}
 
-            <Label className='row-start-7 row-end-8 md:row-auto col-start-1 col-end-4 text-[15px] md:text-[16px] font-bold text-amber-500'>
+            {data?.zone?.id && (
+              <div className='col-start-1 col-end-4  space-y-1'>
+                <Label className='text-[14px] md:text-[15px]'>Zona</Label>
+                <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                  {data?.zone?.id ? `${data?.zone?.zoneName} - ${data?.zone?.district}` : '-'}
+                </CardDescription>
+              </div>
+            )}
+
+            {data?.familyGroup?.id && (
+              <div className='col-start-1 col-end-4  space-y-1'>
+                <Label className='text-[14px] md:text-[15px] '>Grupo Familiar</Label>
+                <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                  {data?.familyGroup?.id
+                    ? `${data?.familyGroup?.familyGroupName} - ${data?.familyGroup?.urbanSector} (${data?.familyGroup?.familyGroupCode})`
+                    : '-'}
+                </CardDescription>
+              </div>
+            )}
+
+            {data?.church?.id && (
+              <div className='col-start-1 col-end-4 space-y-1'>
+                <Label className='text-[14px] md:text-[15px] '>Iglesia</Label>
+                <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                  {data?.church?.id
+                    ? `${data?.church?.churchName} - ${data?.church?.district}`
+                    : '-'}
+                </CardDescription>
+              </div>
+            )}
+
+            <Label className='md:-mb-3 row-start-7 row-end-8 md:row-auto col-start-1 col-end-4 text-[15px] md:text-[16px] font-bold text-amber-500'>
               Información del registro
             </Label>
             <div className='space-y-1 flex justify-between items-center row-start-8 row-end-9 col-start-1 col-end-4 md:grid md:col-auto md:row-auto'>
@@ -189,12 +226,14 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
                   : '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-9 row-end-10 md:grid md:col-auto md:row-auto'>
               <Label className='text-[14px] md:text-[15px]'>Fecha de creación</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdAt ? format(new Date(data?.createdAt), 'dd/MM/yyyy') : '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-10 row-end-11 md:grid md:row-auto  md:col-start-1 md:col-end-2'>
               <Label className='text-[14px] md:text-[15px]'>Actualizado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -206,16 +245,25 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
                   : '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-11 row-end-12 md:grid  md:row-auto md:col-start-2 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Ultima fecha de actualización</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.updatedAt ? format(new Date(data?.updatedAt), 'dd/MM/yyyy') : '-'}
+                {data?.updatedAt
+                  ? `${format(new Date(data?.updatedAt), 'dd/MM/yyyy')} - ${`${format(new Date(data?.updatedAt), 'hh:mm a')}`}`
+                  : '-'}
               </CardDescription>
             </div>
-            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-12 row-end-13 md:grid md:row-start-8 md:row-end-9 md:col-start-3 md:col-end-4'>
+
+            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-12 row-end-13 md:grid md:row-start-7 md:row-end-8 md:col-start-3 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
-                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
+              <CardDescription
+                className={cn(
+                  'px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold',
+                  data?.recordStatus !== RecordStatus.Active && 'text-red-600'
+                )}
+              >
+                {data?.recordStatus === RecordStatus.Active ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>

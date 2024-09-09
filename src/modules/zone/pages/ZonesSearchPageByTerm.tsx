@@ -58,7 +58,9 @@ const dataFictional: ZoneResponse[] = [
 
 export const ZonesSearchPageByTerm = (): JSX.Element => {
   //* States
+  const [dataForm, setDataForm] = useState<ZoneSearchFormByTerm>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
+  const [searchParams, setSearchParams] = useState<ZoneSearchFormByTerm | undefined>();
 
   const isFiltersSearchByTermDisabled = useZoneStore(
     (state) => state.isFiltersSearchByTermDisabled
@@ -66,9 +68,6 @@ export const ZonesSearchPageByTerm = (): JSX.Element => {
   const setIsFiltersSearchByTermDisabled = useZoneStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
-
-  const [dataForm, setDataForm] = useState<ZoneSearchFormByTerm>();
-  const [searchParams, setSearchParams] = useState<ZoneSearchFormByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof zoneSearchByTermFormSchema>>({
@@ -107,6 +106,10 @@ export const ZonesSearchPageByTerm = (): JSX.Element => {
 
   useEffect(() => {
     setIsFiltersSearchByTermDisabled(true);
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Modulo Zona - IcupApp';
   }, []);
 
   //* Form handler

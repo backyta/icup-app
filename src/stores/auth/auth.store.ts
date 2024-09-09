@@ -1,8 +1,8 @@
 import { create, type StateCreator } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
+import { AuthService } from '@/modules/auth/services';
 import { type AuthStatus } from '@/modules/auth/interfaces';
-import { AuthService } from '@/modules/auth/services/auth.service';
 
 import { type User } from '@/modules/user/interfaces';
 

@@ -20,26 +20,25 @@ import {
   MemberTypeNames,
   OfferingIncomeCreationType,
   OfferingIncomeCreationSubType,
-  OfferingIncomeCreationShiftTypeNames,
   OfferingIncomeCreationTypeNames,
   OfferingIncomeCreationSubTypeNames,
+  OfferingIncomeCreationShiftTypeNames,
 } from '@/modules/offering/income/enums';
 import {
-  useFileDropZone,
-  useMemberQueries,
   useOfferingIncomeSetData,
+  useOfferingIncomeFileDropZone,
   useOfferingIncomeUpdateMutation,
   useOfferingIncomeUpdateSubmitButtonLogic,
 } from '@/modules/offering/income/hooks';
 
-import { CurrencyTypeNames } from '@/modules/offering/shared/enums';
-import { useImagesUploadMutation } from '@/modules/offering/shared/hooks';
+import { DestroyImageButton } from '@/modules/offering/shared/components';
+import { CurrencyTypeNames, OfferingFileType } from '@/modules/offering/shared/enums';
+import { type FilesProps, type RejectionProps } from '@/modules/offering/shared/interfaces';
+import { useImagesUploadMutation, useModuleQueries } from '@/modules/offering/shared/hooks';
+
 import { offeringIncomeFormSchema } from '@/modules/offering/income/validations';
 import { OfferingIncomeFormSkeleton } from '@/modules/offering/income/components';
 import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces';
-
-import { DestroyImageButton } from '@/modules/offering/shared/components';
-import { type FilesProps, type RejectedProps } from '@/modules/offering/shared/interfaces';
 
 import { type PastorResponse } from '@/modules/pastor/interfaces';
 import { type CopastorResponse } from '@/modules/copastor/interfaces';
@@ -48,30 +47,31 @@ import { type DiscipleResponse } from '@/modules/disciple/interfaces';
 import { type SupervisorResponse } from '@/modules/supervisor/interfaces';
 
 import { cn } from '@/shared/lib/utils';
+import { RecordStatus } from '@/shared/enums';
 import { getCodeAndNameFamilyGroup, getFullNames } from '@/shared/helpers';
 
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
   FormLabel,
+  FormField,
   FormMessage,
+  FormControl,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import {
   Command,
+  CommandItem,
   CommandEmpty,
   CommandGroup,
   CommandInput,
-  CommandItem,
 } from '@/shared/components/ui/command';
 import {
+  Select,
+  SelectItem,
   SelectValue,
   SelectTrigger,
   SelectContent,
-  SelectItem,
-  Select,
 } from '@/shared/components/ui/select';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -102,27 +102,25 @@ export const OfferingIncomeFormUpdate = ({
   data,
 }: OfferingIncomeFormUpdateProps): JSX.Element => {
   //* States
-  const [isInputRelationOpen, setIsInputRelationOpen] = useState<boolean>(false);
   const [isInputDateOpen, setIsInputDateOpen] = useState<boolean>(false);
+  const [isInputRelationOpen, setIsInputRelationOpen] = useState<boolean>(false);
 
   const [queryData, setQueryData] = useState<QueryDataResponse>();
 
   const [files, setFiles] = useState<FilesProps[]>([]);
-  const [rejected, setRejected] = useState<RejectedProps[]>([]);
+  const [rejected, setRejected] = useState<RejectionProps[]>([]);
 
   const [isDropZoneDisabled, setIsDropZoneDisabled] = useState<boolean>(false);
 
-  const [isFileButtonDisabled, setIsFileButtonDisabled] = useState<boolean>(false);
+  const [isDeleteFileButtonDisabled, setIsDeleteFileButtonDisabled] = useState<boolean>(false);
 
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
 
+  const [isLoadingData, setIsLoadingData] = useState(true);
   const [isInputMemberOpen, setIsInputMemberOpen] = useState<boolean>(false);
 
-  const [isLoadingData, setIsLoadingData] = useState(true);
-
-  // TODO : seguir con el delete de offering
   //* Form
   const form = useForm<z.infer<typeof offeringIncomeFormSchema>>({
     mode: 'onChange',
@@ -145,44 +143,44 @@ export const OfferingIncomeFormUpdate = ({
   });
 
   //* Watchers
-  const searchType = form.watch('type');
-  const searchSubType = form.watch('subType');
+  const type = form.watch('type');
+  const subType = form.watch('subType');
   const memberType = form.watch('memberType');
 
   //* Custom hooks
   useOfferingIncomeSetData({
     id,
     data,
-    setIsLoadingData,
     setFiles,
+    setIsLoadingData,
     offeringIncomeUpdateForm: form,
   });
 
   useOfferingIncomeUpdateSubmitButtonLogic({
-    offeringIncomeUpdateForm: form,
-    offeringIncomeTypes: OfferingIncomeCreationType,
-    offeringIncomeSubTypes: OfferingIncomeCreationSubType,
-    isInputDisabled,
-    isDropZoneDisabled,
-    isFileButtonDisabled,
-    setIsSubmitButtonDisabled,
-    setIsMessageErrorDisabled,
-    setIsDropZoneDisabled,
     files,
+    isDeleteFileButtonDisabled,
+    isDropZoneDisabled,
+    isInputDisabled,
+    OfferingIncomeCreationSubType,
+    OfferingIncomeCreationType,
+    offeringIncomeUpdateForm: form,
+    setIsDropZoneDisabled,
+    setIsMessageErrorDisabled,
+    setIsSubmitButtonDisabled,
   });
 
   const {
+    zonesQuery,
     churchesQuery,
     pastorsQuery,
     copastorsQuery,
     supervisorsQuery,
     preachersQuery,
     disciplesQuery,
-    zonesQuery,
     familyGroupsQuery,
-  } = useMemberQueries(memberType);
+  } = useModuleQueries(memberType);
 
-  const { onDrop, removeFile, removeCloudFile, removeRejected } = useFileDropZone({
+  const { onDrop, removeFile, removeCloudFile, removeRejected } = useOfferingIncomeFileDropZone({
     offeringIncomeForm: form,
     files,
     setFiles,
@@ -203,6 +201,7 @@ export const OfferingIncomeFormUpdate = ({
     onScroll,
     setIsInputDisabled,
     setIsSubmitButtonDisabled,
+    setIsDeleteFileButtonDisabled,
   });
 
   const uploadImagesMutation = useImagesUploadMutation();
@@ -226,6 +225,14 @@ export const OfferingIncomeFormUpdate = ({
     }
   }, [pastorsQuery, copastorsQuery, supervisorsQuery, preachersQuery, disciplesQuery]);
 
+  useEffect(() => {
+    if (data?.recordStatus === RecordStatus.Inactive) {
+      setIsInputDisabled(true);
+      setIsDropZoneDisabled(true);
+      setIsDeleteFileButtonDisabled(true);
+    }
+  }, []);
+
   //* Form handler
   const handleSubmit = async (
     formData: z.infer<typeof offeringIncomeFormSchema>
@@ -238,9 +245,9 @@ export const OfferingIncomeFormUpdate = ({
       if (filesOnly.length >= 1) {
         const uploadResult = await uploadImagesMutation.mutateAsync({
           files: filesOnly as any,
-          action: 'income',
+          fileType: OfferingFileType.Income,
           type: formData.type,
-          subType: formData.subType,
+          subType: formData.subType ?? null,
         });
 
         imageUrls = uploadResult.imageUrls;
@@ -368,7 +375,7 @@ export const OfferingIncomeFormUpdate = ({
                       }}
                     />
 
-                    {searchType === OfferingIncomeCreationType.Offering && (
+                    {type === OfferingIncomeCreationType.Offering && (
                       <FormField
                         control={form.control}
                         name='subType'
@@ -408,10 +415,10 @@ export const OfferingIncomeFormUpdate = ({
                       />
                     )}
 
-                    {((searchType === OfferingIncomeCreationType.Offering &&
-                      searchSubType === OfferingIncomeCreationSubType.Special) ||
-                      (searchType === OfferingIncomeCreationType.Offering &&
-                        searchSubType === OfferingIncomeCreationSubType.ChurchGround)) && (
+                    {((type === OfferingIncomeCreationType.Offering &&
+                      subType === OfferingIncomeCreationSubType.Special) ||
+                      (type === OfferingIncomeCreationType.Offering &&
+                        subType === OfferingIncomeCreationSubType.ChurchGround)) && (
                       <FormField
                         control={form.control}
                         name='memberType'
@@ -446,15 +453,15 @@ export const OfferingIncomeFormUpdate = ({
                       />
                     )}
 
-                    {((searchType === OfferingIncomeCreationType.Offering &&
-                      searchSubType === OfferingIncomeCreationSubType.Special) ||
-                      (searchType === OfferingIncomeCreationType.Offering &&
-                        searchSubType === OfferingIncomeCreationSubType.ChurchGround)) && (
+                    {((type === OfferingIncomeCreationType.Offering &&
+                      subType === OfferingIncomeCreationSubType.Special) ||
+                      (type === OfferingIncomeCreationType.Offering &&
+                        subType === OfferingIncomeCreationSubType.ChurchGround)) && (
                       <FormField
                         control={form.control}
                         name='memberId'
                         render={({ field }) => (
-                          <FormItem className='flex flex-col mt-4'>
+                          <FormItem className='mt-4'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Miembro
                             </FormLabel>
@@ -536,13 +543,13 @@ export const OfferingIncomeFormUpdate = ({
                       />
                     )}
 
-                    {searchType === OfferingIncomeCreationType.Offering &&
-                      searchSubType === OfferingIncomeCreationSubType.FamilyGroup && (
+                    {type === OfferingIncomeCreationType.Offering &&
+                      subType === OfferingIncomeCreationSubType.FamilyGroup && (
                         <FormField
                           control={form.control}
                           name='familyGroupId'
                           render={({ field }) => (
-                            <FormItem className='flex flex-col mt-4'>
+                            <FormItem className='mt-4'>
                               <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                                 Grupo Familiar
                               </FormLabel>
@@ -614,20 +621,20 @@ export const OfferingIncomeFormUpdate = ({
                         />
                       )}
 
-                    {(searchType === OfferingIncomeCreationType.IncomeAdjustment ||
-                      (searchType === OfferingIncomeCreationType.Offering &&
-                        (searchSubType === OfferingIncomeCreationSubType.SundaySchool ||
-                          searchSubType === OfferingIncomeCreationSubType.SundayWorship ||
-                          searchSubType === OfferingIncomeCreationSubType.Activities ||
-                          searchSubType === OfferingIncomeCreationSubType.GeneralFasting ||
-                          searchSubType === OfferingIncomeCreationSubType.GeneralVigil ||
-                          searchSubType === OfferingIncomeCreationSubType.WorshipUnited ||
-                          searchSubType === OfferingIncomeCreationSubType.YouthWorship))) && (
+                    {(type === OfferingIncomeCreationType.IncomeAdjustment ||
+                      (type === OfferingIncomeCreationType.Offering &&
+                        (subType === OfferingIncomeCreationSubType.SundaySchool ||
+                          subType === OfferingIncomeCreationSubType.SundayWorship ||
+                          subType === OfferingIncomeCreationSubType.Activities ||
+                          subType === OfferingIncomeCreationSubType.GeneralFasting ||
+                          subType === OfferingIncomeCreationSubType.GeneralVigil ||
+                          subType === OfferingIncomeCreationSubType.WorshipUnited ||
+                          subType === OfferingIncomeCreationSubType.YouthWorship))) && (
                       <FormField
                         control={form.control}
                         name='churchId'
                         render={({ field }) => (
-                          <FormItem className='flex flex-col mt-4'>
+                          <FormItem className='mt-4'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Iglesia
                             </FormLabel>
@@ -694,15 +701,15 @@ export const OfferingIncomeFormUpdate = ({
                       />
                     )}
 
-                    {((searchType === OfferingIncomeCreationType.Offering &&
-                      searchSubType === OfferingIncomeCreationSubType.ZonalFasting) ||
-                      (searchType === OfferingIncomeCreationType.Offering &&
-                        searchSubType === OfferingIncomeCreationSubType.ZonalVigil)) && (
+                    {((type === OfferingIncomeCreationType.Offering &&
+                      subType === OfferingIncomeCreationSubType.ZonalFasting) ||
+                      (type === OfferingIncomeCreationType.Offering &&
+                        subType === OfferingIncomeCreationSubType.ZonalVigil)) && (
                       <FormField
                         control={form.control}
                         name='zoneId'
                         render={({ field }) => (
-                          <FormItem className='flex flex-col mt-4'>
+                          <FormItem className='mt-4'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Zona
                             </FormLabel>
@@ -769,8 +776,8 @@ export const OfferingIncomeFormUpdate = ({
                       />
                     )}
 
-                    {(searchSubType === OfferingIncomeCreationSubType.SundayWorship ||
-                      searchSubType === OfferingIncomeCreationSubType.SundaySchool) && (
+                    {(subType === OfferingIncomeCreationSubType.SundayWorship ||
+                      subType === OfferingIncomeCreationSubType.SundaySchool) && (
                       <FormField
                         control={form.control}
                         name='shift'
@@ -880,7 +887,7 @@ export const OfferingIncomeFormUpdate = ({
                       control={form.control}
                       name='date'
                       render={({ field }) => (
-                        <FormItem className='flex flex-col mt-4'>
+                        <FormItem className='mt-4'>
                           <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                             Fecha
                           </FormLabel>
@@ -918,9 +925,9 @@ export const OfferingIncomeFormUpdate = ({
                                   setIsInputDateOpen(false);
                                 }}
                                 disabled={
-                                  searchSubType !== OfferingIncomeCreationSubType.SundayWorship &&
-                                  searchSubType !== OfferingIncomeCreationSubType.SundaySchool &&
-                                  searchSubType !== OfferingIncomeCreationSubType.FamilyGroup
+                                  subType !== OfferingIncomeCreationSubType.SundayWorship &&
+                                  subType !== OfferingIncomeCreationSubType.SundaySchool &&
+                                  subType !== OfferingIncomeCreationSubType.FamilyGroup
                                     ? (date) => date > new Date() || date < new Date('1900-01-01')
                                     : (date) => {
                                         const today = new Date();
@@ -950,7 +957,7 @@ export const OfferingIncomeFormUpdate = ({
                                 Requerido
                               </span>
                             </FormLabel>
-                            {searchType === OfferingIncomeCreationType.IncomeAdjustment && (
+                            {type === OfferingIncomeCreationType.IncomeAdjustment && (
                               <FormDescription>
                                 Escribe una breve descripción sobre el ajuste.
                               </FormDescription>
@@ -959,7 +966,7 @@ export const OfferingIncomeFormUpdate = ({
                               <Textarea
                                 disabled={isInputDisabled}
                                 placeholder={`${
-                                  searchType === OfferingIncomeCreationType.IncomeAdjustment
+                                  type === OfferingIncomeCreationType.IncomeAdjustment
                                     ? `Motivos y comentarios sobre el ajuste...`
                                     : 'Comentarios referente al registro de la ofrenda..'
                                 }`}
@@ -972,57 +979,59 @@ export const OfferingIncomeFormUpdate = ({
                       }}
                     />
 
-                    <FormField
-                      control={form.control}
-                      name='recordStatus'
-                      render={({ field }) => {
-                        return (
-                          <FormItem className='mt-3'>
-                            <FormLabel className='text-[14px] font-bold'>Estado</FormLabel>
-                            <Select
-                              disabled={isInputDisabled}
-                              value={field.value}
-                              onValueChange={field.onChange}
-                            >
-                              <FormControl className='text-[13px] md:text-[14px]'>
-                                <SelectTrigger>
-                                  {field.value === 'active' ? (
-                                    <SelectValue placeholder='Activo' />
-                                  ) : (
-                                    <SelectValue placeholder='Inactivo' />
-                                  )}
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                <SelectItem className='text-[14px]' value='active'>
-                                  Activo
-                                </SelectItem>
-                                <SelectItem className='text-[14px]' value='inactive'>
-                                  Inactivo
-                                </SelectItem>
-                              </SelectContent>
-                            </Select>
-                            {form.getValues('recordStatus') === 'active' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
-                                *El registro esta <span className='text-green-500'>Activo</span>,
-                                para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
-                                debe eliminar el registro desde la pestaña{' '}
-                                <span className='font-bold text-red-500'>
-                                  Eliminar Ingreso de Ofrenda.{' '}
-                                </span>
-                              </FormDescription>
-                            )}
-                            {form.getValues('recordStatus') === 'inactive' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
-                                * El registro esta <span className='text-red-500 '>Inactivo</span>,
-                                puede modificar el estado eligiendo otra opción.
-                              </FormDescription>
-                            )}
-                            <FormMessage />
-                          </FormItem>
-                        );
-                      }}
-                    />
+                    {data?.recordStatus === RecordStatus.Active && (
+                      <FormField
+                        control={form.control}
+                        name='recordStatus'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className='mt-3'>
+                              <FormLabel className='text-[14px] font-bold'>Estado</FormLabel>
+                              <Select
+                                disabled={isInputDisabled}
+                                value={field.value}
+                                onValueChange={field.onChange}
+                              >
+                                <FormControl className='text-[13px] md:text-[14px]'>
+                                  <SelectTrigger>
+                                    {field.value === 'active' ? (
+                                      <SelectValue placeholder='Activo' />
+                                    ) : (
+                                      <SelectValue placeholder='Inactivo' />
+                                    )}
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem className='text-[14px]' value='active'>
+                                    Activo
+                                  </SelectItem>
+                                  <SelectItem className='text-[14px]' value='inactive'>
+                                    Inactivo
+                                  </SelectItem>
+                                </SelectContent>
+                              </Select>
+                              {form.getValues('recordStatus') === 'active' && (
+                                <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                                  *El registro esta <span className='text-green-500'>Activo</span>,
+                                  para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
+                                  debe eliminar el registro desde la pestaña{' '}
+                                  <span className='font-bold text-red-500'>
+                                    Eliminar Ingreso de Ofrenda.{' '}
+                                  </span>
+                                </FormDescription>
+                              )}
+                              {form.getValues('recordStatus') === 'inactive' && (
+                                <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                                  * El registro esta <span className='text-red-500 '>Inactivo</span>
+                                  , puede modificar el estado eligiendo otra opción.
+                                </FormDescription>
+                              )}
+                              <FormMessage />
+                            </FormItem>
+                          );
+                        }}
+                      />
+                    )}
                   </div>
 
                   <div className='md:col-start-2 md:col-end-3 border-l-2 border-slate-200 dark:border-slate-800 pl-6'>
@@ -1103,7 +1112,7 @@ export const OfferingIncomeFormUpdate = ({
                             {file?.name ? (
                               <button
                                 type='button'
-                                disabled={isFileButtonDisabled}
+                                disabled={isDeleteFileButtonDisabled}
                                 className='border-none p-0 bg-secondary-400 rounded-full flex justify-center items-center absolute -top-3 -right-3 dark:hover:bg-slate-950 hover:bg-white'
                                 onClick={() => {
                                   removeFile(file.name);
@@ -1113,6 +1122,8 @@ export const OfferingIncomeFormUpdate = ({
                               </button>
                             ) : (
                               <DestroyImageButton
+                                fileType={OfferingFileType.Income}
+                                isDeleteFileButtonDisabled={isDeleteFileButtonDisabled}
                                 secureUrl={file as any}
                                 removeCloudFile={removeCloudFile}
                               />
@@ -1153,7 +1164,7 @@ export const OfferingIncomeFormUpdate = ({
                             </div>
                             <button
                               type='button'
-                              disabled={isFileButtonDisabled}
+                              disabled={isDeleteFileButtonDisabled}
                               className='mt-1 py-1 text-[11px] md:text-[11.5px] uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md px-3 hover:bg-red-500 hover:text-white ease-in duration-200 transition-colors'
                               onClick={() => {
                                 removeRejected(file.name);
@@ -1191,8 +1202,7 @@ export const OfferingIncomeFormUpdate = ({
                           if (Object.keys(form.formState.errors).length === 0) {
                             setIsInputDisabled(true);
                             setIsDropZoneDisabled(true);
-                            // setIsInputMemberDisabled(true);
-                            setIsFileButtonDisabled(true);
+                            setIsDeleteFileButtonDisabled(true);
                             setIsSubmitButtonDisabled(true);
                           }
                         }, 100);

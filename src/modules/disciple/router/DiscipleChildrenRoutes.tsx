@@ -8,23 +8,23 @@ import {
 
 export const DiscipleChildrenRoutes = [
   {
-    path: '/disciples/create-disciple',
+    path: '/disciples/create',
     element: <DiscipleCreatePage />,
   },
   {
-    path: '/disciples/search-disciples',
+    path: '/disciples/general-search',
     element: <DisciplesGeneralSearchPage />,
   },
   {
-    path: '/disciples/search-disciples-by-term',
+    path: '/disciples/search-by-term',
     element: <DisciplesSearchPageByTerm />,
   },
   {
-    path: '/disciples/update-disciple',
+    path: '/disciples/update',
     element: <DiscipleUpdatePage />,
   },
   {
-    path: '/disciples/delete-disciple',
+    path: '/disciples/delete',
     element: <DiscipleDeletePage />,
   },
 ];

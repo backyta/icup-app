@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { AxiosError } from 'axios';
@@ -27,14 +27,18 @@ import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
 
 export const LoginPage = (): JSX.Element => {
-  //* Stores and states
+  //* States
   const loginUser = useAuthStore((state) => state.loginUser);
-
-  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
 
   //* Hooks (external libraries)
   const navigate = useNavigate();
+
+  //* Effects
+  useEffect(() => {
+    document.title = 'Iniciar Sesión - IcupApp';
+  }, []);
 
   //* Form
   const form = useForm<z.infer<typeof loginSchema>>({

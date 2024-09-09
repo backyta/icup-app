@@ -64,7 +64,7 @@ export const useFamilyGroupPreacherUpdateEffects = ({
 
     if (id) {
       const url = new URL(window.location.href);
-      url.pathname = `/family-groups/update-family-group/${id}/exchange-preacher`;
+      url.pathname = `/family-groups/update/${id}/exchange-preacher`;
 
       window.history.replaceState({}, '', url);
     }

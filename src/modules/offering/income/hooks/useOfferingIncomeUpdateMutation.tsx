@@ -17,6 +17,7 @@ interface Options {
   onScroll: () => void;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsDeleteFileButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useOfferingIncomeUpdateMutation = ({
@@ -24,13 +25,14 @@ export const useOfferingIncomeUpdateMutation = ({
   onScroll,
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
+  setIsDeleteFileButtonDisabled,
 }: Options): UseMutationResult<
   OfferingIncomeResponse,
   ErrorResponse,
   UpdateOfferingIncomeOptions,
   unknown
 > => {
-  //* Library Hooks
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* QueryClient
@@ -49,6 +51,7 @@ export const useOfferingIncomeUpdateMutation = ({
         setTimeout(() => {
           setIsInputDisabled(false);
           setIsSubmitButtonDisabled(false);
+          setIsDeleteFileButtonDisabled(false);
         }, 1500);
       }
 
@@ -75,7 +78,7 @@ export const useOfferingIncomeUpdateMutation = ({
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['offerings-income-by-term'] });
-      }, 500);
+      }, 700);
 
       setTimeout(() => {
         onSubmit();

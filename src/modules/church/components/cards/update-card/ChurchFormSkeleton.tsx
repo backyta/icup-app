@@ -11,7 +11,7 @@ export const ChurchFormSkeleton = (): JSX.Element => {
         <form className='w-full flex flex-col md:grid md:grid-cols-2 gap-x-10 gap-y-5 px-2 sm:px-12'>
           <div className='col-start-1 col-end-2'>
             <div>
-              <Skeleton className='h-5 w-24 mt-2' />
+              <Skeleton className='h-5 w-24 mt-4' />
               <Skeleton className='h-[12px] w-44 mt-2' />
               <Skeleton className='h-8 w-full mt-2' />
             </div>
@@ -99,7 +99,7 @@ export const ChurchFormSkeleton = (): JSX.Element => {
 
           <div className='col-start-2 col-end-3'>
             <div>
-              <Skeleton className='h-5 w-24 mt-2' />
+              <Skeleton className='h-5 w-24 mt-4' />
               <Skeleton className='h-[12px] w-44 mt-2' />
               <Skeleton className='h-8 w-full mt-2' />
             </div>
@@ -144,7 +144,7 @@ export const ChurchFormSkeleton = (): JSX.Element => {
 
           <div className='mt-2 md:mt-1 md:col-start-1 md:col-end-3 md:row-start-3 md:row-end-4 w-full md:w-[20rem] md:m-auto'>
             <Skeleton className='h-10 w-full' />
-            <div className='flex flex-col  justify-center items-center mt-3'>
+            <div className='flex flex-col  justify-center items-center mt-1'>
               <Skeleton className='text-center h-4 w-64 mt-2' />
               <Skeleton className='text-center h-4 w-64 mt-2' />
             </div>

@@ -24,6 +24,7 @@ export const useDiscipleUpdateMutation = ({
   setIsSubmitButtonDisabled,
   setIsRelationSelectDisabled,
 }: Options): UseMutationResult<DiscipleResponse, ErrorResponse, UpdateDiscipleOptions, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* QueryClient
@@ -69,7 +70,7 @@ export const useDiscipleUpdateMutation = ({
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['disciples-by-term'] });
-      }, 500);
+      }, 700);
 
       setTimeout(() => {
         onSubmit();

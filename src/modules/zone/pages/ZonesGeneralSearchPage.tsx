@@ -21,20 +21,20 @@ import { type ZoneResponse } from '@/modules/zone/interfaces';
 import { zoneInfoColumns as columns, GeneralZoneSearchDataTable } from '@/modules/zone/components';
 
 import {
+  Select,
+  SelectItem,
   SelectValue,
   SelectTrigger,
   SelectContent,
-  SelectItem,
-  Select,
 } from '@/shared/components/ui/select';
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
+  FormField,
   FormLabel,
+  FormControl,
   FormMessage,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -55,6 +55,7 @@ const dataFictional: ZoneResponse[] = [
 
 export const ZonesGeneralSearchPage = (): JSX.Element => {
   //* States
+  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
 
   const isFiltersSearchGeneralDisabled = useZoneStore(
@@ -63,8 +64,6 @@ export const ZonesGeneralSearchPage = (): JSX.Element => {
   const setIsFiltersSearchGeneralDisabled = useZoneStore(
     (state) => state.setIsFiltersSearchGeneralDisabled
   );
-
-  const [searchParams, setSearchParams] = useState<GeneralSearchForm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof formSearchGeneralSchema>>({
@@ -96,6 +95,10 @@ export const ZonesGeneralSearchPage = (): JSX.Element => {
 
   useEffect(() => {
     setIsFiltersSearchGeneralDisabled(true);
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Modulo Zona - IcupApp';
   }, []);
 
   //* Form handler

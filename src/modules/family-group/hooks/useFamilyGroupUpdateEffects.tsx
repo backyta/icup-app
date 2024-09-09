@@ -43,9 +43,13 @@ export const useFamilyGroupUpdateEffects = ({
     familyGroupUpdateForm.setValue('theirPreacher', data?.theirPreacher?.id);
     familyGroupUpdateForm.setValue('recordStatus', data?.recordStatus);
 
-    setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       setIsLoadingData(false);
     }, 1200);
+
+    return () => {
+      clearTimeout(timeoutId); // Limpiar el timeout cuando el componente se desmonte
+    };
   }, []);
 
   //* Controller district and urban sector
@@ -59,7 +63,7 @@ export const useFamilyGroupUpdateEffects = ({
 
     if (id) {
       const url = new URL(window.location.href);
-      url.pathname = `/family-groups/update-family-group/${id}/edit`;
+      url.pathname = `/family-groups/update/${id}/edit`;
 
       window.history.replaceState({}, '', url);
     }
@@ -76,7 +80,7 @@ export const useFamilyGroupUpdateEffects = ({
   }, [theirPreacher]);
 
   useEffect(() => {
-    if (theirZone && !theirPreacher && data?.recordStatus === RecordStatus.Inactive) {
+    if (theirZone && (!data?.theirPreacher?.id || data?.recordStatus === RecordStatus.Inactive)) {
       setIsInputTheirPreacherDisabled(false);
     }
 

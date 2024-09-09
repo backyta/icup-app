@@ -25,19 +25,19 @@ import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
+  FormField,
   FormLabel,
   FormMessage,
+  FormControl,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import {
+  Select,
+  SelectItem,
   SelectValue,
   SelectTrigger,
   SelectContent,
-  SelectItem,
-  Select,
 } from '@/shared/components/ui/select';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -58,7 +58,9 @@ const dataFictional: ZoneResponse[] = [
 
 export const ZoneDeletePage = (): JSX.Element => {
   //* States
+  const [dataForm, setDataForm] = useState<ZoneSearchFormByTerm>();
   const [isDisabledSubmitButton, setIsDisabledSubmitButton] = useState<boolean>(true);
+  const [searchParams, setSearchParams] = useState<ZoneSearchFormByTerm | undefined>();
 
   const isFiltersSearchByTermDisabled = useZoneStore(
     (state) => state.isFiltersSearchByTermDisabled
@@ -66,9 +68,6 @@ export const ZoneDeletePage = (): JSX.Element => {
   const setIsFiltersSearchByTermDisabled = useZoneStore(
     (state) => state.setIsFiltersSearchByTermDisabled
   );
-
-  const [dataForm, setDataForm] = useState<ZoneSearchFormByTerm>();
-  const [searchParams, setSearchParams] = useState<ZoneSearchFormByTerm | undefined>();
 
   //* Forms
   const form = useForm<z.infer<typeof zoneSearchByTermFormSchema>>({
@@ -107,6 +106,10 @@ export const ZoneDeletePage = (): JSX.Element => {
 
   useEffect(() => {
     setIsFiltersSearchByTermDisabled(true);
+  }, []);
+
+  useEffect(() => {
+    document.title = 'Modulo Zona - IcupApp';
   }, []);
 
   //* Form handler

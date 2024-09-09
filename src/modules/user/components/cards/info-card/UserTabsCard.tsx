@@ -2,26 +2,56 @@
 
 import { format } from 'date-fns';
 
+import { cn } from '@/shared/lib/utils';
+
 import { type UserResponse } from '@/modules/user/interfaces';
 
 import { getInitialFullNames } from '@/shared/helpers';
 import { type UserRole, UserRoleNames } from '@/modules/user/enums';
+import { type Gender, GenderNames, RecordStatus } from '@/shared/enums';
 
 import {
   Card,
+  CardTitle,
+  CardHeader,
   CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle,
 } from '@/shared/components/ui/card';
 import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
+import { useEffect } from 'react';
 
 interface UserTabsCardProps {
+  id: string;
   data: UserResponse | undefined;
 }
 
-export const UserTabsCard = ({ data }: UserTabsCardProps): JSX.Element => {
+export const UserTabsCard = ({ id, data }: UserTabsCardProps): JSX.Element => {
+  //* Effects
+  useEffect(() => {
+    const originalUrl = window.location.href;
+
+    if (id) {
+      const url = new URL(window.location.href);
+
+      if (url.pathname === '/users/general-search')
+        url.pathname = `/users/general-search/${id}/view`;
+
+      if (url.pathname === '/users/search-by-term')
+        url.pathname = `/users/search-by-term/${id}/view`;
+
+      if (url.pathname === '/users/update') url.pathname = `/users/update/${id}/view`;
+
+      if (url.pathname === '/users/delete') url.pathname = `/users/delete/${id}/view`;
+
+      window.history.replaceState({}, '', url);
+    }
+
+    return () => {
+      window.history.replaceState({}, '', originalUrl);
+    };
+  }, [id]);
+
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full px-auto grid-cols-1'>
@@ -55,7 +85,7 @@ export const UserTabsCard = ({ data }: UserTabsCardProps): JSX.Element => {
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Género</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.gender === 'male' ? 'Masculino' : 'Femenino'}
+                {data?.gender ? GenderNames[data?.gender as Gender] : '-'}
               </CardDescription>
             </div>
             <div className='space-y-1 col-start-1 cold-end-3 row-start-2 row-end-3 md:row-start-auto md:col-start-auto'>
@@ -86,6 +116,7 @@ export const UserTabsCard = ({ data }: UserTabsCardProps): JSX.Element => {
                   : '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-6 row-end-7 md:grid md:row-start-4 md:row-end-5 md:col-start-2 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Fecha de creación</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -94,6 +125,7 @@ export const UserTabsCard = ({ data }: UserTabsCardProps): JSX.Element => {
                   : 'Fecha no disponible'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-7 row-end-8 md:grid md:row-auto  md:col-start-1 md:col-end-2'>
               <Label className='text-[14px] md:text-[15px]'>Actualizado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -105,16 +137,25 @@ export const UserTabsCard = ({ data }: UserTabsCardProps): JSX.Element => {
                   : '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-8 row-end-9 md:grid  md:row-auto md:col-start-2 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Ultima fecha de actualización</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.updatedAt ? format(new Date(data?.updatedAt), 'dd/MM/yyyy') : '-'}
+                {data?.updatedAt
+                  ? `${format(new Date(data?.updatedAt), 'dd/MM/yyyy')} - ${`${format(new Date(data?.updatedAt), 'hh:mm a')}`}`
+                  : '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-9 row-end-10 md:grid md:row-start-4 md:row-end-5 md:col-start-3 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold'>
-                {data?.recordStatus === 'active' ? 'Activo' : 'Inactivo'}
+              <CardDescription
+                className={cn(
+                  'px-2 text-[14px] md:text-[14.5px] text-green-600 font-bold',
+                  data?.recordStatus !== RecordStatus.Active && 'text-red-600'
+                )}
+              >
+                {data?.recordStatus === RecordStatus.Active ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
           </CardContent>

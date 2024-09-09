@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type * as z from 'zod';
 import { Toaster } from 'sonner';
@@ -15,7 +15,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { cn } from '@/shared/lib/utils';
-import { LoadingSpinner } from '@/shared/components';
 
 import { zoneFormSchema } from '@/modules/zone/validations';
 import { getAllSupervisors } from '@/modules/preacher/services';
@@ -50,10 +49,10 @@ import {
 } from '@/shared/components/ui/command';
 import {
   Select,
-  SelectContent,
   SelectItem,
-  SelectTrigger,
   SelectValue,
+  SelectTrigger,
+  SelectContent,
 } from '@/shared/components/ui/select';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -86,6 +85,11 @@ export const ZoneCreatePage = (): JSX.Element => {
   //* Helpers
   const disabledDistricts = validateDistrictsAllowedByModule(pathname);
 
+  //* Effects
+  useEffect(() => {
+    document.title = 'Modulo Zona - IcupApp';
+  }, []);
+
   //* Custom hooks
   useZoneCreationSubmitButtonLogic({
     zoneCreationForm: form,
@@ -101,12 +105,10 @@ export const ZoneCreatePage = (): JSX.Element => {
   });
 
   //* Queries
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ['supervisors-for-zone'],
     queryFn: () => getAllSupervisors({ isNull: 'true' }),
   });
-
-  if (isLoading) return <LoadingSpinner />;
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof zoneFormSchema>): void => {

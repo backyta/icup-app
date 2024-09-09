@@ -8,3 +8,4 @@ export * from './preacher';
 export * from './family-group';
 export * from './disciple';
 export * from './offering-income';
+export * from './offering-expense';

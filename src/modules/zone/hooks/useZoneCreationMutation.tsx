@@ -19,6 +19,7 @@ export const useZoneCreationMutation = ({
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
 }: Options): UseMutationResult<ZoneResponse, ErrorResponse, ZoneFormData, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* Mutation

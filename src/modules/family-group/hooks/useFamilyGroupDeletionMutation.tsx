@@ -3,9 +3,9 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
-import { deleteFamilyGroup } from '@/modules/family-group/services';
-
 import { type ErrorResponse } from '@/shared/interfaces';
+
+import { deleteFamilyGroup } from '@/modules/family-group/services';
 
 interface Options {
   setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,6 +16,7 @@ export const useFamilyGroupDeletionMutation = ({
   setIsCardOpen,
   setIsButtonDisabled,
 }: Options): UseMutationResult<void, ErrorResponse, string, unknown> => {
+  //* Hooks (external libraries)
   const navigate = useNavigate();
 
   //* QueryClient

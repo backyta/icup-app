@@ -223,3 +223,6 @@ export const familyHouses = [
   { label: 'C-4 - La Familia del Renacer', value: 'id9' },
   { label: 'B-1 - Los Hijos de la Esperanza', value: 'id10' },
 ] as const;
+
+
+// NOTE: Eliminar cuando no se necesite nninguno

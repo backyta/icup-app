@@ -16,9 +16,9 @@ interface SupervisorUpdateCardProps {
 
 export const SupervisorUpdateCard = ({ idRow }: SupervisorUpdateCardProps): JSX.Element => {
   //* States
-  const dataSearchByTermResponse = useSupervisorStore((state) => state.dataSearchByTermResponse);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const topRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const dataSearchByTermResponse = useSupervisorStore((state) => state.dataSearchByTermResponse);
 
   //* Hooks (external libraries)
   const isDesktop = useMediaQuery('(min-width: 768px)');

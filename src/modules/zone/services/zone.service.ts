@@ -5,8 +5,8 @@ import { isAxiosError } from 'axios';
 import { icupApi } from '@/api/icupApi';
 
 import { ZoneSearchType } from '@/modules/zone/enums';
-import { type ZoneFormData, type ZoneResponse, type ZoneQueryParams, type ZoneSupervisorUpdateFormData } from '@/modules/zone/interfaces';
 import { type SupervisorResponse } from '@/modules/supervisor/interfaces';
+import { type ZoneFormData, type ZoneResponse, type ZoneQueryParams, type ZoneSupervisorUpdateFormData } from '@/modules/zone/interfaces';
 
 //* Create zone
 export const createZone = async (formData:ZoneFormData ): Promise<ZoneResponse> => {
@@ -81,8 +81,7 @@ export const getAllSupervisorsByCopastor = async ({
       },
     }
   );
-  console.log(data);
-  
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
