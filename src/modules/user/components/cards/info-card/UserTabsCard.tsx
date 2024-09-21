@@ -69,7 +69,7 @@ export const UserTabsCard = ({ id, data }: UserTabsCardProps): JSX.Element => {
               Información general del usuario.
             </CardDescription>
           </CardHeader>
-          <CardContent className='grid grid-cols-3 pl-[2rem] sm:pl-[4rem] sm:pr-[5rem] gap-x-4 gap-y-4 md:gap-x-6 md:gap-y-5 md:pl-[5rem] md:pr-[1rem]'>
+          <CardContent className='grid grid-cols-3 pl-[2rem] sm:pl-[4rem] sm:pr-[5rem] gap-x-4 gap-y-2.5 md:gap-x-6 md:gap-y-5 md:pl-[5rem] md:pr-[1rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Nombres</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -101,7 +101,7 @@ export const UserTabsCard = ({ id, data }: UserTabsCardProps): JSX.Element => {
               </CardDescription>
             </div>
 
-            <Label className='row-start-4 row-end-5 md:row-auto col-start-1 col-end-4 text-[15px] md:text-[16px] font-bold text-yellow-500'>
+            <Label className='pt-2 md:pt-0 row-start-4 row-end-5 md:row-auto col-start-1 col-end-4 text-[15px] md:text-[16px] font-bold text-yellow-500'>
               Información del registro
             </Label>
 

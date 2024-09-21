@@ -66,7 +66,7 @@ export const useSupervisorCreationMutation = ({
 
       setTimeout(() => {
         navigate('/supervisors');
-      }, 2400);
+      }, 2000);
     },
   });
 

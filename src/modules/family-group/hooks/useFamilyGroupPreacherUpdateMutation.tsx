@@ -77,6 +77,7 @@ export const useFamilyGroupPreacherUpdateMutation = ({
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['family-groups-by-term'] });
+        // New refetch in exchange preachers (new)
         queryClient.invalidateQueries({ queryKey: ['preachers-by-zone', data?.theirZone?.id] });
       }, 700);
 

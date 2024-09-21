@@ -87,7 +87,7 @@ export const FamilyGroupPreacherUpdateForm = ({
       getAllPreachersByZone({
         searchType: PreacherSearchType.ZoneId,
         zoneId: data?.theirZone?.id ?? '',
-        isNull: 'false',
+        isNull: false,
       }),
     enabled: !!data?.theirZone?.id,
     retry: 1,
@@ -130,28 +130,29 @@ export const FamilyGroupPreacherUpdateForm = ({
   return (
     <Tabs
       defaultValue='general-info'
-      className='w-auto sm:w-[480px] md:w-[550px] lg:w-[500px] xl:w-[600px]'
+      className='w-auto sm:w-[480px] md:w-[550px] lg:w-[550px] xl:w-[600px]'
     >
-      <h2 className='text-center text-emerald-500 pb-2 font-bold text-[20px] md:text-[24px]'>
+      <h2 className='text-center text-emerald-500 pb-2 font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
         Intercambiar Predicadores
       </h2>
 
       <TabsContent value='general-info' className='overflow-y-auto'>
         <Card className='w-full'>
           <CardContent className='py-4 px-4'>
-            <div className='font-bold text-[16px] mb-5'>
+            <div className='font-bold text-[14.5px] md:text-[15px] mb-4'>
               Nombre de Zona:{' '}
-              <span className='font-black text-blue-500 text-[18px]'>
+              <span className='font-black text-blue-500 text-[16.5px] md:text-[17.5px]'>
                 {data?.theirZone?.zoneName}
               </span>
             </div>
+
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(handleSubmit)}
-                className='w-full flex flex-col gap-x-10 gap-y-3 md:gap-y-5 px-2 sm:px-4 '
+                className='w-full flex flex-col gap-x-10 gap-y-5 md:gap-y-5 px-2 md:px-4'
               >
-                <div className='grid grid-cols-7 gap-2'>
-                  <div className='flex flex-col gap-4 col-start-1 col-end-4'>
+                <div className='flex flex-col md:grid md:grid-cols-7 gap-2'>
+                  <div className='flex flex-col gap-2 md:gap-4 md:col-start-1 md:col-end-4'>
                     <FormField
                       control={form.control}
                       name='currentTheirPreacher'
@@ -202,11 +203,11 @@ export const FamilyGroupPreacherUpdateForm = ({
                     />
                   </div>
 
-                  <div className='col-start-4 col-end-5 text-center justify-center flex items-center'>
+                  <div className='pt-2 sm:pt-0 col-start-4 col-end-5 text-center justify-center flex items-center'>
                     <GiCardExchange className='text-[2.5rem] text-amber-500' />
                   </div>
 
-                  <div className='flex flex-col gap-4 col-start-5 col-end-8'>
+                  <div className='flex flex-col gap-2 md:gap-4 md:col-start-5 md:col-end-8'>
                     <FormField
                       control={form.control}
                       name='newTheirPreacher'

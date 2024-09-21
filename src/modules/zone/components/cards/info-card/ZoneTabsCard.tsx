@@ -75,7 +75,7 @@ export const ZoneTabsCard = ({ data, id }: ZoneTabsCardProps): JSX.Element => {
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid grid-cols-3 pl-[2rem] sm:pl-[4rem] sm:pr-[5rem] gap-x-4 gap-y-4 md:gap-x-6 md:gap-y-5 md:pl-[4.2rem] md:pr-[2.5rem]'>
+          <CardContent className='grid grid-cols-3 pl-[2rem] sm:pl-[4rem] sm:pr-[5rem] gap-x-4 gap-y-2.5 md:gap-x-6 md:gap-y-5 md:pl-[4.2rem] md:pr-[2.5rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Nombre</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -155,7 +155,7 @@ export const ZoneTabsCard = ({ data, id }: ZoneTabsCardProps): JSX.Element => {
               />
             </div>
 
-            <span className='col-start-1 col-end-4 text-[15px] md:text-[16px] font-bold text-yellow-500'>
+            <span className='pt-2 md:pt-0 col-start-1 col-end-4 text-[15px] md:text-[16px] font-bold text-yellow-500'>
               Información de registro
             </span>
 

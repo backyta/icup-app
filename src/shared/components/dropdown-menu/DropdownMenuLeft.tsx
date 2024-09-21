@@ -66,7 +66,7 @@ export function DropdownMenuLeft(): JSX.Element {
               </h1>
               <span>
                 <img
-                  className='rounded-full w-[3rem] h-[3rem] md:w-[4.5rem] md:h-[4.5rem] text-white'
+                  className='bg-white rounded-full w-[3rem] h-[3rem] md:w-[4.5rem] md:h-[4.5rem] text-white'
                   src='/src/assets/logo.webp'
                   alt='logo-iglesia'
                 />
@@ -93,18 +93,18 @@ export function DropdownMenuLeft(): JSX.Element {
           </div>
         </SheetHeader>
 
-        <nav
-          id='menu'
-          className='w-full px-10 flex flex-col items-center py-2 gap-y-[1rem] md:gap-y-[1.5rem]'
-        >
-          <div className='flex flex-col gap-y-2'>
+        <nav id='menu' className='w-full px-10 flex flex-col items-center py-2 gap-y-[.5rem]'>
+          <div className='flex flex-col gap-y-1 md:gap-y-0'>
             {menuItems.map((item) => (
               <SideMenuItem key={item.href} {...item} />
             ))}
           </div>
 
           {/* Logout */}
-          <a onClick={logoutUser} className='flex w-full cursor-pointer text-center justify-center'>
+          <a
+            onClick={logoutUser}
+            className='flex w-full cursor-pointer text-center justify-center '
+          >
             <FcExport className='text-2xl' />
             <span className='text-[20px] text-red-500 font-bold leading-5'>Salir</span>
           </a>

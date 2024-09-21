@@ -66,7 +66,7 @@ export const useCopastorCreationMutation = ({
 
       setTimeout(() => {
         navigate('/copastors');
-      }, 2400);
+      }, 2000);
     },
   });
 

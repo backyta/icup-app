@@ -23,7 +23,7 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
   return (
     <div className='animate-fadeIn'>
       <h1 className='text-center pb-2 pt-1 md:pt-2 md:pb-2 font-sans text-2xl sm:text-3xl font-bold text-family-group-color text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
-        Modulo Casa Familiar
+        Modulo Grupo Familiar
       </h1>
       <p className='text-center font-sans text-sm sm:text-md md:text-[15px] font-bold px-4 pb-4 lg:text-base xl:text-lg'>
         Bienvenido, por favor elige una opción.
@@ -40,10 +40,10 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
           <WhiteCard className='md:h-[11rem]' centered>
             <FcHome className='text-[10rem] lg:text-[8rem] xl:text-[7rem]' />
             <h2 className='text-green-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
-              Registrar Casa Familiar
+              Registrar Grupo Familiar
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Crear nuevo registro de una casa familiar.
+              Crear nuevo registro de un grupo familiar
             </p>
           </WhiteCard>
         </NavLink>
@@ -57,10 +57,10 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
           <WhiteCard className='md:h-[11rem]' centered>
             <FcSearch className='text-[10rem] lg:text-[7rem] xl:text-[8rem]' />
             <h2 className='text-blue-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
-              Consultar Casas Familiares
+              Consultar Grupos Familiares
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de casas familiares en general.
+              Consultar registros de grupos familiares en general
             </p>
           </WhiteCard>
         </NavLink>
@@ -74,10 +74,10 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
           <WhiteCard className='md:h-[11rem]' centered>
             <FcClearFilters className='text-[10rem] lg:text-[6rem] xl:text-[6rem]' />
             <h2 className='text-sky-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
-              Consultar Casas Familiares
+              Consultar Grupos Familiares
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de casas familiares por tipo.
+              Consultar registros de grupos familiares por tipo de búsqueda
             </p>
           </WhiteCard>
         </NavLink>
@@ -94,7 +94,7 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
               Actualizar Casa Familiar
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Actualizar información del registro de una casa familiar.
+              Actualizar información del registro de un grupo familiar
             </p>
           </WhiteCard>
         </NavLink>
@@ -111,7 +111,7 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
               Eliminar Casa Familiar
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Eliminar el registro de una casa familiar.
+              Eliminar registro de un grupo familiar.
             </p>
           </WhiteCard>
         </NavLink>

@@ -145,6 +145,7 @@ export const OfferingIncomeFormUpdate = ({
   //* Watchers
   const type = form.watch('type');
   const subType = form.watch('subType');
+  const comments = form.watch('comments');
   const memberType = form.watch('memberType');
 
   //* Custom hooks
@@ -286,8 +287,8 @@ export const OfferingIncomeFormUpdate = ({
       className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
       <div className='text-center'>
-        <h2 className='text-orange-500  font-bold text-[20px] md:text-[24px]'>
-          Actualizar información del registro de Ofrenda
+        <h2 className='text-orange-500  font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
+          Actualizar información del registro
         </h2>
       </div>
 
@@ -297,12 +298,12 @@ export const OfferingIncomeFormUpdate = ({
 
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
-              <div className='flex flex-col mb-4 pl-4'>
-                <span className='dark:text-amber-400 font-bold text-[14px] md:text-[16px] text-amber-500'>
+              <div className='flex flex-col mb-4 pl-0 md:pl-4'>
+                <span className='dark:text-amber-400 font-bold text-[16px] md:text-[18px] text-amber-500'>
                   Tipo de registro:{' '}
                   {`${OfferingIncomeCreationTypeNames[data?.type as OfferingIncomeCreationType]} ${data?.subType ? '-' : ''} ${OfferingIncomeCreationSubTypeNames[data?.subType as OfferingIncomeCreationSubType] ?? ''}`}
                 </span>
-                <span className='dark:text-slate-300 text-slate-500 font-bold text-[13px] md:text-[14.5px] ml-1'>
+                <span className='dark:text-slate-300 text-slate-500 font-bold text-[15px] md:text-[17px] ml-1'>
                   Pertenencia:{' '}
                   {`${
                     data?.type === OfferingIncomeCreationType.IncomeAdjustment ||
@@ -334,7 +335,7 @@ export const OfferingIncomeFormUpdate = ({
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(handleSubmit)}
-                  className='w-full flex flex-col md:grid md:grid-cols-2 gap-x-8 gap-y-4'
+                  className='w-full flex flex-col px-2 sm:px-8 md:grid md:grid-cols-2 gap-x-8 gap-y-4'
                 >
                   <div className='md:col-start-1 md:col-end-2'>
                     <FormField
@@ -381,7 +382,7 @@ export const OfferingIncomeFormUpdate = ({
                         name='subType'
                         render={({ field }) => {
                           return (
-                            <FormItem className='mt-4'>
+                            <FormItem className='mt-3'>
                               <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                                 Sub-Tipo
                               </FormLabel>
@@ -461,7 +462,7 @@ export const OfferingIncomeFormUpdate = ({
                         control={form.control}
                         name='memberId'
                         render={({ field }) => (
-                          <FormItem className='mt-4'>
+                          <FormItem className='mt-3'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Miembro
                             </FormLabel>
@@ -549,7 +550,7 @@ export const OfferingIncomeFormUpdate = ({
                           control={form.control}
                           name='familyGroupId'
                           render={({ field }) => (
-                            <FormItem className='mt-4'>
+                            <FormItem className='mt-3'>
                               <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                                 Grupo Familiar
                               </FormLabel>
@@ -634,7 +635,7 @@ export const OfferingIncomeFormUpdate = ({
                         control={form.control}
                         name='churchId'
                         render={({ field }) => (
-                          <FormItem className='mt-4'>
+                          <FormItem className='mt-3'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Iglesia
                             </FormLabel>
@@ -667,7 +668,7 @@ export const OfferingIncomeFormUpdate = ({
                               <PopoverContent align='center' className='w-auto px-4 py-2'>
                                 <Command>
                                   <CommandInput
-                                    placeholder='Busque una iglesia...'
+                                    placeholder='Busque una iglesia'
                                     className='h-9 text-[14px]'
                                   />
                                   <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
@@ -709,7 +710,7 @@ export const OfferingIncomeFormUpdate = ({
                         control={form.control}
                         name='zoneId'
                         render={({ field }) => (
-                          <FormItem className='mt-4'>
+                          <FormItem className='mt-3'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Zona
                             </FormLabel>
@@ -783,7 +784,7 @@ export const OfferingIncomeFormUpdate = ({
                         name='shift'
                         render={({ field }) => {
                           return (
-                            <FormItem className='mt-4'>
+                            <FormItem className='mt-3'>
                               <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                                 Turno
                               </FormLabel>
@@ -817,140 +818,211 @@ export const OfferingIncomeFormUpdate = ({
                       />
                     )}
 
-                    <FormField
-                      control={form.control}
-                      name='amount'
-                      render={({ field }) => {
-                        return (
-                          <FormItem className='mt-4'>
-                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                              Monto
-                            </FormLabel>
-                            <FormDescription className='text-[14px]'>
-                              Digita la cantidad o monto de la ofrenda.
-                            </FormDescription>
-                            <FormControl>
-                              <Input
-                                disabled={isInputDisabled}
-                                placeholder='Monto total de la ofrenda'
-                                type='text'
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        );
-                      }}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name='currency'
-                      render={({ field }) => {
-                        return (
-                          <FormItem className='mt-4'>
-                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                              Divisa / Moneda
-                            </FormLabel>
-                            <FormDescription className='text-[14px]'>
-                              Asignar un tipo de divisa o moneda al registro.
-                            </FormDescription>
-                            <Select
-                              disabled={isInputDisabled}
-                              value={field.value}
-                              onValueChange={field.onChange}
-                            >
+                    <div className='md:flex md:gap-5'>
+                      <FormField
+                        control={form.control}
+                        name='amount'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className='mt-3 w-full'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                                Monto
+                              </FormLabel>
+                              <FormDescription className='text-[14px]'>
+                                Digita el monto de la ofrenda.
+                              </FormDescription>
                               <FormControl>
-                                <SelectTrigger>
-                                  {field.value ? (
-                                    <SelectValue placeholder='Selecciona una tipo de divisa o moneda' />
-                                  ) : (
-                                    'Selecciona una tipo de divisa o moneda'
-                                  )}
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {Object.entries(CurrencyTypeNames).map(([key, value]) => (
-                                  <SelectItem key={key} value={key}>
-                                    {value}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        );
-                      }}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name='date'
-                      render={({ field }) => (
-                        <FormItem className='mt-4'>
-                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                            Fecha
-                          </FormLabel>
-                          <FormDescription className='text-[14px]'>
-                            Elige la fecha de deposito de la ofrenda.
-                          </FormDescription>
-                          <Popover open={isInputDateOpen} onOpenChange={setIsInputDateOpen}>
-                            <PopoverTrigger asChild>
-                              <FormControl>
-                                <Button
+                                <Input
                                   disabled={isInputDisabled}
-                                  variant={'outline'}
-                                  className={cn(
-                                    'w-full pl-3 text-left font-normal',
-                                    !field.value && 'text-muted-foreground'
-                                  )}
-                                >
-                                  {field.value ? (
-                                    format(field.value, 'LLL dd, y', { locale: es })
-                                  ) : (
-                                    <span className='text-sm md:text-[12px] lg:text-sm'>
-                                      Seleccione la fecha de la ofrenda
-                                    </span>
-                                  )}
-                                  <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
-                                </Button>
+                                  placeholder='Monto total de la ofrenda'
+                                  type='text'
+                                  {...field}
+                                />
                               </FormControl>
-                            </PopoverTrigger>
-                            <PopoverContent className='w-auto p-0' align='start'>
-                              <Calendar
-                                mode='single'
-                                selected={field.value}
-                                onSelect={(date) => {
-                                  field.onChange(date);
-                                  setIsInputDateOpen(false);
-                                }}
-                                disabled={
-                                  subType !== OfferingIncomeCreationSubType.SundayWorship &&
-                                  subType !== OfferingIncomeCreationSubType.SundaySchool &&
-                                  subType !== OfferingIncomeCreationSubType.FamilyGroup
-                                    ? (date) => date > new Date() || date < new Date('1900-01-01')
-                                    : (date) => {
-                                        const today = new Date();
-                                        const minDate = new Date('1900-01-01');
-                                        const dayOfWeek = date.getDay();
-                                        return dayOfWeek !== 0 || date > today || date < minDate;
-                                      }
-                                }
-                                initialFocus
-                              />
-                            </PopoverContent>
-                          </Popover>
-                          <FormMessage />
-                        </FormItem>
+                              <FormMessage />
+                            </FormItem>
+                          );
+                        }}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name='currency'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className='mt-3 w-full'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                                Divisa / Moneda
+                              </FormLabel>
+                              <FormDescription className='text-[14px]'>
+                                Asignar un tipo de divisa al registro.
+                              </FormDescription>
+                              <Select
+                                disabled={isInputDisabled}
+                                value={field.value}
+                                onValueChange={field.onChange}
+                              >
+                                <FormControl>
+                                  <SelectTrigger>
+                                    {field.value ? (
+                                      <SelectValue placeholder='Selecciona una tipo de divisa o moneda' />
+                                    ) : (
+                                      'Selecciona una tipo de divisa o moneda'
+                                    )}
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  {Object.entries(CurrencyTypeNames).map(([key, value]) => (
+                                    <SelectItem key={key} value={key}>
+                                      {value}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          );
+                        }}
+                      />
+                    </div>
+
+                    <div
+                      className={cn(
+                        'md:flex md:gap-5',
+                        type === OfferingIncomeCreationType.IncomeAdjustment &&
+                          'md:flex-col md:gap-0'
                       )}
-                    />
+                    >
+                      <FormField
+                        control={form.control}
+                        name='date'
+                        render={({ field }) => (
+                          <FormItem className='mt-3 w-full'>
+                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                              Fecha
+                            </FormLabel>
+                            <FormDescription className='text-[14px]'>
+                              Selecciona la fecha de deposito.
+                            </FormDescription>
+                            <Popover open={isInputDateOpen} onOpenChange={setIsInputDateOpen}>
+                              <PopoverTrigger asChild>
+                                <FormControl>
+                                  <Button
+                                    disabled={isInputDisabled}
+                                    variant={'outline'}
+                                    className={cn(
+                                      'w-full pl-3 text-left font-normal',
+                                      !field.value && 'text-muted-foreground'
+                                    )}
+                                  >
+                                    {field.value ? (
+                                      format(field.value, 'LLL dd, y', { locale: es })
+                                    ) : (
+                                      <span className='text-sm md:text-[12px] lg:text-sm'>
+                                        Seleccione la fecha de la ofrenda
+                                      </span>
+                                    )}
+                                    <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
+                                  </Button>
+                                </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent className='w-auto p-0' align='start'>
+                                <Calendar
+                                  mode='single'
+                                  selected={field.value}
+                                  onSelect={(date) => {
+                                    field.onChange(date);
+                                    setIsInputDateOpen(false);
+                                  }}
+                                  disabled={
+                                    subType !== OfferingIncomeCreationSubType.SundayWorship &&
+                                    subType !== OfferingIncomeCreationSubType.SundaySchool &&
+                                    subType !== OfferingIncomeCreationSubType.FamilyGroup
+                                      ? (date) => date > new Date() || date < new Date('1900-01-01')
+                                      : (date) => {
+                                          const today = new Date();
+                                          const minDate = new Date('1900-01-01');
+                                          const dayOfWeek = date.getDay();
+                                          return dayOfWeek !== 0 || date > today || date < minDate;
+                                        }
+                                  }
+                                  initialFocus
+                                />
+                              </PopoverContent>
+                            </Popover>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      {data?.recordStatus === RecordStatus.Active && (
+                        <FormField
+                          control={form.control}
+                          name='recordStatus'
+                          render={({ field }) => {
+                            return (
+                              <FormItem className='mt-3 w-full'>
+                                <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                                  Estado
+                                </FormLabel>
+                                <FormDescription className='text-[14px]'>
+                                  Selecciona el estado del registro.
+                                </FormDescription>
+                                <Select
+                                  disabled={isInputDisabled}
+                                  value={field.value}
+                                  onValueChange={field.onChange}
+                                >
+                                  <FormControl className='text-[13px] md:text-[14px]'>
+                                    <SelectTrigger>
+                                      {field.value === 'active' ? (
+                                        <SelectValue placeholder='Activo' />
+                                      ) : (
+                                        <SelectValue placeholder='Inactivo' />
+                                      )}
+                                    </SelectTrigger>
+                                  </FormControl>
+                                  <SelectContent>
+                                    <SelectItem className='text-[14px]' value='active'>
+                                      Activo
+                                    </SelectItem>
+                                    <SelectItem className='text-[14px]' value='inactive'>
+                                      Inactivo
+                                    </SelectItem>
+                                  </SelectContent>
+                                </Select>
+                                {form.getValues('recordStatus') === 'active' && (
+                                  <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                                    *El registro esta <span className='text-green-500'>Activo</span>
+                                    , para colocarlo como{' '}
+                                    <span className='text-red-500'>Inactivo</span> debe eliminar el
+                                    registro desde la pestaña{' '}
+                                    <span className='font-bold text-red-500'>
+                                      Eliminar Ingreso de Ofrenda.{' '}
+                                    </span>
+                                  </FormDescription>
+                                )}
+                                {form.getValues('recordStatus') === 'inactive' && (
+                                  <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                                    * El registro esta{' '}
+                                    <span className='text-red-500 '>Inactivo</span>, puede modificar
+                                    el estado eligiendo otra opción.
+                                  </FormDescription>
+                                )}
+                                <FormMessage />
+                              </FormItem>
+                            );
+                          }}
+                        />
+                      )}
+                    </div>
 
                     <FormField
                       control={form.control}
                       name='comments'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-4'>
+                          <FormItem className='mt-3'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
                               Comentarios
                               <span className='ml-3 inline-block bg-orange-200 text-orange-600 border text-[10px] font-bold uppercase px-2 py-[2px] rounded-full mr-1'>
@@ -964,11 +1036,12 @@ export const OfferingIncomeFormUpdate = ({
                             )}
                             <FormControl>
                               <Textarea
+                                className={cn(comments && 'h-full')}
                                 disabled={isInputDisabled}
                                 placeholder={`${
                                   type === OfferingIncomeCreationType.IncomeAdjustment
-                                    ? `Motivos y comentarios sobre el ajuste...`
-                                    : 'Comentarios referente al registro de la ofrenda..'
+                                    ? `Comentarios sobre el ajuste de ingreso...`
+                                    : 'Comentarios sobre el registro de la ofrenda...'
                                 }`}
                                 {...field}
                               />
@@ -978,63 +1051,9 @@ export const OfferingIncomeFormUpdate = ({
                         );
                       }}
                     />
-
-                    {data?.recordStatus === RecordStatus.Active && (
-                      <FormField
-                        control={form.control}
-                        name='recordStatus'
-                        render={({ field }) => {
-                          return (
-                            <FormItem className='mt-3'>
-                              <FormLabel className='text-[14px] font-bold'>Estado</FormLabel>
-                              <Select
-                                disabled={isInputDisabled}
-                                value={field.value}
-                                onValueChange={field.onChange}
-                              >
-                                <FormControl className='text-[13px] md:text-[14px]'>
-                                  <SelectTrigger>
-                                    {field.value === 'active' ? (
-                                      <SelectValue placeholder='Activo' />
-                                    ) : (
-                                      <SelectValue placeholder='Inactivo' />
-                                    )}
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  <SelectItem className='text-[14px]' value='active'>
-                                    Activo
-                                  </SelectItem>
-                                  <SelectItem className='text-[14px]' value='inactive'>
-                                    Inactivo
-                                  </SelectItem>
-                                </SelectContent>
-                              </Select>
-                              {form.getValues('recordStatus') === 'active' && (
-                                <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
-                                  *El registro esta <span className='text-green-500'>Activo</span>,
-                                  para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
-                                  debe eliminar el registro desde la pestaña{' '}
-                                  <span className='font-bold text-red-500'>
-                                    Eliminar Ingreso de Ofrenda.{' '}
-                                  </span>
-                                </FormDescription>
-                              )}
-                              {form.getValues('recordStatus') === 'inactive' && (
-                                <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
-                                  * El registro esta <span className='text-red-500 '>Inactivo</span>
-                                  , puede modificar el estado eligiendo otra opción.
-                                </FormDescription>
-                              )}
-                              <FormMessage />
-                            </FormItem>
-                          );
-                        }}
-                      />
-                    )}
                   </div>
 
-                  <div className='md:col-start-2 md:col-end-3 border-l-2 border-slate-200 dark:border-slate-800 pl-6'>
+                  <div className='md:col-start-2 md:col-end-3 md:border-l-2 border-slate-200 dark:border-slate-800 md:pl-6'>
                     <FormField
                       control={form.control}
                       name='fileNames'
@@ -1072,7 +1091,7 @@ export const OfferingIncomeFormUpdate = ({
                                 ❌ Sobrepasa el limite, elige como máximo solo 3 imágenes.
                               </span>
                             ) : (
-                              <span className='font-bold text-[11.5px] md:text-[12.5px] pl-6 mt-1 flex flex-col'>
+                              <span className='font-bold text-[11.5px] md:text-[12.5px] pl-1 md:pl-5 mt-1 flex flex-col'>
                                 <span>✅ Máximo 3 archivos.</span>
                                 <span>
                                   ✅ El campo se bloqueara al llegar o pasar los 3 archivos.
@@ -1179,7 +1198,7 @@ export const OfferingIncomeFormUpdate = ({
                   </div>
 
                   {isMessageErrorDisabled ? (
-                    <p className='-mb-5 mt-6 md:-mb-2 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 mx-auto md:w-[100%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
+                    <p className='-mb-5 mt-2 md:-mb-2 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 mx-auto md:w-[100%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
                       ❌ Datos incompletos, completa todos los campos para crear el registro.
                     </p>
                   ) : (

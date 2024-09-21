@@ -112,10 +112,10 @@ export const OfferingExpenseDeleteCard = ({
       </DialogTrigger>
       <DialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
         <div className='h-auto'>
-          <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-2'>
+          <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-3'>
             ¿Estas seguro de eliminar este registro?
           </h2>
-          <p className='h-[21rem] md:h-[14.5rem]'>
+          <p className='h-[15rem] md:h-[14.5rem]'>
             <span className='w-full text-left text-blue-500 font-medium mb-3 inline-block text-[16px] md:text-[18px]'>
               Luego de eliminar sucederá lo siguiente:
             </span>
@@ -143,7 +143,7 @@ export const OfferingExpenseDeleteCard = ({
                 name='reasonEliminationType'
                 render={({ field }) => {
                   return (
-                    <FormItem className='mb-4 mt-4'>
+                    <FormItem className='mb-6 mt-4'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold text-red-500'>
                         ¿Cual es el motivo por el cual se esta eliminando este registro?
                       </FormLabel>

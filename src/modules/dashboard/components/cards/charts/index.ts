@@ -1,3 +1,4 @@
 export * from './TopFamilyGroupsOfferingsCard';
-export * from './LatestsSundayOfferingsCard';
-export * from './RenderTooltipContent';
+export * from './LastSundaysOfferingsCard';
+export * from './TopFamilyGroupsOfferingsTooltipContent';
+export * from './LastSundaysOfferingsTooltipContent';

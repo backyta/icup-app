@@ -17,6 +17,7 @@ import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 
 import { useZoneStore } from '@/stores/zone';
 
+import { PageTitle } from '@/shared/components/page';
 import { type ZoneResponse } from '@/modules/zone/interfaces';
 import { zoneInfoColumns as columns, GeneralZoneSearchDataTable } from '@/modules/zone/components';
 
@@ -112,10 +113,8 @@ export const ZonesGeneralSearchPage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h1 className='text-center pt-2 pb-4 font-sans text-2xl sm:text-3xl font-bold text-cyan-400 dark:text-cyan-500 text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
-        Modulo Zona
-      </h1>
-      <hr className='md:p-[0.02rem] bg-slate-500' />
+      <PageTitle className='text-cyan-400 dark:text-cyan-500'>Modulo Zona</PageTitle>
+
       <div className='flex items-center justify-start'>
         <h2 className='flex items-center text-left pl-4 py-2 sm:pt-4 sm:pb-2 sm:pl-[1.5rem] xl:pl-[2rem] 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-sky-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl'>
           Buscar zonas
@@ -237,7 +236,7 @@ export const ZonesGeneralSearchPage = (): JSX.Element => {
                   <FormItem className='w-auto lg:min-w-[22rem] mid-xl:min-w-[27rem]'>
                     <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
                     <FormDescription className='text-[14px]'>
-                      Elige el tipo de orden de los registros
+                      Elige el tipo de orden de los registros.
                     </FormDescription>
                     <Select value={field.value} onValueChange={field.onChange}>
                       <FormControl className='text-[13px] md:text-[14px] lg:w-full'>

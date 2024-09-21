@@ -57,7 +57,9 @@ export const useFamilyGroupCreationSubmitButtonLogic = ({
       !district ||
       !worshipTime ||
       !address ||
-      !urbanSector
+      !urbanSector ||
+      !theirPreacher ||
+      !theirZone
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);

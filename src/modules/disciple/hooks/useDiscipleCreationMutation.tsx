@@ -66,7 +66,7 @@ export const useDiscipleCreationMutation = ({
 
       setTimeout(() => {
         navigate('/disciples');
-      }, 2400);
+      }, 2000);
     },
   });
 

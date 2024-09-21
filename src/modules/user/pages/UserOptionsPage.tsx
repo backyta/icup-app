@@ -44,7 +44,7 @@ export const UserOptionsPage = (): JSX.Element => {
               Registrar Usuario
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Crear nuevo registro de un usuario.
+              Crear nuevo registro de un usuario
             </p>
           </WhiteCard>
         </NavLink>
@@ -61,7 +61,7 @@ export const UserOptionsPage = (): JSX.Element => {
               Consultar Usuarios
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de usuarios en general.
+              Consultar registros de usuarios en general
             </p>
           </WhiteCard>
         </NavLink>
@@ -78,7 +78,7 @@ export const UserOptionsPage = (): JSX.Element => {
               Consultar Usuarios
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de usuarios por tipo.
+              Consultar registros de usuarios por tipo de búsqueda
             </p>
           </WhiteCard>
         </NavLink>
@@ -95,7 +95,7 @@ export const UserOptionsPage = (): JSX.Element => {
               Actualizar Usuario
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Actualizar información del registro de un usuario.
+              Actualizar información del registro de un usuario
             </p>
           </WhiteCard>
         </NavLink>
@@ -112,7 +112,7 @@ export const UserOptionsPage = (): JSX.Element => {
               Eliminar Usuario
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Eliminar el registro de un usuario.
+              Eliminar registro de un usuario
             </p>
           </WhiteCard>
         </NavLink>

@@ -23,8 +23,8 @@ export function MemberInfoItem({ data }: Props): JSX.Element {
 
   if (isDesktop) {
     return (
-      <div className='flex justify-between'>
-        <CardContent className='flex gap-1 '>
+      <div className='flex justify-between items-center pb-1'>
+        <CardContent className='flex pl-6 py-2'>
           <Avatar className='p-1'>
             <AvatarImage
               className='rounded-full w-10'
@@ -37,7 +37,7 @@ export function MemberInfoItem({ data }: Props): JSX.Element {
             <p className='text-[12px] sm:text-[14px] ml-2'>{`${data.district} - ${data.urbanSector}`}</p>
           </div>
         </CardContent>
-        <div className='px-2 pt-0 pb-2 sm:p-6 sm:pt-0'>
+        <div className='pr-6 pt-2 pb-2'>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button className='text-[12px] sm:text-sm xl:text-md lg:w-[7rem] xl:w-[8rem] 2xl:w-[10rem]'>
@@ -54,8 +54,8 @@ export function MemberInfoItem({ data }: Props): JSX.Element {
   }
 
   return (
-    <div className='flex justify-between'>
-      <CardContent className='flex gap-1 pl-2'>
+    <div className='flex justify-between items-center pb-1'>
+      <CardContent className='flex gap-1 p-2'>
         <Avatar className='p-1'>
           <AvatarImage
             className='rounded-full w-10'
@@ -70,7 +70,7 @@ export function MemberInfoItem({ data }: Props): JSX.Element {
           </div>
         </div>
       </CardContent>
-      <div className='px-2 pt-0 pb-2 pr-4 sm:p-6 sm:pt-0'>
+      <div className='px-2 pt-2 pb-2 pr-4 sm:p-6 sm:pt-0'>
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerTrigger asChild>
             <Button className='text-[12px] sm:text-sm xl:text-md lg:w-[7rem] xl:w-[8rem] 2xl:w-[10rem] '>

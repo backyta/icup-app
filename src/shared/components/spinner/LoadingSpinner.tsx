@@ -26,7 +26,54 @@ export const LoadingSpinner = (): JSX.Element => {
   return (
     <div
       className={cn(
-        'min-h-screen flex items-center justify-center md:min-h-full text-slate-100 dark:bg-slate-950'
+        'min-h-screen flex items-center justify-center md:min-h-full text-slate-100 dark:bg-slate-950',
+        (pathname === '/churches/general-search' ||
+          pathname === '/churches/search-by-term' ||
+          pathname === '/churches/update' ||
+          pathname === '/churches/delete' ||
+          pathname === '/pastors/general-search' ||
+          pathname === '/pastors/search-by-term' ||
+          pathname === '/pastors/update' ||
+          pathname === '/pastors/delete' ||
+          pathname === '/copastors/general-search' ||
+          pathname === '/copastors/search-by-term' ||
+          pathname === '/copastors/update' ||
+          pathname === '/copastors/delete' ||
+          pathname === '/supervisors/general-search' ||
+          pathname === '/supervisors/search-by-term' ||
+          pathname === '/supervisors/update' ||
+          pathname === '/supervisors/delete' ||
+          pathname === '/preachers/general-search' ||
+          pathname === '/preachers/search-by-term' ||
+          pathname === '/preachers/update' ||
+          pathname === '/preachers/delete' ||
+          pathname === '/disciples/general-search' ||
+          pathname === '/disciples/search-by-term' ||
+          pathname === '/disciples/update' ||
+          pathname === '/disciples/delete' ||
+          pathname === '/family-groups/general-search' ||
+          pathname === '/family-groups/search-by-term' ||
+          pathname === '/family-groups/update' ||
+          pathname === '/family-groups/delete' ||
+          pathname === '/zones/general-search' ||
+          pathname === '/zones/search-by-term' ||
+          pathname === '/zones/update' ||
+          pathname === '/zones/delete' ||
+          pathname === '/offerings/incomes/general-search' ||
+          pathname === '/offerings/incomes/search-by-term' ||
+          pathname === '/offerings/incomes/update' ||
+          pathname === '/offerings/incomes/delete' ||
+          pathname === '/offerings/expenses/general-search' ||
+          pathname === '/offerings/expenses/search-by-term' ||
+          pathname === '/offerings/expenses/update' ||
+          pathname === '/offerings/expenses/delete' ||
+          pathname === '/users/general-search' ||
+          pathname === '/users/search-by-term' ||
+          pathname === '/users/update' ||
+          pathname === '/users/delete' ||
+          pathname === '/dashboard') &&
+          'min-h-full',
+        pathname === '/metrics/member' && 'bg-slate-50/40 dark:bg-slate-900/40'
       )}
     >
       <div className='flex flex-col items-center justify-center px-4'>

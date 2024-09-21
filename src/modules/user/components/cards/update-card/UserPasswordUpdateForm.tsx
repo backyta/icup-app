@@ -129,7 +129,7 @@ export const UserPasswordUpdateForm = ({
       defaultValue='general-info'
       className='w-auto sm:w-[420px] md:w-[480px] lg:w-[440px] xl:w-[530px]'
     >
-      <h2 className='text-center text-purple-500 pb-2 font-bold text-[20px] md:text-[24px]'>
+      <h2 className='text-center text-purple-500 pb-2 font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
         Actualizar contraseña
       </h2>
 
@@ -271,7 +271,7 @@ export const UserPasswordUpdateForm = ({
                   </p>
                 )}
 
-                <div className='w-full md:w-[20rem] md:mx-auto col-start-1 col-end-3 text-sm md:text-md xl:text-base'>
+                <div className='w-full mt-1 md:w-[20rem] md:mx-auto col-start-1 col-end-3 text-sm md:text-md xl:text-base'>
                   <Button
                     disabled={isSubmitButtonDisabled}
                     type='submit'

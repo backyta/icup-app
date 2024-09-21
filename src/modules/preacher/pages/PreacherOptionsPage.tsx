@@ -43,7 +43,7 @@ export const PreacherOptionsPage = (): JSX.Element => {
               Registrar Predicador
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Crear nuevo registro de un predicador.
+              Crear nuevo registro de un predicador
             </p>
           </WhiteCard>
         </NavLink>
@@ -60,7 +60,7 @@ export const PreacherOptionsPage = (): JSX.Element => {
               Consultar Predicadores
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de co-pastores en general.
+              Consultar registros de predicadores en general
             </p>
           </WhiteCard>
         </NavLink>
@@ -77,7 +77,7 @@ export const PreacherOptionsPage = (): JSX.Element => {
               Consultar Predicadores
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de supervisores por tipo.
+              Consultar registros de predicadores por tipo.
             </p>
           </WhiteCard>
         </NavLink>
@@ -94,7 +94,7 @@ export const PreacherOptionsPage = (): JSX.Element => {
               Actualizar Predicador
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Actualizar información del registro de un predicador.
+              Actualizar información del registro de un predicador
             </p>
           </WhiteCard>
         </NavLink>
@@ -111,7 +111,7 @@ export const PreacherOptionsPage = (): JSX.Element => {
               Eliminar Predicador
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Eliminar el registro de un predicador.
+              Eliminar registro de un predicador
             </p>
           </WhiteCard>
         </NavLink>

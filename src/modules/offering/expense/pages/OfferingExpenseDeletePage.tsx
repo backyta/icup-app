@@ -42,6 +42,7 @@ import { getAllChurches } from '@/modules/pastor/services';
 
 import { cn } from '@/shared/lib/utils';
 
+import { PageTitle } from '@/shared/components/page';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 import { dateFormatterTermToTimestamp } from '@/shared/helpers';
 
@@ -175,12 +176,8 @@ export const OfferingExpenseDeletePage = (): JSX.Element => {
   }
 
   return (
-    <div>
-      <h1 className='text-center pt-1 pb-4 font-sans text-2xl sm:text-3xl font-bold text-offering-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
-        Modulo Ofrendas
-      </h1>
-
-      <hr className='md:p-[0.02rem] bg-slate-500' />
+    <div className='animate-fadeInPage'>
+      <PageTitle className='text-red-600'>Modulo de Salida</PageTitle>
 
       <div className='flex items-center justify-start relative'>
         <h2 className='w-[18.5rem] sm:w-auto flex items-center text-left pl-4 py-2 sm:pt-4 sm:pb-2 sm:pl-[1.5rem] xl:pl-[2rem] 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-red-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl'>
@@ -399,7 +396,7 @@ export const OfferingExpenseDeletePage = (): JSX.Element => {
                     <FormItem className=''>
                       <FormLabel className='text-[14px] font-bold'>Termino (fecha)</FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Buscar por fecha o rango de fechas
+                        Buscar por fecha o rango de fechas.
                       </FormDescription>
                       <Popover>
                         <PopoverTrigger asChild>
@@ -533,7 +530,7 @@ export const OfferingExpenseDeletePage = (): JSX.Element => {
                   <FormItem className='w-full row-start-3 row-end-4 md:col-start-auto md:col-end-auto md:row-start-auto md:row-end-auto '>
                     <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
                     <FormDescription className='text-[14px]'>
-                      Elige el tipo de orden de los registros
+                      Elige el tipo de orden de los registros.
                     </FormDescription>
                     <Select
                       onOpenChange={() => {}}

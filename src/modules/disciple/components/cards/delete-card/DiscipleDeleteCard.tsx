@@ -55,7 +55,7 @@ export const DiscipleDeleteCard = ({ idRow }: DiscipleDeleteCardProps): JSX.Elem
       </DialogTrigger>
       <DialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
         <div className='h-auto'>
-          <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-2 flex flex-col'>
+          <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-3 flex flex-col'>
             <span>¿Estas seguro de eliminar a este</span>
             <span className='w-full text-center'>Discípulo?</span>
           </h2>

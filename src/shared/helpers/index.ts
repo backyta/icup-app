@@ -8,3 +8,4 @@ export * from './names-formatter.helper';
 export * from './date-formatter-to-ddmmyyyy.helper';
 export * from './array-roles-formatter-to-string.helper';
 export * from './get-code-and-name-family-group.helper';
+export * from './generate-year-options.helper';

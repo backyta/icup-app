@@ -2,4 +2,4 @@ export * from './mode-toggle';
 export * from './theme-provider';
 export * from './ToggleLayout';
 export * from './ToggleLayoutLogin';
-export * from './ToggleSideBar';
+export * from './ToggleNavBar';

@@ -12,7 +12,7 @@ import {
   OfferingIncomeAnalysisCardByUnitedWorship,
   OfferingIncomeAnalysisCardByActivities,
   OfferingIncomeAnalysisCardByIncomeAdjustment,
-} from '@/modules/metrics/components/graphics-offering-income';
+} from '@/modules/metrics/components/charts-offering-income';
 
 export const MetricsOfferingIncome = (): JSX.Element => {
   useEffect(() => {

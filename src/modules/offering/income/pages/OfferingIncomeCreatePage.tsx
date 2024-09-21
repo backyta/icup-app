@@ -42,6 +42,7 @@ import { type DiscipleResponse } from '@/modules/disciple/interfaces';
 import { type SupervisorResponse } from '@/modules/supervisor/interfaces';
 
 import { cn } from '@/shared/lib/utils';
+import { PageTitle } from '@/shared/components/page';
 import { getCodeAndNameFamilyGroup, getFullNames } from '@/shared/helpers';
 
 import {
@@ -255,20 +256,16 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h1 className='text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-offering-color text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]'>
-        Modulo Ofrendas
-      </h1>
+      <PageTitle className='text-green-600'>Modulo de Ingreso</PageTitle>
 
-      <hr className='md:p-[0.02rem] bg-slate-500' />
-
-      <h1 className='text-left px-4 sm:px-5 pt-2 2xl:px-24 font-sans font-bold text-green-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h1 className='text-left leading-7 pb-2 pt-3 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear nuevo ingreso de ofrenda
       </h1>
-      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 sm:pl-7 2xl:px-28 text-[12px] md:text-[15px] xl:text-base'>
+      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6  sm:pl-7 2xl:px-28 text-[12px] md:text-[15px] xl:text-base'>
         Por favor llena los siguientes datos para crear un nuevo registro de ingreso.
       </p>
 
-      <div className='flex flex-col items-center pb-8 gap-y-8 md:gap-y-12 px-5 py-4 sm:px-12 sm:py-8 2xl:px-36 2xl:py-8'>
+      <div className='flex flex-col items-center pb-8 gap-y-8 md:gap-y-12 px-6 py-4 sm:px-12 sm:py-8 2xl:px-36 2xl:py-8'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -283,7 +280,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                     <FormItem>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Tipo</FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Asignar un tipo de ofrenda al registro.
+                        Asigna un tipo de ofrenda al nuevo registro.
                       </FormDescription>
                       <Select
                         disabled={isInputDisabled}
@@ -319,12 +316,12 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   name='subType'
                   render={({ field }) => {
                     return (
-                      <FormItem className='mt-4'>
+                      <FormItem className='mt-3'>
                         <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                           Sub-Tipo
                         </FormLabel>
                         <FormDescription className='text-[14px]'>
-                          Asignar un sub-tipo de ofrenda al registro.
+                          Asigna un sub-tipo de ofrenda al nuevo registro.
                         </FormDescription>
                         <Select
                           disabled={isInputDisabled}
@@ -407,7 +404,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   control={form.control}
                   name='memberId'
                   render={({ field }) => (
-                    <FormItem className='mt-4'>
+                    <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Miembro
                       </FormLabel>
@@ -493,7 +490,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                     control={form.control}
                     name='familyGroupId'
                     render={({ field }) => (
-                      <FormItem className='mt-4'>
+                      <FormItem className='mt-3'>
                         <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                           Grupo Familiar
                         </FormLabel>
@@ -573,7 +570,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   control={form.control}
                   name='churchId'
                   render={({ field }) => (
-                    <FormItem className='mt-4'>
+                    <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Iglesia
                       </FormLabel>
@@ -603,7 +600,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                         <PopoverContent align='center' className='w-auto px-4 py-2'>
                           <Command>
                             <CommandInput
-                              placeholder='Busque una iglesia...'
+                              placeholder='Busque una iglesia'
                               className='h-9 text-[14px]'
                             />
                             <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
@@ -645,7 +642,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   control={form.control}
                   name='zoneId'
                   render={({ field }) => (
-                    <FormItem className='mt-4'>
+                    <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Zona</FormLabel>
                       <FormDescription className='text-[14px]'>
                         Seleccione una zona para asignarlo al registro.
@@ -714,7 +711,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   name='shift'
                   render={({ field }) => {
                     return (
-                      <FormItem className='mt-4'>
+                      <FormItem className='mt-3'>
                         <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                           Turno
                         </FormLabel>
@@ -751,12 +748,13 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   }}
                 />
               )}
+
               <FormField
                 control={form.control}
                 name='amount'
                 render={({ field }) => {
                   return (
-                    <FormItem className='mt-4'>
+                    <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Monto
                       </FormLabel>
@@ -782,7 +780,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 name='currency'
                 render={({ field }) => {
                   return (
-                    <FormItem className='mt-4'>
+                    <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Divisa / Moneda
                       </FormLabel>
@@ -820,7 +818,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 control={form.control}
                 name='date'
                 render={({ field }) => (
-                  <FormItem className='mt-4'>
+                  <FormItem className='mt-3'>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Fecha</FormLabel>
                     <FormDescription className='text-[14px]'>
                       Elige la fecha de deposito de la ofrenda.
@@ -881,7 +879,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 name='comments'
                 render={({ field }) => {
                   return (
-                    <FormItem className='mt-4'>
+                    <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
                         Comentarios
                         {type !== OfferingIncomeCreationType.IncomeAdjustment && (
@@ -905,8 +903,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           disabled={isInputDisabled}
                           placeholder={`${
                             type === OfferingIncomeCreationType.IncomeAdjustment
-                              ? `Motivos y comentarios sobre el ajuste...`
-                              : 'Comentarios referente al registro de la ofrenda..'
+                              ? `Comentarios sobre el ajuste de ingreso...`
+                              : 'Comentarios sobre el registro de la ofrenda...'
                           }`}
                           {...field}
                         />
@@ -918,13 +916,13 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
               />
             </div>
 
-            <div className='md:col-start-2 md:col-end-3 border-l-2 border-slate-200 dark:border-slate-800 pl-6'>
+            <div className='md:col-start-2 md:col-end-3 md:border-l-2 border-slate-200 dark:border-slate-800 md:pl-6'>
               <FormField
                 control={form.control}
                 name='fileNames'
                 render={() => {
                   return (
-                    <FormItem className='mt-4 md:mt-0'>
+                    <FormItem className='mt-3 md:mt-0'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
                         Subir imagen{' '}
                         <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
@@ -1023,7 +1021,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           {errors.map((error) => (
                             <li
                               key={error.code}
-                            >{`${error.message === 'File type must be image/*' ? 'Tipo de archivo debe ser una imagen.' : error.message}`}</li>
+                            >{`${error.message === 'File type must be image/*' ? 'Tipo de archivo debe ser una imagen.' : 'Debe ser un archivo menor a 1000KB.'}`}</li>
                           ))}
                         </ul>
                       </div>
@@ -1044,7 +1042,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
             </div>
 
             {isMessageErrorDisabled ? (
-              <p className='-mb-5 mt-6 md:-mb-2 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 mx-auto md:w-[100%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
+              <p className='-mb-5 mt-2 md:-mb-2 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 mx-auto md:w-[100%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
                 ❌ Datos incompletos, completa todos los campos para crear el registro.
               </p>
             ) : (

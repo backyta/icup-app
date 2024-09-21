@@ -64,7 +64,7 @@ export const getZones = async ({limit, offset, all, order}: ZoneQueryParams): Pr
 export interface GetSupervisorsByCopastorOptions {
   searchType: string;
   copastorId: string;
-  isNull: string;
+  isNull: boolean;
 }
 
 export const getAllSupervisorsByCopastor = async ({
@@ -77,7 +77,7 @@ export const getAllSupervisorsByCopastor = async ({
       params: {
         order: 'ASC',
         'search-type': searchType,
-        isNull,
+        isNull: isNull.toString(),
       },
     }
   );

@@ -4,7 +4,7 @@ import { Skeleton } from '@/shared/components/ui/skeleton';
 export const ChurchFormSkeleton = (): JSX.Element => {
   return (
     <CardContent className='py-3 px-4'>
-      <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-4'>
+      <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-0 md:pl-4'>
         <Skeleton className='h-5 w-96' />
       </div>
       <div>

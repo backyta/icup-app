@@ -173,7 +173,7 @@ export const FamilyGroupUpdateForm = ({
       getAllPreachersByZone({
         searchType: PreacherSearchType.ZoneId,
         zoneId: theirZone ?? '',
-        isNull: 'true',
+        isNull: true,
       }),
     enabled: !!theirZone,
     retry: 1,
@@ -184,14 +184,12 @@ export const FamilyGroupUpdateForm = ({
     familyGroupUpdateMutation.mutate({ id, formData });
   };
 
-  console.log(data?.theirPreacher);
-
   return (
     <Tabs
       defaultValue='general-info'
       className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
-      <h2 className='text-center text-orange-500 pb-2 font-bold text-[20px] md:text-[24px]'>
+      <h2 className='text-center text-orange-500 pb-2 font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
         Actualizar información de la Casa Familiar
       </h2>
 
@@ -201,7 +199,7 @@ export const FamilyGroupUpdateForm = ({
 
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
-              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-4'>
+              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] mb-4 pl-0 md:pl-4'>
                 Grupo Familiar:{' '}
                 {`${data?.familyGroupName} (${data?.familyGroupCode ?? 'Sin código'})`}
               </div>
@@ -216,17 +214,17 @@ export const FamilyGroupUpdateForm = ({
                       name='familyGroupName'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Nombre
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar una nombre al grupo familiar.
+                              Asigna una nombre al grupo familiar.
                             </FormDescription>
                             <FormControl>
                               <Input
                                 disabled={isInputDisabled}
-                                placeholder='Eje: Los Guerreros de Dios...'
+                                placeholder='Ejem: Los Guerreros de Dios...'
                                 type='text'
                                 {...field}
                               />
@@ -242,12 +240,12 @@ export const FamilyGroupUpdateForm = ({
                       name='worshipTime'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-4'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Horario de culto
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar un horario de culto del grupo familiar.
+                              Asigna un horario de culto al grupo familiar.
                             </FormDescription>
                             <Select
                               onValueChange={field.onChange}
@@ -282,12 +280,12 @@ export const FamilyGroupUpdateForm = ({
                       name='country'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-4'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               País
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar el país al que pertenece el grupo familiar.
+                              Asigna el país al que pertenece el grupo familiar.
                             </FormDescription>
                             <Select
                               onValueChange={field.onChange}
@@ -322,12 +320,12 @@ export const FamilyGroupUpdateForm = ({
                       name='department'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-4'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Departamento
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar el departamento al que pertenece el grupo familiar.
+                              Asigna el departamento al que pertenece el grupo familiar.
                             </FormDescription>
                             <Select
                               onValueChange={field.onChange}
@@ -362,12 +360,12 @@ export const FamilyGroupUpdateForm = ({
                       name='province'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-4'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Provincia
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar la provincia a la que pertenece el grupo familiar.
+                              Asigna la provincia a la que pertenece el grupo familiar.
                             </FormDescription>
                             <Select
                               onValueChange={field.onChange}
@@ -402,12 +400,12 @@ export const FamilyGroupUpdateForm = ({
                       name='district'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-4'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Distrito
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar el distrito al que pertenece el grupo familiar.
+                              Asigna el distrito al que pertenece el grupo familiar.
                             </FormDescription>
                             <Select
                               onValueChange={field.onChange}
@@ -448,12 +446,12 @@ export const FamilyGroupUpdateForm = ({
                       name='urbanSector'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Sector Urbano
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar el sector urbano al que pertenece el grupo familiar.
+                              Asigna el sector urbano al que pertenece el grupo familiar.
                             </FormDescription>
                             <Select
                               onValueChange={field.onChange}
@@ -492,12 +490,12 @@ export const FamilyGroupUpdateForm = ({
                       name='address'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-4'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Dirección
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar la dirección al que pertenece el grupo familiar.
+                              Asigna la dirección al que pertenece el grupo familiar.
                             </FormDescription>
                             <FormControl>
                               <Input
@@ -518,7 +516,7 @@ export const FamilyGroupUpdateForm = ({
                       name='referenceAddress'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-4'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Referencia de dirección
                             </FormLabel>
@@ -540,12 +538,12 @@ export const FamilyGroupUpdateForm = ({
                       name='theirZone'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-4'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Zona
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar la zona a la que pertenecerá el grupo familiar.
+                              Asigna la Zona a la que pertenecerá este Grupo Familiar.
                             </FormDescription>
                             <Popover
                               open={isInputTheirZoneOpen}
@@ -614,12 +612,12 @@ export const FamilyGroupUpdateForm = ({
                       name='theirPreacher'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-4'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Predicador
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Seleccione un predicador para esta grupo familiar.
+                              Asigna el Predicador responsable de este Grupo Familiar.
                             </FormDescription>
                             {preachersByZoneQuery?.isFetching &&
                             (data?.recordStatus === RecordStatus.Inactive ||
@@ -755,7 +753,7 @@ export const FamilyGroupUpdateForm = ({
                       name='recordStatus'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] font-bold'>Estado</FormLabel>
                             <Select
                               disabled={isInputDisabled}

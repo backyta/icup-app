@@ -66,7 +66,7 @@ export const usePreacherCreationMutation = ({
 
       setTimeout(() => {
         navigate('/preachers');
-      }, 2400);
+      }, 2000);
     },
   });
 

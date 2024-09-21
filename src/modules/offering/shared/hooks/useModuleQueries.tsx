@@ -38,7 +38,7 @@ export const useModuleQueries = (memberType?: string | undefined) => {
 
   const supervisorsQuery = useQuery({
     queryKey: ['supervisors'],
-    queryFn: () => getAllSupervisors({ isNull: 'false' }),
+    queryFn: () => getAllSupervisors({ isNull: false }),
     enabled: !!memberType && memberType === MemberType.Supervisor,
     retry: 1,
   });

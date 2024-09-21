@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { type UseFormReturn } from 'react-hook-form';
@@ -80,11 +82,12 @@ export const useFamilyGroupCreationMutation = ({
 
       setTimeout(() => {
         navigate('/family-groups');
-      }, 2400);
+      }, 2000);
 
+      // New refetch in exchange preachers (new)
       setTimeout(() => {
-        queryClient.removeQueries({ queryKey: ['preachers-by-zone', theirZone] });
-      }, 2700);
+        queryClient.invalidateQueries({ queryKey: ['preachers-by-zone', theirZone] });
+      }, 2200);
     },
   });
 

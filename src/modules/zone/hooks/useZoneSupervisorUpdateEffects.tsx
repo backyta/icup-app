@@ -61,7 +61,7 @@ export const useZoneSupervisorUpdateEffects = ({
 
     if (id) {
       const url = new URL(window.location.href);
-      url.pathname = `/zones/update-zone/${id}/exchange-supervisor`;
+      url.pathname = `/zones/update/${id}/exchange-supervisor`;
 
       window.history.replaceState({}, '', url);
     }

@@ -77,11 +77,11 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
               Información General
             </CardTitle>
             <CardDescription className='text-[14px] md:text-[15px]'>
-              Información general del registro de ingreso de la ofrenda.
+              Información general del registro de ingreso.
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid grid-cols-3 pl-[3.5rem] sm:pl-[5.3rem] sm:pr-[5rem] gap-x-4 gap-y-4 md:gap-x-6 md:gap-y-5 md:pl-[5.8rem] md:pr-[2.5rem]'>
+          <CardContent className='grid grid-cols-3 pl-[3rem] pr-[3rem] pb-5 sm:pl-[5.3rem] sm:pr-[5rem] gap-x-4 gap-y-2.5 md:gap-x-6 md:gap-y-5 md:pl-[5.8rem] md:pr-[2.5rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Tipo</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -121,7 +121,7 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
                   '-'}
               </CardDescription>
             </div>
-            <div className='space-y-1'>
+            <div className='space-y-1 col-start-1 col-end-4 row-start-3'>
               <Label className='text-[14px] md:text-[15px]'>Comentarios</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] overflow-hidden text-ellipsis'>
                 {!data?.comments ? '-' : data?.comments}
@@ -212,7 +212,7 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
               </div>
             )}
 
-            <Label className='md:-mb-3 row-start-7 row-end-8 md:row-auto col-start-1 col-end-4 text-[15px] md:text-[16px] font-bold text-amber-500'>
+            <Label className='md:-mb-3 pt-1 md:pt-0 row-start-7 row-end-8 md:row-auto col-start-1 col-end-4 text-[15px] md:text-[16px] font-bold text-amber-500'>
               Información del registro
             </Label>
             <div className='space-y-1 flex justify-between items-center row-start-8 row-end-9 col-start-1 col-end-4 md:grid md:col-auto md:row-auto'>
@@ -255,7 +255,7 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
               </CardDescription>
             </div>
 
-            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-12 row-end-13 md:grid md:row-start-7 md:row-end-8 md:col-start-3 md:col-end-4'>
+            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-12 row-end-13 md:grid md:row-start-8 md:row-end-9 md:col-start-3 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
               <CardDescription
                 className={cn(

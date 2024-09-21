@@ -4,12 +4,12 @@ import { Skeleton } from '@/shared/components/ui/skeleton';
 export const OfferingIncomeFormSkeleton = (): JSX.Element => {
   return (
     <CardContent className='py-3 px-4'>
-      <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-4'>
+      <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 md:pl-4'>
         <Skeleton className='h-5 w-64' />
         <Skeleton className='h-5 w-52 mt-2 ml-1' />
       </div>
       <div>
-        <form className='w-full flex flex-col md:grid md:grid-cols-2 gap-x-10 gap-y-5 px-2 sm:px-2'>
+        <form className='w-full flex flex-col md:grid sm:grid-cols-2 gap-x-8 gap-y-6 px-2 sm:px-8'>
           <div className='col-start-1 col-end-2'>
             <div>
               <Skeleton className='h-4 w-24 mt-4' />
@@ -44,10 +44,10 @@ export const OfferingIncomeFormSkeleton = (): JSX.Element => {
             <div>
               <div className='flex'>
                 <Skeleton className='h-4 w-24 mt-6' />
-                <Skeleton className='ml-2 h-4 w-20 mt-5' />
+                <Skeleton className='ml-2 h-4 w-20 mt-6' />
               </div>
               <Skeleton className='h-3 w-56 mt-3' />
-              <Skeleton className='h-[6.5rem] w-full mt-2' />
+              <Skeleton className='h-[6.5rem] w-full mt-3' />
             </div>
 
             <div>
@@ -64,7 +64,7 @@ export const OfferingIncomeFormSkeleton = (): JSX.Element => {
                 <Skeleton className='h-4 w-24 mt-5' />
                 <Skeleton className='ml-2 h-4 w-20 mt-5' />
               </div>
-              <Skeleton className='h-40 w-[80%] mx-auto mt-3' />
+              <Skeleton className='h-40 w-full md:w-[80%] mx-auto mt-3' />
               <Skeleton className='ml-10 h-4 w-56 mt-3' />
               <Skeleton className='ml-10 h-4 w-56 mt-2' />
             </div>

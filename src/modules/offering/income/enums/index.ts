@@ -6,3 +6,4 @@ export * from './offering-income-search-select-option.enum';
 export * from './offering-income-search-sub-type.enum';
 export * from './offering-income-search-type.enum';
 export * from './member-type.enum';
+export * from './exchange-currency-type.enum';

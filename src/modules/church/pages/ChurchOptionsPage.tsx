@@ -44,7 +44,7 @@ export const ChurchOptionsPage = (): JSX.Element => {
               Registrar Iglesia
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Crear nuevo registro de una iglesia.
+              Crear nuevo registro de una iglesia
             </p>
           </WhiteCard>
         </NavLink>
@@ -61,7 +61,7 @@ export const ChurchOptionsPage = (): JSX.Element => {
               Consultar Iglesias
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de iglesias y anexos en general.
+              Consultar registros de iglesias y anexos en general
             </p>
           </WhiteCard>
         </NavLink>
@@ -78,7 +78,7 @@ export const ChurchOptionsPage = (): JSX.Element => {
               Consultar Iglesias
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de iglesias y anexos por tipo.
+              Consultar registros de iglesias y anexos por tipo de búsqueda
             </p>
           </WhiteCard>
         </NavLink>
@@ -95,7 +95,7 @@ export const ChurchOptionsPage = (): JSX.Element => {
               Actualizar Iglesia
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Actualizar información del registro de una iglesia.
+              Actualizar información del registro de una iglesia
             </p>
           </WhiteCard>
         </NavLink>
@@ -112,7 +112,7 @@ export const ChurchOptionsPage = (): JSX.Element => {
               Eliminar Iglesia
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Eliminar el registro de una iglesia.
+              Eliminar registro de una iglesia
             </p>
           </WhiteCard>
         </NavLink>

@@ -119,7 +119,7 @@ export const UserUpdateForm = ({
       defaultValue='general-info'
       className='w-auto sm:w-[520px] md:w-[680px] lg:w-[830px] xl:w-[930px]'
     >
-      <h2 className='text-center text-orange-500 pb-2 font-bold text-[20px] md:text-[24px]'>
+      <h2 className='text-center text-orange-500 pb-2 font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
         Actualizar información del Usuario
       </h2>
 
@@ -129,7 +129,7 @@ export const UserUpdateForm = ({
 
           {!isLoadingData && (
             <CardContent className='py-4 px-4'>
-              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-4'>
+              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] mb-4 pl-0 md:pl-4'>
                 Usuario: {data?.firstName} {data?.lastName}
               </div>
 

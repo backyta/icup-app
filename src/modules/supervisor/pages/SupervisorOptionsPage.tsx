@@ -44,7 +44,7 @@ export const SupervisorOptionsPage = (): JSX.Element => {
               Registrar Supervisor
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Crear nuevo registro de un supervisor.
+              Crear nuevo registro de un supervisor
             </p>
           </WhiteCard>
         </NavLink>
@@ -61,7 +61,7 @@ export const SupervisorOptionsPage = (): JSX.Element => {
               Consultar Supervisores
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de co-pastores en general.
+              Consultar registros de supervisores en general
             </p>
           </WhiteCard>
         </NavLink>
@@ -78,7 +78,7 @@ export const SupervisorOptionsPage = (): JSX.Element => {
               Consultar Supervisores
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de supervisores por tipo.
+              Consultar registros de supervisores por tipo de búsqueda
             </p>
           </WhiteCard>
         </NavLink>
@@ -95,7 +95,7 @@ export const SupervisorOptionsPage = (): JSX.Element => {
               Actualizar Supervisor
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Actualizar información del registro de un supervisor.
+              Actualizar información del registro de un supervisor
             </p>
           </WhiteCard>
         </NavLink>
@@ -112,7 +112,7 @@ export const SupervisorOptionsPage = (): JSX.Element => {
               Eliminar Supervisor
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Eliminar el registro de un supervisor.
+              Eliminar registro de un supervisor
             </p>
           </WhiteCard>
         </NavLink>

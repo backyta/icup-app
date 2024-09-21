@@ -24,6 +24,7 @@ import {
 import { getAllFamilyGroups } from '@/modules/disciple/services';
 
 import { cn } from '@/shared/lib/utils';
+import { PageTitle } from '@/shared/components/page';
 import { useRoleValidationByPath } from '@/shared/hooks';
 
 import {
@@ -168,32 +169,24 @@ export const DiscipleCreatePage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h1
-        className={cn(
-          'text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-disciple-color text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]'
-        )}
-      >
-        Modulo Discípulo
-      </h1>
+      <PageTitle className='text-disciple-color'>Modulo Discípulo</PageTitle>
 
-      <hr className='md:p-[0.02rem] bg-slate-500' />
-
-      <h2 className='text-left px-4 sm:px-5 pt-2 2xl:px-24 font-sans font-bold text-green-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h2 className='text-left leading-7 pb-2 pt-3 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear un nuevo discípulo
       </h2>
 
-      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 sm:pl-7 2xl:px-28 text-[12.5px] md:text-[15px] xl:text-base'>
+      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6  sm:pl-7 2xl:px-28 text-[12.5px] md:text-[15px] xl:text-base'>
         Por favor llena los siguientes datos para crear un nuevo discípulo.
       </p>
 
-      <div className='flex min-h-screen flex-col items-center justify-between px-8 py-6 sm:px-8 sm:py-6 lg:py-6 xl:px-14 2xl:px-36'>
+      <div className='flex min-h-screen flex-col items-center justify-between px-6 py-4 sm:px-8 sm:py-6 lg:py-6 xl:px-14 2xl:px-36'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
             className='w-full flex flex-col gap-y-6 md:grid md:grid-cols-2 md:gap-y-8 md:gap-x-10'
           >
             <div className='sm:col-start-1 sm:col-end-2'>
-              <legend className='font-bold text-[17px] sm:text-lg'>Datos generales</legend>
+              <legend className='font-bold text-[16px] sm:text-[18px]'>Datos generales</legend>
               <FormField
                 control={form.control}
                 name='firstName'
@@ -205,7 +198,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                         <Input
                           className='text-[14px]'
                           disabled={isInputDisabled}
-                          placeholder='Eje: Ramiro Ignacio'
+                          placeholder='Ejem: Ramiro Ignacio'
                           type='text'
                           {...field}
                         />
@@ -226,7 +219,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           disabled={isInputDisabled}
-                          placeholder='Eje: Saavedra Ramirez'
+                          placeholder='Ejem: Saavedra Ramirez'
                           type='text'
                           {...field}
                         />
@@ -282,7 +275,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           disabled={isInputDisabled}
-                          placeholder='Eje:  Colombia, Panama, Ecuador'
+                          placeholder='Ejem:  Colombia, Panama, Ecuador'
                           type='text'
                           {...field}
                         />
@@ -297,7 +290,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                 control={form.control}
                 name='birthDate'
                 render={({ field }) => (
-                  <FormItem className='mt-4'>
+                  <FormItem className='mt-3'>
                     <FormLabel className='text-[14px] font-medium'>Fecha de nacimiento</FormLabel>
                     <Popover open={isInputBirthDateOpen} onOpenChange={setIsInputBirthDateOpen}>
                       <PopoverTrigger asChild>
@@ -345,7 +338,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                 name='maritalStatus'
                 render={({ field }) => {
                   return (
-                    <FormItem className='mt-4'>
+                    <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] font-medium'>Estado Civil</FormLabel>
                       <Select
                         value={field.value}
@@ -374,15 +367,16 @@ export const DiscipleCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+
               <FormField
                 control={form.control}
                 name='numberChildren'
                 render={({ field }) => {
                   return (
-                    <FormItem className=' mt-4'>
+                    <FormItem className=' mt-3'>
                       <FormLabel className='text-[14px] font-medium'>Numero de hijos</FormLabel>
                       <FormControl>
-                        <Input disabled={isInputDisabled} placeholder='Eje: 2' {...field} />
+                        <Input disabled={isInputDisabled} placeholder='Ejem: 2' {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -394,7 +388,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                 control={form.control}
                 name='conversionDate'
                 render={({ field }) => (
-                  <FormItem className='mt-4'>
+                  <FormItem className='mt-3'>
                     <FormLabel className='text-[14px] font-medium'>Fecha de conversión</FormLabel>
                     <Popover
                       open={isInputConvertionDateOpen}
@@ -444,7 +438,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
             </div>
 
             <div className='sm:col-start-2 sm:col-end-3'>
-              <legend className='font-bold text-[17px] sm:text-lg'>Contacto / Vivienda</legend>
+              <legend className='font-bold text-[16px] sm:text-[18px]'>Contacto / Vivienda</legend>
 
               <FormField
                 control={form.control}
@@ -456,7 +450,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           disabled={isInputDisabled}
-                          placeholder='Eje: pedro123@example.com'
+                          placeholder='Ejem: pedro123@gmail.com'
                           type='email'
                           autoComplete='username'
                           {...field}
@@ -478,7 +472,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           disabled={isInputDisabled}
-                          placeholder='Eje: 999 999 999'
+                          placeholder='Ejem: +51 999 999 999'
                           type='text'
                           {...field}
                         />
@@ -682,7 +676,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           disabled={isInputDisabled}
-                          placeholder='Eje: Jr. Rosales 111 - Mz.A Lt.14'
+                          placeholder='Ejem: Jr. Rosales 111 - Mz.A Lt.14'
                           type='text'
                           {...field}
                         />
@@ -705,7 +699,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                       <FormControl>
                         <Textarea
                           disabled={isInputDisabled}
-                          placeholder='Comentarios sobre la referencia de la vivienda...'
+                          placeholder='Comentarios de referencia sobre la ubicación de la vivienda....'
                           {...field}
                         />
                       </FormControl>
@@ -725,9 +719,9 @@ export const DiscipleCreatePage = (): JSX.Element => {
                 render={() => (
                   <FormItem>
                     <div className='mb-4'>
-                      <FormLabel className='font-bold text-[17px] sm:text-lg'>Roles</FormLabel>
+                      <FormLabel className='font-bold text-[16px] sm:text-[18px]'>Roles</FormLabel>
                       <FormDescription className='font-medium'>
-                        Seleccione los roles que desea asignar al discípulo.
+                        Asigna los roles correspondientes para este registro.
                       </FormDescription>
                     </div>
                     {Object.values(MemberRole).map((role) => (
@@ -777,7 +771,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
             {/* Relations */}
 
             <div className='sm:col-start-2 sm:col-end-3 sm:row-start-2 sm:row-end-3'>
-              <legend className='font-bold col-start-1 col-end-3 text-[17px] sm:text-[18px]'>
+              <legend className='font-bold col-start-1 col-end-3 text-[16px] sm:text-[18px]'>
                 Relaciones
               </legend>
 
@@ -786,12 +780,12 @@ export const DiscipleCreatePage = (): JSX.Element => {
                 name='theirFamilyGroup'
                 render={({ field }) => {
                   return (
-                    <FormItem className='mt-4'>
-                      <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
+                    <FormItem className='mt-3'>
+                      <FormLabel className='text-[14.5px] md:text-[15px] font-bold'>
                         Grupo Familiar
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Seleccione un grupo familiar para este discípulo.
+                        Asigna el grupo familiar al que pertenecerá este discípulo.
                       </FormDescription>
                       <Popover
                         open={isInputTheirFamilyGroupOpen}
@@ -857,7 +851,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
             </div>
 
             {isMessageErrorDisabled ? (
-              <p className='mt-2 -mb-4 md:-mt-5 md:col-start-1 md:col-end-3 md:row-start-3 md:row-end-4 mx-auto md:w-[100%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
+              <p className='mt-0 -mb-4 md:-mt-5 md:col-start-1 md:col-end-3 md:row-start-3 md:row-end-4 mx-auto md:w-[100%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
                 ❌ Datos incompletos, completa todos los campos para crear el registro.
               </p>
             ) : (

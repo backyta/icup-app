@@ -24,7 +24,7 @@ export const OfferingIncomeOptionsPage = (): JSX.Element => {
   return (
     <div className='animate-fadeIn'>
       <h1 className='text-center pb-2 pt-1 md:pt-2 md:pb-2 font-sans text-2xl sm:text-3xl font-bold text-green-600 text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
-        Modulo Ingreso de Ofrendas
+        Modulo de Ingreso
       </h1>
       <p className='text-center font-sans text-sm sm:text-md md:text-[15px] font-bold px-4 pb-4 lg:text-base xl:text-lg'>
         Bienvenido, por favor elige una opción.
@@ -44,7 +44,7 @@ export const OfferingIncomeOptionsPage = (): JSX.Element => {
               Registrar Ingreso
             </h2>
             <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
-              Crear nuevo registro de ingreso de una ofrenda.
+              Crear nuevo registro de ingreso de una ofrenda
             </p>
           </WhiteCard>
         </NavLink>
@@ -61,7 +61,7 @@ export const OfferingIncomeOptionsPage = (): JSX.Element => {
               Consultar Ingresos
             </h2>
             <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de ingreso de ofrendas en general.
+              Consultar registros de ingreso de ofrendas en general
             </p>
           </WhiteCard>
         </NavLink>
@@ -78,7 +78,7 @@ export const OfferingIncomeOptionsPage = (): JSX.Element => {
               Consultar Ingresos
             </h2>
             <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de ingreso de ofrendas por tipo.
+              Consultar registros de ingreso de ofrendas por tipo de búsqueda
             </p>
           </WhiteCard>
         </NavLink>
@@ -95,7 +95,7 @@ export const OfferingIncomeOptionsPage = (): JSX.Element => {
               Actualizar Ingreso
             </h2>
             <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
-              Actualizar registro de ingreso de una ofrenda.
+              Actualizar registro de ingreso de una ofrenda
             </p>
           </WhiteCard>
         </NavLink>
@@ -112,7 +112,7 @@ export const OfferingIncomeOptionsPage = (): JSX.Element => {
               Eliminar Ingreso
             </h2>
             <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
-              Eliminar registro de ingreso de una ofrenda.
+              Eliminar registro de ingreso de una ofrenda
             </p>
           </WhiteCard>
         </NavLink>

@@ -404,13 +404,17 @@ export const updateOfferingIncome = async ({id, formData}: UpdateOfferingIncomeO
 export interface DeleteOfferingIncomeOptions {
   id: string;
   reasonEliminationType: string;
+  exchangeRate?: string;
+  exchangeCurrencyType?: string;
 }
 
-export const deleteOfferingIncome = async ({id, reasonEliminationType}: DeleteOfferingIncomeOptions ): Promise<void> => {
+export const deleteOfferingIncome = async ({id, reasonEliminationType, exchangeRate, exchangeCurrencyType}: DeleteOfferingIncomeOptions ): Promise<void> => {
   try {
     const {data} = await icupApi.delete(`/offerings-income/${id}`,{
       params: {
         reasonEliminationType,
+        exchangeRate,
+        exchangeCurrencyType
       },
     })
 

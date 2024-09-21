@@ -22,8 +22,8 @@ export function FamilyGroupInfoItem({ data }: Props): JSX.Element {
 
   if (isDesktop) {
     return (
-      <div className='flex justify-between'>
-        <CardContent className='flex gap-1'>
+      <div className='flex justify-between items-center pb-1.5'>
+        <CardContent className='flex pl-6 py-2'>
           <Avatar className='p-1'>
             <AvatarImage className='rounded-full w-10' src={'/src/assets/family-group.webp'} />
             <AvatarFallback>FGI</AvatarFallback>
@@ -48,7 +48,7 @@ export function FamilyGroupInfoItem({ data }: Props): JSX.Element {
             </div>
           </div>
         </CardContent>
-        <div className='px-2 pt-0 pb-2 sm:p-6 sm:pt-0'>
+        <div className='pr-6 pt-2 pb-2'>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button className='text-[0.7rem] sm:text-sm w-[6.5rem] sm:w-[8rem] lg:w-[7.8rem] xl:w-[8rem] 2xl:w-[10rem] 2xl:text-md'>
@@ -65,8 +65,8 @@ export function FamilyGroupInfoItem({ data }: Props): JSX.Element {
   }
 
   return (
-    <div className='flex justify-between'>
-      <CardContent className='flex gap-1'>
+    <div className='flex justify-between items-center'>
+      <CardContent className='flex p-2 gap-1'>
         <Avatar className='p-1'>
           <AvatarImage className='rounded-full w-10' src={'/src/assets/family-group.webp'} />
           <AvatarFallback>FGI</AvatarFallback>
@@ -75,7 +75,7 @@ export function FamilyGroupInfoItem({ data }: Props): JSX.Element {
         <div className='flex flex-col'>
           <p className='text-sm sm:text-base font-bold'>{data.familyGroupName}</p>
           <div className='p-1'>
-            <div className='flex gap-5'>
+            <div className='flex flex-col justify-start'>
               <p className='text-[12px] sm:text-[14px] font-normal'>
                 <span className='font-bold'>Código: </span>
                 {data.familyGroupCode}
@@ -91,7 +91,7 @@ export function FamilyGroupInfoItem({ data }: Props): JSX.Element {
           </div>
         </div>
       </CardContent>
-      <div className='px-2 pt-0 pb-2 sm:p-6 sm:pt-0'>
+      <div className='pl-0 pr-3.5 pt-0 pb-2 sm:p-6 sm:pt-0'>
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerTrigger asChild>
             <Button className='text-[0.7rem] sm:text-sm w-[6.5rem] sm:w-[8rem] lg:w-[7.8rem] xl:w-[8rem] 2xl:w-[10rem] 2xl:text-md'>

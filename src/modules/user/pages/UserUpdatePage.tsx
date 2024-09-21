@@ -24,6 +24,7 @@ import { useUserStore } from '@/stores/user';
 
 import { cn } from '@/shared/lib/utils';
 
+import { PageTitle } from '@/shared/components/page';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 import { arrayRolesFormatterToString, namesFormatter, lastNamesFormatter } from '@/shared/helpers';
 
@@ -145,11 +146,7 @@ export const UserUpdatePage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h1 className='text-center pt-1 pb-4 font-sans text-2xl sm:text-3xl font-bold text-user-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
-        Modulo Usuarios
-      </h1>
-
-      <hr className='md:p-[0.02rem] bg-slate-500' />
+      <PageTitle className='text-user-color'>Modulo Usuario</PageTitle>
 
       <div className='flex items-center justify-start'>
         <h2 className='flex items-center text-left pl-4 py-2 sm:pt-4 sm:pb-2 sm:pl-[1.5rem] xl:pl-[2rem] 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-orange-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl'>
@@ -286,7 +283,7 @@ export const UserUpdatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           className='text-[13px] md:text-[14px]'
-                          placeholder='Eje: Rolando Martin...'
+                          placeholder='Ejem: Rolando Martin...'
                           {...field}
                         />
                       </FormControl>
@@ -310,7 +307,7 @@ export const UserUpdatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           className='text-[13px] md:text-[14px]'
-                          placeholder='Eje: Sanchez Torres...'
+                          placeholder='Ejem: Sanchez Torres...'
                           {...field}
                         />
                       </FormControl>
@@ -458,7 +455,7 @@ export const UserUpdatePage = (): JSX.Element => {
                   <FormItem className='w-full row-start-3 row-end-4 md:col-start-auto md:col-end-auto md:row-start-auto md:row-end-auto '>
                     <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
                     <FormDescription className='text-[14px]'>
-                      Elige el tipo de orden de los registros
+                      Elige el tipo de orden de los registros.
                     </FormDescription>
                     <Select
                       onOpenChange={() => {}}

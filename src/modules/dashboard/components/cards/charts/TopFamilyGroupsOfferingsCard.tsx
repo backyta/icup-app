@@ -26,7 +26,7 @@ import { getAllChurches } from '@/modules/pastor/services';
 import { DashboardSearchType } from '@/modules/dashboard/enums';
 
 import { type Offering } from '@/modules/dashboard/interfaces';
-import { RenderTooltipContent } from '@/modules/dashboard/components';
+import { TopFamilyGroupsTooltipContent } from '@/modules/dashboard/components';
 import { dashBoardSearchFormSchema } from '@/modules/dashboard/validations';
 import { getOfferingsForBarChartByTerm } from '@/modules/dashboard/services';
 
@@ -105,10 +105,10 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
 
   //* Queries
   const topFamilyGroupOfferings = useQuery({
-    queryKey: ['top-family-group-offerings', searchParams],
+    queryKey: ['top-family-groups-offerings', searchParams],
     queryFn: () => {
       return getOfferingsForBarChartByTerm({
-        searchType: DashboardSearchType.TopFamilyGroupOfferings,
+        searchType: DashboardSearchType.TopFamilyGroupsOfferings,
         selectTerm: searchParams?.selectTerm ?? selectTerm,
         dateTerm: new Date().getFullYear().toString(),
         offset: '0',
@@ -125,14 +125,16 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
   });
 
   //* Effects
-  // Default church
+  // Default value
   useEffect(() => {
     if (churchesQuery.data) {
       const church = churchesQuery?.data?.map((church) => church?.id)[0];
       setSearchParams({ selectTerm: church });
+      form.setValue('selectTerm', church);
     }
   }, [churchesQuery?.data]);
 
+  // Transforma and set data
   useEffect(() => {
     if (topFamilyGroupOfferings?.data) {
       const resultData: ResultDataOptions[] = topFamilyGroupOfferings?.data.reduce<
@@ -200,9 +202,11 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
             Ofrendas - Grupo Familiar
           </CardTitle>
           <CardDescription className='text-[13.5px] md:text-[14.5px] md:pl-[12rem] lg:pl-[16rem] xl:pl-[6.8rem] 2xl:pl-[8.5rem] 3-xl:pl-[16rem] text-center'>
-            Grupos familiares destacados (anual)
+            {`Grupos familiares destacados (${new Date().getFullYear()})`}
           </CardDescription>
         </CardHeader>
+
+        {/* Form */}
 
         <div className='col-span-1 flex justify-center -pl-[2rem] pb-2 xl:pr-5'>
           <Form {...form}>
@@ -243,7 +247,7 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
                         <PopoverContent align='center' className='w-auto px-4 py-2'>
                           <Command>
                             <CommandInput
-                              placeholder='Busque una iglesia...'
+                              placeholder='Busque una iglesia'
                               className='h-9 text-[14px]'
                             />
                             <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
@@ -282,6 +286,8 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
         </div>
       </div>
 
+      {/* Chart */}
+
       {!resultData?.length && !searchParams ? (
         <CardContent className='h-full py-0'>
           <LoadingSpinner />
@@ -311,7 +317,7 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
                 />
 
                 <YAxis className='text-[12px] sm:text-[14px]' />
-                <ChartTooltip cursor={false} content={RenderTooltipContent as any} />
+                <ChartTooltip cursor={false} content={TopFamilyGroupsTooltipContent as any} />
 
                 <ChartLegend
                   content={<ChartLegendContent className='ml-10 text-[12px] sm:text-[14px]' />}
@@ -319,21 +325,21 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
 
                 <Bar
                   dataKey='accumulatedOfferingPEN'
-                  stackId='a'
+                  stackId='familyGroup'
                   fill='var(--color-accumulatedOfferingPEN)'
-                  radius={4}
-                />
-                <Bar
-                  dataKey='accumulatedOfferingUSD'
-                  stackId='a'
-                  fill='var(--color-accumulatedOfferingUSD)'
-                  radius={4}
+                  radius={[2, 2, 2, 2]}
                 />
                 <Bar
                   dataKey='accumulatedOfferingEUR'
-                  stackId='a'
+                  stackId='familyGroup'
                   fill='var(--color-accumulatedOfferingEUR)'
-                  radius={4}
+                  radius={[2, 2, 0, 0]}
+                />
+                <Bar
+                  dataKey='accumulatedOfferingUSD'
+                  stackId='familyGroup'
+                  fill='var(--color-accumulatedOfferingUSD)'
+                  radius={[2, 2, 0, 0]}
                 />
               </BarChart>
             </ChartContainer>
@@ -345,7 +351,7 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
           ) : (
             <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full'>
               <FcDeleteDatabase className='text-[6rem] pb-2' />
-              <p>No hay datos disponibles por mostrar.</p>
+              <p>No hay datos disponibles para mostrar.</p>
             </div>
           )}
         </CardContent>

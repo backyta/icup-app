@@ -15,12 +15,14 @@ interface Options {
   setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSelectInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useOfferingIncomeDeletionMutation = ({
   setIsCardOpen,
   setIsButtonDisabled,
   setIsSelectInputDisabled,
+  setIsInputDisabled,
 }: Options): UseMutationResult<void, ErrorResponse, DeleteOfferingIncomeOptions, unknown> => {
   //* Hooks (external libraries)
   const navigate = useNavigate();
@@ -68,6 +70,7 @@ export const useOfferingIncomeDeletionMutation = ({
       setTimeout(() => {
         setIsCardOpen(false);
         setIsSelectInputDisabled(false);
+        setIsInputDisabled(false);
       }, 2000);
     },
   });

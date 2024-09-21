@@ -4,11 +4,11 @@ import { Skeleton } from '@/shared/components/ui/skeleton';
 export const UserFormSkeleton = (): JSX.Element => {
   return (
     <CardContent className='py-3 px-4'>
-      <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-4'>
+      <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-0 md:pl-4'>
         <Skeleton className='h-5 w-60 mt-2' />
       </div>
       <div>
-        <form className='w-full flex flex-col md:grid md:grid-cols-2 gap-x-10 gap-y-5 px-2 sm:px-12'>
+        <form className='w-full flex flex-col md:grid gap-x-10 gap-y-3 md:gap-y-5 px-2 sm:px-10'>
           <div className='col-start-1 col-end-2'>
             <div>
               <Skeleton className='h-4 w-24 mt-3' />

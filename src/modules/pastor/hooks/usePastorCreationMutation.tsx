@@ -66,7 +66,7 @@ export const usePastorCreationMutation = ({
 
       setTimeout(() => {
         navigate('/pastors');
-      }, 2400);
+      }, 2000);
     },
   });
 

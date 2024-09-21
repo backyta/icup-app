@@ -71,7 +71,7 @@ export const OfferingIncomeUpdateCard = ({ idRow }: OfferingIncomeUpdateCardProp
       <DialogTrigger asChild>
         <Button
           variant='outline'
-          className='mt-2 mr-4 py-2 px-1 h-[2rem] bg-orange-400 text-white hover:bg-orange-500 hover:text-orange-950  dark:text-orange-950 dark:hover:bg-orange-500 dark:hover:text-white'
+          className='mt-2 py-2 px-1 h-[2rem] bg-orange-400 text-white hover:bg-orange-500 hover:text-orange-950  dark:text-orange-950 dark:hover:bg-orange-500 dark:hover:text-white'
         >
           <GiArchiveRegister className='w-8 h-[1.65rem]' />
         </Button>

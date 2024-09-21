@@ -4,14 +4,14 @@ import { Skeleton } from '@/shared/components/ui/skeleton';
 export const FamilyGroupFormSkeleton = (): JSX.Element => {
   return (
     <CardContent className='py-3 px-4'>
-      <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-4'>
-        <Skeleton className='h-5 w-96' />
+      <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-0 md:pl-4'>
+        <Skeleton className='h-8 w-96 mt-2' />
       </div>
       <div>
         <form className='w-full flex flex-col md:grid md:grid-cols-2 gap-x-10 gap-y-5 px-2 sm:px-12'>
           <div className='col-start-1 col-end-2'>
             <div>
-              <Skeleton className='h-4 w-24 mt-8' />
+              <Skeleton className='h-4 w-24 mt-3' />
               <Skeleton className='h-3 w-56 mt-3' />
               <Skeleton className='h-8 w-full mt-2' />
             </div>
@@ -49,7 +49,7 @@ export const FamilyGroupFormSkeleton = (): JSX.Element => {
 
           <div className='col-start-2 col-end-3'>
             <div>
-              <Skeleton className='h-4 w-24 mt-8' />
+              <Skeleton className='h-4 w-24 mt-3' />
               <Skeleton className='h-3 w-56 mt-3' />
               <Skeleton className='h-8 w-full mt-2' />
             </div>
@@ -62,7 +62,7 @@ export const FamilyGroupFormSkeleton = (): JSX.Element => {
 
             <div>
               <Skeleton className='h-4 w-24 mt-7' />
-              <Skeleton className='h-20 w-full mt-2' />
+              <Skeleton className='h-24 w-full mt-2' />
             </div>
 
             <div>
@@ -85,7 +85,7 @@ export const FamilyGroupFormSkeleton = (): JSX.Element => {
           </div>
 
           <div className='col-start-1 col-end-3 w-[20rem] mx-auto'>
-            <Skeleton className='h-10 mt-3' />
+            <Skeleton className='h-10 mt-5' />
             <div className='flex flex-col  justify-center items-center mt-1'>
               <Skeleton className='text-center h-4 w-64 mt-2' />
               <Skeleton className='text-center h-4 w-60 mt-2' />

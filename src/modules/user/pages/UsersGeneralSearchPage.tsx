@@ -15,6 +15,7 @@ import { useUserStore } from '@/stores/user';
 import { type UserResponse } from '@/modules/user/interfaces';
 import { userInfoColumns as columns, GeneralUserSearchDataTable } from '@/modules/user/components';
 
+import { PageTitle } from '@/shared/components/page';
 import { type GeneralSearchForm } from '@/shared/interfaces';
 import { formSearchGeneralSchema } from '@/shared/validations';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
@@ -110,11 +111,7 @@ export const UsersGeneralSearchPage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h1 className='text-center pt-1 pb-4 font-sans text-2xl sm:text-3xl font-bold text-user-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
-        Modulo Usuario
-      </h1>
-
-      <hr className='md:p-[0.02rem] bg-slate-500' />
+      <PageTitle className='text-user-color'>Modulo Usuario</PageTitle>
 
       <div className='flex items-center justify-start'>
         <h2 className='flex items-center text-left pl-4 py-2 sm:pt-4 sm:pb-2 sm:pl-[1.5rem] xl:pl-[2rem] 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-sky-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl'>
@@ -237,7 +234,7 @@ export const UsersGeneralSearchPage = (): JSX.Element => {
                   <FormItem className='w-auto lg:min-w-[22rem] mid-xl:min-w-[27rem]'>
                     <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
                     <FormDescription className='text-[14px]'>
-                      Elige el tipo de orden de los registros
+                      Elige el tipo de orden de los registros.
                     </FormDescription>
                     <Select value={field.value} onValueChange={field.onChange}>
                       <FormControl className='text-[13px] md:text-[14px] lg:w-full'>

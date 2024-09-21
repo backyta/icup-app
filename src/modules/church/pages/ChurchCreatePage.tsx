@@ -27,6 +27,7 @@ import { churchFormSchema } from '@/modules/church/validations';
 import { ChurchWorshipTime, ChurchWorshipTimeNames } from '@/modules/church/enums';
 
 import { cn } from '@/shared/lib/utils';
+import { PageTitle } from '@/shared/components/page';
 
 import {
   Country,
@@ -156,18 +157,14 @@ export const ChurchCreatePage = (): JSX.Element => {
   };
 
   return (
-    <div id='menu' className='animate-fadeInPage'>
-      <h1 className='text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-slate-500 dark:text-slate-400 text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]'>
-        Modulo Iglesia
-      </h1>
+    <div className='animate-fadeInPage'>
+      <PageTitle className='text-slate-500 dark:text-slate-400'>Modulo Iglesia</PageTitle>
 
-      <hr className='md:p-[0.02rem] bg-slate-500' />
-
-      <h1 className='text-left px-4 sm:px-5 pt-2 2xl:px-24 font-sans font-bold text-green-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h1 className='text-left leading-7 pb-2 pt-3 px-4 sm:px-5  2xl:px-24 font-sans font-bold text-green-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear una nueva iglesia
       </h1>
 
-      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 sm:pl-7 2xl:px-28 text-[12px] md:text-[15px] xl:text-base'>
+      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6  sm:pl-7 2xl:px-28 text-[12px] md:text-[15px] xl:text-base'>
         Por favor llena los siguientes datos para crear una nueva iglesia.
       </p>
 
@@ -188,12 +185,12 @@ export const ChurchCreatePage = (): JSX.Element => {
                         Nombre
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Asignar una nombre a la iglesia.
+                        Asigna una nombre a la nueva iglesia.
                       </FormDescription>
                       <FormControl>
                         <Input
                           disabled={isInputDisabled}
-                          placeholder='Eje: Iglesia Roca Fuerte...'
+                          placeholder='Ejem: Iglesia Cristiana "Roca Fuerte"'
                           type='text'
                           {...field}
                         />
@@ -212,6 +209,9 @@ export const ChurchCreatePage = (): JSX.Element => {
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                       Fecha de fundación
                     </FormLabel>
+                    <FormDescription className='text-[14px]'>
+                      Asigna la fecha de fundación de la nueva iglesia.
+                    </FormDescription>
                     <Popover
                       open={isInputFoundingDateOpen}
                       onOpenChange={setIsInputFoundingDateOpen}
@@ -268,7 +268,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         Horarios
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Seleccione los horarios que tendrá la iglesia.
+                        Selecciona los horarios de culto que tendrá la nueva iglesia.
                       </FormDescription>
                     </div>
                     <div className='flex flex-wrap space-x-5 space-y-1'>
@@ -325,12 +325,12 @@ export const ChurchCreatePage = (): JSX.Element => {
                         E-mail
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Asignar un e-mail a la iglesia.
+                        Asigna un e-mail a la nueva iglesia.
                       </FormDescription>
                       <FormControl>
                         <Input
                           disabled={isInputDisabled}
-                          placeholder='Eje: iglesia.central@example.com'
+                          placeholder='Ejem: iglesia.rocafuerte@gmail.com'
                           type='email'
                           autoComplete='username'
                           {...field}
@@ -352,12 +352,12 @@ export const ChurchCreatePage = (): JSX.Element => {
                         Numero de teléfono
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Asignar un numero telefónico a la iglesia.
+                        Asigna un número telefónico a la nueva iglesia.
                       </FormDescription>
                       <FormControl>
                         <Input
                           disabled={isInputDisabled}
-                          placeholder='Eje: +51 999-999-999'
+                          placeholder='Ejem: +51 999-999-999'
                           type='text'
                           {...field}
                         />
@@ -376,7 +376,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>País</FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Asignar el país al que pertenece la iglesia.
+                        Asigna el país al que pertenece la nueva iglesia.
                       </FormDescription>
                       <Select
                         disabled={isInputDisabled}
@@ -416,7 +416,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         Departamento
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Asignar el departamento al que pertenece la iglesia.
+                        Asigna el departamento al que pertenece la nueva iglesia.
                       </FormDescription>
                       <Select
                         disabled={isInputDisabled}
@@ -458,7 +458,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         Provincia
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Asignar la provincia a la que pertenece la iglesia.
+                        Asigna la provincia a la que pertenece la nueva iglesia.
                       </FormDescription>
                       <Select
                         disabled={isInputDisabled}
@@ -498,7 +498,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         Distrito
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Asignar el distrito al que pertenece la iglesia.
+                        Asigna el distrito al que pertenece la iglesia.
                       </FormDescription>
                       <Select
                         disabled={isInputDisabled}
@@ -542,7 +542,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         Sector Urbano
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Asignar el sector urbano al que pertenece la iglesia.
+                        Asigna el sector urbano al que pertenece la nueva iglesia.
                       </FormDescription>
                       <Select
                         disabled={isInputDisabled}
@@ -586,12 +586,12 @@ export const ChurchCreatePage = (): JSX.Element => {
                         Dirección
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Asignar la dirección de la iglesia.
+                        Asigna la dirección de la nueva iglesia.
                       </FormDescription>
                       <FormControl>
                         <Input
                           disabled={isInputDisabled}
-                          placeholder='Ej: Av. Central 123 - Mz.A Lt.3'
+                          placeholder='Ejem: Av. Central 123 - Mz.A Lt.3'
                           type='text'
                           {...field}
                         />
@@ -614,7 +614,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                       <FormControl>
                         <Textarea
                           disabled={isInputDisabled}
-                          placeholder='Comentarios sobre la referencia de ubicación de la iglesia...'
+                          placeholder='Comentarios de referencia sobre la ubicación de la iglesia...'
                           {...field}
                         />
                       </FormControl>
@@ -658,7 +658,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                           Iglesia Principal
                         </FormLabel>
                         <FormDescription className='text-[14px]'>
-                          Seleccione una iglesia principal para este anexo.
+                          Asigna una iglesia principal para este anexo.
                         </FormDescription>
                         <Popover
                           open={isInputMainChurchOpen}
@@ -682,7 +682,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                           <PopoverContent align='center' className='w-auto px-4 py-2'>
                             <Command>
                               <CommandInput
-                                placeholder='Busque una iglesia...'
+                                placeholder='Busque una iglesia'
                                 className='h-9 text-[14px]'
                               />
                               <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
@@ -708,7 +708,9 @@ export const ChurchCreatePage = (): JSX.Element => {
                                 ))}
 
                                 {data?.length === 0 && (
-                                  <CommandItem>{'No hay iglesias disponibles'}</CommandItem>
+                                  <p className='text-[14.5px] text-red-500 text-center'>
+                                    ❌No hay iglesias disponibles.
+                                  </p>
                                 )}
                               </CommandGroup>
                             </Command>

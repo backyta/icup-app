@@ -32,10 +32,10 @@ export const DashboardLayout = (): JSX.Element => {
 
   return (
     <div className='light:bg-slate-500 w-full h-auto antialiased light:text-slate-900 selection:bg-blue-900 selection:text-white'>
-      <div className='flex flex-col md:flex-row md:relative md:w-full md:min-h-full'>
+      <div className='flex flex-col md:flex-row md:relative md:w-full md:min-h-full relative'>
         <SideMenu />
 
-        <div className='w-full px-4 py-0 '>
+        <div className='w-full px-4 py-0 relative'>
           <ToggleLayout />
           <Outlet />
         </div>

@@ -66,7 +66,7 @@ export const useZoneCreationMutation = ({
 
       setTimeout(() => {
         navigate('/zones');
-      }, 2400);
+      }, 2000);
     },
   });
 

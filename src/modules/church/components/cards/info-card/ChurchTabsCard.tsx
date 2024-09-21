@@ -75,7 +75,7 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid grid-cols-3 pl-[2rem] sm:pl-[4rem] sm:pr-[5rem] gap-x-4 gap-y-4 md:gap-x-6 md:gap-y-5 md:pl-[4.8rem] md:pr-[2rem]'>
+          <CardContent className='grid grid-cols-3 pl-[2rem] sm:pl-[4rem] sm:pr-[5rem] gap-x-4 gap-y-2.5 md:gap-x-6 md:gap-y-5 md:pl-[4.8rem] md:pr-[2rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Nombre</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -214,10 +214,10 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               />
             </div>
 
-            <div className='space-y-1 col-start-1 col-end-3'>
+            <div className='space-y-1 col-start-1 col-end-2'>
               <Label className='text-[14px] md:text-[15px]'>Horarios de Culto</Label>
               <div className='px-2 pt-2 text-[14px] md:text-[14.5px]'>
-                <ul className='pl-5 flex flex-wrap gap-x-10 gap-y-2 list-disc'>
+                <ul className='pl-5 flex flex-col gap-x-10 gap-y-2 list-disc'>
                   {data?.worshipTimes !== undefined && data?.worshipTimes.length > 0 ? (
                     data?.worshipTimes.map((worshipTime) =>
                       Object.keys(ChurchWorshipTimeNames).map(
@@ -236,7 +236,7 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               </div>
             </div>
 
-            <div className='space-y-1 row-start-5 row-end-6 col-start-3 col-end-4'>
+            <div className='space-y-1 row-start-5 row-end-6 col-start-2 col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Iglesia Principal</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirMainChurch && data?.isAnexe
@@ -247,7 +247,7 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               </CardDescription>
             </div>
 
-            <span className='col-start-1 col-end-4 text-[15px] md:text-[16px] font-bold text-yellow-500'>
+            <span className='pt-2 md:pt-0 col-start-1 col-end-4 text-[15px] md:text-[16px] font-bold text-yellow-500'>
               Información de registro
             </span>
 

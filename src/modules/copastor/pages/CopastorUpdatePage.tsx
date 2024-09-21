@@ -20,12 +20,12 @@ import {
   CopastorSearchType,
   CopastorSearchTypeNames,
   CopastorSearchNamesByGender,
-  SubTypeNamesCopastorSearchByFullNames,
-  SubTypeNamesCopastorSearchByLastNames,
   CopastorSearchNamesByBirthMonth,
-  SubTypeNamesCopastorSearchByFirstNames,
   CopastorSearchNamesByRecordStatus,
   CopastorSearchNamesByMaritalStatus,
+  SubTypeNamesCopastorSearchByFullNames,
+  SubTypeNamesCopastorSearchByLastNames,
+  SubTypeNamesCopastorSearchByFirstNames,
 } from '@/modules/copastor/enums';
 import {
   type CopastorSearchFormByTerm,
@@ -36,6 +36,7 @@ import { copastorSearchByTermFormSchema } from '@/modules/copastor/validations';
 import { cn } from '@/shared/lib/utils';
 import { useCopastorStore } from '@/stores/copastor';
 
+import { PageTitle } from '@/shared/components/page';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 import { dateFormatterTermToTimestamp, namesFormatter, lastNamesFormatter } from '@/shared/helpers';
 
@@ -184,11 +185,7 @@ export const CopastorUpdatePage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h1 className='text-center pt-3 md:pt-2  pb-4 font-sans text-2xl sm:text-3xl font-bold text-copastor-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
-        Modulo Co-Pastor
-      </h1>
-
-      <hr className='md:p-[0.02rem] bg-slate-500' />
+      <PageTitle className='text-copastor-color'>Modulo Co-Pastor</PageTitle>
 
       <div className='flex items-center justify-start'>
         <h2 className='flex items-center text-left pl-4 py-2 sm:pt-4 sm:pb-2 sm:pl-[1.5rem] xl:pl-[2rem] 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-orange-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl'>
@@ -351,7 +348,7 @@ export const CopastorUpdatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           className='text-[13px] md:text-[14px]'
-                          placeholder='Eje: C-2, Av.Central 123, Lima ....'
+                          placeholder='Ejem: C-2, Av.Central 123, Lima ....'
                           {...field}
                         />
                       </FormControl>
@@ -369,7 +366,7 @@ export const CopastorUpdatePage = (): JSX.Element => {
                     <FormItem className=''>
                       <FormLabel className='text-[14px] font-bold'>Termino (fecha)</FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Buscar por fecha o rango de fechas
+                        Buscar por fecha o rango de fechas.
                       </FormDescription>
                       <Popover>
                         <PopoverTrigger asChild>
@@ -490,7 +487,7 @@ export const CopastorUpdatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           className='text-[13px] md:text-[14px]'
-                          placeholder='Eje: Rolando Martin...'
+                          placeholder='Ejem: Rolando Martin...'
                           {...field}
                         />
                       </FormControl>
@@ -514,7 +511,7 @@ export const CopastorUpdatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           className='text-[13px] md:text-[14px]'
-                          placeholder='Eje: Sanchez Torres...'
+                          placeholder='Ejem: Sanchez Torres...'
                           {...field}
                         />
                       </FormControl>
@@ -609,7 +606,7 @@ export const CopastorUpdatePage = (): JSX.Element => {
                   <FormItem className='w-full row-start-3 row-end-4 md:col-start-auto md:col-end-auto md:row-start-auto md:row-end-auto '>
                     <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
                     <FormDescription className='text-[14px]'>
-                      Elige el tipo de orden de los registros
+                      Elige el tipo de orden de los registros.
                     </FormDescription>
                     <Select
                       onOpenChange={() => {}}

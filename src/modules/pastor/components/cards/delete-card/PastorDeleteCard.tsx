@@ -54,7 +54,7 @@ export const PastorDeleteCard = ({ idRow }: PastorDeleteCardProps): JSX.Element 
       </DialogTrigger>
       <DialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
         <div className='h-auto'>
-          <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-2'>
+          <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-3'>
             ¿Estas seguro de eliminar a este Pastor?
           </h2>
           <p>

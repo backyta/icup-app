@@ -19,9 +19,11 @@ import {
 } from '@/modules/offering/expense/components';
 import { type OfferingExpenseResponse } from '@/modules/offering/expense/interfaces';
 
+import { PageTitle } from '@/shared/components/page';
 import { type GeneralSearchForm } from '@/shared/interfaces';
 import { formSearchGeneralSchema } from '@/shared/validations';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
+
 import {
   Select,
   SelectItem,
@@ -115,12 +117,8 @@ export const OfferingsExpenseGeneralSearchPage = (): JSX.Element => {
   }
 
   return (
-    <div>
-      <h1 className='text-center pt-2 pb-4 font-sans text-2xl sm:text-3xl font-bold text-offering-color text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
-        Modulo Ofrendas
-      </h1>
-
-      <hr className='md:p-[0.02rem] bg-slate-500' />
+    <div className='animate-fadeInPage'>
+      <PageTitle className='text-red-600'>Modulo de Salida</PageTitle>
 
       <div className='flex items-center justify-start relative'>
         <h2 className='w-[18.5rem] sm:w-auto flex items-center text-left pl-4 py-2 sm:pt-4 sm:pb-2 sm:pl-[1.5rem] xl:pl-[2rem] 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-sky-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl'>
@@ -243,7 +241,7 @@ export const OfferingsExpenseGeneralSearchPage = (): JSX.Element => {
                   <FormItem className='w-auto lg:min-w-[22rem] mid-xl:min-w-[27rem]'>
                     <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
                     <FormDescription className='text-[14px]'>
-                      Elige el tipo de orden de los registros
+                      Elige el tipo de orden de los registros.
                     </FormDescription>
                     <Select value={field.value} onValueChange={field.onChange}>
                       <FormControl className='text-[13px] md:text-[14px] lg:w-full'>

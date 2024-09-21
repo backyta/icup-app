@@ -79,7 +79,7 @@ export const LoginPage = (): JSX.Element => {
       <div className='flex flex-col -mt-28'>
         <img
           src='/src/assets/logo-sn.webp'
-          alt='Placeholder Image'
+          alt='Logo Iglesia'
           className='w-[30rem] md:w-[33rem] lg:w-[37rem] xl:w-[45rem] pb-8 md:pb-10 mx-auto'
         />
         <h1 className='text-4xl md:text-5xl lg:text-[3.60rem] xl:text-7xl text-center font-semibold text-blue-800 font-dancing-script mb-0 md:mb-4 lg:mb-4 xl:mb-2 xl:leading-[4.5rem]'>
@@ -111,7 +111,7 @@ export const LoginPage = (): JSX.Element => {
                     <FormControl>
                       <Input
                         disabled={isInputDisabled}
-                        placeholder='Eje: maria@google.com'
+                        placeholder='Ejem: maria@google.com'
                         type='email'
                         autoComplete='username'
                         {...field}

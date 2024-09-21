@@ -227,7 +227,7 @@ export const SupervisorUpdateForm = ({
       defaultValue='general-info'
       className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
-      <h2 className='text-center text-orange-500 pb-2 font-bold text-[20px] md:text-[24px]'>
+      <h2 className='text-center text-orange-500 pb-2 font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
         Actualizar información del Supervisor
       </h2>
 
@@ -237,7 +237,7 @@ export const SupervisorUpdateForm = ({
 
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
-              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-4'>
+              <div className='dark:text-slate-300 text-slate-500 font-bold text-[17px] md:text-[18px] mb-4 md:pl-4'>
                 Supervisor: {data?.firstName} {data?.lastName}
               </div>
               <Form {...form}>
@@ -246,19 +246,21 @@ export const SupervisorUpdateForm = ({
                   className='w-full flex flex-col md:grid md:grid-cols-3 gap-x-10 gap-y-5 px-2 sm:px-12'
                 >
                   <div className='col-start-1 col-end-2'>
-                    <legend className='font-bold text-[17px] sm:text-lg'>Datos generales</legend>
+                    <legend className='font-bold text-[15px] md:text-[16px]'>
+                      Datos generales
+                    </legend>
                     <FormField
                       control={form.control}
                       name='firstName'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Nombres</FormLabel>
                             <FormControl>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
-                                placeholder='Eje: Roberto Martin...'
+                                placeholder='Ejem: Roberto Martin...'
                                 type='text'
                                 {...field}
                               />
@@ -274,13 +276,13 @@ export const SupervisorUpdateForm = ({
                       name='lastName'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Apellidos</FormLabel>
                             <FormControl>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
-                                placeholder='Eje: Mendoza Prado...'
+                                placeholder='Ejem: Mendoza Prado...'
                                 type='text'
                                 {...field}
                               />
@@ -296,7 +298,7 @@ export const SupervisorUpdateForm = ({
                       name='gender'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Género</FormLabel>
                             <Select
                               disabled={isInputDisabled}
@@ -331,13 +333,13 @@ export const SupervisorUpdateForm = ({
                       name='originCountry'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>País de Origen</FormLabel>
                             <FormControl>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
-                                placeholder='Eje: Peru, Colombia, Mexico...'
+                                placeholder='Ejem: Peru, Colombia, Mexico...'
                                 type='text'
                                 {...field}
                               />
@@ -352,7 +354,7 @@ export const SupervisorUpdateForm = ({
                       control={form.control}
                       name='birthDate'
                       render={({ field }) => (
-                        <FormItem className='flex flex-col mt-3'>
+                        <FormItem className='flex flex-col mt-2'>
                           <FormLabel className='text-[14px]'>Fecha de Nacimiento</FormLabel>
                           <Popover
                             open={isInputBirthDateOpen}
@@ -407,7 +409,7 @@ export const SupervisorUpdateForm = ({
                       name='maritalStatus'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Estado Civil</FormLabel>
                             <Select
                               disabled={isInputDisabled}
@@ -442,13 +444,13 @@ export const SupervisorUpdateForm = ({
                       name='numberChildren'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Numero de hijos</FormLabel>
                             <FormControl>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
-                                placeholder='Eje: 3'
+                                placeholder='Ejem: 3'
                                 {...field}
                               />
                             </FormControl>
@@ -519,7 +521,7 @@ export const SupervisorUpdateForm = ({
                       name='recordStatus'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Estado</FormLabel>
                             <Select
                               disabled={isInputDisabled}
@@ -570,20 +572,22 @@ export const SupervisorUpdateForm = ({
                   {/* Contacto y Vivienda */}
 
                   <div className='sm:col-start-2 sm:col-end-3'>
-                    <legend className='font-bold text-[16px]'>Contacto / Vivienda</legend>
+                    <legend className='font-bold  text-[15px] md:text-[16px]'>
+                      Contacto / Vivienda
+                    </legend>
 
                     <FormField
                       control={form.control}
                       name='email'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>E-mail</FormLabel>
                             <FormControl>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
-                                placeholder='Eje: martin@example.com'
+                                placeholder='Ejem: martin@example.com'
                                 type='email'
                                 autoComplete='username'
                                 {...field}
@@ -600,13 +604,13 @@ export const SupervisorUpdateForm = ({
                       name='phoneNumber'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Numero de Teléfono</FormLabel>
                             <FormControl>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
-                                placeholder='Eje: 999 999 999'
+                                placeholder='Ejem: +51 999 999 999'
                                 type='text'
                                 {...field}
                               />
@@ -622,7 +626,7 @@ export const SupervisorUpdateForm = ({
                       name='country'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>País</FormLabel>
                             <Select
                               disabled={isInputDisabled}
@@ -657,7 +661,7 @@ export const SupervisorUpdateForm = ({
                       name='department'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Departamento</FormLabel>
                             <Select
                               disabled={isInputDisabled}
@@ -692,7 +696,7 @@ export const SupervisorUpdateForm = ({
                       name='province'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Provincia</FormLabel>
                             <Select
                               disabled={isInputDisabled}
@@ -727,7 +731,7 @@ export const SupervisorUpdateForm = ({
                       name='district'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Distrito</FormLabel>
                             <Select
                               disabled={isInputDisabled}
@@ -766,7 +770,7 @@ export const SupervisorUpdateForm = ({
                       name='urbanSector'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] font-medium'>Sector Urbano</FormLabel>
                             <Select
                               onValueChange={field.onChange}
@@ -805,13 +809,13 @@ export const SupervisorUpdateForm = ({
                       name='address'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Dirección</FormLabel>
                             <FormControl>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
-                                placeholder='Eje: Av. Central 123'
+                                placeholder='Ejem: Av. Central 123'
                                 type='text'
                                 {...field}
                               />
@@ -827,7 +831,7 @@ export const SupervisorUpdateForm = ({
                       name='referenceAddress'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] font-medium'>
                               Referencia de dirección
                             </FormLabel>
@@ -835,7 +839,7 @@ export const SupervisorUpdateForm = ({
                               <Textarea
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
-                                placeholder='Comentarios sobre la referencia de la vivienda...'
+                                placeholder='Comentarios de referencia sobre la ubicación de la vivienda....'
                                 {...field}
                               />
                             </FormControl>
@@ -852,10 +856,12 @@ export const SupervisorUpdateForm = ({
                       name='roles'
                       render={() => (
                         <FormItem>
-                          <div className='mb-4'>
-                            <FormLabel className='font-bold text-[16px]'>Roles</FormLabel>
+                          <div className='mb-2'>
+                            <FormLabel className='font-bold text-[15px] md:text-[16px]'>
+                              Roles
+                            </FormLabel>
                             <FormDescription className='font-medium text-[13px] md:text-[14px]'>
-                              Seleccione los roles que desea asignar al discípulo.
+                              Asigna los roles correspondientes para este registro.
                             </FormDescription>
                           </div>
                           {Object.values(MemberRole).map((role) => (
@@ -964,7 +970,7 @@ export const SupervisorUpdateForm = ({
 
                     {/* Relaciones  */}
                     <div>
-                      <legend className='font-bold col-start-1 col-end-3 text-[16px]'>
+                      <legend className='col-start-1 col-end-3 font-bold text-[15px] md:text-[16px]'>
                         Relaciones
                       </legend>
                       {!isMessagePromoteDisabled && !isDirectRelationToPastor && (
@@ -973,12 +979,12 @@ export const SupervisorUpdateForm = ({
                           name='theirCopastor'
                           render={({ field }) => {
                             return (
-                              <FormItem className='mt-4'>
-                                <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
+                              <FormItem className='mt-2'>
+                                <FormLabel className='text-[14px] md:text-[15px] font-bold'>
                                   Co-Pastor
                                 </FormLabel>
                                 <FormDescription className='text-[14px]'>
-                                  Seleccione un co-pastor para este supervisor.
+                                  Asigna el Co-Pastor responsable de este Supervisor.
                                 </FormDescription>
                                 <Popover
                                   open={isInputTheirCopastorOpen}
@@ -1052,12 +1058,12 @@ export const SupervisorUpdateForm = ({
                           name='theirPastor'
                           render={({ field }) => {
                             return (
-                              <FormItem className='mt-4'>
-                                <FormLabel className='text-[14.5px] md:text-[16px] font-bold'>
+                              <FormItem className='mt-2'>
+                                <FormLabel className='text-[14px] md:text-[15px] font-bold'>
                                   Pastor
                                 </FormLabel>
                                 <FormDescription className='text-[14px]'>
-                                  Seleccione un pastor para este co-pastor.
+                                  Asigna el Pastor responsable de este Supervisor.
                                 </FormDescription>
                                 <Popover
                                   open={isInputTheirPastorOpen}
@@ -1142,7 +1148,7 @@ export const SupervisorUpdateForm = ({
                       </AlertDialogTrigger>
                       <AlertDialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
                         <AlertDialogHeader className='h-auto'>
-                          <AlertDialogTitle className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-2'>
+                          <AlertDialogTitle className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-3'>
                             ¿Estas seguro de promover a este Supervisor?
                           </AlertDialogTitle>
                           <AlertDialogDescription className={cn('h-[21rem] md:h-[18rem]')}>

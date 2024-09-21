@@ -24,7 +24,7 @@ export const OfferingOptionsPage = (): JSX.Element => {
   return (
     <div className='animate-fadeIn'>
       <h1 className='text-center pb-2 pt-1 md:pt-2 md:pb-2 font-sans text-2xl sm:text-3xl font-bold text-offering-color text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
-        Modulo Ofrendas
+        Modulo Ofrenda
       </h1>
       <p className='text-center font-sans text-sm sm:text-md md:text-[15px] font-bold px-4 pb-4 lg:text-base xl:text-lg'>
         Bienvenido, por favor elige una opción.
@@ -41,10 +41,10 @@ export const OfferingOptionsPage = (): JSX.Element => {
           <WhiteCard className='h-full sm:h-full gap-2 sm:gap-4 lg:gap-5' centered>
             <FcBullish className='text-[5rem] sm:text-[8rem] md:text-[10rem]' />
             <h2 className='text-green-500 font-bold text-[22px] sm:text-3xl lg:text-4xl'>
-              Registro de Ingresos
+              Modulo de Ingreso
             </h2>
             <p className='font-bold text-[14px] sm:text-[16px] lg:text-[17px] leading-6 xl:leading-3'>
-              Modulo de registro de ingresos y control de ofrenda.
+              Control de ingresos de ofrenda
             </p>
           </WhiteCard>
         </NavLink>
@@ -58,10 +58,10 @@ export const OfferingOptionsPage = (): JSX.Element => {
           <WhiteCard className='h-full sm:h-full gap-2 sm:gap-4 lg:gap-5' centered>
             <FcBearish className='text-[5rem] sm:text-[8rem] lg:text-[10rem]' />
             <h2 className='text-red-500 font-bold text-[22px] sm:text-3xl lg:text-4xl'>
-              Registros de Egreso
+              Modulo de Salida
             </h2>
             <p className='font-bold text-[14px] sm:text-[16px] lg:text-[17px] leading-6 xl:leading-3'>
-              Modulo de registro de egresos y control de gastos.
+              Control de gastos de ofrenda
             </p>
           </WhiteCard>
         </NavLink>

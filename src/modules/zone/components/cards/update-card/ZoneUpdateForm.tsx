@@ -127,12 +127,12 @@ export const ZoneUpdateForm = ({
   //* Queries
   const supervisorsQuery = useQuery({
     queryKey: ['available-supervisors'],
-    queryFn: () => getAllSupervisors({ isNull: 'true' }),
+    queryFn: () => getAllSupervisors({ isNull: true }),
   });
 
   const supervisorQuery = useQuery({
     queryKey: ['supervisor'],
-    queryFn: () => getAllSupervisors({ isNull: 'false' }),
+    queryFn: () => getAllSupervisors({ isNull: false }),
   });
 
   //* Form handler
@@ -145,7 +145,7 @@ export const ZoneUpdateForm = ({
       defaultValue='general-info'
       className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
-      <h2 className='text-center text-orange-500 pb-2 font-bold text-[20px] md:text-[24px]'>
+      <h2 className='text-center text-orange-500 pb-2 font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
         Actualizar información de la Iglesia
       </h2>
 
@@ -155,7 +155,7 @@ export const ZoneUpdateForm = ({
 
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
-              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-4'>
+              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] mb-4 md:pl-4'>
                 Zona: {data?.zoneName} - {data?.district}
               </div>
               <Form {...form}>
@@ -179,7 +179,7 @@ export const ZoneUpdateForm = ({
                             <FormControl>
                               <Input
                                 disabled={isInputDisabled}
-                                placeholder='Eje: Iglesia Roca Fuerte...'
+                                placeholder='Ejem: Iglesia Roca Fuerte...'
                                 type='text'
                                 {...field}
                               />
@@ -366,7 +366,7 @@ export const ZoneUpdateForm = ({
                               Supervisor
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Seleccione un supervisor para esta zona.
+                              Asigna el Supervisor responsable de esta Zona.
                             </FormDescription>
                             <Popover
                               open={isInputTheirSupervisorOpen}

@@ -22,6 +22,9 @@ export const uploadImages = async ({files, fileType, type, subType}:UploadImages
       newFormData.append('files', file);
     });
 
+    console.log(files);
+    
+
     const {data} = await icupApi.post<UploadImageResponse>('/files/upload', newFormData ,{
       params: {
         fileType,

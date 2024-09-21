@@ -17,6 +17,7 @@ import { UserRole, UserRoleNames } from '@/modules/user/enums';
 import { useUserCreationSubmitButtonLogic, useUserCreationMutation } from '@/modules/user/hooks';
 
 import { GenderNames } from '@/shared/enums';
+import { PageTitle } from '@/shared/components/page';
 
 import {
   Form,
@@ -110,20 +111,16 @@ export const UserCreatePage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h1 className='text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-user-color text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]'>
-        Modulo Usuario
-      </h1>
+      <PageTitle className='text-user-color'>Modulo Usuario</PageTitle>
 
-      <hr className='md:p-[0.02rem] bg-slate-500' />
-
-      <h1 className='text-left px-4 sm:px-5 pt-2 2xl:px-24 font-sans font-bold text-green-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h1 className='text-left leading-7 pb-2 pt-3 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear un nuevo usuario
       </h1>
       <p className='dark:text-slate-300 text-left font-sans text-[14px] font-bold px-4 sm:px-10 text-sm md:text-[15px] xl:text-base 2xl:text-center'>
         Por favor llena los siguientes datos para crear un nuevo usuario.
       </p>
 
-      <div className='flex min-h-full flex-col items-center justify-between px-8 py-4 sm:px-10 sm:py-6 2xl:px-36 2xl:py-10'>
+      <div className='flex min-h-full flex-col items-center justify-between px-6 py-4 sm:px-10 sm:py-6 2xl:px-36 2xl:py-10'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}

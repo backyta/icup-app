@@ -3,7 +3,7 @@ import { ModeToggle } from '@/shared/components';
 export const ToggleLayout = (): JSX.Element => {
   return (
     <div>
-      <div className='hidden md:w-full md:flex md:-mb-14 md:items-center md:justify-end md:py-[10px] lg:px-[2rem] md:px-[0rem] '>
+      <div className='hidden md:block md:absolute right-10 top-3'>
         <ModeToggle />
       </div>
     </div>

@@ -44,7 +44,7 @@ export const CopastorOptionsPage = (): JSX.Element => {
               Registrar Co-Pastor
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Crear nuevo registro de un co-pastor.
+              Crear nuevo registro de un co-pastor
             </p>
           </WhiteCard>
         </NavLink>
@@ -61,7 +61,7 @@ export const CopastorOptionsPage = (): JSX.Element => {
               Consultar Co-Pastores
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de co-pastores en general.
+              Consultar registros de co-pastores en general
             </p>
           </WhiteCard>
         </NavLink>
@@ -78,7 +78,7 @@ export const CopastorOptionsPage = (): JSX.Element => {
               Consultar Co-Pastores
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de co-pastores por tipo.
+              Consultar registros de co-pastores por tipo de búsqueda
             </p>
           </WhiteCard>
         </NavLink>
@@ -95,7 +95,7 @@ export const CopastorOptionsPage = (): JSX.Element => {
               Actualizar Co-Pastor
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Actualizar información del registro de un co-pastor.
+              Actualizar información del registro de un co-pastor
             </p>
           </WhiteCard>
         </NavLink>
@@ -112,7 +112,7 @@ export const CopastorOptionsPage = (): JSX.Element => {
               Eliminar Co-Pastor
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Eliminar el registro de un co-pastor.
+              Eliminar registro de un co-pastor
             </p>
           </WhiteCard>
         </NavLink>

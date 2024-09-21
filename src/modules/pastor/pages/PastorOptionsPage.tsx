@@ -45,7 +45,7 @@ export const PastorOptionsPage = (): JSX.Element => {
               Registrar Pastor
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Crear nuevo registro de un pastor.
+              Crear nuevo registro de un pastor
             </p>
           </WhiteCard>
         </NavLink>
@@ -62,7 +62,7 @@ export const PastorOptionsPage = (): JSX.Element => {
               Consultar Pastores
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de pastores en general.
+              Consultar registros de pastores en general
             </p>
           </WhiteCard>
         </NavLink>
@@ -79,7 +79,7 @@ export const PastorOptionsPage = (): JSX.Element => {
               Consultar Pastores
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de pastores por tipo.
+              Consultar registros de pastores por tipo de búsqueda
             </p>
           </WhiteCard>
         </NavLink>
@@ -96,7 +96,7 @@ export const PastorOptionsPage = (): JSX.Element => {
               Actualizar Pastor
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Actualizar información del registro de un pastor.
+              Actualizar información del registro de un pastor
             </p>
           </WhiteCard>
         </NavLink>
@@ -113,7 +113,7 @@ export const PastorOptionsPage = (): JSX.Element => {
               Eliminar Pastor
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Eliminar el registro de un pastor.
+              Eliminar registro de un pastor
             </p>
           </WhiteCard>
         </NavLink>

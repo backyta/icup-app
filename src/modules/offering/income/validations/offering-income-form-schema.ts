@@ -46,7 +46,7 @@ export const offeringIncomeFormSchema = z
     }),
 
     comments: z.string()
-    .max(100, {message: 'El campo debe contener máximo 100 caracteres'})
+    .max(500, {message: 'El campo debe contener máximo 500 caracteres'})
     .optional(),   
      
     fileNames: z.array(z.string()).optional(),

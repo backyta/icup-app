@@ -26,7 +26,7 @@ export const createPreacher = async (formData:PreacherFormData ): Promise<Preach
 
 //* Get all supervisors
 export interface GetAllSupervisorsByZoneOptions {
-  isNull: string;
+  isNull: boolean;
 }
 
 export const getAllSupervisors = async ({isNull}: GetAllSupervisorsByZoneOptions): Promise<SupervisorResponse[]> => {
@@ -34,7 +34,7 @@ export const getAllSupervisors = async ({isNull}: GetAllSupervisorsByZoneOptions
     const {data} = await icupApi<SupervisorResponse[]>('/supervisors' , {
       params: {
         order: 'ASC',
-        isNull
+        isNull: isNull.toString()
       },  
     }
     );

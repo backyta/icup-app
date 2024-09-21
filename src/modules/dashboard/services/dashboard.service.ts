@@ -11,7 +11,7 @@ import { type OfferingIncomeResponse } from '@/modules/offering/income/interface
 
 
 // ? Get offerings income by term (paginated)
-export const getOfferingsForBarChartByTerm = async ({ 
+export const  getOfferingsForBarChartByTerm = async ({ 
   searchType, 
   selectTerm,
   dateTerm,  
@@ -24,7 +24,7 @@ export const getOfferingsForBarChartByTerm = async ({
  let result: OfferingIncomeResponse[];
 
  //* Latest sunday offerings
- if (searchType === DashboardSearchType.LatestSundayOfferings
+ if (searchType === DashboardSearchType.LastSundaysOfferings
 ) {
     try {
         if (!all) {
@@ -60,7 +60,7 @@ export const getOfferingsForBarChartByTerm = async ({
  }
 
  //* Top family groups offerings
- if (searchType === DashboardSearchType.TopFamilyGroupOfferings
+ if (searchType === DashboardSearchType.TopFamilyGroupsOfferings
 ) {
     try {
         if (!all) {

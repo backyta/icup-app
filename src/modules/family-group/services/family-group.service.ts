@@ -70,7 +70,7 @@ export const getAllPreachers = async (): Promise<PreacherResponse[]> => {
 export interface GetPreachersByZoneOptions {
   searchType: string;
   zoneId: string;
-  isNull: string;
+  isNull: boolean;
 }
 
 export const getAllPreachersByZone = async ({
@@ -83,7 +83,7 @@ export const getAllPreachersByZone = async ({
       params: {
         order: 'ASC',
         'search-type': searchType,
-        isNull,
+        isNull: isNull.toString(),
       },
     }
   );

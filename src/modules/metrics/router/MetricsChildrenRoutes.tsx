@@ -1,30 +1,30 @@
 import {
   MetricsMember,
-  MetricsFamilyHouse,
+  MetricsFamilyGroup,
   MetricsOfferingIncome,
-  MetricsOfferingExpenses,
-  MetricsComparativeOffering,
+  MetricsOfferingExpense,
+  MetricsOfferingComparison,
 } from '@/modules/metrics/pages';
 
 export const MetricsChildrenRoutes = [
   {
-    path: '/metrics/metrics-member',
+    path: '/metrics/member',
     element: <MetricsMember />,
   },
   {
-    path: '/metrics/metrics-family-house',
-    element: <MetricsFamilyHouse />,
+    path: '/metrics/family-group',
+    element: <MetricsFamilyGroup />,
   },
   {
-    path: '/metrics/metrics-offering-income',
+    path: '/metrics/offering-income',
     element: <MetricsOfferingIncome />,
   },
   {
-    path: '/metrics/metrics-offering-expenses',
-    element: <MetricsOfferingExpenses />,
+    path: '/metrics/offering-expense',
+    element: <MetricsOfferingExpense />,
   },
   {
-    path: '/metrics/metrics-comparative-offering',
-    element: <MetricsComparativeOffering />,
+    path: '/metrics/offering-comparison',
+    element: <MetricsOfferingComparison />,
   },
 ];

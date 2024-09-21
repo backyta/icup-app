@@ -66,7 +66,7 @@ export const useChurchCreationMutation = ({
 
       setTimeout(() => {
         navigate('/churches');
-      }, 2400);
+      }, 2000);
     },
   });
 

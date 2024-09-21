@@ -167,7 +167,7 @@ export const ChurchUpdateForm = ({
       defaultValue='general-info'
       className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
-      <h2 className='text-center text-orange-500 pb-2 font-bold text-[20px] md:text-[24px]'>
+      <h2 className='text-center text-orange-500 pb-2 font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
         Actualizar información de la Iglesia
       </h2>
 
@@ -177,7 +177,7 @@ export const ChurchUpdateForm = ({
 
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
-              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 pl-4'>
+              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] pl-0 mb-4 md:pl-4'>
                 Iglesia: {data?.churchName} - {data?.district}
               </div>
               <Form {...form}>
@@ -196,12 +196,12 @@ export const ChurchUpdateForm = ({
                               Nombre
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar una nombre a la iglesia.
+                              Asigna un nombre a la iglesia.
                             </FormDescription>
                             <FormControl>
                               <Input
                                 disabled={isInputDisabled}
-                                placeholder='Eje: Iglesia Roca Fuerte...'
+                                placeholder='Ejem: Iglesia Roca Fuerte...'
                                 type='text'
                                 {...field}
                               />
@@ -216,10 +216,13 @@ export const ChurchUpdateForm = ({
                       control={form.control}
                       name='foundingDate'
                       render={({ field }) => (
-                        <FormItem className='mt-4'>
+                        <FormItem className='mt-2'>
                           <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                             Fecha de fundación
                           </FormLabel>
+                          <FormDescription className='text-[14px]'>
+                            Asigna la fecha de fundación de la iglesia.
+                          </FormDescription>
                           <Popover
                             open={isInputFoundingDateOpen}
                             onOpenChange={setIsInputFoundingDateOpen}
@@ -273,12 +276,12 @@ export const ChurchUpdateForm = ({
                       name='worshipTimes'
                       render={() => (
                         <FormItem>
-                          <div className='mt-3'>
+                          <div className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Horarios
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Seleccione los horarios que tendrá la iglesia.
+                              Selecciona los horarios de culto que tendrá la nueva iglesia.
                             </FormDescription>
                           </div>
                           <div className='flex flex-wrap space-x-5 space-y-1'>
@@ -331,17 +334,17 @@ export const ChurchUpdateForm = ({
                       name='email'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               E-mail
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asigne un e-mail que tendrá la iglesia.
+                              Asigna un e-mail a la iglesia.
                             </FormDescription>
                             <FormControl>
                               <Input
                                 disabled={isInputDisabled}
-                                placeholder='Eje: iglesia.central@example.com'
+                                placeholder='Ejem: iglesia.central@example.com'
                                 type='email'
                                 autoComplete='username'
                                 {...field}
@@ -358,7 +361,7 @@ export const ChurchUpdateForm = ({
                       name='phoneNumber'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Numero de teléfono
                             </FormLabel>
@@ -368,7 +371,7 @@ export const ChurchUpdateForm = ({
                             <FormControl>
                               <Input
                                 disabled={isInputDisabled}
-                                placeholder='Eje: 999 999 999'
+                                placeholder='Ejem: +51 999 999 999'
                                 type='text'
                                 {...field}
                               />
@@ -384,12 +387,12 @@ export const ChurchUpdateForm = ({
                       name='country'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               País
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar el país al que pertenece la iglesia.
+                              Asigna el país al que pertenece la iglesia.
                             </FormDescription>
                             <Select
                               disabled={isInputDisabled}
@@ -424,12 +427,12 @@ export const ChurchUpdateForm = ({
                       name='department'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Departamento
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar el departamento al que pertenece la iglesia.
+                              Asigna el departamento al que pertenece la iglesia.
                             </FormDescription>
                             <Select
                               disabled={isInputDisabled}
@@ -464,12 +467,12 @@ export const ChurchUpdateForm = ({
                       name='province'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Provincia
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar la provincia a la que pertenece la iglesia.
+                              Asigna la provincia a la que pertenece la iglesia.
                             </FormDescription>
                             <Select
                               disabled={isInputDisabled}
@@ -511,7 +514,7 @@ export const ChurchUpdateForm = ({
                               Distrito
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar el distrito al que pertenece la iglesia.
+                              Asigna el distrito al que pertenece la iglesia.
                             </FormDescription>
                             <Select
                               disabled={isInputDisabled}
@@ -555,12 +558,12 @@ export const ChurchUpdateForm = ({
                       name='urbanSector'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3 md:mt-5'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Sector Urbano
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar el sector urbano al que pertenece la iglesia.
+                              Asigna el sector urbano al que pertenece la iglesia.
                             </FormDescription>
                             <Select
                               disabled={isInputDisabled}
@@ -599,12 +602,12 @@ export const ChurchUpdateForm = ({
                       name='address'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3 md:mt-5'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Dirección
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asignar la dirección de la iglesia.
+                              Asigna la dirección de la iglesia.
                             </FormDescription>
                             <FormControl>
                               <Input
@@ -625,7 +628,7 @@ export const ChurchUpdateForm = ({
                       name='referenceAddress'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3 md:mt-5'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Referencia de dirección
                             </FormLabel>
@@ -646,7 +649,7 @@ export const ChurchUpdateForm = ({
                       control={form.control}
                       name='isAnexe'
                       render={({ field }) => (
-                        <FormItem className='flex flex-row gap-2 items-end mt-3 px-1 py-3 h-[2.5rem]'>
+                        <FormItem className='flex flex-row gap-2 items-end mt-2 px-1 py-3 h-[2.5rem]'>
                           <FormControl>
                             <Checkbox
                               disabled={isInputDisabled}
@@ -679,7 +682,7 @@ export const ChurchUpdateForm = ({
                                 Iglesia Principal
                               </FormLabel>
                               <FormDescription className='text-[14px]'>
-                                Seleccione una iglesia principal para este anexo.
+                                Asigna una iglesia principal para este anexo.
                               </FormDescription>
                               <Popover
                                 open={isInputMainChurchOpen}
@@ -705,7 +708,7 @@ export const ChurchUpdateForm = ({
                                 <PopoverContent align='center' className='w-auto px-4 py-2'>
                                   <Command>
                                     <CommandInput
-                                      placeholder='Busque una iglesia...'
+                                      placeholder='Busque una iglesia'
                                       className='h-9 text-[14px]'
                                     />
                                     <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
@@ -747,7 +750,7 @@ export const ChurchUpdateForm = ({
                       name='recordStatus'
                       render={({ field }) => {
                         return (
-                          <FormItem className='mt-3'>
+                          <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Estado</FormLabel>
                             <Select
                               disabled={isInputDisabled}
@@ -794,11 +797,11 @@ export const ChurchUpdateForm = ({
                   </div>
 
                   {isMessageErrorDisabled ? (
-                    <p className='-mb-5 mt-4 md:mt-1 md:-mb-3 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
+                    <p className='-mb-5 mt-4 md:mt-0 md:-mb-3 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
                       ❌ Datos incompletos, completa todos los campos para guardar el registro.
                     </p>
                   ) : (
-                    <p className='-mt-3 order-last md:-mt-2 md:row-start-4 md:row-end-5 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
+                    <p className='-mt-3 order-last md:-mt-3 md:row-start-4 md:row-end-5 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
                       ¡Campos completados correctamente! <br /> Para finalizar por favor guarde los
                       cambios.
                     </p>

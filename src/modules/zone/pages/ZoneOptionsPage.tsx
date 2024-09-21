@@ -46,7 +46,7 @@ export const ZoneOptionsPage = (): JSX.Element => {
               Registrar Zona
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Crear nuevo registro de una zona.
+              Crear nuevo registro de una zona
             </p>
           </WhiteCard>
         </NavLink>
@@ -63,7 +63,7 @@ export const ZoneOptionsPage = (): JSX.Element => {
               Consultar Zonas
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de zonas en general.
+              Consultar registros de zonas en general
             </p>
           </WhiteCard>
         </NavLink>
@@ -80,7 +80,7 @@ export const ZoneOptionsPage = (): JSX.Element => {
               Consultar Zonas
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de zonas por tipo.
+              Consultar registros de zonas por tipo de búsqueda
             </p>
           </WhiteCard>
         </NavLink>
@@ -97,7 +97,7 @@ export const ZoneOptionsPage = (): JSX.Element => {
               Actualizar Zona
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Actualizar información del registro de una zona.
+              Actualizar información del registro de una zona
             </p>
           </WhiteCard>
         </NavLink>
@@ -121,7 +121,7 @@ export const ZoneOptionsPage = (): JSX.Element => {
             </h2>
 
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Eliminar el registro de una zona.
+              Eliminar registro de una zona
             </p>
           </WhiteCard>
         </NavLink>

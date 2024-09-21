@@ -16,6 +16,7 @@ import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { cn } from '@/shared/lib/utils';
 
+import { PageTitle } from '@/shared/components/page';
 import { zoneFormSchema } from '@/modules/zone/validations';
 import { getAllSupervisors } from '@/modules/preacher/services';
 import { useZoneCreationSubmitButtonLogic, useZoneCreationMutation } from '@/modules/zone/hooks';
@@ -107,7 +108,7 @@ export const ZoneCreatePage = (): JSX.Element => {
   //* Queries
   const { data } = useQuery({
     queryKey: ['supervisors-for-zone'],
-    queryFn: () => getAllSupervisors({ isNull: 'true' }),
+    queryFn: () => getAllSupervisors({ isNull: true }),
   });
 
   //* Form handler
@@ -116,26 +117,22 @@ export const ZoneCreatePage = (): JSX.Element => {
   };
 
   return (
-    <div id='menu' className='animate-fadeInPage'>
-      <h1 className='text-center pt-1 md:pt-0 pb-1 font-sans font-bold text-cyan-400 dark:text-cyan-500 text-[2.1rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-[3rem]'>
-        Modulo Zona
-      </h1>
+    <div className='animate-fadeInPage'>
+      <PageTitle className='text-cyan-400 dark:text-cyan-500'>Modulo Zona</PageTitle>
 
-      <hr className='md:p-[0.02rem] bg-slate-500' />
-
-      <h1 className='text-left px-4 sm:px-5 pt-2 2xl:px-24 font-sans font-bold text-green-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h1 className='text-left leading-7 pb-2 pt-3 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear una nueva zona
       </h1>
 
-      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 sm:pl-7 2xl:px-28 text-[12px] md:text-[15px] xl:text-base'>
+      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6  sm:pl-7 2xl:px-28 text-[12px] md:text-[15px] xl:text-base'>
         Por favor llena los siguientes datos para crear una nueva zona.
       </p>
 
-      <div className='flex min-h-full flex-col items-center justify-between px-8 py-4 sm:px-10 sm:py-6 2xl:px-36 2xl:py-10'>
+      <div className='flex min-h-full flex-col items-center justify-between px-6 py-4 sm:px-10 sm:py-6 2xl:px-36 2xl:py-10'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            className='max-w-md w-full flex flex-col gap-4'
+            className='max-w-md w-full flex flex-col gap-3 md:gap-4'
           >
             <FormField
               control={form.control}
@@ -145,12 +142,12 @@ export const ZoneCreatePage = (): JSX.Element => {
                   <FormItem>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Nombre</FormLabel>
                     <FormDescription className='text-[14px]'>
-                      Asignar una nombre a la zona.
+                      Asigna una nombre a la nueva zona.
                     </FormDescription>
                     <FormControl>
                       <Input
                         disabled={isInputDisabled}
-                        placeholder='Eje: Jerusalem...'
+                        placeholder='Ejem: Jerusalem Alta'
                         type='text'
                         {...field}
                       />
@@ -169,7 +166,7 @@ export const ZoneCreatePage = (): JSX.Element => {
                   <FormItem className=''>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>País</FormLabel>
                     <FormDescription className='text-[14px]'>
-                      Asignar el país al que pertenece la zona.
+                      Asigna el país al que pertenece la nueva zona.
                     </FormDescription>
                     <Select
                       disabled={isInputDisabled}
@@ -204,12 +201,12 @@ export const ZoneCreatePage = (): JSX.Element => {
               name='department'
               render={({ field }) => {
                 return (
-                  <FormItem className=''>
+                  <FormItem>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                       Departamento
                     </FormLabel>
                     <FormDescription className='text-[14px]'>
-                      Asignar el departamento al que pertenece la zona.
+                      Asigna el departamento al que pertenece la nueva zona.
                     </FormDescription>
                     <Select
                       disabled={isInputDisabled}
@@ -249,7 +246,7 @@ export const ZoneCreatePage = (): JSX.Element => {
                       Provincia
                     </FormLabel>
                     <FormDescription className='text-[14px]'>
-                      Asignar la provincia a la que pertenece la zona.
+                      Asigna la provincia a la que pertenece la nueva zona.
                     </FormDescription>
                     <Select
                       disabled={isInputDisabled}
@@ -284,12 +281,12 @@ export const ZoneCreatePage = (): JSX.Element => {
               name='district'
               render={({ field }) => {
                 return (
-                  <FormItem className=''>
+                  <FormItem>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                       Distrito
                     </FormLabel>
                     <FormDescription className='text-[14px]'>
-                      Asignar el distrito al que pertenece la zona.
+                      Asigna el distrito al que pertenece la nueva zona.
                     </FormDescription>
                     <Select
                       disabled={isInputDisabled}
@@ -328,12 +325,12 @@ export const ZoneCreatePage = (): JSX.Element => {
               name='theirSupervisor'
               render={({ field }) => {
                 return (
-                  <FormItem className=''>
+                  <FormItem>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                       Supervisor
                     </FormLabel>
                     <FormDescription className='text-[14px]'>
-                      Seleccione un supervisor para esta zona.
+                      Asigna el Supervisor responsable de esta Zona.
                     </FormDescription>
                     <Popover
                       open={isInputTheirSupervisorOpen}
@@ -357,7 +354,7 @@ export const ZoneCreatePage = (): JSX.Element => {
                       <PopoverContent align='center' className='w-auto px-4 py-2'>
                         <Command>
                           <CommandInput
-                            placeholder='Busque un supervisor...'
+                            placeholder='Busque un supervisor'
                             className='h-9 text-[14px]'
                           />
                           <CommandEmpty>Supervisor no encontrado.</CommandEmpty>
@@ -407,7 +404,7 @@ export const ZoneCreatePage = (): JSX.Element => {
             />
 
             {isMessageErrorDisabled ? (
-              <p className='-mb-5 mt-2 md:-mb-2 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 mx-auto md:w-[100%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
+              <p className='-mb-4 mt-2 md:-mb-2 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 mx-auto md:w-[100%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
                 ❌ Datos incompletos, completa todos los campos para crear el registro.
               </p>
             ) : (

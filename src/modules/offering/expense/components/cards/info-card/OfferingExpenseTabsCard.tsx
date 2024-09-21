@@ -69,6 +69,7 @@ export const OfferingExpenseTabsCard = ({
           Información General
         </TabsTrigger>
       </TabsList>
+
       <TabsContent value='general-info'>
         <Card className='w-full'>
           <CardHeader className='text-center pb-4 pt-2'>
@@ -80,7 +81,7 @@ export const OfferingExpenseTabsCard = ({
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid grid-cols-3 pl-[3.5rem] sm:pl-[5.3rem] sm:pr-[5rem] gap-x-4 gap-y-4 md:gap-x-6 md:gap-y-5 md:pl-[5.8rem] md:pr-[2.5rem]'>
+          <CardContent className='grid grid-cols-3 pl-[3rem] pr-[3rem] pb-5 sm:pl-[5.3rem] sm:pr-[5rem] gap-x-4 gap-y-2.5 md:gap-x-6 md:gap-y-5 md:pl-[5.8rem] md:pr-[2.5rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Tipo</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -155,11 +156,11 @@ export const OfferingExpenseTabsCard = ({
               </div>
             </div>
 
-            <Label className='md:-mb-3 row-start-7 row-end-8 md:row-auto col-start-1 col-end-4 text-[15px] md:text-[16px] font-bold text-amber-500'>
+            <Label className='md:-mb-3 pt-1 md:pt-0 row-start-5 row-end-6 md:row-auto col-start-1 col-end-4 text-[15px] md:text-[16px] font-bold text-amber-500'>
               Información del registro
             </Label>
 
-            <div className='space-y-1 flex justify-between items-center row-start-8 row-end-9 col-start-1 col-end-4 md:grid md:col-auto md:row-auto'>
+            <div className='space-y-1 flex justify-between items-center row-start-6 row-end-7 col-start-1 col-end-4 md:grid md:col-auto md:row-auto'>
               <Label className='text-[14px] md:text-[15px]'>Creado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdBy
@@ -171,14 +172,14 @@ export const OfferingExpenseTabsCard = ({
               </CardDescription>
             </div>
 
-            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-9 row-end-10 md:grid md:col-auto md:row-auto'>
+            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-7 row-end-8 md:grid md:col-auto md:row-auto'>
               <Label className='text-[14px] md:text-[15px]'>Fecha de creación</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdAt ? format(new Date(data?.createdAt), 'dd/MM/yyyy') : '-'}
               </CardDescription>
             </div>
 
-            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-10 row-end-11 md:grid md:row-auto  md:col-start-1 md:col-end-2'>
+            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-8 row-end-9 md:grid md:row-auto  md:col-start-1 md:col-end-2'>
               <Label className='text-[14px] md:text-[15px]'>Actualizado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
@@ -190,7 +191,7 @@ export const OfferingExpenseTabsCard = ({
               </CardDescription>
             </div>
 
-            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-11 row-end-12 md:grid  md:row-auto md:col-start-2 md:col-end-4'>
+            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-9 row-end-10 md:grid md:row-auto md:col-start-2 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Ultima fecha de actualización</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedAt
@@ -199,7 +200,7 @@ export const OfferingExpenseTabsCard = ({
               </CardDescription>
             </div>
 
-            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-12 row-end-13 md:grid md:row-start-6 md:row-end-7 md:col-start-3 md:col-end-4'>
+            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-10 row-end-11 md:grid md:row-start-6 md:row-end-7 md:col-start-3 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
               <CardDescription
                 className={cn(

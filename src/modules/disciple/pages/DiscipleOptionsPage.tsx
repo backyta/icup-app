@@ -42,7 +42,7 @@ export const DiscipleOptionsPage = (): JSX.Element => {
               Registrar Discípulo
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Crear nuevo registro de un discípulo.
+              Crear nuevo registro de un discípulo
             </p>
           </WhiteCard>
         </NavLink>
@@ -59,7 +59,7 @@ export const DiscipleOptionsPage = (): JSX.Element => {
               Consultar Discípulos
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de discípulos en general.
+              Consultar registros de discípulos en general
             </p>
           </WhiteCard>
         </NavLink>
@@ -76,7 +76,7 @@ export const DiscipleOptionsPage = (): JSX.Element => {
               Consultar Discípulos
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de discípulos por tipo.
+              Consultar registros de discípulos por tipo de búsqueda
             </p>
           </WhiteCard>
         </NavLink>
@@ -93,7 +93,7 @@ export const DiscipleOptionsPage = (): JSX.Element => {
               Actualizar Discípulo
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Actualizar información del registro de un discípulo.
+              Actualizar información del registro de un discípulo
             </p>
           </WhiteCard>
         </NavLink>
@@ -110,7 +110,7 @@ export const DiscipleOptionsPage = (): JSX.Element => {
               Eliminar Discípulo
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Eliminar el registro de un discípulo.
+              Eliminar registro de un discípulo.
             </p>
           </WhiteCard>
         </NavLink>

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type * as z from 'zod';
 import { toast } from 'sonner';
@@ -119,6 +119,7 @@ export const OfferingExpenseFormUpdate = ({
 
   //* Watchers
   const type = form.watch('type');
+  const comments = form.watch('comments');
 
   //* Custom hooks
   useOfferingExpenseSetData({
@@ -168,6 +169,15 @@ export const OfferingExpenseFormUpdate = ({
 
   const uploadImagesMutation = useImagesUploadMutation();
 
+  //* Effects
+  useEffect(() => {
+    if (data?.recordStatus === RecordStatus.Inactive) {
+      setIsInputDisabled(true);
+      setIsDropZoneDisabled(true);
+      setIsDeleteFileButtonDisabled(true);
+    }
+  }, []);
+
   //* Form handler
   const handleSubmit = async (
     formData: z.infer<typeof offeringExpenseFormSchema>
@@ -216,7 +226,7 @@ export const OfferingExpenseFormUpdate = ({
       className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
       <div className='text-center'>
-        <h2 className='text-orange-500  font-bold text-[20px] md:text-[24px]'>
+        <h2 className='text-orange-500  font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
           Actualizar información del registro
         </h2>
       </div>
@@ -227,12 +237,12 @@ export const OfferingExpenseFormUpdate = ({
 
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
-              <div className='flex flex-col mb-4 pl-4'>
-                <span className='dark:text-amber-400 font-bold text-[14px] md:text-[16px] text-amber-500'>
+              <div className='flex flex-col mb-4 md:pl-4'>
+                <span className='dark:text-amber-400 font-bold text-[16px] md:text-[18px] text-amber-500'>
                   Tipo de registro:{' '}
                   {`${OfferingExpenseSearchTypeNames[data?.type as OfferingExpenseSearchType]} ${data?.subType ? '-' : ''} ${OfferingExpenseSearchSubTypeNames[data?.subType as OfferingExpenseSearchSubType] ?? ''}`}
                 </span>
-                <span className='dark:text-slate-300 text-slate-500 font-bold text-[13px] md:text-[14.5px] ml-1'>
+                <span className='dark:text-slate-300 text-slate-500 font-bold text-[15px] md:text-[17px] ml-1'>
                   Pertenencia: {`${data?.church?.churchName}`}
                 </span>
               </div>
@@ -325,7 +335,7 @@ export const OfferingExpenseFormUpdate = ({
                       control={form.control}
                       name='churchId'
                       render={({ field }) => (
-                        <FormItem className='mt-4'>
+                        <FormItem className='mt-3'>
                           <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                             Iglesia
                           </FormLabel>
@@ -355,7 +365,7 @@ export const OfferingExpenseFormUpdate = ({
                             <PopoverContent align='center' className='w-auto px-4 py-2'>
                               <Command>
                                 <CommandInput
-                                  placeholder='Busque una iglesia...'
+                                  placeholder='Busque una iglesia'
                                   className='h-9 text-[14px]'
                                 />
                                 <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
@@ -388,81 +398,89 @@ export const OfferingExpenseFormUpdate = ({
                       )}
                     />
 
-                    <FormField
-                      control={form.control}
-                      name='amount'
-                      render={({ field }) => {
-                        return (
-                          <FormItem className='mt-3'>
-                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                              Monto
-                            </FormLabel>
-                            <FormDescription className='text-[14px]'>
-                              Digita la cantidad del gasto realizado.
-                            </FormDescription>
-                            <FormControl>
-                              <Input
-                                disabled={isInputDisabled}
-                                placeholder='Monto total del gasto realizado'
-                                type='text'
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        );
-                      }}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name='currency'
-                      render={({ field }) => {
-                        return (
-                          <FormItem className='mt-3'>
-                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                              Divisa / Moneda
-                            </FormLabel>
-                            <FormDescription className='text-[14px]'>
-                              Asignar un tipo de divisa o moneda al registro.
-                            </FormDescription>
-                            <Select
-                              disabled={isInputDisabled}
-                              value={field.value}
-                              onValueChange={field.onChange}
-                            >
+                    <div
+                      className={cn(
+                        'md:flex md:gap-5',
+                        type === OfferingExpenseSearchType.ExpenseAdjustment &&
+                          'md:flex-col md:gap-0'
+                      )}
+                    >
+                      <FormField
+                        control={form.control}
+                        name='amount'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className='mt-3 w-full'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                                Monto
+                              </FormLabel>
+                              <FormDescription className='text-[14px]'>
+                                Digita la cantidad del gasto realizado.
+                              </FormDescription>
                               <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue
-                                    placeholder={
-                                      field.value === CurrencyType.USD
-                                        ? CurrencyTypeNames.USD
-                                        : field.value === CurrencyType.PEN
-                                          ? CurrencyTypeNames.PEN
-                                          : CurrencyTypeNames.EUR
-                                    }
-                                  />
-                                </SelectTrigger>
+                                <Input
+                                  disabled={isInputDisabled}
+                                  placeholder='Monto total del gasto realizado'
+                                  type='text'
+                                  {...field}
+                                />
                               </FormControl>
-                              <SelectContent>
-                                {Object.entries(CurrencyTypeNames).map(([key, value]) => (
-                                  <SelectItem key={key} value={key}>
-                                    {value}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        );
-                      }}
-                    />
+                              <FormMessage />
+                            </FormItem>
+                          );
+                        }}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name='currency'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className='mt-3 w-full'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                                Divisa / Moneda
+                              </FormLabel>
+                              <FormDescription className='text-[14px]'>
+                                Asignar un tipo de divisa al registro.
+                              </FormDescription>
+                              <Select
+                                disabled={isInputDisabled}
+                                value={field.value}
+                                onValueChange={field.onChange}
+                              >
+                                <FormControl>
+                                  <SelectTrigger>
+                                    <SelectValue
+                                      placeholder={
+                                        field.value === CurrencyType.USD
+                                          ? CurrencyTypeNames.USD
+                                          : field.value === CurrencyType.PEN
+                                            ? CurrencyTypeNames.PEN
+                                            : CurrencyTypeNames.EUR
+                                      }
+                                    />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  {Object.entries(CurrencyTypeNames).map(([key, value]) => (
+                                    <SelectItem key={key} value={key}>
+                                      {value}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          );
+                        }}
+                      />
+                    </div>
 
                     <FormField
                       control={form.control}
                       name='date'
                       render={({ field }) => (
-                        <FormItem className='flex flex-col mt-3'>
+                        <FormItem className='mt-3'>
                           <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                             Fecha
                           </FormLabel>
@@ -525,8 +543,13 @@ export const OfferingExpenseFormUpdate = ({
                             </FormLabel>
                             <FormControl>
                               <Textarea
+                                className={cn(comments && 'h-full')}
                                 disabled={isInputDisabled}
-                                placeholder='Comentarios referente al registro de la salida...'
+                                placeholder={`${
+                                  type === OfferingExpenseSearchType.ExpenseAdjustment
+                                    ? `Comentarios sobre el ajuste de salida...`
+                                    : 'Comentarios sobre el registro de salida...'
+                                }`}
                                 {...field}
                               />
                             </FormControl>
@@ -591,13 +614,13 @@ export const OfferingExpenseFormUpdate = ({
                     )}
                   </div>
 
-                  <div className='lg:col-start-2 lg:col-end-3 border-l-2 border-slate-200 dark:border-slate-800 pl-8'>
+                  <div className='lg:col-start-2 lg:col-end-3 md:border-l-2 border-slate-200 dark:border-slate-800 md:pl-8'>
                     <FormField
                       control={form.control}
                       name='fileNames'
                       render={() => {
                         return (
-                          <FormItem className='mt-4 md:mt-0'>
+                          <FormItem className='mt-3 md:mt-0'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
                               Subir imagen
                               <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
@@ -629,7 +652,7 @@ export const OfferingExpenseFormUpdate = ({
                                 ❌ Sobrepasa el limite, elige como máximo solo 3 imágenes.
                               </span>
                             ) : (
-                              <span className='font-bold text-[11.5px] md:text-[12.5px] pl-6 mt-1 flex flex-col'>
+                              <span className='font-bold text-[11.5px] md:text-[12.5px] pl-1 md:pl-5 mt-1 flex flex-col'>
                                 {' '}
                                 <span>✅ Máximo 3 archivos.</span>
                                 <span>
@@ -713,7 +736,9 @@ export const OfferingExpenseFormUpdate = ({
                               </p>
                               <ul className='text-[14px] text-red-400 flex gap-3 font-medium'>
                                 {errors.map((error) => (
-                                  <li key={error.code}>{error.message}</li>
+                                  <li
+                                    key={error.code}
+                                  >{`${error.message === 'File type must be image/*' ? 'Tipo de archivo debe ser una imagen.' : 'Debe ser un archivo menor a 1000KB.'}`}</li>
                                 ))}
                               </ul>
                             </div>

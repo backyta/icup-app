@@ -52,7 +52,7 @@ export const FamilyGroupPreacherUpdateCard = ({
 
         <DialogContent
           ref={topRef}
-          className='md:max-w-[590px] lg:max-w-[550px] xl:max-w-[650px] w-full max-h-full justify-center pt-[0.9rem] pb-[1.3rem] overflow-x-hidden overflow-y-auto'
+          className='md:max-w-[600px] lg:max-w-[600px] xl:max-w-[650px] w-full max-h-full justify-center pt-[0.9rem] pb-[1.3rem] overflow-x-hidden overflow-y-auto'
         >
           <FamilyGroupPreacherUpdateForm
             id={idRow}
@@ -78,7 +78,7 @@ export const FamilyGroupPreacherUpdateCard = ({
 
       <DialogContent
         ref={topRef}
-        className='max-w-auto sm:max-w-[490px] w-full max-h-full justify-center pt-6 pb-4 px-8 overflow-y-auto overflow-x-hidden'
+        className='max-w-auto sm:max-w-[530px] w-full max-h-full justify-center pt-6 pb-4 px-8 overflow-y-auto overflow-x-hidden'
       >
         <FamilyGroupPreacherUpdateForm
           id={idRow}

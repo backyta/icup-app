@@ -66,7 +66,7 @@ export const useUserCreationMutation = ({
 
       setTimeout(() => {
         navigate('/users');
-      }, 2400);
+      }, 2000);
     },
   });
 

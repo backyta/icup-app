@@ -1,2 +1,2 @@
-export * from './MemberAnalysisCardByZone';
-export * from './PreacherAnalysisCardByZone';
+export * from './MemberAnalysisCardByZoneAndGender';
+export * from './PreacherAnalysisCardByZoneAndGender';
