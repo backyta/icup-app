@@ -21,7 +21,7 @@ import {
 } from '@/modules/zone/hooks';
 import { type ZoneResponse } from '@/modules/zone/interfaces';
 import { SupervisorSearchType } from '@/modules/supervisor/enums';
-import { getAllSupervisorsByCopastor } from '@/modules/zone/services';
+import { getSupervisorsByCopastor } from '@/modules/supervisor/services';
 import { zoneSupervisorUpdateFormSchema } from '@/modules/zone/validations';
 
 import { cn } from '@/shared/lib/utils';
@@ -50,15 +50,15 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 
 interface ZoneSupervisorFormUpdateProps {
   id: string;
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   data: ZoneResponse | undefined;
 }
 
 export const ZoneSupervisorUpdateForm = ({
   id,
-  onSubmit,
-  onScroll,
+  dialogClose: onSubmit,
+  scrollToTop: onScroll,
   data,
 }: ZoneSupervisorFormUpdateProps): JSX.Element => {
   //* States
@@ -85,10 +85,10 @@ export const ZoneSupervisorUpdateForm = ({
   const supervisorsQuery = useQuery({
     queryKey: ['supervisors-by-copastor', data?.theirCopastor?.id],
     queryFn: () =>
-      getAllSupervisorsByCopastor({
+      getSupervisorsByCopastor({
         searchType: SupervisorSearchType.CopastorId,
         copastorId: data?.theirCopastor?.id ?? '',
-        isNull: false,
+        isNullZone: false,
       }),
     enabled: !!data?.theirCopastor?.id,
     retry: 1,

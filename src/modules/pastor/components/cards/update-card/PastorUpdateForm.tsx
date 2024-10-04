@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
@@ -23,7 +24,7 @@ import {
   usePastorUpdateMutation,
   usePastorUpdateSubmitButtonLogic,
 } from '@/modules/pastor/hooks';
-import { getAllChurches } from '@/modules/pastor/services';
+import { getSimpleChurches } from '@/modules/church/services';
 import { pastorFormSchema } from '@/modules/pastor/validations';
 import { PastorFormSkeleton } from '@/modules/pastor/components';
 import { type PastorResponse } from '@/modules/pastor/interfaces';
@@ -78,16 +79,16 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 
 interface PastorFormUpdateProps {
   id: string;
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   data: PastorResponse | undefined;
 }
 
 export const PastorUpdateForm = ({
   id,
   data,
-  onSubmit,
-  onScroll,
+  dialogClose: onSubmit,
+  scrollToTop: onScroll,
 }: PastorFormUpdateProps): JSX.Element => {
   //* States
   const [isInputTheirChurchOpen, setIsInputTheirChurchOpen] = useState<boolean>(false);
@@ -135,8 +136,8 @@ export const PastorUpdateForm = ({
   const district = form.watch('district');
 
   //* Helpers
-  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
-  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
+  const districtsValidation = validateDistrictsAllowedByModule(pathname);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
 
   //* Custom Hooks
   usePastorUpdateEffects({
@@ -167,9 +168,9 @@ export const PastorUpdateForm = ({
   });
 
   //* Queries
-  const query = useQuery({
+  const churchesQuery = useQuery({
     queryKey: ['churches', id],
-    queryFn: getAllChurches,
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
   });
 
   //* Form handler
@@ -702,7 +703,7 @@ export const PastorUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(DistrictNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -740,7 +741,7 @@ export const PastorUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(UrbanSectorNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -892,8 +893,9 @@ export const PastorUpdateForm = ({
                                       )}
                                     >
                                       {field.value
-                                        ? query?.data?.find((church) => church.id === field.value)
-                                            ?.churchName
+                                        ? churchesQuery?.data?.find(
+                                            (church) => church.id === field.value
+                                          )?.churchName
                                         : 'Busque y seleccione una iglesia'}
                                       <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                     </Button>
@@ -901,34 +903,45 @@ export const PastorUpdateForm = ({
                                 </PopoverTrigger>
                                 <PopoverContent align='center' className='w-auto px-4 py-2'>
                                   <Command>
-                                    <CommandInput
-                                      placeholder='Busque una iglesia'
-                                      className='h-9 text-[14px]'
-                                    />
-                                    <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
-                                    <CommandGroup className='max-h-[200px] h-auto'>
-                                      {query?.data?.map((church) => (
-                                        <CommandItem
-                                          className='text-[14px]'
-                                          value={church.churchName}
-                                          key={church.id}
-                                          onSelect={() => {
-                                            form.setValue('theirChurch', church.id);
-                                            setIsInputTheirChurchOpen(false);
-                                          }}
-                                        >
-                                          {church?.churchName}
-                                          <CheckIcon
-                                            className={cn(
-                                              'ml-auto h-4 w-4',
-                                              church?.id === field.value
-                                                ? 'opacity-100'
-                                                : 'opacity-0'
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
+                                    {churchesQuery?.data?.length &&
+                                    churchesQuery?.data?.length > 0 ? (
+                                      <>
+                                        <CommandInput
+                                          placeholder='Busque una iglesia'
+                                          className='h-9 text-[14px]'
+                                        />
+                                        <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
+                                        <CommandGroup className='max-h-[200px] h-auto'>
+                                          {churchesQuery?.data?.map((church) => (
+                                            <CommandItem
+                                              className='text-[14px]'
+                                              value={church.churchName}
+                                              key={church.id}
+                                              onSelect={() => {
+                                                form.setValue('theirChurch', church.id);
+                                                setIsInputTheirChurchOpen(false);
+                                              }}
+                                            >
+                                              {church?.churchName}
+                                              <CheckIcon
+                                                className={cn(
+                                                  'ml-auto h-4 w-4',
+                                                  church?.id === field.value
+                                                    ? 'opacity-100'
+                                                    : 'opacity-0'
+                                                )}
+                                              />
+                                            </CommandItem>
+                                          ))}
+                                        </CommandGroup>
+                                      </>
+                                    ) : (
+                                      churchesQuery?.data?.length === 0 && (
+                                        <p className='text-[14.5px] text-red-500 text-center'>
+                                          ❌No hay iglesias disponibles.
+                                        </p>
+                                      )
+                                    )}
                                   </Command>
                                 </PopoverContent>
                               </Popover>

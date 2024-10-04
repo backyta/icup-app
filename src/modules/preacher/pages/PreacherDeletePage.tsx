@@ -26,11 +26,11 @@ import {
   PreacherSearchTypeNames,
   PreacherSearchNamesByGender,
   PreacherSearchNamesByBirthMonth,
-  SubTypeNamesPreacherSearchByFirstNames,
-  SubTypeNamesPreacherSearchByFullNames,
-  SubTypeNamesPreacherSearchByLastNames,
-  PreacherSearchNamesByMaritalStatus,
   PreacherSearchNamesByRecordStatus,
+  PreacherSearchNamesByMaritalStatus,
+  SubTypeNamesPreacherSearchByLastNames,
+  SubTypeNamesPreacherSearchByFullNames,
+  SubTypeNamesPreacherSearchByFirstNames,
 } from '@/modules/preacher/enums';
 import { preacherSearchByTermFormSchema } from '@/modules/preacher/validations';
 

@@ -22,7 +22,7 @@ import {
   usePreacherCreationSubmitButtonLogic,
 } from '@/modules/preacher/hooks';
 import { PageTitle } from '@/shared/components/page';
-import { getAllSupervisors } from '@/modules/preacher/services';
+import { getSimpleSupervisors } from '@/modules/supervisor/services';
 import { preacherFormSchema } from '@/modules/preacher/validations';
 
 import { cn } from '@/shared/lib/utils';
@@ -133,8 +133,8 @@ export const PreacherCreatePage = (): JSX.Element => {
   }, []);
 
   //* Helpers
-  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
-  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
+  const districtsValidation = validateDistrictsAllowedByModule(pathname);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
 
   //* Custom hooks
   const { disabledRoles } = useRoleValidationByPath({
@@ -158,9 +158,9 @@ export const PreacherCreatePage = (): JSX.Element => {
   });
 
   //* Queries
-  const querySupervisors = useQuery({
+  const { data } = useQuery({
     queryKey: ['supervisors'],
-    queryFn: () => getAllSupervisors({ isNull: false }),
+    queryFn: () => getSimpleSupervisors({ isNullZone: false, isSimpleQuery: true }),
   });
 
   //* Form handler
@@ -612,7 +612,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(DistrictNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                              className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -651,7 +651,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -785,7 +785,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                         Supervisor
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Asigna el Supervisor responsable de este Predicador.
+                        Asigna el Supervisor responsable para este Predicador.
                       </FormDescription>
                       <Popover
                         open={isInputTheirSupervisorOpen}
@@ -803,7 +803,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                               )}
                             >
                               {field.value
-                                ? `${querySupervisors.data?.find((supervisor) => supervisor.id === field.value)?.firstName} ${querySupervisors.data?.find((supervisor) => supervisor.id === field.value)?.lastName}`
+                                ? `${data?.find((supervisor) => supervisor.id === field.value)?.firstName} ${data?.find((supervisor) => supervisor.id === field.value)?.lastName}`
                                 : 'Busque y seleccione un supervisor'}
                               <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                             </Button>
@@ -811,35 +811,47 @@ export const PreacherCreatePage = (): JSX.Element => {
                         </PopoverTrigger>
                         <PopoverContent align='center' className='w-auto px-4 py-2'>
                           <Command>
-                            <CommandInput
-                              placeholder='Busque un supervisor...'
-                              className='h-9 text-[14px]'
-                            />
-                            <CommandEmpty>Supervisor no encontrado.</CommandEmpty>
-                            <CommandGroup className='max-h-[200px] h-auto'>
-                              {querySupervisors.data?.map((supervisor) => (
-                                <CommandItem
-                                  className='text-[14px]'
-                                  value={getFullNames({
-                                    firstNames: supervisor.firstName,
-                                    lastNames: supervisor.lastName,
-                                  })}
-                                  key={supervisor.id}
-                                  onSelect={() => {
-                                    form.setValue('theirSupervisor', supervisor.id);
-                                    setIsInputTheirSupervisorOpen(false);
-                                  }}
-                                >
-                                  {`${supervisor?.firstName} ${supervisor?.lastName}`}
-                                  <CheckIcon
-                                    className={cn(
-                                      'ml-auto h-4 w-4',
-                                      supervisor?.id === field.value ? 'opacity-100' : 'opacity-0'
-                                    )}
-                                  />
-                                </CommandItem>
-                              ))}
-                            </CommandGroup>
+                            {data?.length && data?.length > 0 ? (
+                              <>
+                                <CommandInput
+                                  placeholder='Busque un supervisor...'
+                                  className='h-9 text-[14px]'
+                                />
+                                <CommandEmpty>Supervisor no encontrado.</CommandEmpty>
+                                <CommandGroup className='max-h-[200px] h-auto'>
+                                  {data?.map((supervisor) => (
+                                    <CommandItem
+                                      className='text-[14px]'
+                                      value={getFullNames({
+                                        firstNames: supervisor.firstName,
+                                        lastNames: supervisor.lastName,
+                                      })}
+                                      key={supervisor.id}
+                                      onSelect={() => {
+                                        form.setValue('theirSupervisor', supervisor.id);
+                                        setIsInputTheirSupervisorOpen(false);
+                                      }}
+                                    >
+                                      {`${supervisor?.firstName} ${supervisor?.lastName}`}
+                                      <CheckIcon
+                                        className={cn(
+                                          'ml-auto h-4 w-4',
+                                          supervisor?.id === field.value
+                                            ? 'opacity-100'
+                                            : 'opacity-0'
+                                        )}
+                                      />
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </>
+                            ) : (
+                              data?.length === 0 && (
+                                <p className='text-[14.5px] text-red-500 text-center'>
+                                  ❌No hay supervisores disponibles.
+                                </p>
+                              )
+                            )}
                           </Command>
                         </PopoverContent>
                       </Popover>

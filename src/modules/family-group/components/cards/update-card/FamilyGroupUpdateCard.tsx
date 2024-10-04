@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback, useMemo } from 'react';
 
 import { GiArchiveRegister } from 'react-icons/gi';
 import { useMediaQuery } from '@react-hook/media-query';
@@ -23,17 +23,20 @@ export const FamilyGroupUpdateCard = ({ idRow }: FamilyGroupUpdateCardProps): JS
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   //* Functions
-  const currentFamilyGroup = dataSearchByTermResponse?.find((data) => data.id === idRow);
+  const currentFamilyGroup = useMemo(
+    () => dataSearchByTermResponse?.find((data) => data?.id === idRow),
+    [dataSearchByTermResponse]
+  );
 
-  const handleContainerClose = (): void => {
+  const handleContainerClose = useCallback((): void => {
     setIsOpen(false);
-  };
+  }, []);
 
-  const handleContainerScroll = (): void => {
+  const handleContainerScroll = useCallback((): void => {
     if (topRef.current !== null) {
       topRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
+  }, []);
 
   if (isDesktop) {
     return (
@@ -54,8 +57,8 @@ export const FamilyGroupUpdateCard = ({ idRow }: FamilyGroupUpdateCardProps): JS
           <FamilyGroupUpdateForm
             id={idRow}
             data={currentFamilyGroup}
-            onSubmit={handleContainerClose}
-            onScroll={handleContainerScroll}
+            dialogClose={handleContainerClose}
+            scrollToTop={handleContainerScroll}
           />
         </DialogContent>
       </Dialog>
@@ -80,8 +83,8 @@ export const FamilyGroupUpdateCard = ({ idRow }: FamilyGroupUpdateCardProps): JS
         <FamilyGroupUpdateForm
           id={idRow}
           data={currentFamilyGroup}
-          onSubmit={handleContainerClose}
-          onScroll={handleContainerScroll}
+          dialogClose={handleContainerClose}
+          scrollToTop={handleContainerScroll}
         />
       </DialogContent>
     </Dialog>

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { format, addDays } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';

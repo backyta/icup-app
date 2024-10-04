@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
@@ -38,7 +39,7 @@ import { offeringExpenseSearchByTermFormSchema } from '@/modules/offering/expens
 
 import { useOfferingExpenseStore } from '@/stores/offering-expense';
 
-import { getAllChurches } from '@/modules/pastor/services';
+import { getSimpleChurches } from '@/modules/church/services';
 
 import { cn } from '@/shared/lib/utils';
 
@@ -147,7 +148,7 @@ export const OfferingExpenseDeletePage = (): JSX.Element => {
   //* Queries
   const churchesQuery = useQuery({
     queryKey: ['churches'],
-    queryFn: getAllChurches,
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
   });
 
   //* Form handler

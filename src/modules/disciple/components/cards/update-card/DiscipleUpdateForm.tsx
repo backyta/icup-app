@@ -24,12 +24,12 @@ import {
   useDiscipleUpdateSubmitButtonLogic,
 } from '@/modules/disciple/hooks';
 import { DiscipleFieldNames } from '@/modules/disciple/enums';
-import { getAllFamilyGroups } from '@/modules/disciple/services';
 import { discipleFormSchema } from '@/modules/disciple/validations';
 import { DiscipleFormSkeleton } from '@/modules/disciple/components';
 import { type DiscipleResponse } from '@/modules/disciple/interfaces';
 
-import { getAllSupervisors } from '@/modules/preacher/services';
+import { getSimpleSupervisors } from '@/modules/supervisor/services';
+import { getSimpleFamilyGroups } from '@/modules/family-group/services';
 
 import { cn } from '@/shared/lib/utils';
 import { useRoleValidationByPath } from '@/shared/hooks';
@@ -97,16 +97,16 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 
 interface DiscipleFormUpdateProps {
   id: string;
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   data: DiscipleResponse | undefined;
 }
 
 export const DiscipleUpdateForm = ({
   id,
   data,
-  onSubmit,
-  onScroll,
+  dialogClose: onSubmit,
+  scrollToTop: onScroll,
 }: DiscipleFormUpdateProps): JSX.Element => {
   //* States
   const [isRelationSelectDisabled, setIsRelationSelectDisabled] = useState<boolean>(false);
@@ -161,8 +161,8 @@ export const DiscipleUpdateForm = ({
   const theirFamilyGroup = form.watch('theirFamilyGroup');
 
   //* Helpers
-  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
-  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
+  const districtsValidation = validateDistrictsAllowedByModule(pathname);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
 
   //* Custom Hooks
   useDiscipleUpdateEffects({
@@ -201,14 +201,14 @@ export const DiscipleUpdateForm = ({
   });
 
   //* Queries
-  const queryFamilyGroups = useQuery({
+  const familyGroupsQuery = useQuery({
     queryKey: ['family-groups', id],
-    queryFn: getAllFamilyGroups,
+    queryFn: async () => await getSimpleFamilyGroups({ isSimpleQuery: true }),
   });
 
-  const querySupervisors = useQuery({
+  const supervisorsQuery = useQuery({
     queryKey: ['supervisors', id],
-    queryFn: async () => await getAllSupervisors({ isNull: false }),
+    queryFn: async () => await getSimpleSupervisors({ isNullZone: false, isSimpleQuery: true }),
   });
 
   //* Form handler
@@ -742,7 +742,7 @@ export const DiscipleUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(DistrictNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -781,7 +781,7 @@ export const DiscipleUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(UrbanSectorNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -953,7 +953,7 @@ export const DiscipleUpdateForm = ({
                                         )}
                                       >
                                         {field.value
-                                          ? `${queryFamilyGroups?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupName} - ${queryFamilyGroups?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupCode} `
+                                          ? `${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupName} - ${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupCode} `
                                           : 'Busque y seleccione un grupo familiar'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
@@ -961,37 +961,51 @@ export const DiscipleUpdateForm = ({
                                   </PopoverTrigger>
                                   <PopoverContent align='center' className='w-auto px-4 py-2'>
                                     <Command>
-                                      <CommandInput
-                                        placeholder='Busque un grupo familiar...'
-                                        className='h-9 text-[14px]'
-                                      />
-                                      <CommandEmpty>Grupo familiar no encontrado.</CommandEmpty>
-                                      <CommandGroup className='max-h-[200px] h-auto'>
-                                        {queryFamilyGroups?.data?.map((familyGroup) => (
-                                          <CommandItem
-                                            className='text-[14px]'
-                                            value={getCodeAndNameFamilyGroup({
-                                              code: familyGroup.familyGroupCode,
-                                              name: familyGroup.familyGroupName,
-                                            })}
-                                            key={familyGroup.id}
-                                            onSelect={() => {
-                                              form.setValue('theirFamilyGroup', familyGroup?.id);
-                                              setIsInputTheirFamilyGroupOpen(false);
-                                            }}
-                                          >
-                                            {`${familyGroup?.familyGroupName} - ${familyGroup?.familyGroupCode}`}
-                                            <CheckIcon
-                                              className={cn(
-                                                'ml-auto h-4 w-4',
-                                                familyGroup?.id === field.value
-                                                  ? 'opacity-100'
-                                                  : 'opacity-0'
-                                              )}
-                                            />
-                                          </CommandItem>
-                                        ))}
-                                      </CommandGroup>
+                                      {familyGroupsQuery?.data?.length &&
+                                      familyGroupsQuery?.data?.length > 0 ? (
+                                        <>
+                                          <CommandInput
+                                            placeholder='Busque un grupo familiar...'
+                                            className='h-9 text-[14px]'
+                                          />
+                                          <CommandEmpty>Grupo familiar no encontrado.</CommandEmpty>
+                                          <CommandGroup className='max-h-[200px] h-auto'>
+                                            {familyGroupsQuery?.data?.map((familyGroup) => (
+                                              <CommandItem
+                                                className='text-[14px]'
+                                                value={getCodeAndNameFamilyGroup({
+                                                  code: familyGroup.familyGroupCode,
+                                                  name: familyGroup.familyGroupName,
+                                                })}
+                                                key={familyGroup.id}
+                                                onSelect={() => {
+                                                  form.setValue(
+                                                    'theirFamilyGroup',
+                                                    familyGroup?.id
+                                                  );
+                                                  setIsInputTheirFamilyGroupOpen(false);
+                                                }}
+                                              >
+                                                {`${familyGroup?.familyGroupName} - ${familyGroup?.familyGroupCode}`}
+                                                <CheckIcon
+                                                  className={cn(
+                                                    'ml-auto h-4 w-4',
+                                                    familyGroup?.id === field.value
+                                                      ? 'opacity-100'
+                                                      : 'opacity-0'
+                                                  )}
+                                                />
+                                              </CommandItem>
+                                            ))}
+                                          </CommandGroup>
+                                        </>
+                                      ) : (
+                                        familyGroupsQuery?.data?.length === 0 && (
+                                          <p className='text-[14.5px] text-red-500 text-center'>
+                                            ❌No hay grupos familiares disponibles.
+                                          </p>
+                                        )
+                                      )}
                                     </Command>
                                   </PopoverContent>
                                 </Popover>
@@ -1031,7 +1045,7 @@ export const DiscipleUpdateForm = ({
                                         )}
                                       >
                                         {field.value
-                                          ? `${querySupervisors?.data?.find((supervisor) => supervisor.id === field.value)?.firstName} ${querySupervisors?.data?.find((supervisor) => supervisor.id === field.value)?.lastName}`
+                                          ? `${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.firstName} ${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.lastName}`
                                           : 'Busque y seleccione un supervisor'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
@@ -1039,37 +1053,48 @@ export const DiscipleUpdateForm = ({
                                   </PopoverTrigger>
                                   <PopoverContent align='center' className='w-auto px-4 py-2'>
                                     <Command>
-                                      <CommandInput
-                                        placeholder='Busque una supervisor...'
-                                        className='h-9 text-[14px]'
-                                      />
-                                      <CommandEmpty>Supervisor no encontrado.</CommandEmpty>
-                                      <CommandGroup className='max-h-[200px] h-auto'>
-                                        {querySupervisors?.data?.map((supervisor) => (
-                                          <CommandItem
-                                            className='text-[14px]'
-                                            value={getFullNames({
-                                              firstNames: supervisor.firstName,
-                                              lastNames: supervisor.lastName,
-                                            })}
-                                            key={supervisor.id}
-                                            onSelect={() => {
-                                              form.setValue('theirSupervisor', supervisor.id);
-                                              setIsInputTheirSupervisorOpen(false);
-                                            }}
-                                          >
-                                            {`${supervisor?.firstName} ${supervisor?.lastName}`}
-                                            <CheckIcon
-                                              className={cn(
-                                                'ml-auto h-4 w-4',
-                                                supervisor?.id === field.value
-                                                  ? 'opacity-100'
-                                                  : 'opacity-0'
-                                              )}
-                                            />
-                                          </CommandItem>
-                                        ))}
-                                      </CommandGroup>
+                                      {supervisorsQuery?.data?.length &&
+                                      supervisorsQuery?.data?.length > 0 ? (
+                                        <>
+                                          <CommandInput
+                                            placeholder='Busque una supervisor...'
+                                            className='h-9 text-[14px]'
+                                          />
+                                          <CommandEmpty>Supervisor no encontrado.</CommandEmpty>
+                                          <CommandGroup className='max-h-[200px] h-auto'>
+                                            {supervisorsQuery?.data?.map((supervisor) => (
+                                              <CommandItem
+                                                className='text-[14px]'
+                                                value={getFullNames({
+                                                  firstNames: supervisor.firstName,
+                                                  lastNames: supervisor.lastName,
+                                                })}
+                                                key={supervisor.id}
+                                                onSelect={() => {
+                                                  form.setValue('theirSupervisor', supervisor.id);
+                                                  setIsInputTheirSupervisorOpen(false);
+                                                }}
+                                              >
+                                                {`${supervisor?.firstName} ${supervisor?.lastName}`}
+                                                <CheckIcon
+                                                  className={cn(
+                                                    'ml-auto h-4 w-4',
+                                                    supervisor?.id === field.value
+                                                      ? 'opacity-100'
+                                                      : 'opacity-0'
+                                                  )}
+                                                />
+                                              </CommandItem>
+                                            ))}
+                                          </CommandGroup>
+                                        </>
+                                      ) : (
+                                        supervisorsQuery?.data?.length === 0 && (
+                                          <p className='text-[14.5px] text-red-500 text-center'>
+                                            ❌No hay supervisores disponibles.
+                                          </p>
+                                        )
+                                      )}
                                     </Command>
                                   </PopoverContent>
                                 </Popover>

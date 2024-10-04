@@ -5,8 +5,8 @@ import { isAxiosError } from 'axios';
 import { icupApi } from '@/api/icupApi';
 
 import { ZoneSearchType } from '@/modules/zone/enums';
-import { type SupervisorResponse } from '@/modules/supervisor/interfaces';
 import { type ZoneFormData, type ZoneResponse, type ZoneQueryParams, type ZoneSupervisorUpdateFormData } from '@/modules/zone/interfaces';
+import { RecordOrder } from '@/shared/enums';
 
 //* Create zone
 export const createZone = async (formData:ZoneFormData ): Promise<ZoneResponse> => {
@@ -23,7 +23,29 @@ export const createZone = async (formData:ZoneFormData ): Promise<ZoneResponse> 
   }
 }
 
-//* Get all zone (paginated)
+//* Get simple zones
+export const getSimpleZones = async ({church, isSimpleQuery }:{church?: string; isSimpleQuery: boolean }): Promise<ZoneResponse[]> => {
+  try {
+    const {data} = await icupApi<ZoneResponse[]>('/zones' , {
+      params: {
+        order: RecordOrder.Ascending,
+        isSimpleQuery: isSimpleQuery.toString(),
+        church
+      },
+    }
+    );
+    
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw (error.response.data)
+    }
+    
+    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+  }
+}
+
+//* Get zones (paginated)
 export const getZones = async ({limit, offset, all, order}: ZoneQueryParams): Promise<ZoneResponse[]> => {
 
  let result: ZoneResponse[];
@@ -59,39 +81,6 @@ export const getZones = async ({limit, offset, all, order}: ZoneQueryParams): Pr
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
-
-//* Get supervisors by copastor
-export interface GetSupervisorsByCopastorOptions {
-  searchType: string;
-  copastorId: string;
-  isNull: boolean;
-}
-
-export const getAllSupervisorsByCopastor = async ({
-  searchType,
-  copastorId,
-  isNull,
- }:GetSupervisorsByCopastorOptions): Promise<SupervisorResponse[]> => {
-  try {
-    const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${copastorId}` , {
-      params: {
-        order: 'ASC',
-        'search-type': searchType,
-        isNull: isNull.toString(),
-      },
-    }
-  );
-
-    return data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
-    }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
-  }
-}
-
 
 // ? Get zones by term (paginated)
 export const getZonesByTerm = async ({ searchType, inputTerm, selectTerm, limit, offset, all, order}: ZoneQueryParams): Promise<ZoneResponse[] | undefined> => {

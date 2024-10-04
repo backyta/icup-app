@@ -21,14 +21,14 @@ import {
 } from '@tanstack/react-table';
 
 import {
-  SupervisorSearchSelectOptionNames,
-  SupervisorSearchSubTypeNames,
   SupervisorSearchType,
   SupervisorSearchTypeNames,
+  SupervisorSearchSubTypeNames,
+  SupervisorSearchSelectOptionNames,
 } from '@/modules/supervisor/enums';
 import {
-  type SupervisorSearchFormByTerm,
   type SupervisorQueryParams,
+  type SupervisorSearchFormByTerm,
 } from '@/modules/supervisor/interfaces';
 import { getSupervisorsByTerm } from '@/modules/supervisor/services';
 
@@ -39,11 +39,11 @@ import { dateFormatterToDDMMYYYY } from '@/shared/helpers';
 
 import {
   Table,
+  TableRow,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
 } from '@/shared/components/ui/table';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';

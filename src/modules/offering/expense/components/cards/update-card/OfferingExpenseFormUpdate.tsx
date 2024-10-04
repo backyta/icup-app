@@ -73,15 +73,15 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 
 interface OfferingExpenseFormUpdateProps {
   id: string;
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   data: OfferingExpenseResponse | undefined;
 }
 
 export const OfferingExpenseFormUpdate = ({
   id,
-  onSubmit,
-  onScroll,
+  dialogClose: onSubmit,
+  scrollToTop: onScroll,
   data,
 }: OfferingExpenseFormUpdateProps): JSX.Element => {
   //* States
@@ -191,17 +191,27 @@ export const OfferingExpenseFormUpdate = ({
         const uploadResult = await uploadImagesMutation.mutateAsync({
           files: files as any,
           fileType: OfferingFileType.Expense,
-          type: formData.type,
-          subType: formData.subType ?? null,
+          offeringType: formData.type,
+          offeringSubType: formData.subType ?? null,
         });
 
         imageUrls = uploadResult.imageUrls;
       }
     } catch (error) {
-      toast.error('Error en enviar el formulario, hable con el administrador.', {
-        position: 'top-center',
-        className: 'justify-center',
-      });
+      toast.warning(
+        '¡Opps! fallo en subida de imágenes, por favor actualize y vuelve a intentarlo.',
+        {
+          position: 'top-center',
+          className: 'justify-center',
+        }
+      );
+
+      setTimeout(() => {
+        setIsInputDisabled(false);
+        setIsSubmitButtonDisabled(false);
+      }, 1500);
+
+      return;
     }
 
     await offeringExpenseUpdateMutation.mutateAsync({
@@ -364,32 +374,44 @@ export const OfferingExpenseFormUpdate = ({
                             </PopoverTrigger>
                             <PopoverContent align='center' className='w-auto px-4 py-2'>
                               <Command>
-                                <CommandInput
-                                  placeholder='Busque una iglesia'
-                                  className='h-9 text-[14px]'
-                                />
-                                <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
-                                <CommandGroup className='max-h-[200px] h-auto'>
-                                  {churchesQuery?.data?.map((church) => (
-                                    <CommandItem
-                                      className='text-[14px]'
-                                      value={church.churchName}
-                                      key={church.id}
-                                      onSelect={() => {
-                                        form.setValue('churchId', church.id);
-                                        setIsInputRelationOpen(false);
-                                      }}
-                                    >
-                                      {church.churchName}
-                                      <CheckIcon
-                                        className={cn(
-                                          'ml-auto h-4 w-4',
-                                          church.id === field.value ? 'opacity-100' : 'opacity-0'
-                                        )}
-                                      />
-                                    </CommandItem>
-                                  ))}
-                                </CommandGroup>
+                                {churchesQuery?.data?.length && churchesQuery?.data?.length > 0 ? (
+                                  <>
+                                    <CommandInput
+                                      placeholder='Busque una iglesia'
+                                      className='h-9 text-[14px]'
+                                    />
+                                    <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
+                                    <CommandGroup className='max-h-[200px] h-auto'>
+                                      {churchesQuery?.data?.map((church) => (
+                                        <CommandItem
+                                          className='text-[14px]'
+                                          value={church.churchName}
+                                          key={church.id}
+                                          onSelect={() => {
+                                            form.setValue('churchId', church.id);
+                                            setIsInputRelationOpen(false);
+                                          }}
+                                        >
+                                          {church.churchName}
+                                          <CheckIcon
+                                            className={cn(
+                                              'ml-auto h-4 w-4',
+                                              church.id === field.value
+                                                ? 'opacity-100'
+                                                : 'opacity-0'
+                                            )}
+                                          />
+                                        </CommandItem>
+                                      ))}
+                                    </CommandGroup>
+                                  </>
+                                ) : (
+                                  churchesQuery?.data?.length === 0 && (
+                                    <p className='text-[14.5px] text-red-500 text-center'>
+                                      ❌No hay iglesias disponibles.
+                                    </p>
+                                  )
+                                )}
                               </Command>
                             </PopoverContent>
                           </Popover>

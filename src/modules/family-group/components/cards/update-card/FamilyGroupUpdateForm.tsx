@@ -15,6 +15,8 @@ import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { PreacherSearchType } from '@/modules/preacher/enums';
 
+import { getSimpleZones } from '@/modules/zone/services';
+
 import { FamilyGroupWorshipTimeNames } from '@/modules/family-group/enums';
 import { familyGroupFormSchema } from '@/modules/family-group/validations';
 import { FamilyGroupFormSkeleton } from '@/modules/family-group/components';
@@ -24,11 +26,8 @@ import {
   useFamilyGroupUpdateMutation,
   useFamilyGroupUpdateSubmitButtonLogic,
 } from '@/modules/family-group/hooks';
-import {
-  getAllPreachers,
-  getAllPreachersByZone,
-  getAllZones,
-} from '@/modules/family-group/services';
+
+import { getSimplePreachers, getPreachersByZone } from '@/modules/preacher/services';
 
 import { cn } from '@/shared/lib/utils';
 
@@ -78,16 +77,16 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 
 interface FamilyGroupFormUpdateProps {
   id: string;
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   data: FamilyGroupResponse | undefined;
 }
 
 export const FamilyGroupUpdateForm = ({
   id,
   data,
-  onSubmit,
-  onScroll,
+  dialogClose: onSubmit,
+  scrollToTop: onScroll,
 }: FamilyGroupFormUpdateProps): JSX.Element => {
   //* States
   const [isInputTheirPreacherOpen, setIsInputTheirPreacherOpen] = useState<boolean>(false);
@@ -130,8 +129,8 @@ export const FamilyGroupUpdateForm = ({
   const theirZone = form.watch('theirZone');
 
   //* Helpers
-  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
-  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
+  const districtsValidation = validateDistrictsAllowedByModule(pathname);
 
   //* Custom hooks
   useFamilyGroupUpdateEffects({
@@ -159,21 +158,21 @@ export const FamilyGroupUpdateForm = ({
   //* Queries
   const zonesQuery = useQuery({
     queryKey: ['zones'],
-    queryFn: getAllZones,
+    queryFn: () => getSimpleZones({ isSimpleQuery: true }),
   });
 
   const preachersQuery = useQuery({
     queryKey: ['preachers'],
-    queryFn: getAllPreachers,
+    queryFn: () => getSimplePreachers({ isSimpleQuery: true }),
   });
 
   const preachersByZoneQuery = useQuery({
     queryKey: ['update-preachers-by-zone', theirZone],
     queryFn: () =>
-      getAllPreachersByZone({
+      getPreachersByZone({
         searchType: PreacherSearchType.ZoneId,
         zoneId: theirZone ?? '',
-        isNull: true,
+        isNullFamilyGroup: true,
       }),
     enabled: !!theirZone,
     retry: 1,
@@ -200,8 +199,7 @@ export const FamilyGroupUpdateForm = ({
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
               <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] mb-4 pl-0 md:pl-4'>
-                Grupo Familiar:{' '}
-                {`${data?.familyGroupName} (${data?.familyGroupCode ?? 'Sin código'})`}
+                Grupo Familiar: {`${data?.familyGroupName} (${data?.familyGroupCode ?? 'SC'})`}
               </div>
               <Form {...form}>
                 <form
@@ -424,7 +422,7 @@ export const FamilyGroupUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(DistrictNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -470,7 +468,7 @@ export const FamilyGroupUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(UrbanSectorNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -572,32 +570,44 @@ export const FamilyGroupUpdateForm = ({
                               </PopoverTrigger>
                               <PopoverContent align='center' className='w-auto px-4 py-2'>
                                 <Command>
-                                  <CommandInput
-                                    placeholder='Busque una zona...'
-                                    className='h-9 text-[14px]'
-                                  />
-                                  <CommandEmpty>Zona no encontrada.</CommandEmpty>
-                                  <CommandGroup className='max-h-[200px] h-auto'>
-                                    {zonesQuery?.data?.map((zone) => (
-                                      <CommandItem
-                                        className='text-[14px]'
-                                        value={zone.zoneName}
-                                        key={zone.id}
-                                        onSelect={() => {
-                                          form.setValue('theirZone', zone?.id);
-                                          setIsInputTheirZoneOpen(false);
-                                        }}
-                                      >
-                                        {zone.zoneName}
-                                        <CheckIcon
-                                          className={cn(
-                                            'ml-auto h-4 w-4',
-                                            zone?.id === field.value ? 'opacity-100' : 'opacity-0'
-                                          )}
-                                        />
-                                      </CommandItem>
-                                    ))}
-                                  </CommandGroup>
+                                  {zonesQuery?.data?.length && zonesQuery?.data?.length > 0 ? (
+                                    <>
+                                      <CommandInput
+                                        placeholder='Busque una zona...'
+                                        className='h-9 text-[14px]'
+                                      />
+                                      <CommandEmpty>Zona no encontrada.</CommandEmpty>
+                                      <CommandGroup className='max-h-[200px] h-auto'>
+                                        {zonesQuery?.data?.map((zone) => (
+                                          <CommandItem
+                                            className='text-[14px]'
+                                            value={zone.zoneName}
+                                            key={zone.id}
+                                            onSelect={() => {
+                                              form.setValue('theirZone', zone?.id);
+                                              setIsInputTheirZoneOpen(false);
+                                            }}
+                                          >
+                                            {zone.zoneName}
+                                            <CheckIcon
+                                              className={cn(
+                                                'ml-auto h-4 w-4',
+                                                zone?.id === field.value
+                                                  ? 'opacity-100'
+                                                  : 'opacity-0'
+                                              )}
+                                            />
+                                          </CommandItem>
+                                        ))}
+                                      </CommandGroup>
+                                    </>
+                                  ) : (
+                                    zonesQuery?.data?.length === 0 && (
+                                      <p className='text-[14.5px] text-red-500 text-center'>
+                                        ❌No hay zonas disponibles.
+                                      </p>
+                                    )
+                                  )}
                                 </Command>
                               </PopoverContent>
                             </Popover>
@@ -617,7 +627,7 @@ export const FamilyGroupUpdateForm = ({
                               Predicador
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asigna el Predicador responsable de este Grupo Familiar.
+                              Asigna el Predicador responsable para este Grupo Familiar.
                             </FormDescription>
                             {preachersByZoneQuery?.isFetching &&
                             (data?.recordStatus === RecordStatus.Inactive ||

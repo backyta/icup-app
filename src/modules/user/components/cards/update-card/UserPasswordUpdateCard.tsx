@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback } from 'react';
 
 import { ImKey2 } from 'react-icons/im';
 import { useMediaQuery } from '@react-hook/media-query';
@@ -14,25 +14,25 @@ interface UserPasswordUpdateCardProps {
 
 export const UserPasswordUpdateCard = ({ idRow }: UserPasswordUpdateCardProps): JSX.Element => {
   //* States
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const topRef = useRef<HTMLDivElement>(null);
 
   //* Library hooks
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
-  const handleContainerClose = (): void => {
-    setOpen(false);
-  };
+  const handleContainerClose = useCallback((): void => {
+    setIsOpen(false);
+  }, []);
 
-  const handleContainerScroll = (): void => {
+  const handleContainerScroll = useCallback((): void => {
     if (topRef.current !== null) {
       topRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
+  }, []);
 
   if (isDesktop) {
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button
             variant='outline'
@@ -48,8 +48,8 @@ export const UserPasswordUpdateCard = ({ idRow }: UserPasswordUpdateCardProps): 
         >
           <UserPasswordUpdateForm
             id={idRow}
-            onSubmit={handleContainerClose}
-            onScroll={handleContainerScroll}
+            dialogClose={handleContainerClose}
+            scrollToTop={handleContainerScroll}
           />
         </DialogContent>
       </Dialog>
@@ -57,7 +57,7 @@ export const UserPasswordUpdateCard = ({ idRow }: UserPasswordUpdateCardProps): 
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button
           variant='outline'
@@ -73,8 +73,8 @@ export const UserPasswordUpdateCard = ({ idRow }: UserPasswordUpdateCardProps): 
       >
         <UserPasswordUpdateForm
           id={idRow}
-          onSubmit={handleContainerClose}
-          onScroll={handleContainerScroll}
+          dialogClose={handleContainerClose}
+          scrollToTop={handleContainerScroll}
         />
       </DialogContent>
     </Dialog>

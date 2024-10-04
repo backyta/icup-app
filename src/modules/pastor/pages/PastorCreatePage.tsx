@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
@@ -20,7 +21,7 @@ import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { cn } from '@/shared/lib/utils';
 
 import { PageTitle } from '@/shared/components/page';
-import { getAllChurches } from '@/modules/pastor/services';
+import { getSimpleChurches } from '@/modules/church/services';
 import { pastorFormSchema } from '@/modules/pastor/validations';
 import {
   usePastorCreationMutation,
@@ -141,8 +142,8 @@ export const PastorCreatePage = (): JSX.Element => {
   }, []);
 
   //* Helpers
-  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
-  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
+  const districtsValidation = validateDistrictsAllowedByModule(pathname);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
 
   //* Custom hooks
   const { disabledRoles } = useRoleValidationByPath({
@@ -159,7 +160,7 @@ export const PastorCreatePage = (): JSX.Element => {
   //* Queries
   const { data } = useQuery({
     queryKey: ['churches'],
-    queryFn: getAllChurches,
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
   });
 
   //* Form handler
@@ -612,7 +613,7 @@ export const PastorCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(DistrictNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                              className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -651,7 +652,7 @@ export const PastorCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -811,32 +812,42 @@ export const PastorCreatePage = (): JSX.Element => {
                         </PopoverTrigger>
                         <PopoverContent align='center' className='w-auto px-4 py-2'>
                           <Command>
-                            <CommandInput
-                              placeholder='Busque una iglesia'
-                              className='h-9 text-[14px]'
-                            />
-                            <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
-                            <CommandGroup className='max-h-[200px] h-auto'>
-                              {data?.map((church) => (
-                                <CommandItem
-                                  className='text-[14px]'
-                                  value={church.churchName}
-                                  key={church.id}
-                                  onSelect={() => {
-                                    form.setValue('theirChurch', church?.id);
-                                    setIsInputTheirChurchOpen(false);
-                                  }}
-                                >
-                                  {church?.churchName}
-                                  <CheckIcon
-                                    className={cn(
-                                      'ml-auto h-4 w-4',
-                                      church?.id === field.value ? 'opacity-100' : 'opacity-0'
-                                    )}
-                                  />
-                                </CommandItem>
-                              ))}
-                            </CommandGroup>
+                            {data?.length && data?.length > 0 ? (
+                              <>
+                                <CommandInput
+                                  placeholder='Busque una iglesia'
+                                  className='h-9 text-[14px]'
+                                />
+                                <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
+                                <CommandGroup className='max-h-[200px] h-auto'>
+                                  {data?.map((church) => (
+                                    <CommandItem
+                                      className='text-[14px]'
+                                      value={church.churchName}
+                                      key={church.id}
+                                      onSelect={() => {
+                                        form.setValue('theirChurch', church?.id);
+                                        setIsInputTheirChurchOpen(false);
+                                      }}
+                                    >
+                                      {church?.churchName}
+                                      <CheckIcon
+                                        className={cn(
+                                          'ml-auto h-4 w-4',
+                                          church?.id === field.value ? 'opacity-100' : 'opacity-0'
+                                        )}
+                                      />
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </>
+                            ) : (
+                              data?.length === 0 && (
+                                <p className='text-[14.5px] text-red-500 text-center'>
+                                  ❌No hay iglesias disponibles.
+                                </p>
+                              )
+                            )}
                           </Command>
                         </PopoverContent>
                       </Popover>

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback, useMemo } from 'react';
 
 import { useMediaQuery } from '@react-hook/media-query';
 
@@ -24,17 +24,20 @@ export const PastorUpdateCard = ({ idRow }: PastorUpdateCardProps): JSX.Element 
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   //* Functions
-  const currentPastor = dataSearchByTermResponse?.find((data) => data.id === idRow);
+  const currentPastor = useMemo(
+    () => dataSearchByTermResponse?.find((data) => data?.id === idRow),
+    [dataSearchByTermResponse]
+  );
 
-  const handleContainerClose = (): void => {
+  const handleContainerClose = useCallback((): void => {
     setIsOpen(false);
-  };
+  }, []);
 
-  const handleContainerScroll = (): void => {
+  const handleContainerScroll = useCallback((): void => {
     if (topRef.current !== null) {
       topRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
+  }, []);
 
   if (isDesktop) {
     return (
@@ -55,8 +58,8 @@ export const PastorUpdateCard = ({ idRow }: PastorUpdateCardProps): JSX.Element 
           <PastorUpdateForm
             id={idRow}
             data={currentPastor}
-            onSubmit={handleContainerClose}
-            onScroll={handleContainerScroll}
+            dialogClose={handleContainerClose}
+            scrollToTop={handleContainerScroll}
           />
         </DialogContent>
       </Dialog>
@@ -81,8 +84,8 @@ export const PastorUpdateCard = ({ idRow }: PastorUpdateCardProps): JSX.Element 
         <PastorUpdateForm
           id={idRow}
           data={currentPastor}
-          onSubmit={handleContainerClose}
-          onScroll={handleContainerScroll}
+          dialogClose={handleContainerClose}
+          scrollToTop={handleContainerScroll}
         />
       </DialogContent>
     </Dialog>

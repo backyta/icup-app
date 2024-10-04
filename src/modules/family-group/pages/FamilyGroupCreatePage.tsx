@@ -20,11 +20,13 @@ import {
   useFamilyGroupCreationSubmitButtonLogic,
 } from '@/modules/family-group/hooks';
 
+import { getSimpleZones } from '@/modules/zone/services';
+
 import { familyGroupFormSchema } from '@/modules/family-group/validations';
 import { FamilyGroupWorshipTimeNames } from '@/modules/family-group/enums';
-import { getAllPreachersByZone, getAllZones } from '@/modules/family-group/services';
 
 import { PreacherSearchType } from '@/modules/preacher/enums';
+import { getPreachersByZone } from '@/modules/preacher/services';
 
 import { cn } from '@/shared/lib/utils';
 import { PageTitle } from '@/shared/components/page';
@@ -133,8 +135,8 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
   }, []);
 
   //* Helpers
-  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
-  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
+  const districtsValidation = validateDistrictsAllowedByModule(pathname);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
 
   //* Custom hooks
   useFamilyGroupCreationSubmitButtonLogic({
@@ -153,19 +155,18 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
   //* Queries
   const zonesQuery = useQuery({
     queryKey: ['zones'],
-    queryFn: getAllZones,
+    queryFn: () => getSimpleZones({ isSimpleQuery: true }),
   });
 
   const preachersQuery = useQuery({
     queryKey: ['creation-preachers-by-zone', theirZone],
     queryFn: () =>
-      getAllPreachersByZone({
+      getPreachersByZone({
         searchType: PreacherSearchType.ZoneId,
         zoneId: theirZone ?? '',
-        isNull: true,
+        isNullFamilyGroup: true,
       }),
     enabled: !!theirZone,
-    retry: 1,
   });
 
   //* Form handler
@@ -405,7 +406,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(DistrictNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                              className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -451,7 +452,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -546,32 +547,42 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                         </PopoverTrigger>
                         <PopoverContent align='center' className='w-auto px-4 py-2'>
                           <Command>
-                            <CommandInput
-                              placeholder='Busque una zona...'
-                              className='h-9 text-[14px]'
-                            />
-                            <CommandEmpty>Zona no encontrada.</CommandEmpty>
-                            <CommandGroup className='max-h-[200px] h-auto'>
-                              {zonesQuery?.data?.map((zone) => (
-                                <CommandItem
-                                  className='text-[14px]'
-                                  value={zone.zoneName}
-                                  key={zone.id}
-                                  onSelect={() => {
-                                    form.setValue('theirZone', zone?.id);
-                                    setIsInputTheirZoneOpen(false);
-                                  }}
-                                >
-                                  {zone.zoneName}
-                                  <CheckIcon
-                                    className={cn(
-                                      'ml-auto h-4 w-4',
-                                      zone?.id === field.value ? 'opacity-100' : 'opacity-0'
-                                    )}
-                                  />
-                                </CommandItem>
-                              ))}
-                            </CommandGroup>
+                            {zonesQuery?.data?.length && zonesQuery?.data?.length > 0 ? (
+                              <>
+                                <CommandInput
+                                  placeholder='Busque una zona...'
+                                  className='h-9 text-[14px]'
+                                />
+                                <CommandEmpty>Zona no encontrada.</CommandEmpty>
+                                <CommandGroup className='max-h-[200px] h-auto'>
+                                  {zonesQuery?.data?.map((zone) => (
+                                    <CommandItem
+                                      className='text-[14px]'
+                                      value={zone.zoneName}
+                                      key={zone.id}
+                                      onSelect={() => {
+                                        form.setValue('theirZone', zone?.id);
+                                        setIsInputTheirZoneOpen(false);
+                                      }}
+                                    >
+                                      {zone.zoneName}
+                                      <CheckIcon
+                                        className={cn(
+                                          'ml-auto h-4 w-4',
+                                          zone?.id === field.value ? 'opacity-100' : 'opacity-0'
+                                        )}
+                                      />
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </>
+                            ) : (
+                              zonesQuery?.data?.length === 0 && (
+                                <p className='text-[14.5px] text-red-500 text-center'>
+                                  ❌No hay zonas disponibles.
+                                </p>
+                              )
+                            )}
                           </Command>
                         </PopoverContent>
                       </Popover>
@@ -600,7 +611,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                         Predicador
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Asigna el Predicador responsable de este Grupo Familiar.
+                        Asigna el Predicador responsable para este Grupo Familiar.
                       </FormDescription>
                       {preachersQuery?.isFetching ? (
                         <div className='pt-2 font-black text-[16px] text-center dark:text-gray-300 text-gray-500'>
@@ -631,44 +642,49 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                           </PopoverTrigger>
                           <PopoverContent align='center' className='w-auto px-4 py-2'>
                             <Command>
-                              <CommandInput
-                                placeholder='Busque un predicador...'
-                                className='h-9 text-[14px]'
-                              />
-                              {preachersQuery?.data && (
-                                <CommandEmpty>Predicador no encontrado.</CommandEmpty>
-                              )}
-                              <CommandGroup className='max-h-[200px] h-auto w-[350px]'>
-                                {preachersQuery.data?.map((preacher) => (
-                                  <CommandItem
-                                    className='text-[14px]'
-                                    value={getFullNames({
-                                      firstNames: preacher.firstName,
-                                      lastNames: preacher.lastName,
-                                    })}
-                                    key={preacher.id}
-                                    onSelect={() => {
-                                      form.setValue('theirPreacher', preacher.id);
-                                      setIsInputTheirPreacherOpen(false);
-                                    }}
-                                  >
-                                    {`${preacher?.firstName} ${preacher?.lastName}`}
-                                    <CheckIcon
-                                      className={cn(
-                                        'ml-auto h-4 w-4',
-                                        preacher.id === field.value ? 'opacity-100' : 'opacity-0'
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
-
-                                {preachersQuery?.data?.length === 0 && (
+                              {preachersQuery?.data?.length && preachersQuery?.data?.length > 0 ? (
+                                <>
+                                  <CommandInput
+                                    placeholder='Busque un predicador...'
+                                    className='h-9 text-[14px]'
+                                  />
+                                  {preachersQuery?.data && (
+                                    <CommandEmpty>Predicador no encontrado.</CommandEmpty>
+                                  )}
+                                  <CommandGroup className='max-h-[200px] h-auto'>
+                                    {preachersQuery.data?.map((preacher) => (
+                                      <CommandItem
+                                        className='text-[14px]'
+                                        value={getFullNames({
+                                          firstNames: preacher.firstName,
+                                          lastNames: preacher.lastName,
+                                        })}
+                                        key={preacher.id}
+                                        onSelect={() => {
+                                          form.setValue('theirPreacher', preacher.id);
+                                          setIsInputTheirPreacherOpen(false);
+                                        }}
+                                      >
+                                        {`${preacher?.firstName} ${preacher?.lastName}`}
+                                        <CheckIcon
+                                          className={cn(
+                                            'ml-auto h-4 w-4',
+                                            preacher.id === field.value
+                                              ? 'opacity-100'
+                                              : 'opacity-0'
+                                          )}
+                                        />
+                                      </CommandItem>
+                                    ))}
+                                  </CommandGroup>
+                                </>
+                              ) : (
+                                preachersQuery?.data?.length === 0 && (
                                   <p className='text-[14.5px] text-red-500 text-center'>
-                                    ❌ No se encontró predicadores disponibles, todos están
-                                    asignados a un grupo familiar.
+                                    ❌No hay predicadores disponibles.
                                   </p>
-                                )}
-                              </CommandGroup>
+                                )
+                              )}
                             </Command>
                           </PopoverContent>
                         </Popover>

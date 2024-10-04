@@ -1,12 +1,19 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 
+import { addDays } from 'date-fns';
+
 import { cn } from '@/shared/lib/utils';
 
-import { CurrencyType } from '@/modules/offering/shared/enums';
-import { type TopFamilyGroupsTooltipConfig } from '@/modules/dashboard/interfaces';
+import { type TooltipConfig } from '@/shared/interfaces';
+import { dateFormatterToDDMMYY } from '@/shared/helpers';
 
-export const TopFamilyGroupsTooltipContent = (props: TopFamilyGroupsTooltipConfig): JSX.Element => {
+import { CurrencyType } from '@/modules/offering/shared/enums';
+import { type TopFamilyGroupOfferingsPayload } from '@/modules/dashboard/interfaces';
+
+export const TopFamilyGroupsTooltipContent = (
+  props: TooltipConfig<TopFamilyGroupOfferingsPayload>
+): JSX.Element => {
   const { payload, label } = props;
 
   return (
@@ -31,7 +38,7 @@ export const TopFamilyGroupsTooltipContent = (props: TopFamilyGroupsTooltipConfi
                   (item: any) => item.currency === CurrencyType.USD
                 ))) && (
               <div key={`item-${index}`}>
-                <li className={cn('flex items-center font-medium text-[12px] sm:text-[14px]')}>
+                <li className={cn('flex items-center font-medium [11.5px] md:text-[13.5px]')}>
                   <span
                     className='inline-block h-2.5 w-2.5 rounded-[2px] mr-2'
                     style={{
@@ -39,7 +46,7 @@ export const TopFamilyGroupsTooltipContent = (props: TopFamilyGroupsTooltipConfi
                       border: `1px solid ${entry.color}`,
                     }}
                   ></span>
-                  <span className='font-semibold text-[12px] md:text-[14px]'>{`Ultima Ofrenda:`}</span>
+                  <span className='font-semibold text-[11.5px] md:text-[13.5px]'>{`Ultima Ofrenda:`}</span>
                   <span className='pl-1 font-normal dark:text-white text-black'>
                     {`${
                       entry?.name === 'accumulatedOfferingPEN'
@@ -62,16 +69,31 @@ export const TopFamilyGroupsTooltipContent = (props: TopFamilyGroupsTooltipConfi
                     : CurrencyType.EUR
               } - ${
                 entry?.name === 'accumulatedOfferingPEN'
-                  ? entry?.payload?.allOfferings?.find(
-                      (item: any) => item.currency === CurrencyType.PEN
-                    )?.date
+                  ? dateFormatterToDDMMYY(
+                      addDays(
+                        entry?.payload?.allOfferings?.find(
+                          (item: any) => item.currency === CurrencyType.PEN
+                        )?.date as string,
+                        1
+                      )
+                    )
                   : entry?.name === 'accumulatedOfferingUSD'
-                    ? entry?.payload?.allOfferings?.find(
-                        (item: any) => item.currency === CurrencyType.USD
-                      )?.date
-                    : entry?.payload?.allOfferings?.find(
-                        (item: any) => item.currency === CurrencyType.EUR
-                      )?.date
+                    ? dateFormatterToDDMMYY(
+                        addDays(
+                          entry?.payload?.allOfferings?.find(
+                            (item: any) => item.currency === CurrencyType.USD
+                          )?.date as string,
+                          1
+                        )
+                      )
+                    : dateFormatterToDDMMYY(
+                        addDays(
+                          entry?.payload?.allOfferings?.find(
+                            (item: any) => item.currency === CurrencyType.EUR
+                          )?.date as string,
+                          1
+                        )
+                      )
               }`}
                   </span>
                 </li>
@@ -80,25 +102,43 @@ export const TopFamilyGroupsTooltipContent = (props: TopFamilyGroupsTooltipConfi
         )}
       </ul>
 
-      <li className={cn('pl-1 font-medium text-[11.5px] sm:text-[13.5px]')}>
-        <span className='-ml-2'>{`Pred: ${payload[0]?.payload?.familyGroup?.theirPreacher?.firstName} ${payload[0]?.payload?.familyGroup?.theirPreacher?.lastName}`}</span>
+      <li className={'pl-1 font-medium text-[11.5px] sm:text-[13.5px]'}>
+        <span className='-ml-2'>{`Pred: ${payload[0]?.payload?.preacher?.firstName} ${payload[0]?.payload?.preacher?.lastName}`}</span>
       </li>
       <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px]'>
-        <span className='-ml-2'>{`Miembros: ${payload[0]?.payload?.familyGroup?.disciples.length}`}</span>
+        <span className='-ml-2'>{`Miembros: ${payload[0]?.payload?.familyGroup?.disciples}`}</span>
       </li>
 
-      <p className='font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-        Totales Acumulados
-      </p>
-      <li className='pl-1 font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
-        <span className='-ml-2'>{`Soles: ${payload[0]?.payload?.accumulatedOfferingPEN} PEN`}</span>
-      </li>
-      <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-        <span className='-ml-2'>{`Dolares: ${payload[0]?.payload?.accumulatedOfferingUSD} USD`}</span>
-      </li>
-      <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-        <span className='-ml-2'>{`Euros: ${payload[0]?.payload?.accumulatedOfferingEUR} EUR`}</span>
-      </li>
+      {(payload[0]?.payload?.accumulatedOfferingPEN > 0 &&
+        payload[0]?.payload?.accumulatedOfferingUSD > 0) ||
+      (payload[0]?.payload?.accumulatedOfferingPEN > 0 &&
+        payload[0]?.payload?.accumulatedOfferingEUR > 0) ? (
+        <p className='font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+          Totales acumulados:
+        </p>
+      ) : (
+        <p className='font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+          Total acumulado:
+        </p>
+      )}
+
+      {payload[0]?.payload?.accumulatedOfferingPEN > 0 && (
+        <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+          <span className='-ml-2'>{`Soles: ${payload[0]?.payload?.accumulatedOfferingPEN} PEN`}</span>
+        </li>
+      )}
+
+      {payload[0]?.payload?.accumulatedOfferingUSD > 0 && (
+        <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+          <span className='-ml-2'>{`Dolares: ${payload[0]?.payload?.accumulatedOfferingUSD} USD`}</span>
+        </li>
+      )}
+
+      {payload[0]?.payload?.accumulatedOfferingEUR > 0 && (
+        <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+          <span className='-ml-2'>{`Euros: ${payload[0]?.payload?.accumulatedOfferingEUR} EUR`}</span>
+        </li>
+      )}
     </div>
   );
 };

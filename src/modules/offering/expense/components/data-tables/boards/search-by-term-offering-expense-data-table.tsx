@@ -33,7 +33,7 @@ import {
 } from '@/modules/offering/expense/interfaces';
 import { getOfferingsExpensesByTerm } from '@/modules/offering/expense/services';
 
-import { getAllChurches } from '@/modules/pastor/services';
+import { getSimpleChurches } from '@/modules/church/services';
 
 import { LoadingSpinner } from '@/shared/components';
 import { dateFormatterToDDMMYYYY } from '@/shared/helpers';
@@ -99,7 +99,7 @@ export function SearchByTermOfferingExpenseDataTable<TData, TValue>({
 
   const churchesQuery = useQuery({
     queryKey: ['churches'],
-    queryFn: getAllChurches,
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
   });
 
   //* Set data result query

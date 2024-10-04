@@ -46,15 +46,15 @@ import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 
 interface UserFormUpdateProps {
   id: string;
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   data: UserResponse | undefined;
 }
 
 export const UserUpdateForm = ({
   id,
-  onSubmit,
-  onScroll,
+  dialogClose: onSubmit,
+  scrollToTop: onScroll,
   data,
 }: UserFormUpdateProps): JSX.Element => {
   //* States

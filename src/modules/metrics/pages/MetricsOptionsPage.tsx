@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import { NavLink } from 'react-router-dom';
 
+import { useEffect } from 'react';
+
+import { GiExpense } from 'react-icons/gi';
+import { NavLink } from 'react-router-dom';
 import { FcDonate, FcHome, FcManager, FcRefresh } from 'react-icons/fc';
 
-import { WhiteCard } from '@/shared/components';
-import { GiExpense } from 'react-icons/gi';
 import { useAuthStore } from '@/stores';
-import { useEffect } from 'react';
+import { WhiteCard } from '@/shared/components';
 
 export const MetricsOptionsPage = (): JSX.Element => {
   const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
@@ -29,7 +30,7 @@ export const MetricsOptionsPage = (): JSX.Element => {
       </p>
       <hr className='p-[0.015rem] bg-slate-500' />
 
-      <div className='w-full px-[2rem] py-6 sm:px-[7rem] md:px-[4rem] lg:px-[3rem] xl:px-[3rem] 2xl:px-16 grid gap-8 lg:gap-5 2xl:gap-8 lg:h-[54rem] 2xl:h-[43rem]'>
+      <div className='w-full grid gap-8 px-[2rem] py-6 sm:px-[7rem] md:px-[4rem] lg:px-[3rem] xl:px-[3rem] 2xl:px-16 lg:gap-5 2xl:gap-8 lg:h-[54rem] 2xl:h-[43rem]'>
         <NavLink
           key='/metrics/member'
           to='/metrics/member'
@@ -42,7 +43,7 @@ export const MetricsOptionsPage = (): JSX.Element => {
               Métricas de Miembro
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Visualización de datos estadísticos y métricas de miembros
+              Gráficos estadísticos y métricas de miembros
             </p>
           </WhiteCard>
         </NavLink>
@@ -59,7 +60,7 @@ export const MetricsOptionsPage = (): JSX.Element => {
               Métricas de Grupo Familiar
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Visualización de datos estadísticos y métricas de grupos familiares
+              Gráficos estadísticos y métricas de grupos familiares
             </p>
           </WhiteCard>
         </NavLink>
@@ -71,12 +72,12 @@ export const MetricsOptionsPage = (): JSX.Element => {
           className='row-start-3 row-end-4 lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3 2xl:row-start-1 2xl:row-end-7 2xl:col-start-3 2xl:col-end-4'
         >
           <WhiteCard className='md:h-[11rem]' centered>
-            <FcDonate className='text-[10rem] lg:text-[6rem] xl:text-[6rem]' />
+            <FcDonate className='text-[10rem] lg:text-[7.5rem] xl:text-[7.5rem]' />
             <h2 className='text-green-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Métricas de Ofrenda (Ingreso)
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Visualización de datos estadísticos y métricas de ofrendas
+              Gráficos estadísticos y métricas de ofrendas
             </p>
           </WhiteCard>
         </NavLink>
@@ -93,7 +94,7 @@ export const MetricsOptionsPage = (): JSX.Element => {
               Métricas de Ofrenda (Salida)
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Visualización de datos estadísticos y métricas de ofrendas
+              Gráficos estadísticos y métricas de ofrendas
             </p>
           </WhiteCard>
         </NavLink>
@@ -102,7 +103,7 @@ export const MetricsOptionsPage = (): JSX.Element => {
           key='/metrics/offering-comparison'
           to='/metrics/offering-comparison'
           end
-          className='row-start-4 row-end-5 lg:row-start-7 lg:row-end-9 lg:col-start-1 lg:col-end-3 2xl:row-start-1 2xl:row-end-7 2xl:col-start-5 2xl:col-end-6'
+          className='row-start-5 row-end-6 lg:row-start-7 lg:row-end-9 lg:col-start-1 lg:col-end-3 2xl:row-start-1 2xl:row-end-7 2xl:col-start-5 2xl:col-end-6'
         >
           <WhiteCard className='md:h-[11rem]' centered>
             <FcRefresh className='text-[9rem] lg:text-[7.5rem] xl:text-[7rem]' />
@@ -110,7 +111,7 @@ export const MetricsOptionsPage = (): JSX.Element => {
               Métricas Comparativas de Ofrenda
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Visualización de datos estadísticos comparativos y métricas de ofrendas
+              Gráficos estadísticos comparativos de ofrendas
             </p>
           </WhiteCard>
         </NavLink>

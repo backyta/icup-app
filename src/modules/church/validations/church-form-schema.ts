@@ -13,9 +13,9 @@ export const churchFormSchema = z
     isAnexe: z.boolean().optional(),
     
     worshipTimes: z.array(z.nativeEnum(ChurchWorshipTime),{
-      required_error: "Tienes que seleccionar al menos un horario.",
+      required_error: "Debes seleccionar al menos un horario.",
     }).refine((value) => value.some((item) => item), {
-      message: "Tienes que seleccionar al menos un horario.",
+      message: "Debes seleccionar al menos un horario.",
     }),
 
     foundingDate: z.date({

@@ -4,7 +4,7 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { type CopastorResponse } from '@/modules/copastor/interfaces';
+import { RecordOrder } from '@/shared/enums';
 
 import { SupervisorSearchType } from '@/modules/supervisor/enums';
 import { type SupervisorResponse, type SupervisorFormData, type SupervisorQueryParams } from '@/modules/supervisor/interfaces';
@@ -24,13 +24,20 @@ export const createSupervisor = async (formData:SupervisorFormData ): Promise<Su
   }
 }
 
-//* Get all co-pastors
-export const getAllCopastors = async (): Promise<CopastorResponse[]> => {
+//* Get simple supervisors
+export interface GetSimpleSupervisorsOptions {
+  isNullZone: boolean;
+  isSimpleQuery: boolean;
+}
+
+export const getSimpleSupervisors = async ({isNullZone, isSimpleQuery}: GetSimpleSupervisorsOptions): Promise<SupervisorResponse[]> => {
   try {
-    const {data} = await icupApi<CopastorResponse[]>('/copastors' , {
+    const {data} = await icupApi<SupervisorResponse[]>('/supervisors' , {
       params: {
-        order: 'ASC'
-      },
+        order: RecordOrder.Ascending,
+        isNullZone: isNullZone.toString(),
+        isSimpleQuery: isSimpleQuery.toString()
+      },  
     }
     );
   
@@ -44,7 +51,7 @@ export const getAllCopastors = async (): Promise<CopastorResponse[]> => {
   }
 }
 
-//* Get all supervisors (paginated)
+//* Get supervisors (paginated)
 export const getSupervisors = async ({limit, offset, all, order}: SupervisorQueryParams): Promise<SupervisorResponse[]> => {
 
  let result: SupervisorResponse[];
@@ -79,6 +86,39 @@ export const getSupervisors = async ({limit, offset, all, order}: SupervisorQuer
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
+
+//* Get supervisors by copastor
+export interface GetSupervisorsByCopastorOptions {
+  searchType: string;
+  copastorId: string;
+  isNullZone: boolean;
+}
+
+export const getSupervisorsByCopastor = async ({
+  searchType,
+  copastorId,
+  isNullZone,
+ }:GetSupervisorsByCopastorOptions): Promise<SupervisorResponse[]> => {
+  try {
+    const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${copastorId}` , {
+      params: {
+        order: RecordOrder.Ascending,
+        'search-type': searchType,
+        isNullZone: isNullZone.toString(),
+      },
+    }
+  );
+
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw (error.response.data)
+    }
+    
+    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+  }
+}
+
 
 // ? Get supervisors by term (paginated)
 export const getSupervisorsByTerm = async ({ 

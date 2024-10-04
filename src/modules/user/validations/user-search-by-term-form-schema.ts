@@ -12,9 +12,9 @@ export const userSearchByTermFormSchema = z
     }),
     
     multiSelectTerm: z.array(z.nativeEnum(UserRole),{
-      required_error: "Tienes que seleccionar al menos un rol.",
+      required_error: "Debes seleccionar al menos un rol.",
     }).refine((value) => value.some((item) => item), {
-      message: "Tienes que seleccionar al menos un rol.",
+      message: "Debes seleccionar al menos un rol.",
     }).optional(),
 
     selectTerm: z.string().max(30).optional(),

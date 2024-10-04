@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 import { useLocation } from 'react-router-dom';
 import { BsFillPersonVcardFill } from 'react-icons/bs';
@@ -34,10 +34,11 @@ export const OfferingIncomeInfoCard = ({ idRow }: OfferingIncomeInfoCardProps): 
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   //* Functions
-  const currentOfferingIncome =
-    pathname === '/offerings/incomes/general-search'
+  const currentOfferingIncome = useMemo(() => {
+    return pathname === '/offerings/incomes/general-search'
       ? dataSearchGeneralResponse?.find((data) => data.id === idRow)
       : dataSearchByTermResponse?.find((data) => data.id === idRow);
+  }, [pathname, dataSearchGeneralResponse, dataSearchByTermResponse, idRow]);
 
   if (isDesktop) {
     return (

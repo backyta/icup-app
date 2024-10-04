@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import { DashboardSearchType } from '@/modules/dashboard/enums';
 import { FamilyGroupInfoItem } from '@/modules/dashboard/components';
 
+import { RecordOrder } from '@/shared/enums';
 import { LoadingSpinner } from '@/shared/components';
 
 import { getProportionFamilyGroups } from '@/modules/dashboard/services';
@@ -38,10 +39,7 @@ export function HousesInfoCard(): JSX.Element {
           ? DashboardSearchType.MostPopulatedFamilyGroups
           : DashboardSearchType.LessPopulatedFamilyGroups,
         selectTerm: changedValue ? 'most-populated' : 'less-populated',
-        limit: '',
-        all: true,
-        offset: '0',
-        order: 'ASC',
+        order: RecordOrder.Ascending,
       }),
     retry: 1,
   });

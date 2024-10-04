@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback, useMemo } from 'react';
 
 import { GiArchiveRegister } from 'react-icons/gi';
 import { useMediaQuery } from '@react-hook/media-query';
@@ -24,17 +24,20 @@ export const ChurchUpdateCard = ({ idRow }: ChurchUpdateCardProps): JSX.Element 
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   //* Functions
-  const currentChurch = dataSearchByTermResponse?.find((data) => data?.id === idRow);
+  const currentChurch = useMemo(
+    () => dataSearchByTermResponse?.find((data) => data?.id === idRow),
+    [dataSearchByTermResponse]
+  );
 
-  const handleContainerClose = (): void => {
+  const handleContainerClose = useCallback((): void => {
     setIsOpen(false);
-  };
+  }, []);
 
-  const handleContainerScroll = (): void => {
+  const handleContainerScroll = useCallback((): void => {
     if (topRef.current !== null) {
       topRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
+  }, []);
 
   if (isDesktop) {
     return (
@@ -55,8 +58,8 @@ export const ChurchUpdateCard = ({ idRow }: ChurchUpdateCardProps): JSX.Element 
           <ChurchUpdateForm
             id={idRow}
             data={currentChurch}
-            onSubmit={handleContainerClose}
-            onScroll={handleContainerScroll}
+            dialogClose={handleContainerClose}
+            scrollToTop={handleContainerScroll}
           />
         </DialogContent>
       </Dialog>
@@ -81,8 +84,8 @@ export const ChurchUpdateCard = ({ idRow }: ChurchUpdateCardProps): JSX.Element 
         <ChurchUpdateForm
           id={idRow}
           data={currentChurch}
-          onSubmit={handleContainerClose}
-          onScroll={handleContainerScroll}
+          dialogClose={handleContainerClose}
+          scrollToTop={handleContainerScroll}
         />
       </DialogContent>
     </Dialog>

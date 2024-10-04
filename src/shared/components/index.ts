@@ -3,3 +3,5 @@ export * from './side-menu';
 export * from './toggle-theme';
 export * from './card';
 export * from './spinner';
+export * from './page';
+

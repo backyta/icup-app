@@ -1,11 +1,16 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 
+import { addDays } from 'date-fns';
+
+import { type TooltipConfig } from '@/shared/interfaces';
+import { dateFormatterToDDMMYY } from '@/shared/helpers';
+
 import { CurrencyType } from '@/modules/offering/shared/enums';
-import { type LastSundaysOfferingsTooltipConfig } from '@/modules/dashboard/interfaces';
+import { type LatestSundaysOfferingsPayload } from '@/modules/dashboard/interfaces';
 
 export const LastSundaysOfferingsTooltipContent = (
-  props: LastSundaysOfferingsTooltipConfig
+  props: TooltipConfig<LatestSundaysOfferingsPayload>
 ): JSX.Element => {
   const { payload, label } = props;
 
@@ -26,7 +31,7 @@ export const LastSundaysOfferingsTooltipContent = (
 
   return (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
-      <p className='font-medium text-[12px] sm:text-[14px]'>{`${label}`}</p>
+      <p className='font-medium text-[12px] sm:text-[14px]'>{`${dateFormatterToDDMMYY(addDays(label, 1))}`}</p>
       <ul className='list grid gap-1.5'>
         {payload.map((entry, index) =>
           entry.value ? (
@@ -54,25 +59,38 @@ export const LastSundaysOfferingsTooltipContent = (
                   : CurrencyType.EUR
             }`}</span>
               </li>
-              {/* <hr className='md:p-[0.02rem] bg-slate-500' /> */}
             </div>
           ) : (
             ''
           )
         )}
       </ul>
-      <p className='font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-        Totales Acumulados
-      </p>
-      <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-        <span className='-ml-2'>{`Soles: ${totalAccumulatedPEN} ${CurrencyType.PEN}`}</span>
-      </li>
-      <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-        <span className='-ml-2'> {`Dolares: ${totalAccumulatedUSD} ${CurrencyType.USD}`}</span>
-      </li>
-      <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-        <span className='-ml-2'> {`Euros: ${totalAccumulatedEUR} ${CurrencyType.EUR}`}</span>
-      </li>
+      {(totalAccumulatedPEN > 0 && totalAccumulatedUSD > 0) ||
+      (totalAccumulatedPEN > 0 && totalAccumulatedEUR > 0) ? (
+        <p className='font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+          Totales acumulados:
+        </p>
+      ) : (
+        <p className='font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+          Total acumulado:
+        </p>
+      )}
+
+      {totalAccumulatedPEN > 0 && (
+        <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+          <span className='-ml-2'>{`Soles: ${totalAccumulatedPEN} ${CurrencyType.PEN}`}</span>
+        </li>
+      )}
+      {totalAccumulatedUSD > 0 && (
+        <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+          <span className='-ml-2'> {`Dolares: ${totalAccumulatedUSD} ${CurrencyType.USD}`}</span>
+        </li>
+      )}
+      {totalAccumulatedEUR > 0 && (
+        <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+          <span className='-ml-2'> {`Euros: ${totalAccumulatedEUR} ${CurrencyType.EUR}`}</span>
+        </li>
+      )}
     </div>
   );
 };

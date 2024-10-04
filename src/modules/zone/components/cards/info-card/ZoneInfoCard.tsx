@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from '@react-hook/media-query';
@@ -30,10 +30,11 @@ export const ZoneInfoCard = ({ idRow }: ZoneInfoCardProps): JSX.Element => {
   const { pathname } = useLocation();
 
   //* Functions
-  const currentZone =
-    pathname === '/zones/general-search'
+  const currentZone = useMemo(() => {
+    return pathname === '/zones/general-search'
       ? dataSearchGeneralResponse?.find((data) => data.id === idRow)
       : dataSearchByTermResponse?.find((data) => data.id === idRow);
+  }, [pathname, dataSearchGeneralResponse, dataSearchByTermResponse, idRow]);
 
   if (isDesktop) {
     return (

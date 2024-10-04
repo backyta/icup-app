@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback, useMemo } from 'react';
 
 import { GiArchiveRegister } from 'react-icons/gi';
 import { useMediaQuery } from '@react-hook/media-query';
@@ -27,17 +27,20 @@ export const OfferingIncomeUpdateCard = ({ idRow }: OfferingIncomeUpdateCardProp
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   //* Functions
-  const currentOfferingIncome = dataSearchByTermResponse?.find((data) => data.id === idRow);
+  const currentOfferingIncome = useMemo(
+    () => dataSearchByTermResponse?.find((data) => data?.id === idRow),
+    [dataSearchByTermResponse]
+  );
 
-  const handleContainerClose = (): void => {
+  const handleContainerClose = useCallback((): void => {
     setIsOpen(false);
-  };
+  }, []);
 
-  const handleContainerScroll = (): void => {
+  const handleContainerScroll = useCallback((): void => {
     if (topRef.current !== null) {
       topRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
+  }, []);
 
   if (isDesktop) {
     return (
@@ -58,8 +61,8 @@ export const OfferingIncomeUpdateCard = ({ idRow }: OfferingIncomeUpdateCardProp
           <OfferingIncomeFormUpdate
             id={idRow}
             data={currentOfferingIncome}
-            onSubmit={handleContainerClose}
-            onScroll={handleContainerScroll}
+            dialogClose={handleContainerClose}
+            scrollToTop={handleContainerScroll}
           />
         </DialogContent>
       </Dialog>
@@ -84,8 +87,8 @@ export const OfferingIncomeUpdateCard = ({ idRow }: OfferingIncomeUpdateCardProp
         <OfferingIncomeFormUpdate
           id={idRow}
           data={currentOfferingIncome}
-          onSubmit={handleContainerClose}
-          onScroll={handleContainerScroll}
+          dialogClose={handleContainerClose}
+          scrollToTop={handleContainerScroll}
         />
       </DialogContent>
     </Dialog>

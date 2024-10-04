@@ -1,13 +1,13 @@
 import { 
-  type TheirSupervisor, 
   type Disciple, 
   type CreatedBy,
+  type TheirZone,
   type UpdatedBy,
   type TheirChurch,
   type TheirPastor,
   type TheirCopastor,
+  type TheirSupervisor, 
   type TheirFamilyGroup,
-  type TheirZone,
 } from '@/shared/interfaces';
 
 export interface PreacherResponse {

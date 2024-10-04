@@ -4,7 +4,7 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { type FamilyGroupResponse } from '@/modules/family-group/interfaces';
+import { RecordOrder } from '@/shared/enums';
 
 import { DiscipleSearchType } from '@/modules/disciple/enums';
 import { type DiscipleResponse, type DiscipleFormData, type DiscipleQueryParams } from '@/modules/disciple/interfaces';
@@ -25,15 +25,16 @@ export const createDisciple = async (formData:DiscipleFormData ): Promise<Discip
   }
 }
 
-//* Get all family-groups
-export const getAllFamilyGroups = async (): Promise<FamilyGroupResponse[]> => {
+//* Get simple disciples
+export const getSimpleDisciples = async ({isSimpleQuery}:{isSimpleQuery: true}): Promise<DiscipleResponse[]> => {
   try {
-    const {data} = await icupApi<FamilyGroupResponse[]>('/family-groups' , {
+    const {data} = await icupApi<DiscipleResponse[]>('/disciples' , {
       params: {
-        order: 'ASC'
+        order: RecordOrder.Ascending,
+        isSimpleQuery: isSimpleQuery.toString()
       },
     }
-    );
+  );
     
     return data;
   } catch (error) {
@@ -45,7 +46,7 @@ export const getAllFamilyGroups = async (): Promise<FamilyGroupResponse[]> => {
   }
 }
 
-//* Get all disciples (paginated)
+//* Get disciples (paginated)
 export const getDisciples = async ({limit, offset, all, order}: DiscipleQueryParams): Promise<DiscipleResponse[]> => {
 
  let result: DiscipleResponse[];

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
@@ -21,7 +22,7 @@ import {
   useDiscipleCreationMutation,
   useDiscipleCreationSubmitButtonLogic,
 } from '@/modules/disciple/hooks';
-import { getAllFamilyGroups } from '@/modules/disciple/services';
+import { getSimpleFamilyGroups } from '@/modules/family-group/services';
 
 import { cn } from '@/shared/lib/utils';
 import { PageTitle } from '@/shared/components/page';
@@ -141,8 +142,8 @@ export const DiscipleCreatePage = (): JSX.Element => {
   }, []);
 
   //* Helpers
-  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
-  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
+  const districtsValidation = validateDistrictsAllowedByModule(pathname);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
 
   //* Custom hooks
   const { disabledRoles } = useRoleValidationByPath({
@@ -159,7 +160,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
   //* Queries
   const { data } = useQuery({
     queryKey: ['family-groups'],
-    queryFn: getAllFamilyGroups,
+    queryFn: () => getSimpleFamilyGroups({ isSimpleQuery: true }),
   });
 
   //* Form handler
@@ -612,7 +613,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(DistrictNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                              className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -651,7 +652,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -811,35 +812,47 @@ export const DiscipleCreatePage = (): JSX.Element => {
                         </PopoverTrigger>
                         <PopoverContent align='center' className='w-auto px-4 py-2'>
                           <Command>
-                            <CommandInput
-                              placeholder='Busque un grupo familiar...'
-                              className='h-9 text-[14px]'
-                            />
-                            <CommandEmpty>Grupo familiar no encontrado.</CommandEmpty>
-                            <CommandGroup className='max-h-[200px] h-auto'>
-                              {data?.map((familyGroup) => (
-                                <CommandItem
-                                  className='text-[14px]'
-                                  value={getCodeAndNameFamilyGroup({
-                                    code: familyGroup.familyGroupCode,
-                                    name: familyGroup.familyGroupName,
-                                  })}
-                                  key={familyGroup.id}
-                                  onSelect={() => {
-                                    form.setValue('theirFamilyGroup', familyGroup?.id);
-                                    setIsInputTheirFamilyGroupOpen(false);
-                                  }}
-                                >
-                                  {`${familyGroup?.familyGroupName} - ${familyGroup?.familyGroupCode}`}
-                                  <CheckIcon
-                                    className={cn(
-                                      'ml-auto h-4 w-4',
-                                      familyGroup?.id === field.value ? 'opacity-100' : 'opacity-0'
-                                    )}
-                                  />
-                                </CommandItem>
-                              ))}
-                            </CommandGroup>
+                            {data?.length && data?.length > 0 ? (
+                              <>
+                                <CommandInput
+                                  placeholder='Busque un grupo familiar...'
+                                  className='h-9 text-[14px]'
+                                />
+                                <CommandEmpty>Grupo familiar no encontrado.</CommandEmpty>
+                                <CommandGroup className='max-h-[200px] h-auto'>
+                                  {data?.map((familyGroup) => (
+                                    <CommandItem
+                                      className='text-[14px]'
+                                      value={getCodeAndNameFamilyGroup({
+                                        code: familyGroup.familyGroupCode,
+                                        name: familyGroup.familyGroupName,
+                                      })}
+                                      key={familyGroup.id}
+                                      onSelect={() => {
+                                        form.setValue('theirFamilyGroup', familyGroup?.id);
+                                        setIsInputTheirFamilyGroupOpen(false);
+                                      }}
+                                    >
+                                      {`${familyGroup?.familyGroupName} - ${familyGroup?.familyGroupCode}`}
+                                      <CheckIcon
+                                        className={cn(
+                                          'ml-auto h-4 w-4',
+                                          familyGroup?.id === field.value
+                                            ? 'opacity-100'
+                                            : 'opacity-0'
+                                        )}
+                                      />
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </>
+                            ) : (
+                              data?.length === 0 && (
+                                <p className='text-[14.5px] text-red-500 text-center'>
+                                  ❌No hay grupos familiares disponibles.
+                                </p>
+                              )
+                            )}
                           </Command>
                         </PopoverContent>
                       </Popover>

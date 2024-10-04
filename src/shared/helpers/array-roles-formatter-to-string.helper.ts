@@ -1,4 +1,3 @@
-
 export const arrayRolesFormatterToString = (
    roles: string[] | undefined 
 ): string | undefined =>  {

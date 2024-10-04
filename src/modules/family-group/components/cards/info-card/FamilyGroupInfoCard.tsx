@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 import { useLocation } from 'react-router-dom';
 import { BsFillPersonVcardFill } from 'react-icons/bs';
@@ -29,10 +29,11 @@ export const FamilyGroupInfoCard = ({ idRow }: FamilyGroupInfoCardProps): JSX.El
   const { pathname } = useLocation();
 
   //* Functions
-  const currentFamilyGroup =
-    pathname === '/family-groups/general-search'
+  const currentFamilyGroup = useMemo(() => {
+    return pathname === '/family-groups/general-search'
       ? dataSearchGeneralResponse?.find((data) => data.id === idRow)
       : dataSearchByTermResponse?.find((data) => data.id === idRow);
+  }, [pathname, dataSearchGeneralResponse, dataSearchByTermResponse, idRow]);
 
   if (isDesktop) {
     return (

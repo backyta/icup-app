@@ -4,6 +4,8 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
+import { RecordOrder } from '@/shared/enums';
+
 import { ChurchSearchType } from '@/modules/church/enums';
 import { type ChurchFormData, type ChurchResponse, type ChurchQueryParams } from '@/modules/church/interfaces';
 
@@ -29,7 +31,7 @@ export const getMainChurch = async (): Promise<ChurchResponse[]> => {
       params: {
         limit: 1,
         offset: 0,
-        order: 'ASC'
+        order: RecordOrder.Ascending
       },
     }
     );
@@ -44,7 +46,28 @@ export const getMainChurch = async (): Promise<ChurchResponse[]> => {
   }
 }
 
-//* Get all churches (paginated)
+//* Get simple churches
+export const getSimpleChurches = async ({isSimpleQuery}: {isSimpleQuery: boolean}): Promise<ChurchResponse[]> => {
+  try {
+    const {data} = await icupApi<ChurchResponse[]>('/churches' , {
+      params: {
+        order: 'ASC',
+        isSimpleQuery: isSimpleQuery.toString()
+      },
+    }
+    );
+  
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw (error.response.data)
+    }
+    
+    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+  }
+}
+
+//* Get churches (paginated)
 export const getChurches = async ({limit, offset, all, order}: ChurchQueryParams): Promise<ChurchResponse[]> => {
 
  let result: ChurchResponse[];

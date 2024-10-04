@@ -1,25 +1,24 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-export const namesFormatter = (namesTerm: string | undefined ): string | undefined =>  {
+export const namesFormatter = (names: string | undefined ): string | undefined =>  {
 
-  if (namesTerm && namesTerm.includes(' ')) {
-    const trimmedNamesTerm = namesTerm.trimStart();
+  if (names && names.includes(' ')) {
+    const trimmedNamesTerm = names.trimStart();
     const newNamesTerm = trimmedNamesTerm.replace(/([a-zA-Z])\s+(?=[a-zA-Z])/g, '$1+');
     return newNamesTerm.replace(/\s+(?=[^a-zA-Z]|$)/g, '');
   }
 
-  return namesTerm;
-
+  return names;
 }
 
-export const lastNamesFormatter = (lastNamesTerm: string | undefined ): string | undefined =>  {
+export const lastNamesFormatter = (lastNames: string | undefined ): string | undefined =>  {
 
-  if (lastNamesTerm && lastNamesTerm.includes(' ')) {
-    const trimmedLastNamesTerm = lastNamesTerm.trimStart();
+  if (lastNames && lastNames.includes(' ')) {
+    const trimmedLastNamesTerm = lastNames.trimStart();
     const newLastNamesTerm = trimmedLastNamesTerm.replace(/([a-zA-Z])\s+(?=[a-zA-Z])/g, '$1+');
     return newLastNamesTerm.replace(/\s+(?=[^a-zA-Z]|$)/g, '');
   }
 
-  return lastNamesTerm;
+  return lastNames;
 }

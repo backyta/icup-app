@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
@@ -44,7 +45,7 @@ import { offeringIncomeSearchByTermFormSchema } from '@/modules/offering/income/
 
 import { useOfferingIncomeStore } from '@/stores/offering-income';
 
-import { getAllChurches } from '@/modules/pastor/services';
+import { getSimpleChurches } from '@/modules/church/services';
 
 import { cn } from '@/shared/lib/utils';
 
@@ -166,7 +167,7 @@ export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
   //* Queries
   const churchesQuery = useQuery({
     queryKey: ['churches'],
-    queryFn: getAllChurches,
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
   });
 
   //* Form handler

@@ -1,7 +1,6 @@
 import { UrbanSectorNames } from '@/shared/enums';
 
 // ? Allowed Urban Sector by district
-
 //* Independencia
 export const UrbanSectorsIndependenciaAllowed = [
  UrbanSectorNames.Independencia,
@@ -33,4 +32,39 @@ export const UrbanSectorsPuentePiedraAllowed = [
   UrbanSectorNames.Lomas,
 ];
 
-// TODO : hacer mas y tmb distritos con sus validaciones
+//* Carabayllo
+export const UrbanSectorsCarabaylloAllowed = [
+  UrbanSectorNames['Las Lomas'],
+  UrbanSectorNames['San Pedro'],
+  UrbanSectorNames.Urbanizaciones,
+  UrbanSectorNames['El Progreso'],
+  UrbanSectorNames.Agricola,
+
+];
+
+//* Los Olivos
+export const UrbanSectorsLosOlivosAllowed = [
+  UrbanSectorNames.Mercurio,
+  UrbanSectorNames.Pro,
+  UrbanSectorNames.Covida,
+  UrbanSectorNames['Villa Sol'],
+  UrbanSectorNames['Las Palmeras'],
+  UrbanSectorNames['Sol de Oro'],
+  UrbanSectorNames['El Trébol'],
+  UrbanSectorNames['Santa Elvira'],
+  UrbanSectorNames['El Naranjal'],
+  UrbanSectorNames.Infantas,
+  UrbanSectorNames['Angélica Gamarra'],
+];
+
+//* Comas
+export const UrbanSectorsComasAllowed = [
+  UrbanSectorNames['La Pascana'],
+  UrbanSectorNames['El Retablo'],
+  UrbanSectorNames['San Agustín'],
+  UrbanSectorNames.Collique,
+  UrbanSectorNames['Carmen Alto'],
+  UrbanSectorNames['Chacra Cerro'],
+  UrbanSectorNames['Santa Luzmila'],
+  UrbanSectorNames['Año Nuevo'],
+];

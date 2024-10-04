@@ -35,14 +35,14 @@ import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 
 interface UserPasswordUpdateFormProps {
   id: string;
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
 }
 
 export const UserPasswordUpdateForm = ({
   id,
-  onSubmit,
-  onScroll,
+  dialogClose: onSubmit,
+  scrollToTop: onScroll,
 }: UserPasswordUpdateFormProps): JSX.Element => {
   //* States
   const [showCurrentPassword, setShowCurrentPassword] = useState<boolean>(false);

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback, useMemo } from 'react';
 
 import { GiCardExchange } from 'react-icons/gi';
 import { useMediaQuery } from '@react-hook/media-query';
@@ -18,7 +18,7 @@ export const ZoneSupervisorUpdateCard = ({
   idRow,
 }: FamilyGroupPreacherUpdateCardProps): JSX.Element => {
   //* States
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const topRef = useRef<HTMLDivElement>(null);
   const dataSearchByTermResponse = useZoneStore((state) => state.dataSearchByTermResponse);
 
@@ -26,21 +26,24 @@ export const ZoneSupervisorUpdateCard = ({
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   //* Functions
-  const currentZone = dataSearchByTermResponse?.find((data) => data.id === idRow);
+  const currentZone = useMemo(
+    () => dataSearchByTermResponse?.find((data) => data?.id === idRow),
+    [dataSearchByTermResponse]
+  );
 
-  const handleContainerClose = (): void => {
-    setOpen(false);
-  };
+  const handleContainerClose = useCallback((): void => {
+    setIsOpen(false);
+  }, []);
 
-  const handleContainerScroll = (): void => {
+  const handleContainerScroll = useCallback((): void => {
     if (topRef.current !== null) {
       topRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
+  }, []);
 
   if (isDesktop) {
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button
             variant='outline'
@@ -57,8 +60,8 @@ export const ZoneSupervisorUpdateCard = ({
           <ZoneSupervisorUpdateForm
             id={idRow}
             data={currentZone}
-            onSubmit={handleContainerClose}
-            onScroll={handleContainerScroll}
+            dialogClose={handleContainerClose}
+            scrollToTop={handleContainerScroll}
           />
         </DialogContent>
       </Dialog>
@@ -66,7 +69,7 @@ export const ZoneSupervisorUpdateCard = ({
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button
           variant='outline'
@@ -83,8 +86,8 @@ export const ZoneSupervisorUpdateCard = ({
         <ZoneSupervisorUpdateForm
           id={idRow}
           data={currentZone}
-          onSubmit={handleContainerClose}
-          onScroll={handleContainerScroll}
+          dialogClose={handleContainerClose}
+          scrollToTop={handleContainerScroll}
         />
       </DialogContent>
     </Dialog>

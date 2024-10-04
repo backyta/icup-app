@@ -23,7 +23,7 @@ import { zoneFormSchema } from '@/modules/zone/validations';
 import { ZoneFormSkeleton } from '@/modules/zone/components';
 import { type ZoneResponse } from '@/modules/zone/interfaces';
 
-import { getAllSupervisors } from '@/modules/preacher/services';
+import { getSimpleSupervisors } from '@/modules/supervisor/services';
 
 import { cn } from '@/shared/lib/utils';
 import { getFullNames, validateDistrictsAllowedByModule } from '@/shared/helpers';
@@ -60,16 +60,16 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 
 interface ZoneFormUpdateProps {
   id: string;
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   data: ZoneResponse | undefined;
 }
 
 export const ZoneUpdateForm = ({
   id,
   data,
-  onSubmit,
-  onScroll,
+  dialogClose: onSubmit,
+  scrollToTop: onScroll,
 }: ZoneFormUpdateProps): JSX.Element => {
   //* States
   const [isLoadingData, setIsLoadingData] = useState(true);
@@ -99,7 +99,7 @@ export const ZoneUpdateForm = ({
   });
 
   //* Helpers
-  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
+  const districtsValidation = validateDistrictsAllowedByModule(pathname);
 
   //* Custom hooks
   useUpdateZoneEffects({
@@ -125,14 +125,14 @@ export const ZoneUpdateForm = ({
   });
 
   //* Queries
-  const supervisorsQuery = useQuery({
+  const availableSupervisorsQuery = useQuery({
     queryKey: ['available-supervisors'],
-    queryFn: () => getAllSupervisors({ isNull: true }),
+    queryFn: () => getSimpleSupervisors({ isNullZone: true, isSimpleQuery: true }),
   });
 
-  const supervisorQuery = useQuery({
-    queryKey: ['supervisor'],
-    queryFn: () => getAllSupervisors({ isNull: false }),
+  const notAvailableSupervisorQuery = useQuery({
+    queryKey: ['not-available-supervisors'],
+    queryFn: () => getSimpleSupervisors({ isNullZone: false, isSimpleQuery: true }),
   });
 
   //* Form handler
@@ -341,7 +341,7 @@ export const ZoneUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(DistrictNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -385,7 +385,7 @@ export const ZoneUpdateForm = ({
                                     )}
                                   >
                                     {field.value
-                                      ? `${supervisorQuery?.data?.find((supervisor) => supervisor.id === field.value)?.firstName} ${supervisorQuery?.data?.find((supervisor) => supervisor.id === field.value)?.lastName}`
+                                      ? `${notAvailableSupervisorQuery?.data?.find((supervisor) => supervisor.id === field.value)?.firstName} ${notAvailableSupervisorQuery?.data?.find((supervisor) => supervisor.id === field.value)?.lastName}`
                                       : 'Busque y seleccione una iglesia'}
                                     <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                   </Button>
@@ -393,43 +393,49 @@ export const ZoneUpdateForm = ({
                               </PopoverTrigger>
                               <PopoverContent align='center' className='w-auto px-4 py-2'>
                                 <Command>
-                                  <CommandInput
-                                    placeholder='Busque un supervisor...'
-                                    className='h-9 text-[14px]'
-                                  />
-                                  <CommandEmpty>Supervisor no encontrado.</CommandEmpty>
-                                  <CommandGroup className='max-h-[200px] h-auto w-[350px]'>
-                                    {supervisorsQuery?.data?.map((supervisor) => (
-                                      <CommandItem
-                                        className='text-[14px]'
-                                        value={getFullNames({
-                                          firstNames: supervisor.firstName,
-                                          lastNames: supervisor.lastName,
-                                        })}
-                                        key={supervisor.id}
-                                        onSelect={() => {
-                                          form.setValue('theirSupervisor', supervisor.id);
-                                          setIsInputTheirSupervisorOpen(false);
-                                        }}
-                                      >
-                                        {`${supervisor?.firstName} ${supervisor?.lastName}`}
-                                        <CheckIcon
-                                          className={cn(
-                                            'ml-auto h-4 w-4',
-                                            supervisor.id === field.value
-                                              ? 'opacity-100'
-                                              : 'opacity-0'
-                                          )}
-                                        />
-                                      </CommandItem>
-                                    ))}
-                                    {supervisorsQuery.data?.length === 0 && (
-                                      <p className='text-[14.5px] text-red-500 text-center'>
+                                  {availableSupervisorsQuery?.data?.length &&
+                                  availableSupervisorsQuery?.data?.length > 0 ? (
+                                    <>
+                                      <CommandInput
+                                        placeholder='Busque un supervisor...'
+                                        className='h-9 text-[14px]'
+                                      />
+                                      <CommandEmpty>Supervisor no encontrado.</CommandEmpty>
+                                      <CommandGroup className='max-h-[200px] h-auto w-[350px]'>
+                                        {availableSupervisorsQuery?.data?.map((supervisor) => (
+                                          <CommandItem
+                                            className='text-[14px]'
+                                            value={getFullNames({
+                                              firstNames: supervisor.firstName,
+                                              lastNames: supervisor.lastName,
+                                            })}
+                                            key={supervisor.id}
+                                            onSelect={() => {
+                                              form.setValue('theirSupervisor', supervisor.id);
+                                              setIsInputTheirSupervisorOpen(false);
+                                            }}
+                                          >
+                                            {`${supervisor?.firstName} ${supervisor?.lastName}`}
+                                            <CheckIcon
+                                              className={cn(
+                                                'ml-auto h-4 w-4',
+                                                supervisor.id === field.value
+                                                  ? 'opacity-100'
+                                                  : 'opacity-0'
+                                              )}
+                                            />
+                                          </CommandItem>
+                                        ))}
+                                      </CommandGroup>
+                                    </>
+                                  ) : (
+                                    availableSupervisorsQuery?.data?.length === 0 && (
+                                      <p className='text-[14.5px] w-[20rem] text-red-500 text-center'>
                                         ❌ No se encontró supervisores disponibles, todos están
                                         asignados a una zona.
                                       </p>
-                                    )}
-                                  </CommandGroup>
+                                    )
+                                  )}
                                 </Command>
                               </PopoverContent>
                             </Popover>

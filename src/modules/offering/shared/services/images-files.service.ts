@@ -10,26 +10,23 @@ import { type UploadImageResponse } from '@/modules/offering/shared/interfaces';
 export interface UploadImagesOptions{
   files: File[],
   fileType: OfferingFileType,
-  type: string,
-  subType?: string | undefined | null,
+  offeringType: string,
+  offeringSubType?: string | undefined | null,
 }
 
-export const uploadImages = async ({files, fileType, type, subType}:UploadImagesOptions): Promise<UploadImageResponse> => {
+export const uploadImages = async ({files, fileType, offeringType, offeringSubType}:UploadImagesOptions): Promise<UploadImageResponse> => {
   try {
     const newFormData = new FormData();
 
     files.forEach((file) => {
       newFormData.append('files', file);
     });
-
-    console.log(files);
     
-
     const {data} = await icupApi.post<UploadImageResponse>('/files/upload', newFormData ,{
       params: {
         fileType,
-        type,
-        subType: !subType ? null : subType 
+        offeringType,
+        offeringSubType: !offeringSubType ? null : offeringSubType 
       },
     })
     

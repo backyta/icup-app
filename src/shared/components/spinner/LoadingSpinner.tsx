@@ -4,14 +4,19 @@ import { useLocation } from 'react-router-dom';
 const bibleVerses = [
   'El Señor es mi pastor; nada me faltará. - Salmos 23:1',
   'Todo lo puedo en Cristo que me fortalece. - Filipenses 4:13',
-  'Porque yo sé los planes que tengo para ustedes, planes de bienestar y no de calamidad, para darles un futuro y una esperanza. - Jeremías 29:11',
-  'El amor es paciente, es bondadoso. El amor no es envidioso ni jactancioso ni orgulloso. - 1 Corintios 13:4',
-  'Y sabemos que en todas las cosas Dios trabaja para el bien de aquellos que lo aman. - Romanos 8:28',
+  'Porque yo sé los planes que tengo para ustedes, planes de bienestar y no de calamidad. - Jeremías 29:11',
+  'El amor es paciente, es bondadoso. - 1 Corintios 13:4',
+  'Dios trabaja para el bien de aquellos que lo aman. - Romanos 8:28',
   'El Señor es mi luz y mi salvación; ¿a quién temeré? - Salmos 27:1',
-  'Pero los que esperan a Jehová tendrán nuevas fuerzas; levantarán alas como las águilas. - Isaías 40:31',
+  'Los que esperan a Jehová tendrán nuevas fuerzas. - Isaías 40:31',
   'El Señor es bueno, un refugio en tiempos de angustia. - Nahúm 1:7',
-  'Bienaventurados los pacificadores, porque ellos serán llamados hijos de Dios. - Mateo 5:9',
-  'El Señor está cerca de todos los que lo invocan. - Salmos 145:18',
+  'Bienaventurados los pacificadores. - Mateo 5:9',
+  'El Señor está cerca de los que lo invocan. - Salmos 145:18',
+  'El que habita al abrigo del Altísimo morará bajo su sombra. - Salmos 91:1',
+  'Bendice alma mía al Señor, y no olvides sus beneficios. - Salmos 103:2',
+  'Con Dios haremos proezas. - Salmos 60:12',
+  'Jehová peleará por vosotros, y vosotros estaréis tranquilos. - Éxodo 14:14',
+  'Esforzaos y cobrad ánimo, no temáis ni tengáis miedo. - Deuteronomio 31:6',
 ];
 
 const getRandomVerse = (): string => {
@@ -73,7 +78,8 @@ export const LoadingSpinner = (): JSX.Element => {
           pathname === '/users/delete' ||
           pathname === '/dashboard') &&
           'min-h-full',
-        pathname === '/metrics/member' && 'bg-slate-50/40 dark:bg-slate-900/40'
+        (pathname === '/metrics/member' || pathname === '/metrics/family-group') &&
+          'bg-slate-50/40 dark:bg-slate-950/10'
       )}
     >
       <div className='flex flex-col items-center justify-center px-4'>

@@ -9,7 +9,7 @@ import {
   OfferingExpensesAnalysisCardBySuppliesExpenses,
   OfferingExpensesAnalysisCardByActivitiesAndEventsExpenses,
   OfferingIncomeAnalysisCardByExpensesAdjustment,
-} from '@/modules/metrics/components/charts-offering-expense';
+} from '@/modules/metrics/components/offering-expense';
 
 export const MetricsOfferingExpense = (): JSX.Element => {
   useEffect(() => {

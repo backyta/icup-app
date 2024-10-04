@@ -20,9 +20,9 @@ import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { cn } from '@/shared/lib/utils';
 
-import { getAllPastors } from '@/modules/copastor/services';
+import { getSimplePastors } from '@/modules/pastor/services';
 
-import { getAllCopastors } from '@/modules/supervisor/services';
+import { getSimpleCopastors } from '@/modules/copastor/services';
 
 import {
   usePreacherUpdateEffects,
@@ -32,7 +32,7 @@ import {
   usePreacherUpdateSubmitButtonLogic,
 } from '@/modules/preacher/hooks';
 import { PreacherFieldNames } from '@/modules/preacher/enums';
-import { getAllSupervisors } from '@/modules/preacher/services';
+import { getSimpleSupervisors } from '@/modules/supervisor/services';
 import { preacherFormSchema } from '@/modules/preacher/validations';
 import { PreacherFormSkeleton } from '@/modules/preacher/components';
 import { type PreacherResponse } from '@/modules/preacher/interfaces';
@@ -101,16 +101,16 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 
 interface PreacherFormUpdateProps {
   id: string;
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   data: PreacherResponse | undefined;
 }
 
 export const PreacherUpdateForm = ({
   id,
   data,
-  onSubmit,
-  onScroll,
+  dialogClose: onSubmit,
+  scrollToTop: onScroll,
 }: PreacherFormUpdateProps): JSX.Element => {
   //* States
   const [isRelationSelectDisabled, setIsRelationSelectDisabled] = useState<boolean>(false);
@@ -170,8 +170,8 @@ export const PreacherUpdateForm = ({
   const isDirectRelationToPastor = form.watch('isDirectRelationToPastor');
 
   //* Helpers
-  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
-  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
+  const districtsValidation = validateDistrictsAllowedByModule(pathname);
 
   //* Custom Hooks
   usePreacherUpdateEffects({
@@ -211,19 +211,19 @@ export const PreacherUpdateForm = ({
   });
 
   //* Queries
-  const querySupervisors = useQuery({
+  const supervisorsQuery = useQuery({
     queryKey: ['supervisors', id],
-    queryFn: () => getAllSupervisors({ isNull: false }),
+    queryFn: () => getSimpleSupervisors({ isNullZone: false, isSimpleQuery: true }),
   });
 
-  const queryCopastors = useQuery({
+  const copastorsQuery = useQuery({
     queryKey: ['copastors', id],
-    queryFn: getAllCopastors,
+    queryFn: () => getSimpleCopastors({ isSimpleQuery: true }),
   });
 
-  const queryPastors = useQuery({
+  const pastorsQuery = useQuery({
     queryKey: ['pastors', id],
-    queryFn: getAllPastors,
+    queryFn: () => getSimplePastors({ isSimpleQuery: true }),
   });
 
   //* Form handler
@@ -759,7 +759,7 @@ export const PreacherUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(DistrictNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -798,7 +798,7 @@ export const PreacherUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(UrbanSectorNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -970,7 +970,7 @@ export const PreacherUpdateForm = ({
                                   Supervisor
                                 </FormLabel>
                                 <FormDescription className='text-[14px]'>
-                                  Asigna el Supervisor responsable de este Predicador.
+                                  Asigna el Supervisor responsable para este Predicador.
                                 </FormDescription>
                                 <Popover
                                   open={isInputTheirSupervisorOpen}
@@ -988,7 +988,7 @@ export const PreacherUpdateForm = ({
                                         )}
                                       >
                                         {field.value
-                                          ? `${querySupervisors?.data?.find((supervisor) => supervisor.id === field.value)?.firstName} ${querySupervisors?.data?.find((supervisor) => supervisor.id === field.value)?.lastName}`
+                                          ? `${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.firstName} ${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.lastName}`
                                           : 'Busque y seleccione un supervisor'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
@@ -1002,7 +1002,7 @@ export const PreacherUpdateForm = ({
                                       />
                                       <CommandEmpty>Supervisor no encontrado.</CommandEmpty>
                                       <CommandGroup className='max-h-[200px] h-auto'>
-                                        {querySupervisors?.data?.map((supervisor) => (
+                                        {supervisorsQuery?.data?.map((supervisor) => (
                                           <CommandItem
                                             className='text-[14px]'
                                             value={getFullNames({
@@ -1077,7 +1077,7 @@ export const PreacherUpdateForm = ({
                                     Copastor
                                   </FormLabel>
                                   <FormDescription className='text-[14px]'>
-                                    Asigna el Copastor responsable de este Supervisor.
+                                    Asigna el Copastor responsable para este Supervisor.
                                   </FormDescription>
                                   <Popover
                                     open={isInputTheirCopastorOpen}
@@ -1095,7 +1095,7 @@ export const PreacherUpdateForm = ({
                                           )}
                                         >
                                           {field.value
-                                            ? `${queryCopastors?.data?.find((copastor) => copastor.id === field.value)?.firstName} ${queryCopastors?.data?.find((copastor) => copastor.id === field.value)?.lastName}`
+                                            ? `${copastorsQuery?.data?.find((copastor) => copastor.id === field.value)?.firstName} ${copastorsQuery?.data?.find((copastor) => copastor.id === field.value)?.lastName}`
                                             : 'Busque y seleccione un co-pastor'}
                                           <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                         </Button>
@@ -1103,37 +1103,48 @@ export const PreacherUpdateForm = ({
                                     </PopoverTrigger>
                                     <PopoverContent align='center' className='w-auto px-4 py-2'>
                                       <Command>
-                                        <CommandInput
-                                          placeholder='Busque una co-pastor...'
-                                          className='h-9 text-[qqqqqqqqqqqqqqqqqqqqqqqqqqqqqq14px]'
-                                        />
-                                        <CommandEmpty>Co-Pastor no encontrado.</CommandEmpty>
-                                        <CommandGroup className='max-h-[200px] h-auto'>
-                                          {queryCopastors?.data?.map((copastor) => (
-                                            <CommandItem
-                                              className='text-[14px]'
-                                              value={getFullNames({
-                                                firstNames: copastor.firstName,
-                                                lastNames: copastor.lastName,
-                                              })}
-                                              key={copastor.id}
-                                              onSelect={() => {
-                                                form.setValue('theirCopastor', copastor.id);
-                                                setIsInputTheirCopastorOpen(false);
-                                              }}
-                                            >
-                                              {`${copastor?.firstName} ${copastor?.lastName}`}
-                                              <CheckIcon
-                                                className={cn(
-                                                  'ml-auto h-4 w-4',
-                                                  copastor?.id === field.value
-                                                    ? 'opacity-100'
-                                                    : 'opacity-0'
-                                                )}
-                                              />
-                                            </CommandItem>
-                                          ))}
-                                        </CommandGroup>
+                                        {copastorsQuery?.data?.length &&
+                                        copastorsQuery?.data?.length > 0 ? (
+                                          <>
+                                            <CommandInput
+                                              placeholder='Busque una co-pastor...'
+                                              className='h-9 text-[14px]'
+                                            />
+                                            <CommandEmpty>Co-Pastor no encontrado.</CommandEmpty>
+                                            <CommandGroup className='max-h-[200px] h-auto'>
+                                              {copastorsQuery?.data?.map((copastor) => (
+                                                <CommandItem
+                                                  className='text-[14px]'
+                                                  value={getFullNames({
+                                                    firstNames: copastor.firstName,
+                                                    lastNames: copastor.lastName,
+                                                  })}
+                                                  key={copastor.id}
+                                                  onSelect={() => {
+                                                    form.setValue('theirCopastor', copastor.id);
+                                                    setIsInputTheirCopastorOpen(false);
+                                                  }}
+                                                >
+                                                  {`${copastor?.firstName} ${copastor?.lastName}`}
+                                                  <CheckIcon
+                                                    className={cn(
+                                                      'ml-auto h-4 w-4',
+                                                      copastor?.id === field.value
+                                                        ? 'opacity-100'
+                                                        : 'opacity-0'
+                                                    )}
+                                                  />
+                                                </CommandItem>
+                                              ))}
+                                            </CommandGroup>
+                                          </>
+                                        ) : (
+                                          copastorsQuery?.data?.length === 0 && (
+                                            <p className='text-[14.5px] text-red-500 text-center'>
+                                              ❌No hay co-pastores disponibles.
+                                            </p>
+                                          )
+                                        )}
                                       </Command>
                                     </PopoverContent>
                                   </Popover>
@@ -1155,7 +1166,7 @@ export const PreacherUpdateForm = ({
                                   Pastor
                                 </FormLabel>
                                 <FormDescription className='text-[14px]'>
-                                  Asigna el Pastor responsable de este Supervisor.
+                                  Asigna el Pastor responsable para este Supervisor.
                                 </FormDescription>
                                 <Popover
                                   open={isInputTheirPastorOpen}
@@ -1173,7 +1184,7 @@ export const PreacherUpdateForm = ({
                                         )}
                                       >
                                         {field.value
-                                          ? `${queryPastors?.data?.find((pastor) => pastor.id === field.value)?.firstName} ${queryPastors?.data?.find((pastor) => pastor.id === field.value)?.lastName}`
+                                          ? `${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.firstName} ${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.lastName}`
                                           : 'Busque y seleccione un pastor'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
@@ -1181,37 +1192,48 @@ export const PreacherUpdateForm = ({
                                   </PopoverTrigger>
                                   <PopoverContent align='center' className='w-auto px-4 py-2'>
                                     <Command>
-                                      <CommandInput
-                                        placeholder='Busque una pastor...'
-                                        className='h-9 text-[14px]'
-                                      />
-                                      <CommandEmpty>Pastor no encontrado.</CommandEmpty>
-                                      <CommandGroup className='max-h-[200px] h-auto'>
-                                        {queryPastors?.data?.map((pastor) => (
-                                          <CommandItem
-                                            className='text-[14px]'
-                                            value={getFullNames({
-                                              firstNames: pastor.firstName,
-                                              lastNames: pastor.lastName,
-                                            })}
-                                            key={pastor.id}
-                                            onSelect={() => {
-                                              form.setValue('theirPastor', pastor.id);
-                                              setIsInputTheirPastorOpen(false);
-                                            }}
-                                          >
-                                            {`${pastor?.firstName} ${pastor?.lastName}`}
-                                            <CheckIcon
-                                              className={cn(
-                                                'ml-auto h-4 w-4',
-                                                pastor?.id === field.value
-                                                  ? 'opacity-100'
-                                                  : 'opacity-0'
-                                              )}
-                                            />
-                                          </CommandItem>
-                                        ))}
-                                      </CommandGroup>
+                                      {pastorsQuery?.data?.length &&
+                                      pastorsQuery?.data?.length > 0 ? (
+                                        <>
+                                          <CommandInput
+                                            placeholder='Busque una pastor...'
+                                            className='h-9 text-[14px]'
+                                          />
+                                          <CommandEmpty>Pastor no encontrado.</CommandEmpty>
+                                          <CommandGroup className='max-h-[200px] h-auto'>
+                                            {pastorsQuery?.data?.map((pastor) => (
+                                              <CommandItem
+                                                className='text-[14px]'
+                                                value={getFullNames({
+                                                  firstNames: pastor.firstName,
+                                                  lastNames: pastor.lastName,
+                                                })}
+                                                key={pastor.id}
+                                                onSelect={() => {
+                                                  form.setValue('theirPastor', pastor.id);
+                                                  setIsInputTheirPastorOpen(false);
+                                                }}
+                                              >
+                                                {`${pastor?.firstName} ${pastor?.lastName}`}
+                                                <CheckIcon
+                                                  className={cn(
+                                                    'ml-auto h-4 w-4',
+                                                    pastor?.id === field.value
+                                                      ? 'opacity-100'
+                                                      : 'opacity-0'
+                                                  )}
+                                                />
+                                              </CommandItem>
+                                            ))}
+                                          </CommandGroup>
+                                        </>
+                                      ) : (
+                                        pastorsQuery?.data?.length === 0 && (
+                                          <p className='text-[14.5px] text-red-500 text-center'>
+                                            ❌No hay pastores disponibles.
+                                          </p>
+                                        )
+                                      )}
                                     </Command>
                                   </PopoverContent>
                                 </Popover>

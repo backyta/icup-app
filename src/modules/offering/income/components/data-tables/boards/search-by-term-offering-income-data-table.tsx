@@ -36,7 +36,7 @@ import {
 } from '@/modules/offering/income/interfaces';
 import { getOfferingsIncomeByTerm } from '@/modules/offering/income/services';
 
-import { getAllChurches } from '@/modules/pastor/services';
+import { getSimpleChurches } from '@/modules/church/services';
 
 import { LoadingSpinner } from '@/shared/components';
 import { dateFormatterToDDMMYYYY } from '@/shared/helpers';
@@ -101,7 +101,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
   //* Queries
   const churchesQuery = useQuery({
     queryKey: ['churches'],
-    queryFn: getAllChurches,
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
   });
 
   //* Set data result query

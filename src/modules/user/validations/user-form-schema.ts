@@ -34,9 +34,9 @@ export const userFormSchema = z
     'La contraseña no cumple con los requisitos mínimos').optional(),
 
   roles: z.array(z.nativeEnum(UserRole),{
-    required_error: "Tienes que seleccionar al menos un rol",
+    required_error: "Debes seleccionar al menos un rol",
   }).refine((value) => value.some((item) => item), {
-    message: "Tienes que seleccionar al menos un rol",
+    message: "Debes seleccionar al menos un rol",
   }),
 
   recordStatus: z.string(z.nativeEnum(RecordStatus, {

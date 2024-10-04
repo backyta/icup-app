@@ -76,16 +76,16 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 
 interface ChurchFormUpdateProps {
   id: string;
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   data: ChurchResponse | undefined;
 }
 
 export const ChurchUpdateForm = ({
   id,
   data,
-  onSubmit,
-  onScroll,
+  dialogClose: onSubmit,
+  scrollToTop: onScroll,
 }: ChurchFormUpdateProps): JSX.Element => {
   //* States
   const [isInputMainChurchOpen, setIsInputMainChurchOpen] = useState<boolean>(false);
@@ -126,8 +126,8 @@ export const ChurchUpdateForm = ({
   const district = form.watch('district');
 
   //* Helpers
-  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
-  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
+  const districtsValidation = validateDistrictsAllowedByModule(pathname);
 
   //* Custom hooks
   useChurchUpdateEffects({
@@ -152,7 +152,7 @@ export const ChurchUpdateForm = ({
   });
 
   //* Queries
-  const query = useQuery({
+  const mainChurchQuery = useQuery({
     queryKey: ['mainChurch', id],
     queryFn: getMainChurch,
   });
@@ -538,7 +538,7 @@ export const ChurchUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(DistrictNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -582,7 +582,7 @@ export const ChurchUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(UrbanSectorNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -698,8 +698,9 @@ export const ChurchUpdateForm = ({
                                       className={cn('w-full justify-between ')}
                                     >
                                       {field.value
-                                        ? query?.data?.find((church) => church.id === field.value)
-                                            ?.churchName
+                                        ? mainChurchQuery?.data?.find(
+                                            (church) => church.id === field.value
+                                          )?.churchName
                                         : 'Busque y seleccione una iglesia'}
                                       <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                     </Button>
@@ -707,34 +708,45 @@ export const ChurchUpdateForm = ({
                                 </PopoverTrigger>
                                 <PopoverContent align='center' className='w-auto px-4 py-2'>
                                   <Command>
-                                    <CommandInput
-                                      placeholder='Busque una iglesia'
-                                      className='h-9 text-[14px]'
-                                    />
-                                    <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
-                                    <CommandGroup className='max-h-[200px] h-auto'>
-                                      {query?.data?.map((church) => (
-                                        <CommandItem
-                                          className='text-[14px]'
-                                          value={church.id}
-                                          key={church.id}
-                                          onSelect={() => {
-                                            form.setValue('theirMainChurch', church?.id);
-                                            setIsInputMainChurchOpen(false);
-                                          }}
-                                        >
-                                          {church.churchName}
-                                          <CheckIcon
-                                            className={cn(
-                                              'ml-auto h-4 w-4',
-                                              church.id === field.value
-                                                ? 'opacity-100'
-                                                : 'opacity-0'
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
+                                    {mainChurchQuery?.data?.length &&
+                                    mainChurchQuery?.data?.length > 0 ? (
+                                      <>
+                                        <CommandInput
+                                          placeholder='Busque una iglesia'
+                                          className='h-9 text-[14px]'
+                                        />
+                                        <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
+                                        <CommandGroup className='max-h-[200px] h-auto'>
+                                          {mainChurchQuery?.data?.map((church) => (
+                                            <CommandItem
+                                              className='text-[14px]'
+                                              value={church.id}
+                                              key={church.id}
+                                              onSelect={() => {
+                                                form.setValue('theirMainChurch', church?.id);
+                                                setIsInputMainChurchOpen(false);
+                                              }}
+                                            >
+                                              {church.churchName}
+                                              <CheckIcon
+                                                className={cn(
+                                                  'ml-auto h-4 w-4',
+                                                  church.id === field.value
+                                                    ? 'opacity-100'
+                                                    : 'opacity-0'
+                                                )}
+                                              />
+                                            </CommandItem>
+                                          ))}
+                                        </CommandGroup>
+                                      </>
+                                    ) : (
+                                      mainChurchQuery?.data?.length === 0 && (
+                                        <p className='text-[14.5px] text-red-500 text-center'>
+                                          ❌Iglesia Central no disponible.
+                                        </p>
+                                      )
+                                    )}
                                   </Command>
                                 </PopoverContent>
                               </Popover>

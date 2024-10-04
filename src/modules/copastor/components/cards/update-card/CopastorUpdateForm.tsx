@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
@@ -24,12 +25,12 @@ import {
   useCopastorPromoteButtonLogic,
   useCopastorUpdateSubmitButtonLogic,
 } from '@/modules/copastor/hooks';
-import { getAllPastors } from '@/modules/copastor/services';
+import { getSimplePastors } from '@/modules/pastor/services';
 import { copastorFormSchema } from '@/modules/copastor/validations';
 import { CopastorFormSkeleton } from '@/modules/copastor/components';
 import { type CopastorResponse } from '@/modules/copastor/interfaces';
 
-import { getAllChurches } from '@/modules/pastor/services';
+import { getSimpleChurches } from '@/modules/church/services';
 
 import { CopastorFieldNames } from '@/modules/copastor/enums';
 
@@ -99,16 +100,16 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 
 interface CopastorFormUpdateProps {
   id: string;
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   data: CopastorResponse | undefined;
 }
 
 export const CopastorUpdateForm = ({
   id,
   data,
-  onSubmit,
-  onScroll,
+  dialogClose: onSubmit,
+  scrollToTop: onScroll,
 }: CopastorFormUpdateProps): JSX.Element => {
   //* States
   const [isRelationSelectDisabled, setIsRelationSelectDisabled] = useState<boolean>(false);
@@ -163,8 +164,8 @@ export const CopastorUpdateForm = ({
   const theirPastor = form.watch('theirPastor');
 
   //* Helpers
-  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
-  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
+  const districtsValidation = validateDistrictsAllowedByModule(pathname);
 
   //* Custom Hooks
   useCopastorUpdateEffects({
@@ -203,14 +204,14 @@ export const CopastorUpdateForm = ({
   });
 
   //* Queries
-  const queryPastors = useQuery({
+  const pastorsQuery = useQuery({
     queryKey: ['pastors', id],
-    queryFn: getAllPastors,
+    queryFn: () => getSimplePastors({ isSimpleQuery: true }),
   });
 
-  const queryChurches = useQuery({
+  const churchesQuery = useQuery({
     queryKey: ['churches', id],
-    queryFn: getAllChurches,
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
   });
 
   //* Form handler
@@ -744,7 +745,7 @@ export const CopastorUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(DistrictNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -783,7 +784,7 @@ export const CopastorUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(UrbanSectorNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -938,7 +939,7 @@ export const CopastorUpdateForm = ({
                                   Pastor
                                 </FormLabel>
                                 <FormDescription className='text-[14px]'>
-                                  Asigna el Pastor responsable de este Co-Pastor.
+                                  Asigna el Pastor responsable de este por Co-Pastor.
                                 </FormDescription>
                                 <Popover
                                   open={isInputTheirPastorOpen}
@@ -956,7 +957,7 @@ export const CopastorUpdateForm = ({
                                         )}
                                       >
                                         {field.value
-                                          ? `${queryPastors?.data?.find((pastor) => pastor.id === field.value)?.firstName} ${queryPastors?.data?.find((pastor) => pastor.id === field.value)?.lastName}`
+                                          ? `${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.firstName} ${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.lastName}`
                                           : 'Busque y seleccione un pastor'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
@@ -964,37 +965,48 @@ export const CopastorUpdateForm = ({
                                   </PopoverTrigger>
                                   <PopoverContent align='center' className='w-auto px-4 py-2'>
                                     <Command>
-                                      <CommandInput
-                                        placeholder='Busque un pastor...'
-                                        className='h-9 text-[14px]'
-                                      />
-                                      <CommandEmpty>Pastor no encontrado.</CommandEmpty>
-                                      <CommandGroup className='max-h-[200px] h-auto'>
-                                        {queryPastors?.data?.map((pastor) => (
-                                          <CommandItem
-                                            className='text-[14px]'
-                                            value={getFullNames({
-                                              firstNames: pastor.firstName,
-                                              lastNames: pastor.lastName,
-                                            })}
-                                            key={pastor.id}
-                                            onSelect={() => {
-                                              form.setValue('theirPastor', pastor.id);
-                                              setIsInputTheirPastorOpen(false);
-                                            }}
-                                          >
-                                            {`${pastor?.firstName} ${pastor?.lastName}`}
-                                            <CheckIcon
-                                              className={cn(
-                                                'ml-auto h-4 w-4',
-                                                pastor?.id === field.value
-                                                  ? 'opacity-100'
-                                                  : 'opacity-0'
-                                              )}
-                                            />
-                                          </CommandItem>
-                                        ))}
-                                      </CommandGroup>
+                                      {pastorsQuery?.data?.length &&
+                                      pastorsQuery?.data?.length > 0 ? (
+                                        <>
+                                          <CommandInput
+                                            placeholder='Busque un pastor...'
+                                            className='h-9 text-[14px]'
+                                          />
+                                          <CommandEmpty>Pastor no encontrado.</CommandEmpty>
+                                          <CommandGroup className='max-h-[200px] h-auto'>
+                                            {pastorsQuery?.data?.map((pastor) => (
+                                              <CommandItem
+                                                className='text-[14px]'
+                                                value={getFullNames({
+                                                  firstNames: pastor.firstName,
+                                                  lastNames: pastor.lastName,
+                                                })}
+                                                key={pastor.id}
+                                                onSelect={() => {
+                                                  form.setValue('theirPastor', pastor.id);
+                                                  setIsInputTheirPastorOpen(false);
+                                                }}
+                                              >
+                                                {`${pastor?.firstName} ${pastor?.lastName}`}
+                                                <CheckIcon
+                                                  className={cn(
+                                                    'ml-auto h-4 w-4',
+                                                    pastor?.id === field.value
+                                                      ? 'opacity-100'
+                                                      : 'opacity-0'
+                                                  )}
+                                                />
+                                              </CommandItem>
+                                            ))}
+                                          </CommandGroup>
+                                        </>
+                                      ) : (
+                                        pastorsQuery?.data?.length === 0 && (
+                                          <p className='text-[14.5px] text-red-500 text-center'>
+                                            ❌No hay pastores disponibles.
+                                          </p>
+                                        )
+                                      )}
                                     </Command>
                                   </PopoverContent>
                                 </Popover>
@@ -1034,7 +1046,7 @@ export const CopastorUpdateForm = ({
                                         )}
                                       >
                                         {field.value
-                                          ? queryChurches?.data?.find(
+                                          ? churchesQuery?.data?.find(
                                               (church) => church.id === field.value
                                             )?.churchName
                                           : 'Busque y seleccione una iglesia'}
@@ -1044,34 +1056,45 @@ export const CopastorUpdateForm = ({
                                   </PopoverTrigger>
                                   <PopoverContent align='center' className='w-auto px-4 py-2'>
                                     <Command>
-                                      <CommandInput
-                                        placeholder='Busque una iglesia'
-                                        className='h-9 text-[14px]'
-                                      />
-                                      <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
-                                      <CommandGroup className='max-h-[200px] h-auto'>
-                                        {queryChurches?.data?.map((church) => (
-                                          <CommandItem
-                                            className='text-[14px]'
-                                            value={church.churchName}
-                                            key={church.id}
-                                            onSelect={() => {
-                                              form.setValue('theirChurch', church.id);
-                                              setIsInputTheirChurchOpen(false);
-                                            }}
-                                          >
-                                            {church?.churchName}
-                                            <CheckIcon
-                                              className={cn(
-                                                'ml-auto h-4 w-4',
-                                                church?.id === field.value
-                                                  ? 'opacity-100'
-                                                  : 'opacity-0'
-                                              )}
-                                            />
-                                          </CommandItem>
-                                        ))}
-                                      </CommandGroup>
+                                      {churchesQuery?.data?.length &&
+                                      churchesQuery?.data?.length > 0 ? (
+                                        <>
+                                          <CommandInput
+                                            placeholder='Busque una iglesia'
+                                            className='h-9 text-[14px]'
+                                          />
+                                          <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
+                                          <CommandGroup className='max-h-[200px] h-auto'>
+                                            {churchesQuery?.data?.map((church) => (
+                                              <CommandItem
+                                                className='text-[14px]'
+                                                value={church.churchName}
+                                                key={church.id}
+                                                onSelect={() => {
+                                                  form.setValue('theirChurch', church.id);
+                                                  setIsInputTheirChurchOpen(false);
+                                                }}
+                                              >
+                                                {church?.churchName}
+                                                <CheckIcon
+                                                  className={cn(
+                                                    'ml-auto h-4 w-4',
+                                                    church?.id === field.value
+                                                      ? 'opacity-100'
+                                                      : 'opacity-0'
+                                                  )}
+                                                />
+                                              </CommandItem>
+                                            ))}
+                                          </CommandGroup>
+                                        </>
+                                      ) : (
+                                        churchesQuery?.data?.length === 0 && (
+                                          <p className='text-[14.5px] text-red-500 text-center'>
+                                            ❌No hay iglesias disponibles.
+                                          </p>
+                                        )
+                                      )}
                                     </Command>
                                   </PopoverContent>
                                 </Popover>

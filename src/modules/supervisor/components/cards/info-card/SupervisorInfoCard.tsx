@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 import { useLocation } from 'react-router-dom';
 import { BsFillPersonVcardFill } from 'react-icons/bs';
@@ -30,10 +30,11 @@ export const SupervisorInfoCard = ({ idRow }: CopastorInfoCardProps): JSX.Elemen
   const { pathname } = useLocation();
 
   //* Functions
-  const currentSupervisor =
-    pathname === '/supervisors/general-search'
+  const currentSupervisor = useMemo(() => {
+    return pathname === '/supervisors/general-search'
       ? dataSearchGeneralResponse?.find((data) => data.id === idRow)
       : dataSearchByTermResponse?.find((data) => data.id === idRow);
+  }, [pathname, dataSearchGeneralResponse, dataSearchByTermResponse, idRow]);
 
   if (isDesktop) {
     return (

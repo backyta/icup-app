@@ -4,7 +4,7 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { type PastorResponse } from '@/modules/pastor/interfaces';
+import { RecordOrder } from '@/shared/enums';
 
 import { CopastorSearchType } from '@/modules/copastor/enums';
 import { type CopastorResponse, type CopastorFormData, type CopastorQueryParams } from '@/modules/copastor/interfaces';
@@ -25,16 +25,18 @@ export const createCopastor = async (formData:CopastorFormData ): Promise<Copast
   }
 }
 
-//* Get all pastors
-export const getAllPastors = async (): Promise<PastorResponse[]> => {
+//* Get simple co-pastors
+export const getSimpleCopastors = async ({church, isSimpleQuery}: {church?: string; isSimpleQuery: boolean}): Promise<CopastorResponse[]> => {
   try {
-    const {data} = await icupApi<PastorResponse[]>('/pastors' , {
+    const {data} = await icupApi<CopastorResponse[]>('/copastors' , {
       params: {
-        order: 'ASC'
+        order: RecordOrder.Ascending,
+        isSimpleQuery: isSimpleQuery.toString(),
+        church
       },
     }
     );
-  
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {

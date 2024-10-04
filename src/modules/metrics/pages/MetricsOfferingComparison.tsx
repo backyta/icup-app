@@ -7,7 +7,7 @@ import {
   ComparativeOfferingExpensesAnalysisCardByMonth,
   ComparativeOfferingIncomeAnalysisCardBySubType,
   ComparativeOfferingExpensesAnalysisCardByType,
-} from '@/modules/metrics/components/charts-comparative';
+} from '@/modules/metrics/components/comparative';
 
 export const MetricsOfferingComparison = (): JSX.Element => {
   useEffect(() => {

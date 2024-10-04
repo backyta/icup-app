@@ -3,7 +3,6 @@ import './SideMenu.css';
 import { FcExport } from 'react-icons/fc';
 
 import { useAuthStore } from '@/stores';
-
 import { menuItems } from '@/shared/data';
 
 import { ToggleNavBar } from '@/shared/components/toggle-theme';

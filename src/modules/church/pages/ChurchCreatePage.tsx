@@ -128,8 +128,8 @@ export const ChurchCreatePage = (): JSX.Element => {
   }, []);
 
   //* Helpers
-  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
-  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
+  const districtsValidation = validateDistrictsAllowedByModule(pathname);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
 
   //* Custom hooks
   useChurchCreationSubmitButtonLogic({
@@ -517,7 +517,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(DistrictNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                              className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -561,7 +561,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -681,38 +681,48 @@ export const ChurchCreatePage = (): JSX.Element => {
                           </PopoverTrigger>
                           <PopoverContent align='center' className='w-auto px-4 py-2'>
                             <Command>
-                              <CommandInput
-                                placeholder='Busque una iglesia'
-                                className='h-9 text-[14px]'
-                              />
-                              <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
-                              <CommandGroup className='max-h-[200px] h-auto'>
-                                {data?.map((church) => (
-                                  <CommandItem
-                                    className='text-[14px]'
-                                    value={church?.churchName}
-                                    key={church?.id}
-                                    onSelect={() => {
-                                      form.setValue('theirMainChurch', church?.id);
-                                      setIsInputMainChurchOpen(false);
-                                    }}
-                                  >
-                                    {church?.churchName}
-                                    <CheckIcon
-                                      className={cn(
-                                        'ml-auto h-4 w-4',
-                                        church.id === field.value ? 'opacity-100' : 'opacity-0'
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
+                              {data?.length && data?.length > 0 ? (
+                                <>
+                                  <CommandInput
+                                    placeholder='Busque una iglesia'
+                                    className='h-9 text-[14px]'
+                                  />
+                                  <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
+                                  <CommandGroup className='max-h-[200px] h-auto'>
+                                    {data?.map((church) => (
+                                      <CommandItem
+                                        className='text-[14px]'
+                                        value={church?.churchName}
+                                        key={church?.id}
+                                        onSelect={() => {
+                                          form.setValue('theirMainChurch', church?.id);
+                                          setIsInputMainChurchOpen(false);
+                                        }}
+                                      >
+                                        {church?.churchName}
+                                        <CheckIcon
+                                          className={cn(
+                                            'ml-auto h-4 w-4',
+                                            church.id === field.value ? 'opacity-100' : 'opacity-0'
+                                          )}
+                                        />
+                                      </CommandItem>
+                                    ))}
 
-                                {data?.length === 0 && (
+                                    {data?.length === 0 && (
+                                      <p className='text-[14.5px] text-red-500 text-center'>
+                                        ❌No hay iglesias disponibles.
+                                      </p>
+                                    )}
+                                  </CommandGroup>
+                                </>
+                              ) : (
+                                data?.length === 0 && (
                                   <p className='text-[14.5px] text-red-500 text-center'>
-                                    ❌No hay iglesias disponibles.
+                                    ❌Iglesia Central no disponible.
                                   </p>
-                                )}
-                              </CommandGroup>
+                                )
+                              )}
                             </Command>
                           </PopoverContent>
                         </Popover>

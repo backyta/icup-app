@@ -18,7 +18,7 @@ import { cn } from '@/shared/lib/utils';
 
 import { PageTitle } from '@/shared/components/page';
 import { zoneFormSchema } from '@/modules/zone/validations';
-import { getAllSupervisors } from '@/modules/preacher/services';
+import { getSimpleSupervisors } from '@/modules/supervisor/services';
 import { useZoneCreationSubmitButtonLogic, useZoneCreationMutation } from '@/modules/zone/hooks';
 
 import {
@@ -84,7 +84,7 @@ export const ZoneCreatePage = (): JSX.Element => {
   });
 
   //* Helpers
-  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
+  const districtsValidation = validateDistrictsAllowedByModule(pathname);
 
   //* Effects
   useEffect(() => {
@@ -108,7 +108,7 @@ export const ZoneCreatePage = (): JSX.Element => {
   //* Queries
   const { data } = useQuery({
     queryKey: ['supervisors-for-zone'],
-    queryFn: () => getAllSupervisors({ isNull: true }),
+    queryFn: () => getSimpleSupervisors({ isNullZone: true, isSimpleQuery: true }),
   });
 
   //* Form handler
@@ -305,7 +305,7 @@ export const ZoneCreatePage = (): JSX.Element => {
                       <SelectContent>
                         {Object.entries(DistrictNames).map(([key, value]) => (
                           <SelectItem
-                            className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                            className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
                             key={key}
                             value={key}
                           >
@@ -353,47 +353,51 @@ export const ZoneCreatePage = (): JSX.Element => {
                       </PopoverTrigger>
                       <PopoverContent align='center' className='w-auto px-4 py-2'>
                         <Command>
-                          <CommandInput
-                            placeholder='Busque un supervisor'
-                            className='h-9 text-[14px]'
-                          />
-                          <CommandEmpty>Supervisor no encontrado.</CommandEmpty>
-                          <CommandGroup
-                            className={cn(
-                              'max-h-[200px] h-auto',
-                              data?.length === 0 && 'w-[340px]'
-                            )}
-                          >
-                            {data?.map((supervisor) => (
-                              <CommandItem
-                                className='text-[14px]'
-                                value={getFullNames({
-                                  firstNames: supervisor.firstName,
-                                  lastNames: supervisor.lastName,
-                                })}
-                                key={supervisor?.id}
-                                onSelect={() => {
-                                  form.setValue('theirSupervisor', supervisor?.id);
-                                  setIsInputTheirSupervisorOpen(false);
-                                }}
+                          {data?.length && data?.length > 0 ? (
+                            <>
+                              <CommandInput
+                                placeholder='Busque un supervisor'
+                                className='h-9 text-[14px]'
+                              />
+                              <CommandEmpty>Supervisor no encontrado.</CommandEmpty>
+                              <CommandGroup
+                                className={cn(
+                                  'max-h-[200px] h-auto',
+                                  data?.length === 0 && 'w-[340px]'
+                                )}
                               >
-                                {`${supervisor?.firstName} ${supervisor?.lastName}`}
-                                <CheckIcon
-                                  className={cn(
-                                    'ml-auto h-4 w-4',
-                                    supervisor.id === field.value ? 'opacity-100' : 'opacity-0'
-                                  )}
-                                />
-                              </CommandItem>
-                            ))}
-
-                            {data?.length === 0 && (
-                              <p className='text-[14.5px] text-red-500 text-center'>
+                                {data?.map((supervisor) => (
+                                  <CommandItem
+                                    className='text-[14px]'
+                                    value={getFullNames({
+                                      firstNames: supervisor.firstName,
+                                      lastNames: supervisor.lastName,
+                                    })}
+                                    key={supervisor?.id}
+                                    onSelect={() => {
+                                      form.setValue('theirSupervisor', supervisor?.id);
+                                      setIsInputTheirSupervisorOpen(false);
+                                    }}
+                                  >
+                                    {`${supervisor?.firstName} ${supervisor?.lastName}`}
+                                    <CheckIcon
+                                      className={cn(
+                                        'ml-auto h-4 w-4',
+                                        supervisor.id === field.value ? 'opacity-100' : 'opacity-0'
+                                      )}
+                                    />
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </>
+                          ) : (
+                            data?.length === 0 && (
+                              <p className='text-[14.5px] w-[20rem] text-red-500 text-center'>
                                 ❌ No se encontró supervisores disponibles, todos están asignados a
                                 una zona.
                               </p>
-                            )}
-                          </CommandGroup>
+                            )
+                          )}
                         </Command>
                       </PopoverContent>
                     </Popover>

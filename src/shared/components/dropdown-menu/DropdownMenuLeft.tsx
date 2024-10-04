@@ -106,7 +106,7 @@ export function DropdownMenuLeft(): JSX.Element {
             className='flex w-full cursor-pointer text-center justify-center '
           >
             <FcExport className='text-2xl' />
-            <span className='text-[20px] text-red-500 font-bold leading-5'>Salir</span>
+            <span className='text-[18px] text-red-500 font-bold leading-5'>Salir</span>
           </a>
         </nav>
       </SheetContent>

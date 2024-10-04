@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
@@ -21,7 +22,7 @@ import {
   useCopastorCreationMutation,
   useCopastorCreationSubmitButtonLogic,
 } from '@/modules/copastor/hooks';
-import { getAllPastors } from '@/modules/copastor/services';
+import { getSimplePastors } from '@/modules/pastor/services';
 import { copastorFormSchema } from '@/modules/copastor/validations';
 
 import { PageTitle } from '@/shared/components/page';
@@ -134,8 +135,8 @@ export const CopastorCreatePage = (): JSX.Element => {
   }, []);
 
   //* Helpers
-  const disabledUrbanSectors = validateUrbanSectorsAllowedByDistrict(district);
-  const disabledDistricts = validateDistrictsAllowedByModule(pathname);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
+  const districtsValidation = validateDistrictsAllowedByModule(pathname);
 
   //* Custom hooks
   const { disabledRoles } = useRoleValidationByPath({
@@ -161,7 +162,7 @@ export const CopastorCreatePage = (): JSX.Element => {
   //* Queries
   const { data } = useQuery({
     queryKey: ['pastors'],
-    queryFn: getAllPastors,
+    queryFn: () => getSimplePastors({ isSimpleQuery: true }),
   });
 
   //* Form handler
@@ -614,7 +615,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(DistrictNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${disabledDistricts?.disabledDistricts?.includes(value) ? 'hidden' : ''}`}
+                              className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -653,7 +654,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${disabledUrbanSectors?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -787,7 +788,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                         Pastor
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
-                        Asigna el Pastor responsable de este Co-Pastor.
+                        Asigna el Pastor responsable para este Co-Pastor.
                       </FormDescription>
                       <Popover
                         open={isInputTheirPastorOpen}
@@ -813,35 +814,45 @@ export const CopastorCreatePage = (): JSX.Element => {
                         </PopoverTrigger>
                         <PopoverContent align='center' className='w-auto px-4 py-2'>
                           <Command>
-                            <CommandInput
-                              placeholder='Busque un pastor'
-                              className='h-9 text-[14px]'
-                            />
-                            <CommandEmpty>Pastor no encontrado.</CommandEmpty>
-                            <CommandGroup className='max-h-[200px] h-auto'>
-                              {data?.map((pastor) => (
-                                <CommandItem
-                                  className='text-[14px]'
-                                  value={getFullNames({
-                                    firstNames: pastor.firstName,
-                                    lastNames: pastor.lastName,
-                                  })}
-                                  key={pastor.id}
-                                  onSelect={() => {
-                                    form.setValue('theirPastor', pastor?.id);
-                                    setIsInputTheirPastorOpen(false);
-                                  }}
-                                >
-                                  {`${pastor?.firstName} ${pastor?.lastName}`}
-                                  <CheckIcon
-                                    className={cn(
-                                      'ml-auto h-4 w-4',
-                                      pastor?.id === field.value ? 'opacity-100' : 'opacity-0'
-                                    )}
-                                  />
-                                </CommandItem>
-                              ))}
-                            </CommandGroup>
+                            {data?.length && data?.length > 0 ? (
+                              <>
+                                <CommandInput
+                                  placeholder='Busque un pastor'
+                                  className='h-9 text-[14px]'
+                                />
+                                <CommandEmpty>Pastor no encontrado.</CommandEmpty>
+                                <CommandGroup className='max-h-[200px] h-auto'>
+                                  {data?.map((pastor) => (
+                                    <CommandItem
+                                      className='text-[14px]'
+                                      value={getFullNames({
+                                        firstNames: pastor.firstName,
+                                        lastNames: pastor.lastName,
+                                      })}
+                                      key={pastor.id}
+                                      onSelect={() => {
+                                        form.setValue('theirPastor', pastor?.id);
+                                        setIsInputTheirPastorOpen(false);
+                                      }}
+                                    >
+                                      {`${pastor?.firstName} ${pastor?.lastName}`}
+                                      <CheckIcon
+                                        className={cn(
+                                          'ml-auto h-4 w-4',
+                                          pastor?.id === field.value ? 'opacity-100' : 'opacity-0'
+                                        )}
+                                      />
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </>
+                            ) : (
+                              data?.length === 0 && (
+                                <p className='text-[14.5px] text-red-500 text-center'>
+                                  ❌No hay pastores disponibles.
+                                </p>
+                              )
+                            )}
                           </Command>
                         </PopoverContent>
                       </Popover>

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 import { useLocation } from 'react-router-dom';
 import { useMediaQuery } from '@react-hook/media-query';
@@ -31,10 +31,12 @@ export const UserInfoCard = ({ idRow }: UserInfoCardProps): JSX.Element => {
   const { pathname } = useLocation();
 
   //* Functions
-  const currentUser =
-    pathname === '/users/general-search'
+
+  const currentUser = useMemo(() => {
+    return pathname === '/users/general-search'
       ? dataSearchGeneralResponse?.find((data) => data.id === idRow)
       : dataSearchByTermResponse?.find((data) => data.id === idRow);
+  }, [pathname, dataSearchGeneralResponse, dataSearchByTermResponse, idRow]);
 
   if (isDesktop) {
     return (

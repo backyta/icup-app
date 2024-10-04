@@ -14,7 +14,6 @@
 /* Estilo del pulgar de la barra de desplazamiento al pasar el ratón */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
-  
 }
 
 input[type="time"]::-webkit-calendar-picker-indicator{

@@ -14,6 +14,7 @@ import {
   CardContent,
   CardDescription,
 } from '@/shared/components/ui/card';
+import { RecordOrder } from '@/shared/enums';
 
 export function MembersInfoCard(): JSX.Element {
   //* Queries
@@ -24,7 +25,7 @@ export function MembersInfoCard(): JSX.Element {
         limit: '10',
         all: false,
         offset: '0',
-        order: 'DESC',
+        order: RecordOrder.Ascending,
       }),
     retry: 1,
   });

@@ -4,7 +4,7 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { type ChurchResponse } from '@/modules/church/interfaces';
+import { RecordOrder } from '@/shared/enums';
 
 import { PastorSearchType } from '@/modules/pastor/enums';
 import { type PastorResponse, type PastorFormData, type PastorQueryParams } from '@/modules/pastor/interfaces';
@@ -25,12 +25,13 @@ export const createPastor = async (formData:PastorFormData ): Promise<PastorResp
   }
 }
 
-//* Get all churches
-export const getAllChurches = async (): Promise<ChurchResponse[]> => {
+//* Get simple pastors
+export const getSimplePastors = async ({isSimpleQuery}: {isSimpleQuery: boolean}): Promise<PastorResponse[]> => {
   try {
-    const {data} = await icupApi<ChurchResponse[]>('/churches' , {
+    const {data} = await icupApi<PastorResponse[]>('/pastors' , {
       params: {
-        order: 'ASC'
+        order: RecordOrder.Ascending,
+        isSimpleQuery: isSimpleQuery.toString()
       },
     }
     );
@@ -44,6 +45,7 @@ export const getAllChurches = async (): Promise<ChurchResponse[]> => {
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
+
 
 //* Get all pastors (paginated)
 export const getPastors = async ({limit, offset, all, order}: PastorQueryParams): Promise<PastorResponse[]> => {

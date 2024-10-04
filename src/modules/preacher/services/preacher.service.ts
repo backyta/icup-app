@@ -4,7 +4,7 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { type SupervisorResponse } from '@/modules/supervisor/interfaces';
+import { RecordOrder } from '@/shared/enums';
 
 import { PreacherSearchType } from '@/modules/preacher/enums';
 import { type PreacherResponse, type PreacherFormData, type PreacherQueryParams } from '@/modules/preacher/interfaces';
@@ -24,21 +24,17 @@ export const createPreacher = async (formData:PreacherFormData ): Promise<Preach
   }
 }
 
-//* Get all supervisors
-export interface GetAllSupervisorsByZoneOptions {
-  isNull: boolean;
-}
-
-export const getAllSupervisors = async ({isNull}: GetAllSupervisorsByZoneOptions): Promise<SupervisorResponse[]> => {
+//* Get simple preachers
+export const getSimplePreachers = async ({isSimpleQuery}: {isSimpleQuery: boolean}): Promise<PreacherResponse[]> => {
   try {
-    const {data} = await icupApi<SupervisorResponse[]>('/supervisors' , {
+    const {data} = await icupApi<PreacherResponse[]>('/preachers' , {
       params: {
-        order: 'ASC',
-        isNull: isNull.toString()
-      },  
+        order: RecordOrder.Ascending,
+        isSimpleQuery: isSimpleQuery.toString()
+      },
     }
     );
-  
+    
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
@@ -49,7 +45,39 @@ export const getAllSupervisors = async ({isNull}: GetAllSupervisorsByZoneOptions
   }
 }
 
-//* Get all preachers (paginated)
+//* Get preachers by zone
+export interface GetPreachersByZoneOptions {
+  searchType: string;
+  zoneId: string;
+  isNullFamilyGroup: boolean;
+}
+
+export const getPreachersByZone = async ({
+  searchType,
+  zoneId,
+  isNullFamilyGroup,
+ }:GetPreachersByZoneOptions): Promise<PreacherResponse[]> => {
+  try {
+    const {data} = await icupApi<PreacherResponse[]>(`/preachers/${zoneId}` , {
+      params: {
+        order: RecordOrder.Ascending,
+        'search-type': searchType,
+        isNullFamilyGroup: isNullFamilyGroup.toString(),
+      },
+    }
+  );
+
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw (error.response.data)
+    }
+    
+    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+  }
+}
+
+//* Get preachers (paginated)
 export const getPreachers = async ({limit, offset, all, order}: PreacherQueryParams): Promise<PreacherResponse[]> => {
 
  let result: PreacherResponse[];

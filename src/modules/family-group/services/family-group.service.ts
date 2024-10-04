@@ -4,12 +4,10 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { type FamilyGroupResponse , type FamilyGroupFormData, type FamilyGroupQueryParams, type FamilyGroupPreacherUpdateFormData } from '@/modules/family-group/interfaces';
-
-import { type ZoneResponse } from '@/modules/zone/interfaces';
-
 import { FamilyGroupSearchType } from '@/modules/family-group/enums';
-import { type PreacherResponse } from '@/modules/preacher/interfaces';
+import { type FamilyGroupResponse , type FamilyGroupFormData, type FamilyGroupQueryParams, type FamilyGroupPreacherUpdateFormData } from '@/modules/family-group/interfaces';
+import { RecordOrder } from '@/shared/enums';
+
 
 //* Create family-group
 export const createFamilyGroup = async (formData:FamilyGroupFormData ): Promise<FamilyGroupResponse> => {
@@ -26,12 +24,13 @@ export const createFamilyGroup = async (formData:FamilyGroupFormData ): Promise<
   }
 }
 
-//* Get all zones
-export const getAllZones = async (): Promise<ZoneResponse[]> => {
+//* Get simple family-groups
+export const getSimpleFamilyGroups = async ({isSimpleQuery}:{isSimpleQuery: boolean}): Promise<FamilyGroupResponse[]> => {
   try {
-    const {data} = await icupApi<ZoneResponse[]>('/zones' , {
+    const {data} = await icupApi<FamilyGroupResponse[]>('/family-groups' , {
       params: {
-        order: 'ASC'
+        order: RecordOrder.Ascending,
+        isSimpleQuery: isSimpleQuery.toString()
       },
     }
     );
@@ -46,60 +45,7 @@ export const getAllZones = async (): Promise<ZoneResponse[]> => {
   }
 }
 
-//* Get all preachers
-export const getAllPreachers = async (): Promise<PreacherResponse[]> => {
-  try {
-    const {data} = await icupApi<PreacherResponse[]>('/preachers' , {
-      params: {
-        order: 'ASC'
-      },
-    }
-    );
-    
-    return data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
-    }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
-  }
-}
-
-//* Get preachers by zone
-export interface GetPreachersByZoneOptions {
-  searchType: string;
-  zoneId: string;
-  isNull: boolean;
-}
-
-export const getAllPreachersByZone = async ({
-  searchType,
-  zoneId,
-  isNull,
- }:GetPreachersByZoneOptions): Promise<PreacherResponse[]> => {
-  try {
-    const {data} = await icupApi<PreacherResponse[]>(`/preachers/${zoneId}` , {
-      params: {
-        order: 'ASC',
-        'search-type': searchType,
-        isNull: isNull.toString(),
-      },
-    }
-  );
-
-    return data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
-    }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
-  }
-}
-
-
-//* Get all family groups (paginated)
+//* Get family groups (paginated)
 export const getFamilyGroups = async ({limit, offset, all, order}: FamilyGroupQueryParams): Promise<FamilyGroupResponse[]> => {
 
  let result: FamilyGroupResponse[];

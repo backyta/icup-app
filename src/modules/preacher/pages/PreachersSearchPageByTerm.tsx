@@ -23,11 +23,11 @@ import {
   PreacherSearchTypeNames,
   PreacherSearchNamesByGender,
   PreacherSearchNamesByBirthMonth,
-  SubTypeNamesPreacherSearchByFirstNames,
+  PreacherSearchNamesByRecordStatus,
+  PreacherSearchNamesByMaritalStatus,
   SubTypeNamesPreacherSearchByFullNames,
   SubTypeNamesPreacherSearchByLastNames,
-  PreacherSearchNamesByMaritalStatus,
-  PreacherSearchNamesByRecordStatus,
+  SubTypeNamesPreacherSearchByFirstNames,
 } from '@/modules/preacher/enums';
 import {
   type PreacherResponse,

@@ -90,15 +90,15 @@ type QueryDataResponse =
 
 interface OfferingIncomeFormUpdateProps {
   id: string;
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   data: OfferingIncomeResponse | undefined;
 }
 
 export const OfferingIncomeFormUpdate = ({
   id,
-  onSubmit,
-  onScroll,
+  dialogClose: onSubmit,
+  scrollToTop: onScroll,
   data,
 }: OfferingIncomeFormUpdateProps): JSX.Element => {
   //* States
@@ -209,21 +209,11 @@ export const OfferingIncomeFormUpdate = ({
 
   //* Effects
   useEffect(() => {
-    if (memberType === MemberType.Disciple) {
-      setQueryData(disciplesQuery.data);
-    }
-    if (memberType === MemberType.Preacher) {
-      setQueryData(preachersQuery.data);
-    }
-    if (memberType === MemberType.Supervisor) {
-      setQueryData(supervisorsQuery.data);
-    }
-    if (memberType === MemberType.Copastor) {
-      setQueryData(copastorsQuery.data);
-    }
-    if (memberType === MemberType.Pastor) {
-      setQueryData(pastorsQuery.data);
-    }
+    if (memberType === MemberType.Disciple) setQueryData(disciplesQuery.data);
+    if (memberType === MemberType.Preacher) setQueryData(preachersQuery.data);
+    if (memberType === MemberType.Supervisor) setQueryData(supervisorsQuery.data);
+    if (memberType === MemberType.Copastor) setQueryData(copastorsQuery.data);
+    if (memberType === MemberType.Pastor) setQueryData(pastorsQuery.data);
   }, [pastorsQuery, copastorsQuery, supervisorsQuery, preachersQuery, disciplesQuery]);
 
   useEffect(() => {
@@ -247,17 +237,27 @@ export const OfferingIncomeFormUpdate = ({
         const uploadResult = await uploadImagesMutation.mutateAsync({
           files: filesOnly as any,
           fileType: OfferingFileType.Income,
-          type: formData.type,
-          subType: formData.subType ?? null,
+          offeringType: formData.type,
+          offeringSubType: formData.subType ?? null,
         });
 
         imageUrls = uploadResult.imageUrls;
       }
     } catch (error) {
-      toast.error('Error en enviar el formulario, hable con el administrador.', {
-        position: 'top-center',
-        className: 'justify-center',
-      });
+      toast.warning(
+        '¡Opps! fallo en subida de imágenes, por favor actualize y vuelve a intentarlo',
+        {
+          position: 'top-center',
+          className: 'justify-center',
+        }
+      );
+
+      setTimeout(() => {
+        setIsInputDisabled(false);
+        setIsSubmitButtonDisabled(false);
+      }, 1500);
+
+      return;
     }
 
     await offeringIncomeUpdateMutation.mutateAsync({
@@ -499,41 +499,47 @@ export const OfferingIncomeFormUpdate = ({
                                 </PopoverTrigger>
                                 <PopoverContent align='center' className='w-auto px-4 py-2'>
                                   <Command>
-                                    <CommandInput
-                                      placeholder='Busque un miembro...'
-                                      className='h-9 text-[14px]'
-                                    />
-                                    <CommandEmpty>Miembro no encontrado.</CommandEmpty>
-                                    <CommandGroup className='max-h-[200px] h-auto'>
-                                      {queryData?.map((member) => (
-                                        <CommandItem
-                                          className='text-[14px]'
-                                          value={getFullNames({
-                                            firstNames: member.firstName,
-                                            lastNames: member.lastName,
-                                          })}
-                                          key={member.id}
-                                          onSelect={() => {
-                                            form.setValue('memberId', member.id);
-                                            setIsInputMemberOpen(false);
-                                          }}
-                                        >
-                                          {`${member?.firstName} ${member?.lastName}`}
-                                          <CheckIcon
-                                            className={cn(
-                                              'ml-auto h-4 w-4',
-                                              member.id === field.value
-                                                ? 'opacity-100'
-                                                : 'opacity-0'
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      )) ?? (
+                                    {queryData?.length && queryData?.length > 0 ? (
+                                      <>
+                                        <CommandInput
+                                          placeholder='Busque un miembro...'
+                                          className='h-9 text-[14px]'
+                                        />
+                                        <CommandEmpty>Miembro no encontrado.</CommandEmpty>
+                                        <CommandGroup className='max-h-[200px] h-auto'>
+                                          {queryData?.map((member) => (
+                                            <CommandItem
+                                              className='text-[14px]'
+                                              value={getFullNames({
+                                                firstNames: member.firstName,
+                                                lastNames: member.lastName,
+                                              })}
+                                              key={member.id}
+                                              onSelect={() => {
+                                                form.setValue('memberId', member.id);
+                                                setIsInputMemberOpen(false);
+                                              }}
+                                            >
+                                              {`${member?.firstName} ${member?.lastName}`}
+                                              <CheckIcon
+                                                className={cn(
+                                                  'ml-auto h-4 w-4',
+                                                  member.id === field.value
+                                                    ? 'opacity-100'
+                                                    : 'opacity-0'
+                                                )}
+                                              />
+                                            </CommandItem>
+                                          ))}
+                                        </CommandGroup>
+                                      </>
+                                    ) : (
+                                      queryData?.length === 0 && (
                                         <p className='text-[14.5px] text-red-500 text-center'>
-                                          ❌ No se encontró miembros disponibles.
+                                          ❌No hay miembros disponibles.
                                         </p>
-                                      )}
-                                    </CommandGroup>
+                                      )
+                                    )}
                                   </Command>
                                 </PopoverContent>
                               </Popover>
@@ -581,37 +587,48 @@ export const OfferingIncomeFormUpdate = ({
                                 </PopoverTrigger>
                                 <PopoverContent align='center' className='w-auto px-4 py-2'>
                                   <Command>
-                                    <CommandInput
-                                      placeholder='Busque un grupo familiar...'
-                                      className='h-9 text-[14px]'
-                                    />
-                                    <CommandEmpty>Grupo familiar no encontrado.</CommandEmpty>
-                                    <CommandGroup className='max-h-[200px] h-auto'>
-                                      {familyGroupsQuery?.data?.map((familyGroup) => (
-                                        <CommandItem
-                                          className='text-[14px]'
-                                          value={getCodeAndNameFamilyGroup({
-                                            code: familyGroup.familyGroupCode,
-                                            name: familyGroup.familyGroupName,
-                                          })}
-                                          key={familyGroup.id}
-                                          onSelect={() => {
-                                            form.setValue('familyGroupId', familyGroup.id);
-                                            setIsInputRelationOpen(false);
-                                          }}
-                                        >
-                                          {`${familyGroup?.familyGroupName} ${familyGroup?.familyGroupCode}`}
-                                          <CheckIcon
-                                            className={cn(
-                                              'ml-auto h-4 w-4',
-                                              familyGroup.id === field.value
-                                                ? 'opacity-100'
-                                                : 'opacity-0'
-                                            )}
-                                          />
-                                        </CommandItem>
-                                      ))}
-                                    </CommandGroup>
+                                    {familyGroupsQuery?.data?.length &&
+                                    familyGroupsQuery?.data?.length > 0 ? (
+                                      <>
+                                        <CommandInput
+                                          placeholder='Busque un grupo familiar...'
+                                          className='h-9 text-[14px]'
+                                        />
+                                        <CommandEmpty>Grupo familiar no encontrado.</CommandEmpty>
+                                        <CommandGroup className='max-h-[200px] h-auto'>
+                                          {familyGroupsQuery?.data?.map((familyGroup) => (
+                                            <CommandItem
+                                              className='text-[14px]'
+                                              value={getCodeAndNameFamilyGroup({
+                                                code: familyGroup.familyGroupCode,
+                                                name: familyGroup.familyGroupName,
+                                              })}
+                                              key={familyGroup.id}
+                                              onSelect={() => {
+                                                form.setValue('familyGroupId', familyGroup.id);
+                                                setIsInputRelationOpen(false);
+                                              }}
+                                            >
+                                              {`${familyGroup?.familyGroupName} ${familyGroup?.familyGroupCode}`}
+                                              <CheckIcon
+                                                className={cn(
+                                                  'ml-auto h-4 w-4',
+                                                  familyGroup.id === field.value
+                                                    ? 'opacity-100'
+                                                    : 'opacity-0'
+                                                )}
+                                              />
+                                            </CommandItem>
+                                          ))}
+                                        </CommandGroup>
+                                      </>
+                                    ) : (
+                                      familyGroupsQuery?.data?.length === 0 && (
+                                        <p className='text-[14.5px] text-red-500 text-center'>
+                                          ❌No hay grupos familiares disponibles.
+                                        </p>
+                                      )
+                                    )}
                                   </Command>
                                 </PopoverContent>
                               </Popover>
@@ -667,32 +684,45 @@ export const OfferingIncomeFormUpdate = ({
                               </PopoverTrigger>
                               <PopoverContent align='center' className='w-auto px-4 py-2'>
                                 <Command>
-                                  <CommandInput
-                                    placeholder='Busque una iglesia'
-                                    className='h-9 text-[14px]'
-                                  />
-                                  <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
-                                  <CommandGroup className='max-h-[200px] h-auto'>
-                                    {churchesQuery?.data?.map((church) => (
-                                      <CommandItem
-                                        className='text-[14px]'
-                                        value={church.churchName}
-                                        key={church.id}
-                                        onSelect={() => {
-                                          form.setValue('churchId', church.id);
-                                          setIsInputRelationOpen(false);
-                                        }}
-                                      >
-                                        {church.churchName}
-                                        <CheckIcon
-                                          className={cn(
-                                            'ml-auto h-4 w-4',
-                                            church.id === field.value ? 'opacity-100' : 'opacity-0'
-                                          )}
-                                        />
-                                      </CommandItem>
-                                    ))}
-                                  </CommandGroup>
+                                  {churchesQuery?.data?.length &&
+                                  churchesQuery?.data?.length > 0 ? (
+                                    <>
+                                      <CommandInput
+                                        placeholder='Busque una iglesia'
+                                        className='h-9 text-[14px]'
+                                      />
+                                      <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
+                                      <CommandGroup className='max-h-[200px] h-auto'>
+                                        {churchesQuery?.data?.map((church) => (
+                                          <CommandItem
+                                            className='text-[14px]'
+                                            value={church.churchName}
+                                            key={church.id}
+                                            onSelect={() => {
+                                              form.setValue('churchId', church.id);
+                                              setIsInputRelationOpen(false);
+                                            }}
+                                          >
+                                            {church.churchName}
+                                            <CheckIcon
+                                              className={cn(
+                                                'ml-auto h-4 w-4',
+                                                church.id === field.value
+                                                  ? 'opacity-100'
+                                                  : 'opacity-0'
+                                              )}
+                                            />
+                                          </CommandItem>
+                                        ))}
+                                      </CommandGroup>
+                                    </>
+                                  ) : (
+                                    churchesQuery?.data?.length === 0 && (
+                                      <p className='text-[14.5px] text-red-500 text-center'>
+                                        ❌No hay iglesias disponibles.
+                                      </p>
+                                    )
+                                  )}
                                 </Command>
                               </PopoverContent>
                             </Popover>
@@ -742,32 +772,44 @@ export const OfferingIncomeFormUpdate = ({
                               </PopoverTrigger>
                               <PopoverContent align='center' className='w-auto px-4 py-2'>
                                 <Command>
-                                  <CommandInput
-                                    placeholder='Busque una zona...'
-                                    className='h-9 text-[14px]'
-                                  />
-                                  <CommandEmpty>Zona no encontrada.</CommandEmpty>
-                                  <CommandGroup className='max-h-[200px] h-auto'>
-                                    {zonesQuery?.data?.map((zone) => (
-                                      <CommandItem
-                                        className='text-[14px]'
-                                        value={zone.zoneName}
-                                        key={zone.id}
-                                        onSelect={() => {
-                                          form.setValue('zoneId', zone.id);
-                                          setIsInputRelationOpen(false);
-                                        }}
-                                      >
-                                        {zone.zoneName}
-                                        <CheckIcon
-                                          className={cn(
-                                            'ml-auto h-4 w-4',
-                                            zone.id === field.value ? 'opacity-100' : 'opacity-0'
-                                          )}
-                                        />
-                                      </CommandItem>
-                                    ))}
-                                  </CommandGroup>
+                                  {zonesQuery?.data?.length && zonesQuery?.data?.length > 0 ? (
+                                    <>
+                                      <CommandInput
+                                        placeholder='Busque una zona...'
+                                        className='h-9 text-[14px]'
+                                      />
+                                      <CommandEmpty>Zona no encontrada.</CommandEmpty>
+                                      <CommandGroup className='max-h-[200px] h-auto'>
+                                        {zonesQuery?.data?.map((zone) => (
+                                          <CommandItem
+                                            className='text-[14px]'
+                                            value={zone.zoneName}
+                                            key={zone.id}
+                                            onSelect={() => {
+                                              form.setValue('zoneId', zone.id);
+                                              setIsInputRelationOpen(false);
+                                            }}
+                                          >
+                                            {zone.zoneName}
+                                            <CheckIcon
+                                              className={cn(
+                                                'ml-auto h-4 w-4',
+                                                zone.id === field.value
+                                                  ? 'opacity-100'
+                                                  : 'opacity-0'
+                                              )}
+                                            />
+                                          </CommandItem>
+                                        ))}
+                                      </CommandGroup>
+                                    </>
+                                  ) : (
+                                    zonesQuery?.data?.length === 0 && (
+                                      <p className='text-[14.5px] text-red-500 text-center'>
+                                        ❌No hay zonas disponibles.
+                                      </p>
+                                    )
+                                  )}
                                 </Command>
                               </PopoverContent>
                             </Popover>

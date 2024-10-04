@@ -1,6 +1,17 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
+import { useQuery } from '@tanstack/react-query';
+
+import { getSimpleChurches } from '@/modules/church/services';
+
+import {
+  SelectChurch,
+  MetricsSkeleton,
+  MemberReportFormCard,
+} from '@/modules/metrics/components/shared';
 
 import {
   MemberProportionCard,
@@ -8,18 +19,28 @@ import {
   MemberAnalysisCardByBirthMonth,
   MemberAnalysisCardByRecordStatus,
   MemberAnalysisCardByMaritalStatus,
+  MemberAnalysisCardByZoneAndGender,
   MemberAnalysisCardByRoleAndGender,
+  PreacherAnalysisCardByZoneAndGender,
   MemberFluctuationAnalysisCardByYear,
   MemberAnalysisCardByCategoryAndGender,
-  MembersAnalysisCardByDistrictAndGender,
-} from '@/modules/metrics/components/charts-member/charts';
-
-import {
-  MemberAnalysisCardByZoneAndGender,
-  PreacherAnalysisCardByZoneAndGender,
-} from '@/modules/metrics/components/shared';
+  MemberAnalysisCardByDistrictAndGender,
+} from '@/modules/metrics/components/member/charts';
 
 export const MetricsMember = (): JSX.Element => {
+  const [churchId, setChurchId] = useState<string | undefined>(undefined);
+
+  const { data } = useQuery({
+    queryKey: ['churches-for-member-metrics'],
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    staleTime: 1000 * 60,
+  });
+
+  useEffect(() => {
+    const church = data?.map((church) => church?.id)[0];
+    setChurchId(church);
+  }, [data]);
+
   useEffect(() => {
     document.title = 'Modulo Métricas - IcupApp';
   }, []);
@@ -35,22 +56,30 @@ export const MetricsMember = (): JSX.Element => {
       </p>
       <hr className='p-[0.015rem] bg-slate-500 mt-2  mb-4 w-[90%] mx-auto' />
 
-      {/* Header Cards Member Proportion */}
-      <MemberProportionCard />
+      <MemberProportionCard churchId={churchId} />
 
-      {/* Gráficos independientes */}
-      <div className='mt-10 px-2 sm:pb-10 md:px-6 xl:pb-14 flex flex-col xl:grid xl:grid-cols-2 gap-10 h-[246rem] sm:h-[245rem] md:h-[253rem] lg:h-[275rem] xl:h-auto'>
-        <MemberFluctuationAnalysisCardByYear />
-        <MemberAnalysisCardByBirthMonth />
-        <MemberAnalysisCardByCategory />
-        <MemberAnalysisCardByCategoryAndGender />
-        <MemberAnalysisCardByRoleAndGender />
-        <MemberAnalysisCardByMaritalStatus />
-        <MemberAnalysisCardByZoneAndGender />
-        <PreacherAnalysisCardByZoneAndGender />
-        <MembersAnalysisCardByDistrictAndGender />
-        <MemberAnalysisCardByRecordStatus />
+      <div className='flex justify-center gap-4 items-center mt-6'>
+        <SelectChurch data={data} churchId={churchId} setChurchId={setChurchId} />
+
+        <MemberReportFormCard churchId={churchId} />
       </div>
+
+      {!churchId ? (
+        <MetricsSkeleton />
+      ) : (
+        <div className='mt-6 px-2 pb-10 sm:pb-10 md:px-6 xl:pb-14 flex flex-col xl:grid xl:grid-cols-2 gap-10 h-[230rem] sm:h-[245rem] md:h-[253rem] lg:h-[275rem] xl:h-auto'>
+          <MemberFluctuationAnalysisCardByYear churchId={churchId} />
+          <MemberAnalysisCardByBirthMonth churchId={churchId} />
+          <MemberAnalysisCardByCategory churchId={churchId} />
+          <MemberAnalysisCardByCategoryAndGender churchId={churchId} />
+          <MemberAnalysisCardByRoleAndGender churchId={churchId} />
+          <MemberAnalysisCardByMaritalStatus churchId={churchId} />
+          <MemberAnalysisCardByZoneAndGender churchId={churchId} />
+          <PreacherAnalysisCardByZoneAndGender churchId={churchId} />
+          <MemberAnalysisCardByDistrictAndGender churchId={churchId} />
+          <MemberAnalysisCardByRecordStatus churchId={churchId} />
+        </div>
+      )}
     </div>
   );
 };

@@ -5,9 +5,9 @@ import { isAxiosError } from 'axios';
 import { icupApi } from '@/api/icupApi';
 
 import { DashboardSearchType } from '@/modules/dashboard/enums';
-import { type DashboardQueryParams } from '@/modules/dashboard/interfaces';
 import { type FamilyGroupResponse } from '@/modules/family-group/interfaces';
-import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces';
+
+import { type LastSundaysOfferingsResponse, type DashboardQueryParams, type TopFamilyGroupsOfferingsResponse } from '@/modules/dashboard/interfaces';
 
 
 // ? Get offerings income by term (paginated)
@@ -17,76 +17,47 @@ export const  getOfferingsForBarChartByTerm = async ({
   dateTerm,  
   limit, 
   offset, 
-  all, 
   order
-}: DashboardQueryParams): Promise<OfferingIncomeResponse[] | undefined> => {
-
- let result: OfferingIncomeResponse[];
+}: DashboardQueryParams): Promise<LastSundaysOfferingsResponse[] | TopFamilyGroupsOfferingsResponse[] | undefined> => {
 
  //* Latest sunday offerings
  if (searchType === DashboardSearchType.LastSundaysOfferings
 ) {
     try {
-        if (!all) {
-            const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${dateTerm}&${selectTerm}` , {
-          params: {
-            limit,
-            offset,
-            order,
-            'search-type': searchType,
-          },
-        });
+    const {data} = await icupApi<LastSundaysOfferingsResponse[]>(`/offerings-income/${dateTerm}&${selectTerm}` , {
+      params: {
+        limit,
+        offset,
+        order,
+        'search-type': searchType,
+      },
+    });
 
-        result = data;
-      }else {
-        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${dateTerm}&${selectTerm}` , {
-          params: {
-            order,
-            'search-type': searchType,
-          },
-        });
-        result = data;
-      }
-    
-      return result;
-    
-    } catch (error) {
-      if (isAxiosError(error) && error.response) {
-        throw (error.response.data)
-      }
-      
-      throw new Error('Ocurrió un error inesperado, hable con el administrador')
+    return data;
+   
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw (error.response.data)
     }
+    
+    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+  }
  }
 
  //* Top family groups offerings
  if (searchType === DashboardSearchType.TopFamilyGroupsOfferings
 ) {
     try {
-        if (!all) {
-            const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${dateTerm}&${selectTerm}` , {
-          params: {
-            limit,
-            offset,
-            order,
-            'search-type': searchType,
-          },
-        });
+      const {data} = await icupApi<TopFamilyGroupsOfferingsResponse[]>(`/offerings-income/${dateTerm}&${selectTerm}` , {
+        params: {
+          limit,
+          offset,
+          order,
+          'search-type': searchType,
+        },
+      });
 
-        result = data;
-      }else {
-        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${dateTerm}&${selectTerm}` , {
-          params: {
-            order,
-            'search-type': searchType,
-          },
-        });
-        
-        result = data;
-      }
-      
-      
-      return result;
+      return data;
     
     } catch (error) {
       if (isAxiosError(error) && error.response) {
@@ -102,40 +73,21 @@ export const  getOfferingsForBarChartByTerm = async ({
 export const getProportionFamilyGroups = async ({ 
   searchType, 
   selectTerm,
-  limit, 
-  offset, 
-  all, 
   order
 }: DashboardQueryParams): Promise<FamilyGroupResponse[] | undefined> => {
- let result: FamilyGroupResponse[];
 
  //* Most populated family groups
  if (searchType === DashboardSearchType.MostPopulatedFamilyGroups
 ) {
     try {
-      if (!all) {
-        const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${selectTerm}` , {
-          params: {
-            limit,
-            offset,
-            order,
-            'search-type': searchType
-          },
-        });
-        
-        result = data;
-      }else {
-        const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${selectTerm}` , {
-          params: {
-            order,
-            'search-type': searchType
-          },
-        });
-
-        result = data;
-      }
-
-      return result;
+      const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${selectTerm}` , {
+        params: {
+          order,
+          'search-type': searchType
+        },
+      });
+  
+      return data;
 
     } catch (error) {
       if (isAxiosError(error) && error.response) {
@@ -150,29 +102,14 @@ export const getProportionFamilyGroups = async ({
  if (searchType === DashboardSearchType.LessPopulatedFamilyGroups
 ) {
     try {
-      if (!all) {
-        const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${selectTerm}` , {
-          params: {
-            limit,
-            offset,
-            order,
-            'search-type': searchType
-          },
-        });
+      const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${selectTerm}` , {
+        params: {
+          order,
+          'search-type': searchType
+        },
+      });
         
-        result = data;
-      }else {
-        const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${selectTerm}` , {
-          params: {
-            order,
-            'search-type': searchType
-          },
-        });
-
-        result = data;
-      }
-
-      return result;
+      return data;
 
     } catch (error) {
       if (isAxiosError(error) && error.response) {

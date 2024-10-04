@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
@@ -5,24 +6,22 @@
 import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
-import { addDays, compareAsc, parse } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
+import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
+import { addDays } from 'date-fns';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { toZonedTime, format as formatZonedTime } from 'date-fns-tz';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 
-import { FcDeleteDatabase, FcDataBackup } from 'react-icons/fc';
-
 import { cn } from '@/shared/lib/utils';
-import { LoadingSpinner } from '@/shared/components';
+import { RecordOrder } from '@/shared/enums';
 import { dateFormatterToDDMMYY } from '@/shared/helpers';
 
-import { CurrencyType } from '@/modules/offering/shared/enums';
 import { LastSundaysOfferingsTooltipContent } from '@/modules/dashboard/components';
 
-import { getAllChurches } from '@/modules/pastor/services';
+import { getSimpleChurches } from '@/modules/church/services';
 import { DashboardSearchType } from '@/modules/dashboard/enums';
 import { getOfferingsForBarChartByTerm } from '@/modules/dashboard/services';
 
@@ -79,23 +78,13 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-interface ResultDataOptions {
-  date: string | Date;
-  dayPEN: number;
-  afternoonPEN: number;
-  dayUSD: number;
-  afternoonUSD: number;
-  dayEUR: number;
-  afternoonEUR: number;
-}
-
 interface SearchParamsOptions {
   selectTerm?: string;
 }
 
 export const LastSundayOfferingsCard = (): JSX.Element => {
   //* States
-  const [resultData, setResultData] = useState<ResultDataOptions[]>();
+
   const [searchParams, setSearchParams] = useState<SearchParamsOptions | undefined>(undefined);
   const [isInputSearchChurchOpen, setIsInputSearchChurchOpen] = useState<boolean>(false);
 
@@ -104,7 +93,7 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
     resolver: zodResolver(dashBoardSearchFormSchema),
     mode: 'onChange',
     defaultValues: {
-      selectTerm: searchParams ? searchParams.selectTerm : '',
+      selectTerm: '',
     },
   });
 
@@ -124,17 +113,15 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
         selectTerm: searchParams?.selectTerm ?? selectTerm,
         dateTerm: formatZonedTime(zonedDate, 'yyyy-MM-dd', { timeZone }),
         limit: '14',
-        offset: '0',
-        all: false,
-        order: 'DESC',
+        order: RecordOrder.Descending,
       });
     },
     enabled: !!searchParams,
   });
 
   const churchesQuery = useQuery({
-    queryKey: ['churches'],
-    queryFn: getAllChurches,
+    queryKey: ['churches-for-sunday-offerings'],
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
   });
 
   //* Effects
@@ -147,82 +134,15 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
     }
   }, [churchesQuery?.data]);
 
-  // Transform and set data
-  useEffect(() => {
-    if (lastSundaysOfferings?.data) {
-      const resultData: ResultDataOptions[] = lastSundaysOfferings?.data.reduce<
-        ResultDataOptions[]
-      >((acc, offering) => {
-        const formattedDate = dateFormatterToDDMMYY(addDays(offering.date, 1));
-
-        const existing = acc.find((item) => item.date === formattedDate);
-
-        if (existing) {
-          if (offering.shift === 'day' && offering.currency === CurrencyType.PEN) {
-            existing.dayPEN += +offering.amount;
-          } else if (offering.shift === 'day' && offering.currency === CurrencyType.USD) {
-            existing.dayUSD += +offering.amount;
-          } else if (offering.shift === 'day' && offering.currency === CurrencyType.EUR) {
-            existing.dayEUR += +offering.amount;
-          } else if (offering.shift === 'afternoon' && offering.currency === CurrencyType.PEN) {
-            existing.afternoonPEN += +offering.amount;
-          } else if (offering.shift === 'afternoon' && offering.currency === CurrencyType.USD) {
-            existing.afternoonUSD += +offering.amount;
-          } else if (offering.shift === 'afternoon' && offering.currency === CurrencyType.EUR) {
-            existing.afternoonEUR += +offering.amount;
-          }
-        } else {
-          acc.push({
-            date: formattedDate,
-            dayPEN:
-              offering.shift === 'day' && offering.currency === CurrencyType.PEN
-                ? +offering.amount
-                : 0,
-            afternoonPEN:
-              offering.shift === 'afternoon' && offering.currency === CurrencyType.PEN
-                ? +offering.amount
-                : 0,
-            dayUSD:
-              offering.shift === 'day' && offering.currency === CurrencyType.USD
-                ? +offering.amount
-                : 0,
-            afternoonUSD:
-              offering.shift === 'afternoon' && offering.currency === CurrencyType.USD
-                ? +offering.amount
-                : 0,
-            dayEUR:
-              offering.shift === 'day' && offering.currency === CurrencyType.EUR
-                ? +offering.amount
-                : 0,
-            afternoonEUR:
-              offering.shift === 'afternoon' && offering.currency === CurrencyType.EUR
-                ? +offering.amount
-                : 0,
-          });
-        }
-
-        return acc;
-      }, []);
-
-      const resultDataSorted = resultData.sort((a, b) => {
-        const dateA = parse(a.date as string, 'dd/MM/yy', new Date());
-        const dateB = parse(b.date as string, 'dd/MM/yy', new Date());
-        return compareAsc(dateA, dateB);
-      });
-
-      setResultData(resultDataSorted);
-    }
-  }, [lastSundaysOfferings?.data, searchParams]);
-
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof dashBoardSearchFormSchema>): void => {
     setSearchParams(formData);
   };
 
   return (
-    <Card className='flex flex-col row-start-1 row-end-2 col-start-1 col-end-3 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-3 lg:row-start-1 lg:row-end-2 xl:col-start-1 xl:col-end-4 xl:row-start-1 xl:row-end-2 h-[23rem] lg:h-[22rem] xl:h-[25rem] 2xl:h-[26rem] m-0 border-slate-500'>
+    <Card className='flex flex-col row-start-1 row-end-2 col-start-1 col-end-3 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-3 lg:row-start-1 lg:row-end-2 xl:col-start-1 xl:col-end-4 xl:row-start-1 xl:row-end-2 h-[22rem] sm:h-[26rem] md:h-[28rem] lg:h-[28rem] 2xl:h-[30rem] m-0 border-slate-500'>
       <div className='flex flex-col md:grid md:grid-cols-4 md:justify-center md:items-center'>
-        <CardHeader className='flex flex-col items-center justify-center p-2 col-span-3'>
+        <CardHeader className='flex flex-col items-center justify-center px-4 py-2.5 col-span-3'>
           <CardTitle className='font-bold md:pl-[12rem] lg:pl-[16rem] xl:pl-[6.8rem] 2xl:pl-[8.5rem] 3-xl:pl-[16rem] text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.50rem] 2xl:text-[1.75rem] inline-block'>
             Ofrendas - Dominicales
           </CardTitle>
@@ -252,7 +172,7 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
                               variant='outline'
                               role='combobox'
                               className={cn(
-                                'justify-between w-full text-center px-2 text-[12.5px] md:text-[14px]',
+                                'justify-between w-full text-center px-2 text-[12px] md:text-[14px]',
                                 !field.value &&
                                   'text-slate-500 dark:text-slate-200 font-normal px-2'
                               )}
@@ -264,7 +184,7 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
                                   ? churchesQuery?.data?.find(
                                       (church) => church.id === searchParams.selectTerm
                                     )?.churchName
-                                  : 'Iglesia'}
+                                  : 'Iglesia Central'}
                               <CaretSortIcon className='h-4 w-4 shrink-0' />
                             </Button>
                           </FormControl>
@@ -273,13 +193,13 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
                           <Command>
                             <CommandInput
                               placeholder='Busque una iglesia'
-                              className='h-9 text-[14px]'
+                              className='h-9 text-[12px] md:text-[14px]'
                             />
                             <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
                             <CommandGroup className='max-h-[100px] h-auto'>
                               {churchesQuery?.data?.map((church) => (
                                 <CommandItem
-                                  className='text-[14px]'
+                                  className='text-[12px] md:text-[14px]'
                                   value={church.churchName}
                                   key={church.id}
                                   onSelect={() => {
@@ -313,22 +233,31 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
 
       {/* Chart */}
 
-      {!resultData?.length && !searchParams ? (
+      {!lastSundaysOfferings?.data?.length && !searchParams ? (
         <CardContent className='h-full py-0'>
-          <LoadingSpinner />
+          <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+            <FcDataBackup className='text-[6rem] pb-2' />
+            <p>Consultando datos....</p>
+          </div>
         </CardContent>
       ) : (
         <CardContent className='h-full py-0'>
-          {!!resultData?.length && searchParams ? (
+          {lastSundaysOfferings?.isFetching && !lastSundaysOfferings?.data?.length && (
+            <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+              <FcDataBackup className='text-[6rem] pb-2' />
+              <p>Consultando datos....</p>
+            </div>
+          )}
+          {!!lastSundaysOfferings?.data?.length && searchParams && (
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[250px] md:h-[290px] lg:h-[275px] xl:h-[325px] 2xl:h-[335px]'
+                'w-full h-[230px] sm:h-[290px] md:h-[360px] lg:h-[365px] xl:h-[365px] 2xl:h-[395px]'
               )}
             >
               <BarChart
                 accessibilityLayer
-                data={resultData}
+                data={lastSundaysOfferings?.data}
                 margin={{ top: 5, right: 5, left: -28, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
@@ -337,7 +266,7 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
                   tickLine={false}
                   tickMargin={10}
                   axisLine={true}
-                  tickFormatter={(value) => value.slice(0, 8)}
+                  tickFormatter={(value) => dateFormatterToDDMMYY(addDays(value, 1))}
                   className='text-[12px] sm:text-[14px]'
                 />
 
@@ -393,13 +322,9 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
                 />
               </BarChart>
             </ChartContainer>
-          ) : lastSundaysOfferings?.isFetching ? (
-            <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full'>
-              <FcDataBackup className='text-[6rem] pb-2' />
-              <p>Consultando datos....</p>
-            </div>
-          ) : (
-            <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full'>
+          )}
+          {!lastSundaysOfferings?.isFetching && !lastSundaysOfferings?.data?.length && (
+            <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDeleteDatabase className='text-[6rem] pb-2' />
               <p>No hay datos disponibles para mostrar.</p>
             </div>

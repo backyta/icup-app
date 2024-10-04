@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback, useMemo } from 'react';
 
 import { GiArchiveRegister } from 'react-icons/gi';
 import { useMediaQuery } from '@react-hook/media-query';
@@ -17,28 +17,31 @@ interface UserUpdateCardProps {
 export const UserUpdateCard = ({ idRow }: UserUpdateCardProps): JSX.Element => {
   //* States
   const dataSearchByTermResponse = useUserStore((state) => state.dataSearchByTermResponse);
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const topRef = useRef<HTMLDivElement>(null);
 
   //* Library hooks
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   //* Functions
-  const currentUser = dataSearchByTermResponse?.find((data) => data.id === idRow);
+  const currentUser = useMemo(
+    () => dataSearchByTermResponse?.find((data) => data?.id === idRow),
+    [dataSearchByTermResponse]
+  );
 
-  const handleContainerClose = (): void => {
-    setOpen(false);
-  };
+  const handleContainerClose = useCallback((): void => {
+    setIsOpen(false);
+  }, []);
 
-  const handleContainerScroll = (): void => {
+  const handleContainerScroll = useCallback((): void => {
     if (topRef.current !== null) {
       topRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
+  }, []);
 
   if (isDesktop) {
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button
             variant='outline'
@@ -55,8 +58,8 @@ export const UserUpdateCard = ({ idRow }: UserUpdateCardProps): JSX.Element => {
           <UserUpdateForm
             id={idRow}
             data={currentUser}
-            onSubmit={handleContainerClose}
-            onScroll={handleContainerScroll}
+            dialogClose={handleContainerClose}
+            scrollToTop={handleContainerScroll}
           />
         </DialogContent>
       </Dialog>
@@ -64,7 +67,7 @@ export const UserUpdateCard = ({ idRow }: UserUpdateCardProps): JSX.Element => {
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button
           variant='outline'
@@ -81,8 +84,8 @@ export const UserUpdateCard = ({ idRow }: UserUpdateCardProps): JSX.Element => {
         <UserUpdateForm
           id={idRow}
           data={currentUser}
-          onSubmit={handleContainerClose}
-          onScroll={handleContainerScroll}
+          dialogClose={handleContainerClose}
+          scrollToTop={handleContainerScroll}
         />
       </DialogContent>
     </Dialog>

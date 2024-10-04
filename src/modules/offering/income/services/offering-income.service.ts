@@ -4,14 +4,15 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { type DiscipleResponse } from '@/modules/disciple/interfaces';
-
+import { 
+  OfferingIncomeSearchSubType, 
+  OfferingIncomeSearchType 
+} from '@/modules/offering/income/enums';
 import { 
   type OfferingIncomeResponse,
   type OfferingIncomeFormData, 
   type OfferingIncomeQueryParams, 
 } from '@/modules/offering/income/interfaces';
-import { OfferingIncomeSearchSubType, OfferingIncomeSearchType } from '@/modules/offering/income/enums';
 
 //* Create offering income
 export const createOfferingIncome = async (formData:OfferingIncomeFormData ): Promise<OfferingIncomeResponse> => {
@@ -25,26 +26,6 @@ export const createOfferingIncome = async (formData:OfferingIncomeFormData ): Pr
     }
     
     throw new Error('Ocurrió un error inesperado')
-  }
-}
-
-//* Get all disciples
-export const getAllDisciples = async (): Promise<DiscipleResponse[]> => {
-  try {
-    const {data} = await icupApi<DiscipleResponse[]>('/disciples' , {
-      params: {
-        order: 'ASC'
-      },
-    }
-    );
-    
-    return data;
-  } catch (error) {
-    if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
-    }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
 

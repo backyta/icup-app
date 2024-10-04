@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 import { useLocation } from 'react-router-dom';
 import { BsFillPersonVcardFill } from 'react-icons/bs';
@@ -30,10 +30,11 @@ export const ChurchInfoCard = ({ idRow }: ChurchInfoCardProps): JSX.Element => {
   const { pathname } = useLocation();
 
   //* Set data
-  const currentChurch =
-    pathname === '/churches/general-search'
+  const currentChurch = useMemo(() => {
+    return pathname === '/churches/general-search'
       ? dataSearchGeneralResponse?.find((data) => data.id === idRow)
       : dataSearchByTermResponse?.find((data) => data.id === idRow);
+  }, [pathname, dataSearchGeneralResponse, dataSearchByTermResponse, idRow]);
 
   if (isDesktop) {
     return (

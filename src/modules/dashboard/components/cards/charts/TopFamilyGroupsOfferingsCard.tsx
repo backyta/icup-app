@@ -7,7 +7,6 @@
 import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
-import { addDays } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,15 +16,11 @@ import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 
 import { cn } from '@/shared/lib/utils';
 
-import { LoadingSpinner } from '@/shared/components';
-import { type FamilyGroup } from '@/shared/interfaces';
-import { dateFormatterToDDMMYY } from '@/shared/helpers';
-import { CurrencyType } from '@/modules/offering/shared/enums';
+import { RecordOrder } from '@/shared/enums';
 
-import { getAllChurches } from '@/modules/pastor/services';
+import { getSimpleChurches } from '@/modules/church/services';
 import { DashboardSearchType } from '@/modules/dashboard/enums';
 
-import { type Offering } from '@/modules/dashboard/interfaces';
 import { TopFamilyGroupsTooltipContent } from '@/modules/dashboard/components';
 import { dashBoardSearchFormSchema } from '@/modules/dashboard/validations';
 import { getOfferingsForBarChartByTerm } from '@/modules/dashboard/services';
@@ -66,20 +61,9 @@ const chartConfig = {
   },
   accumulatedOfferingEUR: {
     label: 'Ofrenda EUR',
-    // color: '#1F77B4',
     color: '#279fb3',
   },
 } satisfies ChartConfig;
-
-interface ResultDataOptions {
-  date: string | Date;
-  accumulatedOfferingPEN: number;
-  accumulatedOfferingUSD: number;
-  accumulatedOfferingEUR: number;
-  familyGroup?: FamilyGroup | undefined;
-  familyGroupCode?: string | undefined;
-  allOfferings: Offering[];
-}
 
 interface SearchParamsOptions {
   selectTerm?: string;
@@ -87,7 +71,6 @@ interface SearchParamsOptions {
 
 export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
   //* States
-  const [resultData, setResultData] = useState<ResultDataOptions[]>();
   const [searchParams, setSearchParams] = useState<SearchParamsOptions | undefined>(undefined);
   const [isInputSearchChurchOpen, setIsInputSearchChurchOpen] = useState<boolean>(false);
 
@@ -96,7 +79,7 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
     resolver: zodResolver(dashBoardSearchFormSchema),
     mode: 'onChange',
     defaultValues: {
-      selectTerm: searchParams ? searchParams.selectTerm : '',
+      selectTerm: '',
     },
   });
 
@@ -111,17 +94,15 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
         searchType: DashboardSearchType.TopFamilyGroupsOfferings,
         selectTerm: searchParams?.selectTerm ?? selectTerm,
         dateTerm: new Date().getFullYear().toString(),
-        offset: '0',
-        all: true,
-        order: 'DESC',
+        order: RecordOrder.Descending,
       });
     },
     enabled: !!searchParams,
   });
 
   const churchesQuery = useQuery({
-    queryKey: ['churches'],
-    queryFn: getAllChurches,
+    queryKey: ['churches-for-top-family-groups'],
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
   });
 
   //* Effects
@@ -134,70 +115,15 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
     }
   }, [churchesQuery?.data]);
 
-  // Transforma and set data
-  useEffect(() => {
-    if (topFamilyGroupOfferings?.data) {
-      const resultData: ResultDataOptions[] = topFamilyGroupOfferings?.data.reduce<
-        ResultDataOptions[]
-      >((acc, offering) => {
-        const formattedDate = dateFormatterToDDMMYY(addDays(offering.date, 1));
-
-        const existing = acc.find((item) => item.familyGroup?.id === offering.familyGroup?.id);
-
-        if (existing) {
-          if (offering.currency === CurrencyType.PEN) {
-            existing.accumulatedOfferingPEN += +offering.amount;
-          } else if (offering.currency === CurrencyType.USD) {
-            existing.accumulatedOfferingUSD += +offering.amount;
-          } else if (offering.currency === CurrencyType.EUR) {
-            existing.accumulatedOfferingEUR += +offering.amount;
-          }
-
-          existing.allOfferings.push({
-            offering: +offering.amount,
-            currency: offering.currency,
-            date: formattedDate,
-          });
-        } else {
-          acc.push({
-            date: formattedDate,
-            accumulatedOfferingPEN: offering.currency === CurrencyType.PEN ? +offering.amount : 0,
-            accumulatedOfferingUSD: offering.currency === CurrencyType.USD ? +offering.amount : 0,
-            accumulatedOfferingEUR: offering.currency === CurrencyType.EUR ? +offering.amount : 0,
-            familyGroup: offering?.familyGroup ? offering?.familyGroup : undefined,
-            familyGroupCode: offering.familyGroup?.familyGroupCode ?? '',
-            allOfferings: [
-              { offering: +offering.amount, currency: offering.currency, date: formattedDate },
-            ],
-          });
-        }
-
-        return acc;
-      }, []);
-
-      const top10ResultData = resultData
-        .sort(
-          (a, b) =>
-            b.accumulatedOfferingPEN +
-            b.accumulatedOfferingUSD +
-            b.accumulatedOfferingEUR -
-            (a.accumulatedOfferingPEN + a.accumulatedOfferingUSD + a.accumulatedOfferingEUR)
-        )
-        .slice(0, 10);
-
-      setResultData(top10ResultData);
-    }
-  }, [topFamilyGroupOfferings?.data, searchParams]);
-
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof dashBoardSearchFormSchema>): void => {
     setSearchParams(formData);
   };
 
   return (
-    <Card className='flex flex-col row-start-2 row-end-3 col-start-1 col-end-3 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 lg:row-start-2 lg:row-end-3 xl:col-start-4 xl:col-end-7 xl:row-start-1 xl:row-end-2 h-[23rem] lg:h-[22rem] xl:h-[25rem] 2xl:h-[26rem] mt-0 border-slate-500'>
+    <Card className='flex flex-col row-start-2 row-end-3 col-start-1 col-end-3 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 lg:row-start-2 lg:row-end-3 xl:col-start-4 xl:col-end-7 xl:row-start-1 xl:row-end-2 h-[22rem] md:h-[28rem] lg:h-[28rem] 2xl:h-[30rem] mt-0 border-slate-500'>
       <div className='flex flex-col md:grid md:grid-cols-4 md:justify-center md:items-center'>
-        <CardHeader className='flex flex-col items-center justify-center p-2 col-span-3'>
+        <CardHeader className='flex flex-col items-center justify-center px-4 py-2.5 col-span-3'>
           <CardTitle className='font-bold md:pl-[12rem] lg:pl-[16rem] xl:pl-[6.8rem] 2xl:pl-[8.5rem] 3-xl:pl-[16rem] text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.50rem] 2xl:text-[1.75rem] inline-block'>
             Ofrendas - Grupo Familiar
           </CardTitle>
@@ -227,7 +153,7 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
                               variant='outline'
                               role='combobox'
                               className={cn(
-                                'justify-between w-full text-center px-2 text-[12.5px] md:text-[14px]',
+                                'justify-between w-full text-center px-2 text-[12px] md:text-[14px]',
                                 !field.value &&
                                   'text-slate-500 dark:text-slate-200 font-normal px-2'
                               )}
@@ -239,7 +165,7 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
                                   ? churchesQuery?.data?.find(
                                       (church) => church.id === searchParams.selectTerm
                                     )?.churchName
-                                  : 'Iglesia'}
+                                  : 'Iglesia Central'}
                               <CaretSortIcon className='h-4 w-4 shrink-0' />
                             </Button>
                           </FormControl>
@@ -248,13 +174,13 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
                           <Command>
                             <CommandInput
                               placeholder='Busque una iglesia'
-                              className='h-9 text-[14px]'
+                              className='h-9 text-[12px] md:text-[14px]'
                             />
                             <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
                             <CommandGroup className='max-h-[100px] h-auto'>
                               {churchesQuery?.data?.map((church) => (
                                 <CommandItem
-                                  className='text-[14px]'
+                                  className='text-[12px] md:text-[14px]'
                                   value={church.churchName}
                                   key={church.id}
                                   onSelect={() => {
@@ -288,27 +214,36 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
 
       {/* Chart */}
 
-      {!resultData?.length && !searchParams ? (
+      {!topFamilyGroupOfferings?.data?.length && !searchParams ? (
         <CardContent className='h-full py-0'>
-          <LoadingSpinner />
+          <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+            <FcDataBackup className='text-[6rem] pb-2' />
+            <p>Consultando datos....</p>
+          </div>
         </CardContent>
       ) : (
         <CardContent className='h-full py-0'>
-          {!!resultData?.length && searchParams ? (
+          {topFamilyGroupOfferings?.isFetching && !topFamilyGroupOfferings?.data?.length && (
+            <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+              <FcDataBackup className='text-[6rem] pb-2' />
+              <p>Consultando datos....</p>
+            </div>
+          )}
+          {!!topFamilyGroupOfferings?.data?.length && searchParams && (
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[250px] md:h-[290px] lg:h-[275px] xl:h-[325px] 2xl:h-[335px]'
+                'w-full h-[230px] sm:h-[290px] md:h-[360px] lg:h-[365px] xl:h-[365px] 2xl:h-[395px]'
               )}
             >
               <BarChart
                 accessibilityLayer
-                data={resultData}
+                data={topFamilyGroupOfferings?.data}
                 margin={{ top: 5, right: 5, left: -28, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
                 <XAxis
-                  dataKey='familyGroupCode'
+                  dataKey='familyGroup.familyGroupCode'
                   tickLine={false}
                   tickMargin={10}
                   axisLine={true}
@@ -343,13 +278,9 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
                 />
               </BarChart>
             </ChartContainer>
-          ) : topFamilyGroupOfferings?.isFetching ? (
-            <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full'>
-              <FcDataBackup className='text-[6rem] pb-2' />
-              <p>Consultando datos....</p>
-            </div>
-          ) : (
-            <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full'>
+          )}
+          {!topFamilyGroupOfferings?.isFetching && !topFamilyGroupOfferings?.data?.length && (
+            <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDeleteDatabase className='text-[6rem] pb-2' />
               <p>No hay datos disponibles para mostrar.</p>
             </div>
