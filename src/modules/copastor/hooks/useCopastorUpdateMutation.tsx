@@ -10,16 +10,16 @@ import { type CopastorResponse } from '@/modules/copastor/interfaces';
 import { updateCopastor, type UpdateCopastorOptions } from '@/modules/copastor/services';
 
 interface Options {
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsRelationSelectDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useCopastorUpdateMutation = ({
-  onSubmit,
-  onScroll,
+  dialogClose,
+  scrollToTop,
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
   setIsRelationSelectDisabled,
@@ -65,7 +65,7 @@ export const useCopastorUpdateMutation = ({
       });
 
       setTimeout(() => {
-        onScroll();
+        scrollToTop();
       }, 150);
 
       setTimeout(() => {
@@ -73,7 +73,7 @@ export const useCopastorUpdateMutation = ({
       }, 700);
 
       setTimeout(() => {
-        onSubmit();
+        dialogClose();
         setIsInputDisabled(false);
         setIsRelationSelectDisabled(false);
       }, 1500);

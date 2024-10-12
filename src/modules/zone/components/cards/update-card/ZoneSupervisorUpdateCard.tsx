@@ -28,7 +28,7 @@ export const ZoneSupervisorUpdateCard = ({
   //* Functions
   const currentZone = useMemo(
     () => dataSearchByTermResponse?.find((data) => data?.id === idRow),
-    [dataSearchByTermResponse]
+    [dataSearchByTermResponse, idRow]
   );
 
   const handleContainerClose = useCallback((): void => {

@@ -27,6 +27,7 @@ export const useOfferingIncomeSetData = ({
   offeringIncomeUpdateForm,
 }: Options): void => {
   //* Set data
+  console.log(data?.imageUrls);
   useEffect(() => {
     offeringIncomeUpdateForm.setValue('type', data?.type ?? '');
     offeringIncomeUpdateForm.setValue('subType', data?.subType ?? '');

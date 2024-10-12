@@ -56,9 +56,9 @@ export const offeringIncomeSearchByTermFormSchema = z
         data.searchType === OfferingIncomeSearchType.IncomeAdjustment || 
         data.searchType === OfferingIncomeSearchType.Special || 
         data.searchType === OfferingIncomeSearchType.SundaySchool || 
-        data.searchType === OfferingIncomeSearchType.SundayWorship || 
-        data.searchType === OfferingIncomeSearchType.UnitedWorship ||
-        data.searchType === OfferingIncomeSearchType.YouthWorship ||
+        data.searchType === OfferingIncomeSearchType.SundayService || 
+        data.searchType === OfferingIncomeSearchType.UnitedService ||
+        data.searchType === OfferingIncomeSearchType.YouthService ||
         data.searchType === OfferingIncomeSearchType.ZonalFasting ||
         data.searchType === OfferingIncomeSearchType.ZonalVigil
       ) {
@@ -144,12 +144,12 @@ export const offeringIncomeSearchByTermFormSchema = z
       if (
         (data.searchType === OfferingIncomeSearchType.RecordStatus ||
           ((data.searchType === OfferingIncomeSearchType.SundaySchool ||
-            data.searchType === OfferingIncomeSearchType.SundayWorship ||
+            data.searchType === OfferingIncomeSearchType.SundayService ||
             data.searchType === OfferingIncomeSearchType.GeneralFasting ||
             data.searchType === OfferingIncomeSearchType.GeneralVigil ||
             data.searchType === OfferingIncomeSearchType.Activities ||
-            data.searchType === OfferingIncomeSearchType.UnitedWorship ||
-            data.searchType === OfferingIncomeSearchType.YouthWorship ||
+            data.searchType === OfferingIncomeSearchType.UnitedService ||
+            data.searchType === OfferingIncomeSearchType.YouthService ||
             data.searchType === OfferingIncomeSearchType.IncomeAdjustment ||
             data.searchType === OfferingIncomeSearchType.Special ||
             data.searchType === OfferingIncomeSearchType.ChurchGround) &&
@@ -182,9 +182,9 @@ export const offeringIncomeSearchByTermFormSchema = z
           data.searchType === OfferingIncomeSearchType.IncomeAdjustment ||
           data.searchType === OfferingIncomeSearchType.Special ||
           data.searchType === OfferingIncomeSearchType.SundaySchool ||
-          data.searchType === OfferingIncomeSearchType.SundayWorship ||
-          data.searchType === OfferingIncomeSearchType.UnitedWorship ||
-          data.searchType === OfferingIncomeSearchType.YouthWorship ||
+          data.searchType === OfferingIncomeSearchType.SundayService ||
+          data.searchType === OfferingIncomeSearchType.UnitedService ||
+          data.searchType === OfferingIncomeSearchType.YouthService ||
           data.searchType === OfferingIncomeSearchType.ZonalFasting ||
           data.searchType === OfferingIncomeSearchType.ZonalVigil) &&
           (data.searchSubType === OfferingIncomeSearchSubType.OfferingByDate ||

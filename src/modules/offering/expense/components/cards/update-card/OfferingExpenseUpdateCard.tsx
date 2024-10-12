@@ -33,7 +33,7 @@ export const OfferingExpenseUpdateCard = ({
   //* Functions
   const currentOfferingExpense = useMemo(
     () => dataSearchByTermResponse?.find((data) => data?.id === idRow),
-    [dataSearchByTermResponse]
+    [dataSearchByTermResponse, idRow]
   );
 
   const handleContainerClose = useCallback((): void => {

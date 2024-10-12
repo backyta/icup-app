@@ -10,8 +10,8 @@ import { type PreacherResponse } from '@/modules/preacher/interfaces';
 import { updatePreacher, type UpdatePreacherOptions } from '@/modules/preacher/services';
 
 interface Options {
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsRelationSelectDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,8 +19,8 @@ interface Options {
 }
 
 export const usePreacherUpdateMutation = ({
-  onSubmit,
-  onScroll,
+  dialogClose,
+  scrollToTop,
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
   setIsRelationSelectDisabled,
@@ -68,7 +68,7 @@ export const usePreacherUpdateMutation = ({
       });
 
       setTimeout(() => {
-        onScroll();
+        scrollToTop();
       }, 150);
 
       setTimeout(() => {
@@ -76,7 +76,7 @@ export const usePreacherUpdateMutation = ({
       }, 700);
 
       setTimeout(() => {
-        onSubmit();
+        dialogClose();
         setIsRelationSelectDisabled(false);
         setIsCheckBoxDisabled(false);
         setIsInputDisabled(false);

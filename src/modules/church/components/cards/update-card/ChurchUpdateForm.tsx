@@ -84,8 +84,8 @@ interface ChurchFormUpdateProps {
 export const ChurchUpdateForm = ({
   id,
   data,
-  dialogClose: onSubmit,
-  scrollToTop: onScroll,
+  dialogClose,
+  scrollToTop,
 }: ChurchFormUpdateProps): JSX.Element => {
   //* States
   const [isInputMainChurchOpen, setIsInputMainChurchOpen] = useState<boolean>(false);
@@ -145,8 +145,8 @@ export const ChurchUpdateForm = ({
   });
 
   const churchUpdateMutation = useChurchUpdateMutation({
-    onSubmit,
-    onScroll,
+    dialogClose,
+    scrollToTop,
     setIsInputDisabled,
     setIsSubmitButtonDisabled,
   });
@@ -791,7 +791,7 @@ export const ChurchUpdateForm = ({
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
-                                debe eliminar el registro desde la pestaña{' '}
+                                debe eliminar el registro desde el modulo{' '}
                                 <span className='font-bold text-red-500'>Eliminar Iglesia. </span>
                               </FormDescription>
                             )}

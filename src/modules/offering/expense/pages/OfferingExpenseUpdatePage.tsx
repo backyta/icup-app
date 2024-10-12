@@ -27,7 +27,7 @@ import {
   SubTypeNamesOfferingExpenseSearchBySuppliesExpenses,
   SubTypeNamesOfferingExpenseSearchByOperativeExpenses,
   SubTypeNamesOfferingExpenseSearchByDecorationExpenses,
-  SubTypeNamesOfferingExpenseSearchByActivitiesAndEventsExpenses,
+  SubTypeNamesOfferingExpenseSearchByPlaningEventsExpenses,
   SubTypeNamesOfferingExpenseSearchByMaintenanceAndRepairExpenses,
   SubTypeNamesOfferingExpenseSearchByEquipmentAndTechnologyExpenses,
 } from '@/modules/offering/expense/enums';
@@ -247,12 +247,12 @@ export const OfferingExpenseUpdatePage = (): JSX.Element => {
                 }}
               />
 
-              {(searchType === OfferingExpenseSearchType.ActivitiesAndEventsExpense ||
-                searchType === OfferingExpenseSearchType.DecorationExpense ||
-                searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpense ||
-                searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpense ||
-                searchType === OfferingExpenseSearchType.OperationalExpense ||
-                searchType === OfferingExpenseSearchType.SuppliesExpense) && (
+              {(searchType === OfferingExpenseSearchType.PlaningEventsExpenses ||
+                searchType === OfferingExpenseSearchType.DecorationExpenses ||
+                searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpenses ||
+                searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpenses ||
+                searchType === OfferingExpenseSearchType.OperationalExpenses ||
+                searchType === OfferingExpenseSearchType.SuppliesExpenses) && (
                 <FormField
                   control={form.control}
                   name='searchSubType'
@@ -260,6 +260,9 @@ export const OfferingExpenseUpdatePage = (): JSX.Element => {
                     return (
                       <FormItem>
                         <FormLabel className='text-[14px] font-bold'>Sub-tipo</FormLabel>
+                        <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[1px] rounded-full mr-1'>
+                          Opcional
+                        </span>
                         <FormDescription className='text-[14px]'>
                           ¿Qué sub tipo de búsqueda deseas hacer?
                         </FormDescription>
@@ -287,17 +290,17 @@ export const OfferingExpenseUpdatePage = (): JSX.Element => {
                           </FormControl>
                           <SelectContent>
                             {Object.entries(
-                              searchType === OfferingExpenseSearchType.ActivitiesAndEventsExpense
-                                ? SubTypeNamesOfferingExpenseSearchByActivitiesAndEventsExpenses
-                                : searchType === OfferingExpenseSearchType.DecorationExpense
+                              searchType === OfferingExpenseSearchType.PlaningEventsExpenses
+                                ? SubTypeNamesOfferingExpenseSearchByPlaningEventsExpenses
+                                : searchType === OfferingExpenseSearchType.DecorationExpenses
                                   ? SubTypeNamesOfferingExpenseSearchByDecorationExpenses
                                   : searchType ===
-                                      OfferingExpenseSearchType.EquipmentAndTechnologyExpense
+                                      OfferingExpenseSearchType.EquipmentAndTechnologyExpenses
                                     ? SubTypeNamesOfferingExpenseSearchByEquipmentAndTechnologyExpenses
                                     : searchType ===
-                                        OfferingExpenseSearchType.MaintenanceAndRepairExpense
+                                        OfferingExpenseSearchType.MaintenanceAndRepairExpenses
                                       ? SubTypeNamesOfferingExpenseSearchByMaintenanceAndRepairExpenses
-                                      : searchType === OfferingExpenseSearchType.OperationalExpense
+                                      : searchType === OfferingExpenseSearchType.OperationalExpenses
                                         ? SubTypeNamesOfferingExpenseSearchByOperativeExpenses
                                         : SubTypeNamesOfferingExpenseSearchBySuppliesExpenses
                             ).map(([key, value]) => (
@@ -318,13 +321,13 @@ export const OfferingExpenseUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === OfferingExpenseSearchType.ActivitiesAndEventsExpense ||
-                searchType === OfferingExpenseSearchType.DecorationExpense ||
-                searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpense ||
-                searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpense ||
-                searchType === OfferingExpenseSearchType.OperationalExpense ||
-                searchType === OfferingExpenseSearchType.SuppliesExpense ||
-                searchType === OfferingExpenseSearchType.ExpenseAdjustment ||
+              {(searchType === OfferingExpenseSearchType.PlaningEventsExpenses ||
+                searchType === OfferingExpenseSearchType.DecorationExpenses ||
+                searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpenses ||
+                searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpenses ||
+                searchType === OfferingExpenseSearchType.OperationalExpenses ||
+                searchType === OfferingExpenseSearchType.SuppliesExpenses ||
+                searchType === OfferingExpenseSearchType.ExpensesAdjustment ||
                 searchType === OfferingExpenseSearchType.RecordStatus) && (
                 <FormField
                   control={form.control}
@@ -384,13 +387,13 @@ export const OfferingExpenseUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === OfferingExpenseSearchType.ActivitiesAndEventsExpense ||
-                searchType === OfferingExpenseSearchType.DecorationExpense ||
-                searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpense ||
-                searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpense ||
-                searchType === OfferingExpenseSearchType.OperationalExpense ||
-                searchType === OfferingExpenseSearchType.ExpenseAdjustment ||
-                searchType === OfferingExpenseSearchType.SuppliesExpense) && (
+              {(searchType === OfferingExpenseSearchType.PlaningEventsExpenses ||
+                searchType === OfferingExpenseSearchType.DecorationExpenses ||
+                searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpenses ||
+                searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpenses ||
+                searchType === OfferingExpenseSearchType.OperationalExpenses ||
+                searchType === OfferingExpenseSearchType.ExpensesAdjustment ||
+                searchType === OfferingExpenseSearchType.SuppliesExpenses) && (
                 <FormField
                   control={form.control}
                   name='dateTerm'

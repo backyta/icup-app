@@ -71,7 +71,7 @@ export const PastorDeleteCard = ({ idRow }: PastorDeleteCardProps): JSX.Element 
               Discípulo, Grupo Familiar, Predicador, Supervisor, Zona y Co-Pastor.
             </span>
             <span className='inline-block text-[14px] md:text-[15px]'>
-              ✅ Para poder activarlo nuevamente deberás hacerlo desde la pestaña de{' '}
+              ✅ Para poder activarlo nuevamente deberás hacerlo desde el modulo{' '}
               <span className='font-bold'>Actualizar Pastor.</span>
             </span>
             <br />

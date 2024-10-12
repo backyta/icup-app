@@ -140,12 +140,12 @@ export const offeringIncomeFormSchema = z
       if ((data.type === OfferingIncomeCreationType.IncomeAdjustment ||
         (data.type === OfferingIncomeCreationType.Offering &&
           (data.subType === OfferingIncomeCreationSubType.SundaySchool ||
-            data.subType === OfferingIncomeCreationSubType.SundayWorship ||
+            data.subType === OfferingIncomeCreationSubType.SundayService ||
             data.subType === OfferingIncomeCreationSubType.Activities ||
             data.subType === OfferingIncomeCreationSubType.GeneralFasting ||
             data.subType === OfferingIncomeCreationSubType.GeneralVigil ||
-            data.subType === OfferingIncomeCreationSubType.WorshipUnited ||
-            data.subType === OfferingIncomeCreationSubType.YouthWorship))) 
+            data.subType === OfferingIncomeCreationSubType.UnitedService ||
+            data.subType === OfferingIncomeCreationSubType.YouthService))) 
       ) 
       {
         return !!data.churchId; 

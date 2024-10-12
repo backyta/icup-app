@@ -77,7 +77,7 @@ export const getOfferingsExpensesByTerm = async ({
   let result: OfferingExpenseResponse[];
 
   //* Others types
-  if (searchType !== OfferingExpenseSearchType.ExpenseAdjustment && searchType !== OfferingExpenseSearchType.RecordStatus ) {
+  if (searchType !== OfferingExpenseSearchType.ExpensesAdjustment && searchType !== OfferingExpenseSearchType.RecordStatus ) {
     try {
         if (!all) {
             const {data} = await icupApi<OfferingExpenseResponse[]>(`/offerings-expenses/${selectTerm}&${dateTerm}` , {
@@ -116,7 +116,7 @@ export const getOfferingsExpensesByTerm = async ({
  }
 
  //* Expense Adjustment
-  if (searchType === OfferingExpenseSearchType.ExpenseAdjustment) {
+  if (searchType === OfferingExpenseSearchType.ExpensesAdjustment) {
     try {
       if (!all) {
         const {data} = await icupApi<OfferingExpenseResponse[]>(`/offerings-expenses/${selectTerm}&${dateTerm}` , {

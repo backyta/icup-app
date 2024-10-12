@@ -26,7 +26,7 @@ export const SupervisorUpdateCard = ({ idRow }: SupervisorUpdateCardProps): JSX.
   //* Functions
   const currentSupervisor = useMemo(
     () => dataSearchByTermResponse?.find((data) => data?.id === idRow),
-    [dataSearchByTermResponse]
+    [dataSearchByTermResponse, idRow]
   );
 
   const handleContainerClose = useCallback((): void => {

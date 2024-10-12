@@ -105,7 +105,7 @@ export const FamilyGroupAnalysisCardByWorshipTime = ({ churchId }: Props): JSX.E
     queryKey: ['family-groups-by-worship-time', { ...searchParams, church: churchId }],
     queryFn: () => {
       return getFamilyGroupsByWorshipTime({
-        searchType: MetricSearchType.FamilyGroupsByWorshipTime,
+        searchType: MetricSearchType.FamilyGroupsByServiceTime,
         zone: searchParams?.zone ?? zone,
         allZones: !!all,
         order: RecordOrder.Ascending,

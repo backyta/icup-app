@@ -57,8 +57,8 @@ interface FamilyGroupPreacherFormUpdateProps {
 
 export const FamilyGroupPreacherUpdateForm = ({
   id,
-  dialogClose: onSubmit,
-  scrollToTop: onScroll,
+  dialogClose,
+  scrollToTop,
   data,
 }: FamilyGroupPreacherFormUpdateProps): JSX.Element => {
   //* States
@@ -109,8 +109,8 @@ export const FamilyGroupPreacherUpdateForm = ({
   });
 
   const familyGroupPreacherUpdateMutation = useFamilyGroupPreacherUpdateMutation({
-    onSubmit,
-    onScroll,
+    dialogClose,
+    scrollToTop,
     data,
     setIsInputDisabled,
     setIsSubmitButtonDisabled,

@@ -80,8 +80,8 @@ interface OfferingExpenseFormUpdateProps {
 
 export const OfferingExpenseFormUpdate = ({
   id,
-  dialogClose: onSubmit,
-  scrollToTop: onScroll,
+  dialogClose,
+  scrollToTop,
   data,
 }: OfferingExpenseFormUpdateProps): JSX.Element => {
   //* States
@@ -100,6 +100,8 @@ export const OfferingExpenseFormUpdate = ({
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
+
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   //* Form
   const form = useForm<z.infer<typeof offeringExpenseFormSchema>>({
@@ -160,8 +162,9 @@ export const OfferingExpenseFormUpdate = ({
   });
 
   const offeringExpenseUpdateMutation = useOfferingExpenseUpdateMutation({
-    onSubmit,
-    onScroll,
+    dialogClose,
+    scrollToTop,
+    imageUrls,
     setIsInputDisabled,
     setIsSubmitButtonDisabled,
     setIsDeleteFileButtonDisabled,
@@ -196,10 +199,26 @@ export const OfferingExpenseFormUpdate = ({
         });
 
         imageUrls = uploadResult.imageUrls;
+        setImageUrls(imageUrls ?? []);
       }
+
+      await offeringExpenseUpdateMutation.mutateAsync({
+        id,
+        formData: {
+          type: formData.type,
+          subType: !formData.subType ? undefined : formData.subType,
+          amount: formData.amount,
+          currency: formData.currency,
+          date: formData.date,
+          comments: formData.comments,
+          churchId: formData.churchId,
+          recordStatus: formData.recordStatus,
+          imageUrls: imageUrls ?? [],
+        },
+      });
     } catch (error) {
       toast.warning(
-        '¡Opps! fallo en subida de imágenes, por favor actualize y vuelve a intentarlo.',
+        '¡Oops! Fallo en la subida de imágenes, por favor actualize el navegador y vuelva a intentarlo.',
         {
           position: 'top-center',
           className: 'justify-center',
@@ -210,24 +229,7 @@ export const OfferingExpenseFormUpdate = ({
         setIsInputDisabled(false);
         setIsSubmitButtonDisabled(false);
       }, 1500);
-
-      return;
     }
-
-    await offeringExpenseUpdateMutation.mutateAsync({
-      id,
-      formData: {
-        type: formData.type,
-        subType: !formData.subType ? undefined : formData.subType,
-        amount: formData.amount,
-        currency: formData.currency,
-        date: formData.date,
-        comments: formData.comments,
-        churchId: formData.churchId,
-        recordStatus: formData.recordStatus,
-        imageUrls: imageUrls ?? [],
-      },
-    });
   };
 
   return (
@@ -301,7 +303,7 @@ export const OfferingExpenseFormUpdate = ({
                       }}
                     />
 
-                    {type !== OfferingExpenseSearchType.ExpenseAdjustment && (
+                    {type !== OfferingExpenseSearchType.ExpensesAdjustment && (
                       <FormField
                         control={form.control}
                         name='subType'
@@ -423,7 +425,7 @@ export const OfferingExpenseFormUpdate = ({
                     <div
                       className={cn(
                         'md:flex md:gap-5',
-                        type === OfferingExpenseSearchType.ExpenseAdjustment &&
+                        type === OfferingExpenseSearchType.ExpensesAdjustment &&
                           'md:flex-col md:gap-0'
                       )}
                     >
@@ -568,7 +570,7 @@ export const OfferingExpenseFormUpdate = ({
                                 className={cn(comments && 'h-full')}
                                 disabled={isInputDisabled}
                                 placeholder={`${
-                                  type === OfferingExpenseSearchType.ExpenseAdjustment
+                                  type === OfferingExpenseSearchType.ExpensesAdjustment
                                     ? `Comentarios sobre el ajuste de salida...`
                                     : 'Comentarios sobre el registro de salida...'
                                 }`}
@@ -581,59 +583,55 @@ export const OfferingExpenseFormUpdate = ({
                       }}
                     />
 
-                    {data?.recordStatus === RecordStatus.Active && (
-                      <FormField
-                        control={form.control}
-                        name='recordStatus'
-                        render={({ field }) => {
-                          return (
-                            <FormItem className='mt-3'>
-                              <FormLabel className='text-[14px] font-bold'>Estado</FormLabel>
-                              <Select
-                                disabled={isInputDisabled}
-                                value={field.value}
-                                onValueChange={field.onChange}
-                              >
-                                <FormControl className='text-[13px] md:text-[14px]'>
-                                  <SelectTrigger>
-                                    {field.value === 'active' ? (
-                                      <SelectValue placeholder='Activo' />
-                                    ) : (
-                                      <SelectValue placeholder='Inactivo' />
-                                    )}
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  <SelectItem className='text-[14px]' value='active'>
-                                    Activo
-                                  </SelectItem>
-                                  <SelectItem className='text-[14px]' value='inactive'>
-                                    Inactivo
-                                  </SelectItem>
-                                </SelectContent>
-                              </Select>
-                              {form.getValues('recordStatus') === 'active' && (
-                                <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
-                                  *El registro esta <span className='text-green-500'>Activo</span>,
-                                  para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
-                                  debe eliminar el registro desde la pestaña{' '}
-                                  <span className='font-bold text-red-500'>
-                                    Eliminar Ingreso de Ofrenda.{' '}
-                                  </span>
-                                </FormDescription>
-                              )}
-                              {form.getValues('recordStatus') === 'inactive' && (
-                                <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
-                                  * El registro esta <span className='text-red-500 '>Inactivo</span>
-                                  , puede modificar el estado eligiendo otra opción.
-                                </FormDescription>
-                              )}
-                              <FormMessage />
-                            </FormItem>
-                          );
-                        }}
-                      />
-                    )}
+                    <FormField
+                      control={form.control}
+                      name='recordStatus'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='mt-3'>
+                            <FormLabel className='text-[14px] font-bold'>Estado</FormLabel>
+                            <Select
+                              disabled={isInputDisabled}
+                              value={field.value}
+                              onValueChange={field.onChange}
+                            >
+                              <FormControl className='text-[13px] md:text-[14px]'>
+                                <SelectTrigger>
+                                  {field.value === 'active' ? (
+                                    <SelectValue placeholder='Activo' />
+                                  ) : (
+                                    <SelectValue placeholder='Inactivo' />
+                                  )}
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                <SelectItem className='text-[14px]' value='active'>
+                                  Activo
+                                </SelectItem>
+                                <SelectItem className='text-[14px]' value='inactive'>
+                                  Inactivo
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
+                            {form.getValues('recordStatus') === 'active' && (
+                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                                *El registro esta <span className='text-green-500'>Activo</span>,
+                                para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
+                                debe eliminar el registro desde el modulo{' '}
+                                <span className='font-bold text-red-500'>Eliminar Salida.</span>
+                              </FormDescription>
+                            )}
+                            {form.getValues('recordStatus') === 'inactive' && (
+                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                                * El registro esta <span className='text-red-500 '>Inactivo</span>,
+                                y ya no se podrá activar nuevamente.
+                              </FormDescription>
+                            )}
+                            <FormMessage />
+                          </FormItem>
+                        );
+                      }}
+                    />
                   </div>
 
                   <div className='lg:col-start-2 lg:col-end-3 md:border-l-2 border-slate-200 dark:border-slate-800 md:pl-8'>

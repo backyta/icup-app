@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-import { format } from 'date-fns';
+import { addDays, format } from 'date-fns';
 
 import { cn } from '@/shared/lib/utils';
 
@@ -63,6 +63,7 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
     };
   }, [id]);
 
+  // todo: agregar en gastos, salidas por cambio de moneda cuando vayan a cambiar dinero de da salia por intercambio y se ingresa tmb (en tipos de salida)
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full px-auto grid-cols-1'>
@@ -90,6 +91,7 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
                 )?.[1] ?? '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Sub-tipo</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -98,6 +100,7 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
                 )?.[1] ?? '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Turno</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -108,12 +111,14 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
                   : '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Monto</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.amount ?? '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Divisa</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -121,6 +126,14 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
                   '-'}
               </CardDescription>
             </div>
+
+            <div className='space-y-1'>
+              <Label className='text-[14px] md:text-[15px]'>Fecha de ofrenda</Label>
+              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                {data?.date ? format(new Date(addDays(data?.date, 1)), 'dd/MM/yyyy') : '-'}
+              </CardDescription>
+            </div>
+
             <div className='space-y-1 col-start-1 col-end-4 row-start-3'>
               <Label className='text-[14px] md:text-[15px]'>Comentarios</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] overflow-hidden text-ellipsis'>
@@ -156,13 +169,13 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
             </Label>
             {data?.memberType && (
               <>
-                <div className='col-start-1 col-end-4  space-y-1'>
+                <div className='col-start-1 col-end-2 row-start-6 row-end-7 space-y-1'>
                   <Label className='text-[14px] md:text-[15px]'>Tipo de Miembro</Label>
                   <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                     {data?.memberType ? MemberTypeNames[data?.memberType as MemberType] : '-'}
                   </CardDescription>
                 </div>
-                <div className='space-y-1'>
+                <div className='space-y-1 row-start-6 col-start-2 col-end-4  row-end-7'>
                   <Label className='text-[14px] md:text-[15px]'>Miembro</Label>
                   <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                     {data?.disciple?.firstName

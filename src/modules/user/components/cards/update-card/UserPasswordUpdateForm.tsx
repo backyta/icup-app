@@ -41,8 +41,8 @@ interface UserPasswordUpdateFormProps {
 
 export const UserPasswordUpdateForm = ({
   id,
-  dialogClose: onSubmit,
-  scrollToTop: onScroll,
+  dialogClose,
+  scrollToTop,
 }: UserPasswordUpdateFormProps): JSX.Element => {
   //* States
   const [showCurrentPassword, setShowCurrentPassword] = useState<boolean>(false);
@@ -107,8 +107,8 @@ export const UserPasswordUpdateForm = ({
   });
 
   const passwordUpdateMutation = usePasswordUpdateMutation({
-    onSubmit,
-    onScroll,
+    dialogClose,
+    scrollToTop,
     setIsInputDisabled,
     setIsSubmitButtonDisabled,
   });

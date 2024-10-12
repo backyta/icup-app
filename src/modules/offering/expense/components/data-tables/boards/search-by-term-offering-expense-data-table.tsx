@@ -199,12 +199,12 @@ export function SearchByTermOfferingExpenseDataTable<TData, TValue>({
               }`}
             </span>
             {dataForm?.searchSubType &&
-              (dataForm?.searchType === OfferingExpenseSearchType.ActivitiesAndEventsExpense ||
-                dataForm?.searchType === OfferingExpenseSearchType.DecorationExpense ||
-                dataForm?.searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpense ||
-                dataForm?.searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpense ||
-                dataForm?.searchType === OfferingExpenseSearchType.OperationalExpense ||
-                dataForm?.searchType === OfferingExpenseSearchType.SuppliesExpense) && (
+              (dataForm?.searchType === OfferingExpenseSearchType.PlaningEventsExpenses ||
+                dataForm?.searchType === OfferingExpenseSearchType.DecorationExpenses ||
+                dataForm?.searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpenses ||
+                dataForm?.searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpenses ||
+                dataForm?.searchType === OfferingExpenseSearchType.OperationalExpenses ||
+                dataForm?.searchType === OfferingExpenseSearchType.SuppliesExpenses) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {' '}
                   -{' '}
@@ -222,24 +222,24 @@ export function SearchByTermOfferingExpenseDataTable<TData, TValue>({
             <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
               Termino de búsqueda:
             </span>{' '}
-            {(dataForm?.searchType === OfferingExpenseSearchType.ActivitiesAndEventsExpense ||
-              dataForm?.searchType === OfferingExpenseSearchType.DecorationExpense ||
-              dataForm?.searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpense ||
-              dataForm?.searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpense ||
-              dataForm?.searchType === OfferingExpenseSearchType.OperationalExpense ||
-              dataForm?.searchType === OfferingExpenseSearchType.SuppliesExpense ||
-              dataForm?.searchType === OfferingExpenseSearchType.ExpenseAdjustment) && (
+            {(dataForm?.searchType === OfferingExpenseSearchType.PlaningEventsExpenses ||
+              dataForm?.searchType === OfferingExpenseSearchType.DecorationExpenses ||
+              dataForm?.searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpenses ||
+              dataForm?.searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpenses ||
+              dataForm?.searchType === OfferingExpenseSearchType.OperationalExpenses ||
+              dataForm?.searchType === OfferingExpenseSearchType.SuppliesExpenses ||
+              dataForm?.searchType === OfferingExpenseSearchType.ExpensesAdjustment) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${churchesQuery?.data?.find((item) => item?.id === dataForm?.selectTerm)?.churchName}`}
               </span>
             )}
-            {(dataForm?.searchType === OfferingExpenseSearchType.ActivitiesAndEventsExpense ||
-              dataForm?.searchType === OfferingExpenseSearchType.DecorationExpense ||
-              dataForm?.searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpense ||
-              dataForm?.searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpense ||
-              dataForm?.searchType === OfferingExpenseSearchType.OperationalExpense ||
-              dataForm?.searchType === OfferingExpenseSearchType.SuppliesExpense ||
-              dataForm?.searchType === OfferingExpenseSearchType.ExpenseAdjustment) && (
+            {(dataForm?.searchType === OfferingExpenseSearchType.PlaningEventsExpenses ||
+              dataForm?.searchType === OfferingExpenseSearchType.DecorationExpenses ||
+              dataForm?.searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpenses ||
+              dataForm?.searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpenses ||
+              dataForm?.searchType === OfferingExpenseSearchType.OperationalExpenses ||
+              dataForm?.searchType === OfferingExpenseSearchType.SuppliesExpenses ||
+              dataForm?.searchType === OfferingExpenseSearchType.ExpensesAdjustment) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {` - ${dataForm?.dateTerm?.from ? dateFormatterToDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${dateFormatterToDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
               </span>

@@ -72,7 +72,7 @@ export const SupervisorDeleteCard = ({ idRow }: SupervisorDeleteCardProps): JSX.
               con Discípulo, Predicador, Grupo Familiar y Zona.
             </span>
             <span className='inline-block text-[14px] md:text-[15px]'>
-              ✅ Para poder activarlo nuevamente deberá hacerlo desde la pestaña de{' '}
+              ✅ Para poder activarlo nuevamente deberá hacerlo desde el modulo{' '}
               <span className='font-bold'>Actualizar Supervisor.</span>
             </span>
             <br />

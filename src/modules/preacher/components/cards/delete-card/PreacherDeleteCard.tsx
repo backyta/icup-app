@@ -72,7 +72,7 @@ export const PreacherDeleteCard = ({ idRow }: PreacherDeleteCardProps): JSX.Elem
               con Discípulo y Grupo Familiar.
             </span>
             <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
-              ✅ Para poder activarlo nuevamente deberá hacerlo desde la pestaña de{' '}
+              ✅ Para poder activarlo nuevamente deberá hacerlo desde el modulo{' '}
               <span className='font-bold'>Actualizar Predicador.</span>
             </span>
             <br />

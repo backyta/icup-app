@@ -1,15 +1,16 @@
-/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
+import { addDays, format } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { addDays, format } from 'date-fns';
+import { useMediaQuery } from '@react-hook/media-query';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Bar, XAxis, YAxis, CartesianGrid, BarChart } from 'recharts';
 import { FcDataBackup, FcDeleteDatabase, FcDataConfiguration } from 'react-icons/fc';
@@ -22,8 +23,8 @@ import { dateFormatterToDDMMYY, generateYearOptions } from '@/shared/helpers';
 import { months } from '@/modules/metrics/data';
 import { MetricSearchType } from '@/modules/metrics/enums';
 import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getOfferingsIncomeBySundayService } from '@/modules/metrics/services';
-import { OfferingsIncomeBySundayServiceTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components';
+import { getOfferingIncomeBySundayService as getOfferingIncomeBySundayService } from '@/modules/metrics/services';
+import { OfferingIncomeBySundayServiceTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components';
 
 import {
   Command,
@@ -81,12 +82,13 @@ interface Props {
   churchId: string | undefined;
 }
 
+// NOTE: Tratar de hacer un boton especial para cambio de divisa porque en eliminar no queda muy claro.
+
 export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): JSX.Element => {
   //* States
   const [isInputSearchMonthOpen, setIsInputSearchMonthOpen] = useState<boolean>(false);
   const [isInputSearchYearOpen, setIsInputSearchYearOpen] = useState<boolean>(false);
   const [searchParams, setSearchParams] = useState<SearchParamsOptions | undefined>(undefined);
-  // const [mappedData, setMappedData] = useState<ResultDataOptions[]>();
 
   //* Form
   const form = useForm<z.infer<typeof metricsFormSchema>>({
@@ -98,15 +100,20 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
     },
   });
 
+  //* Media Queries
+  const intermediateLG = useMediaQuery('(min-width: 1280px)');
+  const intermediateXL = useMediaQuery('(min-width: 1375px)');
+  const intermediate2XL = useMediaQuery('(min-width: 1500px)');
+
   //* Watchers
   const year = form.watch('year');
   const month = form.watch('month');
 
   const offeringsIncomeBySundayService = useQuery({
-    queryKey: ['offerings-income-by-sunday-service', { ...searchParams, church: churchId }],
+    queryKey: ['offering-income-by-sunday-service', { ...searchParams, church: churchId }],
     queryFn: () => {
-      return getOfferingsIncomeBySundayService({
-        searchType: MetricSearchType.OfferingsIncomeBySundayService,
+      return getOfferingIncomeBySundayService({
+        searchType: MetricSearchType.OfferingIncomeBySundayService,
         month: searchParams?.month ?? month,
         year: searchParams?.year ?? year,
         order: RecordOrder.Ascending,
@@ -135,7 +142,16 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
     <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] md:h-[28rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 py-2.5'>
         <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-          <span>Ofrendas Dominicales</span>
+          {/* <span>Ofrendas Dominicales</span> */}
+          {intermediate2XL ? (
+            <span>Ofrendas Dominicales</span>
+          ) : intermediateXL ? (
+            <span>Ofrendas Dominicales</span>
+          ) : intermediateLG ? (
+            <span>Ofre. Dominicales</span>
+          ) : (
+            <span>Ofrendas Dominicales</span>
+          )}
           {offeringsIncomeBySundayService?.data &&
             Object.entries(offeringsIncomeBySundayService?.data)?.length > 0 && (
               <Badge
@@ -324,7 +340,7 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
                 <YAxis className='text-[12px] sm:text-[14px]' />
                 <ChartTooltip
                   cursor={false}
-                  content={OfferingsIncomeBySundayServiceTooltipContent as any}
+                  content={OfferingIncomeBySundayServiceTooltipContent as any}
                 />
 
                 <ChartLegend

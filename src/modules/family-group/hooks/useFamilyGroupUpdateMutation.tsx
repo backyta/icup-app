@@ -10,15 +10,15 @@ import { type FamilyGroupResponse } from '@/modules/family-group/interfaces';
 import { updateFamilyGroup, type UpdateFamilyGroupOptions } from '@/modules/family-group/services';
 
 interface Options {
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useFamilyGroupUpdateMutation = ({
-  onSubmit,
-  onScroll,
+  dialogClose,
+  scrollToTop,
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
 }: Options): UseMutationResult<
@@ -67,7 +67,7 @@ export const useFamilyGroupUpdateMutation = ({
       });
 
       setTimeout(() => {
-        onScroll();
+        scrollToTop();
       }, 150);
 
       setTimeout(() => {
@@ -75,7 +75,7 @@ export const useFamilyGroupUpdateMutation = ({
       }, 700);
 
       setTimeout(() => {
-        onSubmit();
+        dialogClose();
         setIsInputDisabled(false);
       }, 1500);
     },

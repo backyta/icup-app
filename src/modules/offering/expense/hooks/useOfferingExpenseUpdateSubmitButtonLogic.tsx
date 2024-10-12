@@ -50,7 +50,7 @@ export const useOfferingExpenseUpdateSubmitButtonLogic = ({
 
     //* Expense adjustment
     if (
-      type === offeringExpenseSearchType.ExpenseAdjustment &&
+      type === offeringExpenseSearchType.ExpensesAdjustment &&
       !subType &&
       amount &&
       currency &&
@@ -65,7 +65,7 @@ export const useOfferingExpenseUpdateSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringExpenseSearchType.ExpenseAdjustment &&
+      type === offeringExpenseSearchType.ExpensesAdjustment &&
       (!churchId || !amount || !currency || !date || !comments)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -74,12 +74,12 @@ export const useOfferingExpenseUpdateSubmitButtonLogic = ({
 
     //* Others types
     if (
-      (type === offeringExpenseSearchType.OperationalExpense ||
-        type === offeringExpenseSearchType.ActivitiesAndEventsExpense ||
-        type === offeringExpenseSearchType.DecorationExpense ||
-        type === offeringExpenseSearchType.EquipmentAndTechnologyExpense ||
-        type === offeringExpenseSearchType.MaintenanceAndRepairExpense ||
-        type === offeringExpenseSearchType.SuppliesExpense) &&
+      (type === offeringExpenseSearchType.OperationalExpenses ||
+        type === offeringExpenseSearchType.PlaningEventsExpenses ||
+        type === offeringExpenseSearchType.DecorationExpenses ||
+        type === offeringExpenseSearchType.EquipmentAndTechnologyExpenses ||
+        type === offeringExpenseSearchType.MaintenanceAndRepairExpenses ||
+        type === offeringExpenseSearchType.SuppliesExpenses) &&
       date &&
       subType &&
       amount &&

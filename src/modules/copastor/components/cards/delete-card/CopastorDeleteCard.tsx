@@ -73,7 +73,7 @@ export const CopastorDeleteCard = ({ idRow }: CopastorDeleteCardProps): JSX.Elem
               con Discípulo, Predicador, Grupo Familiar, Supervisor y Zona.
             </span>
             <span className='inline-block text-[14px] md:text-[15px]'>
-              ✅ Para poder activarlo nuevamente deberá hacerlo desde la pestaña de{' '}
+              ✅ Para poder activarlo nuevamente deberá hacerlo desde el modulo{' '}
               <span className='font-bold'>Actualizar Co-Pastor.</span>
             </span>
             <br />

@@ -85,7 +85,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     //* Sunday worship
     if (
       type === offeringIncomeCreationType.Offering &&
-      (subType === offeringIncomeCreationSubType.SundayWorship ||
+      (subType === offeringIncomeCreationSubType.SundayService ||
         subType === offeringIncomeCreationSubType.SundaySchool) &&
       amount &&
       date &&
@@ -101,7 +101,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
 
     if (
       type === offeringIncomeCreationType.Offering &&
-      (subType === offeringIncomeCreationSubType.SundayWorship ||
+      (subType === offeringIncomeCreationSubType.SundayService ||
         subType === offeringIncomeCreationSubType.SundaySchool) &&
       (!churchId || !date || !amount || !currency || !shift)
     ) {
@@ -194,7 +194,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       subType !== offeringIncomeCreationSubType.ZonalVigil &&
       subType !== offeringIncomeCreationSubType.FamilyGroup &&
       subType !== offeringIncomeCreationSubType.SundaySchool &&
-      subType !== offeringIncomeCreationSubType.SundayWorship &&
+      subType !== offeringIncomeCreationSubType.SundayService &&
       amount &&
       currency &&
       churchId &&
@@ -248,7 +248,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
   useEffect(() => {
     if (
       type === offeringIncomeCreationType.Offering &&
-      (subType === offeringIncomeCreationSubType.SundayWorship ||
+      (subType === offeringIncomeCreationSubType.SundayService ||
         subType === offeringIncomeCreationSubType.SundaySchool)
     ) {
       offeringIncomeCreationForm.resetField('familyGroupId', { keepDirty: true });

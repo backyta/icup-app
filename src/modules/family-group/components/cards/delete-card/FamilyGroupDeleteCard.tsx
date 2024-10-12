@@ -72,7 +72,7 @@ export const FamilyGroupDeleteCard = ({ idRow }: FamilyGroupDeleteCardProps): JS
               relación con Discípulo, Predicador, Supervisor, Co-Pastor, Pastor e Iglesia.
             </span>
             <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-              ✅ Para poder activarla nuevamente deberá hacerlo desde la pestaña de{' '}
+              ✅ Para poder activarla nuevamente deberá hacerlo desde el modulo{' '}
               <span className='font-bold'>Actualizar Grupo Familiar.</span>
             </span>
             <br />

@@ -55,8 +55,19 @@ export const DestroyImageButton = ({
             <span>¿Estas seguro de eliminar a esta imagen?</span>
           </h2>
           <p>
-            <span className='text-red-500 font-bold mb-1 inline-block text-[16px] md:text-[18px]'>
-              Consideraciones:
+            <span className='text-green-500 font-bold mb-1 inline-block text-[15px] md:text-[17px]'>
+              Recomendaciones
+            </span>
+            <br />
+            <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
+              ✅ Para mayor seguridad, descarga la imagen y guárdala como respaldo.
+            </span>
+            <span className='inline-block text-[14px] md:text-[15px]'>
+              ✅ Consulta con el administrador del sistema antes de ejecutar esta acción.
+            </span>
+
+            <span className='text-red-500 font-bold mt-1 mb-1 inline-block text-[15px] md:text-[17px]'>
+              Consideraciones
             </span>
             <br />
             <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
@@ -66,17 +77,10 @@ export const DestroyImageButton = ({
               ❌ No se podrá recuperar esta imagen después de ejecutar esta acción.
             </span>
 
-            <span className='text-green-500 font-bold mb-1 inline-block text-[15px] md:text-[17px]'>
-              Recomendaciones:
-            </span>
             <br />
-            <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
-              ✅ Descarga la imagen y guárdala como respaldo, para mayor seguridad.
+            <span className='text-blue-500 font-bold inline-block mt-1 mb-1 text-[10.5px] md:text-[12.5px]'>
+              ☑ Nota: Al finalizar esta acción puedes seguir editando el formulario.
             </span>
-            <span className='inline-block text-[14px] md:text-[15px]'>
-              ✅ Consulta con el administrador del sistema antes de ejecutar esta acción.
-            </span>
-            <br />
           </p>
         </div>
 

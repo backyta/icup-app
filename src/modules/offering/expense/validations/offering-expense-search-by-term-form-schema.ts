@@ -45,13 +45,13 @@ export const offeringExpenseSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === OfferingExpenseSearchType.ActivitiesAndEventsExpense || 
-        data.searchType === OfferingExpenseSearchType.DecorationExpense || 
-        data.searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpense || 
-        data.searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpense || 
-        data.searchType === OfferingExpenseSearchType.OperationalExpense || 
-        data.searchType === OfferingExpenseSearchType.SuppliesExpense ||
-        data.searchType === OfferingExpenseSearchType.ExpenseAdjustment
+        data.searchType === OfferingExpenseSearchType.PlaningEventsExpenses || 
+        data.searchType === OfferingExpenseSearchType.DecorationExpenses || 
+        data.searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpenses || 
+        data.searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpenses || 
+        data.searchType === OfferingExpenseSearchType.OperationalExpenses || 
+        data.searchType === OfferingExpenseSearchType.SuppliesExpenses ||
+        data.searchType === OfferingExpenseSearchType.ExpensesAdjustment
       ) {
         return !!data.selectTerm;
       }
@@ -65,13 +65,13 @@ export const offeringExpenseSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === OfferingExpenseSearchType.ActivitiesAndEventsExpense || 
-        data.searchType === OfferingExpenseSearchType.DecorationExpense || 
-        data.searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpense || 
-        data.searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpense || 
-        data.searchType === OfferingExpenseSearchType.OperationalExpense || 
-        data.searchType === OfferingExpenseSearchType.SuppliesExpense ||
-        data.searchType === OfferingExpenseSearchType.ExpenseAdjustment
+        data.searchType === OfferingExpenseSearchType.PlaningEventsExpenses || 
+        data.searchType === OfferingExpenseSearchType.DecorationExpenses || 
+        data.searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpenses || 
+        data.searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpenses || 
+        data.searchType === OfferingExpenseSearchType.OperationalExpenses || 
+        data.searchType === OfferingExpenseSearchType.SuppliesExpenses ||
+        data.searchType === OfferingExpenseSearchType.ExpensesAdjustment
       ) {
         return !!data.dateTerm; 
       }

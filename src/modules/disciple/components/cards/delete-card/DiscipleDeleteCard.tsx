@@ -73,7 +73,7 @@ export const DiscipleDeleteCard = ({ idRow }: DiscipleDeleteCardProps): JSX.Elem
               con Predicador y Grupo Familiar, Supervisor, Zona, Co-Pastor, Pastor e Iglesia.
             </span>
             <span className='inline-block text-[14px] md:text-[15px]'>
-              ✅ Para poder activarlo nuevamente deberá hacerlo desde la pestaña de{' '}
+              ✅ Para poder activarlo nuevamente deberá hacerlo desde el modulo{' '}
               <span className='font-bold'>Actualizar Discípulo.</span>
             </span>
             <br />

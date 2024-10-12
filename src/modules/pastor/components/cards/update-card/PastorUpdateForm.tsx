@@ -87,8 +87,8 @@ interface PastorFormUpdateProps {
 export const PastorUpdateForm = ({
   id,
   data,
-  dialogClose: onSubmit,
-  scrollToTop: onScroll,
+  dialogClose,
+  scrollToTop,
 }: PastorFormUpdateProps): JSX.Element => {
   //* States
   const [isInputTheirChurchOpen, setIsInputTheirChurchOpen] = useState<boolean>(false);
@@ -161,8 +161,8 @@ export const PastorUpdateForm = ({
   });
 
   const pastorUpdateMutation = usePastorUpdateMutation({
-    onSubmit,
-    onScroll,
+    dialogClose,
+    scrollToTop,
     setIsInputDisabled,
     setIsSubmitButtonDisabled,
   });
@@ -506,8 +506,8 @@ export const PastorUpdateForm = ({
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
-                                debe eliminar el registro desde la pestaña{' '}
-                                <span className='font-bold text-red-500'>Eliminar Pastor. </span>
+                                debe eliminar el registro desde el modulo{' '}
+                                <span className='font-bold text-red-500'>Eliminar Pastor.</span>
                               </FormDescription>
                             )}
                             {form.getValues('recordStatus') === 'inactive' && (

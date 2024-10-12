@@ -88,7 +88,7 @@ export const useOfferingIncomeUpdateSubmitButtonLogic = ({
     //* Sunday worship
     if (
       type === OfferingIncomeCreationType.Offering &&
-      (subType === OfferingIncomeCreationSubType.SundayWorship ||
+      (subType === OfferingIncomeCreationSubType.SundayService ||
         subType === OfferingIncomeCreationSubType.SundaySchool) &&
       amount &&
       currency &&
@@ -104,7 +104,7 @@ export const useOfferingIncomeUpdateSubmitButtonLogic = ({
 
     if (
       type === OfferingIncomeCreationType.Offering &&
-      (subType === OfferingIncomeCreationSubType.SundayWorship ||
+      (subType === OfferingIncomeCreationSubType.SundayService ||
         subType === OfferingIncomeCreationSubType.SundaySchool) &&
       (!churchId || !amount || !currency || !shift || !comments)
     ) {
@@ -198,7 +198,7 @@ export const useOfferingIncomeUpdateSubmitButtonLogic = ({
       subType !== OfferingIncomeCreationSubType.ZonalVigil &&
       subType !== OfferingIncomeCreationSubType.FamilyGroup &&
       subType !== OfferingIncomeCreationSubType.SundaySchool &&
-      subType !== OfferingIncomeCreationSubType.SundayWorship &&
+      subType !== OfferingIncomeCreationSubType.SundayService &&
       amount &&
       currency &&
       churchId &&

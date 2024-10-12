@@ -57,8 +57,8 @@ interface ZoneSupervisorFormUpdateProps {
 
 export const ZoneSupervisorUpdateForm = ({
   id,
-  dialogClose: onSubmit,
-  scrollToTop: onScroll,
+  dialogClose,
+  scrollToTop,
   data,
 }: ZoneSupervisorFormUpdateProps): JSX.Element => {
   //* States
@@ -110,8 +110,8 @@ export const ZoneSupervisorUpdateForm = ({
   });
 
   const zoneSupervisorUpdateMutation = useZoneSupervisorUpdateMutation({
-    onSubmit,
-    onScroll,
+    dialogClose,
+    scrollToTop,
     setIsInputDisabled,
     setIsSubmitButtonDisabled,
     setIsInputTheirSupervisorDisabled,

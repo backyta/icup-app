@@ -71,7 +71,7 @@ export const ChurchDeleteCard = ({ idRow }: ChurchDeleteCardProps): JSX.Element 
               Discípulo, Predicador, Grupo Familiar, Zona, Supervisor, Co-Pastor y Pastor.
             </span>
             <span className='w-full text-left inline-block text-[14px] md:text-[15px]'>
-              ✅ Para poder activarla nuevamente deberás hacerlo desde la pestaña de{' '}
+              ✅ Para poder activarla nuevamente deberás hacerlo desde el modulo{' '}
               <span className='font-bold'>Actualizar Iglesia.</span>
             </span>
             <br />

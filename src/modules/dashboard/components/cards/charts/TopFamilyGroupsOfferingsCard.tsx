@@ -94,7 +94,7 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
         searchType: DashboardSearchType.TopFamilyGroupsOfferings,
         selectTerm: searchParams?.selectTerm ?? selectTerm,
         dateTerm: new Date().getFullYear().toString(),
-        order: RecordOrder.Descending,
+        order: RecordOrder.Descending, // permite invertir el array de all offering para tomar el primero como ultima ofrenda según currency
       });
     },
     enabled: !!searchParams,

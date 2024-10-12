@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect, useState } from 'react';
@@ -24,8 +24,8 @@ import { dateFormatterToDDMMYY, generateYearOptions } from '@/shared/helpers';
 
 import { MetricSearchType } from '@/modules/metrics/enums';
 import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getOfferingsIncomeBySundaySchool } from '@/modules/metrics/services';
-import { OfferingsIncomeBySundayServiceTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components';
+import { getOfferingIncomeBySundaySchool } from '@/modules/metrics/services';
+import { OfferingIncomeBySundayServiceTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components';
 
 import {
   Command,
@@ -103,11 +103,11 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
   const year = form.watch('year');
   const month = form.watch('month');
 
-  const offeringsIncomeBySundaySchool = useQuery({
-    queryKey: ['offerings-income-by-sunday-school', { ...searchParams, church: churchId }],
+  const offeringIncomeBySundaySchool = useQuery({
+    queryKey: ['offering-income-by-sunday-school', { ...searchParams, church: churchId }],
     queryFn: () => {
-      return getOfferingsIncomeBySundaySchool({
-        searchType: MetricSearchType.OfferingsIncomeBySundaySchool,
+      return getOfferingIncomeBySundaySchool({
+        searchType: MetricSearchType.OfferingIncomeBySundaySchool,
         month: searchParams?.month ?? month,
         year: searchParams?.year ?? year,
         order: RecordOrder.Ascending,
@@ -130,7 +130,7 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
   // Default value
   useEffect(() => {
     setSearchParams({ year, month });
-  }, [offeringsIncomeBySundaySchool?.data, year]);
+  }, [offeringIncomeBySundaySchool?.data, year]);
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof metricsFormSchema>): void => {
@@ -141,7 +141,6 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
     <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] md:h-[28rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 py-2.5'>
         <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-          {/* <span>Ofrendas Esc. Dominical</span> */}
           {intermediate2XL ? (
             <span>Ofrendas Esc. Dominical</span>
           ) : intermediateXL ? (
@@ -151,8 +150,8 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
           ) : (
             <span>Ofrendas Escuela Dominical</span>
           )}
-          {offeringsIncomeBySundaySchool?.data &&
-            Object.entries(offeringsIncomeBySundaySchool?.data)?.length > 0 && (
+          {offeringIncomeBySundaySchool?.data &&
+            Object.entries(offeringIncomeBySundaySchool?.data)?.length > 0 && (
               <Badge
                 variant='active'
                 className='mt-1 text-[10px] md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
@@ -296,7 +295,7 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
         </Form>
       </CardHeader>
 
-      {!offeringsIncomeBySundaySchool?.data?.length && !searchParams ? (
+      {!offeringIncomeBySundaySchool?.data?.length && !searchParams ? (
         <CardContent className='h-full pl-3 pr-6 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
@@ -305,8 +304,8 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
         </CardContent>
       ) : (
         <CardContent className='h-full pl-3 pr-6 py-0'>
-          {offeringsIncomeBySundaySchool?.isFetching &&
-            !offeringsIncomeBySundaySchool?.data?.length &&
+          {offeringIncomeBySundaySchool?.isFetching &&
+            !offeringIncomeBySundaySchool?.data?.length &&
             year && (
               <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDataBackup className='text-[6rem] pb-2' />
@@ -314,7 +313,7 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
               </div>
             )}
 
-          {!!offeringsIncomeBySundaySchool?.data?.length && searchParams && (
+          {!!offeringIncomeBySundaySchool?.data?.length && searchParams && (
             <ChartContainer
               config={chartConfig}
               className={cn(
@@ -323,7 +322,7 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
             >
               <BarChart
                 accessibilityLayer
-                data={offeringsIncomeBySundaySchool?.data}
+                data={offeringIncomeBySundaySchool?.data}
                 margin={{ top: 5, right: 5, left: -28, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
@@ -339,7 +338,7 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
                 <YAxis className='text-[12px] sm:text-[14px]' />
                 <ChartTooltip
                   cursor={false}
-                  content={OfferingsIncomeBySundayServiceTooltipContent as any}
+                  content={OfferingIncomeBySundayServiceTooltipContent as any}
                 />
 
                 <ChartLegend
@@ -392,14 +391,14 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
               </BarChart>
             </ChartContainer>
           )}
-          {!year && !offeringsIncomeBySundaySchool?.data?.length && (
+          {!year && !offeringIncomeBySundaySchool?.data?.length && (
             <div className='text-emerald-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDataConfiguration className='text-[6rem] pb-2' />
               <p>Esperando parámetros de consulta...</p>
             </div>
           )}
-          {!offeringsIncomeBySundaySchool?.isFetching &&
-            !offeringsIncomeBySundaySchool?.data?.length &&
+          {!offeringIncomeBySundaySchool?.isFetching &&
+            !offeringIncomeBySundaySchool?.data?.length &&
             year && (
               <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDeleteDatabase className='text-[6rem] pb-2' />

@@ -68,8 +68,8 @@ interface ZoneFormUpdateProps {
 export const ZoneUpdateForm = ({
   id,
   data,
-  dialogClose: onSubmit,
-  scrollToTop: onScroll,
+  dialogClose,
+  scrollToTop,
 }: ZoneFormUpdateProps): JSX.Element => {
   //* States
   const [isLoadingData, setIsLoadingData] = useState(true);
@@ -117,8 +117,8 @@ export const ZoneUpdateForm = ({
   });
 
   const zoneUpdateMutation = useZoneUpdateMutation({
-    onSubmit,
-    onScroll,
+    dialogClose,
+    scrollToTop,
     setIsInputDisabled,
     setIsSubmitButtonDisabled,
     setIsInputTheirSupervisorDisabled,
@@ -479,8 +479,8 @@ export const ZoneUpdateForm = ({
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>Activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
-                                debe eliminar el registro desde la pestaña{' '}
-                                <span className='font-bold text-red-500'>Eliminar Iglesia. </span>
+                                debe eliminar el registro desde el modulo{' '}
+                                <span className='font-bold text-red-500'>Eliminar Zona.</span>
                               </FormDescription>
                             )}
                             {form.getValues('recordStatus') === 'inactive' && (

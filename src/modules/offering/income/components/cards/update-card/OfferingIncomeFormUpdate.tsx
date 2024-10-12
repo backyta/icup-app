@@ -97,8 +97,8 @@ interface OfferingIncomeFormUpdateProps {
 
 export const OfferingIncomeFormUpdate = ({
   id,
-  dialogClose: onSubmit,
-  scrollToTop: onScroll,
+  dialogClose,
+  scrollToTop,
   data,
 }: OfferingIncomeFormUpdateProps): JSX.Element => {
   //* States
@@ -120,6 +120,7 @@ export const OfferingIncomeFormUpdate = ({
 
   const [isLoadingData, setIsLoadingData] = useState(true);
   const [isInputMemberOpen, setIsInputMemberOpen] = useState<boolean>(false);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
 
   //* Form
   const form = useForm<z.infer<typeof offeringIncomeFormSchema>>({
@@ -198,8 +199,9 @@ export const OfferingIncomeFormUpdate = ({
   });
 
   const offeringIncomeUpdateMutation = useOfferingIncomeUpdateMutation({
-    onSubmit,
-    onScroll,
+    dialogClose,
+    scrollToTop,
+    imageUrls,
     setIsInputDisabled,
     setIsSubmitButtonDisabled,
     setIsDeleteFileButtonDisabled,
@@ -242,43 +244,44 @@ export const OfferingIncomeFormUpdate = ({
         });
 
         imageUrls = uploadResult.imageUrls;
+        setImageUrls(imageUrls ?? []);
       }
+
+      await offeringIncomeUpdateMutation.mutateAsync({
+        id,
+        formData: {
+          type: formData.type,
+          subType: !formData.subType ? undefined : formData.subType,
+          shift: formData.shift,
+          amount: formData.amount,
+          currency: formData.currency,
+          date: formData.date,
+          comments: formData.comments,
+          memberType: formData.memberType,
+          memberId: formData.memberId,
+          familyGroupId: formData.familyGroupId,
+          zoneId: formData.zoneId,
+          churchId: formData.churchId,
+          recordStatus: formData.recordStatus,
+          imageUrls: imageUrls ?? [],
+        },
+      });
     } catch (error) {
-      toast.warning(
-        '¡Opps! fallo en subida de imágenes, por favor actualize y vuelve a intentarlo',
-        {
-          position: 'top-center',
-          className: 'justify-center',
-        }
-      );
+      if (uploadImagesMutation.isError) {
+        toast.warning(
+          '¡Oops! Fallo en la subida de imágenes, por favor actualize el navegador y vuelva a intentarlo.',
+          {
+            position: 'top-center',
+            className: 'justify-center',
+          }
+        );
+      }
 
       setTimeout(() => {
         setIsInputDisabled(false);
         setIsSubmitButtonDisabled(false);
       }, 1500);
-
-      return;
     }
-
-    await offeringIncomeUpdateMutation.mutateAsync({
-      id,
-      formData: {
-        type: formData.type,
-        subType: !formData.subType ? undefined : formData.subType,
-        shift: formData.shift,
-        amount: formData.amount,
-        currency: formData.currency,
-        date: formData.date,
-        comments: formData.comments,
-        memberType: formData.memberType,
-        memberId: formData.memberId,
-        familyGroupId: formData.familyGroupId,
-        zoneId: formData.zoneId,
-        churchId: formData.churchId,
-        recordStatus: formData.recordStatus,
-        imageUrls: imageUrls ?? [],
-      },
-    });
   };
 
   return (
@@ -308,10 +311,10 @@ export const OfferingIncomeFormUpdate = ({
                   {`${
                     data?.type === OfferingIncomeCreationType.IncomeAdjustment ||
                     data?.subType === OfferingIncomeCreationSubType.SundaySchool ||
-                    data?.subType === OfferingIncomeCreationSubType.SundayWorship ||
+                    data?.subType === OfferingIncomeCreationSubType.SundayService ||
                     data?.subType === OfferingIncomeCreationSubType.GeneralFasting ||
                     data?.subType === OfferingIncomeCreationSubType.GeneralVigil ||
-                    data?.subType === OfferingIncomeCreationSubType.YouthWorship ||
+                    data?.subType === OfferingIncomeCreationSubType.YouthService ||
                     data?.subType === OfferingIncomeCreationSubType.Activities
                       ? data?.church?.churchName
                       : data?.subType === OfferingIncomeCreationSubType.FamilyGroup
@@ -642,12 +645,12 @@ export const OfferingIncomeFormUpdate = ({
                     {(type === OfferingIncomeCreationType.IncomeAdjustment ||
                       (type === OfferingIncomeCreationType.Offering &&
                         (subType === OfferingIncomeCreationSubType.SundaySchool ||
-                          subType === OfferingIncomeCreationSubType.SundayWorship ||
+                          subType === OfferingIncomeCreationSubType.SundayService ||
                           subType === OfferingIncomeCreationSubType.Activities ||
                           subType === OfferingIncomeCreationSubType.GeneralFasting ||
                           subType === OfferingIncomeCreationSubType.GeneralVigil ||
-                          subType === OfferingIncomeCreationSubType.WorshipUnited ||
-                          subType === OfferingIncomeCreationSubType.YouthWorship))) && (
+                          subType === OfferingIncomeCreationSubType.UnitedService ||
+                          subType === OfferingIncomeCreationSubType.YouthService))) && (
                       <FormField
                         control={form.control}
                         name='churchId'
@@ -819,7 +822,7 @@ export const OfferingIncomeFormUpdate = ({
                       />
                     )}
 
-                    {(subType === OfferingIncomeCreationSubType.SundayWorship ||
+                    {(subType === OfferingIncomeCreationSubType.SundayService ||
                       subType === OfferingIncomeCreationSubType.SundaySchool) && (
                       <FormField
                         control={form.control}
@@ -958,7 +961,7 @@ export const OfferingIncomeFormUpdate = ({
                                     )}
                                   >
                                     {field.value ? (
-                                      format(field.value, 'LLL dd, y', { locale: es })
+                                      format(field?.value, 'LLL dd, y', { locale: es })
                                     ) : (
                                       <span className='text-sm md:text-[12px] lg:text-sm'>
                                         Seleccione la fecha de la ofrenda
@@ -977,7 +980,7 @@ export const OfferingIncomeFormUpdate = ({
                                     setIsInputDateOpen(false);
                                   }}
                                   disabled={
-                                    subType !== OfferingIncomeCreationSubType.SundayWorship &&
+                                    subType !== OfferingIncomeCreationSubType.SundayService &&
                                     subType !== OfferingIncomeCreationSubType.SundaySchool &&
                                     subType !== OfferingIncomeCreationSubType.FamilyGroup
                                       ? (date) => date > new Date() || date < new Date('1900-01-01')
@@ -997,67 +1000,62 @@ export const OfferingIncomeFormUpdate = ({
                         )}
                       />
 
-                      {data?.recordStatus === RecordStatus.Active && (
-                        <FormField
-                          control={form.control}
-                          name='recordStatus'
-                          render={({ field }) => {
-                            return (
-                              <FormItem className='mt-3 w-full'>
-                                <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                                  Estado
-                                </FormLabel>
-                                <FormDescription className='text-[14px]'>
-                                  Selecciona el estado del registro.
-                                </FormDescription>
-                                <Select
-                                  disabled={isInputDisabled}
-                                  value={field.value}
-                                  onValueChange={field.onChange}
-                                >
-                                  <FormControl className='text-[13px] md:text-[14px]'>
-                                    <SelectTrigger>
-                                      {field.value === 'active' ? (
-                                        <SelectValue placeholder='Activo' />
-                                      ) : (
-                                        <SelectValue placeholder='Inactivo' />
-                                      )}
-                                    </SelectTrigger>
-                                  </FormControl>
-                                  <SelectContent>
-                                    <SelectItem className='text-[14px]' value='active'>
-                                      Activo
-                                    </SelectItem>
-                                    <SelectItem className='text-[14px]' value='inactive'>
-                                      Inactivo
-                                    </SelectItem>
-                                  </SelectContent>
-                                </Select>
-                                {form.getValues('recordStatus') === 'active' && (
-                                  <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
-                                    *El registro esta <span className='text-green-500'>Activo</span>
-                                    , para colocarlo como{' '}
-                                    <span className='text-red-500'>Inactivo</span> debe eliminar el
-                                    registro desde la pestaña{' '}
-                                    <span className='font-bold text-red-500'>
-                                      Eliminar Ingreso de Ofrenda.{' '}
-                                    </span>
-                                  </FormDescription>
-                                )}
-                                {form.getValues('recordStatus') === 'inactive' && (
-                                  <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
-                                    * El registro esta{' '}
-                                    <span className='text-red-500 '>Inactivo</span>, puede modificar
-                                    el estado eligiendo otra opción.
-                                  </FormDescription>
-                                )}
-                                <FormMessage />
-                              </FormItem>
-                            );
-                          }}
-                        />
-                      )}
+                      <FormField
+                        control={form.control}
+                        name='recordStatus'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className='mt-3 w-full'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                                Estado
+                              </FormLabel>
+                              <FormDescription className='text-[14px]'>
+                                Selecciona el estado del registro.
+                              </FormDescription>
+                              <Select
+                                disabled={isInputDisabled}
+                                value={field.value}
+                                onValueChange={field.onChange}
+                              >
+                                <FormControl className='text-[13px] md:text-[14px]'>
+                                  <SelectTrigger>
+                                    {field.value === 'active' ? (
+                                      <SelectValue placeholder='Activo' />
+                                    ) : (
+                                      <SelectValue placeholder='Inactivo' />
+                                    )}
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem className='text-[14px]' value='active'>
+                                    Activo
+                                  </SelectItem>
+                                  <SelectItem className='text-[14px]' value='inactive'>
+                                    Inactivo
+                                  </SelectItem>
+                                </SelectContent>
+                              </Select>
+
+                              <FormMessage />
+                            </FormItem>
+                          );
+                        }}
+                      />
                     </div>
+                    {form.getValues('recordStatus') === 'active' && (
+                      <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold pt-2'>
+                        *El registro esta <span className='text-green-500'>Activo</span>, para
+                        colocarlo como <span className='text-red-500'>Inactivo</span> debe eliminar
+                        el registro desde el modulo{' '}
+                        <span className='font-bold text-red-500'>Eliminar Ingreso. </span>
+                      </FormDescription>
+                    )}
+                    {form.getValues('recordStatus') === 'inactive' && (
+                      <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold pt-2'>
+                        * El registro esta <span className='text-red-500 '>Inactivo</span>, y ya no
+                        se podrá activar nuevamente.
+                      </FormDescription>
+                    )}
 
                     <FormField
                       control={form.control}
@@ -1155,7 +1153,7 @@ export const OfferingIncomeFormUpdate = ({
                         Archivos Aceptados
                       </h3>
                       <ul className='mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-2 gap-x-5 gap-y-20'>
-                        {files.map((file, index) => (
+                        {files?.map((file, index) => (
                           <li
                             key={file.name ?? file}
                             className='py-2 flex flex-col relative h-32 rounded-md shadow-md shadow-gray-400 dark:shadow-slate-900 bg-white dark:bg-slate-900 text-slate-900 dark:text-gray-100'

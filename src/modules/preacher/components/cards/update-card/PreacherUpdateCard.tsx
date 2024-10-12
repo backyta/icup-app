@@ -26,7 +26,7 @@ export const PreacherUpdateCard = ({ idRow }: PreacherUpdateCardProps): JSX.Elem
   //* Functions
   const currentPreacher = useMemo(
     () => dataSearchByTermResponse?.find((data) => data?.id === idRow),
-    [dataSearchByTermResponse]
+    [dataSearchByTermResponse, idRow]
   );
 
   const handleContainerClose = useCallback((): void => {

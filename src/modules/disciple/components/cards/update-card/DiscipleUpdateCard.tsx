@@ -25,7 +25,7 @@ export const DiscipleUpdateCard = ({ idRow }: DiscipleUpdateCardProps): JSX.Elem
   //* Functions
   const currentDisciple = useMemo(
     () => dataSearchByTermResponse?.find((data) => data?.id === idRow),
-    [dataSearchByTermResponse]
+    [dataSearchByTermResponse, idRow]
   );
 
   const handleContainerClose = useCallback((): void => {

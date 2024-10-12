@@ -9,18 +9,15 @@ import { getSimpleChurches } from '@/modules/church/services';
 import {
   OfferingIncomeProportionCard,
   OfferingIncomeAnalysisCardByActivities,
-  OfferingIncomeAnalysisCardByGroundChurch,
-  OfferingIncomeAnalysisCardByYoungWorship,
-  OfferingIncomeAnalysisCardByUnitedWorship,
-  OfferingIncomeAnalysisCardBySpecialOffering,
-  OfferingIncomeAnalysisCardByIncomeAdjustment,
-} from '@/modules/metrics/components/offering-income';
-
-import {
   OfferingIncomeAnalysisCardByFamilyGroup,
   OfferingIncomeAnalysisCardBySundaySchool,
+  OfferingIncomeAnalysisCardByYouthService,
+  OfferingIncomeAnalysisCardByChurchGround,
   OfferingIncomeAnalysisCardBySundayService,
+  OfferingIncomeAnalysisCardByUnitedService,
   OfferingIncomeAnalysisCardByFastingAndVigil,
+  OfferingIncomeAnalysisCardBySpecialOffering,
+  OfferingIncomeAnalysisCardByIncomeAdjustment,
 } from '@/modules/metrics/components/offering-income/charts';
 
 import {
@@ -55,7 +52,7 @@ export const MetricsOfferingIncome = (): JSX.Element => {
       <p className='text-center text-[15px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-medium'>
         Análisis, comparativas e indicadores de los ingresos de ofrenda
       </p>
-      <hr className='p-[0.015rem] bg-slate-500 mt-2  mb-4 w-[90%] mx-auto' />
+      <hr className='p-[0.015rem] bg-slate-500 mt-2 mb-4 w-[90%] mx-auto' />
 
       <OfferingIncomeProportionCard churchId={churchId} />
 
@@ -65,21 +62,20 @@ export const MetricsOfferingIncome = (): JSX.Element => {
         <OfferingIncomeReportFormCard churchId={churchId} />
       </div>
 
-      {/* Gráficos independientes */}
       {!churchId ? (
         <MetricsSkeleton />
       ) : (
-        <div className='mt-6 px-2 sm:pb-10 md:px-6 xl:pb-14 flex flex-col xl:grid xl:grid-cols-2 gap-10 h-[148rem] sm:h-[148rem] md:h-[148.5rem] lg:h-[166rem] xl:h-auto'>
+        <div className='mt-6 px-2 pb-10 sm:pb-10 md:px-6 xl:pb-14 flex flex-col xl:grid xl:grid-cols-2 gap-10 h-[245rem] sm:h-[245rem] md:h-[253rem] lg:h-[275rem] xl:h-auto'>
           <OfferingIncomeAnalysisCardBySundayService churchId={churchId} />
           <OfferingIncomeAnalysisCardByFamilyGroup churchId={churchId} />
           <OfferingIncomeAnalysisCardBySundaySchool churchId={churchId} />
           <OfferingIncomeAnalysisCardByFastingAndVigil churchId={churchId} />
-          <OfferingIncomeAnalysisCardByYoungWorship />
-          <OfferingIncomeAnalysisCardBySpecialOffering />
-          <OfferingIncomeAnalysisCardByGroundChurch />
-          <OfferingIncomeAnalysisCardByUnitedWorship />
-          <OfferingIncomeAnalysisCardByActivities />
-          <OfferingIncomeAnalysisCardByIncomeAdjustment />
+          <OfferingIncomeAnalysisCardByYouthService churchId={churchId} />
+          <OfferingIncomeAnalysisCardBySpecialOffering churchId={churchId} />
+          <OfferingIncomeAnalysisCardByChurchGround churchId={churchId} />
+          <OfferingIncomeAnalysisCardByUnitedService churchId={churchId} />
+          <OfferingIncomeAnalysisCardByActivities churchId={churchId} />
+          <OfferingIncomeAnalysisCardByIncomeAdjustment churchId={churchId} />
         </div>
       )}
     </div>

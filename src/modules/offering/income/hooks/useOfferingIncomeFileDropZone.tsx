@@ -23,15 +23,16 @@ export const useOfferingIncomeFileDropZone = ({
   setFiles,
 }: Options) => {
   //* DropZone functions
+  console.log(files);
   const onDrop = useCallback(
     (acceptedFiles: any[], rejectedFiles: any[]) => {
       if (acceptedFiles?.length) {
-        const mappedFiles = acceptedFiles.map((file) =>
+        const mappedFiles = acceptedFiles?.map((file) =>
           Object.assign(file, { preview: URL.createObjectURL(file) })
         );
 
         // Verifica si ya existe un archivo con el mismo nombre
-        mappedFiles.forEach((newFile) => {
+        mappedFiles?.forEach((newFile) => {
           const existingFileIndex = files.findIndex(
             (existingFile) => existingFile.name === newFile.name
           );
@@ -44,8 +45,8 @@ export const useOfferingIncomeFileDropZone = ({
         });
 
         const allFileNames = [
-          ...files.filter((item) => item instanceof File).map((file) => file.name),
-          ...mappedFiles.map((file) => file.name),
+          ...files.filter((item) => item instanceof File).map((file) => file?.name),
+          ...mappedFiles.map((file) => file?.name),
         ];
 
         offeringIncomeForm.setValue('fileNames', allFileNames); // Actualiza el campo de formulario con las URLs de los archivos
@@ -61,14 +62,19 @@ export const useOfferingIncomeFileDropZone = ({
   useEffect(() => {
     // Revoke the data uris to avoid memory leaks
     return () => {
-      files.forEach((file) => {
-        URL.revokeObjectURL(file.preview);
+      files?.forEach((file) => {
+        URL.revokeObjectURL(file?.preview);
       });
     };
   }, [files]);
 
   useEffect(() => {
-    const allFileNames = [...files.filter((item) => item instanceof File).map((file) => file.name)];
+    const filesFiltered = (files ?? [])
+      .filter((item) => item instanceof File)
+      .map((file) => file?.name);
+
+    const allFileNames = [...filesFiltered];
+
     offeringIncomeForm.setValue('fileNames', allFileNames as any);
   }, [files]);
 

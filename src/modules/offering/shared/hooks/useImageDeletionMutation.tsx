@@ -57,11 +57,8 @@ export const useImageDeletionMutation = ({
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['offerings-income-by-term'] });
+        queryClient.invalidateQueries({ queryKey: ['offerings-expenses-by-term'] });
       }, 1000);
-
-      setTimeout(() => {
-        setIsCardOpen(false);
-      }, 2000);
     },
   });
 

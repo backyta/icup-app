@@ -102,6 +102,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   const [isInputMemberDisabled, setIsInputMemberDisabled] = useState<boolean>(true);
   const [isInputMemberOpen, setIsInputMemberOpen] = useState<boolean>(false);
 
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+
   //* Form
   const form = useForm<z.infer<typeof offeringIncomeFormSchema>>({
     mode: 'onChange',
@@ -170,8 +172,10 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
 
   const offeringIncomeCreationMutation = useOfferingIncomeCreationMutation({
     setFiles,
+    imageUrls,
     setIsInputDisabled,
     setIsSubmitButtonDisabled,
+    setIsDeleteFileButtonDisabled,
     offeringIncomeCreationForm: form,
   });
 
@@ -208,9 +212,6 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   ): Promise<void> => {
     let imageUrls;
 
-    console.log(files);
-    console.log(formData.type);
-    console.log(formData.subType);
     try {
       if (files.length >= 1) {
         const uploadResult = await uploadImagesMutation.mutateAsync({
@@ -221,40 +222,41 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
         });
 
         imageUrls = uploadResult.imageUrls;
+        setImageUrls(imageUrls ?? []);
       }
+
+      await offeringIncomeCreationMutation.mutateAsync({
+        type: formData.type,
+        subType: !formData.subType ? undefined : formData.subType,
+        shift: formData.shift,
+        amount: formData.amount,
+        currency: formData.currency,
+        date: formData.date,
+        comments: formData.comments,
+        memberType: formData.memberType,
+        memberId: formData.memberId,
+        familyGroupId: formData.familyGroupId,
+        zoneId: formData.zoneId,
+        churchId: formData.churchId,
+        recordStatus: formData.recordStatus,
+        imageUrls: (imageUrls as any) ?? [],
+      });
     } catch (error) {
-      toast.warning(
-        '¡Opps! fallo en subida de imágenes, por favor actualize y vuelve a intentarlo',
-        {
-          position: 'top-center',
-          className: 'justify-center',
-        }
-      );
+      if (uploadImagesMutation.isError) {
+        toast.warning(
+          '¡Oops! Fallo en la subida de imágenes, por favor actualize el navegador y vuelva a intentarlo.',
+          {
+            position: 'top-center',
+            className: 'justify-center',
+          }
+        );
+      }
 
       setTimeout(() => {
         setIsInputDisabled(false);
         setIsSubmitButtonDisabled(false);
       }, 1500);
-
-      return;
     }
-
-    await offeringIncomeCreationMutation.mutateAsync({
-      type: formData.type,
-      subType: !formData.subType ? undefined : formData.subType,
-      shift: formData.shift,
-      amount: formData.amount,
-      currency: formData.currency,
-      date: formData.date,
-      comments: formData.comments,
-      memberType: formData.memberType,
-      memberId: formData.memberId,
-      familyGroupId: formData.familyGroupId,
-      zoneId: formData.zoneId,
-      churchId: formData.churchId,
-      recordStatus: formData.recordStatus,
-      imageUrls: (imageUrls as any) ?? [],
-    });
   };
 
   return (
@@ -582,12 +584,12 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
               {(type === OfferingIncomeCreationType.IncomeAdjustment ||
                 (type === OfferingIncomeCreationType.Offering &&
                   (subType === OfferingIncomeCreationSubType.SundaySchool ||
-                    subType === OfferingIncomeCreationSubType.SundayWorship ||
+                    subType === OfferingIncomeCreationSubType.SundayService ||
                     subType === OfferingIncomeCreationSubType.Activities ||
                     subType === OfferingIncomeCreationSubType.GeneralFasting ||
                     subType === OfferingIncomeCreationSubType.GeneralVigil ||
-                    subType === OfferingIncomeCreationSubType.WorshipUnited ||
-                    subType === OfferingIncomeCreationSubType.YouthWorship))) && (
+                    subType === OfferingIncomeCreationSubType.UnitedService ||
+                    subType === OfferingIncomeCreationSubType.YouthService))) && (
                 <FormField
                   control={form.control}
                   name='churchId'
@@ -746,7 +748,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 />
               )}
 
-              {(subType === OfferingIncomeCreationSubType.SundayWorship ||
+              {(subType === OfferingIncomeCreationSubType.SundayService ||
                 subType === OfferingIncomeCreationSubType.SundaySchool) && (
                 <FormField
                   control={form.control}
@@ -896,7 +898,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                             setIsInputDateOpen(false);
                           }}
                           disabled={
-                            subType !== OfferingIncomeCreationSubType.SundayWorship &&
+                            subType !== OfferingIncomeCreationSubType.SundayService &&
                             subType !== OfferingIncomeCreationSubType.SundaySchool &&
                             subType !== OfferingIncomeCreationSubType.FamilyGroup
                               ? (date) => date > new Date() || date < new Date('1900-01-01')

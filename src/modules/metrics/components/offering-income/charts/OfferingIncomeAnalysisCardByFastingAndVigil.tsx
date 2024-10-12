@@ -23,8 +23,8 @@ import { dateFormatterToDDMMYY, generateYearOptions } from '@/shared/helpers';
 import { months } from '@/modules/metrics/data';
 import { MetricSearchType } from '@/modules/metrics/enums';
 import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getOfferingsIncomeByFastingAndVigil } from '@/modules/metrics/services';
-import { OfferingsIncomeByFastingAndVigilTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components';
+import { getOfferingIncomeByFastingAndVigil } from '@/modules/metrics/services';
+import { OfferingIncomeByFastingAndVigilTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components';
 
 import {
   Command,
@@ -60,9 +60,8 @@ const chartConfig = {
     color: '#32CD32',
   },
 } satisfies ChartConfig;
-//
+
 interface SearchParamsOptions {
-  zone?: string;
   month?: string;
   year?: string;
 }
@@ -70,6 +69,7 @@ interface SearchParamsOptions {
 interface Props {
   churchId: string | undefined;
 }
+
 export const OfferingIncomeAnalysisCardByFastingAndVigil = ({ churchId }: Props): JSX.Element => {
   //* States
   const [isInputSearchMonthOpen, setIsInputSearchMonthOpen] = useState<boolean>(false);
@@ -99,11 +99,11 @@ export const OfferingIncomeAnalysisCardByFastingAndVigil = ({ churchId }: Props)
   const month = form.watch('month');
 
   //* Queries
-  const offeringsIncomeByFastingAndVigil = useQuery({
-    queryKey: ['offerings-income-by-fasting-and-vigil', { ...searchParams, church: churchId }],
+  const offeringIncomeByFastingAndVigil = useQuery({
+    queryKey: ['offering-income-by-fasting-and-vigil', { ...searchParams, church: churchId }],
     queryFn: () => {
-      return getOfferingsIncomeByFastingAndVigil({
-        searchType: MetricSearchType.OfferingsIncomeByFastingAndVigil,
+      return getOfferingIncomeByFastingAndVigil({
+        searchType: MetricSearchType.OfferingIncomeByFastingAndVigil,
         month: searchParams?.month ?? month,
         year: searchParams?.year ?? year,
         church: churchId ?? '',
@@ -118,7 +118,7 @@ export const OfferingIncomeAnalysisCardByFastingAndVigil = ({ churchId }: Props)
   // Default value
   useEffect(() => {
     setSearchParams({ year, month });
-  }, [offeringsIncomeByFastingAndVigil?.data, year]);
+  }, [offeringIncomeByFastingAndVigil?.data, year]);
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof metricsFormSchema>): void => {
@@ -138,8 +138,8 @@ export const OfferingIncomeAnalysisCardByFastingAndVigil = ({ churchId }: Props)
           ) : (
             <span>Ofrendas Ayunos y Vigilias</span>
           )}
-          {offeringsIncomeByFastingAndVigil?.data &&
-            Object.entries(offeringsIncomeByFastingAndVigil?.data)?.length > 0 && (
+          {offeringIncomeByFastingAndVigil?.data &&
+            Object.entries(offeringIncomeByFastingAndVigil?.data)?.length > 0 && (
               <Badge
                 variant='active'
                 className='mt-1 text-[10px] md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
@@ -197,7 +197,6 @@ export const OfferingIncomeAnalysisCardByFastingAndVigil = ({ churchId }: Props)
                                 key={month.value}
                                 onSelect={() => {
                                   form.setValue('month', month.value);
-                                  month && year && form.handleSubmit(handleSubmit)();
                                   setIsInputSearchMonthOpen(false);
                                 }}
                               >
@@ -225,16 +224,7 @@ export const OfferingIncomeAnalysisCardByFastingAndVigil = ({ churchId }: Props)
               render={({ field }) => {
                 return (
                   <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
-                    <Popover
-                      open={isInputSearchYearOpen}
-                      onOpenChange={(e) => {
-                        setIsInputSearchYearOpen(e);
-                        !month &&
-                          form.resetField('month', {
-                            defaultValue: '',
-                          });
-                      }}
-                    >
+                    <Popover open={isInputSearchYearOpen} onOpenChange={setIsInputSearchYearOpen}>
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
@@ -292,7 +282,8 @@ export const OfferingIncomeAnalysisCardByFastingAndVigil = ({ churchId }: Props)
           </form>
         </Form>
       </CardHeader>
-      {!offeringsIncomeByFastingAndVigil?.data?.length && !searchParams ? (
+
+      {!offeringIncomeByFastingAndVigil?.data?.length && !searchParams ? (
         <CardContent className='h-full pl-3 pr-6 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
@@ -301,15 +292,15 @@ export const OfferingIncomeAnalysisCardByFastingAndVigil = ({ churchId }: Props)
         </CardContent>
       ) : (
         <CardContent className='h-full pl-3 pr-6 py-0'>
-          {offeringsIncomeByFastingAndVigil?.isFetching &&
-            !offeringsIncomeByFastingAndVigil?.data?.length &&
+          {offeringIncomeByFastingAndVigil?.isFetching &&
+            !offeringIncomeByFastingAndVigil?.data?.length &&
             year && (
               <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDataBackup className='text-[6rem] pb-2' />
                 <p>Consultando datos....</p>
               </div>
             )}
-          {!!offeringsIncomeByFastingAndVigil?.data?.length && searchParams && (
+          {!!offeringIncomeByFastingAndVigil?.data?.length && searchParams && (
             <ChartContainer
               config={chartConfig}
               className={cn(
@@ -318,7 +309,7 @@ export const OfferingIncomeAnalysisCardByFastingAndVigil = ({ churchId }: Props)
             >
               <BarChart
                 accessibilityLayer
-                data={offeringsIncomeByFastingAndVigil?.data}
+                data={offeringIncomeByFastingAndVigil?.data}
                 margin={{ top: 5, right: 5, left: -28, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
@@ -334,7 +325,7 @@ export const OfferingIncomeAnalysisCardByFastingAndVigil = ({ churchId }: Props)
                 <YAxis className='text-[12px] sm:text-[14px]' />
                 <ChartTooltip
                   cursor={false}
-                  content={OfferingsIncomeByFastingAndVigilTooltipContent as any}
+                  content={OfferingIncomeByFastingAndVigilTooltipContent as any}
                 />
 
                 <ChartLegend
@@ -362,14 +353,14 @@ export const OfferingIncomeAnalysisCardByFastingAndVigil = ({ churchId }: Props)
               </BarChart>
             </ChartContainer>
           )}
-          {!year && !offeringsIncomeByFastingAndVigil?.data?.length && (
+          {!year && !offeringIncomeByFastingAndVigil?.data?.length && (
             <div className='text-emerald-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDataConfiguration className='text-[6rem] pb-2' />
               <p>Esperando parámetros de consulta...</p>
             </div>
           )}
-          {!offeringsIncomeByFastingAndVigil?.isFetching &&
-            !offeringsIncomeByFastingAndVigil?.data?.length &&
+          {!offeringIncomeByFastingAndVigil?.isFetching &&
+            !offeringIncomeByFastingAndVigil?.data?.length &&
             year && (
               <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDeleteDatabase className='text-[6rem] pb-2' />

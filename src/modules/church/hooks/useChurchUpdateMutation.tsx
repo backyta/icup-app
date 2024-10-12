@@ -10,15 +10,15 @@ import { type ChurchResponse } from '@/modules/church/interfaces';
 import { updateChurch, type UpdateChurchOptions } from '@/modules/church/services';
 
 interface Options {
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useChurchUpdateMutation = ({
-  onSubmit,
-  onScroll,
+  dialogClose,
+  scrollToTop,
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
 }: Options): UseMutationResult<ChurchResponse, ErrorResponse, UpdateChurchOptions, unknown> => {
@@ -62,7 +62,7 @@ export const useChurchUpdateMutation = ({
       });
 
       setTimeout(() => {
-        onScroll();
+        dialogClose();
       }, 150);
 
       setTimeout(() => {
@@ -70,7 +70,7 @@ export const useChurchUpdateMutation = ({
       }, 700);
 
       setTimeout(() => {
-        onSubmit();
+        dialogClose();
         setIsInputDisabled(false);
       }, 1500);
     },

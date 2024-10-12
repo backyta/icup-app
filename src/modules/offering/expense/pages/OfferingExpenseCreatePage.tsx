@@ -21,7 +21,7 @@ import {
   SubTypeNamesOfferingExpenseSearchBySuppliesExpenses,
   SubTypeNamesOfferingExpenseSearchByOperativeExpenses,
   SubTypeNamesOfferingExpenseSearchByDecorationExpenses,
-  SubTypeNamesOfferingExpenseSearchByActivitiesAndEventsExpenses,
+  SubTypeNamesOfferingExpenseSearchByPlaningEventsExpenses,
   SubTypeNamesOfferingExpenseSearchByMaintenanceAndRepairExpenses,
   SubTypeNamesOfferingExpenseSearchByEquipmentAndTechnologyExpenses,
 } from '@/modules/offering/expense/enums';
@@ -84,6 +84,8 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
 
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+
   //* Form
   const form = useForm<z.infer<typeof offeringExpenseFormSchema>>({
     mode: 'onChange',
@@ -135,6 +137,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
 
   const offeringExpenseCreationMutation = useOfferingExpenseCreationMutation({
     setFiles,
+    imageUrls,
     setIsInputDisabled,
     setIsSubmitButtonDisabled,
     offeringExpenseCreationForm: form,
@@ -152,6 +155,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
     formData: z.infer<typeof offeringExpenseFormSchema>
   ): Promise<void> => {
     let imageUrls;
+
     try {
       if (files.length >= 1) {
         const uploadResult = await uploadImagesMutation.mutateAsync({
@@ -162,35 +166,36 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
         });
 
         imageUrls = uploadResult.imageUrls;
+        setImageUrls(imageUrls ?? []);
       }
+
+      await offeringExpenseCreationMutation.mutateAsync({
+        type: formData.type,
+        subType: !formData.subType ? undefined : formData.subType,
+        amount: formData.amount,
+        currency: formData.currency,
+        date: formData.date,
+        comments: formData.comments,
+        churchId: formData.churchId,
+        recordStatus: formData.recordStatus,
+        imageUrls: (imageUrls as any) ?? [],
+      });
     } catch (error) {
-      toast.warning(
-        '¡Opps! fallo en subida de imágenes, por favor actualize y vuelve a intentarlo',
-        {
-          position: 'top-center',
-          className: 'justify-center',
-        }
-      );
+      if (uploadImagesMutation.isError) {
+        toast.warning(
+          '¡Oops! Fallo en la subida de imágenes, por favor actualize el navegador y vuelva a intentarlo.',
+          {
+            position: 'top-center',
+            className: 'justify-center',
+          }
+        );
+      }
 
       setTimeout(() => {
         setIsInputDisabled(false);
         setIsSubmitButtonDisabled(false);
       }, 1500);
-
-      return;
     }
-
-    await offeringExpenseCreationMutation.mutateAsync({
-      type: formData.type,
-      subType: !formData.subType ? undefined : formData.subType,
-      amount: formData.amount,
-      currency: formData.currency,
-      date: formData.date,
-      comments: formData.comments,
-      churchId: formData.churchId,
-      recordStatus: formData.recordStatus,
-      imageUrls: (imageUrls as any) ?? [],
-    });
   };
 
   return (
@@ -241,11 +246,14 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(OfferingExpenseSearchTypeNames).map(([key, value]) => (
-                            <SelectItem key={key} value={key}>
-                              {value}
-                            </SelectItem>
-                          ))}
+                          {Object.entries(OfferingExpenseSearchTypeNames).map(
+                            ([key, value]) =>
+                              key !== OfferingExpenseSearchType.RecordStatus && (
+                                <SelectItem key={key} value={key}>
+                                  {value}
+                                </SelectItem>
+                              )
+                          )}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -254,7 +262,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                 }}
               />
 
-              {type !== OfferingExpenseSearchType.ExpenseAdjustment && (
+              {type !== OfferingExpenseSearchType.ExpensesAdjustment && (
                 <FormField
                   control={form.control}
                   name='subType'
@@ -283,17 +291,17 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                           </FormControl>
                           <SelectContent>
                             {Object.entries(
-                              type === OfferingExpenseSearchType.OperationalExpense
+                              type === OfferingExpenseSearchType.OperationalExpenses
                                 ? SubTypeNamesOfferingExpenseSearchByOperativeExpenses
-                                : type === OfferingExpenseSearchType.ActivitiesAndEventsExpense
-                                  ? SubTypeNamesOfferingExpenseSearchByActivitiesAndEventsExpenses
-                                  : type === OfferingExpenseSearchType.DecorationExpense
+                                : type === OfferingExpenseSearchType.PlaningEventsExpenses
+                                  ? SubTypeNamesOfferingExpenseSearchByPlaningEventsExpenses
+                                  : type === OfferingExpenseSearchType.DecorationExpenses
                                     ? SubTypeNamesOfferingExpenseSearchByDecorationExpenses
                                     : type ===
-                                        OfferingExpenseSearchType.EquipmentAndTechnologyExpense
+                                        OfferingExpenseSearchType.EquipmentAndTechnologyExpenses
                                       ? SubTypeNamesOfferingExpenseSearchByEquipmentAndTechnologyExpenses
                                       : type ===
-                                          OfferingExpenseSearchType.MaintenanceAndRepairExpense
+                                          OfferingExpenseSearchType.MaintenanceAndRepairExpenses
                                         ? SubTypeNamesOfferingExpenseSearchByMaintenanceAndRepairExpenses
                                         : SubTypeNamesOfferingExpenseSearchBySuppliesExpenses
                             ).map(([key, value]) => (
@@ -310,14 +318,14 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                 />
               )}
 
-              {(type === OfferingExpenseSearchType.ExpenseAdjustment ||
-                type === OfferingExpenseSearchType.ActivitiesAndEventsExpense ||
-                type === OfferingExpenseSearchType.DecorationExpense ||
-                type === OfferingExpenseSearchType.EquipmentAndTechnologyExpense ||
-                type === OfferingExpenseSearchType.ExpenseAdjustment ||
-                type === OfferingExpenseSearchType.MaintenanceAndRepairExpense ||
-                type === OfferingExpenseSearchType.OperationalExpense ||
-                type === OfferingExpenseSearchType.SuppliesExpense) && (
+              {(type === OfferingExpenseSearchType.ExpensesAdjustment ||
+                type === OfferingExpenseSearchType.PlaningEventsExpenses ||
+                type === OfferingExpenseSearchType.DecorationExpenses ||
+                type === OfferingExpenseSearchType.EquipmentAndTechnologyExpenses ||
+                type === OfferingExpenseSearchType.ExpensesAdjustment ||
+                type === OfferingExpenseSearchType.MaintenanceAndRepairExpenses ||
+                type === OfferingExpenseSearchType.OperationalExpenses ||
+                type === OfferingExpenseSearchType.SuppliesExpenses) && (
                 <FormField
                   control={form.control}
                   name='churchId'
@@ -519,18 +527,11 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
                         Comentarios
-                        {type !== OfferingExpenseSearchType.ExpenseAdjustment && (
-                          <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
-                            Opcional
-                          </span>
-                        )}
-                        {type === OfferingExpenseSearchType.ExpenseAdjustment && (
-                          <span className='ml-3 inline-block bg-orange-200 text-orange-600 border text-[10px] font-bold uppercase px-2 py-[2px] rounded-full mr-1'>
-                            Requerido
-                          </span>
-                        )}
+                        <span className='ml-3 inline-block bg-orange-200 text-orange-600 border text-[10px] font-bold uppercase px-2 py-[2px] rounded-full mr-1'>
+                          Requerido
+                        </span>
                       </FormLabel>
-                      {type === OfferingExpenseSearchType.ExpenseAdjustment && (
+                      {type === OfferingExpenseSearchType.ExpensesAdjustment && (
                         <FormDescription>
                           Escribe una breve descripción sobre el ajuste
                         </FormDescription>
@@ -539,7 +540,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                         <Textarea
                           disabled={isInputDisabled}
                           placeholder={`${
-                            type === OfferingExpenseSearchType.ExpenseAdjustment
+                            type === OfferingExpenseSearchType.ExpensesAdjustment
                               ? `Comentarios sobre el ajuste de salida...`
                               : 'Comentarios sobre el registro de salida...'
                           }`}

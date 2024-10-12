@@ -53,8 +53,8 @@ interface UserFormUpdateProps {
 
 export const UserUpdateForm = ({
   id,
-  dialogClose: onSubmit,
-  scrollToTop: onScroll,
+  dialogClose,
+  scrollToTop,
   data,
 }: UserFormUpdateProps): JSX.Element => {
   //* States
@@ -93,8 +93,8 @@ export const UserUpdateForm = ({
   });
 
   const userUpdateMutation = useUserUpdateMutation({
-    onSubmit,
-    onScroll,
+    dialogClose,
+    scrollToTop,
     setIsInputDisabled,
     setIsSubmitButtonDisabled,
   });
@@ -272,7 +272,7 @@ export const UserUpdateForm = ({
                             <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                               *El registro esta <span className='text-green-500'>activo</span>, para
                               colocar nuevamente como <span className='text-red-500'>inactivo</span>{' '}
-                              eliminar el registro desde la pestaña{' '}
+                              eliminar el registro desde el modulo{' '}
                               <span className='font-bold text-red-500'>Eliminar Usuario.</span>
                             </FormDescription>
                           )}

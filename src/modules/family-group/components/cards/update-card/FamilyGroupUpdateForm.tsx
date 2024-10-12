@@ -85,8 +85,8 @@ interface FamilyGroupFormUpdateProps {
 export const FamilyGroupUpdateForm = ({
   id,
   data,
-  dialogClose: onSubmit,
-  scrollToTop: onScroll,
+  dialogClose,
+  scrollToTop,
 }: FamilyGroupFormUpdateProps): JSX.Element => {
   //* States
   const [isInputTheirPreacherOpen, setIsInputTheirPreacherOpen] = useState<boolean>(false);
@@ -149,8 +149,8 @@ export const FamilyGroupUpdateForm = ({
   });
 
   const familyGroupUpdateMutation = useFamilyGroupUpdateMutation({
-    onSubmit,
-    onScroll,
+    dialogClose,
+    scrollToTop,
     setIsInputDisabled,
     setIsSubmitButtonDisabled,
   });
@@ -792,9 +792,9 @@ export const FamilyGroupUpdateForm = ({
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>Activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
-                                debe eliminar el registro desde la pestaña{' '}
+                                debe eliminar el registro desde el modulo{' '}
                                 <span className='font-bold text-red-500'>
-                                  Eliminar Grupo Familiar.{' '}
+                                  Eliminar Grupo Familiar.
                                 </span>
                               </FormDescription>
                             )}

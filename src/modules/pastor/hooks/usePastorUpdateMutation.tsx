@@ -10,15 +10,15 @@ import { type PastorResponse } from '@/modules/pastor/interfaces';
 import { updatePastor, type UpdatePastorOptions } from '@/modules/pastor/services';
 
 interface Options {
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const usePastorUpdateMutation = ({
-  onSubmit,
-  onScroll,
+  dialogClose,
+  scrollToTop,
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
 }: Options): UseMutationResult<PastorResponse, ErrorResponse, UpdatePastorOptions, unknown> => {
@@ -62,7 +62,7 @@ export const usePastorUpdateMutation = ({
       });
 
       setTimeout(() => {
-        onScroll();
+        scrollToTop();
       }, 150);
 
       setTimeout(() => {
@@ -70,7 +70,7 @@ export const usePastorUpdateMutation = ({
       }, 700);
 
       setTimeout(() => {
-        onSubmit();
+        dialogClose();
         setIsInputDisabled(false);
       }, 1500);
     },

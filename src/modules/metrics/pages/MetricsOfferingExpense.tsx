@@ -1,44 +1,79 @@
-import { useEffect } from 'react';
+/* eslint-disable @typescript-eslint/promise-function-async */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
+import { useEffect, useState } from 'react';
+
+import { useQuery } from '@tanstack/react-query';
+
+import { getSimpleChurches } from '@/modules/church/services';
 
 import {
-  OfferingExpensesAnalysisCardByOperativeExpenses,
-  OfferingExpensesProportionCards,
-  OfferingExpensesAnalysisCardByMaintenanceAndRepairExpenses,
-  OfferingExpensesAnalysisCardByDecorationExpenses,
-  OfferingExpensesAnalysisCardByEquipmentAndTechnologyExpenses,
-  OfferingExpensesAnalysisCardBySuppliesExpenses,
-  OfferingExpensesAnalysisCardByActivitiesAndEventsExpenses,
-  OfferingIncomeAnalysisCardByExpensesAdjustment,
-} from '@/modules/metrics/components/offering-expense';
+  OfferingExpenseProportionCard,
+  OfferingExpenseAnalysisCardBySuppliesExpenses,
+  OfferingExpenseAnalysisCardByExpensesAdjustment,
+  OfferingExpenseAnalysisCardByOperativeExpenses,
+  OfferingExpenseAnalysisCardByDecorationExpenses,
+  OfferingExpenseAnalysisCardByPlaningEventsExpenses,
+  OfferingExpenseAnalysisCardByMaintenanceAndRepairExpenses,
+  OfferingExpenseAnalysisCardByEquipmentAndTechnologyExpenses,
+} from '@/modules/metrics/components/offering-expense/charts';
+
+import {
+  SelectChurch,
+  MetricsSkeleton,
+  OfferingExpenseReportFormCard,
+} from '@/modules/metrics/components/shared';
 
 export const MetricsOfferingExpense = (): JSX.Element => {
+  const [churchId, setChurchId] = useState<string | undefined>(undefined);
+
+  const { data } = useQuery({
+    queryKey: ['churches-for-offering-income-metrics'],
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    staleTime: 1000 * 60,
+  });
+
+  useEffect(() => {
+    const church = data?.map((church) => church?.id)[0];
+    setChurchId(church);
+  }, [data]);
+
   useEffect(() => {
     document.title = 'Modulo Métricas - IcupApp';
   }, []);
 
   return (
-    <div>
+    <div className='animate-fadeInPage'>
       <h2 className='text-center text-red-500 text-[1.6rem] sm:text-[1.8rem] md:text-[2rem] lg:text-[2.5rem] xl:text-[3rem] font-sans font-bold pt-2 leading-tight'>
         Métricas de Ofrendas
       </h2>
+
       <p className='text-center text-[15px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-medium'>
-        Análisis, comparativas e indicadores de las salidas de ofrenda
+        Análisis, comparativas e indicadores de los salidas de ofrenda
       </p>
-      <hr className='p-[0.015rem] bg-slate-500 mt-2  mb-4 w-[90%] mx-auto' />
+      <hr className='p-[0.015rem] bg-slate-500 mt-2 mb-4 w-[90%] mx-auto' />
 
-      {/* Header Cards Member Proportion */}
-      <OfferingExpensesProportionCards />
+      <OfferingExpenseProportionCard churchId={churchId} />
 
-      {/* Gráficos independientes */}
-      <div className='mt-10 px-2 md:px-6 xl:pb-14 flex flex-col xl:grid xl:grid-cols-2 gap-10 h-[200rem] lg:h-[222rem] xl:h-auto'>
-        <OfferingExpensesAnalysisCardByOperativeExpenses />
-        <OfferingExpensesAnalysisCardByMaintenanceAndRepairExpenses />
-        <OfferingExpensesAnalysisCardByDecorationExpenses />
-        <OfferingExpensesAnalysisCardByEquipmentAndTechnologyExpenses />
-        <OfferingExpensesAnalysisCardBySuppliesExpenses />
-        <OfferingExpensesAnalysisCardByActivitiesAndEventsExpenses />
-        <OfferingIncomeAnalysisCardByExpensesAdjustment />
+      <div className='flex justify-center gap-4 items-center mt-6'>
+        <SelectChurch data={data} churchId={churchId} setChurchId={setChurchId} />
+
+        <OfferingExpenseReportFormCard churchId={churchId} />
       </div>
+
+      {!churchId ? (
+        <MetricsSkeleton />
+      ) : (
+        <div className='mt-6 px-2 pb-10 sm:pb-10 md:px-6 xl:pb-14 flex flex-col gap-10 h-[172rem] sm:h-[172rem] md:h-[180rem] lg:h-[193rem] xl:h-auto'>
+          <OfferingExpenseAnalysisCardByOperativeExpenses churchId={churchId} />
+          <OfferingExpenseAnalysisCardByMaintenanceAndRepairExpenses churchId={churchId} />
+          <OfferingExpenseAnalysisCardByDecorationExpenses churchId={churchId} />
+          <OfferingExpenseAnalysisCardByEquipmentAndTechnologyExpenses churchId={churchId} />
+          <OfferingExpenseAnalysisCardBySuppliesExpenses churchId={churchId} />
+          <OfferingExpenseAnalysisCardByPlaningEventsExpenses churchId={churchId} />
+          <OfferingExpenseAnalysisCardByExpensesAdjustment churchId={churchId} />
+        </div>
+      )}
     </div>
   );
 };

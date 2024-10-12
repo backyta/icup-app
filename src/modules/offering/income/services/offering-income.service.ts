@@ -84,7 +84,7 @@ export const getOfferingsIncomeByTerm = async ({
  let result: OfferingIncomeResponse[];
 
  //* Sunday Worship, Sunday School
- if (searchType === OfferingIncomeSearchType.SundayWorship||
+ if (searchType === OfferingIncomeSearchType.SundayService||
      searchType === OfferingIncomeSearchType.SundaySchool
     ) {
       const term = searchSubType === OfferingIncomeSearchSubType.OfferingByShift
@@ -280,8 +280,8 @@ export const getOfferingsIncomeByTerm = async ({
  //* General Vigil, general fasting, youth worship, united worship, activities, adjustment income
   if (searchType === OfferingIncomeSearchType.GeneralFasting || 
     searchType === OfferingIncomeSearchType.GeneralVigil || 
-    searchType === OfferingIncomeSearchType.YouthWorship || 
-    searchType === OfferingIncomeSearchType.UnitedWorship  || 
+    searchType === OfferingIncomeSearchType.YouthService || 
+    searchType === OfferingIncomeSearchType.UnitedService  || 
     searchType === OfferingIncomeSearchType.Activities || 
     searchType === OfferingIncomeSearchType.IncomeAdjustment ) {  
 

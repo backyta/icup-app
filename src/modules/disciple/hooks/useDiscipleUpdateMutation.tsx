@@ -10,16 +10,16 @@ import { type DiscipleResponse } from '@/modules/disciple/interfaces';
 import { updateDisciple, type UpdateDiscipleOptions } from '@/modules/disciple/services';
 
 interface Options {
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsRelationSelectDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useDiscipleUpdateMutation = ({
-  onSubmit,
-  onScroll,
+  dialogClose,
+  scrollToTop,
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
   setIsRelationSelectDisabled,
@@ -65,7 +65,7 @@ export const useDiscipleUpdateMutation = ({
       });
 
       setTimeout(() => {
-        onScroll();
+        scrollToTop();
       }, 150);
 
       setTimeout(() => {
@@ -73,7 +73,7 @@ export const useDiscipleUpdateMutation = ({
       }, 700);
 
       setTimeout(() => {
-        onSubmit();
+        dialogClose();
         setIsInputDisabled(false);
         setIsRelationSelectDisabled(false);
       }, 1500);

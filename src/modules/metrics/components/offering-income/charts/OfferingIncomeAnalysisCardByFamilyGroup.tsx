@@ -18,7 +18,7 @@ import { cn } from '@/shared/lib/utils';
 
 import { getSimpleZones } from '@/modules/zone/services';
 
-import { OfferingsIncomeByFamilyGroupTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components';
+import { OfferingIncomeByFamilyGroupTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components';
 
 import { RecordOrder } from '@/shared/enums';
 import { generateYearOptions } from '@/shared/helpers';
@@ -26,7 +26,7 @@ import { generateYearOptions } from '@/shared/helpers';
 import { months } from '@/modules/metrics/data';
 import { MetricSearchType } from '@/modules/metrics/enums';
 import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getOfferingsIncomeByFamilyGroup } from '@/modules/metrics/services';
+import { getOfferingIncomeByFamilyGroup } from '@/modules/metrics/services';
 
 import {
   Command,
@@ -105,15 +105,16 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
 
   //* Queries
   const zonesQuery = useQuery({
-    queryKey: ['zones-for-offerings-income-by-family-group', churchId],
+    queryKey: ['zones-for-offering-income-by-family-group', churchId],
     queryFn: () => getSimpleZones({ church: churchId ?? '', isSimpleQuery: true }),
   });
 
-  const offeringsIncomeByFamilyGroup = useQuery({
-    queryKey: ['offerings-income-by-family-group', { ...searchParams, church: churchId }],
+  // TODO : cambiar todas las offerings a offering en incomes
+  const offeringIncomeByFamilyGroup = useQuery({
+    queryKey: ['offering-income-by-family-group', { ...searchParams, church: churchId }],
     queryFn: () => {
-      return getOfferingsIncomeByFamilyGroup({
-        searchType: MetricSearchType.OfferingsIncomeByFamilyGroup,
+      return getOfferingIncomeByFamilyGroup({
+        searchType: MetricSearchType.OfferingIncomeByFamilyGroup,
         zone: searchParams?.zone ?? zone,
         month: searchParams?.month ?? month,
         year: searchParams?.year ?? year,
@@ -153,8 +154,8 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
           ) : (
             <span>Ofrendas Grupo Familiar</span>
           )}
-          {offeringsIncomeByFamilyGroup?.data &&
-            Object.entries(offeringsIncomeByFamilyGroup?.data)?.length > 0 && (
+          {offeringIncomeByFamilyGroup?.data &&
+            Object.entries(offeringIncomeByFamilyGroup?.data)?.length > 0 && (
               <Badge
                 variant='active'
                 className='mt-1 text-[10px] md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
@@ -370,7 +371,7 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
         </Form>
       </CardHeader>
 
-      {!offeringsIncomeByFamilyGroup?.data?.length && !searchParams ? (
+      {!offeringIncomeByFamilyGroup?.data?.length && !searchParams ? (
         <CardContent className='h-full pl-3 pr-6 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
@@ -379,15 +380,15 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
         </CardContent>
       ) : (
         <CardContent className='h-full pl-3 pr-6 py-0'>
-          {offeringsIncomeByFamilyGroup?.isFetching &&
-            !offeringsIncomeByFamilyGroup?.data?.length &&
+          {offeringIncomeByFamilyGroup?.isFetching &&
+            !offeringIncomeByFamilyGroup?.data?.length &&
             year && (
               <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDataBackup className='text-[6rem] pb-2' />
                 <p>Consultando datos....</p>
               </div>
             )}
-          {!!offeringsIncomeByFamilyGroup?.data?.length && searchParams && (
+          {!!offeringIncomeByFamilyGroup?.data?.length && searchParams && (
             <ChartContainer
               config={chartConfig}
               className={cn(
@@ -396,7 +397,7 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
             >
               <BarChart
                 accessibilityLayer
-                data={offeringsIncomeByFamilyGroup?.data}
+                data={offeringIncomeByFamilyGroup?.data}
                 margin={{ top: 5, right: 5, left: -28, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
@@ -412,7 +413,7 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
                 <YAxis className='text-[12px] sm:text-[14px]' />
                 <ChartTooltip
                   cursor={false}
-                  content={OfferingsIncomeByFamilyGroupTooltipContent as any}
+                  content={OfferingIncomeByFamilyGroupTooltipContent as any}
                 />
 
                 <ChartLegend
@@ -440,14 +441,14 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
               </BarChart>
             </ChartContainer>
           )}
-          {!year && !offeringsIncomeByFamilyGroup?.data?.length && (
+          {!year && !offeringIncomeByFamilyGroup?.data?.length && (
             <div className='text-emerald-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDataConfiguration className='text-[6rem] pb-2' />
               <p>Esperando parámetros de consulta...</p>
             </div>
           )}
-          {!offeringsIncomeByFamilyGroup?.isFetching &&
-            !offeringsIncomeByFamilyGroup?.data?.length &&
+          {!offeringIncomeByFamilyGroup?.isFetching &&
+            !offeringIncomeByFamilyGroup?.data?.length &&
             year && (
               <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDeleteDatabase className='text-[6rem] pb-2' />

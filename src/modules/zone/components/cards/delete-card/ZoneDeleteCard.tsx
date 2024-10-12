@@ -72,7 +72,7 @@ export const ZoneDeleteCard = ({ idRow }: ZoneDeleteCardProps): JSX.Element => {
               Discípulo, Grupo Familiar, Predicador y Supervisor.
             </span>
             <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
-              ✅ Para poder activarla nuevamente deberá hacerlo desde la pestaña de{' '}
+              ✅ Para poder activarla nuevamente deberá hacerlo desde el modulo{' '}
               <span className='font-bold'>Actualizar Zona.</span>
             </span>
             <br />

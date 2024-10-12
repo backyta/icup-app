@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { type UseFormReturn } from 'react-hook-form';
@@ -10,13 +11,19 @@ import {
 import { createOfferingIncome } from '@/modules/offering/income/services';
 
 import { type ErrorResponse } from '@/shared/interfaces';
+
+import { deleteImage } from '@/modules/offering/shared/services';
+import { OfferingFileType } from '@/modules/offering/shared/enums';
 import { type FilesProps } from '@/modules/offering/shared/interfaces';
+import { extractPath, extractPublicId } from '@/modules/offering/shared/helpers';
 
 interface Options {
   setFiles: React.Dispatch<React.SetStateAction<FilesProps[]>>;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsDeleteFileButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   offeringIncomeCreationForm: UseFormReturn<OfferingIncomeFormData, any, OfferingIncomeFormData>;
+  imageUrls: string[];
 }
 
 export const useOfferingIncomeCreationMutation = ({
@@ -24,6 +31,8 @@ export const useOfferingIncomeCreationMutation = ({
   setIsInputDisabled,
   offeringIncomeCreationForm,
   setIsSubmitButtonDisabled,
+  setIsDeleteFileButtonDisabled,
+  imageUrls,
 }: Options): UseMutationResult<
   OfferingIncomeResponse,
   ErrorResponse,
@@ -43,9 +52,20 @@ export const useOfferingIncomeCreationMutation = ({
           className: 'justify-center',
         });
 
+        //! Aplicar destroy si falla el form
+        imageUrls?.forEach(async (imageUrl) => {
+          await deleteImage({
+            publicId: extractPublicId(imageUrl),
+            path: extractPath(imageUrl),
+            secureUrl: imageUrl,
+            fileType: OfferingFileType.Income,
+          });
+        });
+
         setTimeout(() => {
           setIsInputDisabled(false);
           setIsSubmitButtonDisabled(false);
+          setIsDeleteFileButtonDisabled(false);
         }, 1500);
       }
 

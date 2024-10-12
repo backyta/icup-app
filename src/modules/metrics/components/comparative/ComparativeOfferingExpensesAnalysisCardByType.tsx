@@ -226,7 +226,7 @@ export const ComparativeOfferingExpensesAnalysisCardByType = (): JSX.Element => 
     resolver: zodResolver(metricsFormSchema),
     mode: 'onChange',
     defaultValues: {
-      type: OfferingExpenseSearchType.OperationalExpense,
+      type: OfferingExpenseSearchType.OperationalExpenses,
       year: '2024',
     },
   });
@@ -242,13 +242,13 @@ export const ComparativeOfferingExpensesAnalysisCardByType = (): JSX.Element => 
 
   //* Effects
   useEffect(() => {
-    if (year === '2025' && type === OfferingExpenseSearchType.OperationalExpense) {
+    if (year === '2025' && type === OfferingExpenseSearchType.OperationalExpenses) {
       setDataResult(data2025);
     }
-    if (year === '2026' && type === OfferingExpenseSearchType.OperationalExpense) {
+    if (year === '2026' && type === OfferingExpenseSearchType.OperationalExpenses) {
       setDataResult(data2026);
     }
-    if (year === '2024' && type === OfferingExpenseSearchType.OperationalExpense) {
+    if (year === '2024' && type === OfferingExpenseSearchType.OperationalExpenses) {
       setDataResult(data2024);
     }
     if (!type) {

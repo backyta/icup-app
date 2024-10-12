@@ -28,7 +28,7 @@ export const FamilyGroupPreacherUpdateCard = ({
   //* Functions
   const currentFamilyGroup = useMemo(
     () => dataSearchByTermResponse?.find((data) => data?.id === idRow),
-    [dataSearchByTermResponse]
+    [dataSearchByTermResponse, idRow]
   );
 
   const handleContainerClose = (): void => {

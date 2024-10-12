@@ -48,9 +48,9 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
 
-    //* Income adjustment
+    //* Expense adjustment
     if (
-      type === offeringExpenseSearchType.ExpenseAdjustment &&
+      type === offeringExpenseSearchType.ExpensesAdjustment &&
       !subType &&
       amount &&
       currency &&
@@ -65,26 +65,27 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringExpenseSearchType.ExpenseAdjustment &&
+      type === offeringExpenseSearchType.ExpensesAdjustment &&
       (!churchId || !amount || !currency || !date || !comments)
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
 
-    //* Sunday worship
+    //* All values types
     if (
-      (type === offeringExpenseSearchType.OperationalExpense ||
-        type === offeringExpenseSearchType.ActivitiesAndEventsExpense ||
-        type === offeringExpenseSearchType.DecorationExpense ||
-        type === offeringExpenseSearchType.EquipmentAndTechnologyExpense ||
-        type === offeringExpenseSearchType.MaintenanceAndRepairExpense ||
-        type === offeringExpenseSearchType.SuppliesExpense) &&
+      (type === offeringExpenseSearchType.OperationalExpenses ||
+        type === offeringExpenseSearchType.PlaningEventsExpenses ||
+        type === offeringExpenseSearchType.DecorationExpenses ||
+        type === offeringExpenseSearchType.EquipmentAndTechnologyExpenses ||
+        type === offeringExpenseSearchType.MaintenanceAndRepairExpenses ||
+        type === offeringExpenseSearchType.SuppliesExpenses) &&
       date &&
       subType &&
       amount &&
       currency &&
       churchId &&
+      comments &&
       Object.values(offeringExpenseCreationForm.formState.errors).length === 0 &&
       (!isInputDisabled || !isDropZoneDisabled || !isDeleteFileButtonDisabled)
     ) {
@@ -93,7 +94,7 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
     }
 
     //* Others values
-    if (!churchId || !amount || !currency || !date) {
+    if (!churchId || !amount || !currency || !date || !comments) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
@@ -125,7 +126,7 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
 
   //* Reset relations
   useEffect(() => {
-    if (type === offeringExpenseSearchType.ExpenseAdjustment) {
+    if (type === offeringExpenseSearchType.ExpensesAdjustment) {
       offeringExpenseCreationForm.resetField('subType', { keepDirty: true });
       offeringExpenseCreationForm.resetField('churchId', { keepDirty: true });
       offeringExpenseCreationForm.resetField('amount', { keepDirty: true });
@@ -134,7 +135,7 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
       offeringExpenseCreationForm.resetField('comments', { keepDirty: true });
     }
 
-    if (type === offeringExpenseSearchType.OperationalExpense) {
+    if (type === offeringExpenseSearchType.OperationalExpenses) {
       offeringExpenseCreationForm.resetField('subType', { keepDirty: true });
       offeringExpenseCreationForm.resetField('churchId', { keepDirty: true });
       offeringExpenseCreationForm.resetField('amount', { keepDirty: true });
@@ -143,7 +144,7 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
       offeringExpenseCreationForm.resetField('comments', { keepDirty: true });
     }
 
-    if (type === offeringExpenseSearchType.MaintenanceAndRepairExpense) {
+    if (type === offeringExpenseSearchType.MaintenanceAndRepairExpenses) {
       offeringExpenseCreationForm.resetField('subType', { keepDirty: true });
       offeringExpenseCreationForm.resetField('churchId', { keepDirty: true });
       offeringExpenseCreationForm.resetField('amount', { keepDirty: true });
@@ -152,7 +153,7 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
       offeringExpenseCreationForm.resetField('comments', { keepDirty: true });
     }
 
-    if (type === offeringExpenseSearchType.EquipmentAndTechnologyExpense) {
+    if (type === offeringExpenseSearchType.EquipmentAndTechnologyExpenses) {
       offeringExpenseCreationForm.resetField('subType', { keepDirty: true });
       offeringExpenseCreationForm.resetField('churchId', { keepDirty: true });
       offeringExpenseCreationForm.resetField('amount', { keepDirty: true });
@@ -161,7 +162,7 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
       offeringExpenseCreationForm.resetField('comments', { keepDirty: true });
     }
 
-    if (type === offeringExpenseSearchType.DecorationExpense) {
+    if (type === offeringExpenseSearchType.DecorationExpenses) {
       offeringExpenseCreationForm.resetField('subType', { keepDirty: true });
       offeringExpenseCreationForm.resetField('churchId', { keepDirty: true });
       offeringExpenseCreationForm.resetField('amount', { keepDirty: true });
@@ -170,7 +171,7 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
       offeringExpenseCreationForm.resetField('comments', { keepDirty: true });
     }
 
-    if (type === offeringExpenseSearchType.ActivitiesAndEventsExpense) {
+    if (type === offeringExpenseSearchType.PlaningEventsExpenses) {
       offeringExpenseCreationForm.resetField('subType', { keepDirty: true });
       offeringExpenseCreationForm.resetField('churchId', { keepDirty: true });
       offeringExpenseCreationForm.resetField('amount', { keepDirty: true });
@@ -179,7 +180,7 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
       offeringExpenseCreationForm.resetField('comments', { keepDirty: true });
     }
 
-    if (type === offeringExpenseSearchType.SuppliesExpense) {
+    if (type === offeringExpenseSearchType.SuppliesExpenses) {
       offeringExpenseCreationForm.resetField('subType', { keepDirty: true });
       offeringExpenseCreationForm.resetField('churchId', { keepDirty: true });
       offeringExpenseCreationForm.resetField('amount', { keepDirty: true });

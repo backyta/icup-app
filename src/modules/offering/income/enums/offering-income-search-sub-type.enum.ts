@@ -147,16 +147,16 @@ export const SubTypeNamesOfferingIncomeSearchByYoungWorship: Record<SubTypeOffer
 }
 
 //* Offering (Worship United)
-export enum SubTypeOfferingIncomeSearchByUnitedWorship {
+export enum SubTypeOfferingIncomeSearchByUnitedService {
   OfferingByDate = 'offering_by_date',
   OfferingByChurch = 'offering_by_church',
   OfferingByChurchDate = 'offering_by_church_date',
 }
 
-export const SubTypeNamesOfferingIncomeSearchByUnitedWorship: Record<SubTypeOfferingIncomeSearchByUnitedWorship, string> =  {
-  [SubTypeOfferingIncomeSearchByUnitedWorship.OfferingByDate]: 'Por fecha',
-  [SubTypeOfferingIncomeSearchByUnitedWorship.OfferingByChurch]: 'Por iglesia',
-  [SubTypeOfferingIncomeSearchByUnitedWorship.OfferingByChurchDate]: 'Por fecha e iglesia',
+export const SubTypeNamesOfferingIncomeSearchByUnitedService: Record<SubTypeOfferingIncomeSearchByUnitedService, string> =  {
+  [SubTypeOfferingIncomeSearchByUnitedService.OfferingByDate]: 'Por fecha',
+  [SubTypeOfferingIncomeSearchByUnitedService.OfferingByChurch]: 'Por iglesia',
+  [SubTypeOfferingIncomeSearchByUnitedService.OfferingByChurchDate]: 'Por fecha e iglesia',
 }
 
 //* Offering (Income Adjustment)
@@ -186,17 +186,17 @@ export const SubTypeNamesOfferingIncomeSearchByIncomeAdjustment: Record<SubTypeO
 }
 
 //* Offering (Ground Church, Special)
-export enum SubTypeOfferingIncomeSearchByGroundChurchAndSpecial {
+export enum SubTypeOfferingIncomeSearchByChurchGroundAndSpecial {
   OfferingByDate = 'offering_by_date',
   OfferingByContributorNames = 'offering_by_contributor_names',
   OfferingByContributorLastNames = 'offering_by_contributor_last_names',
   OfferingByContributorFullName = 'offering_by_contributor_full_name',
 }
 
-export const SubTypeNamesOfferingIncomeSearchByGroundChurchAndSpecial: Record<SubTypeOfferingIncomeSearchByGroundChurchAndSpecial, string> =  {
-  [SubTypeOfferingIncomeSearchByGroundChurchAndSpecial.OfferingByDate]: 'Por fecha',
-  [SubTypeOfferingIncomeSearchByGroundChurchAndSpecial.OfferingByContributorNames]: 'Por nombres del aportante',
-  [SubTypeOfferingIncomeSearchByGroundChurchAndSpecial.OfferingByContributorLastNames]: 'Por apellidos del aportante',
-  [SubTypeOfferingIncomeSearchByGroundChurchAndSpecial.OfferingByContributorFullName]: 'Por nombres y apellidos del aportante',
+export const SubTypeNamesOfferingIncomeSearchByChurchGroundAndSpecial: Record<SubTypeOfferingIncomeSearchByChurchGroundAndSpecial, string> =  {
+  [SubTypeOfferingIncomeSearchByChurchGroundAndSpecial.OfferingByDate]: 'Por fecha',
+  [SubTypeOfferingIncomeSearchByChurchGroundAndSpecial.OfferingByContributorNames]: 'Por nombres del aportante',
+  [SubTypeOfferingIncomeSearchByChurchGroundAndSpecial.OfferingByContributorLastNames]: 'Por apellidos del aportante',
+  [SubTypeOfferingIncomeSearchByChurchGroundAndSpecial.OfferingByContributorFullName]: 'Por nombres y apellidos del aportante',
 }
 

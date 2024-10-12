@@ -4,7 +4,7 @@ export interface OfferingExpenseFormData {
   amount: string,
   date: Date;
   currency: string,
-  comments?: string | undefined,
+  comments: string,
   fileNames?: string[] | undefined,
   imageUrls?: string[] | undefined,
   churchId?: string | undefined,

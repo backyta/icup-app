@@ -30,11 +30,11 @@ import {
   SubTypeNamesOfferingIncomeSearchByActivities,
   SubTypeNamesOfferingIncomeSearchByFamilyGroup,
   SubTypeNamesOfferingIncomeSearchByYoungWorship,
-  SubTypeNamesOfferingIncomeSearchByUnitedWorship,
+  SubTypeNamesOfferingIncomeSearchByUnitedService,
   SubTypeNamesOfferingIncomeSearchByIncomeAdjustment,
   SubTypeNamesOfferingIncomeSearchByFastingAndVigilZonal,
   SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneral,
-  SubTypeNamesOfferingIncomeSearchByGroundChurchAndSpecial,
+  SubTypeNamesOfferingIncomeSearchByChurchGroundAndSpecial,
   SubTypeNamesOfferingIncomeSearchBySundayWorshipAndSundaySchool,
 } from '@/modules/offering/income/enums';
 import {
@@ -284,9 +284,9 @@ export const OfferingIncomeDeletePage = (): JSX.Element => {
                 searchType === OfferingIncomeSearchType.IncomeAdjustment ||
                 searchType === OfferingIncomeSearchType.Special ||
                 searchType === OfferingIncomeSearchType.SundaySchool ||
-                searchType === OfferingIncomeSearchType.SundayWorship ||
-                searchType === OfferingIncomeSearchType.UnitedWorship ||
-                searchType === OfferingIncomeSearchType.YouthWorship ||
+                searchType === OfferingIncomeSearchType.SundayService ||
+                searchType === OfferingIncomeSearchType.UnitedService ||
+                searchType === OfferingIncomeSearchType.YouthService ||
                 searchType === OfferingIncomeSearchType.ZonalFasting ||
                 searchType === OfferingIncomeSearchType.ZonalVigil) && (
                 <FormField
@@ -332,7 +332,7 @@ export const OfferingIncomeDeletePage = (): JSX.Element => {
                           </FormControl>
                           <SelectContent>
                             {Object.entries(
-                              searchType === OfferingIncomeSearchType.SundayWorship ||
+                              searchType === OfferingIncomeSearchType.SundayService ||
                                 searchType === OfferingIncomeSearchType.SundaySchool
                                 ? SubTypeNamesOfferingIncomeSearchBySundayWorshipAndSundaySchool
                                 : searchType === OfferingIncomeSearchType.FamilyGroup
@@ -343,15 +343,15 @@ export const OfferingIncomeDeletePage = (): JSX.Element => {
                                     : searchType === OfferingIncomeSearchType.GeneralFasting ||
                                         searchType === OfferingIncomeSearchType.GeneralVigil
                                       ? SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneral
-                                      : searchType === OfferingIncomeSearchType.YouthWorship
+                                      : searchType === OfferingIncomeSearchType.YouthService
                                         ? SubTypeNamesOfferingIncomeSearchByYoungWorship
-                                        : searchType === OfferingIncomeSearchType.UnitedWorship
-                                          ? SubTypeNamesOfferingIncomeSearchByUnitedWorship
+                                        : searchType === OfferingIncomeSearchType.UnitedService
+                                          ? SubTypeNamesOfferingIncomeSearchByUnitedService
                                           : searchType === OfferingIncomeSearchType.Activities
                                             ? SubTypeNamesOfferingIncomeSearchByActivities
                                             : searchType === OfferingIncomeSearchType.Special ||
                                                 searchType === OfferingIncomeSearchType.ChurchGround
-                                              ? SubTypeNamesOfferingIncomeSearchByGroundChurchAndSpecial
+                                              ? SubTypeNamesOfferingIncomeSearchByChurchGroundAndSpecial
                                               : SubTypeNamesOfferingIncomeSearchByIncomeAdjustment
                             ).map(([key, value]) => (
                               <SelectItem
@@ -408,9 +408,9 @@ export const OfferingIncomeDeletePage = (): JSX.Element => {
                 searchType === OfferingIncomeSearchType.IncomeAdjustment ||
                 searchType === OfferingIncomeSearchType.Special ||
                 searchType === OfferingIncomeSearchType.SundaySchool ||
-                searchType === OfferingIncomeSearchType.SundayWorship ||
-                searchType === OfferingIncomeSearchType.UnitedWorship ||
-                searchType === OfferingIncomeSearchType.YouthWorship ||
+                searchType === OfferingIncomeSearchType.SundayService ||
+                searchType === OfferingIncomeSearchType.UnitedService ||
+                searchType === OfferingIncomeSearchType.YouthService ||
                 searchType === OfferingIncomeSearchType.ZonalFasting ||
                 searchType === OfferingIncomeSearchType.ZonalVigil) &&
                 (searchSubType === OfferingIncomeSearchSubType.OfferingByDate ||
@@ -478,12 +478,12 @@ export const OfferingIncomeDeletePage = (): JSX.Element => {
 
               {(searchType === OfferingIncomeSearchType.RecordStatus ||
                 ((searchType === OfferingIncomeSearchType.SundaySchool ||
-                  searchType === OfferingIncomeSearchType.SundayWorship ||
+                  searchType === OfferingIncomeSearchType.SundayService ||
                   searchType === OfferingIncomeSearchType.GeneralFasting ||
                   searchType === OfferingIncomeSearchType.GeneralVigil ||
                   searchType === OfferingIncomeSearchType.Activities ||
-                  searchType === OfferingIncomeSearchType.UnitedWorship ||
-                  searchType === OfferingIncomeSearchType.YouthWorship ||
+                  searchType === OfferingIncomeSearchType.UnitedService ||
+                  searchType === OfferingIncomeSearchType.YouthService ||
                   searchType === OfferingIncomeSearchType.IncomeAdjustment ||
                   searchType === OfferingIncomeSearchType.Special ||
                   searchType === OfferingIncomeSearchType.ChurchGround) &&

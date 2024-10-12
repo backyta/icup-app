@@ -109,8 +109,8 @@ interface PreacherFormUpdateProps {
 export const PreacherUpdateForm = ({
   id,
   data,
-  dialogClose: onSubmit,
-  scrollToTop: onScroll,
+  dialogClose,
+  scrollToTop,
 }: PreacherFormUpdateProps): JSX.Element => {
   //* States
   const [isRelationSelectDisabled, setIsRelationSelectDisabled] = useState<boolean>(false);
@@ -202,8 +202,8 @@ export const PreacherUpdateForm = ({
   });
 
   const preacherUpdateMutation = usePreacherUpdateMutation({
-    onSubmit,
-    onScroll,
+    dialogClose,
+    scrollToTop,
     setIsInputDisabled,
     setIsSubmitButtonDisabled,
     setIsRelationSelectDisabled,
@@ -559,10 +559,8 @@ export const PreacherUpdateForm = ({
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
-                                debe eliminar el registro desde la pestaña{' '}
-                                <span className='font-bold text-red-500'>
-                                  Eliminar Predicador.{' '}
-                                </span>
+                                debe eliminar el registro desde el modulo{' '}
+                                <span className='font-bold text-red-500'>Eliminar Predicador.</span>
                               </FormDescription>
                             )}
                             {form.getValues('recordStatus') === 'inactive' && (

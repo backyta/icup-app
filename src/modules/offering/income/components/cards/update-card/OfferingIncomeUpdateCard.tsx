@@ -29,7 +29,7 @@ export const OfferingIncomeUpdateCard = ({ idRow }: OfferingIncomeUpdateCardProp
   //* Functions
   const currentOfferingIncome = useMemo(
     () => dataSearchByTermResponse?.find((data) => data?.id === idRow),
-    [dataSearchByTermResponse]
+    [dataSearchByTermResponse, idRow]
   );
 
   const handleContainerClose = useCallback((): void => {

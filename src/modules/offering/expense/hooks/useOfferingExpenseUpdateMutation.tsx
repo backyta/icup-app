@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
@@ -11,17 +12,23 @@ import {
 
 import { type ErrorResponse } from '@/shared/interfaces';
 
+import { deleteImage } from '@/modules/offering/shared/services';
+import { OfferingFileType } from '@/modules/offering/shared/enums';
+import { extractPath, extractPublicId } from '@/modules/offering/shared/helpers';
+
 interface Options {
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
+  imageUrls: string[];
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsDeleteFileButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useOfferingExpenseUpdateMutation = ({
-  onSubmit,
-  onScroll,
+  dialogClose,
+  scrollToTop,
+  imageUrls,
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
   setIsDeleteFileButtonDisabled,
@@ -45,6 +52,16 @@ export const useOfferingExpenseUpdateMutation = ({
         toast.error(error.message, {
           position: 'top-center',
           className: 'justify-center',
+        });
+
+        //! Aplicar destroy si falla el form
+        imageUrls?.forEach(async (imageUrl) => {
+          await deleteImage({
+            publicId: extractPublicId(imageUrl),
+            path: extractPath(imageUrl),
+            secureUrl: imageUrl,
+            fileType: OfferingFileType.Expense,
+          });
         });
 
         setTimeout(() => {
@@ -72,7 +89,7 @@ export const useOfferingExpenseUpdateMutation = ({
       });
 
       setTimeout(() => {
-        onScroll();
+        scrollToTop();
       }, 150);
 
       setTimeout(() => {
@@ -80,7 +97,7 @@ export const useOfferingExpenseUpdateMutation = ({
       }, 700);
 
       setTimeout(() => {
-        onSubmit();
+        dialogClose();
         setIsInputDisabled(false);
       }, 1500);
     },

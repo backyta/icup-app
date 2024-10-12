@@ -73,7 +73,7 @@ export const UserDeleteCard = ({ idRow }: UserDeleteCardProps): JSX.Element => {
               ❌ El registro ya no tendrá acceso al sistema ni a ninguna funcionalidad de esta.
             </span>
             <span className='w-full text-left inline-block text-[14px] md:text-[15px]'>
-              ✅ Para poder activarlo nuevamente deberá hacerlo desde la pestaña de{' '}
+              ✅ Para poder activarlo nuevamente deberá hacerlo desde el modulo{' '}
               <span className='font-bold'>Actualizar Usuario.</span>
             </span>
             <br />

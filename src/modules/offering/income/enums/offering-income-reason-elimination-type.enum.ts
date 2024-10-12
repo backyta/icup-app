@@ -26,7 +26,7 @@ export const OfferingIncomeReasonEliminationTypeNames: Record<OfferingIncomeReas
   pastor_selection_error : '❌ Error en selección de pastor',
   copastor_selection_error : '❌ Error en selección de co-pastor',
   supervisor_selection_error : '❌ Error en selección de supervisor',
-  preacher_selection_error : '❌ Error en selección de preacher',
+  preacher_selection_error : '❌ Error en selección de predicador',
   disciple_selection_error : '❌ Error en selección de discípulo',
 };
 

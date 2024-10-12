@@ -10,16 +10,16 @@ import { type ZoneResponse } from '@/modules/zone/interfaces';
 import { updateZone, type UpdateZoneOptions } from '@/modules/zone/services';
 
 interface Options {
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsInputTheirSupervisorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useZoneUpdateMutation = ({
-  onSubmit,
-  onScroll,
+  dialogClose,
+  scrollToTop,
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
   setIsInputTheirSupervisorDisabled,
@@ -65,7 +65,7 @@ export const useZoneUpdateMutation = ({
       });
 
       setTimeout(() => {
-        onScroll();
+        scrollToTop();
       }, 150);
 
       setTimeout(() => {
@@ -73,7 +73,7 @@ export const useZoneUpdateMutation = ({
       }, 700);
 
       setTimeout(() => {
-        onSubmit();
+        dialogClose();
         setIsInputDisabled(false);
       }, 1500);
     },

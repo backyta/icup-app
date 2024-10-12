@@ -10,15 +10,15 @@ import { type UserResponse } from '@/modules/user/interfaces';
 import { updateUser, type UpdateUserOptions } from '@/modules/user/services';
 
 interface Options {
-  onSubmit: () => void;
-  onScroll: () => void;
+  dialogClose: () => void;
+  scrollToTop: () => void;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useUserUpdateMutation = ({
-  onSubmit,
-  onScroll,
+  dialogClose,
+  scrollToTop,
   setIsInputDisabled,
   setIsSubmitButtonDisabled,
 }: Options): UseMutationResult<UserResponse, ErrorResponse, UpdateUserOptions, unknown> => {
@@ -62,7 +62,7 @@ export const useUserUpdateMutation = ({
       });
 
       setTimeout(() => {
-        onScroll();
+        scrollToTop();
       }, 150);
 
       setTimeout(() => {
@@ -70,7 +70,7 @@ export const useUserUpdateMutation = ({
       }, 700);
 
       setTimeout(() => {
-        onSubmit();
+        dialogClose();
         setIsInputDisabled(false);
       }, 1500);
     },

@@ -46,8 +46,8 @@ export const offeringExpenseFormSchema = z
     })).optional(),
     
     comments: z.string()
-    .max(500, {message: 'El campo debe contener máximo 500 caracteres'})
-    .optional(),   
+    .min(5, {message: 'El campo debe contener mínimo 5 caracteres.'})
+    .max(500, {message: 'El campo debe contener máximo 500 caracteres.'}),   
 
     churchId: z.string().optional(),
 

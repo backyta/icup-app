@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { type UseFormReturn } from 'react-hook-form';
@@ -10,17 +11,23 @@ import {
 import { createOfferingExpense } from '@/modules/offering/expense/services';
 
 import { type ErrorResponse } from '@/shared/interfaces';
+
+import { deleteImage } from '@/modules/offering/shared/services';
+import { OfferingFileType } from '@/modules/offering/shared/enums';
 import { type FilesProps } from '@/modules/offering/shared/interfaces';
+import { extractPath, extractPublicId } from '@/modules/offering/shared/helpers';
 
 interface Options {
   setFiles: React.Dispatch<React.SetStateAction<FilesProps[]>>;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   offeringExpenseCreationForm: UseFormReturn<OfferingExpenseFormData, any, OfferingExpenseFormData>;
+  imageUrls: string[];
 }
 
 export const useOfferingExpenseCreationMutation = ({
   setFiles,
+  imageUrls,
   setIsInputDisabled,
   offeringExpenseCreationForm,
   setIsSubmitButtonDisabled,
@@ -41,6 +48,16 @@ export const useOfferingExpenseCreationMutation = ({
         toast.error(error.message, {
           position: 'top-center',
           className: 'justify-center',
+        });
+
+        //! Aplicar destroy si falla el form
+        imageUrls?.forEach(async (imageUrl) => {
+          await deleteImage({
+            publicId: extractPublicId(imageUrl),
+            path: extractPath(imageUrl),
+            secureUrl: imageUrl,
+            fileType: OfferingFileType.Expense,
+          });
         });
 
         setTimeout(() => {
@@ -76,9 +93,9 @@ export const useOfferingExpenseCreationMutation = ({
         setFiles([]);
       }, 1600);
 
-      setTimeout(() => {
-        navigate('/offerings/expenses');
-      }, 2200);
+      // setTimeout(() => {
+      //   navigate('/offerings/expenses');
+      // }, 2200);
     },
   });
 
