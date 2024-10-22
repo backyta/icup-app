@@ -1,4 +1,3 @@
-// ? Payload
 export interface LatestSundaysOfferingsPayload {
   fill: string;
   radius: number;

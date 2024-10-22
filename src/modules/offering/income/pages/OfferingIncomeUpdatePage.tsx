@@ -29,13 +29,13 @@ import {
   OfferingIncomeSearchNamesByRecordStatus,
   SubTypeNamesOfferingIncomeSearchByActivities,
   SubTypeNamesOfferingIncomeSearchByFamilyGroup,
-  SubTypeNamesOfferingIncomeSearchByYoungWorship,
+  SubTypeNamesOfferingIncomeSearchByYoungService,
   SubTypeNamesOfferingIncomeSearchByUnitedService,
   SubTypeNamesOfferingIncomeSearchByIncomeAdjustment,
   SubTypeNamesOfferingIncomeSearchByFastingAndVigilZonal,
   SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneral,
   SubTypeNamesOfferingIncomeSearchByChurchGroundAndSpecial,
-  SubTypeNamesOfferingIncomeSearchBySundayWorshipAndSundaySchool,
+  SubTypeNamesOfferingIncomeSearchBySundayServiceAndSundaySchool,
 } from '@/modules/offering/income/enums';
 import {
   type OfferingIncomeResponse,
@@ -331,7 +331,7 @@ export const OfferingIncomeUpdatePage = (): JSX.Element => {
                             {Object.entries(
                               searchType === OfferingIncomeSearchType.SundayService ||
                                 searchType === OfferingIncomeSearchType.SundaySchool
-                                ? SubTypeNamesOfferingIncomeSearchBySundayWorshipAndSundaySchool
+                                ? SubTypeNamesOfferingIncomeSearchBySundayServiceAndSundaySchool
                                 : searchType === OfferingIncomeSearchType.FamilyGroup
                                   ? SubTypeNamesOfferingIncomeSearchByFamilyGroup
                                   : searchType === OfferingIncomeSearchType.ZonalVigil ||
@@ -341,7 +341,7 @@ export const OfferingIncomeUpdatePage = (): JSX.Element => {
                                         searchType === OfferingIncomeSearchType.GeneralVigil
                                       ? SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneral
                                       : searchType === OfferingIncomeSearchType.YouthService
-                                        ? SubTypeNamesOfferingIncomeSearchByYoungWorship
+                                        ? SubTypeNamesOfferingIncomeSearchByYoungService
                                         : searchType === OfferingIncomeSearchType.UnitedService
                                           ? SubTypeNamesOfferingIncomeSearchByUnitedService
                                           : searchType === OfferingIncomeSearchType.Activities

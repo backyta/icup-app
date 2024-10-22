@@ -9,8 +9,8 @@ import { createPastor } from '@/modules/pastor/services';
 import { type PastorFormData, type PastorResponse } from '@/modules/pastor/interfaces';
 
 interface Options {
-  pastorCreationForm: UseFormReturn<PastorFormData, any, PastorFormData>;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  pastorCreationForm: UseFormReturn<PastorFormData, any, PastorFormData>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

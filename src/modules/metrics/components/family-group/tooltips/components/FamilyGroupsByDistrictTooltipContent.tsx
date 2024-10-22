@@ -1,5 +1,4 @@
 import { type TooltipConfig } from '@/shared/interfaces';
-
 import { type FamilyGroupsByDistrictPayload } from '@/modules/metrics/components/family-group/tooltips/interfaces';
 
 export const FamilyGroupsByDistrictTooltipContent = (

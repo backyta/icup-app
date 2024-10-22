@@ -26,7 +26,7 @@ export const useFamilyGroupUpdateSubmitButtonLogic = ({
   const district = familyGroupUpdateForm.watch('district');
   const urbanSector = familyGroupUpdateForm.watch('urbanSector');
   const address = familyGroupUpdateForm.watch('address');
-  const worshipTime = familyGroupUpdateForm.watch('worshipTime');
+  const serviceTime = familyGroupUpdateForm.watch('serviceTime');
   const recordStatus = familyGroupUpdateForm.watch('recordStatus');
   const theirPreacher = familyGroupUpdateForm.watch('theirPreacher');
   const theirZone = familyGroupUpdateForm.watch('theirZone');
@@ -56,7 +56,7 @@ export const useFamilyGroupUpdateSubmitButtonLogic = ({
       !department ||
       !province ||
       !district ||
-      !worshipTime ||
+      !serviceTime ||
       !address ||
       !urbanSector
     ) {
@@ -66,7 +66,7 @@ export const useFamilyGroupUpdateSubmitButtonLogic = ({
   }, [
     familyGroupUpdateForm.formState,
     familyGroupName,
-    worshipTime,
+    serviceTime,
     country,
     department,
     province,

@@ -5,8 +5,8 @@ import { isAxiosError } from 'axios';
 import { icupApi } from '@/api/icupApi';
 
 import { 
+  OfferingIncomeSearchType,
   OfferingIncomeSearchSubType, 
-  OfferingIncomeSearchType 
 } from '@/modules/offering/income/enums';
 import { 
   type OfferingIncomeResponse,
@@ -83,7 +83,7 @@ export const getOfferingsIncomeByTerm = async ({
 
  let result: OfferingIncomeResponse[];
 
- //* Sunday Worship, Sunday School
+ //* Sunday Service, Sunday School
  if (searchType === OfferingIncomeSearchType.SundayService||
      searchType === OfferingIncomeSearchType.SundaySchool
     ) {
@@ -277,7 +277,7 @@ export const getOfferingsIncomeByTerm = async ({
     }
   }
 
- //* General Vigil, general fasting, youth worship, united worship, activities, adjustment income
+ //* General Vigil, general fasting, youth service, united service, activities, adjustment income
   if (searchType === OfferingIncomeSearchType.GeneralFasting || 
     searchType === OfferingIncomeSearchType.GeneralVigil || 
     searchType === OfferingIncomeSearchType.YouthService || 

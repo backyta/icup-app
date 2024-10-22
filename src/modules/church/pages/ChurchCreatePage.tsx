@@ -24,7 +24,7 @@ import {
 } from '@/modules/church/hooks';
 import { getMainChurch } from '@/modules/church/services';
 import { churchFormSchema } from '@/modules/church/validations';
-import { ChurchWorshipTime, ChurchWorshipTimeNames } from '@/modules/church/enums';
+import { ChurchServiceTime, ChurchServiceTimeNames } from '@/modules/church/enums';
 
 import { cn } from '@/shared/lib/utils';
 import { PageTitle } from '@/shared/components/page';
@@ -100,7 +100,7 @@ export const ChurchCreatePage = (): JSX.Element => {
       district: '',
       urbanSector: '',
       address: '',
-      worshipTimes: [],
+      serviceTimes: [],
       referenceAddress: '',
       theirMainChurch: '',
     },
@@ -260,7 +260,7 @@ export const ChurchCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='worshipTimes'
+                name='serviceTimes'
                 render={() => (
                   <FormItem>
                     <div className='mt-3'>
@@ -272,37 +272,37 @@ export const ChurchCreatePage = (): JSX.Element => {
                       </FormDescription>
                     </div>
                     <div className='flex flex-wrap space-x-5 space-y-1'>
-                      {Object.values(ChurchWorshipTime).map((worshipTime) => (
+                      {Object.values(ChurchServiceTime).map((serviceTime) => (
                         <FormField
-                          key={worshipTime}
+                          key={serviceTime}
                           control={form.control}
-                          name='worshipTimes'
+                          name='serviceTimes'
                           render={({ field }) => {
                             return (
                               <FormItem
-                                key={worshipTime}
+                                key={serviceTime}
                                 className='flex items-center space-x-2 space-y-0'
                               >
                                 <FormControl className='grid'>
                                   <Checkbox
                                     disabled={isInputDisabled}
-                                    checked={field.value?.includes(worshipTime)}
+                                    checked={field.value?.includes(serviceTime)}
                                     onCheckedChange={(checked) => {
-                                      let updatedWorshipTimes: ChurchWorshipTime[] = [];
+                                      let updatedServiceTimes: ChurchServiceTime[] = [];
                                       checked
-                                        ? (updatedWorshipTimes = field.value
-                                            ? [...field.value, worshipTime]
-                                            : [worshipTime])
-                                        : (updatedWorshipTimes =
-                                            field.value?.filter((value) => value !== worshipTime) ??
+                                        ? (updatedServiceTimes = field.value
+                                            ? [...field.value, serviceTime]
+                                            : [serviceTime])
+                                        : (updatedServiceTimes =
+                                            field.value?.filter((value) => value !== serviceTime) ??
                                             []);
 
-                                      field.onChange(updatedWorshipTimes);
+                                      field.onChange(updatedServiceTimes);
                                     }}
                                   />
                                 </FormControl>
                                 <FormLabel className='text-[14px] font-medium'>
-                                  {ChurchWorshipTimeNames[worshipTime]}
+                                  {ChurchServiceTimeNames[serviceTime]}
                                 </FormLabel>
                               </FormItem>
                             );
@@ -517,7 +517,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(DistrictNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
+                              className={`text-[14px] ${districtsValidation?.districtsDataResult?.includes(value) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -561,7 +561,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >

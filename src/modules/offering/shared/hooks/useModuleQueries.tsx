@@ -6,16 +6,18 @@ import { useQuery } from '@tanstack/react-query';
 
 import { MemberType } from '@/modules/offering/income/enums';
 
-import { getSimpleZones } from '@/modules/zone/services';
 import { getSimplePastors } from '@/modules/pastor/services';
 import { getSimpleChurches } from '@/modules/church/services';
 import { getSimpleCopastors } from '@/modules/copastor/services';
 import { getSimplePreachers } from '@/modules/preacher/services';
 import { getSimpleDisciples } from '@/modules/disciple/services';
 import { getSimpleSupervisors } from '@/modules/supervisor/services';
-import { getSimpleFamilyGroups } from '@/modules/family-group/services';
 
-export const useModuleQueries = (memberType?: string | undefined) => {
+interface Options {
+  memberType?: string | undefined;
+}
+
+export const useModuleQueries = ({ memberType }: Options) => {
   //* Queries
   const churchesQuery = useQuery({
     queryKey: ['churches'],
@@ -58,24 +60,13 @@ export const useModuleQueries = (memberType?: string | undefined) => {
     retry: 1,
   });
 
-  const familyGroupsQuery = useQuery({
-    queryKey: ['family-groups'],
-    queryFn: () => getSimpleFamilyGroups({ isSimpleQuery: true }),
-  });
-
-  const zonesQuery = useQuery({
-    queryKey: ['zones'],
-    queryFn: () => getSimpleZones({ isSimpleQuery: true }),
-  });
-
   return {
     pastorsQuery,
     copastorsQuery,
     supervisorsQuery,
     preachersQuery,
     disciplesQuery,
-    familyGroupsQuery,
-    zonesQuery,
+
     churchesQuery,
   };
 };

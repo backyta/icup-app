@@ -85,7 +85,7 @@ export const useOfferingIncomeUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
 
-    //* Sunday worship
+    //* Sunday service
     if (
       type === OfferingIncomeCreationType.Offering &&
       (subType === OfferingIncomeCreationSubType.SundayService ||

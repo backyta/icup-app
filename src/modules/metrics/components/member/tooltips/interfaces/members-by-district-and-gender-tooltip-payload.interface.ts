@@ -1,4 +1,3 @@
-//* Payload
 export interface MembersByDistrictAndGenderPayload {
   fill: string;
   radius: number;

@@ -44,12 +44,12 @@ import { dateFormatterTermToTimestamp, namesFormatter, lastNamesFormatter } from
 
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
   FormLabel,
+  FormField,
   FormMessage,
+  FormControl,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import {
   SelectValue,

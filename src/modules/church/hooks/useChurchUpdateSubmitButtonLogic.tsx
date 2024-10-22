@@ -21,7 +21,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
   //* Watchers
   const nameChurch = churchUpdateForm.watch('churchName');
   const foundingDate = churchUpdateForm.watch('foundingDate');
-  const worshipTimes = churchUpdateForm.watch('worshipTimes');
+  const serviceTimes = churchUpdateForm.watch('serviceTimes');
   const email = churchUpdateForm.watch('email');
   const phoneNumber = churchUpdateForm.watch('phoneNumber');
   const country = churchUpdateForm.watch('country');
@@ -72,7 +72,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
     if (
       !nameChurch ||
       !foundingDate ||
-      !worshipTimes ||
+      !serviceTimes ||
       !email ||
       !phoneNumber ||
       !country ||
@@ -90,7 +90,7 @@ export const useChurchUpdateSubmitButtonLogic = ({
     churchUpdateForm.formState,
     nameChurch,
     foundingDate,
-    worshipTimes,
+    serviceTimes,
     email,
     phoneNumber,
     country,

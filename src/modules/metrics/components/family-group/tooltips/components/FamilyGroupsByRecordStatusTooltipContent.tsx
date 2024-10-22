@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { type FamilyGroupsByRecordStatusTooltipConfig } from '@/modules/metrics/components/family-group/tooltips/interfaces';
+import { type TooltipConfig } from '@/shared/interfaces';
+import { type FamilyGroupsByRecordStatusPayload } from '@/modules/metrics/components/family-group/tooltips/interfaces';
 
 export const FamilyGroupsByRecordStatusTooltipContent = (
-  props: FamilyGroupsByRecordStatusTooltipConfig
+  props: TooltipConfig<FamilyGroupsByRecordStatusPayload>
 ): JSX.Element => {
   const { payload, label } = props;
 

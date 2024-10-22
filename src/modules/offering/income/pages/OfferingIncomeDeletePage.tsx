@@ -29,13 +29,13 @@ import {
   OfferingIncomeSearchNamesByRecordStatus,
   SubTypeNamesOfferingIncomeSearchByActivities,
   SubTypeNamesOfferingIncomeSearchByFamilyGroup,
-  SubTypeNamesOfferingIncomeSearchByYoungWorship,
+  SubTypeNamesOfferingIncomeSearchByYoungService,
   SubTypeNamesOfferingIncomeSearchByUnitedService,
   SubTypeNamesOfferingIncomeSearchByIncomeAdjustment,
   SubTypeNamesOfferingIncomeSearchByFastingAndVigilZonal,
   SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneral,
   SubTypeNamesOfferingIncomeSearchByChurchGroundAndSpecial,
-  SubTypeNamesOfferingIncomeSearchBySundayWorshipAndSundaySchool,
+  SubTypeNamesOfferingIncomeSearchBySundayServiceAndSundaySchool,
 } from '@/modules/offering/income/enums';
 import {
   type OfferingIncomeResponse,
@@ -55,19 +55,19 @@ import { dateFormatterTermToTimestamp, namesFormatter, lastNamesFormatter } from
 
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
+  FormField,
   FormLabel,
   FormMessage,
+  FormControl,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import {
+  Select,
+  SelectItem,
   SelectValue,
   SelectTrigger,
   SelectContent,
-  SelectItem,
-  Select,
 } from '@/shared/components/ui/select';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -334,7 +334,7 @@ export const OfferingIncomeDeletePage = (): JSX.Element => {
                             {Object.entries(
                               searchType === OfferingIncomeSearchType.SundayService ||
                                 searchType === OfferingIncomeSearchType.SundaySchool
-                                ? SubTypeNamesOfferingIncomeSearchBySundayWorshipAndSundaySchool
+                                ? SubTypeNamesOfferingIncomeSearchBySundayServiceAndSundaySchool
                                 : searchType === OfferingIncomeSearchType.FamilyGroup
                                   ? SubTypeNamesOfferingIncomeSearchByFamilyGroup
                                   : searchType === OfferingIncomeSearchType.ZonalVigil ||
@@ -344,7 +344,7 @@ export const OfferingIncomeDeletePage = (): JSX.Element => {
                                         searchType === OfferingIncomeSearchType.GeneralVigil
                                       ? SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneral
                                       : searchType === OfferingIncomeSearchType.YouthService
-                                        ? SubTypeNamesOfferingIncomeSearchByYoungWorship
+                                        ? SubTypeNamesOfferingIncomeSearchByYoungService
                                         : searchType === OfferingIncomeSearchType.UnitedService
                                           ? SubTypeNamesOfferingIncomeSearchByUnitedService
                                           : searchType === OfferingIncomeSearchType.Activities

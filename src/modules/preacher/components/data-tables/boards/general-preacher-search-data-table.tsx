@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/return-await */
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect, useState } from 'react';
@@ -31,11 +31,11 @@ import { type GeneralSearchForm } from '@/shared/interfaces';
 
 import {
   Table,
+  TableRow,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
 } from '@/shared/components/ui/table';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';

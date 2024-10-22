@@ -79,7 +79,7 @@ export const router = createBrowserRouter([
           { path: '/family-groups', element: <FamilyGroupOptionsPage /> },
           { path: '/zones', element: <ZoneOptionsPage /> },
           { path: '/offerings', element: <OfferingOptionsPage /> },
-          { path: '/offerings/incomes', element: <OfferingIncomeOptionsPage /> },
+          { path: '/offerings/income', element: <OfferingIncomeOptionsPage /> },
           { path: '/offerings/expenses', element: <OfferingExpenseOptionsPage /> },
           { path: '/metrics', element: <MetricsOptionsPage /> },
           { path: '/users', element: <UserOptionsPage /> },
@@ -99,7 +99,7 @@ export const router = createBrowserRouter([
 
       //* Offering income
       {
-        path: '/offerings/incomes',
+        path: '/offerings/income',
         element: <DashboardLayout />,
         children: OfferingIncomeChildrenRoutes,
       },

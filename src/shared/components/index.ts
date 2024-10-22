@@ -1,7 +1,6 @@
-export * from './dropdown-menu';
-export * from './side-menu';
-export * from './toggle-theme';
 export * from './card';
-export * from './spinner';
+export * from './dropdown-menu';
 export * from './page';
-
+export * from './side-menu';
+export * from './spinner';
+export * from './toggle-theme';

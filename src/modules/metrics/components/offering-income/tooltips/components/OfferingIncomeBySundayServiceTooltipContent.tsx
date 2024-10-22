@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 
 import { CurrencyType } from '@/modules/offering/shared/enums';
 
+import {
+  type OfferingIncomeCreationCategory,
+  OfferingIncomeCreationCategoryNames,
+} from '@/modules/offering/income/enums';
 import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
 import { type OfferingIncomePayloadBySundayService } from '@/modules/metrics/components/offering-income/tooltips/interfaces';
 
@@ -28,7 +31,7 @@ export const OfferingIncomeBySundayServiceTooltipContent = (
 
   return (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
-      <p className='font-medium text-[12px] sm:text-[14px]'>{`${label}`}</p>
+      <p className='font-medium text-[12px] sm:text-[14px]'>{`${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]} ~ ${label}`}</p>
       <ul className='list grid gap-1.5'>
         {payload.map((entry, index) =>
           entry.value ? (
@@ -62,6 +65,11 @@ export const OfferingIncomeBySundayServiceTooltipContent = (
           )
         )}
       </ul>
+
+      <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
+        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.churchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
+      </li>
+
       {(totalAccumulatedPEN > 0 && totalAccumulatedUSD > 0) ||
       (totalAccumulatedPEN > 0 && totalAccumulatedEUR > 0) ? (
         <p className='font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>

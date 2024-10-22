@@ -6,7 +6,7 @@
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type ChurchWorshipTime } from '@/modules/church/enums';
+import { type ChurchServiceTime } from '@/modules/church/enums';
 import { type ChurchResponse, type ChurchFormData } from '@/modules/church/interfaces';
 
 interface Options {
@@ -29,7 +29,7 @@ export const useChurchUpdateEffects = ({
       'foundingDate',
       new Date(String(data?.foundingDate).replace(/-/g, '/') as any)
     );
-    churchUpdateForm.setValue('worshipTimes', data?.worshipTimes as ChurchWorshipTime[]);
+    churchUpdateForm.setValue('serviceTimes', data?.serviceTimes as ChurchServiceTime[]);
     churchUpdateForm.setValue('email', data?.email ?? '');
     churchUpdateForm.setValue('phoneNumber', data?.phoneNumber ?? '');
     churchUpdateForm.setValue('country', data?.country ?? '');
@@ -48,7 +48,7 @@ export const useChurchUpdateEffects = ({
     }, 1200);
 
     return () => {
-      clearTimeout(timeoutId); // Limpiar el timeout cuando el componente se desmonte
+      clearTimeout(timeoutId);
     };
   }, []);
 

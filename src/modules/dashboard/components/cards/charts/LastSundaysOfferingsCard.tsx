@@ -6,11 +6,11 @@
 import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
+import { addDays } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
-import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
-import { addDays } from 'date-fns';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { toZonedTime, format as formatZonedTime } from 'date-fns-tz';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
@@ -41,10 +41,10 @@ import {
 } from '@/shared/components/ui/card';
 import {
   Command,
+  CommandItem,
   CommandEmpty,
   CommandGroup,
   CommandInput,
-  CommandItem,
 } from '@/shared/components/ui/command';
 import { Button } from '@/shared/components/ui/button';
 import { dashBoardSearchFormSchema } from '@/modules/dashboard/validations';
@@ -79,7 +79,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 interface SearchParamsOptions {
-  selectTerm?: string;
+  church?: string;
 }
 
 export const LastSundayOfferingsCard = (): JSX.Element => {
@@ -93,12 +93,12 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
     resolver: zodResolver(dashBoardSearchFormSchema),
     mode: 'onChange',
     defaultValues: {
-      selectTerm: '',
+      church: '',
     },
   });
 
   //* Watchers
-  const selectTerm = form.getValues('selectTerm');
+  const church = form.getValues('church');
 
   //* Queries
   const lastSundaysOfferings = useQuery({
@@ -110,8 +110,8 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
 
       return getOfferingsForBarChartByTerm({
         searchType: DashboardSearchType.LastSundaysOfferings,
-        selectTerm: searchParams?.selectTerm ?? selectTerm,
-        dateTerm: formatZonedTime(zonedDate, 'yyyy-MM-dd', { timeZone }),
+        church: searchParams?.church ?? church,
+        date: formatZonedTime(zonedDate, 'yyyy-MM-dd', { timeZone }),
         limit: '14',
         order: RecordOrder.Descending,
       });
@@ -129,8 +129,8 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
   useEffect(() => {
     if (churchesQuery.data) {
       const church = churchesQuery?.data?.map((church) => church?.id)[0];
-      setSearchParams({ selectTerm: church });
-      form.setValue('selectTerm', church);
+      setSearchParams({ church });
+      form.setValue('church', church);
     }
   }, [churchesQuery?.data]);
 
@@ -140,13 +140,13 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
   };
 
   return (
-    <Card className='flex flex-col row-start-1 row-end-2 col-start-1 col-end-3 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-3 lg:row-start-1 lg:row-end-2 xl:col-start-1 xl:col-end-4 xl:row-start-1 xl:row-end-2 h-[22rem] sm:h-[26rem] md:h-[28rem] lg:h-[28rem] 2xl:h-[30rem] m-0 border-slate-500'>
+    <Card className='flex flex-col row-start-1 row-end-2 col-start-1 col-end-3 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-3 lg:row-start-1 lg:row-end-2 xl:col-start-1 xl:col-end-4 xl:row-start-1 xl:row-end-2 h-[25rem] sm:h-[26rem] md:h-[28rem] lg:h-[28rem] 2xl:h-[30rem] m-0 border-slate-500'>
       <div className='flex flex-col md:grid md:grid-cols-4 md:justify-center md:items-center'>
         <CardHeader className='flex flex-col items-center justify-center px-4 py-2.5 col-span-3'>
-          <CardTitle className='font-bold md:pl-[12rem] lg:pl-[16rem] xl:pl-[6.8rem] 2xl:pl-[8.5rem] 3-xl:pl-[16rem] text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.50rem] 2xl:text-[1.75rem] inline-block'>
+          <CardTitle className='font-bold md:pl-[7rem] lg:pl-[16rem] xl:pl-[4rem] 2xl:pl-[8.5rem] 3-xl:pl-[16rem] text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px] inline-block'>
             Ofrendas - Dominicales
           </CardTitle>
-          <CardDescription className='text-[13.5px] md:text-[14.5px] md:pl-[12rem] lg:pl-[16rem] xl:pl-[6.8rem] 2xl:pl-[8.5rem] 3-xl:pl-[16rem] text-center'>
+          <CardDescription className='text-[13.5px] md:text-[14.5px] md:pl-[7rem] lg:pl-[16rem] xl:pl-[4rem] 2xl:pl-[8.5rem] 3-xl:pl-[16rem] text-center'>
             {`Ultimas ofrendas dominicales (${new Date().getFullYear()})`}
           </CardDescription>
         </CardHeader>
@@ -158,7 +158,7 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
             <form className='flex'>
               <FormField
                 control={form.control}
-                name='selectTerm'
+                name='church'
                 render={({ field }) => {
                   return (
                     <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
@@ -180,9 +180,9 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
                               {field.value
                                 ? churchesQuery?.data?.find((church) => church.id === field.value)
                                     ?.churchName
-                                : searchParams?.selectTerm
+                                : searchParams?.church
                                   ? churchesQuery?.data?.find(
-                                      (church) => church.id === searchParams.selectTerm
+                                      (church) => church.id === searchParams.church
                                     )?.churchName
                                   : 'Iglesia Central'}
                               <CaretSortIcon className='h-4 w-4 shrink-0' />
@@ -203,7 +203,7 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
                                   value={church.churchName}
                                   key={church.id}
                                   onSelect={() => {
-                                    form.setValue('selectTerm', church.id);
+                                    form.setValue('church', church.id);
                                     church && form.handleSubmit(handleSubmit)();
                                     setIsInputSearchChurchOpen(false);
                                   }}
@@ -252,13 +252,13 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[230px] sm:h-[290px] md:h-[360px] lg:h-[365px] xl:h-[365px] 2xl:h-[395px]'
+                'w-full h-[270px] sm:h-[280px] md:h-[355px] lg:h-[355px] xl:h-[355px] 2xl:h-[385px]'
               )}
             >
               <BarChart
                 accessibilityLayer
                 data={lastSundaysOfferings?.data}
-                margin={{ top: 5, right: 5, left: -28, bottom: 10 }}
+                margin={{ top: 5, right: 5, left: -20, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
                 <XAxis
@@ -274,7 +274,7 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
                 <ChartTooltip cursor={false} content={LastSundaysOfferingsTooltipContent as any} />
 
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-10 text-[12px] sm:text-[14px]' />}
+                  content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}
                 />
 
                 <Bar

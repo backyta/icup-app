@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 
 import { addDays } from 'date-fns';
 
@@ -7,6 +6,8 @@ import { dateFormatterToDDMMYY } from '@/shared/helpers';
 
 import { CurrencyType } from '@/modules/offering/shared/enums';
 import {
+  type OfferingIncomeCreationCategory,
+  OfferingIncomeCreationCategoryNames,
   OfferingIncomeCreationSubType,
   OfferingIncomeCreationSubTypeNames,
 } from '@/modules/offering/income/enums';
@@ -23,7 +24,7 @@ export const OfferingIncomeByFastingAndVigilTooltipContent = (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
       <p>
         <span className='font-semibold text-[12px] sm:text-[14px]'>{`${OfferingIncomeCreationSubTypeNames[payload[0]?.payload?.type]}`}</span>
-        <span className='font-semibold text-[12px] sm:text-[14px]'>{`${payload[0]?.payload?.zone?.zoneName ? ' ~' : ''} ${payload[0]?.payload?.zone?.zoneName ?? ''}`}</span>
+        <span className='font-semibold text-[12px] sm:text-[14px]'>{`${payload[0]?.payload?.zone?.zoneName ? ' ~' : ''} ${payload[0]?.payload?.zone?.zoneName ?? ''} (${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]})`}</span>
       </p>
       <span className='font-semibold text-[12.5px] md:text-[13.5px]'>Lista de Ofrendas</span>
       {payload?.[0]?.payload?.allOfferings.map((off, index) => (
@@ -59,23 +60,20 @@ export const OfferingIncomeByFastingAndVigilTooltipContent = (
       {(payload[0]?.payload?.type === OfferingIncomeCreationSubType.ZonalFasting ||
         payload[0]?.payload?.type === OfferingIncomeCreationSubType.ZonalVigil) && (
         <>
-          <li className={'pl-1 font-medium text-[11.5px] sm:text-[13.5px]'}>
+          <li className={'pl-1 font-medium text-[11.5px] sm:text-[13px]'}>
             <span className='-ml-2'>{`Sup: ${payload[0]?.payload?.supervisor?.firstName} ${payload[0]?.payload?.supervisor?.lastName}`}</span>
           </li>
-          <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px]'>
+          <li className='pl-1 font-medium text-[11.5px] sm:text-[13px]'>
             <span className='-ml-2'>{`Miembros: ${payload[0]?.payload?.zone?.disciples}`}</span>
           </li>
         </>
       )}
 
-      {(payload[0]?.payload?.type === OfferingIncomeCreationSubType.GeneralFasting ||
-        payload[0]?.payload?.type === OfferingIncomeCreationSubType.GeneralVigil) && (
-        <>
-          <li className={'pl-1 font-medium text-[11.5px] sm:text-[13.5px]'}>
-            <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.churchName}`}</span>
-          </li>
-        </>
-      )}
+      <>
+        <li className={'pl-1 font-medium text-[11.5px] sm:text-[13px]'}>
+          <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.churchName}`}</span>
+        </li>
+      </>
     </div>
   );
 };

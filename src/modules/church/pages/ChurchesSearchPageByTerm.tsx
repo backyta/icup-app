@@ -60,7 +60,7 @@ const dataFictional: ChurchResponse[] = [
     id: '',
     churchName: '',
     isAnexe: false,
-    worshipTimes: ['16:00'],
+    serviceTimes: ['16:00'],
     foundingDate: new Date('2024-05-31'),
     email: '',
     phoneNumber: '',

@@ -1,4 +1,3 @@
-//* Payload
 export interface FamilyGroupsByCodePayload {
   fill: string;
   radius: number;
@@ -19,6 +18,3 @@ export interface FamilyGroupsByCodePayload {
   chartType?: string | undefined;
   hide: boolean;
 }
-
-
-

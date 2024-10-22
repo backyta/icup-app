@@ -48,7 +48,7 @@ const dataFictional: FamilyGroupResponse[] = [
     familyGroupName: '',
     familyGroupNumber: 0,
     familyGroupCode: '',
-    worshipTime: '',
+    serviceTime: '',
     country: '',
     department: '',
     province: '',

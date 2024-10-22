@@ -6,7 +6,8 @@ import {
   MemberType, 
   OfferingIncomeCreationType, 
   OfferingIncomeCreationSubType, 
-  OfferingIncomeCreationShiftType 
+  OfferingIncomeCreationShiftType, 
+  OfferingIncomeCreationCategory
 } from '@/modules/offering/income/enums';
 
 import { RecordStatus } from '@/shared/enums';
@@ -14,11 +15,19 @@ import { CurrencyType  } from '@/modules/offering/shared/enums';
 
 export const offeringIncomeFormSchema = z
   .object({
+    churchId: z.string({
+      required_error: "Por favor seleccione una Iglesia.",
+    }),
+
     type: z.string(z.nativeEnum(OfferingIncomeCreationType,{
       required_error: "Por favor seleccione un tipo.",
     })),
 
     subType: z.string(z.nativeEnum(OfferingIncomeCreationSubType,{
+      required_error: "Por favor seleccione una opción.",
+    })).optional(),
+
+    category: z.string(z.nativeEnum(OfferingIncomeCreationCategory,{
       required_error: "Por favor seleccione una opción.",
     })).optional(),
 
@@ -56,7 +65,6 @@ export const offeringIncomeFormSchema = z
       required_error: "Por favor seleccione una opción válida.",
     })).optional(),
 
-    churchId: z.string().optional(),
     familyGroupId: z.string().optional(),
     memberId: z.string().optional(),
     zoneId: z.string().optional(),
@@ -76,21 +84,6 @@ export const offeringIncomeFormSchema = z
     {
       message: 'El sub-tipo es requerido.',
       path: ['subType'],
-    }
-  )
-  .refine(
-    (data) => {
-      if (data.type === OfferingIncomeCreationType.Offering && 
-        (data.subType === OfferingIncomeCreationSubType.Special || 
-          data.subType === OfferingIncomeCreationSubType.ChurchGround)) 
-      {
-        return !!data.memberId; 
-      }
-      return true;
-    },
-    {
-      message: 'El discípulo es requerido.',
-      path: ['memberId'],
     }
   )
   .refine(
@@ -139,8 +132,7 @@ export const offeringIncomeFormSchema = z
     (data) => {
       if ((data.type === OfferingIncomeCreationType.IncomeAdjustment ||
         (data.type === OfferingIncomeCreationType.Offering &&
-          (data.subType === OfferingIncomeCreationSubType.SundaySchool ||
-            data.subType === OfferingIncomeCreationSubType.SundayService ||
+          (data.subType === OfferingIncomeCreationSubType.SundayService ||
             data.subType === OfferingIncomeCreationSubType.Activities ||
             data.subType === OfferingIncomeCreationSubType.GeneralFasting ||
             data.subType === OfferingIncomeCreationSubType.GeneralVigil ||

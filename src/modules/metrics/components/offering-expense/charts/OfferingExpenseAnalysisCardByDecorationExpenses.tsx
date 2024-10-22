@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect, useState } from 'react';
@@ -124,7 +124,7 @@ export const OfferingExpenseAnalysisCardByDecorationExpenses = ({
       });
     },
     retry: 1,
-    enabled: !!searchParams?.year && !!searchParams?.month,
+    enabled: !!searchParams?.year && !!searchParams?.month && !!churchId,
   });
 
   //* Effects
@@ -171,7 +171,7 @@ export const OfferingExpenseAnalysisCardByDecorationExpenses = ({
   };
 
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] md:h-[28rem] lg:h-[26rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[24rem] sm:h-[26rem] md:h-[28rem] lg:h-[30rem] 2xl:h-[30rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 py-2.5'>
         <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
           <span>Gastos Decoración</span>
@@ -351,7 +351,7 @@ export const OfferingExpenseAnalysisCardByDecorationExpenses = ({
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[252px] sm:h-[285px] md:h-[290px] lg:h-[330px] xl:h-[345px] 2xl:h-[345px]'
+                'w-full h-[283px] sm:h-[345px] md:h-[380px] lg:h-[410px] xl:h-[410px] 2xl:h-[410px]'
               )}
             >
               <BarChart
@@ -372,7 +372,7 @@ export const OfferingExpenseAnalysisCardByDecorationExpenses = ({
                 <ChartTooltip cursor={false} content={OfferingExpenseChartTooltipContent as any} />
 
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-10 text-[12px] sm:text-[14px]' />}
+                  content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}
                 />
 
                 <Bar

@@ -1,13 +1,9 @@
-import { type CurrencyType } from "@/modules/offering/shared/enums";
-import { type OfferingIncomeCreationSubType } from "@/modules/offering/income/enums";
-
 export interface OfferingIncomeByFastingAndVigilResponse {
-  type: OfferingIncomeCreationSubType,
+  type: string;
+  category: string;
   accumulatedOfferingPEN: number;
   accumulatedOfferingUSD: number;
   accumulatedOfferingEUR: number;
-  amount: number;
-  currency: CurrencyType;
   date: string | Date;
   supervisor: {
     id: string,

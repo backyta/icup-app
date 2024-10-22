@@ -23,7 +23,7 @@ export const DashboardPage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeIn'>
-      <h1 className='text-center pb-1 md:pt-1 md:pb-2 font-sans font-bold text-blue-600 text-[2.1rem] sm:text-[2.6rem] md:text-[2.8rem] lg:text-5xl xl:text-5xl'>
+      <h1 className='text-center pb-2 pt-3 md:pt-2 md:pb-2 font-sans text-2xl sm:text-3xl font-bold text-blue-500 text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5x'>
         Panel Administrativo
       </h1>
       <p className='text-center font-sans font-bold px-4 pb-4 text-sm sm:text-[15px] lg:text-base xl:text-lg'>

@@ -9,11 +9,11 @@ import { type SupervisorResponse } from '@/modules/supervisor/interfaces';
 import { cn } from '@/shared/lib/utils';
 
 import {
-  type Gender,
   GenderNames,
+  type Gender,
+  RecordStatus,
   type MemberRole,
   MemberRoleNames,
-  RecordStatus,
 } from '@/shared/enums';
 import { PopoverDataCard } from '@/shared/components';
 import { getInitialFullNames } from '@/shared/helpers';

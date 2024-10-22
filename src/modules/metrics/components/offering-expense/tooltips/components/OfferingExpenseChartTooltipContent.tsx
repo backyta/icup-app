@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-
 import { addDays } from 'date-fns';
 
 import { CurrencyType } from '@/modules/offering/shared/enums';

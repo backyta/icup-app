@@ -35,19 +35,19 @@ import { namesFormatter, lastNamesFormatter } from '@/shared/helpers';
 
 import {
   Form,
-  FormField,
   FormItem,
   FormLabel,
+  FormField,
   FormMessage,
   FormControl,
   FormDescription,
 } from '@/shared/components/ui/form';
 import {
+  Select,
+  SelectItem,
   SelectValue,
   SelectTrigger,
   SelectContent,
-  SelectItem,
-  Select,
 } from '@/shared/components/ui/select';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -59,7 +59,7 @@ const dataFictional: FamilyGroupResponse[] = [
     familyGroupName: '',
     familyGroupNumber: 0,
     familyGroupCode: '',
-    worshipTime: '',
+    serviceTime: '',
     country: '',
     department: '',
     province: '',

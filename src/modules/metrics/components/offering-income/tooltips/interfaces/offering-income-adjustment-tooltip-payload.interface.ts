@@ -20,10 +20,10 @@ export interface OfferingIncomeAdjustmentPayload {
     accumulatedOfferingPEN: number;
     accumulatedOfferingUSD: number;
     accumulatedOfferingEUR: number;
-    church:{
-      id: string;
+    church: {
+      isAnexe: boolean;
       churchName: string;
-    }
+    };
     allOfferings: Offering[];
   };
   chartType?: string | undefined;

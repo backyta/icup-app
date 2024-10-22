@@ -25,11 +25,12 @@ export const createFamilyGroup = async (formData:FamilyGroupFormData ): Promise<
 }
 
 //* Get simple family-groups
-export const getSimpleFamilyGroups = async ({isSimpleQuery}:{isSimpleQuery: boolean}): Promise<FamilyGroupResponse[]> => {
+export const getSimpleFamilyGroups = async ({isSimpleQuery, churchId}:{isSimpleQuery: boolean; churchId?: string}): Promise<FamilyGroupResponse[]> => {
   try {
     const {data} = await icupApi<FamilyGroupResponse[]>('/family-groups' , {
       params: {
         order: RecordOrder.Ascending,
+        churchId,
         isSimpleQuery: isSimpleQuery.toString()
       },
     }

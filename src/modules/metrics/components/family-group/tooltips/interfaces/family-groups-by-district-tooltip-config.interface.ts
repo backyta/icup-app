@@ -1,4 +1,3 @@
-//* Payload
 export interface FamilyGroupsByDistrictPayload {
   fill: string;
   radius: number;
@@ -17,6 +16,3 @@ export interface FamilyGroupsByDistrictPayload {
   chartType?: string | undefined;
   hide: boolean;
 }
-
-
-

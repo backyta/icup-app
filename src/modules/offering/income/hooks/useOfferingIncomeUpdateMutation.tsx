@@ -54,7 +54,7 @@ export const useOfferingIncomeUpdateMutation = ({
           className: 'justify-center',
         });
 
-        //! Aplicar destroy si falla el form
+        //! Execute destroy if the form fails
         imageUrls?.forEach(async (imageUrl) => {
           await deleteImage({
             publicId: extractPublicId(imageUrl),

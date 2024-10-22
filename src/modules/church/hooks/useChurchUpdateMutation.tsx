@@ -62,7 +62,7 @@ export const useChurchUpdateMutation = ({
       });
 
       setTimeout(() => {
-        dialogClose();
+        scrollToTop();
       }, 150);
 
       setTimeout(() => {

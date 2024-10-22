@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
 import { PieChart, Pie } from 'recharts';
 
 import { useEffect, useState } from 'react';
@@ -59,6 +60,8 @@ export const MemberProportionCard = ({ churchId }: Props): JSX.Element => {
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       }),
+    retry: 1,
+    enabled: !!churchId,
   });
 
   //* Effects

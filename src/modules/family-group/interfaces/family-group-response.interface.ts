@@ -15,7 +15,7 @@ export interface FamilyGroupResponse {
   familyGroupName:   string;
   familyGroupNumber: number;
   familyGroupCode:   string;
-  worshipTime:       string;
+  serviceTime:       string;
   country:           string;
   department:        string;
   province:          string;

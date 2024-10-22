@@ -23,7 +23,7 @@ import {
 import { getSimpleZones } from '@/modules/zone/services';
 
 import { familyGroupFormSchema } from '@/modules/family-group/validations';
-import { FamilyGroupWorshipTimeNames } from '@/modules/family-group/enums';
+import { FamilyGroupServiceTimeNames } from '@/modules/family-group/enums';
 
 import { PreacherSearchType } from '@/modules/preacher/enums';
 import { getPreachersByZone } from '@/modules/preacher/services';
@@ -33,13 +33,13 @@ import { PageTitle } from '@/shared/components/page';
 
 import {
   Country,
-  CountryNames,
-  Department,
-  DepartmentNames,
-  District,
-  DistrictNames,
   Province,
+  District,
+  Department,
+  CountryNames,
+  DistrictNames,
   ProvinceNames,
+  DepartmentNames,
   UrbanSectorNames,
 } from '@/shared/enums';
 import {
@@ -50,26 +50,26 @@ import {
 
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
   FormLabel,
+  FormField,
   FormMessage,
+  FormControl,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import {
   Command,
+  CommandItem,
   CommandEmpty,
   CommandGroup,
   CommandInput,
-  CommandItem,
 } from '@/shared/components/ui/command';
 import {
   Select,
-  SelectContent,
   SelectItem,
-  SelectTrigger,
   SelectValue,
+  SelectContent,
+  SelectTrigger,
 } from '@/shared/components/ui/select';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -102,7 +102,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
       district: District.Independencia,
       urbanSector: '',
       address: '',
-      worshipTime: '',
+      serviceTime: '',
       referenceAddress: '',
       theirPreacher: '',
       theirZone: '',
@@ -221,7 +221,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='worshipTime'
+                name='serviceTime'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -246,7 +246,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent className='h-[15rem]'>
-                          {Object.entries(FamilyGroupWorshipTimeNames).map(([key, value]) => (
+                          {Object.entries(FamilyGroupServiceTimeNames).map(([key, value]) => (
                             <SelectItem className={`text-[14px]`} key={key} value={key}>
                               {value}
                             </SelectItem>
@@ -406,7 +406,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(DistrictNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
+                              className={`text-[14px] ${districtsValidation?.districtsDataResult?.includes(value) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -452,7 +452,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >

@@ -43,17 +43,17 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
     if (id) {
       const url = new URL(window.location.href);
 
-      if (url.pathname === '/offerings/incomes/general-search')
-        url.pathname = `/offerings/incomes/general-search/${id}/view`;
+      if (url.pathname === '/offerings/income/general-search')
+        url.pathname = `/offerings/income/general-search/${id}/view`;
 
-      if (url.pathname === '/offerings/incomes/search-by-term')
-        url.pathname = `/offerings/incomes/search-by-term/${id}/view`;
+      if (url.pathname === '/offerings/income/search-by-term')
+        url.pathname = `/offerings/income/search-by-term/${id}/view`;
 
-      if (url.pathname === '/offerings/incomes/update')
-        url.pathname = `/offerings/incomes/update/${id}/view`;
+      if (url.pathname === '/offerings/income/update')
+        url.pathname = `/offerings/income/update/${id}/view`;
 
-      if (url.pathname === '/offerings/incomes/delete')
-        url.pathname = `/offerings/incomes/delete/${id}/view`;
+      if (url.pathname === '/offerings/income/delete')
+        url.pathname = `/offerings/income/delete/${id}/view`;
 
       window.history.replaceState({}, '', url);
     }
@@ -63,7 +63,6 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
     };
   }, [id]);
 
-  // todo: agregar en gastos, salidas por cambio de moneda cuando vayan a cambiar dinero de da salia por intercambio y se ingresa tmb (en tipos de salida)
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full px-auto grid-cols-1'>

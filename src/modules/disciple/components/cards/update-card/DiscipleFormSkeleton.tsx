@@ -8,7 +8,7 @@ export const DiscipleFormSkeleton = (): JSX.Element => {
         <Skeleton className='h-5 w-96' />
       </div>
       <div>
-        <form className='w-full flex flex-col md:grid md:grid-cols-3 gap-x-10 gap-y-5 px-2 sm:px-12'>
+        <form className='w-full flex flex-col md:grid md:grid-cols-3 gap-x-10 gap-y-0 px-2 sm:px-12'>
           <div className='col-start-1 col-end-2'>
             <Skeleton className='h-5 w-44 mt-2' />
 

@@ -34,7 +34,7 @@ export const useUserUpdateEffects = ({
     }, 1200);
 
     return () => {
-      clearTimeout(timeoutId); // Limpiar el timeout cuando el componente se desmonte
+      clearTimeout(timeoutId);
     };
   }, []);
 

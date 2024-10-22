@@ -10,14 +10,11 @@ export interface FamilyGroupByZonePayload {
   value: number;
   type?: string | undefined;
   payload: {
-    zoneName: string,
-    supervisor:string,
-    familyGroupCount: number,
-    totalPercentage: string,
+    zoneName: string;
+    supervisor: string;
+    familyGroupsCount: number;
+    totalPercentage: string;
   };
   chartType?: string | undefined;
   hide: boolean;
 }
-
-
-

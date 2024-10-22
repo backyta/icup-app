@@ -4,9 +4,9 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
+import { RecordOrder } from '@/shared/enums';
 import { ZoneSearchType } from '@/modules/zone/enums';
 import { type ZoneFormData, type ZoneResponse, type ZoneQueryParams, type ZoneSupervisorUpdateFormData } from '@/modules/zone/interfaces';
-import { RecordOrder } from '@/shared/enums';
 
 //* Create zone
 export const createZone = async (formData:ZoneFormData ): Promise<ZoneResponse> => {
@@ -24,13 +24,13 @@ export const createZone = async (formData:ZoneFormData ): Promise<ZoneResponse> 
 }
 
 //* Get simple zones
-export const getSimpleZones = async ({church, isSimpleQuery }:{church?: string; isSimpleQuery: boolean }): Promise<ZoneResponse[]> => {
+export const getSimpleZones = async ({churchId, isSimpleQuery }:{churchId?: string; isSimpleQuery: boolean }): Promise<ZoneResponse[]> => {
   try {
     const {data} = await icupApi<ZoneResponse[]>('/zones' , {
       params: {
         order: RecordOrder.Ascending,
         isSimpleQuery: isSimpleQuery.toString(),
-        church
+        churchId
       },
     }
     );

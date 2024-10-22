@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
@@ -96,6 +96,7 @@ export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element =
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       }),
+    enabled: !!churchId,
   });
 
   //* Effects
@@ -128,7 +129,7 @@ export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element =
   }, [membersByCategoryQuery?.data]);
 
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] md:h-[28rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] md:h-[25rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardTitle className='flex items-center gap-2.5 justify-center px-4 py-2 text-center font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
         <span className='ml-20'>Categoría</span>
         <Badge
@@ -194,7 +195,7 @@ export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element =
               <ChartContainer
                 id={id}
                 config={chartConfig}
-                className='mx-auto aspect-square w-full max-w-[280px] md:max-w-[345px] -mt-9 lg:-mt-[3.8rem] xl:-mt-[4rem] 2xl:-mt-[3.2rem]'
+                className='mx-auto aspect-square w-full max-w-[280px] md:max-w-[345px] -mt-16 lg:-mt-[3.8rem] xl:-mt-[4rem] 2xl:-mt-[3.2rem]'
               >
                 <PieChart>
                   <ChartTooltip
@@ -255,7 +256,7 @@ export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element =
                       }}
                     />
                   </Pie>
-                  <ChartLegend content={<MembersByCategoryLegendContent as any />} className='' />
+                  <ChartLegend content={<MembersByCategoryLegendContent as any />} />
                 </PieChart>
               </ChartContainer>
             )}

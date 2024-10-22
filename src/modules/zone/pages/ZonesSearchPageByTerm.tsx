@@ -26,19 +26,19 @@ import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
   FormLabel,
+  FormField,
   FormMessage,
+  FormControl,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import {
+  Select,
+  SelectItem,
   SelectValue,
   SelectTrigger,
   SelectContent,
-  SelectItem,
-  Select,
 } from '@/shared/components/ui/select';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';

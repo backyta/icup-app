@@ -17,7 +17,7 @@ import { PreacherSearchType } from '@/modules/preacher/enums';
 
 import { getSimpleZones } from '@/modules/zone/services';
 
-import { FamilyGroupWorshipTimeNames } from '@/modules/family-group/enums';
+import { FamilyGroupServiceTimeNames } from '@/modules/family-group/enums';
 import { familyGroupFormSchema } from '@/modules/family-group/validations';
 import { FamilyGroupFormSkeleton } from '@/modules/family-group/components';
 import { type FamilyGroupResponse } from '@/modules/family-group/interfaces';
@@ -116,7 +116,7 @@ export const FamilyGroupUpdateForm = ({
       district: '',
       urbanSector: '',
       address: '',
-      worshipTime: '',
+      serviceTime: '',
       referenceAddress: '',
       theirPreacher: '',
       theirZone: '',
@@ -235,7 +235,7 @@ export const FamilyGroupUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='worshipTime'
+                      name='serviceTime'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -260,7 +260,7 @@ export const FamilyGroupUpdateForm = ({
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
-                                {Object.entries(FamilyGroupWorshipTimeNames).map(([key, value]) => (
+                                {Object.entries(FamilyGroupServiceTimeNames).map(([key, value]) => (
                                   <SelectItem className={`text-[14px]`} key={key} value={key}>
                                     {value}
                                   </SelectItem>
@@ -422,7 +422,7 @@ export const FamilyGroupUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(DistrictNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${districtsValidation?.districtsDataResult?.includes(value) ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -468,7 +468,7 @@ export const FamilyGroupUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(UrbanSectorNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >

@@ -128,7 +128,6 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
   useEffect(() => {
     if (type === offeringExpenseSearchType.ExpensesAdjustment) {
       offeringExpenseCreationForm.resetField('subType', { keepDirty: true });
-      offeringExpenseCreationForm.resetField('churchId', { keepDirty: true });
       offeringExpenseCreationForm.resetField('amount', { keepDirty: true });
       offeringExpenseCreationForm.resetField('date', { keepDirty: true });
       offeringExpenseCreationForm.resetField('currency', { keepDirty: true });
@@ -137,7 +136,6 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
 
     if (type === offeringExpenseSearchType.OperationalExpenses) {
       offeringExpenseCreationForm.resetField('subType', { keepDirty: true });
-      offeringExpenseCreationForm.resetField('churchId', { keepDirty: true });
       offeringExpenseCreationForm.resetField('amount', { keepDirty: true });
       offeringExpenseCreationForm.resetField('date', { keepDirty: true });
       offeringExpenseCreationForm.resetField('currency', { keepDirty: true });
@@ -146,7 +144,6 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
 
     if (type === offeringExpenseSearchType.MaintenanceAndRepairExpenses) {
       offeringExpenseCreationForm.resetField('subType', { keepDirty: true });
-      offeringExpenseCreationForm.resetField('churchId', { keepDirty: true });
       offeringExpenseCreationForm.resetField('amount', { keepDirty: true });
       offeringExpenseCreationForm.resetField('date', { keepDirty: true });
       offeringExpenseCreationForm.resetField('currency', { keepDirty: true });
@@ -155,7 +152,6 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
 
     if (type === offeringExpenseSearchType.EquipmentAndTechnologyExpenses) {
       offeringExpenseCreationForm.resetField('subType', { keepDirty: true });
-      offeringExpenseCreationForm.resetField('churchId', { keepDirty: true });
       offeringExpenseCreationForm.resetField('amount', { keepDirty: true });
       offeringExpenseCreationForm.resetField('date', { keepDirty: true });
       offeringExpenseCreationForm.resetField('currency', { keepDirty: true });
@@ -164,7 +160,6 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
 
     if (type === offeringExpenseSearchType.DecorationExpenses) {
       offeringExpenseCreationForm.resetField('subType', { keepDirty: true });
-      offeringExpenseCreationForm.resetField('churchId', { keepDirty: true });
       offeringExpenseCreationForm.resetField('amount', { keepDirty: true });
       offeringExpenseCreationForm.resetField('date', { keepDirty: true });
       offeringExpenseCreationForm.resetField('currency', { keepDirty: true });
@@ -173,7 +168,6 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
 
     if (type === offeringExpenseSearchType.PlaningEventsExpenses) {
       offeringExpenseCreationForm.resetField('subType', { keepDirty: true });
-      offeringExpenseCreationForm.resetField('churchId', { keepDirty: true });
       offeringExpenseCreationForm.resetField('amount', { keepDirty: true });
       offeringExpenseCreationForm.resetField('date', { keepDirty: true });
       offeringExpenseCreationForm.resetField('currency', { keepDirty: true });
@@ -182,7 +176,6 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
 
     if (type === offeringExpenseSearchType.SuppliesExpenses) {
       offeringExpenseCreationForm.resetField('subType', { keepDirty: true });
-      offeringExpenseCreationForm.resetField('churchId', { keepDirty: true });
       offeringExpenseCreationForm.resetField('amount', { keepDirty: true });
       offeringExpenseCreationForm.resetField('date', { keepDirty: true });
       offeringExpenseCreationForm.resetField('currency', { keepDirty: true });

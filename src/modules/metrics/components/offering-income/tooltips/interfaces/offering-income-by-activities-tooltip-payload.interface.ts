@@ -17,13 +17,14 @@ export interface OfferingIncomePayloadByActivities {
   type?: string | undefined;
   payload: {
     date: string;
+    category: string;
     accumulatedOfferingPEN: number;
     accumulatedOfferingUSD: number;
     accumulatedOfferingEUR: number;
-    church:{
-      id: string;
+    church: {
+      isAnexe: boolean;
       churchName: string;
-    }
+    };
     allOfferings: Offering[];
   };
   chartType?: string | undefined;

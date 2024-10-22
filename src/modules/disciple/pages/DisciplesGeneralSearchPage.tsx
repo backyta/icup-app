@@ -25,20 +25,20 @@ import { formSearchGeneralSchema } from '@/shared/validations';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 
 import {
+  Select,
+  SelectItem,
   SelectValue,
   SelectTrigger,
   SelectContent,
-  SelectItem,
-  Select,
 } from '@/shared/components/ui/select';
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
+  FormField,
   FormLabel,
   FormMessage,
+  FormControl,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';

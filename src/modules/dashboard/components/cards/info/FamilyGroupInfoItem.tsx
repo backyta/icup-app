@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
 import { useMediaQuery } from '@react-hook/media-query';
-import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 
 import { FamilyGroupTabsCard } from '@/modules/family-group/components';
 import { type FamilyGroupResponse } from '@/modules/family-group/interfaces';
 
 import { Button } from '@/shared/components/ui/button';
 import { CardContent } from '@/shared/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/shared/components/ui/avatar';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/shared/components/ui/drawer';
 
@@ -24,8 +24,8 @@ export function FamilyGroupInfoItem({ data }: Props): JSX.Element {
     return (
       <div className='flex justify-between items-center pb-1.5'>
         <CardContent className='flex pl-6 py-2'>
-          <Avatar className='p-1'>
-            <AvatarImage className='rounded-full w-10' src={'/src/assets/family-group.webp'} />
+          <Avatar className='p-1 h-12 w-12'>
+            <AvatarImage className='rounded-full' src={'/src/assets/family-group.webp'} />
             <AvatarFallback>FGI</AvatarFallback>
           </Avatar>
 

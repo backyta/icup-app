@@ -46,9 +46,9 @@ interface Props {
 
 export const OfferingIncomeProportionCard = ({ churchId }: Props): JSX.Element => {
   //* States
-  const [activeOfferingsIncomeDataMapped, setActiveOfferingsIncomeDataMapped] =
+  const [activeOfferingIncomeDataMapped, setActiveOfferingIncomeDataMapped] =
     useState<MappedDataOptions[]>();
-  const [inactiveOfferingsIncomeDataMapped, setInactiveOfferingsIncomeDataMapped] =
+  const [inactiveOfferingIncomeDataMapped, setInactiveOfferingIncomeDataMapped] =
     useState<MappedDataOptions[]>();
 
   //* Queries
@@ -61,20 +61,25 @@ export const OfferingIncomeProportionCard = ({ churchId }: Props): JSX.Element =
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       }),
+    retry: 1,
+    enabled: !!churchId,
   });
 
   //* Effects
   useEffect(() => {
     const newData = {
-      countOfferingsIncomeActive: data?.countOfferingsIncomeActive,
-      countOfferingsIncomeInactive: data?.countOfferingsIncomeInactive,
+      activeOfferingsIncomeRecordsCount: data?.activeOfferingIncomeRecordsCount,
+      inactiveOfferingsIncomeRecordsCount: data?.inactiveOfferingIncomeRecordsCount,
     };
 
     if (data) {
       const activeOfferingsIncomeTransformedData = Object.keys(newData).map((_, index) => {
         return {
           name: index === 0 ? 'active' : 'inactive',
-          value: index === 0 ? data.countOfferingsIncomeActive : data.countOfferingsIncomeInactive,
+          value:
+            index === 0
+              ? data.activeOfferingIncomeRecordsCount
+              : data.inactiveOfferingIncomeRecordsCount,
           fill: index === 0 ? 'var(--color-active)' : 'var(--color-inactive)',
         };
       });
@@ -82,13 +87,16 @@ export const OfferingIncomeProportionCard = ({ churchId }: Props): JSX.Element =
       const inactiveOfferingsIncomeTransformedData = Object.keys(newData).map((_, index) => {
         return {
           name: index === 0 ? 'inactive' : 'active',
-          value: index === 0 ? data.countOfferingsIncomeInactive : data.countOfferingsIncomeActive,
+          value:
+            index === 0
+              ? data.inactiveOfferingIncomeRecordsCount
+              : data.activeOfferingIncomeRecordsCount,
           fill: index === 0 ? 'var(--color-inactive)' : 'var(--color-active)',
         };
       });
 
-      setActiveOfferingsIncomeDataMapped(activeOfferingsIncomeTransformedData);
-      setInactiveOfferingsIncomeDataMapped(inactiveOfferingsIncomeTransformedData);
+      setActiveOfferingIncomeDataMapped(activeOfferingsIncomeTransformedData);
+      setInactiveOfferingIncomeDataMapped(inactiveOfferingsIncomeTransformedData);
     }
   }, [data]);
 
@@ -100,7 +108,13 @@ export const OfferingIncomeProportionCard = ({ churchId }: Props): JSX.Element =
             <FaDonate className='text-[5rem] text-lime-500' />
             <div className='flex flex-col gap-2 items-top justify-center'>
               <CardTitle className='text-center text-[2.8rem] md:text-[3rem] lg:text-[3.2rem] xl:text-[3.5rem] font-extrabold leading-10'>
-                {<CountUp end={Number(data?.totalCountOfferingsIncome)} start={0} duration={4} />}
+                {
+                  <CountUp
+                    end={Number(data?.totalOfferingIncomeRecordsCount)}
+                    start={0}
+                    duration={4}
+                  />
+                }
               </CardTitle>
               <CardDescription className='text-[14.5px] md:text-[15px] xl:text-[16px] font-bold text-center'>
                 Registros Totales
@@ -111,14 +125,14 @@ export const OfferingIncomeProportionCard = ({ churchId }: Props): JSX.Element =
       </Card>
 
       <div className='flex flex-col justify-center items-center sm:flex-row gap-6 sm:gap-4 md:gap-8 xl:gap-10'>
-        {/* Active offerings income */}
+        {/* Active offerings */}
         <Card className='w-[270px] md:w-[300px] cursor-default shadow-md dark:shadow-slate-700 dark:bg-slate-900 bg-slate-50'>
           <CardHeader className='py-5'>
             <div className='flex justify-center gap-4 h-[5rem] relative'>
               <span className='absolute -top-3 left-12 md:left-14 font-bold text-[14px] md:text-[15px]'>
                 {(() => {
-                  const activeOfferingsIncome = data?.countOfferingsIncomeActive ?? 0;
-                  const inactiveOfferingsIncome = data?.countOfferingsIncomeInactive ?? 0;
+                  const activeOfferingsIncome = data?.activeOfferingIncomeRecordsCount ?? 0;
+                  const inactiveOfferingsIncome = data?.inactiveOfferingIncomeRecordsCount ?? 0;
                   const totalOfferingsIncome = activeOfferingsIncome + inactiveOfferingsIncome;
 
                   return totalOfferingsIncome > 0 ? (
@@ -138,7 +152,7 @@ export const OfferingIncomeProportionCard = ({ churchId }: Props): JSX.Element =
 
               <ChartContainer config={chartConfigActive} className='w-[55%] h-[130%]'>
                 <PieChart>
-                  <Pie data={activeOfferingsIncomeDataMapped} dataKey='value' nameKey='name'></Pie>
+                  <Pie data={activeOfferingIncomeDataMapped} dataKey='value' nameKey='name'></Pie>
                 </PieChart>
               </ChartContainer>
 
@@ -149,7 +163,7 @@ export const OfferingIncomeProportionCard = ({ churchId }: Props): JSX.Element =
                 <CardTitle className='text-center text-[2.2rem] xl:text-[2.5rem] font-extrabold leading-10'>
                   {
                     <CountUp
-                      end={Number(data?.countOfferingsIncomeActive)}
+                      end={Number(data?.activeOfferingIncomeRecordsCount)}
                       start={0}
                       duration={4}
                     />
@@ -160,14 +174,14 @@ export const OfferingIncomeProportionCard = ({ churchId }: Props): JSX.Element =
           </CardHeader>
         </Card>
 
-        {/* Inactive Members */}
+        {/* Inactive Offerings */}
         <Card className='w-[270px] md:w-[300px] cursor-default shadow-md dark:shadow-slate-700 dark:bg-slate-900 bg-slate-50'>
           <CardHeader className='py-5'>
             <div className='flex justify-center gap-4 h-[5rem] relative'>
               <span className='absolute -top-3 left-12 md:left-14 font-bold text-[14px] md:text-[15px]'>
                 {(() => {
-                  const activeOfferingsIncome = data?.countOfferingsIncomeActive ?? 0;
-                  const inactiveOfferingsIncome = data?.countOfferingsIncomeInactive ?? 0;
+                  const activeOfferingsIncome = data?.activeOfferingIncomeRecordsCount ?? 0;
+                  const inactiveOfferingsIncome = data?.inactiveOfferingIncomeRecordsCount ?? 0;
                   const totalOfferingsIncome = activeOfferingsIncome + inactiveOfferingsIncome;
 
                   return totalOfferingsIncome > 0 ? (
@@ -186,11 +200,7 @@ export const OfferingIncomeProportionCard = ({ churchId }: Props): JSX.Element =
               </span>
               <ChartContainer config={chartConfigInactive} className='w-[55%] h-[130%]'>
                 <PieChart>
-                  <Pie
-                    data={inactiveOfferingsIncomeDataMapped}
-                    dataKey='value'
-                    nameKey='name'
-                  ></Pie>
+                  <Pie data={inactiveOfferingIncomeDataMapped} dataKey='value' nameKey='name'></Pie>
                 </PieChart>
               </ChartContainer>
               <div className='flex flex-col  items-center justify-center'>
@@ -200,7 +210,7 @@ export const OfferingIncomeProportionCard = ({ churchId }: Props): JSX.Element =
                 <CardTitle className='text-center text-[2.2rem] xl:text-[2.5rem] font-extrabold leading-10'>
                   {
                     <CountUp
-                      end={Number(data?.countOfferingsIncomeInactive)}
+                      end={Number(data?.inactiveOfferingIncomeRecordsCount)}
                       start={0}
                       duration={4}
                     />

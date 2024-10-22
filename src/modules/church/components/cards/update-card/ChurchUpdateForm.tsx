@@ -26,7 +26,7 @@ import { getMainChurch } from '@/modules/church/services';
 import { churchFormSchema } from '@/modules/church/validations';
 import { ChurchFormSkeleton } from '@/modules/church/components';
 import { type ChurchResponse } from '@/modules/church/interfaces';
-import { ChurchWorshipTime, ChurchWorshipTimeNames } from '@/modules/church/enums';
+import { ChurchServiceTime, ChurchServiceTimeNames } from '@/modules/church/enums';
 
 import {
   CountryNames,
@@ -88,12 +88,12 @@ export const ChurchUpdateForm = ({
   scrollToTop,
 }: ChurchFormUpdateProps): JSX.Element => {
   //* States
+  const [isLoadingData, setIsLoadingData] = useState(true);
+  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
   const [isInputMainChurchOpen, setIsInputMainChurchOpen] = useState<boolean>(false);
-  const [isInputFoundingDateOpen, setIsInputFoundingDateOpen] = useState<boolean>(false);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
-  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
-  const [isLoadingData, setIsLoadingData] = useState(true);
+  const [isInputFoundingDateOpen, setIsInputFoundingDateOpen] = useState<boolean>(false);
 
   //* Hooks (external libraries)
   const { pathname } = useLocation();
@@ -106,7 +106,7 @@ export const ChurchUpdateForm = ({
       churchName: '',
       email: '',
       foundingDate: undefined,
-      worshipTimes: [],
+      serviceTimes: [],
       isAnexe: false,
       phoneNumber: '',
       country: '',
@@ -273,7 +273,7 @@ export const ChurchUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='worshipTimes'
+                      name='serviceTimes'
                       render={() => (
                         <FormItem>
                           <div className='mt-2'>
@@ -285,38 +285,38 @@ export const ChurchUpdateForm = ({
                             </FormDescription>
                           </div>
                           <div className='flex flex-wrap space-x-5 space-y-1'>
-                            {Object.values(ChurchWorshipTime).map((worshipTime) => (
+                            {Object.values(ChurchServiceTime).map((serviceTime) => (
                               <FormField
-                                key={worshipTime}
+                                key={serviceTime}
                                 control={form.control}
-                                name='worshipTimes'
+                                name='serviceTimes'
                                 render={({ field }) => {
                                   return (
                                     <FormItem
-                                      key={worshipTime}
+                                      key={serviceTime}
                                       className='flex items-center space-x-2 space-y-0'
                                     >
                                       <FormControl className='grid'>
                                         <Checkbox
                                           disabled={isInputDisabled}
-                                          checked={field.value?.includes(worshipTime)}
+                                          checked={field.value?.includes(serviceTime)}
                                           onCheckedChange={(checked) => {
-                                            let updatedWorshipTimes: ChurchWorshipTime[] = [];
+                                            let updatedServiceTimes: ChurchServiceTime[] = [];
                                             checked
-                                              ? (updatedWorshipTimes = field.value
-                                                  ? [...field.value, worshipTime]
-                                                  : [worshipTime])
-                                              : (updatedWorshipTimes =
+                                              ? (updatedServiceTimes = field.value
+                                                  ? [...field.value, serviceTime]
+                                                  : [serviceTime])
+                                              : (updatedServiceTimes =
                                                   field.value?.filter(
-                                                    (value) => value !== worshipTime
+                                                    (value) => value !== serviceTime
                                                   ) ?? []);
 
-                                            field.onChange(updatedWorshipTimes);
+                                            field.onChange(updatedServiceTimes);
                                           }}
                                         />
                                       </FormControl>
                                       <FormLabel className='text-[14px] font-medium'>
-                                        {ChurchWorshipTimeNames[worshipTime]}
+                                        {ChurchServiceTimeNames[serviceTime]}
                                       </FormLabel>
                                     </FormItem>
                                   );
@@ -538,7 +538,7 @@ export const ChurchUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(DistrictNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${districtsValidation?.districtsDataResult?.includes(value) ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -582,7 +582,7 @@ export const ChurchUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(UrbanSectorNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -789,7 +789,7 @@ export const ChurchUpdateForm = ({
                             </Select>
                             {form.getValues('recordStatus') === 'active' && (
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
-                                *El registro esta <span className='text-green-500'>activo</span>,
+                                *El registro esta <span className='text-green-500'>Activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
                                 debe eliminar el registro desde el modulo{' '}
                                 <span className='font-bold text-red-500'>Eliminar Iglesia. </span>

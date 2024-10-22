@@ -94,6 +94,7 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
   const years = generateYearOptions();
 
   //* Media Queries
+  const intermediateSM = useMediaQuery('(min-width: 640px)');
   const intermediateLG = useMediaQuery('(min-width: 1280px)');
   const intermediateXL = useMediaQuery('(min-width: 1390px)');
   const intermediate2XL = useMediaQuery('(min-width: 1530px)');
@@ -106,10 +107,9 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
   //* Queries
   const zonesQuery = useQuery({
     queryKey: ['zones-for-offering-income-by-family-group', churchId],
-    queryFn: () => getSimpleZones({ church: churchId ?? '', isSimpleQuery: true }),
+    queryFn: () => getSimpleZones({ churchId: churchId ?? '', isSimpleQuery: true }),
   });
 
-  // TODO : cambiar todas las offerings a offering en incomes
   const offeringIncomeByFamilyGroup = useQuery({
     queryKey: ['offering-income-by-family-group', { ...searchParams, church: churchId }],
     queryFn: () => {
@@ -123,7 +123,7 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
       });
     },
     retry: 1,
-    enabled: !!searchParams?.zone && !!searchParams?.year && !!searchParams?.month,
+    enabled: !!searchParams?.zone && !!searchParams?.year && !!searchParams?.month && !!churchId,
   });
 
   //* Effects
@@ -134,7 +134,7 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
       setSearchParams({ zone, year, month });
       form.setValue('zone', zone);
     }
-  }, [zonesQuery?.data]);
+  }, [zonesQuery?.data, year]);
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof metricsFormSchema>): void => {
@@ -142,7 +142,7 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
   };
 
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-2 col-end-3 h-[22rem] md:h-[28rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-2 col-end-3 h-[24rem] md:h-[25rem] lg:h-[26rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 py-2.5'>
         <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
           {intermediate2XL ? (
@@ -151,6 +151,8 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
             <span>Ofrendas G. Fam.</span>
           ) : intermediateLG ? (
             <span>Ofre. G.F.</span>
+          ) : intermediateSM ? (
+            <span>Ofre. Grupo Familiar</span>
           ) : (
             <span>Ofrendas Grupo Familiar</span>
           )}
@@ -284,7 +286,6 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
                                 key={month.value}
                                 onSelect={() => {
                                   form.setValue('month', month.value);
-
                                   setIsInputSearchMonthOpen(false);
                                 }}
                               >
@@ -392,7 +393,7 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[252px] sm:h-[285px] md:h-[290px] lg:h-[330px] xl:h-[330px] 2xl:h-[345px]'
+                'w-full h-[285px] sm:h-[315px] md:h-[330px] lg:h-[345px] xl:h-[345px] 2xl:h-[345px]'
               )}
             >
               <BarChart
@@ -417,7 +418,7 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
                 />
 
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-10 text-[12px] sm:text-[14px]' />}
+                  content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}
                 />
 
                 <Bar

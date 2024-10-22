@@ -7,3 +7,4 @@ export * from './OfferingIncomeByChurchGroundTooltipContent';
 export * from './OfferingIncomeByUnitedServiceTooltipContent';
 export * from './OfferingIncomeByActivitiesTooltipContent';
 export * from './OfferingIncomeAdjustmentTooltipContent';
+export * from './OfferingIncomeBySundaySchoolTooltipContent';

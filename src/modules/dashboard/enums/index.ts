@@ -1,1 +1,1 @@
-export * from './dasboard-search-type.enum';
+export * from './dashboard-search-type.enum';

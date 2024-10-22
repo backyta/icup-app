@@ -1,7 +1,7 @@
 export interface OfferingIncomeProportionResponse {
-  totalCountOfferingsIncome:    number;
-  countOfferingsIncomeActive:   number;
-  countOfferingsIncomeInactive: number;
+  totalOfferingIncomeRecordsCount:    number;
+  activeOfferingIncomeRecordsCount:   number;
+  inactiveOfferingIncomeRecordsCount: number;
 }
 
 

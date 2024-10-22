@@ -4,7 +4,7 @@ export interface OfferingIncomeByActivitiesResponse {
   accumulatedOfferingUSD: number;
   accumulatedOfferingEUR: number;
   church:{
-    id: string;
+    isAnexe: boolean;
     churchName: string;
   }
   allOfferings: Array<{

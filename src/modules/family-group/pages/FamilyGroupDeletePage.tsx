@@ -45,8 +45,8 @@ import {
 } from '@/shared/components/ui/form';
 import {
   Select,
-  SelectValue,
   SelectItem,
+  SelectValue,
   SelectContent,
   SelectTrigger,
 } from '@/shared/components/ui/select';
@@ -60,7 +60,7 @@ const dataFictional: FamilyGroupResponse[] = [
     familyGroupName: '',
     familyGroupNumber: 0,
     familyGroupCode: '',
-    worshipTime: '',
+    serviceTime: '',
     country: '',
     department: '',
     province: '',

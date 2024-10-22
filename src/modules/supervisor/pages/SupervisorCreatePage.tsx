@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/promise-function-async */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect, useState } from 'react';
 
@@ -67,12 +67,12 @@ import {
 } from '@/shared/components/ui/select';
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
+  FormField,
   FormLabel,
+  FormControl,
   FormMessage,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -636,7 +636,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(DistrictNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
+                              className={`text-[14px] ${districtsValidation?.districtsDataResult?.includes(value) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -675,7 +675,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >

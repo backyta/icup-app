@@ -7,3 +7,4 @@ export * from './offering-income-by-church-ground-tooltip-payload.interface';
 export * from './offering-income-by-united-service-tooltip-payload.interface';
 export * from './offering-income-by-activities-tooltip-payload.interface';
 export * from './offering-income-adjustment-tooltip-payload.interface';
+export * from './offering-income-by-sunday-school-tooltip-payload.interface';

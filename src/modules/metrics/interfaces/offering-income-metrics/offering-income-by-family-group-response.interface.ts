@@ -1,5 +1,6 @@
 export interface OfferingIncomeByFamilyGroupResponse {
   date: Date;
+  category: string;
   accumulatedOfferingPEN: number;
   accumulatedOfferingUSD: number;
   accumulatedOfferingEUR: number;
@@ -12,6 +13,10 @@ export interface OfferingIncomeByFamilyGroupResponse {
     id: string;
     firstName: string;
     lastName: string;
+  };
+  church: {
+    isAnexe: boolean;
+    churchName: string;
   };
   disciples: number;
   allOfferings: Array<{ offering: number; currency: string; date: string | Date }>;

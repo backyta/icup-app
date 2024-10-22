@@ -35,7 +35,7 @@ export const OfferingIncomeInfoCard = ({ idRow }: OfferingIncomeInfoCardProps): 
 
   //* Functions
   const currentOfferingIncome = useMemo(() => {
-    return pathname === '/offerings/incomes/general-search'
+    return pathname === '/offerings/income/general-search'
       ? dataSearchGeneralResponse?.find((data) => data.id === idRow)
       : dataSearchByTermResponse?.find((data) => data.id === idRow);
   }, [pathname, dataSearchGeneralResponse, dataSearchByTermResponse, idRow]);

@@ -17,10 +17,15 @@ export interface OfferingsIncomePayloadByChurchGround {
   type?: string | undefined;
   payload: {
     date: Date;
+    category: string;
     memberType: string;
     memberId: string;
     memberFullName: string;
     allOfferings: Offering[];
+    church: {
+      isAnexe: boolean;
+      churchName: string;
+    };
     accumulatedOfferingPEN: number;
     accumulatedOfferingUSD: number;
     accumulatedOfferingEUR: number;

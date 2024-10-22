@@ -50,7 +50,7 @@ export const useOfferingExpenseCreationMutation = ({
           className: 'justify-center',
         });
 
-        //! Aplicar destroy si falla el form
+        //! Execute destroy if the form fails
         imageUrls?.forEach(async (imageUrl) => {
           await deleteImage({
             publicId: extractPublicId(imageUrl),
@@ -92,10 +92,6 @@ export const useOfferingExpenseCreationMutation = ({
         offeringExpenseCreationForm.reset();
         setFiles([]);
       }, 1600);
-
-      // setTimeout(() => {
-      //   navigate('/offerings/expenses');
-      // }, 2200);
     },
   });
 

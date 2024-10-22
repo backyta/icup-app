@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { FcExport, FcBusinessman, FcBusinesswoman } from 'react-icons/fc';
+import { FcExport } from 'react-icons/fc';
 
 import { useAuthStore } from '@/stores';
 
@@ -8,6 +8,7 @@ import { menuItems } from '@/shared/data';
 
 import { SideMenuItem } from '@/shared/components';
 import { Button } from '@/shared/components/ui/button';
+import { Avatar, AvatarImage, AvatarFallback } from '@/shared/components/ui/avatar';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/shared/components/ui/sheet';
 
 export function DropdownMenuLeft(): JSX.Element {
@@ -82,9 +83,15 @@ export function DropdownMenuLeft(): JSX.Element {
             <div className='flex justify-center gap-2 items-center h-auto'>
               <span>
                 {gender === 'male' ? (
-                  <FcBusinessman className='rounded-full text-[3.3rem]' />
+                  <Avatar className='p-1 w-12 h-12'>
+                    <AvatarImage className='rounded-full' src={'/src/assets/boy.webp'} />
+                    <AvatarFallback>UI</AvatarFallback>
+                  </Avatar>
                 ) : (
-                  <FcBusinesswoman className='rounded-full text-[3.3rem]' />
+                  <Avatar className='p-1 w-12 h-12'>
+                    <AvatarImage className='rounded-full' src={'/src/assets/girl.webp'} />
+                    <AvatarFallback>UI</AvatarFallback>
+                  </Avatar>
                 )}
               </span>
 

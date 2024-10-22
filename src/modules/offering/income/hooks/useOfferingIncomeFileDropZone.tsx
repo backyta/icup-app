@@ -23,7 +23,6 @@ export const useOfferingIncomeFileDropZone = ({
   setFiles,
 }: Options) => {
   //* DropZone functions
-  console.log(files);
   const onDrop = useCallback(
     (acceptedFiles: any[], rejectedFiles: any[]) => {
       if (acceptedFiles?.length) {
@@ -31,7 +30,7 @@ export const useOfferingIncomeFileDropZone = ({
           Object.assign(file, { preview: URL.createObjectURL(file) })
         );
 
-        // Verifica si ya existe un archivo con el mismo nombre
+        // Check if a file with the same name already exists
         mappedFiles?.forEach((newFile) => {
           const existingFileIndex = files.findIndex(
             (existingFile) => existingFile.name === newFile.name
@@ -49,7 +48,7 @@ export const useOfferingIncomeFileDropZone = ({
           ...mappedFiles.map((file) => file?.name),
         ];
 
-        offeringIncomeForm.setValue('fileNames', allFileNames); // Actualiza el campo de formulario con las URLs de los archivos
+        offeringIncomeForm.setValue('fileNames', allFileNames); // Update the form field with file URLs
       }
 
       if (rejectedFiles?.length) {

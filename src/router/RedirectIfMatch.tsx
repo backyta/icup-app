@@ -130,17 +130,17 @@ export const RedirectIfMatch = (): JSX.Element => {
   }
 
   // If starts with offering income
-  if (location.pathname.startsWith('/offerings/incomes/general-search/')) {
-    return <Navigate to='/offerings/incomes/general-search' />;
+  if (location.pathname.startsWith('/offerings/income/general-search/')) {
+    return <Navigate to='/offerings/income/general-search' />;
   }
-  if (location.pathname.startsWith('/offerings/incomes/search-by-term/')) {
-    return <Navigate to='/offerings/incomes/search-by-term' />;
+  if (location.pathname.startsWith('/offerings/income/search-by-term/')) {
+    return <Navigate to='/offerings/income/search-by-term' />;
   }
-  if (location.pathname.startsWith('/offerings/incomes/update/')) {
-    return <Navigate to='/offerings/incomes/update' />;
+  if (location.pathname.startsWith('/offerings/income/update/')) {
+    return <Navigate to='/offerings/income/update' />;
   }
-  if (location.pathname.startsWith('/offerings/incomes/delete/')) {
-    return <Navigate to='/offerings/incomes/delete' />;
+  if (location.pathname.startsWith('/offerings/income/delete/')) {
+    return <Navigate to='/offerings/income/delete' />;
   }
 
   // If starts with offering expense

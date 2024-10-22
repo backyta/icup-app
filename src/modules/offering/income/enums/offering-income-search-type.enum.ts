@@ -32,3 +32,7 @@ export const OfferingIncomeSearchTypeNames: Record<OfferingIncomeSearchType, str
   [OfferingIncomeSearchType.RecordStatus]: 'Estado de Registro',
 }
 
+// NOTE : hacer ofrenda de terreno iglesia, jovenes, escuela dominical, por actvidades (tipo/general) y por miembro (especifico)
+// NOTE : en la db y aqui hacer una columna que sea miembro o actividades, y que esto se mande a la DB
+// NOTE : al seleccionar uno de los 2 deplegara diferentes inputs del form y se llenara segun eso.
+// NOTE : se arregla en las metricas agrupando por el tipo si es por miembro o por actvidad.

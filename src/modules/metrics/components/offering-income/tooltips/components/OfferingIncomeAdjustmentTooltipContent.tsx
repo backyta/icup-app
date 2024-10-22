@@ -1,8 +1,4 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-
 import { type TooltipConfig } from '@/shared/interfaces';
-
 import { CurrencyType } from '@/modules/offering/shared/enums';
 import { type OfferingIncomeAdjustmentPayload } from '@/modules/metrics/components/offering-income/tooltips/interfaces';
 
@@ -48,8 +44,8 @@ export const OfferingIncomeAdjustmentTooltipContent = (
         </>
       ))}
 
-      <li className={'pl-1 font-medium text-[11.5px] sm:text-[13.5px]'}>
-        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.churchName}`}</span>
+      <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
+        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.churchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
       </li>
 
       {(payload[0]?.payload?.accumulatedOfferingPEN > 0 &&

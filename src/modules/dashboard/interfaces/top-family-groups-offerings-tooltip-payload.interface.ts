@@ -1,4 +1,3 @@
-// ? Payload
 interface Offering {
   offering: number;
   currency: string;

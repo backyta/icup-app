@@ -1,7 +1,7 @@
 export interface OfferingExpensesProportionResponse {
-  totalCountOfferingExpenses:    number;
-  countOfferingExpensesActive:   number;
-  countOfferingExpensesInactive: number;
+  totalOfferingExpenseRecordsCount: number;
+  activeOfferingExpenseRecordsCount: number;
+  inactiveOfferingExpenseRecordsCount: number;
 }
 
 

@@ -4,4 +4,3 @@ interface FamilyGroupStats  {
 }
 
 export type FamilyGroupsByZoneResponse = Record<string, FamilyGroupStats>;
-

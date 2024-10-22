@@ -7,7 +7,7 @@ import {
 import { DistrictNames } from '@/shared/enums';
 
 interface DisabledDistrictsResult {
-  districtsValidation: string[];
+  districtsDataResult: string[];
 }
 
 export const validateDistrictsAllowedByModule = ( path: string): DisabledDistrictsResult | undefined => {
@@ -25,25 +25,25 @@ export const validateDistrictsAllowedByModule = ( path: string): DisabledDistric
        path === '/preachers/update' 
   ) {
       return {
-        districtsValidation: [ ...Object.values(DistrictNames).filter(value => !MemberModuleDistrictsAllowed.includes(value)) ]   
+        districtsDataResult: [ ...Object.values(DistrictNames).filter(value => !MemberModuleDistrictsAllowed.includes(value)) ]   
     }
   }
 
   if (path === '/churches/create' || path === '/churches/update') {
       return {
-        districtsValidation: [ ...Object.values(DistrictNames).filter(value => !ChurchModuleDistrictsAllowed.includes(value)) ]
+        districtsDataResult: [ ...Object.values(DistrictNames).filter(value => !ChurchModuleDistrictsAllowed.includes(value)) ]
     }
   }
 
   if (path === '/family-groups/create' || path === '/family-groups/update') {
       return {
-        districtsValidation: [ ...Object.values(DistrictNames).filter(value => !FamilyGroupModuleDistrictsAllowed.includes(value)) ]
+        districtsDataResult: [ ...Object.values(DistrictNames).filter(value => !FamilyGroupModuleDistrictsAllowed.includes(value)) ]
     }
   }
 
   if (path === '/zones/create' || path === '/zones/update') {
       return {
-        districtsValidation: [ ...Object.values(DistrictNames).filter(value => !ZoneModuleDistrictsAllowed.includes(value)) ]
+        districtsDataResult: [ ...Object.values(DistrictNames).filter(value => !ZoneModuleDistrictsAllowed.includes(value)) ]
     }
   }
 }

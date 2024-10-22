@@ -66,7 +66,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 interface SearchParamsOptions {
-  selectTerm?: string;
+  church?: string;
 }
 
 export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
@@ -79,12 +79,12 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
     resolver: zodResolver(dashBoardSearchFormSchema),
     mode: 'onChange',
     defaultValues: {
-      selectTerm: '',
+      church: '',
     },
   });
 
   //* Watchers
-  const selectTerm = form.getValues('selectTerm');
+  const church = form.getValues('church');
 
   //* Queries
   const topFamilyGroupOfferings = useQuery({
@@ -92,9 +92,9 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
     queryFn: () => {
       return getOfferingsForBarChartByTerm({
         searchType: DashboardSearchType.TopFamilyGroupsOfferings,
-        selectTerm: searchParams?.selectTerm ?? selectTerm,
-        dateTerm: new Date().getFullYear().toString(),
-        order: RecordOrder.Descending, // permite invertir el array de all offering para tomar el primero como ultima ofrenda según currency
+        church: searchParams?.church ?? church,
+        date: new Date().getFullYear().toString(),
+        order: RecordOrder.Descending, // allows you to invert the array of all offering to take the first as the last offering according to currency.
       });
     },
     enabled: !!searchParams,
@@ -110,8 +110,8 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
   useEffect(() => {
     if (churchesQuery.data) {
       const church = churchesQuery?.data?.map((church) => church?.id)[0];
-      setSearchParams({ selectTerm: church });
-      form.setValue('selectTerm', church);
+      setSearchParams({ church });
+      form.setValue('church', church);
     }
   }, [churchesQuery?.data]);
 
@@ -121,13 +121,13 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
   };
 
   return (
-    <Card className='flex flex-col row-start-2 row-end-3 col-start-1 col-end-3 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 lg:row-start-2 lg:row-end-3 xl:col-start-4 xl:col-end-7 xl:row-start-1 xl:row-end-2 h-[22rem] md:h-[28rem] lg:h-[28rem] 2xl:h-[30rem] mt-0 border-slate-500'>
+    <Card className='flex flex-col row-start-2 row-end-3 col-start-1 col-end-3 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 lg:row-start-2 lg:row-end-3 xl:col-start-4 xl:col-end-7 xl:row-start-1 xl:row-end-2 h-[25rem] sm:h-[26rem] md:h-[28rem] lg:h-[28rem] 2xl:h-[30rem] mt-0 border-slate-500'>
       <div className='flex flex-col md:grid md:grid-cols-4 md:justify-center md:items-center'>
         <CardHeader className='flex flex-col items-center justify-center px-4 py-2.5 col-span-3'>
-          <CardTitle className='font-bold md:pl-[12rem] lg:pl-[16rem] xl:pl-[6.8rem] 2xl:pl-[8.5rem] 3-xl:pl-[16rem] text-xl sm:text-2xl md:text-[1.36rem] lg:text-[1.60rem] xl:text-[1.50rem] 2xl:text-[1.75rem] inline-block'>
+          <CardTitle className='font-bold md:pl-[7rem] lg:pl-[16rem] xl:pl-[4rem] 2xl:pl-[7rem] 3-xl:pl-[16rem] text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px] inline-block'>
             Ofrendas - Grupo Familiar
           </CardTitle>
-          <CardDescription className='text-[13.5px] md:text-[14.5px] md:pl-[12rem] lg:pl-[16rem] xl:pl-[6.8rem] 2xl:pl-[8.5rem] 3-xl:pl-[16rem] text-center'>
+          <CardDescription className='text-[13.5px] md:text-[14.5px] md:pl-[7rem] lg:pl-[16rem] xl:pl-[4rem] 2xl:pl-[7rem] 3-xl:pl-[16rem] text-center'>
             {`Grupos familiares destacados (${new Date().getFullYear()})`}
           </CardDescription>
         </CardHeader>
@@ -139,7 +139,7 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
             <form className='flex'>
               <FormField
                 control={form.control}
-                name='selectTerm'
+                name='church'
                 render={({ field }) => {
                   return (
                     <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
@@ -161,9 +161,9 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
                               {field.value
                                 ? churchesQuery?.data?.find((church) => church.id === field.value)
                                     ?.churchName
-                                : searchParams?.selectTerm
+                                : searchParams?.church
                                   ? churchesQuery?.data?.find(
-                                      (church) => church.id === searchParams.selectTerm
+                                      (church) => church.id === searchParams.church
                                     )?.churchName
                                   : 'Iglesia Central'}
                               <CaretSortIcon className='h-4 w-4 shrink-0' />
@@ -184,7 +184,7 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
                                   value={church.churchName}
                                   key={church.id}
                                   onSelect={() => {
-                                    form.setValue('selectTerm', church.id);
+                                    form.setValue('church', church.id);
                                     church && form.handleSubmit(handleSubmit)();
                                     setIsInputSearchChurchOpen(false);
                                   }}
@@ -233,13 +233,13 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[230px] sm:h-[290px] md:h-[360px] lg:h-[365px] xl:h-[365px] 2xl:h-[395px]'
+                'w-full h-[270px] sm:h-[280px] md:h-[355px] lg:h-[355px] xl:h-[355px] 2xl:h-[385px]'
               )}
             >
               <BarChart
                 accessibilityLayer
                 data={topFamilyGroupOfferings?.data}
-                margin={{ top: 5, right: 5, left: -28, bottom: 10 }}
+                margin={{ top: 5, right: 5, left: -20, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
                 <XAxis
@@ -255,7 +255,7 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
                 <ChartTooltip cursor={false} content={TopFamilyGroupsTooltipContent as any} />
 
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-10 text-[12px] sm:text-[14px]' />}
+                  content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}
                 />
 
                 <Bar

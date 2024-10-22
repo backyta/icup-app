@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
@@ -80,6 +81,10 @@ import { Textarea } from '@/shared/components/ui/textarea';
 import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
+import { useQuery } from '@tanstack/react-query';
+import { getSimpleChurches } from '@/modules/church/services';
+import { getSimpleFamilyGroups } from '@/modules/family-group/services';
+import { getSimpleZones } from '@/modules/zone/services';
 
 type QueryDataResponse =
   | DiscipleResponse[]
@@ -129,6 +134,7 @@ export const OfferingIncomeFormUpdate = ({
     defaultValues: {
       type: '',
       subType: '',
+      churchId: '',
       memberType: '',
       shift: '',
       amount: '',
@@ -139,12 +145,12 @@ export const OfferingIncomeFormUpdate = ({
       familyGroupId: '',
       memberId: '',
       zoneId: '',
-      churchId: '',
     },
   });
 
   //* Watchers
   const type = form.watch('type');
+  const churchId = form.watch('churchId');
   const subType = form.watch('subType');
   const comments = form.watch('comments');
   const memberType = form.watch('memberType');
@@ -171,16 +177,29 @@ export const OfferingIncomeFormUpdate = ({
     setIsSubmitButtonDisabled,
   });
 
-  const {
-    zonesQuery,
-    churchesQuery,
-    pastorsQuery,
-    copastorsQuery,
-    supervisorsQuery,
-    preachersQuery,
-    disciplesQuery,
-    familyGroupsQuery,
-  } = useModuleQueries(memberType);
+  //* Queries
+  const churchesQuery = useQuery({
+    queryKey: ['churches'],
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: 1,
+  });
+
+  const familyGroupsQuery = useQuery({
+    queryKey: ['family-groups', churchId],
+    queryFn: () => getSimpleFamilyGroups({ isSimpleQuery: true, churchId }),
+    retry: 1,
+    enabled: !!churchId,
+  });
+
+  const zonesQuery = useQuery({
+    queryKey: ['zones', churchId],
+    queryFn: () => getSimpleZones({ isSimpleQuery: true, churchId }),
+    retry: 1,
+    enabled: !!churchId,
+  });
+
+  const { pastorsQuery, copastorsQuery, supervisorsQuery, preachersQuery, disciplesQuery } =
+    useModuleQueries({ memberType });
 
   const { onDrop, removeFile, removeCloudFile, removeRejected } = useOfferingIncomeFileDropZone({
     offeringIncomeForm: form,

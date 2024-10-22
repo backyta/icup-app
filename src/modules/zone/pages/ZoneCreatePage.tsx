@@ -43,10 +43,10 @@ import {
 } from '@/shared/components/ui/form';
 import {
   Command,
+  CommandItem,
   CommandEmpty,
   CommandGroup,
   CommandInput,
-  CommandItem,
 } from '@/shared/components/ui/command';
 import {
   Select,
@@ -305,7 +305,7 @@ export const ZoneCreatePage = (): JSX.Element => {
                       <SelectContent>
                         {Object.entries(DistrictNames).map(([key, value]) => (
                           <SelectItem
-                            className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
+                            className={`text-[14px] ${districtsValidation?.districtsDataResult?.includes(value) ? 'hidden' : ''}`}
                             key={key}
                             value={key}
                           >

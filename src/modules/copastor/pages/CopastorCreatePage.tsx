@@ -615,7 +615,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(DistrictNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
+                              className={`text-[14px] ${districtsValidation?.districtsDataResult?.includes(value) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -654,7 +654,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >

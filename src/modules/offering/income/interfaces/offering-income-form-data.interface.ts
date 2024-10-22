@@ -1,6 +1,8 @@
 export interface OfferingIncomeFormData {
+  churchId: string,
   type: string,
   subType?: string | undefined,
+  category?: string | undefined,
   shift?: string | undefined,
   amount: string,
   date: Date;
@@ -9,7 +11,6 @@ export interface OfferingIncomeFormData {
   fileNames?: string[] | undefined,
   imageUrls?: string[] | undefined,
   memberType?: string | undefined,
-  churchId?: string | undefined,
   familyGroupId?: string | undefined,
   memberId?: string | undefined,
   zoneId?: string | undefined,
@@ -19,6 +20,7 @@ export interface OfferingIncomeFormData {
 export type OfferingIncomeFormDataKeys =
   | 'type'
   | 'subType'
+  | 'category'
   | 'memberType'
   | 'amount'
   | 'shift'

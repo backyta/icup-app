@@ -2,8 +2,8 @@ import {
   FamilyGroupCreatePage,
   FamilyGroupUpdatePage,
   FamilyGroupDeletePage,
-  FamilyGroupsGeneralSearchPage,
   FamilyGroupsSearchPageByTerm,
+  FamilyGroupsGeneralSearchPage,
 } from '@/modules/family-group/pages';
 
 export const FamilyGroupChildrenRoutes = [

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
@@ -30,7 +31,7 @@ import {
 
 import { DestroyImageButton } from '@/modules/offering/shared/components';
 import { type FilesProps, type RejectionProps } from '@/modules/offering/shared/interfaces';
-import { useImagesUploadMutation, useModuleQueries } from '@/modules/offering/shared/hooks';
+import { useImagesUploadMutation } from '@/modules/offering/shared/hooks';
 import { CurrencyType, CurrencyTypeNames, OfferingFileType } from '@/modules/offering/shared/enums';
 
 import { offeringExpenseFormSchema } from '@/modules/offering/expense/validations';
@@ -70,6 +71,8 @@ import { Textarea } from '@/shared/components/ui/textarea';
 import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
+import { getSimpleChurches } from '@/modules/church/services';
+import { useQuery } from '@tanstack/react-query';
 
 interface OfferingExpenseFormUpdateProps {
   id: string;
@@ -143,7 +146,12 @@ export const OfferingExpenseFormUpdate = ({
     setIsSubmitButtonDisabled,
   });
 
-  const { churchesQuery } = useModuleQueries();
+  //* Queries
+  const churchesQuery = useQuery({
+    queryKey: ['churches'],
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: 1,
+  });
 
   const { onDrop, removeFile, removeCloudFile, removeRejected } = useOfferingExpenseFileDropZone({
     offeringIncomeForm: form,

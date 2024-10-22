@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { format, addDays } from 'date-fns';
 
 import { type ChurchResponse } from '@/modules/church/interfaces';
-import { type ChurchWorshipTime, ChurchWorshipTimeNames } from '@/modules/church/enums';
+import { type ChurchServiceTime, ChurchServiceTimeNames } from '@/modules/church/enums';
 
 import { cn } from '@/shared/lib/utils';
 import { RecordStatus } from '@/shared/enums';
@@ -95,7 +95,7 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Anexo</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.isAnexe ? 'Si' : 'No' ?? '-'}
+                {data?.isAnexe ? 'Si' : 'No'}
               </CardDescription>
             </div>
 
@@ -218,13 +218,13 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               <Label className='text-[14px] md:text-[15px]'>Horarios de Culto</Label>
               <div className='px-2 pt-2 text-[14px] md:text-[14.5px]'>
                 <ul className='pl-5 flex flex-col gap-x-10 gap-y-2 list-disc'>
-                  {data?.worshipTimes !== undefined && data?.worshipTimes.length > 0 ? (
-                    data?.worshipTimes.map((worshipTime) =>
-                      Object.keys(ChurchWorshipTimeNames).map(
-                        (worshipTimeName) =>
-                          worshipTime === worshipTimeName && (
-                            <li key={worshipTime}>
-                              {ChurchWorshipTimeNames[worshipTime as ChurchWorshipTime]}
+                  {data?.serviceTimes !== undefined && data?.serviceTimes.length > 0 ? (
+                    data?.serviceTimes.map((serviceTime) =>
+                      Object.keys(ChurchServiceTimeNames).map(
+                        (serviceTimeName) =>
+                          serviceTime === serviceTimeName && (
+                            <li key={serviceTime}>
+                              {ChurchServiceTimeNames[serviceTime as ChurchServiceTime]}
                             </li>
                           )
                       )

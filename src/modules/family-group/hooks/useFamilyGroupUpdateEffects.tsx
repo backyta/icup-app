@@ -31,7 +31,7 @@ export const useFamilyGroupUpdateEffects = ({
   //* Set data
   useEffect(() => {
     familyGroupUpdateForm.setValue('familyGroupName', data?.familyGroupName ?? '');
-    familyGroupUpdateForm.setValue('worshipTime', data?.worshipTime ?? '');
+    familyGroupUpdateForm.setValue('serviceTime', data?.serviceTime ?? '');
     familyGroupUpdateForm.setValue('country', data?.country ?? '');
     familyGroupUpdateForm.setValue('department', data?.department ?? '');
     familyGroupUpdateForm.setValue('province', data?.province ?? '');

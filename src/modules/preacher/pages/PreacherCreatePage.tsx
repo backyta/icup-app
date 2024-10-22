@@ -50,26 +50,26 @@ import {
 
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
   FormLabel,
+  FormField,
   FormMessage,
+  FormControl,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import {
   Command,
+  CommandItem,
   CommandEmpty,
   CommandGroup,
   CommandInput,
-  CommandItem,
 } from '@/shared/components/ui/command';
 import {
+  Select,
+  SelectItem,
   SelectValue,
   SelectTrigger,
   SelectContent,
-  SelectItem,
-  Select,
 } from '@/shared/components/ui/select';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -612,7 +612,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(DistrictNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
+                              className={`text-[14px] ${districtsValidation?.districtsDataResult?.includes(value) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -651,7 +651,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >

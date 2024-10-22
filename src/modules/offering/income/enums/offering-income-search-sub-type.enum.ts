@@ -3,7 +3,7 @@ export enum OfferingIncomeSearchSubType {
   OfferingByChurch = 'offering_by_church',
   OfferingByChurchDate = 'offering_by_church_date',
   
-  // Sunday Worship, school sunday
+  // Sunday Service, school sunday
   OfferingByShift = 'offering_by_shift',
   OfferingByShiftDate = 'offering_by_shift_date',
 
@@ -34,7 +34,7 @@ export const OfferingIncomeSearchSubTypeNames: Record<OfferingIncomeSearchSubTyp
   [OfferingIncomeSearchSubType.OfferingByChurch]: 'Por iglesia',
   [OfferingIncomeSearchSubType.OfferingByChurchDate]: 'Por fecha e iglesia',
 
-  // Sunday Worship, youngs, school sunday
+  // Sunday service, youngs, school sunday
   [OfferingIncomeSearchSubType.OfferingByShift]: 'Por turno',
   [OfferingIncomeSearchSubType.OfferingByShiftDate]: 'Por fecha y turno',
 
@@ -61,8 +61,8 @@ export const OfferingIncomeSearchSubTypeNames: Record<OfferingIncomeSearchSubTyp
 
 }
 
-//* Sunday Worship
-export enum SubTypeOfferingIncomeSearchBySundayWorshipAndSundaySchool {
+//* Sunday Service
+export enum SubTypeOfferingIncomeSearchBySundayServiceAndSundaySchool {
   OfferingByDate = 'offering_by_date',
   OfferingByShift = 'offering_by_shift',
   OfferingByChurch = 'offering_by_church',
@@ -70,12 +70,12 @@ export enum SubTypeOfferingIncomeSearchBySundayWorshipAndSundaySchool {
   OfferingByChurchDate = 'offering_by_church_date',
 }
 
-export const SubTypeNamesOfferingIncomeSearchBySundayWorshipAndSundaySchool: Record<SubTypeOfferingIncomeSearchBySundayWorshipAndSundaySchool, string> =  {
-  [SubTypeOfferingIncomeSearchBySundayWorshipAndSundaySchool.OfferingByDate]: 'Por fecha',
-  [SubTypeOfferingIncomeSearchBySundayWorshipAndSundaySchool.OfferingByShift]: 'Por turno',
-  [SubTypeOfferingIncomeSearchBySundayWorshipAndSundaySchool.OfferingByChurch]: 'Por iglesia',
-  [SubTypeOfferingIncomeSearchBySundayWorshipAndSundaySchool.OfferingByShiftDate]: 'Por fecha y turno',
-  [SubTypeOfferingIncomeSearchBySundayWorshipAndSundaySchool.OfferingByChurchDate]: 'Por fecha e iglesia',
+export const SubTypeNamesOfferingIncomeSearchBySundayServiceAndSundaySchool: Record<SubTypeOfferingIncomeSearchBySundayServiceAndSundaySchool, string> =  {
+  [SubTypeOfferingIncomeSearchBySundayServiceAndSundaySchool.OfferingByDate]: 'Por fecha',
+  [SubTypeOfferingIncomeSearchBySundayServiceAndSundaySchool.OfferingByShift]: 'Por turno',
+  [SubTypeOfferingIncomeSearchBySundayServiceAndSundaySchool.OfferingByChurch]: 'Por iglesia',
+  [SubTypeOfferingIncomeSearchBySundayServiceAndSundaySchool.OfferingByShiftDate]: 'Por fecha y turno',
+  [SubTypeOfferingIncomeSearchBySundayServiceAndSundaySchool.OfferingByChurchDate]: 'Por fecha e iglesia',
 }
 
 //* Offering (Family House)
@@ -133,20 +133,20 @@ export const SubTypeNamesOfferingIncomeSearchByFastingAndVigilZonal: Record<SubT
   [OfferingIncomeSearchSubType.OfferingBySupervisorFullName]: 'Por nombres y apellidos de su supervisor',
 }
 
-//* Offering (Young Worship)
-export enum SubTypeOfferingIncomeSearchByYoungWorship {
+//* Offering (Young Service)
+export enum SubTypeOfferingIncomeSearchByYoungService {
   OfferingByDate = 'offering_by_date',
   OfferingByChurch = 'offering_by_church',
   OfferingByChurchDate = 'offering_by_church_date',
 }
 
-export const SubTypeNamesOfferingIncomeSearchByYoungWorship: Record<SubTypeOfferingIncomeSearchByYoungWorship, string> =  {
-  [SubTypeOfferingIncomeSearchByYoungWorship.OfferingByDate]: 'Por fecha',
-  [SubTypeOfferingIncomeSearchByYoungWorship.OfferingByChurch]: 'Por iglesia',
-  [SubTypeOfferingIncomeSearchByYoungWorship.OfferingByChurchDate]: 'Por fecha e iglesia',
+export const SubTypeNamesOfferingIncomeSearchByYoungService: Record<SubTypeOfferingIncomeSearchByYoungService, string> =  {
+  [SubTypeOfferingIncomeSearchByYoungService.OfferingByDate]: 'Por fecha',
+  [SubTypeOfferingIncomeSearchByYoungService.OfferingByChurch]: 'Por iglesia',
+  [SubTypeOfferingIncomeSearchByYoungService.OfferingByChurchDate]: 'Por fecha e iglesia',
 }
 
-//* Offering (Worship United)
+//* Offering (Service United)
 export enum SubTypeOfferingIncomeSearchByUnitedService {
   OfferingByDate = 'offering_by_date',
   OfferingByChurch = 'offering_by_church',

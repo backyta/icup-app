@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
@@ -6,6 +7,7 @@ import { useEffect, useState } from 'react';
 import type * as z from 'zod';
 import { toast, Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
+import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { format } from 'date-fns';
@@ -14,6 +16,8 @@ import { useDropzone } from 'react-dropzone';
 import { TiDeleteOutline } from 'react-icons/ti';
 
 import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+
+import { getSimpleChurches } from '@/modules/church/services';
 
 import {
   OfferingExpenseSearchType,
@@ -33,7 +37,7 @@ import {
 import { offeringExpenseFormSchema } from '@/modules/offering/expense/validations';
 
 import { CurrencyTypeNames, OfferingFileType } from '@/modules/offering/shared/enums';
-import { useImagesUploadMutation, useModuleQueries } from '@/modules/offering/shared/hooks';
+import { useImagesUploadMutation } from '@/modules/offering/shared/hooks';
 import { type FilesProps, type RejectionProps } from '@/modules/offering/shared/interfaces';
 
 import { cn } from '@/shared/lib/utils';
@@ -70,7 +74,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 
 export const OfferingExpenseCreatePage = (): JSX.Element => {
   //* States
-  const [isInputRelationOpen, setIsInputRelationOpen] = useState<boolean>(false);
+  const [isInputChurchOpen, setIsInputChurchOpen] = useState<boolean>(false);
   const [isInputDateOpen, setIsInputDateOpen] = useState<boolean>(false);
 
   const [files, setFiles] = useState<FilesProps[]>([]);
@@ -117,7 +121,12 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
     setIsSubmitButtonDisabled,
   });
 
-  const { churchesQuery } = useModuleQueries();
+  //* Queries
+  const churchesQuery = useQuery({
+    queryKey: ['churches'],
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: 1,
+  });
 
   const { onDrop, removeAll, removeFile, removeRejected } = useOfferingExpenseFileDropZone({
     offeringIncomeForm: form,
@@ -218,10 +227,87 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
             <div className='md:col-start-1 md:col-end-2'>
               <FormField
                 control={form.control}
+                name='churchId'
+                render={({ field }) => (
+                  <FormItem className='mt-3'>
+                    <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                      Iglesia
+                    </FormLabel>
+                    <FormDescription className='text-[14px]'>
+                      Selecciona una iglesia para asignarla al registro.
+                    </FormDescription>
+                    <Popover open={isInputChurchOpen} onOpenChange={setIsInputChurchOpen}>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            disabled={isInputDisabled}
+                            variant='outline'
+                            role='combobox'
+                            className={cn(
+                              'w-full justify-between',
+                              !field.value && 'text-slate-500 font-normal'
+                            )}
+                          >
+                            {field.value
+                              ? churchesQuery?.data?.find((zone) => zone.id === field.value)
+                                  ?.churchName
+                              : 'Busque y seleccione una iglesia'}
+                            <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent align='center' className='w-auto px-4 py-2'>
+                        <Command>
+                          {churchesQuery?.data?.length && churchesQuery?.data?.length > 0 ? (
+                            <>
+                              <CommandInput
+                                placeholder='Busque una iglesia'
+                                className='h-9 text-[14px]'
+                              />
+                              <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
+                              <CommandGroup className='max-h-[200px] h-auto'>
+                                {churchesQuery?.data?.map((church) => (
+                                  <CommandItem
+                                    className='text-[14px]'
+                                    value={church.churchName}
+                                    key={church.id}
+                                    onSelect={() => {
+                                      form.setValue('churchId', church.id);
+                                      setIsInputChurchOpen(false);
+                                    }}
+                                  >
+                                    {church.churchName}
+                                    <CheckIcon
+                                      className={cn(
+                                        'ml-auto h-4 w-4',
+                                        church.id === field.value ? 'opacity-100' : 'opacity-0'
+                                      )}
+                                    />
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </>
+                          ) : (
+                            churchesQuery?.data?.length === 0 && (
+                              <p className='text-[14.5px] text-red-500 text-center'>
+                                ❌No hay iglesias disponibles.
+                              </p>
+                            )
+                          )}
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
                 name='type'
                 render={({ field }) => {
                   return (
-                    <FormItem>
+                    <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Tipo</FormLabel>
                       <FormDescription className='text-[14px]'>
                         Selecciona un tipo de gasto para el registro.
@@ -315,92 +401,6 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                       </FormItem>
                     );
                   }}
-                />
-              )}
-
-              {(type === OfferingExpenseSearchType.ExpensesAdjustment ||
-                type === OfferingExpenseSearchType.PlaningEventsExpenses ||
-                type === OfferingExpenseSearchType.DecorationExpenses ||
-                type === OfferingExpenseSearchType.EquipmentAndTechnologyExpenses ||
-                type === OfferingExpenseSearchType.ExpensesAdjustment ||
-                type === OfferingExpenseSearchType.MaintenanceAndRepairExpenses ||
-                type === OfferingExpenseSearchType.OperationalExpenses ||
-                type === OfferingExpenseSearchType.SuppliesExpenses) && (
-                <FormField
-                  control={form.control}
-                  name='churchId'
-                  render={({ field }) => (
-                    <FormItem className='mt-3'>
-                      <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                        Iglesia
-                      </FormLabel>
-                      <FormDescription className='text-[14px]'>
-                        Selecciona una iglesia para asignarla al registro.
-                      </FormDescription>
-                      <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              disabled={isInputDisabled}
-                              variant='outline'
-                              role='combobox'
-                              className={cn(
-                                'w-full justify-between',
-                                !field.value && 'text-slate-500 font-normal'
-                              )}
-                            >
-                              {field.value
-                                ? churchesQuery?.data?.find((zone) => zone.id === field.value)
-                                    ?.churchName
-                                : 'Busque y seleccione una iglesia'}
-                              <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent align='center' className='w-auto px-4 py-2'>
-                          <Command>
-                            {churchesQuery?.data?.length && churchesQuery?.data?.length > 0 ? (
-                              <>
-                                <CommandInput
-                                  placeholder='Busque una iglesia'
-                                  className='h-9 text-[14px]'
-                                />
-                                <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
-                                <CommandGroup className='max-h-[200px] h-auto'>
-                                  {churchesQuery?.data?.map((church) => (
-                                    <CommandItem
-                                      className='text-[14px]'
-                                      value={church.churchName}
-                                      key={church.id}
-                                      onSelect={() => {
-                                        form.setValue('churchId', church.id);
-                                        setIsInputRelationOpen(false);
-                                      }}
-                                    >
-                                      {church.churchName}
-                                      <CheckIcon
-                                        className={cn(
-                                          'ml-auto h-4 w-4',
-                                          church.id === field.value ? 'opacity-100' : 'opacity-0'
-                                        )}
-                                      />
-                                    </CommandItem>
-                                  ))}
-                                </CommandGroup>
-                              </>
-                            ) : (
-                              churchesQuery?.data?.length === 0 && (
-                                <p className='text-[14.5px] text-red-500 text-center'>
-                                  ❌No hay iglesias disponibles.
-                                </p>
-                              )
-                            )}
-                          </Command>
-                        </PopoverContent>
-                      </Popover>
-                      <FormMessage />
-                    </FormItem>
-                  )}
                 />
               )}
 

@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 
 import { addDays } from 'date-fns';
 import { cn } from '@/shared/lib/utils';
@@ -9,7 +7,12 @@ import { dateFormatterToDDMMYY } from '@/shared/helpers';
 import { type TooltipConfig } from '@/shared/interfaces';
 
 import { CurrencyType } from '@/modules/offering/shared/enums';
-import { type MemberType, MemberTypeNames } from '@/modules/offering/income/enums';
+import {
+  type MemberType,
+  MemberTypeNames,
+  type OfferingIncomeCreationCategory,
+  OfferingIncomeCreationCategoryNames,
+} from '@/modules/offering/income/enums';
 import { type OfferingIncomePayloadBySpecialOffering } from '@/modules/metrics/components/offering-income/tooltips/interfaces';
 
 export const OfferingIncomeBySpecialOfferingTooltipContent = (
@@ -21,7 +24,9 @@ export const OfferingIncomeBySpecialOfferingTooltipContent = (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
       <p>
         <span className='font-semibold text-[12px] sm:text-[14px]'>{`${label}`}</span>
-        <span className='font-semibold text-[12px] sm:text-[14px]'>{` ~ ${MemberTypeNames[payload?.[0]?.payload?.memberType as MemberType]}`}</span>
+        {payload?.[0]?.payload?.memberType && (
+          <span className='font-semibold text-[12px] sm:text-[14px]'>{` ~ ${MemberTypeNames[payload?.[0]?.payload?.memberType as MemberType]}`}</span>
+        )}
       </p>
 
       {payload.map(
@@ -101,6 +106,13 @@ export const OfferingIncomeBySpecialOfferingTooltipContent = (
             </div>
           )
       )}
+
+      <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
+        <span className='-ml-2'>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
+      </li>
+      <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
+        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.churchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
+      </li>
 
       {(payload[0]?.payload?.accumulatedOfferingPEN > 0 &&
         payload[0]?.payload?.accumulatedOfferingUSD > 0) ||

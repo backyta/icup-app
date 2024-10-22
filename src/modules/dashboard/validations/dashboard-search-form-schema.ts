@@ -5,9 +5,7 @@ export const dashBoardSearchFormSchema = z
     year: z.string({required_error: 
       'Por favor elige un año.'}).optional(),
 
-    selectTerm: z.string({required_error: 
+    church: z.string({required_error: 
       'Por favor elige una iglesia.'}).optional(),
   })
-
-  
 

@@ -21,7 +21,7 @@ import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import {
   useCopastorUpdateEffects,
   useCopastorUpdateMutation,
-  useRoleUpdateCopastorHandler,
+  useCopastorRolePromotionHandler,
   useCopastorPromoteButtonLogic,
   useCopastorUpdateSubmitButtonLogic,
 } from '@/modules/copastor/hooks';
@@ -545,7 +545,7 @@ export const CopastorUpdateForm = ({
                             </Select>
                             {form.getValues('recordStatus') === 'active' && (
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
-                                *El registro esta <span className='text-green-500'>activo</span>,
+                                *El registro esta <span className='text-green-500'>Activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
                                 debe eliminar el registro desde el modulo{' '}
                                 <span className='font-bold text-red-500'>Eliminar Co-Pastor.</span>
@@ -745,7 +745,7 @@ export const CopastorUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(DistrictNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${districtsValidation?.districtsDataResult?.includes(value) ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -784,7 +784,7 @@ export const CopastorUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(UrbanSectorNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -1168,7 +1168,7 @@ export const CopastorUpdateForm = ({
                           <AlertDialogAction
                             className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
                             onClick={() => {
-                              useRoleUpdateCopastorHandler({
+                              useCopastorRolePromotionHandler({
                                 copastorUpdateForm: form,
                                 memberRoles: MemberRole,
                                 setIsDisabledPromoteButton: setIsPromoteButtonDisabled,

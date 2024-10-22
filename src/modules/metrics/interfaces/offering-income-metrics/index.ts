@@ -7,3 +7,5 @@ export * from './offering-income-by-special-offering-response.interface';
 export * from './offering-income-by-united-service-response.interface';
 export * from './offering-income-by-activities-response.interface';
 export * from './offering-income-by-income-adjustment-response.interface';
+export * from './offering-income-by-sunday-school-response.interface';
+export * from './offering-income-by-church-ground-offering-response.interface';

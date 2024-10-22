@@ -17,6 +17,7 @@ export interface OfferingIncomePayloadByFamilyGroup {
   type?: string | undefined;
   payload: {
     date: string;
+    category: string;
     accumulatedOfferingPEN: number;
     accumulatedOfferingUSD: number;
     accumulatedOfferingEUR: number;
@@ -29,6 +30,10 @@ export interface OfferingIncomePayloadByFamilyGroup {
       id: string;
       firstName: string;
       lastName: string;
+    };
+    church: {
+      isAnexe: boolean;
+      churchName: string;
     };
     disciples: number;
     allOfferings: Offering[];

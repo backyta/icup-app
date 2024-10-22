@@ -19,8 +19,8 @@ import {
   PastorSearchTypeNames,
   PastorSearchNamesByGender,
   PastorSearchNamesByBirthMonth,
-  PastorSearchNamesByMaritalStatus,
   PastorSearchNamesByRecordStatus,
+  PastorSearchNamesByMaritalStatus,
 } from '@/modules/pastor/enums';
 import {
   SearchByTermPastorDataTable,

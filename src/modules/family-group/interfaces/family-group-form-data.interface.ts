@@ -1,6 +1,6 @@
 export interface FamilyGroupFormData {
   familyGroupName: string;
-  worshipTime: string;
+  serviceTime: string;
   country: string;
   department: string;
   province: string;
@@ -15,7 +15,7 @@ export interface FamilyGroupFormData {
 
 export type FamilyGroupFormDataKeys =
   |'familyGroupName' 
-  |'worshipTime'
+  |'serviceTime'
   |'country' 
   |'department' 
   |'province' 

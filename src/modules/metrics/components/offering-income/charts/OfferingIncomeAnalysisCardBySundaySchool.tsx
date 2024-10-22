@@ -25,7 +25,7 @@ import { dateFormatterToDDMMYY, generateYearOptions } from '@/shared/helpers';
 import { MetricSearchType } from '@/modules/metrics/enums';
 import { metricsFormSchema } from '@/modules/metrics/validations';
 import { getOfferingIncomeBySundaySchool } from '@/modules/metrics/services';
-import { OfferingIncomeBySundayServiceTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components';
+import { OfferingIncomeBySundaySchoolTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components';
 
 import {
   Command,
@@ -35,8 +35,8 @@ import {
   CommandInput,
 } from '@/shared/components/ui/command';
 import {
-  ChartTooltip,
   ChartLegend,
+  ChartTooltip,
   ChartContainer,
   type ChartConfig,
   ChartLegendContent,
@@ -71,6 +71,18 @@ const chartConfig = {
   afternoonEUR: {
     label: 'Tarde EUR',
     color: '#7E57C2',
+  },
+  accumulatedOfferingPEN: {
+    label: 'Ofrenda PEN',
+    color: '#16A085',
+  },
+  accumulatedOfferingUSD: {
+    label: 'Ofrenda USD',
+    color: '#FF5733 ',
+  },
+  accumulatedOfferingEUR: {
+    label: 'Ofrenda EUR',
+    color: '#8DFF33 ',
   },
 } satisfies ChartConfig;
 
@@ -115,7 +127,7 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
       });
     },
     retry: 1,
-    enabled: !!searchParams?.year && !!searchParams?.month,
+    enabled: !!searchParams?.year && !!searchParams?.month && !!churchId,
   });
 
   //* Helpers
@@ -138,15 +150,15 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
   };
 
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] md:h-[28rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-3 h-[24rem] md:h-[25rem] lg:h-[26rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 py-2.5'>
         <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
           {intermediate2XL ? (
-            <span>Ofrendas Esc. Dominical</span>
+            <span>Ofrendas Escuela Dominical</span>
           ) : intermediateXL ? (
-            <span>Ofrendas Esc. Dom.</span>
+            <span>Ofrendas Escuela Dominical</span>
           ) : intermediateLG ? (
-            <span>Ofrendas Esc. Dom.</span>
+            <span>Ofrendas Escuela Dominical</span>
           ) : (
             <span>Ofrendas Escuela Dominical</span>
           )}
@@ -317,7 +329,7 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[252px] sm:h-[285px] md:h-[290px] lg:h-[330px] xl:h-[330px] 2xl:h-[345px]'
+                'w-full h-[285px] sm:h-[320px] md:h-[330px] lg:h-[345px] xl:h-[345px] 2xl:h-[345px]'
               )}
             >
               <BarChart
@@ -338,11 +350,13 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
                 <YAxis className='text-[12px] sm:text-[14px]' />
                 <ChartTooltip
                   cursor={false}
-                  content={OfferingIncomeBySundayServiceTooltipContent as any}
+                  content={OfferingIncomeBySundaySchoolTooltipContent as any}
                 />
 
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-10 text-[12px] sm:text-[14px]' />}
+                  content={
+                    <ChartLegendContent className='ml-10 text-[12px] md:text-[14px] flex flex-wrap gap-y-1' />
+                  }
                 />
 
                 <Bar
@@ -386,6 +400,25 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
                   name={chartConfig.afternoonUSD.label}
                   stackId='afternoon'
                   fill='var(--color-afternoonUSD)'
+                  radius={[2, 2, 0, 0]}
+                />
+
+                <Bar
+                  dataKey='accumulatedOfferingPEN'
+                  stackId='offering'
+                  fill='var(--color-accumulatedOfferingPEN)'
+                  radius={[2, 2, 2, 2]}
+                />
+                <Bar
+                  dataKey='accumulatedOfferingEUR'
+                  stackId='offering'
+                  fill='var(--color-accumulatedOfferingEUR)'
+                  radius={[2, 2, 0, 0]}
+                />
+                <Bar
+                  dataKey='accumulatedOfferingUSD'
+                  stackId='offering'
+                  fill='var(--color-accumulatedOfferingUSD)'
                   radius={[2, 2, 0, 0]}
                 />
               </BarChart>

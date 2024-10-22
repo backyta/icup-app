@@ -19,7 +19,7 @@ import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import {
   useDiscipleUpdateEffects,
   useDiscipleUpdateMutation,
-  useRoleUpdateDiscipleHandler,
+  useDiscipleRolePromotionHandler,
   useDisciplePromoteButtonLogic,
   useDiscipleUpdateSubmitButtonLogic,
 } from '@/modules/disciple/hooks';
@@ -742,7 +742,7 @@ export const DiscipleUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(DistrictNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${districtsValidation?.districtsDataResult?.includes(value) ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -781,7 +781,7 @@ export const DiscipleUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(UrbanSectorNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -1162,7 +1162,7 @@ export const DiscipleUpdateForm = ({
                           <AlertDialogAction
                             className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
                             onClick={() => {
-                              useRoleUpdateDiscipleHandler({
+                              useDiscipleRolePromotionHandler({
                                 discipleUpdateForm: form,
                                 memberRoles: MemberRole,
                                 setIsDisabledPromoteButton: setIsPromoteButtonDisabled,

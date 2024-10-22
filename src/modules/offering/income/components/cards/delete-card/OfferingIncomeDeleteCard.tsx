@@ -47,8 +47,6 @@ interface OfferingIncomeDeleteCardProps {
   idRow: string;
 }
 
-// TODO : crear nuevo opción en tipo de gasto por cambio de divisa, e ingreso por cambio de divisa, en create offering types
-
 export const OfferingIncomeDeleteCard = ({ idRow }: OfferingIncomeDeleteCardProps): JSX.Element => {
   //* States
   const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
@@ -112,7 +110,7 @@ export const OfferingIncomeDeleteCard = ({ idRow }: OfferingIncomeDeleteCardProp
 
     if (idRow && isCardOpen) {
       const url = new URL(window.location.href);
-      url.pathname = `/offerings/incomes/delete/${idRow}/remove`;
+      url.pathname = `/offerings/income/delete/${idRow}/remove`;
 
       window.history.replaceState({}, '', url);
 

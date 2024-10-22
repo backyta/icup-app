@@ -14,7 +14,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from '@/shared/component
 import { RecordOrder } from '@/shared/enums';
 
 import { MetricSearchType } from '@/modules/metrics/enums';
-import { getOfferingsExpenseProportion } from '@/modules/metrics/services';
+import { getOfferingExpensesProportion } from '@/modules/metrics/services';
 
 const chartConfigActive = {
   active: {
@@ -44,31 +44,32 @@ interface Props {
   churchId: string | undefined;
 }
 
-// TODO : hacer skeleton diferente para gastos y pasar a comparativas y generales con saldos y sobrantes para resumenes y balances (reestructurar)
 export const OfferingExpenseProportionCard = ({ churchId }: Props): JSX.Element => {
   //* States
-  const [activeOfferingsExpenseDataMapped, setActiveOfferingsExpenseDataMapped] =
+  const [activeOfferingExpensesDataMapped, setActiveOfferingExpensesDataMapped] =
     useState<MappedDataOptions[]>();
-  const [inactiveOfferingsExpenseDataMapped, setInactiveOfferingsExpenseDataMapped] =
+  const [inactiveOfferingExpensesDataMapped, setInactiveOfferingExpensesDataMapped] =
     useState<MappedDataOptions[]>();
 
   //* Queries
   const { data } = useQuery({
     queryKey: ['offering-expenses-proportion', churchId],
     queryFn: () =>
-      getOfferingsExpenseProportion({
+      getOfferingExpensesProportion({
         searchType: MetricSearchType.OfferingExpensesByProportion,
         year: String(new Date().getFullYear()),
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       }),
+    retry: 1,
+    enabled: !!churchId,
   });
 
   //* Effects
   useEffect(() => {
     const newData = {
-      countOfferingExpensesActive: data?.countOfferingExpensesActive,
-      countOfferingExpensesInactive: data?.countOfferingExpensesInactive,
+      activeOfferingExpenseRecordsCount: data?.activeOfferingExpenseRecordsCount,
+      inactiveOfferingExpenseRecordsCount: data?.inactiveOfferingExpenseRecordsCount,
     };
 
     if (data) {
@@ -76,7 +77,9 @@ export const OfferingExpenseProportionCard = ({ churchId }: Props): JSX.Element 
         return {
           name: index === 0 ? 'active' : 'inactive',
           value:
-            index === 0 ? data.countOfferingExpensesActive : data.countOfferingExpensesInactive,
+            index === 0
+              ? data.activeOfferingExpenseRecordsCount
+              : data.inactiveOfferingExpenseRecordsCount,
           fill: index === 0 ? 'var(--color-active)' : 'var(--color-inactive)',
         };
       });
@@ -85,13 +88,15 @@ export const OfferingExpenseProportionCard = ({ churchId }: Props): JSX.Element 
         return {
           name: index === 0 ? 'inactive' : 'active',
           value:
-            index === 0 ? data.countOfferingExpensesInactive : data.countOfferingExpensesActive,
+            index === 0
+              ? data.inactiveOfferingExpenseRecordsCount
+              : data.activeOfferingExpenseRecordsCount,
           fill: index === 0 ? 'var(--color-inactive)' : 'var(--color-active)',
         };
       });
 
-      setActiveOfferingsExpenseDataMapped(activeOfferingExpensesTransformedData);
-      setInactiveOfferingsExpenseDataMapped(inactiveOfferingExpensesTransformedData);
+      setActiveOfferingExpensesDataMapped(activeOfferingExpensesTransformedData);
+      setInactiveOfferingExpensesDataMapped(inactiveOfferingExpensesTransformedData);
     }
   }, [data]);
 
@@ -103,7 +108,13 @@ export const OfferingExpenseProportionCard = ({ churchId }: Props): JSX.Element 
             <GiExpense className='text-[5rem] text-orange-500' />
             <div className='flex flex-col gap-2 items-top justify-center'>
               <CardTitle className='text-center text-[2.8rem] md:text-[3rem] lg:text-[3.2rem] xl:text-[3.5rem] font-extrabold leading-10'>
-                {<CountUp end={Number(data?.totalCountOfferingExpenses)} start={0} duration={4} />}
+                {
+                  <CountUp
+                    end={Number(data?.totalOfferingExpenseRecordsCount)}
+                    start={0}
+                    duration={4}
+                  />
+                }
               </CardTitle>
               <CardDescription className='text-[14.5px] md:text-[15px] xl:text-[16px] font-bold text-center'>
                 Salidas Totales
@@ -114,14 +125,14 @@ export const OfferingExpenseProportionCard = ({ churchId }: Props): JSX.Element 
       </Card>
 
       <div className='flex flex-col justify-center items-center sm:flex-row gap-6 sm:gap-4 md:gap-8 xl:gap-10'>
-        {/* Active Members */}
+        {/* Active offerings */}
         <Card className='w-[270px] md:w-[300px] cursor-default shadow-md dark:shadow-slate-700 dark:bg-slate-900 bg-slate-50'>
           <CardHeader className='py-5'>
             <div className='flex justify-center gap-4 h-[5rem] relative'>
               <span className='absolute -top-3 left-12 md:left-14 font-bold text-[14px] md:text-[15px]'>
                 {(() => {
-                  const activeOfferingsIncome = data?.countOfferingExpensesActive ?? 0;
-                  const inactiveOfferingsIncome = data?.countOfferingExpensesInactive ?? 0;
+                  const activeOfferingsIncome = data?.activeOfferingExpenseRecordsCount ?? 0;
+                  const inactiveOfferingsIncome = data?.inactiveOfferingExpenseRecordsCount ?? 0;
                   const totalOfferingsIncome = activeOfferingsIncome + inactiveOfferingsIncome;
 
                   return totalOfferingsIncome > 0 ? (
@@ -141,7 +152,7 @@ export const OfferingExpenseProportionCard = ({ churchId }: Props): JSX.Element 
 
               <ChartContainer config={chartConfigActive} className='w-[55%] h-[130%]'>
                 <PieChart>
-                  <Pie data={activeOfferingsExpenseDataMapped} dataKey='value' nameKey='name'></Pie>
+                  <Pie data={activeOfferingExpensesDataMapped} dataKey='value' nameKey='name'></Pie>
                 </PieChart>
               </ChartContainer>
 
@@ -152,7 +163,7 @@ export const OfferingExpenseProportionCard = ({ churchId }: Props): JSX.Element 
                 <CardTitle className='text-center text-[2.2rem] xl:text-[2.5rem] font-extrabold leading-10'>
                   {
                     <CountUp
-                      end={Number(data?.countOfferingExpensesActive)}
+                      end={Number(data?.activeOfferingExpenseRecordsCount)}
                       start={0}
                       duration={4}
                     />
@@ -163,14 +174,14 @@ export const OfferingExpenseProportionCard = ({ churchId }: Props): JSX.Element 
           </CardHeader>
         </Card>
 
-        {/* Inactive Members */}
+        {/* Inactive offerings */}
         <Card className='w-[270px] md:w-[300px] cursor-default shadow-md dark:shadow-slate-700 dark:bg-slate-900 bg-slate-50'>
           <CardHeader className='py-5'>
             <div className='flex justify-center gap-4 h-[5rem] relative'>
               <span className='absolute -top-3 left-12 md:left-14 font-bold text-[14px] md:text-[15px]'>
                 {(() => {
-                  const activeOfferingsIncome = data?.countOfferingExpensesActive ?? 0;
-                  const inactiveOfferingsIncome = data?.countOfferingExpensesInactive ?? 0;
+                  const activeOfferingsIncome = data?.activeOfferingExpenseRecordsCount ?? 0;
+                  const inactiveOfferingsIncome = data?.inactiveOfferingExpenseRecordsCount ?? 0;
                   const totalOfferingsIncome = activeOfferingsIncome + inactiveOfferingsIncome;
 
                   return totalOfferingsIncome > 0 ? (
@@ -190,7 +201,7 @@ export const OfferingExpenseProportionCard = ({ churchId }: Props): JSX.Element 
               <ChartContainer config={chartConfigInactive} className='w-[55%] h-[130%]'>
                 <PieChart>
                   <Pie
-                    data={inactiveOfferingsExpenseDataMapped}
+                    data={inactiveOfferingExpensesDataMapped}
                     dataKey='value'
                     nameKey='name'
                   ></Pie>
@@ -203,7 +214,7 @@ export const OfferingExpenseProportionCard = ({ churchId }: Props): JSX.Element 
                 <CardTitle className='text-center text-[2.2rem] xl:text-[2.5rem] font-extrabold leading-10'>
                   {
                     <CountUp
-                      end={Number(data?.countOfferingExpensesInactive)}
+                      end={Number(data?.inactiveOfferingExpenseRecordsCount)}
                       start={0}
                       duration={4}
                     />

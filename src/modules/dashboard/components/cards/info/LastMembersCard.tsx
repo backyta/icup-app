@@ -33,10 +33,10 @@ export function MembersInfoCard(): JSX.Element {
   return (
     <Card className='h-auto w-auto row-start-3 row-end-4 col-start-1 col-end-2 md:row-start-3 md:row-end-4 md:col-start-1 lg:row-start-3 lg:row-end-4 md:col-end-3 xl:col-start-1 xl:col-end-4 xl:row-start-2 xl:row-end-3 border-slate-400'>
       <CardHeader className='px-5 py-3 xl:p-3'>
-        <CardTitle className='font-bold text-xl sm:text-[1.45rem] lg:text-[1.50rem] 2xl:text-3xl'>
+        <CardTitle className='font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
           Discípulos Nuevos
         </CardTitle>
-        <CardDescription className='pl-2 text-base'>
+        <CardDescription className='pl-2 text-[14px] md:text-base'>
           Últimos discípulos registrados.
         </CardDescription>
       </CardHeader>

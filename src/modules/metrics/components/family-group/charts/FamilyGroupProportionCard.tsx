@@ -61,6 +61,8 @@ export const FamilyGroupProportionCard = ({ churchId }: Props): JSX.Element => {
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       }),
+    retry: 1,
+    enabled: !!churchId,
   });
 
   //* Effects

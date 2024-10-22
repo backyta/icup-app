@@ -13,8 +13,8 @@ import { type LastSundaysOfferingsResponse, type DashboardQueryParams, type TopF
 // ? Get offerings income by term (paginated)
 export const  getOfferingsForBarChartByTerm = async ({ 
   searchType, 
-  selectTerm,
-  dateTerm,  
+  church,
+  date,
   limit, 
   offset, 
   order
@@ -24,7 +24,7 @@ export const  getOfferingsForBarChartByTerm = async ({
  if (searchType === DashboardSearchType.LastSundaysOfferings
 ) {
     try {
-    const {data} = await icupApi<LastSundaysOfferingsResponse[]>(`/offerings-income/${dateTerm}&${selectTerm}` , {
+    const {data} = await icupApi<LastSundaysOfferingsResponse[]>(`/offerings-income/${date}&${church}` , {
       params: {
         limit,
         offset,
@@ -48,7 +48,7 @@ export const  getOfferingsForBarChartByTerm = async ({
  if (searchType === DashboardSearchType.TopFamilyGroupsOfferings
 ) {
     try {
-      const {data} = await icupApi<TopFamilyGroupsOfferingsResponse[]>(`/offerings-income/${dateTerm}&${selectTerm}` , {
+      const {data} = await icupApi<TopFamilyGroupsOfferingsResponse[]>(`/offerings-income/${date}&${church}` , {
         params: {
           limit,
           offset,
@@ -72,7 +72,7 @@ export const  getOfferingsForBarChartByTerm = async ({
 // ? Get proportion family groups
 export const getProportionFamilyGroups = async ({ 
   searchType, 
-  selectTerm,
+  church,
   order
 }: DashboardQueryParams): Promise<FamilyGroupResponse[] | undefined> => {
 
@@ -80,7 +80,7 @@ export const getProportionFamilyGroups = async ({
  if (searchType === DashboardSearchType.MostPopulatedFamilyGroups
 ) {
     try {
-      const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${selectTerm}` , {
+      const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${church}` , {
         params: {
           order,
           'search-type': searchType
@@ -102,7 +102,7 @@ export const getProportionFamilyGroups = async ({
  if (searchType === DashboardSearchType.LessPopulatedFamilyGroups
 ) {
     try {
-      const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${selectTerm}` , {
+      const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${church}` , {
         params: {
           order,
           'search-type': searchType

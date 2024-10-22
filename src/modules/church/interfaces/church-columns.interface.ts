@@ -10,6 +10,5 @@ export interface ChurchColumns {
   urbanSector?:      string;
   updatedAt?:        Date;
   updatedBy?:        UpdatedBy;
-  recordStatus?:     string;
 }
 

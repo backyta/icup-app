@@ -38,6 +38,7 @@ import { copastorSearchByTermFormSchema } from '@/modules/copastor/validations';
 import { cn } from '@/shared/lib/utils';
 import { useCopastorStore } from '@/stores/copastor';
 
+import { PageTitle } from '@/shared/components/page';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 import { dateFormatterTermToTimestamp, namesFormatter, lastNamesFormatter } from '@/shared/helpers';
 
@@ -62,7 +63,6 @@ import { Button } from '@/shared/components/ui/button';
 import { Calendar } from '@/shared/components/ui/calendar';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
-import { PageTitle } from '@/shared/components/page';
 
 const dataFictional: CopastorResponse[] = [
   {

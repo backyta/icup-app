@@ -1,8 +1,9 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-
 import { type TooltipConfig } from '@/shared/interfaces';
 
+import {
+  type OfferingIncomeCreationCategory,
+  OfferingIncomeCreationCategoryNames,
+} from '@/modules/offering/income/enums';
 import { CurrencyType } from '@/modules/offering/shared/enums';
 import { type OfferingIncomePayloadByUnitedService } from '@/modules/metrics/components/offering-income/tooltips/interfaces';
 
@@ -14,12 +15,12 @@ export const OfferingIncomeByUnitedServiceTooltipContent = (
   return (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
       <p>
-        <span className='font-semibold text-[12px] sm:text-[14px]'>{`${label}`}</span>
+        <span className='font-semibold text-[12px] sm:text-[14px]'>{`${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]} ~ ${label}`}</span>
       </p>
       <span className='font-semibold text-[12.5px] md:text-[13.5px]'>Lista de Ofrendas</span>
       {payload?.[0]?.payload?.allOfferings.map((off, index) => (
         <>
-          <div>
+          <div key={index}>
             <span
               className='inline-block h-2.5 w-2.5 rounded-[2px] mr-2'
               style={{
@@ -47,8 +48,9 @@ export const OfferingIncomeByUnitedServiceTooltipContent = (
           </div>
         </>
       ))}
-      <li className={'pl-1 font-medium text-[11.5px] sm:text-[13.5px]'}>
-        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.churchName}`}</span>
+
+      <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
+        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.churchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
       </li>
     </div>
   );

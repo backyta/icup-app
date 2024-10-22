@@ -64,10 +64,10 @@ export const LoadingSpinner = (): JSX.Element => {
           pathname === '/zones/search-by-term' ||
           pathname === '/zones/update' ||
           pathname === '/zones/delete' ||
-          pathname === '/offerings/incomes/general-search' ||
-          pathname === '/offerings/incomes/search-by-term' ||
-          pathname === '/offerings/incomes/update' ||
-          pathname === '/offerings/incomes/delete' ||
+          pathname === '/offerings/income/general-search' ||
+          pathname === '/offerings/income/search-by-term' ||
+          pathname === '/offerings/income/update' ||
+          pathname === '/offerings/income/delete' ||
           pathname === '/offerings/expenses/general-search' ||
           pathname === '/offerings/expenses/search-by-term' ||
           pathname === '/offerings/expenses/update' ||

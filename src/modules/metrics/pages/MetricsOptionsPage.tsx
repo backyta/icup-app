@@ -2,8 +2,9 @@
 
 import { useEffect } from 'react';
 
-import { GiExpense } from 'react-icons/gi';
 import { NavLink } from 'react-router-dom';
+import { GiExpense } from 'react-icons/gi';
+import { FaBalanceScale } from 'react-icons/fa';
 import { FcDonate, FcHome, FcManager, FcRefresh } from 'react-icons/fc';
 
 import { useAuthStore } from '@/stores';
@@ -100,18 +101,22 @@ export const MetricsOptionsPage = (): JSX.Element => {
         </NavLink>
 
         <NavLink
-          key='/metrics/offering-comparison'
-          to='/metrics/offering-comparison'
+          key='/metrics/offering-comparative'
+          to='/metrics/offering-comparative'
           end
           className='row-start-5 row-end-6 lg:row-start-7 lg:row-end-9 lg:col-start-1 lg:col-end-3 2xl:row-start-1 2xl:row-end-7 2xl:col-start-5 2xl:col-end-6'
         >
           <WhiteCard className='md:h-[11rem]' centered>
-            <FcRefresh className='text-[9rem] lg:text-[7.5rem] xl:text-[7rem]' />
+            <div className='flex'>
+              <FcRefresh className='text-[9rem] lg:text-[7.5rem] xl:text-[7rem]' />
+              <FaBalanceScale className='text-[9rem] lg:text-[7.5rem] text-[#1565C0] xl:text-[7rem]' />
+            </div>
             <h2 className='text-blue-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
-              Métricas Comparativas de Ofrenda
+              <span className='block'>Métricas de Ofrenda</span>
+              <span>(Comparativas y Balance Financiero)</span>
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Gráficos estadísticos comparativos de ofrendas
+              Gráficos estadísticos comparativos y balance financiero de ofrendas
             </p>
           </WhiteCard>
         </NavLink>

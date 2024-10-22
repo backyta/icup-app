@@ -2,13 +2,12 @@ import { useState } from 'react';
 
 import { useMediaQuery } from '@react-hook/media-query';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
-
 import { DiscipleTabsCard } from '@/modules/disciple/components';
 import { type DiscipleResponse } from '@/modules/disciple/interfaces';
 
 import { Button } from '@/shared/components/ui/button';
 import { CardContent } from '@/shared/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/shared/components/ui/avatar';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/shared/components/ui/drawer';
 
@@ -25,9 +24,9 @@ export function MemberInfoItem({ data }: Props): JSX.Element {
     return (
       <div className='flex justify-between items-center pb-1'>
         <CardContent className='flex pl-6 py-2'>
-          <Avatar className='p-1'>
+          <Avatar className='p-1 h-12 w-12'>
             <AvatarImage
-              className='rounded-full w-10'
+              className='rounded-full'
               src={data.gender === 'male' ? '/src/assets/boy.webp' : '/src/assets/girl.webp'}
             />
             <AvatarFallback>UI</AvatarFallback>
@@ -40,7 +39,7 @@ export function MemberInfoItem({ data }: Props): JSX.Element {
         <div className='pr-6 pt-2 pb-2'>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <Button className='text-[12px] sm:text-sm xl:text-md lg:w-[7rem] xl:w-[8rem] 2xl:w-[10rem]'>
+              <Button className='text-[12px] md:text-sm lg:w-[7rem] xl:w-[8rem] 2xl:w-[10rem]'>
                 Ver Discípulo
               </Button>
             </DialogTrigger>
@@ -73,7 +72,7 @@ export function MemberInfoItem({ data }: Props): JSX.Element {
       <div className='px-2 pt-2 pb-2 pr-4 sm:p-6 sm:pt-0'>
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerTrigger asChild>
-            <Button className='text-[12px] sm:text-sm xl:text-md lg:w-[7rem] xl:w-[8rem] 2xl:w-[10rem] '>
+            <Button className='text-[12px] sm:text-sm lg:w-[7rem] xl:w-[8rem] 2xl:w-[10rem] '>
               Ver Discípulo
             </Button>
           </DrawerTrigger>

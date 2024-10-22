@@ -23,8 +23,17 @@ export const metricsFormSchema = z
     month: z.string({required_error: 
       'Por favor elige un mes.'}).optional(),
 
+    startMonth: z.string({required_error: 
+      'Por favor elige un mes.'}).optional(),
+
+    endMonth: z.string({required_error: 
+      'Por favor elige un mes.'}).optional(),
+
     year: z.string({required_error: 
       'Por favor elige un año.'}).optional(),
+
+    currency: z.string({required_error: 
+      'Por favor elige una divisa.'}).optional(),
 
     subType: z.string({required_error: 
       'Por favor elige un sub-tipo.'}).optional(),

@@ -38,11 +38,11 @@ import { dateFormatterToDDMMYYYY } from '@/shared/helpers';
 
 import {
   Table,
+  TableRow,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
 } from '@/shared/components/ui/table';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';

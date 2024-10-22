@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect, useState } from 'react';
@@ -104,7 +104,7 @@ export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): J
     setSearchParams(formData);
   }
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] md:h-[28rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] md:h-[25rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='flex flex-row items-center justify-between px-4 py-2.5'>
         <CardTitle className='font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px] inline-block'>
           Fluctuación de Grupos Familiares
@@ -196,7 +196,7 @@ export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): J
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[285px] sm:h-[285px] md:h-[290px] lg:h-[330px] xl:h-[330px] 2xl:h-[345px]'
+                'w-full h-[285px] sm:h-[285px] md:h-[330px] lg:h-[330px] xl:h-[330px] 2xl:h-[345px]'
               )}
             >
               <BarChart

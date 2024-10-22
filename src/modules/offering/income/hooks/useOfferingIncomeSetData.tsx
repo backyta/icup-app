@@ -56,7 +56,7 @@ export const useOfferingIncomeSetData = ({
     }, 1200);
 
     return () => {
-      clearTimeout(timeoutId); // Limpiar el timeout cuando el componente se desmonte
+      clearTimeout(timeoutId);
     };
   }, []);
 
@@ -66,7 +66,7 @@ export const useOfferingIncomeSetData = ({
 
     if (id) {
       const url = new URL(window.location.href);
-      url.pathname = `/offerings/incomes/update/${id}/edit`;
+      url.pathname = `/offerings/income/update/${id}/edit`;
 
       window.history.replaceState({}, '', url);
     }

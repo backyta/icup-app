@@ -10,12 +10,17 @@ export interface OfferingIncomePayloadBySundayService {
   type?: string | undefined;
   payload: {
     date: string,
+    category: string,
     dayPEN: number,
     afternoonPEN: number,
     dayUSD: number,
     afternoonUSD: number,
     dayEUR: number,
-    afternoonEUR: number
+    afternoonEUR: number,
+    church: {
+      isAnexe: boolean;
+      churchName: string;
+    };
   };
   chartType?: string | undefined;
   hide: boolean;

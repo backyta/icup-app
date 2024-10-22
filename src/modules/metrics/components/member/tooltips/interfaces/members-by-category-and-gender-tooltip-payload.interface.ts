@@ -1,4 +1,3 @@
-//* Payload
 export interface MembersByCategoryAndGenderPayload {
   fill: string;
   radius: number;

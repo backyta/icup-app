@@ -504,7 +504,7 @@ export const PastorUpdateForm = ({
                             </Select>
                             {form.getValues('recordStatus') === 'active' && (
                               <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
-                                *El registro esta <span className='text-green-500'>activo</span>,
+                                *El registro esta <span className='text-green-500'>Activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
                                 debe eliminar el registro desde el modulo{' '}
                                 <span className='font-bold text-red-500'>Eliminar Pastor.</span>
@@ -703,7 +703,7 @@ export const PastorUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(DistrictNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${districtsValidation?.districtsValidation?.includes(value) ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${districtsValidation?.districtsDataResult?.includes(value) ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -741,7 +741,7 @@ export const PastorUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(UrbanSectorNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${urbanSectorsValidation?.disabledUrbanSectors?.includes(value) ?? !district ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >

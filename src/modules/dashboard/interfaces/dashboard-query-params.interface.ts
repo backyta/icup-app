@@ -1,12 +1,9 @@
 export interface DashboardQueryParams {
   searchType: string;
-  selectTerm?:string;
-  dateTerm?: string;
+  church?:string;
+  date?: string;
   limit?: string;
   offset?: string;
   order: string;
-
-  //* Validator for get all register
-  all?: boolean;
 }
 

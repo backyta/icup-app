@@ -43,19 +43,19 @@ import { dateFormatterTermToTimestamp, namesFormatter, lastNamesFormatter } from
 
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
   FormItem,
+  FormField,
   FormLabel,
   FormMessage,
+  FormControl,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import {
+  Select,
+  SelectItem,
   SelectValue,
   SelectTrigger,
   SelectContent,
-  SelectItem,
-  Select,
 } from '@/shared/components/ui/select';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';

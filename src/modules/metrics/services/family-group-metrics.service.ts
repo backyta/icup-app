@@ -9,7 +9,7 @@ import {
   type FamilyGroupsByZoneResponse,
   type FamilyGroupsProportionResponse,
   type FamilyGroupsFluctuationResponse,
-  type FamilyGroupsByWorshipTimeResponse,
+  type FamilyGroupsByServiceTimeResponse,
   type FamilyGroupsByRecordStatusResponse,
 } from '@/modules/metrics/interfaces';
 
@@ -117,7 +117,7 @@ export const  getFamilyGroupsByZone = async ({
   } 
 }
 
-//* Get Family groups by zone
+//* Get Family groups by district
 export const  getFamilyGroupsByDistrict = async ({ 
   searchType, 
   district,
@@ -142,16 +142,16 @@ export const  getFamilyGroupsByDistrict = async ({
   } 
 }
 
-//* Get Family groups by worship time
-export const  getFamilyGroupsByWorshipTime =  async ({ 
+//* Get Family groups by service time
+export const  getFamilyGroupsByServiceTime =  async ({ 
   searchType, 
   zone,
   church,
   allZones,
   order
-}: MetricQueryParams): Promise<FamilyGroupsByWorshipTimeResponse> => {
+}: MetricQueryParams): Promise<FamilyGroupsByServiceTimeResponse> => {
   try {
-    const {data} = await icupApi<FamilyGroupsByWorshipTimeResponse>(`/metrics/${church}&${zone}`, {
+    const {data} = await icupApi<FamilyGroupsByServiceTimeResponse>(`/metrics/${church}&${zone}`, {
       params: {
         'search-type': searchType,
         allZones: allZones?.toString(),

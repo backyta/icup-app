@@ -16,7 +16,7 @@ export interface ChurchResponse {
   id:                string;
   churchName:        string;
   isAnexe:           boolean;
-  worshipTimes:      string[];
+  serviceTimes:      string[];
   foundingDate:      Date;
   email:             string;
   phoneNumber:       string;

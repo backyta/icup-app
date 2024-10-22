@@ -7,7 +7,7 @@ export const familyGroupFormSchema = z
     .min(1, { message: 'El campo debe contener al menos 1 carácter.'})
     .max(25, { message: 'El campo debe contener máximo 25 caracteres.'}),
     
-    worshipTime: z.string(),
+    serviceTime: z.string(),
 
     country: z.string(z.nativeEnum(Country, {
       required_error: "Por favor seleccione una opción válida.",

@@ -20,6 +20,7 @@ import { extractPath, extractPublicId } from '@/modules/offering/shared/helpers'
 interface Options {
   setFiles: React.Dispatch<React.SetStateAction<FilesProps[]>>;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsInputMemberDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsDeleteFileButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   offeringIncomeCreationForm: UseFormReturn<OfferingIncomeFormData, any, OfferingIncomeFormData>;
@@ -29,6 +30,7 @@ interface Options {
 export const useOfferingIncomeCreationMutation = ({
   setFiles,
   setIsInputDisabled,
+  setIsInputMemberDisabled,
   offeringIncomeCreationForm,
   setIsSubmitButtonDisabled,
   setIsDeleteFileButtonDisabled,
@@ -52,7 +54,7 @@ export const useOfferingIncomeCreationMutation = ({
           className: 'justify-center',
         });
 
-        //! Aplicar destroy si falla el form
+        //! Execute destroy if form fails
         imageUrls?.forEach(async (imageUrl) => {
           await deleteImage({
             publicId: extractPublicId(imageUrl),
@@ -64,6 +66,7 @@ export const useOfferingIncomeCreationMutation = ({
 
         setTimeout(() => {
           setIsInputDisabled(false);
+          setIsInputMemberDisabled(false);
           setIsSubmitButtonDisabled(false);
           setIsDeleteFileButtonDisabled(false);
         }, 1500);
@@ -95,10 +98,6 @@ export const useOfferingIncomeCreationMutation = ({
         offeringIncomeCreationForm.reset();
         setFiles([]);
       }, 1600);
-
-      // setTimeout(() => {
-      //   navigate('/offerings/incomes');
-      // }, 2400);
     },
   });
 

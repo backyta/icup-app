@@ -52,7 +52,7 @@ export const MemberAnalysisCardByBirthMonth = ({ churchId }: Props): JSX.Element
   });
 
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-2 col-end-3 h-[22rem] md:h-[28rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-2 col-end-3 h-[22rem] md:h-[25rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardTitle className='flex items-center justify-center gap-2.5 px-4 py-2.5 text-center font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
         <span className='ml-20'>Mes de Nacimiento</span>
 
@@ -83,7 +83,7 @@ export const MemberAnalysisCardByBirthMonth = ({ churchId }: Props): JSX.Element
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[252px] sm:h-[285px] md:h-[290px] lg:h-[330px] xl:h-[330px] 2xl:h-[345px]'
+                'w-full h-[295px] sm:h-[295px] md:h-[330px] lg:h-[330px] xl:h-[330px] 2xl:h-[345px]'
               )}
             >
               <ComposedChart
