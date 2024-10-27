@@ -64,6 +64,10 @@ interface ResultDataOptions {
   zoneName: string;
   supervisor: string;
   familyGroupsCount: number;
+  church: {
+    isAnexe: boolean;
+    abbreviatedChurchName: string;
+  };
   totalPercentage: string;
 }
 
@@ -99,7 +103,7 @@ export const FamilyGroupAnalysisCardByZone = ({ churchId }: Props): JSX.Element 
   //* Queries
   const copastorsQuery = useQuery({
     queryKey: ['copastors-for-zone', churchId],
-    queryFn: () => getSimpleCopastors({ church: churchId ?? '', isSimpleQuery: true }),
+    queryFn: () => getSimpleCopastors({ churchId: churchId ?? '', isSimpleQuery: true }),
   });
 
   const familyGroupsByZoneQuery = useQuery({
@@ -146,6 +150,10 @@ export const FamilyGroupAnalysisCardByZone = ({ churchId }: Props): JSX.Element 
             zoneName,
             familyGroupsCount: payload?.familyGroupsCount,
             supervisor: payload?.supervisor,
+            church: {
+              isAnexe: payload?.church?.isAnexe,
+              abbreviatedChurchName: payload?.church?.abbreviatedChurchName,
+            },
             totalPercentage: ((payload.familyGroupsCount / totalFamilyGroups) * 100).toFixed(1),
           };
         }

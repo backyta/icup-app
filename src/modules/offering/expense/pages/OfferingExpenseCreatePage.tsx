@@ -250,7 +250,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                           >
                             {field.value
                               ? churchesQuery?.data?.find((zone) => zone.id === field.value)
-                                  ?.churchName
+                                  ?.abbreviatedChurchName
                               : 'Busque y seleccione una iglesia'}
                             <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                           </Button>
@@ -269,14 +269,14 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                                 {churchesQuery?.data?.map((church) => (
                                   <CommandItem
                                     className='text-[14px]'
-                                    value={church.churchName}
+                                    value={church.abbreviatedChurchName}
                                     key={church.id}
                                     onSelect={() => {
                                       form.setValue('churchId', church.id);
                                       setIsInputChurchOpen(false);
                                     }}
                                   >
-                                    {church.churchName}
+                                    {church.abbreviatedChurchName}
                                     <CheckIcon
                                       className={cn(
                                         'ml-auto h-4 w-4',

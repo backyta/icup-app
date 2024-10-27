@@ -41,6 +41,10 @@ interface ResultDataOptions {
   men: number;
   women: number;
   totalPercentage: string;
+  church: {
+    isAnexe: boolean;
+    abbreviatedChurchName: string;
+  };
 }
 
 interface Props {
@@ -90,6 +94,10 @@ export const MemberAnalysisCardByCategoryAndGender = ({ churchId }: Props): JSX.
                         : 'Anciano',
             men: value?.men,
             women: value?.women,
+            church: {
+              isAnexe: value?.church?.isAnexe,
+              abbreviatedChurchName: value?.church?.abbreviatedChurchName,
+            },
             totalPercentage: (((value?.men + value?.women) / totalMembers) * 100).toFixed(1),
           };
         }

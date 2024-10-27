@@ -15,6 +15,8 @@ import {
 export interface ChurchResponse {
   id:                string;
   churchName:        string;
+  abbreviatedChurchName: string;
+  churchCode:        string;
   isAnexe:           boolean;
   serviceTimes:      string[];
   foundingDate:      Date;

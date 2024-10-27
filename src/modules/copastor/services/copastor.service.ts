@@ -26,13 +26,13 @@ export const createCopastor = async (formData:CopastorFormData ): Promise<Copast
 }
 
 //* Get simple co-pastors
-export const getSimpleCopastors = async ({church, isSimpleQuery}: {church?: string; isSimpleQuery: boolean}): Promise<CopastorResponse[]> => {
+export const getSimpleCopastors = async ({churchId, isSimpleQuery}: {churchId?: string; isSimpleQuery: boolean}): Promise<CopastorResponse[]> => {
   try {
     const {data} = await icupApi<CopastorResponse[]>('/copastors' , {
       params: {
         order: RecordOrder.Ascending,
         isSimpleQuery: isSimpleQuery.toString(),
-        church
+        churchId
       },
     }
     );

@@ -162,7 +162,7 @@ export const OfferingExpenseTabsCard = ({
                 <Label className='text-[14px] md:text-[15px]'>Iglesia</Label>
                 <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                   {data?.church?.id
-                    ? `${data?.church?.churchName} - ${data?.church?.district}`
+                    ? `${data?.church?.abbreviatedChurchName} - ${data?.church?.district}`
                     : '-'}
                 </CardDescription>
               </div>

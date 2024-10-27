@@ -29,7 +29,7 @@ export const churchUpdateColumns: Array<ColumnDef<ChurchColumns, any>> = [
     },
   },
   {
-    accessorKey: 'churchName',
+    accessorKey: 'abbreviatedChurchName',
     header: ({ column }) => {
       return (
         <Button

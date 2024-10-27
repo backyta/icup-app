@@ -154,7 +154,7 @@ export const offeringIncomeDeleteColumns: Array<ColumnDef<OfferingIncomeColumns,
     accessorKey: 'id',
     cell: (info) => {
       const id = info.row.original.id;
-      return info.getValue() === '-' ? '-' : <OfferingIncomeDeleteCard idRow={id} />;
+      return info.getValue() === '-' ? '-' : <OfferingIncomeDeleteCard id={id} />;
     },
     header: () => {
       return (

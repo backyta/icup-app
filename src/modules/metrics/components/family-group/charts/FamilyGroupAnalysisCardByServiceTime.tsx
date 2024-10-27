@@ -63,6 +63,10 @@ interface ResultDataOptions {
   serviceTime: string;
   serviceTimesCount: number;
   supervisor: string;
+  church: {
+    isAnexe: boolean;
+    abbreviatedChurchName: string;
+  };
   totalPercentage: string;
 }
 
@@ -164,6 +168,10 @@ export const FamilyGroupAnalysisCardByServiceTime = ({ churchId }: Props): JSX.E
                                     : '',
             serviceTimesCount: payload?.serviceTimesCount,
             supervisor: payload?.supervisor,
+            church: {
+              isAnexe: payload?.church?.isAnexe,
+              abbreviatedChurchName: payload?.church?.abbreviatedChurchName,
+            },
             totalPercentage: ((payload.serviceTimesCount / totalMembers) * 100).toFixed(1),
           };
         }

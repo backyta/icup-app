@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
@@ -27,15 +29,15 @@ export const useOfferingIncomeSetData = ({
   offeringIncomeUpdateForm,
 }: Options): void => {
   //* Set data
-  console.log(data?.imageUrls);
   useEffect(() => {
     offeringIncomeUpdateForm.setValue('type', data?.type ?? '');
     offeringIncomeUpdateForm.setValue('subType', data?.subType ?? '');
+    offeringIncomeUpdateForm.setValue('category', data?.category ?? '');
     offeringIncomeUpdateForm.setValue('amount', data?.amount ?? '');
     offeringIncomeUpdateForm.setValue('currency', data?.currency ?? '');
     offeringIncomeUpdateForm.setValue('date', new Date(String(data?.date).replace(/-/g, '/')));
     offeringIncomeUpdateForm.setValue('comments', data?.comments ?? '');
-    offeringIncomeUpdateForm.setValue('churchId', data?.church?.id);
+    offeringIncomeUpdateForm.setValue('churchId', data?.church?.id!);
     offeringIncomeUpdateForm.setValue('zoneId', data?.zone?.id);
     offeringIncomeUpdateForm.setValue('familyGroupId', data?.familyGroup?.id);
     offeringIncomeUpdateForm.setValue('memberType', data?.memberType ?? '');

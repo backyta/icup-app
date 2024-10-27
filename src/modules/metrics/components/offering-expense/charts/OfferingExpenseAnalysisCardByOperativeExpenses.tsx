@@ -74,8 +74,8 @@ interface ResultDataOptions {
   accumulatedOfferingUSD: number;
   accumulatedOfferingEUR: number;
   church: {
-    id: string;
-    churchName: string;
+    isAnexe: boolean;
+    abbreviatedChurchName: string;
   };
   allOfferings: Array<{ offering: number; currency: string; date: string | Date }>;
   totalAmount: number;
@@ -154,8 +154,8 @@ export const OfferingExpenseAnalysisCardByOperativeExpenses = ({
           accumulatedOfferingUSD: offeringExpense.accumulatedOfferingUSD,
           accumulatedOfferingEUR: offeringExpense.accumulatedOfferingEUR,
           church: {
-            id: offeringExpense.church.id,
-            churchName: offeringExpense.church.churchName,
+            isAnexe: offeringExpense.church.isAnexe,
+            abbreviatedChurchName: offeringExpense.church.abbreviatedChurchName,
           },
           allOfferings: offeringExpense.allOfferings,
           totalAmount: offeringExpense.totalAmount,

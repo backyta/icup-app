@@ -18,7 +18,7 @@ export interface OfferingIncomeByFastingAndVigilResponse {
   } | null ;
   church: {
     id: string;
-    churchName: string;
+    abbreviatedChurchName: string;
   } | null;
   allOfferings: Array<{
     offering: number;

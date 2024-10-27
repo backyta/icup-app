@@ -51,6 +51,10 @@ const chartConfig = {
 interface ResultDataOptions {
   urbanSectorName: string;
   familyGroupsCount: number;
+  church: {
+    isAnexe: boolean;
+    abbreviatedChurchName: string;
+  };
   totalPercentage: string;
 }
 
@@ -116,6 +120,10 @@ export const FamilyGroupAnalysisCardByDistrict = ({ churchId }: Props): JSX.Elem
           return {
             urbanSectorName,
             familyGroupsCount: payload?.familyGroupsCount,
+            church: {
+              isAnexe: payload?.church?.isAnexe,
+              abbreviatedChurchName: payload?.church?.abbreviatedChurchName,
+            },
             totalPercentage: ((payload?.familyGroupsCount / totalMembers) * 100).toFixed(1),
           };
         }

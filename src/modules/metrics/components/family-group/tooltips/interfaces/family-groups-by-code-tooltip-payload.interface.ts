@@ -13,6 +13,10 @@ export interface FamilyGroupsByCodePayload {
     preacher:string,
     men: number,
     women: number,
+    church:{
+      isAnexe: boolean;
+      abbreviatedChurchName: string;
+    }
     totalPercentage: string,
   };
   chartType?: string | undefined;

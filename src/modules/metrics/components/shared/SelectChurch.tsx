@@ -24,9 +24,6 @@ export const SelectChurch = ({ churchId, setChurchId, data }: Props): JSX.Elemen
   const [open, setOpen] = useState(false);
   return (
     <div className='flex flex-col items-center gap-1 justify-center'>
-      {/* <span className='text-emerald-500 font-bold text-[13px] md:text-[15px]'>
-        Elige una iglesia
-      </span> */}
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -36,8 +33,8 @@ export const SelectChurch = ({ churchId, setChurchId, data }: Props): JSX.Elemen
             className='w-auto px-3 py-0 text-[12px] md:text-[14px]'
           >
             {churchId
-              ? data?.find((church) => church.id === churchId)?.churchName
-              : 'Iglesia Central'}
+              ? data?.find((church) => church.id === churchId)?.abbreviatedChurchName
+              : 'ICUP - Central'}
             <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
           </Button>
         </PopoverTrigger>
@@ -52,14 +49,14 @@ export const SelectChurch = ({ churchId, setChurchId, data }: Props): JSX.Elemen
               {data?.map((church) => (
                 <CommandItem
                   className='text-[12px] md:text-[14px]'
-                  value={church.churchName}
+                  value={church.abbreviatedChurchName}
                   key={church.id}
                   onSelect={() => {
                     setChurchId(church?.id);
                     setOpen(false);
                   }}
                 >
-                  {church.churchName}
+                  {church.abbreviatedChurchName}
                   <CheckIcon
                     className={cn(
                       'ml-auto h-4 w-4',

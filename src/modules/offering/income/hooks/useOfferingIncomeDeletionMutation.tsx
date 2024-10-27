@@ -13,16 +13,14 @@ import { type ErrorResponse } from '@/shared/interfaces';
 
 interface Options {
   setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSelectInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useOfferingIncomeDeletionMutation = ({
   setIsCardOpen,
-  setIsButtonDisabled,
   setIsSelectInputDisabled,
-  setIsInputDisabled,
+  setIsButtonDisabled,
 }: Options): UseMutationResult<void, ErrorResponse, DeleteOfferingIncomeOptions, unknown> => {
   //* Hooks (external libraries)
   const navigate = useNavigate();
@@ -40,6 +38,7 @@ export const useOfferingIncomeDeletionMutation = ({
           className: 'justify-center',
         });
 
+        // TODO : Pasar el sreoll to top a todos los que nececitan en delete church ... etc y todos los mini modales
         setTimeout(() => {
           setIsCardOpen(false);
           setIsButtonDisabled(false);
@@ -70,7 +69,6 @@ export const useOfferingIncomeDeletionMutation = ({
       setTimeout(() => {
         setIsCardOpen(false);
         setIsSelectInputDisabled(false);
-        setIsInputDisabled(false);
       }, 2000);
     },
   });

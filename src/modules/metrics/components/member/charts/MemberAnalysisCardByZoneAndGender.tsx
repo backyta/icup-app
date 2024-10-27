@@ -71,6 +71,10 @@ interface ResultDataOptions {
   supervisor: string;
   men: number;
   women: number;
+  church: {
+    isAnexe: boolean;
+    abbreviatedChurchName: string;
+  };
   totalPercentage: string;
 }
 
@@ -106,7 +110,7 @@ export const MemberAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.Elem
   //* Queries
   const copastorsQuery = useQuery({
     queryKey: ['copastors-for-members', churchId],
-    queryFn: () => getSimpleCopastors({ church: churchId ?? '', isSimpleQuery: true }),
+    queryFn: () => getSimpleCopastors({ churchId: churchId ?? '', isSimpleQuery: true }),
   });
 
   const membersByZoneAndGenderQuery = useQuery({
@@ -154,6 +158,10 @@ export const MemberAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.Elem
             men: payload?.men,
             women: payload?.women,
             supervisor: payload?.supervisor,
+            church: {
+              isAnexe: payload?.church?.isAnexe,
+              abbreviatedChurchName: payload?.church?.abbreviatedChurchName,
+            },
             totalPercentage: (((payload.men + payload?.women) / totalMembers) * 100).toFixed(1),
           };
         }

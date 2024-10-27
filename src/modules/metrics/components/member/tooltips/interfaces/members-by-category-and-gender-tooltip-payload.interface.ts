@@ -13,6 +13,10 @@ export interface MembersByCategoryAndGenderPayload {
     men: number,
     women: number,
     totalPercentage: string,
+    church:{
+      isAnexe: boolean;
+      abbreviatedChurchName: string;
+    }
   };
   chartType?: string | undefined;
   hide: boolean;

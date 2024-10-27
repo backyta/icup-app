@@ -30,9 +30,13 @@ export const FamilyGroupsByDistrictTooltipContent = (
         ))}
       </ul>
 
-      <p className='font-medium text-[10.5px] sm:text-[12.5px] dark:text-amber-400 text-amber-500'>
+      <p className='font-medium text-[11.5px] sm:text-[13px] dark:text-amber-400 text-amber-500'>
         Porcentaje total general: {`${payload[0]?.payload?.totalPercentage}%`}
       </p>
+
+      <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
+        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
+      </li>
     </div>
   );
 };

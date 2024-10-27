@@ -13,6 +13,10 @@ export interface FamilyGroupsByServiceTimePayload {
     serviceTime: string;
     serviceTimesCount: number;
     supervisor: string;
+    church:{
+      isAnexe: boolean;
+      abbreviatedChurchName: string;
+    }
     totalPercentage: string;
   };
   chartType?: string | undefined;

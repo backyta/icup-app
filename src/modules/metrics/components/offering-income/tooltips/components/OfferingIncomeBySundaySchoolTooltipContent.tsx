@@ -1,15 +1,19 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { CurrencyType } from '@/modules/offering/shared/enums';
+import { addDays } from 'date-fns';
 
-import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
-import { type OfferingIncomePayloadBySundaySchool } from '@/modules/metrics/components/offering-income/tooltips/interfaces';
+import { dateFormatterToDDMMYY } from '@/shared/helpers';
+
 import {
   type MemberType,
   MemberTypeNames,
   type OfferingIncomeCreationCategory,
   OfferingIncomeCreationCategoryNames,
 } from '@/modules/offering/income/enums';
+import { CurrencyType } from '@/modules/offering/shared/enums';
+
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { type OfferingIncomePayloadBySundaySchool } from '@/modules/metrics/components/offering-income/tooltips/interfaces';
 
 export const OfferingIncomeBySundaySchoolTooltipContent = (
   props: TooltipConfig<OfferingIncomePayloadBySundaySchool>
@@ -33,7 +37,7 @@ export const OfferingIncomeBySundaySchoolTooltipContent = (
 
   return (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
-      <p className='font-medium text-[12px] sm:text-[14px]'>{`${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]} ~ ${label}`}</p>
+      <p className='font-medium text-[12px] sm:text-[14px]'>{`${dateFormatterToDDMMYY(addDays(label, 1))}`}</p>
       <span className='font-semibold text-[12.5px] md:text-[13.5px]'>Lista de Ofrendas</span>
       <ul className='list grid gap-1.5'>
         {(() => {
@@ -84,6 +88,9 @@ export const OfferingIncomeBySundaySchoolTooltipContent = (
         })()}
       </ul>
 
+      <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
+        <span className='-ml-2'>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
+      </li>
       {payload?.[0]?.payload?.memberFullName && payload?.[0]?.payload?.memberType && (
         <>
           <li className='pl-1 font-medium text-[11px] sm:text-[13px]'>
@@ -95,17 +102,17 @@ export const OfferingIncomeBySundaySchoolTooltipContent = (
         </>
       )}
 
-      <li className={'pl-1 font-medium text-[11.5px] sm:text-[13px]'}>
-        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.churchName}`}</span>
+      <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
+        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
       </li>
 
       {(totalAccumulatedPEN > 0 && totalAccumulatedUSD > 0) ||
       (totalAccumulatedPEN > 0 && totalAccumulatedEUR > 0) ? (
-        <p className='font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+        <p className='font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
           Totales acumulados:
         </p>
       ) : totalAccumulatedPEN > 0 || totalAccumulatedUSD > 0 || totalAccumulatedEUR > 0 ? (
-        <p className='font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+        <p className='font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
           Total acumulado:
         </p>
       ) : (
@@ -113,17 +120,17 @@ export const OfferingIncomeBySundaySchoolTooltipContent = (
       )}
 
       {totalAccumulatedPEN > 0 && (
-        <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+        <li className='pl-1 font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
           <span className='-ml-2'>{`Soles: ${totalAccumulatedPEN} ${CurrencyType.PEN}`}</span>
         </li>
       )}
       {totalAccumulatedUSD > 0 && (
-        <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+        <li className='pl-1 font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
           <span className='-ml-2'> {`Dolares: ${totalAccumulatedUSD} ${CurrencyType.USD}`}</span>
         </li>
       )}
       {totalAccumulatedEUR > 0 && (
-        <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+        <li className='pl-1 font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
           <span className='-ml-2'> {`Euros: ${totalAccumulatedEUR} ${CurrencyType.EUR}`}</span>
         </li>
       )}

@@ -29,9 +29,13 @@ export const FamilyGroupsByRecordStatusTooltipContent = (
           </li>
         ))}
       </ul>
-      <p className='font-medium text-[11px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
+      <p className='font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
         Supervisor: {`${payload[0]?.payload?.supervisor}`}
       </p>
+
+      <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
+        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
+      </li>
     </div>
   );
 };

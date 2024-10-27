@@ -15,6 +15,10 @@ export interface IncomeAndExpensesComparativePayload {
     totalExpenses: number;
     currency: string;
     netResult: number;
+    church: {
+      isAnexe: boolean;
+      abbreviatedChurchName: string;
+    };
   };
   chartType?: string | undefined;
   hide: boolean;

@@ -5,5 +5,9 @@ export interface IncomeAndExpensesComparativeResponse {
   totalIncome: number;
   totalExpenses: number;
   netResult: number;
+  church: {
+    isAnexe: boolean;
+    abbreviatedChurchName: string;
+  };
 }
 

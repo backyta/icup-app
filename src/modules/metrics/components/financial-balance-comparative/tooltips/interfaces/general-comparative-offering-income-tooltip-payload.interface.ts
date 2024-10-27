@@ -15,11 +15,11 @@ export interface GeneralComparativeOfferingIncomePayload {
     accumulatedOfferingUSD: number;
     accumulatedOfferingEUR: number;
     church: {
-      id: string;
-      churchName: string;
+      isAnexe: boolean;
+      abbreviatedChurchName: string;
     };
     totalAmount: number;
-    totalPercentage: string;
+    totalPercentage: string; 
   };
   chartType?: string | undefined;
   hide: boolean;

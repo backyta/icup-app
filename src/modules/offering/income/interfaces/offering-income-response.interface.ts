@@ -15,6 +15,7 @@ export interface OfferingIncomeResponse {
   id:                 string;
   type:               string;
   subType:            string;
+  category:            string;
   amount:             string;
   currency:           string;
   comments:           string;

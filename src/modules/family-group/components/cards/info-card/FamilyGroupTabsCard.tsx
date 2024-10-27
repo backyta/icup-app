@@ -19,6 +19,7 @@ import {
 } from '@/shared/components/ui/card';
 import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
+import { PopoverDataCard } from '@/shared/components';
 
 interface FamilyGroupTabsCardProps {
   id: string;
@@ -84,35 +85,47 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
                 {data?.familyGroupName ?? '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Zona</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirZone?.zoneName ?? '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Código</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.familyGroupCode ?? '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Número</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.familyGroupNumber ?? '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Nro. discípulos</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.disciples?.length ?? '-'}
               </CardDescription>
             </div>
+
             <div className='space-y-1 col-start-1 col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Discípulos</Label>
               <div className='px-2 pt-2 text-[14px] md:text-[14.5px]'>
-                <ul className='pl-5 flex flex-wrap gap-x-10 gap-y-2 list-disc'>
-                  {data?.disciples?.length !== undefined && data?.disciples?.length > 0 ? (
+                <ul className='flex flex-wrap gap-x-10 gap-y-2 list-disc'>
+                  <PopoverDataCard
+                    data={data?.disciples}
+                    title={'Discípulos'}
+                    moduleName={'Grupo Familiar'}
+                    firstValue={'firstName'}
+                    secondValue={'lastName'}
+                  />
+                  {/* {data?.disciples?.length !== undefined && data?.disciples?.length > 0 ? (
                     data?.disciples?.map((disciple) => (
                       <li key={disciple.id}>
                         {getInitialFullNames({
@@ -123,7 +136,7 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
                     ))
                   ) : (
                     <li className='text-red-500'>No hay miembros en este grupo familiar</li>
-                  )}
+                  )} */}
                 </ul>
               </div>
             </div>
@@ -202,7 +215,7 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
               <Label className='text-[14px] md:text-[15px]'>Iglesia</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirChurch?.id
-                  ? `${data?.theirChurch?.churchName}`
+                  ? `${data?.theirChurch?.abbreviatedChurchName}`
                   : 'Este grupo familiar no tiene una iglesia asignada.'}
               </CardDescription>
             </div>

@@ -25,6 +25,7 @@ export const useChurchUpdateEffects = ({
   //* Set data
   useEffect(() => {
     churchUpdateForm.setValue('churchName', data?.churchName!);
+    churchUpdateForm.setValue('abbreviatedChurchName', data?.abbreviatedChurchName!);
     churchUpdateForm.setValue(
       'foundingDate',
       new Date(String(data?.foundingDate).replace(/-/g, '/') as any)

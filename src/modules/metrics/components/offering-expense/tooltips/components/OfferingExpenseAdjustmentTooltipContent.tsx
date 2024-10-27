@@ -1,4 +1,9 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
+import { addDays } from 'date-fns';
+
 import { type TooltipConfig } from '@/shared/interfaces';
+import { dateFormatterToDDMMYY } from '@/shared/helpers';
 
 import { CurrencyType } from '@/modules/offering/shared/enums';
 import { type OfferingExpenseAdjustmentPayload } from '@/modules/metrics/components/offering-expense/tooltips/interfaces';
@@ -11,7 +16,7 @@ export const OfferingExpenseAdjustmentTooltipContent = (
   return (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
       <p>
-        <span className='font-semibold text-[12px] sm:text-[14px]'>{`${label}`}</span>
+        <span className='font-semibold text-[12px] sm:text-[14px]'>{`${dateFormatterToDDMMYY(addDays(label, 1))}`}</span>
       </p>
       <span className='font-semibold text-[12.5px] md:text-[13.5px]'>Lista de Ofrendas</span>
       {payload?.[0]?.payload?.allOfferings.map((off, index) => (
@@ -45,8 +50,8 @@ export const OfferingExpenseAdjustmentTooltipContent = (
         </>
       ))}
 
-      <li className={'pl-1 font-medium text-[11.5px] sm:text-[13.5px]'}>
-        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.churchName}`}</span>
+      <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
+        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
       </li>
 
       {(payload[0]?.payload?.accumulatedOfferingPEN > 0 &&

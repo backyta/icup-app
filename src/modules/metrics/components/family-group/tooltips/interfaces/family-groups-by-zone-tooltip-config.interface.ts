@@ -13,6 +13,10 @@ export interface FamilyGroupByZonePayload {
     zoneName: string;
     supervisor: string;
     familyGroupsCount: number;
+    church:{
+      isAnexe: boolean;
+      abbreviatedChurchName: string;
+    }
     totalPercentage: string;
   };
   chartType?: string | undefined;

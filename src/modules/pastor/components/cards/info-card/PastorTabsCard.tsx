@@ -164,7 +164,7 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
               <PopoverDataCard
                 data={data?.copastors}
                 title={'Co-Pastores'}
-                nameModule={'Pastor'}
+                moduleName={'Pastor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -178,7 +178,7 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
               <PopoverDataCard
                 data={data?.supervisors}
                 title={'Supervisores'}
-                nameModule={'Pastor'}
+                moduleName={'Pastor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -192,7 +192,7 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
               <PopoverDataCard
                 data={data?.zones}
                 title={'Zonas'}
-                nameModule={'Pastor'}
+                moduleName={'Pastor'}
                 firstValue={'zoneName'}
                 secondValue={'urbanSector'}
               />
@@ -206,7 +206,7 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
               <PopoverDataCard
                 data={data?.preachers}
                 title={'Predicadores'}
-                nameModule={'Pastor'}
+                moduleName={'Pastor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -220,7 +220,7 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
               <PopoverDataCard
                 data={data?.familyGroups}
                 title={'Grupos'}
-                nameModule={'Pastor'}
+                moduleName={'Pastor'}
                 firstValue={'familyGroupCode'}
                 secondValue={'familyGroupName'}
               />
@@ -234,7 +234,7 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
               <PopoverDataCard
                 data={data?.disciples}
                 title={'Discípulos'}
-                nameModule={'Pastor'}
+                moduleName={'Pastor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -321,7 +321,7 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
               <Label className='text-[14px] md:text-[15px]'>Iglesia</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirChurch?.id
-                  ? `${data?.theirChurch?.churchName}`
+                  ? `${data?.theirChurch?.abbreviatedChurchName}`
                   : 'Este pastor no tiene una iglesia asignada.'}
               </CardDescription>
             </div>

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import type * as z from 'zod';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
+import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { format } from 'date-fns';
@@ -21,9 +22,11 @@ import {
   MemberTypeNames,
   OfferingIncomeCreationType,
   OfferingIncomeCreationSubType,
+  OfferingIncomeCreationCategory,
   OfferingIncomeCreationTypeNames,
   OfferingIncomeCreationSubTypeNames,
   OfferingIncomeCreationShiftTypeNames,
+  OfferingIncomeCreationCategoryNames,
 } from '@/modules/offering/income/enums';
 import {
   useOfferingIncomeSetData,
@@ -31,6 +34,10 @@ import {
   useOfferingIncomeUpdateMutation,
   useOfferingIncomeUpdateSubmitButtonLogic,
 } from '@/modules/offering/income/hooks';
+
+import { getSimpleZones } from '@/modules/zone/services';
+import { getSimpleChurches } from '@/modules/church/services';
+import { getSimpleFamilyGroups } from '@/modules/family-group/services';
 
 import { DestroyImageButton } from '@/modules/offering/shared/components';
 import { CurrencyTypeNames, OfferingFileType } from '@/modules/offering/shared/enums';
@@ -81,10 +88,6 @@ import { Textarea } from '@/shared/components/ui/textarea';
 import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
-import { useQuery } from '@tanstack/react-query';
-import { getSimpleChurches } from '@/modules/church/services';
-import { getSimpleFamilyGroups } from '@/modules/family-group/services';
-import { getSimpleZones } from '@/modules/zone/services';
 
 type QueryDataResponse =
   | DiscipleResponse[]
@@ -134,6 +137,7 @@ export const OfferingIncomeFormUpdate = ({
     defaultValues: {
       type: '',
       subType: '',
+      category: '',
       churchId: '',
       memberType: '',
       shift: '',
@@ -150,6 +154,7 @@ export const OfferingIncomeFormUpdate = ({
 
   //* Watchers
   const type = form.watch('type');
+  const category = form.watch('category');
   const churchId = form.watch('churchId');
   const subType = form.watch('subType');
   const comments = form.watch('comments');
@@ -362,10 +367,89 @@ export const OfferingIncomeFormUpdate = ({
                   <div className='md:col-start-1 md:col-end-2'>
                     <FormField
                       control={form.control}
+                      name='churchId'
+                      render={({ field }) => (
+                        <FormItem className='mt-3'>
+                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                            Iglesia
+                          </FormLabel>
+                          <FormDescription className='text-[14px]'>
+                            Seleccione una iglesia para asignarla al registro.
+                          </FormDescription>
+                          <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
+                            <PopoverTrigger asChild>
+                              <FormControl>
+                                <Button
+                                  disabled
+                                  variant='outline'
+                                  role='combobox'
+                                  className={cn(
+                                    'w-full justify-between',
+                                    !field.value && 'text-slate-500 font-normal'
+                                  )}
+                                >
+                                  {field.value
+                                    ? churchesQuery?.data?.find((zone) => zone.id === field.value)
+                                        ?.churchName
+                                    : 'Busque y seleccione una iglesia'}
+                                  <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent align='center' className='w-auto px-4 py-2'>
+                              <Command>
+                                {churchesQuery?.data?.length && churchesQuery?.data?.length > 0 ? (
+                                  <>
+                                    <CommandInput
+                                      placeholder='Busque una iglesia'
+                                      className='h-9 text-[14px]'
+                                    />
+                                    <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
+                                    <CommandGroup className='max-h-[200px] h-auto'>
+                                      {churchesQuery?.data?.map((church) => (
+                                        <CommandItem
+                                          className='text-[14px]'
+                                          value={church.churchName}
+                                          key={church.id}
+                                          onSelect={() => {
+                                            form.setValue('churchId', church.id);
+                                            setIsInputRelationOpen(false);
+                                          }}
+                                        >
+                                          {church.churchName}
+                                          <CheckIcon
+                                            className={cn(
+                                              'ml-auto h-4 w-4',
+                                              church.id === field.value
+                                                ? 'opacity-100'
+                                                : 'opacity-0'
+                                            )}
+                                          />
+                                        </CommandItem>
+                                      ))}
+                                    </CommandGroup>
+                                  </>
+                                ) : (
+                                  churchesQuery?.data?.length === 0 && (
+                                    <p className='text-[14.5px] text-red-500 text-center'>
+                                      ❌No hay iglesias disponibles.
+                                    </p>
+                                  )
+                                )}
+                              </Command>
+                            </PopoverContent>
+                          </Popover>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
                       name='type'
                       render={({ field }) => {
                         return (
-                          <FormItem>
+                          <FormItem className='mt-3'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Tipo
                             </FormLabel>
@@ -438,10 +522,58 @@ export const OfferingIncomeFormUpdate = ({
                       />
                     )}
 
+                    {type === OfferingIncomeCreationType.Offering && (
+                      <FormField
+                        control={form.control}
+                        name='category'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className='mt-3'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                                Categoría
+                              </FormLabel>
+                              <FormDescription className='text-[14px]'>
+                                Asigna una categoría al nuevo registro.
+                              </FormDescription>
+                              <Select disabled value={field.value} onValueChange={field.onChange}>
+                                <FormControl>
+                                  <SelectTrigger>
+                                    {field.value ? (
+                                      <SelectValue placeholder='Selecciona una categoría de ofrenda' />
+                                    ) : (
+                                      'Selecciona una categoría de ofrenda'
+                                    )}
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  {Object.entries(OfferingIncomeCreationCategoryNames).map(
+                                    ([key, value]) => (
+                                      <SelectItem key={key} value={key}>
+                                        {value}
+                                      </SelectItem>
+                                    )
+                                  )}
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          );
+                        }}
+                      />
+                    )}
+
                     {((type === OfferingIncomeCreationType.Offering &&
-                      subType === OfferingIncomeCreationSubType.Special) ||
+                      subType === OfferingIncomeCreationSubType.Special &&
+                      category === OfferingIncomeCreationCategory.InternalDonation) ||
                       (type === OfferingIncomeCreationType.Offering &&
-                        subType === OfferingIncomeCreationSubType.ChurchGround)) && (
+                        subType === OfferingIncomeCreationSubType.ChurchGround &&
+                        category === OfferingIncomeCreationCategory.InternalDonation) ||
+                      (type === OfferingIncomeCreationType.Offering &&
+                        subType === OfferingIncomeCreationSubType.SundaySchool &&
+                        category === OfferingIncomeCreationCategory.InternalDonation) ||
+                      (type === OfferingIncomeCreationType.Offering &&
+                        subType === OfferingIncomeCreationSubType.YouthService &&
+                        category === OfferingIncomeCreationCategory.InternalDonation)) && (
                       <FormField
                         control={form.control}
                         name='memberType'
@@ -477,9 +609,17 @@ export const OfferingIncomeFormUpdate = ({
                     )}
 
                     {((type === OfferingIncomeCreationType.Offering &&
-                      subType === OfferingIncomeCreationSubType.Special) ||
+                      subType === OfferingIncomeCreationSubType.Special &&
+                      category === OfferingIncomeCreationCategory.InternalDonation) ||
                       (type === OfferingIncomeCreationType.Offering &&
-                        subType === OfferingIncomeCreationSubType.ChurchGround)) && (
+                        subType === OfferingIncomeCreationSubType.ChurchGround &&
+                        category === OfferingIncomeCreationCategory.InternalDonation) ||
+                      (type === OfferingIncomeCreationType.Offering &&
+                        subType === OfferingIncomeCreationSubType.SundaySchool &&
+                        category === OfferingIncomeCreationCategory.InternalDonation) ||
+                      (type === OfferingIncomeCreationType.Offering &&
+                        subType === OfferingIncomeCreationSubType.YouthService &&
+                        category === OfferingIncomeCreationCategory.InternalDonation)) && (
                       <FormField
                         control={form.control}
                         name='memberId'
@@ -573,7 +713,8 @@ export const OfferingIncomeFormUpdate = ({
                     )}
 
                     {type === OfferingIncomeCreationType.Offering &&
-                      subType === OfferingIncomeCreationSubType.FamilyGroup && (
+                      subType === OfferingIncomeCreationSubType.FamilyGroup &&
+                      category === OfferingIncomeCreationCategory.OfferingBox && (
                         <FormField
                           control={form.control}
                           name='familyGroupId'
@@ -661,103 +802,12 @@ export const OfferingIncomeFormUpdate = ({
                         />
                       )}
 
-                    {(type === OfferingIncomeCreationType.IncomeAdjustment ||
-                      (type === OfferingIncomeCreationType.Offering &&
-                        (subType === OfferingIncomeCreationSubType.SundaySchool ||
-                          subType === OfferingIncomeCreationSubType.SundayService ||
-                          subType === OfferingIncomeCreationSubType.Activities ||
-                          subType === OfferingIncomeCreationSubType.GeneralFasting ||
-                          subType === OfferingIncomeCreationSubType.GeneralVigil ||
-                          subType === OfferingIncomeCreationSubType.UnitedService ||
-                          subType === OfferingIncomeCreationSubType.YouthService))) && (
-                      <FormField
-                        control={form.control}
-                        name='churchId'
-                        render={({ field }) => (
-                          <FormItem className='mt-3'>
-                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                              Iglesia
-                            </FormLabel>
-                            <FormDescription className='text-[14px]'>
-                              Seleccione una iglesia para asignarla al registro.
-                            </FormDescription>
-                            <Popover
-                              open={isInputRelationOpen}
-                              onOpenChange={setIsInputRelationOpen}
-                            >
-                              <PopoverTrigger asChild>
-                                <FormControl>
-                                  <Button
-                                    disabled
-                                    variant='outline'
-                                    role='combobox'
-                                    className={cn(
-                                      'w-full justify-between',
-                                      !field.value && 'text-slate-500 font-normal'
-                                    )}
-                                  >
-                                    {field.value
-                                      ? churchesQuery?.data?.find((zone) => zone.id === field.value)
-                                          ?.churchName
-                                      : 'Busque y seleccione una iglesia'}
-                                    <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
-                                  </Button>
-                                </FormControl>
-                              </PopoverTrigger>
-                              <PopoverContent align='center' className='w-auto px-4 py-2'>
-                                <Command>
-                                  {churchesQuery?.data?.length &&
-                                  churchesQuery?.data?.length > 0 ? (
-                                    <>
-                                      <CommandInput
-                                        placeholder='Busque una iglesia'
-                                        className='h-9 text-[14px]'
-                                      />
-                                      <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
-                                      <CommandGroup className='max-h-[200px] h-auto'>
-                                        {churchesQuery?.data?.map((church) => (
-                                          <CommandItem
-                                            className='text-[14px]'
-                                            value={church.churchName}
-                                            key={church.id}
-                                            onSelect={() => {
-                                              form.setValue('churchId', church.id);
-                                              setIsInputRelationOpen(false);
-                                            }}
-                                          >
-                                            {church.churchName}
-                                            <CheckIcon
-                                              className={cn(
-                                                'ml-auto h-4 w-4',
-                                                church.id === field.value
-                                                  ? 'opacity-100'
-                                                  : 'opacity-0'
-                                              )}
-                                            />
-                                          </CommandItem>
-                                        ))}
-                                      </CommandGroup>
-                                    </>
-                                  ) : (
-                                    churchesQuery?.data?.length === 0 && (
-                                      <p className='text-[14.5px] text-red-500 text-center'>
-                                        ❌No hay iglesias disponibles.
-                                      </p>
-                                    )
-                                  )}
-                                </Command>
-                              </PopoverContent>
-                            </Popover>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    )}
-
                     {((type === OfferingIncomeCreationType.Offering &&
-                      subType === OfferingIncomeCreationSubType.ZonalFasting) ||
+                      subType === OfferingIncomeCreationSubType.ZonalFasting &&
+                      category === OfferingIncomeCreationCategory.OfferingBox) ||
                       (type === OfferingIncomeCreationType.Offering &&
-                        subType === OfferingIncomeCreationSubType.ZonalVigil)) && (
+                        subType === OfferingIncomeCreationSubType.ZonalVigil &&
+                        category === OfferingIncomeCreationCategory.OfferingBox)) && (
                       <FormField
                         control={form.control}
                         name='zoneId'
@@ -842,45 +892,46 @@ export const OfferingIncomeFormUpdate = ({
                     )}
 
                     {(subType === OfferingIncomeCreationSubType.SundayService ||
-                      subType === OfferingIncomeCreationSubType.SundaySchool) && (
-                      <FormField
-                        control={form.control}
-                        name='shift'
-                        render={({ field }) => {
-                          return (
-                            <FormItem className='mt-3'>
-                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                                Turno
-                              </FormLabel>
-                              <FormDescription className='text-[14px]'>
-                                Elige el turno de la ofrenda para el registro.
-                              </FormDescription>
-                              <Select disabled value={field.value} onValueChange={field.onChange}>
-                                <FormControl>
-                                  <SelectTrigger>
-                                    {field.value ? (
-                                      <SelectValue placeholder='Selecciona un turno para la ofrenda' />
-                                    ) : (
-                                      'Selecciona un turno para la ofrenda'
+                      subType === OfferingIncomeCreationSubType.SundaySchool) &&
+                      category === OfferingIncomeCreationCategory.OfferingBox && (
+                        <FormField
+                          control={form.control}
+                          name='shift'
+                          render={({ field }) => {
+                            return (
+                              <FormItem className='mt-3'>
+                                <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                                  Turno
+                                </FormLabel>
+                                <FormDescription className='text-[14px]'>
+                                  Elige el turno de la ofrenda para el registro.
+                                </FormDescription>
+                                <Select disabled value={field.value} onValueChange={field.onChange}>
+                                  <FormControl>
+                                    <SelectTrigger>
+                                      {field.value ? (
+                                        <SelectValue placeholder='Selecciona un turno para la ofrenda' />
+                                      ) : (
+                                        'Selecciona un turno para la ofrenda'
+                                      )}
+                                    </SelectTrigger>
+                                  </FormControl>
+                                  <SelectContent>
+                                    {Object.entries(OfferingIncomeCreationShiftTypeNames).map(
+                                      ([key, value]) => (
+                                        <SelectItem key={key} value={key}>
+                                          {value}
+                                        </SelectItem>
+                                      )
                                     )}
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  {Object.entries(OfferingIncomeCreationShiftTypeNames).map(
-                                    ([key, value]) => (
-                                      <SelectItem key={key} value={key}>
-                                        {value}
-                                      </SelectItem>
-                                    )
-                                  )}
-                                </SelectContent>
-                              </Select>
-                              <FormMessage />
-                            </FormItem>
-                          );
-                        }}
-                      />
-                    )}
+                                  </SelectContent>
+                                </Select>
+                                <FormMessage />
+                              </FormItem>
+                            );
+                          }}
+                        />
+                      )}
 
                     <div className='md:flex md:gap-5'>
                       <FormField

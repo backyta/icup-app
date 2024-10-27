@@ -9,7 +9,7 @@ export interface OfferingIncomeByYouthServiceResponse {
   memberFullName: string;
   church: {
     isAnexe: boolean;
-    churchName: string;
+    abbreviatedChurchName: string;
   };
   allOfferings: Array<{
     offering: number;

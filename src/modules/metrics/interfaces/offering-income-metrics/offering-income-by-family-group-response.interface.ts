@@ -16,7 +16,7 @@ export interface OfferingIncomeByFamilyGroupResponse {
   };
   church: {
     isAnexe: boolean;
-    churchName: string;
+    abbreviatedChurchName: string;
   };
   disciples: number;
   allOfferings: Array<{ offering: number; currency: string; date: string | Date }>;

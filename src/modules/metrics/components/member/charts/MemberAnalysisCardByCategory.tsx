@@ -13,6 +13,9 @@ import { type PieSectorDataItem } from 'recharts/types/polar/Pie';
 import { cn } from '@/shared/lib/utils';
 import { RecordOrder } from '@/shared/enums';
 
+import { getSimpleChurches } from '@/modules/church/services';
+import { type ChurchResponse } from '@/modules/church/interfaces';
+
 import { MetricSearchType } from '@/modules/metrics/enums';
 import { getMembersByCategory } from '@/modules/metrics/services';
 import { MembersByCategoryLegendContent } from '@/modules/metrics/components/member/tooltips/components';
@@ -74,7 +77,8 @@ interface Props {
 
 export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element => {
   //* States
-  const [mappedData, setMappedData] = useState<ResultDataOptions[]>();
+  const [mappedData, setMappedData] = useState<ResultDataOptions[]>([]);
+  const [church, setChurch] = useState<ChurchResponse>();
 
   const id = 'pie-interactive';
   const INITIALVALUE = 'child';
@@ -98,6 +102,17 @@ export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element =
       }),
     enabled: !!churchId,
   });
+
+  const { data } = useQuery({
+    queryKey: ['churches'],
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    staleTime: 1000 * 60,
+  });
+
+  useEffect(() => {
+    const church = data?.find((church) => church?.id === churchId);
+    setChurch(church);
+  }, [data, churchId]);
 
   //* Effects
   useEffect(() => {
@@ -139,6 +154,10 @@ export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element =
           Activos
         </Badge>
       </CardTitle>
+      <span className='-mt-2 text-[12px] md:text-[14px] pl-3 text-center font-medium text-slate-500 dark:text-slate-400'>
+        {church?.abbreviatedChurchName}
+      </span>
+
       {!mappedData?.length ? (
         <CardContent className='flex flex-1 justify-center pb-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
@@ -195,7 +214,7 @@ export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element =
               <ChartContainer
                 id={id}
                 config={chartConfig}
-                className='mx-auto aspect-square w-full max-w-[280px] md:max-w-[345px] -mt-16 lg:-mt-[3.8rem] xl:-mt-[4rem] 2xl:-mt-[3.2rem]'
+                className='mx-auto aspect-square w-full max-w-[280px] md:max-w-[345px] -mt-[3.5rem] md:-mt-[4.5rem] lg:-mt-[4.5rem] xl:-mt-[4.5rem] 2xl:-mt-[4rem]'
               >
                 <PieChart>
                   <ChartTooltip
@@ -241,7 +260,7 @@ export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element =
                                 y={viewBox.cy}
                                 className='fill-foreground text-[40px] md:text-5xl font-bold'
                               >
-                                {mappedData?.[activeIndex!]?.membersCount.toLocaleString()}
+                                {mappedData?.[activeIndex]?.membersCount.toLocaleString()}
                               </tspan>
                               <tspan
                                 x={viewBox.cx}

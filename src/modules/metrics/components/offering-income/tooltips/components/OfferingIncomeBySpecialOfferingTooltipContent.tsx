@@ -6,13 +6,13 @@ import { cn } from '@/shared/lib/utils';
 import { dateFormatterToDDMMYY } from '@/shared/helpers';
 import { type TooltipConfig } from '@/shared/interfaces';
 
-import { CurrencyType } from '@/modules/offering/shared/enums';
 import {
   type MemberType,
   MemberTypeNames,
   type OfferingIncomeCreationCategory,
   OfferingIncomeCreationCategoryNames,
 } from '@/modules/offering/income/enums';
+import { CurrencyType } from '@/modules/offering/shared/enums';
 import { type OfferingIncomePayloadBySpecialOffering } from '@/modules/metrics/components/offering-income/tooltips/interfaces';
 
 export const OfferingIncomeBySpecialOfferingTooltipContent = (
@@ -44,7 +44,7 @@ export const OfferingIncomeBySpecialOfferingTooltipContent = (
                 (item: any) => item.currency === CurrencyType.USD
               ))) && (
             <div key={`item-${index}`}>
-              <li className={cn('flex items-center font-medium [11.5px] md:text-[13.5px]')}>
+              <li className={cn('flex items-center font-medium text-[12px] md:text-[14px]')}>
                 <span
                   className='inline-block h-2.5 w-2.5 rounded-[2px] mr-2'
                   style={{
@@ -52,7 +52,7 @@ export const OfferingIncomeBySpecialOfferingTooltipContent = (
                     border: `1px solid ${entry.color}`,
                   }}
                 ></span>
-                <span className='font-semibold text-[11.5px] md:text-[13.5px]'>{`Ultima Ofrenda:`}</span>
+                <span className='font-semibold text-[12px] md:text-[14px]'>{`Ultima Ofrenda:`}</span>
                 <span className='pl-1 font-normal dark:text-white text-black'>
                   {`${
                     entry?.name === 'accumulatedOfferingPEN'
@@ -111,36 +111,36 @@ export const OfferingIncomeBySpecialOfferingTooltipContent = (
         <span className='-ml-2'>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
       </li>
       <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
-        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.churchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
+        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
       </li>
 
       {(payload[0]?.payload?.accumulatedOfferingPEN > 0 &&
         payload[0]?.payload?.accumulatedOfferingUSD > 0) ||
       (payload[0]?.payload?.accumulatedOfferingPEN > 0 &&
         payload[0]?.payload?.accumulatedOfferingEUR > 0) ? (
-        <p className='font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+        <p className='font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
           Totales acumulados:
         </p>
       ) : (
-        <p className='font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+        <p className='font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
           Total acumulado:
         </p>
       )}
 
       {payload[0]?.payload?.accumulatedOfferingPEN > 0 && (
-        <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+        <li className='pl-1 font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
           <span className='-ml-2'>{`Soles: ${payload[0]?.payload?.accumulatedOfferingPEN} PEN`}</span>
         </li>
       )}
 
       {payload[0]?.payload?.accumulatedOfferingUSD > 0 && (
-        <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+        <li className='pl-1 font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
           <span className='-ml-2'>{`Dolares: ${payload[0]?.payload?.accumulatedOfferingUSD} USD`}</span>
         </li>
       )}
 
       {payload[0]?.payload?.accumulatedOfferingEUR > 0 && (
-        <li className='pl-1 font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+        <li className='pl-1 font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
           <span className='-ml-2'>{`Euros: ${payload[0]?.payload?.accumulatedOfferingEUR} EUR`}</span>
         </li>
       )}

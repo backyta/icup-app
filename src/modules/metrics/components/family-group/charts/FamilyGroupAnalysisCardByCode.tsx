@@ -65,6 +65,10 @@ interface ResultDataOptions {
   preacher: string;
   men: number;
   women: number;
+  church: {
+    isAnexe: boolean;
+    abbreviatedChurchName: string;
+  };
   totalPercentage: string;
 }
 
@@ -143,6 +147,10 @@ export const FamilyGroupAnalysisCardByCode = ({ churchId }: Props): JSX.Element 
           men: payload?.men,
           women: payload?.women,
           preacher: payload?.preacher,
+          church: {
+            isAnexe: payload?.church?.isAnexe,
+            abbreviatedChurchName: payload?.church?.abbreviatedChurchName,
+          },
           totalPercentage: (((payload.men + payload?.women) / totalMembers) * 100).toFixed(1),
         };
       });

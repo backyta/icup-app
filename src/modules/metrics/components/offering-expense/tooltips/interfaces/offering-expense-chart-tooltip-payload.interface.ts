@@ -21,10 +21,10 @@ export interface OfferingExpenseChartPayload {
     accumulatedOfferingPEN: number;
     accumulatedOfferingUSD: number;
     accumulatedOfferingEUR: number;
-    church: {
-      id: string;
-      churchName: string;
-    };
+    church:{
+      isAnexe: boolean;
+      abbreviatedChurchName: string;
+    }
     allOfferings: Offering[];
     totalPercentage: string;
   };

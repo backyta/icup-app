@@ -31,15 +31,19 @@ export const PreachersByZoneAndGenderTooltipContent = (
           </li>
         ))}
       </ul>
-      <p className='font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+      <p className='font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
         Predicadores totales: {total}
       </p>
-      <p className='font-medium text-[10.5px] sm:text-[12.5px] dark:text-amber-400 text-amber-500'>
+      <p className='font-medium text-[11.5px] sm:text-[13px] dark:text-amber-400 text-amber-500'>
         Porcentaje total general: {`${payload[0]?.payload?.totalPercentage}%`}
       </p>
-      <p className='font-medium text-[10.5px] sm:text-[12.5px] dark:text-teal-400 text-teal-500'>
+      <p className='font-medium text-[11.5px] sm:text-[13px] dark:text-teal-400 text-teal-500'>
         Supervisor: {payload[0]?.payload?.supervisor}
       </p>
+
+      <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
+        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
+      </li>
     </div>
   );
 };

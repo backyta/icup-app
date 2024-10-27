@@ -30,7 +30,7 @@ export interface OfferingIncomePayloadBySundaySchool {
     }>;
     church: {
       isAnexe: boolean;
-      churchName: string;
+      abbreviatedChurchName: string;
     };
   };
   chartType?: string | undefined;

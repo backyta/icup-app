@@ -19,7 +19,7 @@ export interface OfferingIncomePayloadBySundayService {
     afternoonEUR: number,
     church: {
       isAnexe: boolean;
-      churchName: string;
+      abbreviatedChurchName: string;
     };
   };
   chartType?: string | undefined;

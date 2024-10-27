@@ -57,6 +57,10 @@ interface ResultDataOptions {
   urbanSectorName: string;
   men: number;
   women: number;
+  church: {
+    isAnexe: boolean;
+    abbreviatedChurchName: string;
+  };
   totalPercentage: string;
 }
 
@@ -124,6 +128,10 @@ export const MemberAnalysisCardByDistrictAndGender = ({ churchId }: Props): JSX.
             urbanSectorName,
             men: payload?.men,
             women: payload?.women,
+            church: {
+              isAnexe: payload?.church?.isAnexe,
+              abbreviatedChurchName: payload?.church?.abbreviatedChurchName,
+            },
             totalPercentage: (((payload?.men + payload?.women) / totalMembers) * 100).toFixed(1),
           };
         }

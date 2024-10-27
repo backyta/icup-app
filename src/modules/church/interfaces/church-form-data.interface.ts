@@ -2,6 +2,7 @@ import { type ChurchServiceTime } from '@/modules/church/enums';
 
 export interface ChurchFormData {
   churchName: string;
+  abbreviatedChurchName: string;
   isAnexe?: boolean | undefined;
   serviceTimes: ChurchServiceTime[];
   foundingDate: Date;

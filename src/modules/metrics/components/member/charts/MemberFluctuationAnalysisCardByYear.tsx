@@ -19,6 +19,7 @@ import { cn } from '@/shared/lib/utils';
 
 import { MetricSearchType } from '@/modules/metrics/enums';
 import { getFluctuationMembersByYear } from '@/modules/metrics/services';
+import { MembersFluctuationByYearTooltipContent } from '@/modules/metrics/components/member/tooltips/components';
 
 import { RecordOrder } from '@/shared/enums';
 import { generateYearOptions } from '@/shared/helpers';
@@ -36,7 +37,6 @@ import {
   ChartContainer,
   type ChartConfig,
   ChartLegendContent,
-  ChartTooltipContent,
 } from '@/shared/components/ui/chart';
 import { Button } from '@/shared/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
@@ -215,16 +215,15 @@ export const MemberFluctuationAnalysisCardByYear = ({ churchId }: Props): JSX.El
                   tickLine={false}
                   tickMargin={10}
                   axisLine={true}
-                  tickFormatter={(value) => value.slice(0, 8)}
+                  tickFormatter={(value) => value.slice(0, 3)}
                   className='text-[12px] md:text-[14px]'
                 />
 
                 <YAxis className='text-[12px] md:text-[14px]' />
+
                 <ChartTooltip
                   cursor={false}
-                  content={
-                    <ChartTooltipContent indicator='dot' className='text-[12px] md:text-[14px]' />
-                  }
+                  content={MembersFluctuationByYearTooltipContent as any}
                 />
 
                 <ChartLegend

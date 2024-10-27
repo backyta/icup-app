@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { cn } from '@/shared/lib/utils';
 
 import {
@@ -28,7 +29,7 @@ export type AllowedTypes =
 interface PopoverDataProps {
   data: AllowedTypes | undefined;
   title: string;
-  nameModule: string;
+  moduleName: string;
   firstValue: string;
   secondValue: string;
 }
@@ -36,53 +37,48 @@ interface PopoverDataProps {
 export const PopoverDataCard = ({
   data,
   title,
-  nameModule,
+  moduleName,
   firstValue,
   secondValue,
 }: PopoverDataProps): JSX.Element => {
+  const needsScroll =
+    ['Discípulos', 'Grupos Fam.', 'Predicadores'].includes(title) && data && data.length > 0;
+
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button className=' px-2 py-0 text-[12px]' variant='outline'>
-          Ver {title}...
+        <Button className='px-2 py-0 text-[12.5px]' variant='outline'>
+          Ver {title}
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className={cn(
-          'w-auto',
-          (title === 'Discípulos' || title === 'Grupos' || title === 'Predicadores') &&
-            data !== undefined &&
-            data?.length > 0 &&
-            'h-[15rem] overflow-y-scroll'
-        )}
+        className={cn('w-auto', needsScroll ? 'h-[11rem] overflow-y-auto' : 'h-auto')}
       >
-        <div className='grid gap-4 '>
+        <div className='grid gap-4'>
           <div className='space-y-2'>
-            <h4 className='font-medium leading-none'>{title}</h4>
-            <p className='text-sm text-muted-foreground'>
-              {title} que pertenecen a este {nameModule}.
+            <h4 className='font-medium text-[13px] md:text-[15px] leading-none'>{title}</h4>
+            <p className='text-[12px] md:text-[14px] text-muted-foreground'>
+              {title} que pertenecen a este {moduleName}.
             </p>
           </div>
-          <div className='grid grid-cols-2 gap-2'>
+          <ul className='grid grid-cols-2 text-[12px] md:text-[14px] pl-6 gap-2 gap-x-8 list-disc'>
             {data?.map((element: any) => {
-              if (title === 'Anexos' || title === 'Zonas' || title === 'Grupos') {
-                return <li key={element?.id}>{element?.[firstValue]}</li>;
-              }
+              const key = element?.id;
+              const displayValue =
+                title === 'Anexos' || title === 'Zonas' || title === 'Grupos Fam.'
+                  ? element?.[firstValue]
+                  : getInitialFullNames({
+                      firstNames: element?.[firstValue],
+                      lastNames: element?.[secondValue],
+                    });
 
               return (
-                <div key={element?.id}>
-                  <li>
-                    <span className='mr-2' key={element?.id}>
-                      {getInitialFullNames({
-                        firstNames: element?.[firstValue],
-                        lastNames: element?.[secondValue],
-                      })}
-                    </span>
-                  </li>
-                </div>
+                <li key={key} className=''>
+                  {displayValue}
+                </li>
               );
             })}
-          </div>
+          </ul>
         </div>
       </PopoverContent>
     </Popover>

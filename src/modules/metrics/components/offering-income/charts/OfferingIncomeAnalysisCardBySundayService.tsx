@@ -82,8 +82,6 @@ interface Props {
   churchId: string | undefined;
 }
 
-// NOTE: Tratar de hacer un boton especial para cambio de divisa porque en eliminar no queda muy claro.
-
 export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): JSX.Element => {
   //* States
   const [isInputSearchMonthOpen, setIsInputSearchMonthOpen] = useState<boolean>(false);

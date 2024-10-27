@@ -65,6 +65,10 @@ interface ResultDataOptions {
   supervisor: string;
   active: number;
   inactive: number;
+  church: {
+    isAnexe: boolean;
+    abbreviatedChurchName: string;
+  };
 }
 interface SearchParamsOptions {
   zone?: string;
@@ -137,6 +141,10 @@ export const FamilyGroupAnalysisCardByRecordStatus = ({ churchId }: Props): JSX.
             active: payload?.active,
             inactive: payload?.inactive,
             supervisor: payload?.supervisor,
+            church: {
+              isAnexe: payload?.church?.isAnexe,
+              abbreviatedChurchName: payload?.church?.abbreviatedChurchName,
+            },
           };
         }
       );

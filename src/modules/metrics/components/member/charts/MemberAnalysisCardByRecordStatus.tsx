@@ -14,6 +14,7 @@ import { MemberRole, MemberRoleNames, RecordOrder } from '@/shared/enums';
 
 import { MetricSearchType } from '@/modules/metrics/enums';
 import { getMembersByRecordStatus } from '@/modules/metrics/services';
+import { MembersByRecordStatusTooltipContent } from '@/modules/metrics/components/member/tooltips/components';
 
 import {
   ChartLegend,
@@ -21,7 +22,6 @@ import {
   ChartContainer,
   type ChartConfig,
   ChartLegendContent,
-  ChartTooltipContent,
 } from '@/shared/components/ui/chart';
 import { Card, CardContent, CardTitle } from '@/shared/components/ui/card';
 
@@ -40,6 +40,10 @@ interface ResultDataOptions {
   role: string;
   active: number;
   inactive: number;
+  church: {
+    isAnexe: boolean;
+    abbreviatedChurchName: string;
+  };
 }
 
 interface Props {
@@ -81,6 +85,10 @@ export const MemberAnalysisCardByRecordStatus = ({ churchId }: Props): JSX.Eleme
                       : MemberRoleNames.disciple,
             active: payload?.active,
             inactive: payload?.inactive,
+            church: {
+              isAnexe: payload?.church?.isAnexe,
+              abbreviatedChurchName: payload?.church?.abbreviatedChurchName,
+            },
           };
         }
       );
@@ -135,12 +143,8 @@ export const MemberAnalysisCardByRecordStatus = ({ churchId }: Props): JSX.Eleme
                 />
 
                 <YAxis className='text-[12px] md:text-[14px]' />
-                <ChartTooltip
-                  cursor={false}
-                  content={
-                    <ChartTooltipContent indicator='dot' className='text-[12px] md:text-[14px]' />
-                  }
-                />
+
+                <ChartTooltip cursor={false} content={MembersByRecordStatusTooltipContent as any} />
 
                 <ChartLegend
                   content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}

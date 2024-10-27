@@ -121,7 +121,7 @@ export const ZoneTabsCard = ({ data, id }: ZoneTabsCardProps): JSX.Element => {
               <PopoverDataCard
                 data={data?.preachers}
                 title={'Predicadores'}
-                nameModule={'Zona'}
+                moduleName={'Zona'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -135,7 +135,7 @@ export const ZoneTabsCard = ({ data, id }: ZoneTabsCardProps): JSX.Element => {
               <PopoverDataCard
                 data={data?.familyGroups}
                 title={'Grupos'}
-                nameModule={'Zona'}
+                moduleName={'Zona'}
                 firstValue={'familyGroupCode'}
                 secondValue={'familyGroupName'}
               />
@@ -149,7 +149,7 @@ export const ZoneTabsCard = ({ data, id }: ZoneTabsCardProps): JSX.Element => {
               <PopoverDataCard
                 data={data?.disciples}
                 title={'Discípulos'}
-                nameModule={'Zona'}
+                moduleName={'Zona'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -229,7 +229,7 @@ export const ZoneTabsCard = ({ data, id }: ZoneTabsCardProps): JSX.Element => {
               <Label className='text-[14px] md:text-[15px]'>Iglesia</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirChurch?.id
-                  ? `${data?.theirChurch?.churchName}`
+                  ? `${data?.theirChurch?.abbreviatedChurchName}`
                   : 'Esta zona no tiene una iglesia asignada.'}
               </CardDescription>
             </div>

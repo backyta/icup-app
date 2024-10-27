@@ -32,7 +32,7 @@ export const churchInfoColumns: Array<ColumnDef<ChurchColumns, any>> = [
     },
   },
   {
-    accessorKey: 'churchName',
+    accessorKey: 'abbreviatedChurchName',
     header: ({ column }) => {
       return (
         <Button

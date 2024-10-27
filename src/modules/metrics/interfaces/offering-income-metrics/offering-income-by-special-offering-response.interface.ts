@@ -11,7 +11,7 @@ export interface OfferingIncomeBySpecialOfferingResponse {
   }>;
   church: {
     isAnexe: boolean;
-    churchName: string;
+    abbreviatedChurchName: string;
   };
   accumulatedOfferingPEN: number;
   accumulatedOfferingUSD: number;

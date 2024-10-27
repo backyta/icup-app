@@ -7,6 +7,9 @@ import { useQuery } from '@tanstack/react-query';
 import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
 import { BarChart, Bar, CartesianGrid, XAxis, YAxis } from 'recharts';
 
+import { getSimpleChurches } from '@/modules/church/services';
+import { type ChurchResponse } from '@/modules/church/interfaces';
+
 import { MetricSearchType } from '@/modules/metrics/enums';
 import { getMembersByMaritalStatus } from '@/modules/metrics/services';
 
@@ -61,6 +64,7 @@ interface Props {
 export const MemberAnalysisCardByMaritalStatus = ({ churchId }: Props): JSX.Element => {
   //* States
   const [mappedData, setMappedData] = useState<ResultDataOptions[]>();
+  const [church, setChurch] = useState<ChurchResponse>();
 
   //* Queries
   const membersByMaritalStatusQuery = useQuery({
@@ -74,6 +78,17 @@ export const MemberAnalysisCardByMaritalStatus = ({ churchId }: Props): JSX.Elem
       }),
     enabled: !!churchId,
   });
+
+  const { data } = useQuery({
+    queryKey: ['churches'],
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    staleTime: 1000 * 60,
+  });
+
+  useEffect(() => {
+    const church = data?.find((church) => church?.id === churchId);
+    setChurch(church);
+  }, [data, churchId]);
 
   //* Effects
   useEffect(() => {
@@ -103,6 +118,9 @@ export const MemberAnalysisCardByMaritalStatus = ({ churchId }: Props): JSX.Elem
           Activos
         </Badge>
       </CardTitle>
+      <span className='-mt-3 text-[12px] md:text-[14px] pl-3 text-center font-medium text-slate-500 dark:text-slate-400'>
+        {church?.abbreviatedChurchName}
+      </span>
 
       {!mappedData?.length ? (
         <CardContent className='h-full pl-3 pr-5 py-0'>
@@ -147,7 +165,7 @@ export const MemberAnalysisCardByMaritalStatus = ({ churchId }: Props): JSX.Elem
 
                 <ChartTooltip
                   cursor={false}
-                  content={<ChartTooltipContent className='text-[12px] md:text-[13px]' />}
+                  content={<ChartTooltipContent className='text-[12px] md:text-[13.5px]' />}
                 />
 
                 <Bar dataKey='membersCount' layout='vertical' radius={5}></Bar>

@@ -20,7 +20,7 @@ export interface OfferingIncomeBySundaySchoolResponse {
   }>;
   church: {
     isAnexe: boolean;
-    churchName: string;
+    abbreviatedChurchName: string;
   };
 }
 

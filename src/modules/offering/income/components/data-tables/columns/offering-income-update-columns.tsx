@@ -6,6 +6,7 @@ import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
 import {
+  OfferingIncomeCurrencyExchangeCard,
   OfferingIncomeInfoCard,
   OfferingIncomeUpdateCard,
 } from '@/modules/offering/income/components';
@@ -163,6 +164,24 @@ export const offeringIncomeUpdateColumns: Array<ColumnDef<OfferingIncomeColumns,
           variant='ghost'
         >
           Actualizar
+        </Button>
+      );
+    },
+  },
+  {
+    id: 'currencyExchange',
+    accessorKey: 'id',
+    cell: (info) => {
+      const id = info.row.original.id;
+      return info.getValue() === '-' ? '-' : <OfferingIncomeCurrencyExchangeCard idRow={id} />;
+    },
+    header: () => {
+      return (
+        <Button
+          className='font-bold text-[13px] md:text-[14px] text-teal-500 hover:text-teal-500'
+          variant='ghost'
+        >
+          Cambio
         </Button>
       );
     },

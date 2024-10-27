@@ -21,11 +21,11 @@ export const GeneralComparativeOfferingIncomeTooltipContent = (
         payload[0]?.payload?.accumulatedOfferingUSD > 0) ||
       (payload[0]?.payload?.accumulatedOfferingPEN > 0 &&
         payload[0]?.payload?.accumulatedOfferingEUR > 0) ? (
-        <p className='font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+        <p className='font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
           Totales acumulados:
         </p>
       ) : (
-        <p className='font-medium text-[11.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+        <p className='font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
           Total acumulado:
         </p>
       )}
@@ -39,7 +39,7 @@ export const GeneralComparativeOfferingIncomeTooltipContent = (
               border: `1px solid #029012`,
             }}
           ></span>
-          <p className='-mt-[2px] font-medium text-[11.5px] sm:text-[13.5px] text-[#029012]'>
+          <p className='-mt-[2px] font-medium text-[11.5px] sm:text-[13px] text-[#029012]'>
             Soles:
             <span className='text-foreground pl-1'>{`${payload[0]?.payload?.accumulatedOfferingPEN} PEN`}</span>
           </p>
@@ -55,7 +55,7 @@ export const GeneralComparativeOfferingIncomeTooltipContent = (
               border: `1px solid #813cb4`,
             }}
           ></span>
-          <p className='-mt-[2px] font-medium text-[11.5px] sm:text-[13.5px] text-[#813cb4]'>
+          <p className='-mt-[2px] font-medium text-[11.5px] sm:text-[13px] text-[#813cb4]'>
             Dolares:
             <span className='text-foreground pl-1'>{`${payload[0]?.payload?.accumulatedOfferingUSD} USD`}</span>
           </p>
@@ -71,15 +71,15 @@ export const GeneralComparativeOfferingIncomeTooltipContent = (
               border: `1px solid #279fb3`,
             }}
           ></span>
-          <p className='-mt-[2px] font-medium text-[11.5px] sm:text-[13.5px] text-[#279fb3]'>
+          <p className='-mt-[2px] font-medium text-[11.5px] sm:text-[13px] text-[#279fb3]'>
             Euros:
             <span className='text-foreground pl-1'>{`${payload[0]?.payload?.accumulatedOfferingEUR} EUR`}</span>
           </p>
         </div>
       )}
 
-      <li className={'pl-1 font-medium text-[11.5px] sm:text-[13.5px]'}>
-        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.churchName}`}</span>
+      <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
+        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
       </li>
     </div>
   );

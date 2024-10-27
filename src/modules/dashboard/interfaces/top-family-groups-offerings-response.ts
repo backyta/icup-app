@@ -14,6 +14,10 @@ export interface TopFamilyGroupsOfferingsResponse {
     firstName: string;
     lastName: string;
   };
+  church: {
+    isAnexe: boolean;
+    abbreviatedChurchName: string;
+  };
   allOfferings: Array<{
     offering: number;
     currency: string;

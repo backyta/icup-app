@@ -8,7 +8,11 @@ export const churchFormSchema = z
     //* General Info
     churchName: z.string()
     .min(1, { message: 'El campo debe contener al menos 1 carácter.'})
-    .max(40, { message: 'El campo debe contener máximo 50 caracteres.'}),
+    .max(100, { message: 'El campo debe contener máximo 100 caracteres.'}),
+
+    abbreviatedChurchName: z.string()
+    .min(1, { message: 'El campo debe contener al menos 1 carácter.'})
+    .max(50, { message: 'El campo debe contener máximo 50 caracteres.'}),
 
     isAnexe: z.boolean().optional(),
     

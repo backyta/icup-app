@@ -4,10 +4,10 @@ export interface OfferingExpenseChartResponse {
   accumulatedOfferingPEN: number;
   accumulatedOfferingUSD: number;
   accumulatedOfferingEUR: number;
-  church: {
-    id: string;
-    churchName: string;
-  };
+  church:{
+    isAnexe: boolean;
+    abbreviatedChurchName: string;
+  }
   allOfferings: Array<{ offering: number; currency: string; date: string | Date }>;
   totalAmount: number;
 }

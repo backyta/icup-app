@@ -15,8 +15,8 @@ export interface ComparativeOfferingExpensesPayloadByType {
     accumulatedOfferingUSD: number;
     accumulatedOfferingEUR: number;
     church: {
-      id: string;
-      churchName: string;
+      isAnexe: boolean;
+      abbreviatedChurchName: string;
     };
     totalAmount: number;
     totalPercentage: string;

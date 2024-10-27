@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
 import { type MembersByCategoryLegendConfig } from '@/modules/metrics/components/member/tooltips/interfaces';
 
 export const MembersByCategoryLegendContent = (props: any): JSX.Element => {
@@ -14,7 +15,7 @@ export const MembersByCategoryLegendContent = (props: any): JSX.Element => {
             className='font-medium text-[12px] md:text-[14px] w-[4rem] md:w-full'
           >
             <span
-              className='inline-block h-2.5 w-2.5 rounded-[2px] mr-1.5'
+              className='inline-block h-2.5 w-2.5 rounded-[2px] mr-1.4'
               style={{
                 backgroundColor: item.color,
                 border: `1px solid ${item.color}`,

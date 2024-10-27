@@ -19,6 +19,7 @@ import { generateYearOptions } from '@/shared/helpers';
 import { MetricSearchType } from '@/modules/metrics/enums';
 import { metricsFormSchema } from '@/modules/metrics/validations';
 import { getFluctuationFamilyGroupsByYear } from '@/modules/metrics/services';
+import { FamilyGroupsFluctuationByYearTooltipContent } from '@/modules/metrics/components/family-group/tooltips/components';
 
 import {
   ChartLegend,
@@ -26,7 +27,6 @@ import {
   ChartContainer,
   type ChartConfig,
   ChartLegendContent,
-  ChartTooltipContent,
 } from '@/shared/components/ui/chart';
 import {
   Command,
@@ -210,16 +210,15 @@ export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): J
                   tickLine={false}
                   tickMargin={10}
                   axisLine={true}
-                  tickFormatter={(value) => value.slice(0, 8)}
+                  tickFormatter={(value) => value.slice(0, 3)}
                   className='text-[12px] md:text-[14px]'
                 />
 
                 <YAxis className='text-[12px] md:text-[14px]' />
+
                 <ChartTooltip
                   cursor={false}
-                  content={
-                    <ChartTooltipContent indicator='dot' className='text-[12px] md:text-[14px]' />
-                  }
+                  content={FamilyGroupsFluctuationByYearTooltipContent as any}
                 />
 
                 <ChartLegend

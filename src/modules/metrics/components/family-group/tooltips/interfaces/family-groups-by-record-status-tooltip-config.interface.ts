@@ -13,6 +13,10 @@ export interface FamilyGroupsByRecordStatusPayload {
     supervisor: string;
     active: number;
     inactive: number;
+    church:{
+      isAnexe: boolean;
+      abbreviatedChurchName: string;
+    }
   };
   chartType?: string | undefined;
   hide: boolean;

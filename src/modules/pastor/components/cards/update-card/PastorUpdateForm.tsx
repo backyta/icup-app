@@ -895,7 +895,7 @@ export const PastorUpdateForm = ({
                                       {field.value
                                         ? churchesQuery?.data?.find(
                                             (church) => church.id === field.value
-                                          )?.churchName
+                                          )?.abbreviatedChurchName
                                         : 'Busque y seleccione una iglesia'}
                                       <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                     </Button>
@@ -915,14 +915,14 @@ export const PastorUpdateForm = ({
                                           {churchesQuery?.data?.map((church) => (
                                             <CommandItem
                                               className='text-[14px]'
-                                              value={church.churchName}
+                                              value={church.abbreviatedChurchName}
                                               key={church.id}
                                               onSelect={() => {
                                                 form.setValue('theirChurch', church.id);
                                                 setIsInputTheirChurchOpen(false);
                                               }}
                                             >
-                                              {church?.churchName}
+                                              {church?.abbreviatedChurchName}
                                               <CheckIcon
                                                 className={cn(
                                                   'ml-auto h-4 w-4',

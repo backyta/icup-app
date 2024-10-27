@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -10,14 +10,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/shared/lib/utils';
 import { MdDeleteForever } from 'react-icons/md';
 
-import { useOfferingIncomeStore } from '@/stores';
-
-import { CurrencyType } from '@/modules/offering/shared/enums';
 import { offeringDeleteFormSchema } from '@/modules/offering/shared/validations';
 
 import {
-  ExchangeCurrencyType,
-  ExchangeCurrencyTypeNames,
   OfferingIncomeReasonEliminationType,
   OfferingIncomeReasonEliminationTypeNames,
 } from '@/modules/offering/income/enums';
@@ -39,18 +34,17 @@ import {
   SelectContent,
   SelectTrigger,
 } from '@/shared/components/ui/select';
-import { Input } from '@/shared/components/ui/input';
+
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 
 interface OfferingIncomeDeleteCardProps {
-  idRow: string;
+  id: string;
 }
 
-export const OfferingIncomeDeleteCard = ({ idRow }: OfferingIncomeDeleteCardProps): JSX.Element => {
+export const OfferingIncomeDeleteCard = ({ id }: OfferingIncomeDeleteCardProps): JSX.Element => {
   //* States
   const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
-  const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
   const [isSelectInputDisabled, setIsSelectInputDisabled] = useState<boolean>(false);
 
@@ -64,15 +58,6 @@ export const OfferingIncomeDeleteCard = ({ idRow }: OfferingIncomeDeleteCardProp
       exchangeCurrencyType: '',
     },
   });
-
-  const dataSearchByTermResponse = useOfferingIncomeStore(
-    (state) => state.dataSearchByTermResponse
-  );
-  //* Functions
-  const currentOfferingIncome = useMemo(
-    () => dataSearchByTermResponse?.find((data) => data?.id === idRow),
-    [dataSearchByTermResponse, idRow]
-  );
 
   //* Watchers
   const exchangeRate = form.watch('exchangeRate');
@@ -108,9 +93,9 @@ export const OfferingIncomeDeleteCard = ({ idRow }: OfferingIncomeDeleteCardProp
   useEffect(() => {
     const originalUrl = window.location.href;
 
-    if (idRow && isCardOpen) {
+    if (id && isCardOpen) {
       const url = new URL(window.location.href);
-      url.pathname = `/offerings/income/delete/${idRow}/remove`;
+      url.pathname = `/offerings/income/delete/${id}/remove`;
 
       window.history.replaceState({}, '', url);
 
@@ -118,24 +103,22 @@ export const OfferingIncomeDeleteCard = ({ idRow }: OfferingIncomeDeleteCardProp
         window.history.replaceState({}, '', originalUrl);
       };
     }
-  }, [idRow, isCardOpen]);
+  }, [id, isCardOpen]);
 
   //* Custom hooks
   const offeringIncomeDeletionMutation = useOfferingIncomeDeletionMutation({
     setIsSelectInputDisabled,
     setIsCardOpen,
     setIsButtonDisabled,
-    setIsInputDisabled,
   });
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof offeringDeleteFormSchema>): void => {
     setIsSelectInputDisabled(true);
-    setIsInputDisabled(true);
     setIsButtonDisabled(true);
 
     offeringIncomeDeletionMutation.mutate({
-      id: idRow,
+      id,
       reasonEliminationType: formData.reasonEliminationType,
       exchangeRate: formData.exchangeRate ?? undefined,
       exchangeCurrencyType: formData.exchangeCurrencyType ?? undefined,
@@ -185,29 +168,7 @@ export const OfferingIncomeDeleteCard = ({ idRow }: OfferingIncomeDeleteCardProp
               <span className='pl-8'>- El usuario que ejecuto esta acción.</span>
               <span className='pl-8'>- Información del tipo de cambio (si se requiere).</span>
             </span>
-            {reasonEliminationType === OfferingIncomeReasonEliminationType.CurrencyExchange && (
-              <span className='w-full text-left mb-2 text-[14px] md:text-[15px] flex flex-col'>
-                <span className='text-teal-500 font-bold text-[14px] md:text-[15px] mb-1'>
-                  ¿Que sucederá si se realiza una eliminación por cambio de divisa?
-                </span>
-                <span className='pl-2'>
-                  - <span className='font-medium'>El sistema buscará un registro existente</span>{' '}
-                  con el tipo de divisa de destino, la fecha y datos similares.
-                </span>
-                <span className='pl-2'>
-                  - <span className='font-medium'>El registro de destino será actualizado</span>,
-                  incrementando su monto con el valor calculado en el tipo de cambio.
-                </span>
-                <span className='pl-2'>
-                  - <span className='font-medium'>Si no se encuentra un registro</span>, el sistema
-                  creará uno nuevo para este cambio de divisa.
-                </span>
-                <span className='pl-2'>
-                  - <span className='font-medium'>El registro original</span>, cuyo monto fue
-                  transformado, será eliminado.
-                </span>
-              </span>
-            )}
+
             <br />
           </p>
           <Form {...form}>
@@ -246,11 +207,7 @@ export const OfferingIncomeDeleteCard = ({ idRow }: OfferingIncomeDeleteCardProp
                         <SelectContent>
                           {Object.entries(OfferingIncomeReasonEliminationTypeNames).map(
                             ([key, value]) =>
-                              ((key !== OfferingIncomeReasonEliminationType.CurrencyExchange &&
-                                currentOfferingIncome?.currency === CurrencyType.PEN) ||
-                                (key === OfferingIncomeReasonEliminationType.CurrencyExchange &&
-                                  currentOfferingIncome?.currency !== CurrencyType.PEN) ||
-                                key !== OfferingIncomeReasonEliminationType.CurrencyExchange) && (
+                              key !== OfferingIncomeReasonEliminationType.CurrencyExchange && (
                                 <SelectItem key={key} value={key}>
                                   {value}
                                 </SelectItem>
@@ -263,83 +220,6 @@ export const OfferingIncomeDeleteCard = ({ idRow }: OfferingIncomeDeleteCardProp
                   );
                 }}
               />
-
-              {reasonEliminationType === OfferingIncomeReasonEliminationType.CurrencyExchange && (
-                <div className='md:flex  md:gap-10'>
-                  <FormField
-                    control={form.control}
-                    name='exchangeCurrencyType'
-                    render={({ field }) => {
-                      return (
-                        <FormItem className='mt-3 mb-3 md:mb-6 w-full'>
-                          <FormDescription className='text-orange-500 text-[14px] pl-1 font-medium'>
-                            Tipo de cambio (moneda)
-                          </FormDescription>
-                          <Select
-                            value={field.value}
-                            disabled={isInputDisabled}
-                            onValueChange={field.onChange}
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                {field.value ? (
-                                  <SelectValue placeholder='Selecciona las monedas' />
-                                ) : (
-                                  'Selecciona las monedas'
-                                )}
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              {currentOfferingIncome?.currency === CurrencyType.USD
-                                ? Object.entries(ExchangeCurrencyTypeNames).map(
-                                    ([key, value]) =>
-                                      key !== ExchangeCurrencyType.EURtoPEN && (
-                                        <SelectItem className={`text-[14px]`} key={key} value={key}>
-                                          {value}
-                                        </SelectItem>
-                                      )
-                                  )
-                                : Object.entries(ExchangeCurrencyTypeNames).map(
-                                    ([key, value]) =>
-                                      key !== ExchangeCurrencyType.USDtoPEN && (
-                                        <SelectItem className={`text-[14px]`} key={key} value={key}>
-                                          {value}
-                                        </SelectItem>
-                                      )
-                                  )}
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name='exchangeRate'
-                    render={({ field }) => {
-                      return (
-                        <FormItem className='mt-3 mb-6 w-full'>
-                          <FormDescription className='text-green-500 text-[14px] pl-1 font-medium'>
-                            Tipo de cambio (precio)
-                          </FormDescription>
-                          <FormControl>
-                            <Input
-                              className=''
-                              disabled={isInputDisabled}
-                              placeholder='Precio tipo de cambio...'
-                              type='text'
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      );
-                    }}
-                  />
-                </div>
-              )}
 
               <div className='flex justify-end gap-x-4'>
                 <Button

@@ -36,8 +36,8 @@ export interface OfferingIncomePayloadByFastingAndVigil {
       disciples: number;
     } | null;
     church: {
-      id: string;
-      churchName: string;
+      isAnexe: string;
+      abbreviatedChurchName: string;
     } | null;
     allOfferings: Offering[];
   };

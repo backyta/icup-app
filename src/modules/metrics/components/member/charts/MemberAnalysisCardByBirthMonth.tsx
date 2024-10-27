@@ -7,6 +7,7 @@ import { ComposedChart, Bar, CartesianGrid, Area, XAxis, YAxis } from 'recharts'
 
 import { MetricSearchType } from '@/modules/metrics/enums';
 import { getMembersByBirthMonth } from '@/modules/metrics/services';
+import { MembersByBirthMonthTooltipContent } from '@/modules/metrics/components/member/tooltips/components/MembersByBirthMonthTooltipContent';
 
 import { cn } from '@/shared/lib/utils';
 import { RecordOrder } from '@/shared/enums';
@@ -17,7 +18,6 @@ import {
   ChartContainer,
   type ChartConfig,
   ChartLegendContent,
-  ChartTooltipContent,
 } from '@/shared/components/ui/chart';
 import { Badge } from '@/shared/components/ui/badge';
 import { Card, CardContent, CardTitle } from '@/shared/components/ui/card';
@@ -103,15 +103,7 @@ export const MemberAnalysisCardByBirthMonth = ({ churchId }: Props): JSX.Element
                 />
                 <YAxis type='number' className='text-[12px] md:text-[14px]' />
 
-                <ChartTooltip
-                  cursor={false}
-                  content={
-                    <ChartTooltipContent
-                      className='text-[12px] md:text-[14px] w-[10rem]'
-                      indicator='dot'
-                    />
-                  }
-                />
+                <ChartTooltip cursor={false} content={MembersByBirthMonthTooltipContent as any} />
 
                 <ChartLegend
                   content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}

@@ -48,6 +48,8 @@ const dataFictional: ChurchResponse[] = [
   {
     id: '',
     churchName: '',
+    abbreviatedChurchName: '',
+    churchCode: '',
     isAnexe: false,
     serviceTimes: ['16:00'],
     foundingDate: new Date('2024-05-31'),

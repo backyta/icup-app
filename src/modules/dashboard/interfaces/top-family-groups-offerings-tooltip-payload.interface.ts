@@ -16,6 +16,7 @@ export interface TopFamilyGroupOfferingsPayload {
   type?: string | undefined;
   payload: {
     date: string;
+    category: string;
     accumulatedOfferingPEN: number;
     accumulatedOfferingUSD: number;
     accumulatedOfferingEUR: number;
@@ -29,6 +30,10 @@ export interface TopFamilyGroupOfferingsPayload {
       id: string;
       firstName: string;
       lastName: string;
+    };
+    church: {
+      isAnexe: boolean;
+      abbreviatedChurchName: string;
     };
     familyGroupCode: string;
     lastOfferingPEN: number;

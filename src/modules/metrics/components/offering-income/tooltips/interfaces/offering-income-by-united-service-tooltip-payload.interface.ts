@@ -23,7 +23,7 @@ export interface OfferingIncomePayloadByUnitedService {
     accumulatedOfferingEUR: number;
     church: {
       isAnexe: boolean;
-      churchName: string;
+      abbreviatedChurchName: string;
     };
     allOfferings: Offering[];
   };

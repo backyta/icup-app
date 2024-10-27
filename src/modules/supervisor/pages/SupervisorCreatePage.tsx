@@ -177,12 +177,12 @@ export const SupervisorCreatePage = (): JSX.Element => {
   });
 
   //* Queries
-  const copastoresQuery = useQuery({
+  const copastorsQuery = useQuery({
     queryKey: ['copastors'],
     queryFn: () => getSimpleCopastors({ isSimpleQuery: true }),
   });
 
-  const pastoresQuery = useQuery({
+  const pastorsQuery = useQuery({
     queryKey: ['pastors'],
     queryFn: () => getSimplePastors({ isSimpleQuery: true }),
   });
@@ -850,7 +850,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                                 )}
                               >
                                 {field.value
-                                  ? `${pastoresQuery.data?.find((pastor) => pastor.id === field.value)?.firstName} ${pastoresQuery.data?.find((pastor) => pastor.id === field.value)?.lastName}`
+                                  ? `${pastorsQuery.data?.find((pastor) => pastor.id === field.value)?.firstName} ${pastorsQuery.data?.find((pastor) => pastor.id === field.value)?.lastName}`
                                   : 'Busque y seleccione un pastor'}
                                 <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                               </Button>
@@ -858,7 +858,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                           </PopoverTrigger>
                           <PopoverContent align='center' className='w-auto px-4 py-2'>
                             <Command>
-                              {pastoresQuery?.data?.length && pastoresQuery?.data?.length > 0 ? (
+                              {pastorsQuery?.data?.length && pastorsQuery?.data?.length > 0 ? (
                                 <>
                                   <CommandInput
                                     placeholder='Busque un pastor...'
@@ -866,7 +866,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                                   />
                                   <CommandEmpty>Pastor no encontrado.</CommandEmpty>
                                   <CommandGroup className='max-h-[200px] h-auto'>
-                                    {pastoresQuery.data?.map((pastor) => (
+                                    {pastorsQuery.data?.map((pastor) => (
                                       <CommandItem
                                         className='text-[14px]'
                                         value={pastor.id}
@@ -888,7 +888,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                                   </CommandGroup>
                                 </>
                               ) : (
-                                pastoresQuery?.data?.length === 0 && (
+                                pastorsQuery?.data?.length === 0 && (
                                   <p className='text-[14.5px] text-red-500 text-center'>
                                     ❌No hay pastores disponibles.
                                   </p>
@@ -933,7 +933,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                                 )}
                               >
                                 {field.value
-                                  ? `${copastoresQuery.data?.find((copastor) => copastor.id === field.value)?.firstName} ${copastoresQuery.data?.find((copastor) => copastor.id === field.value)?.lastName}`
+                                  ? `${copastorsQuery.data?.find((copastor) => copastor.id === field.value)?.firstName} ${copastorsQuery.data?.find((copastor) => copastor.id === field.value)?.lastName}`
                                   : 'Busque y seleccione un co-pastor'}
                                 <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                               </Button>
@@ -941,8 +941,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                           </PopoverTrigger>
                           <PopoverContent align='center' className='w-auto px-4 py-2'>
                             <Command>
-                              {copastoresQuery?.data?.length &&
-                              copastoresQuery?.data?.length > 0 ? (
+                              {copastorsQuery?.data?.length && copastorsQuery?.data?.length > 0 ? (
                                 <>
                                   <CommandInput
                                     placeholder='Busque un co-pastor...'
@@ -950,7 +949,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                                   />
                                   <CommandEmpty>Co-Pastor no encontrado.</CommandEmpty>
                                   <CommandGroup className='max-h-[200px] h-auto'>
-                                    {copastoresQuery.data?.map((copastor) => (
+                                    {copastorsQuery.data?.map((copastor) => (
                                       <CommandItem
                                         className='text-[14px]'
                                         value={getFullNames({
@@ -977,7 +976,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                                   </CommandGroup>
                                 </>
                               ) : (
-                                copastoresQuery?.data?.length === 0 && (
+                                copastorsQuery?.data?.length === 0 && (
                                   <p className='text-[14.5px] text-red-500 text-center'>
                                     ❌No hay co-pastores disponibles.
                                   </p>

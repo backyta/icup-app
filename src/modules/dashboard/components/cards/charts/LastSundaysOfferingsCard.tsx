@@ -178,13 +178,18 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
                               )}
                             >
                               {field.value
-                                ? churchesQuery?.data?.find((church) => church.id === field.value)
-                                    ?.churchName
+                                ? churchesQuery?.data
+                                    ?.find((church) => church.id === field.value)
+                                    ?.churchCode.split('-')
+                                    .slice(0, 2)
+                                    .join('-')
                                 : searchParams?.church
-                                  ? churchesQuery?.data?.find(
-                                      (church) => church.id === searchParams.church
-                                    )?.churchName
-                                  : 'Iglesia Central'}
+                                  ? churchesQuery?.data
+                                      ?.find((church) => church.id === searchParams.church)
+                                      ?.churchCode.split('-')
+                                      .slice(0, 2)
+                                      .join('-')
+                                  : 'ICUP-CENTRAL'}
                               <CaretSortIcon className='h-4 w-4 shrink-0' />
                             </Button>
                           </FormControl>
@@ -200,7 +205,7 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
                               {churchesQuery?.data?.map((church) => (
                                 <CommandItem
                                   className='text-[12px] md:text-[14px]'
-                                  value={church.churchName}
+                                  value={church.churchCode}
                                   key={church.id}
                                   onSelect={() => {
                                     form.setValue('church', church.id);
@@ -208,7 +213,7 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
                                     setIsInputSearchChurchOpen(false);
                                   }}
                                 >
-                                  {church.churchName}
+                                  {church.abbreviatedChurchName}
                                   <CheckIcon
                                     className={cn(
                                       'ml-auto h-4 w-4',

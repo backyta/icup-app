@@ -2,6 +2,7 @@
 export interface Anexe {
   id:          string;
   churchName:  string;
+  abbreviatedChurchName:  string;
   district:    string;
   urbanSector: string;
 }
@@ -79,6 +80,7 @@ export interface UpdatedBy {
 export interface MainChurch {
   id:               string;
   churchName?:       string;
+  abbreviatedChurchName?: string;
   isAnexe?:          boolean;
   serviceTimes?:     string[];
   foundingDate?:     Date;

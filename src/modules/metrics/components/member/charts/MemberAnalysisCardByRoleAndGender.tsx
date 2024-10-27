@@ -39,6 +39,10 @@ interface ResultDataOptions {
   role: string;
   men: number;
   women: number;
+  church: {
+    isAnexe: boolean;
+    abbreviatedChurchName: string;
+  };
   totalPercentage: string;
 }
 
@@ -67,7 +71,7 @@ export const MemberAnalysisCardByRoleAndGender = ({ churchId }: Props): JSX.Elem
   useEffect(() => {
     if (membersByRoleAndGenderQuery?.data) {
       const transformedData = Object.entries(membersByRoleAndGenderQuery?.data).map(
-        ([role, value]) => {
+        ([role, payload]) => {
           const totalMembers: number = Object.values(membersByRoleAndGenderQuery?.data).reduce(
             (total: number, item: { men: number; women: number }) =>
               total + item?.men + item?.women,
@@ -85,9 +89,13 @@ export const MemberAnalysisCardByRoleAndGender = ({ churchId }: Props): JSX.Elem
                     : role === MemberRole.Preacher
                       ? MemberRoleNames[role]
                       : MemberRoleNames.disciple,
-            men: value?.men,
-            women: value?.women,
-            totalPercentage: (((value?.men + value?.women) / totalMembers) * 100).toFixed(1),
+            men: payload?.men,
+            women: payload?.women,
+            church: {
+              isAnexe: payload?.church?.isAnexe,
+              abbreviatedChurchName: payload?.church?.abbreviatedChurchName,
+            },
+            totalPercentage: (((payload?.men + payload?.women) / totalMembers) * 100).toFixed(1),
           };
         }
       );

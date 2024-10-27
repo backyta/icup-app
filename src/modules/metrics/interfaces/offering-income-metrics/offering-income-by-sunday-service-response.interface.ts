@@ -9,7 +9,7 @@ export interface OfferingIncomeBySundayServiceResponse {
   afternoonEUR: number;
   church: {
     isAnexe: boolean;
-    churchName: string;
+    abbreviatedChurchName: string;
   };
 }
 

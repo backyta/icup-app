@@ -163,7 +163,7 @@ export const PreacherTabsCard = ({ data, id }: PreacherTabsCardProps): JSX.Eleme
               <PopoverDataCard
                 data={data?.disciples}
                 title={'Discípulos'}
-                nameModule={'Predicador'}
+                moduleName={'Predicador'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -250,7 +250,7 @@ export const PreacherTabsCard = ({ data, id }: PreacherTabsCardProps): JSX.Eleme
               <Label className='text-[14px] md:text-[15px]'>Iglesia</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirChurch?.id
-                  ? `${data?.theirChurch?.churchName}`
+                  ? `${data?.theirChurch?.abbreviatedChurchName}`
                   : 'Este predicador no tiene una iglesia asignada.'}
               </CardDescription>
             </div>

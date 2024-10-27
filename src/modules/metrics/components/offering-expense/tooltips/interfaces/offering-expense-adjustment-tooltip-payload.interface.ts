@@ -21,8 +21,8 @@ export interface OfferingExpenseAdjustmentPayload {
     accumulatedOfferingUSD: number;
     accumulatedOfferingEUR: number;
     church:{
-      id: string;
-      churchName: string;
+      isAnexe: boolean;
+      abbreviatedChurchName: string;
     }
     allOfferings: Offering[];
   };

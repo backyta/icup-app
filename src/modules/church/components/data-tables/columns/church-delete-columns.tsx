@@ -29,7 +29,7 @@ export const churchDeleteColumns: Array<ColumnDef<ChurchColumns, any>> = [
     },
   },
   {
-    accessorKey: 'churchName',
+    accessorKey: 'abbreviatedChurchName',
     header: ({ column }) => {
       return (
         <Button

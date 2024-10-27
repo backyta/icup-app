@@ -164,7 +164,7 @@ export const SupervisorTabsCard = ({ data, id }: SupervisorTabsCardProps): JSX.E
               <PopoverDataCard
                 data={data?.preachers}
                 title={'Predicadores'}
-                nameModule={'Supervisor'}
+                moduleName={'Supervisor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -178,7 +178,7 @@ export const SupervisorTabsCard = ({ data, id }: SupervisorTabsCardProps): JSX.E
               <PopoverDataCard
                 data={data?.familyGroups}
                 title={'Grupos'}
-                nameModule={'Supervisor'}
+                moduleName={'Supervisor'}
                 firstValue={'familyGroupCode'}
                 secondValue={'familyGroupHouse'}
               />
@@ -192,7 +192,7 @@ export const SupervisorTabsCard = ({ data, id }: SupervisorTabsCardProps): JSX.E
               <PopoverDataCard
                 data={data?.disciples}
                 title={'Discípulos'}
-                nameModule={'Supervisor'}
+                moduleName={'Supervisor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -288,7 +288,7 @@ export const SupervisorTabsCard = ({ data, id }: SupervisorTabsCardProps): JSX.E
               <Label className='text-[14px] md:text-[15px]'>Iglesia</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirChurch?.id
-                  ? `${data?.theirChurch?.churchName}`
+                  ? `${data?.theirChurch?.abbreviatedChurchName}`
                   : 'Este supervisor no tiene una iglesia asignada.'}
               </CardDescription>
             </div>

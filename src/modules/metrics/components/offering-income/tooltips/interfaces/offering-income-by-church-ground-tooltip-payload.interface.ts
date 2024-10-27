@@ -24,7 +24,7 @@ export interface OfferingsIncomePayloadByChurchGround {
     allOfferings: Offering[];
     church: {
       isAnexe: boolean;
-      churchName: string;
+      abbreviatedChurchName: string;
     };
     accumulatedOfferingPEN: number;
     accumulatedOfferingUSD: number;

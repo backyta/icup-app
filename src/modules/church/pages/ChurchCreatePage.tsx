@@ -91,6 +91,7 @@ export const ChurchCreatePage = (): JSX.Element => {
     resolver: zodResolver(churchFormSchema),
     defaultValues: {
       churchName: '',
+      abbreviatedChurchName: '',
       isAnexe: false,
       email: '',
       phoneNumber: '',
@@ -190,7 +191,33 @@ export const ChurchCreatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           disabled={isInputDisabled}
-                          placeholder='Ejem: Iglesia Cristiana "Roca Fuerte"'
+                          placeholder='Ejem: Iglesia Cristiana Unidos en su Presencia - Roca Fuerte'
+                          type='text'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+
+              <FormField
+                control={form.control}
+                name='abbreviatedChurchName'
+                render={({ field }) => {
+                  return (
+                    <FormItem className='mt-3'>
+                      <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                        Nombre abreviado
+                      </FormLabel>
+                      <FormDescription className='text-[14px]'>
+                        Asigna una abreviación de nombre a la nueva iglesia.
+                      </FormDescription>
+                      <FormControl>
+                        <Input
+                          disabled={isInputDisabled}
+                          placeholder='Ejem: ICUP - Roca Fuerte'
                           type='text'
                           {...field}
                         />
@@ -405,7 +432,9 @@ export const ChurchCreatePage = (): JSX.Element => {
                   );
                 }}
               />
+            </div>
 
+            <div className='col-start-2 col-end-3'>
               <FormField
                 control={form.control}
                 name='department'
@@ -445,15 +474,13 @@ export const ChurchCreatePage = (): JSX.Element => {
                   );
                 }}
               />
-            </div>
 
-            <div className='col-start-2 col-end-3'>
               <FormField
                 control={form.control}
                 name='province'
                 render={({ field }) => {
                   return (
-                    <FormItem>
+                    <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Provincia
                       </FormLabel>
@@ -673,7 +700,8 @@ export const ChurchCreatePage = (): JSX.Element => {
                                 className={cn('w-full justify-between ')}
                               >
                                 {field.value
-                                  ? data?.find((church) => church.id === field.value)?.churchName
+                                  ? data?.find((church) => church.id === field.value)
+                                      ?.abbreviatedChurchName
                                   : 'Busque y seleccione una iglesia'}
                                 <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                               </Button>
@@ -692,14 +720,14 @@ export const ChurchCreatePage = (): JSX.Element => {
                                     {data?.map((church) => (
                                       <CommandItem
                                         className='text-[14px]'
-                                        value={church?.churchName}
+                                        value={church?.abbreviatedChurchName}
                                         key={church?.id}
                                         onSelect={() => {
                                           form.setValue('theirMainChurch', church?.id);
                                           setIsInputMainChurchOpen(false);
                                         }}
                                       >
-                                        {church?.churchName}
+                                        {church?.abbreviatedChurchName}
                                         <CheckIcon
                                           className={cn(
                                             'ml-auto h-4 w-4',

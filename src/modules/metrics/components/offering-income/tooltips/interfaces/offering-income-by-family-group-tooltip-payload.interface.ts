@@ -33,7 +33,7 @@ export interface OfferingIncomePayloadByFamilyGroup {
     };
     church: {
       isAnexe: boolean;
-      churchName: string;
+      abbreviatedChurchName: string;
     };
     disciples: number;
     allOfferings: Offering[];

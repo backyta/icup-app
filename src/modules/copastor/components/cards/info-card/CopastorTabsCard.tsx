@@ -164,7 +164,7 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
               <PopoverDataCard
                 data={data?.supervisors}
                 title={'Supervisores'}
-                nameModule={'Copastor'}
+                moduleName={'Copastor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -178,7 +178,7 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
               <PopoverDataCard
                 data={data?.zones}
                 title={'Zonas'}
-                nameModule={'Copastor'}
+                moduleName={'Copastor'}
                 firstValue={'zoneName'}
                 secondValue={'urbanSector'}
               />
@@ -192,7 +192,7 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
               <PopoverDataCard
                 data={data?.preachers}
                 title={'Predicadores'}
-                nameModule={'Copastor'}
+                moduleName={'Copastor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -206,7 +206,7 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
               <PopoverDataCard
                 data={data?.familyGroups}
                 title={'Grupos'}
-                nameModule={'Copastor'}
+                moduleName={'Copastor'}
                 firstValue={'familyGroupCode'}
                 secondValue={'familyGroupHouse'}
               />
@@ -220,7 +220,7 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
               <PopoverDataCard
                 data={data?.disciples}
                 title={'Discípulos'}
-                nameModule={'Copastor'}
+                moduleName={'Copastor'}
                 firstValue={'firstName'}
                 secondValue={'lastName'}
               />
@@ -307,7 +307,7 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
               <Label className='text-[14px] md:text-[15px]'>Iglesia</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirChurch?.id
-                  ? `${data?.theirChurch?.churchName}`
+                  ? `${data?.theirChurch?.abbreviatedChurchName}`
                   : 'Este co-pastor no tiene una iglesia asignada.'}
               </CardDescription>
             </div>

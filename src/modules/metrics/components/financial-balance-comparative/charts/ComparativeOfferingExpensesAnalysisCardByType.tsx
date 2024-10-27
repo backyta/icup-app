@@ -71,8 +71,8 @@ interface ResultDataOptions {
   accumulatedOfferingUSD: number;
   accumulatedOfferingEUR: number;
   church: {
-    id: string;
-    churchName: string;
+    isAnexe: boolean;
+    abbreviatedChurchName: string;
   };
   totalAmount: number;
   totalPercentage: string;
@@ -147,8 +147,8 @@ export const ComparativeOfferingExpensesAnalysisCardByType = ({ churchId }: Prop
           accumulatedOfferingUSD: offering.accumulatedOfferingUSD,
           accumulatedOfferingEUR: offering.accumulatedOfferingEUR,
           church: {
-            id: offering.church.id,
-            churchName: offering.church.churchName,
+            isAnexe: offering.church.isAnexe,
+            abbreviatedChurchName: offering.church.abbreviatedChurchName,
           },
           totalAmount: offering.totalAmount,
           totalPercentage: ((offering.totalAmount / totalGeneral) * 100).toFixed(1),

@@ -5,7 +5,7 @@ export interface OfferingIncomeByIncomeAdjustmentResponse {
   accumulatedOfferingEUR: number;
   church: {
     isAnexe: boolean;
-    churchName: string;
+    abbreviatedChurchName: string;
   };
   allOfferings: Array<{
     offering: number;

@@ -10,7 +10,11 @@ export interface FamilyGroupsByDistrictPayload {
   type?: string | undefined;
   payload: {
     urbanSectorName: string,
-    familyGroupsCount: string,
+    familyGroupsCount: number,
+    church:{
+      isAnexe: boolean;
+      abbreviatedChurchName: string;
+    }
     totalPercentage: string,
   };
   chartType?: string | undefined;

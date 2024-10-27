@@ -15,7 +15,7 @@ export const FamilyGroupsByZoneTooltipContent = (
         {payload.map((entry, index) => (
           <li
             key={`item-${index}`}
-            className='font-medium text-[14px]'
+            className='font-medium text-[12px] md:text-[14px]'
             style={{ color: entry.color }}
           >
             <span
@@ -30,12 +30,16 @@ export const FamilyGroupsByZoneTooltipContent = (
         ))}
       </ul>
 
-      <p className='font-medium text-[11px] sm:text-[13px] dark:text-amber-400 text-amber-500'>
+      <p className='font-medium text-[11.5px] sm:text-[13px] dark:text-amber-400 text-amber-500'>
         Porcentaje: {`${payload[0]?.payload?.totalPercentage}%`}
       </p>
-      <p className='font-medium text-[11px] sm:text-[13px] dark:text-teal-400 text-teal-500'>
+      <p className='font-medium text-[11.5px] sm:text-[13px] dark:text-teal-400 text-teal-500'>
         Supervisor: {payload[0]?.payload?.supervisor}
       </p>
+
+      <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
+        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
+      </li>
     </div>
   );
 };
