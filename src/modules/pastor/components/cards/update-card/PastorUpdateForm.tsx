@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-misused-promises */
 
 import { useState } from 'react';
 
@@ -194,7 +194,7 @@ export const PastorUpdateForm = ({
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
               <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] pl-0 mb-4 md:pl-4'>
-                Pastor: {data?.firstName} {data?.lastName}
+                Pastor: {data?.member?.firstName} {data?.member?.lastName}
               </div>
               <Form {...form}>
                 <form

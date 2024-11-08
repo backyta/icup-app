@@ -30,8 +30,8 @@ export const churchFormSchema = z
     email: z.string().email({ message: "Email invalido." }),
 
     phoneNumber:z.string()
-    .min(6, { message: 'El campo debe tener al menos 6 caracteres.' })
-    .max(20, { message: 'El campo debe tener un máximo de 20 caracteres.' })
+    .min(6, { message: 'El campo debe tener al menos 6 dígitos.' })
+    .max(20, { message: 'El campo debe tener un máximo de 20 dígitos.' })
     .refine(value => {
       return /^[0-9+\-\s]+$/.test(value);
     }, {
@@ -74,7 +74,7 @@ export const churchFormSchema = z
 
     referenceAddress: z.string()
       .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
-      .max(100, { message: 'El campo debe contener máximo 50 caracteres.' }),
+      .max(100, { message: 'El campo debe contener máximo 100 caracteres.' }),
 
     recordStatus: z.string(z.nativeEnum(RecordStatus, {
       required_error: "Por favor seleccione una opción.",

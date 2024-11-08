@@ -2,8 +2,8 @@ import {
   OfferingIncomeCreatePage,
   OfferingIncomeDeletePage,
   OfferingIncomeUpdatePage,
-  OfferingsIncomeGeneralSearchPage,
   OfferingsIncomeSearchPageByTerm,
+  OfferingsIncomeGeneralSearchPage,
 } from '@/modules/offering/income/pages';
 
 export const OfferingIncomeChildrenRoutes = [

@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-/* eslint-disable @typescript-eslint/promise-function-async */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/promise-function-async */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useState } from 'react';
 
@@ -247,7 +247,7 @@ export const PreacherUpdateForm = ({
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
               <div className='dark:text-slate-300 text-slate-500 font-bold text-[17px] md:text-[18px] mb-4 pl-0 md:pl-4'>
-                Predicador: {data?.firstName} {data?.lastName}
+                Predicador: {data?.member?.firstName} {data?.member?.lastName}
               </div>
               <Form {...form}>
                 <form
@@ -986,7 +986,7 @@ export const PreacherUpdateForm = ({
                                         )}
                                       >
                                         {field.value
-                                          ? `${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.firstName} ${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.lastName}`
+                                          ? `${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.member?.firstName} ${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.member?.lastName}`
                                           : 'Busque y seleccione un supervisor'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
@@ -1004,8 +1004,8 @@ export const PreacherUpdateForm = ({
                                           <CommandItem
                                             className='text-[14px]'
                                             value={getFullNames({
-                                              firstNames: supervisor.firstName,
-                                              lastNames: supervisor.lastName,
+                                              firstNames: supervisor.member?.firstName,
+                                              lastNames: supervisor.member?.lastName,
                                             })}
                                             key={supervisor.id}
                                             onSelect={() => {
@@ -1013,7 +1013,7 @@ export const PreacherUpdateForm = ({
                                               setIsInputTheirSupervisorOpen(false);
                                             }}
                                           >
-                                            {`${supervisor?.firstName} ${supervisor?.lastName}`}
+                                            {`${supervisor?.member?.firstName} ${supervisor?.member?.lastName}`}
                                             <CheckIcon
                                               className={cn(
                                                 'ml-auto h-4 w-4',
@@ -1093,7 +1093,7 @@ export const PreacherUpdateForm = ({
                                           )}
                                         >
                                           {field.value
-                                            ? `${copastorsQuery?.data?.find((copastor) => copastor.id === field.value)?.firstName} ${copastorsQuery?.data?.find((copastor) => copastor.id === field.value)?.lastName}`
+                                            ? `${copastorsQuery?.data?.find((copastor) => copastor.id === field.value)?.member?.firstName} ${copastorsQuery?.data?.find((copastor) => copastor.id === field.value)?.member?.lastName}`
                                             : 'Busque y seleccione un co-pastor'}
                                           <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                         </Button>
@@ -1114,8 +1114,8 @@ export const PreacherUpdateForm = ({
                                                 <CommandItem
                                                   className='text-[14px]'
                                                   value={getFullNames({
-                                                    firstNames: copastor.firstName,
-                                                    lastNames: copastor.lastName,
+                                                    firstNames: copastor.member?.firstName ?? '',
+                                                    lastNames: copastor.member?.lastName ?? '',
                                                   })}
                                                   key={copastor.id}
                                                   onSelect={() => {
@@ -1123,7 +1123,7 @@ export const PreacherUpdateForm = ({
                                                     setIsInputTheirCopastorOpen(false);
                                                   }}
                                                 >
-                                                  {`${copastor?.firstName} ${copastor?.lastName}`}
+                                                  {`${copastor?.member?.firstName} ${copastor?.member?.lastName}`}
                                                   <CheckIcon
                                                     className={cn(
                                                       'ml-auto h-4 w-4',
@@ -1182,7 +1182,7 @@ export const PreacherUpdateForm = ({
                                         )}
                                       >
                                         {field.value
-                                          ? `${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.firstName} ${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.lastName}`
+                                          ? `${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.member?.firstName} ${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.member?.lastName}`
                                           : 'Busque y seleccione un pastor'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
@@ -1203,8 +1203,8 @@ export const PreacherUpdateForm = ({
                                               <CommandItem
                                                 className='text-[14px]'
                                                 value={getFullNames({
-                                                  firstNames: pastor.firstName,
-                                                  lastNames: pastor.lastName,
+                                                  firstNames: pastor.member?.firstName ?? '',
+                                                  lastNames: pastor.member?.lastName ?? '',
                                                 })}
                                                 key={pastor.id}
                                                 onSelect={() => {
@@ -1212,7 +1212,7 @@ export const PreacherUpdateForm = ({
                                                   setIsInputTheirPastorOpen(false);
                                                 }}
                                               >
-                                                {`${pastor?.firstName} ${pastor?.lastName}`}
+                                                {`${pastor?.member?.firstName} ${pastor?.member?.lastName}`}
                                                 <CheckIcon
                                                   className={cn(
                                                     'ml-auto h-4 w-4',

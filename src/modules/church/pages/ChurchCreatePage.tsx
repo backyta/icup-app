@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect, useState } from 'react';
 
@@ -169,7 +169,7 @@ export const ChurchCreatePage = (): JSX.Element => {
         Por favor llena los siguientes datos para crear una nueva iglesia.
       </p>
 
-      <div className='flex flex-col items-center pb-8 gap-y-8 md:gap-y-8 px-5 py-4 sm:px-12 sm:py-8 2xl:px-36 2xl:py-8'>
+      <div className='flex flex-col items-center pb-8 gap-y-8 md:gap-y-8 px-5 py-4 sm:px-12 sm:py-8 2xl:px-36 2xl:py-8 max-h-full'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}

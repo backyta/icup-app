@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { format, addDays } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
@@ -12,6 +12,7 @@ import { Button } from '@/shared/components/ui/button';
 
 export const copastorUpdateColumns: Array<ColumnDef<CopastorColumns, any>> = [
   {
+    id: 'id',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.getValue();
@@ -33,7 +34,8 @@ export const copastorUpdateColumns: Array<ColumnDef<CopastorColumns, any>> = [
     },
   },
   {
-    accessorKey: 'firstName',
+    id: 'firstName',
+    accessorKey: 'member.firstName',
     header: ({ column }) => {
       return (
         <Button
@@ -50,7 +52,8 @@ export const copastorUpdateColumns: Array<ColumnDef<CopastorColumns, any>> = [
     },
   },
   {
-    accessorKey: 'lastName',
+    id: 'lastName',
+    accessorKey: 'member.lastName',
     header: ({ column }) => {
       return (
         <Button
@@ -67,7 +70,8 @@ export const copastorUpdateColumns: Array<ColumnDef<CopastorColumns, any>> = [
     },
   },
   {
-    accessorKey: 'gender',
+    id: 'gender',
+    accessorKey: 'member.gender',
     cell: (info) => {
       const gender = info.getValue();
       return gender === 'male' ? 'M' : 'F';
@@ -88,7 +92,8 @@ export const copastorUpdateColumns: Array<ColumnDef<CopastorColumns, any>> = [
     },
   },
   {
-    accessorKey: 'birthDate',
+    id: 'birthDate',
+    accessorKey: 'member.birthDate',
     cell: (info) => {
       const birthDate = info.getValue();
       const adjustedDate = birthDate ? addDays(birthDate, 1) : null;

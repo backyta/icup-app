@@ -239,7 +239,7 @@ export const SupervisorUpdateForm = ({
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
               <div className='dark:text-slate-300 text-slate-500 font-bold text-[17px] md:text-[18px] mb-4 md:pl-4'>
-                Supervisor: {data?.firstName} {data?.lastName}
+                Supervisor: {data?.member?.firstName} {data?.member?.lastName}
               </div>
               <Form {...form}>
                 <form
@@ -913,7 +913,7 @@ export const SupervisorUpdateForm = ({
                       control={form.control}
                       name='isDirectRelationToPastor'
                       render={({ field }) => (
-                        <FormItem className='flex flex-row gap-2 items-center  mt-3 px-1 py-3 h-[2.5rem]'>
+                        <FormItem className='flex flex-row gap-2 items-center px-1 py-3 h-[2.5rem]'>
                           <FormControl>
                             <Checkbox
                               className={cn(isInputDisabled && 'bg-slate-500')}
@@ -926,7 +926,7 @@ export const SupervisorUpdateForm = ({
                           </FormControl>
                           <div className='space-y-1 leading-none'>
                             <FormLabel className='text-[13px] md:text-[14px]'>
-                              ¿Esta registro sera relacionado directamente con un Pastor?
+                              ¿Este registro sera relacionado directamente con un Pastor?
                             </FormLabel>
                           </div>
                         </FormItem>
@@ -939,7 +939,7 @@ export const SupervisorUpdateForm = ({
                         <span className='text-[12px] md:text-[13px]'>
                           {form.getValues('roles').includes(MemberRole.Disciple) &&
                             form.getValues('roles').includes(MemberRole.Copastor) &&
-                            !data?.roles.includes(MemberRole.Treasurer) && (
+                            !data?.member?.roles.includes(MemberRole.Treasurer) && (
                               <div>
                                 <span className='text-red-500 text-center inline-block'>
                                   Roles anteriores: Discípulo - Supervisor
@@ -952,7 +952,7 @@ export const SupervisorUpdateForm = ({
                             )}
                           {form.getValues('roles').includes(MemberRole.Disciple) &&
                             form.getValues('roles').includes(MemberRole.Copastor) &&
-                            data?.roles.includes(MemberRole.Treasurer) && (
+                            data?.member?.roles.includes(MemberRole.Treasurer) && (
                               <div>
                                 <span className='text-red-500 text-center inline-block'>
                                   Roles anteriores: Discípulo - Supervisor - Tesorero
@@ -1001,7 +1001,7 @@ export const SupervisorUpdateForm = ({
                                         )}
                                       >
                                         {field.value
-                                          ? `${copastoresQuery?.data?.find((copastor) => copastor.id === field.value)?.firstName} ${copastoresQuery?.data?.find((pastor) => pastor.id === field.value)?.lastName}`
+                                          ? `${copastoresQuery?.data?.find((copastor) => copastor.id === field.value)?.member?.firstName} ${copastoresQuery?.data?.find((pastor) => pastor.id === field.value)?.member?.lastName}`
                                           : 'Busque y seleccione un co-pastor'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
@@ -1022,8 +1022,8 @@ export const SupervisorUpdateForm = ({
                                               <CommandItem
                                                 className='text-[14px]'
                                                 value={getFullNames({
-                                                  firstNames: copastor.firstName,
-                                                  lastNames: copastor.lastName,
+                                                  firstNames: copastor.member?.firstName ?? '',
+                                                  lastNames: copastor.member?.lastName ?? '',
                                                 })}
                                                 key={copastor.id}
                                                 onSelect={() => {
@@ -1031,7 +1031,7 @@ export const SupervisorUpdateForm = ({
                                                   setIsInputTheirCopastorOpen(false);
                                                 }}
                                               >
-                                                {`${copastor?.firstName} ${copastor?.lastName}`}
+                                                {`${copastor?.member?.firstName} ${copastor?.member?.lastName}`}
                                                 <CheckIcon
                                                   className={cn(
                                                     'ml-auto h-4 w-4',
@@ -1091,7 +1091,7 @@ export const SupervisorUpdateForm = ({
                                         )}
                                       >
                                         {field.value
-                                          ? `${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.firstName} ${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.lastName}`
+                                          ? `${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.member?.firstName} ${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.member?.lastName}`
                                           : 'Busque y seleccione un pastor'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
@@ -1112,8 +1112,8 @@ export const SupervisorUpdateForm = ({
                                               <CommandItem
                                                 className='text-[14px]'
                                                 value={getFullNames({
-                                                  firstNames: pastor.firstName,
-                                                  lastNames: pastor.lastName,
+                                                  firstNames: pastor.member?.firstName ?? '',
+                                                  lastNames: pastor.member?.lastName ?? '',
                                                 })}
                                                 key={pastor.id}
                                                 onSelect={() => {
@@ -1121,7 +1121,7 @@ export const SupervisorUpdateForm = ({
                                                   setIsInputTheirPastorOpen(false);
                                                 }}
                                               >
-                                                {`${pastor?.firstName} ${pastor?.lastName}`}
+                                                {`${pastor?.member?.firstName} ${pastor?.member?.lastName}`}
                                                 <CheckIcon
                                                   className={cn(
                                                     'ml-auto h-4 w-4',

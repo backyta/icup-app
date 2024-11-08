@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
+
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
@@ -8,11 +9,13 @@ import { type ErrorResponse } from '@/shared/interfaces';
 import { deleteFamilyGroup } from '@/modules/family-group/services';
 
 interface Options {
+  scrollToTop: () => void;
   setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useFamilyGroupDeletionMutation = ({
+  scrollToTop,
   setIsCardOpen,
   setIsButtonDisabled,
 }: Options): UseMutationResult<void, ErrorResponse, string, unknown> => {
@@ -33,7 +36,7 @@ export const useFamilyGroupDeletionMutation = ({
         });
 
         setTimeout(() => {
-          setIsCardOpen(false);
+          setIsCardOpen(true);
           setIsButtonDisabled(false);
         }, 2000);
       }
@@ -54,6 +57,10 @@ export const useFamilyGroupDeletionMutation = ({
         position: 'top-center',
         className: 'justify-center',
       });
+
+      setTimeout(() => {
+        scrollToTop();
+      }, 150);
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['family-groups-by-term'] });

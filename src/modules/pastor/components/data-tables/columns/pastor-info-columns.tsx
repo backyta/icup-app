@@ -14,6 +14,7 @@ import { type PastorColumns } from '@/modules/pastor/interfaces';
 
 export const pastorInfoColumns: Array<ColumnDef<PastorColumns, any>> = [
   {
+    id: 'id',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.getValue();
@@ -35,7 +36,8 @@ export const pastorInfoColumns: Array<ColumnDef<PastorColumns, any>> = [
     },
   },
   {
-    accessorKey: 'firstName',
+    id: 'firstName',
+    accessorKey: 'member.firstName',
     header: ({ column }) => {
       return (
         <Button
@@ -52,7 +54,8 @@ export const pastorInfoColumns: Array<ColumnDef<PastorColumns, any>> = [
     },
   },
   {
-    accessorKey: 'lastName',
+    id: 'lastName',
+    accessorKey: 'member.lastName',
     header: ({ column }) => {
       return (
         <Button
@@ -69,7 +72,8 @@ export const pastorInfoColumns: Array<ColumnDef<PastorColumns, any>> = [
     },
   },
   {
-    accessorKey: 'gender',
+    id: 'gender',
+    accessorKey: 'member.gender',
     cell: (info) => {
       const gender = info.getValue();
       return gender === 'male' ? 'M' : 'F';
@@ -90,7 +94,8 @@ export const pastorInfoColumns: Array<ColumnDef<PastorColumns, any>> = [
     },
   },
   {
-    accessorKey: 'birthDate',
+    id: 'birthDate',
+    accessorKey: 'member.birthDate',
     cell: (info) => {
       const birthDate = info.getValue();
       const adjustedDate = birthDate ? addDays(birthDate, 1) : null;
@@ -112,11 +117,14 @@ export const pastorInfoColumns: Array<ColumnDef<PastorColumns, any>> = [
     },
   },
   {
+    id: 'updatedBy',
     accessorKey: 'updatedBy',
     cell: (info) => {
       const firstNames = info.getValue()?.firstName;
       const lastNames = info.getValue()?.lastName;
-      return firstNames && lastNames ? getInitialFullNames({ firstNames, lastNames }) : '-';
+      return firstNames && lastNames
+        ? getInitialFullNames({ firstNames: firstNames ?? '', lastNames: lastNames ?? '' })
+        : '-';
     },
     header: ({ column }) => {
       return (

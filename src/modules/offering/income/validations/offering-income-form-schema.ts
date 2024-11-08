@@ -96,7 +96,7 @@ export const offeringIncomeFormSchema = z
       return true;
     },
     {
-      message: 'Por favor elige una zona',
+      message: 'Por favor elige una zona.',
       path: ['zoneId'],
     }
   )
@@ -110,7 +110,7 @@ export const offeringIncomeFormSchema = z
       return true;
     },
     {
-      message: 'Por favor elige una zona',
+      message: 'Por favor elige una zona.',
       path: ['zoneId'],
     }
   )
@@ -124,7 +124,7 @@ export const offeringIncomeFormSchema = z
       return true;
     },
     {
-      message: 'Por favor elige un grupo familiar',
+      message: 'Por favor elige un grupo familiar.',
       path: ['familyGroupId'],
     }
   )
@@ -145,7 +145,7 @@ export const offeringIncomeFormSchema = z
       return true;
     },
     {
-      message: 'Por favor elige una iglesia',
+      message: 'Por favor elige una iglesia.',
       path: ['churchId'],
     }
   );

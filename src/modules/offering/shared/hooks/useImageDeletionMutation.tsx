@@ -56,8 +56,8 @@ export const useImageDeletionMutation = ({
       });
 
       setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['offerings-income-by-term'] });
-        queryClient.invalidateQueries({ queryKey: ['offerings-expenses-by-term'] });
+        queryClient.invalidateQueries({ queryKey: ['offering-income-by-term'] });
+        queryClient.invalidateQueries({ queryKey: ['offering-expenses-by-term'] });
       }, 1000);
     },
   });

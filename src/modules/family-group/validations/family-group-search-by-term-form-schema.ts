@@ -53,7 +53,7 @@ export const familyGroupSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El sub-tipo es requerido',
+      message: 'El sub-tipo es requerido.',
       path: ['searchSubType'],
     }
   )
@@ -67,7 +67,7 @@ export const familyGroupSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El nombre es requerido',
+      message: 'El nombre es requerido.',
       path: ['namesTerm'],
     }
   )
@@ -81,7 +81,7 @@ export const familyGroupSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El apellido es requerido',
+      message: 'El apellido es requerido.',
       path: ['lastNamesTerm'],
     }
   )
@@ -96,7 +96,7 @@ export const familyGroupSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El nombre es requerido',
+      message: 'El nombre es requerido.',
       path: ['lastNamesTerm'],
     }
   )
@@ -110,7 +110,7 @@ export const familyGroupSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El apellido es requerido',
+      message: 'El apellido es requerido.',
       path: ['namesTerm'],
     }
   )
@@ -127,7 +127,7 @@ export const familyGroupSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El termino es requerido',
+      message: 'El termino es requerido.',
       path: ['inputTerm'],
     }
   )
@@ -140,7 +140,7 @@ export const familyGroupSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'Por favor seleccione una opción',
+      message: 'Por favor seleccione una opción.',
       path: ['selectTerm'],
     }
   )

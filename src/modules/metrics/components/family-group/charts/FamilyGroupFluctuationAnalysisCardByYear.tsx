@@ -103,6 +103,7 @@ export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): J
   function handleSubmit(formData: z.infer<typeof metricsFormSchema>): void {
     setSearchParams(formData);
   }
+
   return (
     <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] md:h-[25rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='flex flex-row items-center justify-between px-4 py-2.5'>

@@ -16,6 +16,7 @@ import { CurrencyTypeNames } from '@/modules/offering/shared/enums';
 
 export const offeringExpenseDeleteColumns: Array<ColumnDef<OfferingExpenseColumns, any>> = [
   {
+    id: 'id',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.getValue();
@@ -37,6 +38,7 @@ export const offeringExpenseDeleteColumns: Array<ColumnDef<OfferingExpenseColumn
     },
   },
   {
+    id: 'type',
     accessorKey: 'type',
     header: ({ column }) => {
       return (
@@ -54,6 +56,7 @@ export const offeringExpenseDeleteColumns: Array<ColumnDef<OfferingExpenseColumn
     },
   },
   {
+    id: 'subType',
     accessorKey: 'subType',
     header: ({ column }) => {
       return (
@@ -71,6 +74,7 @@ export const offeringExpenseDeleteColumns: Array<ColumnDef<OfferingExpenseColumn
     },
   },
   {
+    id: 'amount',
     accessorKey: 'amount',
     header: ({ column }) => {
       return (
@@ -88,6 +92,7 @@ export const offeringExpenseDeleteColumns: Array<ColumnDef<OfferingExpenseColumn
     },
   },
   {
+    id: 'currency',
     accessorKey: 'currency',
     cell: (info) => {
       const currency = info.getValue();
@@ -110,6 +115,7 @@ export const offeringExpenseDeleteColumns: Array<ColumnDef<OfferingExpenseColumn
     },
   },
   {
+    id: 'date',
     accessorKey: 'date',
     cell: (info) => {
       const date = info.getValue();

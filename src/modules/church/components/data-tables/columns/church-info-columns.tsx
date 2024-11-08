@@ -11,6 +11,7 @@ import { type ChurchColumns } from '@/modules/church/interfaces';
 
 export const churchInfoColumns: Array<ColumnDef<ChurchColumns, any>> = [
   {
+    id: 'id',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.getValue();
@@ -32,6 +33,7 @@ export const churchInfoColumns: Array<ColumnDef<ChurchColumns, any>> = [
     },
   },
   {
+    id: 'abbreviatedChurchName',
     accessorKey: 'abbreviatedChurchName',
     header: ({ column }) => {
       return (
@@ -49,6 +51,7 @@ export const churchInfoColumns: Array<ColumnDef<ChurchColumns, any>> = [
     },
   },
   {
+    id: 'phoneNumber',
     accessorKey: 'phoneNumber',
     header: ({ column }) => {
       return (
@@ -66,6 +69,7 @@ export const churchInfoColumns: Array<ColumnDef<ChurchColumns, any>> = [
     },
   },
   {
+    id: 'district',
     accessorKey: 'district',
     header: ({ column }) => {
       return (
@@ -83,6 +87,7 @@ export const churchInfoColumns: Array<ColumnDef<ChurchColumns, any>> = [
     },
   },
   {
+    id: 'urbanSector',
     accessorKey: 'urbanSector',
     header: ({ column }) => {
       return (
@@ -100,11 +105,14 @@ export const churchInfoColumns: Array<ColumnDef<ChurchColumns, any>> = [
     },
   },
   {
+    id: 'updatedBy',
     accessorKey: 'updatedBy',
     cell: (info) => {
       const firstNames = info.getValue()?.firstName;
       const lastNames = info.getValue()?.lastName;
-      return firstNames && lastNames ? getInitialFullNames({ firstNames, lastNames }) : '-';
+      return firstNames && lastNames
+        ? getInitialFullNames({ firstNames: firstNames ?? '', lastNames: lastNames ?? '' })
+        : '-';
     },
     header: ({ column }) => {
       return (

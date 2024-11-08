@@ -50,7 +50,7 @@ export const pastorSearchByTermFormSchema  = z
       return true;
     },
     {
-      message: 'El nombre es requerido',
+      message: 'El nombre es requerido.',
       path: ['namesTerm'],
     }
   )
@@ -64,7 +64,7 @@ export const pastorSearchByTermFormSchema  = z
       return true;
     },
     {
-      message: 'El apellido es requerido',
+      message: 'El apellido es requerido.',
       path: ['lastNamesTerm'],
     }
   )
@@ -79,7 +79,7 @@ export const pastorSearchByTermFormSchema  = z
       return true;
     },
     {
-      message: 'El nombre es requerido',
+      message: 'El nombre es requerido.',
       path: ['lastNamesTerm'],
     }
   )
@@ -93,7 +93,7 @@ export const pastorSearchByTermFormSchema  = z
       return true;
     },
     {
-      message: 'El apellido es requerido',
+      message: 'El apellido es requerido.',
       path: ['namesTerm'],
     }
   )
@@ -111,7 +111,7 @@ export const pastorSearchByTermFormSchema  = z
       return true;
     },
     {
-      message: 'El termino es requerido',
+      message: 'El termino es requerido.',
       path: ['inputTerm'],
     }
   )
@@ -128,7 +128,7 @@ export const pastorSearchByTermFormSchema  = z
       return true;
     },
     {
-      message: 'Por favor seleccione una opción',
+      message: 'Por favor seleccione una opción.',
       path: ['selectTerm'],
     }
   )
@@ -142,7 +142,7 @@ export const pastorSearchByTermFormSchema  = z
       return true;
     },
     {
-      message: 'Por favor seleccione una fecha',
+      message: 'Por favor seleccione una fecha.',
       path: ['dateTerm'],
     }
   )

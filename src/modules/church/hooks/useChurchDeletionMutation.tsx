@@ -8,12 +8,14 @@ import { type ErrorResponse } from '@/shared/interfaces';
 import { deleteChurch } from '@/modules/church/services';
 
 interface Options {
+  scrollToTop: () => void;
   setIsButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useChurchDeletionMutation = ({
   setIsButtonDisabled,
+  scrollToTop,
   setIsCardOpen,
 }: Options): UseMutationResult<void, ErrorResponse, string, unknown> => {
   //* Hooks (external libraries)
@@ -33,7 +35,7 @@ export const useChurchDeletionMutation = ({
         });
 
         setTimeout(() => {
-          setIsCardOpen(false);
+          setIsCardOpen(true);
           setIsButtonDisabled(false);
         }, 2000);
       }
@@ -54,6 +56,10 @@ export const useChurchDeletionMutation = ({
         position: 'top-center',
         className: 'justify-center',
       });
+
+      setTimeout(() => {
+        scrollToTop();
+      }, 150);
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['churches-by-term'] });

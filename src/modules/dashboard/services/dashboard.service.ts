@@ -10,10 +10,11 @@ import { type FamilyGroupResponse } from '@/modules/family-group/interfaces';
 import { type LastSundaysOfferingsResponse, type DashboardQueryParams, type TopFamilyGroupsOfferingsResponse } from '@/modules/dashboard/interfaces';
 
 
-// ? Get offerings income by term (paginated)
+// ? Get offering income by term (paginated)
 export const  getOfferingsForBarChartByTerm = async ({ 
   searchType, 
   church,
+  year,
   date,
   limit, 
   offset, 
@@ -24,7 +25,7 @@ export const  getOfferingsForBarChartByTerm = async ({
  if (searchType === DashboardSearchType.LastSundaysOfferings
 ) {
     try {
-    const {data} = await icupApi<LastSundaysOfferingsResponse[]>(`/offerings-income/${date}&${church}` , {
+    const {data} = await icupApi<LastSundaysOfferingsResponse[]>(`/offering-income/${date}&${church}` , {
       params: {
         limit,
         offset,
@@ -48,7 +49,7 @@ export const  getOfferingsForBarChartByTerm = async ({
  if (searchType === DashboardSearchType.TopFamilyGroupsOfferings
 ) {
     try {
-      const {data} = await icupApi<TopFamilyGroupsOfferingsResponse[]>(`/offerings-income/${date}&${church}` , {
+      const {data} = await icupApi<TopFamilyGroupsOfferingsResponse[]>(`/offering-income/${year}&${church}` , {
         params: {
           limit,
           offset,

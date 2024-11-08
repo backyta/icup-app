@@ -1,7 +1,7 @@
 /* eslint-disable no-unneeded-ternary */
-/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 
@@ -80,7 +80,7 @@ interface ResultDataOptions {
 
 interface SearchParamsOptions {
   copastor?: string;
-  allZones?: boolean;
+  all?: boolean;
 }
 
 interface Props {
@@ -118,8 +118,8 @@ export const MemberAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.Elem
     queryFn: () => {
       return getMembersByZoneAndGender({
         searchType: MetricSearchType.MembersByZoneAndGender,
-        copastor: searchParams?.copastor ?? '',
-        allZones: !!all,
+        copastor: searchParams?.copastor ?? copastor,
+        allZones: searchParams?.all ?? all,
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       });
@@ -137,7 +137,7 @@ export const MemberAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.Elem
   useEffect(() => {
     if (copastorsQuery.data) {
       const copastor = copastorsQuery?.data?.map((copastor) => copastor?.id)[1];
-      setSearchParams({ copastor });
+      setSearchParams({ copastor, all: false });
       form.setValue('copastor', copastor);
       form.setValue('all', false);
     }
@@ -218,9 +218,9 @@ export const MemberAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.Elem
                             )}
                           >
                             {field.value
-                              ? `${getInitialFullNames({ firstNames: copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.firstName! ?? '', lastNames: '' })} ${copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.lastName ?? ''}`
+                              ? `${getInitialFullNames({ firstNames: copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.member?.firstName ?? '', lastNames: '' })} ${copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.member?.lastName ?? ''}`
                               : searchParams?.copastor
-                                ? `${getInitialFullNames({ firstNames: copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.firstName! ?? '', lastNames: '' })} ${copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.lastName ?? ''}`
+                                ? `${getInitialFullNames({ firstNames: copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.member?.firstName ?? '', lastNames: '' })} ${copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.member?.lastName ?? ''}`
                                 : 'Elige un co-pastor'}
                             <CaretSortIcon className='ml-2 h-4 w-4 shrink-0' />
                           </Button>
@@ -240,8 +240,8 @@ export const MemberAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.Elem
                                   <CommandItem
                                     className='text-[12px] md:text-[14px]'
                                     value={getFullNames({
-                                      firstNames: copastor.firstName,
-                                      lastNames: copastor.lastName,
+                                      firstNames: copastor?.member?.firstName,
+                                      lastNames: copastor?.member?.lastName,
                                     })}
                                     key={copastor.id}
                                     onSelect={() => {
@@ -250,7 +250,7 @@ export const MemberAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.Elem
                                       setIsInputSearchCopastorOpen(false);
                                     }}
                                   >
-                                    {`${getInitialFullNames({ firstNames: copastor.firstName, lastNames: '' })} ${copastor.lastName}`}
+                                    {`${getInitialFullNames({ firstNames: copastor?.member?.firstName ?? '', lastNames: '' })} ${copastor?.member?.lastName ?? ''}`}
                                     <CheckIcon
                                       className={cn(
                                         'ml-auto h-4 w-4',

@@ -14,7 +14,7 @@ import { OfferingExpenseSearchType } from '@/modules/offering/expense/enums';
 //* Create offering expense
 export const createOfferingExpense = async (formData:OfferingExpenseFormData ): Promise<OfferingExpenseResponse> => {
   try {
-    const {data} = await icupApi.post<OfferingExpenseResponse>('/offerings-expenses', formData)
+    const {data} = await icupApi.post<OfferingExpenseResponse>('/offering-expenses', formData)
     
     return data;
   } catch (error) {
@@ -33,7 +33,7 @@ export const getOfferingsExpenses = async ({limit, offset, all, order}: Offering
 
   try {
     if (!all) {
-      const {data} = await icupApi<OfferingExpenseResponse[]>('/offerings-expenses' , {
+      const {data} = await icupApi<OfferingExpenseResponse[]>('/offering-expenses' , {
         params: {
           limit,
           offset,
@@ -43,7 +43,7 @@ export const getOfferingsExpenses = async ({limit, offset, all, order}: Offering
       
       result = data;
     }else {
-      const {data} = await icupApi<OfferingExpenseResponse[]>('/offerings-expenses' , {
+      const {data} = await icupApi<OfferingExpenseResponse[]>('/offering-expenses' , {
         params: {
           order,
         },
@@ -80,7 +80,7 @@ export const getOfferingsExpensesByTerm = async ({
   if (searchType !== OfferingExpenseSearchType.ExpensesAdjustment && searchType !== OfferingExpenseSearchType.RecordStatus ) {
     try {
         if (!all) {
-            const {data} = await icupApi<OfferingExpenseResponse[]>(`/offerings-expenses/${selectTerm}&${dateTerm}` , {
+            const {data} = await icupApi<OfferingExpenseResponse[]>(`/offering-expenses/${selectTerm}&${dateTerm}` , {
           params: {
             limit,
             offset,
@@ -92,7 +92,7 @@ export const getOfferingsExpensesByTerm = async ({
         
         result = data;
       }else {
-        const {data} = await icupApi<OfferingExpenseResponse[]>(`/offerings-expenses/${selectTerm}&${dateTerm}` , {
+        const {data} = await icupApi<OfferingExpenseResponse[]>(`/offering-expenses/${selectTerm}&${dateTerm}` , {
           params: {
             order,
             'search-type': searchType,
@@ -119,7 +119,7 @@ export const getOfferingsExpensesByTerm = async ({
   if (searchType === OfferingExpenseSearchType.ExpensesAdjustment) {
     try {
       if (!all) {
-        const {data} = await icupApi<OfferingExpenseResponse[]>(`/offerings-expenses/${selectTerm}&${dateTerm}` , {
+        const {data} = await icupApi<OfferingExpenseResponse[]>(`/offering-expenses/${selectTerm}&${dateTerm}` , {
           params: {
             limit,
             offset,
@@ -130,7 +130,7 @@ export const getOfferingsExpensesByTerm = async ({
         
         result = data;
       }else {
-        const {data} = await icupApi<OfferingExpenseResponse[]>(`/offerings-expenses/${selectTerm}&${dateTerm}` , {
+        const {data} = await icupApi<OfferingExpenseResponse[]>(`/offering-expenses/${selectTerm}&${dateTerm}` , {
           params: {
             order,
             'search-type': searchType,
@@ -154,7 +154,7 @@ export const getOfferingsExpensesByTerm = async ({
   if (searchType === OfferingExpenseSearchType.RecordStatus) {
       try {
         if (!all) {
-          const {data} = await icupApi<OfferingExpenseResponse[]>(`/offerings-expenses/${selectTerm}` , {
+          const {data} = await icupApi<OfferingExpenseResponse[]>(`/offering-expenses/${selectTerm}` , {
             params: {
               limit,
               offset,
@@ -165,7 +165,7 @@ export const getOfferingsExpensesByTerm = async ({
           
           result = data;
         }else {
-          const {data} = await icupApi<OfferingExpenseResponse[]>(`/offerings-expenses/${selectTerm}` , {
+          const {data} = await icupApi<OfferingExpenseResponse[]>(`/offering-expenses/${selectTerm}` , {
             params: {
               order,
               'search-type': searchType
@@ -194,7 +194,7 @@ export interface UpdateOfferingExpenseOptions {
 
 export const updateOfferingExpense = async ({id, formData}: UpdateOfferingExpenseOptions ): Promise<OfferingExpenseResponse> => {
   try {
-    const {data} = await icupApi.patch<OfferingExpenseResponse>(`/offerings-expenses/${id}`, formData)
+    const {data} = await icupApi.patch<OfferingExpenseResponse>(`/offering-expenses/${id}`, formData)
 
     return data;
   } catch (error) {
@@ -214,7 +214,7 @@ export interface DeleteOfferingExpenseOptions {
 
 export const deleteOfferingExpense = async ({id, reasonEliminationType}: DeleteOfferingExpenseOptions ): Promise<void> => {
   try {
-    const {data} = await icupApi.delete(`/offerings-expenses/${id}`,{
+    const {data} = await icupApi.delete(`/offering-expenses/${id}`,{
       params: {
         reasonEliminationType,
       },

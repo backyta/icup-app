@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useState } from 'react';
@@ -235,7 +235,7 @@ export const CopastorUpdateForm = ({
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
               <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] pl-0 mb-4 md:pl-4'>
-                Co-Pastor: {data?.firstName} {data?.lastName}
+                Co-Pastor: {data?.member?.firstName} {data?.member?.lastName}
               </div>
               <Form {...form}>
                 <form
@@ -923,7 +923,7 @@ export const CopastorUpdateForm = ({
                       </span>
                     )}
 
-                    {/* Relaciones  */}
+                    {/* Relations  */}
                     <div>
                       <legend className='font-bold col-start-1 col-end-3 text-[15px] md:text-[16px]'>
                         Relaciones
@@ -957,7 +957,7 @@ export const CopastorUpdateForm = ({
                                         )}
                                       >
                                         {field.value
-                                          ? `${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.firstName} ${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.lastName}`
+                                          ? `${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.member?.firstName} ${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.member?.lastName}`
                                           : 'Busque y seleccione un pastor'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
@@ -978,8 +978,8 @@ export const CopastorUpdateForm = ({
                                               <CommandItem
                                                 className='text-[14px]'
                                                 value={getFullNames({
-                                                  firstNames: pastor.firstName,
-                                                  lastNames: pastor.lastName,
+                                                  firstNames: pastor?.member?.firstName ?? '',
+                                                  lastNames: pastor?.member?.lastName ?? '',
                                                 })}
                                                 key={pastor.id}
                                                 onSelect={() => {
@@ -987,7 +987,7 @@ export const CopastorUpdateForm = ({
                                                   setIsInputTheirPastorOpen(false);
                                                 }}
                                               >
-                                                {`${pastor?.firstName} ${pastor?.lastName}`}
+                                                {`${pastor?.member?.firstName} ${pastor?.member?.lastName}`}
                                                 <CheckIcon
                                                   className={cn(
                                                     'ml-auto h-4 w-4',

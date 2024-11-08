@@ -93,7 +93,7 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
       return getOfferingsForBarChartByTerm({
         searchType: DashboardSearchType.TopFamilyGroupsOfferings,
         church: searchParams?.church ?? church,
-        date: new Date().getFullYear().toString(),
+        year: new Date().getFullYear().toString(),
         order: RecordOrder.Descending, // allows you to invert the array of all offering to take the first as the last offering according to currency.
       });
     },

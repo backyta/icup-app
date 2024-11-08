@@ -81,7 +81,7 @@ export function GeneralOfferingIncomeSearchDataTable<TData, TValue>({
 
   //* Queries
   const query = useQuery({
-    queryKey: ['general-offerings-income', searchParams],
+    queryKey: ['general-offering-income', searchParams],
     queryFn: () => getOfferingsIncome(searchParams as OfferingIncomeQueryParams),
     enabled: !!searchParams,
     retry: 1,

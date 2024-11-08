@@ -45,7 +45,7 @@ export const zoneSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El termino es requerido',
+      message: 'El termino es requerido.',
       path: ['inputTerm'],
     }
   )
@@ -59,7 +59,7 @@ export const zoneSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'Por favor seleccione una opción',
+      message: 'Por favor seleccione una opción.',
       path: ['selectTerm'],
     }
   )

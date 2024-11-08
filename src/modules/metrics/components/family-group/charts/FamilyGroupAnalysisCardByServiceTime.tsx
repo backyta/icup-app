@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect, useState } from 'react';
@@ -72,7 +72,7 @@ interface ResultDataOptions {
 
 interface SearchParamsOptions {
   zone?: string;
-  allZones?: boolean;
+  all?: boolean;
 }
 
 interface Props {
@@ -111,7 +111,7 @@ export const FamilyGroupAnalysisCardByServiceTime = ({ churchId }: Props): JSX.E
       return getFamilyGroupsByServiceTime({
         searchType: MetricSearchType.FamilyGroupsByServiceTime,
         zone: searchParams?.zone ?? zone,
-        allZones: !!all,
+        allZones: searchParams?.all ?? all,
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       });
@@ -125,7 +125,7 @@ export const FamilyGroupAnalysisCardByServiceTime = ({ churchId }: Props): JSX.E
   useEffect(() => {
     if (zonesQuery.data) {
       const zone = zonesQuery?.data?.map((zone) => zone?.id)[0];
-      setSearchParams({ zone });
+      setSearchParams({ zone, all: false });
       form.setValue('zone', zone);
       form.setValue('all', false);
     }

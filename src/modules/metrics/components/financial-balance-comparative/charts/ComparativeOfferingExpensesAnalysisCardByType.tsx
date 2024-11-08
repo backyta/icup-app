@@ -230,7 +230,7 @@ export const ComparativeOfferingExpensesAnalysisCardByType = ({ churchId }: Prop
                                 <CheckIcon
                                   className={cn(
                                     'ml-auto h-4 w-4',
-                                    type.value === field.value ? 'opacity-100' : 'opacity-0'
+                                    type.key === field.value ? 'opacity-100' : 'opacity-0'
                                   )}
                                 />
                               </CommandItem>

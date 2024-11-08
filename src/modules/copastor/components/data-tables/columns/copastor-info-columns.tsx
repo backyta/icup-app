@@ -13,6 +13,7 @@ import { Button } from '@/shared/components/ui/button';
 
 export const copastorInfoColumns: Array<ColumnDef<CopastorColumns, any>> = [
   {
+    id: 'id',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.getValue();
@@ -34,7 +35,8 @@ export const copastorInfoColumns: Array<ColumnDef<CopastorColumns, any>> = [
     },
   },
   {
-    accessorKey: 'firstName',
+    id: 'firstName',
+    accessorKey: 'member.firstName',
     header: ({ column }) => {
       return (
         <Button
@@ -51,7 +53,8 @@ export const copastorInfoColumns: Array<ColumnDef<CopastorColumns, any>> = [
     },
   },
   {
-    accessorKey: 'lastName',
+    id: 'lastName',
+    accessorKey: 'member.lastName',
     header: ({ column }) => {
       return (
         <Button
@@ -68,7 +71,8 @@ export const copastorInfoColumns: Array<ColumnDef<CopastorColumns, any>> = [
     },
   },
   {
-    accessorKey: 'gender',
+    id: 'gender',
+    accessorKey: 'member.gender',
     cell: (info) => {
       const gender = info.getValue();
       return gender === 'male' ? 'M' : 'F';
@@ -89,7 +93,8 @@ export const copastorInfoColumns: Array<ColumnDef<CopastorColumns, any>> = [
     },
   },
   {
-    accessorKey: 'birthDate',
+    id: 'birthDate',
+    accessorKey: 'member.birthDate',
     cell: (info) => {
       const birthDate = info.getValue();
       const adjustedDate = birthDate ? addDays(birthDate, 1) : null;
@@ -111,11 +116,14 @@ export const copastorInfoColumns: Array<ColumnDef<CopastorColumns, any>> = [
     },
   },
   {
+    id: 'updatedBy',
     accessorKey: 'updatedBy',
     cell: (info) => {
       const firstNames = info.getValue()?.firstName;
       const lastNames = info.getValue()?.lastName;
-      return firstNames && lastNames ? getInitialFullNames({ firstNames, lastNames }) : '-';
+      return firstNames && lastNames
+        ? getInitialFullNames({ firstNames: firstNames ?? '', lastNames: lastNames ?? '' })
+        : '-';
     },
     header: ({ column }) => {
       return (

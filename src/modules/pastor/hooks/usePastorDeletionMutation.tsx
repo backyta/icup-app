@@ -8,11 +8,13 @@ import { deletePastor } from '@/modules/pastor/services';
 import { type ErrorResponse } from '@/shared/interfaces';
 
 interface Options {
+  scrollToTop: () => void;
   setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const usePastorDeletionMutation = ({
+  scrollToTop,
   setIsCardOpen,
   setIsButtonDisabled,
 }: Options): UseMutationResult<void, ErrorResponse, string, unknown> => {
@@ -33,7 +35,7 @@ export const usePastorDeletionMutation = ({
         });
 
         setTimeout(() => {
-          setIsCardOpen(false);
+          setIsCardOpen(true);
           setIsButtonDisabled(false);
         }, 2000);
       }
@@ -54,6 +56,10 @@ export const usePastorDeletionMutation = ({
         position: 'top-center',
         className: 'justify-center',
       });
+
+      setTimeout(() => {
+        scrollToTop();
+      }, 150);
 
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['pastors-by-term'] });

@@ -3,7 +3,6 @@
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import { getInitialFullNames } from '@/shared/helpers';
 import { Button } from '@/shared/components/ui/button';
 
 import { type ZoneColumns } from '@/modules/zone/interfaces';
@@ -11,6 +10,7 @@ import { ZoneInfoCard, ZoneDeleteCard } from '@/modules/zone/components';
 
 export const zoneDeleteColumns: Array<ColumnDef<ZoneColumns, any>> = [
   {
+    id: 'id',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.getValue();
@@ -32,6 +32,7 @@ export const zoneDeleteColumns: Array<ColumnDef<ZoneColumns, any>> = [
     },
   },
   {
+    id: 'zoneName',
     accessorKey: 'zoneName',
     header: ({ column }) => {
       return (
@@ -49,6 +50,7 @@ export const zoneDeleteColumns: Array<ColumnDef<ZoneColumns, any>> = [
     },
   },
   {
+    id: 'department',
     accessorKey: 'department',
     header: ({ column }) => {
       return (
@@ -66,6 +68,7 @@ export const zoneDeleteColumns: Array<ColumnDef<ZoneColumns, any>> = [
     },
   },
   {
+    id: 'province',
     accessorKey: 'province',
     header: ({ column }) => {
       return (
@@ -83,6 +86,7 @@ export const zoneDeleteColumns: Array<ColumnDef<ZoneColumns, any>> = [
     },
   },
   {
+    id: 'district',
     accessorKey: 'district',
     header: ({ column }) => {
       return (
@@ -94,28 +98,6 @@ export const zoneDeleteColumns: Array<ColumnDef<ZoneColumns, any>> = [
           }}
         >
           Distrito
-          <ArrowUpDown className='ml-2 h-4 w-4' />
-        </Button>
-      );
-    },
-  },
-  {
-    accessorKey: 'updatedBy',
-    cell: (info) => {
-      const firstNames = info.getValue()?.firstName;
-      const lastNames = info.getValue()?.lastName;
-      return firstNames && lastNames ? getInitialFullNames({ firstNames, lastNames }) : '-';
-    },
-    header: ({ column }) => {
-      return (
-        <Button
-          className='font-bold text-[13px] md:text-[14px] text-orange-500 hover:text-orange-500'
-          variant='ghost'
-          onClick={() => {
-            column.toggleSorting(column.getIsSorted() === 'asc');
-          }}
-        >
-          Actualizado por
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );

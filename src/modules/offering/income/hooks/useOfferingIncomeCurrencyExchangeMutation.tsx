@@ -68,11 +68,10 @@ export const useOfferingIncomeCurrencyExchangeMutation = ({
       }, 150);
 
       setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['offerings-income-by-term'] });
+        queryClient.invalidateQueries({ queryKey: ['offering-income-by-term'] });
         dialogClose();
         setIsInputDisabled(false);
       }, 1200);
-      // TODO : Replicar en los demás esto que se actualize ni bien se cierra
     },
   });
 

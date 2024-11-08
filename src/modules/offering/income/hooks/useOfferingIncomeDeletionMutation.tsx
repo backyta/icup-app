@@ -12,12 +12,14 @@ import {
 import { type ErrorResponse } from '@/shared/interfaces';
 
 interface Options {
+  scrollToTop: () => void;
   setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSelectInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useOfferingIncomeDeletionMutation = ({
+  scrollToTop,
   setIsCardOpen,
   setIsSelectInputDisabled,
   setIsButtonDisabled,
@@ -38,9 +40,8 @@ export const useOfferingIncomeDeletionMutation = ({
           className: 'justify-center',
         });
 
-        // TODO : Pasar el sreoll to top a todos los que nececitan en delete church ... etc y todos los mini modales
         setTimeout(() => {
-          setIsCardOpen(false);
+          setIsCardOpen(true);
           setIsButtonDisabled(false);
         }, 2000);
       }
@@ -63,7 +64,11 @@ export const useOfferingIncomeDeletionMutation = ({
       });
 
       setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['offerings-income-by-term'] });
+        scrollToTop();
+      }, 150);
+
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['offering-income-by-term'] });
       }, 1000);
 
       setTimeout(() => {

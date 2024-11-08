@@ -12,6 +12,7 @@ import { Button } from '@/shared/components/ui/button';
 
 export const familyGroupInfoColumns: Array<ColumnDef<FamilyGroupColumns, any>> = [
   {
+    id: 'id',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.getValue();
@@ -33,6 +34,7 @@ export const familyGroupInfoColumns: Array<ColumnDef<FamilyGroupColumns, any>> =
     },
   },
   {
+    id: 'familyGroupName',
     accessorKey: 'familyGroupName',
     header: ({ column }) => {
       return (
@@ -50,6 +52,7 @@ export const familyGroupInfoColumns: Array<ColumnDef<FamilyGroupColumns, any>> =
     },
   },
   {
+    id: 'familyGroupCode',
     accessorKey: 'familyGroupCode',
     header: ({ column }) => {
       return (
@@ -67,6 +70,7 @@ export const familyGroupInfoColumns: Array<ColumnDef<FamilyGroupColumns, any>> =
     },
   },
   {
+    id: 'district',
     accessorKey: 'district',
     header: ({ column }) => {
       return (
@@ -84,6 +88,7 @@ export const familyGroupInfoColumns: Array<ColumnDef<FamilyGroupColumns, any>> =
     },
   },
   {
+    id: 'urbanSector',
     accessorKey: 'urbanSector',
     header: ({ column }) => {
       return (
@@ -102,11 +107,14 @@ export const familyGroupInfoColumns: Array<ColumnDef<FamilyGroupColumns, any>> =
   },
 
   {
+    id: 'updatedBy',
     accessorKey: 'updatedBy',
     cell: (info) => {
       const firstNames = info.getValue()?.firstName;
       const lastNames = info.getValue()?.lastName;
-      return firstNames && lastNames ? getInitialFullNames({ firstNames, lastNames }) : '-';
+      return firstNames && lastNames
+        ? getInitialFullNames({ firstNames: firstNames ?? '', lastNames: lastNames ?? '' })
+        : '-';
     },
     header: ({ column }) => {
       return (

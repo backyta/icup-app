@@ -60,6 +60,7 @@ const chartConfig = {
     color: '#E23670',
   },
 } satisfies ChartConfig;
+
 interface ResultDataOptions {
   familyGroupCode: string;
   preacher: string;
@@ -74,7 +75,7 @@ interface ResultDataOptions {
 
 interface SearchParamsOptions {
   zone?: string;
-  allFamilyGroups?: boolean;
+  all?: boolean;
 }
 
 interface Props {
@@ -112,8 +113,8 @@ export const FamilyGroupAnalysisCardByCode = ({ churchId }: Props): JSX.Element 
     queryFn: () => {
       return getFamilyGroupsByCode({
         searchType: MetricSearchType.FamilyGroupsByCode,
-        zone: searchParams?.zone ?? '',
-        allFamilyGroups: !!all,
+        zone: searchParams?.zone ?? zone,
+        allFamilyGroups: searchParams?.all ?? all,
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       });
@@ -127,7 +128,7 @@ export const FamilyGroupAnalysisCardByCode = ({ churchId }: Props): JSX.Element 
   useEffect(() => {
     if (zonesQuery.data) {
       const zone = zonesQuery?.data?.map((zone) => zone?.id)[0];
-      setSearchParams({ zone });
+      setSearchParams({ zone, all: false });
       form.setValue('zone', zone);
       form.setValue('all', false);
     }

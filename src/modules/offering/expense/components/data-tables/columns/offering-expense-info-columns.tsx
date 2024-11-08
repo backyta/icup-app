@@ -15,6 +15,7 @@ import { CurrencyTypeNames } from '@/modules/offering/shared/enums';
 
 export const offeringExpenseInfoColumns: Array<ColumnDef<OfferingExpenseColumns, any>> = [
   {
+    id: 'id',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.getValue();
@@ -36,6 +37,7 @@ export const offeringExpenseInfoColumns: Array<ColumnDef<OfferingExpenseColumns,
     },
   },
   {
+    id: 'type',
     accessorKey: 'type',
     header: ({ column }) => {
       return (
@@ -53,6 +55,7 @@ export const offeringExpenseInfoColumns: Array<ColumnDef<OfferingExpenseColumns,
     },
   },
   {
+    id: 'subType',
     accessorKey: 'subType',
     header: ({ column }) => {
       return (
@@ -70,6 +73,7 @@ export const offeringExpenseInfoColumns: Array<ColumnDef<OfferingExpenseColumns,
     },
   },
   {
+    id: 'amount',
     accessorKey: 'amount',
     header: ({ column }) => {
       return (
@@ -87,6 +91,7 @@ export const offeringExpenseInfoColumns: Array<ColumnDef<OfferingExpenseColumns,
     },
   },
   {
+    id: 'currency',
     accessorKey: 'currency',
     cell: (info) => {
       const currency = info.getValue();
@@ -109,6 +114,7 @@ export const offeringExpenseInfoColumns: Array<ColumnDef<OfferingExpenseColumns,
     },
   },
   {
+    id: 'date',
     accessorKey: 'date',
     cell: (info) => {
       const date = info.getValue();
@@ -131,11 +137,14 @@ export const offeringExpenseInfoColumns: Array<ColumnDef<OfferingExpenseColumns,
     },
   },
   {
-    accessorKey: 'updated_by',
+    id: 'updatedBy',
+    accessorKey: 'updatedBy',
     cell: (info) => {
       const firstNames = info.getValue()?.firstName;
       const lastNames = info.getValue()?.lastName;
-      return firstNames && lastNames ? getInitialFullNames({ firstNames, lastNames }) : '-';
+      return firstNames && lastNames
+        ? getInitialFullNames({ firstNames: firstNames ?? '', lastNames: lastNames ?? '' })
+        : '-';
     },
     header: ({ column }) => {
       return (

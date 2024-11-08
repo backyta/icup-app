@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { MdDeleteForever } from 'react-icons/md';
 
@@ -18,6 +18,7 @@ export const PreacherDeleteCard = ({ idRow }: PreacherDeleteCardProps): JSX.Elem
   //* States
   const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
+  const topRef = useRef<HTMLDivElement>(null);
 
   //* Effects
   useEffect(() => {
@@ -35,10 +36,18 @@ export const PreacherDeleteCard = ({ idRow }: PreacherDeleteCardProps): JSX.Elem
     }
   }, [idRow, isCardOpen]);
 
+  //* Functions
+  const handleContainerScroll = useCallback((): void => {
+    if (topRef.current !== null) {
+      topRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, []);
+
   //* Custom hooks
   const preacherDeletionMutation = usePreacherDeletionMutation({
     setIsCardOpen,
     setIsButtonDisabled,
+    scrollToTop: handleContainerScroll,
   });
 
   return (
@@ -53,7 +62,10 @@ export const PreacherDeleteCard = ({ idRow }: PreacherDeleteCardProps): JSX.Elem
           <MdDeleteForever className='w-8 h-[1.65rem]' />
         </Button>
       </DialogTrigger>
-      <DialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
+      <DialogContent
+        ref={topRef}
+        className='w-[23rem] sm:w-[25rem] md:w-full max-h-full overflow-x-hidden overflow-y-auto'
+      >
         <div className='h-auto'>
           <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-3'>
             ¿Estas seguro de eliminar a este Predicador?

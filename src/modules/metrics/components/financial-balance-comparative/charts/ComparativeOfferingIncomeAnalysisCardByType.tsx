@@ -75,7 +75,7 @@ interface ResultDataOptions {
   accumulatedOfferingEUR: number;
   church: {
     isAnexe: boolean;
-    churchName: string;
+    abbreviatedChurchName: string;
   };
   totalAmount: number;
   totalPercentage: string;

@@ -17,6 +17,7 @@ import { CurrencyTypeNames } from '@/modules/offering/shared/enums';
 
 export const offeringIncomeUpdateColumns: Array<ColumnDef<OfferingIncomeColumns, any>> = [
   {
+    id: 'id',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.getValue();
@@ -38,6 +39,7 @@ export const offeringIncomeUpdateColumns: Array<ColumnDef<OfferingIncomeColumns,
     },
   },
   {
+    id: 'type',
     accessorKey: 'type',
     header: ({ column }) => {
       return (
@@ -55,6 +57,7 @@ export const offeringIncomeUpdateColumns: Array<ColumnDef<OfferingIncomeColumns,
     },
   },
   {
+    id: 'subType',
     accessorKey: 'subType',
     header: ({ column }) => {
       return (
@@ -72,6 +75,7 @@ export const offeringIncomeUpdateColumns: Array<ColumnDef<OfferingIncomeColumns,
     },
   },
   {
+    id: 'amount',
     accessorKey: 'amount',
     header: ({ column }) => {
       return (
@@ -89,6 +93,7 @@ export const offeringIncomeUpdateColumns: Array<ColumnDef<OfferingIncomeColumns,
     },
   },
   {
+    id: 'currency',
     accessorKey: 'currency',
     cell: (info) => {
       const currency = info.getValue();
@@ -111,6 +116,7 @@ export const offeringIncomeUpdateColumns: Array<ColumnDef<OfferingIncomeColumns,
     },
   },
   {
+    id: 'date',
     accessorKey: 'date',
     cell: (info) => {
       const date = info.getValue();

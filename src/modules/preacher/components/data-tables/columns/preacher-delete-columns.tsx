@@ -12,6 +12,7 @@ import { PreacherInfoCard, PreacherDeleteCard } from '@/modules/preacher/compone
 
 export const preacherDeleteColumns: Array<ColumnDef<PreacherColumns, any>> = [
   {
+    id: 'id',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.getValue();
@@ -33,7 +34,8 @@ export const preacherDeleteColumns: Array<ColumnDef<PreacherColumns, any>> = [
     },
   },
   {
-    accessorKey: 'firstName',
+    id: 'firstName',
+    accessorKey: 'member.firstName',
     header: ({ column }) => {
       return (
         <Button
@@ -50,7 +52,8 @@ export const preacherDeleteColumns: Array<ColumnDef<PreacherColumns, any>> = [
     },
   },
   {
-    accessorKey: 'lastName',
+    id: 'lastName',
+    accessorKey: 'member.lastName',
     header: ({ column }) => {
       return (
         <Button
@@ -67,7 +70,8 @@ export const preacherDeleteColumns: Array<ColumnDef<PreacherColumns, any>> = [
     },
   },
   {
-    accessorKey: 'gender',
+    id: 'gender',
+    accessorKey: 'member.gender',
     cell: (info) => {
       const gender = info.getValue();
       return gender === 'male' ? 'M' : 'F';
@@ -88,7 +92,8 @@ export const preacherDeleteColumns: Array<ColumnDef<PreacherColumns, any>> = [
     },
   },
   {
-    accessorKey: 'birthDate',
+    id: 'birthDate',
+    accessorKey: 'member.birthDate',
     cell: (info) => {
       const birthDate = info.getValue();
       const adjustedDate = birthDate ? addDays(birthDate, 1) : null;

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
 import { useEffect, useState } from 'react';
 
 import { format } from 'date-fns';
@@ -65,26 +66,29 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/
 const dataFictional: SupervisorResponse[] = [
   {
     id: '',
-    firstName: '',
-    lastName: '',
-    gender: '',
-    age: 0,
-    originCountry: '',
-    birthDate: new Date('2024-05-21'),
-    maritalStatus: '',
-    numberChildren: 0,
-    conversionDate: new Date('2024-05-21'),
+    member: {
+      id: '',
+      firstName: '',
+      lastName: '',
+      gender: '',
+      age: 0,
+      originCountry: '',
+      birthDate: new Date('2024-05-21'),
+      maritalStatus: '',
+      numberChildren: 0,
+      conversionDate: new Date('2024-05-21'),
+      email: '',
+      phoneNumber: '',
+      country: '',
+      department: '',
+      province: '',
+      district: '',
+      urbanSector: '',
+      address: '',
+      referenceAddress: '',
+      roles: [],
+    },
     isDirectRelationToPastor: false,
-    email: '',
-    phoneNumber: '',
-    country: '',
-    department: '',
-    province: '',
-    district: '',
-    urbanSector: '',
-    address: '',
-    referenceAddress: '',
-    roles: [],
     recordStatus: '',
     theirPastor: null,
     theirCopastor: null,

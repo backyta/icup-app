@@ -51,6 +51,33 @@ export interface Disciple {
   lastName:  string;
 }
 
+export interface Member {
+  id:               string;
+  firstName:        string;
+  lastName:         string;
+  gender:           string;
+  originCountry:    string;
+  age:              number;
+  birthDate:        Date;
+  maritalStatus:    string;
+  numberChildren:   number;
+  conversionDate:   Date;
+  email:            string;
+  phoneNumber:      string;
+  country:          string;
+  department:       string;
+  province:         string;
+  district:         string;
+  urbanSector:      string;
+  address:          string;
+  referenceAddress: string;
+  roles:            string[];
+  createdAt?:       Date;
+  createdBy?:       CreatedBy;
+  updatedAt?:       Date;
+  updatedBy?:       UpdatedBy;
+}
+
 export interface CreatedBy {
   id:         string;
   firstName:  string;
@@ -61,7 +88,7 @@ export interface CreatedBy {
   createdBy?: CreatedBy;
   updatedAt?: Date;
   updatedBy?: UpdatedBy;
-  status?:     string;
+  recordStatus?:     string;
 }
 
 export interface UpdatedBy {
@@ -74,7 +101,7 @@ export interface UpdatedBy {
   createdBy?:  CreatedBy;
   updatedAt?:  Date;
   updatedBy?:  UpdatedBy;
-  status?:      string;
+  recordStatus?:      string;
 }
 
 export interface MainChurch {
@@ -97,7 +124,7 @@ export interface MainChurch {
   createdBy?:        CreatedBy;
   updatedAt?:       Date;
   updatedBy?:       UpdatedBy;
-  status?:           string;
+  recordStatus?:           string;
 }
 
 export type TheirChurch = MainChurch;
@@ -128,7 +155,7 @@ export interface TheirPastor {
   createdBy?:        CreatedBy;
   updatedAt?:       Date;
   updatedBy?:       UpdatedBy;
-  status?:           string;
+  recordStatus?:     string;
 }
 
 export interface TheirCopastor {
@@ -156,7 +183,7 @@ export interface TheirCopastor {
   createdBy?:        CreatedBy;
   updatedAt?:       Date;
   updatedBy?:       UpdatedBy;
-  status?:           string;
+  recordStatus?:     string;
 }
 
 export interface TheirSupervisor {
@@ -185,7 +212,7 @@ export interface TheirSupervisor {
   createdBy?:        CreatedBy;
   updatedAt?:       Date;
   updatedBy?:       UpdatedBy;
-  status?:          string;
+  recordStatus?:     string;
 }
 export interface TheirPreacher {
   id:               string;
@@ -212,7 +239,7 @@ export interface TheirPreacher {
   createdBy?:        CreatedBy;
   updatedAt?:       Date;
   updatedBy?:       UpdatedBy;
-  status?:           string;
+  recordStatus?:     string;
 }
 
 export interface TheirZone {
@@ -225,7 +252,7 @@ export interface TheirZone {
   createdBy?:  CreatedBy;
   updatedAt?: Date;
   updatedBy?: UpdatedBy;
-  status?:     string;
+  recordStatus?: string;
 }
 
 export interface TheirFamilyGroup {
@@ -234,9 +261,9 @@ export interface TheirFamilyGroup {
   familyGroupCode: string;
   district:        string;
   urbanSector:     string;
-  createdAt?:  Date;
-  createdBy?:  CreatedBy;
-  updatedAt?: Date;
-  updatedBy?: UpdatedBy;
-  status?:     string;
+  createdAt?:      Date;
+  createdBy?:      CreatedBy;
+  updatedAt?:      Date;
+  updatedBy?:      UpdatedBy;
+  recordStatus?:   string;
 }

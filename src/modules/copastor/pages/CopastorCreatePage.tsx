@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/promise-function-async */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/promise-function-async */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect, useState } from 'react';
 
@@ -806,7 +806,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                               )}
                             >
                               {field.value
-                                ? `${data?.find((pastor) => pastor.id === field.value)?.firstName} ${data?.find((pastor) => pastor.id === field.value)?.lastName}`
+                                ? `${data?.find((pastor) => pastor.id === field.value)?.member?.firstName} ${data?.find((pastor) => pastor.id === field.value)?.member?.lastName}`
                                 : 'Busque y seleccione un pastor'}
                               <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                             </Button>
@@ -826,8 +826,8 @@ export const CopastorCreatePage = (): JSX.Element => {
                                     <CommandItem
                                       className='text-[14px]'
                                       value={getFullNames({
-                                        firstNames: pastor.firstName,
-                                        lastNames: pastor.lastName,
+                                        firstNames: pastor.member?.firstName ?? '',
+                                        lastNames: pastor.member?.lastName ?? '',
                                       })}
                                       key={pastor.id}
                                       onSelect={() => {
@@ -835,7 +835,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                                         setIsInputTheirPastorOpen(false);
                                       }}
                                     >
-                                      {`${pastor?.firstName} ${pastor?.lastName}`}
+                                      {`${pastor?.member?.firstName} ${pastor?.member?.lastName}`}
                                       <CheckIcon
                                         className={cn(
                                           'ml-auto h-4 w-4',

@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-misused-promises */
 
 import { useState } from 'react';
 
@@ -231,7 +231,7 @@ export const FamilyGroupPreacherUpdateForm = ({
                                     className={cn('w-full justify-between font-medium text-[14px]')}
                                   >
                                     {field.value
-                                      ? `${preachersQuery?.data?.find((preacher) => preacher.id === field.value)?.firstName} ${preachersQuery.data?.find((preacher) => preacher.id === field.value)?.lastName}`
+                                      ? `${preachersQuery?.data?.find((preacher) => preacher.id === field.value)?.member?.firstName} ${preachersQuery.data?.find((preacher) => preacher.id === field.value)?.member?.lastName}`
                                       : 'Seleccione un predicador'}
                                     <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                   </Button>
@@ -261,8 +261,8 @@ export const FamilyGroupPreacherUpdateForm = ({
                                               <CommandItem
                                                 className='text-[14px]'
                                                 value={getFullNames({
-                                                  firstNames: preacher.firstName,
-                                                  lastNames: preacher.lastName,
+                                                  firstNames: preacher?.member?.firstName ?? '',
+                                                  lastNames: preacher?.member?.lastName ?? '',
                                                 })}
                                                 key={preacher.id}
                                                 onSelect={() => {
@@ -270,7 +270,7 @@ export const FamilyGroupPreacherUpdateForm = ({
                                                   setIsInputTheirPreacherOpen(false);
                                                 }}
                                               >
-                                                {`${preacher?.firstName} ${preacher?.lastName}`}
+                                                {`${preacher?.member?.firstName} ${preacher?.member?.lastName}`}
                                                 <CheckIcon
                                                   className={cn(
                                                     'ml-auto h-4 w-4',

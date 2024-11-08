@@ -8,6 +8,7 @@ import { ChurchInfoCard, ChurchUpdateCard } from '@/modules/church/components';
 
 export const churchUpdateColumns: Array<ColumnDef<ChurchColumns, any>> = [
   {
+    id: 'id',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.getValue();
@@ -29,6 +30,7 @@ export const churchUpdateColumns: Array<ColumnDef<ChurchColumns, any>> = [
     },
   },
   {
+    id: 'abbreviatedChurchName',
     accessorKey: 'abbreviatedChurchName',
     header: ({ column }) => {
       return (
@@ -46,6 +48,7 @@ export const churchUpdateColumns: Array<ColumnDef<ChurchColumns, any>> = [
     },
   },
   {
+    id: 'phoneNumber',
     accessorKey: 'phoneNumber',
     header: ({ column }) => {
       return (
@@ -63,6 +66,7 @@ export const churchUpdateColumns: Array<ColumnDef<ChurchColumns, any>> = [
     },
   },
   {
+    id: 'district',
     accessorKey: 'district',
     header: ({ column }) => {
       return (
@@ -80,6 +84,7 @@ export const churchUpdateColumns: Array<ColumnDef<ChurchColumns, any>> = [
     },
   },
   {
+    id: 'urbanSector',
     accessorKey: 'urbanSector',
     header: ({ column }) => {
       return (

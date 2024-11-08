@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
@@ -11,6 +12,7 @@ import { getInitialFullNames } from '@/shared/helpers';
 
 export const userInfoColumns: Array<ColumnDef<UserColumns, any>> = [
   {
+    id: 'id',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.getValue();
@@ -32,6 +34,7 @@ export const userInfoColumns: Array<ColumnDef<UserColumns, any>> = [
     },
   },
   {
+    id: 'firstName',
     accessorKey: 'firstName',
     header: ({ column }) => {
       return (
@@ -49,6 +52,7 @@ export const userInfoColumns: Array<ColumnDef<UserColumns, any>> = [
     },
   },
   {
+    id: 'lastName',
     accessorKey: 'lastName',
     header: ({ column }) => {
       return (
@@ -66,6 +70,7 @@ export const userInfoColumns: Array<ColumnDef<UserColumns, any>> = [
     },
   },
   {
+    id: 'email',
     accessorKey: 'email',
     header: ({ column }) => {
       return (
@@ -83,6 +88,7 @@ export const userInfoColumns: Array<ColumnDef<UserColumns, any>> = [
     },
   },
   {
+    id: 'roles',
     accessorKey: 'roles',
     cell: (info) => {
       function convertRolesToSpanishString(roles: string[]): string {
@@ -108,11 +114,14 @@ export const userInfoColumns: Array<ColumnDef<UserColumns, any>> = [
     },
   },
   {
+    id: 'updatedBy',
     accessorKey: 'updatedBy',
     cell: (info) => {
       const firstNames = info.getValue()?.firstName;
       const lastNames = info.getValue()?.lastName;
-      return firstNames && lastNames ? getInitialFullNames({ firstNames, lastNames }) : '-';
+      return firstNames && lastNames
+        ? getInitialFullNames({ firstNames: firstNames ?? '', lastNames: lastNames ?? '' })
+        : '-';
     },
     header: ({ column }) => {
       return (

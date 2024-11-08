@@ -23,27 +23,30 @@ export const useDiscipleUpdateEffects = ({
 
   //* Set data
   useEffect(() => {
-    discipleUpdateForm.setValue('firstName', data?.firstName ?? '');
-    discipleUpdateForm.setValue('lastName', data?.lastName ?? '');
-    discipleUpdateForm.setValue('gender', data?.gender ?? '');
-    discipleUpdateForm.setValue('originCountry', data?.originCountry ?? '');
-    discipleUpdateForm.setValue('birthDate', new Date(String(data?.birthDate).replace(/-/g, '/')));
-    discipleUpdateForm.setValue('maritalStatus', data?.maritalStatus ?? '');
-    discipleUpdateForm.setValue('numberChildren', String(data?.numberChildren) ?? '0');
+    discipleUpdateForm.setValue('firstName', data?.member?.firstName ?? '');
+    discipleUpdateForm.setValue('lastName', data?.member?.lastName ?? '');
+    discipleUpdateForm.setValue('gender', data?.member?.gender ?? '');
+    discipleUpdateForm.setValue('originCountry', data?.member?.originCountry ?? '');
+    discipleUpdateForm.setValue(
+      'birthDate',
+      new Date(String(data?.member?.birthDate).replace(/-/g, '/'))
+    );
+    discipleUpdateForm.setValue('maritalStatus', data?.member?.maritalStatus ?? '');
+    discipleUpdateForm.setValue('numberChildren', String(data?.member?.numberChildren) ?? '0');
     discipleUpdateForm.setValue(
       'conversionDate',
-      new Date(String(data?.conversionDate).replace(/-/g, '/'))
+      new Date(String(data?.member?.conversionDate).replace(/-/g, '/'))
     );
-    discipleUpdateForm.setValue('email', data?.email ?? '');
-    discipleUpdateForm.setValue('phoneNumber', data?.phoneNumber ?? '');
-    discipleUpdateForm.setValue('country', data?.country ?? '');
-    discipleUpdateForm.setValue('department', data?.department ?? '');
-    discipleUpdateForm.setValue('province', data?.province ?? '');
-    discipleUpdateForm.setValue('district', data?.district ?? '');
-    discipleUpdateForm.setValue('urbanSector', data?.urbanSector ?? '');
-    discipleUpdateForm.setValue('address', data?.address ?? '');
-    discipleUpdateForm.setValue('referenceAddress', data?.referenceAddress ?? '');
-    discipleUpdateForm.setValue('roles', data?.roles as MemberRole[]);
+    discipleUpdateForm.setValue('email', data?.member?.email ?? '');
+    discipleUpdateForm.setValue('phoneNumber', data?.member?.phoneNumber ?? '');
+    discipleUpdateForm.setValue('country', data?.member?.country ?? '');
+    discipleUpdateForm.setValue('department', data?.member?.department ?? '');
+    discipleUpdateForm.setValue('province', data?.member?.province ?? '');
+    discipleUpdateForm.setValue('district', data?.member?.district ?? '');
+    discipleUpdateForm.setValue('urbanSector', data?.member?.urbanSector ?? '');
+    discipleUpdateForm.setValue('address', data?.member?.address ?? '');
+    discipleUpdateForm.setValue('referenceAddress', data?.member?.referenceAddress ?? '');
+    discipleUpdateForm.setValue('roles', data?.member?.roles as MemberRole[]);
     discipleUpdateForm.setValue('theirFamilyGroup', data?.theirFamilyGroup?.id);
     discipleUpdateForm.setValue('recordStatus', data?.recordStatus);
 
@@ -52,7 +55,7 @@ export const useDiscipleUpdateEffects = ({
     }, 1200);
 
     return () => {
-      clearTimeout(timeoutId); // Limpiar el timeout cuando el componente se desmonte
+      clearTimeout(timeoutId);
     };
   }, []);
 

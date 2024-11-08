@@ -125,18 +125,6 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
                     firstValue={'firstName'}
                     secondValue={'lastName'}
                   />
-                  {/* {data?.disciples?.length !== undefined && data?.disciples?.length > 0 ? (
-                    data?.disciples?.map((disciple) => (
-                      <li key={disciple.id}>
-                        {getInitialFullNames({
-                          firstNames: disciple?.firstName ?? '-',
-                          lastNames: disciple?.lastName ?? '-',
-                        })}
-                      </li>
-                    ))
-                  ) : (
-                    <li className='text-red-500'>No hay miembros en este grupo familiar</li>
-                  )} */}
                 </ul>
               </div>
             </div>

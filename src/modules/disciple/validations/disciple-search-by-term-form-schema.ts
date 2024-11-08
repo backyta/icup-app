@@ -30,7 +30,7 @@ export const discipleSearchByTermFormSchema = z
     limit: z.string().refine(limit => {
       return /^\d+$/.test(limit);
     }, {
-      message: 'El límite debe ser un número positivo'
+      message: 'El límite debe ser un número positivo.'
     }).refine(limit => {
       const parsedLimit = parseInt(limit);
       return !isNaN(parsedLimit) && parsedLimit > 0;
@@ -57,7 +57,7 @@ export const discipleSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El sub-tipo es requerido',
+      message: 'El sub-tipo es requerido.',
       path: ['searchSubType'],
     }
   )
@@ -71,7 +71,7 @@ export const discipleSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El nombre es requerido',
+      message: 'El nombre es requerido.',
       path: ['namesTerm'],
     }
   )
@@ -85,7 +85,7 @@ export const discipleSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El apellido es requerido',
+      message: 'El apellido es requerido.',
       path: ['lastNamesTerm'],
     }
   )
@@ -100,7 +100,7 @@ export const discipleSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El nombre es requerido',
+      message: 'El nombre es requerido.',
       path: ['lastNamesTerm'],
     }
   )
@@ -114,7 +114,7 @@ export const discipleSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El apellido es requerido',
+      message: 'El apellido es requerido.',
       path: ['namesTerm'],
     }
   )
@@ -135,7 +135,7 @@ export const discipleSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El termino es requerido',
+      message: 'El termino es requerido.',
       path: ['inputTerm'],
     }
   )
@@ -152,7 +152,7 @@ export const discipleSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'Por favor seleccione una opción',
+      message: 'Por favor seleccione una opción.',
       path: ['selectTerm'],
     }
   )
@@ -166,7 +166,7 @@ export const discipleSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'Por favor seleccione una fecha',
+      message: 'Por favor seleccione una fecha.',
       path: ['dateTerm'],
     }
   )

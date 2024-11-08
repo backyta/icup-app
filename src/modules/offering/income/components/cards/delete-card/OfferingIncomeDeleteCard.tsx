@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
@@ -47,6 +47,7 @@ export const OfferingIncomeDeleteCard = ({ id }: OfferingIncomeDeleteCardProps):
   const [isCardOpen, setIsCardOpen] = useState<boolean>(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
   const [isSelectInputDisabled, setIsSelectInputDisabled] = useState<boolean>(false);
+  const topRef = useRef<HTMLDivElement>(null);
 
   //* Form
   const form = useForm<z.infer<typeof offeringDeleteFormSchema>>({
@@ -54,15 +55,11 @@ export const OfferingIncomeDeleteCard = ({ id }: OfferingIncomeDeleteCardProps):
     resolver: zodResolver(offeringDeleteFormSchema),
     defaultValues: {
       reasonEliminationType: '',
-      exchangeRate: '',
-      exchangeCurrencyType: '',
     },
   });
 
   //* Watchers
-  const exchangeRate = form.watch('exchangeRate');
   const reasonEliminationType = form.watch('reasonEliminationType');
-  const exchangeCurrencyType = form.watch('exchangeCurrencyType');
 
   //* Effects
   useEffect(() => {
@@ -72,23 +69,7 @@ export const OfferingIncomeDeleteCard = ({ id }: OfferingIncomeDeleteCardProps):
     if (reasonEliminationType !== '') {
       setIsButtonDisabled(false);
     }
-
-    if (
-      reasonEliminationType === OfferingIncomeReasonEliminationType.CurrencyExchange &&
-      (!exchangeRate || !exchangeCurrencyType)
-    ) {
-      setIsButtonDisabled(true);
-    }
-  }, [form, exchangeRate, exchangeCurrencyType, reasonEliminationType]);
-
-  useEffect(() => {
-    form.resetField('exchangeRate', {
-      keepDirty: true,
-    });
-    form.resetField('exchangeCurrencyType', {
-      keepDirty: true,
-    });
-  }, [reasonEliminationType]);
+  }, [form, reasonEliminationType]);
 
   useEffect(() => {
     const originalUrl = window.location.href;
@@ -105,11 +86,19 @@ export const OfferingIncomeDeleteCard = ({ id }: OfferingIncomeDeleteCardProps):
     }
   }, [id, isCardOpen]);
 
+  //* Functions
+  const handleContainerScroll = useCallback((): void => {
+    if (topRef.current !== null) {
+      topRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, []);
+
   //* Custom hooks
   const offeringIncomeDeletionMutation = useOfferingIncomeDeletionMutation({
     setIsSelectInputDisabled,
     setIsCardOpen,
     setIsButtonDisabled,
+    scrollToTop: handleContainerScroll,
   });
 
   //* Form handler
@@ -120,8 +109,6 @@ export const OfferingIncomeDeleteCard = ({ id }: OfferingIncomeDeleteCardProps):
     offeringIncomeDeletionMutation.mutate({
       id,
       reasonEliminationType: formData.reasonEliminationType,
-      exchangeRate: formData.exchangeRate ?? undefined,
-      exchangeCurrencyType: formData.exchangeCurrencyType ?? undefined,
     });
   };
 
@@ -137,7 +124,10 @@ export const OfferingIncomeDeleteCard = ({ id }: OfferingIncomeDeleteCardProps):
           <MdDeleteForever className='w-8 h-[1.65rem]' />
         </Button>
       </DialogTrigger>
-      <DialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
+      <DialogContent
+        ref={topRef}
+        className='w-[23rem] sm:w-[25rem] md:w-full max-h-full overflow-x-hidden overflow-y-auto'
+      >
         <div className='h-auto'>
           <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-3'>
             ¿Estas seguro de eliminar este registro?

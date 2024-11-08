@@ -14,4 +14,3 @@ export interface CopastorColumns {
   updatedBy?:     UpdatedBy;
   recordStatus?:  string;
 }
-

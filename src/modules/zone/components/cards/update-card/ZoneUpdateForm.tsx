@@ -385,7 +385,7 @@ export const ZoneUpdateForm = ({
                                     )}
                                   >
                                     {field.value
-                                      ? `${notAvailableSupervisorQuery?.data?.find((supervisor) => supervisor.id === field.value)?.firstName} ${notAvailableSupervisorQuery?.data?.find((supervisor) => supervisor.id === field.value)?.lastName}`
+                                      ? `${notAvailableSupervisorQuery?.data?.find((supervisor) => supervisor.id === field.value)?.member?.firstName} ${notAvailableSupervisorQuery?.data?.find((supervisor) => supervisor.id === field.value)?.member?.lastName}`
                                       : 'Busque y seleccione una iglesia'}
                                     <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                   </Button>
@@ -406,8 +406,8 @@ export const ZoneUpdateForm = ({
                                           <CommandItem
                                             className='text-[14px]'
                                             value={getFullNames({
-                                              firstNames: supervisor.firstName,
-                                              lastNames: supervisor.lastName,
+                                              firstNames: supervisor?.member?.firstName ?? '',
+                                              lastNames: supervisor?.member?.lastName ?? '',
                                             })}
                                             key={supervisor.id}
                                             onSelect={() => {
@@ -415,7 +415,7 @@ export const ZoneUpdateForm = ({
                                               setIsInputTheirSupervisorOpen(false);
                                             }}
                                           >
-                                            {`${supervisor?.firstName} ${supervisor?.lastName}`}
+                                            {`${supervisor?.member?.firstName} ${supervisor?.member?.lastName}`}
                                             <CheckIcon
                                               className={cn(
                                                 'ml-auto h-4 w-4',

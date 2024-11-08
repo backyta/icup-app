@@ -11,6 +11,7 @@ import { type ZoneColumns } from '@/modules/zone/interfaces';
 
 export const zoneInfoColumns: Array<ColumnDef<ZoneColumns, any>> = [
   {
+    id: 'id',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.getValue();
@@ -32,6 +33,7 @@ export const zoneInfoColumns: Array<ColumnDef<ZoneColumns, any>> = [
     },
   },
   {
+    id: 'zoneName',
     accessorKey: 'zoneName',
     header: ({ column }) => {
       return (
@@ -49,6 +51,7 @@ export const zoneInfoColumns: Array<ColumnDef<ZoneColumns, any>> = [
     },
   },
   {
+    id: 'department',
     accessorKey: 'department',
     header: ({ column }) => {
       return (
@@ -66,6 +69,7 @@ export const zoneInfoColumns: Array<ColumnDef<ZoneColumns, any>> = [
     },
   },
   {
+    id: 'province',
     accessorKey: 'province',
     header: ({ column }) => {
       return (
@@ -83,6 +87,7 @@ export const zoneInfoColumns: Array<ColumnDef<ZoneColumns, any>> = [
     },
   },
   {
+    id: 'district',
     accessorKey: 'district',
     header: ({ column }) => {
       return (
@@ -100,11 +105,14 @@ export const zoneInfoColumns: Array<ColumnDef<ZoneColumns, any>> = [
     },
   },
   {
+    id: 'updatedBy',
     accessorKey: 'updatedBy',
     cell: (info) => {
       const firstNames = info.getValue()?.firstName;
       const lastNames = info.getValue()?.lastName;
-      return firstNames && lastNames ? getInitialFullNames({ firstNames, lastNames }) : '-';
+      return firstNames && lastNames
+        ? getInitialFullNames({ firstNames: firstNames ?? '', lastNames: lastNames ?? '' })
+        : '-';
     },
     header: ({ column }) => {
       return (

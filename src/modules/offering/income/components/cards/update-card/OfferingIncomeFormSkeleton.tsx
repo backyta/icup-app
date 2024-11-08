@@ -33,12 +33,6 @@ export const OfferingIncomeFormSkeleton = (): JSX.Element => {
               <Skeleton className='h-8 w-full mt-2' />
             </div>
 
-            <div>
-              <Skeleton className='h-4 w-24 mt-6' />
-              <Skeleton className='h-3 w-56 mt-3' />
-              <Skeleton className='h-8 w-full mt-2' />
-            </div>
-
             <div className='flex flex-row gap-x-6'>
               <div className='w-full'>
                 <Skeleton className='h-4 w-24 mt-6' />
@@ -66,8 +60,8 @@ export const OfferingIncomeFormSkeleton = (): JSX.Element => {
             </div>
 
             <div>
-              <Skeleton className='h-3 w-full mt-3' />
-              <Skeleton className='h-3 w-64 mt-3' />
+              <Skeleton className='h-4 w-full mt-3' />
+              <Skeleton className='h-4 w-64 mt-3' />
             </div>
 
             <div>

@@ -11,7 +11,7 @@ export const FamilyGroupFormSkeleton = (): JSX.Element => {
         <form className='w-full flex flex-col md:grid md:grid-cols-2 gap-x-10 gap-y-5 px-2 sm:px-12'>
           <div className='col-start-1 col-end-2'>
             <div>
-              <Skeleton className='h-4 w-24 mt-3' />
+              <Skeleton className='h-4 w-24 mt-4' />
               <Skeleton className='h-3 w-56 mt-3' />
               <Skeleton className='h-8 w-full mt-2' />
             </div>
@@ -49,7 +49,7 @@ export const FamilyGroupFormSkeleton = (): JSX.Element => {
 
           <div className='col-start-2 col-end-3'>
             <div>
-              <Skeleton className='h-4 w-24 mt-3' />
+              <Skeleton className='h-4 w-24 mt-4' />
               <Skeleton className='h-3 w-56 mt-3' />
               <Skeleton className='h-8 w-full mt-2' />
             </div>

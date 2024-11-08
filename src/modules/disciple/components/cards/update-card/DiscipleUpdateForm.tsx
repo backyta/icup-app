@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useState } from 'react';
 
@@ -232,7 +232,7 @@ export const DiscipleUpdateForm = ({
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
               <div className='dark:text-slate-300 text-slate-500 font-bold text-[17px] md:text-[18px] mb-4 ml-0 md:pl-4'>
-                Discípulo: {data?.firstName} {data?.lastName}
+                Discípulo: {data?.member?.firstName} {data?.member?.lastName}
               </div>
               <Form {...form}>
                 <form
@@ -1045,7 +1045,7 @@ export const DiscipleUpdateForm = ({
                                         )}
                                       >
                                         {field.value
-                                          ? `${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.firstName} ${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.lastName}`
+                                          ? `${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.member?.firstName} ${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.member?.lastName}`
                                           : 'Busque y seleccione un supervisor'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
@@ -1066,8 +1066,8 @@ export const DiscipleUpdateForm = ({
                                               <CommandItem
                                                 className='text-[14px]'
                                                 value={getFullNames({
-                                                  firstNames: supervisor.firstName,
-                                                  lastNames: supervisor.lastName,
+                                                  firstNames: supervisor.member?.firstName ?? '',
+                                                  lastNames: supervisor.member?.lastName ?? '',
                                                 })}
                                                 key={supervisor.id}
                                                 onSelect={() => {
@@ -1075,7 +1075,7 @@ export const DiscipleUpdateForm = ({
                                                   setIsInputTheirSupervisorOpen(false);
                                                 }}
                                               >
-                                                {`${supervisor?.firstName} ${supervisor?.lastName}`}
+                                                {`${supervisor?.member?.firstName} ${supervisor?.member?.lastName}`}
                                                 <CheckIcon
                                                   className={cn(
                                                     'ml-auto h-4 w-4',

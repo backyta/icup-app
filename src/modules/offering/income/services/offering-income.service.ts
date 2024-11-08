@@ -17,7 +17,7 @@ import {
 //* Create offering income
 export const createOfferingIncome = async (formData:OfferingIncomeFormData ): Promise<OfferingIncomeResponse> => {
   try {
-    const {data} = await icupApi.post<OfferingIncomeResponse>('/offerings-income', formData)
+    const {data} = await icupApi.post<OfferingIncomeResponse>('/offering-income', formData)
     
     return data;
   } catch (error) {
@@ -29,14 +29,14 @@ export const createOfferingIncome = async (formData:OfferingIncomeFormData ): Pr
   }
 }
 
-//* Get all offerings income (paginated)
+//* Get all offering income (paginated)
 export const getOfferingsIncome = async ({limit, offset, all, order}: OfferingIncomeQueryParams): Promise<OfferingIncomeResponse[]> => {
 
  let result: OfferingIncomeResponse[];
 
   try {
     if (!all) {
-      const {data} = await icupApi<OfferingIncomeResponse[]>('/offerings-income' , {
+      const {data} = await icupApi<OfferingIncomeResponse[]>('/offering-income' , {
         params: {
           limit,
           offset,
@@ -46,7 +46,7 @@ export const getOfferingsIncome = async ({limit, offset, all, order}: OfferingIn
       
       result = data;
     }else {
-      const {data} = await icupApi<OfferingIncomeResponse[]>('/offerings-income' , {
+      const {data} = await icupApi<OfferingIncomeResponse[]>('/offering-income' , {
         params: {
           order,
         },
@@ -66,7 +66,7 @@ export const getOfferingsIncome = async ({limit, offset, all, order}: OfferingIn
   }
 }
 
-// ? Get offerings income by term (paginated)
+// ? Get offering income by term (paginated)
 export const getOfferingsIncomeByTerm = async ({ 
   searchType, 
   searchSubType, 
@@ -99,7 +99,7 @@ export const getOfferingsIncomeByTerm = async ({
 
     try {
         if (!all) {
-            const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${term}` , {
+            const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${term}` , {
           params: {
             limit,
             offset,
@@ -111,7 +111,7 @@ export const getOfferingsIncomeByTerm = async ({
         
         result = data;
       }else {
-        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${term}` , {
+        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${term}` , {
           params: {
             order,
             'search-type': searchType,
@@ -148,7 +148,7 @@ export const getOfferingsIncomeByTerm = async ({
 
     try {
       if (!all) {
-        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${term}` , {
+        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${term}` , {
           params: {
             limit,
             offset,
@@ -160,7 +160,7 @@ export const getOfferingsIncomeByTerm = async ({
         
         result = data;
       }else {
-        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${term}` , {
+        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${term}` , {
           params: {
             order,
             'search-type': searchType,
@@ -199,7 +199,7 @@ export const getOfferingsIncomeByTerm = async ({
               
     try {
       if (!all) {
-        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${term}` , {
+        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${term}` , {
           params: {
             limit,
             offset,
@@ -211,7 +211,7 @@ export const getOfferingsIncomeByTerm = async ({
         
         result = data;
       }else {
-        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${term}` , {
+        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${term}` , {
           params: {
             order,
             'search-type': searchType,
@@ -244,7 +244,7 @@ export const getOfferingsIncomeByTerm = async ({
           
     try {
       if (!all) {
-        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${term}` , {
+        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${term}` , {
           params: {
             limit,
             offset,
@@ -256,7 +256,7 @@ export const getOfferingsIncomeByTerm = async ({
         
         result = data;
       }else {
-        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${term}` , {
+        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${term}` , {
           params: {
             order,
             'search-type': searchType,
@@ -292,7 +292,7 @@ export const getOfferingsIncomeByTerm = async ({
         : `${selectTerm}&${dateTerm}`
     try {
       if (!all) {
-        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${term}` , {
+        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${term}` , {
           params: {
             limit,
             offset,
@@ -304,7 +304,7 @@ export const getOfferingsIncomeByTerm = async ({
         
         result = data;
       }else {
-        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${term}` , {
+        const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${term}` , {
           params: {
             order,
             'search-type': searchType,
@@ -329,7 +329,7 @@ export const getOfferingsIncomeByTerm = async ({
   if (searchType === OfferingIncomeSearchType.RecordStatus) {
       try {
         if (!all) {
-          const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${selectTerm}` , {
+          const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${selectTerm}` , {
             params: {
               limit,
               offset,
@@ -340,7 +340,7 @@ export const getOfferingsIncomeByTerm = async ({
           
           result = data;
         }else {
-          const {data} = await icupApi<OfferingIncomeResponse[]>(`/offerings-income/${selectTerm}` , {
+          const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${selectTerm}` , {
             params: {
               order,
               'search-type': searchType
@@ -369,7 +369,7 @@ export interface UpdateOfferingIncomeOptions {
 
 export const updateOfferingIncome = async ({id, formData}: UpdateOfferingIncomeOptions ): Promise<OfferingIncomeResponse> => {
   try {
-    const {data} = await icupApi.patch<OfferingIncomeResponse>(`/offerings-income/${id}`, formData)
+    const {data} = await icupApi.patch<OfferingIncomeResponse>(`/offering-income/${id}`, formData)
 
     return data;
   } catch (error) {
@@ -391,7 +391,7 @@ export interface DeleteOfferingIncomeOptions {
 
 export const deleteOfferingIncome = async ({id, reasonEliminationType, exchangeRate, exchangeCurrencyType}: DeleteOfferingIncomeOptions ): Promise<void> => {
   try {
-    const {data} = await icupApi.delete(`/offerings-income/${id}`,{
+    const {data} = await icupApi.delete(`/offering-income/${id}`,{
       params: {
         reasonEliminationType,
         exchangeRate,

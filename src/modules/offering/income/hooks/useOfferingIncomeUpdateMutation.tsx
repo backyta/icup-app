@@ -93,7 +93,7 @@ export const useOfferingIncomeUpdateMutation = ({
       }, 150);
 
       setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['offerings-income-by-term'] });
+        queryClient.invalidateQueries({ queryKey: ['offering-income-by-term'] });
       }, 700);
 
       setTimeout(() => {

@@ -107,7 +107,7 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
   const year = form.watch('year');
   const month = form.watch('month');
 
-  const offeringsIncomeBySundayService = useQuery({
+  const offeringIncomeBySundayService = useQuery({
     queryKey: ['offering-income-by-sunday-service', { ...searchParams, church: churchId }],
     queryFn: () => {
       return getOfferingIncomeBySundayService({
@@ -129,7 +129,7 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
   // Default value
   useEffect(() => {
     setSearchParams({ year, month });
-  }, [offeringsIncomeBySundayService?.data, year]);
+  }, [offeringIncomeBySundayService?.data, year]);
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof metricsFormSchema>): void => {
@@ -149,8 +149,8 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
           ) : (
             <span>Ofrendas Dominicales</span>
           )}
-          {offeringsIncomeBySundayService?.data &&
-            Object.entries(offeringsIncomeBySundayService?.data)?.length > 0 && (
+          {offeringIncomeBySundayService?.data &&
+            Object.entries(offeringIncomeBySundayService?.data)?.length > 0 && (
               <Badge
                 variant='active'
                 className='mt-1 text-[10px] md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
@@ -294,7 +294,7 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
         </Form>
       </CardHeader>
 
-      {!offeringsIncomeBySundayService?.data?.length && !searchParams ? (
+      {!offeringIncomeBySundayService?.data?.length && !searchParams ? (
         <CardContent className='h-full pl-3 pr-6 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
@@ -303,8 +303,8 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
         </CardContent>
       ) : (
         <CardContent className='h-full pl-3 pr-6 py-0'>
-          {offeringsIncomeBySundayService?.isFetching &&
-            !offeringsIncomeBySundayService?.data?.length &&
+          {offeringIncomeBySundayService?.isFetching &&
+            !offeringIncomeBySundayService?.data?.length &&
             year && (
               <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDataBackup className='text-[6rem] pb-2' />
@@ -312,7 +312,7 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
               </div>
             )}
 
-          {!!offeringsIncomeBySundayService?.data?.length && searchParams && (
+          {!!offeringIncomeBySundayService?.data?.length && searchParams && (
             <ChartContainer
               config={chartConfig}
               className={cn(
@@ -321,7 +321,7 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
             >
               <BarChart
                 accessibilityLayer
-                data={offeringsIncomeBySundayService?.data}
+                data={offeringIncomeBySundayService?.data}
                 margin={{ top: 5, right: 5, left: -28, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
@@ -390,14 +390,14 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
               </BarChart>
             </ChartContainer>
           )}
-          {!year && !offeringsIncomeBySundayService?.data?.length && (
+          {!year && !offeringIncomeBySundayService?.data?.length && (
             <div className='text-emerald-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDataConfiguration className='text-[6rem] pb-2' />
               <p>Esperando parámetros de consulta...</p>
             </div>
           )}
-          {!offeringsIncomeBySundayService?.isFetching &&
-            !offeringsIncomeBySundayService?.data?.length &&
+          {!offeringIncomeBySundayService?.isFetching &&
+            !offeringIncomeBySundayService?.data?.length &&
             year && (
               <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDeleteDatabase className='text-[6rem] pb-2' />

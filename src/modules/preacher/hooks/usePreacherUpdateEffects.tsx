@@ -24,27 +24,30 @@ export const usePreacherUpdateEffects = ({
 
   //* Set data
   useEffect(() => {
-    preacherUpdateForm.setValue('firstName', data?.firstName ?? '');
-    preacherUpdateForm.setValue('lastName', data?.lastName ?? '');
-    preacherUpdateForm.setValue('gender', data?.gender ?? '');
-    preacherUpdateForm.setValue('originCountry', data?.originCountry ?? '');
-    preacherUpdateForm.setValue('birthDate', new Date(String(data?.birthDate).replace(/-/g, '/')));
-    preacherUpdateForm.setValue('maritalStatus', data?.maritalStatus ?? '');
-    preacherUpdateForm.setValue('numberChildren', String(data?.numberChildren) ?? '0');
+    preacherUpdateForm.setValue('firstName', data?.member?.firstName ?? '');
+    preacherUpdateForm.setValue('lastName', data?.member?.lastName ?? '');
+    preacherUpdateForm.setValue('gender', data?.member?.gender ?? '');
+    preacherUpdateForm.setValue('originCountry', data?.member?.originCountry ?? '');
+    preacherUpdateForm.setValue(
+      'birthDate',
+      new Date(String(data?.member?.birthDate).replace(/-/g, '/'))
+    );
+    preacherUpdateForm.setValue('maritalStatus', data?.member?.maritalStatus ?? '');
+    preacherUpdateForm.setValue('numberChildren', String(data?.member?.numberChildren) ?? '0');
     preacherUpdateForm.setValue(
       'conversionDate',
-      new Date(String(data?.conversionDate).replace(/-/g, '/'))
+      new Date(String(data?.member?.conversionDate).replace(/-/g, '/'))
     );
-    preacherUpdateForm.setValue('email', data?.email ?? '');
-    preacherUpdateForm.setValue('phoneNumber', data?.phoneNumber ?? '');
-    preacherUpdateForm.setValue('country', data?.country ?? '');
-    preacherUpdateForm.setValue('department', data?.department ?? '');
-    preacherUpdateForm.setValue('province', data?.province ?? '');
-    preacherUpdateForm.setValue('district', data?.district ?? '');
-    preacherUpdateForm.setValue('urbanSector', data?.urbanSector ?? '');
-    preacherUpdateForm.setValue('address', data?.address ?? '');
-    preacherUpdateForm.setValue('referenceAddress', data?.referenceAddress ?? '');
-    preacherUpdateForm.setValue('roles', data?.roles as MemberRole[]);
+    preacherUpdateForm.setValue('email', data?.member?.email ?? '');
+    preacherUpdateForm.setValue('phoneNumber', data?.member?.phoneNumber ?? '');
+    preacherUpdateForm.setValue('country', data?.member?.country ?? '');
+    preacherUpdateForm.setValue('department', data?.member?.department ?? '');
+    preacherUpdateForm.setValue('province', data?.member?.province ?? '');
+    preacherUpdateForm.setValue('district', data?.member?.district ?? '');
+    preacherUpdateForm.setValue('urbanSector', data?.member?.urbanSector ?? '');
+    preacherUpdateForm.setValue('address', data?.member?.address ?? '');
+    preacherUpdateForm.setValue('referenceAddress', data?.member?.referenceAddress ?? '');
+    preacherUpdateForm.setValue('roles', data?.member?.roles as MemberRole[]);
     preacherUpdateForm.setValue('theirSupervisor', data?.theirSupervisor?.id ?? '');
     preacherUpdateForm.setValue('recordStatus', data?.recordStatus);
 

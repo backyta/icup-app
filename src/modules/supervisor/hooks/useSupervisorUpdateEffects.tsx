@@ -29,34 +29,34 @@ export const useSupervisorUpdateEffects = ({
 
   //* Set data
   useEffect(() => {
-    supervisorUpdateForm.setValue('firstName', data?.firstName ?? '');
-    supervisorUpdateForm.setValue('lastName', data?.lastName ?? '');
-    supervisorUpdateForm.setValue('gender', data?.gender ?? '');
-    supervisorUpdateForm.setValue('originCountry', data?.originCountry ?? '');
+    supervisorUpdateForm.setValue('firstName', data?.member?.firstName ?? '');
+    supervisorUpdateForm.setValue('lastName', data?.member?.lastName ?? '');
+    supervisorUpdateForm.setValue('gender', data?.member?.gender ?? '');
+    supervisorUpdateForm.setValue('originCountry', data?.member?.originCountry ?? '');
     supervisorUpdateForm.setValue(
       'birthDate',
-      new Date(String(data?.birthDate).replace(/-/g, '/'))
+      new Date(String(data?.member?.birthDate).replace(/-/g, '/'))
     );
-    supervisorUpdateForm.setValue('maritalStatus', data?.maritalStatus ?? '');
-    supervisorUpdateForm.setValue('numberChildren', String(data?.numberChildren) ?? '0');
+    supervisorUpdateForm.setValue('maritalStatus', data?.member?.maritalStatus ?? '');
+    supervisorUpdateForm.setValue('numberChildren', String(data?.member?.numberChildren) ?? '0');
     supervisorUpdateForm.setValue(
       'conversionDate',
-      new Date(String(data?.conversionDate).replace(/-/g, '/'))
+      new Date(String(data?.member?.conversionDate).replace(/-/g, '/'))
     );
-    supervisorUpdateForm.setValue('email', data?.email ?? '');
-    supervisorUpdateForm.setValue('phoneNumber', data?.phoneNumber ?? '');
-    supervisorUpdateForm.setValue('country', data?.country ?? '');
-    supervisorUpdateForm.setValue('department', data?.department ?? '');
-    supervisorUpdateForm.setValue('province', data?.province ?? '');
-    supervisorUpdateForm.setValue('district', data?.district ?? '');
-    supervisorUpdateForm.setValue('urbanSector', data?.urbanSector ?? '');
-    supervisorUpdateForm.setValue('address', data?.address ?? '');
-    supervisorUpdateForm.setValue('referenceAddress', data?.referenceAddress ?? '');
+    supervisorUpdateForm.setValue('email', data?.member?.email ?? '');
+    supervisorUpdateForm.setValue('phoneNumber', data?.member?.phoneNumber ?? '');
+    supervisorUpdateForm.setValue('country', data?.member?.country ?? '');
+    supervisorUpdateForm.setValue('department', data?.member?.department ?? '');
+    supervisorUpdateForm.setValue('province', data?.member?.province ?? '');
+    supervisorUpdateForm.setValue('district', data?.member?.district ?? '');
+    supervisorUpdateForm.setValue('urbanSector', data?.member?.urbanSector ?? '');
+    supervisorUpdateForm.setValue('address', data?.member?.address ?? '');
+    supervisorUpdateForm.setValue('referenceAddress', data?.member?.referenceAddress ?? '');
     supervisorUpdateForm.setValue(
       'isDirectRelationToPastor',
       data?.isDirectRelationToPastor ?? undefined
     );
-    supervisorUpdateForm.setValue('roles', data?.roles as MemberRole[]);
+    supervisorUpdateForm.setValue('roles', data?.member?.roles as MemberRole[]);
     supervisorUpdateForm.setValue('theirCopastor', data?.theirCopastor?.id ?? '');
     supervisorUpdateForm.setValue('recordStatus', data?.recordStatus);
 

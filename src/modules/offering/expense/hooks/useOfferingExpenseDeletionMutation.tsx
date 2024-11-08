@@ -12,12 +12,14 @@ import {
 import { type ErrorResponse } from '@/shared/interfaces';
 
 interface Options {
+  scrollToTop: () => void;
   setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSelectInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useOfferingExpenseDeletionMutation = ({
+  scrollToTop,
   setIsCardOpen,
   setIsButtonDisabled,
   setIsSelectInputDisabled,
@@ -39,7 +41,7 @@ export const useOfferingExpenseDeletionMutation = ({
         });
 
         setTimeout(() => {
-          setIsCardOpen(false);
+          setIsCardOpen(true);
           setIsButtonDisabled(false);
         }, 2000);
       }
@@ -62,7 +64,11 @@ export const useOfferingExpenseDeletionMutation = ({
       });
 
       setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['offerings-expenses-by-term'] });
+        scrollToTop();
+      }, 150);
+
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['offerings-expense-by-term'] });
       }, 1000);
 
       setTimeout(() => {

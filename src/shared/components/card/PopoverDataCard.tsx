@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
 import { cn } from '@/shared/lib/utils';
 
 import {
@@ -68,8 +69,8 @@ export const PopoverDataCard = ({
                 title === 'Anexos' || title === 'Zonas' || title === 'Grupos Fam.'
                   ? element?.[firstValue]
                   : getInitialFullNames({
-                      firstNames: element?.[firstValue],
-                      lastNames: element?.[secondValue],
+                      firstNames: element?.[firstValue] ?? '',
+                      lastNames: element?.[secondValue] ?? '',
                     });
 
               return (

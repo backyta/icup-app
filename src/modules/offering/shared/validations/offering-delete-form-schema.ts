@@ -14,11 +14,11 @@ export const offeringDeleteFormSchema = z
     return /^\d{1,2}\.\d{2}$/.test(value);
   }, {
     message: 'Debe ser un número con 2 decimales.'
-  }),
+  }).optional(),
 
   exchangeCurrencyType: z.string().optional()
     .refine(value => value === '' || Object.values(ExchangeCurrencyType).includes(value as ExchangeCurrencyType),
       { message: "Por favor seleccione una opción." }
-    )
-   
+    ).optional()
+  
 })   

@@ -18,12 +18,12 @@ interface Options {
 }
 
 export const useDiscipleCreationSubmitButtonLogic = ({
-  discipleCreationForm,
   memberRoles,
+  isInputDisabled,
+  discipleCreationForm,
+  isMessageErrorDisabled,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
-  isMessageErrorDisabled,
-  isInputDisabled,
 }: Options): void => {
   //* Watchers
   const firstName = discipleCreationForm.watch('firstName');

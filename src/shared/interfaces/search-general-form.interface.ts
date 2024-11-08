@@ -1,6 +1,6 @@
 export interface GeneralSearchForm {
   offset?:   string;
   limit?:    string;
-  all?: boolean;
+  all?:      boolean;
   order:     string;
 }

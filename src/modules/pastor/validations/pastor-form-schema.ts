@@ -62,8 +62,8 @@ export const pastorFormSchema = z
     email: z.string().email({ message: "Email invalido." }),
 
     phoneNumber:z.string()
-    .min(6, { message: 'El campo debe tener al menos 6 caracteres.' })
-    .max(20, { message: 'El campo debe tener un máximo de 20 caracteres.' })
+    .min(6, { message: 'El campo debe tener al menos 6 dígitos.' })
+    .max(20, { message: 'El campo debe tener un máximo de 20 dígitos.' })
     .refine(value => {
       return /^[0-9+\-\s]+$/.test(value);
     }, {
@@ -130,7 +130,7 @@ export const pastorFormSchema = z
       return true;
     },
     {
-      message: 'Es necesario asignar una Iglesia',
+      message: 'Es necesario asignar una Iglesia.',
       path: ['theirChurch'],
     }
   )

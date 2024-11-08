@@ -91,7 +91,7 @@ export function SearchByTermOfferingExpenseDataTable<TData, TValue>({
 
   //* Queries
   const query = useQuery({
-    queryKey: ['offerings-expenses-by-term', searchParams],
+    queryKey: ['offerings-expense-by-term', searchParams],
     queryFn: () => getOfferingsExpensesByTerm(searchParams as OfferingExpenseQueryParams),
     enabled: !!searchParams,
     retry: 1,

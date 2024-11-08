@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-misused-promises */
 
 import { useEffect, useState } from 'react';
 
@@ -653,7 +653,7 @@ export const OfferingIncomeFormUpdate = ({
                                       )}
                                     >
                                       {field.value
-                                        ? `${queryData?.find((member) => member.id === field.value)?.firstName} ${queryData?.find((member) => member.id === field.value)?.lastName}`
+                                        ? `${queryData?.find((member) => member.id === field.value)?.member?.firstName} ${queryData?.find((member) => member.id === field.value)?.member?.lastName}`
                                         : 'Busque y seleccione un miembro'}
                                       <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                     </Button>
@@ -673,8 +673,8 @@ export const OfferingIncomeFormUpdate = ({
                                             <CommandItem
                                               className='text-[14px]'
                                               value={getFullNames({
-                                                firstNames: member.firstName,
-                                                lastNames: member.lastName,
+                                                firstNames: member?.member?.firstName ?? '',
+                                                lastNames: member?.member?.lastName ?? '',
                                               })}
                                               key={member.id}
                                               onSelect={() => {
@@ -682,7 +682,7 @@ export const OfferingIncomeFormUpdate = ({
                                                 setIsInputMemberOpen(false);
                                               }}
                                             >
-                                              {`${member?.firstName} ${member?.lastName}`}
+                                              {`${member?.member?.firstName} ${member?.member?.lastName}`}
                                               <CheckIcon
                                                 className={cn(
                                                   'ml-auto h-4 w-4',

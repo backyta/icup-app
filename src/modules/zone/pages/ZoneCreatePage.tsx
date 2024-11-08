@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-misused-promises */
 
 import { useEffect, useState } from 'react';
 
@@ -345,7 +345,7 @@ export const ZoneCreatePage = (): JSX.Element => {
                             className={cn('w-full justify-between ')}
                           >
                             {field.value
-                              ? `${data?.find((supervisor) => supervisor.id === field.value)?.firstName} ${data?.find((supervisor) => supervisor.id === field.value)?.lastName}`
+                              ? `${data?.find((supervisor) => supervisor.id === field.value)?.member?.firstName} ${data?.find((supervisor) => supervisor.id === field.value)?.member?.lastName}`
                               : 'Busque y seleccione un supervisor'}
                             <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                           </Button>
@@ -370,8 +370,8 @@ export const ZoneCreatePage = (): JSX.Element => {
                                   <CommandItem
                                     className='text-[14px]'
                                     value={getFullNames({
-                                      firstNames: supervisor.firstName,
-                                      lastNames: supervisor.lastName,
+                                      firstNames: supervisor?.member?.firstName ?? '',
+                                      lastNames: supervisor?.member?.lastName ?? '',
                                     })}
                                     key={supervisor?.id}
                                     onSelect={() => {
@@ -379,7 +379,7 @@ export const ZoneCreatePage = (): JSX.Element => {
                                       setIsInputTheirSupervisorOpen(false);
                                     }}
                                   >
-                                    {`${supervisor?.firstName} ${supervisor?.lastName}`}
+                                    {`${supervisor?.member?.firstName} ${supervisor?.member?.lastName}`}
                                     <CheckIcon
                                       className={cn(
                                         'ml-auto h-4 w-4',

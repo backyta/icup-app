@@ -5,12 +5,12 @@ import { isAxiosError } from 'axios';
 import { icupApi } from '@/api/icupApi';
 import { 
   type MetricQueryParams, 
-  type OfferingExpensesProportionResponse,
   type OfferingExpenseChartResponse,
+  type OfferingExpensesProportionResponse,
   type OfferingExpensesAdjustmentResponse,
 } from '@/modules/metrics/interfaces';
 
-//* Get proportion offerings expenses 
+//* Get proportion offering expenses 
 export const getOfferingExpensesProportion = async ({ 
   searchType, 
   church,
@@ -35,7 +35,7 @@ export const getOfferingExpensesProportion = async ({
 }
 
 // ? Search By Term
-//* Operational offerings expenses
+//* Operational offering expenses
 export const getOperationalOfferingExpenses = async ({ 
   searchType,
   church,
@@ -61,7 +61,7 @@ export const getOperationalOfferingExpenses = async ({
   }
 }
 
-//* Maintenance and repair offerings expenses
+//* Maintenance and repair offering expenses
 export const getMaintenanceAndRepairOfferingExpenses = async ({ 
   searchType,
   church,
@@ -87,7 +87,7 @@ export const getMaintenanceAndRepairOfferingExpenses = async ({
   }
 }
 
-//* Decoration and repair offerings expenses
+//* Decoration and repair offering expenses
 export const getDecorationOfferingExpenses = async ({ 
   searchType,
   church,
@@ -113,7 +113,7 @@ export const getDecorationOfferingExpenses = async ({
   }
 }
 
-//* Equipment and technology and repair offerings expenses
+//* Equipment and technology and repair offering expenses
 export const getEquipmentAndTechnologyOfferingExpenses = async ({ 
   searchType,
   church,
@@ -139,7 +139,7 @@ export const getEquipmentAndTechnologyOfferingExpenses = async ({
   }
 }
 
-//* Supplies offerings expenses
+//* Supplies offering expenses
 export const getSuppliesOfferingExpenses = async ({ 
   searchType,
   church,
@@ -165,7 +165,7 @@ export const getSuppliesOfferingExpenses = async ({
   }
 }
 
-//* Planing events offerings expenses
+//* Planing events offering expenses
 export const getPlaningEventsOfferingExpenses = async ({ 
   searchType,
   church,

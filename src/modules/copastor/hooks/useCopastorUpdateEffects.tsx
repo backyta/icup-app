@@ -23,27 +23,30 @@ export const useCopastorUpdateEffects = ({
 
   //* Set data
   useEffect(() => {
-    copastorUpdateForm.setValue('firstName', data?.firstName ?? '');
-    copastorUpdateForm.setValue('lastName', data?.lastName ?? '');
-    copastorUpdateForm.setValue('gender', data?.gender ?? '');
-    copastorUpdateForm.setValue('originCountry', data?.originCountry ?? '');
-    copastorUpdateForm.setValue('birthDate', new Date(String(data?.birthDate).replace(/-/g, '/')));
-    copastorUpdateForm.setValue('maritalStatus', data?.maritalStatus ?? '');
-    copastorUpdateForm.setValue('numberChildren', String(data?.numberChildren) ?? '0');
+    copastorUpdateForm.setValue('firstName', data?.member?.firstName ?? '');
+    copastorUpdateForm.setValue('lastName', data?.member?.lastName ?? '');
+    copastorUpdateForm.setValue('gender', data?.member?.gender ?? '');
+    copastorUpdateForm.setValue('originCountry', data?.member?.originCountry ?? '');
+    copastorUpdateForm.setValue(
+      'birthDate',
+      new Date(String(data?.member?.birthDate).replace(/-/g, '/'))
+    );
+    copastorUpdateForm.setValue('maritalStatus', data?.member?.maritalStatus ?? '');
+    copastorUpdateForm.setValue('numberChildren', String(data?.member?.numberChildren) ?? '0');
     copastorUpdateForm.setValue(
       'conversionDate',
-      new Date(String(data?.conversionDate).replace(/-/g, '/'))
+      new Date(String(data?.member?.conversionDate).replace(/-/g, '/'))
     );
-    copastorUpdateForm.setValue('email', data?.email ?? '');
-    copastorUpdateForm.setValue('phoneNumber', data?.phoneNumber ?? '');
-    copastorUpdateForm.setValue('country', data?.country ?? '');
-    copastorUpdateForm.setValue('department', data?.department ?? '');
-    copastorUpdateForm.setValue('province', data?.province ?? '');
-    copastorUpdateForm.setValue('district', data?.district ?? '');
-    copastorUpdateForm.setValue('urbanSector', data?.urbanSector ?? '');
-    copastorUpdateForm.setValue('address', data?.address ?? '');
-    copastorUpdateForm.setValue('referenceAddress', data?.referenceAddress ?? '');
-    copastorUpdateForm.setValue('roles', data?.roles as MemberRole[]);
+    copastorUpdateForm.setValue('email', data?.member?.email ?? '');
+    copastorUpdateForm.setValue('phoneNumber', data?.member?.phoneNumber ?? '');
+    copastorUpdateForm.setValue('country', data?.member?.country ?? '');
+    copastorUpdateForm.setValue('department', data?.member?.department ?? '');
+    copastorUpdateForm.setValue('province', data?.member?.province ?? '');
+    copastorUpdateForm.setValue('district', data?.member?.district ?? '');
+    copastorUpdateForm.setValue('urbanSector', data?.member?.urbanSector ?? '');
+    copastorUpdateForm.setValue('address', data?.member?.address ?? '');
+    copastorUpdateForm.setValue('referenceAddress', data?.member?.referenceAddress ?? '');
+    copastorUpdateForm.setValue('roles', data?.member?.roles as MemberRole[]);
     copastorUpdateForm.setValue('theirPastor', data?.theirPastor?.id);
     copastorUpdateForm.setValue('recordStatus', data?.recordStatus);
 

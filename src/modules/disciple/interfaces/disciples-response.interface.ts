@@ -1,5 +1,6 @@
 
 import { 
+  type Member,
   type CreatedBy,
   type UpdatedBy,
   type TheirChurch,
@@ -13,25 +14,7 @@ import {
 
 export interface DiscipleResponse {
   id:                 string;
-  firstName:          string;
-  lastName:           string;
-  gender:             string;
-  originCountry:      string;
-  age:                number;
-  birthDate:          Date;
-  maritalStatus:      string;
-  numberChildren:     number;
-  conversionDate:     Date;
-  email:              string;
-  phoneNumber:        string;
-  country:            string;
-  department:         string;
-  province:           string;
-  district:           string;
-  urbanSector:        string;
-  address:            string;
-  referenceAddress:   string;
-  roles:              string[];
+  member:             Member;
   createdAt?:         Date;
   createdBy?:         CreatedBy;
   updatedAt?:         Date;

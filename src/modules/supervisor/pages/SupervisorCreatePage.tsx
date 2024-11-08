@@ -850,7 +850,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                                 )}
                               >
                                 {field.value
-                                  ? `${pastorsQuery.data?.find((pastor) => pastor.id === field.value)?.firstName} ${pastorsQuery.data?.find((pastor) => pastor.id === field.value)?.lastName}`
+                                  ? `${pastorsQuery.data?.find((pastor) => pastor.id === field.value)?.member?.firstName} ${pastorsQuery.data?.find((pastor) => pastor.id === field.value)?.member?.lastName}`
                                   : 'Busque y seleccione un pastor'}
                                 <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                               </Button>
@@ -876,7 +876,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                                           setIsInputTheirPastorOpen(false);
                                         }}
                                       >
-                                        {`${pastor?.firstName} ${pastor?.lastName}`}
+                                        {`${pastor?.member?.firstName} ${pastor?.member?.lastName}`}
                                         <CheckIcon
                                           className={cn(
                                             'ml-auto h-4 w-4',
@@ -933,7 +933,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                                 )}
                               >
                                 {field.value
-                                  ? `${copastorsQuery.data?.find((copastor) => copastor.id === field.value)?.firstName} ${copastorsQuery.data?.find((copastor) => copastor.id === field.value)?.lastName}`
+                                  ? `${copastorsQuery.data?.find((copastor) => copastor.id === field.value)?.member?.firstName} ${copastorsQuery.data?.find((copastor) => copastor.id === field.value)?.member?.lastName}`
                                   : 'Busque y seleccione un co-pastor'}
                                 <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                               </Button>
@@ -953,8 +953,8 @@ export const SupervisorCreatePage = (): JSX.Element => {
                                       <CommandItem
                                         className='text-[14px]'
                                         value={getFullNames({
-                                          firstNames: copastor.firstName,
-                                          lastNames: copastor.lastName,
+                                          firstNames: copastor.member?.firstName ?? '',
+                                          lastNames: copastor.member?.lastName ?? '',
                                         })}
                                         key={copastor.id}
                                         onSelect={() => {
@@ -962,7 +962,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                                           setIsInputTheirCopastorOpen(false);
                                         }}
                                       >
-                                        {`${copastor?.firstName} ${copastor?.lastName}`}
+                                        {`${copastor?.member?.firstName} ${copastor?.member?.lastName}`}
                                         <CheckIcon
                                           className={cn(
                                             'ml-auto h-4 w-4',

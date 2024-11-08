@@ -85,6 +85,7 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
     resolver: zodResolver(metricsFormSchema),
     mode: 'onChange',
     defaultValues: {
+      zone: searchParams?.zone ? searchParams?.zone : '',
       month: format(new Date(), 'MMMM').toLowerCase(),
       year: new Date().getFullYear().toString(),
     },

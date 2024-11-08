@@ -48,6 +48,7 @@ const dataFictional: OfferingIncomeResponse[] = [
     id: '',
     type: '',
     subType: '',
+    category: '',
     amount: '',
     shift: '',
     currency: '',

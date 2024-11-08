@@ -10,8 +10,10 @@ import { Button } from '@/shared/components/ui/button';
 import { type DiscipleColumns } from '@/modules/disciple/interfaces';
 import { DiscipleInfoCard, DiscipleUpdateCard } from '@/modules/disciple/components';
 
+// TODO : ver fucionalidad de useReducer en subir de nivel fieldNames, y guardar estado anteior para validar campos cambiados
 export const discipleUpdateColumns: Array<ColumnDef<DiscipleColumns, any>> = [
   {
+    id: 'id',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.getValue();
@@ -33,7 +35,8 @@ export const discipleUpdateColumns: Array<ColumnDef<DiscipleColumns, any>> = [
     },
   },
   {
-    accessorKey: 'firstName',
+    id: 'firstName',
+    accessorKey: 'member.firstName',
     header: ({ column }) => {
       return (
         <Button
@@ -50,7 +53,8 @@ export const discipleUpdateColumns: Array<ColumnDef<DiscipleColumns, any>> = [
     },
   },
   {
-    accessorKey: 'lastName',
+    id: 'lastName',
+    accessorKey: 'member.lastName',
     header: ({ column }) => {
       return (
         <Button
@@ -67,7 +71,8 @@ export const discipleUpdateColumns: Array<ColumnDef<DiscipleColumns, any>> = [
     },
   },
   {
-    accessorKey: 'gender',
+    id: 'gender',
+    accessorKey: 'member.gender',
     cell: (info) => {
       const gender = info.getValue();
       return gender === 'male' ? 'M' : 'F';
@@ -88,7 +93,8 @@ export const discipleUpdateColumns: Array<ColumnDef<DiscipleColumns, any>> = [
     },
   },
   {
-    accessorKey: 'birthDate',
+    id: 'birthDate',
+    accessorKey: 'member.birthDate',
     cell: (info) => {
       const birthDate = info.getValue();
       const adjustedDate = birthDate ? addDays(birthDate, 1) : null;

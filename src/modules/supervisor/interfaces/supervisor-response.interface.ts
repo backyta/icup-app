@@ -1,4 +1,5 @@
 import { 
+  type Member,
   type Preacher, 
   type Disciple, 
   type CreatedBy,
@@ -12,25 +13,7 @@ import {
 
 export interface SupervisorResponse {
   id:               string;
-  firstName:        string;
-  lastName:         string;
-  gender:           string;
-  originCountry:    string;
-  age:              number;
-  birthDate:        Date;
-  maritalStatus:    string;
-  numberChildren:   number;
-  conversionDate:   Date;
-  email:            string;
-  phoneNumber:      string;
-  country:          string;
-  department:       string;
-  province:         string;
-  district:         string;
-  urbanSector:      string;
-  address:          string;
-  referenceAddress: string;
-  roles:            string[];
+  member:           Member;
   isDirectRelationToPastor:  boolean;
   createdAt?:       Date;
   createdBy?:       CreatedBy;

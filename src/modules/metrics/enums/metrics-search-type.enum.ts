@@ -179,7 +179,7 @@ export enum MetricOfferingExpenseSearchType {
   EquipmentAndTechnologyOfferingExpenses = 'equipment_and_technology_offering_expenses',
   SuppliesOfferingExpenses = 'supplies_offering_expenses',
   PlaningEventsOfferingExpenses = 'planing_events_offering_expenses',
-  OfferingsExpensesAdjustment = 'offering_expenses_adjustment',
+  OfferingExpensesAdjustment = 'offering_expenses_adjustment',
 }
 
 export const MetricOfferingExpenseSearchTypeNames: Record<MetricOfferingExpenseSearchType, string> =  {
@@ -190,7 +190,7 @@ export const MetricOfferingExpenseSearchTypeNames: Record<MetricOfferingExpenseS
   [MetricOfferingExpenseSearchType.EquipmentAndTechnologyOfferingExpenses]: 'Ofrendas por gastos de equipamiento y tecnología.',
   [MetricOfferingExpenseSearchType.SuppliesOfferingExpenses]: 'Ofrendas por gastos de suministros.',
   [MetricOfferingExpenseSearchType.PlaningEventsOfferingExpenses]: 'Ofrendas por gastos de planificación de eventos.',
-  [MetricOfferingExpenseSearchType.OfferingsExpensesAdjustment]: 'Ofrendas por ajustes de salida.',
+  [MetricOfferingExpenseSearchType.OfferingExpensesAdjustment]: 'Ofrendas por ajustes de salida.',
 }
 
 export enum MetricOfferingComparisonSearchType {

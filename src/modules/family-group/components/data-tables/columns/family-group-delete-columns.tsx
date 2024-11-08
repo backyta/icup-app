@@ -10,6 +10,7 @@ import { FamilyGroupInfoCard, FamilyGroupDeleteCard } from '@/modules/family-gro
 
 export const familyGroupDeleteColumns: Array<ColumnDef<FamilyGroupColumns, any>> = [
   {
+    id: 'id',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.getValue();
@@ -31,6 +32,7 @@ export const familyGroupDeleteColumns: Array<ColumnDef<FamilyGroupColumns, any>>
     },
   },
   {
+    id: 'familyGroupName',
     accessorKey: 'familyGroupName',
     header: ({ column }) => {
       return (
@@ -48,6 +50,7 @@ export const familyGroupDeleteColumns: Array<ColumnDef<FamilyGroupColumns, any>>
     },
   },
   {
+    id: 'familyGroupCode',
     accessorKey: 'familyGroupCode',
     header: ({ column }) => {
       return (
@@ -65,6 +68,7 @@ export const familyGroupDeleteColumns: Array<ColumnDef<FamilyGroupColumns, any>>
     },
   },
   {
+    id: 'district',
     accessorKey: 'district',
     header: ({ column }) => {
       return (
@@ -82,6 +86,7 @@ export const familyGroupDeleteColumns: Array<ColumnDef<FamilyGroupColumns, any>>
     },
   },
   {
+    id: 'urbanSector',
     accessorKey: 'urbanSector',
     header: ({ column }) => {
       return (

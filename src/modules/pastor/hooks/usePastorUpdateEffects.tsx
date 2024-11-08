@@ -23,27 +23,30 @@ export const usePastorUpdateEffects = ({
 
   //* Set data
   useEffect(() => {
-    pastorUpdateForm.setValue('firstName', data?.firstName ?? '');
-    pastorUpdateForm.setValue('lastName', data?.lastName ?? '');
-    pastorUpdateForm.setValue('gender', data?.gender ?? '');
-    pastorUpdateForm.setValue('originCountry', data?.originCountry ?? '');
-    pastorUpdateForm.setValue('birthDate', new Date(String(data?.birthDate).replace(/-/g, '/')));
-    pastorUpdateForm.setValue('maritalStatus', data?.maritalStatus ?? '');
-    pastorUpdateForm.setValue('numberChildren', String(data?.numberChildren) ?? '0');
+    pastorUpdateForm.setValue('firstName', data?.member?.firstName ?? '');
+    pastorUpdateForm.setValue('lastName', data?.member?.lastName ?? '');
+    pastorUpdateForm.setValue('gender', data?.member?.gender ?? '');
+    pastorUpdateForm.setValue('originCountry', data?.member?.originCountry ?? '');
+    pastorUpdateForm.setValue(
+      'birthDate',
+      new Date(String(data?.member?.birthDate).replace(/-/g, '/'))
+    );
+    pastorUpdateForm.setValue('maritalStatus', data?.member?.maritalStatus ?? '');
+    pastorUpdateForm.setValue('numberChildren', String(data?.member?.numberChildren) ?? '0');
     pastorUpdateForm.setValue(
       'conversionDate',
-      new Date(String(data?.conversionDate).replace(/-/g, '/'))
+      new Date(String(data?.member?.conversionDate).replace(/-/g, '/'))
     );
-    pastorUpdateForm.setValue('email', data?.email ?? '');
-    pastorUpdateForm.setValue('phoneNumber', data?.phoneNumber ?? '');
-    pastorUpdateForm.setValue('country', data?.country ?? '');
-    pastorUpdateForm.setValue('department', data?.department ?? '');
-    pastorUpdateForm.setValue('province', data?.province ?? '');
-    pastorUpdateForm.setValue('district', data?.district ?? '');
-    pastorUpdateForm.setValue('urbanSector', data?.urbanSector ?? '');
-    pastorUpdateForm.setValue('address', data?.address ?? '');
-    pastorUpdateForm.setValue('referenceAddress', data?.referenceAddress ?? '');
-    pastorUpdateForm.setValue('roles', data?.roles as MemberRole[]);
+    pastorUpdateForm.setValue('email', data?.member?.email ?? '');
+    pastorUpdateForm.setValue('phoneNumber', data?.member?.phoneNumber ?? '');
+    pastorUpdateForm.setValue('country', data?.member?.country ?? '');
+    pastorUpdateForm.setValue('department', data?.member?.department ?? '');
+    pastorUpdateForm.setValue('province', data?.member?.province ?? '');
+    pastorUpdateForm.setValue('district', data?.member?.district ?? '');
+    pastorUpdateForm.setValue('urbanSector', data?.member?.urbanSector ?? '');
+    pastorUpdateForm.setValue('address', data?.member?.address ?? '');
+    pastorUpdateForm.setValue('referenceAddress', data?.member?.referenceAddress ?? '');
+    pastorUpdateForm.setValue('roles', data?.member?.roles as MemberRole[]);
     pastorUpdateForm.setValue('theirChurch', data?.theirChurch?.id);
     pastorUpdateForm.setValue('recordStatus', data?.recordStatus);
 

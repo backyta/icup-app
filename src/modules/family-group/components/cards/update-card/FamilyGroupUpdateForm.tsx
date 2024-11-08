@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-/* eslint-disable @typescript-eslint/promise-function-async */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/promise-function-async */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useState } from 'react';
 
@@ -655,11 +655,11 @@ export const FamilyGroupUpdateForm = ({
                                     >
                                       {field.value ||
                                       (field.value && data?.recordStatus === RecordStatus.Active)
-                                        ? `${preachersQuery?.data?.find((preacher) => preacher.id === field.value)?.firstName} ${preachersQuery?.data?.find((preacher) => preacher.id === field.value)?.lastName}`
+                                        ? `${preachersQuery?.data?.find((preacher) => preacher.id === field.value)?.member?.firstName} ${preachersQuery?.data?.find((preacher) => preacher.id === field.value)?.member?.lastName}`
                                         : field.value &&
                                             (data?.recordStatus === RecordStatus.Inactive ||
                                               !data?.theirPreacher)
-                                          ? `${preachersByZoneQuery?.data?.find((preacher) => preacher.id === field.value)?.firstName} ${preachersByZoneQuery?.data?.find((preacher) => preacher.id === field.value)?.lastName}`
+                                          ? `${preachersByZoneQuery?.data?.find((preacher) => preacher.id === field.value)?.member?.firstName} ${preachersByZoneQuery?.data?.find((preacher) => preacher.id === field.value)?.member?.lastName}`
                                           : 'Busque y seleccione un predicador'}
                                       <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                     </Button>
@@ -692,8 +692,8 @@ export const FamilyGroupUpdateForm = ({
                                             <CommandItem
                                               className='text-[14px]'
                                               value={getFullNames({
-                                                firstNames: preacher.firstName,
-                                                lastNames: preacher.lastName,
+                                                firstNames: preacher?.member?.firstName ?? '',
+                                                lastNames: preacher?.member?.lastName ?? '',
                                               })}
                                               key={preacher.id}
                                               onSelect={() => {
@@ -701,7 +701,7 @@ export const FamilyGroupUpdateForm = ({
                                                 setIsInputTheirPreacherOpen(false);
                                               }}
                                             >
-                                              {`${preacher?.firstName} ${preacher?.lastName}`}
+                                              {`${preacher?.member?.firstName} ${preacher?.member?.lastName}`}
                                               <CheckIcon
                                                 className={cn(
                                                   'ml-auto h-4 w-4',
@@ -721,8 +721,8 @@ export const FamilyGroupUpdateForm = ({
                                             <CommandItem
                                               className='text-[14px]'
                                               value={getFullNames({
-                                                firstNames: preacher.firstName,
-                                                lastNames: preacher.lastName,
+                                                firstNames: preacher?.member?.firstName ?? '',
+                                                lastNames: preacher?.member?.lastName ?? '',
                                               })}
                                               key={preacher.id}
                                               onSelect={() => {
@@ -730,7 +730,7 @@ export const FamilyGroupUpdateForm = ({
                                                 setIsInputTheirPreacherOpen(false);
                                               }}
                                             >
-                                              {`${preacher?.firstName} ${preacher?.lastName}`}
+                                              {`${preacher?.member?.firstName} ${preacher?.member?.lastName}`}
                                               <CheckIcon
                                                 className={cn(
                                                   'ml-auto h-4 w-4',

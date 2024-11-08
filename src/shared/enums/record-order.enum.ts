@@ -4,7 +4,7 @@ export enum RecordOrder {
 }
 
 export const RecordOrderNames: Record<RecordOrder, string> = {
-  [RecordOrder.Ascending] : 'Mas antiguo al mas nuevo',
-  [RecordOrder.Descending] : 'Mas nuevo al mas antiguo',
+  [RecordOrder.Ascending] : 'Más antiguo al más nuevo',
+  [RecordOrder.Descending] : 'Más nuevo al más antiguo',
 }
 

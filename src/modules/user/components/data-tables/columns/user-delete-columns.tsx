@@ -9,6 +9,7 @@ import { Button } from '@/shared/components/ui/button';
 
 export const userDeleteColumns: Array<ColumnDef<UserColumns, any>> = [
   {
+    id: 'id',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.getValue();
@@ -30,6 +31,7 @@ export const userDeleteColumns: Array<ColumnDef<UserColumns, any>> = [
     },
   },
   {
+    id: 'firstName',
     accessorKey: 'firstName',
     header: ({ column }) => {
       return (
@@ -47,6 +49,7 @@ export const userDeleteColumns: Array<ColumnDef<UserColumns, any>> = [
     },
   },
   {
+    id: 'lastName',
     accessorKey: 'lastName',
     header: ({ column }) => {
       return (
@@ -64,6 +67,7 @@ export const userDeleteColumns: Array<ColumnDef<UserColumns, any>> = [
     },
   },
   {
+    id: 'email',
     accessorKey: 'email',
     header: ({ column }) => {
       return (
@@ -81,6 +85,7 @@ export const userDeleteColumns: Array<ColumnDef<UserColumns, any>> = [
     },
   },
   {
+    id: 'roles',
     accessorKey: 'roles',
     cell: (info) => {
       function convertRolesToSpanishString(roles: string[]): string {

@@ -6,7 +6,6 @@ interface Options {
 
 interface AbbreviatedFullNamesOptions {
   fullNames: string;
-
 }
 
 export const getInitialFullNames = ( {firstNames, lastNames}: Options): string => {

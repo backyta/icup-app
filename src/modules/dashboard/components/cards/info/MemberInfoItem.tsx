@@ -27,13 +27,15 @@ export function MemberInfoItem({ data }: Props): JSX.Element {
           <Avatar className='p-1 h-12 w-12'>
             <AvatarImage
               className='rounded-full'
-              src={data.gender === 'male' ? '/src/assets/boy.webp' : '/src/assets/girl.webp'}
+              src={
+                data?.member?.gender === 'male' ? '/src/assets/boy.webp' : '/src/assets/girl.webp'
+              }
             />
             <AvatarFallback>UI</AvatarFallback>
           </Avatar>
           <div className='flex flex-col justify-center'>
-            <p className='text-sm sm:text-base font-bold'>{`${data.firstName} ${data.lastName}`}</p>
-            <p className='text-[12px] sm:text-[14px] ml-2'>{`${data.district} - ${data.urbanSector}`}</p>
+            <p className='text-sm sm:text-base font-bold'>{`${data?.member?.firstName} ${data?.member?.lastName}`}</p>
+            <p className='text-[12px] sm:text-[14px] ml-2'>{`${data?.member?.district} - ${data?.member?.urbanSector}`}</p>
           </div>
         </CardContent>
         <div className='pr-6 pt-2 pb-2'>
@@ -58,14 +60,14 @@ export function MemberInfoItem({ data }: Props): JSX.Element {
         <Avatar className='p-1'>
           <AvatarImage
             className='rounded-full w-10'
-            src={data.gender === 'male' ? '/src/assets/boy.webp' : '/src/assets/girl.webp'}
+            src={data?.member?.gender === 'male' ? '/src/assets/boy.webp' : '/src/assets/girl.webp'}
           />
           <AvatarFallback>UI</AvatarFallback>
         </Avatar>
         <div className='flex flex-col'>
           <div className='flex flex-col justify-center'>
-            <p className='text-sm sm:text-base font-bold'>{`${data.firstName} ${data.lastName}`}</p>
-            <p className='text-[12px] sm:text-[14px] ml-2'>{`${data.district} - ${data.urbanSector}`}</p>
+            <p className='text-sm sm:text-base font-bold'>{`${data?.member?.firstName} ${data?.member?.lastName}`}</p>
+            <p className='text-[12px] sm:text-[14px] ml-2'>{`${data?.member?.district} - ${data?.member?.urbanSector}`}</p>
           </div>
         </div>
       </CardContent>

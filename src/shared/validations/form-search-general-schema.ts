@@ -4,7 +4,7 @@ import { RecordOrder } from '@/shared/enums';
 export const formSearchGeneralSchema = z
   .object({
     order: z.string(z.nativeEnum(RecordOrder, {
-      required_error: "Seleccione un orden para al consulta.", 
+      required_error: "Seleccione un orden para la consulta.", 
     })),
 
     limit: z.string().refine(limit => {
@@ -21,12 +21,12 @@ export const formSearchGeneralSchema = z
     offset: z.string().refine(offset => {
       return /^\d+$/.test(offset);
     }, {
-      message: 'Desplaz. debe ser un numero mayor o igual a 0'
+      message: 'Debe ser un numero mayor o igual a 0'
     }).refine(offset => {
       const parsedOffset = parseInt(offset);
       return !isNaN(parsedOffset) && parsedOffset >= 0;
     }, {
-      message: 'Desplaz. debe ser un numero mayor o igual a 0'
+      message: 'Debe ser un numero mayor o igual a 0'
     }).optional(),
 
     all: z.boolean().optional(),

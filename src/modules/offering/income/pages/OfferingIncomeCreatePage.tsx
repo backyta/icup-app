@@ -639,7 +639,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                 )}
                               >
                                 {field.value
-                                  ? `${queryData?.find((member) => member.id === field.value)?.firstName} ${queryData?.find((member) => member.id === field.value)?.lastName}`
+                                  ? `${queryData?.find((member) => member.id === field.value)?.member?.firstName} ${queryData?.find((member) => member.id === field.value)?.member?.lastName}`
                                   : 'Busque y seleccione un miembro'}
                                 <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                               </Button>
@@ -655,24 +655,24 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   />
                                   <CommandEmpty>Miembro no encontrado.</CommandEmpty>
                                   <CommandGroup className='max-h-[200px] h-auto'>
-                                    {queryData?.map((member) => (
+                                    {queryData?.map((item) => (
                                       <CommandItem
                                         className='text-[14px]'
                                         value={getFullNames({
-                                          firstNames: member.firstName,
-                                          lastNames: member.lastName,
+                                          firstNames: item.member?.firstName ?? '',
+                                          lastNames: item.member?.lastName ?? '',
                                         })}
-                                        key={member.id}
+                                        key={item.id}
                                         onSelect={() => {
-                                          form.setValue('memberId', member.id);
+                                          form.setValue('memberId', item.id);
                                           setIsInputMemberOpen(false);
                                         }}
                                       >
-                                        {`${member?.firstName} ${member?.lastName}`}
+                                        {`${item?.member?.firstName} ${item?.member?.lastName}`}
                                         <CheckIcon
                                           className={cn(
                                             'ml-auto h-4 w-4',
-                                            member.id === field.value ? 'opacity-100' : 'opacity-0'
+                                            item.id === field.value ? 'opacity-100' : 'opacity-0'
                                           )}
                                         />
                                       </CommandItem>
