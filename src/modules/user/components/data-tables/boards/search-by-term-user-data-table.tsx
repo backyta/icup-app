@@ -186,7 +186,8 @@ export function SearchByTermUserDataTable<TData, TValue>({
                 {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
               </span>
             )}
-            {dataForm?.searchType === UserSearchType.RecordStatus && (
+            {(dataForm?.searchType === UserSearchType.RecordStatus ||
+              dataForm?.searchType === UserSearchType.Gender) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
                   Object.entries(UserSearchSelectOptionNames).find(

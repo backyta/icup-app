@@ -405,3 +405,95 @@ export const deleteSupervisor = async (id: string ): Promise<void> => {
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
+
+// ? SUPERVISOR REPORTS
+const openPdfInNewTab = (pdfBlob: Blob): void => {
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  const newTab = window.open(pdfUrl, '_blank');
+  newTab?.focus();
+}
+
+export const getGeneralSupervisorsReport = async ({limit, offset, order}: SupervisorQueryParams): Promise<void> => {
+   try {
+    const res = await icupApi<Blob>('/reports/supervisors' , {
+      params: {
+        limit,
+        offset,
+        order,
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }
+
+export const getSupervisorsReportByTerm = async ({   
+  searchType, 
+  searchSubType,
+  inputTerm, 
+  dateTerm, 
+  selectTerm, 
+  namesTerm,
+  lastNamesTerm,
+  limit, 
+  offset, 
+  order
+}: SupervisorQueryParams): Promise<void> => {
+  let newTerm: string | undefined = '';
+  
+  const termMapping: Partial<Record<SupervisorSearchType, string | undefined>> = {
+    [SupervisorSearchType.FirstName]: namesTerm,
+    [SupervisorSearchType.LastName]: lastNamesTerm,
+    [SupervisorSearchType.FullName]: `${namesTerm}-${lastNamesTerm}`,
+    [SupervisorSearchType.BirthDate]: dateTerm,
+    [SupervisorSearchType.BirthMonth]: selectTerm,
+    [SupervisorSearchType.Gender]: selectTerm,
+    [SupervisorSearchType.MaritalStatus]: selectTerm,
+    [SupervisorSearchType.ZoneName]: inputTerm,
+    [SupervisorSearchType.OriginCountry]: inputTerm,
+    [SupervisorSearchType.Department]: inputTerm,
+    [SupervisorSearchType.Province]: inputTerm,
+    [SupervisorSearchType.District]: inputTerm,
+    [SupervisorSearchType.UrbanSector]: inputTerm,
+    [SupervisorSearchType.Address]: inputTerm,
+    [SupervisorSearchType.RecordStatus]: selectTerm,
+  };
+  
+  newTerm = termMapping[searchType as SupervisorSearchType];
+
+   try {
+    const res = await icupApi<Blob>(`/reports/supervisors/${newTerm}` , {
+      params: {
+        limit,
+        offset,
+        order,
+        'search-type': searchType,
+        'search-sub-type': searchSubType
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }

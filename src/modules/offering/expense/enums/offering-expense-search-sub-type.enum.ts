@@ -291,16 +291,16 @@ export const SubTypeNamesOfferingExpenseSearchBySuppliesExpenses: Record<SubType
 //* Planing Events Expenses
 export enum SubTypeOfferingExpenseSearchByPlaningEventsExpenses {
   AdvertisingAndEventPromotion = "advertising_and_event_promotion",
-  SpecialGuestsFees = "special_guests_fees",
+  SpecialGuestsFees = "special_guests_fess",
   SecurityPersonnelFees = "security_personnel_fees",
-  ExternalVenueRental = "rental_external_venues",
-  FoodAndBeverage = "food_beverage",
+  SupportStaffFees = "support_staff_fees",
+  ExternalVenueRental = "external_venue_rental",
+  FoodAndBeverage = "food_and_beverage",
   TransportationSpecialGuests = "transportation_special_guests",
   EquipmentTransportation = "equipment_transportation",
-  SupportStaffFees = "fees_support_staff",
   RentalTechnicalEquipment = "rental_technical_equipment",
-  EducationalMaterials = "educational_materials",
   PrivateMobilityRental = "private_mobility_rental",
+  EducationalMaterials = "educational_materials",
   GiftsAndPrizesParticipants = "gifts_and_prizes_participants",
   OtherRelatedExpenses = "other_related_expenses"
 }
@@ -320,3 +320,4 @@ export const SubTypeNamesOfferingExpenseSearchByPlaningEventsExpenses: Record<Su
   [SubTypeOfferingExpenseSearchByPlaningEventsExpenses.GiftsAndPrizesParticipants]: 'Premios y regalos',
   [SubTypeOfferingExpenseSearchByPlaningEventsExpenses.OtherRelatedExpenses]: 'Otros gastos relacionados',
 }
+

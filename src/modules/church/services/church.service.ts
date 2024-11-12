@@ -254,3 +254,81 @@ export const deleteChurch = async (id: string ): Promise<void> => {
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
+
+
+// ? CHURCH REPORTS
+const openPdfInNewTab = (pdfBlob: Blob): void => {
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  const newTab = window.open(pdfUrl, '_blank');
+  newTab?.focus();
+}
+
+export const getGeneralChurchesReport = async ({limit, offset, order}: ChurchQueryParams): Promise<void> => {
+   try {
+    const res = await icupApi<Blob>('/reports/churches' , {
+      params: {
+        limit,
+        offset,
+        order,
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }
+
+export const getChurchesReportByTerm = async ({ searchType, inputTerm, dateTerm, selectTerm, limit, offset, order}: ChurchQueryParams): Promise<void> => {
+
+  let newTerm: string | undefined = '';
+  
+  const termMapping: Record<ChurchSearchType, string | undefined> = {
+    [ChurchSearchType.ChurchName]: inputTerm,
+    [ChurchSearchType.Department]: inputTerm,
+    [ChurchSearchType.Province]: inputTerm,
+    [ChurchSearchType.District]: inputTerm,
+    [ChurchSearchType.UrbanSector]: inputTerm,
+    [ChurchSearchType.Address]: inputTerm,
+    [ChurchSearchType.FoundingDate]: dateTerm,
+    [ChurchSearchType.RecordStatus]: selectTerm,
+  };
+  
+  newTerm = termMapping[searchType as ChurchSearchType];
+
+   try {
+    const res = await icupApi<Blob>(`/reports/churches/${newTerm}` , {
+      params: {
+        limit,
+        offset,
+        order,
+        'search-type': searchType
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }
+ 
+
+

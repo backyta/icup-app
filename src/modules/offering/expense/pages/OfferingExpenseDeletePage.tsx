@@ -229,15 +229,18 @@ export const OfferingExpenseDeletePage = (): JSX.Element => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(OfferingExpenseSearchTypeNames).map(([key, value]) => (
-                            <SelectItem
-                              className={`text-[13px] md:text-[14px]`}
-                              key={key}
-                              value={key}
-                            >
-                              {value}
-                            </SelectItem>
-                          ))}
+                          {Object.entries(OfferingExpenseSearchTypeNames).map(
+                            ([key, value]) =>
+                              key !== OfferingExpenseSearchType.RecordStatus && (
+                                <SelectItem
+                                  className={`text-[13px] md:text-[14px]`}
+                                  key={key}
+                                  value={key}
+                                >
+                                  {value}
+                                </SelectItem>
+                              )
+                          )}
                         </SelectContent>
                       </Select>
                       <FormMessage />

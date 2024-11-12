@@ -191,6 +191,9 @@ export function SearchByTermDiscipleDataTable<TData, TValue>({
             </span>{' '}
             {(dataForm?.searchType === DiscipleSearchType.OriginCountry ||
               dataForm?.searchType === DiscipleSearchType.Department ||
+              dataForm?.searchType === DiscipleSearchType.ZoneName ||
+              dataForm?.searchType === DiscipleSearchType.FamilyGroupCode ||
+              dataForm?.searchType === DiscipleSearchType.FamilyGroupName ||
               dataForm?.searchType === DiscipleSearchType.Province ||
               dataForm?.searchType === DiscipleSearchType.District ||
               dataForm?.searchType === DiscipleSearchType.UrbanSector ||

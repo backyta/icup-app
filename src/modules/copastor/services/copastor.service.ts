@@ -367,3 +367,94 @@ export const deleteCopastor = async (id: string ): Promise<void> => {
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
+
+// ? COPASTOR REPORTS
+const openPdfInNewTab = (pdfBlob: Blob): void => {
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  const newTab = window.open(pdfUrl, '_blank');
+  newTab?.focus();
+}
+
+export const getGeneralCopastorsReport = async ({limit, offset, order}: CopastorQueryParams): Promise<void> => {
+   try {
+    const res = await icupApi<Blob>('/reports/copastors' , {
+      params: {
+        limit,
+        offset,
+        order,
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }
+
+export const getCopastorsReportByTerm = async ({   
+  searchType, 
+  searchSubType,
+  inputTerm, 
+  dateTerm, 
+  selectTerm, 
+  namesTerm,
+  lastNamesTerm,
+  limit, 
+  offset, 
+  order
+}: CopastorQueryParams): Promise<void> => {
+  let newTerm: string | undefined = '';
+  
+  const termMapping: Record<CopastorSearchType, string | undefined> = {
+    [CopastorSearchType.FirstName]: namesTerm,
+    [CopastorSearchType.LastName]: lastNamesTerm,
+    [CopastorSearchType.FullName]: `${namesTerm}-${lastNamesTerm}`,
+    [CopastorSearchType.BirthDate]: dateTerm,
+    [CopastorSearchType.BirthMonth]: selectTerm,
+    [CopastorSearchType.Gender]: selectTerm,
+    [CopastorSearchType.MaritalStatus]: selectTerm,
+    [CopastorSearchType.OriginCountry]: inputTerm,
+    [CopastorSearchType.Department]: inputTerm,
+    [CopastorSearchType.Province]: inputTerm,
+    [CopastorSearchType.District]: inputTerm,
+    [CopastorSearchType.UrbanSector]: inputTerm,
+    [CopastorSearchType.Address]: inputTerm,
+    [CopastorSearchType.RecordStatus]: selectTerm,
+  };
+  
+  newTerm = termMapping[searchType as CopastorSearchType];
+
+   try {
+    const res = await icupApi<Blob>(`/reports/copastors/${newTerm}` , {
+      params: {
+        limit,
+        offset,
+        order,
+        'search-type': searchType,
+        'search-sub-type': searchSubType
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }

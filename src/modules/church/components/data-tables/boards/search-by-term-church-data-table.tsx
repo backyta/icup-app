@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
@@ -5,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 import { Toaster, toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
+import { FaRegFilePdf } from 'react-icons/fa6';
 import { useQuery } from '@tanstack/react-query';
 
 import {
@@ -25,7 +27,7 @@ import {
   ChurchSearchTypeNames,
   ChurchSearchSelectOptionNames,
 } from '@/modules/church/enums';
-import { getChurchesByTerm } from '@/modules/church/services';
+import { getChurchesByTerm, getChurchesReportByTerm } from '@/modules/church/services';
 import { type ChurchSearchFormByTerm, type ChurchQueryParams } from '@/modules/church/interfaces';
 
 import { useChurchStore } from '@/stores/church';
@@ -148,6 +150,18 @@ export function SearchByTermChurchDataTable<TData, TValue>({
     },
   });
 
+  //* Query Report and Event trigger
+  const generateReportQuery = useQuery({
+    queryKey: ['general-churches-report', searchParams],
+    queryFn: () => getChurchesReportByTerm(searchParams as ChurchQueryParams),
+    retry: 1,
+    enabled: false,
+  });
+
+  const handleGenerateReport = (): void => {
+    generateReportQuery.refetch();
+  };
+
   return (
     <div className='md:w-full m-auto lg:w-full'>
       <Toaster position='top-center' richColors />
@@ -203,9 +217,9 @@ export function SearchByTermChurchDataTable<TData, TValue>({
           <div className='pb-8 pt-4 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
             <Input
               placeholder='Filtro por nombre de iglesia...'
-              value={(table.getColumn('churchName')?.getFilterValue() as string) ?? ''}
+              value={(table.getColumn('abbreviatedChurchName')?.getFilterValue() as string) ?? ''}
               onChange={(event) =>
-                table.getColumn('churchName')?.setFilterValue(event.target.value)
+                table.getColumn('abbreviatedChurchName')?.setFilterValue(event.target.value)
               }
               className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
               disabled={isFiltersSearchByTermDisabled}
@@ -234,7 +248,7 @@ export function SearchByTermChurchDataTable<TData, TValue>({
               className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
               onClick={() => {
                 setIsFiltersSearchByTermDisabled(true);
-                table.getColumn('churchName')?.setFilterValue('');
+                table.getColumn('abbreviatedChurchName')?.setFilterValue('');
                 table.getColumn('district')?.setFilterValue('');
               }}
             >
@@ -295,29 +309,43 @@ export function SearchByTermChurchDataTable<TData, TValue>({
       </div>
 
       {!query?.error && !isFiltersSearchByTermDisabled && !query.isPending && (
-        <div className='flex items-center justify-end space-x-2 py-4'>
-          <Button
-            className='text-[13px] lg:text-sm'
-            variant='outline'
-            size='sm'
-            onClick={() => {
-              table.previousPage();
-            }}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Anterior
-          </Button>
-          <Button
-            className='text-[13px] lg:text-sm'
-            variant='outline'
-            size='sm'
-            onClick={() => {
-              table.nextPage();
-            }}
-            disabled={!table.getCanNextPage()}
-          >
-            Siguiente
-          </Button>
+        <div className='flex items-center justify-between space-x-2 py-4'>
+          {!query.isPending && (
+            <Button
+              type='submit'
+              variant='ghost'
+              className='px-4 py-3 text-[16px] text-white hover:text-white dark:text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:via-amber-700 hover:to-amber-800 font-semibold rounded-lg shadow-lg transition-transform transform focus:outline-none focus:ring-red-300'
+              onClick={handleGenerateReport}
+            >
+              <FaRegFilePdf className='mr-2 text-[1.5rem] text-white' />
+              {generateReportQuery.isFetching ? 'Generando Reporte...' : 'Generar Reporte'}
+            </Button>
+          )}
+
+          <div>
+            <Button
+              className='text-[13px] lg:text-sm'
+              variant='outline'
+              size='sm'
+              onClick={() => {
+                table.previousPage();
+              }}
+              disabled={!table.getCanPreviousPage()}
+            >
+              Anterior
+            </Button>
+            <Button
+              className='text-[13px] lg:text-sm'
+              variant='outline'
+              size='sm'
+              onClick={() => {
+                table.nextPage();
+              }}
+              disabled={!table.getCanNextPage()}
+            >
+              Siguiente
+            </Button>
+          </div>
         </div>
       )}
 

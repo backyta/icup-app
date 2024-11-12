@@ -360,3 +360,92 @@ export const deletePastor = async (id: string ): Promise<void> => {
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
+
+// ? PASTOR REPORTS
+const openPdfInNewTab = (pdfBlob: Blob): void => {
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  const newTab = window.open(pdfUrl, '_blank');
+  newTab?.focus();
+}
+
+export const getGeneralPastorsReport = async ({limit, offset, order}: PastorQueryParams): Promise<void> => {
+   try {
+    const res = await icupApi<Blob>('/reports/pastors' , {
+      params: {
+        limit,
+        offset,
+        order,
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }
+
+export const getPastorsReportByTerm = async ({   
+  searchType, 
+  inputTerm, 
+  dateTerm, 
+  selectTerm, 
+  namesTerm,
+  lastNamesTerm,
+  limit, 
+  offset, 
+  order
+}: PastorQueryParams): Promise<void> => {
+  let newTerm: string | undefined = '';
+  
+  const termMapping: Record<PastorSearchType, string | undefined> = {
+    [PastorSearchType.FirstName]: namesTerm,
+    [PastorSearchType.LastName]: lastNamesTerm,
+    [PastorSearchType.FullName]: `${namesTerm}-${lastNamesTerm}`,
+    [PastorSearchType.BirthDate]: dateTerm,
+    [PastorSearchType.BirthMonth]: selectTerm,
+    [PastorSearchType.Gender]: selectTerm,
+    [PastorSearchType.MaritalStatus]: selectTerm,
+    [PastorSearchType.OriginCountry]: inputTerm,
+    [PastorSearchType.Department]: inputTerm,
+    [PastorSearchType.Province]: inputTerm,
+    [PastorSearchType.District]: inputTerm,
+    [PastorSearchType.UrbanSector]: inputTerm,
+    [PastorSearchType.Address]: inputTerm,
+    [PastorSearchType.RecordStatus]: selectTerm,
+  };
+  
+  newTerm = termMapping[searchType as PastorSearchType];
+
+   try {
+    const res = await icupApi<Blob>(`/reports/pastors/${newTerm}` , {
+      params: {
+        limit,
+        offset,
+        order,
+        'search-type': searchType
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }

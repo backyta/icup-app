@@ -230,7 +230,7 @@ export function SearchByTermOfferingExpenseDataTable<TData, TValue>({
               dataForm?.searchType === OfferingExpenseSearchType.SuppliesExpenses ||
               dataForm?.searchType === OfferingExpenseSearchType.ExpensesAdjustment) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${churchesQuery?.data?.find((item) => item?.id === dataForm?.selectTerm)?.churchName}`}
+                {`${churchesQuery?.data?.find((item) => item?.id === dataForm?.selectTerm)?.abbreviatedChurchName}`}
               </span>
             )}
             {(dataForm?.searchType === OfferingExpenseSearchType.PlaningEventsExpenses ||

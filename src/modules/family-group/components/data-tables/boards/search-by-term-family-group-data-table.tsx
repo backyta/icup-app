@@ -191,6 +191,9 @@ export function SearchByTermFamilyGroupDataTable<TData, TValue>({
             </span>{' '}
             {(dataForm?.searchType === FamilyGroupSearchType.Department ||
               dataForm?.searchType === FamilyGroupSearchType.Province ||
+              dataForm?.searchType === FamilyGroupSearchType.FamilyGroupCode ||
+              dataForm?.searchType === FamilyGroupSearchType.FamilyGroupName ||
+              dataForm?.searchType === FamilyGroupSearchType.ZoneName ||
               dataForm?.searchType === FamilyGroupSearchType.District ||
               dataForm?.searchType === FamilyGroupSearchType.UrbanSector ||
               dataForm?.searchType === FamilyGroupSearchType.Address) && (
