@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
@@ -18,11 +19,26 @@ import {
   FormField,
   FormMessage,
   FormControl,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
+import { cn } from '@/shared/lib/utils';
+import { generateYearOptions } from '@/shared/helpers';
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from '@/shared/components/ui/command';
+import { getMemberMetricsReport } from '../../services';
+import { useQuery } from '@tanstack/react-query';
+import { FaRegFilePdf } from 'react-icons/fa6';
 
 interface Props {
   churchId: string | undefined;
@@ -35,6 +51,7 @@ export const MemberReportForm = ({ churchId, dialogClose, scrollToTop }: Props):
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
+  const [isInputSearchYearOpen, setIsInputSearchYearOpen] = useState<boolean>(false);
 
   //* Form
   const form = useForm<z.infer<typeof memberReportFormSchema>>({
@@ -43,11 +60,17 @@ export const MemberReportForm = ({ churchId, dialogClose, scrollToTop }: Props):
     defaultValues: {
       types: Object.values(MetricMemberSearchType),
       church: churchId,
+      year: new Date().getFullYear().toString(),
     },
   });
 
+  //* Helpers
+  const years = generateYearOptions();
+
   //* Watchers
   const types = form.watch('types');
+  const year = form.watch('year');
+  const church = form.watch('church');
 
   //* Effects
   useEffect(() => {
@@ -72,9 +95,22 @@ export const MemberReportForm = ({ churchId, dialogClose, scrollToTop }: Props):
     }
   }, [form.formState, churchId, types]);
 
+  //* Query Report and Event trigger
+  const generateReportQuery = useQuery({
+    queryKey: ['member-metrics-report', church],
+    queryFn: () => getMemberMetricsReport({ churchId: church ?? '', year: year ?? '', types }),
+    retry: 1,
+    enabled: false,
+  });
+
+  // const handleGenerateReport = (): void => {
+  //   generateReportQuery.refetch();
+  // };
+
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof memberReportFormSchema>): void => {
     console.log(formData);
+    generateReportQuery.refetch();
   };
 
   return (
@@ -82,7 +118,7 @@ export const MemberReportForm = ({ churchId, dialogClose, scrollToTop }: Props):
       defaultValue='general-info'
       className='w-auto sm:w-[480px] md:w-[550px] lg:w-[550px] xl:w-[600px]'
     >
-      <h2 className='text-center text-yellow-500  leading-6 pb-1 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
+      <h2 className='text-center text-amber-500 leading-6 pb-1 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
         Generar Reporte
       </h2>
 
@@ -99,6 +135,80 @@ export const MemberReportForm = ({ churchId, dialogClose, scrollToTop }: Props):
                 onSubmit={form.handleSubmit(handleSubmit)}
                 className='w-full pt-2 flex flex-col gap-x-10 gap-y-5 md:gap-y-5 px-2 md:px-4'
               >
+                <FormField
+                  control={form.control}
+                  name='year'
+                  render={({ field }) => {
+                    return (
+                      <FormItem className='flex justify-start gap-5 items-center'>
+                        <div className='w-auto'>
+                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                            Año de búsqueda
+                          </FormLabel>
+                          <FormDescription className='text-[12px] md:text-[13px] font-medium'>
+                            Selecciona el año de búsqueda que tendrán los reportes.
+                          </FormDescription>
+                        </div>
+                        <Popover
+                          open={isInputSearchYearOpen}
+                          onOpenChange={setIsInputSearchYearOpen}
+                        >
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                variant='outline'
+                                role='combobox'
+                                className={cn(
+                                  'justify-center w-auto text-center px-2 text-[12px] md:text-[14px] ',
+                                  !field.value &&
+                                    'text-slate-500  dark:text-slate-200 font-normal px-2'
+                                )}
+                              >
+                                {field.value
+                                  ? years.find((year) => year.value === field.value)?.label
+                                  : 'Elige un año'}
+                                <CaretSortIcon className='h-4 w-4 shrink-0' />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent align='center' className='w-auto px-4 py-2'>
+                            <Command>
+                              <CommandInput
+                                placeholder='Busque un año...'
+                                className='h-9 text-[12px] md:text-[14px]'
+                              />
+                              <CommandEmpty>Año no encontrado.</CommandEmpty>
+                              <CommandGroup className='max-h-[100px] h-auto'>
+                                {years.map((year) => (
+                                  <CommandItem
+                                    className='text-[12px] md:text-[14px]'
+                                    value={year.label}
+                                    key={year.value}
+                                    onSelect={() => {
+                                      form.setValue('year', year.value);
+                                      year && form.handleSubmit(handleSubmit)();
+                                      setIsInputSearchYearOpen(false);
+                                    }}
+                                  >
+                                    {year.label}
+                                    <CheckIcon
+                                      className={cn(
+                                        'ml-auto h-4 w-4',
+                                        year.value === field.value ? 'opacity-100' : 'opacity-0'
+                                      )}
+                                    />
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+
                 <div className='flex'>
                   <FormField
                     control={form.control}
@@ -171,12 +281,13 @@ export const MemberReportForm = ({ churchId, dialogClose, scrollToTop }: Props):
                   <Button
                     disabled={isSubmitButtonDisabled}
                     type='submit'
-                    // className={cn(
-                    //   'w-full text-[14px]',
-                    //   familyGroupPreacherUpdateMutation?.isPending &&
-                    //     'bg-emerald-500 disabled:opacity-100 disabled:text-[16px] text-white'
-                    // )}
-                    className='w-full text-[13.5px] md:text-[14px]'
+                    className={cn(
+                      'w-full px-4 py-3 text-[15px] font-semibold rounded-lg shadow-lg transition-transform transform focus:outline-none focus:ring-red-300',
+                      !generateReportQuery.isFetching &&
+                        'text-white hover:text-white dark:text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:via-amber-700 hover:to-amber-800',
+                      generateReportQuery.isFetching &&
+                        'bg-gray-200 text-gray-500 cursor-not-allowed animate-pulse'
+                    )}
                     onClick={() => {
                       setTimeout(() => {
                         if (Object.keys(form.formState.errors).length === 0) {
@@ -186,10 +297,13 @@ export const MemberReportForm = ({ churchId, dialogClose, scrollToTop }: Props):
                       }, 100);
                     }}
                   >
-                    {/* {familyGroupPreacherUpdateMutation?.isPending
-                      ? 'Procesando...'
-                      : 'Guardar cambios'} */}
-                    Generar Reporte PDF
+                    <FaRegFilePdf
+                      className={cn(
+                        'mr-2 text-[1.5rem] text-white',
+                        generateReportQuery.isFetching && 'text-gray-500'
+                      )}
+                    />
+                    {generateReportQuery.isFetching ? 'Generando Reporte...' : 'Generar Reporte'}
                   </Button>
                 </div>
               </form>
@@ -208,3 +322,5 @@ export const MemberReportForm = ({ churchId, dialogClose, scrollToTop }: Props):
     </Tabs>
   );
 };
+
+// TODO : ver si cambiamos los church por churchID

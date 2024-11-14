@@ -408,3 +408,100 @@ export const deleteOfferingIncome = async ({id, reasonEliminationType, exchangeR
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
+
+
+// ? OFFERING INCOME REPORTS
+const openPdfInNewTab = (pdfBlob: Blob): void => {
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  const newTab = window.open(pdfUrl, '_blank');
+  newTab?.focus();
+}
+
+export const getGeneralOfferingIncomeReport = async ({limit, offset, order}: OfferingIncomeQueryParams): Promise<void> => {
+   try {
+    const res = await icupApi<Blob>('/reports/offering-income' , {
+      params: {
+        limit,
+        offset,
+        order,
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }
+
+export const getOfferingIncomeReportByTerm = async ({   
+  searchType, 
+  searchSubType,
+  inputTerm, 
+  dateTerm, 
+  selectTerm, 
+  namesTerm,
+  lastNamesTerm,
+  limit, 
+  offset, 
+  order
+}: OfferingIncomeQueryParams): Promise<void> => {
+  let newTerm: string | undefined = '';
+  
+  const termMapping: Partial<Record<OfferingIncomeSearchSubType | OfferingIncomeSearchType, string | undefined>> = {
+    [OfferingIncomeSearchSubType.OfferingByDate]: dateTerm,
+    [OfferingIncomeSearchSubType.OfferingByChurch]: selectTerm,
+    [OfferingIncomeSearchSubType.OfferingByChurchDate]: `${selectTerm}&${dateTerm}`,
+    [OfferingIncomeSearchSubType.OfferingByShift]: selectTerm,
+    [OfferingIncomeSearchSubType.OfferingByShiftDate]: `${selectTerm}&${dateTerm}`,
+    [OfferingIncomeSearchSubType.OfferingByZone]: inputTerm,
+    [OfferingIncomeSearchSubType.OfferingByZoneDate]: `${inputTerm}&${dateTerm}`,
+    [OfferingIncomeSearchSubType.OfferingByGroupCode]: inputTerm,
+    [OfferingIncomeSearchSubType.OfferingByGroupCodeDate]: `${inputTerm}&${dateTerm}`,
+    [OfferingIncomeSearchSubType.OfferingByPreacherNames]: namesTerm,
+    [OfferingIncomeSearchSubType.OfferingByPreacherLastNames]: lastNamesTerm,
+    [OfferingIncomeSearchSubType.OfferingByPreacherFullName]: `${namesTerm}-${lastNamesTerm}`,
+    [OfferingIncomeSearchSubType.OfferingBySupervisorNames]: namesTerm,
+    [OfferingIncomeSearchSubType.OfferingBySupervisorLastNames]: lastNamesTerm,
+    [OfferingIncomeSearchSubType.OfferingBySupervisorFullName]: `${namesTerm}-${lastNamesTerm}`,
+    [OfferingIncomeSearchSubType.OfferingByContributorNames]: `${selectTerm}&${namesTerm}`,
+    [OfferingIncomeSearchSubType.OfferingByContributorLastNames]: `${selectTerm}&${lastNamesTerm}`,
+    [OfferingIncomeSearchSubType.OfferingByContributorFullName]: `${selectTerm}&${namesTerm}-${lastNamesTerm}`,
+    [OfferingIncomeSearchType.RecordStatus]: selectTerm,
+  };
+  
+  newTerm = termMapping[searchSubType as OfferingIncomeSearchSubType] ?? termMapping[searchType as OfferingIncomeSearchType];
+
+   try {
+    const res = await icupApi<Blob>(`/reports/offering-income/${newTerm}` , {
+      params: {
+        limit,
+        offset,
+        order,
+        'search-type': searchType,
+        'search-sub-type': searchSubType
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }

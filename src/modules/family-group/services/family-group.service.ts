@@ -328,3 +328,91 @@ export const deleteFamilyGroup = async (id: string ): Promise<void> => {
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
+
+// ? FAMILY GROUP REPORTS
+const openPdfInNewTab = (pdfBlob: Blob): void => {
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  const newTab = window.open(pdfUrl, '_blank');
+  newTab?.focus();
+}
+
+export const getGeneralFamilyGroupsReport = async ({limit, offset, order}: FamilyGroupQueryParams): Promise<void> => {
+   try {
+    const res = await icupApi<Blob>('/reports/family-groups' , {
+      params: {
+        limit,
+        offset,
+        order,
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }
+
+export const getFamilyGroupsReportByTerm = async ({
+  searchType,
+  searchSubType,
+  namesTerm,
+  lastNamesTerm,
+  inputTerm, 
+  selectTerm, 
+  limit, 
+  offset, 
+  order
+}: FamilyGroupQueryParams): Promise<void> => {
+  let newTerm: string | undefined = '';
+  
+  const termMapping: Partial<Record<FamilyGroupSearchType, string | undefined>> = {
+    [FamilyGroupSearchType.FirstName]: namesTerm,
+    [FamilyGroupSearchType.LastName]: lastNamesTerm,
+    [FamilyGroupSearchType.FullName]: `${namesTerm}-${lastNamesTerm}`,
+    [FamilyGroupSearchType.ZoneName]: inputTerm,
+    [FamilyGroupSearchType.FamilyGroupCode]: inputTerm,
+    [FamilyGroupSearchType.FamilyGroupName]: inputTerm,
+    [FamilyGroupSearchType.Department]: inputTerm,
+    [FamilyGroupSearchType.Province]: inputTerm,
+    [FamilyGroupSearchType.District]: inputTerm,
+    [FamilyGroupSearchType.UrbanSector]: inputTerm,
+    [FamilyGroupSearchType.Address]: inputTerm,
+    [FamilyGroupSearchType.RecordStatus]: selectTerm,
+  };
+  
+  newTerm = termMapping[searchType as FamilyGroupSearchType];
+
+   try {
+    const res = await icupApi<Blob>(`/reports/family-groups/${newTerm}` , {
+      params: {
+        limit,
+        offset,
+        order,
+        'search-type': searchType,
+        'search-sub-type': searchSubType
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }

@@ -400,3 +400,98 @@ export const deletePreacher = async (id: string ): Promise<void> => {
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
+
+
+// ? PREACHER REPORTS
+const openPdfInNewTab = (pdfBlob: Blob): void => {
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  const newTab = window.open(pdfUrl, '_blank');
+  newTab?.focus();
+}
+
+export const getGeneralPreachersReport = async ({limit, offset, order}: PreacherQueryParams): Promise<void> => {
+   try {
+    const res = await icupApi<Blob>('/reports/preachers' , {
+      params: {
+        limit,
+        offset,
+        order,
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }
+
+export const getPreachersReportByTerm = async ({   
+  searchType, 
+  searchSubType,
+  inputTerm, 
+  dateTerm, 
+  selectTerm, 
+  namesTerm,
+  lastNamesTerm,
+  limit, 
+  offset, 
+  order
+}: PreacherQueryParams): Promise<void> => {
+  let newTerm: string | undefined = '';
+  
+  const termMapping: Partial<Record<PreacherSearchType, string | undefined>> = {
+    [PreacherSearchType.FirstName]: namesTerm,
+    [PreacherSearchType.LastName]: lastNamesTerm,
+    [PreacherSearchType.FullName]: `${namesTerm}-${lastNamesTerm}`,
+    [PreacherSearchType.BirthDate]: dateTerm,
+    [PreacherSearchType.BirthMonth]: selectTerm,
+    [PreacherSearchType.Gender]: selectTerm,
+    [PreacherSearchType.MaritalStatus]: selectTerm,
+    [PreacherSearchType.OriginCountry]: inputTerm,
+    [PreacherSearchType.ZoneName]: inputTerm,
+    [PreacherSearchType.FamilyGroupCode]: inputTerm,
+    [PreacherSearchType.FamilyGroupName]: inputTerm,
+    [PreacherSearchType.Department]: inputTerm,
+    [PreacherSearchType.Province]: inputTerm,
+    [PreacherSearchType.District]: inputTerm,
+    [PreacherSearchType.UrbanSector]: inputTerm,
+    [PreacherSearchType.Address]: inputTerm,
+    [PreacherSearchType.RecordStatus]: selectTerm,
+  };
+  
+  newTerm = termMapping[searchType as PreacherSearchType];
+
+   try {
+    const res = await icupApi<Blob>(`/reports/preachers/${newTerm}` , {
+      params: {
+        limit,
+        offset,
+        order,
+        'search-type': searchType,
+        'search-sub-type': searchSubType
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }

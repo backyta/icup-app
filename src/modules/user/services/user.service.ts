@@ -289,3 +289,83 @@ export const deleteUser = async (id: string ): Promise<void> => {
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
+
+// ? USER REPORTS
+const openPdfInNewTab = (pdfBlob: Blob): void => {
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  const newTab = window.open(pdfUrl, '_blank');
+  newTab?.focus();
+}
+
+export const getGeneralUsersReport = async ({limit, offset, order}: UserQueryParams): Promise<void> => {
+   try {
+    const res = await icupApi<Blob>('/reports/users' , {
+      params: {
+        limit,
+        offset,
+        order,
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }
+
+export const getUsersReportByTerm = async ({   
+  searchType, 
+  selectTerm, 
+  namesTerm,
+  lastNamesTerm,
+  multiSelectTerm,
+  limit, 
+  offset, 
+  order
+}: UserQueryParams): Promise<void> => {
+  let newTerm: string | undefined = '';
+  
+  const termMapping: Record<UserSearchType, string | undefined> = {
+    [UserSearchType.FirstName]: namesTerm,
+    [UserSearchType.LastName]: lastNamesTerm,
+    [UserSearchType.FullName]: `${namesTerm}-${lastNamesTerm}`,
+    [UserSearchType.Gender]: selectTerm,
+    [UserSearchType.Roles]: multiSelectTerm,
+    [UserSearchType.RecordStatus]: selectTerm,
+  };
+  
+  newTerm = termMapping[searchType as UserSearchType];
+
+   try {
+    const res = await icupApi<Blob>(`/reports/users/${newTerm}` , {
+      params: {
+        limit,
+        offset,
+        order,
+        'search-type': searchType,
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }

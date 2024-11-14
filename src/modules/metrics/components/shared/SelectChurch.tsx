@@ -22,6 +22,7 @@ interface Props {
 
 export const SelectChurch = ({ churchId, setChurchId, data }: Props): JSX.Element => {
   const [open, setOpen] = useState(false);
+
   return (
     <div className='flex flex-col items-center gap-1 justify-center'>
       <Popover open={open} onOpenChange={setOpen}>

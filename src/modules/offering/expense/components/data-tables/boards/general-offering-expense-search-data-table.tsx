@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/return-await */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
@@ -7,6 +8,7 @@ import { useEffect, useState } from 'react';
 
 import { Toaster, toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
+import { FaRegFilePdf } from 'react-icons/fa6';
 import { useQuery } from '@tanstack/react-query';
 
 import {
@@ -26,7 +28,10 @@ import {
   OfferingExpenseSearchTypeNames,
   OfferingExpenseSearchSubTypeNames,
 } from '@/modules/offering/expense/enums';
-import { getOfferingsExpenses } from '@/modules/offering/expense/services';
+import {
+  getGeneralOfferingExpensesReport,
+  getOfferingsExpenses,
+} from '@/modules/offering/expense/services';
 import { type OfferingExpenseQueryParams } from '@/modules/offering/expense/interfaces';
 
 import { useOfferingExpenseStore } from '@/stores/offering-expense';
@@ -165,6 +170,18 @@ export function GeneralOfferingExpenseSearchDataTable<TData, TValue>({
     },
   });
 
+  //* Query Report and Event trigger
+  const generateReportQuery = useQuery({
+    queryKey: ['general-offering-expenses-report', searchParams],
+    queryFn: () => getGeneralOfferingExpensesReport(searchParams as OfferingExpenseQueryParams),
+    retry: 1,
+    enabled: false,
+  });
+
+  const handleGenerateReport = (): void => {
+    generateReportQuery.refetch();
+  };
+
   return (
     <div>
       <Toaster position='top-center' richColors />
@@ -269,29 +286,43 @@ export function GeneralOfferingExpenseSearchDataTable<TData, TValue>({
       </div>
 
       {!query?.error && !isFiltersSearchGeneralDisabled && !query.isPending && (
-        <div className='flex items-center justify-end space-x-2 py-4'>
-          <Button
-            className='text-[13px] lg:text-[14px]'
-            variant='outline'
-            size='sm'
-            onClick={() => {
-              table.previousPage();
-            }}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Anterior
-          </Button>
-          <Button
-            className='text-[13px] lg:text-sm'
-            variant='outline'
-            size='sm'
-            onClick={() => {
-              table.nextPage();
-            }}
-            disabled={!table.getCanNextPage()}
-          >
-            Siguiente
-          </Button>
+        <div className='flex items-center justify-between space-x-2 py-4'>
+          {!query.isPending && (
+            <Button
+              type='submit'
+              variant='ghost'
+              className='px-4 py-3 text-[16px] text-white hover:text-white dark:text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:via-amber-700 hover:to-amber-800 font-semibold rounded-lg shadow-lg transition-transform transform focus:outline-none focus:ring-red-300'
+              onClick={handleGenerateReport}
+            >
+              <FaRegFilePdf className='mr-2 text-[1.5rem] text-white' />
+              {generateReportQuery.isFetching ? 'Generando Reporte...' : 'Generar Reporte'}
+            </Button>
+          )}
+
+          <div>
+            <Button
+              className='text-[13px] lg:text-[14px]'
+              variant='outline'
+              size='sm'
+              onClick={() => {
+                table.previousPage();
+              }}
+              disabled={!table.getCanPreviousPage()}
+            >
+              Anterior
+            </Button>
+            <Button
+              className='text-[13px] lg:text-sm'
+              variant='outline'
+              size='sm'
+              onClick={() => {
+                table.nextPage();
+              }}
+              disabled={!table.getCanNextPage()}
+            >
+              Siguiente
+            </Button>
+          </div>
         </div>
       )}
 

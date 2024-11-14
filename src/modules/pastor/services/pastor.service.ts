@@ -381,7 +381,8 @@ export const getGeneralPastorsReport = async ({limit, offset, order}: PastorQuer
       },
       responseType: 'blob',
     });
-    
+
+  
     openPdfInNewTab(res.data);
     
    } catch (error) {

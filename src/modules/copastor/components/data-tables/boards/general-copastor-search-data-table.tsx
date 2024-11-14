@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/return-await */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
@@ -77,7 +77,7 @@ export function GeneralCopastorSearchDataTable<TData, TValue>({
 
   //* Queries
   const query = useQuery({
-    queryKey: ['general-copastors', searchParams],
+    queryKey: ['general-copastors-report', searchParams],
     queryFn: () => getCopastors(searchParams as CopastorQueryParams),
     enabled: !!searchParams,
     retry: 1,

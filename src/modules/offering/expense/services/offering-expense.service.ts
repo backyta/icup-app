@@ -229,3 +229,86 @@ export const deleteOfferingExpense = async ({id, reasonEliminationType}: DeleteO
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
+
+
+// ? OFFERING EXPENSES REPORTS
+const openPdfInNewTab = (pdfBlob: Blob): void => {
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  const newTab = window.open(pdfUrl, '_blank');
+  newTab?.focus();
+}
+
+export const getGeneralOfferingExpensesReport = async ({limit, offset, order}: OfferingExpenseQueryParams): Promise<void> => {
+   try {
+    const res = await icupApi<Blob>('/reports/offering-expenses' , {
+      params: {
+        limit,
+        offset,
+        order,
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }
+
+export const getOfferingExpensesReportByTerm = async ({   
+  searchType, 
+  searchSubType,
+  dateTerm, 
+  selectTerm, 
+  limit, 
+  offset, 
+  order
+}: OfferingExpenseQueryParams): Promise<void> => {
+  let newTerm: string | undefined = '';
+  
+  const termMapping: Record< OfferingExpenseSearchType, string | undefined> = {
+    [OfferingExpenseSearchType.DecorationExpenses]: `${selectTerm}&${dateTerm}`,
+    [OfferingExpenseSearchType.EquipmentAndTechnologyExpenses]: `${selectTerm}&${dateTerm}`,
+    [OfferingExpenseSearchType.ExpensesAdjustment]: `${selectTerm}&${dateTerm}`,
+    [OfferingExpenseSearchType.MaintenanceAndRepairExpenses]: `${selectTerm}&${dateTerm}`,
+    [OfferingExpenseSearchType.OperationalExpenses]: `${selectTerm}&${dateTerm}`,
+    [OfferingExpenseSearchType.PlaningEventsExpenses]: `${selectTerm}&${dateTerm}`,
+    [OfferingExpenseSearchType.SuppliesExpenses]: `${selectTerm}&${dateTerm}`,
+    [OfferingExpenseSearchType.RecordStatus]: selectTerm,
+  };
+  
+  newTerm = termMapping[searchType as OfferingExpenseSearchType];
+
+   try {
+    const res = await icupApi<Blob>(`/reports/offering-expenses/${newTerm}` , {
+      params: {
+        limit,
+        offset,
+        order,
+        'search-type': searchType,
+        'search-sub-type': searchSubType
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }

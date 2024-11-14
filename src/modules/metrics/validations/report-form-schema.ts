@@ -15,6 +15,9 @@ export const memberReportFormSchema = z
 
   church: z.string({required_error: 
   'Por favor asigna una Iglesia.'}),
+
+  year: z.string({required_error: 
+    'Por favor elige un año.'}).optional(),
 })
 
 export const familyGroupReportFormSchema = z

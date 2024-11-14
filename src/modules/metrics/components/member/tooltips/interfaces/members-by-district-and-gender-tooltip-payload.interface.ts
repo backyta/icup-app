@@ -12,6 +12,7 @@ export interface MembersByDistrictAndGenderPayload {
     urbanSectorName: string,
     men: number,
     women: number,
+    district: string,
     totalPercentage: string,
     church:{
       isAnexe: boolean;

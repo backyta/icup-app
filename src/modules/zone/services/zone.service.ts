@@ -195,3 +195,81 @@ export const deleteZone = async (id: string ): Promise<void> => {
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
+
+// ? ZONE REPORTS
+const openPdfInNewTab = (pdfBlob: Blob): void => {
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  const newTab = window.open(pdfUrl, '_blank');
+  newTab?.focus();
+}
+
+export const getGeneralZonesReport = async ({limit, offset, order}: ZoneQueryParams): Promise<void> => {
+   try {
+    const res = await icupApi<Blob>('/reports/zones' , {
+      params: {
+        limit,
+        offset,
+        order,
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }
+
+export const getZonesReportByTerm = async ({   
+  searchType, 
+  inputTerm, 
+  selectTerm, 
+  limit, 
+  offset, 
+  order
+}: ZoneQueryParams): Promise<void> => {
+  let newTerm: string | undefined = '';
+  
+  const termMapping: Partial<Record<ZoneSearchType, string | undefined>> = {
+    [ZoneSearchType.ZoneName]: inputTerm,
+    [ZoneSearchType.Country]: inputTerm,
+    [ZoneSearchType.Department]: inputTerm,
+    [ZoneSearchType.Province]: inputTerm,
+    [ZoneSearchType.District]: inputTerm,
+    [ZoneSearchType.RecordStatus]: selectTerm,
+  };
+  
+  newTerm = termMapping[searchType as ZoneSearchType];
+
+   try {
+    const res = await icupApi<Blob>(`/reports/zones/${newTerm}` , {
+      params: {
+        limit,
+        offset,
+        order,
+        'search-type': searchType,
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }

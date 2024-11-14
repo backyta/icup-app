@@ -57,6 +57,7 @@ interface ResultDataOptions {
   urbanSectorName: string;
   men: number;
   women: number;
+  district: string;
   church: {
     isAnexe: boolean;
     abbreviatedChurchName: string;
@@ -128,6 +129,7 @@ export const MemberAnalysisCardByDistrictAndGender = ({ churchId }: Props): JSX.
             urbanSectorName,
             men: payload?.men,
             women: payload?.women,
+            district: payload?.district,
             church: {
               isAnexe: payload?.church?.isAnexe,
               abbreviatedChurchName: payload?.church?.abbreviatedChurchName,
