@@ -301,14 +301,18 @@ interface MetricReportQueryParams {
   year: string;
   churchId: string; 
   types: string[];
+  dialogClose: () => void;
 }
 
-export const getMemberMetricsReport = async ({year, churchId, types}: MetricReportQueryParams): Promise<void> => {
-  console.log(types);
-
+export const getMemberMetricsReport = async ({
+  year, 
+  churchId, 
+  types, 
+  dialogClose,
+}: MetricReportQueryParams): Promise<void> => {
   const joinedReportTypes = types.join('+');
 
-   try {
+  try {
     const res = await icupApi<Blob>('/reports/member-metrics' , {
       params: {
         churchId,
@@ -316,13 +320,13 @@ export const getMemberMetricsReport = async ({year, churchId, types}: MetricRepo
         types: joinedReportTypes,
       },
       headers: {
-      'Content-Type': 'application/pdf',
+        'Content-Type': 'application/pdf',
       },
       responseType: 'blob',
     });
     
     openPdfInNewTab(res.data);
-    
+    dialogClose();
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)

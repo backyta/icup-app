@@ -1,14 +1,21 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
+import { cn } from '@/shared/lib/utils';
 import { useForm } from 'react-hook-form';
+import { FaRegFilePdf } from 'react-icons/fa6';
+import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
+import { generateYearOptions } from '@/shared/helpers';
+
+import { getMemberMetricsReport } from '@/modules/metrics/services';
 import { memberReportFormSchema } from '@/modules/metrics/validations';
 import { MetricMemberSearchType, MetricMemberSearchTypeNames } from '@/modules/metrics/enums';
 
@@ -21,32 +28,25 @@ import {
   FormControl,
   FormDescription,
 } from '@/shared/components/ui/form';
+import {
+  Command,
+  CommandItem,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+} from '@/shared/components/ui/command';
 import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
-import { cn } from '@/shared/lib/utils';
-import { generateYearOptions } from '@/shared/helpers';
-import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from '@/shared/components/ui/command';
-import { getMemberMetricsReport } from '../../services';
-import { useQuery } from '@tanstack/react-query';
-import { FaRegFilePdf } from 'react-icons/fa6';
 
 interface Props {
   churchId: string | undefined;
   dialogClose: () => void;
-  scrollToTop: () => void;
 }
 
-export const MemberReportForm = ({ churchId, dialogClose, scrollToTop }: Props): JSX.Element => {
+export const MemberReportForm = ({ churchId, dialogClose }: Props): JSX.Element => {
   //* States
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
@@ -98,14 +98,16 @@ export const MemberReportForm = ({ churchId, dialogClose, scrollToTop }: Props):
   //* Query Report and Event trigger
   const generateReportQuery = useQuery({
     queryKey: ['member-metrics-report', church],
-    queryFn: () => getMemberMetricsReport({ churchId: church ?? '', year: year ?? '', types }),
+    queryFn: () =>
+      getMemberMetricsReport({
+        churchId: church ?? '',
+        year: year ?? '',
+        types,
+        dialogClose,
+      }),
     retry: 1,
     enabled: false,
   });
-
-  // const handleGenerateReport = (): void => {
-  //   generateReportQuery.refetch();
-  // };
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof memberReportFormSchema>): void => {
@@ -156,6 +158,7 @@ export const MemberReportForm = ({ churchId, dialogClose, scrollToTop }: Props):
                           <PopoverTrigger asChild>
                             <FormControl>
                               <Button
+                                disabled={isInputDisabled}
                                 variant='outline'
                                 role='combobox'
                                 className={cn(
@@ -281,18 +284,19 @@ export const MemberReportForm = ({ churchId, dialogClose, scrollToTop }: Props):
                   <Button
                     disabled={isSubmitButtonDisabled}
                     type='submit'
+                    variant='ghost'
                     className={cn(
                       'w-full px-4 py-3 text-[15px] font-semibold rounded-lg shadow-lg transition-transform transform focus:outline-none focus:ring-red-300',
                       !generateReportQuery.isFetching &&
                         'text-white hover:text-white dark:text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:via-amber-700 hover:to-amber-800',
                       generateReportQuery.isFetching &&
-                        'bg-gray-200 text-gray-500 cursor-not-allowed animate-pulse'
+                        'bg-gray-100 dark:bg-gray-600 text-gray-600 dark:text-gray-200 cursor-not-allowed animate-pulse'
                     )}
                     onClick={() => {
                       setTimeout(() => {
                         if (Object.keys(form.formState.errors).length === 0) {
-                          setIsSubmitButtonDisabled(true);
                           setIsInputDisabled(true);
+                          setIsSubmitButtonDisabled(true);
                         }
                       }, 100);
                     }}
@@ -300,7 +304,7 @@ export const MemberReportForm = ({ churchId, dialogClose, scrollToTop }: Props):
                     <FaRegFilePdf
                       className={cn(
                         'mr-2 text-[1.5rem] text-white',
-                        generateReportQuery.isFetching && 'text-gray-500'
+                        generateReportQuery.isFetching && 'text-gray-600 dark:text-gray-200'
                       )}
                     />
                     {generateReportQuery.isFetching ? 'Generando Reporte...' : 'Generar Reporte'}

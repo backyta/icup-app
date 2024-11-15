@@ -1,11 +1,12 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/return-await */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect, useState } from 'react';
 
 import { Toaster, toast } from 'sonner';
+import { cn } from '@/shared/lib/utils';
 import { useNavigate } from 'react-router-dom';
 import { FaRegFilePdf } from 'react-icons/fa6';
 import { useQuery } from '@tanstack/react-query';
@@ -167,27 +168,27 @@ export function GeneralFamilyGroupSearchDataTable<TData, TValue>({
           <span className='font-medium text-[13px] md:text-[15px]'>Grupos Familiares (Todos)</span>
           <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center py-4 md:py-6 lg:py-4 lg:gap-6'>
             <Input
+              disabled={isDisabledButton}
               placeholder='Filtro por código..'
               value={(table.getColumn('familyGroupCode')?.getFilterValue() as string) ?? ''}
               onChange={(event) =>
                 table.getColumn('familyGroupCode')?.setFilterValue(event.target.value)
               }
               className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
-              disabled={isFiltersSearchGeneralDisabled}
             />
             <Input
+              disabled={isDisabledButton}
               placeholder='Filtro por sector urbano...'
               value={(table.getColumn('urbanSector')?.getFilterValue() as string) ?? ''}
               onChange={(event) =>
                 table.getColumn('urbanSector')?.setFilterValue(event.target.value)
               }
               className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
-              disabled={isFiltersSearchGeneralDisabled}
             />
             <Button
               disabled={isDisabledButton}
               variant='ghost'
-              className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 text-red-950 border-red-500 bg-red-500 hover:bg-red-500 hover:text-white'
+              className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 border-red-500 bg-gradient-to-r from-red-400 via-red-500 to-red-600 text-white hover:text-red-100 hover:from-red-500 hover:via-red-600 hover:to-red-700 dark:from-red-600 dark:via-red-700 dark:to-red-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-red-700 dark:hover:via-red-800 dark:hover:to-red-900'
               onClick={() => {
                 table.getColumn('familyGroupCode')?.setFilterValue('');
                 table.getColumn('urbanSector')?.setFilterValue('');
@@ -198,7 +199,7 @@ export function GeneralFamilyGroupSearchDataTable<TData, TValue>({
             <Button
               disabled={isDisabledButton}
               variant='ghost'
-              className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 text-green-950 border-green-500 bg-green-500 hover:bg-green-500 hover:text-white'
+              className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
               onClick={() => {
                 setIsFiltersSearchGeneralDisabled(true);
                 table.getColumn('familyGroupCode')?.setFilterValue('');
@@ -266,10 +267,21 @@ export function GeneralFamilyGroupSearchDataTable<TData, TValue>({
             <Button
               type='submit'
               variant='ghost'
-              className='px-4 py-3 text-[16px] text-white hover:text-white dark:text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:via-amber-700 hover:to-amber-800 font-semibold rounded-lg shadow-lg transition-transform transform focus:outline-none focus:ring-red-300'
+              className={cn(
+                'px-4 py-3 text-[15px] font-semibold rounded-lg shadow-lg transition-transform transform focus:outline-none focus:ring-red-300',
+                !generateReportQuery.isFetching &&
+                  'text-white hover:text-white dark:text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:via-amber-700 hover:to-amber-800',
+                generateReportQuery.isFetching &&
+                  'bg-gray-100 dark:bg-gray-600 text-gray-600 dark:text-gray-200 cursor-not-allowed animate-pulse'
+              )}
               onClick={handleGenerateReport}
             >
-              <FaRegFilePdf className='mr-2 text-[1.5rem] text-white' />
+              <FaRegFilePdf
+                className={cn(
+                  'mr-2 text-[1.5rem] text-white',
+                  generateReportQuery.isFetching && 'text-gray-600 dark:text-gray-200'
+                )}
+              />
               {generateReportQuery.isFetching ? 'Generando Reporte...' : 'Generar Reporte'}
             </Button>
           )}

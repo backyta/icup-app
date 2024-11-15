@@ -78,7 +78,11 @@ export const LoadingSpinner = (): JSX.Element => {
           pathname === '/users/delete' ||
           pathname === '/dashboard') &&
           'min-h-full',
-        (pathname === '/metrics/member' || pathname === '/metrics/family-group') &&
+        (pathname === '/metrics/member' ||
+          pathname === '/metrics/family-group' ||
+          pathname === '/metrics/offering-income' ||
+          pathname === '/metrics/offering-expenses' ||
+          pathname === '/metrics/offering-comparative') &&
           'bg-slate-50/40 dark:bg-slate-950/10'
       )}
     >

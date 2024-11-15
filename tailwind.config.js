@@ -55,7 +55,7 @@ module.exports = {
         },
         "login-text": "#ad6632",
         "pastor-color": "#1976D2",
-        "copastor-color": "#9C27B0",
+        "copastor-color": "#af30c9",
         "supervisor-color": "#068ef1",
         "preacher-color": "#0abd99",
         "family-group-color": "#FFA000",
