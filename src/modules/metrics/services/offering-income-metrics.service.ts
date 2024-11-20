@@ -48,14 +48,16 @@ export const getOfferingIncomeProportion = async ({
 export const getOfferingIncomeBySundayService = async ({ 
   searchType, 
   church,
-  month,
+  startMonth,
+  isSingleMonth,
   year,
   order
 }: MetricQueryParams): Promise<OfferingIncomeBySundayServiceResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingIncomeBySundayServiceResponse[]>(`/metrics/${church}&${month}&${year}`, {
+    const {data} = await icupApi<OfferingIncomeBySundayServiceResponse[]>(`/metrics/${church}&${startMonth}&${year}`, {
       params: {
         'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
         order
       },
     });
@@ -75,14 +77,16 @@ export const getOfferingIncomeByFamilyGroup = async ({
   searchType,
   zone,
   church,
-  month,
+  startMonth,
+  isSingleMonth,
   year,
   order
 }: MetricQueryParams): Promise<OfferingIncomeByFamilyGroupResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingIncomeByFamilyGroupResponse[]>(`/metrics/${church}&${zone}&${month}&${year}`, {
+    const {data} = await icupApi<OfferingIncomeByFamilyGroupResponse[]>(`/metrics/${church}&${zone}&${startMonth}&${year}`, {
       params: {
         'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
         order
       },
     });
@@ -101,14 +105,16 @@ export const getOfferingIncomeByFamilyGroup = async ({
 export const getOfferingIncomeBySundaySchool = async ({ 
   searchType, 
   church,
-  month,
+  startMonth,
+  isSingleMonth,
   year,
   order
 }: MetricQueryParams): Promise<OfferingIncomeBySundaySchoolResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingIncomeBySundaySchoolResponse[]>(`/metrics/${church}&${month}&${year}`, {
+    const {data} = await icupApi<OfferingIncomeBySundaySchoolResponse[]>(`/metrics/${church}&${startMonth}&${year}`, {
       params: {
         'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
         order
       },
     });
@@ -127,14 +133,16 @@ export const getOfferingIncomeBySundaySchool = async ({
 export const getOfferingIncomeByFastingAndVigil = async ({ 
   searchType, 
   church,
-  month,
+  startMonth,
+  isSingleMonth,
   year,
   order
 }: MetricQueryParams): Promise<OfferingIncomeByFastingAndVigilResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingIncomeByFastingAndVigilResponse[]>(`/metrics/${church}&${month}&${year}`, {
+    const {data} = await icupApi<OfferingIncomeByFastingAndVigilResponse[]>(`/metrics/${church}&${startMonth}&${year}`, {
       params: {
         'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
         order
       },
     });
@@ -153,14 +161,16 @@ export const getOfferingIncomeByFastingAndVigil = async ({
 export const getOfferingIncomeByYouthService = async ({ 
   searchType, 
   church,
-  month,
+  startMonth,
+  isSingleMonth,
   year,
   order
 }: MetricQueryParams): Promise<OfferingIncomeByYouthServiceResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingIncomeByYouthServiceResponse[]>(`/metrics/${church}&${month}&${year}`, {
+    const {data} = await icupApi<OfferingIncomeByYouthServiceResponse[]>(`/metrics/${church}&${startMonth}&${year}`, {
       params: {
         'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
         order
       },
     });
@@ -179,14 +189,16 @@ export const getOfferingIncomeByYouthService = async ({
 export const getOfferingIncomeBySpecialOffering = async ({ 
   searchType, 
   church,
-  month,
+  startMonth,
+  isSingleMonth,
   year,
   order
 }: MetricQueryParams): Promise<OfferingIncomeBySpecialOfferingResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingIncomeBySpecialOfferingResponse[]>(`/metrics/${church}&${month}&${year}`, {
+    const {data} = await icupApi<OfferingIncomeBySpecialOfferingResponse[]>(`/metrics/${church}&${startMonth}&${year}`, {
       params: {
         'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
         order
       },
     });
@@ -205,14 +217,16 @@ export const getOfferingIncomeBySpecialOffering = async ({
 export const getOfferingIncomeByChurchGround = async ({ 
   searchType, 
   church,
-  month,
+  startMonth,
+  isSingleMonth,
   year,
   order
 }: MetricQueryParams): Promise<OfferingIncomeByChurchGroundOfferingResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingIncomeByChurchGroundOfferingResponse[]>(`/metrics/${church}&${month}&${year}`, {
+    const {data} = await icupApi<OfferingIncomeByChurchGroundOfferingResponse[]>(`/metrics/${church}&${startMonth}&${year}`, {
       params: {
         'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
         order
       },
     });
@@ -231,14 +245,16 @@ export const getOfferingIncomeByChurchGround = async ({
 export const getOfferingIncomeByUnitedService = async ({ 
   searchType, 
   church,
-  month,
+  startMonth,
+  isSingleMonth,
   year,
   order
 }: MetricQueryParams): Promise<OfferingIncomeByUnitedServiceResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingIncomeByUnitedServiceResponse[]>(`/metrics/${church}&${month}&${year}`, {
+    const {data} = await icupApi<OfferingIncomeByUnitedServiceResponse[]>(`/metrics/${church}&${startMonth}&${year}`, {
       params: {
         'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
         order
       },
     });
@@ -257,14 +273,16 @@ export const getOfferingIncomeByUnitedService = async ({
 export const getOfferingIncomeByActivities = async ({ 
   searchType, 
   church,
-  month,
+  startMonth,
+  isSingleMonth,
   year,
   order
 }: MetricQueryParams): Promise<OfferingIncomeByActivitiesResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingIncomeByActivitiesResponse[]>(`/metrics/${church}&${month}&${year}`, {
+    const {data} = await icupApi<OfferingIncomeByActivitiesResponse[]>(`/metrics/${church}&${startMonth}&${year}`, {
       params: {
         'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
         order
       },
     });
@@ -283,14 +301,16 @@ export const getOfferingIncomeByActivities = async ({
 export const getOfferingIncomeAdjustment = async ({ 
   searchType, 
   church,
-  month,
+  startMonth,
+  isSingleMonth,
   year,
   order
 }: MetricQueryParams): Promise<OfferingIncomeByIncomeAdjustmentResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingIncomeByIncomeAdjustmentResponse[]>(`/metrics/${church}&${month}&${year}`, {
+    const {data} = await icupApi<OfferingIncomeByIncomeAdjustmentResponse[]>(`/metrics/${church}&${startMonth}&${year}`, {
       params: {
         'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
         order
       },
     });
@@ -304,3 +324,55 @@ export const getOfferingIncomeAdjustment = async ({
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
+
+// ? OFFERING INCOME METRICS REPORTS
+const openPdfInNewTab = (pdfBlob: Blob): void => {
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  const newTab = window.open(pdfUrl, '_blank');
+  newTab?.focus();
+}
+
+interface MetricReportQueryParams {
+  year: string;
+  startMonth: string;
+  endMonth: string;
+  churchId: string; 
+  types: string[];
+  dialogClose: () => void;
+}
+
+export const getOfferingIncomeMetricsReport = async ({
+  year, 
+  churchId, 
+  startMonth,
+  endMonth,
+  types, 
+  dialogClose,
+}: MetricReportQueryParams): Promise<void> => {
+  const joinedReportTypes = types.join('+');
+
+  try {
+    const res = await icupApi<Blob>('/reports/offering-income-metrics' , {
+      params: {
+        churchId,
+        year,
+        startMonth,
+        endMonth,
+        types: joinedReportTypes,
+      },
+      headers: {
+        'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    dialogClose();
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }

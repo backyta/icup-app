@@ -46,12 +46,12 @@ export const discipleFormSchema = z
     numberChildren: z.string().refine(number => {
       return /^\d+$/.test(number);
     }, {
-      message: 'El campo debe contener un numero positivo'
+      message: 'El campo debe contener un número positivo'
     }).refine(number => {
       const parsedNumber = parseInt(number);
       return !isNaN(parsedNumber) && parsedNumber >= 0;
     }, {
-      message: 'El campo debe contener un numero positivo'
+      message: 'El campo debe contener un número positivo'
     }),
     
     conversionDate: z.date({
@@ -102,11 +102,11 @@ export const discipleFormSchema = z
       
     address: z.string()
       .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
-      .max(50, { message: 'El campo debe contener máximo 50 caracteres.' }),
+      .max(80, { message: 'El campo debe contener máximo 80 caracteres.' }),
 
     referenceAddress: z.string()
       .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
-      .max(100, { message: 'El campo debe contener máximo 50 caracteres.' }),
+      .max(150, { message: 'El campo debe contener máximo 150 caracteres.' }),
 
     roles: z.array(z.nativeEnum(MemberRole),{
       required_error: "Debes seleccionar al menos un rol.",

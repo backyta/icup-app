@@ -23,12 +23,6 @@ export const OfferingIncomeReportFormCard = ({ churchId }: Props): JSX.Element =
     setIsOpen(false);
   }, []);
 
-  const handleContainerScroll = useCallback((): void => {
-    if (topRef.current !== null) {
-      topRef.current.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }, []);
-
   return (
     <>
       <Dialog open={setOpen} onOpenChange={setIsOpen}>
@@ -57,11 +51,7 @@ export const OfferingIncomeReportFormCard = ({ churchId }: Props): JSX.Element =
           ref={topRef}
           className='md:max-w-[600px] lg:max-w-[600px] xl:max-w-[650px] w-full max-h-full justify-center pt-[0.9rem] pb-[1.3rem] overflow-x-hidden overflow-y-auto'
         >
-          <OfferingIncomeReportForm
-            churchId={churchId}
-            dialogClose={handleContainerClose}
-            scrollToTop={handleContainerScroll}
-          />
+          <OfferingIncomeReportForm churchId={churchId} dialogClose={handleContainerClose} />
         </DialogContent>
       </Dialog>
     </>

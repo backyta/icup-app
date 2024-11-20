@@ -375,7 +375,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className=' mt-3'>
-                      <FormLabel className='text-[14px] font-medium'>Numero de hijos</FormLabel>
+                      <FormLabel className='text-[14px] font-medium'>Número de hijos</FormLabel>
                       <FormControl>
                         <Input disabled={isInputDisabled} placeholder='Ejem: 2' {...field} />
                       </FormControl>
@@ -469,7 +469,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel className='text-[14px] font-medium'>Numero de teléfono</FormLabel>
+                      <FormLabel className='text-[14px] font-medium'>Número de teléfono</FormLabel>
                       <FormControl>
                         <Input
                           disabled={isInputDisabled}

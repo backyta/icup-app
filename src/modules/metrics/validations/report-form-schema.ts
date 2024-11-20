@@ -30,6 +30,9 @@ export const familyGroupReportFormSchema = z
 
   church: z.string({required_error: 
   'Por favor asigna una Iglesia.'}),
+  
+  year: z.string({required_error: 
+    'Por favor elige un año.'}).optional(),
 })
 
 export const offeringIncomeReportFormSchema = z
@@ -42,5 +45,14 @@ export const offeringIncomeReportFormSchema = z
 
   church: z.string({required_error: 
   'Por favor asigna una Iglesia.'}),
+
+  year: z.string({required_error: 
+    'Por favor elige un año.'}).optional(),
+
+  startMonth: z.string({required_error: 
+    'Por favor elige el mes de inicio.'}).optional(),
+
+  endMonth: z.string({required_error: 
+    'Por favor elige el mes de fin.'}).optional(),
 })
 

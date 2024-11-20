@@ -21,12 +21,12 @@ export const formSearchGeneralSchema = z
     offset: z.string().refine(offset => {
       return /^\d+$/.test(offset);
     }, {
-      message: 'Debe ser un numero mayor o igual a 0'
+      message: 'Debe ser un número mayor o igual a 0'
     }).refine(offset => {
       const parsedOffset = parseInt(offset);
       return !isNaN(parsedOffset) && parsedOffset >= 0;
     }, {
-      message: 'Debe ser un numero mayor o igual a 0'
+      message: 'Debe ser un número mayor o igual a 0'
     }).optional(),
 
     all: z.boolean().optional(),

@@ -15,5 +15,6 @@ export interface MetricQueryParams {
   order?: string;
   allZones?: boolean;
   allFamilyGroups?: boolean;
+  isSingleMonth?: boolean;
 }
 

@@ -147,7 +147,7 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
             </div>
 
             <div className='space-y-1'>
-              <Label className='text-[14px] md:text-[15px]'>Numero de hijos</Label>
+              <Label className='text-[14px] md:text-[15px]'>Número de hijos</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.member?.numberChildren ?? '-'}
               </CardDescription>

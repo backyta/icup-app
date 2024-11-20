@@ -41,11 +41,11 @@ export const familyGroupFormSchema = z
       
     address: z.string()
       .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
-      .max(50, { message: 'El campo debe contener máximo 50 caracteres.' }),
+      .max(80, { message: 'El campo debe contener máximo 80 caracteres.' }),
 
     referenceAddress: z.string()
       .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
-      .max(100, { message: 'El campo debe contener máximo 50 caracteres.' })
+      .max(150, { message: 'El campo debe contener máximo 150 caracteres.' })
       ,
 
     theirPreacher: z.string({required_error: 

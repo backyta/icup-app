@@ -442,7 +442,7 @@ export const CopastorUpdateForm = ({
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
-                            <FormLabel className='text-[14px]'>Numero de hijos</FormLabel>
+                            <FormLabel className='text-[14px]'>Número de hijos</FormLabel>
                             <FormControl>
                               <Input
                                 disabled={isInputDisabled}
@@ -600,7 +600,7 @@ export const CopastorUpdateForm = ({
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
-                            <FormLabel className='text-[14px]'>Numero de Teléfono</FormLabel>
+                            <FormLabel className='text-[14px]'>Número de Teléfono</FormLabel>
                             <FormControl>
                               <Input
                                 disabled={isInputDisabled}

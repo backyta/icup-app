@@ -13,7 +13,9 @@ interface DisabledDistrictsResult {
 export const validateDistrictsAllowedByModule = ( path: string): DisabledDistrictsResult | undefined => {
 
   //* Disabled Districts
-  if (path === '/disciples/create' || 
+  if (path === '/churches/create' || 
+       path === '/churches/update' ||
+       path === '/disciples/create' || 
        path === '/disciples/update' ||
        path === '/pastors/create' ||
        path === '/pastors/update' ||

@@ -376,7 +376,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                        Numero de teléfono
+                        Número de teléfono
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
                         Asigna un número telefónico a la nueva iglesia.

@@ -111,7 +111,6 @@ export const MemberReportForm = ({ churchId, dialogClose }: Props): JSX.Element 
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof memberReportFormSchema>): void => {
-    console.log(formData);
     generateReportQuery.refetch();
   };
 
@@ -189,7 +188,6 @@ export const MemberReportForm = ({ churchId, dialogClose }: Props): JSX.Element 
                                     key={year.value}
                                     onSelect={() => {
                                       form.setValue('year', year.value);
-                                      year && form.handleSubmit(handleSubmit)();
                                       setIsInputSearchYearOpen(false);
                                     }}
                                   >

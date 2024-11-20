@@ -18,6 +18,7 @@ export const MemberModuleDistrictsAllowed = [
 //* Family group
 export const FamilyGroupModuleDistrictsAllowed = [
   DistrictNames.Independencia,
+  DistrictNames['Puente Piedra'],
 ];
 
 

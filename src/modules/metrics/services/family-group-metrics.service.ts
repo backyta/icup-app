@@ -196,4 +196,50 @@ export const  getFamilyGroupsByRecordStatus =  async ({
   }
 }
 
+// ? FAMILY GROUP METRICS REPORTS
+const openPdfInNewTab = (pdfBlob: Blob): void => {
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  const newTab = window.open(pdfUrl, '_blank');
+  newTab?.focus();
+}
+
+interface MetricReportQueryParams {
+  year: string;
+  churchId: string; 
+  types: string[];
+  dialogClose: () => void;
+}
+
+export const getFamilyGroupMetricsReport = async ({
+  year, 
+  churchId, 
+  types, 
+  dialogClose,
+}: MetricReportQueryParams): Promise<void> => {
+  const joinedReportTypes = types.join('+');
+
+  try {
+    const res = await icupApi<Blob>('/reports/family-group-metrics' , {
+      params: {
+        churchId,
+        year,
+        types: joinedReportTypes,
+      },
+      headers: {
+        'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    dialogClose();
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }
+
 

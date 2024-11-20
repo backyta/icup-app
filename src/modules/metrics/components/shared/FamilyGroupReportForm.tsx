@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
@@ -21,27 +22,39 @@ import {
   FormField,
   FormMessage,
   FormControl,
+  FormDescription,
 } from '@/shared/components/ui/form';
 import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
+import { useQuery } from '@tanstack/react-query';
+import { getFamilyGroupMetricsReport } from '../../services';
+import { cn } from '@/shared/lib/utils';
+import { FaRegFilePdf } from 'react-icons/fa6';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
+import { CaretSortIcon } from '@radix-ui/react-icons';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from '@/shared/components/ui/command';
+import { CheckIcon } from 'lucide-react';
+import { generateYearOptions } from '@/shared/helpers';
 
 interface Props {
   churchId: string | undefined;
   dialogClose: () => void;
-  scrollToTop: () => void;
 }
 
-export const FamilyGroupReportForm = ({
-  churchId,
-  dialogClose,
-  scrollToTop,
-}: Props): JSX.Element => {
+export const FamilyGroupReportForm = ({ churchId, dialogClose }: Props): JSX.Element => {
   //* States
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
+  const [isInputSearchYearOpen, setIsInputSearchYearOpen] = useState<boolean>(false);
 
   //* Form
   const form = useForm<z.infer<typeof familyGroupReportFormSchema>>({
@@ -50,11 +63,17 @@ export const FamilyGroupReportForm = ({
     defaultValues: {
       types: Object.values(MetricFamilyGroupSearchType),
       church: churchId,
+      year: new Date().getFullYear().toString(),
     },
   });
 
+  //* Helpers
+  const years = generateYearOptions();
+
   //* Watchers
   const types = form.watch('types');
+  const year = form.watch('year');
+  const church = form.watch('church');
 
   //* Effects
   useEffect(() => {
@@ -79,9 +98,24 @@ export const FamilyGroupReportForm = ({
     }
   }, [form.formState, churchId, types]);
 
+  //* Query Report and Event trigger
+  const generateReportQuery = useQuery({
+    queryKey: ['family-group-metrics-report', church],
+    queryFn: () =>
+      getFamilyGroupMetricsReport({
+        churchId: church ?? '',
+        year: year ?? '',
+        types,
+        dialogClose,
+      }),
+    retry: 1,
+    enabled: false,
+  });
+
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof familyGroupReportFormSchema>): void => {
     console.log(formData);
+    generateReportQuery.refetch();
   };
 
   return (
@@ -106,6 +140,80 @@ export const FamilyGroupReportForm = ({
                 onSubmit={form.handleSubmit(handleSubmit)}
                 className='w-full pt-2 flex flex-col gap-x-10 gap-y-5 md:gap-y-5 px-2 md:px-4'
               >
+                <FormField
+                  control={form.control}
+                  name='year'
+                  render={({ field }) => {
+                    return (
+                      <FormItem className='flex justify-start gap-5 items-center'>
+                        <div className='w-auto'>
+                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                            Año de búsqueda
+                          </FormLabel>
+                          <FormDescription className='text-[12px] md:text-[13px] font-medium'>
+                            Selecciona el año de búsqueda que tendrán los reportes.
+                          </FormDescription>
+                        </div>
+                        <Popover
+                          open={isInputSearchYearOpen}
+                          onOpenChange={setIsInputSearchYearOpen}
+                        >
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                disabled={isInputDisabled}
+                                variant='outline'
+                                role='combobox'
+                                className={cn(
+                                  'justify-center w-auto text-center px-2 text-[12px] md:text-[14px] ',
+                                  !field.value &&
+                                    'text-slate-500  dark:text-slate-200 font-normal px-2'
+                                )}
+                              >
+                                {field.value
+                                  ? years.find((year) => year.value === field.value)?.label
+                                  : 'Elige un año'}
+                                <CaretSortIcon className='h-4 w-4 shrink-0' />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent align='center' className='w-auto px-4 py-2'>
+                            <Command>
+                              <CommandInput
+                                placeholder='Busque un año...'
+                                className='h-9 text-[12px] md:text-[14px]'
+                              />
+                              <CommandEmpty>Año no encontrado.</CommandEmpty>
+                              <CommandGroup className='max-h-[100px] h-auto'>
+                                {years.map((year) => (
+                                  <CommandItem
+                                    className='text-[12px] md:text-[14px]'
+                                    value={year.label}
+                                    key={year.value}
+                                    onSelect={() => {
+                                      form.setValue('year', year.value);
+                                      setIsInputSearchYearOpen(false);
+                                    }}
+                                  >
+                                    {year.label}
+                                    <CheckIcon
+                                      className={cn(
+                                        'ml-auto h-4 w-4',
+                                        year.value === field.value ? 'opacity-100' : 'opacity-0'
+                                      )}
+                                    />
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+
                 <div className='flex'>
                   <FormField
                     control={form.control}
@@ -178,25 +286,30 @@ export const FamilyGroupReportForm = ({
                   <Button
                     disabled={isSubmitButtonDisabled}
                     type='submit'
-                    // className={cn(
-                    //   'w-full text-[14px]',
-                    //   familyGroupPreacherUpdateMutation?.isPending &&
-                    //     'bg-emerald-500 disabled:opacity-100 disabled:text-[16px] text-white'
-                    // )}
-                    className='w-full text-[13.5px] md:text-[14px]'
+                    variant='ghost'
+                    className={cn(
+                      'w-full px-4 py-3 text-[15px] font-semibold rounded-lg shadow-lg transition-transform transform focus:outline-none focus:ring-red-300',
+                      !generateReportQuery.isFetching &&
+                        'text-white hover:text-white dark:text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:via-amber-700 hover:to-amber-800',
+                      generateReportQuery.isFetching &&
+                        'bg-gray-100 dark:bg-gray-600 text-gray-600 dark:text-gray-200 cursor-not-allowed animate-pulse'
+                    )}
                     onClick={() => {
                       setTimeout(() => {
                         if (Object.keys(form.formState.errors).length === 0) {
-                          setIsSubmitButtonDisabled(true);
                           setIsInputDisabled(true);
+                          setIsSubmitButtonDisabled(true);
                         }
                       }, 100);
                     }}
                   >
-                    {/* {familyGroupPreacherUpdateMutation?.isPending
-                      ? 'Procesando...'
-                      : 'Guardar cambios'} */}
-                    Generar Reporte PDF
+                    <FaRegFilePdf
+                      className={cn(
+                        'mr-2 text-[1.5rem] text-white',
+                        generateReportQuery.isFetching && 'text-gray-600 dark:text-gray-200'
+                      )}
+                    />
+                    {generateReportQuery.isFetching ? 'Generando Reporte...' : 'Generar Reporte'}
                   </Button>
                 </div>
               </form>

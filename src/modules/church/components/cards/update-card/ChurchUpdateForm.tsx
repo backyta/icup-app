@@ -390,10 +390,10 @@ export const ChurchUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                              Numero de teléfono
+                              Número de teléfono
                             </FormLabel>
                             <FormDescription className='text-[14px]'>
-                              Asigne un numero telefónico que tendrá la iglesia.
+                              Asigne un número telefónico que tendrá la iglesia.
                             </FormDescription>
                             <FormControl>
                               <Input

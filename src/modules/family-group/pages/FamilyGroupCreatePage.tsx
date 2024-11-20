@@ -634,7 +634,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                                 )}
                               >
                                 {field.value
-                                  ? `${preachersQuery.data?.find((preacher) => preacher.id === field.value)?.firstName} ${preachersQuery.data?.find((preacher) => preacher.id === field.value)?.lastName}`
+                                  ? `${preachersQuery.data?.find((preacher) => preacher.id === field.value)?.member?.firstName} ${preachersQuery.data?.find((preacher) => preacher.id === field.value)?.member?.lastName}`
                                   : 'Busque y seleccione un predicador'}
                                 <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                               </Button>
@@ -656,8 +656,8 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                                       <CommandItem
                                         className='text-[14px]'
                                         value={getFullNames({
-                                          firstNames: preacher.firstName,
-                                          lastNames: preacher.lastName,
+                                          firstNames: preacher?.member?.firstName,
+                                          lastNames: preacher?.member?.lastName,
                                         })}
                                         key={preacher.id}
                                         onSelect={() => {
@@ -665,7 +665,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                                           setIsInputTheirPreacherOpen(false);
                                         }}
                                       >
-                                        {`${preacher?.firstName} ${preacher?.lastName}`}
+                                        {`${preacher?.member?.firstName} ${preacher?.member?.lastName}`}
                                         <CheckIcon
                                           className={cn(
                                             'ml-auto h-4 w-4',

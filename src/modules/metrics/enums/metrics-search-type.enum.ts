@@ -137,12 +137,12 @@ export enum MetricFamilyGroupSearchType {
 }
 
 export const MetricFamilyGroupSearchTypeNames: Record<MetricFamilyGroupSearchType, string> =  {
-  [MetricFamilyGroupSearchType.FamilyGroupsFluctuationByYear]: 'Fluctuación de grupos fam. por año.',
-  [MetricFamilyGroupSearchType.FamilyGroupsByCode]: 'Grupos fam. por código.',
-  [MetricFamilyGroupSearchType.FamilyGroupsByZone]: 'Grupos fam. por zona.',
-  [MetricFamilyGroupSearchType.FamilyGroupsByDistrict]: 'Grupos fam. por distrito.',
-  [MetricFamilyGroupSearchType.FamilyGroupsByServiceTime]: 'Grupos fam. por horario de culto.',
-  [MetricFamilyGroupSearchType.FamilyGroupsByRecordStatus]: 'Grupos fam. por estado de registro.',
+  [MetricFamilyGroupSearchType.FamilyGroupsFluctuationByYear]: 'Fluctuación de grupos familiares por año.',
+  [MetricFamilyGroupSearchType.FamilyGroupsByCode]: 'Grupos familiares por código.',
+  [MetricFamilyGroupSearchType.FamilyGroupsByZone]: 'Grupos familiares por zona.',
+  [MetricFamilyGroupSearchType.FamilyGroupsByDistrict]: 'Grupos familiares por distrito.',
+  [MetricFamilyGroupSearchType.FamilyGroupsByServiceTime]: 'Grupos familiares por horario de culto.',
+  [MetricFamilyGroupSearchType.FamilyGroupsByRecordStatus]: 'Grupos familiares por estado de registro.',
 }
 
 export enum MetricOfferingIncomeSearchType {
