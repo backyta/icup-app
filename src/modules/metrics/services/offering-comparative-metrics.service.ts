@@ -14,6 +14,7 @@ import {
   type OfferingExpensesAndOfferingIncomeComparativeProportionResponse,
 } from '@/modules/metrics/interfaces';
 
+
 //* Get proportion offering comparative 
 export const getOfferingComparativeProportion = async ({ 
   searchType, 
@@ -198,3 +199,59 @@ export const getComparativeOfferingExpensesBySubType = async ({
     throw new Error('Ocurrió un error inesperado, hable con el administrador')
   }
 }
+
+
+// ? FINANCIAL BALANCE COMPARATIVE METRICS REPORTS
+const openPdfInNewTab = (pdfBlob: Blob): void => {
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  const newTab = window.open(pdfUrl, '_blank');
+  newTab?.focus();
+}
+
+interface MetricReportQueryParams {
+  year: string;
+  currency: string;
+  startMonth: string;
+  endMonth: string;
+  churchId: string; 
+  types: string[];
+  dialogClose: () => void;
+}
+
+export const getFinancialBalanceComparativeMetricsReport = async ({
+  year, 
+  churchId, 
+  startMonth,
+  endMonth,
+  currency,
+  types, 
+  dialogClose,
+}: MetricReportQueryParams): Promise<void> => {
+  const joinedReportTypes = types.join('+');
+
+  try {
+    const res = await icupApi<Blob>('/reports/financial-balance-comparative-metrics' , {
+      params: {
+        churchId,
+        year,
+        currency,
+        startMonth,
+        endMonth,
+        types: joinedReportTypes,
+      },
+      headers: {
+        'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    dialogClose();
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }

@@ -210,63 +210,60 @@ export const MemberReportForm = ({ churchId, dialogClose }: Props): JSX.Element 
                   }}
                 />
 
-                <div className='flex'>
-                  <FormField
-                    control={form.control}
-                    name='types'
-                    render={() => (
-                      <FormItem>
-                        <div>
-                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                            Opciones
-                          </FormLabel>
-                        </div>
-                        <div className='flex flex-col md:grid md:grid-cols-2 items-start md:items-center mx-auto gap-x-[5rem] justify-between gap-y-2 cursor-pointer'>
-                          {Object.values(MetricMemberSearchType).map((type) => (
-                            <FormField
-                              key={type}
-                              control={form.control}
-                              name='types'
-                              render={({ field }) => {
-                                return (
-                                  <FormItem
-                                    key={type}
-                                    className='flex flex-row items-center space-x-3 space-y-0'
-                                  >
-                                    <FormControl>
-                                      <Checkbox
-                                        disabled={isInputDisabled}
-                                        checked={field.value?.includes(type)}
-                                        onCheckedChange={(checked) => {
-                                          let updatedTypes: MetricMemberSearchType[] = [];
-                                          checked
-                                            ? (updatedTypes = field.value
-                                                ? [...field.value, type]
-                                                : [type])
-                                            : (updatedTypes =
-                                                field.value?.filter((value) => value !== type) ??
-                                                []);
+                <FormField
+                  control={form.control}
+                  name='types'
+                  render={() => (
+                    <FormItem>
+                      <div>
+                        <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                          Opciones
+                        </FormLabel>
+                      </div>
+                      <div className='flex flex-col md:grid md:grid-cols-2 items-start md:items-center mx-auto gap-x-[5rem] justify-between gap-y-2 cursor-pointer'>
+                        {Object.values(MetricMemberSearchType).map((type) => (
+                          <FormField
+                            key={type}
+                            control={form.control}
+                            name='types'
+                            render={({ field }) => {
+                              return (
+                                <FormItem
+                                  key={type}
+                                  className='flex flex-row items-center space-x-3 space-y-0'
+                                >
+                                  <FormControl>
+                                    <Checkbox
+                                      disabled={isInputDisabled}
+                                      checked={field.value?.includes(type)}
+                                      onCheckedChange={(checked) => {
+                                        let updatedTypes: MetricMemberSearchType[] = [];
+                                        checked
+                                          ? (updatedTypes = field.value
+                                              ? [...field.value, type]
+                                              : [type])
+                                          : (updatedTypes =
+                                              field.value?.filter((value) => value !== type) ?? []);
 
-                                          field.onChange(updatedTypes);
-                                        }}
-                                      />
-                                    </FormControl>
-                                    <FormLabel
-                                      className={`text-[12px] md:text-[13px] font-medium cursor-pointer`}
-                                    >
-                                      {MetricMemberSearchTypeNames[type]}
-                                    </FormLabel>
-                                  </FormItem>
-                                );
-                              }}
-                            />
-                          ))}
-                        </div>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
+                                        field.onChange(updatedTypes);
+                                      }}
+                                    />
+                                  </FormControl>
+                                  <FormLabel
+                                    className={`text-[12px] md:text-[13px] font-medium cursor-pointer`}
+                                  >
+                                    {MetricMemberSearchTypeNames[type]}
+                                  </FormLabel>
+                                </FormItem>
+                              );
+                            }}
+                          />
+                        ))}
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
                 {isMessageErrorDisabled ? (
                   <p className='-mb-2 md:-mb-3 md:row-start-5 md:row-end-6 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>

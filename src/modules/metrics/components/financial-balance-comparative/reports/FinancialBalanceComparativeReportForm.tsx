@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
@@ -7,13 +7,21 @@ import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
+import { FaRegFilePdf } from 'react-icons/fa6';
+import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { offeringIncomeReportFormSchema } from '@/modules/metrics/validations';
+import { months } from '@/shared/data';
+import { cn } from '@/shared/lib/utils';
+import { generateYearOptions } from '@/shared/helpers';
+
 import {
-  MetricOfferingIncomeSearchTypeNames,
-  MetricOfferingIncomeSearchType,
+  MetricFinancialBalanceComparisonSearchType,
+  MetricFinancialBalanceComparisonSearchTypeNames,
 } from '@/modules/metrics/enums';
+import { getFinancialBalanceComparativeMetricsReport } from '@/modules/metrics/services';
+import { FinancialBalanceComparativeReportFormSchema } from '@/modules/metrics/validations';
 
 import {
   Form,
@@ -24,48 +32,46 @@ import {
   FormControl,
   FormDescription,
 } from '@/shared/components/ui/form';
+import {
+  Command,
+  CommandItem,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+} from '@/shared/components/ui/command';
 import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
-import { useQuery } from '@tanstack/react-query';
-import { generateYearOptions } from '@/shared/helpers';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
-import { cn } from '@/shared/lib/utils';
-import { CaretSortIcon } from '@radix-ui/react-icons';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from '@/shared/components/ui/command';
-import { CheckIcon } from 'lucide-react';
-import { getOfferingIncomeMetricsReport } from '../../services';
-import { months } from '@/shared/data';
-import { FaRegFilePdf } from 'react-icons/fa6';
+import { CurrencyType } from '@/modules/offering/shared/enums';
 
 interface Props {
   churchId: string | undefined;
   dialogClose: () => void;
 }
 
-export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.Element => {
+export const FinancialBalanceComparativeReportForm = ({
+  churchId,
+  dialogClose,
+}: Props): JSX.Element => {
   //* States
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
-  const [isInputSearchStartMonthOpen, setIsInputSearchStartMonthOpen] = useState<boolean>(false);
-  const [isInputSearchEndMonthOpen, setIsInputSearchEndMonthOpen] = useState<boolean>(false);
   const [isInputSearchYearOpen, setIsInputSearchYearOpen] = useState<boolean>(false);
+  const [isInputSearchCurrencyOpen, setIsInputSearchCurrencyOpen] = useState<boolean>(false);
+  const [isInputSearchEndMonthOpen, setIsInputSearchEndMonthOpen] = useState<boolean>(false);
+  const [isInputSearchStartMonthOpen, setIsInputSearchStartMonthOpen] = useState<boolean>(false);
 
   //* Form
-  const form = useForm<z.infer<typeof offeringIncomeReportFormSchema>>({
+  const form = useForm<z.infer<typeof FinancialBalanceComparativeReportFormSchema>>({
     mode: 'onChange',
-    resolver: zodResolver(offeringIncomeReportFormSchema),
+    resolver: zodResolver(FinancialBalanceComparativeReportFormSchema),
     defaultValues: {
-      types: Object.values(MetricOfferingIncomeSearchType),
+      types: Object.values(MetricFinancialBalanceComparisonSearchType),
       church: churchId,
+      currency: CurrencyType.PEN,
       year: new Date().getFullYear().toString(),
       startMonth: months[0].value,
       endMonth: months[0].value,
@@ -77,6 +83,7 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
 
   //* Watchers
   const types = form.watch('types');
+  const currency = form.watch('currency');
   const year = form.watch('year');
   const startMonth = form.watch('startMonth');
   const endMonth = form.watch('endMonth');
@@ -107,13 +114,14 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
 
   //* Query Report and Event trigger
   const generateReportQuery = useQuery({
-    queryKey: ['offering-income-metrics-report', church],
+    queryKey: ['financial-balance-comparative-report', church],
     queryFn: () =>
-      getOfferingIncomeMetricsReport({
+      getFinancialBalanceComparativeMetricsReport({
         churchId: church ?? '',
         year: year ?? '',
         startMonth: startMonth ?? '',
         endMonth: endMonth ?? '',
+        currency: currency ?? '',
         types,
         dialogClose,
       }),
@@ -122,7 +130,9 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
   });
 
   //* Form handler
-  const handleSubmit = (formData: z.infer<typeof offeringIncomeReportFormSchema>): void => {
+  const handleSubmit = (
+    formData: z.infer<typeof FinancialBalanceComparativeReportFormSchema>
+  ): void => {
     generateReportQuery.refetch();
   };
 
@@ -148,6 +158,80 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
                 onSubmit={form.handleSubmit(handleSubmit)}
                 className='w-full pt-2 flex flex-col gap-x-10 gap-y-5 md:gap-y-5 px-2 md:px-4'
               >
+                <FormField
+                  control={form.control}
+                  name='currency'
+                  render={({ field }) => {
+                    return (
+                      <FormItem className='flex justify-start gap-5 items-center'>
+                        <div className='w-auto'>
+                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                            Divisa de búsqueda
+                          </FormLabel>
+                          <FormDescription className='text-[12px] md:text-[13px] font-medium'>
+                            Selecciona la divisa de búsqueda (solo para Ingresos vs Salidas).
+                          </FormDescription>
+                        </div>
+                        <Popover
+                          open={isInputSearchCurrencyOpen}
+                          onOpenChange={setIsInputSearchCurrencyOpen}
+                        >
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                disabled={isInputDisabled}
+                                variant='outline'
+                                role='combobox'
+                                className={cn(
+                                  'mt-2 justify-center w-auto text-center px-2 text-[12px] md:text-[14px] ',
+                                  !field.value &&
+                                    'text-slate-500  dark:text-slate-200 font-normal px-2'
+                                )}
+                              >
+                                {field.value
+                                  ? Object.values(CurrencyType).find((year) => year === field.value)
+                                  : 'Elige una divisa'}
+                                <CaretSortIcon className='h-4 w-4 shrink-0' />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent align='center' className='w-auto px-4 py-2'>
+                            <Command>
+                              <CommandInput
+                                placeholder='Busca una divisa...'
+                                className='h-9 text-[12px] md:text-[14px]'
+                              />
+                              <CommandEmpty>Divisa no encontrada.</CommandEmpty>
+                              <CommandGroup className='max-h-[100px] h-auto'>
+                                {Object.values(CurrencyType).map((currency) => (
+                                  <CommandItem
+                                    className='text-[12px] md:text-[14px]'
+                                    value={currency}
+                                    key={currency}
+                                    onSelect={() => {
+                                      form.setValue('currency', currency);
+                                      setIsInputSearchCurrencyOpen(false);
+                                    }}
+                                  >
+                                    {currency}
+                                    <CheckIcon
+                                      className={cn(
+                                        'ml-auto h-4 w-4',
+                                        currency === field.value ? 'opacity-100' : 'opacity-0'
+                                      )}
+                                    />
+                                  </CommandItem>
+                                ))}
+                              </CommandGroup>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+
                 <FormField
                   control={form.control}
                   name='year'
@@ -363,63 +447,61 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
                   />
                 </div>
 
-                <div className='flex'>
-                  <FormField
-                    control={form.control}
-                    name='types'
-                    render={() => (
-                      <FormItem>
-                        <div>
-                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                            Opciones
-                          </FormLabel>
-                        </div>
-                        <div className='flex flex-col md:grid md:grid-cols-2 items-start md:items-center mx-auto gap-x-[5rem] justify-between gap-y-2 cursor-pointer'>
-                          {Object.values(MetricOfferingIncomeSearchType).map((type) => (
-                            <FormField
-                              key={type}
-                              control={form.control}
-                              name='types'
-                              render={({ field }) => {
-                                return (
-                                  <FormItem
-                                    key={type}
-                                    className='flex flex-row items-center space-x-3 space-y-0'
-                                  >
-                                    <FormControl>
-                                      <Checkbox
-                                        disabled={isInputDisabled}
-                                        checked={field.value?.includes(type)}
-                                        onCheckedChange={(checked) => {
-                                          let updatedTypes: MetricOfferingIncomeSearchType[] = [];
-                                          checked
-                                            ? (updatedTypes = field.value
-                                                ? [...field.value, type]
-                                                : [type])
-                                            : (updatedTypes =
-                                                field.value?.filter((value) => value !== type) ??
-                                                []);
+                <FormField
+                  control={form.control}
+                  name='types'
+                  render={() => (
+                    <FormItem>
+                      <div>
+                        <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                          Opciones
+                        </FormLabel>
+                      </div>
+                      <div className='flex flex-col md:grid md:grid-cols-2 items-start md:items-center mx-auto gap-x-[5rem] justify-between gap-y-2 cursor-pointer'>
+                        {Object.values(MetricFinancialBalanceComparisonSearchType).map((type) => (
+                          <FormField
+                            key={type}
+                            control={form.control}
+                            name='types'
+                            render={({ field }) => {
+                              return (
+                                <FormItem
+                                  key={type}
+                                  className='flex flex-row items-center space-x-3 space-y-0'
+                                >
+                                  <FormControl>
+                                    <Checkbox
+                                      disabled={isInputDisabled}
+                                      checked={field.value?.includes(type)}
+                                      onCheckedChange={(checked) => {
+                                        let updatedTypes: MetricFinancialBalanceComparisonSearchType[] =
+                                          [];
+                                        checked
+                                          ? (updatedTypes = field.value
+                                              ? [...field.value, type]
+                                              : [type])
+                                          : (updatedTypes =
+                                              field.value?.filter((value) => value !== type) ?? []);
 
-                                          field.onChange(updatedTypes);
-                                        }}
-                                      />
-                                    </FormControl>
-                                    <FormLabel
-                                      className={`text-[12px] md:text-[13px] font-medium cursor-pointer`}
-                                    >
-                                      {MetricOfferingIncomeSearchTypeNames[type]}
-                                    </FormLabel>
-                                  </FormItem>
-                                );
-                              }}
-                            />
-                          ))}
-                        </div>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
+                                        field.onChange(updatedTypes);
+                                      }}
+                                    />
+                                  </FormControl>
+                                  <FormLabel
+                                    className={`text-[12px] md:text-[13px] font-medium cursor-pointer`}
+                                  >
+                                    {MetricFinancialBalanceComparisonSearchTypeNames[type]}
+                                  </FormLabel>
+                                </FormItem>
+                              );
+                            }}
+                          />
+                        ))}
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
                 {isMessageErrorDisabled ? (
                   <p className='-mb-2 md:-mb-3 md:row-start-5 md:row-end-6 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>

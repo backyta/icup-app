@@ -6,24 +6,21 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
+import { SelectChurch, MetricsSkeleton } from '@/modules/metrics/components/shared';
+
 import { getSimpleChurches } from '@/modules/church/services';
 
 import {
   OfferingExpenseProportionCard,
   OfferingExpenseAnalysisCardBySuppliesExpenses,
   OfferingExpenseAnalysisCardByExpensesAdjustment,
-  OfferingExpenseAnalysisCardByOperativeExpenses,
+  OfferingExpenseAnalysisCardByOperationalExpenses,
   OfferingExpenseAnalysisCardByDecorationExpenses,
   OfferingExpenseAnalysisCardByPlaningEventsExpenses,
   OfferingExpenseAnalysisCardByMaintenanceAndRepairExpenses,
   OfferingExpenseAnalysisCardByEquipmentAndTechnologyExpenses,
 } from '@/modules/metrics/components/offering-expense/charts';
-
-import {
-  SelectChurch,
-  MetricsSkeleton,
-  OfferingExpenseReportFormCard,
-} from '@/modules/metrics/components/shared';
+import { OfferingExpenseReportFormCard } from '@/modules/metrics/components/offering-expense/reports';
 
 export const OfferingExpenseMetrics = (): JSX.Element => {
   //* States
@@ -70,7 +67,7 @@ export const OfferingExpenseMetrics = (): JSX.Element => {
         <MetricsSkeleton pathname={pathname} />
       ) : (
         <div className='mt-6 px-2 pb-10 sm:pb-10 md:px-6 xl:pb-14 flex flex-col gap-8 h-auto'>
-          <OfferingExpenseAnalysisCardByOperativeExpenses churchId={churchId} />
+          <OfferingExpenseAnalysisCardByOperationalExpenses churchId={churchId} />
           <OfferingExpenseAnalysisCardByMaintenanceAndRepairExpenses churchId={churchId} />
           <OfferingExpenseAnalysisCardByDecorationExpenses churchId={churchId} />
           <OfferingExpenseAnalysisCardByEquipmentAndTechnologyExpenses churchId={churchId} />

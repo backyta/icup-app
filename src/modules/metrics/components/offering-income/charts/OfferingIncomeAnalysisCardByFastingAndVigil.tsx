@@ -104,7 +104,7 @@ export const OfferingIncomeAnalysisCardByFastingAndVigil = ({ churchId }: Props)
     queryFn: () => {
       return getOfferingIncomeByFastingAndVigil({
         searchType: MetricSearchType.OfferingIncomeByFastingAndVigil,
-        startMonth: searchParams?.month ?? month,
+        month: searchParams?.month ?? month,
         year: searchParams?.year ?? year,
         isSingleMonth: true,
         church: churchId ?? '',

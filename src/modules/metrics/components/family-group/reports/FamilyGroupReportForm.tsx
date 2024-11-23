@@ -1,19 +1,26 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
+import { cn } from '@/shared/lib/utils';
 import { useForm } from 'react-hook-form';
+import { FaRegFilePdf } from 'react-icons/fa6';
+import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { familyGroupReportFormSchema } from '@/modules/metrics/validations';
+import { generateYearOptions } from '@/shared/helpers';
+
 import {
   MetricFamilyGroupSearchType,
   MetricFamilyGroupSearchTypeNames,
 } from '@/modules/metrics/enums';
+import { getFamilyGroupMetricsReport } from '@/modules/metrics/services';
+import { familyGroupReportFormSchema } from '@/modules/metrics/validations';
 
 import {
   Form,
@@ -24,25 +31,18 @@ import {
   FormControl,
   FormDescription,
 } from '@/shared/components/ui/form';
+import {
+  Command,
+  CommandItem,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+} from '@/shared/components/ui/command';
 import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
-import { useQuery } from '@tanstack/react-query';
-import { getFamilyGroupMetricsReport } from '../../services';
-import { cn } from '@/shared/lib/utils';
-import { FaRegFilePdf } from 'react-icons/fa6';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
-import { CaretSortIcon } from '@radix-ui/react-icons';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from '@/shared/components/ui/command';
-import { CheckIcon } from 'lucide-react';
-import { generateYearOptions } from '@/shared/helpers';
 
 interface Props {
   churchId: string | undefined;
@@ -114,7 +114,6 @@ export const FamilyGroupReportForm = ({ churchId, dialogClose }: Props): JSX.Ele
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof familyGroupReportFormSchema>): void => {
-    console.log(formData);
     generateReportQuery.refetch();
   };
 
@@ -214,63 +213,60 @@ export const FamilyGroupReportForm = ({ churchId, dialogClose }: Props): JSX.Ele
                   }}
                 />
 
-                <div className='flex'>
-                  <FormField
-                    control={form.control}
-                    name='types'
-                    render={() => (
-                      <FormItem>
-                        <div>
-                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                            Opciones
-                          </FormLabel>
-                        </div>
-                        <div className='flex flex-col md:grid md:grid-cols-2 items-start md:items-center mx-auto gap-x-[5rem] justify-between gap-y-2 cursor-pointer'>
-                          {Object.values(MetricFamilyGroupSearchType).map((type) => (
-                            <FormField
-                              key={type}
-                              control={form.control}
-                              name='types'
-                              render={({ field }) => {
-                                return (
-                                  <FormItem
-                                    key={type}
-                                    className='flex flex-row items-center space-x-3 space-y-0'
-                                  >
-                                    <FormControl>
-                                      <Checkbox
-                                        disabled={isInputDisabled}
-                                        checked={field.value?.includes(type)}
-                                        onCheckedChange={(checked) => {
-                                          let updatedTypes: MetricFamilyGroupSearchType[] = [];
-                                          checked
-                                            ? (updatedTypes = field.value
-                                                ? [...field.value, type]
-                                                : [type])
-                                            : (updatedTypes =
-                                                field.value?.filter((value) => value !== type) ??
-                                                []);
+                <FormField
+                  control={form.control}
+                  name='types'
+                  render={() => (
+                    <FormItem>
+                      <div>
+                        <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                          Opciones
+                        </FormLabel>
+                      </div>
+                      <div className='flex flex-col md:grid md:grid-cols-2 items-start md:items-center mx-auto gap-x-[5rem] justify-between gap-y-2 cursor-pointer'>
+                        {Object.values(MetricFamilyGroupSearchType).map((type) => (
+                          <FormField
+                            key={type}
+                            control={form.control}
+                            name='types'
+                            render={({ field }) => {
+                              return (
+                                <FormItem
+                                  key={type}
+                                  className='flex flex-row items-center space-x-3 space-y-0'
+                                >
+                                  <FormControl>
+                                    <Checkbox
+                                      disabled={isInputDisabled}
+                                      checked={field.value?.includes(type)}
+                                      onCheckedChange={(checked) => {
+                                        let updatedTypes: MetricFamilyGroupSearchType[] = [];
+                                        checked
+                                          ? (updatedTypes = field.value
+                                              ? [...field.value, type]
+                                              : [type])
+                                          : (updatedTypes =
+                                              field.value?.filter((value) => value !== type) ?? []);
 
-                                          field.onChange(updatedTypes);
-                                        }}
-                                      />
-                                    </FormControl>
-                                    <FormLabel
-                                      className={`text-[12px] md:text-[13px] font-medium cursor-pointer`}
-                                    >
-                                      {MetricFamilyGroupSearchTypeNames[type]}
-                                    </FormLabel>
-                                  </FormItem>
-                                );
-                              }}
-                            />
-                          ))}
-                        </div>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
+                                        field.onChange(updatedTypes);
+                                      }}
+                                    />
+                                  </FormControl>
+                                  <FormLabel
+                                    className={`text-[12px] md:text-[13px] font-medium cursor-pointer`}
+                                  >
+                                    {MetricFamilyGroupSearchTypeNames[type]}
+                                  </FormLabel>
+                                </FormItem>
+                              );
+                            }}
+                          />
+                        ))}
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
                 {isMessageErrorDisabled ? (
                   <p className='-mb-2 md:-mb-3 md:row-start-5 md:row-end-6 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>

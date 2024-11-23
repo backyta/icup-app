@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
+
 import { useCallback, useRef, useState } from 'react';
 
 import { FcFinePrint } from 'react-icons/fc';
 
-import { OfferingIncomeReportForm } from '@/modules/metrics/components/shared';
+import { FamilyGroupReportForm } from '@/modules/metrics/components/family-group/reports';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
@@ -12,7 +13,7 @@ interface Props {
   churchId: string | undefined;
 }
 
-export const OfferingIncomeReportFormCard = ({ churchId }: Props): JSX.Element => {
+export const FamilyGroupReportFormCard = ({ churchId }: Props): JSX.Element => {
   //* State
   const [setOpen, setIsOpen] = useState(false);
   const topRef = useRef<HTMLDivElement>(null);
@@ -51,7 +52,7 @@ export const OfferingIncomeReportFormCard = ({ churchId }: Props): JSX.Element =
           ref={topRef}
           className='md:max-w-[600px] lg:max-w-[600px] xl:max-w-[650px] w-full max-h-full justify-center pt-[0.9rem] pb-[1.3rem] overflow-x-hidden overflow-y-auto'
         >
-          <OfferingIncomeReportForm churchId={churchId} dialogClose={handleContainerClose} />
+          <FamilyGroupReportForm churchId={churchId} dialogClose={handleContainerClose} />
         </DialogContent>
       </Dialog>
     </>

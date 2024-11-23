@@ -120,6 +120,7 @@ export const OfferingExpenseAnalysisCardByDecorationExpenses = ({
         month: searchParams?.month ?? month,
         year: searchParams?.year ?? year,
         church: churchId ?? '',
+        isSingleMonth: true,
         order: RecordOrder.Ascending,
       });
     },

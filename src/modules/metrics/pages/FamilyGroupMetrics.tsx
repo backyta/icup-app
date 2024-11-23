@@ -3,7 +3,10 @@
 
 import { useEffect, useState } from 'react';
 
+import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+
+import { SelectChurch, MetricsSkeleton } from '@/modules/metrics/components/shared';
 
 import { getSimpleChurches } from '@/modules/church/services';
 
@@ -17,12 +20,7 @@ import {
   FamilyGroupFluctuationAnalysisCardByYear,
 } from '@/modules/metrics/components/family-group/charts';
 
-import {
-  SelectChurch,
-  MetricsSkeleton,
-  FamilyGroupReportFormCard,
-} from '@/modules/metrics/components/shared';
-import { useLocation } from 'react-router-dom';
+import { FamilyGroupReportFormCard } from '@/modules/metrics/components/family-group/reports';
 
 export const FamilyGroupMetrics = (): JSX.Element => {
   //* States

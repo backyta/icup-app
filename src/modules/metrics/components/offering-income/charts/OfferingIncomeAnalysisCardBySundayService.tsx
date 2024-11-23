@@ -112,7 +112,7 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
     queryFn: () => {
       return getOfferingIncomeBySundayService({
         searchType: MetricSearchType.OfferingIncomeBySundayService,
-        startMonth: searchParams?.month ?? month,
+        month: searchParams?.month ?? month,
         year: searchParams?.year ?? year,
         isSingleMonth: true,
         order: RecordOrder.Ascending,

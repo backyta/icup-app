@@ -9,8 +9,7 @@ import { getSimpleChurches } from '@/modules/church/services';
 
 import {
   SelectChurch,
-  ComparisonMetricsSkeleton,
-  OfferingIncomeReportFormCard,
+  FinancialBalanceComparativeMetricsSkeleton,
 } from '@/modules/metrics/components/shared';
 
 import {
@@ -22,8 +21,9 @@ import {
   OfferingComparativeAnalysisCardByIncomeAndExpenses,
   OfferingExpensesAndOfferingIncomeComparativeProportionCard,
 } from '@/modules/metrics/components/financial-balance-comparative/charts';
+import { FinancialBalanceComparativeReportFormCard } from '@/modules/metrics/components/financial-balance-comparative/reports';
 
-export const FinancialBalanceAndComparativeMetrics = (): JSX.Element => {
+export const FinancialBalanceComparisonMetrics = (): JSX.Element => {
   //* States
   const [churchId, setChurchId] = useState<string | undefined>(undefined);
 
@@ -58,11 +58,11 @@ export const FinancialBalanceAndComparativeMetrics = (): JSX.Element => {
       <div className='flex justify-center gap-4 items-center mt-6'>
         <SelectChurch data={data} churchId={churchId} setChurchId={setChurchId} />
 
-        <OfferingIncomeReportFormCard churchId={churchId} />
+        <FinancialBalanceComparativeReportFormCard churchId={churchId} />
       </div>
 
       {!churchId ? (
-        <ComparisonMetricsSkeleton />
+        <FinancialBalanceComparativeMetricsSkeleton />
       ) : (
         <div className='mt-6 px-2 pb-10 sm:pb-10 md:px-6 xl:pb-14 flex flex-col xl:grid xl:grid-cols-2 gap-8 h-auto'>
           <OfferingComparativeAnalysisCardByIncomeAndExpenses churchId={churchId} />

@@ -3,7 +3,7 @@ import {
   FamilyGroupMetrics,
   OfferingIncomeMetrics,
   OfferingExpenseMetrics,
-  FinancialBalanceAndComparativeMetrics,
+  FinancialBalanceComparisonMetrics,
 } from '@/modules/metrics/pages';
 
 export const MetricsChildrenRoutes = [
@@ -25,6 +25,6 @@ export const MetricsChildrenRoutes = [
   },
   {
     path: '/metrics/offering-comparative',
-    element: <FinancialBalanceAndComparativeMetrics />,
+    element: <FinancialBalanceComparisonMetrics />,
   },
 ];

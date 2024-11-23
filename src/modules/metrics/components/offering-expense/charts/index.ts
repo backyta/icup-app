@@ -1,5 +1,5 @@
 export * from './OfferingExpenseProportionCard';
-export * from './OfferingExpenseAnalysisCardByOperativeExpenses';
+export * from './OfferingExpenseAnalysisCardByOperationalExpenses';
 export * from './OfferingExpenseAnalysisCardByMaintenanceAndRepairExpenses';
 export * from './OfferingExpenseAnalysisCardByDecorationExpenses';
 export * from './OfferingExpenseAnalysisCardByEquipmentAndTechnologyExpenses';

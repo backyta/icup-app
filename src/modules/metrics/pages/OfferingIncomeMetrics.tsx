@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
+import { SelectChurch, MetricsSkeleton } from '@/modules/metrics/components/shared';
+
 import { getSimpleChurches } from '@/modules/church/services';
 
 import {
@@ -21,12 +23,7 @@ import {
   OfferingIncomeAnalysisCardBySpecialOffering,
   OfferingIncomeAnalysisCardByIncomeAdjustment,
 } from '@/modules/metrics/components/offering-income/charts';
-
-import {
-  SelectChurch,
-  MetricsSkeleton,
-  OfferingIncomeReportFormCard,
-} from '@/modules/metrics/components/shared';
+import { OfferingIncomeReportFormCard } from '@/modules/metrics/components/offering-income/reports';
 
 export const OfferingIncomeMetrics = (): JSX.Element => {
   //* States

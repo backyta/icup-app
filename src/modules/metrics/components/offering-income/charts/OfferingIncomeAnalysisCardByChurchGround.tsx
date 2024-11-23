@@ -104,7 +104,7 @@ export const OfferingIncomeAnalysisCardByChurchGround = ({ churchId }: Props): J
     queryFn: () => {
       return getOfferingIncomeByChurchGround({
         searchType: MetricSearchType.OfferingIncomeByChurchGround,
-        startMonth: searchParams?.month ?? month,
+        month: searchParams?.month ?? month,
         year: searchParams?.year ?? year,
         isSingleMonth: true,
         church: churchId ?? '',

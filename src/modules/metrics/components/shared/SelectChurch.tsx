@@ -1,9 +1,14 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
 import { useState } from 'react';
 
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
-import { Button } from '@/shared/components/ui/button';
 import { CheckIcon, ChevronsUpDown } from 'lucide-react';
+
+import { cn } from '@/shared/lib/utils';
+
+import { Button } from '@/shared/components/ui/button';
+import { type ChurchResponse } from '@/modules/church/interfaces';
+
 import {
   Command,
   CommandEmpty,
@@ -11,8 +16,7 @@ import {
   CommandInput,
   CommandItem,
 } from '@/shared/components/ui/command';
-import { cn } from '@/shared/lib/utils';
-import { type ChurchResponse } from '@/modules/church/interfaces';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
 interface Props {
   churchId: string | undefined;

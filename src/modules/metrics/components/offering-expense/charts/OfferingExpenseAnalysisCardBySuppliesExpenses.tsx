@@ -117,6 +117,7 @@ export const OfferingExpenseAnalysisCardBySuppliesExpenses = ({ churchId }: Prop
         searchType: MetricSearchType.SuppliesOfferingExpenses,
         month: searchParams?.month ?? month,
         year: searchParams?.year ?? year,
+        isSingleMonth: true,
         church: churchId ?? '',
         order: RecordOrder.Ascending,
       });

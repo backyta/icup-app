@@ -123,6 +123,7 @@ export const OfferingExpenseAnalysisCardByPlaningEventsExpenses = ({
         searchType: MetricSearchType.PlaningEventsOfferingExpenses,
         month: searchParams?.month ?? month,
         year: searchParams?.year ?? year,
+        isSingleMonth: true,
         church: churchId ?? '',
         order: RecordOrder.Ascending,
       });

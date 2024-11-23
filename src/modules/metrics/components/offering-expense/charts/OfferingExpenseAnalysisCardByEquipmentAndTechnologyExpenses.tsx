@@ -123,6 +123,7 @@ export const OfferingExpenseAnalysisCardByEquipmentAndTechnologyExpenses = ({
         searchType: MetricSearchType.EquipmentAndTechnologyOfferingExpenses,
         month: searchParams?.month ?? month,
         year: searchParams?.year ?? year,
+        isSingleMonth: true,
         church: churchId ?? '',
         order: RecordOrder.Ascending,
       });

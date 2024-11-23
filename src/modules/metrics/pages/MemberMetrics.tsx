@@ -8,11 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { getSimpleChurches } from '@/modules/church/services';
 
-import {
-  SelectChurch,
-  MetricsSkeleton,
-  MemberReportFormCard,
-} from '@/modules/metrics/components/shared';
+import { SelectChurch, MetricsSkeleton } from '@/modules/metrics/components/shared';
 
 import {
   MemberProportionCard,
@@ -27,6 +23,7 @@ import {
   MemberAnalysisCardByDistrictAndGender,
   MemberAnalysisCardByCategoryAndGender,
 } from '@/modules/metrics/components/member/charts';
+import { MemberReportFormCard } from '@/modules/metrics/components/member/reports';
 
 export const MemberMetrics = (): JSX.Element => {
   //* States

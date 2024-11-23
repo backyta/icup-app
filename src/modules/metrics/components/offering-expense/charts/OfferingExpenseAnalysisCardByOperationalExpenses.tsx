@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect, useState } from 'react';
@@ -86,7 +86,7 @@ interface Props {
   churchId: string | undefined;
 }
 
-export const OfferingExpenseAnalysisCardByOperativeExpenses = ({
+export const OfferingExpenseAnalysisCardByOperationalExpenses = ({
   churchId,
 }: Props): JSX.Element => {
   //* States
@@ -125,6 +125,7 @@ export const OfferingExpenseAnalysisCardByOperativeExpenses = ({
         searchType: MetricSearchType.OperationalOfferingExpenses,
         month: searchParams?.month ?? month,
         year: searchParams?.year ?? year,
+        isSingleMonth: true,
         church: churchId ?? '',
         order: RecordOrder.Ascending,
       });

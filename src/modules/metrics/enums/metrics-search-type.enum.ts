@@ -168,14 +168,13 @@ export const MetricOfferingIncomeSearchTypeNames: Record<MetricOfferingIncomeSea
   [MetricOfferingIncomeSearchType.OfferingIncomeByChurchGround]: 'Ofrendas por terreno iglesia.',
   [MetricOfferingIncomeSearchType.OfferingIncomeByUnitedService]: 'Ofrendas por culto unido.',
   [MetricOfferingIncomeSearchType.OfferingIncomeByActivities]: 'Ofrendas por actividades.',
-  [MetricOfferingIncomeSearchType.OfferingIncomeAdjustment]: 'Ofrendas por ajustes de ingreso.', // ver sis e cambia por ingresos en vez de ofrendas
+  [MetricOfferingIncomeSearchType.OfferingIncomeAdjustment]: 'Ajustes por ingreso.',
 }
 
 export enum MetricOfferingExpenseSearchType {
-  OfferingExpensesByProportion = 'offering_expenses_by_proportion',
   OperationalOfferingExpenses = 'operational_offering_expenses',
-  MaintenanceAndRepairOfferingExpenses = 'maintenance_and_repair_offering_expenses',
   DecorationOfferingExpenses = 'decoration_offering_expenses',
+  MaintenanceAndRepairOfferingExpenses = 'maintenance_and_repair_offering_expenses',
   EquipmentAndTechnologyOfferingExpenses = 'equipment_and_technology_offering_expenses',
   SuppliesOfferingExpenses = 'supplies_offering_expenses',
   PlaningEventsOfferingExpenses = 'planing_events_offering_expenses',
@@ -183,32 +182,31 @@ export enum MetricOfferingExpenseSearchType {
 }
 
 export const MetricOfferingExpenseSearchTypeNames: Record<MetricOfferingExpenseSearchType, string> =  {
-  [MetricOfferingExpenseSearchType.OfferingExpensesByProportion]: 'Proporción de salidas de ofrenda.', // no va
-  [MetricOfferingExpenseSearchType.OperationalOfferingExpenses]: 'Ofrendas por gastos operativos.',
-  [MetricOfferingExpenseSearchType.MaintenanceAndRepairOfferingExpenses]: 'Ofrendas por gastos de mantenimiento y reparación.',
-  [MetricOfferingExpenseSearchType.DecorationOfferingExpenses]: 'Ofrendas por gastos de decoración.',
-  [MetricOfferingExpenseSearchType.EquipmentAndTechnologyOfferingExpenses]: 'Ofrendas por gastos de equipamiento y tecnología.',
-  [MetricOfferingExpenseSearchType.SuppliesOfferingExpenses]: 'Ofrendas por gastos de suministros.',
-  [MetricOfferingExpenseSearchType.PlaningEventsOfferingExpenses]: 'Ofrendas por gastos de planificación de eventos.',
-  [MetricOfferingExpenseSearchType.OfferingExpensesAdjustment]: 'Ofrendas por ajustes de salida.',
+  [MetricOfferingExpenseSearchType.OperationalOfferingExpenses]: 'Gastos Operativos.',
+  [MetricOfferingExpenseSearchType.MaintenanceAndRepairOfferingExpenses]: 'Gastos de Mantenimiento y Reparación.',
+  [MetricOfferingExpenseSearchType.DecorationOfferingExpenses]: 'Gastos de Decoración.',
+  [MetricOfferingExpenseSearchType.EquipmentAndTechnologyOfferingExpenses]: 'Gastos de Equipamiento y Tecnología.',
+  [MetricOfferingExpenseSearchType.SuppliesOfferingExpenses]: 'Gastos de Suministros.',
+  [MetricOfferingExpenseSearchType.PlaningEventsOfferingExpenses]: 'Gastos de Planificación de Eventos.',
+  [MetricOfferingExpenseSearchType.OfferingExpensesAdjustment]: 'Ajustes por salida.',
 }
 
-export enum MetricOfferingComparisonSearchType {
-  OfferingExpensesAndOfferingIncomeByProportion = 'offering_expenses_and_offering_income_by_proportion',
+export enum MetricFinancialBalanceComparisonSearchType {
   IncomeAndExpensesComparativeByYear = 'income_and_expense_comparative_by_year',
   GeneralComparativeOfferingIncome = 'general_comparative_offering_income',
   ComparativeOfferingIncomeByType = 'comparative_offering_income_by_type',
+  GeneralComparativeOfferingExpenses = 'general_comparative_offering_expenses',
   ComparativeOfferingExpensesByType = 'comparative_offering_expenses_by_type',
   ComparativeOfferingExpensesBySubType = 'comparative_offering_expenses_by_sub_type',
 }
 
-export const MetricOfferingComparisonSearchTypeNames: Record<MetricOfferingComparisonSearchType, string> =  {
-  [MetricOfferingComparisonSearchType.OfferingExpensesAndOfferingIncomeByProportion]: 'Proporción de ingresos y salidas de ofrendas.', // no va
-  [MetricOfferingComparisonSearchType.IncomeAndExpensesComparativeByYear]: 'Análisis de comparación de ingresos y salidas de ofrenda.',
-  [MetricOfferingComparisonSearchType.GeneralComparativeOfferingIncome]: 'Análisis de comparación general de ingreso de ofrenda.',
-  [MetricOfferingComparisonSearchType.ComparativeOfferingIncomeByType]: 'Análisis de comparación de ingreso de ofrenda por tipo.',
-  [MetricOfferingComparisonSearchType.ComparativeOfferingExpensesByType]: 'Análisis de comparación de salida de ofrenda por tipo.',
-  [MetricOfferingComparisonSearchType.ComparativeOfferingExpensesBySubType]: 'Análisis de comparación de salida de ofrenda por sub-tipo.',
+export const MetricFinancialBalanceComparisonSearchTypeNames: Record<MetricFinancialBalanceComparisonSearchType, string> =  {
+  [MetricFinancialBalanceComparisonSearchType.IncomeAndExpensesComparativeByYear]: 'Comparativa de Ingresos y Salidas por año.',
+  [MetricFinancialBalanceComparisonSearchType.GeneralComparativeOfferingIncome]: 'Comparativa de Ingresos de Ofrenda (General).',
+  [MetricFinancialBalanceComparisonSearchType.ComparativeOfferingIncomeByType]: 'Comparativa de Ingresos de Ofrenda (Tipo).',
+  [MetricFinancialBalanceComparisonSearchType.GeneralComparativeOfferingExpenses]: 'Comparativa de Salidas de Ofrenda (General).',
+  [MetricFinancialBalanceComparisonSearchType.ComparativeOfferingExpensesByType]: 'Comparativa de Salidas de Ofrenda (Tipo).',
+  [MetricFinancialBalanceComparisonSearchType.ComparativeOfferingExpensesBySubType]: 'Comparativa de Salidas de Ofrenda (Sub-Tipo).',
 }
 
 

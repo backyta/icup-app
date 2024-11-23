@@ -3,7 +3,7 @@ import { cn } from '@/shared/lib/utils';
 import { Skeleton } from '@/shared/components/ui/skeleton';
 import { Card, CardContent, CardHeader } from '@/shared/components/ui/card';
 
-export const ComparisonMetricsSkeleton = (): JSX.Element => {
+export const FinancialBalanceComparativeMetricsSkeleton = (): JSX.Element => {
   return (
     <div
       className={cn(
@@ -99,3 +99,5 @@ export const ComparisonMetricsSkeleton = (): JSX.Element => {
     </div>
   );
 };
+
+// TODO : poner estos shares en carpetas mas ordenas o pasarlas en casa componente y poner carpeta reports

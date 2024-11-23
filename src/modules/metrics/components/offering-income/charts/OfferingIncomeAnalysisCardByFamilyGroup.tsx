@@ -117,7 +117,7 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
       return getOfferingIncomeByFamilyGroup({
         searchType: MetricSearchType.OfferingIncomeByFamilyGroup,
         zone: searchParams?.zone ?? zone,
-        startMonth: searchParams?.month ?? month,
+        month: searchParams?.month ?? month,
         isSingleMonth: true,
         year: searchParams?.year ?? year,
         church: churchId ?? '',

@@ -41,12 +41,14 @@ export const getOperationalOfferingExpenses = async ({
   church,
   month,
   year,
+  isSingleMonth,
   order
 }: MetricQueryParams): Promise<OfferingExpenseChartResponse[]> => {
   try {
     const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
         'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
         order
       },
     });
@@ -67,12 +69,14 @@ export const getMaintenanceAndRepairOfferingExpenses = async ({
   church,
   month,
   year,
+  isSingleMonth,
   order
 }: MetricQueryParams): Promise<OfferingExpenseChartResponse[]> => {
   try {
     const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
         'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
         order
       },
     });
@@ -93,12 +97,14 @@ export const getDecorationOfferingExpenses = async ({
   church,
   month,
   year,
+  isSingleMonth,
   order
 }: MetricQueryParams): Promise<OfferingExpenseChartResponse[]> => {
   try {
     const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
         'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
         order
       },
     });
@@ -119,12 +125,14 @@ export const getEquipmentAndTechnologyOfferingExpenses = async ({
   church,
   month,
   year,
+  isSingleMonth,
   order
 }: MetricQueryParams): Promise<OfferingExpenseChartResponse[]> => {
   try {
     const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
         'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
         order
       },
     });
@@ -145,12 +153,14 @@ export const getSuppliesOfferingExpenses = async ({
   church,
   month,
   year,
+  isSingleMonth,
   order
 }: MetricQueryParams): Promise<OfferingExpenseChartResponse[]> => {
   try {
     const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
         'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
         order
       },
     });
@@ -171,12 +181,14 @@ export const getPlaningEventsOfferingExpenses = async ({
   church,
   month,
   year,
+  isSingleMonth,
   order
 }: MetricQueryParams): Promise<OfferingExpenseChartResponse[]> => {
   try {
     const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
         'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
         order
       },
     });
@@ -197,12 +209,14 @@ export const getOfferingExpensesAdjustment = async ({
   church,
   month,
   year,
+  isSingleMonth,
   order
 }: MetricQueryParams): Promise<OfferingExpensesAdjustmentResponse[]> => {
   try {
     const {data} = await icupApi<OfferingExpensesAdjustmentResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
         'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
         order
       },
     });
@@ -217,4 +231,54 @@ export const getOfferingExpensesAdjustment = async ({
   }
 }
 
+// ? OFFERING EXPENSE METRICS REPORTS
+const openPdfInNewTab = (pdfBlob: Blob): void => {
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  const newTab = window.open(pdfUrl, '_blank');
+  newTab?.focus();
+}
 
+interface MetricReportQueryParams {
+  year: string;
+  startMonth: string;
+  endMonth: string;
+  churchId: string; 
+  types: string[];
+  dialogClose: () => void;
+}
+
+export const getOfferingExpenseMetricsReport = async ({
+  year, 
+  churchId, 
+  startMonth,
+  endMonth,
+  types, 
+  dialogClose,
+}: MetricReportQueryParams): Promise<void> => {
+  const joinedReportTypes = types.join('+');
+
+  try {
+    const res = await icupApi<Blob>('/reports/offering-expense-metrics' , {
+      params: {
+        churchId,
+        year,
+        startMonth,
+        endMonth,
+        types: joinedReportTypes,
+      },
+      headers: {
+        'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    dialogClose();
+   } catch (error) {
+     if (isAxiosError(error) && error.response) {
+       throw (error.response.data)
+     }
+     
+     throw new Error('Ocurrió un error inesperado, hable con el administrador')
+   }
+ }

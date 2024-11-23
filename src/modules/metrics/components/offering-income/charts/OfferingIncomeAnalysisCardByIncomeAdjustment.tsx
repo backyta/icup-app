@@ -98,7 +98,7 @@ export const OfferingIncomeAnalysisCardByIncomeAdjustment = ({ churchId }: Props
     queryFn: () => {
       return getOfferingIncomeAdjustment({
         searchType: MetricSearchType.OfferingIncomeAdjustment,
-        startMonth: searchParams?.month ?? month,
+        month: searchParams?.month ?? month,
         year: searchParams?.year ?? year,
         isSingleMonth: true,
         church: churchId ?? '',
