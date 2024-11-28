@@ -58,7 +58,6 @@ export const usePastorUpdateSubmitButtonLogic = ({
 
     if (
       theirChurch &&
-      roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Pastor) &&
       Object.values(pastorUpdateForm.formState.errors).length === 0 &&
       !isInputDisabled

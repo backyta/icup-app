@@ -61,7 +61,6 @@ export const useSupervisorCreationSubmitButtonLogic = ({
     if (
       isDirectRelationToPastor &&
       theirPastor &&
-      roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
       Object.values(supervisorCreationForm.formState.errors).length === 0 &&
       !isInputDisabled
@@ -78,7 +77,6 @@ export const useSupervisorCreationSubmitButtonLogic = ({
     if (
       !isDirectRelationToPastor &&
       theirCopastor &&
-      roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
       Object.values(supervisorCreationForm.formState.errors).length === 0 &&
       !isInputDisabled
@@ -142,6 +140,6 @@ export const useSupervisorCreationSubmitButtonLogic = ({
   ]);
 
   useEffect(() => {
-    supervisorCreationForm.setValue('roles', [memberRoles.Disciple, memberRoles.Supervisor]);
-  }, [isMessageErrorDisabled]);
+    supervisorCreationForm.setValue('roles', [memberRoles.Supervisor]);
+  }, []);
 };

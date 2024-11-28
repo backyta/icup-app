@@ -42,6 +42,8 @@ export const copastorSearchByTermFormSchema = z
       required_error: "Seleccione un orden para al consulta.",
     })),
 
+    churchId: z.string().max(40).optional(),
+    
     all: z.boolean().optional(),
    
   })

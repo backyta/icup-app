@@ -48,7 +48,7 @@ export const getSimpleCopastors = async ({churchId, isSimpleQuery}: {churchId?: 
 }
 
 //* Get all co-pastors (paginated)
-export const getCopastors = async ({limit, offset, all, order}: CopastorQueryParams): Promise<CopastorResponse[]> => {
+export const getCopastors = async ({limit, offset, all, order, churchId}: CopastorQueryParams): Promise<CopastorResponse[]> => {
 
  let result: CopastorResponse[];
 
@@ -59,6 +59,7 @@ export const getCopastors = async ({limit, offset, all, order}: CopastorQueryPar
           limit,
           offset,
           order,
+          churchId,
         },
       });
       
@@ -67,6 +68,7 @@ export const getCopastors = async ({limit, offset, all, order}: CopastorQueryPar
       const {data} = await icupApi<CopastorResponse[]>('/copastors' , {
         params: {
           order,
+          churchId,
         },
       });
       result = data;
@@ -95,7 +97,8 @@ export const getCopastorsByTerm = async ({
   limit, 
   offset, 
   all, 
-  order
+  order,
+  churchId,
 }: CopastorQueryParams): Promise<CopastorResponse[] | undefined> => {
 
  let result: CopastorResponse[];
@@ -115,6 +118,7 @@ export const getCopastorsByTerm = async ({
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -124,6 +128,7 @@ export const getCopastorsByTerm = async ({
         const {data} = await icupApi<CopastorResponse[]>(`/copastors/${inputTerm}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -150,6 +155,7 @@ export const getCopastorsByTerm = async ({
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -159,6 +165,7 @@ export const getCopastorsByTerm = async ({
         const {data} = await icupApi<CopastorResponse[]>(`/copastors/${dateTerm}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -189,6 +196,7 @@ export const getCopastorsByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -198,6 +206,7 @@ export const getCopastorsByTerm = async ({
           const {data} = await icupApi<CopastorResponse[]>(`/copastors/${selectTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -225,6 +234,7 @@ export const getCopastorsByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -235,6 +245,7 @@ export const getCopastorsByTerm = async ({
           const {data} = await icupApi<CopastorResponse[]>(`/copastors/${namesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -264,6 +275,7 @@ export const getCopastorsByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -274,6 +286,7 @@ export const getCopastorsByTerm = async ({
           const {data} = await icupApi<CopastorResponse[]>(`/copastors/${lastNamesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -303,6 +316,7 @@ export const getCopastorsByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -313,6 +327,7 @@ export const getCopastorsByTerm = async ({
           const {data} = await icupApi<CopastorResponse[]>(`/copastors/${namesTerm}-${lastNamesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -375,13 +390,14 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
-export const getGeneralCopastorsReport = async ({limit, offset, order}: CopastorQueryParams): Promise<void> => {
+export const getGeneralCopastorsReport = async ({limit, offset, order, churchId}: CopastorQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/copastors' , {
       params: {
         limit,
         offset,
         order,
+        churchId,
       },
       headers: {
       'Content-Type': 'application/pdf',
@@ -410,7 +426,8 @@ export const getCopastorsReportByTerm = async ({
   lastNamesTerm,
   limit, 
   offset, 
-  order
+  order,
+  churchId,
 }: CopastorQueryParams): Promise<void> => {
   let newTerm: string | undefined = '';
   
@@ -439,6 +456,7 @@ export const getCopastorsReportByTerm = async ({
         limit,
         offset,
         order,
+        churchId,
         'search-type': searchType,
         'search-sub-type': searchSubType
       },

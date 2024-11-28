@@ -46,7 +46,7 @@ export const getSimpleZones = async ({churchId, isSimpleQuery }:{churchId?: stri
 }
 
 //* Get zones (paginated)
-export const getZones = async ({limit, offset, all, order}: ZoneQueryParams): Promise<ZoneResponse[]> => {
+export const getZones = async ({limit, offset, all, order, churchId}: ZoneQueryParams): Promise<ZoneResponse[]> => {
 
  let result: ZoneResponse[];
 
@@ -57,6 +57,7 @@ export const getZones = async ({limit, offset, all, order}: ZoneQueryParams): Pr
           limit,
           offset,
           order,
+          churchId,
         },
       });
       
@@ -65,6 +66,7 @@ export const getZones = async ({limit, offset, all, order}: ZoneQueryParams): Pr
       const {data} = await icupApi<ZoneResponse[]>('/zones' , {
         params: {
           order,
+          churchId,
         },
       });
       
@@ -83,7 +85,7 @@ export const getZones = async ({limit, offset, all, order}: ZoneQueryParams): Pr
 }
 
 // ? Get zones by term (paginated)
-export const getZonesByTerm = async ({ searchType, inputTerm, selectTerm, limit, offset, all, order}: ZoneQueryParams): Promise<ZoneResponse[] | undefined> => {
+export const getZonesByTerm = async ({ searchType, inputTerm, selectTerm, limit, offset, all, order, churchId}: ZoneQueryParams): Promise<ZoneResponse[] | undefined> => {
 
  let result: ZoneResponse[];
 
@@ -100,6 +102,7 @@ export const getZonesByTerm = async ({ searchType, inputTerm, selectTerm, limit,
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -109,6 +112,7 @@ export const getZonesByTerm = async ({ searchType, inputTerm, selectTerm, limit,
         const {data} = await icupApi<ZoneResponse[]>(`/zones/${inputTerm}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -134,6 +138,7 @@ export const getZonesByTerm = async ({ searchType, inputTerm, selectTerm, limit,
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -143,6 +148,7 @@ export const getZonesByTerm = async ({ searchType, inputTerm, selectTerm, limit,
         const {data} = await icupApi<ZoneResponse[]>(`/zones/${selectTerm}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -203,13 +209,14 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
-export const getGeneralZonesReport = async ({limit, offset, order}: ZoneQueryParams): Promise<void> => {
+export const getGeneralZonesReport = async ({limit, offset, order, churchId}: ZoneQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/zones' , {
       params: {
         limit,
         offset,
         order,
+        churchId,
       },
       headers: {
       'Content-Type': 'application/pdf',
@@ -234,7 +241,8 @@ export const getZonesReportByTerm = async ({
   selectTerm, 
   limit, 
   offset, 
-  order
+  order,
+  churchId,
 }: ZoneQueryParams): Promise<void> => {
   let newTerm: string | undefined = '';
   
@@ -255,6 +263,7 @@ export const getZonesReportByTerm = async ({
         limit,
         offset,
         order,
+        churchId,
         'search-type': searchType,
       },
       headers: {

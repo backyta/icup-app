@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
@@ -7,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { type z } from 'zod';
 import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
+import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/shared/lib/utils';
@@ -19,10 +21,10 @@ import {
 } from '@/modules/copastor/components';
 import { type CopastorResponse } from '@/modules/copastor/interfaces';
 
-import { PageTitle } from '@/shared/components/page';
 import { type GeneralSearchForm } from '@/shared/interfaces';
-import { formSearchGeneralSchema } from '@/shared/validations';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
+import { formSearchGeneralSchema } from '@/shared/validations';
+import { PageTitle, SearchTitle } from '@/shared/components/page';
 
 import {
   Select,
@@ -43,6 +45,7 @@ import {
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
+import { getSimpleChurches } from '@/modules/church/services';
 
 const dataFictional: CopastorResponse[] = [
   {
@@ -104,6 +107,12 @@ export const CopastorsGeneralSearchPage = (): JSX.Element => {
   const offset = form.watch('offset');
   const order = form.watch('order');
 
+  //* Queries
+  const churchesQuery = useQuery({
+    queryKey: ['churches'],
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+  });
+
   //* Effects
   useEffect(() => {
     if (limit !== '' && offset !== '' && order !== '') {
@@ -136,33 +145,23 @@ export const CopastorsGeneralSearchPage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-copastor-color'>Modulo Co-Pastor</PageTitle>
 
-      <div className='flex items-center justify-start'>
-        <h2 className='flex items-center text-left pl-4 py-2 sm:pt-4 sm:pb-2 sm:pl-[1.5rem] xl:pl-[2rem] 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-sky-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl'>
-          Buscar co-pastores
-        </h2>
-        <span className='ml-3 bg-sky-300 text-slate-600 border text-center text-[10px] mt-[.6rem] sm:mt-5 -py-1 px-2 rounded-full font-bold uppercase'>
-          En general
-        </span>
-      </div>
-      <p className='dark:text-slate-300 text-left font-sans font-bold px-4 text-[12.5px] md:text-[15px] xl:text-base sm:px-[1.5rem] xl:px-[2rem]'>
-        Explora, filtra y organiza los registros de co-pastores según tus necesidades.
-      </p>
+      <SearchTitle isGeneralSearch titleName={'co-pastores'} />
 
       <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full'>
         {isFiltersSearchGeneralDisabled && (
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className='grid grid-cols-2 gap-y-2 gap-x-6 items-end mb-16 md:mb-12 lg:flex lg:justify-between 2xl:justify-normal'
+              className='grid grid-cols-2 gap-y-2 gap-x-4 items-end mb-10 md:mb-10 lg:flex lg:justify-between 2xl:justify-normal'
             >
-              <div className='flex col-start-1 col-end-3 gap-8 sm:gap-10 lg:gap-4'>
+              <div className='w-full flex flex-row col-start-1 col-end-3 gap-3'>
                 <FormField
                   control={form.control}
                   name='limit'
                   render={({ field }) => (
-                    <FormItem className='sm:w-[20rem] md:w-[14rem] lg:w-auto'>
+                    <FormItem className='w-full'>
                       <FormLabel className='text-[14px] font-bold'>Limite</FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13px] md:text-[14px]'>
                         ¿Cuantos registros necesitas?
                       </FormDescription>
                       <FormControl>
@@ -179,85 +178,74 @@ export const CopastorsGeneralSearchPage = (): JSX.Element => {
                   )}
                 />
 
-                <div className='grid grid-cols-2 items-end justify-evenly'>
-                  <div className='flex flex-col gap-2 col-start-1 col-end-3 pb-2'>
-                    <FormField
-                      control={form.control}
-                      name='offset'
-                      render={() => (
-                        <FormItem>
-                          <FormLabel className='text-[14px] font-bold'>Desplazamiento</FormLabel>
-                          <FormDescription className='text-[14px]'>
-                            ¿Cuantos registros quieres saltar?
-                          </FormDescription>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
+                <FormField
+                  control={form.control}
+                  name='offset'
+                  render={({ field }) => (
+                    <FormItem className='w-full'>
+                      <FormLabel className='text-[14px] font-bold'>Desplazamiento</FormLabel>
+                      <FormDescription className='text-[13px] md:text-[14px]'>
+                        ¿Cuantos registros quieres saltar?
+                      </FormDescription>
+                      <FormControl>
+                        <Input
+                          disabled={form.getValues('all')}
+                          className='text-[13px] md:text-[14px]'
+                          placeholder='Nro. de registros desplazados'
+                          {...field}
+                          value={form.getValues('all') ? '-' : field?.value || ''}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
-                  <div className='flex col-start-1 col-end-3 gap-4 sm:gap-6 lg:gap-4  md:justify-start'>
-                    <FormField
-                      control={form.control}
-                      name='offset'
-                      render={({ field }) => (
-                        <FormItem className='sm:w-[18rem] md:w-[14rem] lg:w-auto'>
-                          <FormControl>
-                            <Input
-                              disabled={form.getValues('all')}
-                              className='text-[13px] md:text-[14px]'
-                              placeholder='Nro. de registros desplazados'
-                              {...field}
-                              value={form.getValues('all') ? '-' : field?.value || ''}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name='all'
-                      render={({ field }) => (
-                        <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem]'>
-                          <FormControl>
-                            <Checkbox
-                              disabled={
-                                !form.getValues('limit') ||
-                                !form.getValues('offset') ||
-                                !!form.formState.errors.limit // transform to boolean
-                              }
-                              checked={field?.value}
-                              onCheckedChange={(checked) => {
-                                field.onChange(checked);
-                              }}
-                              className={
-                                (form.getValues('limit') || form.getValues('offset')) &&
-                                !form.formState.errors.limit &&
-                                !form.formState.errors.offset
-                                  ? ''
-                                  : 'bg-slate-500'
-                              }
-                            />
-                          </FormControl>
-                          <div className='space-y-1 leading-none'>
-                            <FormLabel className='text-[13px] md:text-[14px]'>Todos</FormLabel>
-                          </div>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                </div>
+                <FormField
+                  control={form.control}
+                  name='all'
+                  render={({ field }) => (
+                    <FormItem className='flex flex-col justify-end'>
+                      <FormLabel className=''></FormLabel>
+                      <FormDescription className=''></FormDescription>
+                      <div className='flex items-center space-x-2 space-y-0 rounded-md border p-2.5 h-[2.5rem]'>
+                        <FormControl>
+                          <Checkbox
+                            disabled={
+                              !form.getValues('limit') ||
+                              !form.getValues('offset') ||
+                              !!form.formState.errors.limit // transform to boolean
+                            }
+                            checked={field?.value}
+                            onCheckedChange={(checked) => {
+                              field.onChange(checked);
+                            }}
+                            className={
+                              (form.getValues('limit') || form.getValues('offset')) &&
+                              !form.formState.errors.limit &&
+                              !form.formState.errors.offset
+                                ? ''
+                                : 'bg-slate-500'
+                            }
+                          />
+                        </FormControl>
+                        <div className='space-y-1 leading-none'>
+                          <FormLabel className='text-[12px] md:text-[13px]'>Todos</FormLabel>
+                        </div>
+                      </div>
+                    </FormItem>
+                  )}
+                />
               </div>
 
               <FormField
                 control={form.control}
                 name='order'
                 render={({ field }) => (
-                  <FormItem className='w-auto lg:min-w-[22rem] mid-xl:min-w-[27rem]'>
+                  <FormItem className='w-auto lg:min-w-[12rem] xl:min-w-[12rem] 2xl:w-full'>
                     <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
-                    <FormDescription className='text-[14px]'>
-                      Elige el tipo de orden de los registros.
+                    <FormDescription className='text-[13px] md:text-[14px]'>
+                      Selecciona el tipo de orden de los registros.
                     </FormDescription>
                     <Select value={field.value} onValueChange={field.onChange}>
                       <FormControl className='text-[13px] md:text-[14px] lg:w-full'>
@@ -289,19 +277,67 @@ export const CopastorsGeneralSearchPage = (): JSX.Element => {
                 )}
               />
 
-              <div>
-                <Toaster position='top-center' richColors />
-                <Button
-                  disabled={isDisabledSubmitButton}
-                  type='submit'
-                  variant='ghost'
-                  className={cn(
-                    'm-auto md:m-0 mt-8 lg:m-0 w-full text-[13px] lg:text-[14px] h-[2.5rem] md:w-[15rem] lg:w-[16rem] px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
-                  )}
-                >
-                  Buscar
-                </Button>
-              </div>
+              <FormField
+                control={form.control}
+                name='churchId'
+                render={({ field }) => {
+                  return (
+                    <FormItem className='w-auto lg:min-w-[10rem] xl:min-w-[10rem] 2xl:w-full'>
+                      <FormLabel className='text-[14px] font-bold'>
+                        Iglesia
+                        <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[1px] rounded-full mr-1'>
+                          Opcional
+                        </span>
+                      </FormLabel>
+                      <FormDescription className='text-[13px] md:text-[14px]'>
+                        Selecciona una iglesia para la búsqueda.
+                      </FormDescription>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        value={field.value}
+                      >
+                        <FormControl className='text-[13px] md:text-[14px]'>
+                          <SelectTrigger>
+                            {field.value ? (
+                              <SelectValue
+                                className='text-[13px] md:text-[14px]'
+                                placeholder='Elige una opción'
+                              />
+                            ) : (
+                              'Elige una opción'
+                            )}
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {churchesQuery?.data?.map((church) => (
+                            <SelectItem
+                              className={`text-[13px] md:text-[14px]`}
+                              key={church.id}
+                              value={church.id}
+                            >
+                              {church.abbreviatedChurchName}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+
+              <Toaster position='top-center' richColors />
+              <Button
+                disabled={isDisabledSubmitButton}
+                type='submit'
+                variant='ghost'
+                className={cn(
+                  'mt-4 col-start-1 col-end-3 w-full px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
+                )}
+              >
+                Buscar
+              </Button>
             </form>
           </Form>
         )}

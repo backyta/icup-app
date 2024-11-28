@@ -30,8 +30,8 @@ export const useCopastorRolePromotionHandler = ({
   const hasSupervisor = roles.includes(memberRoles.Supervisor);
 
   //* copastor --> pastor
-  if (hasMember && hasCopastor && !hasSupervisor && !hasPreacher && !hasTreasurer && !hasPastor) {
-    copastorUpdateForm.setValue('roles', [memberRoles.Disciple, memberRoles.Pastor]);
+  if (hasCopastor && !hasSupervisor && !hasPreacher && !hasTreasurer && !hasPastor && !hasMember) {
+    copastorUpdateForm.setValue('roles', [memberRoles.Pastor]);
   }
 
   //* Set disabled states

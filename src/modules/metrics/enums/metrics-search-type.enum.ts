@@ -193,20 +193,20 @@ export const MetricOfferingExpenseSearchTypeNames: Record<MetricOfferingExpenseS
 
 export enum MetricFinancialBalanceComparisonSearchType {
   IncomeAndExpensesComparativeByYear = 'income_and_expense_comparative_by_year',
-  GeneralComparativeOfferingIncome = 'general_comparative_offering_income',
-  ComparativeOfferingIncomeByType = 'comparative_offering_income_by_type',
   GeneralComparativeOfferingExpenses = 'general_comparative_offering_expenses',
+  GeneralComparativeOfferingIncome = 'general_comparative_offering_income',
   ComparativeOfferingExpensesByType = 'comparative_offering_expenses_by_type',
+  ComparativeOfferingIncomeByType = 'comparative_offering_income_by_type',
   ComparativeOfferingExpensesBySubType = 'comparative_offering_expenses_by_sub_type',
 }
 
 export const MetricFinancialBalanceComparisonSearchTypeNames: Record<MetricFinancialBalanceComparisonSearchType, string> =  {
-  [MetricFinancialBalanceComparisonSearchType.IncomeAndExpensesComparativeByYear]: 'Comparativa de Ingresos y Salidas por año.',
-  [MetricFinancialBalanceComparisonSearchType.GeneralComparativeOfferingIncome]: 'Comparativa de Ingresos de Ofrenda (General).',
-  [MetricFinancialBalanceComparisonSearchType.ComparativeOfferingIncomeByType]: 'Comparativa de Ingresos de Ofrenda (Tipo).',
-  [MetricFinancialBalanceComparisonSearchType.GeneralComparativeOfferingExpenses]: 'Comparativa de Salidas de Ofrenda (General).',
-  [MetricFinancialBalanceComparisonSearchType.ComparativeOfferingExpensesByType]: 'Comparativa de Salidas de Ofrenda (Tipo).',
-  [MetricFinancialBalanceComparisonSearchType.ComparativeOfferingExpensesBySubType]: 'Comparativa de Salidas de Ofrenda (Sub-Tipo).',
+  [MetricFinancialBalanceComparisonSearchType.IncomeAndExpensesComparativeByYear]: 'Comparativa Anual Ingresos vs Salidas.',
+  [MetricFinancialBalanceComparisonSearchType.GeneralComparativeOfferingIncome]: 'Comparativa Ingresos de Ofrenda (General).',
+  [MetricFinancialBalanceComparisonSearchType.ComparativeOfferingIncomeByType]: 'Comparativa Ingresos de Ofrenda (Tipo).',
+  [MetricFinancialBalanceComparisonSearchType.GeneralComparativeOfferingExpenses]: 'Comparativa Salidas de Ofrenda (General).',
+  [MetricFinancialBalanceComparisonSearchType.ComparativeOfferingExpensesByType]: 'Comparativa Salidas de Ofrenda (Tipo).',
+  [MetricFinancialBalanceComparisonSearchType.ComparativeOfferingExpensesBySubType]: 'Comparativa Salidas de Ofrenda (Sub-Tipo).',
 }
 
 

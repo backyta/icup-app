@@ -60,7 +60,6 @@ export const useCopastorUpdateSubmitButtonLogic = ({
     }
 
     if (
-      roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Copastor) &&
       theirPastor &&
       Object.values(copastorUpdateForm.formState.errors).length === 0 &&
@@ -70,26 +69,17 @@ export const useCopastorUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(false);
     }
 
-    if (
-      roles.includes(memberRoles.Disciple) &&
-      roles.includes(memberRoles.Copastor) &&
-      !theirPastor
-    ) {
+    if (roles.includes(memberRoles.Copastor) && !theirPastor) {
+      setIsSubmitButtonDisabled(true);
+      setIsMessageErrorDisabled(true);
+    }
+
+    if (roles.includes(memberRoles.Pastor) && !theirChurch) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
 
     if (
-      roles.includes(memberRoles.Disciple) &&
-      roles.includes(memberRoles.Pastor) &&
-      !theirChurch
-    ) {
-      setIsSubmitButtonDisabled(true);
-      setIsMessageErrorDisabled(true);
-    }
-
-    if (
-      roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Pastor) &&
       theirChurch &&
       Object.values(copastorUpdateForm.formState.errors).length === 0 &&

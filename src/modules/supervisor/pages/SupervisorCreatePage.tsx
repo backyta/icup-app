@@ -117,7 +117,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
       district: '',
       address: '',
       referenceAddress: '',
-      roles: [MemberRole.Disciple, MemberRole.Supervisor],
+      roles: [MemberRole.Supervisor],
       theirPastor: '',
     },
   });

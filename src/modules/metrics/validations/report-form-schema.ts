@@ -90,9 +90,6 @@ export const FinancialBalanceComparativeReportFormSchema = z
   church: z.string({required_error: 
   'Por favor asigna una Iglesia.'}),
 
-  currency: z.string({required_error: 
-  'Por favor asigna una divisa.'}),
-
   year: z.string({required_error: 
     'Por favor elige un año.'}).optional(),
 

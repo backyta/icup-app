@@ -58,7 +58,6 @@ export const usePreacherCreationSubmitButtonLogic = ({
 
     if (
       theirSupervisor &&
-      roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Preacher) &&
       Object.values(preacherCreationForm.formState.errors).length === 0 &&
       !isInputDisabled
@@ -116,6 +115,6 @@ export const usePreacherCreationSubmitButtonLogic = ({
   ]);
 
   useEffect(() => {
-    preacherCreationForm.setValue('roles', [memberRoles.Disciple, memberRoles.Preacher]);
-  }, [isMessageErrorDisabled]);
+    preacherCreationForm.setValue('roles', [memberRoles.Preacher]);
+  }, []);
 };

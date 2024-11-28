@@ -25,7 +25,7 @@ export const  getOfferingsForBarChartByTerm = async ({
  if (searchType === DashboardSearchType.LastSundaysOfferings
 ) {
     try {
-    const {data} = await icupApi<LastSundaysOfferingsResponse[]>(`/offering-income/${date}&${church}` , {
+    const {data} = await icupApi<LastSundaysOfferingsResponse[]>(`/metrics/${date}&${church}` , {
       params: {
         limit,
         offset,
@@ -49,7 +49,7 @@ export const  getOfferingsForBarChartByTerm = async ({
  if (searchType === DashboardSearchType.TopFamilyGroupsOfferings
 ) {
     try {
-      const {data} = await icupApi<TopFamilyGroupsOfferingsResponse[]>(`/offering-income/${year}&${church}` , {
+      const {data} = await icupApi<TopFamilyGroupsOfferingsResponse[]>(`/metrics/${year}&${church}` , {
         params: {
           limit,
           offset,

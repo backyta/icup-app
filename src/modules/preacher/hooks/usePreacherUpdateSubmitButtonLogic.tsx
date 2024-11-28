@@ -63,7 +63,6 @@ export const usePreacherUpdateSubmitButtonLogic = ({
     }
 
     if (
-      roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Preacher) &&
       theirSupervisor &&
       Object.values(preacherUpdateForm.formState.errors).length === 0 &&
@@ -76,7 +75,6 @@ export const usePreacherUpdateSubmitButtonLogic = ({
     if (
       !isDirectRelationToPastor &&
       theirCopastor &&
-      roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
       Object.values(preacherUpdateForm.formState.errors).length === 0 &&
       !isRelationSelectDisabled
@@ -85,19 +83,13 @@ export const usePreacherUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(false);
     }
 
-    if (
-      !isDirectRelationToPastor &&
-      roles.includes(memberRoles.Disciple) &&
-      roles.includes(memberRoles.Supervisor) &&
-      !theirCopastor
-    ) {
+    if (!isDirectRelationToPastor && roles.includes(memberRoles.Supervisor) && !theirCopastor) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
 
     if (
       isDirectRelationToPastor &&
-      roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
       theirPastor &&
       Object.values(preacherUpdateForm.formState.errors).length === 0 &&
@@ -107,12 +99,7 @@ export const usePreacherUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(false);
     }
 
-    if (
-      isDirectRelationToPastor &&
-      roles.includes(memberRoles.Disciple) &&
-      roles.includes(memberRoles.Supervisor) &&
-      !theirPastor
-    ) {
+    if (isDirectRelationToPastor && roles.includes(memberRoles.Supervisor) && !theirPastor) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }

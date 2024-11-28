@@ -78,7 +78,7 @@ export const getPreachersByZone = async ({
 }
 
 //* Get preachers (paginated)
-export const getPreachers = async ({limit, offset, all, order}: PreacherQueryParams): Promise<PreacherResponse[]> => {
+export const getPreachers = async ({limit, offset, all, order, churchId}: PreacherQueryParams): Promise<PreacherResponse[]> => {
 
  let result: PreacherResponse[];
 
@@ -89,6 +89,7 @@ export const getPreachers = async ({limit, offset, all, order}: PreacherQueryPar
           limit,
           offset,
           order,
+          churchId,
         },
       });
       
@@ -97,6 +98,7 @@ export const getPreachers = async ({limit, offset, all, order}: PreacherQueryPar
       const {data} = await icupApi<PreacherResponse[]>('/preachers' , {
         params: {
           order,
+          churchId,
         },
       });
       result = data;
@@ -125,7 +127,8 @@ export const getPreachersByTerm = async ({
   limit, 
   offset, 
   all, 
-  order
+  order,
+  churchId
 }: PreacherQueryParams): Promise<PreacherResponse[] | undefined> => {
 
  let result: PreacherResponse[];
@@ -148,6 +151,7 @@ export const getPreachersByTerm = async ({
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -157,6 +161,7 @@ export const getPreachersByTerm = async ({
         const {data} = await icupApi<PreacherResponse[]>(`/preachers/${inputTerm}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -183,6 +188,7 @@ export const getPreachersByTerm = async ({
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -192,6 +198,7 @@ export const getPreachersByTerm = async ({
         const {data} = await icupApi<PreacherResponse[]>(`/preachers/${dateTerm}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -222,6 +229,7 @@ export const getPreachersByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -231,6 +239,7 @@ export const getPreachersByTerm = async ({
           const {data} = await icupApi<PreacherResponse[]>(`/preachers/${selectTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -258,6 +267,7 @@ export const getPreachersByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -268,6 +278,7 @@ export const getPreachersByTerm = async ({
           const {data} = await icupApi<PreacherResponse[]>(`/preachers/${namesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -297,6 +308,7 @@ export const getPreachersByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -307,6 +319,7 @@ export const getPreachersByTerm = async ({
           const {data} = await icupApi<PreacherResponse[]>(`/preachers/${lastNamesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -336,6 +349,7 @@ export const getPreachersByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -346,6 +360,7 @@ export const getPreachersByTerm = async ({
           const {data} = await icupApi<PreacherResponse[]>(`/preachers/${namesTerm}-${lastNamesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -409,13 +424,14 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
-export const getGeneralPreachersReport = async ({limit, offset, order}: PreacherQueryParams): Promise<void> => {
+export const getGeneralPreachersReport = async ({limit, offset, order, churchId}: PreacherQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/preachers' , {
       params: {
         limit,
         offset,
         order,
+        churchId,
       },
       headers: {
       'Content-Type': 'application/pdf',
@@ -444,7 +460,8 @@ export const getPreachersReportByTerm = async ({
   lastNamesTerm,
   limit, 
   offset, 
-  order
+  order,
+  churchId
 }: PreacherQueryParams): Promise<void> => {
   let newTerm: string | undefined = '';
   
@@ -476,6 +493,7 @@ export const getPreachersReportByTerm = async ({
         limit,
         offset,
         order,
+        churchId,
         'search-type': searchType,
         'search-sub-type': searchSubType
       },

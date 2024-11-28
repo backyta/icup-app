@@ -163,8 +163,6 @@ export const PastorCreatePage = (): JSX.Element => {
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
   });
 
-  console.log(data);
-
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof pastorFormSchema>): void => {
     pastorCreationMutation.mutate(formData);

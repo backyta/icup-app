@@ -3,4 +3,5 @@ export interface GeneralSearchForm {
   limit?:    string;
   all?:      boolean;
   order:     string;
+  churchId?:  string;
 }

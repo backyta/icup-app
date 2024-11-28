@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
@@ -6,12 +7,15 @@ import { useEffect, useState } from 'react';
 import { type z } from 'zod';
 import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
+import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 import { CalendarIcon } from 'lucide-react';
+
+import { getSimpleChurches } from '@/modules/church/services';
 
 import {
   PastorSearchType,
@@ -31,7 +35,7 @@ import { type PastorSearchFormByTerm, type PastorResponse } from '@/modules/past
 import { cn } from '@/shared/lib/utils';
 import { usePastorStore } from '@/stores/pastor';
 
-import { PageTitle } from '@/shared/components/page';
+import { PageTitle, SearchTitle } from '@/shared/components/page';
 import { RecordOrder, RecordOrderNames } from '@/shared/enums';
 import { dateFormatterTermToTimestamp, namesFormatter, lastNamesFormatter } from '@/shared/helpers';
 
@@ -121,6 +125,12 @@ export const PastorDeletePage = (): JSX.Element => {
   const limit = form.watch('limit');
   const order = form.watch('order');
 
+  //* Queries
+  const churchesQuery = useQuery({
+    queryKey: ['churches'],
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+  });
+
   //* Effects
   useEffect(() => {
     if (form.getValues('all')) {
@@ -179,24 +189,14 @@ export const PastorDeletePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-pastor-color'>Modulo Pastor</PageTitle>
 
-      <div className='flex items-center justify-start'>
-        <h2 className='flex items-center text-left pl-4 py-2 sm:pt-4 sm:pb-2 sm:pl-[1.5rem] xl:pl-[2rem] 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-red-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl'>
-          Eliminar pastores
-        </h2>
-        <span className='ml-3 bg-red-300 text-slate-600 border text-center text-[10px] mt-[.6rem] sm:mt-5 -py-1 px-2 rounded-full font-bold uppercase'>
-          Eliminar
-        </span>
-      </div>
-      <p className='dark:text-slate-300 text-left font-sans font-bold px-4 text-[12.5px] md:text-[15px] xl:text-base sm:px-[1.5rem] xl:px-[2rem]'>
-        Elige tus opciones de búsqueda para eliminar registros de pastores.
-      </p>
+      <SearchTitle className='text-red-500' isDeleteSearch titleName={'pastores'} />
 
       <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full'>
         {isFiltersSearchByTermDisabled && (
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className='grid grid-cols-1 gap-4 gap-y-4 items-end mb-8 md:mb-12 md:grid-cols-3 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4 w-auto'
+              className='grid grid-cols-1 gap-4 gap-y-4 items-end mb-10 md:mb-10 md:grid-cols-3 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4 w-auto'
             >
               <FormField
                 control={form.control}
@@ -205,7 +205,7 @@ export const PastorDeletePage = (): JSX.Element => {
                   return (
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Tipo</FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13px] md:text-[14px]'>
                         ¿Qué tipo de búsqueda desea hacer?
                       </FormDescription>
                       <Select
@@ -266,7 +266,7 @@ export const PastorDeletePage = (): JSX.Element => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13px] md:text-[14px]'>
                         Escribe aquí lo que deseas buscar.
                       </FormDescription>
                       <FormControl>
@@ -289,7 +289,7 @@ export const PastorDeletePage = (): JSX.Element => {
                   render={({ field }) => (
                     <FormItem className=''>
                       <FormLabel className='text-[14px] font-bold'>Termino (fecha)</FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13px] md:text-[14px]'>
                         Buscar por fecha o rango de fechas.
                       </FormDescription>
                       <Popover>
@@ -350,7 +350,7 @@ export const PastorDeletePage = (): JSX.Element => {
                     return (
                       <FormItem>
                         <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
-                        <FormDescription className='text-[14px]'>
+                        <FormDescription className='text-[13px] md:text-[14px]'>
                           Selecciona una opción de búsqueda.
                         </FormDescription>
                         <Select
@@ -405,7 +405,7 @@ export const PastorDeletePage = (): JSX.Element => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Termino (nombres)</FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13px] md:text-[14px]'>
                         Escribe los nombres que deseas buscar.
                       </FormDescription>
                       <FormControl>
@@ -429,7 +429,7 @@ export const PastorDeletePage = (): JSX.Element => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Termino (apellidos)</FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13px] md:text-[14px]'>
                         Escribe los apellidos que deseas buscar.
                       </FormDescription>
                       <FormControl>
@@ -453,19 +453,19 @@ export const PastorDeletePage = (): JSX.Element => {
                     render={() => (
                       <FormItem>
                         <FormLabel className='text-[14px] font-bold'>Limite</FormLabel>
-                        <FormDescription className='text-[14px]'>
+                        <FormDescription className='text-[13px] md:text-[14px]'>
                           ¿Cuantos registros necesitas?
                         </FormDescription>
                       </FormItem>
                     )}
                   />
                 </div>
-                <div className='flex col-start-1 col-end-3 justify-between sm:justify-normal sm:gap-6 md:gap-6 lg:gap-4 md:justify-start'>
+                <div className='flex gap-4 col-start-1 col-end-3 justify-between sm:justify-normal  md:justify-start'>
                   <FormField
                     control={form.control}
                     name='limit'
                     render={({ field }) => (
-                      <FormItem className='w-[12rem] 2xl:w-[20rem]'>
+                      <FormItem className='w-full'>
                         <FormControl>
                           <Input
                             {...field}
@@ -527,9 +527,9 @@ export const PastorDeletePage = (): JSX.Element => {
                 control={form.control}
                 name='order'
                 render={({ field }) => (
-                  <FormItem className='w-full row-start-3 row-end-4 md:col-start-auto md:col-end-auto md:row-start-auto md:row-end-auto '>
+                  <FormItem className='w-full'>
                     <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
-                    <FormDescription className='text-[14px]'>
+                    <FormDescription className='text-[13px] md:text-[14px]'>
                       Elige el tipo de orden de los registros.
                     </FormDescription>
                     <Select
@@ -565,13 +565,64 @@ export const PastorDeletePage = (): JSX.Element => {
                   </FormItem>
                 )}
               />
+
+              <FormField
+                control={form.control}
+                name='churchId'
+                render={({ field }) => {
+                  return (
+                    <FormItem className='w-full'>
+                      <FormLabel className='text-[14px] font-bold'>
+                        Iglesia
+                        <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[1px] rounded-full mr-1'>
+                          Opcional
+                        </span>
+                      </FormLabel>
+                      <FormDescription className='text-[13px] md:text-[14px]'>
+                        Selecciona una iglesia para la búsqueda.
+                      </FormDescription>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        value={field.value}
+                      >
+                        <FormControl className='text-[13px] md:text-[14px]'>
+                          <SelectTrigger>
+                            {field.value ? (
+                              <SelectValue
+                                className='text-[13px] md:text-[14px]'
+                                placeholder='Elige una opción'
+                              />
+                            ) : (
+                              'Elige una opción'
+                            )}
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {churchesQuery?.data?.map((church) => (
+                            <SelectItem
+                              className={`text-[13px] md:text-[14px]`}
+                              key={church.id}
+                              value={church.id}
+                            >
+                              {church.abbreviatedChurchName}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
+              />
+
               <div>
                 <Toaster position='top-center' richColors />
                 <Button
                   disabled={isDisabledSubmitButton}
                   type='submit'
                   variant='ghost'
-                  className='mx-auto mt-2 md:mt-3 xl:mt-0 md:col-start-2 md:col-end-3 lg:col-start-2 lg:col-end-3 lg:row-start-auto lg:row-end-auto xl:row-start-auto xl:row-end-auto xl:col-start-auto xl:col-end-auto w-full text-[13px] lg:text-[14px] h-[2.5rem] md:w-[15rem] lg:w-full xl:w-full xl:-ml-0 2xl:w-full 2xl:mx-auto px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
+                  className='mx-auto w-full mt-2 md:mt-3 xl:mt-0 md:col-start-2 md:col-end-3 lg:col-start-2 lg:col-end-3 lg:row-start-auto lg:row-end-auto xl:row-start-auto xl:row-end-auto xl:col-start-auto xl:col-end-auto text-[13px] lg:text-[14px] h-[2.5rem] 2xl:mx-auto px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
                 >
                   Buscar
                 </Button>

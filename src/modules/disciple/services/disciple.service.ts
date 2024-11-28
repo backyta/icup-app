@@ -47,7 +47,7 @@ export const getSimpleDisciples = async ({isSimpleQuery}:{isSimpleQuery: true}):
 }
 
 //* Get disciples (paginated)
-export const getDisciples = async ({limit, offset, all, order}: DiscipleQueryParams): Promise<DiscipleResponse[]> => {
+export const getDisciples = async ({limit, offset, all, order, churchId}: DiscipleQueryParams): Promise<DiscipleResponse[]> => {
 
  let result: DiscipleResponse[];
 
@@ -58,6 +58,7 @@ export const getDisciples = async ({limit, offset, all, order}: DiscipleQueryPar
           limit,
           offset,
           order,
+          churchId,
         },
       });
       
@@ -66,6 +67,7 @@ export const getDisciples = async ({limit, offset, all, order}: DiscipleQueryPar
       const {data} = await icupApi<DiscipleResponse[]>('/disciples' , {
         params: {
           order,
+          churchId,
         },
       });
       result = data;
@@ -94,7 +96,8 @@ export const getDisciplesByTerm = async ({
   limit, 
   offset, 
   all, 
-  order
+  order,
+  churchId,
 }: DiscipleQueryParams): Promise<DiscipleResponse[] | undefined> => {
 
  let result: DiscipleResponse[];
@@ -117,6 +120,7 @@ export const getDisciplesByTerm = async ({
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -126,6 +130,7 @@ export const getDisciplesByTerm = async ({
         const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${inputTerm}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -152,6 +157,7 @@ export const getDisciplesByTerm = async ({
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -161,6 +167,7 @@ export const getDisciplesByTerm = async ({
         const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${dateTerm}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -191,6 +198,7 @@ export const getDisciplesByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -200,6 +208,7 @@ export const getDisciplesByTerm = async ({
           const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${selectTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -227,6 +236,7 @@ export const getDisciplesByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -237,6 +247,7 @@ export const getDisciplesByTerm = async ({
           const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${namesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -266,6 +277,7 @@ export const getDisciplesByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -276,6 +288,7 @@ export const getDisciplesByTerm = async ({
           const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${lastNamesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -305,6 +318,7 @@ export const getDisciplesByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -315,6 +329,7 @@ export const getDisciplesByTerm = async ({
           const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${namesTerm}-${lastNamesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -377,13 +392,14 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
-export const getGeneralDisciplesReport = async ({limit, offset, order}: DiscipleQueryParams): Promise<void> => {
+export const getGeneralDisciplesReport = async ({limit, offset, order, churchId}: DiscipleQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/disciples' , {
       params: {
         limit,
         offset,
         order,
+        churchId,
       },
       headers: {
       'Content-Type': 'application/pdf',
@@ -412,7 +428,8 @@ export const getDisciplesReportByTerm = async ({
   lastNamesTerm,
   limit, 
   offset, 
-  order
+  order,
+  churchId,
 }: DiscipleQueryParams): Promise<void> => {
   let newTerm: string | undefined = '';
   
@@ -444,6 +461,7 @@ export const getDisciplesReportByTerm = async ({
         limit,
         offset,
         order,
+        churchId,
         'search-type': searchType,
         'search-sub-type': searchSubType
       },

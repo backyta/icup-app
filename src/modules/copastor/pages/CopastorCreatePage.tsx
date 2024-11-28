@@ -115,7 +115,7 @@ export const CopastorCreatePage = (): JSX.Element => {
       district: '',
       address: '',
       referenceAddress: '',
-      roles: [MemberRole.Disciple],
+      roles: [MemberRole.Copastor],
       theirPastor: '',
     },
   });

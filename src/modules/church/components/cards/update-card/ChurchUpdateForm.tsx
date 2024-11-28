@@ -168,7 +168,7 @@ export const ChurchUpdateForm = ({
       defaultValue='general-info'
       className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
-      <h2 className='text-center text-orange-500 pb-2 font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
+      <h2 className='text-center leading-7 text-orange-500 pb-2 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
         Actualizar información de la Iglesia
       </h2>
 
@@ -178,8 +178,8 @@ export const ChurchUpdateForm = ({
 
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
-              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] pl-0 mb-4 md:pl-4'>
-                Iglesia: {data?.churchName} - {data?.district}
+              <div className='italic dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] pl-0 mb-4 md:pl-4'>
+                Iglesia: {data?.abbreviatedChurchName} ~ {data?.district}
               </div>
               <Form {...form}>
                 <form

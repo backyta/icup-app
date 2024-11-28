@@ -1,10 +1,10 @@
 export enum MemberRole {
-  Disciple = 'disciple',
   Pastor = 'pastor',
   Copastor = 'copastor',
   Supervisor = 'supervisor',
   Preacher = 'preacher',
   Treasurer = 'treasurer',
+  Disciple = 'disciple',
 }
 
 export const MemberRoleNames: Record<MemberRole, string> = {

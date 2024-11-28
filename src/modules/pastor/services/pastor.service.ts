@@ -48,7 +48,7 @@ export const getSimplePastors = async ({isSimpleQuery}: {isSimpleQuery: boolean}
 
 
 //* Get all pastors (paginated)
-export const getPastors = async ({limit, offset, all, order}: PastorQueryParams): Promise<PastorResponse[]> => {
+export const getPastors = async ({limit, offset, all, order, churchId}: PastorQueryParams): Promise<PastorResponse[]> => {
 
  let result: PastorResponse[];
 
@@ -59,6 +59,7 @@ export const getPastors = async ({limit, offset, all, order}: PastorQueryParams)
           limit,
           offset,
           order,
+          churchId
         },
       });
       
@@ -67,8 +68,10 @@ export const getPastors = async ({limit, offset, all, order}: PastorQueryParams)
       const {data} = await icupApi<PastorResponse[]>('/pastors' , {
         params: {
           order,
+          churchId
         },
       });
+
       result = data;
     }
 
@@ -94,7 +97,8 @@ export const getPastorsByTerm = async ({
   limit, 
   offset, 
   all, 
-  order
+  order,
+  churchId
 }: PastorQueryParams): Promise<PastorResponse[] | undefined> => {
 
  let result: PastorResponse[];
@@ -114,6 +118,7 @@ export const getPastorsByTerm = async ({
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -123,6 +128,7 @@ export const getPastorsByTerm = async ({
         const {data} = await icupApi<PastorResponse[]>(`/pastors/${inputTerm}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -149,6 +155,7 @@ export const getPastorsByTerm = async ({
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -158,6 +165,7 @@ export const getPastorsByTerm = async ({
         const {data} = await icupApi<PastorResponse[]>(`/pastors/${dateTerm}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -188,6 +196,7 @@ export const getPastorsByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -197,6 +206,7 @@ export const getPastorsByTerm = async ({
           const {data} = await icupApi<PastorResponse[]>(`/pastors/${selectTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -224,6 +234,7 @@ export const getPastorsByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -233,6 +244,7 @@ export const getPastorsByTerm = async ({
           const {data} = await icupApi<PastorResponse[]>(`/pastors/${namesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -261,6 +273,7 @@ export const getPastorsByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -270,6 +283,7 @@ export const getPastorsByTerm = async ({
           const {data} = await icupApi<PastorResponse[]>(`/pastors/${lastNamesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -298,6 +312,7 @@ export const getPastorsByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -307,6 +322,7 @@ export const getPastorsByTerm = async ({
           const {data} = await icupApi<PastorResponse[]>(`/pastors/${namesTerm}-${lastNamesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -368,13 +384,14 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
-export const getGeneralPastorsReport = async ({limit, offset, order}: PastorQueryParams): Promise<void> => {
+export const getGeneralPastorsReport = async ({limit, offset, order, churchId}: PastorQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/pastors' , {
       params: {
         limit,
         offset,
         order,
+        churchId
       },
       headers: {
       'Content-Type': 'application/pdf',
@@ -403,7 +420,8 @@ export const getPastorsReportByTerm = async ({
   lastNamesTerm,
   limit, 
   offset, 
-  order
+  order,
+  churchId
 }: PastorQueryParams): Promise<void> => {
   let newTerm: string | undefined = '';
   
@@ -432,6 +450,7 @@ export const getPastorsReportByTerm = async ({
         limit,
         offset,
         order,
+        churchId,
         'search-type': searchType
       },
       headers: {

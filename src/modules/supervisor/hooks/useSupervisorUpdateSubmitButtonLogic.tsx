@@ -63,7 +63,6 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
     if (
       !isDirectRelationToPastor &&
       theirCopastor &&
-      roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
       Object.values(supervisorUpdateForm.formState.errors).length === 0 &&
       !isInputDisabled
@@ -80,7 +79,6 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
     if (
       isDirectRelationToPastor &&
       theirPastor &&
-      roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Supervisor) &&
       Object.values(supervisorUpdateForm.formState.errors).length === 0 &&
       !isInputDisabled
@@ -95,7 +93,6 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
     }
 
     if (
-      roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Copastor) &&
       theirPastor &&
       Object.values(supervisorUpdateForm.formState.errors).length === 0 &&

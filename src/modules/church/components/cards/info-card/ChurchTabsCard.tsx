@@ -53,6 +53,7 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
     };
   }, [id]);
 
+  console.log(data?.theirMainChurch?.id);
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full grid-cols-2 px-auto'>

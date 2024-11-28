@@ -7,6 +7,7 @@ export interface UserQueryParams {
   limit?: string;
   offset?: string;
   order: string;
+
   
   //* Validator for get all register
   all?: boolean;

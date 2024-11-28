@@ -188,7 +188,7 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
     <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-3 h-[28rem] sm:h-[31rem] md:h-[29rem] lg:h-[33rem] xl:h-[30rem] 2xl:h-[30rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='z-10 flex flex-col xl:flex-row items-center justify-between px-4 py-2.5'>
         <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-          Salidas de Ofrenda (sub-tipo)
+          Salidas de Ofrenda (Sub-tipo)
         </CardTitle>
         <Form {...form}>
           <form className='flex items-center flex-col md:flex-row'>
@@ -232,25 +232,28 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
                           />
                           <CommandEmpty>Tipo no encontrado.</CommandEmpty>
                           <CommandGroup className='max-h-[100px] h-auto'>
-                            {transformedArray.map((type) => (
-                              <CommandItem
-                                className='text-[12px] md:text-[14px]'
-                                value={type.value}
-                                key={type.key}
-                                onSelect={() => {
-                                  form.setValue('type', type.key);
-                                  setIsInputSearchTypeOpen(false);
-                                }}
-                              >
-                                {type.value}
-                                <CheckIcon
-                                  className={cn(
-                                    'ml-auto h-4 w-4',
-                                    type.key === field.value ? 'opacity-100' : 'opacity-0'
-                                  )}
-                                />
-                              </CommandItem>
-                            ))}
+                            {transformedArray.map(
+                              (type) =>
+                                type.key !== OfferingExpenseSearchType.ExpensesAdjustment && (
+                                  <CommandItem
+                                    className='text-[12px] md:text-[14px]'
+                                    value={type.value}
+                                    key={type.key}
+                                    onSelect={() => {
+                                      form.setValue('type', type.key);
+                                      setIsInputSearchTypeOpen(false);
+                                    }}
+                                  >
+                                    {type.value}
+                                    <CheckIcon
+                                      className={cn(
+                                        'ml-auto h-4 w-4',
+                                        type.key === field.value ? 'opacity-100' : 'opacity-0'
+                                      )}
+                                    />
+                                  </CommandItem>
+                                )
+                            )}
                           </CommandGroup>
                         </Command>
                       </PopoverContent>

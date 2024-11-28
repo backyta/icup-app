@@ -333,8 +333,8 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               (dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByDate ||
                 dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCodeDate ||
                 dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate ||
-                dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate ||
-                dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate) && (
+                dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate) && (
+              // dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate ||
                   dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCodeDate
@@ -361,7 +361,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
                     }`}
               </span>
             )}
-            {(dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
+            {/* {(dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
               dataForm?.searchType === OfferingIncomeSearchType.SundayService ||
               dataForm?.searchType === OfferingIncomeSearchType.Activities ||
               dataForm?.searchType === OfferingIncomeSearchType.GeneralFasting ||
@@ -369,14 +369,16 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               dataForm?.searchType === OfferingIncomeSearchType.UnitedService ||
               dataForm?.searchType === OfferingIncomeSearchType.IncomeAdjustment ||
               dataForm?.searchType === OfferingIncomeSearchType.YouthService) &&
-              (dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByChurch ||
-                dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate) && (
+              (
+                dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByChurch ||
+                dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate
+              ) && (
                 <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                   {dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate
                     ? ` - ${churchesQuery?.data?.find((item) => item?.id === dataForm?.selectTerm)?.abbreviatedChurchName}`
                     : `${churchesQuery?.data?.find((item) => item?.id === dataForm?.selectTerm)?.abbreviatedChurchName}`}
                 </span>
-              )}
+              )} */}
           </div>
 
           {/* Inputs Filters */}

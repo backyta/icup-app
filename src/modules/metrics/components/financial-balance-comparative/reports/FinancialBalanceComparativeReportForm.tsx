@@ -44,7 +44,6 @@ import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
-import { CurrencyType } from '@/modules/offering/shared/enums';
 
 interface Props {
   churchId: string | undefined;
@@ -60,7 +59,6 @@ export const FinancialBalanceComparativeReportForm = ({
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
   const [isInputSearchYearOpen, setIsInputSearchYearOpen] = useState<boolean>(false);
-  const [isInputSearchCurrencyOpen, setIsInputSearchCurrencyOpen] = useState<boolean>(false);
   const [isInputSearchEndMonthOpen, setIsInputSearchEndMonthOpen] = useState<boolean>(false);
   const [isInputSearchStartMonthOpen, setIsInputSearchStartMonthOpen] = useState<boolean>(false);
 
@@ -71,7 +69,6 @@ export const FinancialBalanceComparativeReportForm = ({
     defaultValues: {
       types: Object.values(MetricFinancialBalanceComparisonSearchType),
       church: churchId,
-      currency: CurrencyType.PEN,
       year: new Date().getFullYear().toString(),
       startMonth: months[0].value,
       endMonth: months[0].value,
@@ -83,7 +80,6 @@ export const FinancialBalanceComparativeReportForm = ({
 
   //* Watchers
   const types = form.watch('types');
-  const currency = form.watch('currency');
   const year = form.watch('year');
   const startMonth = form.watch('startMonth');
   const endMonth = form.watch('endMonth');
@@ -121,7 +117,6 @@ export const FinancialBalanceComparativeReportForm = ({
         year: year ?? '',
         startMonth: startMonth ?? '',
         endMonth: endMonth ?? '',
-        currency: currency ?? '',
         types,
         dialogClose,
       }),
@@ -158,80 +153,6 @@ export const FinancialBalanceComparativeReportForm = ({
                 onSubmit={form.handleSubmit(handleSubmit)}
                 className='w-full pt-2 flex flex-col gap-x-10 gap-y-5 md:gap-y-5 px-2 md:px-4'
               >
-                <FormField
-                  control={form.control}
-                  name='currency'
-                  render={({ field }) => {
-                    return (
-                      <FormItem className='flex justify-start gap-5 items-center'>
-                        <div className='w-auto'>
-                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                            Divisa de búsqueda
-                          </FormLabel>
-                          <FormDescription className='text-[12px] md:text-[13px] font-medium'>
-                            Selecciona la divisa de búsqueda (solo para Ingresos vs Salidas).
-                          </FormDescription>
-                        </div>
-                        <Popover
-                          open={isInputSearchCurrencyOpen}
-                          onOpenChange={setIsInputSearchCurrencyOpen}
-                        >
-                          <PopoverTrigger asChild>
-                            <FormControl>
-                              <Button
-                                disabled={isInputDisabled}
-                                variant='outline'
-                                role='combobox'
-                                className={cn(
-                                  'mt-2 justify-center w-auto text-center px-2 text-[12px] md:text-[14px] ',
-                                  !field.value &&
-                                    'text-slate-500  dark:text-slate-200 font-normal px-2'
-                                )}
-                              >
-                                {field.value
-                                  ? Object.values(CurrencyType).find((year) => year === field.value)
-                                  : 'Elige una divisa'}
-                                <CaretSortIcon className='h-4 w-4 shrink-0' />
-                              </Button>
-                            </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent align='center' className='w-auto px-4 py-2'>
-                            <Command>
-                              <CommandInput
-                                placeholder='Busca una divisa...'
-                                className='h-9 text-[12px] md:text-[14px]'
-                              />
-                              <CommandEmpty>Divisa no encontrada.</CommandEmpty>
-                              <CommandGroup className='max-h-[100px] h-auto'>
-                                {Object.values(CurrencyType).map((currency) => (
-                                  <CommandItem
-                                    className='text-[12px] md:text-[14px]'
-                                    value={currency}
-                                    key={currency}
-                                    onSelect={() => {
-                                      form.setValue('currency', currency);
-                                      setIsInputSearchCurrencyOpen(false);
-                                    }}
-                                  >
-                                    {currency}
-                                    <CheckIcon
-                                      className={cn(
-                                        'ml-auto h-4 w-4',
-                                        currency === field.value ? 'opacity-100' : 'opacity-0'
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
-                              </CommandGroup>
-                            </Command>
-                          </PopoverContent>
-                        </Popover>
-                        <FormMessage />
-                      </FormItem>
-                    );
-                  }}
-                />
-
                 <FormField
                   control={form.control}
                   name='year'

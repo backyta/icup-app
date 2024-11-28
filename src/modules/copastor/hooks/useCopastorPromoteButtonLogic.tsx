@@ -81,6 +81,7 @@ export const useCopastorPromoteButtonLogic = ({
     ) {
       setIsPromoteButtonDisabled(false);
     }
+
     setLastValues(currentValues);
   }, [
     firstName,

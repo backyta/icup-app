@@ -29,6 +29,8 @@ export const formSearchGeneralSchema = z
       message: 'Debe ser un número mayor o igual a 0'
     }).optional(),
 
+    churchId: z.string().max(40).optional(),
+
     all: z.boolean().optional(),
   })
 

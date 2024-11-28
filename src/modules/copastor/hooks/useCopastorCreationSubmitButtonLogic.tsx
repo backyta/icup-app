@@ -58,7 +58,6 @@ export const useCopastorCreationSubmitButtonLogic = ({
 
     if (
       theirPastor &&
-      roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Copastor) &&
       Object.values(copastorCreationForm.formState.errors).length === 0 &&
       !isInputDisabled
@@ -116,6 +115,6 @@ export const useCopastorCreationSubmitButtonLogic = ({
   ]);
 
   useEffect(() => {
-    copastorCreationForm.setValue('roles', [memberRoles.Disciple, memberRoles.Copastor]);
-  }, [isMessageErrorDisabled]);
+    copastorCreationForm.setValue('roles', [memberRoles.Copastor]);
+  }, []);
 };

@@ -30,7 +30,7 @@ export const createOfferingIncome = async (formData:OfferingIncomeFormData ): Pr
 }
 
 //* Get all offering income (paginated)
-export const getOfferingsIncome = async ({limit, offset, all, order}: OfferingIncomeQueryParams): Promise<OfferingIncomeResponse[]> => {
+export const getOfferingsIncome = async ({limit, offset, all, order, churchId}: OfferingIncomeQueryParams): Promise<OfferingIncomeResponse[]> => {
 
  let result: OfferingIncomeResponse[];
 
@@ -41,6 +41,7 @@ export const getOfferingsIncome = async ({limit, offset, all, order}: OfferingIn
           limit,
           offset,
           order,
+          churchId,
         },
       });
       
@@ -49,6 +50,7 @@ export const getOfferingsIncome = async ({limit, offset, all, order}: OfferingIn
       const {data} = await icupApi<OfferingIncomeResponse[]>('/offering-income' , {
         params: {
           order,
+          churchId,
         },
       });
 
@@ -78,7 +80,8 @@ export const getOfferingsIncomeByTerm = async ({
   limit, 
   offset, 
   all, 
-  order
+  order,
+  churchId
 }: OfferingIncomeQueryParams): Promise<OfferingIncomeResponse[] | undefined> => {
 
  let result: OfferingIncomeResponse[];
@@ -91,10 +94,10 @@ export const getOfferingsIncomeByTerm = async ({
         ? selectTerm 
         : searchSubType === OfferingIncomeSearchSubType.OfferingByDate
           ? dateTerm
-        : searchSubType === OfferingIncomeSearchSubType.OfferingByChurch
-          ? selectTerm
-          : searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate
-          ?`${selectTerm}&${dateTerm}`
+        // : searchSubType === OfferingIncomeSearchSubType.OfferingByChurch
+        //   ? selectTerm
+        //   : searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate
+        //   ?`${selectTerm}&${dateTerm}`
           : `${selectTerm}&${dateTerm}`
 
     try {
@@ -104,6 +107,7 @@ export const getOfferingsIncomeByTerm = async ({
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType,
             'search-sub-type': searchSubType
           },
@@ -114,6 +118,7 @@ export const getOfferingsIncomeByTerm = async ({
         const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${term}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType,
             'search-sub-type': searchSubType
           },
@@ -153,6 +158,7 @@ export const getOfferingsIncomeByTerm = async ({
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType,
             'search-sub-type': searchSubType
           },
@@ -163,6 +169,7 @@ export const getOfferingsIncomeByTerm = async ({
         const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${term}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType,
             'search-sub-type': searchSubType
           },
@@ -189,8 +196,8 @@ export const getOfferingsIncomeByTerm = async ({
         ? inputTerm
         : searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate
           ? `${inputTerm}&${dateTerm}`
-            : searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate
-            ? `${selectTerm}&${dateTerm}`
+            // : searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate
+            // ? `${selectTerm}&${dateTerm}`
             : searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorNames
             ? namesTerm
             : searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorLastNames
@@ -204,6 +211,7 @@ export const getOfferingsIncomeByTerm = async ({
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType,
             'search-sub-type': searchSubType
           },
@@ -214,10 +222,12 @@ export const getOfferingsIncomeByTerm = async ({
         const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${term}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType,
             'search-sub-type': searchSubType
           },
         });
+
         result = data;
       }
     
@@ -249,6 +259,7 @@ export const getOfferingsIncomeByTerm = async ({
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType,
             'search-sub-type': searchSubType
           },
@@ -259,6 +270,7 @@ export const getOfferingsIncomeByTerm = async ({
         const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${term}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType,
             'search-sub-type': searchSubType
           },
@@ -287,8 +299,8 @@ export const getOfferingsIncomeByTerm = async ({
 
       const term = searchSubType === OfferingIncomeSearchSubType.OfferingByDate
       ? dateTerm
-      : searchSubType === OfferingIncomeSearchSubType.OfferingByChurch
-      ? selectTerm
+      // : searchSubType === OfferingIncomeSearchSubType.OfferingByChurch
+      // ? selectTerm
         : `${selectTerm}&${dateTerm}`
     try {
       if (!all) {
@@ -297,6 +309,7 @@ export const getOfferingsIncomeByTerm = async ({
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType,
             'search-sub-type': searchSubType
           },
@@ -307,10 +320,12 @@ export const getOfferingsIncomeByTerm = async ({
         const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${term}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType,
             'search-sub-type': searchSubType
           },
         });
+
         result = data;
       }
     
@@ -334,6 +349,7 @@ export const getOfferingsIncomeByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -343,9 +359,11 @@ export const getOfferingsIncomeByTerm = async ({
           const {data} = await icupApi<OfferingIncomeResponse[]>(`/offering-income/${selectTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType
             },
           });
+          
           result = data;
         }
       
@@ -417,13 +435,14 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
-export const getGeneralOfferingIncomeReport = async ({limit, offset, order}: OfferingIncomeQueryParams): Promise<void> => {
+export const getGeneralOfferingIncomeReport = async ({limit, offset, order, churchId}: OfferingIncomeQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/offering-income' , {
       params: {
         limit,
         offset,
         order,
+        churchId,
       },
       headers: {
       'Content-Type': 'application/pdf',
@@ -452,14 +471,15 @@ export const getOfferingIncomeReportByTerm = async ({
   lastNamesTerm,
   limit, 
   offset, 
-  order
+  order,
+  churchId
 }: OfferingIncomeQueryParams): Promise<void> => {
   let newTerm: string | undefined = '';
   
   const termMapping: Partial<Record<OfferingIncomeSearchSubType | OfferingIncomeSearchType, string | undefined>> = {
     [OfferingIncomeSearchSubType.OfferingByDate]: dateTerm,
-    [OfferingIncomeSearchSubType.OfferingByChurch]: selectTerm,
-    [OfferingIncomeSearchSubType.OfferingByChurchDate]: `${selectTerm}&${dateTerm}`,
+    // [OfferingIncomeSearchSubType.OfferingByChurch]: selectTerm,
+    // [OfferingIncomeSearchSubType.OfferingByChurchDate]: `${selectTerm}&${dateTerm}`,
     [OfferingIncomeSearchSubType.OfferingByShift]: selectTerm,
     [OfferingIncomeSearchSubType.OfferingByShiftDate]: `${selectTerm}&${dateTerm}`,
     [OfferingIncomeSearchSubType.OfferingByZone]: inputTerm,
@@ -486,6 +506,7 @@ export const getOfferingIncomeReportByTerm = async ({
         limit,
         offset,
         order,
+        churchId,
         'search-type': searchType,
         'search-sub-type': searchSubType
       },

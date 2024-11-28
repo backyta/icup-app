@@ -151,7 +151,7 @@ export const CopastorUpdateForm = ({
       urbanSector: '',
       address: '',
       referenceAddress: '',
-      roles: [MemberRole.Disciple],
+      roles: [MemberRole.Copastor],
       recordStatus: '',
       theirPastor: '',
       theirChurch: '',
@@ -224,7 +224,7 @@ export const CopastorUpdateForm = ({
       defaultValue='general-info'
       className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
-      <h2 className='text-center text-orange-500 pb-2 font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
+      <h2 className='text-center leading-7 text-orange-500 pb-2 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
         Actualizar información del Co-Pastor
       </h2>
 
@@ -907,18 +907,17 @@ export const CopastorUpdateForm = ({
                       <span className='text-[13px] md:text-[14px] text-yellow-500 font-bold text-center'>
                         !SE HA PROMOVIDO CORRECTAMENTE! <br />
                         <span className='text-[12px] md:text-[13px]'>
-                          {form.getValues('roles').includes(MemberRole.Disciple) &&
-                            form.getValues('roles').includes(MemberRole.Pastor) && (
-                              <div>
-                                <span className='text-red-500 text-center inline-block'>
-                                  Roles anteriores: Discípulo - Co-Pastor
-                                </span>
-                                <br />
-                                <span className='text-green-500 text-center inline-block'>
-                                  Roles nuevos: Discípulo - Pastor
-                                </span>
-                              </div>
-                            )}
+                          {form.getValues('roles').includes(MemberRole.Pastor) && (
+                            <div>
+                              <span className='text-red-500 text-center inline-block'>
+                                Roles anteriores: Co-Pastor
+                              </span>
+                              <br />
+                              <span className='text-green-500 text-center inline-block'>
+                                Roles nuevos: Pastor
+                              </span>
+                            </div>
+                          )}
                         </span>
                       </span>
                     )}

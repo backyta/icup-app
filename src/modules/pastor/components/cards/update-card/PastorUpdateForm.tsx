@@ -183,7 +183,7 @@ export const PastorUpdateForm = ({
       defaultValue='general-info'
       className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
-      <h2 className='text-center text-orange-500 pb-2 font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
+      <h2 className='text-center leading-7 text-orange-500 pb-2 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
         Actualizar información del Pastor
       </h2>
 
@@ -801,6 +801,7 @@ export const PastorUpdateForm = ({
                     />
                   </div>
 
+                  {/* Roles */}
                   <div className='sm:col-start-3 sm:col-end-4 flex flex-col gap-4'>
                     <FormField
                       control={form.control}

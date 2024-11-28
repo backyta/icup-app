@@ -168,7 +168,7 @@ export const ComparativeOfferingExpensesAnalysisCard = ({ churchId }: Props): JS
     <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-3 h-[24rem] sm:h-[26rem] md:h-[26rem] lg:h-[30rem] 2xl:h-[30rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 py-2.5'>
         <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-          Salidas de Ofrenda (general)
+          Salidas de Ofrenda (General)
         </CardTitle>
         <Form {...form}>
           <form className='flex'>

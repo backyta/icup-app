@@ -58,7 +58,6 @@ export const usePastorCreationSubmitButtonLogic = ({
 
     if (
       theirChurch &&
-      roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Pastor) &&
       Object.values(pastorCreationForm.formState.errors).length === 0 &&
       !isInputDisabled
@@ -116,6 +115,6 @@ export const usePastorCreationSubmitButtonLogic = ({
   ]);
 
   useEffect(() => {
-    pastorCreationForm.setValue('roles', [memberRoles.Disciple, memberRoles.Pastor]);
-  }, [isMessageErrorDisabled]);
+    pastorCreationForm.setValue('roles', [memberRoles.Pastor]);
+  }, []);
 };

@@ -39,19 +39,22 @@ export const offeringExpenseSearchByTermFormSchema = z
       required_error: "Seleccione un orden para al consulta.",
     })),
 
+    churchId: z.string().max(40).optional(),
+    
     all: z.boolean().optional(),
    
   })
   .refine(
     (data) => {
       if (
-        data.searchType === OfferingExpenseSearchType.PlaningEventsExpenses || 
-        data.searchType === OfferingExpenseSearchType.DecorationExpenses || 
-        data.searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpenses || 
-        data.searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpenses || 
-        data.searchType === OfferingExpenseSearchType.OperationalExpenses || 
-        data.searchType === OfferingExpenseSearchType.SuppliesExpenses ||
-        data.searchType === OfferingExpenseSearchType.ExpensesAdjustment
+        // data.searchType === OfferingExpenseSearchType.PlaningEventsExpenses || 
+        // data.searchType === OfferingExpenseSearchType.DecorationExpenses || 
+        // data.searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpenses || 
+        // data.searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpenses || 
+        // data.searchType === OfferingExpenseSearchType.OperationalExpenses || 
+        // data.searchType === OfferingExpenseSearchType.SuppliesExpenses ||
+        // data.searchType === OfferingExpenseSearchType.ExpensesAdjustment
+        data.searchType === OfferingExpenseSearchType.RecordStatus
       ) {
         return !!data.selectTerm;
       }

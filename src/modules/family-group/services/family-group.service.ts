@@ -47,7 +47,7 @@ export const getSimpleFamilyGroups = async ({isSimpleQuery, churchId}:{isSimpleQ
 }
 
 //* Get family groups (paginated)
-export const getFamilyGroups = async ({limit, offset, all, order}: FamilyGroupQueryParams): Promise<FamilyGroupResponse[]> => {
+export const getFamilyGroups = async ({limit, offset, all, order, churchId}: FamilyGroupQueryParams): Promise<FamilyGroupResponse[]> => {
 
  let result: FamilyGroupResponse[];
 
@@ -58,6 +58,7 @@ export const getFamilyGroups = async ({limit, offset, all, order}: FamilyGroupQu
           limit,
           offset,
           order,
+          churchId,
         },
       });
       
@@ -66,6 +67,7 @@ export const getFamilyGroups = async ({limit, offset, all, order}: FamilyGroupQu
       const {data} = await icupApi<FamilyGroupResponse[]>('/family-groups' , {
         params: {
           order,
+          churchId,
         },
       });
       result = data;
@@ -93,7 +95,8 @@ export const getFamilyGroupsByTerm = async ({
   limit, 
   offset, 
   all, 
-  order
+  order,
+  churchId
 }: FamilyGroupQueryParams): Promise<FamilyGroupResponse[] | undefined> => {
 
  let result: FamilyGroupResponse[];
@@ -115,6 +118,7 @@ export const getFamilyGroupsByTerm = async ({
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -124,6 +128,7 @@ export const getFamilyGroupsByTerm = async ({
         const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${inputTerm}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -150,6 +155,7 @@ export const getFamilyGroupsByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -159,6 +165,7 @@ export const getFamilyGroupsByTerm = async ({
           const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${selectTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -186,6 +193,7 @@ export const getFamilyGroupsByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -196,6 +204,7 @@ export const getFamilyGroupsByTerm = async ({
           const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${namesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -225,6 +234,7 @@ export const getFamilyGroupsByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -235,6 +245,7 @@ export const getFamilyGroupsByTerm = async ({
           const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${lastNamesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -264,6 +275,7 @@ export const getFamilyGroupsByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -274,6 +286,7 @@ export const getFamilyGroupsByTerm = async ({
           const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${namesTerm}-${lastNamesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -336,13 +349,14 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
-export const getGeneralFamilyGroupsReport = async ({limit, offset, order}: FamilyGroupQueryParams): Promise<void> => {
+export const getGeneralFamilyGroupsReport = async ({limit, offset, order, churchId}: FamilyGroupQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/family-groups' , {
       params: {
         limit,
         offset,
         order,
+        churchId
       },
       headers: {
       'Content-Type': 'application/pdf',
@@ -370,7 +384,8 @@ export const getFamilyGroupsReportByTerm = async ({
   selectTerm, 
   limit, 
   offset, 
-  order
+  order,
+  churchId
 }: FamilyGroupQueryParams): Promise<void> => {
   let newTerm: string | undefined = '';
   
@@ -397,6 +412,7 @@ export const getFamilyGroupsReportByTerm = async ({
         limit,
         offset,
         order,
+        churchId,
         'search-type': searchType,
         'search-sub-type': searchSubType
       },

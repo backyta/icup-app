@@ -14,54 +14,54 @@ export const useRoleValidationByPath = ({ path, memberRoles }: Options) => {
   //* Create and Update forms
   if (path === '/disciples/create' || path === '/disciples/update') {
     disabledRoles = [
-      memberRoles.Disciple,
       memberRoles.Pastor,
       memberRoles.Copastor,
       memberRoles.Supervisor,
       memberRoles.Preacher,
       memberRoles.Treasurer,
+      memberRoles.Disciple,
     ];
   }
 
   if (path === '/pastors/create' || path === '/pastors/update') {
     disabledRoles = [
-      memberRoles.Disciple,
       memberRoles.Pastor,
       memberRoles.Copastor,
       memberRoles.Supervisor,
       memberRoles.Preacher,
       memberRoles.Treasurer,
+      memberRoles.Disciple,
     ];
   }
 
   if (path === '/copastors/create' || path === '/copastors/update') {
     disabledRoles = [
-      memberRoles.Disciple,
       memberRoles.Pastor,
       memberRoles.Copastor,
       memberRoles.Supervisor,
       memberRoles.Preacher,
       memberRoles.Treasurer,
+      memberRoles.Disciple,
     ];
   }
 
   if (path === '/supervisors/create' || path === '/supervisors/update') {
     disabledRoles = [
-      memberRoles.Disciple,
       memberRoles.Pastor,
       memberRoles.Copastor,
       memberRoles.Preacher,
       memberRoles.Supervisor,
+      memberRoles.Disciple,
     ];
   }
 
   if (path === '/preachers/create' || path === '/preachers/update') {
     disabledRoles = [
-      memberRoles.Disciple,
       memberRoles.Pastor,
       memberRoles.Copastor,
       memberRoles.Preacher,
       memberRoles.Supervisor,
+      memberRoles.Disciple,
     ];
   }
 

@@ -52,7 +52,7 @@ export const getSimpleSupervisors = async ({isNullZone, isSimpleQuery}: GetSimpl
 }
 
 //* Get supervisors (paginated)
-export const getSupervisors = async ({limit, offset, all, order}: SupervisorQueryParams): Promise<SupervisorResponse[]> => {
+export const getSupervisors = async ({limit, offset, all, order, churchId}: SupervisorQueryParams): Promise<SupervisorResponse[]> => {
 
  let result: SupervisorResponse[];
 
@@ -63,6 +63,7 @@ export const getSupervisors = async ({limit, offset, all, order}: SupervisorQuer
           limit,
           offset,
           order,
+          churchId
         },
       });
       
@@ -71,6 +72,7 @@ export const getSupervisors = async ({limit, offset, all, order}: SupervisorQuer
       const {data} = await icupApi<SupervisorResponse[]>('/supervisors' , {
         params: {
           order,
+          churchId
         },
       });
       result = data;
@@ -132,7 +134,8 @@ export const getSupervisorsByTerm = async ({
   limit, 
   offset, 
   all, 
-  order
+  order,
+  churchId
 }: SupervisorQueryParams): Promise<SupervisorResponse[] | undefined> => {
 
  let result: SupervisorResponse[];
@@ -153,6 +156,7 @@ export const getSupervisorsByTerm = async ({
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -162,6 +166,7 @@ export const getSupervisorsByTerm = async ({
         const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${inputTerm}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -188,6 +193,7 @@ export const getSupervisorsByTerm = async ({
             limit,
             offset,
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -197,6 +203,7 @@ export const getSupervisorsByTerm = async ({
         const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${dateTerm}` , {
           params: {
             order,
+            churchId,
             'search-type': searchType
           },
         });
@@ -227,6 +234,7 @@ export const getSupervisorsByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -236,6 +244,7 @@ export const getSupervisorsByTerm = async ({
           const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${selectTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType
             },
           });
@@ -263,6 +272,7 @@ export const getSupervisorsByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -273,6 +283,7 @@ export const getSupervisorsByTerm = async ({
           const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${namesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -302,6 +313,7 @@ export const getSupervisorsByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -312,6 +324,7 @@ export const getSupervisorsByTerm = async ({
           const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${lastNamesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -341,6 +354,7 @@ export const getSupervisorsByTerm = async ({
               limit,
               offset,
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -351,6 +365,7 @@ export const getSupervisorsByTerm = async ({
           const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${namesTerm}-${lastNamesTerm}` , {
             params: {
               order,
+              churchId,
               'search-type': searchType,
               'search-sub-type': searchSubType
             },
@@ -413,13 +428,14 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
-export const getGeneralSupervisorsReport = async ({limit, offset, order}: SupervisorQueryParams): Promise<void> => {
+export const getGeneralSupervisorsReport = async ({limit, offset, order, churchId}: SupervisorQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/supervisors' , {
       params: {
         limit,
         offset,
         order,
+        churchId,
       },
       headers: {
       'Content-Type': 'application/pdf',
@@ -448,7 +464,8 @@ export const getSupervisorsReportByTerm = async ({
   lastNamesTerm,
   limit, 
   offset, 
-  order
+  order,
+  churchId,
 }: SupervisorQueryParams): Promise<void> => {
   let newTerm: string | undefined = '';
   
@@ -478,6 +495,7 @@ export const getSupervisorsReportByTerm = async ({
         limit,
         offset,
         order,
+        churchId,
         'search-type': searchType,
         'search-sub-type': searchSubType
       },

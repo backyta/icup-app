@@ -42,6 +42,8 @@ export const offeringIncomeSearchByTermFormSchema = z
       required_error: "Seleccione un orden para al consulta.",
     })),
 
+    churchId: z.string().max(40).optional(),
+
     all: z.boolean().optional(),
    
   })
@@ -155,8 +157,8 @@ export const offeringIncomeSearchByTermFormSchema = z
             data.searchType === OfferingIncomeSearchType.ChurchGround) &&
             (data.searchSubType === OfferingIncomeSearchSubType.OfferingByShift ||
               data.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate ||
-              data.searchSubType === OfferingIncomeSearchSubType.OfferingByChurch ||
-              data.searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate ||
+              // data.searchSubType === OfferingIncomeSearchSubType.OfferingByChurch ||
+              // data.searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate ||
               data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorNames ||
               data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorLastNames ||
               data.searchSubType ===
@@ -190,7 +192,7 @@ export const offeringIncomeSearchByTermFormSchema = z
           (data.searchSubType === OfferingIncomeSearchSubType.OfferingByDate ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCodeDate ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate ||
-            data.searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate ||
+            // data.searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate) 
       ) {
         return !!data.dateTerm; 

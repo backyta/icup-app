@@ -29,17 +29,13 @@ export const usePreacherRolePromotionHandler = ({
   const hasSupervisor = roles.includes(memberRoles.Supervisor);
 
   //* preacher --> supervisor
-  if (hasMember && hasPreacher && !hasCopastor && !hasSupervisor && !hasTreasurer && !hasPastor) {
-    preacherUpdateForm.setValue('roles', [memberRoles.Disciple, memberRoles.Supervisor]);
+  if (hasPreacher && !hasMember && !hasCopastor && !hasSupervisor && !hasTreasurer && !hasPastor) {
+    preacherUpdateForm.setValue('roles', [memberRoles.Supervisor]);
   }
 
   //* preacher + treasurer --> supervisor + treasurer
-  if (hasMember && hasPreacher && hasTreasurer && !hasCopastor && !hasSupervisor && !hasPastor) {
-    preacherUpdateForm.setValue('roles', [
-      memberRoles.Disciple,
-      memberRoles.Supervisor,
-      memberRoles.Treasurer,
-    ]);
+  if (hasPreacher && hasTreasurer && !hasMember && !hasCopastor && !hasSupervisor && !hasPastor) {
+    preacherUpdateForm.setValue('roles', [memberRoles.Supervisor, memberRoles.Treasurer]);
   }
 
   //* Set disabled states

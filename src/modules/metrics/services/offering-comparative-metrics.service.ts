@@ -210,7 +210,6 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
 
 interface MetricReportQueryParams {
   year: string;
-  currency: string;
   startMonth: string;
   endMonth: string;
   churchId: string; 
@@ -223,7 +222,6 @@ export const getFinancialBalanceComparativeMetricsReport = async ({
   churchId, 
   startMonth,
   endMonth,
-  currency,
   types, 
   dialogClose,
 }: MetricReportQueryParams): Promise<void> => {
@@ -234,7 +232,6 @@ export const getFinancialBalanceComparativeMetricsReport = async ({
       params: {
         churchId,
         year,
-        currency,
         startMonth,
         endMonth,
         types: joinedReportTypes,

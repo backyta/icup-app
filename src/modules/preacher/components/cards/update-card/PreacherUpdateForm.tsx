@@ -154,7 +154,7 @@ export const PreacherUpdateForm = ({
       urbanSector: '',
       address: '',
       referenceAddress: '',
-      roles: [MemberRole.Disciple],
+      roles: [MemberRole.Preacher],
       recordStatus: '',
       theirCopastor: '',
       theirSupervisor: '',
@@ -236,7 +236,7 @@ export const PreacherUpdateForm = ({
       defaultValue='general-info'
       className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
-      <h2 className='text-center text-orange-500 pb-2 font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
+      <h2 className='text-center leading-7 text-orange-500 pb-2 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
         Actualizar información del Predicador
       </h2>
 
@@ -921,30 +921,28 @@ export const PreacherUpdateForm = ({
                       <span className='text-[13px] md:text-[14px] text-yellow-500 font-bold text-center'>
                         !SE HA PROMOVIDO CORRECTAMENTE! <br />
                         <span className='text-[12px] md:text-[13px]'>
-                          {form.getValues('roles').includes(MemberRole.Disciple) &&
-                            form.getValues('roles').includes(MemberRole.Supervisor) &&
+                          {form.getValues('roles').includes(MemberRole.Supervisor) &&
                             !form.getValues('roles').includes(MemberRole.Treasurer) && (
                               <div>
                                 <span className='text-red-500 text-center inline-block'>
-                                  Roles anteriores: Discípulo - Predicador
+                                  Roles anteriores: Predicador
                                 </span>
                                 <br />
                                 <span className='text-green-500  text-center inline-block'>
-                                  Roles nuevos: Discípulo - Supervisor
+                                  Roles nuevos: Supervisor
                                 </span>
                               </div>
                             )}
 
-                          {form.getValues('roles').includes(MemberRole.Disciple) &&
-                            form.getValues('roles').includes(MemberRole.Supervisor) &&
+                          {form.getValues('roles').includes(MemberRole.Supervisor) &&
                             form.getValues('roles').includes(MemberRole.Treasurer) && (
                               <div>
                                 <span className='text-red-500  text-center inline-block'>
-                                  Roles anteriores: Discípulo - Predicador - Tesorero
+                                  Roles anteriores: Predicador - Tesorero
                                 </span>
                                 <br />
                                 <span className='text-green-500  text-center inline-block'>
-                                  Roles nuevos: Discípulo - Supervisor - Tesorero
+                                  Roles nuevos: Supervisor - Tesorero
                                 </span>
                               </div>
                             )}
