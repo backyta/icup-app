@@ -48,7 +48,7 @@ export const getSimpleDisciples = async ({isSimpleQuery}:{isSimpleQuery: true}):
 
 //* Get disciples (paginated)
 export const getDisciples = async ({limit, offset, all, order, churchId}: DiscipleQueryParams): Promise<DiscipleResponse[]> => {
-
+  
  let result: DiscipleResponse[];
 
   try {

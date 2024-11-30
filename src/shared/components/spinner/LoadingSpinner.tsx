@@ -77,7 +77,7 @@ export const LoadingSpinner = (): JSX.Element => {
           pathname === '/users/update' ||
           pathname === '/users/delete' ||
           pathname === '/dashboard') &&
-          'min-h-full',
+          'min-h-screen',
         (pathname === '/metrics/member' ||
           pathname === '/metrics/family-group' ||
           pathname === '/metrics/offering-income' ||
@@ -89,7 +89,7 @@ export const LoadingSpinner = (): JSX.Element => {
       <div className='flex flex-col items-center justify-center px-4'>
         <div
           className={cn(
-            'loader ease-linear rounded-full border-8 border-t-8 border-blue-500 h-32 w-32 mb-4',
+            'loader ease-linear rounded-full border-8 border-t-8 border-blue-500 h-32 w-32 mb-2',
             pathname === '/dashboard' && '-mt-10'
           )}
         ></div>

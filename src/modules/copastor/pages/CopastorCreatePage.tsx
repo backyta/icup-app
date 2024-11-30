@@ -722,49 +722,136 @@ export const CopastorCreatePage = (): JSX.Element => {
                 render={() => (
                   <FormItem>
                     <div className='mb-3'>
-                      <FormLabel className='font-bold text-[16px] md:text-[18px]'>Roles</FormLabel>
+                      <FormLabel className='font-bold text-[16px] md:text-[18px]'>
+                        Roles de Membresía
+                      </FormLabel>
                       <FormDescription className='font-medium'>
-                        Asigna los roles correspondientes para este registro.
+                        Asigna los roles de membresía correspondientes para este registro.
                       </FormDescription>
                     </div>
-                    {Object.values(MemberRole).map((role) => (
-                      <FormField
-                        key={role}
-                        control={form.control}
-                        name='roles'
-                        render={({ field }) => {
-                          const isDisabled = disabledRoles?.includes(role) ?? isInputDisabled;
-                          return (
-                            <FormItem
+                    <div className='grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+                      {Object.values(MemberRole).map(
+                        (role) =>
+                          (role === MemberRole.Pastor ||
+                            role === MemberRole.Copastor ||
+                            role === MemberRole.Supervisor ||
+                            role === MemberRole.Preacher ||
+                            role === MemberRole.Treasurer ||
+                            role === MemberRole.Disciple) && (
+                            <FormField
                               key={role}
-                              className='flex flex-row items-start space-x-3 space-y-0'
-                            >
-                              <FormControl>
-                                <Checkbox
-                                  checked={field.value?.includes(role)}
-                                  disabled={isDisabled}
-                                  onCheckedChange={(checked) => {
-                                    let updatedRoles: MemberRole[] = [];
-                                    checked
-                                      ? (updatedRoles = field.value
-                                          ? [...field.value, role]
-                                          : [role])
-                                      : (updatedRoles =
-                                          field.value?.filter((value) => value !== role) ?? []);
+                              control={form.control}
+                              name='roles'
+                              render={({ field }) => {
+                                const isDisabled = disabledRoles?.includes(role) ?? isInputDisabled;
+                                return (
+                                  <FormItem
+                                    key={role}
+                                    className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
+                                  >
+                                    <FormControl>
+                                      <Checkbox
+                                        checked={field.value?.includes(role)}
+                                        disabled={isDisabled}
+                                        onCheckedChange={(checked) => {
+                                          let updatedRoles: MemberRole[] = [];
+                                          checked
+                                            ? (updatedRoles = field.value
+                                                ? [...field.value, role]
+                                                : [role])
+                                            : (updatedRoles =
+                                                field.value?.filter((value) => value !== role) ??
+                                                []);
 
-                                    field.onChange(updatedRoles);
-                                  }}
-                                  className={isDisabled ? 'bg-slate-500' : ''}
-                                />
-                              </FormControl>
-                              <FormLabel className='text-[14px] font-normal'>
-                                {MemberRoleNames[role]}
-                              </FormLabel>
-                            </FormItem>
-                          );
-                        }}
-                      />
-                    ))}
+                                          field.onChange(updatedRoles);
+                                        }}
+                                        className={isDisabled ? 'bg-slate-500' : ''}
+                                      />
+                                    </FormControl>
+                                    <FormLabel className='text-[14px] cursor-pointer font-normal'>
+                                      {MemberRoleNames[role]}
+                                    </FormLabel>
+                                  </FormItem>
+                                );
+                              }}
+                            />
+                          )
+                      )}
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name='roles'
+                render={() => (
+                  <FormItem>
+                    <div className='mb-3 mt-5'>
+                      <FormLabel className='font-bold text-[16px] md:text-[18px]'>
+                        Roles Ministeriales
+                      </FormLabel>
+                      <FormDescription className='font-medium'>
+                        Asigna los roles ministeriales correspondientes para este registro.
+                      </FormDescription>
+                    </div>
+                    <div className='grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+                      {Object.values(MemberRole).map(
+                        (role) =>
+                          role !== MemberRole.Pastor &&
+                          role !== MemberRole.Copastor &&
+                          role !== MemberRole.Supervisor &&
+                          role !== MemberRole.Preacher &&
+                          role !== MemberRole.Treasurer &&
+                          role !== MemberRole.Disciple &&
+                          role !== MemberRole.Presbyter &&
+                          role !== MemberRole.KidsMinistryLeader &&
+                          role !== MemberRole.KidsMinistryTeamMember &&
+                          role !== MemberRole.YouthMinistryLeader &&
+                          role !== MemberRole.YouthMinistryTeamMember &&
+                          role !== MemberRole.TechnologyMinistryLeader &&
+                          role !== MemberRole.TechnologyMinistryTeamMember && (
+                            <FormField
+                              key={role}
+                              control={form.control}
+                              name='roles'
+                              render={({ field }) => {
+                                const isDisabled = disabledRoles?.includes(role) ?? isInputDisabled;
+                                return (
+                                  <FormItem
+                                    key={role}
+                                    className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
+                                  >
+                                    <FormControl>
+                                      <Checkbox
+                                        checked={field.value?.includes(role)}
+                                        disabled={isDisabled}
+                                        onCheckedChange={(checked) => {
+                                          let updatedRoles: MemberRole[] = [];
+                                          checked
+                                            ? (updatedRoles = field.value
+                                                ? [...field.value, role]
+                                                : [role])
+                                            : (updatedRoles =
+                                                field.value?.filter((value) => value !== role) ??
+                                                []);
+
+                                          field.onChange(updatedRoles);
+                                        }}
+                                        className={isDisabled ? 'bg-slate-500' : ''}
+                                      />
+                                    </FormControl>
+                                    <FormLabel className='text-[14px] cursor-pointer font-normal'>
+                                      {MemberRoleNames[role]}
+                                    </FormLabel>
+                                  </FormItem>
+                                );
+                              }}
+                            />
+                          )
+                      )}
+                    </div>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -864,16 +951,16 @@ export const CopastorCreatePage = (): JSX.Element => {
             </div>
 
             {isMessageErrorDisabled ? (
-              <p className='mt-0 -mb-4 md:-mt-5 md:col-start-1 md:col-end-3 md:row-start-3 md:row-end-4 mx-auto md:w-[100%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
+              <p className='mt-0 -mb-4 md:-mt-4 md:col-start-1 md:col-end-3 md:row-start-3 md:row-end-4 mx-auto md:w-[100%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
                 ❌ Datos incompletos, completa todos los campos para crear el registro.
               </p>
             ) : (
-              <p className='order-last -mt-3 md:-mt-5 md:col-start-1 md:col-end-3 mx-auto md:w-[70%] lg:w-[50%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
+              <p className='order-last -mt-3 md:-mt-6 md:col-start-1 md:col-end-3 mx-auto md:w-[70%] lg:w-[50%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
                 ¡Campos completados correctamente!
               </p>
             )}
 
-            <div className='md:mt-2 lg:mt-2 col-start-1 col-end-3 row-start-3 row-end-4 w-full md:w-[20rem] md:m-auto'>
+            <div className='md:mt-3 lg:mt-2 col-start-1 col-end-3 row-start-3 row-end-4 w-full md:w-[20rem] md:m-auto'>
               <Toaster position='top-center' richColors />
               <Button
                 disabled={isSubmitButtonDisabled}

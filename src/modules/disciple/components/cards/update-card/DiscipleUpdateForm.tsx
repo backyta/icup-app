@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
@@ -850,51 +851,134 @@ export const DiscipleUpdateForm = ({
                         <FormItem>
                           <div className='mb-4'>
                             <FormLabel className='font-bold text-[15px] sm:text-[16px]'>
-                              Roles
+                              Roles de Membresía
                             </FormLabel>
-                            <FormDescription className='font-medium text-[13px] md:text-[14px]'>
-                              Asigna los roles correspondientes para este registro.
-                            </FormDescription>
                           </div>
-                          {Object.values(MemberRole).map((role) => (
-                            <FormField
-                              key={role}
-                              control={form.control}
-                              name='roles'
-                              render={({ field }) => {
-                                const isDisabled = disabledRoles?.includes(role);
-                                return (
-                                  <FormItem
-                                    key={role}
-                                    className='flex flex-row items-start space-x-3 space-y-0'
-                                  >
-                                    <FormControl>
-                                      <Checkbox
-                                        checked={field.value?.includes(role)}
-                                        disabled={isDisabled}
-                                        onCheckedChange={(checked) => {
-                                          let updatedRoles: MemberRole[] = [];
-                                          checked
-                                            ? (updatedRoles = field.value
-                                                ? [...field.value, role]
-                                                : [role])
-                                            : (updatedRoles =
-                                                field.value?.filter((value) => value !== role) ??
-                                                []);
+                          {Object.values(MemberRole).map(
+                            (role) =>
+                              (role === MemberRole.Pastor ||
+                                role === MemberRole.Copastor ||
+                                role === MemberRole.Supervisor ||
+                                role === MemberRole.Preacher ||
+                                role === MemberRole.Treasurer ||
+                                role === MemberRole.Disciple) && (
+                                <FormField
+                                  key={role}
+                                  control={form.control}
+                                  name='roles'
+                                  render={({ field }) => {
+                                    const isDisabled = disabledRoles?.includes(role);
+                                    return (
+                                      <FormItem
+                                        key={role}
+                                        className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
+                                      >
+                                        <FormControl>
+                                          <Checkbox
+                                            checked={field.value?.includes(role)}
+                                            disabled={isDisabled || isInputDisabled}
+                                            onCheckedChange={(checked) => {
+                                              let updatedRoles: MemberRole[] = [];
+                                              checked
+                                                ? (updatedRoles = field.value
+                                                    ? [...field.value, role]
+                                                    : [role])
+                                                : (updatedRoles =
+                                                    field.value?.filter(
+                                                      (value) => value !== role
+                                                    ) ?? []);
 
-                                          field.onChange(updatedRoles);
-                                        }}
-                                        className={isDisabled ? 'bg-slate-500' : ''}
-                                      />
-                                    </FormControl>
-                                    <FormLabel className='text-[14px] font-normal'>
-                                      {MemberRoleNames[role]}
-                                    </FormLabel>
-                                  </FormItem>
-                                );
-                              }}
-                            />
-                          ))}
+                                              field.onChange(updatedRoles);
+                                            }}
+                                            className={
+                                              isDisabled || isInputDisabled ? 'bg-slate-500' : ''
+                                            }
+                                          />
+                                        </FormControl>
+                                        <FormLabel className='text-[14px] cursor-pointer font-normal'>
+                                          {MemberRoleNames[role]}
+                                        </FormLabel>
+                                      </FormItem>
+                                    );
+                                  }}
+                                />
+                              )
+                          )}
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name='roles'
+                      render={() => (
+                        <FormItem>
+                          <div className='mb-4'>
+                            <FormLabel className='font-bold text-[15px] sm:text-[16px]'>
+                              Roles Ministeriales
+                            </FormLabel>
+                          </div>
+                          {Object.values(MemberRole).map(
+                            (role) =>
+                              role !== MemberRole.Pastor &&
+                              role !== MemberRole.Copastor &&
+                              role !== MemberRole.Supervisor &&
+                              role !== MemberRole.Preacher &&
+                              role !== MemberRole.Treasurer &&
+                              role !== MemberRole.Disciple &&
+                              role !== MemberRole.Presbyter &&
+                              role !== MemberRole.KidsMinistryLeader &&
+                              role !== MemberRole.IntercessionMinistryTeamMember &&
+                              role !== MemberRole.EvangelismMinistryTeamMember &&
+                              role !== MemberRole.DiscipleshipMinistryTeamMember &&
+                              role !== MemberRole.YouthMinistryLeader &&
+                              role !== MemberRole.IntercessionMinistryLeader &&
+                              role !== MemberRole.EvangelismMinistryLeader &&
+                              role !== MemberRole.DiscipleshipMinistryLeader &&
+                              role !== MemberRole.WorshipMinistryLeader && (
+                                <FormField
+                                  key={role}
+                                  control={form.control}
+                                  name='roles'
+                                  render={({ field }) => {
+                                    const isDisabled = disabledRoles?.includes(role);
+                                    return (
+                                      <FormItem
+                                        key={role}
+                                        className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
+                                      >
+                                        <FormControl>
+                                          <Checkbox
+                                            checked={field.value?.includes(role)}
+                                            disabled={isDisabled || isInputDisabled}
+                                            onCheckedChange={(checked) => {
+                                              let updatedRoles: MemberRole[] = [];
+                                              checked
+                                                ? (updatedRoles = field.value
+                                                    ? [...field.value, role]
+                                                    : [role])
+                                                : (updatedRoles =
+                                                    field.value?.filter(
+                                                      (value) => value !== role
+                                                    ) ?? []);
+
+                                              field.onChange(updatedRoles);
+                                            }}
+                                            className={
+                                              isDisabled || isInputDisabled ? 'bg-slate-500' : ''
+                                            }
+                                          />
+                                        </FormControl>
+                                        <FormLabel className='text-[14px] cursor-pointer font-normal'>
+                                          {MemberRoleNames[role]}
+                                        </FormLabel>
+                                      </FormItem>
+                                    );
+                                  }}
+                                />
+                              )
+                          )}
                           <FormMessage />
                         </FormItem>
                       )}
@@ -1116,7 +1200,7 @@ export const DiscipleUpdateForm = ({
                       <AlertDialogTrigger asChild>
                         <Button
                           disabled={isPromoteButtonDisabled}
-                          className='w-full text-[14px] md:mt-[1rem] disabled:bg-slate-500 disabled:text-white bg-yellow-400 text-yellow-700 hover:text-white hover:bg-yellow-500'
+                          className='w-full text-[14px] disabled:bg-slate-500 disabled:text-white bg-yellow-400 text-yellow-700 hover:text-white hover:bg-yellow-500'
                         >
                           Promover de cargo
                         </Button>

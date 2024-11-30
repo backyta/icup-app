@@ -28,7 +28,7 @@ export const CopastorFormSkeleton = (): JSX.Element => {
             </div>
 
             <div>
-              <Skeleton className='h-4 w-24 mt-7' />
+              <Skeleton className='h-4 w-24 mt-6' />
               <Skeleton className='h-8 w-full mt-2' />
             </div>
 
@@ -115,37 +115,76 @@ export const CopastorFormSkeleton = (): JSX.Element => {
 
           <div className='col-start-3 col-end-4'>
             <Skeleton className='h-5 w-44 mt-2' />
-            <Skeleton className='h-3 w-full mt-2' />
-            <Skeleton className='h-3 w-36 mt-2' />
 
             <div>
               <div className='flex items-center gap-2 mt-6'>
                 <Skeleton className='h-5 w-5 rounded-md' />
-                <Skeleton className='h-3 w-16 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
               </div>
               <div className='flex items-center gap-2 mt-2'>
                 <Skeleton className='h-5 w-5 rounded-md' />
-                <Skeleton className='h-3 w-16 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
               </div>
               <div className='flex items-center gap-2 mt-2'>
                 <Skeleton className='h-5 w-5 rounded-md' />
-                <Skeleton className='h-3 w-16 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
               </div>
               <div className='flex items-center gap-2 mt-2'>
                 <Skeleton className='h-5 w-5 rounded-md' />
-                <Skeleton className='h-3 w-16 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
               </div>
               <div className='flex items-center gap-2 mt-2'>
                 <Skeleton className='h-5 w-5 rounded-md' />
-                <Skeleton className='h-3 w-16 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
               </div>
               <div className='flex items-center gap-2 mt-2'>
                 <Skeleton className='h-5 w-5 rounded-md' />
-                <Skeleton className='h-3 w-16 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
+              </div>
+              <div className='flex items-center gap-2 mt-2'>
+                <Skeleton className='h-5 w-5 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
               </div>
             </div>
 
-            <Skeleton className='h-5 w-44 mt-7' />
+            <Skeleton className='h-5 w-44 mt-5' />
+
+            <div>
+              <div className='flex items-center gap-2 mt-6'>
+                <Skeleton className='h-5 w-5 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
+              </div>
+              <div className='flex items-center gap-2 mt-2'>
+                <Skeleton className='h-5 w-5 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
+              </div>
+              <div className='flex items-center gap-2 mt-2'>
+                <Skeleton className='h-5 w-5 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
+              </div>
+              <div className='flex items-center gap-2 mt-2'>
+                <Skeleton className='h-5 w-5 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
+              </div>
+              <div className='flex items-center gap-2 mt-2'>
+                <Skeleton className='h-5 w-5 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
+              </div>
+              <div className='flex items-center gap-2 mt-2'>
+                <Skeleton className='h-5 w-5 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
+              </div>
+              <div className='flex items-center gap-2 mt-2'>
+                <Skeleton className='h-5 w-5 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
+              </div>
+              <div className='flex items-center gap-2 mt-2'>
+                <Skeleton className='h-5 w-5 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
+              </div>
+            </div>
+
+            <Skeleton className='h-5 w-44 mt-5' />
 
             <div>
               <Skeleton className='h-4 w-24 mt-5' />
@@ -155,7 +194,7 @@ export const CopastorFormSkeleton = (): JSX.Element => {
             </div>
 
             <div>
-              <Skeleton className='h-8 w-full mt-10' />
+              <Skeleton className='h-8 w-full mt-6' />
               <Skeleton className='h-3 w-32 mt-4' />
               <Skeleton className='h-3 w-full mt-4' />
               <Skeleton className='h-3 w-64 mt-2' />
@@ -165,7 +204,7 @@ export const CopastorFormSkeleton = (): JSX.Element => {
           </div>
 
           <div className='sm:col-start-2 w-full'>
-            <Skeleton className='h-10 w-full mt-2' />
+            <Skeleton className='h-10 w-full mt-1' />
             <div className='flex flex-col  justify-center items-center mt-1'>
               <Skeleton className='text-center h-4 w-64 mt-2' />
               <Skeleton className='text-center h-4 w-60 mt-2' />

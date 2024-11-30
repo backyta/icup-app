@@ -328,7 +328,7 @@ export const UsersSearchPageByTerm = (): JSX.Element => {
                               return (
                                 <FormItem
                                   key={role}
-                                  className='flex flex-row items-start space-x-3 space-y-0'
+                                  className='flex flex-row items-center space-x-3 space-y-0'
                                 >
                                   <FormControl>
                                     <Checkbox

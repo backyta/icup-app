@@ -66,7 +66,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 interface SearchParamsOptions {
-  church?: string;
+  churchId?: string;
 }
 
 export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
@@ -79,12 +79,12 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
     resolver: zodResolver(dashBoardSearchFormSchema),
     mode: 'onChange',
     defaultValues: {
-      church: '',
+      churchId: '',
     },
   });
 
   //* Watchers
-  const church = form.getValues('church');
+  const churchId = form.getValues('churchId');
 
   //* Queries
   const topFamilyGroupOfferings = useQuery({
@@ -92,7 +92,7 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
     queryFn: () => {
       return getOfferingsForBarChartByTerm({
         searchType: DashboardSearchType.TopFamilyGroupsOfferings,
-        church: searchParams?.church ?? church,
+        churchId: searchParams?.churchId ?? churchId,
         year: new Date().getFullYear().toString(),
         order: RecordOrder.Descending, // allows you to invert the array of all offering to take the first as the last offering according to currency.
       });
@@ -109,9 +109,9 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
   // Default value
   useEffect(() => {
     if (churchesQuery.data) {
-      const church = churchesQuery?.data?.map((church) => church?.id)[0];
-      setSearchParams({ church });
-      form.setValue('church', church);
+      const churchId = churchesQuery?.data?.map((church) => church?.id)[0];
+      setSearchParams({ churchId });
+      form.setValue('churchId', churchId);
     }
   }, [churchesQuery?.data]);
 
@@ -139,7 +139,7 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
             <form className='flex'>
               <FormField
                 control={form.control}
-                name='church'
+                name='churchId'
                 render={({ field }) => {
                   return (
                     <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
@@ -164,9 +164,9 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
                                     ?.churchCode.split('-')
                                     .slice(0, 2)
                                     .join('-')
-                                : searchParams?.church
+                                : searchParams?.churchId
                                   ? churchesQuery?.data
-                                      ?.find((church) => church.id === searchParams.church)
+                                      ?.find((church) => church.id === searchParams.churchId)
                                       ?.churchCode.split('-')
                                       .slice(0, 2)
                                       .join('-')
@@ -189,12 +189,12 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
                                   value={church.churchCode}
                                   key={church.id}
                                   onSelect={() => {
-                                    form.setValue('church', church.id);
+                                    form.setValue('churchId', church.id);
                                     church && form.handleSubmit(handleSubmit)();
                                     setIsInputSearchChurchOpen(false);
                                   }}
                                 >
-                                  {church.abbreviatedChurchName}
+                                  {church?.abbreviatedChurchName}
                                   <CheckIcon
                                     className={cn(
                                       'ml-auto h-4 w-4',

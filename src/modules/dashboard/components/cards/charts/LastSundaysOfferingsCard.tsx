@@ -79,7 +79,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 interface SearchParamsOptions {
-  church?: string;
+  churchId?: string;
 }
 
 export const LastSundayOfferingsCard = (): JSX.Element => {
@@ -93,12 +93,12 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
     resolver: zodResolver(dashBoardSearchFormSchema),
     mode: 'onChange',
     defaultValues: {
-      church: '',
+      churchId: '',
     },
   });
 
   //* Watchers
-  const church = form.getValues('church');
+  const churchId = form.getValues('churchId');
 
   //* Queries
   const lastSundaysOfferings = useQuery({
@@ -110,7 +110,7 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
 
       return getOfferingsForBarChartByTerm({
         searchType: DashboardSearchType.LastSundaysOfferings,
-        church: searchParams?.church ?? church,
+        churchId: searchParams?.churchId ?? churchId,
         date: formatZonedTime(zonedDate, 'yyyy-MM-dd', { timeZone }),
         limit: '14',
         order: RecordOrder.Descending,
@@ -128,9 +128,9 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
   // Default value
   useEffect(() => {
     if (churchesQuery.data) {
-      const church = churchesQuery?.data?.map((church) => church?.id)[0];
-      setSearchParams({ church });
-      form.setValue('church', church);
+      const churchId = churchesQuery?.data?.map((church) => church?.id)[0];
+      setSearchParams({ churchId });
+      form.setValue('churchId', churchId);
     }
   }, [churchesQuery?.data]);
 
@@ -155,10 +155,10 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
 
         <div className='col-span-1 flex justify-center -pl-[2rem] pb-2 xl:pr-5'>
           <Form {...form}>
-            <form className='flex'>
+            <form>
               <FormField
                 control={form.control}
-                name='church'
+                name='churchId'
                 render={({ field }) => {
                   return (
                     <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
@@ -183,9 +183,9 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
                                     ?.churchCode.split('-')
                                     .slice(0, 2)
                                     .join('-')
-                                : searchParams?.church
+                                : searchParams?.churchId
                                   ? churchesQuery?.data
-                                      ?.find((church) => church.id === searchParams.church)
+                                      ?.find((church) => church.id === searchParams.churchId)
                                       ?.churchCode.split('-')
                                       .slice(0, 2)
                                       .join('-')
@@ -208,12 +208,12 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
                                   value={church.churchCode}
                                   key={church.id}
                                   onSelect={() => {
-                                    form.setValue('church', church.id);
+                                    form.setValue('churchId', church.id);
                                     church && form.handleSubmit(handleSubmit)();
                                     setIsInputSearchChurchOpen(false);
                                   }}
                                 >
-                                  {church.abbreviatedChurchName}
+                                  {church?.abbreviatedChurchName}
                                   <CheckIcon
                                     className={cn(
                                       'ml-auto h-4 w-4',

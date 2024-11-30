@@ -115,33 +115,56 @@ export const DiscipleFormSkeleton = (): JSX.Element => {
 
           <div className='col-start-3 col-end-4'>
             <Skeleton className='h-5 w-44 mt-2' />
-            <Skeleton className='h-3 w-full mt-2' />
-            <Skeleton className='h-3 w-36 mt-2' />
 
             <div>
               <div className='flex items-center gap-2 mt-6'>
                 <Skeleton className='h-5 w-5 rounded-md' />
-                <Skeleton className='h-3 w-16 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
               </div>
               <div className='flex items-center gap-2 mt-2'>
                 <Skeleton className='h-5 w-5 rounded-md' />
-                <Skeleton className='h-3 w-16 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
               </div>
               <div className='flex items-center gap-2 mt-2'>
                 <Skeleton className='h-5 w-5 rounded-md' />
-                <Skeleton className='h-3 w-16 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
               </div>
               <div className='flex items-center gap-2 mt-2'>
                 <Skeleton className='h-5 w-5 rounded-md' />
-                <Skeleton className='h-3 w-16 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
               </div>
               <div className='flex items-center gap-2 mt-2'>
                 <Skeleton className='h-5 w-5 rounded-md' />
-                <Skeleton className='h-3 w-16 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
               </div>
               <div className='flex items-center gap-2 mt-2'>
                 <Skeleton className='h-5 w-5 rounded-md' />
-                <Skeleton className='h-3 w-16 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
+              </div>
+            </div>
+
+            <Skeleton className='h-5 w-44 mt-6' />
+
+            <div>
+              <div className='flex items-center gap-2 mt-6'>
+                <Skeleton className='h-5 w-5 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
+              </div>
+              <div className='flex items-center gap-2 mt-2'>
+                <Skeleton className='h-5 w-5 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
+              </div>
+              <div className='flex items-center gap-2 mt-2'>
+                <Skeleton className='h-5 w-5 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
+              </div>
+              <div className='flex items-center gap-2 mt-2'>
+                <Skeleton className='h-5 w-5 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
+              </div>
+              <div className='flex items-center gap-2 mt-2'>
+                <Skeleton className='h-5 w-5 rounded-md' />
+                <Skeleton className='h-3 w-32 rounded-md' />
               </div>
             </div>
 
@@ -155,7 +178,7 @@ export const DiscipleFormSkeleton = (): JSX.Element => {
             </div>
 
             <div>
-              <Skeleton className='h-8 w-full mt-10' />
+              <Skeleton className='h-8 w-full mt-6' />
               <Skeleton className='h-3 w-32 mt-4' />
               <Skeleton className='h-3 w-full mt-4' />
               <Skeleton className='h-3 w-64 mt-2' />

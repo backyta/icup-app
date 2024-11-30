@@ -33,6 +33,7 @@ export function MemberInfoItem({ data }: Props): JSX.Element {
             />
             <AvatarFallback>UI</AvatarFallback>
           </Avatar>
+
           <div className='flex flex-col justify-center'>
             <p className='text-sm sm:text-base font-bold'>{`${data?.member?.firstName} ${data?.member?.lastName}`}</p>
             <p className='text-[12px] sm:text-[14px] ml-2'>{`${data?.member?.district} - ${data?.member?.urbanSector}`}</p>
@@ -64,6 +65,7 @@ export function MemberInfoItem({ data }: Props): JSX.Element {
           />
           <AvatarFallback>UI</AvatarFallback>
         </Avatar>
+
         <div className='flex flex-col'>
           <div className='flex flex-col justify-center'>
             <p className='text-sm sm:text-base font-bold'>{`${data?.member?.firstName} ${data?.member?.lastName}`}</p>

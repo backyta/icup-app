@@ -58,6 +58,7 @@ export const useSupervisorUpdateEffects = ({
     );
     supervisorUpdateForm.setValue('roles', data?.member?.roles as MemberRole[]);
     supervisorUpdateForm.setValue('theirCopastor', data?.theirCopastor?.id ?? '');
+    supervisorUpdateForm.setValue('theirPastor', data?.theirPastor?.id ?? '');
     supervisorUpdateForm.setValue('recordStatus', data?.recordStatus);
 
     const timeoutId = setTimeout(() => {
