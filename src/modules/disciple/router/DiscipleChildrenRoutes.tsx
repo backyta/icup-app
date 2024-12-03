@@ -1,7 +1,7 @@
 import {
   DiscipleCreatePage,
   DiscipleUpdatePage,
-  DiscipleDeletePage,
+  DiscipleInactivatePage,
   DisciplesSearchPageByTerm,
   DisciplesGeneralSearchPage,
 } from '@/modules/disciple/pages';
@@ -24,7 +24,7 @@ export const DiscipleChildrenRoutes = [
     element: <DiscipleUpdatePage />,
   },
   {
-    path: '/disciples/delete',
-    element: <DiscipleDeletePage />,
+    path: '/disciples/inactivate',
+    element: <DiscipleInactivatePage />,
   },
 ];

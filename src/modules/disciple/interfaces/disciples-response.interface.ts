@@ -19,6 +19,8 @@ export interface DiscipleResponse {
   createdBy?:         CreatedBy;
   updatedAt?:         Date;
   updatedBy?:         UpdatedBy;
+  inactivationCategory?: string;
+  inactivationReason  ?: string;
   recordStatus:       string;
   theirChurch?:       TheirChurch | null;
   theirPastor?:       TheirPastor | null;

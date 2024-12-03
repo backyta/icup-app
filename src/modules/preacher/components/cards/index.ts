@@ -1,3 +1,3 @@
-export * from './delete-card';
-export * from './info-card';
-export * from './update-card';
+export * from './delete';
+export * from './info';
+export * from './update';

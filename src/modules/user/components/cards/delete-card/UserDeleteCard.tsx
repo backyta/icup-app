@@ -57,11 +57,11 @@ export const UserDeleteCard = ({ idRow }: UserDeleteCardProps): JSX.Element => {
       <DialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
         <div className='h-auto'>
           <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[26px] pb-2'>
-            ¿Estas seguro de eliminar este Usuario?
+            ¿Estas seguro de inactivar este Usuario?
           </h2>
           <p>
             <span className='w-full text-left text-blue-500 font-bold mb-3 inline-block text-[16px] md:text-[18px]'>
-              Luego de eliminar sucederá lo siguiente:
+              Luego de inactivar sucederá lo siguiente:
             </span>
             <br />
 
@@ -98,7 +98,7 @@ export const UserDeleteCard = ({ idRow }: UserDeleteCardProps): JSX.Element => {
             }}
             className='w-full md:w-auto bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
           >
-            Sí, eliminar
+            Sí, inactivar
           </Button>
         </div>
       </DialogContent>

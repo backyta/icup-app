@@ -1,4 +1,4 @@
-export * from './CopastorDeletePage';
+export * from './CopastorInactivatePage';
 export * from './CopastorOptionsPage';
 export * from './CopastorsSearchPageByTerm';
 export * from './CopastorsGeneralSearchPage';

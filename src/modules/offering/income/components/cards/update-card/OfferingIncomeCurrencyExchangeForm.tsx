@@ -14,7 +14,7 @@ import { useOfferingIncomeStore } from '@/stores';
 import {
   ExchangeCurrencyType,
   ExchangeCurrencyTypeNames,
-  OfferingIncomeReasonEliminationType,
+  OfferingIncomeEliminationReasonType,
 } from '@/modules/offering/income/enums';
 import { offeringDeleteFormSchema } from '@/modules/offering/shared/validations';
 
@@ -65,7 +65,7 @@ export const OfferingIncomeCurrencyExchangeForm = ({
     mode: 'onChange',
     resolver: zodResolver(offeringDeleteFormSchema),
     defaultValues: {
-      reasonEliminationType: OfferingIncomeReasonEliminationType.CurrencyExchange,
+      reasonEliminationType: OfferingIncomeEliminationReasonType.CurrencyExchange,
       exchangeRate: '',
       exchangeCurrencyType: '',
     },
@@ -107,7 +107,7 @@ export const OfferingIncomeCurrencyExchangeForm = ({
 
     offeringIncomeCurrencyExchangeMutation.mutate({
       id,
-      reasonEliminationType: OfferingIncomeReasonEliminationType.CurrencyExchange,
+      reasonEliminationType: OfferingIncomeEliminationReasonType.CurrencyExchange,
       exchangeRate: formData.exchangeRate ?? undefined,
       exchangeCurrencyType: formData.exchangeCurrencyType ?? undefined,
     });
@@ -266,7 +266,7 @@ export const OfferingIncomeCurrencyExchangeForm = ({
                     type='submit'
                     className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
                   >
-                    Sí, eliminar
+                    Sí, inactivar
                   </Button> */}
                   <Button
                     disabled={isButtonDisabled}

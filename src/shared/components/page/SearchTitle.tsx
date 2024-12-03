@@ -47,7 +47,7 @@ export const SearchTitle = (props: PageTitleProps): JSX.Element => {
 
         {isDeleteSearch && (
           <span className='ml-3 bg-red-300 text-slate-600 border text-center text-[10px] mt-[0.6rem] sm:mt-3 px-2 2xl:mt-6 rounded-full font-bold uppercase'>
-            Eliminar
+            Inactivar
           </span>
         )}
       </div>

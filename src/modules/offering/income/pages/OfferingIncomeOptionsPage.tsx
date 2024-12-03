@@ -109,10 +109,10 @@ export const OfferingIncomeOptionsPage = (): JSX.Element => {
           <WhiteCard centered>
             <RiDeleteBin2Fill className='text-[10rem] lg:text-[7rem] xl:text-[6rem] text-red-500' />
             <h2 className='text-red-500 font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl'>
-              Eliminar Ingreso
+              Inactivar Ingreso
             </h2>
             <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
-              Eliminar registro de ingreso de una ofrenda
+              Inactivar registro de ingreso de una ofrenda
             </p>
           </WhiteCard>
         </NavLink>

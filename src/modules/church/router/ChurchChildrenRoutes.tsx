@@ -1,7 +1,7 @@
 import {
   ChurchUpdatePage,
   ChurchCreatePage,
-  ChurchDeletePage,
+  ChurchInactivatePage,
   ChurchesSearchPageByTerm,
   ChurchesGeneralSearchPage,
 } from '@/modules/church/pages';
@@ -24,7 +24,7 @@ export const ChurchChildrenRoutes = [
     element: <ChurchUpdatePage />,
   },
   {
-    path: '/churches/delete',
-    element: <ChurchDeletePage />,
+    path: '/churches/inactivate',
+    element: <ChurchInactivatePage />,
   },
 ];

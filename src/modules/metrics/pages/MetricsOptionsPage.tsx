@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { GiExpense } from 'react-icons/gi';
 import { FaBalanceScale } from 'react-icons/fa';
-import { FcDonate, FcHome, FcManager, FcRefresh } from 'react-icons/fc';
+import { FcConferenceCall, FcDonate, FcHome, FcRefresh } from 'react-icons/fc';
 
 import { useAuthStore } from '@/stores';
 import { WhiteCard } from '@/shared/components';
@@ -39,7 +39,7 @@ export const MetricsOptionsPage = (): JSX.Element => {
           className='row-start-1 row-end-2 lg:row-start-1 lg:row-end-4 lg:col-start-1 lg:col-end- 2xl:row-start-1 2xl:row-end-7 2xl:col-start-1 2xl:col-end-2'
         >
           <WhiteCard className='md:h-[11rem]' centered>
-            <FcManager className='text-[10rem] lg:text-[8rem] xl:text-[7rem]' />
+            <FcConferenceCall className='text-[10rem] lg:text-[8rem] xl:text-[7rem]' />
             <h2 className='text-sky-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Métricas de Miembro
             </h2>

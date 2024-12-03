@@ -3,7 +3,7 @@ export * from './useCopastorUpdateSubmitButtonLogic';
 export * from './useCopastorPromoteButtonLogic';
 export * from './useCopastorRolePromotionHandler';
 export * from './useCopastorCreationMutation';
-export * from './useCopastorDeletionMutation';
+export * from './useCopastorInactivationMutation';
 export * from './useCopastorUpdateMutation';
 export * from './useCopastorUpdateEffects';
 

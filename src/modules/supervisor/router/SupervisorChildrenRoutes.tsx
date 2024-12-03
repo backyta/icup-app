@@ -1,6 +1,6 @@
 import {
   SupervisorCreatePage,
-  SupervisorDeletePage,
+  SupervisorInactivatePage,
   SupervisorUpdatePage,
   SupervisorsSearchPageByTerm,
   SupervisorsGeneralSearchPage,
@@ -24,7 +24,7 @@ export const SupervisorChildrenRoutes = [
     element: <SupervisorUpdatePage />,
   },
   {
-    path: '/supervisors/delete',
-    element: <SupervisorDeletePage />,
+    path: '/supervisors/inactivate',
+    element: <SupervisorInactivatePage />,
   },
 ];

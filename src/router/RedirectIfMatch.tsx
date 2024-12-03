@@ -13,8 +13,8 @@ export const RedirectIfMatch = (): JSX.Element => {
   if (location.pathname.startsWith('/churches/update/')) {
     return <Navigate to='/churches/update' />;
   }
-  if (location.pathname.startsWith('/churches/delete/')) {
-    return <Navigate to='/churches/delete' />;
+  if (location.pathname.startsWith('/churches/inactivate/')) {
+    return <Navigate to='/churches/inactivate' />;
   }
 
   // If starts with pastor
@@ -27,8 +27,8 @@ export const RedirectIfMatch = (): JSX.Element => {
   if (location.pathname.startsWith('/pastors/update/')) {
     return <Navigate to='/pastors/update' />;
   }
-  if (location.pathname.startsWith('/pastors/delete/')) {
-    return <Navigate to='/pastors/delete' />;
+  if (location.pathname.startsWith('/pastors/inactivate/')) {
+    return <Navigate to='/pastors/inactivate' />;
   }
 
   // If starts with copastor
@@ -41,8 +41,8 @@ export const RedirectIfMatch = (): JSX.Element => {
   if (location.pathname.startsWith('/copastors/update/')) {
     return <Navigate to='/copastors/update' />;
   }
-  if (location.pathname.startsWith('/copastors/delete/')) {
-    return <Navigate to='/copastors/delete' />;
+  if (location.pathname.startsWith('/copastors/inactivate/')) {
+    return <Navigate to='/copastors/inactivate' />;
   }
 
   // If starts with supervisor
@@ -55,8 +55,8 @@ export const RedirectIfMatch = (): JSX.Element => {
   if (location.pathname.startsWith('/supervisors/update/')) {
     return <Navigate to='/supervisors/update' />;
   }
-  if (location.pathname.startsWith('/supervisors/delete/')) {
-    return <Navigate to='/supervisors/delete' />;
+  if (location.pathname.startsWith('/supervisors/inactivate/')) {
+    return <Navigate to='/supervisors/inactivate' />;
   }
 
   // If starts with zone
@@ -69,8 +69,8 @@ export const RedirectIfMatch = (): JSX.Element => {
   if (location.pathname.startsWith('/zones/update/')) {
     return <Navigate to='/zones/update' />;
   }
-  if (location.pathname.startsWith('/zones/delete/')) {
-    return <Navigate to='/zones/delete' />;
+  if (location.pathname.startsWith('/zones/inactivate/')) {
+    return <Navigate to='/zones/inactivate' />;
   }
 
   // If starts with preacher
@@ -83,8 +83,8 @@ export const RedirectIfMatch = (): JSX.Element => {
   if (location.pathname.startsWith('/preachers/update/')) {
     return <Navigate to='/preachers/update' />;
   }
-  if (location.pathname.startsWith('/preachers/delete/')) {
-    return <Navigate to='/preachers/delete' />;
+  if (location.pathname.startsWith('/preachers/inactivate/')) {
+    return <Navigate to='/preachers/inactivate' />;
   }
 
   // If starts with family group
@@ -97,8 +97,8 @@ export const RedirectIfMatch = (): JSX.Element => {
   if (location.pathname.startsWith('/family-groups/update/')) {
     return <Navigate to='/family-groups/update' />;
   }
-  if (location.pathname.startsWith('/family-groups/delete/')) {
-    return <Navigate to='/family-groups/delete' />;
+  if (location.pathname.startsWith('/family-groups/inactivate/')) {
+    return <Navigate to='/family-groups/inactivate' />;
   }
 
   // If starts with disciple
@@ -111,8 +111,8 @@ export const RedirectIfMatch = (): JSX.Element => {
   if (location.pathname.startsWith('/disciples/update/')) {
     return <Navigate to='/disciples/update' />;
   }
-  if (location.pathname.startsWith('/disciples/delete/')) {
-    return <Navigate to='/disciples/delete' />;
+  if (location.pathname.startsWith('/disciples/inactivate/')) {
+    return <Navigate to='/disciples/inactivate' />;
   }
 
   // If starts with user
@@ -125,8 +125,8 @@ export const RedirectIfMatch = (): JSX.Element => {
   if (location.pathname.startsWith('/users/update/')) {
     return <Navigate to='/users/update' />;
   }
-  if (location.pathname.startsWith('/users/delete/')) {
-    return <Navigate to='/users/delete' />;
+  if (location.pathname.startsWith('/users/inactivate/')) {
+    return <Navigate to='/users/inactivate' />;
   }
 
   // If starts with offering income
@@ -139,8 +139,8 @@ export const RedirectIfMatch = (): JSX.Element => {
   if (location.pathname.startsWith('/offerings/income/update/')) {
     return <Navigate to='/offerings/income/update' />;
   }
-  if (location.pathname.startsWith('/offerings/income/delete/')) {
-    return <Navigate to='/offerings/income/delete' />;
+  if (location.pathname.startsWith('/offerings/income/inactivate/')) {
+    return <Navigate to='/offerings/income/inactivate' />;
   }
 
   // If starts with offering expense
@@ -153,8 +153,8 @@ export const RedirectIfMatch = (): JSX.Element => {
   if (location.pathname.startsWith('/offerings/expenses/update/')) {
     return <Navigate to='/offerings/expenses/update' />;
   }
-  if (location.pathname.startsWith('/offerings/expenses/delete/')) {
-    return <Navigate to='/offerings/expenses/delete' />;
+  if (location.pathname.startsWith('/offerings/expenses/inactivate/')) {
+    return <Navigate to='/offerings/expenses/inactivate' />;
   }
 
   // If it doesn't match the pattern, show the 404 component or redirect in another way

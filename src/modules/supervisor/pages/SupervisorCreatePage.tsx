@@ -398,7 +398,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className=' mt-3'>
-                      <FormLabel className='text-[14px] font-medium'>Número de hijos</FormLabel>
+                      <FormLabel className='text-[14px] font-medium'>Nro. de hijos</FormLabel>
                       <FormControl>
                         <Input disabled={isInputDisabled} placeholder='Ejem: 2' {...field} />
                       </FormControl>
@@ -749,7 +749,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                     </FormControl>
                     <div className='space-y-1 leading-none'>
                       <FormLabel className='text-[13px] md:text-[14px]'>
-                        ¿Esta registro sera relacionado directamente con un Pastor?
+                        ¿Este registro estará relacionado directamente con un pastor?
                       </FormLabel>
                     </div>
                   </FormItem>
@@ -857,7 +857,6 @@ export const SupervisorCreatePage = (): JSX.Element => {
                           role !== MemberRole.KidsMinistryTeamMember &&
                           role !== MemberRole.YouthMinistryLeader &&
                           role !== MemberRole.YouthMinistryTeamMember &&
-                          role !== MemberRole.TechnologyMinistryLeader &&
                           role !== MemberRole.TechnologyMinistryTeamMember && (
                             <FormField
                               key={role}

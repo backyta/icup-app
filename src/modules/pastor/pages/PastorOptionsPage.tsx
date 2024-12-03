@@ -102,18 +102,18 @@ export const PastorOptionsPage = (): JSX.Element => {
         </NavLink>
 
         <NavLink
-          key='/pastors/delete'
-          to='/pastors/delete'
+          key='/pastors/inactivate'
+          to='/pastors/inactivate'
           end
           className='row-start-5 row-end-6 lg:row-start-3 lg:row-end-4 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-4 2xl:col-end-5'
         >
           <WhiteCard className='md:h-[11rem]' centered>
             <RiDeleteBin2Fill className='text-[10rem] lg:text-[7rem] xl:text-[6rem] text-red-500' />
             <h2 className='text-red-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
-              Eliminar Pastor
+              Inactivar Pastor
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Eliminar registro de un pastor
+              Inactivar registro de un pastor
             </p>
           </WhiteCard>
         </NavLink>

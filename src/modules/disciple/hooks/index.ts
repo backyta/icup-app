@@ -3,7 +3,7 @@ export * from './useDiscipleUpdateSubmitButtonLogic';
 export * from './useDisciplePromoteButtonLogic';
 export * from './useDiscipleRolePromotionHandler';
 export * from './useDiscipleCreationMutation';
-export * from './useDiscipleDeletionMutation';
+export * from './useDiscipleInactivationMutation';
 export * from './useDiscipleUpdateMutation';
 export * from './useDiscipleUpdateEffects';
 

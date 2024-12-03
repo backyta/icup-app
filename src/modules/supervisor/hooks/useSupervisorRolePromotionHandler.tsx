@@ -1,5 +1,4 @@
 import { type UseFormReturn } from 'react-hook-form';
-
 import { type MemberRole } from '@/shared/enums';
 import { type SupervisorFormData } from '@/modules/supervisor/interfaces';
 
@@ -16,29 +15,32 @@ export const useSupervisorRolePromotionHandler = ({
   setIsDisabledInput,
   setIsDisabledPromoteButton,
 }: Options): void => {
-  //* Delete old relation
   supervisorUpdateForm.setValue('theirCopastor', '');
 
-  //* Conditional level up role
-  const roles: MemberRole[] = supervisorUpdateForm.getValues('roles');
-  const hasMember = roles.includes(memberRoles.Disciple);
-  const hasPreacher = roles.includes(memberRoles.Preacher);
-  const hasTreasurer = roles.includes(memberRoles.Treasurer);
-  const hasCopastor = roles.includes(memberRoles.Copastor);
-  const hasPastor = roles.includes(memberRoles.Pastor);
-  const hasSupervisor = roles.includes(memberRoles.Supervisor);
+  const currentRoles: MemberRole[] = supervisorUpdateForm.getValues('roles');
 
-  //* supervisor --> co-pastor
-  if (hasSupervisor && !hasMember && !hasCopastor && !hasPreacher && !hasTreasurer && !hasPastor) {
-    supervisorUpdateForm.setValue('roles', [memberRoles.Copastor]);
+  const hasRole = (role: MemberRole): boolean => currentRoles.includes(role);
+
+  const isSupervisor = hasRole(memberRoles.Supervisor);
+  const isTreasurer = hasRole(memberRoles.Treasurer);
+  const isEligibleForCopastor =
+    !hasRole(memberRoles.Disciple) &&
+    !hasRole(memberRoles.Copastor) &&
+    !hasRole(memberRoles.Preacher) &&
+    !hasRole(memberRoles.Pastor);
+
+  const updatedRoles = currentRoles.filter(
+    (role) => role !== memberRoles.Supervisor && role !== memberRoles.Treasurer
+  );
+
+  if (isSupervisor && isEligibleForCopastor && !isTreasurer) {
+    supervisorUpdateForm.setValue('roles', [...updatedRoles, memberRoles.Copastor]);
   }
 
-  //* supervisor + treasurer --> co-pastor
-  if (hasSupervisor && hasTreasurer && !hasMember && !hasCopastor && !hasPreacher && !hasPastor) {
-    supervisorUpdateForm.setValue('roles', [memberRoles.Copastor]);
+  if (isSupervisor && isTreasurer && isEligibleForCopastor) {
+    supervisorUpdateForm.setValue('roles', [...updatedRoles, memberRoles.Copastor]);
   }
 
-  //* Set disabled states
   setIsDisabledInput(true);
   setIsDisabledPromoteButton(true);
 };

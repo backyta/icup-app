@@ -1115,9 +1115,9 @@ export const OfferingIncomeFormUpdate = ({
                     {form.getValues('recordStatus') === 'active' && (
                       <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold pt-2'>
                         *El registro esta <span className='text-green-500'>Activo</span>, para
-                        colocarlo como <span className='text-red-500'>Inactivo</span> debe eliminar
+                        colocarlo como <span className='text-red-500'>Inactivo</span> debe inactivar
                         el registro desde el modulo{' '}
-                        <span className='font-bold text-red-500'>Eliminar Ingreso. </span>
+                        <span className='font-bold text-red-500'>Inactivar Ingreso. </span>
                       </FormDescription>
                     )}
                     {form.getValues('recordStatus') === 'inactive' && (

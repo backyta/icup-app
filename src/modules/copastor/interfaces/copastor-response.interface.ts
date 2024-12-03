@@ -18,6 +18,8 @@ export interface CopastorResponse {
   createdBy?:       CreatedBy;
   updatedAt?:       Date;
   updatedBy?:       UpdatedBy;
+  inactivationCategory?: string;
+  inactivationReason  ?: string;
   supervisors?:     Supervisor[];
   zones?:           Zone[];
   preachers?:       Preacher[];

@@ -166,7 +166,7 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
 
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-8 row-end-9 md:grid  md:row-auto md:col-start-2 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Ultima fecha de actualización</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-right md:text-left'>
                 {data?.updatedAt
                   ? `${format(new Date(data?.updatedAt), 'dd/MM/yyyy')} - ${`${format(new Date(data?.updatedAt), 'hh:mm a')}`}`
                   : '-'}

@@ -375,7 +375,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className=' mt-3'>
-                      <FormLabel className='text-[14px] font-medium'>Número de hijos</FormLabel>
+                      <FormLabel className='text-[14px] font-medium'>Nro. de hijos</FormLabel>
                       <FormControl>
                         <Input disabled={isInputDisabled} placeholder='Ejem: 2' {...field} />
                       </FormControl>
@@ -807,6 +807,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                           role !== MemberRole.Disciple &&
                           role !== MemberRole.Presbyter &&
                           role !== MemberRole.KidsMinistryLeader &&
+                          role !== MemberRole.TechnologyMinistryLeader &&
                           role !== MemberRole.IntercessionMinistryTeamMember &&
                           role !== MemberRole.EvangelismMinistryTeamMember &&
                           role !== MemberRole.DiscipleshipMinistryTeamMember &&

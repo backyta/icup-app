@@ -43,19 +43,21 @@ export const usePreacherPromoteButtonLogic = ({
 
   const theirSupervisor = preacherUpdateForm.watch('theirSupervisor');
 
-  //* Effects
+  // ? Effects
+  //* Setea los valores fijos en un estado
   useEffect(() => {
     const initialValues = preacherUpdateForm.getValues([...Object.values(fieldNames)]);
     setFixedValues(initialValues);
   }, []);
 
-  //* Validate and compare last and current values
   useEffect(() => {
+    //* Asigna los previous values y los current values
     const previousValues: PreacherFormData[] = lastValues;
     const currentValues: PreacherFormData[] = preacherUpdateForm.getValues([
       ...Object.values(fieldNames),
     ]);
 
+    //* Valida si hay algún cambio y coloca a true el promote button
     if (
       previousValues.length !== 0 &&
       JSON.stringify(fixedValues) === JSON.stringify(previousValues)
@@ -63,7 +65,7 @@ export const usePreacherPromoteButtonLogic = ({
       setIsPromoteButtonDisabled(true);
     }
 
-    //* Validate and compares last and current roles (sorted)
+    //* Valida y compara si tiene la misma información inicial, ordena y activa el botón
     const arrayEqualsIgnoreOrder = (
       fixed: PreacherFormData[],
       current: PreacherFormData[]
@@ -81,6 +83,8 @@ export const usePreacherPromoteButtonLogic = ({
     ) {
       setIsPromoteButtonDisabled(false);
     }
+
+    //* Si no hay coincidencias setea el current value al lastValues
     setLastValues(currentValues);
   }, [
     firstName,

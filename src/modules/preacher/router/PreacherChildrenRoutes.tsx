@@ -1,7 +1,7 @@
 import {
   PreacherCreatePage,
   PreacherUpdatePage,
-  PreacherDeletePage,
+  PreacherInactivatePage,
   PreachersSearchPageByTerm,
   PreachersGeneralSearchPage,
 } from '@/modules/preacher/pages';
@@ -24,7 +24,7 @@ export const PreacherChildrenRoutes = [
     element: <PreacherUpdatePage />,
   },
   {
-    path: '/preachers/delete',
-    element: <PreacherDeletePage />,
+    path: '/preachers/inactivate',
+    element: <PreacherInactivatePage />,
   },
 ];

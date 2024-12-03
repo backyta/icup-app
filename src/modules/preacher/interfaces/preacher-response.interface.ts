@@ -18,6 +18,8 @@ export interface PreacherResponse {
   createdBy?:        CreatedBy;
   updatedAt?:        Date;
   updatedBy?:        UpdatedBy;
+  inactivationCategory?: string;
+  inactivationReason  ?: string;
   disciples?:        Disciple[];
   recordStatus?:     string;
   theirChurch?:      TheirChurch | null;

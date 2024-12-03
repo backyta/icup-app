@@ -1,7 +1,7 @@
 import {
   CopastorUpdatePage,
   CopastorCreatePage,
-  CopastorDeletePage,
+  CopastorInactivatePage,
   CopastorsSearchPageByTerm,
   CopastorsGeneralSearchPage,
 } from '@/modules/copastor/pages';
@@ -24,7 +24,7 @@ export const CopastorChildrenRoutes = [
     element: <CopastorUpdatePage />,
   },
   {
-    path: '/copastors/delete',
-    element: <CopastorDeletePage />,
+    path: '/copastors/inactivate',
+    element: <CopastorInactivatePage />,
   },
 ];

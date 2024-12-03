@@ -8,3 +8,5 @@ export * from './department.enum';
 export * from './province.enum';
 export * from './district.enum';
 export * from './urban-sector.enum';
+export * from './member-inactivation-category.enum';
+export * from './member-inactivation-reason.enum';

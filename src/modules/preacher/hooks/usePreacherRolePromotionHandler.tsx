@@ -1,5 +1,4 @@
 import { type UseFormReturn } from 'react-hook-form';
-
 import { type MemberRole } from '@/shared/enums';
 import { type PreacherFormData } from '@/modules/preacher/interfaces';
 
@@ -16,29 +15,41 @@ export const usePreacherRolePromotionHandler = ({
   setIsDisabledInput,
   setIsDisabledPromoteButton,
 }: Options): void => {
-  //* Delete old relation
   preacherUpdateForm.setValue('theirSupervisor', '');
 
-  //* Conditional level up role
-  const roles: MemberRole[] = preacherUpdateForm.getValues('roles');
-  const hasMember = roles.includes(memberRoles.Disciple);
-  const hasPreacher = roles.includes(memberRoles.Preacher);
-  const hasTreasurer = roles.includes(memberRoles.Treasurer);
-  const hasCopastor = roles.includes(memberRoles.Copastor);
-  const hasPastor = roles.includes(memberRoles.Pastor);
-  const hasSupervisor = roles.includes(memberRoles.Supervisor);
+  const currentRoles: MemberRole[] = preacherUpdateForm.getValues('roles');
 
-  //* preacher --> supervisor
-  if (hasPreacher && !hasMember && !hasCopastor && !hasSupervisor && !hasTreasurer && !hasPastor) {
-    preacherUpdateForm.setValue('roles', [memberRoles.Supervisor]);
+  const hasRole = (role: MemberRole): boolean => currentRoles.includes(role);
+
+  const isPreacher = hasRole(memberRoles.Preacher);
+  const isTreasurer = hasRole(memberRoles.Treasurer);
+  const isEligibleForSupervisor =
+    !hasRole(memberRoles.Disciple) &&
+    !hasRole(memberRoles.Copastor) &&
+    !hasRole(memberRoles.Supervisor) &&
+    !hasRole(memberRoles.Pastor);
+
+  const rolesExcludingPreacherAndTreasurer = currentRoles.filter(
+    (role) => role !== memberRoles.Preacher && role !== memberRoles.Treasurer
+  );
+
+  const rolesExcludingOnlyPreacher = currentRoles.filter((role) => role !== memberRoles.Preacher);
+
+  if (isPreacher && isEligibleForSupervisor && !isTreasurer) {
+    preacherUpdateForm.setValue('roles', [
+      ...rolesExcludingPreacherAndTreasurer,
+      memberRoles.Supervisor,
+    ]);
   }
 
-  //* preacher + treasurer --> supervisor + treasurer
-  if (hasPreacher && hasTreasurer && !hasMember && !hasCopastor && !hasSupervisor && !hasPastor) {
-    preacherUpdateForm.setValue('roles', [memberRoles.Supervisor, memberRoles.Treasurer]);
+  if (isPreacher && isTreasurer && isEligibleForSupervisor) {
+    preacherUpdateForm.setValue('roles', [
+      ...rolesExcludingOnlyPreacher,
+      memberRoles.Supervisor,
+      memberRoles.Treasurer,
+    ]);
   }
 
-  //* Set disabled states
   setIsDisabledInput(true);
   setIsDisabledPromoteButton(true);
 };

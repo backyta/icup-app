@@ -52,7 +52,7 @@ export const DestroyImageButton = ({
       <DialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
         <div className='h-auto'>
           <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-3 flex flex-col'>
-            <span>¿Estas seguro de eliminar a esta imagen?</span>
+            <span>¿Estas seguro de inactivar a esta imagen?</span>
           </h2>
           <p>
             <span className='text-green-500 font-bold mb-1 inline-block text-[15px] md:text-[17px]'>
@@ -112,7 +112,7 @@ export const DestroyImageButton = ({
                 'bg-emerald-500 disabled:opacity-100 disabled:md:text-[14.5px] text-white'
             )}
           >
-            {imageDeletionMutation?.isPending ? 'Procesando...' : 'Sí, eliminar'}
+            {imageDeletionMutation?.isPending ? 'Procesando...' : 'Sí, inactivar'}
           </Button>
         </div>
       </DialogContent>

@@ -1,4 +1,4 @@
-export * from './SupervisorDeletePage';
+export * from './SupervisorInactivatePage';
 export * from './SupervisorOptionsPage';
 export * from './SupervisorsSearchPageByTerm';
 export * from './SupervisorsGeneralSearchPage';

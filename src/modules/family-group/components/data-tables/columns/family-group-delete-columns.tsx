@@ -135,7 +135,7 @@ export const familyGroupDeleteColumns: Array<ColumnDef<FamilyGroupColumns, any>>
           className='font-bold text-[13px] md:text-[14px] text-red-500 hover:text-red-500'
           variant='ghost'
         >
-          Eliminar
+          Inactivar
         </Button>
       );
     },

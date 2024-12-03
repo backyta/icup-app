@@ -11,13 +11,13 @@ export enum MemberRole {
   Presbyter = 'presbyter',
 
   //* Ministries Roles
-  WorshipMinistryLeader='worship_ministry_leader',
   KidsMinistryLeader='kids_ministry_leader',
   YouthMinistryLeader='youth_ministry_leader',
+  WorshipMinistryLeader='worship_ministry_leader',
   IntercessionMinistryLeader='intercession_ministry_leader',
-  EvangelismMinistryLeader='evangelism_ministry_leader',
   TechnologyMinistryLeader='technology_ministry_leader',
   DiscipleshipMinistryLeader='discipleship_ministry_leader',
+  EvangelismMinistryLeader='evangelism_ministry_leader',
 
   KidsMinistryTeamMember='kids_ministry_team_member',
   YouthMinistryTeamMember='youth_ministry_team_member',

@@ -369,9 +369,20 @@ export const updateCopastor = async ({id, formData}: UpdateCopastorOptions ): Pr
 }
 
 // //! Delete co-pastor by ID
-export const deleteCopastor = async (id: string ): Promise<void> => {
+export interface InactivateCopastorOptions {
+  id: string;
+  inactivationCategory: string;
+  inactivationReason: string;
+}
+
+export const inactivateCopastor = async ({id, inactivationCategory, inactivationReason} : InactivateCopastorOptions): Promise<void> => {
   try {
-    const {data} = await icupApi.delete(`/copastors/${id}`)
+    const {data} = await icupApi.delete(`/copastors/${id}`, {
+      params: {
+        inactivationReason,
+        inactivationCategory,
+      },
+    })
 
     return data;
   } catch (error) {

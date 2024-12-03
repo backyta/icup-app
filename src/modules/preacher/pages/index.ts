@@ -1,4 +1,4 @@
-export * from './PreacherDeletePage';
+export * from './PreacherInactivatePage';
 export * from './PreacherOptionsPage';
 export * from './PreachersSearchPageByTerm';
 export * from './PreachersGeneralSearchPage';

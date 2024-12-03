@@ -168,7 +168,7 @@ export const offeringExpenseDeleteColumns: Array<ColumnDef<OfferingExpenseColumn
           className='font-bold text-[13px] md:text-[14px] text-red-500 hover:text-red-500'
           variant='ghost'
         >
-          Eliminar
+          Inactivar
         </Button>
       );
     },

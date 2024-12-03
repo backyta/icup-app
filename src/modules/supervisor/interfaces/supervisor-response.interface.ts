@@ -19,6 +19,8 @@ export interface SupervisorResponse {
   createdBy?:       CreatedBy;
   updatedAt?:       Date;
   updatedBy?:       UpdatedBy;
+  inactivationCategory?: string;
+  inactivationReason  ?: string;
   preachers?:       Preacher[];
   familyGroups?:    FamilyGroup[];
   disciples?:       Disciple[];

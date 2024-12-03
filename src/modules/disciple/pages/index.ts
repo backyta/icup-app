@@ -1,4 +1,4 @@
-export * from './DiscipleDeletePage';
+export * from './DiscipleInactivatePage';
 export * from './DiscipleOptionsPage';
 export * from './DisciplesSearchPageByTerm';
 export * from './DisciplesGeneralSearchPage';

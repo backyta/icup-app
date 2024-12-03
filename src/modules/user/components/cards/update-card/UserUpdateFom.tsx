@@ -272,8 +272,8 @@ export const UserUpdateForm = ({
                             <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
                               *El registro esta <span className='text-green-500'>Activo</span>, para
                               colocar nuevamente como <span className='text-red-500'>inactivo</span>{' '}
-                              eliminar el registro desde el modulo{' '}
-                              <span className='font-bold text-red-500'>Eliminar Usuario.</span>
+                              inactivar el registro desde el modulo{' '}
+                              <span className='font-bold text-red-500'>Inactivar Usuario.</span>
                             </FormDescription>
                           )}
                           {form.getValues('recordStatus') === 'inactive' && (

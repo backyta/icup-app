@@ -402,9 +402,20 @@ export const updatePreacher = async ({id, formData}: UpdatePreacherOptions ): Pr
 }
 
 //! Delete preacher by ID
-export const deletePreacher = async (id: string ): Promise<void> => {
+export interface InactivatePreacherOptions {
+  id: string;
+  inactivationCategory: string;
+  inactivationReason: string;
+}
+
+export const inactivatePreacher = async ({id, inactivationCategory, inactivationReason} : InactivatePreacherOptions): Promise<void> => {
   try {
-    const {data} = await icupApi.delete(`/preachers/${id}`)
+    const {data} = await icupApi.delete(`/preachers/${id}`, {
+      params: {
+        inactivationReason,
+        inactivationCategory,
+      },
+    })
 
     return data;
   } catch (error) {

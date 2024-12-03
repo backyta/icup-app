@@ -13,8 +13,8 @@ import { MdDeleteForever } from 'react-icons/md';
 import { offeringDeleteFormSchema } from '@/modules/offering/shared/validations';
 
 import {
-  OfferingIncomeReasonEliminationType,
-  OfferingIncomeReasonEliminationTypeNames,
+  OfferingIncomeEliminationReasonType,
+  OfferingIncomeEliminationReasonTypeNames,
 } from '@/modules/offering/income/enums';
 import { useOfferingIncomeDeletionMutation } from '@/modules/offering/income/hooks';
 
@@ -63,10 +63,10 @@ export const OfferingIncomeDeleteCard = ({ id }: OfferingIncomeDeleteCardProps):
 
   //* Effects
   useEffect(() => {
-    if (reasonEliminationType === '') {
+    if (!reasonEliminationType) {
       setIsButtonDisabled(true);
     }
-    if (reasonEliminationType !== '') {
+    if (reasonEliminationType) {
       setIsButtonDisabled(false);
     }
   }, [form, reasonEliminationType]);
@@ -130,17 +130,17 @@ export const OfferingIncomeDeleteCard = ({ id }: OfferingIncomeDeleteCardProps):
       >
         <div className='h-auto'>
           <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-3'>
-            ¿Estas seguro de eliminar este registro?
+            ¿Estas seguro de inactivar este registro?
           </h2>
           <p
             className={cn(
               'h-[17.5rem] md:h-[16rem]',
-              reasonEliminationType === OfferingIncomeReasonEliminationType.CurrencyExchange &&
+              reasonEliminationType === OfferingIncomeEliminationReasonType.CurrencyExchange &&
                 'h-[34.5rem] md:h-[28.5rem]'
             )}
           >
             <span className='w-full text-left text-blue-500 font-bold mb-2 inline-block text-[15px] md:text-[17px]'>
-              Luego de eliminar sucederá lo siguiente:
+              Luego de inactivar sucederá lo siguiente:
             </span>
             <br />
             <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
@@ -171,7 +171,7 @@ export const OfferingIncomeDeleteCard = ({ id }: OfferingIncomeDeleteCardProps):
                     <FormItem
                       className={cn(
                         reasonEliminationType !==
-                          OfferingIncomeReasonEliminationType.CurrencyExchange && 'mb-4'
+                          OfferingIncomeEliminationReasonType.CurrencyExchange && 'mb-4'
                       )}
                     >
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold text-red-500'>
@@ -195,9 +195,9 @@ export const OfferingIncomeDeleteCard = ({ id }: OfferingIncomeDeleteCardProps):
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(OfferingIncomeReasonEliminationTypeNames).map(
+                          {Object.entries(OfferingIncomeEliminationReasonTypeNames).map(
                             ([key, value]) =>
-                              key !== OfferingIncomeReasonEliminationType.CurrencyExchange && (
+                              key !== OfferingIncomeEliminationReasonType.CurrencyExchange && (
                                 <SelectItem key={key} value={key}>
                                   {value}
                                 </SelectItem>
@@ -227,7 +227,7 @@ export const OfferingIncomeDeleteCard = ({ id }: OfferingIncomeDeleteCardProps):
                   type='submit'
                   className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
                 >
-                  Sí, eliminar
+                  Sí, inactivar
                 </Button>
               </div>
             </form>

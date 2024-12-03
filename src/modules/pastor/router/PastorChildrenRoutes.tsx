@@ -1,7 +1,7 @@
 import {
   PastorUpdatePage,
   PastorCreatePage,
-  PastorDeletePage,
+  PastorInactivatePage,
   PastorsSearchPageByTerm,
   PastorsGeneralSearchPage,
 } from '@/modules/pastor/pages';
@@ -24,7 +24,7 @@ export const PastorChildrenRoutes = [
     element: <PastorUpdatePage />,
   },
   {
-    path: '/pastors/delete',
-    element: <PastorDeletePage />,
+    path: '/pastors/inactivate',
+    element: <PastorInactivatePage />,
   },
 ];

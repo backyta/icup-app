@@ -68,11 +68,11 @@ export const FamilyGroupDeleteCard = ({ idRow }: FamilyGroupDeleteCardProps): JS
       >
         <div className='h-auto'>
           <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-3'>
-            ¿Estas seguro de eliminar a este Grupo Familiar?
+            ¿Estas seguro de inactivar a este Grupo Familiar?
           </h2>
           <p>
             <span className='w-full text-left text-blue-500 font-bold mb-3 inline-block text-[16px] md:text-[18px]'>
-              Luego de eliminar sucederá lo siguiente:
+              Luego de inactivar sucederá lo siguiente:
             </span>
             <br />
             <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
@@ -109,7 +109,7 @@ export const FamilyGroupDeleteCard = ({ idRow }: FamilyGroupDeleteCardProps): JS
             }}
             className='w-full md:w-auto bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
           >
-            Sí, eliminar
+            Sí, inactivar
           </Button>
         </div>
       </DialogContent>

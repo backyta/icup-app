@@ -38,22 +38,32 @@ export const useSupervisorPromoteButtonLogic = ({
   const address = supervisorUpdateForm.watch('address');
   const referenceAddress = supervisorUpdateForm.watch('referenceAddress');
   const roles = supervisorUpdateForm.watch('roles');
+  const isDirectRelationToPastor = supervisorUpdateForm.watch('isDirectRelationToPastor');
   const recordStatus = supervisorUpdateForm.watch('recordStatus');
   const theirCopastor = supervisorUpdateForm.watch('theirCopastor');
+  const theirPastor = supervisorUpdateForm.watch('theirPastor');
 
-  //* Effects
+  // ? Effects
+  //* Setea los valores fijos en un estado
   useEffect(() => {
     const initialValues = supervisorUpdateForm.getValues([...Object.values(fieldName)]);
     setFixedValues(initialValues);
   }, []);
 
-  //* Validate and compare last and current values
   useEffect(() => {
+    //* Asigna los previous values y los current values
     const previousValues: SupervisorFormData[] = lastValues;
     const currentValues: SupervisorFormData[] = supervisorUpdateForm.getValues([
       ...Object.values(fieldName),
     ]);
 
+    //* Si se coloca el co-pastor inicial que tenia, se setea su mismo pastor (para guardar referencia)
+    if (fixedValues[20] === currentValues[20]) {
+      currentValues[21] = fixedValues[21];
+      supervisorUpdateForm.setValue('theirPastor', String(currentValues[21]));
+    }
+
+    //* Valida si hay algún cambio y coloca a true el promote button
     if (
       previousValues.length !== 0 &&
       JSON.stringify(fixedValues) === JSON.stringify(previousValues)
@@ -61,7 +71,7 @@ export const useSupervisorPromoteButtonLogic = ({
       setIsPromoteButtonDisabled(true);
     }
 
-    //* Validate and compares last and current roles (sorted)
+    //* Valida y compara si tiene la misma información inicial, ordena y activa el botón
     const arrayEqualsIgnoreOrder = (
       fixed: SupervisorFormData[],
       current: SupervisorFormData[]
@@ -79,6 +89,8 @@ export const useSupervisorPromoteButtonLogic = ({
     ) {
       setIsPromoteButtonDisabled(false);
     }
+
+    //* Si no hay coincidencias setea el current value al lastValues
     setLastValues(currentValues);
   }, [
     firstName,
@@ -99,7 +111,9 @@ export const useSupervisorPromoteButtonLogic = ({
     district,
     address,
     roles,
+    isDirectRelationToPastor,
     theirCopastor,
+    theirPastor,
     recordStatus,
   ]);
 };

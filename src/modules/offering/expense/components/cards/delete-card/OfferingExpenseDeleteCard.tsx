@@ -11,7 +11,7 @@ import { MdDeleteForever } from 'react-icons/md';
 
 import { offeringDeleteFormSchema } from '@/modules/offering/shared/validations';
 import { useOfferingExpenseDeletionMutation } from '@/modules/offering/expense/hooks';
-import { OfferingExpenseReasonEliminationTypeNames } from '@/modules/offering/expense/enums';
+import { OfferingExpenseEliminationReasonTypeNames } from '@/modules/offering/expense/enums';
 
 import {
   Form,
@@ -125,11 +125,11 @@ export const OfferingExpenseDeleteCard = ({
       >
         <div className='h-auto'>
           <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-3'>
-            ¿Estas seguro de eliminar este registro?
+            ¿Estas seguro de inactivar este registro?
           </h2>
           <p className='h-[15rem] md:h-[14.5rem]'>
             <span className='w-full text-left text-blue-500 font-medium mb-3 inline-block text-[16px] md:text-[18px]'>
-              Luego de eliminar sucederá lo siguiente:
+              Luego de inactivar sucederá lo siguiente:
             </span>
             <br />
             <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
@@ -177,7 +177,7 @@ export const OfferingExpenseDeleteCard = ({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {Object.entries(OfferingExpenseReasonEliminationTypeNames).map(
+                          {Object.entries(OfferingExpenseEliminationReasonTypeNames).map(
                             ([key, value]) => (
                               <SelectItem key={key} value={key}>
                                 {value}
@@ -207,7 +207,7 @@ export const OfferingExpenseDeleteCard = ({
                   type='submit'
                   className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
                 >
-                  Sí, eliminar
+                  Sí, inactivar
                 </Button>
               </div>
             </form>

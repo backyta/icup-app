@@ -2,7 +2,6 @@ import { type MenuItem } from '@/shared/interfaces';
 import { 
   FcBullish, 
   FcHome, 
-  FcConferenceCall,
   FcSportsMode, 
   FcPodiumWithSpeaker, 
   FcBusinesswoman, 
@@ -11,6 +10,7 @@ import {
   FcStatistics,
   FcManager,
   FcFlowChart,
+  FcBusinessman,
   } from 'react-icons/fc';
 
 import { PiChurch } from "react-icons/pi";
@@ -21,9 +21,9 @@ export const menuItems: MenuItem[] = [
   { title: 'Iglesia', subTitle: 'Módulo Iglesia', href: '/churches', Icon: PiChurch },
   { title: 'Pastor', subTitle: 'Modulo Pastor', href: '/pastors', Icon: FcPodiumWithSpeaker },
   { title: 'Co-Pastor', subTitle: 'Modulo Co-Pastor', href: '/copastors', Icon: FcBusinesswoman },
-  { title: 'Supervisor', subTitle: 'Modulo Supervisor', href: '/supervisors', Icon: FcManager },
+  { title: 'Supervisor', subTitle: 'Modulo Supervisor', href: '/supervisors', Icon: FcBusinessman },
   { title: 'Zona', subTitle: 'Modulo Zona', href: '/zones', Icon: FcFlowChart  },
-  { title: 'Predicador', subTitle: 'Modulo Predicador', href: '/preachers', Icon: FcConferenceCall },
+  { title: 'Predicador', subTitle: 'Modulo Predicador', href: '/preachers', Icon: FcManager },
   { title: 'Grupo Familiar', subTitle: 'Modulo Grupo Familiar', href: '/family-groups', Icon: FcHome },
   { title: 'Discípulo', subTitle: 'Modulo Discípulo', href: '/disciples', Icon: FcSportsMode  },
   { title: 'Ofrenda', subTitle: 'Modulo Ofrenda', href: '/offerings', Icon: FcLike },

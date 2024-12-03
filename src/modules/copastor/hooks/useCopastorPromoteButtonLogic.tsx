@@ -43,19 +43,21 @@ export const useCopastorPromoteButtonLogic = ({
 
   const theirPastor = copastorUpdateForm.watch('theirPastor');
 
-  //* Effects
+  // ? Effects
   useEffect(() => {
+    //* Setea los valores fijos en un estado
     const initialValues = copastorUpdateForm.getValues([...Object.values(fieldName)]);
     setFixedValues(initialValues);
   }, []);
 
-  //* Validate and compare last and current values
   useEffect(() => {
+    //* Asigna los previous values y los current values
     const previousValues: CopastorFormData[] = lastValues;
     const currentValues: CopastorFormData[] = copastorUpdateForm.getValues([
       ...Object.values(fieldName),
     ]);
 
+    //* Valida si hay algún cambio y coloca a true el promote button
     if (
       previousValues.length !== 0 &&
       JSON.stringify(fixedValues) === JSON.stringify(previousValues)
@@ -63,7 +65,7 @@ export const useCopastorPromoteButtonLogic = ({
       setIsPromoteButtonDisabled(true);
     }
 
-    //* Validate and compares last and current roles (sorted)
+    //* Valida y compara si tiene la misma información inicial, ordena y activa el botón
     const arrayEqualsIgnoreOrder = (
       fixed: CopastorFormData[],
       current: CopastorFormData[]
@@ -82,6 +84,7 @@ export const useCopastorPromoteButtonLogic = ({
       setIsPromoteButtonDisabled(false);
     }
 
+    //* Si no hay coincidencias setea el current value al lastValues
     setLastValues(currentValues);
   }, [
     firstName,
