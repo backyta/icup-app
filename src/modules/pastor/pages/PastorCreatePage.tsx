@@ -125,7 +125,6 @@ export const PastorCreatePage = (): JSX.Element => {
     pastorCreationForm: form,
     memberRoles: MemberRole,
     isInputDisabled,
-    isMessageErrorDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
   });

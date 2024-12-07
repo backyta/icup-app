@@ -241,9 +241,20 @@ export const updateChurch = async ({id, formData}: UpdateChurchOptions ): Promis
 }
 
 //! Inactivate church by ID
-export const inactivateChurch = async (id: string ): Promise<void> => {
+export interface InactivateChurchOptions {
+  id: string;
+  churchInactivationCategory: string;
+  churchInactivationReason: string;
+}
+
+export const inactivateChurch = async ({id, churchInactivationCategory, churchInactivationReason} : InactivateChurchOptions): Promise<void> => {
   try {
-    const {data} = await icupApi.delete(`/churches/${id}`)
+    const {data} = await icupApi.delete(`/churches/${id}`, {
+      params: {
+        churchInactivationCategory,
+        churchInactivationReason,
+      },
+    })
     
     return data;
   } catch (error) {

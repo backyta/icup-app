@@ -11,6 +11,8 @@ export interface UserResponse {
   createdBy?:   CreatedBy;
   updatedAt?:   Date;
   updatedBy?:   UpdatedBy;
+  inactivationCategory?: string;
+  inactivationReason  ?: string;
   recordStatus: string;
 }
 

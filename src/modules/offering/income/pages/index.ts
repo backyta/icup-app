@@ -1,5 +1,5 @@
 export * from './OfferingIncomeCreatePage';
-export * from './OfferingIncomeDeletePage';
+export * from './OfferingIncomeInactivatePage';
 export * from './OfferingIncomeOptionsPage';
 export * from './OfferingsIncomeGeneralSearchPage';
 export * from './OfferingsIncomeSearchPageByTerm';

@@ -321,21 +321,14 @@ export const OfferingExpenseUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {// searchType === OfferingExpenseSearchType.PlaningEventsExpenses ||
-              // searchType === OfferingExpenseSearchType.DecorationExpenses ||
-              // searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpenses ||
-              // searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpenses ||
-              // searchType === OfferingExpenseSearchType.OperationalExpenses ||
-              // searchType === OfferingExpenseSearchType.SuppliesExpenses ||
-              // searchType === OfferingExpenseSearchType.ExpensesAdjustment ||
-              searchType === OfferingExpenseSearchType.RecordStatus && (
+              {searchType === OfferingExpenseSearchType.RecordStatus && (
                 <FormField
                   control={form.control}
                   name='selectTerm'
                   render={({ field }) => {
                     return (
                       <FormItem>
-                        <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
+                        <FormLabel className='text-[14px] font-bold'>Estado de registro</FormLabel>
                         <FormDescription className='text-[14px]'>
                           Selecciona una opción de búsqueda.
                         </FormDescription>
@@ -357,29 +350,18 @@ export const OfferingExpenseUpdatePage = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {
-                              searchType === OfferingExpenseSearchType.RecordStatus &&
-                                Object.entries(OfferingExpenseSearchSelectOptionNames).map(
-                                  ([key, value]) => (
-                                    <SelectItem
-                                      className={cn(`text-[13px] md:text-[14px]`)}
-                                      key={key}
-                                      value={key}
-                                    >
-                                      {value}
-                                    </SelectItem>
-                                  )
+                            {searchType === OfferingExpenseSearchType.RecordStatus &&
+                              Object.entries(OfferingExpenseSearchSelectOptionNames).map(
+                                ([key, value]) => (
+                                  <SelectItem
+                                    className={cn(`text-[13px] md:text-[14px]`)}
+                                    key={key}
+                                    value={key}
+                                  >
+                                    {value}
+                                  </SelectItem>
                                 )
-                              // : churchesQuery?.data?.map((church) => (
-                              //     <SelectItem
-                              //       className={cn(`text-[13px] md:text-[14px]`)}
-                              //       key={church.id}
-                              //       value={church.id}
-                              //     >
-                              //       {church.abbreviatedChurchName}
-                              //     </SelectItem>
-                              //   ))
-                            }
+                              )}
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -401,7 +383,7 @@ export const OfferingExpenseUpdatePage = (): JSX.Element => {
                   name='dateTerm'
                   render={({ field }) => (
                     <FormItem className=''>
-                      <FormLabel className='text-[14px] font-bold'>Termino (fecha)</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>Fecha</FormLabel>
                       <FormDescription className='text-[14px]'>
                         Buscar por fecha o rango de fechas.
                       </FormDescription>

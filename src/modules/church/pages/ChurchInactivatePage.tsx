@@ -159,7 +159,7 @@ export const ChurchInactivatePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-slate-500 dark:text-slate-400'> Modulo Iglesia</PageTitle>
 
-      <SearchTitle isDeleteSearch className='text-red-500' titleName={'iglesias'} />
+      <SearchTitle isInactivateSearch className='text-red-500' titleName={'iglesias'} />
 
       <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full'>
         {isFiltersSearchByTermDisabled && (
@@ -229,7 +229,19 @@ export const ChurchInactivatePage = (): JSX.Element => {
                   name='inputTerm'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>
+                        {searchType === ChurchSearchType.ChurchName
+                          ? `Nombre de Iglesia`
+                          : searchType === ChurchSearchType.Department
+                            ? 'Departamento'
+                            : searchType === ChurchSearchType.Province
+                              ? 'Provincia'
+                              : searchType === ChurchSearchType.District
+                                ? 'Distrito'
+                                : searchType === ChurchSearchType.UrbanSector
+                                  ? 'Sector Urbano'
+                                  : 'Dirección'}
+                      </FormLabel>
                       <FormDescription className='text-[14px]'>
                         Escribe aquí lo que deseas buscar.
                       </FormDescription>
@@ -252,7 +264,7 @@ export const ChurchInactivatePage = (): JSX.Element => {
                   name='dateTerm'
                   render={({ field }) => (
                     <FormItem className=''>
-                      <FormLabel className='text-[14px] font-bold'>Termino (fecha)</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>Fecha</FormLabel>
                       <FormDescription className='text-[14px]'>
                         Buscar por fecha o rango de fechas.
                       </FormDescription>
@@ -310,7 +322,7 @@ export const ChurchInactivatePage = (): JSX.Element => {
                   render={({ field }) => {
                     return (
                       <FormItem>
-                        <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
+                        <FormLabel className='text-[14px] font-bold'>Estado de registro</FormLabel>
                         <FormDescription className='text-[14px]'>
                           Selecciona una opción de búsqueda.
                         </FormDescription>

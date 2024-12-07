@@ -99,5 +99,3 @@ export const FinancialBalanceComparativeMetricsSkeleton = (): JSX.Element => {
     </div>
   );
 };
-
-// TODO : poner estos shares en carpetas mas ordenas o pasarlas en casa componente y poner carpeta reports

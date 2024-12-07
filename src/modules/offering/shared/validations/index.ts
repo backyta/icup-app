@@ -1,1 +1,1 @@
-export * from './offering-delete-form-schema';
+export * from './offering-inactivate-form-schema';

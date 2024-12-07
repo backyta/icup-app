@@ -46,6 +46,7 @@ import {
 } from '@/shared/components/ui/table';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
+import { getSimpleChurches } from '@/modules/church/services';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -88,6 +89,11 @@ export function SearchByTermPastorDataTable<TData, TValue>({
     queryFn: () => getPastorsByTerm(searchParams as PastorQueryParams),
     enabled: !!searchParams,
     retry: 1,
+  });
+
+  const churchesQuery = useQuery({
+    queryKey: ['churches'],
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
   });
 
   //* Set data result query
@@ -186,7 +192,7 @@ export function SearchByTermPastorDataTable<TData, TValue>({
           {/* Search Terms */}
           <div>
             <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
-              Termino de búsqueda:
+              Término de búsqueda:
             </span>{' '}
             {(dataForm?.searchType === PastorSearchType.OriginCountry ||
               dataForm?.searchType === PastorSearchType.Department ||
@@ -230,6 +236,19 @@ export function SearchByTermPastorDataTable<TData, TValue>({
                 }`}
               </span>
             )}
+          </div>
+
+          {/* Search Church */}
+          <div>
+            <span className='dark:text-emerald-500 text-emerald-600 font-bold text-[14px] md:text-[15.5px]'>
+              Iglesia de Busqueda:
+            </span>{' '}
+            <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+              {`${
+                churchesQuery?.data?.find((church) => church.id === dataForm?.churchId)
+                  ?.abbreviatedChurchName ?? 'Todas las Iglesias'
+              }`}
+            </span>
           </div>
 
           {/* Inputs Filters */}

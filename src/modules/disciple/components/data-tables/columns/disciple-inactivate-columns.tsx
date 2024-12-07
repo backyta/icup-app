@@ -8,7 +8,7 @@ import { type ColumnDef } from '@tanstack/react-table';
 import { Button } from '@/shared/components/ui/button';
 
 import { type DiscipleColumns } from '@/modules/disciple/interfaces';
-import { DiscipleInfoCard, DiscipleDeleteCard } from '@/modules/disciple/components';
+import { DiscipleInfoCard, DiscipleInactivateCard } from '@/modules/disciple/components';
 
 export const discipleInactivateColumns: Array<ColumnDef<DiscipleColumns, any>> = [
   {
@@ -139,7 +139,7 @@ export const discipleInactivateColumns: Array<ColumnDef<DiscipleColumns, any>> =
     accessorKey: 'id',
     cell: (info) => {
       const id = info.row.original.id;
-      return info.getValue() === '-' ? '-' : <DiscipleDeleteCard idRow={id} />;
+      return info.getValue() === '-' ? '-' : <DiscipleInactivateCard idRow={id} />;
     },
     header: () => {
       return (

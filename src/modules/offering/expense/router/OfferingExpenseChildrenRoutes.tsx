@@ -1,7 +1,7 @@
 import {
   OfferingExpenseUpdatePage,
   OfferingExpenseCreatePage,
-  OfferingExpenseDeletePage,
+  OfferingExpenseInactivatePage,
   OfferingsExpenseSearchPageByTerm,
   OfferingsExpenseGeneralSearchPage,
 } from '@/modules/offering/expense/pages';
@@ -24,7 +24,7 @@ export const OfferingExpenseChildrenRoutes = [
     element: <OfferingExpenseUpdatePage />,
   },
   {
-    path: '/offerings/expenses/delete',
-    element: <OfferingExpenseDeletePage />,
+    path: '/offerings/expenses/inactivate',
+    element: <OfferingExpenseInactivatePage />,
   },
 ];

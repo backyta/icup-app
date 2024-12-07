@@ -5,6 +5,7 @@ export interface ZoneSearchFormByTerm {
   order: string;
   inputTerm?: string | undefined;
   selectTerm?: string | undefined;
+  churchId?: string | undefined;
   limit?: string | undefined;
   all?: boolean | undefined;
 }

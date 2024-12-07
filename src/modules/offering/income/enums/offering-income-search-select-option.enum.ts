@@ -9,6 +9,8 @@ export enum OfferingIncomeSearchSelectOption {
   Supervisor = 'supervisor',
   Preacher = 'preacher',
   Disciple = 'disciple',
+
+  ExternalDonor = 'external-donor',
 }
 
 export const OfferingIncomeSearchSelectOptionNames: Record<OfferingIncomeSearchSelectOption, string> =  {
@@ -20,6 +22,7 @@ export const OfferingIncomeSearchSelectOptionNames: Record<OfferingIncomeSearchS
   [OfferingIncomeSearchSelectOption.Supervisor]: 'Supervisor',
   [OfferingIncomeSearchSelectOption.Preacher]: 'Predicador',
   [OfferingIncomeSearchSelectOption.Disciple]: 'Discípulo',
+  [OfferingIncomeSearchSelectOption.ExternalDonor]: 'Donador Externo',
 }
 
 //* Record Status
@@ -49,6 +52,7 @@ export enum OfferingIncomeSearchByMemberType {
   Supervisor = 'supervisor',
   Preacher = 'preacher',
   Disciple = 'disciple',
+  ExternalDonor = 'external-donor',
 }
 
 export const OfferingIncomeSearchNamesByMemberType: Record<OfferingIncomeSearchByMemberType, string> =  {
@@ -57,6 +61,7 @@ export const OfferingIncomeSearchNamesByMemberType: Record<OfferingIncomeSearchB
   [OfferingIncomeSearchByMemberType.Supervisor]: 'Supervisor',
   [OfferingIncomeSearchByMemberType.Preacher]: 'Predicador',
   [OfferingIncomeSearchByMemberType.Disciple]: 'Discípulo',
+  [OfferingIncomeSearchByMemberType.ExternalDonor]: 'Donador Externo',
 }
 
 

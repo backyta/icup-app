@@ -51,6 +51,16 @@ export interface Disciple {
   lastName:  string;
 }
 
+export interface ExternalDonor {
+  id              : string;
+  firstName       : string;
+  lastName        : string;
+  originCountry   : string;
+  residenceCountry: string;
+  residenceCity   : string;
+}
+
+
 export interface Member {
   id:               string;
   firstName:        string;

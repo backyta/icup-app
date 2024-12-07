@@ -52,7 +52,8 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
 
       if (url.pathname === '/disciples/update') url.pathname = `/disciples/update/${id}/view`;
 
-      if (url.pathname === '/disciples/delete') url.pathname = `/disciples/delete/${id}/view`;
+      if (url.pathname === '/disciples/inactivate')
+        url.pathname = `/disciples/inactivate/${id}/view`;
 
       window.history.replaceState({}, '', url);
     }

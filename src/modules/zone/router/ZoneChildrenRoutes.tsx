@@ -1,5 +1,5 @@
 import {
-  ZoneDeletePage,
+  ZoneInactivatePage,
   ZoneUpdatePage,
   ZoneCreatePage,
   ZonesSearchPageByTerm,
@@ -24,7 +24,7 @@ export const ZoneChildrenRoutes = [
     element: <ZoneUpdatePage />,
   },
   {
-    path: '/zones/delete',
-    element: <ZoneDeletePage />,
+    path: '/zones/inactivate',
+    element: <ZoneInactivatePage />,
   },
 ];

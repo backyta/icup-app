@@ -148,7 +148,6 @@ export const CopastorCreatePage = (): JSX.Element => {
     copastorCreationForm: form,
     memberRoles: MemberRole,
     isInputDisabled,
-    isMessageErrorDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
   });

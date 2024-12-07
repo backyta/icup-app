@@ -187,10 +187,21 @@ export const updateZone = async ({id, formData}: UpdateZoneOptions ): Promise<Zo
   }
 }
 
-//! Delete zone by ID
-export const deleteZone = async (id: string ): Promise<void> => {
+//! Inactivate  zone by ID
+export interface InactivateZoneOptions {
+  id: string;
+  zoneInactivationCategory: string;
+  zoneInactivationReason: string;
+}
+
+export const inactivateZone = async ({id, zoneInactivationCategory, zoneInactivationReason} : InactivateZoneOptions): Promise<void> => {
   try {
-    const {data} = await icupApi.delete(`/zones/${id}`)
+    const {data} = await icupApi.delete(`/zones/${id}`, {
+      params: {
+        zoneInactivationCategory,
+        zoneInactivationReason,
+      },
+    })
     
     return data;
   } catch (error) {

@@ -184,7 +184,7 @@ export function SearchByTermUserDataTable<TData, TValue>({
           {/* Search Terms */}
           <div>
             <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
-              Termino de búsqueda:
+              Término de búsqueda:
             </span>{' '}
             {dataForm?.searchType === UserSearchType.FirstName && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>

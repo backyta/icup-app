@@ -2,7 +2,6 @@
 
 import { z } from "zod";
 
-
 export const memberInactivationFormSchema = z
 .object({
   memberInactivationCategory: z.string()

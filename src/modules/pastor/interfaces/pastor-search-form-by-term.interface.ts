@@ -5,6 +5,7 @@ export interface PastorSearchFormByTerm {
   order: string;
   inputTerm?: string | undefined;
   selectTerm?: string | undefined;
+  churchId?: string | undefined;
   dateTerm?: {
         from: Date;
         to?: Date | undefined;

@@ -327,10 +327,21 @@ export const updateFamilyGroup = async ({id, formData}: UpdateFamilyGroupOptions
   }
 }
 
-// //! Delete family group by ID
-export const deleteFamilyGroup = async (id: string ): Promise<void> => {
+// //! Inactivate family group by ID
+export interface InactivateFamilyGroupOptions {
+  id: string;
+  familyGroupInactivationCategory: string;
+  familyGroupInactivationReason: string;
+}
+
+export const inactivateFamilyGroup = async ({id, familyGroupInactivationCategory, familyGroupInactivationReason}: InactivateFamilyGroupOptions): Promise<void> => {
   try {
-    const {data} = await icupApi.delete(`/family-groups/${id}`)
+    const {data} = await icupApi.delete(`/family-groups/${id}`, {
+      params: {
+        familyGroupInactivationCategory,
+        familyGroupInactivationReason,
+      },
+    })
 
     return data;
   } catch (error) {

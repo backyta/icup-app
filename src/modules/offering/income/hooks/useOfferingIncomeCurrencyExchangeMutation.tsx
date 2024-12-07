@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
 import {
-  deleteOfferingIncome,
-  type DeleteOfferingIncomeOptions,
+  inactivateOfferingIncome,
+  type InactivateOfferingIncomeOptions,
 } from '@/modules/offering/income/services';
 
 import { type ErrorResponse } from '@/shared/interfaces';
@@ -23,7 +23,7 @@ export const useOfferingIncomeCurrencyExchangeMutation = ({
   scrollToTop,
   setIsButtonDisabled,
   setIsInputDisabled,
-}: Options): UseMutationResult<void, ErrorResponse, DeleteOfferingIncomeOptions, unknown> => {
+}: Options): UseMutationResult<void, ErrorResponse, InactivateOfferingIncomeOptions, unknown> => {
   //* Hooks (external libraries)
   const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ export const useOfferingIncomeCurrencyExchangeMutation = ({
 
   //* Mutation
   const mutation = useMutation({
-    mutationFn: deleteOfferingIncome,
+    mutationFn: inactivateOfferingIncome,
     onError: (error: ErrorResponse) => {
       if (error.message !== 'Unauthorized') {
         toast.error(error.message, {

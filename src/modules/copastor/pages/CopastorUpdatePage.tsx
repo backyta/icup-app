@@ -345,7 +345,19 @@ export const CopastorUpdatePage = (): JSX.Element => {
                   name='inputTerm'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>
+                        {searchType === CopastorSearchType.OriginCountry
+                          ? `País de origen`
+                          : searchType === CopastorSearchType.Department
+                            ? 'Departamento'
+                            : searchType === CopastorSearchType.Province
+                              ? 'Provincia'
+                              : searchType === CopastorSearchType.District
+                                ? 'Distrito'
+                                : searchType === CopastorSearchType.UrbanSector
+                                  ? 'Sector Urbano'
+                                  : 'Dirección'}
+                      </FormLabel>
                       <FormDescription className='text-[13px] md:text-[14px]'>
                         Escribe aquí lo que deseas buscar.
                       </FormDescription>
@@ -368,7 +380,7 @@ export const CopastorUpdatePage = (): JSX.Element => {
                   name='dateTerm'
                   render={({ field }) => (
                     <FormItem className=''>
-                      <FormLabel className='text-[14px] font-bold'>Termino (fecha)</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>Fecha</FormLabel>
                       <FormDescription className='text-[13px] md:text-[14px]'>
                         Buscar por fecha o rango de fechas.
                       </FormDescription>
@@ -429,7 +441,15 @@ export const CopastorUpdatePage = (): JSX.Element => {
                   render={({ field }) => {
                     return (
                       <FormItem>
-                        <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
+                        <FormLabel className='text-[14px] font-bold'>
+                          {searchType === CopastorSearchType.Gender
+                            ? `Género`
+                            : searchType === CopastorSearchType.BirthMonth
+                              ? 'Mes de nacimiento'
+                              : searchType === CopastorSearchType.MaritalStatus
+                                ? 'Estado civil'
+                                : 'Estado de registro'}
+                        </FormLabel>
                         <FormDescription className='text-[13px] md:text-[14px]'>
                           Selecciona una opción de búsqueda.
                         </FormDescription>
@@ -484,7 +504,7 @@ export const CopastorUpdatePage = (): JSX.Element => {
                   name='namesTerm'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Termino (nombres)</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>Nombres</FormLabel>
                       <FormDescription className='text-[13px] md:text-[14px]'>
                         Escribe los nombres que deseas buscar.
                       </FormDescription>
@@ -508,7 +528,7 @@ export const CopastorUpdatePage = (): JSX.Element => {
                   name='lastNamesTerm'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Termino (apellidos)</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>Apellidos</FormLabel>
                       <FormDescription className='text-[13px] md:text-[14px]'>
                         Escribe los apellidos que deseas buscar.
                       </FormDescription>

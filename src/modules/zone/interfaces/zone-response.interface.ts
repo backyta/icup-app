@@ -26,6 +26,8 @@ export interface ZoneResponse {
   createdBy?:       CreatedBy;
   updatedAt?:       Date;
   updatedBy?:       UpdatedBy;
+  inactivationCategory?: string;
+  inactivationReason  ?: string;
   theirChurch?:     TheirChurch | null;
   theirPastor?:     TheirPastor | null;
   theirCopastor?:   TheirCopastor | null;

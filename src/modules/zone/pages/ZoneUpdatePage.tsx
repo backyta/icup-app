@@ -200,7 +200,17 @@ export const ZoneUpdatePage = (): JSX.Element => {
                   name='inputTerm'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>
+                        {searchType === ZoneSearchType.Department
+                          ? 'Departamento'
+                          : searchType === ZoneSearchType.Province
+                            ? 'Provincia'
+                            : searchType === ZoneSearchType.District
+                              ? 'Distrito'
+                              : searchType === ZoneSearchType.ZoneName
+                                ? 'Nombre de zona'
+                                : 'País'}
+                      </FormLabel>
                       <FormDescription className='text-[14px]'>
                         Escribe aquí lo que deseas buscar.
                       </FormDescription>
@@ -224,7 +234,7 @@ export const ZoneUpdatePage = (): JSX.Element => {
                   render={({ field }) => {
                     return (
                       <FormItem>
-                        <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
+                        <FormLabel className='text-[14px] font-bold'>Estado de registro</FormLabel>
                         <FormDescription className='text-[14px]'>
                           Selecciona una opción de búsqueda.
                         </FormDescription>

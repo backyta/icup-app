@@ -100,8 +100,8 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
         </NavLink>
 
         <NavLink
-          key='/family-groups/delete'
-          to='/family-groups/delete'
+          key='/family-groups/inactivate'
+          to='/family-groups/inactivate'
           end
           className='row-start-5 row-end-6 lg:row-start-3 lg:row-end-4 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-4 2xl:col-end-5'
         >

@@ -6,6 +6,7 @@ export interface FamilyGroupSearchFormByTerm {
   order: string;
   inputTerm?: string | undefined;
   selectTerm?: string | undefined;
+  churchId?: string | undefined;
   namesTerm?: string | undefined;
   lastNamesTerm?: string | undefined;
   limit?: string | undefined;

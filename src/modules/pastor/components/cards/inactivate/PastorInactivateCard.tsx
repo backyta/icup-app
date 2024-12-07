@@ -115,8 +115,8 @@ export const PastorInactivateCard = ({ idRow }: PastorInactivateCardProps): JSX.
 
     pastorInactivationMutation.mutate({
       id: idRow,
-      inactivationCategory: formData.memberInactivationCategory,
-      inactivationReason: formData.memberInactivationReason,
+      memberInactivationCategory: formData.memberInactivationCategory,
+      memberInactivationReason: formData.memberInactivationReason,
     });
   };
 

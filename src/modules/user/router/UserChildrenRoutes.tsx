@@ -1,6 +1,6 @@
 import {
   UserCreatePage,
-  UserDeletePage,
+  UserInactivatePage,
   UserUpdatePage,
   UsersSearchPageByTerm,
   UsersGeneralSearchPage,
@@ -24,7 +24,7 @@ export const UserChildrenRoutes = [
     element: <UserUpdatePage />,
   },
   {
-    path: '/users/delete',
-    element: <UserDeletePage />,
+    path: '/users/inactivate',
+    element: <UserInactivatePage />,
   },
 ];

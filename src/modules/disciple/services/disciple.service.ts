@@ -370,19 +370,19 @@ export const updateDisciple = async ({id, formData}: UpdateDiscipleOptions ): Pr
   }
 }
 
-// //! Delete disciple by ID
+// //! Inactivate  disciple by ID
 export interface InactivateDiscipleOptions {
   id: string;
-  inactivationCategory: string;
-  inactivationReason: string;
+  memberInactivationCategory: string;
+  memberInactivationReason: string;
 }
 
-export const inactivateDisciple = async ({id, inactivationCategory, inactivationReason} : InactivateDiscipleOptions): Promise<void> => {
+export const inactivateDisciple = async ({id, memberInactivationCategory, memberInactivationReason} : InactivateDiscipleOptions): Promise<void> => {
   try {
     const {data} = await icupApi.delete(`/disciples/${id}`, {
       params: {
-        inactivationReason,
-        inactivationCategory,
+        memberInactivationReason,
+        memberInactivationCategory,
       },
     })
 

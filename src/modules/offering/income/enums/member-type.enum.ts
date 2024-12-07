@@ -4,12 +4,14 @@ export enum MemberType {
   Supervisor = 'supervisor',
   Copastor = 'copastor',
   Pastor = 'pastor',
+  ExternalDonor = 'external-donor',
 }
 
 export const MemberTypeNames: Record<MemberType, string> = {
   [MemberType.Disciple]: 'Discípulo',
   [MemberType.Preacher]: 'Predicador',
   [MemberType.Supervisor]: 'Supervisor',
-  [MemberType.Copastor]: 'Copastor',
+  [MemberType.Copastor]: 'Co-Pastor',
   [MemberType.Pastor]: 'Pastor',
+  [MemberType.ExternalDonor]: 'Donador Externo',
 };

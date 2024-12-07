@@ -275,10 +275,21 @@ export const updateUser = async ({id, formData}: UpdateUserOptions ): Promise<Us
   }
 }
 
-// //! Delete user by ID
-export const deleteUser = async (id: string ): Promise<void> => {
+// //! Inactivate user by ID
+export interface InactivateUserOptions {
+  id: string;
+  userInactivationCategory: string;
+  userInactivationReason: string;
+}
+
+export const inactivateUser = async ({id, userInactivationCategory, userInactivationReason}: InactivateUserOptions): Promise<void> => {
   try {
-    const {data} = await icupApi.delete(`/users/${id}`)
+    const {data} = await icupApi.delete(`/users/${id}`, {
+      params: {
+        userInactivationCategory,
+        userInactivationReason,
+      },
+    })
 
     return data;
   } catch (error) {

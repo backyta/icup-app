@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useEffect, useState } from 'react';
@@ -348,7 +348,21 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
                   name='inputTerm'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>
+                        {searchType === SupervisorSearchType.OriginCountry
+                          ? `País de origen`
+                          : searchType === SupervisorSearchType.Department
+                            ? 'Departamento'
+                            : searchType === SupervisorSearchType.Province
+                              ? 'Provincia'
+                              : searchType === SupervisorSearchType.District
+                                ? 'Distrito'
+                                : searchType === SupervisorSearchType.UrbanSector
+                                  ? 'Sector Urbano'
+                                  : searchType === SupervisorSearchType.ZoneName
+                                    ? 'Nombre de zona'
+                                    : 'Dirección'}
+                      </FormLabel>
                       <FormDescription className='text-[14px]'>
                         Escribe aquí lo que deseas buscar.
                       </FormDescription>
@@ -371,7 +385,7 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
                   name='dateTerm'
                   render={({ field }) => (
                     <FormItem className=''>
-                      <FormLabel className='text-[14px] font-bold'>Termino (fecha)</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>Fecha</FormLabel>
                       <FormDescription className='text-[14px]'>
                         Buscar por fecha o rango de fechas.
                       </FormDescription>
@@ -432,7 +446,15 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
                   render={({ field }) => {
                     return (
                       <FormItem>
-                        <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
+                        <FormLabel className='text-[14px] font-bold'>
+                          {searchType === SupervisorSearchType.Gender
+                            ? `Género`
+                            : searchType === SupervisorSearchType.BirthMonth
+                              ? 'Mes de nacimiento'
+                              : searchType === SupervisorSearchType.MaritalStatus
+                                ? 'Estado civil'
+                                : 'Estado de registro'}
+                        </FormLabel>
                         <FormDescription className='text-[14px]'>
                           Selecciona una opción de búsqueda.
                         </FormDescription>
@@ -487,7 +509,7 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
                   name='namesTerm'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Termino (nombres)</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>Nombres</FormLabel>
                       <FormDescription className='text-[14px]'>
                         Escribe los nombres que deseas buscar.
                       </FormDescription>
@@ -511,7 +533,7 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
                   name='lastNamesTerm'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Termino (apellidos)</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>Apellidos</FormLabel>
                       <FormDescription className='text-[14px]'>
                         Escribe los apellidos que deseas buscar.
                       </FormDescription>

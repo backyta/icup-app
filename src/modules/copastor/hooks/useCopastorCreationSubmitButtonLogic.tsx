@@ -13,7 +13,6 @@ interface Options {
   memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  isMessageErrorDisabled: boolean;
   isInputDisabled: boolean;
 }
 
@@ -22,7 +21,6 @@ export const useCopastorCreationSubmitButtonLogic = ({
   memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
-  isMessageErrorDisabled,
   isInputDisabled,
 }: Options): void => {
   //* Watchers

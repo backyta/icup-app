@@ -186,7 +186,7 @@ export function SearchByTermChurchDataTable<TData, TValue>({
           {/* Search Terms */}
           <div>
             <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
-              Termino de búsqueda:
+              Término de búsqueda:
             </span>{' '}
             {(dataForm?.searchType === ChurchSearchType.ChurchName ||
               dataForm?.searchType === ChurchSearchType.Department ||

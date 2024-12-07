@@ -222,7 +222,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            className='w-full flex flex-col md:grid gap-x-8 gap-y-4'
+            className='w-full flex flex-col md:grid md:grid-cols-2 gap-x-8 gap-y-4'
           >
             <div className='md:col-start-1 md:col-end-2'>
               <FormField
@@ -526,7 +526,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
-                        Comentarios
+                        Detalles / Observaciones
                         <span className='ml-3 inline-block bg-orange-200 text-orange-600 border text-[10px] font-bold uppercase px-2 py-[2px] rounded-full mr-1'>
                           Requerido
                         </span>
@@ -541,8 +541,8 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                           disabled={isInputDisabled}
                           placeholder={`${
                             type === OfferingExpenseSearchType.ExpensesAdjustment
-                              ? `Comentarios sobre el ajuste de salida...`
-                              : 'Comentarios sobre el registro de salida...'
+                              ? `Detalles y/u observaciones sobre el ajuste de salida...`
+                              : 'Detalles y/u observaciones sobre el registro de salida...'
                           }`}
                           {...field}
                         />

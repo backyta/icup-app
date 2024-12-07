@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-misused-promises */
 
 import { useEffect, useState } from 'react';
 
@@ -112,7 +112,7 @@ export const PreacherCreatePage = (): JSX.Element => {
       district: '',
       address: '',
       referenceAddress: '',
-      roles: [MemberRole.Disciple],
+      roles: [MemberRole.Preacher],
       theirCopastor: '',
       theirSupervisor: '',
     },
@@ -146,7 +146,6 @@ export const PreacherCreatePage = (): JSX.Element => {
     preacherCreationForm: form,
     memberRoles: MemberRole,
     isInputDisabled,
-    isMessageErrorDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
   });

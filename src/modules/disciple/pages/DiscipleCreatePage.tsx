@@ -125,7 +125,6 @@ export const DiscipleCreatePage = (): JSX.Element => {
     discipleCreationForm: form,
     memberRoles: MemberRole,
     isInputDisabled,
-    isMessageErrorDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
   });

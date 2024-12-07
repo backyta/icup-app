@@ -4,6 +4,6 @@ export * from './useOfferingIncomeFileDropZone';
 export * from './useOfferingIncomeSetData';
 export * from './useOfferingIncomeUpdateSubmitButtonLogic';
 export * from './useOfferingIncomeUpdateMutation';
-export * from './useOfferingIncomeDeletionMutation';
+export * from './useOfferingIncomeInactivationMutation';
 export * from './useOfferingIncomeCurrencyExchangeMutation';
 

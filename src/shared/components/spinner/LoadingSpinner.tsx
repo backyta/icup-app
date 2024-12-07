@@ -35,47 +35,47 @@ export const LoadingSpinner = (): JSX.Element => {
         (pathname === '/churches/general-search' ||
           pathname === '/churches/search-by-term' ||
           pathname === '/churches/update' ||
-          pathname === '/churches/delete' ||
+          pathname === '/churches/inactivate' ||
           pathname === '/pastors/general-search' ||
           pathname === '/pastors/search-by-term' ||
           pathname === '/pastors/update' ||
-          pathname === '/pastors/delete' ||
+          pathname === '/pastors/inactivate' ||
           pathname === '/copastors/general-search' ||
           pathname === '/copastors/search-by-term' ||
           pathname === '/copastors/update' ||
-          pathname === '/copastors/delete' ||
+          pathname === '/copastors/inactivate' ||
           pathname === '/supervisors/general-search' ||
           pathname === '/supervisors/search-by-term' ||
           pathname === '/supervisors/update' ||
-          pathname === '/supervisors/delete' ||
+          pathname === '/supervisors/inactivate' ||
           pathname === '/preachers/general-search' ||
           pathname === '/preachers/search-by-term' ||
           pathname === '/preachers/update' ||
-          pathname === '/preachers/delete' ||
+          pathname === '/preachers/inactivate' ||
           pathname === '/disciples/general-search' ||
           pathname === '/disciples/search-by-term' ||
           pathname === '/disciples/update' ||
-          pathname === '/disciples/delete' ||
+          pathname === '/disciples/inactivate' ||
           pathname === '/family-groups/general-search' ||
           pathname === '/family-groups/search-by-term' ||
           pathname === '/family-groups/update' ||
-          pathname === '/family-groups/delete' ||
+          pathname === '/family-groups/inactivate' ||
           pathname === '/zones/general-search' ||
           pathname === '/zones/search-by-term' ||
           pathname === '/zones/update' ||
-          pathname === '/zones/delete' ||
+          pathname === '/zones/inactivate' ||
           pathname === '/offerings/income/general-search' ||
           pathname === '/offerings/income/search-by-term' ||
           pathname === '/offerings/income/update' ||
-          pathname === '/offerings/income/delete' ||
+          pathname === '/offerings/income/inactivate' ||
           pathname === '/offerings/expenses/general-search' ||
           pathname === '/offerings/expenses/search-by-term' ||
           pathname === '/offerings/expenses/update' ||
-          pathname === '/offerings/expenses/delete' ||
+          pathname === '/offerings/expenses/inactivate' ||
           pathname === '/users/general-search' ||
           pathname === '/users/search-by-term' ||
           pathname === '/users/update' ||
-          pathname === '/users/delete' ||
+          pathname === '/users/inactivate' ||
           pathname === '/dashboard') &&
           'min-h-screen',
         (pathname === '/metrics/member' ||

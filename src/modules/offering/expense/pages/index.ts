@@ -1,5 +1,5 @@
 export * from './OfferingExpenseCreatePage';
-export * from './OfferingExpenseDeletePage';
+export * from './OfferingExpenseInactivatePage';
 export * from './OfferingExpenseOptionsPage';
 export * from './OfferingsExpenseGeneralSearchPage';
 export * from './OfferingsExpenseSearchPageByTerm';

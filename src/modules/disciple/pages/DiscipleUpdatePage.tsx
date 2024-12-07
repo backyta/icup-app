@@ -349,7 +349,25 @@ export const DiscipleUpdatePage = (): JSX.Element => {
                   name='inputTerm'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>
+                        {searchType === DiscipleSearchType.OriginCountry
+                          ? `País de origen`
+                          : searchType === DiscipleSearchType.Department
+                            ? 'Departamento'
+                            : searchType === DiscipleSearchType.Province
+                              ? 'Provincia'
+                              : searchType === DiscipleSearchType.District
+                                ? 'Distrito'
+                                : searchType === DiscipleSearchType.UrbanSector
+                                  ? 'Sector Urbano'
+                                  : searchType === DiscipleSearchType.ZoneName
+                                    ? 'Nombre de zona'
+                                    : searchType === DiscipleSearchType.FamilyGroupCode
+                                      ? 'Código de grupo familiar'
+                                      : searchType === DiscipleSearchType.FamilyGroupName
+                                        ? 'Nombre de grupo familiar'
+                                        : 'Dirección'}
+                      </FormLabel>
                       <FormDescription className='text-[14px]'>
                         Escribe aquí lo que deseas buscar.
                       </FormDescription>
@@ -372,7 +390,7 @@ export const DiscipleUpdatePage = (): JSX.Element => {
                   name='dateTerm'
                   render={({ field }) => (
                     <FormItem className=''>
-                      <FormLabel className='text-[14px] font-bold'>Termino (fecha)</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>Fecha</FormLabel>
                       <FormDescription className='text-[14px]'>
                         Buscar por fecha o rango de fechas.
                       </FormDescription>
@@ -433,7 +451,15 @@ export const DiscipleUpdatePage = (): JSX.Element => {
                   render={({ field }) => {
                     return (
                       <FormItem>
-                        <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
+                        <FormLabel className='text-[14px] font-bold'>
+                          {searchType === DiscipleSearchType.Gender
+                            ? `Género`
+                            : searchType === DiscipleSearchType.BirthMonth
+                              ? 'Mes de nacimiento'
+                              : searchType === DiscipleSearchType.MaritalStatus
+                                ? 'Estado civil'
+                                : 'Estado de registro'}
+                        </FormLabel>
                         <FormDescription className='text-[14px]'>
                           Selecciona una opción de búsqueda.
                         </FormDescription>
@@ -488,7 +514,7 @@ export const DiscipleUpdatePage = (): JSX.Element => {
                   name='namesTerm'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Termino (nombres)</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>Nombres</FormLabel>
                       <FormDescription className='text-[14px]'>
                         Escribe los nombres que deseas buscar.
                       </FormDescription>
@@ -512,7 +538,7 @@ export const DiscipleUpdatePage = (): JSX.Element => {
                   name='lastNamesTerm'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Termino (apellidos)</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>Apellidos</FormLabel>
                       <FormDescription className='text-[14px]'>
                         Escribe los apellidos que deseas buscar.
                       </FormDescription>

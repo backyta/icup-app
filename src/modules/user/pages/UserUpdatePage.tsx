@@ -216,7 +216,10 @@ export const UserUpdatePage = (): JSX.Element => {
                   render={({ field }) => {
                     return (
                       <FormItem>
-                        <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
+                        <FormLabel className='text-[14px] font-bold'>
+                          {' '}
+                          {searchType === UserSearchType.Gender ? `Género` : 'Estado de registro'}
+                        </FormLabel>
                         <FormDescription className='text-[14px]'>
                           Selecciona una opción de búsqueda.
                         </FormDescription>
@@ -267,7 +270,7 @@ export const UserUpdatePage = (): JSX.Element => {
                   name='namesTerm'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Termino (nombres)</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>Nombres</FormLabel>
                       <FormDescription className='text-[14px]'>
                         Escribe los nombres que deseas buscar.
                       </FormDescription>
@@ -291,7 +294,7 @@ export const UserUpdatePage = (): JSX.Element => {
                   name='lastNamesTerm'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Termino (apellidos)</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>Apellidos</FormLabel>
                       <FormDescription className='text-[14px]'>
                         Escribe los apellidos que deseas buscar.
                       </FormDescription>

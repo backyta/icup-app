@@ -406,19 +406,19 @@ export const updateSupervisor = async ({id, formData}: UpdateSupervisorOptions )
   }
 }
 
-//! Delete supervisor by ID
+//! Inactivate supervisor by ID
 export interface InactivateSupervisorOptions {
   id: string;
-  inactivationCategory: string;
-  inactivationReason: string;
+  memberInactivationCategory: string;
+  memberInactivationReason: string;
 }
 
-export const inactivateSupervisor = async ({id, inactivationCategory, inactivationReason} : InactivateSupervisorOptions): Promise<void> => {
+export const inactivateSupervisor = async ({id, memberInactivationCategory, memberInactivationReason} : InactivateSupervisorOptions): Promise<void> => {
   try {
     const {data} = await icupApi.delete(`/supervisors/${id}`, {
       params: {
-        inactivationReason,
-        inactivationCategory,
+        memberInactivationReason,
+        memberInactivationCategory,
       },
     })
 

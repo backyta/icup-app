@@ -81,6 +81,9 @@ import { Button } from '@/shared/components/ui/button';
 import { Calendar } from '@/shared/components/ui/calendar';
 import { Textarea } from '@/shared/components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
+import { Checkbox } from '@/shared/components/ui/checkbox';
+import { GenderNames } from '@/shared/enums';
+import { getExternalDonors } from '../services';
 
 type QueryDataResponse =
   | DiscipleResponse[]
@@ -95,6 +98,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   const [isInputFamilyGroupOpen, setIsInputFamilyGroupOpen] = useState<boolean>(false);
   const [isInputChurchOpen, setIsInputChurchOpen] = useState<boolean>(false);
   const [isInputDateOpen, setIsInputDateOpen] = useState<boolean>(false);
+  const [isInputDonorOpen, setIsInputDonorOpen] = useState<boolean>(false);
+  const [isInputBirthDateOpen, setIsInputBirthDateOpen] = useState<boolean>(false);
 
   const [queryData, setQueryData] = useState<QueryDataResponse>();
 
@@ -141,6 +146,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   const churchId = form.watch('churchId');
   const subType = form.watch('subType');
   const category = form.watch('category');
+  const isNewDonor = form.watch('isNewDonor');
   const memberType = form.watch('memberType');
 
   //* Custom hooks
@@ -157,6 +163,12 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   });
 
   //* Queries
+
+  const { data } = useQuery({
+    queryKey: ['external-donors'],
+    queryFn: getExternalDonors,
+  });
+
   const churchesQuery = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
@@ -256,6 +268,18 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
         type: formData.type,
         subType: formData.subType,
         category: formData.category,
+        isNewDonor: formData.isNewDonor,
+        donorId: formData.donorId,
+        donorFirstName: formData.donorFirstName,
+        donorLastName: formData.donorLastName,
+        donorGender: formData.donorGender,
+        donorBirthDate: formData.donorBirthDate,
+        donorEmail: formData.donorEmail,
+        donorPhoneNumber: formData.donorPhoneNumber,
+        donorOriginCountry: formData.donorOriginCountry,
+        donorResidenceCountry: formData.donorResidenceCountry,
+        donorResidenceCity: formData.donorResidenceCity,
+        donorPostalCode: formData.donorPostalCode,
         shift: formData.shift,
         amount: formData.amount,
         currency: formData.currency,
@@ -302,7 +326,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
-            className='w-full flex flex-col md:grid gap-x-8 gap-y-4'
+            className='w-full flex flex-col md:grid grid-cols-2 gap-x-8 gap-y-4'
           >
             <div className='md:col-start-1 md:col-end-2'>
               <FormField
@@ -487,7 +511,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                               {field.value ? (
                                 <SelectValue placeholder='Selecciona una categoría de ofrenda' />
                               ) : (
-                                'Selecciona una categoría de ofrenda'
+                                'Selecciona una categoría'
                               )}
                             </SelectTrigger>
                           </FormControl>
@@ -544,6 +568,471 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 />
               )}
 
+              {category === OfferingIncomeCreationCategory.ExternalDonation && (
+                <FormField
+                  control={form.control}
+                  name='isNewDonor'
+                  render={({ field }) => (
+                    <FormItem className='flex flex-row gap-2 items-end mt-3 px-1 py-3 h-[2.5rem]'>
+                      <FormControl>
+                        <Checkbox
+                          disabled={isInputDisabled}
+                          checked={field?.value}
+                          onCheckedChange={(checked) => {
+                            form.resetField('donorFirstName', { keepDirty: true });
+                            form.resetField('donorLastName', { keepDirty: true });
+                            form.resetField('donorGender', { keepDirty: true });
+                            form.resetField('donorBirthDate', { keepDirty: true });
+                            form.resetField('donorEmail', { keepDirty: true });
+                            form.resetField('donorPhoneNumber', { keepDirty: true });
+                            form.resetField('donorOriginCountry', { keepDirty: true });
+                            form.resetField('donorResidenceCountry', { keepDirty: true });
+                            form.resetField('donorResidenceCity', { keepDirty: true });
+                            form.resetField('donorPostalCode', { keepDirty: true });
+                            form.resetField('donorId', { keepDirty: true });
+                            field.onChange(checked);
+                          }}
+                        />
+                      </FormControl>
+                      <div className='space-y-1 leading-none'>
+                        <FormLabel className='text-[13px] md:text-[14px]'>
+                          ¿Esta persona es un nuevo donante?
+                        </FormLabel>
+                      </div>
+                    </FormItem>
+                  )}
+                />
+              )}
+
+              {category === OfferingIncomeCreationCategory.ExternalDonation && !isNewDonor && (
+                <FormField
+                  control={form.control}
+                  name='donorId'
+                  render={({ field }) => {
+                    return (
+                      <FormItem className='mt-3'>
+                        <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                          Donante
+                        </FormLabel>
+                        <FormDescription className='text-[14px]'>
+                          Asigna un donante para este registro.
+                        </FormDescription>
+                        <Popover open={isInputDonorOpen} onOpenChange={setIsInputDonorOpen}>
+                          <PopoverTrigger asChild>
+                            <FormControl>
+                              <Button
+                                disabled={isInputDisabled}
+                                variant='outline'
+                                role='combobox'
+                                className={cn('w-full justify-between ')}
+                              >
+                                {field.value
+                                  ? `${data?.find((donor) => donor.id === field.value)?.firstName} ${data?.find((donor) => donor.id === field.value)?.lastName}`
+                                  : 'Busque y seleccione un donante'}
+                                <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                              </Button>
+                            </FormControl>
+                          </PopoverTrigger>
+                          <PopoverContent align='center' className='w-auto px-4 py-2'>
+                            <Command>
+                              {data?.length && data?.length > 0 ? (
+                                <>
+                                  <CommandInput
+                                    placeholder='Busque un donante'
+                                    className='h-9 text-[14px]'
+                                  />
+                                  <CommandEmpty>Donante no encontrado.</CommandEmpty>
+                                  <CommandGroup className='max-h-[200px] h-auto'>
+                                    {data?.map((donor) => (
+                                      <CommandItem
+                                        className='text-[14px]'
+                                        value={getFullNames({
+                                          firstNames: donor?.firstName ?? '',
+                                          lastNames: donor?.lastName ?? '',
+                                        })}
+                                        key={donor?.id}
+                                        onSelect={() => {
+                                          form.setValue('donorId', donor?.id);
+                                          setIsInputDonorOpen(false);
+                                        }}
+                                      >
+                                        {`${donor?.firstName} ${donor?.lastName}`}
+                                        <CheckIcon
+                                          className={cn(
+                                            'ml-auto h-4 w-4',
+                                            donor.id === field.value ? 'opacity-100' : 'opacity-0'
+                                          )}
+                                        />
+                                      </CommandItem>
+                                    ))}
+
+                                    {data?.length === 0 && (
+                                      <p className='text-[14.5px] text-red-500 text-center'>
+                                        ❌No hay donantes disponibles.
+                                      </p>
+                                    )}
+                                  </CommandGroup>
+                                </>
+                              ) : (
+                                (!data || data?.length === 0) && (
+                                  <p className='text-[14.5px] text-red-500 text-center'>
+                                    ❌No hay donantes no disponibles.
+                                  </p>
+                                )
+                              )}
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+              )}
+
+              {category === OfferingIncomeCreationCategory.ExternalDonation && isNewDonor && (
+                <div className='flex flex-col md:grid md:grid-cols-1 w-full rounded-md p-3 border-2 dark:border-yellow-500 border-emerald-500'>
+                  <span className='text-[14px] italic font-semibold text-blue-500 dark:text-orange-500'>
+                    Por favor llena los siguientes datos para registrar al donante.
+                  </span>
+                  <div className='flex flex-col md:flex-row w-full md:gap-6 mt-2'>
+                    <FormField
+                      control={form.control}
+                      name='donorFirstName'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='w-full'>
+                            <div className='flex justify-between items-center'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold dark:text-amber-500 text-emerald-500'>
+                                Nombres
+                              </FormLabel>
+                              <span className='ml-3 inline-block bg-red-200 text-red-600 border text-[9px] md:text-[10px] font-semibold uppercase px-2 py-[1px] rounded-full mr-1'>
+                                Requerido
+                              </span>
+                            </div>
+                            <FormControl>
+                              <Input
+                                className='text-[14px]'
+                                disabled={isInputDisabled}
+                                placeholder='Ejem: Ramiro Ignacio'
+                                type='text'
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        );
+                      }}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name='donorLastName'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='mt-3 md:mt-0 w-full'>
+                            <div className='flex justify-between items-center'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold dark:text-amber-500 text-emerald-500'>
+                                Apellidos
+                              </FormLabel>
+                              <span className='ml-3 inline-block bg-red-200 text-red-600 border text-[9px] md:text-[10px] font-semibold uppercase px-2 py-[1px] rounded-full mr-1'>
+                                Requerido
+                              </span>
+                            </div>
+                            <FormControl>
+                              <Input
+                                disabled={isInputDisabled}
+                                placeholder='Ejem: Saavedra Ramirez'
+                                type='text'
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        );
+                      }}
+                    />
+                  </div>
+
+                  <div className='flex flex-col md:flex-row w-full md:gap-6 mt-2'>
+                    <FormField
+                      control={form.control}
+                      name='donorGender'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='mt-0 md:mt-0 w-full'>
+                            <div className='flex justify-between items-center'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold dark:text-amber-500 text-emerald-500'>
+                                Género
+                              </FormLabel>
+                              <span className='ml-3 inline-block bg-red-200 text-red-600 border text-[9px] md:text-[10px] font-semibold uppercase px-2 py-[1px] rounded-full mr-1'>
+                                Requerido
+                              </span>
+                            </div>
+                            <Select
+                              onValueChange={field.onChange}
+                              value={field.value}
+                              disabled={isInputDisabled}
+                            >
+                              <FormControl>
+                                <SelectTrigger>
+                                  {field.value ? (
+                                    <SelectValue placeholder='Selecciona el tipo de Género' />
+                                  ) : (
+                                    'Selecciona el tipo de género'
+                                  )}
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {Object.entries(GenderNames).map(([key, value]) => (
+                                  <SelectItem className={`text-[14px]`} key={key} value={key}>
+                                    {value}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        );
+                      }}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name='donorBirthDate'
+                      render={({ field }) => (
+                        <FormItem className='mt-3 md:mt-0 w-full'>
+                          <div className='flex justify-between items-center'>
+                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold dark:text-amber-500 text-emerald-500'>
+                              Fecha de nacimiento
+                            </FormLabel>
+                            <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[9px] md:text-[10px] font-semibold uppercase px-2 py-[1px] rounded-full mr-1'>
+                              Opcional
+                            </span>
+                          </div>
+                          <Popover
+                            open={isInputBirthDateOpen}
+                            onOpenChange={setIsInputBirthDateOpen}
+                          >
+                            <PopoverTrigger asChild>
+                              <FormControl className='flex'>
+                                <Button
+                                  disabled={isInputDisabled}
+                                  variant={'outline'}
+                                  className={cn(
+                                    'w-full pl-3 text-left font-normal',
+                                    !field.value && 'text-muted-foreground'
+                                  )}
+                                >
+                                  {field.value ? (
+                                    format(field.value, 'LLL dd, y', { locale: es })
+                                  ) : (
+                                    <span className='text-[14px]'>Selecciona la fecha</span>
+                                  )}
+                                  <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
+                                </Button>
+                              </FormControl>
+                            </PopoverTrigger>
+                            <PopoverContent className='w-auto p-0' align='start'>
+                              <Calendar
+                                mode='single'
+                                selected={field.value}
+                                onSelect={(date) => {
+                                  field.onChange(date);
+                                  setIsInputBirthDateOpen(false);
+                                }}
+                                disabled={(date) =>
+                                  date > new Date() || date < new Date('1900-01-01')
+                                }
+                                initialFocus
+                              />
+                            </PopoverContent>
+                          </Popover>
+
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className='flex flex-col md:flex-row w-full md:gap-6 mt-3'>
+                    <FormField
+                      control={form.control}
+                      name='donorEmail'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='mt-3 md:mt-0 w-full'>
+                            <div className='flex justify-between items-center'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold dark:text-amber-500 text-emerald-500'>
+                                E-mail
+                              </FormLabel>
+                              <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[9px] md:text-[10px] font-semibold uppercase px-2 py-[1px] rounded-full mr-1'>
+                                Opcional
+                              </span>
+                            </div>
+                            <FormControl>
+                              <Input
+                                disabled={isInputDisabled}
+                                placeholder='Ejem: pedro123@gmail.com'
+                                type='email'
+                                autoComplete='username'
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        );
+                      }}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name='donorPhoneNumber'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='mt-3 md:mt-0 w-full'>
+                            <div className='flex justify-between items-center'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold dark:text-amber-500 text-emerald-500'>
+                                Número de teléfono
+                              </FormLabel>
+                              <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[9px] md:text-[10px] font-semibold uppercase px-2 py-[1px] rounded-full mr-1'>
+                                Opcional
+                              </span>
+                            </div>
+                            <FormControl>
+                              <Input
+                                disabled={isInputDisabled}
+                                placeholder='Ejem: +51 999 999 999'
+                                type='text'
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        );
+                      }}
+                    />
+                  </div>
+
+                  <div className='flex flex-col md:flex-row w-full md:gap-6 mt-2'>
+                    <FormField
+                      control={form.control}
+                      name='donorOriginCountry'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='mt-0 md:mt-0 w-full'>
+                            <div className='flex justify-between items-center'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold dark:text-amber-500 text-emerald-500'>
+                                País de origen
+                              </FormLabel>
+                              <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[9px] md:text-[10px] font-semibold uppercase px-2 py-[1px] rounded-full mr-1'>
+                                Opcional
+                              </span>
+                            </div>
+                            <FormControl>
+                              <Input
+                                disabled={isInputDisabled}
+                                placeholder='Ejem:  EE.UU, Italia, Mexico...'
+                                type='text'
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        );
+                      }}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name='donorResidenceCountry'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='mt-3 md:mt-0 w-full'>
+                            <div className='flex justify-between items-center'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold dark:text-amber-500 text-emerald-500'>
+                                País de residencia
+                              </FormLabel>
+                              <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[9px] md:text-[10px] font-semibold uppercase px-2 py-[1px] rounded-full mr-1'>
+                                Opcional
+                              </span>
+                            </div>
+                            <FormControl>
+                              <Input
+                                disabled={isInputDisabled}
+                                placeholder='Ejem: Peru , Colombia, Argentina...'
+                                type='text'
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        );
+                      }}
+                    />
+                  </div>
+
+                  <div className='flex flex-col md:flex-row w-full md:gap-6 mt-2'>
+                    <FormField
+                      control={form.control}
+                      name='donorResidenceCity'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='mt-0 md:mt-0 w-full'>
+                            <div className='flex justify-between items-center'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold dark:text-amber-500 text-emerald-500'>
+                                Ciudad de residencia
+                              </FormLabel>
+                              <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[9px] md:text-[10px] font-semibold uppercase px-2 py-[1px] rounded-full mr-1'>
+                                Opcional
+                              </span>
+                            </div>
+                            <FormControl>
+                              <Input
+                                disabled={isInputDisabled}
+                                placeholder='Ejem:  Madrid, Paris, Lima...'
+                                type='text'
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        );
+                      }}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name='donorPostalCode'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='mt-3 md:mt-0 w-full'>
+                            <div className='flex justify-between items-center'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold dark:text-amber-500 text-emerald-500'>
+                                Código Postal
+                              </FormLabel>
+                              <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[9px] md:text-[10px] font-semibold uppercase px-2 py-[1px] rounded-full mr-1'>
+                                Opcional
+                              </span>
+                            </div>
+                            <FormControl>
+                              <Input
+                                disabled={isInputDisabled}
+                                placeholder='Ejem:  000133, 000154...'
+                                type='text'
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                            <FormMessage />
+                          </FormItem>
+                        );
+                      }}
+                    />
+                  </div>
+                </div>
+              )}
+
               {((type === OfferingIncomeCreationType.Offering &&
                 subType === OfferingIncomeCreationSubType.Special &&
                 category === OfferingIncomeCreationCategory.InternalDonation) ||
@@ -580,11 +1069,14 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            {Object.entries(MemberTypeNames).map(([key, value]) => (
-                              <SelectItem className={`text-[14px]`} key={key} value={key}>
-                                {value}
-                              </SelectItem>
-                            ))}
+                            {Object.entries(MemberTypeNames).map(
+                              ([key, value]) =>
+                                key !== MemberType.ExternalDonor && (
+                                  <SelectItem className={`text-[14px]`} key={key} value={key}>
+                                    {value}
+                                  </SelectItem>
+                                )
+                            )}
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -1048,7 +1540,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
-                        Comentarios
+                        Detalles / Observaciones
                         {type !== OfferingIncomeCreationType.IncomeAdjustment && (
                           <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
                             Opcional
@@ -1070,8 +1562,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           disabled={isInputDisabled}
                           placeholder={`${
                             type === OfferingIncomeCreationType.IncomeAdjustment
-                              ? `Comentarios sobre el ajuste de ingreso...`
-                              : 'Comentarios sobre el registro de la ofrenda...'
+                              ? `Detalles y/u observaciones sobre el ajuste de ingreso...`
+                              : 'Detalles y/u observaciones sobre el registro de la ofrenda...'
                           }`}
                           {...field}
                         />

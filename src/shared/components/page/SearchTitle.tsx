@@ -8,12 +8,18 @@ interface PageTitleProps {
   isGeneralSearch?: boolean;
   isByTypeSearch?: boolean;
   isUpdateSearch?: boolean;
-  isDeleteSearch?: boolean;
+  isInactivateSearch?: boolean;
 }
 
 export const SearchTitle = (props: PageTitleProps): JSX.Element => {
-  const { className, titleName, isGeneralSearch, isByTypeSearch, isUpdateSearch, isDeleteSearch } =
-    props;
+  const {
+    className,
+    titleName,
+    isGeneralSearch,
+    isByTypeSearch,
+    isUpdateSearch,
+    isInactivateSearch,
+  } = props;
 
   return (
     <>
@@ -45,7 +51,7 @@ export const SearchTitle = (props: PageTitleProps): JSX.Element => {
           </span>
         )}
 
-        {isDeleteSearch && (
+        {isInactivateSearch && (
           <span className='ml-3 bg-red-300 text-slate-600 border text-center text-[10px] mt-[0.6rem] sm:mt-3 px-2 2xl:mt-6 rounded-full font-bold uppercase'>
             Inactivar
           </span>

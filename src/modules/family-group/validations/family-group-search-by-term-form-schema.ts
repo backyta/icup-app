@@ -129,7 +129,7 @@ export const familyGroupSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El termino es requerido.',
+      message: 'El Término es requerido.',
       path: ['inputTerm'],
     }
   )

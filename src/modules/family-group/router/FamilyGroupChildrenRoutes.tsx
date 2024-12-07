@@ -1,7 +1,7 @@
 import {
   FamilyGroupCreatePage,
   FamilyGroupUpdatePage,
-  FamilyGroupDeletePage,
+  FamilyGroupInactivatePage,
   FamilyGroupsSearchPageByTerm,
   FamilyGroupsGeneralSearchPage,
 } from '@/modules/family-group/pages';
@@ -24,7 +24,7 @@ export const FamilyGroupChildrenRoutes = [
     element: <FamilyGroupUpdatePage />,
   },
   {
-    path: '/family-groups/delete',
-    element: <FamilyGroupDeletePage />,
+    path: '/family-groups/inactivate',
+    element: <FamilyGroupInactivatePage />,
   },
 ];

@@ -10,7 +10,7 @@ import {
   OfferingIncomeCreationCategory
 } from '@/modules/offering/income/enums';
 
-import { RecordStatus } from '@/shared/enums';
+import { Gender, RecordStatus } from '@/shared/enums';
 import { CurrencyType  } from '@/modules/offering/shared/enums';
 
 export const offeringIncomeFormSchema = z
@@ -30,6 +30,56 @@ export const offeringIncomeFormSchema = z
     category: z.string(z.nativeEnum(OfferingIncomeCreationCategory,{
       required_error: "Por favor seleccione una opción.",
     })).optional(),
+
+    isNewDonor: z.boolean().optional(),
+
+    donorId: z.string({required_error: 
+      'Por favor asigne un donante al registro.'}).optional(),
+
+    donorFirstName: z.string()
+    .min(1, { message: 'El campo debe contener al menos 1 carácter.'})
+    .max(50, { message: 'El campo debe contener máximo 50 caracteres.'}).optional(),
+
+    donorLastName: z.string()
+    .min(1, { message: 'El campo debe contener al menos 1 carácter.'})
+    .max(50, { message: 'El campo debe contener máximo 50 caracteres.'}).optional(),
+
+    donorGender: z.string(z.nativeEnum(Gender, {
+      required_error: "Por favor seleccione una opción válida.",
+    })).refine((value) => value !== undefined && value.trim() !== '',
+      { message: "Por favor seleccione una opción válida." }
+    ).optional(),
+
+    donorBirthDate: z.date({
+      required_error: "Por favor selecciona una fecha.",
+    }).optional(),
+
+    donorEmail: z.string().email({ message: "Email invalido." }).optional(),
+
+    donorPhoneNumber:z.string()
+    .min(6, { message: 'El campo debe tener al menos 6 dígitos.' })
+    .max(20, { message: 'El campo debe tener un máximo de 20 dígitos.' })
+    .refine(value => {
+      return /^[0-9+\-\s]+$/.test(value);
+    }, {
+      message: 'El campo solo debe contener números, "+", "-" y espacios',
+    }).optional(),
+
+    donorOriginCountry: z.string()
+    .min(1, { message: 'El campo debe contener al menos 1 carácter.'})
+    .max(40, { message: 'El campo debe contener máximo 40 caracteres.'}).optional(),
+
+    donorResidenceCountry: z.string()
+    .min(1, { message: 'El campo debe contener al menos 1 carácter.'})
+    .max(40, { message: 'El campo debe contener máximo 40 caracteres.'}).optional(),
+
+    donorResidenceCity: z.string()
+    .min(1, { message: 'El campo debe contener al menos 1 carácter.'})
+    .max(40, { message: 'El campo debe contener máximo 40 caracteres.'}).optional(),
+
+    donorPostalCode: z.string()
+    .min(1, { message: 'El campo debe contener al menos 1 carácter.'})
+    .max(40, { message: 'El campo debe contener máximo 40 caracteres.'}).optional(),
 
     shift: z.string(z.nativeEnum(OfferingIncomeCreationShiftType,{
       required_error: "Por favor seleccione una opción.",

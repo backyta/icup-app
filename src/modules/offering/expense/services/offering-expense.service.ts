@@ -217,17 +217,17 @@ export const updateOfferingExpense = async ({id, formData}: UpdateOfferingExpens
   }
 }
 
-//! Delete offering expense by ID
-export interface DeleteOfferingExpenseOptions {
+//! Inactivate  offering expense by ID
+export interface InactivateOfferingExpenseOptions {
   id: string;
-  reasonEliminationType: string;
+  offeringInactivationReason: string;
 }
 
-export const deleteOfferingExpense = async ({id, reasonEliminationType}: DeleteOfferingExpenseOptions ): Promise<void> => {
+export const inactivateOfferingExpense = async ({id, offeringInactivationReason}: InactivateOfferingExpenseOptions ): Promise<void> => {
   try {
     const {data} = await icupApi.delete(`/offering-expenses/${id}`,{
       params: {
-        reasonEliminationType,
+        offeringInactivationReason,
       },
     })
 

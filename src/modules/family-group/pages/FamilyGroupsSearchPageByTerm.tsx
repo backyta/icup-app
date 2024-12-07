@@ -311,7 +311,23 @@ export const FamilyGroupsSearchPageByTerm = (): JSX.Element => {
                   name='inputTerm'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>
+                        {searchType === FamilyGroupSearchType.Department
+                          ? 'Departamento'
+                          : searchType === FamilyGroupSearchType.Province
+                            ? 'Provincia'
+                            : searchType === FamilyGroupSearchType.District
+                              ? 'Distrito'
+                              : searchType === FamilyGroupSearchType.UrbanSector
+                                ? 'Sector Urbano'
+                                : searchType === FamilyGroupSearchType.ZoneName
+                                  ? 'Nombre de zona'
+                                  : searchType === FamilyGroupSearchType.FamilyGroupCode
+                                    ? 'Código de grupo familiar'
+                                    : searchType === FamilyGroupSearchType.FamilyGroupName
+                                      ? 'Nombre de grupo familiar'
+                                      : 'Dirección'}
+                      </FormLabel>
                       <FormDescription className='text-[14px]'>
                         Escribe aquí lo que deseas buscar.
                       </FormDescription>
@@ -335,7 +351,7 @@ export const FamilyGroupsSearchPageByTerm = (): JSX.Element => {
                   render={({ field }) => {
                     return (
                       <FormItem>
-                        <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
+                        <FormLabel className='text-[14px] font-bold'>Estado de registro</FormLabel>
                         <FormDescription className='text-[14px]'>
                           Selecciona una opción de búsqueda.
                         </FormDescription>
@@ -385,7 +401,7 @@ export const FamilyGroupsSearchPageByTerm = (): JSX.Element => {
                   name='namesTerm'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Termino (nombres)</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>nombres</FormLabel>
                       <FormDescription className='text-[14px]'>
                         Escribe los nombres que deseas buscar.
                       </FormDescription>
@@ -409,7 +425,7 @@ export const FamilyGroupsSearchPageByTerm = (): JSX.Element => {
                   name='lastNamesTerm'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Termino (apellidos)</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>Apellidos</FormLabel>
                       <FormDescription className='text-[14px]'>
                         Escribe los apellidos que deseas buscar.
                       </FormDescription>
@@ -480,7 +496,9 @@ export const FamilyGroupsSearchPageByTerm = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[13px] md:text-[14px]'>Todos</FormLabel>
+                          <FormLabel className='text-[13px] md:text-[14px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </FormItem>
                     )}

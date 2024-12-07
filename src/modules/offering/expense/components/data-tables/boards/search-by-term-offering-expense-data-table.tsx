@@ -238,7 +238,7 @@ export function SearchByTermOfferingExpenseDataTable<TData, TValue>({
           {/* Search Terms */}
           <div>
             <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
-              Termino de búsqueda:
+              Término de búsqueda:
             </span>{' '}
             {(dataForm?.searchType === OfferingExpenseSearchType.PlaningEventsExpenses ||
               dataForm?.searchType === OfferingExpenseSearchType.DecorationExpenses ||
@@ -248,18 +248,7 @@ export function SearchByTermOfferingExpenseDataTable<TData, TValue>({
               dataForm?.searchType === OfferingExpenseSearchType.SuppliesExpenses ||
               dataForm?.searchType === OfferingExpenseSearchType.ExpensesAdjustment) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${churchesQuery?.data?.find((item) => item?.id === dataForm?.selectTerm)?.abbreviatedChurchName}`}
-              </span>
-            )}
-            {(dataForm?.searchType === OfferingExpenseSearchType.PlaningEventsExpenses ||
-              dataForm?.searchType === OfferingExpenseSearchType.DecorationExpenses ||
-              dataForm?.searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpenses ||
-              dataForm?.searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpenses ||
-              dataForm?.searchType === OfferingExpenseSearchType.OperationalExpenses ||
-              dataForm?.searchType === OfferingExpenseSearchType.SuppliesExpenses ||
-              dataForm?.searchType === OfferingExpenseSearchType.ExpensesAdjustment) && (
-              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {` - ${dataForm?.dateTerm?.from ? dateFormatterToDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${dateFormatterToDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
+                {`${dataForm?.dateTerm?.from ? dateFormatterToDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${dateFormatterToDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
               </span>
             )}
             {dataForm?.searchType === OfferingExpenseSearchType.RecordStatus && (
@@ -271,6 +260,19 @@ export function SearchByTermOfferingExpenseDataTable<TData, TValue>({
                 }`}
               </span>
             )}
+          </div>
+
+          {/* Search Church */}
+          <div>
+            <span className='dark:text-emerald-500 text-emerald-600 font-bold text-[14px] md:text-[15.5px]'>
+              Iglesia de Busqueda:
+            </span>{' '}
+            <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+              {`${
+                churchesQuery?.data?.find((church) => church.id === dataForm?.churchId)
+                  ?.abbreviatedChurchName ?? 'Todas las Iglesias'
+              }`}
+            </span>
           </div>
 
           {/* Inputs Filters */}

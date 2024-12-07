@@ -4,5 +4,5 @@ export * from './useOfferingExpenseCreationSubmitButtonLogic';
 export * from './useOfferingExpenseUpdateSubmitButtonLogic';
 export * from './useOfferingExpenseUpdateMutation';
 export * from './useOfferingExpenseSetData';
-export * from './useOfferingExpenseDeletionMutation';
+export * from './useOfferingExpenseInactivationMutation';
 

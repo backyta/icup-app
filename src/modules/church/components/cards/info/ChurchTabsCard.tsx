@@ -5,7 +5,14 @@ import { useEffect } from 'react';
 import { format, addDays } from 'date-fns';
 
 import { type ChurchResponse } from '@/modules/church/interfaces';
-import { type ChurchServiceTime, ChurchServiceTimeNames } from '@/modules/church/enums';
+import {
+  type ChurchInactivationCategory,
+  ChurchInactivationCategoryNames,
+  type ChurchInactivationReason,
+  ChurchInactivationReasonNames,
+  type ChurchServiceTime,
+  ChurchServiceTimeNames,
+} from '@/modules/church/enums';
 
 import { cn } from '@/shared/lib/utils';
 import { RecordStatus } from '@/shared/enums';
@@ -53,7 +60,6 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
     };
   }, [id]);
 
-  console.log(data?.theirMainChurch?.id);
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full grid-cols-2 px-auto'>
@@ -76,7 +82,7 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid grid-cols-3 pl-[2rem] sm:pl-[4rem] sm:pr-[5rem] gap-x-4 gap-y-2.5 md:gap-x-6 md:gap-y-5 md:pl-[4.8rem] md:pr-[2rem]'>
+          <CardContent className='grid grid-cols-3 pl-[2rem] sm:pl-[4rem] sm:pr-[5rem] gap-x-4 gap-y-2.5 md:gap-x-6 md:gap-y-4 md:pl-[4.8rem] md:pr-[2rem]'>
             <div className='space-y-1 col-start-1 col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Nombre Completo</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -262,11 +268,21 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               />
             </div>
 
-            <span className='pt-2 md:pt-0 col-start-1 col-end-4 text-[15px] md:text-[16px] font-bold text-yellow-500'>
+            <span
+              className={cn(
+                'pt-1 md:pt-0 col-start-1 col-end-4 row-start-7 row-end-8 md:row-start-auto md:row-end-auto text-[15px] md:text-[16px] font-bold text-yellow-500',
+                data?.inactivationCategory && 'col-start-1 col-end-4 row-start-7 row-end-8'
+              )}
+            >
               Información de registro
             </span>
 
-            <div className='space-y-1 flex justify-between items-center col-start-1 col-end-4 md:grid md:col-auto md:row-auto'>
+            <div
+              className={cn(
+                'space-y-1 flex justify-between items-center row-start-8 row-end-9 col-start-1 col-end-4 md:grid md:col-auto md:row-auto',
+                data?.inactivationCategory && 'row-start-8 row-end-9 col-start-1 col-end-4'
+              )}
+            >
               <Label className='text-[14px] md:text-[15px]'>Creado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdBy
@@ -278,14 +294,25 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               </CardDescription>
             </div>
 
-            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center md:grid md:col-auto md:row-auto'>
+            <div
+              className={cn(
+                'space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-9 row-end-10 md:grid  md:row-start-8 md:row-end-9 md:col-start-2 md:col-end-4',
+                data?.inactivationCategory &&
+                  'row-start-9 row-end-10 col-start-1 col-end-4 md:col-start-2 md:col-end-3 md:row-start-8 md:row-end-9'
+              )}
+            >
               <Label className='text-[14px] md:text-[15px]'>Fecha de creación</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdAt ? format(new Date(data?.createdAt), 'dd/MM/yyyy') : '-'}
               </CardDescription>
             </div>
 
-            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center md:grid md:col-auto md:row-auto'>
+            <div
+              className={cn(
+                'space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-10 row-end-11 md:grid md:row-auto  md:col-start-1 md:col-end-2',
+                data?.inactivationCategory && 'row-start-10 row-end-11 col-start-1 col-end-4'
+              )}
+            >
               <Label className='text-[14px] md:text-[15px]'>Actualizado por</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
@@ -297,7 +324,13 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               </CardDescription>
             </div>
 
-            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center md:grid md:col-start-2 md:col-end-4 md:row-auto'>
+            <div
+              className={cn(
+                'space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-11 row-end-12 md:grid md:row-auto md:col-start-2 md:col-end-4',
+                data?.inactivationCategory &&
+                  'row-start-11 row-end-12 col-start-1 col-end-4 md:row-start-9 md:row-end-10 md:col-start-2 md:col-end-4'
+              )}
+            >
               <Label className='text-[14px] md:text-[15px]'>Ultima fecha de actualización</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-right md:text-left'>
                 {data?.updatedAt
@@ -306,7 +339,13 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               </CardDescription>
             </div>
 
-            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center md:grid md:col-start-3 md:col-end-4 md:row-start-8 md:row-end-9'>
+            <div
+              className={cn(
+                'space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-12 row-end-13 md:grid md:row-start-8 md:row-end-9 md:col-start-3 md:col-end-4',
+                data?.inactivationCategory &&
+                  'row-start-12 row-end-13 col-start-1 col-end-4 md:col-start-3 md:col-end-4 md:row-start-8 md:row-end-9'
+              )}
+            >
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
               <CardDescription
                 className={cn(
@@ -317,6 +356,31 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
                 {data?.recordStatus === RecordStatus.Active ? 'Activo' : 'Inactivo'}
               </CardDescription>
             </div>
+
+            {data?.inactivationCategory && (
+              <>
+                <div className='pt-1 md:pt-0 col-start-1 col-end-4 row-start-13 row-end-14 md:row-start-auto md:row-end-auto text-[15px] md:text-[16px] font-bold text-red-500'>
+                  Información de Inactivación
+                </div>
+                <div className='flex justify-between md:grid items-center space-y-1 col-start-1 col-end-4 row-start-14 row-end-15 md:col-start-auto md:col-end-auto md:row-start-auto md:row-end-auto'>
+                  <Label className='text-[14px] md:text-[15px]'>Categoría</Label>
+                  <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                    {ChurchInactivationCategoryNames[
+                      data?.inactivationCategory as ChurchInactivationCategory
+                    ] ?? '-'}
+                  </CardDescription>
+                </div>
+
+                <div className='flex justify-between md:grid items-center col-start-1 col-end-4 row-start-15 row-end-16 md:col-start-2 md:col-end-4 md:row-start-11 md:row-end-12 space-y-1'>
+                  <Label className='text-[14px] md:text-[15px]'>Motivo o Descripción</Label>
+                  <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-right md:text-left'>
+                    {ChurchInactivationReasonNames[
+                      data?.inactivationReason as ChurchInactivationReason
+                    ] ?? '-'}
+                  </CardDescription>
+                </div>
+              </>
+            )}
           </CardContent>
         </Card>
       </TabsContent>

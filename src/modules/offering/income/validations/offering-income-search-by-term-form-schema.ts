@@ -81,8 +81,9 @@ export const offeringIncomeSearchByTermFormSchema = z
           data.searchType === OfferingIncomeSearchType.Special ||
           data.searchType === OfferingIncomeSearchType.ZonalFasting ||
           data.searchType === OfferingIncomeSearchType.ZonalVigil) &&
-          (data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorNames ||
-            data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFullName ||
+          (
+            // data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorNames ||
+            // data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFullName ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherNames ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFullName ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorNames ||
@@ -105,8 +106,9 @@ export const offeringIncomeSearchByTermFormSchema = z
           data.searchType === OfferingIncomeSearchType.Special ||
           data.searchType === OfferingIncomeSearchType.ZonalFasting ||
           data.searchType === OfferingIncomeSearchType.ZonalVigil) &&
-          (data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorLastNames ||
-            data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFullName ||
+          (
+            // data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorLastNames ||
+            // data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFullName ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherLastNames ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFullName ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorLastNames ||
@@ -137,7 +139,7 @@ export const offeringIncomeSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El termino es requerido.',
+      message: 'El Término es requerido.',
       path: ['inputTerm'],
     }
   )
@@ -157,8 +159,6 @@ export const offeringIncomeSearchByTermFormSchema = z
             data.searchType === OfferingIncomeSearchType.ChurchGround) &&
             (data.searchSubType === OfferingIncomeSearchSubType.OfferingByShift ||
               data.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate ||
-              // data.searchSubType === OfferingIncomeSearchSubType.OfferingByChurch ||
-              // data.searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate ||
               data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorNames ||
               data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorLastNames ||
               data.searchSubType ===
@@ -192,7 +192,6 @@ export const offeringIncomeSearchByTermFormSchema = z
           (data.searchSubType === OfferingIncomeSearchSubType.OfferingByDate ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCodeDate ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate ||
-            // data.searchSubType === OfferingIncomeSearchSubType.OfferingByChurchDate ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate) 
       ) {
         return !!data.dateTerm; 

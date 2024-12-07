@@ -227,7 +227,19 @@ export const ChurchesSearchPageByTerm = (): JSX.Element => {
                   name='inputTerm'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>
+                        {searchType === ChurchSearchType.ChurchName
+                          ? `Nombre de Iglesia`
+                          : searchType === ChurchSearchType.Department
+                            ? 'Departamento'
+                            : searchType === ChurchSearchType.Province
+                              ? 'Provincia'
+                              : searchType === ChurchSearchType.District
+                                ? 'Distrito'
+                                : searchType === ChurchSearchType.UrbanSector
+                                  ? 'Sector Urbano'
+                                  : 'Dirección'}
+                      </FormLabel>
                       <FormDescription className='text-[14px]'>
                         Escribe aquí lo que deseas buscar.
                       </FormDescription>
@@ -250,7 +262,7 @@ export const ChurchesSearchPageByTerm = (): JSX.Element => {
                   name='dateTerm'
                   render={({ field }) => (
                     <FormItem className=''>
-                      <FormLabel className='text-[14px] font-bold'>Termino (fecha)</FormLabel>
+                      <FormLabel className='text-[14px] font-bold'>Fecha</FormLabel>
                       <FormDescription className='text-[14px]'>
                         Buscar por fecha o rango de fechas..
                       </FormDescription>
@@ -308,7 +320,7 @@ export const ChurchesSearchPageByTerm = (): JSX.Element => {
                   render={({ field }) => {
                     return (
                       <FormItem>
-                        <FormLabel className='text-[14px] font-bold'>Termino</FormLabel>
+                        <FormLabel className='text-[14px] font-bold'>Estado de registro</FormLabel>
                         <FormDescription className='text-[14px]'>
                           Selecciona una opción de búsqueda.
                         </FormDescription>

@@ -5,19 +5,21 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
 import { type ErrorResponse } from '@/shared/interfaces';
-import { inactivateChurch } from '@/modules/church/services';
+import { inactivateChurch, type InactivateChurchOptions } from '@/modules/church/services';
 
 interface Options {
   scrollToTop: () => void;
+  setIsSelectInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useChurchInactivationMutation = ({
   setIsButtonDisabled,
+  setIsSelectInputDisabled,
   scrollToTop,
   setIsCardOpen,
-}: Options): UseMutationResult<void, ErrorResponse, string, unknown> => {
+}: Options): UseMutationResult<void, ErrorResponse, InactivateChurchOptions, unknown> => {
   //* Hooks (external libraries)
   const navigate = useNavigate();
 
@@ -35,7 +37,8 @@ export const useChurchInactivationMutation = ({
         });
 
         setTimeout(() => {
-          setIsCardOpen(true);
+          setIsSelectInputDisabled(false);
+          setIsCardOpen(false);
           setIsButtonDisabled(false);
         }, 2000);
       }

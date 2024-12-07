@@ -165,7 +165,6 @@ export const SupervisorCreatePage = (): JSX.Element => {
     supervisorCreationForm: form,
     memberRoles: MemberRole,
     isInputDisabled,
-    isMessageErrorDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
   });

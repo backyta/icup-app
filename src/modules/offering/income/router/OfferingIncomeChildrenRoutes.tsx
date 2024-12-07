@@ -1,6 +1,6 @@
 import {
   OfferingIncomeCreatePage,
-  OfferingIncomeDeletePage,
+  OfferingIncomeInactivatePage,
   OfferingIncomeUpdatePage,
   OfferingsIncomeSearchPageByTerm,
   OfferingsIncomeGeneralSearchPage,
@@ -24,7 +24,7 @@ export const OfferingIncomeChildrenRoutes = [
     element: <OfferingIncomeUpdatePage />,
   },
   {
-    path: '/offerings/income/delete',
-    element: <OfferingIncomeDeletePage />,
+    path: '/offerings/income/inactivate',
+    element: <OfferingIncomeInactivatePage />,
   },
 ];
