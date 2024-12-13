@@ -24,13 +24,16 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table';
 
-import { getFamilyGroups, getGeneralFamilyGroupsReport } from '@/modules/family-group/services';
-import { type FamilyGroupQueryParams } from '@/modules/family-group/interfaces';
+import {
+  getFamilyGroups,
+  getGeneralFamilyGroupsReport,
+} from '@/modules/family-group/services/family-group.service';
+import { type FamilyGroupQueryParams } from '@/modules/family-group/interfaces/family-group-query-params.interface';
 
-import { useFamilyGroupStore } from '@/stores/family-group';
+import { useFamilyGroupStore } from '@/stores/family-group/family-group.store';
 
-import { LoadingSpinner } from '@/shared/components';
-import { type GeneralSearchForm } from '@/shared/interfaces';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+import { type GeneralSearchForm } from '@/shared/interfaces/search-general-form.interface';
 
 import {
   Table,

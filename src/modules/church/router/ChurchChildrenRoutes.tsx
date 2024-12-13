@@ -1,10 +1,8 @@
-import {
-  ChurchUpdatePage,
-  ChurchCreatePage,
-  ChurchInactivatePage,
-  ChurchesSearchPageByTerm,
-  ChurchesGeneralSearchPage,
-} from '@/modules/church/pages';
+import { ChurchCreatePage } from '@/modules/church/pages/ChurchCreatePage';
+import { ChurchUpdatePage } from '@/modules/church/pages/ChurchUpdatePage';
+import { ChurchInactivatePage } from '@/modules/church/pages/ChurchInactivatePage';
+import { ChurchesSearchPageByTerm } from '@/modules/church/pages/ChurchesSearchPageByTerm';
+import { ChurchesGeneralSearchPage } from '@/modules/church/pages/ChurchesGeneralSearchPage';
 
 export const ChurchChildrenRoutes = [
   {

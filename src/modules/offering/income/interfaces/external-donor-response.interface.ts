@@ -1,12 +1,12 @@
 import { 
   type CreatedBy,
   type UpdatedBy,
-} from '@/shared/interfaces';
+} from '@/shared/interfaces/relations-response.interface';
 
 export interface ExternalDonorResponse {
   id              ?: string;
-  firstName       ?: string;
-  lastName        ?: string;
+  firstNames       ?: string;
+  lastNames        ?: string;
   age             ?: string;
   birthDate       ?: string;
   gender          ?: string;

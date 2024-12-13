@@ -4,10 +4,13 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { RecordOrder } from '@/shared/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
-import { PreacherSearchType } from '@/modules/preacher/enums';
-import { type PreacherResponse, type PreacherFormData, type PreacherQueryParams } from '@/modules/preacher/interfaces';
+import { PreacherSearchType } from '@/modules/preacher/enums/preacher-search-type.enum';
+import { type PreacherFormData } from '@/modules/preacher/interfaces/preacher-form-data.interface';
+import { type PreacherResponse, } from '@/modules/preacher/interfaces/preacher-response.interface';
+import { type PreacherQueryParams } from '@/modules/preacher/interfaces/preacher-query-params.interface';
+
 
 //* Create Preacher
 export const createPreacher = async (formData:PreacherFormData ): Promise<PreacherResponse> => {
@@ -122,7 +125,7 @@ export const getPreachersByTerm = async ({
   inputTerm, 
   dateTerm, 
   selectTerm, 
-  namesTerm,
+  firstNamesTerm,
   lastNamesTerm,
   limit, 
   offset, 
@@ -138,11 +141,12 @@ export const getPreachersByTerm = async ({
      searchType === PreacherSearchType.ZoneName ||
      searchType === PreacherSearchType.FamilyGroupCode ||
      searchType === PreacherSearchType.FamilyGroupName ||
-     searchType === PreacherSearchType.Department ||
-     searchType === PreacherSearchType.Province ||
-     searchType === PreacherSearchType.District ||
-     searchType === PreacherSearchType.UrbanSector ||
-     searchType === PreacherSearchType.Address
+     searchType === PreacherSearchType.ResidenceCountry||
+     searchType === PreacherSearchType.ResidenceDepartment ||
+     searchType === PreacherSearchType.ResidenceProvince ||
+     searchType === PreacherSearchType.ResidenceDistrict ||
+     searchType === PreacherSearchType.ResidenceUrbanSector ||
+     searchType === PreacherSearchType.ResidenceAddress
     ) {
     try {
         if (!all) {
@@ -258,11 +262,11 @@ export const getPreachersByTerm = async ({
   }
 
  //* First Name
-  if (searchType === PreacherSearchType.FirstName
+  if (searchType === PreacherSearchType.FirstNames
       ) {
       try {
         if (!all) {
-          const {data} = await icupApi<PreacherResponse[]>(`/preachers/${namesTerm}` , {
+          const {data} = await icupApi<PreacherResponse[]>(`/preachers/${firstNamesTerm}` , {
             params: {
               limit,
               offset,
@@ -275,7 +279,7 @@ export const getPreachersByTerm = async ({
 
           result = data;
         }else {
-          const {data} = await icupApi<PreacherResponse[]>(`/preachers/${namesTerm}` , {
+          const {data} = await icupApi<PreacherResponse[]>(`/preachers/${firstNamesTerm}` , {
             params: {
               order,
               churchId,
@@ -299,7 +303,7 @@ export const getPreachersByTerm = async ({
   }
 
  //* Last Name 
-  if (searchType === PreacherSearchType.LastName
+  if (searchType === PreacherSearchType.LastNames
       ) {
       try {
         if (!all) {
@@ -340,11 +344,11 @@ export const getPreachersByTerm = async ({
   }
 
  //* Full Name
-  if (searchType === PreacherSearchType.FullName
+  if (searchType === PreacherSearchType.FullNames
       ) {
       try {
         if (!all) {
-          const {data} = await icupApi<PreacherResponse[]>(`/preachers/${namesTerm}-${lastNamesTerm}` , {
+          const {data} = await icupApi<PreacherResponse[]>(`/preachers/${firstNamesTerm}-${lastNamesTerm}` , {
             params: {
               limit,
               offset,
@@ -357,7 +361,7 @@ export const getPreachersByTerm = async ({
           
           result = data;
         }else {
-          const {data} = await icupApi<PreacherResponse[]>(`/preachers/${namesTerm}-${lastNamesTerm}` , {
+          const {data} = await icupApi<PreacherResponse[]>(`/preachers/${firstNamesTerm}-${lastNamesTerm}` , {
             params: {
               order,
               churchId,
@@ -467,7 +471,7 @@ export const getPreachersReportByTerm = async ({
   inputTerm, 
   dateTerm, 
   selectTerm, 
-  namesTerm,
+  firstNamesTerm,
   lastNamesTerm,
   limit, 
   offset, 
@@ -477,9 +481,9 @@ export const getPreachersReportByTerm = async ({
   let newTerm: string | undefined = '';
   
   const termMapping: Partial<Record<PreacherSearchType, string | undefined>> = {
-    [PreacherSearchType.FirstName]: namesTerm,
-    [PreacherSearchType.LastName]: lastNamesTerm,
-    [PreacherSearchType.FullName]: `${namesTerm}-${lastNamesTerm}`,
+    [PreacherSearchType.FirstNames]: firstNamesTerm,
+    [PreacherSearchType.LastNames]: lastNamesTerm,
+    [PreacherSearchType.FullNames]: `${firstNamesTerm}-${lastNamesTerm}`,
     [PreacherSearchType.BirthDate]: dateTerm,
     [PreacherSearchType.BirthMonth]: selectTerm,
     [PreacherSearchType.Gender]: selectTerm,
@@ -488,11 +492,12 @@ export const getPreachersReportByTerm = async ({
     [PreacherSearchType.ZoneName]: inputTerm,
     [PreacherSearchType.FamilyGroupCode]: inputTerm,
     [PreacherSearchType.FamilyGroupName]: inputTerm,
-    [PreacherSearchType.Department]: inputTerm,
-    [PreacherSearchType.Province]: inputTerm,
-    [PreacherSearchType.District]: inputTerm,
-    [PreacherSearchType.UrbanSector]: inputTerm,
-    [PreacherSearchType.Address]: inputTerm,
+    [PreacherSearchType.ResidenceCountry]: inputTerm,
+    [PreacherSearchType.ResidenceDepartment]: inputTerm,
+    [PreacherSearchType.ResidenceProvince]: inputTerm,
+    [PreacherSearchType.ResidenceDistrict]: inputTerm,
+    [PreacherSearchType.ResidenceUrbanSector]: inputTerm,
+    [PreacherSearchType.ResidenceAddress]: inputTerm,
     [PreacherSearchType.RecordStatus]: selectTerm,
   };
   

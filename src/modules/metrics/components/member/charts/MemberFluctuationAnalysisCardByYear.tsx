@@ -9,20 +9,20 @@ import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { metricsFormSchema } from '@/modules/metrics/validations';
-
 import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Bar, YAxis, XAxis, BarChart, CartesianGrid } from 'recharts';
 
+import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
+
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { getFluctuationMembersByYear } from '@/modules/metrics/services/member-metrics.service';
+import { MembersFluctuationByYearTooltipContent } from '@/modules/metrics/components/member/tooltips/components/MembersFluctuationByYearTooltipContent';
+
 import { cn } from '@/shared/lib/utils';
 
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { getFluctuationMembersByYear } from '@/modules/metrics/services';
-import { MembersFluctuationByYearTooltipContent } from '@/modules/metrics/components/member/tooltips/components';
-
-import { RecordOrder } from '@/shared/enums';
-import { generateYearOptions } from '@/shared/helpers';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { generateYearOptions } from '@/shared/helpers/generate-year-options.helper';
 
 import {
   Command,

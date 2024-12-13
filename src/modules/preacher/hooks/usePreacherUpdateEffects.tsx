@@ -3,8 +3,9 @@
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums';
-import { type PreacherResponse, type PreacherFormData } from '@/modules/preacher/interfaces';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { type PreacherResponse } from '@/modules/preacher/interfaces/preacher-response.interface';
+import { type PreacherFormData } from '@/modules/preacher/interfaces/preacher-form-data.interface';
 
 interface Options {
   id: string;
@@ -19,13 +20,13 @@ export const usePreacherUpdateEffects = ({
   setIsLoadingData,
   preacherUpdateForm,
 }: Options): void => {
-  const district = preacherUpdateForm.watch('district');
+  const residenceDistrict = preacherUpdateForm.watch('residenceDistrict');
   const isDirectRelationToPastor = preacherUpdateForm.watch('isDirectRelationToPastor');
 
   //* Set data
   useEffect(() => {
-    preacherUpdateForm.setValue('firstName', data?.member?.firstName ?? '');
-    preacherUpdateForm.setValue('lastName', data?.member?.lastName ?? '');
+    preacherUpdateForm.setValue('firstNames', data?.member?.firstNames ?? '');
+    preacherUpdateForm.setValue('lastNames', data?.member?.lastNames ?? '');
     preacherUpdateForm.setValue('gender', data?.member?.gender ?? '');
     preacherUpdateForm.setValue('originCountry', data?.member?.originCountry ?? '');
     preacherUpdateForm.setValue(
@@ -40,12 +41,12 @@ export const usePreacherUpdateEffects = ({
     );
     preacherUpdateForm.setValue('email', data?.member?.email ?? '');
     preacherUpdateForm.setValue('phoneNumber', data?.member?.phoneNumber ?? '');
-    preacherUpdateForm.setValue('country', data?.member?.country ?? '');
-    preacherUpdateForm.setValue('department', data?.member?.department ?? '');
-    preacherUpdateForm.setValue('province', data?.member?.province ?? '');
-    preacherUpdateForm.setValue('district', data?.member?.district ?? '');
-    preacherUpdateForm.setValue('urbanSector', data?.member?.urbanSector ?? '');
-    preacherUpdateForm.setValue('address', data?.member?.address ?? '');
+    preacherUpdateForm.setValue('residenceCountry', data?.member?.residenceCountry ?? '');
+    preacherUpdateForm.setValue('residenceDepartment', data?.member?.residenceDepartment ?? '');
+    preacherUpdateForm.setValue('residenceProvince', data?.member?.residenceProvince ?? '');
+    preacherUpdateForm.setValue('residenceDistrict', data?.member?.residenceDistrict ?? '');
+    preacherUpdateForm.setValue('residenceUrbanSector', data?.member?.residenceUrbanSector ?? '');
+    preacherUpdateForm.setValue('residenceAddress', data?.member?.residenceAddress ?? '');
     preacherUpdateForm.setValue('referenceAddress', data?.member?.referenceAddress ?? '');
     preacherUpdateForm.setValue('roles', data?.member?.roles as MemberRole[]);
     preacherUpdateForm.setValue('theirSupervisor', data?.theirSupervisor?.id ?? '');
@@ -62,10 +63,10 @@ export const usePreacherUpdateEffects = ({
 
   //* Controller district and urban sector
   useEffect(() => {
-    preacherUpdateForm.resetField('urbanSector', {
+    preacherUpdateForm.resetField('residenceUrbanSector', {
       keepError: true,
     });
-  }, [district]);
+  }, [residenceDistrict]);
 
   //* Controller direct relation to pastor
   useEffect(() => {

@@ -1,10 +1,8 @@
-import {
-  DiscipleCreatePage,
-  DiscipleUpdatePage,
-  DiscipleInactivatePage,
-  DisciplesSearchPageByTerm,
-  DisciplesGeneralSearchPage,
-} from '@/modules/disciple/pages';
+import { DiscipleCreatePage } from '@/modules/disciple/pages/DiscipleCreatePage';
+import { DiscipleUpdatePage } from '@/modules/disciple/pages/DiscipleUpdatePage';
+import { DiscipleInactivatePage } from '@/modules/disciple/pages/DiscipleInactivatePage';
+import { DisciplesSearchPageByTerm } from '@/modules/disciple/pages/DisciplesSearchPageByTerm';
+import { DisciplesGeneralSearchPage } from '@/modules/disciple/pages/DisciplesGeneralSearchPage';
 
 export const DiscipleChildrenRoutes = [
   {

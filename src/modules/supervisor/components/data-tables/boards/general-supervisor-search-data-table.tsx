@@ -24,22 +24,25 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table';
 
-import { getGeneralSupervisorsReport, getSupervisors } from '@/modules/supervisor/services';
-import { type SupervisorQueryParams } from '@/modules/supervisor/interfaces';
+import {
+  getGeneralSupervisorsReport,
+  getSupervisors,
+} from '@/modules/supervisor/services/supervisor.service';
+import { type SupervisorQueryParams } from '@/modules/supervisor/interfaces/supervisor-query-params.interface';
 
-import { useSupervisorStore } from '@/stores/supervisor';
+import { useSupervisorStore } from '@/stores/supervisor/supervisor.store';
 
-import { LoadingSpinner } from '@/shared/components';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
-import { type GeneralSearchForm } from '@/shared/interfaces';
+import { type GeneralSearchForm } from '@/shared/interfaces/search-general-form.interface';
 
 import {
   Table,
+  TableRow,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
-  TableRow,
 } from '@/shared/components/ui/table';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
@@ -171,15 +174,17 @@ export function GeneralSupervisorSearchDataTable<TData, TValue>({
             <Input
               disabled={isDisabledButton}
               placeholder='Filtro por nombres..'
-              value={(table.getColumn('firstName')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('firstName')?.setFilterValue(event.target.value)}
+              value={(table.getColumn('firstNames')?.getFilterValue() as string) ?? ''}
+              onChange={(event) =>
+                table.getColumn('firstNames')?.setFilterValue(event.target.value)
+              }
               className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
             />
             <Input
               disabled={isDisabledButton}
               placeholder='Filtro por apellidos...'
-              value={(table.getColumn('lastName')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('lastName')?.setFilterValue(event.target.value)}
+              value={(table.getColumn('lastNames')?.getFilterValue() as string) ?? ''}
+              onChange={(event) => table.getColumn('lastNames')?.setFilterValue(event.target.value)}
               className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
             />
             <Button
@@ -187,8 +192,8 @@ export function GeneralSupervisorSearchDataTable<TData, TValue>({
               variant='ghost'
               className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 border-red-500 bg-gradient-to-r from-red-400 via-red-500 to-red-600 text-white hover:text-red-100 hover:from-red-500 hover:via-red-600 hover:to-red-700 dark:from-red-600 dark:via-red-700 dark:to-red-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-red-700 dark:hover:via-red-800 dark:hover:to-red-900'
               onClick={() => {
-                table.getColumn('firstName')?.setFilterValue('');
-                table.getColumn('lastName')?.setFilterValue('');
+                table.getColumn('firstNames')?.setFilterValue('');
+                table.getColumn('lastNames')?.setFilterValue('');
               }}
             >
               Borrar
@@ -199,8 +204,8 @@ export function GeneralSupervisorSearchDataTable<TData, TValue>({
               className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
               onClick={() => {
                 setIsFiltersSearchGeneralDisabled(true);
-                table.getColumn('firstName')?.setFilterValue('');
-                table.getColumn('lastName')?.setFilterValue('');
+                table.getColumn('firstNames')?.setFilterValue('');
+                table.getColumn('lastNames')?.setFilterValue('');
               }}
             >
               Nueva Búsqueda

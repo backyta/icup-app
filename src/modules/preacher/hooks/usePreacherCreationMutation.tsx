@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { type UseFormReturn } from 'react-hook-form';
 import { useMutation, type UseMutationResult } from '@tanstack/react-query';
 
-import { type ErrorResponse } from '@/shared/interfaces';
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
 
-import { createPreacher } from '@/modules/preacher/services';
-import { type PreacherFormData, type PreacherResponse } from '@/modules/preacher/interfaces';
+import { createPreacher } from '@/modules/preacher/services/preacher.service';
+import { type PreacherResponse } from '@/modules/preacher/interfaces/preacher-response.interface';
+import { type PreacherFormData } from '@/modules/preacher/interfaces/preacher-form-data.interface';
 
 interface Options {
   preacherCreationForm: UseFormReturn<PreacherFormData, any, PreacherFormData>;

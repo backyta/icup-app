@@ -15,12 +15,13 @@ import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Bar, XAxis, YAxis, CartesianGrid, BarChart } from 'recharts';
 
-import { District, RecordOrder } from '@/shared/enums';
+import { District } from '@/shared/enums/district.enum';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getMembersByDistrictAndGender } from '@/modules/metrics/services';
-import { MembersByDistrictAndGenderTooltipContent } from '@/modules/metrics/components/member/tooltips/components';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
+import { getMembersByDistrictAndGender } from '@/modules/metrics/services/member-metrics.service';
+import { MembersByDistrictAndGenderTooltipContent } from '@/modules/metrics/components/member/tooltips/components/MembersByDistrictAndGenderTooltipContent';
 
 import {
   Command,

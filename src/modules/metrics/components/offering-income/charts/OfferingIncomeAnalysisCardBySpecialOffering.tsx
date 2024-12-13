@@ -16,14 +16,15 @@ import { FcDataBackup, FcDeleteDatabase, FcDataConfiguration } from 'react-icons
 
 import { cn } from '@/shared/lib/utils';
 
-import { RecordOrder } from '@/shared/enums';
-import { generateYearOptions, getAbbreviatedFullNames } from '@/shared/helpers';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { getAbbreviatedFullNames } from '@/shared/helpers/get-full-names.helper';
+import { generateYearOptions } from '@/shared/helpers/generate-year-options.helper';
 
-import { months } from '@/modules/metrics/data';
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getOfferingIncomeBySpecialOffering } from '@/modules/metrics/services';
-import { OfferingIncomeBySpecialOfferingTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components';
+import { months } from '@/modules/metrics/data/months-data';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
+import { getOfferingIncomeBySpecialOffering } from '@/modules/metrics/services/offering-income-metrics.service';
+import { OfferingIncomeBySpecialOfferingTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components/OfferingIncomeBySpecialOfferingTooltipContent';
 
 import {
   Command,

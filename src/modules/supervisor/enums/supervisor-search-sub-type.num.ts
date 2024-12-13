@@ -1,42 +1,42 @@
 export enum SupervisorSearchSubType {
-  SupervisorByPastorNames = 'supervisor_by_pastor_names',
+  SupervisorByPastorFirstNames = 'supervisor_by_pastor_first_names',
   SupervisorByPastorLastNames = 'supervisor_by_pastor_last_names',
-  SupervisorByPastorFullName = 'supervisor_by_pastor_full_name',
-  SupervisorByCopastorNames = 'supervisor_by_copastor_names',
+  SupervisorByPastorFullNames = 'supervisor_by_pastor_full_names',
+  SupervisorByCopastorFirstNames = 'supervisor_by_copastor_first_names',
   SupervisorByCopastorLastNames = 'supervisor_by_copastor_last_names',
-  SupervisorByCopastorFullName = 'supervisor_by_copastor_full_name',
-  BySupervisorNames = 'by_supervisor_names',
+  SupervisorByCopastorFullNames = 'supervisor_by_copastor_full_names',
+  BySupervisorFirstNames = 'by_supervisor_first_names',
   BySupervisorLastNames = 'by_supervisor_last_names',
-  BySupervisorFullName = 'by_supervisor_full_name',
+  BySupervisorFullNames = 'by_supervisor_full_names',
 }
 
 export const SupervisorSearchSubTypeNames: Record<SupervisorSearchSubType, string> =  {
-  [SupervisorSearchSubType.SupervisorByPastorNames]: 'Por nombres de su pastor',
+  [SupervisorSearchSubType.SupervisorByPastorFirstNames]: 'Por nombres de su pastor',
   [SupervisorSearchSubType.SupervisorByPastorLastNames]: 'Por apellidos de su pastor',
-  [SupervisorSearchSubType.SupervisorByPastorFullName]: 'Por nombres y apellidos de su pastor',
-  [SupervisorSearchSubType.SupervisorByCopastorNames]: 'Por nombres de su co-pastor',
+  [SupervisorSearchSubType.SupervisorByPastorFullNames]: 'Por nombres y apellidos de su pastor',
+  [SupervisorSearchSubType.SupervisorByCopastorFirstNames]: 'Por nombres de su co-pastor',
   [SupervisorSearchSubType.SupervisorByCopastorLastNames]: 'Por apellidos de su co-pastor',
-  [SupervisorSearchSubType.SupervisorByCopastorFullName]: 'Por nombres y apellidos de su co-pastor',
-  [SupervisorSearchSubType.BySupervisorNames]: 'Por sus nombres',
+  [SupervisorSearchSubType.SupervisorByCopastorFullNames]: 'Por nombres y apellidos de su co-pastor',
+  [SupervisorSearchSubType.BySupervisorFirstNames]: 'Por sus nombres',
   [SupervisorSearchSubType.BySupervisorLastNames]: 'Por sus apellidos',
-  [SupervisorSearchSubType.BySupervisorFullName]: 'Por sus nombres y apellidos',
+  [SupervisorSearchSubType.BySupervisorFullNames]: 'Por sus nombres y apellidos',
 }
 
 
-//* FirstName
+//* FirstNames
 export enum SubTypeSupervisorSearchByFirstNames {
-  SupervisorByPastorNames = 'supervisor_by_pastor_names',
-  SupervisorByCopastorNames = 'supervisor_by_copastor_names',
-  BySupervisorNames = 'by_supervisor_names',
+  SupervisorByPastorFirstNames = 'supervisor_by_pastor_first_names',
+  SupervisorByCopastorFirstNames = 'supervisor_by_copastor_first_names',
+  BySupervisorFirstNames = 'by_supervisor_first_names',
 }
 
 export const SubTypeNamesSupervisorSearchByFirstNames: Record<SubTypeSupervisorSearchByFirstNames, string> =  {
-  [SubTypeSupervisorSearchByFirstNames.SupervisorByPastorNames]: 'Por nombres de su pastor',
-  [SubTypeSupervisorSearchByFirstNames.SupervisorByCopastorNames]: 'Por nombres de su co-pastor',
-  [SubTypeSupervisorSearchByFirstNames.BySupervisorNames]: 'Por sus nombres',
+  [SubTypeSupervisorSearchByFirstNames.SupervisorByPastorFirstNames]: 'Por nombres de su pastor',
+  [SubTypeSupervisorSearchByFirstNames.SupervisorByCopastorFirstNames]: 'Por nombres de su co-pastor',
+  [SubTypeSupervisorSearchByFirstNames.BySupervisorFirstNames]: 'Por sus nombres',
 }
 
-//* LastName
+//* LastNames
 export enum SubTypeSupervisorSearchByLastNames {
   SupervisorByPastorLastNames = 'supervisor_by_pastor_last_names',
   SupervisorByCopastorLastNames = 'supervisor_by_copastor_last_names',
@@ -51,14 +51,14 @@ export const SubTypeNamesSupervisorSearchByLastNames: Record<SubTypeSupervisorSe
 
 //* Full Name
 export enum SubTypeSupervisorSearchByFullNames {
-  SupervisorByPastorFullName = 'supervisor_by_pastor_full_name',
-  SupervisorByCopastorFullName = 'supervisor_by_copastor_full_name',
-  BySupervisorFullName = 'by_supervisor_full_name',
+  SupervisorByPastorFullNames = 'supervisor_by_pastor_full_names',
+  SupervisorByCopastorFullNames = 'supervisor_by_copastor_full_names',
+  BySupervisorFullNames = 'by_supervisor_full_names',
 }
 
 export const SubTypeNamesSupervisorSearchByFullNames: Record<SubTypeSupervisorSearchByFullNames, string> =  {
-  [SubTypeSupervisorSearchByFullNames.SupervisorByPastorFullName]: 'Por nombres y apellidos de su pastor',
-  [SubTypeSupervisorSearchByFullNames.SupervisorByCopastorFullName]: 'Por nombres y apellidos de su co-pastor',
-  [SubTypeSupervisorSearchByFullNames.BySupervisorFullName]: 'Por sus nombres y apellidos',
+  [SubTypeSupervisorSearchByFullNames.SupervisorByPastorFullNames]: 'Por nombres y apellidos de su pastor',
+  [SubTypeSupervisorSearchByFullNames.SupervisorByCopastorFullNames]: 'Por nombres y apellidos de su co-pastor',
+  [SubTypeSupervisorSearchByFullNames.BySupervisorFullNames]: 'Por sus nombres y apellidos',
 }
 

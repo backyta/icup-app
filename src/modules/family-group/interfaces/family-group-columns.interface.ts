@@ -1,4 +1,4 @@
-import { type UpdatedBy } from "@/shared/interfaces";
+import { type UpdatedBy } from "@/shared/interfaces/relations-response.interface";
 
 export interface FamilyGroupColumns {
   id:                    string;

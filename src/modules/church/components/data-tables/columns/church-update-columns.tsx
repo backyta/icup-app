@@ -3,8 +3,9 @@ import { type ColumnDef } from '@tanstack/react-table';
 
 import { Button } from '@/shared/components/ui/button';
 
-import { type ChurchColumns } from '@/modules/church/interfaces';
-import { ChurchInfoCard, ChurchUpdateCard } from '@/modules/church/components';
+import { ChurchInfoCard } from '@/modules/church/components/cards/info/ChurchInfoCard';
+import { type ChurchColumns } from '@/modules/church/interfaces/church-columns.interface';
+import { ChurchUpdateCard } from '@/modules/church/components/cards/update/ChurchUpdateCard';
 
 export const churchUpdateColumns: Array<ColumnDef<ChurchColumns, any>> = [
   {

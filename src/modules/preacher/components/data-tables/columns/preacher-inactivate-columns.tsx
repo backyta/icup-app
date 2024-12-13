@@ -7,8 +7,10 @@ import { type ColumnDef } from '@tanstack/react-table';
 
 import { Button } from '@/shared/components/ui/button';
 
-import { type PreacherColumns } from '@/modules/preacher/interfaces';
-import { PreacherInfoCard, PreacherInactivateCard } from '@/modules/preacher/components';
+import { type PreacherColumns } from '@/modules/preacher/interfaces/preacher-columns.interface';
+
+import { PreacherInfoCard } from '@/modules/preacher/components/cards/info/PreacherInfoCard';
+import { PreacherInactivateCard } from '@/modules/preacher/components/cards/inactivate/PreacherInactivateCard';
 
 export const preacherInactivateColumns: Array<ColumnDef<PreacherColumns, any>> = [
   {
@@ -34,8 +36,8 @@ export const preacherInactivateColumns: Array<ColumnDef<PreacherColumns, any>> =
     },
   },
   {
-    id: 'firstName',
-    accessorKey: 'member.firstName',
+    id: 'firstNames',
+    accessorKey: 'member.firstNames',
     header: ({ column }) => {
       return (
         <Button
@@ -52,8 +54,8 @@ export const preacherInactivateColumns: Array<ColumnDef<PreacherColumns, any>> =
     },
   },
   {
-    id: 'lastName',
-    accessorKey: 'member.lastName',
+    id: 'lastNames',
+    accessorKey: 'member.lastNames',
     header: ({ column }) => {
       return (
         <Button

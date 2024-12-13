@@ -5,8 +5,8 @@ import { NavLink } from 'react-router-dom';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
 import { FcClearFilters, FcSearch, FcSportsMode, FcSupport } from 'react-icons/fc';
 
-import { useAuthStore } from '@/stores';
-import { WhiteCard } from '@/shared/components';
+import { useAuthStore } from '@/stores/auth/auth.store';
+import { WhiteCard } from '@/shared/components/card/WhiteCard';
 
 export const DiscipleOptionsPage = (): JSX.Element => {
   const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);

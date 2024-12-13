@@ -4,8 +4,11 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
-import { type ErrorResponse } from '@/shared/interfaces';
-import { deleteImage, type DeleteImageOptions } from '@/modules/offering/shared/services';
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
+import {
+  deleteImage,
+  type DeleteImageOptions,
+} from '@/modules/offering/shared/services/images-files.service';
 
 interface Options {
   setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;

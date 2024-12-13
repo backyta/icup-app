@@ -2,8 +2,9 @@
 
 import * as z from 'zod';
 
-import { RecordOrder } from '@/shared/enums';
-import { PreacherSearchSubType, PreacherSearchType } from '@/modules/preacher/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { PreacherSearchType } from '@/modules/preacher/enums/preacher-search-type.enum';
+import { PreacherSearchSubType } from '@/modules/preacher/enums/preacher-search-sub-type.enum';
 
 export const preacherSearchByTermFormSchema = z
   .object({
@@ -23,7 +24,7 @@ export const preacherSearchByTermFormSchema = z
       required_error: "Por favor seleccione una fecha.",
     }).optional(),
 
-    namesTerm: z.string().max(30).optional(),
+    firstNamesTerm: z.string().max(30).optional(),
 
     lastNamesTerm: z.string().max(30).optional(),
 
@@ -50,9 +51,9 @@ export const preacherSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === PreacherSearchType.FirstName || 
-        data.searchType === PreacherSearchType.LastName || 
-        data.searchType === PreacherSearchType.FullName 
+        data.searchType === PreacherSearchType.FirstNames || 
+        data.searchType === PreacherSearchType.LastNames || 
+        data.searchType === PreacherSearchType.FullNames 
       ) {
         return !!data.searchSubType; 
       }
@@ -66,9 +67,9 @@ export const preacherSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === PreacherSearchType.FirstName
+        data.searchType === PreacherSearchType.FirstNames
       ) {
-        return !!data.namesTerm; 
+        return !!data.firstNamesTerm; 
       }
       return true;
     },
@@ -80,7 +81,7 @@ export const preacherSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === PreacherSearchType.LastName
+        data.searchType === PreacherSearchType.LastNames
       ) {
         return !!data.lastNamesTerm;
       }
@@ -95,7 +96,7 @@ export const preacherSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === PreacherSearchType.FullName
+        data.searchType === PreacherSearchType.FullNames
       ) {
         return !!data.lastNamesTerm; 
       }
@@ -109,9 +110,9 @@ export const preacherSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === PreacherSearchType.FullName
+        data.searchType === PreacherSearchType.FullNames
       ) {
-        return !!data.namesTerm; 
+        return !!data.firstNamesTerm; 
       }
       return true;
     },
@@ -126,11 +127,12 @@ export const preacherSearchByTermFormSchema = z
           data.searchType === PreacherSearchType.ZoneName ||
           data.searchType === PreacherSearchType.FamilyGroupCode ||
           data.searchType === PreacherSearchType.FamilyGroupName ||
-          data.searchType === PreacherSearchType.Department || 
-          data.searchType === PreacherSearchType.Province || 
-          data.searchType === PreacherSearchType.District || 
-          data.searchType === PreacherSearchType.UrbanSector || 
-          data.searchType === PreacherSearchType.Address
+          data.searchType === PreacherSearchType.ResidenceCountry || 
+          data.searchType === PreacherSearchType.ResidenceDepartment || 
+          data.searchType === PreacherSearchType.ResidenceProvince || 
+          data.searchType === PreacherSearchType.ResidenceDistrict || 
+          data.searchType === PreacherSearchType.ResidenceUrbanSector || 
+          data.searchType === PreacherSearchType.ResidenceAddress
           ) {
         return !!data.inputTerm; 
       }

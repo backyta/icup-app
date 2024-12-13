@@ -1,6 +1,7 @@
 import { type UseFormReturn } from 'react-hook-form';
-import { type MemberRole } from '@/shared/enums';
-import { type DiscipleFormData } from '@/modules/disciple/interfaces';
+
+import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { type DiscipleFormData } from '@/modules/disciple/interfaces/disciple-form-data.interface';
 
 interface Options {
   discipleUpdateForm: UseFormReturn<DiscipleFormData, any, DiscipleFormData>;

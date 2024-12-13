@@ -5,10 +5,11 @@ import { format, addDays } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import { SupervisorInfoCard, SupervisorInactivateCard } from '@/modules/supervisor/components';
+import { SupervisorInfoCard } from '@/modules/supervisor/components/cards/info/SupervisorInfoCard';
+import { SupervisorInactivateCard } from '@/modules/supervisor/components/cards/inactivate/SupervisorInactivateCard';
 
 import { Button } from '@/shared/components/ui/button';
-import { type SupervisorColumns } from '@/modules/supervisor/interfaces';
+import { type SupervisorColumns } from '@/modules/supervisor/interfaces/supervisor-columns.interface';
 
 export const supervisorInactivateColumns: Array<ColumnDef<SupervisorColumns, any>> = [
   {
@@ -34,8 +35,8 @@ export const supervisorInactivateColumns: Array<ColumnDef<SupervisorColumns, any
     },
   },
   {
-    id: 'firstName',
-    accessorKey: 'member.firstName',
+    id: 'firstNames',
+    accessorKey: 'member.firstNames',
     header: ({ column }) => {
       return (
         <Button
@@ -52,8 +53,8 @@ export const supervisorInactivateColumns: Array<ColumnDef<SupervisorColumns, any
     },
   },
   {
-    id: 'lastName',
-    accessorKey: 'member.lastName',
+    id: 'lastNames',
+    accessorKey: 'member.lastNames',
     header: ({ column }) => {
       return (
         <Button

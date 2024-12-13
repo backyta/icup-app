@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { type UseFormReturn } from 'react-hook-form';
 import { useMutation, type UseMutationResult } from '@tanstack/react-query';
 
-import { type ErrorResponse } from '@/shared/interfaces';
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
 
-import { createPastor } from '@/modules/pastor/services';
-import { type PastorFormData, type PastorResponse } from '@/modules/pastor/interfaces';
+import { createPastor } from '@/modules/pastor/services/pastor.service';
+import { type PastorResponse } from '@/modules/pastor/interfaces/pastor-response.interface';
+import { type PastorFormData } from '@/modules/pastor/interfaces/pastor-form-data.interface';
 
 interface Options {
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;

@@ -2,16 +2,16 @@
 
 import { addDays } from 'date-fns';
 
-import { dateFormatterToDDMMYY } from '@/shared/helpers';
+import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 
 import {
   type OfferingIncomeCreationCategory,
   OfferingIncomeCreationCategoryNames,
-} from '@/modules/offering/income/enums';
-import { CurrencyType } from '@/modules/offering/shared/enums';
+} from '@/modules/offering/income/enums/offering-income-creation-category.enum';
+import { CurrencyType } from '@/modules/offering/shared/enums/currency-type.enum';
 
 import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
-import { type OfferingIncomePayloadBySundayService } from '@/modules/metrics/components/offering-income/tooltips/interfaces';
+import { type OfferingIncomePayloadBySundayService } from '@/modules/metrics/components/offering-income/tooltips/interfaces/offering-income-by-sunday-service-tooltip-payload.interface';
 
 export const OfferingIncomeBySundayServiceTooltipContent = (
   props: TooltipConfig<OfferingIncomePayloadBySundayService>

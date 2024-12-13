@@ -12,19 +12,21 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/shared/lib/utils';
 
-import { useFamilyGroupStore } from '@/stores/family-group';
-import { getSimpleChurches } from '@/modules/church/services';
+import { useFamilyGroupStore } from '@/stores/family-group/family-group.store';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
-import {
-  familyGroupInfoColumns as columns,
-  GeneralFamilyGroupSearchDataTable,
-} from '@/modules/family-group/components';
-import { type FamilyGroupResponse } from '@/modules/family-group/interfaces';
+import { familyGroupInfoColumns as columns } from '@/modules/family-group/components/data-tables/columns/family-group-info-columns';
+import { GeneralFamilyGroupSearchDataTable } from '@/modules/family-group/components/data-tables/boards/general-family-group-search-data-table';
 
-import { PageTitle, SearchTitle } from '@/shared/components/page';
-import { type GeneralSearchForm } from '@/shared/interfaces';
-import { formSearchGeneralSchema } from '@/shared/validations';
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
+import { type FamilyGroupResponse } from '@/modules/family-group/interfaces/family-group-response.interface';
+
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
+import { type GeneralSearchForm } from '@/shared/interfaces/search-general-form.interface';
+
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+
+import { formSearchGeneralSchema } from '@/shared/validations/form-search-general-schema';
 
 import {
   Select,
@@ -218,7 +220,9 @@ export const FamilyGroupsGeneralSearchPage = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[12px] md:text-[13px]'>Todos</FormLabel>
+                          <FormLabel className='text-[12px] md:text-[13px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </div>
                     </FormItem>

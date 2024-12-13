@@ -3,8 +3,9 @@
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums';
-import { type CopastorResponse, type CopastorFormData } from '@/modules/copastor/interfaces';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { type CopastorResponse } from '@/modules/copastor/interfaces/copastor-response.interface';
+import { type CopastorFormData } from '@/modules/copastor/interfaces/copastor-form-data.interface';
 
 interface Options {
   id: string;
@@ -19,12 +20,12 @@ export const useCopastorUpdateEffects = ({
   setIsLoadingData,
   copastorUpdateForm,
 }: Options): void => {
-  const district = copastorUpdateForm.watch('district');
+  const residenceDistrict = copastorUpdateForm.watch('residenceDistrict');
 
   //* Set data
   useEffect(() => {
-    copastorUpdateForm.setValue('firstName', data?.member?.firstName ?? '');
-    copastorUpdateForm.setValue('lastName', data?.member?.lastName ?? '');
+    copastorUpdateForm.setValue('firstNames', data?.member?.firstNames ?? '');
+    copastorUpdateForm.setValue('lastNames', data?.member?.lastNames ?? '');
     copastorUpdateForm.setValue('gender', data?.member?.gender ?? '');
     copastorUpdateForm.setValue('originCountry', data?.member?.originCountry ?? '');
     copastorUpdateForm.setValue(
@@ -39,12 +40,12 @@ export const useCopastorUpdateEffects = ({
     );
     copastorUpdateForm.setValue('email', data?.member?.email ?? '');
     copastorUpdateForm.setValue('phoneNumber', data?.member?.phoneNumber ?? '');
-    copastorUpdateForm.setValue('country', data?.member?.country ?? '');
-    copastorUpdateForm.setValue('department', data?.member?.department ?? '');
-    copastorUpdateForm.setValue('province', data?.member?.province ?? '');
-    copastorUpdateForm.setValue('district', data?.member?.district ?? '');
-    copastorUpdateForm.setValue('urbanSector', data?.member?.urbanSector ?? '');
-    copastorUpdateForm.setValue('address', data?.member?.address ?? '');
+    copastorUpdateForm.setValue('residenceCountry', data?.member?.residenceCountry ?? '');
+    copastorUpdateForm.setValue('residenceDepartment', data?.member?.residenceDepartment ?? '');
+    copastorUpdateForm.setValue('residenceProvince', data?.member?.residenceProvince ?? '');
+    copastorUpdateForm.setValue('residenceDistrict', data?.member?.residenceDistrict ?? '');
+    copastorUpdateForm.setValue('residenceUrbanSector', data?.member?.residenceUrbanSector ?? '');
+    copastorUpdateForm.setValue('residenceAddress', data?.member?.residenceAddress ?? '');
     copastorUpdateForm.setValue('referenceAddress', data?.member?.referenceAddress ?? '');
     copastorUpdateForm.setValue('roles', data?.member?.roles as MemberRole[]);
     copastorUpdateForm.setValue('theirPastor', data?.theirPastor?.id);
@@ -57,10 +58,10 @@ export const useCopastorUpdateEffects = ({
 
   //* Controller district and urban sector
   useEffect(() => {
-    copastorUpdateForm.resetField('urbanSector', {
+    copastorUpdateForm.resetField('residenceUrbanSector', {
       keepError: true,
     });
-  }, [district]);
+  }, [residenceDistrict]);
 
   //* Generate dynamic url
   useEffect(() => {

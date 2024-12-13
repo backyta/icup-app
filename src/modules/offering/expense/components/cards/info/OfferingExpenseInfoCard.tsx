@@ -5,9 +5,9 @@ import { BsFillPersonVcardFill } from 'react-icons/bs';
 import { useMediaQuery } from '@react-hook/media-query';
 
 import { cn } from '@/shared/lib/utils';
-import { useOfferingExpenseStore } from '@/stores/offering-expense';
+import { useOfferingExpenseStore } from '@/stores/offering-expense/offering-expenses.store';
 
-import { OfferingExpenseTabsCard } from '@/modules/offering/expense/components';
+import { OfferingExpenseTabsCard } from '@/modules/offering/expense/components/cards/info/OfferingExpenseTabsCard';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

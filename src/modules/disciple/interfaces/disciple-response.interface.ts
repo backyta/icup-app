@@ -10,25 +10,25 @@ import {
   type TheirPreacher,
   type TheirZone,
   type TheirFamilyGroup,
-} from '@/shared/interfaces';
+} from '@/shared/interfaces/relations-response.interface';
 
 export interface DiscipleResponse {
-  id:                 string;
-  member:             Member;
-  createdAt?:         Date;
-  createdBy?:         CreatedBy;
-  updatedAt?:         Date;
-  updatedBy?:         UpdatedBy;
+  id                   : string;
+  member               : Member;
+  createdAt           ?: Date;
+  createdBy           ?: CreatedBy;
+  updatedAt           ?: Date;
+  updatedBy           ?: UpdatedBy;
   inactivationCategory?: string;
   inactivationReason  ?: string;
-  recordStatus:       string;
-  theirChurch?:       TheirChurch | null;
-  theirPastor?:       TheirPastor | null;
-  theirCopastor?:     TheirCopastor | null;
-  theirSupervisor?:   TheirSupervisor | null; 
-  theirPreacher?:     TheirPreacher | null; 
-  theirZone?:         TheirZone | null;
-  theirFamilyGroup?:  TheirFamilyGroup | null; 
+  recordStatus         : string;
+  theirChurch         ?: TheirChurch | null;
+  theirPastor         ?: TheirPastor | null;
+  theirCopastor       ?: TheirCopastor | null;
+  theirSupervisor     ?: TheirSupervisor | null;
+  theirPreacher       ?: TheirPreacher | null;
+  theirZone           ?: TheirZone | null;
+  theirFamilyGroup    ?: TheirFamilyGroup | null;
 }
 
 

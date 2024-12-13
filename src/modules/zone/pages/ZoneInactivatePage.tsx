@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-misused-promises */
 
 import { useEffect, useState } from 'react';
 
@@ -11,25 +11,35 @@ import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { getSimpleChurches } from '@/modules/church/services';
+import { useZoneStore } from '@/stores/zone/zone.store';
+
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
 import {
-  ZoneSearchType,
-  ZoneSearchTypeNames,
-  ZoneSearchNamesByRecordStatus,
-} from '@/modules/zone/enums';
-import { PageTitle, SearchTitle } from '@/shared/components/page';
-import { zoneSearchByTermFormSchema } from '@/modules/zone/validations';
-import { type ZoneResponse, type ZoneSearchFormByTerm } from '@/modules/zone/interfaces';
-import {
-  zoneInactivateColumns as columns,
-  SearchByTermZoneDataTable,
-} from '@/modules/zone/components';
+  SubTypeNamesZoneSearchByFullNames,
+  SubTypeNamesZoneSearchByLastNames,
+  SubTypeNamesZoneSearchByFirstNames,
+} from '@/modules/zone/enums/zone-search-sub-type.enum';
 
-import { useZoneStore } from '@/stores/zone';
+import { ZoneSearchType, ZoneSearchTypeNames } from '@/modules/zone/enums/zone-search-type.enum';
+import { ZoneSearchNamesByRecordStatus } from '@/modules/zone/enums/zone-search-select-option.enum';
+
+import { zoneSearchByTermFormSchema } from '@/modules/zone/validations/zone-search-by-term-form-schema';
+
+import { type ZoneResponse } from '@/modules/zone/interfaces/zone-response.interface';
+import { type ZoneSearchFormByTerm } from '@/modules/zone/interfaces/zone-search-form-by-term.interface';
+
+import { SearchByTermZoneDataTable } from '@/modules/zone/components/data-tables/boards/search-by-term-zone-data-table';
+import { zoneInactivateColumns as columns } from '@/modules/zone/components/data-tables/columns/zone-inactivate-columns';
 
 import { cn } from '@/shared/lib/utils';
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
+
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
+
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+
+import { firstNamesFormatter, lastNamesFormatter } from '@/shared/helpers/names-formatter.helper';
 
 import {
   Form,
@@ -128,7 +138,15 @@ export const ZoneInactivatePage = (): JSX.Element => {
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof zoneSearchByTermFormSchema>): void {
-    setSearchParams({ ...formData });
+    const newFirstNamesTerm = firstNamesFormatter(formData?.firstNamesTerm);
+    const newLastNamesTerm = lastNamesFormatter(formData?.lastNamesTerm);
+
+    setSearchParams({
+      ...formData,
+      firstNamesTerm: newFirstNamesTerm,
+      lastNamesTerm: newLastNamesTerm,
+    });
+
     setIsDisabledSubmitButton(true);
     setIsFiltersSearchByTermDisabled(false);
     setDataForm(formData);
@@ -167,6 +185,15 @@ export const ZoneInactivatePage = (): JSX.Element => {
                           form.resetField('inputTerm', {
                             keepError: true,
                           });
+                          form.resetField('searchSubType', {
+                            keepError: true,
+                          });
+                          form.resetField('firstNamesTerm', {
+                            keepError: true,
+                          });
+                          form.resetField('lastNamesTerm', {
+                            keepError: true,
+                          });
                         }}
                         onValueChange={field.onChange}
                       >
@@ -196,6 +223,72 @@ export const ZoneInactivatePage = (): JSX.Element => {
                 }}
               />
 
+              {(searchType === ZoneSearchType.FirstNames ||
+                searchType === ZoneSearchType.LastNames ||
+                searchType === ZoneSearchType.FullNames) && (
+                <FormField
+                  control={form.control}
+                  name='searchSubType'
+                  render={({ field }) => {
+                    return (
+                      <FormItem>
+                        <FormLabel className='text-[14px] font-bold'>Sub-tipo</FormLabel>
+                        <FormDescription className='text-[14px]'>
+                          ¿Qué sub tipo de búsqueda deseas hacer?
+                        </FormDescription>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                          value={field.value}
+                          onOpenChange={() => {
+                            form.resetField('firstNamesTerm', {
+                              defaultValue: '',
+                            });
+                            form.resetField('lastNamesTerm', {
+                              defaultValue: '',
+                            });
+                            form.resetField('selectTerm', {
+                              keepError: true,
+                            });
+                            form.resetField('inputTerm', {
+                              keepError: true,
+                            });
+                          }}
+                        >
+                          <FormControl className='text-[13px] md:text-[14px]'>
+                            <SelectTrigger>
+                              {field.value ? (
+                                <SelectValue placeholder='Selecciona un sub-tipo' />
+                              ) : (
+                                'Elige un sub-tipo'
+                              )}
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            {Object.entries(
+                              searchType === ZoneSearchType.FirstNames
+                                ? SubTypeNamesZoneSearchByFirstNames
+                                : searchType === ZoneSearchType.LastNames
+                                  ? SubTypeNamesZoneSearchByLastNames
+                                  : SubTypeNamesZoneSearchByFullNames
+                            ).map(([key, value]) => (
+                              <SelectItem
+                                className={cn(`text-[13px] md:text-[14px]`)}
+                                key={key}
+                                value={key}
+                              >
+                                {value}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    );
+                  }}
+                />
+              )}
+
               {(searchType === ZoneSearchType.ZoneName ||
                 searchType === ZoneSearchType.Country ||
                 searchType === ZoneSearchType.Department ||
@@ -223,7 +316,17 @@ export const ZoneInactivatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           className='text-[13px] md:text-[14px]'
-                          placeholder='Ejem: C-2, Av.Central 123, Lima ....'
+                          placeholder={
+                            searchType === ZoneSearchType.Department
+                              ? 'Ejem: Lima, Ancash, Puno...'
+                              : searchType === ZoneSearchType.Province
+                                ? 'Ejem: Huamanga, Lima, Caraz'
+                                : searchType === ZoneSearchType.District
+                                  ? 'Ejem: Independencia, Los Olivos, SJL'
+                                  : searchType === ZoneSearchType.ZoneName
+                                    ? 'Ejem: Los Guerreros, Guardianes de la Fe...'
+                                    : 'Ejem: Perú, Bolivia, Venezuela...'
+                          }
                           {...field}
                         />
                       </FormControl>
@@ -283,6 +386,54 @@ export const ZoneInactivatePage = (): JSX.Element => {
                 />
               )}
 
+              {(searchType === ZoneSearchType.FirstNames ||
+                searchType === ZoneSearchType.FullNames) && (
+                <FormField
+                  control={form.control}
+                  name='firstNamesTerm'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className='text-[14px] font-bold'>Nombres</FormLabel>
+                      <FormDescription className='text-[14px]'>
+                        Escribe los nombres que deseas buscar.
+                      </FormDescription>
+                      <FormControl>
+                        <Input
+                          className='text-[13px] md:text-[14px]'
+                          placeholder='Ejem: Rolando Martin...'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+
+              {(searchType === ZoneSearchType.LastNames ||
+                searchType === ZoneSearchType.FullNames) && (
+                <FormField
+                  control={form.control}
+                  name='lastNamesTerm'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className='text-[14px] font-bold'>Apellidos</FormLabel>
+                      <FormDescription className='text-[14px]'>
+                        Escribe los apellidos que deseas buscar.
+                      </FormDescription>
+                      <FormControl>
+                        <Input
+                          className='text-[13px] md:text-[14px]'
+                          placeholder='Ejem: Sanchez Torres...'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+
               <div className='grid grid-cols-2 items-end justify-evenly'>
                 <div className='flex flex-col gap-2 col-start-1 col-end-3 pb-2'>
                   <FormField
@@ -321,7 +472,7 @@ export const ZoneInactivatePage = (): JSX.Element => {
                     control={form.control}
                     name='all'
                     render={({ field }) => (
-                      <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
+                      <FormItem className='flex flex-row items-end space-x-2 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
                         <FormControl>
                           <Checkbox
                             disabled={!form.getValues('limit') || !!form.formState.errors.limit} // transform to boolean
@@ -337,7 +488,9 @@ export const ZoneInactivatePage = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[13px] md:text-[14px]'>Todos</FormLabel>
+                          <FormLabel className='text-[13px] md:text-[14px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </FormItem>
                     )}

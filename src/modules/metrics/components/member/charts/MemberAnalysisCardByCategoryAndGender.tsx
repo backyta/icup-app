@@ -5,15 +5,15 @@
 import { useEffect, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
+import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
 import { CartesianGrid, Area, AreaChart, XAxis, YAxis } from 'recharts';
 
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
-import { getMembersByCategoryAndGender } from '@/modules/metrics/services';
-import { MembersByCategoryAndGenderTooltipContent } from '@/modules/metrics/components/member/tooltips/components';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { getMembersByCategoryAndGender } from '@/modules/metrics/services/member-metrics.service';
+import { MembersByCategoryAndGenderTooltipContent } from '@/modules/metrics/components/member/tooltips/components/MembersByCategoryAndGenderTooltipContent';
 
 import { cn } from '@/shared/lib/utils';
-import { RecordOrder } from '@/shared/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
 import {
   ChartLegend,

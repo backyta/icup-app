@@ -3,9 +3,9 @@ import { useRef, useState, useCallback, useMemo } from 'react';
 import { GiCardExchange } from 'react-icons/gi';
 import { useMediaQuery } from '@react-hook/media-query';
 
-import { ZoneSupervisorUpdateForm } from '@/modules/zone/components';
+import { ZoneSupervisorUpdateForm } from '@/modules/zone/components/cards/update/ZoneSupervisorUpdateForm';
 
-import { useZoneStore } from '@/stores/zone';
+import { useZoneStore } from '@/stores/zone/zone.store';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

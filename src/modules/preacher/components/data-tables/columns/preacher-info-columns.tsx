@@ -5,10 +5,10 @@ import { format, addDays } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import { PreacherInfoCard } from '@/modules/preacher/components';
-import { type PreacherColumns } from '@/modules/preacher/interfaces';
+import { PreacherInfoCard } from '@/modules/preacher/components/cards/info/PreacherInfoCard';
+import { type PreacherColumns } from '@/modules/preacher/interfaces/preacher-columns.interface';
 
-import { getInitialFullNames } from '@/shared/helpers';
+import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 import { Button } from '@/shared/components/ui/button';
 
 export const preacherInfoColumns: Array<ColumnDef<PreacherColumns, any>> = [
@@ -35,8 +35,8 @@ export const preacherInfoColumns: Array<ColumnDef<PreacherColumns, any>> = [
     },
   },
   {
-    id: 'firstName',
-    accessorKey: 'member.firstName',
+    id: 'firstNames',
+    accessorKey: 'member.firstNames',
     header: ({ column }) => {
       return (
         <Button
@@ -53,8 +53,8 @@ export const preacherInfoColumns: Array<ColumnDef<PreacherColumns, any>> = [
     },
   },
   {
-    id: 'lastName',
-    accessorKey: 'member.lastName',
+    id: 'lastNames',
+    accessorKey: 'member.lastNames',
     header: ({ column }) => {
       return (
         <Button
@@ -119,8 +119,8 @@ export const preacherInfoColumns: Array<ColumnDef<PreacherColumns, any>> = [
     id: 'updatedBy',
     accessorKey: 'updatedBy',
     cell: (info) => {
-      const firstNames = info.getValue()?.firstName;
-      const lastNames = info.getValue()?.lastName;
+      const firstNames = info.getValue()?.firstNames;
+      const lastNames = info.getValue()?.lastNames;
       return firstNames && lastNames
         ? getInitialFullNames({ firstNames: firstNames ?? '', lastNames: lastNames ?? '' })
         : '-';

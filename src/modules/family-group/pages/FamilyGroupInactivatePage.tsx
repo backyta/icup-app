@@ -10,33 +10,36 @@ import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { getSimpleChurches } from '@/modules/church/services';
+import { useFamilyGroupStore } from '@/stores/family-group/family-group.store';
 
-import {
-  SearchByTermFamilyGroupDataTable,
-  familyGroupInactivateColumns as columns,
-} from '@/modules/family-group/components';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
+
+import { SearchByTermFamilyGroupDataTable } from '@/modules/family-group/components/data-tables/boards/search-by-term-family-group-data-table';
+import { familyGroupInactivateColumns as columns } from '@/modules/family-group/components/data-tables/columns/family-group-inactivate-columns';
+
 import {
   FamilyGroupSearchType,
   FamilyGroupSearchTypeNames,
-  FamilyGroupSearchNamesByRecordStatus,
+} from '@/modules/family-group/enums/family-group-search-type.enum';
+import {
   SubTypeNamesFamilyGroupSearchByFullNames,
   SubTypeNamesFamilyGroupSearchByLastNames,
   SubTypeNamesFamilyGroupSearchByFirstNames,
-} from '@/modules/family-group/enums';
-import {
-  type FamilyGroupResponse,
-  type FamilyGroupSearchFormByTerm,
-} from '@/modules/family-group/interfaces';
-import { familyGroupSearchByTermFormSchema } from '@/modules/family-group/validations';
+} from '@/modules/family-group/enums/family-group-search-sub-type.enum';
+import { FamilyGroupSearchNamesByRecordStatus } from '@/modules/family-group/enums/family-group-search-select-option.enum';
 
-import { useFamilyGroupStore } from '@/stores/family-group';
+import { type FamilyGroupResponse } from '@/modules/family-group/interfaces/family-group-response.interface';
+import { type FamilyGroupSearchFormByTerm } from '@/modules/family-group/interfaces/family-group-search-by-term.interface';
+
+import { familyGroupSearchByTermFormSchema } from '@/modules/family-group/validations/family-group-search-by-term-form-schema';
 
 import { cn } from '@/shared/lib/utils';
 
-import { PageTitle, SearchTitle } from '@/shared/components/page';
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-import { namesFormatter, lastNamesFormatter } from '@/shared/helpers';
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
+
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+import { firstNamesFormatter, lastNamesFormatter } from '@/shared/helpers/names-formatter.helper';
 
 import {
   Form,
@@ -99,7 +102,7 @@ export const FamilyGroupInactivatePage = (): JSX.Element => {
       searchSubType: '' as any,
       limit: '10',
       inputTerm: '',
-      namesTerm: '',
+      firstNamesTerm: '',
       lastNamesTerm: '',
       selectTerm: '',
       all: false,
@@ -149,12 +152,12 @@ export const FamilyGroupInactivatePage = (): JSX.Element => {
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof familyGroupSearchByTermFormSchema>): void {
-    const newNamesTerm = namesFormatter(formData?.namesTerm);
+    const newNamesTerm = firstNamesFormatter(formData?.firstNamesTerm);
     const newLastNamesTerm = lastNamesFormatter(formData?.lastNamesTerm);
 
     setSearchParams({
       ...formData,
-      namesTerm: newNamesTerm,
+      firstNamesTerm: newNamesTerm,
       lastNamesTerm: newLastNamesTerm,
     });
 
@@ -199,7 +202,7 @@ export const FamilyGroupInactivatePage = (): JSX.Element => {
                           form.resetField('searchSubType', {
                             keepError: true,
                           });
-                          form.resetField('namesTerm', {
+                          form.resetField('firstNamesTerm', {
                             keepError: true,
                           });
                           form.resetField('lastNamesTerm', {
@@ -234,9 +237,9 @@ export const FamilyGroupInactivatePage = (): JSX.Element => {
                 }}
               />
 
-              {(searchType === FamilyGroupSearchType.FirstName ||
-                searchType === FamilyGroupSearchType.LastName ||
-                searchType === FamilyGroupSearchType.FullName) && (
+              {(searchType === FamilyGroupSearchType.FirstNames ||
+                searchType === FamilyGroupSearchType.LastNames ||
+                searchType === FamilyGroupSearchType.FullNames) && (
                 <FormField
                   control={form.control}
                   name='searchSubType'
@@ -252,7 +255,7 @@ export const FamilyGroupInactivatePage = (): JSX.Element => {
                           defaultValue={field.value}
                           value={field.value}
                           onOpenChange={() => {
-                            form.resetField('namesTerm', {
+                            form.resetField('firstNamesTerm', {
                               defaultValue: '',
                             });
                             form.resetField('lastNamesTerm', {
@@ -277,9 +280,9 @@ export const FamilyGroupInactivatePage = (): JSX.Element => {
                           </FormControl>
                           <SelectContent>
                             {Object.entries(
-                              searchType === FamilyGroupSearchType.FirstName
+                              searchType === FamilyGroupSearchType.FirstNames
                                 ? SubTypeNamesFamilyGroupSearchByFirstNames
-                                : searchType === FamilyGroupSearchType.LastName
+                                : searchType === FamilyGroupSearchType.LastNames
                                   ? SubTypeNamesFamilyGroupSearchByLastNames
                                   : SubTypeNamesFamilyGroupSearchByFullNames
                             ).map(([key, value]) => (
@@ -303,6 +306,7 @@ export const FamilyGroupInactivatePage = (): JSX.Element => {
               {(searchType === FamilyGroupSearchType.ZoneName ||
                 searchType === FamilyGroupSearchType.FamilyGroupCode ||
                 searchType === FamilyGroupSearchType.FamilyGroupName ||
+                searchType === FamilyGroupSearchType.Country ||
                 searchType === FamilyGroupSearchType.Department ||
                 searchType === FamilyGroupSearchType.Province ||
                 searchType === FamilyGroupSearchType.District ||
@@ -314,21 +318,23 @@ export const FamilyGroupInactivatePage = (): JSX.Element => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>
-                        {searchType === FamilyGroupSearchType.Department
-                          ? 'Departamento'
-                          : searchType === FamilyGroupSearchType.Province
-                            ? 'Provincia'
-                            : searchType === FamilyGroupSearchType.District
-                              ? 'Distrito'
-                              : searchType === FamilyGroupSearchType.UrbanSector
-                                ? 'Sector Urbano'
-                                : searchType === FamilyGroupSearchType.ZoneName
-                                  ? 'Nombre de zona'
-                                  : searchType === FamilyGroupSearchType.FamilyGroupCode
-                                    ? 'Código de grupo familiar'
-                                    : searchType === FamilyGroupSearchType.FamilyGroupName
-                                      ? 'Nombre de grupo familiar'
-                                      : 'Dirección'}
+                        {searchType === FamilyGroupSearchType.Country
+                          ? `País`
+                          : searchType === FamilyGroupSearchType.Department
+                            ? 'Departamento'
+                            : searchType === FamilyGroupSearchType.Province
+                              ? 'Provincia'
+                              : searchType === FamilyGroupSearchType.District
+                                ? 'Distrito'
+                                : searchType === FamilyGroupSearchType.UrbanSector
+                                  ? 'Sector Urbano'
+                                  : searchType === FamilyGroupSearchType.Address
+                                    ? 'Dirección'
+                                    : searchType === FamilyGroupSearchType.FamilyGroupCode
+                                      ? 'Código de grupo familiar'
+                                      : searchType === FamilyGroupSearchType.FamilyGroupName
+                                        ? 'Nombre de grupo familiar'
+                                        : 'Nombre de zona'}
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
                         Escribe aquí lo que deseas buscar.
@@ -336,7 +342,25 @@ export const FamilyGroupInactivatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           className='text-[13px] md:text-[14px]'
-                          placeholder='Ejem: C-2, Av.Central 123, Lima ....'
+                          placeholder={
+                            searchType === FamilyGroupSearchType.Country
+                              ? 'Ejem: Colombia , Mexico , Perú...'
+                              : searchType === FamilyGroupSearchType.Department
+                                ? 'Ejem: Lima, Ayacucho, Puno...'
+                                : searchType === FamilyGroupSearchType.Province
+                                  ? 'Ejem: Huaraz, Lima, Huamanga...'
+                                  : searchType === FamilyGroupSearchType.District
+                                    ? 'Ejem: Independencia, Los Olivos, SJL...'
+                                    : searchType === FamilyGroupSearchType.UrbanSector
+                                      ? 'Ejem: Payet, Tahuantinsuyo, La Pascana ...'
+                                      : searchType === FamilyGroupSearchType.Address
+                                        ? 'Ejem: Jr. Pardo 123 , Av.Central 555 , Mz. D Lt. 8 Nuevo Bosque...'
+                                        : searchType === FamilyGroupSearchType.FamilyGroupCode
+                                          ? 'Ejem: Jr. Levi-1 , Isacar-3 , Ruben-5..'
+                                          : searchType === FamilyGroupSearchType.FamilyGroupName
+                                            ? 'Nombre de grupo familiar'
+                                            : 'Ejem: Isacar, Levi, Neftali...'
+                          }
                           {...field}
                         />
                       </FormControl>
@@ -396,11 +420,11 @@ export const FamilyGroupInactivatePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === FamilyGroupSearchType.FirstName ||
-                searchType === FamilyGroupSearchType.FullName) && (
+              {(searchType === FamilyGroupSearchType.FirstNames ||
+                searchType === FamilyGroupSearchType.FullNames) && (
                 <FormField
                   control={form.control}
-                  name='namesTerm'
+                  name='firstNamesTerm'
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Nombres</FormLabel>
@@ -420,8 +444,8 @@ export const FamilyGroupInactivatePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === FamilyGroupSearchType.LastName ||
-                searchType === FamilyGroupSearchType.FullName) && (
+              {(searchType === FamilyGroupSearchType.LastNames ||
+                searchType === FamilyGroupSearchType.FullNames) && (
                 <FormField
                   control={form.control}
                   name='lastNamesTerm'
@@ -483,7 +507,7 @@ export const FamilyGroupInactivatePage = (): JSX.Element => {
                     control={form.control}
                     name='all'
                     render={({ field }) => (
-                      <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
+                      <FormItem className='flex flex-row items-end space-x-2 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
                         <FormControl>
                           <Checkbox
                             disabled={!form.getValues('limit') || !!form.formState.errors.limit} // transform to boolean
@@ -499,7 +523,9 @@ export const FamilyGroupInactivatePage = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[13px] md:text-[14px]'>Todos</FormLabel>
+                          <FormLabel className='text-[13px] md:text-[14px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </FormItem>
                     )}

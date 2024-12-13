@@ -11,14 +11,14 @@ import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
 import { type PieSectorDataItem } from 'recharts/types/polar/Pie';
 
 import { cn } from '@/shared/lib/utils';
-import { RecordOrder } from '@/shared/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
-import { getSimpleChurches } from '@/modules/church/services';
-import { type ChurchResponse } from '@/modules/church/interfaces';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
+import { type ChurchResponse } from '@/modules/church/interfaces/church-response.interface';
 
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { getMembersByCategory } from '@/modules/metrics/services';
-import { MembersByCategoryLegendContent } from '@/modules/metrics/components/member/tooltips/components';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { getMembersByCategory } from '@/modules/metrics/services/member-metrics.service';
+import { MembersByCategoryLegendContent } from '@/modules/metrics/components/member/tooltips/components/MembersByCategoryLegendContent';
 
 import {
   ChartLegend,

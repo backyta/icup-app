@@ -4,20 +4,26 @@ import { useEffect } from 'react';
 
 import { format, addDays } from 'date-fns';
 
-import { type ChurchResponse } from '@/modules/church/interfaces';
+import { type ChurchResponse } from '@/modules/church/interfaces/church-response.interface';
+
+import { cn } from '@/shared/lib/utils';
+
+import { RecordStatus } from '@/shared/enums/record-status.enum';
+import { PopoverDataCard } from '@/shared/components/card/PopoverDataCard';
+import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
+
+import {
+  type ChurchServiceTime,
+  ChurchServiceTimeNames,
+} from '@/modules/church/enums/church-service-time.enum';
+import {
+  type ChurchInactivationReason,
+  ChurchInactivationReasonNames,
+} from '@/modules/church/enums/church-inactivation-reason.enum';
 import {
   type ChurchInactivationCategory,
   ChurchInactivationCategoryNames,
-  type ChurchInactivationReason,
-  ChurchInactivationReasonNames,
-  type ChurchServiceTime,
-  ChurchServiceTimeNames,
-} from '@/modules/church/enums';
-
-import { cn } from '@/shared/lib/utils';
-import { RecordStatus } from '@/shared/enums';
-import { PopoverDataCard } from '@/shared/components';
-import { getInitialFullNames } from '@/shared/helpers';
+} from '@/modules/church/enums/church-inactivation-category.enum';
 
 import {
   Card,
@@ -179,8 +185,8 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
                 data={data?.pastors}
                 title={'Pastores'}
                 moduleName={'Iglesia'}
-                firstValue={'firstName'}
-                secondValue={'lastName'}
+                firstValue={'firstNames'}
+                secondValue={'lastNames'}
               />
             </div>
 
@@ -193,8 +199,8 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
                 data={data?.copastors}
                 title={'Co-Pastores'}
                 moduleName={'Iglesia'}
-                firstValue={'firstName'}
-                secondValue={'lastName'}
+                firstValue={'firstNames'}
+                secondValue={'lastNames'}
               />
             </div>
 
@@ -207,8 +213,8 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
                 data={data?.supervisors}
                 title={'Supervisores'}
                 moduleName={'Iglesia'}
-                firstValue={'firstName'}
-                secondValue={'lastName'}
+                firstValue={'firstNames'}
+                secondValue={'lastNames'}
               />
             </div>
 
@@ -235,8 +241,8 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
                 data={data?.preachers}
                 title={'Predicadores'}
                 moduleName={'Iglesia'}
-                firstValue={'firstName'}
-                secondValue={'lastName'}
+                firstValue={'firstNames'}
+                secondValue={'lastNames'}
               />
             </div>
 
@@ -263,8 +269,8 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
                 data={data?.disciples}
                 title={'Discípulos'}
                 moduleName={'Iglesia'}
-                firstValue={'firstName'}
-                secondValue={'lastName'}
+                firstValue={'firstNames'}
+                secondValue={'lastNames'}
               />
             </div>
 
@@ -287,8 +293,8 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdBy
                   ? getInitialFullNames({
-                      firstNames: data?.createdBy?.firstName ?? '-',
-                      lastNames: data?.createdBy?.lastName ?? '-',
+                      firstNames: data?.createdBy?.firstNames ?? '-',
+                      lastNames: data?.createdBy?.lastNames ?? '-',
                     })
                   : '-'}
               </CardDescription>
@@ -317,8 +323,8 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
                   ? getInitialFullNames({
-                      firstNames: data?.updatedBy?.firstName ?? '-',
-                      lastNames: data?.updatedBy?.lastName ?? '-',
+                      firstNames: data?.updatedBy?.firstNames ?? '-',
+                      lastNames: data?.updatedBy?.lastNames ?? '-',
                     })
                   : '-'}
               </CardDescription>

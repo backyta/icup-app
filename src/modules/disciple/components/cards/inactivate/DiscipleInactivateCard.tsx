@@ -8,23 +8,9 @@ import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { MdDeleteForever } from 'react-icons/md';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { memberInactivationFormSchema } from '@/shared/validations';
+import { memberInactivationFormSchema } from '@/shared/validations/member-inactivation-form-schema';
 
-import {
-  SpecialReasonsNames,
-  ExternalFactorsNames,
-  MemberInactivationCategory,
-  AdministrativeReasonsNames,
-  PersonalChallengesReasonsNames,
-  ChurchRelatedIssuesReasonsNames,
-  DisciplinaryActionsReasonsNames,
-  MemberInactivationCategoryNames,
-  PersonalOrFamilyChangesReasonsNames,
-  UnavoidableCircumstancesReasonsNames,
-  InactivityOrLackOfCommitmentReasonsNames,
-} from '@/shared/enums';
-
-import { useDiscipleInactivationMutation } from '@/modules/disciple/hooks';
+import { useDiscipleInactivationMutation } from '@/modules/disciple/hooks/useDiscipleInactivationMutation';
 
 import {
   Form,
@@ -44,6 +30,21 @@ import {
 } from '@/shared/components/ui/select';
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
+import {
+  MemberInactivationCategory,
+  MemberInactivationCategoryNames,
+} from '@/shared/enums/member-inactivation-category.enum';
+import {
+  AdministrativeReasonsNames,
+  ChurchRelatedIssuesReasonsNames,
+  DisciplinaryActionsReasonsNames,
+  ExternalFactorsNames,
+  InactivityOrLackOfCommitmentReasonsNames,
+  PersonalChallengesReasonsNames,
+  PersonalOrFamilyChangesReasonsNames,
+  SpecialReasonsNames,
+  UnavoidableCircumstancesReasonsNames,
+} from '@/shared/enums/member-inactivation-reason.enum';
 
 interface DiscipleInactivateCardProps {
   idRow: string;

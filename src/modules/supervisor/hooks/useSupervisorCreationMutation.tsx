@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { type UseFormReturn } from 'react-hook-form';
 import { useMutation, type UseMutationResult } from '@tanstack/react-query';
 
-import { type ErrorResponse } from '@/shared/interfaces';
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
 
-import { createSupervisor } from '@/modules/supervisor/services';
-import { type SupervisorFormData, type SupervisorResponse } from '@/modules/supervisor/interfaces';
+import { createSupervisor } from '@/modules/supervisor/services/supervisor.service';
+import { type SupervisorResponse } from '@/modules/supervisor/interfaces/supervisor-response.interface';
+import { type SupervisorFormData } from '@/modules/supervisor/interfaces/supervisor-form-data.interface';
 
 interface Options {
   supervisorCreationForm: UseFormReturn<SupervisorFormData, any, SupervisorFormData>;

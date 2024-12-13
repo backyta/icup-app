@@ -3,9 +3,9 @@ import { useRef, useState, useCallback, useMemo } from 'react';
 import { GiArchiveRegister } from 'react-icons/gi';
 import { useMediaQuery } from '@react-hook/media-query';
 
-import { UserUpdateForm } from '@/modules/user/components';
+import { UserUpdateForm } from '@/modules/user/components/cards/update/UserUpdateFom';
 
-import { useUserStore } from '@/stores/user';
+import { useUserStore } from '@/stores/user/user.store';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

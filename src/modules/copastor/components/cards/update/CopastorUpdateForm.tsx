@@ -19,42 +19,36 @@ import { es } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import {
-  useCopastorUpdateEffects,
-  useCopastorUpdateMutation,
-  useCopastorRolePromotionHandler,
-  useCopastorPromoteButtonLogic,
-  useCopastorUpdateSubmitButtonLogic,
-} from '@/modules/copastor/hooks';
-import { getSimplePastors } from '@/modules/pastor/services';
-import { copastorFormSchema } from '@/modules/copastor/validations';
-import { CopastorFormSkeleton } from '@/modules/copastor/components';
-import { type CopastorResponse } from '@/modules/copastor/interfaces';
+import { getSimplePastors } from '@/modules/pastor/services/pastor.service';
+import { CopastorFieldNames } from '@/modules/copastor/enums/copastor-field-names.enum';
+import { copastorFormSchema } from '@/modules/copastor/validations/copastor-form-schema';
+import { type CopastorResponse } from '@/modules/copastor/interfaces/copastor-response.interface';
+import { CopastorFormSkeleton } from '@/modules/copastor/components/cards/update/CopastorFormSkeleton';
 
-import { getSimpleChurches } from '@/modules/church/services';
-
-import { CopastorFieldNames } from '@/modules/copastor/enums';
-
-import { useRoleValidationByPath } from '@/shared/hooks';
+import { useCopastorUpdateEffects } from '@/modules/copastor/hooks/useCopastorUpdateEffects';
+import { useCopastorUpdateMutation } from '@/modules/copastor/hooks/useCopastorUpdateMutation';
+import { useCopastorPromoteButtonLogic } from '@/modules/copastor/hooks/useCopastorPromoteButtonLogic';
+import { useCopastorRolePromotionHandler } from '@/modules/copastor/hooks/useCopastorRolePromotionHandler';
+import { useCopastorUpdateSubmitButtonLogic } from '@/modules/copastor/hooks/useCopastorUpdateSubmitButtonLogic';
 
 import { cn } from '@/shared/lib/utils';
 
-import {
-  MemberRole,
-  GenderNames,
-  CountryNames,
-  ProvinceNames,
-  DistrictNames,
-  DepartmentNames,
-  MemberRoleNames,
-  UrbanSectorNames,
-  MaritalStatusNames,
-} from '@/shared/enums';
-import {
-  getFullNames,
-  validateDistrictsAllowedByModule,
-  validateUrbanSectorsAllowedByDistrict,
-} from '@/shared/helpers';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
+
+import { useRoleValidationByPath } from '@/shared/hooks/useRoleValidationByPath';
+
+import { GenderNames } from '@/shared/enums/gender.enum';
+import { CountryNames } from '@/shared/enums/country.enum';
+import { ProvinceNames } from '@/shared/enums/province.enum';
+import { DistrictNames } from '@/shared/enums/district.enum';
+import { DepartmentNames } from '@/shared/enums/department.enum';
+import { UrbanSectorNames } from '@/shared/enums/urban-sector.enum';
+import { MaritalStatusNames } from '@/shared/enums/marital-status.enum';
+import { MemberRole, MemberRoleNames } from '@/shared/enums/member-role.enum';
+
+import { getFullNames } from '@/shared/helpers/get-full-names.helper';
+import { validateDistrictsAllowedByModule } from '@/shared/helpers/validate-districts-allowed-by-module.helper';
+import { validateUrbanSectorsAllowedByDistrict } from '@/shared/helpers/validate-urban-sectors-allowed-by-district.helper';
 
 import {
   Form,
@@ -135,8 +129,8 @@ export const CopastorUpdateForm = ({
     mode: 'onChange',
     resolver: zodResolver(copastorFormSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      firstNames: '',
+      lastNames: '',
       gender: '',
       originCountry: '',
       birthDate: undefined,
@@ -145,12 +139,12 @@ export const CopastorUpdateForm = ({
       conversionDate: undefined,
       email: '',
       phoneNumber: '',
-      country: '',
-      department: '',
-      province: '',
-      district: '',
-      urbanSector: '',
-      address: '',
+      residenceCountry: '',
+      residenceDepartment: '',
+      residenceProvince: '',
+      residenceDistrict: '',
+      residenceUrbanSector: '',
+      residenceAddress: '',
       referenceAddress: '',
       roles: [MemberRole.Copastor],
       recordStatus: '',
@@ -160,12 +154,12 @@ export const CopastorUpdateForm = ({
   });
 
   //* Watchers
-  const district = form.watch('district');
+  const residenceDistrict = form.watch('residenceDistrict');
   const theirChurch = form.watch('theirChurch');
   const theirPastor = form.watch('theirPastor');
 
   //* Helpers
-  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(residenceDistrict);
   const districtsValidation = validateDistrictsAllowedByModule(pathname);
 
   //* Custom Hooks
@@ -236,7 +230,7 @@ export const CopastorUpdateForm = ({
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
               <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] pl-0 mb-4 md:pl-4'>
-                Co-Pastor: {data?.member?.firstName} {data?.member?.lastName}
+                Co-Pastor: {data?.member?.firstNames} {data?.member?.lastNames}
               </div>
               <Form {...form}>
                 <form
@@ -249,7 +243,7 @@ export const CopastorUpdateForm = ({
                     </legend>
                     <FormField
                       control={form.control}
-                      name='firstName'
+                      name='firstNames'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -271,7 +265,7 @@ export const CopastorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='lastName'
+                      name='lastNames'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -619,7 +613,7 @@ export const CopastorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='country'
+                      name='residenceCountry'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -654,7 +648,7 @@ export const CopastorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='department'
+                      name='residenceDepartment'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -689,7 +683,7 @@ export const CopastorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='province'
+                      name='residenceProvince'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -724,7 +718,7 @@ export const CopastorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='district'
+                      name='residenceDistrict'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -763,7 +757,7 @@ export const CopastorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='urbanSector'
+                      name='residenceUrbanSector'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -785,7 +779,7 @@ export const CopastorUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(UrbanSectorNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !residenceDistrict ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -802,7 +796,7 @@ export const CopastorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='address'
+                      name='residenceAddress'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -1050,7 +1044,7 @@ export const CopastorUpdateForm = ({
                                         )}
                                       >
                                         {field.value
-                                          ? `${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.member?.firstName} ${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.member?.lastName}`
+                                          ? `${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.member?.firstNames} ${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.member?.lastNames}`
                                           : 'Busque y seleccione un pastor'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
@@ -1071,8 +1065,8 @@ export const CopastorUpdateForm = ({
                                               <CommandItem
                                                 className='text-[14px]'
                                                 value={getFullNames({
-                                                  firstNames: pastor?.member?.firstName ?? '',
-                                                  lastNames: pastor?.member?.lastName ?? '',
+                                                  firstNames: pastor?.member?.firstNames ?? '',
+                                                  lastNames: pastor?.member?.lastNames ?? '',
                                                 })}
                                                 key={pastor.id}
                                                 onSelect={() => {
@@ -1080,7 +1074,7 @@ export const CopastorUpdateForm = ({
                                                   setIsInputTheirPastorOpen(false);
                                                 }}
                                               >
-                                                {`${pastor?.member?.firstName} ${pastor?.member?.lastName}`}
+                                                {`${pastor?.member?.firstNames} ${pastor?.member?.lastNames}`}
                                                 <CheckIcon
                                                   className={cn(
                                                     'ml-auto h-4 w-4',

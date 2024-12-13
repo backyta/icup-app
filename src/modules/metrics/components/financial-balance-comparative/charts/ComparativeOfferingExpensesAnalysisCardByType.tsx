@@ -11,19 +11,19 @@ import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { XAxis, YAxis, CartesianGrid, BarChart, Bar } from 'recharts';
 import { FcDataBackup, FcDataConfiguration, FcDeleteDatabase } from 'react-icons/fc';
 
-import { cn } from '@/shared/lib/utils';
-import { RecordOrder } from '@/shared/enums';
-import { generateYearOptions } from '@/shared/helpers';
-
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getComparativeOfferingExpensesByType } from '@/modules/metrics/services';
-import { ComparativeOfferingExpensesByTypeTooltipContent } from '@/modules/metrics/components/financial-balance-comparative/tooltips/components';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
+import { getComparativeOfferingExpensesByType } from '@/modules/metrics/services/offering-comparative-metrics.service';
+import { ComparativeOfferingExpensesByTypeTooltipContent } from '@/modules/metrics/components/financial-balance-comparative/tooltips/components/ComparativeOfferingExpensesByTypeTooltipContent';
 
 import {
   OfferingExpenseSearchType,
   OfferingExpenseSearchTypeNames,
-} from '@/modules/offering/expense/enums';
+} from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
+
+import { cn } from '@/shared/lib/utils';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { generateYearOptions } from '@/shared/helpers/generate-year-options.helper';
 
 import {
   Command,

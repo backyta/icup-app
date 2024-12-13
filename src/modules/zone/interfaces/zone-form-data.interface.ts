@@ -1,10 +1,10 @@
 export interface ZoneFormData {
-  zoneName: string;
-  country: string;
-  department: string;
-  province: string;
-  district: string;
-  recordStatus?: string | undefined;
+  zoneName        : string;
+  country         : string;
+  department      : string;
+  province        : string;
+  district        : string;
+  recordStatus   ?: string | undefined;
   theirSupervisor?: string | undefined;
 }
 

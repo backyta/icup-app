@@ -26,19 +26,22 @@ import {
 import {
   SupervisorSearchType,
   SupervisorSearchTypeNames,
-  SupervisorSearchSubTypeNames,
-  SupervisorSearchSelectOptionNames,
-} from '@/modules/supervisor/enums';
+} from '@/modules/supervisor/enums/supervisor-search-type.enum';
+import { SupervisorSearchSubTypeNames } from '@/modules/supervisor/enums/supervisor-search-sub-type.num';
+import { SupervisorSearchSelectOptionNames } from '@/modules/supervisor/enums/supervisor-search-select-option.enum';
+
+import { type SupervisorQueryParams } from '@/modules/supervisor/interfaces/supervisor-query-params.interface';
+import { type SupervisorSearchFormByTerm } from '@/modules/supervisor/interfaces/supervisor-form-search-by-term.interface';
+
 import {
-  type SupervisorQueryParams,
-  type SupervisorSearchFormByTerm,
-} from '@/modules/supervisor/interfaces';
-import { getSupervisorsByTerm, getSupervisorsReportByTerm } from '@/modules/supervisor/services';
+  getSupervisorsByTerm,
+  getSupervisorsReportByTerm,
+} from '@/modules/supervisor/services/supervisor.service';
 
-import { useSupervisorStore } from '@/stores/supervisor';
+import { useSupervisorStore } from '@/stores/supervisor/supervisor.store';
 
-import { LoadingSpinner } from '@/shared/components';
-import { dateFormatterToDDMMYYYY } from '@/shared/helpers';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+import { dateFormatterToDDMMYYYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 
 import {
   Table,
@@ -50,7 +53,7 @@ import {
 } from '@/shared/components/ui/table';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
-import { getSimpleChurches } from '@/modules/church/services';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -191,9 +194,9 @@ export function SearchByTermSupervisorDataTable<TData, TValue>({
                 )?.[1]
               }`}
             </span>
-            {(dataForm?.searchType === SupervisorSearchType.FirstName ||
-              dataForm?.searchType === SupervisorSearchType.LastName ||
-              dataForm?.searchType === SupervisorSearchType.FullName) && (
+            {(dataForm?.searchType === SupervisorSearchType.FirstNames ||
+              dataForm?.searchType === SupervisorSearchType.LastNames ||
+              dataForm?.searchType === SupervisorSearchType.FullNames) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {' '}
                 -{' '}
@@ -213,28 +216,29 @@ export function SearchByTermSupervisorDataTable<TData, TValue>({
             </span>{' '}
             {(dataForm?.searchType === SupervisorSearchType.OriginCountry ||
               dataForm?.searchType === SupervisorSearchType.ZoneName ||
-              dataForm?.searchType === SupervisorSearchType.Department ||
-              dataForm?.searchType === SupervisorSearchType.Province ||
-              dataForm?.searchType === SupervisorSearchType.District ||
-              dataForm?.searchType === SupervisorSearchType.UrbanSector ||
-              dataForm?.searchType === SupervisorSearchType.Address) && (
+              dataForm?.searchType === SupervisorSearchType.ResidenceCountry ||
+              dataForm?.searchType === SupervisorSearchType.ResidenceDepartment ||
+              dataForm?.searchType === SupervisorSearchType.ResidenceProvince ||
+              dataForm?.searchType === SupervisorSearchType.ResidenceDistrict ||
+              dataForm?.searchType === SupervisorSearchType.ResidenceUrbanSector ||
+              dataForm?.searchType === SupervisorSearchType.ResidenceAddress) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.inputTerm}`}
               </span>
             )}
-            {dataForm?.searchType === SupervisorSearchType.FirstName && (
+            {dataForm?.searchType === SupervisorSearchType.FirstNames && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.namesTerm}`}
+                {`${dataForm?.firstNamesTerm}`}
               </span>
             )}
-            {dataForm?.searchType === SupervisorSearchType.LastName && (
+            {dataForm?.searchType === SupervisorSearchType.LastNames && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.lastNamesTerm}`}
               </span>
             )}
-            {dataForm?.searchType === SupervisorSearchType.FullName && (
+            {dataForm?.searchType === SupervisorSearchType.FullNames && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
+                {`${dataForm?.firstNamesTerm} - ${dataForm?.lastNamesTerm} `}
               </span>
             )}
             {dataForm?.searchType === SupervisorSearchType.BirthDate && (
@@ -259,7 +263,7 @@ export function SearchByTermSupervisorDataTable<TData, TValue>({
           {/* Search Church */}
           <div>
             <span className='dark:text-emerald-500 text-emerald-600 font-bold text-[14px] md:text-[15.5px]'>
-              Iglesia de Busqueda:
+              Iglesia de Búsqueda:
             </span>{' '}
             <span className='font-medium text-[13px] md:text-[14.5px] italic'>
               {`${
@@ -274,15 +278,17 @@ export function SearchByTermSupervisorDataTable<TData, TValue>({
             <Input
               disabled={isDisabledButton}
               placeholder='Filtro por nombres...'
-              value={(table.getColumn('firstName')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('firstName')?.setFilterValue(event.target.value)}
+              value={(table.getColumn('firstNames')?.getFilterValue() as string) ?? ''}
+              onChange={(event) =>
+                table.getColumn('firstNames')?.setFilterValue(event.target.value)
+              }
               className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
             />
             <Input
               disabled={isDisabledButton}
               placeholder='Filtro por apellidos...'
-              value={(table.getColumn('lastName')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('lastName')?.setFilterValue(event.target.value)}
+              value={(table.getColumn('lastNames')?.getFilterValue() as string) ?? ''}
+              onChange={(event) => table.getColumn('lastNames')?.setFilterValue(event.target.value)}
               className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
             />
             <Button
@@ -290,8 +296,8 @@ export function SearchByTermSupervisorDataTable<TData, TValue>({
               variant='ghost'
               className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 border-red-500 bg-gradient-to-r from-red-400 via-red-500 to-red-600 text-white hover:text-red-100 hover:from-red-500 hover:via-red-600 hover:to-red-700 dark:from-red-600 dark:via-red-700 dark:to-red-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-red-700 dark:hover:via-red-800 dark:hover:to-red-900'
               onClick={() => {
-                table.getColumn('firstName')?.setFilterValue('');
-                table.getColumn('lastName')?.setFilterValue('');
+                table.getColumn('firstNames')?.setFilterValue('');
+                table.getColumn('lastNames')?.setFilterValue('');
               }}
             >
               Borrar
@@ -302,8 +308,8 @@ export function SearchByTermSupervisorDataTable<TData, TValue>({
               className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
               onClick={() => {
                 setIsFiltersSearchByTermDisabled(true);
-                table.getColumn('firstName')?.setFilterValue('');
-                table.getColumn('lastName')?.setFilterValue('');
+                table.getColumn('firstNames')?.setFilterValue('');
+                table.getColumn('lastNames')?.setFilterValue('');
               }}
             >
               Nueva Búsqueda

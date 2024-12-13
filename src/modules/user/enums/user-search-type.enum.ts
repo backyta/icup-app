@@ -1,6 +1,6 @@
 export enum UserSearchType {
-  FirstName = 'first_name',
-  LastName = 'last_name',
+  FirstNames = 'first_names',
+  LastNames = 'last_names',
   FullName = 'full_name',
   Gender = 'gender',
   Roles = 'roles',
@@ -8,8 +8,8 @@ export enum UserSearchType {
 }
 
 export const UserSearchTypeNames: Record<UserSearchType, string> =  {
-  [UserSearchType.FirstName]: 'Nombres',
-  [UserSearchType.LastName]: 'Apellidos',
+  [UserSearchType.FirstNames]: 'Nombres',
+  [UserSearchType.LastNames]: 'Apellidos',
   [UserSearchType.FullName]: 'Nombres y Apellidos',
   [UserSearchType.Gender]: 'Género',
   [UserSearchType.Roles]: 'Roles',

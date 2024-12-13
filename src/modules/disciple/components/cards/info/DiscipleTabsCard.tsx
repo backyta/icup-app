@@ -6,20 +6,22 @@ import { addDays, format } from 'date-fns';
 
 import { cn } from '@/shared/lib/utils';
 
-import { type DiscipleResponse } from '@/modules/disciple/interfaces';
+import { type DiscipleResponse } from '@/modules/disciple/interfaces/disciple-response.interface';
+
+import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
+
+import { RecordStatus } from '@/shared/enums/record-status.enum';
+import { type Gender, GenderNames } from '@/shared/enums/gender.enum';
 
 import {
-  type Gender,
-  GenderNames,
-  RecordStatus,
-  type MemberRole,
-  MemberRoleNames,
-  type MemberInactivationReason,
-  MemberInactivationReasonNames,
   type MemberInactivationCategory,
   MemberInactivationCategoryNames,
-} from '@/shared/enums';
-import { getInitialFullNames } from '@/shared/helpers';
+} from '@/shared/enums/member-inactivation-category.enum';
+import {
+  type MemberInactivationReason,
+  MemberInactivationReasonNames,
+} from '@/shared/enums/member-inactivation-reason.enum';
+import { type MemberRole, MemberRoleNames } from '@/shared/enums/member-role.enum';
 
 import {
   Card,
@@ -92,13 +94,13 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Nombres</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.firstName ?? '-'}
+                {data?.member?.firstNames ?? '-'}
               </CardDescription>
             </div>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Apellidos</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.lastName ?? '-'}
+                {data?.member?.lastNames ?? '-'}
               </CardDescription>
             </div>
             <div className='space-y-1'>
@@ -177,8 +179,8 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdBy
                   ? getInitialFullNames({
-                      firstNames: data?.createdBy?.firstName ?? '-',
-                      lastNames: data?.createdBy?.lastName ?? '-',
+                      firstNames: data?.createdBy?.firstNames ?? '-',
+                      lastNames: data?.createdBy?.lastNames ?? '-',
                     })
                   : '-'}
               </CardDescription>
@@ -207,8 +209,8 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
                   ? getInitialFullNames({
-                      firstNames: data?.updatedBy?.firstName ?? '-',
-                      lastNames: data?.updatedBy?.lastName ?? '-',
+                      firstNames: data?.updatedBy?.firstNames ?? '-',
+                      lastNames: data?.updatedBy?.lastNames ?? '-',
                     })
                   : '-'}
               </CardDescription>
@@ -331,7 +333,7 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
               <Label className='text-[14px] md:text-[15px]'>Pastor</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {(data?.theirPastor?.id &&
-                  `${data?.theirPastor?.firstName} ${data?.theirPastor?.lastName}`) ??
+                  `${data?.theirPastor?.firstNames} ${data?.theirPastor?.lastNames}`) ??
                   'Este discípulo no tiene un pastor asignado.'}
               </CardDescription>
             </div>
@@ -340,7 +342,7 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
               <Label className='text-[14px] md:text-[15px]'>Co-Pastor</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirCopastor?.id
-                  ? `${data?.theirCopastor?.firstName} ${data?.theirCopastor?.lastName}`
+                  ? `${data?.theirCopastor?.firstNames} ${data?.theirCopastor?.lastNames}`
                   : 'Este discípulo no tiene un co-pastor asignado.'}
               </CardDescription>
             </div>
@@ -349,7 +351,7 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
               <Label className='text-[14px] md:text-[15px]'>Supervisor</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirSupervisor?.id
-                  ? `${data?.theirSupervisor?.firstName} ${data?.theirSupervisor?.lastName}`
+                  ? `${data?.theirSupervisor?.firstNames} ${data?.theirSupervisor?.lastNames}`
                   : 'Este discípulo no tiene un supervisor asignado.'}
               </CardDescription>
             </div>
@@ -367,7 +369,7 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
               <Label className='text-[14px] md:text-[15px]'>Predicador</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirPreacher?.id
-                  ? `${data?.theirPreacher?.firstName} ${data?.theirPreacher?.lastName}`
+                  ? `${data?.theirPreacher?.firstNames} ${data?.theirPreacher?.lastNames}`
                   : 'Este discípulo no tiene un predicador asignado.'}
               </CardDescription>
             </div>
@@ -425,42 +427,42 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>País</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.country ?? '-'}
+                {data?.member?.residenceCountry ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Departamento</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.department ?? '-'}
+                {data?.member?.residenceDepartment ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Provincia</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.province ?? '-'}
+                {data?.member?.residenceProvince ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Distrito</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.district ?? '-'}
+                {data?.member?.residenceDistrict ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Sector Urbano</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.urbanSector ?? '-'}
+                {data?.member?.residenceUrbanSector ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Dirección</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.address ?? '-'}
+                {data?.member?.residenceAddress ?? '-'}
               </CardDescription>
             </div>
 

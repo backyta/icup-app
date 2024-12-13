@@ -1,5 +1,5 @@
-import { type TooltipConfig } from '@/shared/interfaces';
-import { type FamilyGroupsFluctuationByYearPayload } from '@/modules/metrics/components/family-group/tooltips/interfaces';
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { type FamilyGroupsFluctuationByYearPayload } from '@/modules/metrics/components/family-group/tooltips/interfaces/family-groups-fluctuation-by-year-tooltip-payload.interface';
 
 export const FamilyGroupsFluctuationByYearTooltipContent = (
   props: TooltipConfig<FamilyGroupsFluctuationByYearPayload>

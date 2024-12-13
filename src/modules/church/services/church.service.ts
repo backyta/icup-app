@@ -3,11 +3,12 @@
 import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
-import { RecordOrder } from '@/shared/enums';
-
-import { ChurchSearchType } from '@/modules/church/enums';
-import { type ChurchFormData, type ChurchResponse, type ChurchQueryParams } from '@/modules/church/interfaces';
+import { ChurchSearchType } from '@/modules/church/enums/church-search-type.enum';
+import { type ChurchResponse } from '@/modules/church/interfaces/church-response.interface';
+import { type ChurchFormData, } from '@/modules/church/interfaces/church-form-data.interface';
+import { type ChurchQueryParams } from '@/modules/church/interfaces/church-query-params.interface';
 
 //* Create church
 export const createChurch = async (formData:ChurchFormData ): Promise<ChurchResponse> => {

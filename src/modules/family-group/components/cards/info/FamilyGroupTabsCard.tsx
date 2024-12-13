@@ -4,18 +4,21 @@ import { useEffect } from 'react';
 
 import { format } from 'date-fns';
 
-import { cn } from '@/shared/lib/utils';
-import { RecordStatus } from '@/shared/enums';
-
-import { getInitialFullNames } from '@/shared/helpers';
-
+import {
+  type FamilyGroupInactivationCategory,
+  FamilyGroupInactivationCategoryNames,
+} from '@/modules/family-group/enums/family-group-inactivation-category.enum';
 import {
   type FamilyGroupInactivationReason,
   FamilyGroupInactivationReasonNames,
-  type FamilyGroupInactivationCategory,
-  FamilyGroupInactivationCategoryNames,
-} from '@/modules/family-group/enums';
-import { type FamilyGroupResponse } from '@/modules/family-group/interfaces';
+} from '@/modules/family-group/enums/family-group-inactivation-reason.enum';
+
+import { type FamilyGroupResponse } from '@/modules/family-group/interfaces/family-group-response.interface';
+
+import { cn } from '@/shared/lib/utils';
+
+import { RecordStatus } from '@/shared/enums/record-status.enum';
+import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 
 import {
   Card,
@@ -26,7 +29,8 @@ import {
 } from '@/shared/components/ui/card';
 import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
-import { PopoverDataCard } from '@/shared/components';
+
+import { PopoverDataCard } from '@/shared/components/card/PopoverDataCard';
 
 interface FamilyGroupTabsCardProps {
   id: string;
@@ -129,8 +133,8 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
                     data={data?.disciples}
                     title={'Discípulos'}
                     moduleName={'Grupo Familiar'}
-                    firstValue={'firstName'}
-                    secondValue={'lastName'}
+                    firstValue={'firstNames'}
+                    secondValue={'lastNames'}
                   />
                 </ul>
               </div>
@@ -155,8 +159,8 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdBy
                   ? getInitialFullNames({
-                      firstNames: data?.createdBy?.firstName ?? '-',
-                      lastNames: data?.createdBy?.lastName ?? '-',
+                      firstNames: data?.createdBy?.firstNames ?? '-',
+                      lastNames: data?.createdBy?.lastNames ?? '-',
                     })
                   : '-'}
               </CardDescription>
@@ -185,8 +189,8 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
                   ? getInitialFullNames({
-                      firstNames: data?.updatedBy?.firstName ?? '-',
-                      lastNames: data?.updatedBy?.lastName ?? '-',
+                      firstNames: data?.updatedBy?.firstNames ?? '-',
+                      lastNames: data?.updatedBy?.lastNames ?? '-',
                     })
                   : '-'}
               </CardDescription>
@@ -277,7 +281,7 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
               <Label className='text-[14px] md:text-[15px]'>Pastor</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirPastor?.id
-                  ? `${data?.theirPastor?.firstName} ${data?.theirPastor?.lastName}`
+                  ? `${data?.theirPastor?.firstNames} ${data?.theirPastor?.lastNames}`
                   : 'Este grupo familiar no tiene un pastor asignado.'}
               </CardDescription>
             </div>
@@ -286,7 +290,7 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
               <Label className='text-[14px] md:text-[15px]'>Co-Pastor</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirCopastor?.id
-                  ? `${data?.theirCopastor?.firstName} ${data?.theirCopastor?.lastName}`
+                  ? `${data?.theirCopastor?.firstNames} ${data?.theirCopastor?.lastNames}`
                   : 'Este grupo familiar no tiene un co-pastor asignado.'}
               </CardDescription>
             </div>
@@ -295,7 +299,7 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
               <Label className='text-[14px] md:text-[15px]'>Supervisor</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirSupervisor?.id
-                  ? `${data?.theirSupervisor?.firstName} ${data?.theirSupervisor?.lastName}`
+                  ? `${data?.theirSupervisor?.firstNames} ${data?.theirSupervisor?.lastNames}`
                   : 'Este grupo familiar no tiene un supervisor asignado.'}
               </CardDescription>
             </div>
@@ -313,7 +317,7 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
               <Label className='text-[14px] md:text-[15px]'>Predicador</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirPreacher?.id
-                  ? `${data?.theirPreacher?.firstName} ${data?.theirPreacher?.lastName}`
+                  ? `${data?.theirPreacher?.firstNames} ${data?.theirPreacher?.lastNames}`
                   : 'Este grupo familiar no tiene un predicador asignado.'}
               </CardDescription>
             </div>

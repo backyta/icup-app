@@ -10,13 +10,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/shared/lib/utils';
 import { MdDeleteForever } from 'react-icons/md';
 
-import { offeringInactivateFormSchema } from '@/modules/offering/shared/validations';
+import { offeringInactivateFormSchema } from '@/modules/offering/shared/validations/offering-inactivate-form-schema';
 
 import {
   OfferingIncomeInactivationReason,
   OfferingIncomeInactivationReasonNames,
-} from '@/modules/offering/income/enums';
-import { useOfferingIncomeInactivationMutation } from '@/modules/offering/income/hooks';
+} from '@/modules/offering/income/enums/offering-income-inactivation-reason.enum';
+import { useOfferingIncomeInactivationMutation } from '@/modules/offering/income/hooks/useOfferingIncomeInactivationMutation';
 
 import {
   Form,

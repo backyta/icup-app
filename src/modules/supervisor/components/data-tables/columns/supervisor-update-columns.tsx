@@ -7,8 +7,10 @@ import { type ColumnDef } from '@tanstack/react-table';
 
 import { Button } from '@/shared/components/ui/button';
 
-import { type SupervisorColumns } from '@/modules/supervisor/interfaces';
-import { SupervisorInfoCard, SupervisorUpdateCard } from '@/modules/supervisor/components';
+import { type SupervisorColumns } from '@/modules/supervisor/interfaces/supervisor-columns.interface';
+
+import { SupervisorInfoCard } from '@/modules/supervisor/components/cards/info/SupervisorInfoCard';
+import { SupervisorUpdateCard } from '@/modules/supervisor/components/cards/update/SupervisorUpdateCard';
 
 export const supervisorUpdateColumns: Array<ColumnDef<SupervisorColumns, any>> = [
   {
@@ -34,8 +36,8 @@ export const supervisorUpdateColumns: Array<ColumnDef<SupervisorColumns, any>> =
     },
   },
   {
-    id: 'firstName',
-    accessorKey: 'member.firstName',
+    id: 'firstNames',
+    accessorKey: 'member.firstNames',
     header: ({ column }) => {
       return (
         <Button
@@ -52,8 +54,8 @@ export const supervisorUpdateColumns: Array<ColumnDef<SupervisorColumns, any>> =
     },
   },
   {
-    id: 'lastName',
-    accessorKey: 'member.lastName',
+    id: 'lastNames',
+    accessorKey: 'member.lastNames',
     header: ({ column }) => {
       return (
         <Button

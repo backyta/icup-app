@@ -13,19 +13,20 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/shared/lib/utils';
 
-import { usePreacherStore } from '@/stores/preacher';
-import { getSimpleChurches } from '@/modules/church/services';
+import { usePreacherStore } from '@/stores/preacher/preacher.store';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
-import {
-  preacherInfoColumns as columns,
-  GeneralPreacherSearchDataTable,
-} from '@/modules/preacher/components';
-import { type PreacherResponse } from '@/modules/preacher/interfaces';
+import { preacherInfoColumns as columns } from '@/modules/preacher/components/data-tables/columns/preacher-info-columns';
+import { GeneralPreacherSearchDataTable } from '@/modules/preacher/components/data-tables/boards/general-preacher-search-data-table';
 
-import { PageTitle, SearchTitle } from '@/shared/components/page';
-import { type GeneralSearchForm } from '@/shared/interfaces';
-import { formSearchGeneralSchema } from '@/shared/validations';
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
+import { type PreacherResponse } from '@/modules/preacher/interfaces/preacher-response.interface';
+
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
+
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+import { type GeneralSearchForm } from '@/shared/interfaces/search-general-form.interface';
+import { formSearchGeneralSchema } from '@/shared/validations/form-search-general-schema';
 
 import {
   Select,
@@ -52,8 +53,8 @@ const dataFictional: PreacherResponse[] = [
     id: '',
     member: {
       id: '',
-      firstName: '',
-      lastName: '',
+      firstNames: '',
+      lastNames: '',
       gender: '',
       age: 0,
       originCountry: '',
@@ -63,12 +64,12 @@ const dataFictional: PreacherResponse[] = [
       conversionDate: new Date('2024-05-21'),
       email: '',
       phoneNumber: '',
-      country: '',
-      department: '',
-      province: '',
-      district: '',
-      urbanSector: '',
-      address: '',
+      residenceCountry: '',
+      residenceDepartment: '',
+      residenceProvince: '',
+      residenceDistrict: '',
+      residenceUrbanSector: '',
+      residenceAddress: '',
       referenceAddress: '',
       roles: [],
     },
@@ -230,7 +231,9 @@ export const PreachersGeneralSearchPage = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[12px] md:text-[13px]'>Todos</FormLabel>
+                          <FormLabel className='text-[12px] md:text-[13px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </div>
                     </FormItem>

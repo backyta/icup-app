@@ -6,21 +6,21 @@ import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-
-import { cn } from '@/shared/lib/utils';
 import { useQuery } from '@tanstack/react-query';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Bar, XAxis, YAxis, CartesianGrid, BarChart } from 'recharts';
 
-import { getSimpleZones } from '@/modules/zone/services';
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getFamilyGroupsByRecordStatus } from '@/modules/metrics/services';
-import { FamilyGroupsByRecordStatusTooltipContent } from '@/modules/metrics/components/family-group/tooltips/components';
+import { getSimpleZones } from '@/modules/zone/services/zone.service';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
+import { getFamilyGroupsByRecordStatus } from '@/modules/metrics/services/family-group-metrics.service';
+import { FamilyGroupsByRecordStatusTooltipContent } from '@/modules/metrics/components/family-group/tooltips/components/FamilyGroupsByRecordStatusTooltipContent';
 
-import { RecordOrder } from '@/shared/enums';
+import { cn } from '@/shared/lib/utils';
+
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
 import {
   Form,

@@ -5,8 +5,8 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums';
-import { type PastorFormData } from '@/modules/pastor/interfaces';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { type PastorFormData } from '@/modules/pastor/interfaces/pastor-form-data.interface';
 
 interface Options {
   pastorCreationForm: UseFormReturn<PastorFormData, any, PastorFormData>;
@@ -24,8 +24,8 @@ export const usePastorCreationSubmitButtonLogic = ({
   setIsMessageErrorDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = pastorCreationForm.watch('firstName');
-  const lastName = pastorCreationForm.watch('lastName');
+  const firstNames = pastorCreationForm.watch('firstNames');
+  const lastNames = pastorCreationForm.watch('lastNames');
   const gender = pastorCreationForm.watch('gender');
   const birthDate = pastorCreationForm.watch('birthDate');
   const conversionDate = pastorCreationForm.watch('conversionDate');
@@ -34,12 +34,12 @@ export const usePastorCreationSubmitButtonLogic = ({
   const phoneNumber = pastorCreationForm.watch('phoneNumber');
   const originCountry = pastorCreationForm.watch('originCountry');
   const numberChildren = pastorCreationForm.watch('numberChildren');
-  const country = pastorCreationForm.watch('country');
-  const department = pastorCreationForm.watch('department');
-  const province = pastorCreationForm.watch('province');
-  const district = pastorCreationForm.watch('district');
-  const urbanSector = pastorCreationForm.watch('urbanSector');
-  const address = pastorCreationForm.watch('address');
+  const country = pastorCreationForm.watch('residenceCountry');
+  const department = pastorCreationForm.watch('residenceDepartment');
+  const province = pastorCreationForm.watch('residenceProvince');
+  const district = pastorCreationForm.watch('residenceDistrict');
+  const urbanSector = pastorCreationForm.watch('residenceUrbanSector');
+  const address = pastorCreationForm.watch('residenceAddress');
   const roles = pastorCreationForm.watch('roles');
   const referenceAddress = pastorCreationForm.watch('referenceAddress');
   const theirChurch = pastorCreationForm.watch('theirChurch');
@@ -65,8 +65,8 @@ export const usePastorCreationSubmitButtonLogic = ({
     }
 
     if (
-      !firstName ||
-      !lastName ||
+      !firstNames ||
+      !lastNames ||
       !gender ||
       !birthDate ||
       !conversionDate ||
@@ -91,8 +91,8 @@ export const usePastorCreationSubmitButtonLogic = ({
     }
   }, [
     pastorCreationForm.formState,
-    firstName,
-    lastName,
+    firstNames,
+    lastNames,
     gender,
     conversionDate,
     birthDate,

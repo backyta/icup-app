@@ -7,41 +7,50 @@ import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { Toaster } from 'sonner';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-
+import { useForm } from 'react-hook-form';
 import { CalendarIcon } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import {
-  SearchByTermSupervisorDataTable,
-  supervisorInfoColumns as columns,
-} from '@/modules/supervisor/components';
-import {
-  type SupervisorResponse,
-  type SupervisorSearchFormByTerm,
-} from '@/modules/supervisor/interfaces';
+import { useSupervisorStore } from '@/stores/supervisor/supervisor.store';
+
+import { getSimpleChurches } from '@/modules/church/services/church.service';
+
+import { SearchByTermSupervisorDataTable } from '@/modules/supervisor/components/data-tables/boards/search-by-term-supervisor-data-table';
+import { supervisorInfoColumns as columns } from '@/modules/supervisor/components/data-tables/columns/supervisor-info-columns';
+
+import { type SupervisorResponse } from '@/modules/supervisor/interfaces/supervisor-response.interface';
+import { type SupervisorSearchFormByTerm } from '@/modules/supervisor/interfaces/supervisor-form-search-by-term.interface';
+
+import { supervisorSearchByTermFormSchema } from '@/modules/supervisor/validations/supervisor-search-by-term-form-schema';
+
+import { cn } from '@/shared/lib/utils';
+
 import {
   SupervisorSearchType,
   SupervisorSearchTypeNames,
+} from '@/modules/supervisor/enums/supervisor-search-type.enum';
+import {
+  SubTypeNamesSupervisorSearchByFullNames,
+  SubTypeNamesSupervisorSearchByLastNames,
+  SubTypeNamesSupervisorSearchByFirstNames,
+} from '@/modules/supervisor/enums/supervisor-search-sub-type.num';
+import {
   SupervisorSearchNamesByGender,
   SupervisorSearchNamesByBirthMonth,
   SupervisorSearchNamesByRecordStatus,
   SupervisorSearchNamesByMaritalStatus,
-  SubTypeNamesSupervisorSearchByLastNames,
-  SubTypeNamesSupervisorSearchByFullNames,
-  SubTypeNamesSupervisorSearchByFirstNames,
-} from '@/modules/supervisor/enums';
-import { supervisorSearchByTermFormSchema } from '@/modules/supervisor/validations';
+} from '@/modules/supervisor/enums/supervisor-search-select-option.enum';
 
-import { cn } from '@/shared/lib/utils';
-import { useSupervisorStore } from '@/stores/supervisor';
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
 
-import { PageTitle, SearchTitle } from '@/shared/components/page';
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-import { dateFormatterTermToTimestamp, namesFormatter, lastNamesFormatter } from '@/shared/helpers';
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+
+import { lastNamesFormatter, firstNamesFormatter } from '@/shared/helpers/names-formatter.helper';
+import { dateFormatterTermToTimestamp } from '@/shared/helpers/date-formatter-to-timestamp.helper';
 
 import {
   Form,
@@ -64,16 +73,14 @@ import { Button } from '@/shared/components/ui/button';
 import { Calendar } from '@/shared/components/ui/calendar';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
-import { useQuery } from '@tanstack/react-query';
-import { getSimpleChurches } from '@/modules/church/services';
 
 const dataFictional: SupervisorResponse[] = [
   {
     id: '',
     member: {
       id: '',
-      firstName: '',
-      lastName: '',
+      firstNames: '',
+      lastNames: '',
       gender: '',
       age: 0,
       originCountry: '',
@@ -83,12 +90,12 @@ const dataFictional: SupervisorResponse[] = [
       conversionDate: new Date('2024-05-21'),
       email: '',
       phoneNumber: '',
-      country: '',
-      department: '',
-      province: '',
-      district: '',
-      urbanSector: '',
-      address: '',
+      residenceCountry: '',
+      residenceDepartment: '',
+      residenceProvince: '',
+      residenceDistrict: '',
+      residenceUrbanSector: '',
+      residenceAddress: '',
       referenceAddress: '',
       roles: [],
     },
@@ -120,7 +127,7 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
       searchSubType: '' as any,
       limit: '10',
       inputTerm: '',
-      namesTerm: '',
+      firstNamesTerm: '',
       lastNamesTerm: '',
       selectTerm: '',
       dateTerm: undefined,
@@ -181,12 +188,12 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
       to: formData.dateTerm?.to ? formData.dateTerm?.to : newDateTermTo,
     });
 
-    const newNamesTerm = namesFormatter(formData?.namesTerm);
+    const newNamesTerm = firstNamesFormatter(formData?.firstNamesTerm);
     const newLastNamesTerm = lastNamesFormatter(formData?.lastNamesTerm);
 
     setSearchParams({
       ...formData,
-      namesTerm: newNamesTerm,
+      firstNamesTerm: newNamesTerm,
       lastNamesTerm: newLastNamesTerm,
       dateTerm: newDateTerm as any,
     });
@@ -235,7 +242,7 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
                           form.resetField('searchSubType', {
                             keepError: true,
                           });
-                          form.resetField('namesTerm', {
+                          form.resetField('firstNamesTerm', {
                             keepError: true,
                           });
                           form.resetField('lastNamesTerm', {
@@ -267,9 +274,9 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
                 }}
               />
 
-              {(searchType === SupervisorSearchType.FirstName ||
-                searchType === SupervisorSearchType.LastName ||
-                searchType === SupervisorSearchType.FullName) && (
+              {(searchType === SupervisorSearchType.FirstNames ||
+                searchType === SupervisorSearchType.LastNames ||
+                searchType === SupervisorSearchType.FullNames) && (
                 <FormField
                   control={form.control}
                   name='searchSubType'
@@ -285,7 +292,7 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
                           defaultValue={field.value}
                           value={field.value}
                           onOpenChange={() => {
-                            form.resetField('namesTerm', {
+                            form.resetField('firstNamesTerm', {
                               defaultValue: '',
                             });
                             form.resetField('lastNamesTerm', {
@@ -313,9 +320,9 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
                           </FormControl>
                           <SelectContent>
                             {Object.entries(
-                              searchType === SupervisorSearchType.FirstName
+                              searchType === SupervisorSearchType.FirstNames
                                 ? SubTypeNamesSupervisorSearchByFirstNames
-                                : searchType === SupervisorSearchType.LastName
+                                : searchType === SupervisorSearchType.LastNames
                                   ? SubTypeNamesSupervisorSearchByLastNames
                                   : SubTypeNamesSupervisorSearchByFullNames
                             ).map(([key, value]) => (
@@ -338,11 +345,12 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
 
               {(searchType === SupervisorSearchType.OriginCountry ||
                 searchType === SupervisorSearchType.ZoneName ||
-                searchType === SupervisorSearchType.Department ||
-                searchType === SupervisorSearchType.Province ||
-                searchType === SupervisorSearchType.District ||
-                searchType === SupervisorSearchType.UrbanSector ||
-                searchType === SupervisorSearchType.Address) && (
+                searchType === SupervisorSearchType.ResidenceCountry ||
+                searchType === SupervisorSearchType.ResidenceDepartment ||
+                searchType === SupervisorSearchType.ResidenceProvince ||
+                searchType === SupervisorSearchType.ResidenceDistrict ||
+                searchType === SupervisorSearchType.ResidenceUrbanSector ||
+                searchType === SupervisorSearchType.ResidenceAddress) && (
                 <FormField
                   control={form.control}
                   name='inputTerm'
@@ -350,18 +358,20 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>
                         {searchType === SupervisorSearchType.OriginCountry
-                          ? `País de origen`
-                          : searchType === SupervisorSearchType.Department
-                            ? 'Departamento'
-                            : searchType === SupervisorSearchType.Province
-                              ? 'Provincia'
-                              : searchType === SupervisorSearchType.District
-                                ? 'Distrito'
-                                : searchType === SupervisorSearchType.UrbanSector
-                                  ? 'Sector Urbano'
-                                  : searchType === SupervisorSearchType.ZoneName
-                                    ? 'Nombre de zona'
-                                    : 'Dirección'}
+                          ? `País (origen)`
+                          : searchType === SupervisorSearchType.ResidenceCountry
+                            ? 'País (residencia)'
+                            : searchType === SupervisorSearchType.ResidenceDepartment
+                              ? 'Departamento (residencia)'
+                              : searchType === SupervisorSearchType.ResidenceProvince
+                                ? 'Provincia (residencia)'
+                                : searchType === SupervisorSearchType.ResidenceDistrict
+                                  ? 'Distrito (residencia)'
+                                  : searchType === SupervisorSearchType.ResidenceUrbanSector
+                                    ? 'Sector Urbano (residencia)'
+                                    : searchType === SupervisorSearchType.ResidenceAddress
+                                      ? 'Dirección (residencia)'
+                                      : 'Nombre de zona'}
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
                         Escribe aquí lo que deseas buscar.
@@ -369,7 +379,23 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
                       <FormControl>
                         <Input
                           className='text-[13px] md:text-[14px]'
-                          placeholder='Ejem: C-2, Av.Central 123, Lima ....'
+                          placeholder={
+                            searchType === SupervisorSearchType.OriginCountry
+                              ? 'Ejem: Colombia , Mexico , Perú...'
+                              : searchType === SupervisorSearchType.ResidenceCountry
+                                ? 'Ejem: Perú ...'
+                                : searchType === SupervisorSearchType.ResidenceDepartment
+                                  ? 'Ejem: Lima, Ayacucho, Puno...'
+                                  : searchType === SupervisorSearchType.ResidenceProvince
+                                    ? 'Ejem: Huaraz, Lima, Huamanga...'
+                                    : searchType === SupervisorSearchType.ResidenceDistrict
+                                      ? 'Ejem: Independencia, Los Olivos, SJL...'
+                                      : searchType === SupervisorSearchType.ResidenceUrbanSector
+                                        ? 'Ejem: Payet, Tahuantinsuyo, La Pascana ...'
+                                        : searchType === SupervisorSearchType.ResidenceAddress
+                                          ? 'Ejem: Jr. Pardo 123 , Av.Central 555 , Mz. D Lt. 8 Nuevo Bosque...'
+                                          : 'Ejem: Isacar, Levi, Neftali...'
+                          }
                           {...field}
                         />
                       </FormControl>
@@ -502,11 +528,11 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SupervisorSearchType.FirstName ||
-                searchType === SupervisorSearchType.FullName) && (
+              {(searchType === SupervisorSearchType.FirstNames ||
+                searchType === SupervisorSearchType.FullNames) && (
                 <FormField
                   control={form.control}
-                  name='namesTerm'
+                  name='firstNamesTerm'
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Nombres</FormLabel>
@@ -526,8 +552,8 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === SupervisorSearchType.LastName ||
-                searchType === SupervisorSearchType.FullName) && (
+              {(searchType === SupervisorSearchType.LastNames ||
+                searchType === SupervisorSearchType.FullNames) && (
                 <FormField
                   control={form.control}
                   name='lastNamesTerm'
@@ -588,7 +614,7 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
                     control={form.control}
                     name='all'
                     render={({ field }) => (
-                      <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
+                      <FormItem className='flex flex-row items-end space-x-2 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
                         <FormControl>
                           <Checkbox
                             disabled={!form.getValues('limit') || !!form.formState.errors.limit} // transform to boolean
@@ -604,7 +630,9 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[13px] md:text-[14px]'>Todos</FormLabel>
+                          <FormLabel className='text-[13px] md:text-[14px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </FormItem>
                     )}

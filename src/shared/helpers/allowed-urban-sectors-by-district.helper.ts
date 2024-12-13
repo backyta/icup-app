@@ -1,4 +1,4 @@
-import { UrbanSectorNames } from '@/shared/enums';
+import { UrbanSectorNames } from '@/shared/enums/urban-sector.enum';
 
 // ? Allowed Urban Sector by district
 //* Independencia

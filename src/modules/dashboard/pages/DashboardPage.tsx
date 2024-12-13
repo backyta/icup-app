@@ -2,13 +2,11 @@
 
 import { useEffect } from 'react';
 
-import {
-  HousesInfoCard,
-  MembersInfoCard,
-  LastSundayOfferingsCard,
-  TopFamilyGroupsOfferingsCard,
-} from '@/modules/dashboard/components';
-import { useAuthStore } from '@/stores';
+import { useAuthStore } from '@/stores/auth/auth.store';
+import { MembersInfoCard } from '@/modules/dashboard/components/cards/info/LastMembersCard';
+import { HousesInfoCard } from '@/modules/dashboard/components/cards/info/TopFamilyGroupsCard';
+import { LastSundayOfferingsCard } from '@/modules/dashboard/components/cards/charts/LastSundaysOfferingsCard';
+import { TopFamilyGroupsOfferingsCard } from '@/modules/dashboard/components/cards/charts/TopFamilyGroupsOfferingsCard';
 
 export const DashboardPage = (): JSX.Element => {
   const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);

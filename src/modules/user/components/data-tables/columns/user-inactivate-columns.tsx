@@ -1,9 +1,11 @@
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import { type UserColumns } from '@/modules/user/interfaces';
-import { type UserRole, UserRoleNames } from '@/modules/user/enums';
-import { UserInactivateCard, UserInfoCard } from '@/modules/user/components';
+import { type UserColumns } from '@/modules/user/interfaces/user-columns.interface';
+import { type UserRole, UserRoleNames } from '@/modules/user/enums/user-role.enum';
+
+import { UserInfoCard } from '@/modules/user/components/cards/info/UserInfoCard';
+import { UserInactivateCard } from '@/modules/user/components/cards/inactivate/UserInactivateCard';
 
 import { Button } from '@/shared/components/ui/button';
 
@@ -31,8 +33,8 @@ export const userInactivateColumns: Array<ColumnDef<UserColumns, any>> = [
     },
   },
   {
-    id: 'firstName',
-    accessorKey: 'firstName',
+    id: 'firstNames',
+    accessorKey: 'firstNames',
     header: ({ column }) => {
       return (
         <Button
@@ -49,8 +51,8 @@ export const userInactivateColumns: Array<ColumnDef<UserColumns, any>> = [
     },
   },
   {
-    id: 'lastName',
-    accessorKey: 'lastName',
+    id: 'lastNames',
+    accessorKey: 'lastNames',
     header: ({ column }) => {
       return (
         <Button

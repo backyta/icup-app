@@ -12,10 +12,10 @@ import { Badge } from '@/shared/components/ui/badge';
 import { ChartContainer, type ChartConfig } from '@/shared/components/ui/chart';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card';
 
-import { RecordOrder } from '@/shared/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { getOfferingComparativeProportion as getOfferingExpensesAndOfferingIncomeByProportion } from '@/modules/metrics/services';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { getOfferingComparativeProportion as getOfferingExpensesAndOfferingIncomeByProportion } from '@/modules/metrics/services/offering-comparative-metrics.service';
 
 const chartConfigActive = {
   active: {

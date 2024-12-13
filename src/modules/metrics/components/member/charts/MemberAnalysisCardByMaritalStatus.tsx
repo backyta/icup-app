@@ -7,14 +7,14 @@ import { useQuery } from '@tanstack/react-query';
 import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
 import { BarChart, Bar, CartesianGrid, XAxis, YAxis } from 'recharts';
 
-import { getSimpleChurches } from '@/modules/church/services';
-import { type ChurchResponse } from '@/modules/church/interfaces';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
+import { type ChurchResponse } from '@/modules/church/interfaces/church-response.interface';
 
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { getMembersByMaritalStatus } from '@/modules/metrics/services';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { getMembersByMaritalStatus } from '@/modules/metrics/services/member-metrics.service';
 
 import { cn } from '@/shared/lib/utils';
-import { RecordOrder } from '@/shared/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
 import {
   ChartTooltip,

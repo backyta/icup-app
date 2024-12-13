@@ -8,23 +8,25 @@ import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { MdDeleteForever } from 'react-icons/md';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { memberInactivationFormSchema } from '@/shared/validations';
+import { memberInactivationFormSchema } from '@/shared/validations/member-inactivation-form-schema';
 
+import { useSupervisorInactivationMutation } from '@/modules/supervisor/hooks/useSupervisorInactivationMutation';
+
+import {
+  MemberInactivationCategory,
+  MemberInactivationCategoryNames,
+} from '@/shared/enums/member-inactivation-category.enum';
 import {
   SpecialReasonsNames,
   ExternalFactorsNames,
-  MemberInactivationCategory,
   AdministrativeReasonsNames,
   PersonalChallengesReasonsNames,
   ChurchRelatedIssuesReasonsNames,
   DisciplinaryActionsReasonsNames,
-  MemberInactivationCategoryNames,
   PersonalOrFamilyChangesReasonsNames,
   UnavoidableCircumstancesReasonsNames,
   InactivityOrLackOfCommitmentReasonsNames,
-} from '@/shared/enums';
-
-import { useSupervisorInactivationMutation } from '@/modules/supervisor/hooks';
+} from '@/shared/enums/member-inactivation-reason.enum';
 
 import {
   Form,

@@ -23,18 +23,16 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table';
 
-import {
-  type UserRole,
-  UserRoleNames,
-  UserSearchType,
-  UserSearchTypeNames,
-  UserSearchSelectOptionNames,
-} from '@/modules/user/enums';
-import { getUsersByTerm, getUsersReportByTerm } from '@/modules/user/services';
-import { type UserSearchFormByTerm, type UserQueryParams } from '@/modules/user/interfaces';
+import { getUsersByTerm, getUsersReportByTerm } from '@/modules/user/services/user.service';
+import { type UserQueryParams } from '@/modules/user/interfaces/user-query-params.interface';
+import { type UserSearchFormByTerm } from '@/modules/user/interfaces/user-form-search-by-term.interface';
 
-import { useUserStore } from '@/stores/user';
-import { LoadingSpinner } from '@/shared/components';
+import { type UserRole, UserRoleNames } from '@/modules/user/enums/user-role.enum';
+import { UserSearchType, UserSearchTypeNames } from '@/modules/user/enums/user-search-type.enum';
+import { UserSearchSelectOptionNames } from '@/modules/user/enums/user-search-select-option.enum';
+
+import { useUserStore } from '@/stores/user/user.store';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
 import {
   Table,
@@ -186,19 +184,19 @@ export function SearchByTermUserDataTable<TData, TValue>({
             <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
               Término de búsqueda:
             </span>{' '}
-            {dataForm?.searchType === UserSearchType.FirstName && (
+            {dataForm?.searchType === UserSearchType.FirstNames && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.namesTerm}`}
+                {`${dataForm?.firstNamesTerm}`}
               </span>
             )}
-            {dataForm?.searchType === UserSearchType.LastName && (
+            {dataForm?.searchType === UserSearchType.LastNames && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.lastNamesTerm}`}
               </span>
             )}
             {dataForm?.searchType === UserSearchType.FullName && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
+                {`${dataForm?.firstNamesTerm} - ${dataForm?.lastNamesTerm} `}
               </span>
             )}
             {(dataForm?.searchType === UserSearchType.RecordStatus ||
@@ -228,15 +226,17 @@ export function SearchByTermUserDataTable<TData, TValue>({
             <Input
               disabled={isDisabledButton}
               placeholder='Filtro por nombres...'
-              value={(table.getColumn('firstName')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('firstName')?.setFilterValue(event.target.value)}
+              value={(table.getColumn('firstNames')?.getFilterValue() as string) ?? ''}
+              onChange={(event) =>
+                table.getColumn('firstNames')?.setFilterValue(event.target.value)
+              }
               className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
             />
             <Input
               disabled={isDisabledButton}
               placeholder='Filtro por apellidos...'
-              value={(table.getColumn('lastName')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('lastName')?.setFilterValue(event.target.value)}
+              value={(table.getColumn('lastNames')?.getFilterValue() as string) ?? ''}
+              onChange={(event) => table.getColumn('lastNames')?.setFilterValue(event.target.value)}
               className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
             />
             <Button
@@ -244,8 +244,8 @@ export function SearchByTermUserDataTable<TData, TValue>({
               variant='ghost'
               className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 border-red-500 bg-gradient-to-r from-red-400 via-red-500 to-red-600 text-white hover:text-red-100 hover:from-red-500 hover:via-red-600 hover:to-red-700 dark:from-red-600 dark:via-red-700 dark:to-red-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-red-700 dark:hover:via-red-800 dark:hover:to-red-900'
               onClick={() => {
-                table.getColumn('firstName')?.setFilterValue('');
-                table.getColumn('lastName')?.setFilterValue('');
+                table.getColumn('firstNames')?.setFilterValue('');
+                table.getColumn('lastNames')?.setFilterValue('');
               }}
             >
               Borrar
@@ -256,8 +256,8 @@ export function SearchByTermUserDataTable<TData, TValue>({
               className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
               onClick={() => {
                 setIsFiltersSearchByTermDisabled(true);
-                table.getColumn('firstName')?.setFilterValue('');
-                table.getColumn('lastName')?.setFilterValue('');
+                table.getColumn('firstNames')?.setFilterValue('');
+                table.getColumn('lastNames')?.setFilterValue('');
               }}
             >
               Nueva Búsqueda

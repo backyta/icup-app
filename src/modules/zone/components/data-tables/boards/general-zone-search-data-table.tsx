@@ -23,14 +23,14 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table';
 
-import { getGeneralZonesReport, getZones } from '@/modules/zone/services';
-import { type ZoneQueryParams } from '@/modules/zone/interfaces';
+import { getGeneralZonesReport, getZones } from '@/modules/zone/services/zone.service';
+import { type ZoneQueryParams } from '@/modules/zone/interfaces/zone-query-params.interface';
 
-import { useZoneStore } from '@/stores/zone';
+import { useZoneStore } from '@/stores/zone/zone.store';
 
-import { LoadingSpinner } from '@/shared/components';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
-import { type GeneralSearchForm } from '@/shared/interfaces';
+import { type GeneralSearchForm } from '@/shared/interfaces/search-general-form.interface';
 
 import {
   Table,

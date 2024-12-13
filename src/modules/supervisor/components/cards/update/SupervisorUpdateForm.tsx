@@ -8,52 +8,45 @@ import { useState } from 'react';
 
 import { type z } from 'zod';
 
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { useForm } from 'react-hook-form';
+import { CalendarIcon } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
-
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
-
-import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import {
-  useSupervisorUpdateEffects,
-  useSupervisorUpdateMutation,
-  useSupervisorRolePromotionHandler,
-  useSupervisorPromoteButtonLogic,
-  useSupervisorUpdateSubmitButtonLogic,
-} from '@/modules/supervisor/hooks';
-import { SupervisorFieldNames } from '@/modules/supervisor/enums';
-import { supervisorFormSchema } from '@/modules/supervisor/validations';
-import { SupervisorFormSkeleton } from '@/modules/supervisor/components';
-import { type SupervisorResponse } from '@/modules/supervisor/interfaces';
+import { GenderNames } from '@/shared/enums/gender.enum';
+import { CountryNames } from '@/shared/enums/country.enum';
+import { ProvinceNames } from '@/shared/enums/province.enum';
+import { DistrictNames } from '@/shared/enums/district.enum';
+import { DepartmentNames } from '@/shared/enums/department.enum';
+import { UrbanSectorNames } from '@/shared/enums/urban-sector.enum';
+import { MaritalStatusNames } from '@/shared/enums/marital-status.enum';
+import { MemberRole, MemberRoleNames } from '@/shared/enums/member-role.enum';
 
-import { getSimplePastors } from '@/modules/pastor/services';
+import { useSupervisorUpdateEffects } from '@/modules/supervisor/hooks/useSupervisorUpdateEffects';
+import { useSupervisorUpdateMutation } from '@/modules/supervisor/hooks/useSupervisorUpdateMutation';
+import { useSupervisorPromoteButtonLogic } from '@/modules/supervisor/hooks/useSupervisorPromoteButtonLogic';
+import { useSupervisorRolePromotionHandler } from '@/modules/supervisor/hooks/useSupervisorRolePromotionHandler';
+import { useSupervisorUpdateSubmitButtonLogic } from '@/modules/supervisor/hooks/useSupervisorUpdateSubmitButtonLogic';
 
-import { getSimpleCopastors } from '@/modules/copastor/services';
+import { SupervisorFieldNames } from '@/modules/supervisor/enums/supervisor-field-names.enum';
+import { supervisorFormSchema } from '@/modules/supervisor/validations/supervisor-form-schema';
+import { type SupervisorResponse } from '@/modules/supervisor/interfaces/supervisor-response.interface';
+import { SupervisorFormSkeleton } from '@/modules/supervisor/components/cards/update/SupervisorFormSkeleton';
+
+import { getSimplePastors } from '@/modules/pastor/services/pastor.service';
+
+import { getSimpleCopastors } from '@/modules/copastor/services/copastor.service';
 
 import { cn } from '@/shared/lib/utils';
-import { useRoleValidationByPath } from '@/shared/hooks';
+import { useRoleValidationByPath } from '@/shared/hooks/useRoleValidationByPath';
 
-import {
-  getFullNames,
-  validateDistrictsAllowedByModule,
-  validateUrbanSectorsAllowedByDistrict,
-} from '@/shared/helpers';
-import {
-  MemberRole,
-  GenderNames,
-  CountryNames,
-  ProvinceNames,
-  DistrictNames,
-  DepartmentNames,
-  MemberRoleNames,
-  UrbanSectorNames,
-  MaritalStatusNames,
-} from '@/shared/enums';
+import { getFullNames } from '@/shared/helpers/get-full-names.helper';
+import { validateDistrictsAllowedByModule } from '@/shared/helpers/validate-districts-allowed-by-module.helper';
+import { validateUrbanSectorsAllowedByDistrict } from '@/shared/helpers/validate-urban-sectors-allowed-by-district.helper';
 
 import {
   Form,
@@ -134,8 +127,8 @@ export const SupervisorUpdateForm = ({
     mode: 'onChange',
     resolver: zodResolver(supervisorFormSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      firstNames: '',
+      lastNames: '',
       gender: '',
       originCountry: '',
       birthDate: undefined,
@@ -144,12 +137,12 @@ export const SupervisorUpdateForm = ({
       conversionDate: undefined,
       email: '',
       phoneNumber: '',
-      country: '',
-      department: '',
-      province: '',
-      district: '',
-      urbanSector: '',
-      address: '',
+      residenceCountry: '',
+      residenceDepartment: '',
+      residenceProvince: '',
+      residenceDistrict: '',
+      residenceUrbanSector: '',
+      residenceAddress: '',
       referenceAddress: '',
       roles: [MemberRole.Supervisor],
       isDirectRelationToPastor: undefined,
@@ -160,13 +153,13 @@ export const SupervisorUpdateForm = ({
   });
 
   //* Watchers
-  const district = form.watch('district');
+  const residenceDistrict = form.watch('residenceDistrict');
   const theirPastor = form.watch('theirPastor');
   const theirCopastor = form.watch('theirCopastor');
   const isDirectRelationToPastor = form.watch('isDirectRelationToPastor');
 
   //* Helpers
-  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(residenceDistrict);
   const districtsValidation = validateDistrictsAllowedByModule(pathname);
 
   //* Custom Hooks
@@ -239,7 +232,7 @@ export const SupervisorUpdateForm = ({
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
               <div className='dark:text-slate-300 text-slate-500 font-bold text-[17px] md:text-[18px] mb-4 md:pl-4'>
-                Supervisor: {data?.member?.firstName} {data?.member?.lastName}
+                Supervisor: {data?.member?.firstNames} {data?.member?.lastNames}
               </div>
               <Form {...form}>
                 <form
@@ -252,7 +245,7 @@ export const SupervisorUpdateForm = ({
                     </legend>
                     <FormField
                       control={form.control}
-                      name='firstName'
+                      name='firstNames'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -274,7 +267,7 @@ export const SupervisorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='lastName'
+                      name='lastNames'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -624,7 +617,7 @@ export const SupervisorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='country'
+                      name='residenceCountry'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -659,7 +652,7 @@ export const SupervisorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='department'
+                      name='residenceDepartment'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -694,7 +687,7 @@ export const SupervisorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='province'
+                      name='residenceProvince'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -729,7 +722,7 @@ export const SupervisorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='district'
+                      name='residenceDistrict'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -768,7 +761,7 @@ export const SupervisorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='urbanSector'
+                      name='residenceUrbanSector'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -790,7 +783,7 @@ export const SupervisorUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(UrbanSectorNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !residenceDistrict ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -807,7 +800,7 @@ export const SupervisorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='address'
+                      name='residenceAddress'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -1079,7 +1072,7 @@ export const SupervisorUpdateForm = ({
                                         )}
                                       >
                                         {field.value
-                                          ? `${copastoresQuery?.data?.find((copastor) => copastor.id === field.value)?.member?.firstName} ${copastoresQuery?.data?.find((pastor) => pastor.id === field.value)?.member?.lastName}`
+                                          ? `${copastoresQuery?.data?.find((copastor) => copastor.id === field.value)?.member?.firstNames} ${copastoresQuery?.data?.find((pastor) => pastor.id === field.value)?.member?.lastNames}`
                                           : 'Busque y seleccione un co-pastor'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
@@ -1100,8 +1093,8 @@ export const SupervisorUpdateForm = ({
                                               <CommandItem
                                                 className='text-[14px]'
                                                 value={getFullNames({
-                                                  firstNames: copastor.member?.firstName ?? '',
-                                                  lastNames: copastor.member?.lastName ?? '',
+                                                  firstNames: copastor.member?.firstNames ?? '',
+                                                  lastNames: copastor.member?.lastNames ?? '',
                                                 })}
                                                 key={copastor.id}
                                                 onSelect={() => {
@@ -1109,7 +1102,7 @@ export const SupervisorUpdateForm = ({
                                                   setIsInputTheirCopastorOpen(false);
                                                 }}
                                               >
-                                                {`${copastor?.member?.firstName} ${copastor?.member?.lastName}`}
+                                                {`${copastor?.member?.firstNames} ${copastor?.member?.lastNames}`}
                                                 <CheckIcon
                                                   className={cn(
                                                     'ml-auto h-4 w-4',
@@ -1169,7 +1162,7 @@ export const SupervisorUpdateForm = ({
                                         )}
                                       >
                                         {field.value
-                                          ? `${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.member?.firstName} ${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.member?.lastName}`
+                                          ? `${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.member?.firstNames} ${pastorsQuery?.data?.find((pastor) => pastor.id === field.value)?.member?.lastNames}`
                                           : 'Busque y seleccione un pastor'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
@@ -1190,8 +1183,8 @@ export const SupervisorUpdateForm = ({
                                               <CommandItem
                                                 className='text-[14px]'
                                                 value={getFullNames({
-                                                  firstNames: pastor.member?.firstName ?? '',
-                                                  lastNames: pastor.member?.lastName ?? '',
+                                                  firstNames: pastor.member?.firstNames ?? '',
+                                                  lastNames: pastor.member?.lastNames ?? '',
                                                 })}
                                                 key={pastor.id}
                                                 onSelect={() => {
@@ -1199,7 +1192,7 @@ export const SupervisorUpdateForm = ({
                                                   setIsInputTheirPastorOpen(false);
                                                 }}
                                               >
-                                                {`${pastor?.member?.firstName} ${pastor?.member?.lastName}`}
+                                                {`${pastor?.member?.firstNames} ${pastor?.member?.lastNames}`}
                                                 <CheckIcon
                                                   className={cn(
                                                     'ml-auto h-4 w-4',

@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type OfferingExpenseSearchType } from '@/modules/offering/expense/enums';
-import { type OfferingExpenseFormData } from '@/modules/offering/expense/interfaces';
+import { type OfferingExpenseSearchType } from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
+import { type OfferingExpenseFormData } from '@/modules/offering/expense/interfaces/offering-expense-form-data.interface';
 
 interface Options {
   isDropZoneDisabled: boolean;

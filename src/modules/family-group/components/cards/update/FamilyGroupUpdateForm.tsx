@@ -10,40 +10,38 @@ import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
-
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { PreacherSearchType } from '@/modules/preacher/enums';
+import { getSimpleZones } from '@/modules/zone/services/zone.service';
 
-import { getSimpleZones } from '@/modules/zone/services';
+import { PreacherSearchType } from '@/modules/preacher/enums/preacher-search-type.enum';
 
-import { FamilyGroupServiceTimeNames } from '@/modules/family-group/enums';
-import { familyGroupFormSchema } from '@/modules/family-group/validations';
-import { FamilyGroupFormSkeleton } from '@/modules/family-group/components';
-import { type FamilyGroupResponse } from '@/modules/family-group/interfaces';
+import { familyGroupFormSchema } from '@/modules/family-group/validations/family-group-form-schema';
+import { FamilyGroupServiceTimeNames } from '@/modules/family-group/enums/family-group-service-time.enum';
+import { type FamilyGroupResponse } from '@/modules/family-group/interfaces/family-group-response.interface';
+import { FamilyGroupFormSkeleton } from '@/modules/family-group/components/cards/update/FamilyGroupFormSkeleton';
+
+import { useFamilyGroupUpdateEffects } from '@/modules/family-group/hooks/useFamilyGroupUpdateEffects';
+import { useFamilyGroupUpdateMutation } from '@/modules/family-group/hooks/useFamilyGroupUpdateMutation';
+import { useFamilyGroupUpdateSubmitButtonLogic } from '@/modules/family-group/hooks/useFamilyGroupUpdateSubmitButtonLogic';
+
 import {
-  useFamilyGroupUpdateEffects,
-  useFamilyGroupUpdateMutation,
-  useFamilyGroupUpdateSubmitButtonLogic,
-} from '@/modules/family-group/hooks';
-
-import { getSimplePreachers, getPreachersByZone } from '@/modules/preacher/services';
+  getSimplePreachers,
+  getPreachersByZone,
+} from '@/modules/preacher/services/preacher.service';
 
 import { cn } from '@/shared/lib/utils';
 
-import {
-  CountryNames,
-  DistrictNames,
-  ProvinceNames,
-  DepartmentNames,
-  UrbanSectorNames,
-  RecordStatus,
-} from '@/shared/enums';
-import {
-  getFullNames,
-  validateDistrictsAllowedByModule,
-  validateUrbanSectorsAllowedByDistrict,
-} from '@/shared/helpers';
+import { CountryNames } from '@/shared/enums/country.enum';
+import { ProvinceNames } from '@/shared/enums/province.enum';
+import { DistrictNames } from '@/shared/enums/district.enum';
+import { DepartmentNames } from '@/shared/enums/department.enum';
+import { RecordStatus } from '@/shared/enums/record-status.enum';
+import { UrbanSectorNames } from '@/shared/enums/urban-sector.enum';
+
+import { getFullNames } from '@/shared/helpers/get-full-names.helper';
+import { validateDistrictsAllowedByModule } from '@/shared/helpers/validate-districts-allowed-by-module.helper';
+import { validateUrbanSectorsAllowedByDistrict } from '@/shared/helpers/validate-urban-sectors-allowed-by-district.helper';
 
 import {
   Form,
@@ -655,11 +653,11 @@ export const FamilyGroupUpdateForm = ({
                                     >
                                       {field.value ||
                                       (field.value && data?.recordStatus === RecordStatus.Active)
-                                        ? `${preachersQuery?.data?.find((preacher) => preacher.id === field.value)?.member?.firstName} ${preachersQuery?.data?.find((preacher) => preacher.id === field.value)?.member?.lastName}`
+                                        ? `${preachersQuery?.data?.find((preacher) => preacher.id === field.value)?.member?.firstNames} ${preachersQuery?.data?.find((preacher) => preacher.id === field.value)?.member?.lastNames}`
                                         : field.value &&
                                             (data?.recordStatus === RecordStatus.Inactive ||
                                               !data?.theirPreacher)
-                                          ? `${preachersByZoneQuery?.data?.find((preacher) => preacher.id === field.value)?.member?.firstName} ${preachersByZoneQuery?.data?.find((preacher) => preacher.id === field.value)?.member?.lastName}`
+                                          ? `${preachersByZoneQuery?.data?.find((preacher) => preacher.id === field.value)?.member?.firstNames} ${preachersByZoneQuery?.data?.find((preacher) => preacher.id === field.value)?.member?.lastNames}`
                                           : 'Busque y seleccione un predicador'}
                                       <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                     </Button>
@@ -692,8 +690,8 @@ export const FamilyGroupUpdateForm = ({
                                             <CommandItem
                                               className='text-[14px]'
                                               value={getFullNames({
-                                                firstNames: preacher?.member?.firstName ?? '',
-                                                lastNames: preacher?.member?.lastName ?? '',
+                                                firstNames: preacher?.member?.firstNames ?? '',
+                                                lastNames: preacher?.member?.lastNames ?? '',
                                               })}
                                               key={preacher.id}
                                               onSelect={() => {
@@ -701,7 +699,7 @@ export const FamilyGroupUpdateForm = ({
                                                 setIsInputTheirPreacherOpen(false);
                                               }}
                                             >
-                                              {`${preacher?.member?.firstName} ${preacher?.member?.lastName}`}
+                                              {`${preacher?.member?.firstNames} ${preacher?.member?.lastNames}`}
                                               <CheckIcon
                                                 className={cn(
                                                   'ml-auto h-4 w-4',
@@ -721,8 +719,8 @@ export const FamilyGroupUpdateForm = ({
                                             <CommandItem
                                               className='text-[14px]'
                                               value={getFullNames({
-                                                firstNames: preacher?.member?.firstName ?? '',
-                                                lastNames: preacher?.member?.lastName ?? '',
+                                                firstNames: preacher?.member?.firstNames ?? '',
+                                                lastNames: preacher?.member?.lastNames ?? '',
                                               })}
                                               key={preacher.id}
                                               onSelect={() => {
@@ -730,7 +728,7 @@ export const FamilyGroupUpdateForm = ({
                                                 setIsInputTheirPreacherOpen(false);
                                               }}
                                             >
-                                              {`${preacher?.member?.firstName} ${preacher?.member?.lastName}`}
+                                              {`${preacher?.member?.firstNames} ${preacher?.member?.lastNames}`}
                                               <CheckIcon
                                                 className={cn(
                                                   'ml-auto h-4 w-4',

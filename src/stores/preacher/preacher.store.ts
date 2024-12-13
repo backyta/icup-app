@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 
 import { create, type StateCreator } from 'zustand';
-import { type PreacherResponse } from '@/modules/preacher/interfaces';
+import { type PreacherResponse } from '@/modules/preacher/interfaces/preacher-response.interface';
 
 interface PreacherStore {
   // Properties

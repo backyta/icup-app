@@ -2,12 +2,14 @@ import './SideMenu.css';
 
 import { FcExport } from 'react-icons/fc';
 
-import { useAuthStore } from '@/stores';
-import { menuItems } from '@/shared/data';
+import { menuItems } from '@/shared/data/menu-items-data';
 
-import { ToggleNavBar } from '@/shared/components/toggle-theme';
-import { DropdownMenuLeft } from '@/shared/components/dropdown-menu';
-import { MenuBarTooltip, SideMenuItemIcons } from '@/shared/components/side-menu';
+import { useAuthStore } from '@/stores/auth/auth.store';
+
+import { ToggleNavBar } from '@/shared/components/toggle-theme/ToggleNavBar';
+import { MenuBarTooltip } from '@/shared/components/side-menu/MenuBarTooltip';
+import { DropdownMenuLeft } from '@/shared/components/dropdown-menu/DropdownMenuLeft';
+import { SideMenuItemIcons } from '@/shared/components/side-menu/SideMenuItemIcons';
 
 export const SideMenu = (): JSX.Element => {
   const logoutUser = useAuthStore((state) => state.logoutUser);

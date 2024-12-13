@@ -1,15 +1,15 @@
 import { addDays } from 'date-fns';
 
-import { CurrencyType } from '@/modules/offering/shared/enums';
+import { CurrencyType } from '@/modules/offering/shared/enums/currency-type.enum';
 
-import { type TooltipConfig } from '@/shared/interfaces';
-import { dateFormatterToDDMMYY } from '@/shared/helpers';
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 
-import { type OfferingIncomePayloadByFamilyGroup } from '@/modules/metrics/components/offering-income/tooltips/interfaces';
+import { type OfferingIncomePayloadByFamilyGroup } from '@/modules/metrics/components/offering-income/tooltips/interfaces/offering-income-by-family-group-tooltip-payload.interface';
 import {
   type OfferingIncomeCreationCategory,
   OfferingIncomeCreationCategoryNames,
-} from '@/modules/offering/income/enums';
+} from '@/modules/offering/income/enums/offering-income-creation-category.enum';
 
 export const OfferingIncomeByFamilyGroupTooltipContent = (
   props: TooltipConfig<OfferingIncomePayloadByFamilyGroup>
@@ -58,7 +58,7 @@ export const OfferingIncomeByFamilyGroupTooltipContent = (
         <span className='-ml-2'>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
       </li>
       <li className={'pl-1 font-medium text-[11.5px] sm:text-[13px]'}>
-        <span className='-ml-2'>{`Pred: ${payload[0]?.payload?.preacher?.firstName} ${payload[0]?.payload?.preacher?.lastName}`}</span>
+        <span className='-ml-2'>{`Pred: ${payload[0]?.payload?.preacher?.firstNames} ${payload[0]?.payload?.preacher?.lastNames}`}</span>
       </li>
       <li className='pl-1 font-medium text-[11.5px] sm:text-[13px]'>
         <span className='-ml-2'>{`Miembros: ${payload[0]?.payload?.disciples}`}</span>

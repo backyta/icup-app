@@ -4,7 +4,7 @@ import { useCallback, useRef, useState } from 'react';
 
 import { FcFinePrint } from 'react-icons/fc';
 
-import { FinancialBalanceComparativeReportForm } from '@/modules/metrics/components/financial-balance-comparative/reports';
+import { FinancialBalanceComparativeReportForm } from '@/modules/metrics/components/financial-balance-comparative/reports/FinancialBalanceComparativeReportForm';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

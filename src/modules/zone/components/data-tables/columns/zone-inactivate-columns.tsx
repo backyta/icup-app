@@ -5,8 +5,10 @@ import { type ColumnDef } from '@tanstack/react-table';
 
 import { Button } from '@/shared/components/ui/button';
 
-import { type ZoneColumns } from '@/modules/zone/interfaces';
-import { ZoneInfoCard, ZoneInactivateCard } from '@/modules/zone/components';
+import { type ZoneColumns } from '@/modules/zone/interfaces/zone-columns.interface';
+
+import { ZoneInfoCard } from '@/modules/zone/components/cards/info/ZoneInfoCard';
+import { ZoneInactivateCard } from '@/modules/zone/components/cards/inactivate/ZoneInactivateCard';
 
 export const zoneInactivateColumns: Array<ColumnDef<ZoneColumns, any>> = [
   {

@@ -6,8 +6,10 @@ import { useCallback, useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type OfferingExpenseFormData } from '@/modules/offering/expense/interfaces';
-import { type RejectionProps, type FilesProps } from '@/modules/offering/shared/interfaces';
+import { type FilesProps } from '@/modules/offering/shared/interfaces/files-props.interface';
+import { type RejectionProps } from '@/modules/offering/shared/interfaces/rejected-props.interface';
+
+import { type OfferingExpenseFormData } from '@/modules/offering/expense/interfaces/offering-expense-form-data.interface';
 
 interface Options {
   files: FilesProps[];

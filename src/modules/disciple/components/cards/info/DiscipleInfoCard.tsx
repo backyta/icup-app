@@ -6,8 +6,8 @@ import { useMediaQuery } from '@react-hook/media-query';
 
 import { cn } from '@/shared/lib/utils';
 
-import { useDiscipleStore } from '@/stores/disciple';
-import { DiscipleTabsCard } from '@/modules/disciple/components';
+import { useDiscipleStore } from '@/stores/disciple/disciple.store';
+import { DiscipleTabsCard } from '@/modules/disciple/components/cards/info/DiscipleTabsCard';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

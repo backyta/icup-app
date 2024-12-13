@@ -4,14 +4,14 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { MemberType } from '@/modules/offering/income/enums';
+import { MemberType } from '@/modules/offering/income/enums/member-type.enum';
 
-import { getSimplePastors } from '@/modules/pastor/services';
-import { getSimpleChurches } from '@/modules/church/services';
-import { getSimpleCopastors } from '@/modules/copastor/services';
-import { getSimplePreachers } from '@/modules/preacher/services';
-import { getSimpleDisciples } from '@/modules/disciple/services';
-import { getSimpleSupervisors } from '@/modules/supervisor/services';
+import { getSimplePastors } from '@/modules/pastor/services/pastor.service';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
+import { getSimpleCopastors } from '@/modules/copastor/services/copastor.service';
+import { getSimplePreachers } from '@/modules/preacher/services/preacher.service';
+import { getSimpleDisciples } from '@/modules/disciple/services/disciple.service';
+import { getSimpleSupervisors } from '@/modules/supervisor/services/supervisor.service';
 
 interface Options {
   memberType?: string | undefined;

@@ -1,5 +1,5 @@
-import { type TooltipConfig } from '@/shared/interfaces';
-import { type MembersFluctuationByYearPayload } from '@/modules/metrics/components/member/tooltips/interfaces';
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { type MembersFluctuationByYearPayload } from '@/modules/metrics/components/member/tooltips/interfaces/members-fluctuation-by-year-tooltip-payload.interface';
 
 export const MembersFluctuationByYearTooltipContent = (
   props: TooltipConfig<MembersFluctuationByYearPayload>

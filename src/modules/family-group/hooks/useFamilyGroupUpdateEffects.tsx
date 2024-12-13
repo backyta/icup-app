@@ -3,11 +3,10 @@
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import {
-  type FamilyGroupResponse,
-  type FamilyGroupFormData,
-} from '@/modules/family-group/interfaces';
-import { RecordStatus } from '@/shared/enums';
+import { type FamilyGroupResponse } from '@/modules/family-group/interfaces/family-group-response.interface';
+import { type FamilyGroupFormData } from '@/modules/family-group/interfaces/family-group-form-data.interface';
+
+import { RecordStatus } from '@/shared/enums/record-status.enum';
 
 interface Options {
   id: string;

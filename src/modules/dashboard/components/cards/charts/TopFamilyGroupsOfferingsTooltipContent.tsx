@@ -5,15 +5,16 @@ import { addDays } from 'date-fns';
 
 import { cn } from '@/shared/lib/utils';
 
-import { type TooltipConfig } from '@/shared/interfaces';
-import { dateFormatterToDDMMYY } from '@/shared/helpers';
-
-import { CurrencyType } from '@/modules/offering/shared/enums';
-import { type TopFamilyGroupOfferingsPayload } from '@/modules/dashboard/interfaces';
 import {
   type OfferingIncomeCreationCategory,
   OfferingIncomeCreationCategoryNames,
-} from '@/modules/offering/income/enums';
+} from '@/modules/offering/income/enums/offering-income-creation-category.enum';
+import { CurrencyType } from '@/modules/offering/shared/enums/currency-type.enum';
+
+import { type TopFamilyGroupOfferingsPayload } from '@/modules/dashboard/interfaces/top-family-groups-offerings-tooltip-payload.interface';
+
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 
 export const TopFamilyGroupsTooltipContent = (
   props: TooltipConfig<TopFamilyGroupOfferingsPayload>
@@ -110,7 +111,7 @@ export const TopFamilyGroupsTooltipContent = (
       </li>
 
       <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
-        <span className='-ml-2'>{`Pred: ${payload[0]?.payload?.preacher?.firstName} ${payload[0]?.payload?.preacher?.lastName}`}</span>
+        <span className='-ml-2'>{`Pred: ${payload[0]?.payload?.preacher?.firstNames} ${payload[0]?.payload?.preacher?.lastNames}`}</span>
       </li>
       <li className='pl-[2px] font-medium text-[11.5px] sm:text-[13px]'>
         <span className='-ml-2'>{`Miembros: ${payload[0]?.payload?.familyGroup?.disciples}`}</span>

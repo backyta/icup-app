@@ -1,62 +1,64 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import { Root } from '@/Root';
-import { RedirectIfMatch } from '@/router';
-import { DashboardLayout, AuthLayout } from '@/layouts';
+import { RedirectIfMatch } from '@/router/RedirectIfMatch';
+
+import { AuthLayout } from '@/layouts/AuthLayout';
+import { DashboardLayout } from '@/layouts/DashboardLayout';
 
 // ?  Direct pages
 //* Members
-import { DashboardPage } from '@/modules/dashboard/pages';
-import { ChurchOptionsPage } from '@/modules/church/pages';
-import { PastorOptionsPage } from '@/modules/pastor/pages';
-import { CopastorOptionsPage } from '@/modules/copastor/pages';
-import { DiscipleOptionsPage } from '@/modules/disciple/pages';
-import { PreacherOptionsPage } from '@/modules/preacher/pages';
-import { SupervisorOptionsPage } from '@/modules/supervisor/pages';
+import { DashboardPage } from '@/modules/dashboard/pages/DashboardPage';
+import { ChurchOptionsPage } from '@/modules/church/pages/ChurchOptionsPage';
+import { PastorOptionsPage } from '@/modules/pastor/pages/PastorOptionsPage';
+import { CopastorOptionsPage } from '@/modules/copastor/pages/CopastorOptionsPage';
+import { DiscipleOptionsPage } from '@/modules/disciple/pages/DiscipleOptionsPage';
+import { PreacherOptionsPage } from '@/modules/preacher/pages/PreacherOptionsPage';
+import { SupervisorOptionsPage } from '@/modules/supervisor/pages/SupervisorOptionsPage';
 
 //* Family groups and zones
-import { ZoneOptionsPage } from '@/modules/zone/pages';
-import { FamilyGroupOptionsPage } from '@/modules/family-group/pages';
+import { ZoneOptionsPage } from '@/modules/zone/pages/ZoneOptionsPage';
+import { FamilyGroupOptionsPage } from '@/modules/family-group/pages/FamilyGroupOptionsPage';
 
 //* Offerings
-import { OfferingOptionsPage } from '@/modules/offering/shared/pages';
-import { OfferingIncomeOptionsPage } from '@/modules/offering/income/pages';
-import { OfferingExpenseOptionsPage } from '@/modules/offering/expense/pages';
+import { OfferingOptionsPage } from '@/modules/offering/shared/pages/OfferingOptionsPage';
+import { OfferingIncomeOptionsPage } from '@/modules/offering/income/pages/OfferingIncomeOptionsPage';
+import { OfferingExpenseOptionsPage } from '@/modules/offering/expense/pages/OfferingExpenseOptionsPage';
 
 //* Metrics and charts
-import { MetricsOptionsPage } from '@/modules/metrics/pages';
+import { MetricsOptionsPage } from '@/modules/metrics/pages/MetricsOptionsPage';
 
 //* Users
-import { UserOptionsPage } from '@/modules/user/pages';
+import { UserOptionsPage } from '@/modules/user/pages/UserOptionsPage';
 
 // ? Routers by module
 //* Members
-import { ChurchChildrenRoutes } from '@/modules/church/router';
-import { PastorChildrenRoutes } from '@/modules/pastor/router';
-import { CopastorChildrenRoutes } from '@/modules/copastor/router';
-import { PreacherChildrenRoutes } from '@/modules/preacher/router';
-import { DiscipleChildrenRoutes } from '@/modules/disciple/router';
-import { SupervisorChildrenRoutes } from '@/modules/supervisor/router';
+import { ChurchChildrenRoutes } from '@/modules/church/router/ChurchChildrenRoutes';
+import { PastorChildrenRoutes } from '@/modules/pastor/router/PastorChildrenRoutes';
+import { CopastorChildrenRoutes } from '@/modules/copastor/router/CopastorChildrenRoutes';
+import { PreacherChildrenRoutes } from '@/modules/preacher/router/PreacherChildrenRoutes';
+import { DiscipleChildrenRoutes } from '@/modules/disciple/router/DiscipleChildrenRoutes';
+import { SupervisorChildrenRoutes } from '@/modules/supervisor/router/SupervisorChildrenRoutes';
 
 //* Family groups and zones
-import { ZoneChildrenRoutes } from '@/modules/zone/router';
-import { FamilyGroupChildrenRoutes } from '@/modules/family-group/router';
+import { ZoneChildrenRoutes } from '@/modules/zone/router/ZoneChildrenRoutes';
+import { FamilyGroupChildrenRoutes } from '@/modules/family-group/router/FamilyGroupChildrenRoutes';
 
 //* Offering
-import { OfferingIncomeChildrenRoutes } from '@/modules/offering/income/router';
-import { OfferingExpenseChildrenRoutes } from '@/modules/offering/expense/router';
+import { OfferingIncomeChildrenRoutes } from '@/modules/offering/income/router/OfferingIncomeChildrenRoutes';
+import { OfferingExpenseChildrenRoutes } from '@/modules/offering/expense/router/OfferingExpenseChildrenRoutes';
 
 //* Metrics and charts
-import { MetricsChildrenRoutes } from '@/modules/metrics/router';
+import { MetricsChildrenRoutes } from '@/modules/metrics/router/MetricsChildrenRoutes';
 
 //* Users
-import { UserChildrenRoutes } from '@/modules/user/router';
+import { UserChildrenRoutes } from '@/modules/user/router/UserChildrenRoutes';
 
 //* Auth
-import { AuthChildrenRoutes } from '@/modules/auth/router';
+import { AuthChildrenRoutes } from '@/modules/auth/router/AuthChildrenRoutes';
 
 //* NotFound page
-import { NotFoundPage } from '@/shared/pages';
+import { NotFoundPage } from '@/shared/pages/NotFoundPage';
 
 // ? Browser router
 export const router = createBrowserRouter([

@@ -5,13 +5,13 @@ import { addDays, format } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import { OfferingExpenseInfoCard } from '@/modules/offering/expense/components';
-import { type OfferingExpenseColumns } from '@/modules/offering/expense/interfaces';
+import { OfferingExpenseInfoCard } from '@/modules/offering/expense/components/cards/info/OfferingExpenseInfoCard';
+import { type OfferingExpenseColumns } from '@/modules/offering/expense/interfaces/offering-expense-columns.interface';
 
-import { getInitialFullNames } from '@/shared/helpers';
+import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 
 import { Button } from '@/shared/components/ui/button';
-import { CurrencyTypeNames } from '@/modules/offering/shared/enums';
+import { CurrencyTypeNames } from '@/modules/offering/shared/enums/currency-type.enum';
 
 export const offeringExpenseInfoColumns: Array<ColumnDef<OfferingExpenseColumns, any>> = [
   {
@@ -140,8 +140,8 @@ export const offeringExpenseInfoColumns: Array<ColumnDef<OfferingExpenseColumns,
     id: 'updatedBy',
     accessorKey: 'updatedBy',
     cell: (info) => {
-      const firstNames = info.getValue()?.firstName;
-      const lastNames = info.getValue()?.lastName;
+      const firstNames = info.getValue()?.firstNames;
+      const lastNames = info.getValue()?.lastNames;
       return firstNames && lastNames
         ? getInitialFullNames({ firstNames: firstNames ?? '', lastNames: lastNames ?? '' })
         : '-';

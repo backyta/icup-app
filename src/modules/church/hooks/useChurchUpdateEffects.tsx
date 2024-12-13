@@ -6,8 +6,9 @@
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type ChurchServiceTime } from '@/modules/church/enums';
-import { type ChurchResponse, type ChurchFormData } from '@/modules/church/interfaces';
+import { type ChurchServiceTime } from '@/modules/church/enums/church-service-time.enum';
+import { type ChurchResponse } from '@/modules/church/interfaces/church-response.interface';
+import { type ChurchFormData } from '@/modules/church/interfaces/church-form-data.interface';
 
 interface Options {
   id: string;

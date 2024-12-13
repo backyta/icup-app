@@ -1,10 +1,8 @@
-import {
-  OfferingIncomeCreatePage,
-  OfferingIncomeInactivatePage,
-  OfferingIncomeUpdatePage,
-  OfferingsIncomeSearchPageByTerm,
-  OfferingsIncomeGeneralSearchPage,
-} from '@/modules/offering/income/pages';
+import { OfferingIncomeCreatePage } from '@/modules/offering/income/pages/OfferingIncomeCreatePage';
+import { OfferingIncomeUpdatePage } from '@/modules/offering/income/pages/OfferingIncomeUpdatePage';
+import { OfferingIncomeInactivatePage } from '@/modules/offering/income/pages/OfferingIncomeInactivatePage';
+import { OfferingsIncomeSearchPageByTerm } from '@/modules/offering/income/pages/OfferingsIncomeSearchPageByTerm';
+import { OfferingsIncomeGeneralSearchPage } from '@/modules/offering/income/pages/OfferingsIncomeGeneralSearchPage';
 
 export const OfferingIncomeChildrenRoutes = [
   {

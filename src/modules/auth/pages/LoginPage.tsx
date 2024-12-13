@@ -12,8 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useAuthStore } from '@/stores';
-import { loginSchema } from '@/modules/auth/validations';
+import { useAuthStore } from '@/stores/auth/auth.store';
+import { loginSchema } from '@/modules/auth/validations/login-schema';
 
 import {
   Form,
@@ -31,14 +31,10 @@ export const LoginPage = (): JSX.Element => {
   const loginUser = useAuthStore((state) => state.loginUser);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
+  const [statusCode, setStatusCode] = useState<number>(401);
 
   //* Hooks (external libraries)
   const navigate = useNavigate();
-
-  //* Effects
-  useEffect(() => {
-    document.title = 'Iniciar Sesión - IcupApp';
-  }, []);
 
   //* Form
   const form = useForm<z.infer<typeof loginSchema>>({
@@ -55,6 +51,23 @@ export const LoginPage = (): JSX.Element => {
     setShowPassword(!showPassword);
   };
 
+  //* Effects
+  useEffect(() => {
+    document.title = 'Iniciar Sesión - IcupApp';
+  }, []);
+
+  useEffect(() => {
+    if (statusCode === 429) {
+      setTimeout(() => {
+        setIsInputDisabled(false);
+        setStatusCode(401);
+        toast.success('Limite de tiempo completado. Ya puede volver a intentarlo.', {
+          position: 'top-right',
+        });
+      }, 60000);
+    }
+  }, [isInputDisabled]);
+
   //* Form handler
   const handleSubmit = async (values: z.infer<typeof loginSchema>): Promise<void> => {
     try {
@@ -62,11 +75,25 @@ export const LoginPage = (): JSX.Element => {
       navigate('/dashboard');
     } catch (error) {
       if (error instanceof AxiosError) {
-        if (error?.response?.data?.error === 'Unauthorized') {
+        if (error?.response?.statusText === 'Unauthorized') {
           toast.error(error?.response?.data?.message, {
             position: 'top-right',
           });
+
+          setTimeout(() => {
+            if (Object.keys(form.formState.errors).length === 0) {
+              setIsInputDisabled(false);
+            }
+          }, 1500);
         }
+
+        if (error?.response?.statusText === 'Too Many Requests') {
+          toast.warning(error?.response?.data?.message, {
+            position: 'top-right',
+          });
+          setStatusCode(error?.response?.status);
+        }
+
         return;
       }
 
@@ -168,12 +195,6 @@ export const LoginPage = (): JSX.Element => {
                       setIsInputDisabled(true);
                     }
                   }, 100);
-
-                  setTimeout(() => {
-                    if (Object.keys(form.formState.errors).length === 0) {
-                      setIsInputDisabled(false);
-                    }
-                  }, 1500);
                 }}
               >
                 Iniciar Sesión

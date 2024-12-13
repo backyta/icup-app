@@ -12,14 +12,15 @@ import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 
-import { cn } from '@/shared/lib/utils';
-import { RecordOrder } from '@/shared/enums';
-import { generateYearOptions } from '@/shared/helpers';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
+import { getFluctuationFamilyGroupsByYear } from '@/modules/metrics/services/family-group-metrics.service';
+import { FamilyGroupsFluctuationByYearTooltipContent } from '@/modules/metrics/components/family-group/tooltips/components/FamilyGroupsFluctuationByYearTooltipContent';
 
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getFluctuationFamilyGroupsByYear } from '@/modules/metrics/services';
-import { FamilyGroupsFluctuationByYearTooltipContent } from '@/modules/metrics/components/family-group/tooltips/components';
+import { cn } from '@/shared/lib/utils';
+
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { generateYearOptions } from '@/shared/helpers/generate-year-options.helper';
 
 import {
   ChartLegend,

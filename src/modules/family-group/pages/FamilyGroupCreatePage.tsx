@@ -8,45 +8,34 @@ import { useEffect, useState } from 'react';
 import type * as z from 'zod';
 import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
-
 import { useQuery } from '@tanstack/react-query';
 import { Link, useLocation } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
-
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import {
-  useFamilyGroupCreationMutation,
-  useFamilyGroupCreationSubmitButtonLogic,
-} from '@/modules/family-group/hooks';
+import { useFamilyGroupCreationMutation } from '@/modules/family-group/hooks/useFamilyGroupCreationMutation';
+import { useFamilyGroupCreationSubmitButtonLogic } from '@/modules/family-group/hooks/useFamilyGroupCreationSubmitButtonLogic';
 
-import { getSimpleZones } from '@/modules/zone/services';
+import { getSimpleZones } from '@/modules/zone/services/zone.service';
 
-import { familyGroupFormSchema } from '@/modules/family-group/validations';
-import { FamilyGroupServiceTimeNames } from '@/modules/family-group/enums';
+import { familyGroupFormSchema } from '@/modules/family-group/validations/family-group-form-schema';
+import { FamilyGroupServiceTimeNames } from '@/modules/family-group/enums/family-group-service-time.enum';
 
-import { PreacherSearchType } from '@/modules/preacher/enums';
-import { getPreachersByZone } from '@/modules/preacher/services';
+import { PreacherSearchType } from '@/modules/preacher/enums/preacher-search-type.enum';
+import { getPreachersByZone } from '@/modules/preacher/services/preacher.service';
 
 import { cn } from '@/shared/lib/utils';
-import { PageTitle } from '@/shared/components/page';
+import { PageTitle } from '@/shared/components/page/PageTitle';
 
-import {
-  Country,
-  Province,
-  District,
-  Department,
-  CountryNames,
-  DistrictNames,
-  ProvinceNames,
-  DepartmentNames,
-  UrbanSectorNames,
-} from '@/shared/enums';
-import {
-  getFullNames,
-  validateDistrictsAllowedByModule,
-  validateUrbanSectorsAllowedByDistrict,
-} from '@/shared/helpers';
+import { Country, CountryNames } from '@/shared/enums/country.enum';
+import { UrbanSectorNames } from '@/shared/enums/urban-sector.enum';
+import { Province, ProvinceNames } from '@/shared/enums/province.enum';
+import { District, DistrictNames } from '@/shared/enums/district.enum';
+import { Department, DepartmentNames } from '@/shared/enums/department.enum';
+
+import { getFullNames } from '@/shared/helpers/get-full-names.helper';
+import { validateDistrictsAllowedByModule } from '@/shared/helpers/validate-districts-allowed-by-module.helper';
+import { validateUrbanSectorsAllowedByDistrict } from '@/shared/helpers/validate-urban-sectors-allowed-by-district.helper';
 
 import {
   Form,
@@ -634,7 +623,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                                 )}
                               >
                                 {field.value
-                                  ? `${preachersQuery.data?.find((preacher) => preacher.id === field.value)?.member?.firstName} ${preachersQuery.data?.find((preacher) => preacher.id === field.value)?.member?.lastName}`
+                                  ? `${preachersQuery.data?.find((preacher) => preacher.id === field.value)?.member?.firstNames} ${preachersQuery.data?.find((preacher) => preacher.id === field.value)?.member?.lastNames}`
                                   : 'Busque y seleccione un predicador'}
                                 <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                               </Button>
@@ -656,8 +645,8 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                                       <CommandItem
                                         className='text-[14px]'
                                         value={getFullNames({
-                                          firstNames: preacher?.member?.firstName,
-                                          lastNames: preacher?.member?.lastName,
+                                          firstNames: preacher?.member?.firstNames,
+                                          lastNames: preacher?.member?.lastNames,
                                         })}
                                         key={preacher.id}
                                         onSelect={() => {
@@ -665,7 +654,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                                           setIsInputTheirPreacherOpen(false);
                                         }}
                                       >
-                                        {`${preacher?.member?.firstName} ${preacher?.member?.lastName}`}
+                                        {`${preacher?.member?.firstNames} ${preacher?.member?.lastNames}`}
                                         <CheckIcon
                                           className={cn(
                                             'ml-auto h-4 w-4',

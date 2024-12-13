@@ -5,23 +5,19 @@ import { useEffect, useState } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { getSimpleChurches } from '@/modules/church/services';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
-import {
-  SelectChurch,
-  FinancialBalanceComparativeMetricsSkeleton,
-} from '@/modules/metrics/components/shared';
+import { SelectChurch } from '@/modules/metrics/components/shared/SelectChurch';
+import { FinancialBalanceComparativeMetricsSkeleton } from '@/modules/metrics/components/shared/FinancialBalanceComparativeMetricsSkeleton';
 
-import {
-  ComparativeOfferingExpensesAnalysisCard,
-  ComparativeOfferingIncomeAnalysisCardByType,
-  GeneralComparativeOfferingIncomeAnalysisCard,
-  ComparativeOfferingExpensesAnalysisCardByType,
-  ComparativeOfferingExpensesAnalysisCardBySubType,
-  OfferingComparativeAnalysisCardByIncomeAndExpenses,
-  OfferingExpensesAndOfferingIncomeComparativeProportionCard,
-} from '@/modules/metrics/components/financial-balance-comparative/charts';
-import { FinancialBalanceComparativeReportFormCard } from '@/modules/metrics/components/financial-balance-comparative/reports';
+import { FinancialBalanceComparativeReportFormCard } from '@/modules/metrics/components/financial-balance-comparative/reports/FinancialBalanceComparativeReportFormCard';
+import { GeneralComparativeOfferingIncomeAnalysisCard } from '@/modules/metrics/components/financial-balance-comparative/charts/GeneralComparativeOfferingIncomeAnalysis';
+import { ComparativeOfferingExpensesAnalysisCard } from '@/modules/metrics/components/financial-balance-comparative/charts/GeneralComparativeOfferingExpensesAnalysisCard';
+import { ComparativeOfferingIncomeAnalysisCardByType } from '@/modules/metrics/components/financial-balance-comparative/charts/ComparativeOfferingIncomeAnalysisCardByType';
+import { ComparativeOfferingExpensesAnalysisCardByType } from '@/modules/metrics/components/financial-balance-comparative/charts/ComparativeOfferingExpensesAnalysisCardByType';
+import { ComparativeOfferingExpensesAnalysisCardBySubType } from '@/modules/metrics/components/financial-balance-comparative/charts/ComparativeOfferingExpensesAnalysisCardBySubType';
+import { OfferingComparativeAnalysisCardByIncomeAndExpenses } from '@/modules/metrics/components/financial-balance-comparative/charts/OfferingComparativeAnalysisCardByIncomeAndExpenses';
+import { OfferingExpensesAndOfferingIncomeComparativeProportionCard } from '@/modules/metrics/components/financial-balance-comparative/charts/OfferingExpensesAndOfferingIncomeComparativeProportionCard';
 
 export const FinancialBalanceComparisonMetrics = (): JSX.Element => {
   //* States

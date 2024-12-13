@@ -2,8 +2,9 @@
 
 import * as z from 'zod';
 
-import { RecordOrder } from '@/shared/enums';
-import { CopastorSearchSubType, CopastorSearchType } from '@/modules/copastor/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import {  CopastorSearchType } from '@/modules/copastor/enums/copastor-search-type.enum';
+import { CopastorSearchSubType } from '@/modules/copastor/enums/copastor-search-sub-type.enum';
 
 export const copastorSearchByTermFormSchema = z
   .object({
@@ -23,7 +24,7 @@ export const copastorSearchByTermFormSchema = z
       required_error: "Por favor seleccione una fecha.",
     }).optional(),
 
-    namesTerm: z.string().max(30).optional(),
+    firstNamesTerm: z.string().max(30).optional(),
 
     lastNamesTerm: z.string().max(30).optional(),
 
@@ -50,9 +51,9 @@ export const copastorSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === CopastorSearchType.FirstName || 
-        data.searchType === CopastorSearchType.LastName || 
-        data.searchType === CopastorSearchType.FullName 
+        data.searchType === CopastorSearchType.FirstNames || 
+        data.searchType === CopastorSearchType.LastNames || 
+        data.searchType === CopastorSearchType.FullNames 
       ) {
         return !!data.searchSubType; 
       }
@@ -66,9 +67,9 @@ export const copastorSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === CopastorSearchType.FirstName
+        data.searchType === CopastorSearchType.FirstNames
       ) {
-        return !!data.namesTerm; 
+        return !!data.firstNamesTerm; 
       }
       return true;
     },
@@ -80,7 +81,7 @@ export const copastorSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === CopastorSearchType.LastName
+        data.searchType === CopastorSearchType.LastNames
       ) {
         return !!data.lastNamesTerm;
       }
@@ -95,7 +96,7 @@ export const copastorSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === CopastorSearchType.FullName
+        data.searchType === CopastorSearchType.FullNames
       ) {
         return !!data.lastNamesTerm; 
       }
@@ -109,9 +110,9 @@ export const copastorSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === CopastorSearchType.FullName
+        data.searchType === CopastorSearchType.FullNames
       ) {
-        return !!data.namesTerm; 
+        return !!data.firstNamesTerm; 
       }
       return true;
     },
@@ -123,11 +124,12 @@ export const copastorSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (data.searchType === CopastorSearchType.OriginCountry ||
-          data.searchType === CopastorSearchType.Department || 
-          data.searchType === CopastorSearchType.Province || 
-          data.searchType === CopastorSearchType.District || 
-          data.searchType === CopastorSearchType.UrbanSector || 
-          data.searchType === CopastorSearchType.Address
+        data.searchType === CopastorSearchType.ResidenceCountry ||
+          data.searchType === CopastorSearchType.ResidenceDepartment || 
+          data.searchType === CopastorSearchType.ResidenceProvince || 
+          data.searchType === CopastorSearchType.ResidenceDistrict || 
+          data.searchType === CopastorSearchType.ResidenceUrbanSector || 
+          data.searchType === CopastorSearchType.ResidenceAddress
           ) {
         return !!data.inputTerm; 
       }

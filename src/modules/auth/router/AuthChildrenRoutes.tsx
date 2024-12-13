@@ -1,4 +1,4 @@
-import { LoginPage } from '@/modules/auth/pages';
+import { LoginPage } from '@/modules/auth/pages/LoginPage';
 
 export const AuthChildrenRoutes = [
   {

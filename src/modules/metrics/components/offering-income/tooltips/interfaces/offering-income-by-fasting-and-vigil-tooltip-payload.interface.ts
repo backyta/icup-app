@@ -1,4 +1,4 @@
-import { type OfferingIncomeCreationSubType } from "@/modules/offering/income/enums";
+import { type OfferingIncomeCreationSubType } from "@/modules/offering/income/enums/offering-income-creation-sub-type.enum";
 
 interface Offering {
   offering: number;
@@ -26,8 +26,8 @@ export interface OfferingIncomePayloadByFastingAndVigil {
     accumulatedOfferingEUR: number;
     supervisor: {
       id: string;
-      firstName: string;
-      lastName: string;
+      firstNames: string;
+      lastNames: string;
     }
     zone: {
       id: string;

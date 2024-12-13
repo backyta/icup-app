@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
-import { type ChurchFormData } from '@/modules/church/interfaces';
+import { type ChurchFormData } from '@/modules/church/interfaces/church-form-data.interface';
 
 interface Options {
   churchUpdateForm: UseFormReturn<ChurchFormData, any, ChurchFormData>;

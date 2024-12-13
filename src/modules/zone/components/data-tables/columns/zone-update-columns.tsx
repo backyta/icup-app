@@ -3,8 +3,11 @@ import { type ColumnDef } from '@tanstack/react-table';
 
 import { Button } from '@/shared/components/ui/button';
 
-import { type ZoneColumns } from '@/modules/zone/interfaces';
-import { ZoneInfoCard, ZoneSupervisorUpdateCard, ZoneUpdateCard } from '@/modules/zone/components';
+import { type ZoneColumns } from '@/modules/zone/interfaces/zone-columns.interface';
+
+import { ZoneInfoCard } from '@/modules/zone/components/cards/info/ZoneInfoCard';
+import { ZoneUpdateCard } from '@/modules/zone/components/cards/update/ZoneUpdateCard';
+import { ZoneSupervisorUpdateCard } from '@/modules/zone/components/cards/update/ZoneSupervisorUpdateCard';
 
 export const zoneUpdateColumns: Array<ColumnDef<ZoneColumns, any>> = [
   {

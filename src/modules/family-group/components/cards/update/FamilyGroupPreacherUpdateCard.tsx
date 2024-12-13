@@ -3,9 +3,9 @@ import { useRef, useState, useCallback, useMemo } from 'react';
 import { GiCardExchange } from 'react-icons/gi';
 import { useMediaQuery } from '@react-hook/media-query';
 
-import { FamilyGroupPreacherUpdateForm } from '@/modules/family-group/components';
+import { FamilyGroupPreacherUpdateForm } from '@/modules/family-group/components/cards/update/FamilyGroupPreacherUpdateForm';
 
-import { useFamilyGroupStore } from '@/stores';
+import { useFamilyGroupStore } from '@/stores/family-group/family-group.store';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

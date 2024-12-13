@@ -9,19 +9,17 @@ interface AbbreviatedFullNamesOptions {
 }
 
 export const getInitialFullNames = ( {firstNames, lastNames}: Options): string => {
-  const firstName = firstNames.split(" ");
-  const lastName = lastNames.split(" ");
+  const firstNamesValue = firstNames.split(" ");
+  const lastNamesValue = lastNames.split(" ");
 
-  return lastName[0]
-    ? `${firstName[0]} ${lastName[0]}`
-    : `${firstName[0]}${lastName[0]}`;
+  return  `${firstNamesValue[0]} ${lastNamesValue[0]}`
 }
 
 export const getFullNames = ( {firstNames, lastNames}: Options): string => {
-  const firstName = firstNames.split(" ");
-  const lastName = lastNames.split(" ");
+  const firstNamesValue = firstNames.split(" ");
+  const lastNamesValues = lastNames.split(" ");
 
-  return `${firstName[0]} ${firstName[1]} ${lastName[0]} ${lastName[1]}` 
+  return `${firstNamesValue[0]} ${firstNamesValue[1]} ${lastNamesValues[0]} ${lastNamesValues[1]}` 
 }
 
 export const getAbbreviatedFullNames = ( {fullNames}: AbbreviatedFullNamesOptions): string => {

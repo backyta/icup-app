@@ -9,25 +9,31 @@ import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { useUserStore } from '@/stores/user/user.store';
+
 import {
-  UserRole,
-  UserRoleNames,
-  UserSearchType,
-  UserSearchTypeNames,
   UserSearchNamesByGender,
   UserSearchNamesByRecordStatus,
-} from '@/modules/user/enums';
-import { userSearchByTermFormSchema } from '@/modules/user/validations';
-import { type UserSearchFormByTerm, type UserResponse } from '@/modules/user/interfaces';
-import { userUpdateColumns as columns, SearchByTermUserDataTable } from '@/modules/user/components';
+} from '@/modules/user/enums/user-search-select-option.enum';
+import { UserRole, UserRoleNames } from '@/modules/user/enums/user-role.enum';
+import { UserSearchType, UserSearchTypeNames } from '@/modules/user/enums/user-search-type.enum';
 
-import { useUserStore } from '@/stores/user';
+import { userSearchByTermFormSchema } from '@/modules/user/validations/user-search-by-term-form-schema';
+
+import { type UserResponse } from '@/modules/user/interfaces/user-response.interface';
+import { type UserSearchFormByTerm } from '@/modules/user/interfaces/user-form-search-by-term.interface';
+import { userUpdateColumns as columns } from '@/modules/user/components/data-tables/columns/user-update-columns';
+import { SearchByTermUserDataTable } from '@/modules/user/components/data-tables/boards/search-by-term-user-data-table';
+
+import { lastNamesFormatter, firstNamesFormatter } from '@/shared/helpers/names-formatter.helper';
+import { arrayRolesFormatterToString } from '@/shared/helpers/array-roles-formatter-to-string.helper';
 
 import { cn } from '@/shared/lib/utils';
 
-import { PageTitle, SearchTitle } from '@/shared/components/page';
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-import { arrayRolesFormatterToString, namesFormatter, lastNamesFormatter } from '@/shared/helpers';
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
 
 import {
   Form,
@@ -52,8 +58,8 @@ import { Checkbox } from '@/shared/components/ui/checkbox';
 const dataFictional: UserResponse[] = [
   {
     id: '',
-    firstName: '',
-    lastName: '',
+    firstNames: '',
+    lastNames: '',
     gender: '',
     email: '',
     roles: [],
@@ -80,7 +86,7 @@ export const UserUpdatePage = (): JSX.Element => {
     mode: 'onChange',
     defaultValues: {
       limit: '10',
-      namesTerm: '',
+      firstNamesTerm: '',
       lastNamesTerm: '',
       selectTerm: '',
       multiSelectTerm: undefined,
@@ -121,14 +127,14 @@ export const UserUpdatePage = (): JSX.Element => {
 
   //* Form handler
   function onSubmit(formData: z.infer<typeof userSearchByTermFormSchema>): void {
-    const newNamesTerm = namesFormatter(formData?.namesTerm);
+    const newNamesTerm = firstNamesFormatter(formData?.firstNamesTerm);
     const newLastNamesTerm = lastNamesFormatter(formData?.lastNamesTerm);
 
     const formatRoles = arrayRolesFormatterToString(formData.multiSelectTerm);
 
     setSearchParams({
       ...formData,
-      namesTerm: newNamesTerm,
+      firstNamesTerm: newNamesTerm,
       lastNamesTerm: newLastNamesTerm,
       multiSelectTerm: formatRoles,
     });
@@ -137,7 +143,7 @@ export const UserUpdatePage = (): JSX.Element => {
     setIsFiltersSearchByTermDisabled(false);
     setDataForm({
       ...formData,
-      namesTerm: newNamesTerm,
+      firstNamesTerm: newNamesTerm,
       lastNamesTerm: newLastNamesTerm,
       multiSelectTerm: formatRoles,
     });
@@ -176,7 +182,7 @@ export const UserUpdatePage = (): JSX.Element => {
                           form.resetField('multiSelectTerm', {
                             keepError: true,
                           });
-                          form.resetField('namesTerm', {
+                          form.resetField('firstNamesTerm', {
                             keepError: true,
                           });
                           form.resetField('lastNamesTerm', {
@@ -263,11 +269,11 @@ export const UserUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === UserSearchType.FirstName ||
+              {(searchType === UserSearchType.FirstNames ||
                 searchType === UserSearchType.FullName) && (
                 <FormField
                   control={form.control}
-                  name='namesTerm'
+                  name='firstNamesTerm'
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Nombres</FormLabel>
@@ -287,7 +293,7 @@ export const UserUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === UserSearchType.LastName ||
+              {(searchType === UserSearchType.LastNames ||
                 searchType === UserSearchType.FullName) && (
                 <FormField
                   control={form.control}
@@ -402,7 +408,7 @@ export const UserUpdatePage = (): JSX.Element => {
                     control={form.control}
                     name='all'
                     render={({ field }) => (
-                      <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
+                      <FormItem className='flex flex-row items-end space-x-2 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
                         <FormControl>
                           <Checkbox
                             disabled={!form.getValues('limit') || !!form.formState.errors.limit} // transform to boolean
@@ -418,7 +424,9 @@ export const UserUpdatePage = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[13px] md:text-[14px]'>Todos</FormLabel>
+                          <FormLabel className='text-[13px] md:text-[14px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </FormItem>
                     )}

@@ -4,8 +4,11 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { UserSearchType } from '@/modules/user/enums';
-import { type UserResponse, type UserFormData, type UserQueryParams, type UserPasswordUpdateFormData } from '@/modules/user/interfaces';
+import { UserSearchType } from '@/modules/user/enums/user-search-type.enum';
+import { type UserResponse } from '@/modules/user/interfaces/user-response.interface';
+import { type UserFormData } from '@/modules/user/interfaces/user-form-data.interface';
+import { type UserQueryParams } from '@/modules/user/interfaces/user-query-params.interface';
+import { type UserPasswordUpdateFormData } from '@/modules/user/interfaces/user-password-update-form-data.interface';
 
 //* Create user
 export const createUser = async (formData:UserFormData ): Promise<UserResponse> => {
@@ -62,8 +65,8 @@ export const getUsers = async ({limit, offset, all, order}: UserQueryParams): Pr
 export const getUsersByTerm = async ({ 
   multiSelectTerm,
   searchType, 
-  selectTerm, 
-  namesTerm,
+  selectTerm,
+  firstNamesTerm,
   lastNamesTerm,
   limit, 
   offset, 
@@ -144,11 +147,11 @@ export const getUsersByTerm = async ({
   }
 
  //* First Name
-  if (searchType === UserSearchType.FirstName
+  if (searchType === UserSearchType.FirstNames
   ) {
   try {
     if (!all) {
-      const {data} = await icupApi<UserResponse[]>(`/users/${namesTerm}` , {
+      const {data} = await icupApi<UserResponse[]>(`/users/${firstNamesTerm}` , {
         params: {
           limit,
           offset,
@@ -159,7 +162,7 @@ export const getUsersByTerm = async ({
       
       result = data;
     }else {
-      const {data} = await icupApi<UserResponse[]>(`/users/${namesTerm}` , {
+      const {data} = await icupApi<UserResponse[]>(`/users/${firstNamesTerm}` , {
         params: {
           order,
           'search-type': searchType
@@ -181,7 +184,7 @@ export const getUsersByTerm = async ({
   }
 
   //* Last Name 
-  if (searchType === UserSearchType.LastName
+  if (searchType === UserSearchType.LastNames
   ) {
   try {
     if (!all) {
@@ -222,7 +225,7 @@ export const getUsersByTerm = async ({
   ) {
   try {
     if (!all) {
-      const {data} = await icupApi<UserResponse[]>(`/users/${namesTerm}-${lastNamesTerm}` , {
+      const {data} = await icupApi<UserResponse[]>(`/users/${firstNamesTerm}-${lastNamesTerm}` , {
         params: {
           limit,
           offset,
@@ -233,7 +236,7 @@ export const getUsersByTerm = async ({
       
       result = data;
     }else {
-      const {data} = await icupApi<UserResponse[]>(`/users/${namesTerm}-${lastNamesTerm}` , {
+      const {data} = await icupApi<UserResponse[]>(`/users/${firstNamesTerm}-${lastNamesTerm}` , {
         params: {
           order,
           'search-type': searchType
@@ -336,7 +339,7 @@ export const getGeneralUsersReport = async ({limit, offset, order}: UserQueryPar
 export const getUsersReportByTerm = async ({   
   searchType, 
   selectTerm, 
-  namesTerm,
+  firstNamesTerm,
   lastNamesTerm,
   multiSelectTerm,
   limit, 
@@ -346,9 +349,9 @@ export const getUsersReportByTerm = async ({
   let newTerm: string | undefined = '';
   
   const termMapping: Record<UserSearchType, string | undefined> = {
-    [UserSearchType.FirstName]: namesTerm,
-    [UserSearchType.LastName]: lastNamesTerm,
-    [UserSearchType.FullName]: `${namesTerm}-${lastNamesTerm}`,
+    [UserSearchType.FirstNames]: firstNamesTerm,
+    [UserSearchType.LastNames]: lastNamesTerm,
+    [UserSearchType.FullName]: `${firstNamesTerm}-${lastNamesTerm}`,
     [UserSearchType.Gender]: selectTerm,
     [UserSearchType.Roles]: multiSelectTerm,
     [UserSearchType.RecordStatus]: selectTerm,

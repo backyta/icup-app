@@ -1,5 +1,5 @@
-import { type TooltipConfig } from '@/shared/interfaces';
-import { type MembersByRecordStatusPayload } from '@/modules/metrics/components/member/tooltips/interfaces';
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { type MembersByRecordStatusPayload } from '@/modules/metrics/components/member/tooltips/interfaces/members-by-record-status-tooltip-payload.interface';
 
 export const MembersByRecordStatusTooltipContent = (
   props: TooltipConfig<MembersByRecordStatusPayload>

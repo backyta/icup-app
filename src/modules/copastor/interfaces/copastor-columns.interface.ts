@@ -1,16 +1,16 @@
 import { 
   type UpdatedBy, 
-} from '@/shared/interfaces';
+} from '@/shared/interfaces/relations-response.interface';
 
 export interface CopastorColumns {
-  id:             string;
-  firstName?:     string;
-  lastName?:      string;
-  gender?:        string;
-  birthDate?:     Date;
-  email?:         string;
-  phoneNumber?:   string;
-  updatedAt?:     Date;
-  updatedBy?:     UpdatedBy;
-  recordStatus?:  string;
+  id           : string;
+  firstNames  ?: string;
+  lastNames   ?: string;
+  gender      ?: string;
+  birthDate   ?: Date;
+  email       ?: string;
+  phoneNumber ?: string;
+  updatedAt   ?: Date;
+  updatedBy   ?: UpdatedBy;
+  recordStatus?: string;
 }

@@ -4,11 +4,10 @@ import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 import { type UseQueryResult } from '@tanstack/react-query';
 
-import {
-  type FamilyGroupResponse,
-  type FamilyGroupPreacherUpdateFormData,
-} from '@/modules/family-group/interfaces';
-import { type PreacherResponse } from '@/modules/preacher/interfaces';
+import { type FamilyGroupResponse } from '@/modules/family-group/interfaces/family-group-response.interface';
+import { type FamilyGroupPreacherUpdateFormData } from '@/modules/family-group/interfaces/family-group-preacher-update-form-data.interface';
+
+import { type PreacherResponse } from '@/modules/preacher/interfaces/preacher-response.interface';
 
 interface Options {
   id: string;
@@ -35,7 +34,7 @@ export const useFamilyGroupPreacherUpdateEffects = ({
     familyGroupPreacherUpdateForm.setValue(
       'currentTheirPreacher',
       data?.theirPreacher?.id
-        ? `${data?.theirPreacher?.firstName} ${data?.theirPreacher?.lastName}`
+        ? `${data?.theirPreacher?.firstNames} ${data?.theirPreacher?.lastNames}`
         : '❌ Sin Predicador'
     );
     familyGroupPreacherUpdateForm.setValue(

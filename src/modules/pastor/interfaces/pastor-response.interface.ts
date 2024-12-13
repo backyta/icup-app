@@ -9,7 +9,7 @@ import {
   type Supervisor, 
   type FamilyGroup, 
   type TheirChurch,
-} from '@/shared/interfaces';
+} from '@/shared/interfaces/relations-response.interface';
 
 export interface PastorResponse {
   id                   : string;

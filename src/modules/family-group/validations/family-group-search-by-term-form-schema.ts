@@ -2,8 +2,9 @@
 
 import * as z from 'zod';
 
-import { RecordOrder } from '@/shared/enums';
-import { FamilyGroupSearchSubType, FamilyGroupSearchType } from '@/modules/family-group/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { FamilyGroupSearchType } from '@/modules/family-group/enums/family-group-search-type.enum';
+import { FamilyGroupSearchSubType } from '@/modules/family-group/enums/family-group-search-sub-type.enum';
 
 export const familyGroupSearchByTermFormSchema = z
   .object({
@@ -17,9 +18,10 @@ export const familyGroupSearchByTermFormSchema = z
     }).optional(),
     
     inputTerm: z.string().max(30).optional(),
+
     selectTerm: z.string().max(30).optional(),
 
-    namesTerm: z.string().max(30).optional(),
+    firstNamesTerm: z.string().max(30).optional(),
 
     lastNamesTerm: z.string().max(30).optional(),
 
@@ -46,9 +48,9 @@ export const familyGroupSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === FamilyGroupSearchType.FirstName || 
-        data.searchType === FamilyGroupSearchType.LastName || 
-        data.searchType === FamilyGroupSearchType.FullName 
+        data.searchType === FamilyGroupSearchType.FirstNames || 
+        data.searchType === FamilyGroupSearchType.LastNames || 
+        data.searchType === FamilyGroupSearchType.FullNames 
       ) {
         return !!data.searchSubType; 
       }
@@ -62,9 +64,9 @@ export const familyGroupSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === FamilyGroupSearchType.FirstName
+        data.searchType === FamilyGroupSearchType.FirstNames
       ) {
-        return !!data.namesTerm; 
+        return !!data.firstNamesTerm; 
       }
       return true;
     },
@@ -76,7 +78,7 @@ export const familyGroupSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === FamilyGroupSearchType.LastName
+        data.searchType === FamilyGroupSearchType.LastNames
       ) {
         return !!data.lastNamesTerm;
       }
@@ -91,7 +93,7 @@ export const familyGroupSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === FamilyGroupSearchType.FullName
+        data.searchType === FamilyGroupSearchType.FullNames
       ) {
         return !!data.lastNamesTerm; 
       }
@@ -105,9 +107,9 @@ export const familyGroupSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === FamilyGroupSearchType.FullName
+        data.searchType === FamilyGroupSearchType.FullNames
       ) {
-        return !!data.namesTerm; 
+        return !!data.firstNamesTerm; 
       }
       return true;
     },
@@ -118,7 +120,8 @@ export const familyGroupSearchByTermFormSchema = z
   )
   .refine(
     (data) => {
-      if (data.searchType === FamilyGroupSearchType.Department || 
+      if (data.searchType === FamilyGroupSearchType.Country || 
+          data.searchType === FamilyGroupSearchType.Department || 
           data.searchType === FamilyGroupSearchType.Province || 
           data.searchType === FamilyGroupSearchType.District || 
           data.searchType === FamilyGroupSearchType.UrbanSector || 

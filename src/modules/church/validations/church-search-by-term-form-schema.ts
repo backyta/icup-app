@@ -2,8 +2,8 @@
 
 import * as z from 'zod';
 
-import { RecordOrder } from '@/shared/enums';
-import { ChurchSearchType } from '@/modules/church/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { ChurchSearchType } from '@/modules/church/enums/church-search-type.enum';
 
 export const churchSearchByTermFormSchema = z 
   .object({

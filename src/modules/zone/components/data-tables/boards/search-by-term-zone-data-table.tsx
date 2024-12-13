@@ -23,17 +23,16 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table';
 
-import { getZonesByTerm, getZonesReportByTerm } from '@/modules/zone/services';
-import { type ZoneSearchFormByTerm, type ZoneQueryParams } from '@/modules/zone/interfaces';
-import {
-  ZoneSearchSelectOptionNames,
-  ZoneSearchType,
-  ZoneSearchTypeNames,
-} from '@/modules/zone/enums';
+import { getZonesByTerm, getZonesReportByTerm } from '@/modules/zone/services/zone.service';
+import { type ZoneQueryParams } from '@/modules/zone/interfaces/zone-query-params.interface';
+import { type ZoneSearchFormByTerm } from '@/modules/zone/interfaces/zone-search-form-by-term.interface';
 
-import { useZoneStore } from '@/stores/zone';
+import { ZoneSearchType, ZoneSearchTypeNames } from '@/modules/zone/enums/zone-search-type.enum';
+import { ZoneSearchSelectOptionNames } from '@/modules/zone/enums/zone-search-select-option.enum';
 
-import { LoadingSpinner } from '@/shared/components';
+import { useZoneStore } from '@/stores/zone/zone.store';
+
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
 import {
   Table,
@@ -45,7 +44,7 @@ import {
 } from '@/shared/components/ui/table';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
-import { getSimpleChurches } from '@/modules/church/services';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -200,6 +199,21 @@ export function SearchByTermZoneDataTable<TData, TValue>({
                 {`${dataForm?.inputTerm}`}
               </span>
             )}
+            {dataForm?.searchType === ZoneSearchType.FirstNames && (
+              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                {`${dataForm?.firstNamesTerm}`}
+              </span>
+            )}
+            {dataForm?.searchType === ZoneSearchType.LastNames && (
+              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                {`${dataForm?.lastNamesTerm}`}
+              </span>
+            )}
+            {dataForm?.searchType === ZoneSearchType.FullNames && (
+              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                {`${dataForm?.firstNamesTerm} - ${dataForm?.lastNamesTerm} `}
+              </span>
+            )}
             {dataForm?.searchType === ZoneSearchType.RecordStatus && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${
@@ -214,7 +228,7 @@ export function SearchByTermZoneDataTable<TData, TValue>({
           {/* Search Church */}
           <div>
             <span className='dark:text-emerald-500 text-emerald-600 font-bold text-[14px] md:text-[15.5px]'>
-              Iglesia de Busqueda:
+              Iglesia de Búsqueda:
             </span>{' '}
             <span className='font-medium text-[13px] md:text-[14.5px] italic'>
               {`${

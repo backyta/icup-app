@@ -1,10 +1,10 @@
 import { addDays } from 'date-fns';
 
-import { dateFormatterToDDMMYY } from '@/shared/helpers';
-import { type TooltipConfig } from '@/shared/interfaces';
+import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
 
-import { CurrencyType } from '@/modules/offering/shared/enums';
-import { type OfferingIncomeAdjustmentPayload } from '@/modules/metrics/components/offering-income/tooltips/interfaces';
+import { CurrencyType } from '@/modules/offering/shared/enums/currency-type.enum';
+import { type OfferingIncomeAdjustmentPayload } from '@/modules/metrics/components/offering-income/tooltips/interfaces/offering-income-adjustment-tooltip-payload.interface';
 
 export const OfferingIncomeAdjustmentTooltipContent = (
   props: TooltipConfig<OfferingIncomeAdjustmentPayload>

@@ -1,14 +1,14 @@
 import { addDays } from 'date-fns';
 
-import { type TooltipConfig } from '@/shared/interfaces';
-import { dateFormatterToDDMMYY } from '@/shared/helpers';
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 
 import {
   type OfferingIncomeCreationCategory,
   OfferingIncomeCreationCategoryNames,
-} from '@/modules/offering/income/enums';
-import { CurrencyType } from '@/modules/offering/shared/enums';
-import { type OfferingIncomePayloadByActivities } from '@/modules/metrics/components/offering-income/tooltips/interfaces';
+} from '@/modules/offering/income/enums/offering-income-creation-category.enum';
+import { CurrencyType } from '@/modules/offering/shared/enums/currency-type.enum';
+import { type OfferingIncomePayloadByActivities } from '@/modules/metrics/components/offering-income/tooltips/interfaces/offering-income-by-activities-tooltip-payload.interface';
 
 export const OfferingIncomeByActivitiesTooltipContent = (
   props: TooltipConfig<OfferingIncomePayloadByActivities>

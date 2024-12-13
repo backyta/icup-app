@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
-import { type MemberRole } from '@/shared/enums';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
 
 interface Options {
   path: string;

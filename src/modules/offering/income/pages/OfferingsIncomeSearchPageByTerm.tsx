@@ -7,52 +7,56 @@ import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { Toaster } from 'sonner';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { useForm } from 'react-hook-form';
+import { CalendarIcon } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { useOfferingIncomeStore } from '@/stores/offering-income/offering-income.store';
 
-import { CalendarIcon } from 'lucide-react';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
 import {
-  offeringIncomeInfoColumns as columns,
-  SearchByTermOfferingIncomeDataTable,
-} from '@/modules/offering/income/components';
-import {
-  OfferingIncomeSearchType,
   OfferingIncomeSearchSubType,
-  OfferingIncomeSearchTypeNames,
-  OfferingIncomeSearchNamesByShift,
-  OfferingIncomeSearchNamesByMemberType,
-  OfferingIncomeSearchNamesByRecordStatus,
   SubTypeNamesOfferingIncomeSearchByActivities,
   SubTypeNamesOfferingIncomeSearchByFamilyGroup,
   SubTypeNamesOfferingIncomeSearchByYoungService,
+  SubTypeNamesOfferingIncomeSearchBySundaySchool,
+  SubTypeNamesOfferingIncomeSearchBySundayService,
   SubTypeNamesOfferingIncomeSearchByUnitedService,
   SubTypeNamesOfferingIncomeSearchByIncomeAdjustment,
   SubTypeNamesOfferingIncomeSearchByFastingAndVigilZonal,
-  SubTypeNamesOfferingIncomeSearchByChurchGroundAndSpecial,
   SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneral,
-  SubTypeNamesOfferingIncomeSearchBySundayService,
-  SubTypeNamesOfferingIncomeSearchBySundaySchool,
-} from '@/modules/offering/income/enums';
+  SubTypeNamesOfferingIncomeSearchByChurchGroundAndSpecial,
+} from '@/modules/offering/income/enums/offering-income-search-sub-type.enum';
 import {
-  type OfferingIncomeResponse,
-  type OfferingIncomeSearchFormByTerm,
-} from '@/modules/offering/income/interfaces';
-import { offeringIncomeSearchByTermFormSchema } from '@/modules/offering/income/validations';
+  OfferingIncomeSearchType,
+  OfferingIncomeSearchTypeNames,
+} from '@/modules/offering/income/enums/offering-income-search-type.enum';
+import {
+  OfferingIncomeSearchNamesByShift,
+  OfferingIncomeSearchNamesByMemberType,
+  OfferingIncomeSearchNamesByRecordStatus,
+} from '@/modules/offering/income/enums/offering-income-search-select-option.enum';
 
-import { useOfferingIncomeStore } from '@/stores/offering-income';
+import { offeringIncomeInfoColumns as columns } from '@/modules/offering/income/components/data-tables/columns/offering-income-info-columns';
+import { SearchByTermOfferingIncomeDataTable } from '@/modules/offering/income/components/data-tables/boards/search-by-term-offering-income-data-table';
 
-import { getSimpleChurches } from '@/modules/church/services';
+import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces/offering-income-response.interface';
+import { type OfferingIncomeSearchFormByTerm } from '@/modules/offering/income/interfaces/offering-income-search-form-by-term.interface';
+
+import { offeringIncomeSearchByTermFormSchema } from '@/modules/offering/income/validations/offering-income-search-by-term-form-schema';
 
 import { cn } from '@/shared/lib/utils';
 
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-import { PageTitle, SearchTitle } from '@/shared/components/page';
-import { dateFormatterTermToTimestamp, namesFormatter, lastNamesFormatter } from '@/shared/helpers';
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+
+import { dateFormatterTermToTimestamp } from '@/shared/helpers/date-formatter-to-timestamp.helper';
+import { firstNamesFormatter, lastNamesFormatter } from '@/shared/helpers/names-formatter.helper';
 
 import {
   Form,
@@ -122,7 +126,7 @@ export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
       searchSubType: '' as any,
       limit: '10',
       inputTerm: '',
-      namesTerm: '',
+      firstNamesTerm: '',
       lastNamesTerm: '',
       selectTerm: '',
       dateTerm: undefined,
@@ -184,12 +188,12 @@ export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
       to: formData.dateTerm?.to ? formData.dateTerm?.to : newDateTermTo,
     });
 
-    const newNamesTerm = namesFormatter(formData?.namesTerm);
+    const newNamesTerm = firstNamesFormatter(formData?.firstNamesTerm);
     const newLastNamesTerm = lastNamesFormatter(formData?.lastNamesTerm);
 
     setSearchParams({
       ...formData,
-      namesTerm: newNamesTerm,
+      firstNamesTerm: newNamesTerm,
       lastNamesTerm: newLastNamesTerm,
       dateTerm: newDateTerm as any,
     });
@@ -292,7 +296,7 @@ export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
                           defaultValue={field.value}
                           value={field.value}
                           onOpenChange={() => {
-                            form.resetField('namesTerm', {
+                            form.resetField('firstNamesTerm', {
                               defaultValue: '',
                             });
                             form.resetField('lastNamesTerm', {
@@ -486,10 +490,10 @@ export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
                   searchType === OfferingIncomeSearchType.ChurchGround) &&
                   (searchSubType === OfferingIncomeSearchSubType.OfferingByShift ||
                     searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate ||
-                    searchSubType === OfferingIncomeSearchSubType.OfferingByContributorNames ||
+                    searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFirstNames ||
                     searchSubType === OfferingIncomeSearchSubType.OfferingByContributorLastNames ||
                     searchSubType ===
-                      OfferingIncomeSearchSubType.OfferingByContributorFullName))) && (
+                      OfferingIncomeSearchSubType.OfferingByContributorFullNames))) && (
                 <FormField
                   control={form.control}
                   name='selectTerm'
@@ -557,15 +561,15 @@ export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
                 searchType === OfferingIncomeSearchType.ZonalFasting ||
                 searchType === OfferingIncomeSearchType.YouthService ||
                 searchType === OfferingIncomeSearchType.SundaySchool) &&
-                (searchSubType === OfferingIncomeSearchSubType.OfferingByContributorNames ||
-                  searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFullName ||
-                  searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherNames ||
-                  searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFullName ||
-                  searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorNames ||
-                  searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorFullName) && (
+                (searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFirstNames ||
+                  searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFullNames ||
+                  searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFirstNames ||
+                  searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFullNames ||
+                  searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorFirstNames ||
+                  searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorFullNames) && (
                   <FormField
                     control={form.control}
-                    name='namesTerm'
+                    name='firstNamesTerm'
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className='text-[14px] font-bold'>Nombres</FormLabel>
@@ -599,11 +603,11 @@ export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
                 searchType === OfferingIncomeSearchType.YouthService ||
                 searchType === OfferingIncomeSearchType.SundaySchool) &&
                 (searchSubType === OfferingIncomeSearchSubType.OfferingByContributorLastNames ||
-                  searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFullName ||
+                  searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFullNames ||
                   searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherLastNames ||
-                  searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFullName ||
+                  searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFullNames ||
                   searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorLastNames ||
-                  searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorFullName) && (
+                  searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorFullNames) && (
                   <FormField
                     control={form.control}
                     name='lastNamesTerm'
@@ -670,7 +674,7 @@ export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
                     control={form.control}
                     name='all'
                     render={({ field }) => (
-                      <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
+                      <FormItem className='flex flex-row items-end space-x-2 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
                         <FormControl>
                           <Checkbox
                             disabled={!form.getValues('limit') || !!form.formState.errors.limit} // transform to boolean

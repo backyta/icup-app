@@ -9,20 +9,23 @@ import { useForm } from 'react-hook-form';
 import { MdDeleteForever } from 'react-icons/md';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useChurchInactivationMutation } from '@/modules/church/hooks';
-import { churchInactivationFormSchema } from '@/modules/church/validations';
-
 import {
   ChurchInactivationCategory,
+  ChurchInactivationCategoryNames,
+} from '@/modules/church/enums/church-inactivation-category.enum';
+import {
   AdministrativeReasonsNames,
   ExternalFactorsReasonsNames,
   StrategicDecisionsReasonsNames,
   FinancialChallengesReasonsNames,
-  ChurchInactivationCategoryNames,
   NaturalCircumstancesReasonsNames,
   CommunityRelatedIssuesReasonsNames,
   LegalOrRegulatoryIssuesReasonsNames,
-} from '@/modules/church/enums';
+} from '@/modules/church/enums/church-inactivation-reason.enum';
+
+import { useChurchInactivationMutation } from '@/modules/church/hooks/useChurchInactivationMutation';
+
+import { churchInactivationFormSchema } from '@/modules/church/validations/church-inactivation-form-schema';
 
 import {
   Form,

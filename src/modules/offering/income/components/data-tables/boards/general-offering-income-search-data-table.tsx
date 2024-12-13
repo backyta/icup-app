@@ -25,20 +25,18 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table';
 
+import { OfferingIncomeCreationTypeNames } from '@/modules/offering/income/enums/offering-income-creation-type.enum';
+import { OfferingIncomeCreationSubTypeNames } from '@/modules/offering/income/enums/offering-income-creation-sub-type.enum';
 import {
-  OfferingIncomeCreationTypeNames,
-  OfferingIncomeCreationSubTypeNames,
-} from '@/modules/offering/income/enums';
-import {
-  getGeneralOfferingIncomeReport,
   getOfferingsIncome,
-} from '@/modules/offering/income/services';
-import { type OfferingIncomeQueryParams } from '@/modules/offering/income/interfaces';
+  getGeneralOfferingIncomeReport,
+} from '@/modules/offering/income/services/offering-income.service';
+import { type OfferingIncomeQueryParams } from '@/modules/offering/income/interfaces/offering-income-query-params.interface';
 
-import { useOfferingIncomeStore } from '@/stores/offering-income';
+import { useOfferingIncomeStore } from '@/stores/offering-income/offering-income.store';
 
-import { LoadingSpinner } from '@/shared/components';
-import { type GeneralSearchForm } from '@/shared/interfaces';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+import { type GeneralSearchForm } from '@/shared/interfaces/search-general-form.interface';
 
 import {
   Table,

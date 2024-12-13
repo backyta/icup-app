@@ -4,7 +4,7 @@ import { useCallback, useRef, useState } from 'react';
 
 import { FcFinePrint } from 'react-icons/fc';
 
-import { MemberReportForm } from '@/modules/metrics/components/member/reports';
+import { MemberReportForm } from '@/modules/metrics/components/member/reports/MemberReportForm';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

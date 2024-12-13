@@ -25,20 +25,18 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table';
 
+import { useOfferingExpenseStore } from '@/stores/offering-expense/offering-expenses.store';
+
+import { OfferingExpenseSearchTypeNames } from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
+import { OfferingExpenseSearchSubTypeNames } from '@/modules/offering/expense/enums/offering-expense-search-sub-type.enum';
 import {
-  OfferingExpenseSearchTypeNames,
-  OfferingExpenseSearchSubTypeNames,
-} from '@/modules/offering/expense/enums';
-import {
-  getGeneralOfferingExpensesReport,
   getOfferingsExpenses,
-} from '@/modules/offering/expense/services';
-import { type OfferingExpenseQueryParams } from '@/modules/offering/expense/interfaces';
+  getGeneralOfferingExpensesReport,
+} from '@/modules/offering/expense/services/offering-expense.service';
+import { type OfferingExpenseQueryParams } from '@/modules/offering/expense/interfaces/offering-expense-query-params.interface';
 
-import { useOfferingExpenseStore } from '@/stores/offering-expense';
-
-import { LoadingSpinner } from '@/shared/components';
-import { type GeneralSearchForm } from '@/shared/interfaces';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+import { type GeneralSearchForm } from '@/shared/interfaces/search-general-form.interface';
 
 import {
   Table,

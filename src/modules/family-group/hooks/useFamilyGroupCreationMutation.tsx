@@ -5,13 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import { type UseFormReturn } from 'react-hook-form';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
-import {
-  type FamilyGroupFormData,
-  type FamilyGroupResponse,
-} from '@/modules/family-group/interfaces';
-import { createFamilyGroup } from '@/modules/family-group/services';
+import { type FamilyGroupResponse } from '@/modules/family-group/interfaces/family-group-response.interface';
+import { type FamilyGroupFormData } from '@/modules/family-group/interfaces/family-group-form-data.interface';
 
-import { type ErrorResponse } from '@/shared/interfaces';
+import { createFamilyGroup } from '@/modules/family-group/services/family-group.service';
+
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
 
 interface Options {
   familyGroupCreationForm: UseFormReturn<FamilyGroupFormData, any, FamilyGroupFormData>;

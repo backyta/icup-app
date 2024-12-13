@@ -2,12 +2,12 @@
 
 import { addDays } from 'date-fns';
 
-import { CurrencyType } from '@/modules/offering/shared/enums';
+import { CurrencyType } from '@/modules/offering/shared/enums/currency-type.enum';
 
-import { type TooltipConfig } from '@/shared/interfaces';
-import { dateFormatterToDDMMYY } from '@/shared/helpers';
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 
-import { type OfferingExpenseChartPayload } from '@/modules/metrics/components/offering-expense/tooltips/interfaces';
+import { type OfferingExpenseChartPayload } from '@/modules/metrics/components/offering-expense/tooltips/interfaces/offering-expense-chart-tooltip-payload.interface';
 
 export const OfferingExpenseChartTooltipContent = (
   props: TooltipConfig<OfferingExpenseChartPayload>

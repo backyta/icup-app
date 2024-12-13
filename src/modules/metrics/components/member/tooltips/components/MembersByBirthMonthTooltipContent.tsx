@@ -1,5 +1,5 @@
-import { type TooltipConfig } from '@/shared/interfaces';
-import { type MembersByBirthMonthPayload } from '@/modules/metrics/components/member/tooltips/interfaces';
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { type MembersByBirthMonthPayload } from '@/modules/metrics/components/member/tooltips/interfaces/members-by-birth-month-payload.interface';
 
 export const MembersByBirthMonthTooltipContent = (
   props: TooltipConfig<MembersByBirthMonthPayload>

@@ -3,15 +3,15 @@
 
 import { addDays } from 'date-fns';
 
-import { type TooltipConfig } from '@/shared/interfaces';
-import { dateFormatterToDDMMYY } from '@/shared/helpers';
+import { CurrencyType } from '@/modules/offering/shared/enums/currency-type.enum';
 
-import {
-  type OfferingIncomeCreationCategory,
-  OfferingIncomeCreationCategoryNames,
-} from '@/modules/offering/income/enums';
-import { CurrencyType } from '@/modules/offering/shared/enums';
-import { type LatestSundaysOfferingsPayload } from '@/modules/dashboard/interfaces';
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
+
+import { type LatestSundaysOfferingsPayload } from '@/modules/dashboard/interfaces/last-sundays-offerings-tooltip-payload.interface';
+
+import { type OfferingIncomeCreationCategory } from '@/modules/offering/income/enums/offering-income-creation-category.enum';
+import { OfferingIncomeCreationCategoryNames } from '@/modules/offering/income/enums/offering-income-creation-category.enum';
 
 export const LastSundaysOfferingsTooltipContent = (
   props: TooltipConfig<LatestSundaysOfferingsPayload>

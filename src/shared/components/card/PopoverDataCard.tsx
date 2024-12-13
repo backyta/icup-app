@@ -2,6 +2,11 @@
 
 import { cn } from '@/shared/lib/utils';
 
+import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
+
+import { Button } from '@/shared/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
+
 import {
   type Zone,
   type Anexe,
@@ -11,11 +16,7 @@ import {
   type Preacher,
   type Supervisor,
   type FamilyGroup,
-} from '@/shared/interfaces';
-import { getInitialFullNames } from '@/shared/helpers';
-
-import { Button } from '@/shared/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
+} from '@/shared/interfaces/relations-response.interface';
 
 export type AllowedTypes =
   | Anexe[]

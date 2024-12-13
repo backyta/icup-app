@@ -1,10 +1,8 @@
-import {
-  CopastorUpdatePage,
-  CopastorCreatePage,
-  CopastorInactivatePage,
-  CopastorsSearchPageByTerm,
-  CopastorsGeneralSearchPage,
-} from '@/modules/copastor/pages';
+import { CopastorCreatePage } from '@/modules/copastor/pages/CopastorCreatePage';
+import { CopastorUpdatePage } from '@/modules/copastor/pages/CopastorUpdatePage';
+import { CopastorInactivatePage } from '@/modules/copastor/pages/CopastorInactivatePage';
+import { CopastorsSearchPageByTerm } from '@/modules/copastor/pages/CopastorsSearchPageByTerm';
+import { CopastorsGeneralSearchPage } from '@/modules/copastor/pages/CopastorsGeneralSearchPage';
 
 export const CopastorChildrenRoutes = [
   {

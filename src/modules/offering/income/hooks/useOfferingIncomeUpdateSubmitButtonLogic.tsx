@@ -4,13 +4,12 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import {
-  type OfferingIncomeCreationType,
-  type OfferingIncomeCreationSubType,
-} from '@/modules/offering/income/enums';
-import { type OfferingIncomeFormData } from '@/modules/offering/income/interfaces';
+import { type OfferingIncomeCreationType } from '@/modules/offering/income/enums/offering-income-creation-type.enum';
+import { type OfferingIncomeCreationSubType } from '@/modules/offering/income/enums/offering-income-creation-sub-type.enum';
 
-import { type FilesProps } from '@/modules/offering/shared/interfaces';
+import { type OfferingIncomeFormData } from '@/modules/offering/income/interfaces/offering-income-form-data.interface';
+
+import { type FilesProps } from '@/modules/offering/shared/interfaces/files-props.interface';
 
 interface Options {
   files: FilesProps[];

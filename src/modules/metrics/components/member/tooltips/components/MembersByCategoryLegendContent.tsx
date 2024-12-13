@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { type MembersByCategoryLegendConfig } from '@/modules/metrics/components/member/tooltips/interfaces';
+import { type MembersByCategoryLegendConfig } from '@/modules/metrics/components/member/tooltips/interfaces/members-by-category-legend-config.interface';
 
 export const MembersByCategoryLegendContent = (props: any): JSX.Element => {
   const { payload } = props;

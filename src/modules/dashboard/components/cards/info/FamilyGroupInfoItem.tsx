@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { useMediaQuery } from '@react-hook/media-query';
 
-import { FamilyGroupTabsCard } from '@/modules/family-group/components';
-import { type FamilyGroupResponse } from '@/modules/family-group/interfaces';
+import { FamilyGroupTabsCard } from '@/modules/family-group/components/cards/info/FamilyGroupTabsCard';
+import { type FamilyGroupResponse } from '@/modules/family-group/interfaces/family-group-response.interface';
 
 import { Button } from '@/shared/components/ui/button';
 import { CardContent } from '@/shared/components/ui/card';
@@ -43,7 +43,7 @@ export function FamilyGroupInfoItem({ data }: Props): JSX.Element {
               </div>
               <p className='text-[12px] sm:text-[14px] font-normal'>
                 <span className='font-bold'>Líder:</span>{' '}
-                {`${data.theirPreacher?.firstName} ${data.theirPreacher?.lastName}`}
+                {`${data.theirPreacher?.firstNames} ${data.theirPreacher?.lastNames}`}
               </p>
             </div>
           </div>
@@ -86,7 +86,7 @@ export function FamilyGroupInfoItem({ data }: Props): JSX.Element {
             </div>
             <p className='text-[12px] sm:text-[14px] font-normal'>
               <span className='font-bold'>Líder:</span>{' '}
-              {`${data.theirPreacher?.firstName} ${data.theirPreacher?.lastName}`}
+              {`${data.theirPreacher?.firstNames} ${data.theirPreacher?.lastNames}`}
             </p>
           </div>
         </div>

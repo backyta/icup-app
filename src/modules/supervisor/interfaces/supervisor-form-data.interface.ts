@@ -1,33 +1,33 @@
-import { type MemberRole } from '@/shared/enums';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
 
 export interface SupervisorFormData {
-  firstName: string;
-  lastName: string;
-  gender: string;
-  originCountry: string;
-  birthDate: Date;
-  maritalStatus: string;
-  numberChildren: string;
-  conversionDate: Date;
-  email: string,
-  phoneNumber: string,
-  country: string;
-  department: string;
-  province: string;
-  district: string;
-  urbanSector: string;
-  address: string;
-  referenceAddress: string;
+  firstNames               : string;
+  lastNames                : string;
+  gender                   : string;
+  originCountry            : string;
+  birthDate                : Date;
+  maritalStatus            : string;
+  numberChildren           : string;
+  conversionDate           : Date;
+  email                    : string,
+  phoneNumber              : string,
+  residenceCountry         : string;
+  residenceDepartment      : string;
+  residenceProvince        : string;
+  residenceDistrict        : string;
+  residenceUrbanSector     : string;
+  residenceAddress         : string;
+  referenceAddress         : string;
   isDirectRelationToPastor?: boolean | undefined;
-  roles: MemberRole[];
-  recordStatus?: string | undefined;
-  theirCopastor?: string | undefined;
-  theirPastor?: string | undefined;
+  roles                    : MemberRole[];
+  recordStatus            ?: string | undefined;
+  theirCopastor           ?: string | undefined;
+  theirPastor             ?: string | undefined;
 }
 
 export type SupervisorFormDataKeys =
-  | 'firstName'
-  | 'lastName'
+  | 'firstNames'
+  | 'lastNames'
   | 'gender'
   | 'originCountry'
   | 'birthDate'
@@ -36,12 +36,12 @@ export type SupervisorFormDataKeys =
   | 'conversionDate'
   | 'email'
   | 'phoneNumber'
-  | 'country'
-  | 'department'
-  | 'province'
-  | 'district'
-  | 'urbanSector'
-  | 'address'
+  | 'residenceCountry'
+  | 'residenceDepartment'
+  | 'residenceProvince'
+  | 'residenceDistrict'
+  | 'residenceUrbanSector'
+  | 'residenceAddress'
   | 'referenceAddress'
   | 'roles'
   | 'recordStatus'

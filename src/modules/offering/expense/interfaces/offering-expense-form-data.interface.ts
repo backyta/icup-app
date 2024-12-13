@@ -1,13 +1,13 @@
 export interface OfferingExpenseFormData {
-  type: string,
-  subType?: string | undefined,
-  amount: string,
-  date: Date;
-  currency: string,
-  comments: string,
-  fileNames?: string[] | undefined,
-  imageUrls?: string[] | undefined,
-  churchId?: string | undefined,
+  type         : string,
+  subType     ?: string | undefined,
+  amount       : string,
+  date         : Date;
+  currency     : string,
+  comments     : string,
+  fileNames   ?: string[] | undefined,
+  imageUrls   ?: string[] | undefined,
+  churchId    ?: string | undefined,
   recordStatus?: string | undefined,
 }
 

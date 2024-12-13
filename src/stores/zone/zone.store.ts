@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 
 import { create, type StateCreator } from 'zustand';
-import { type ZoneResponse } from '@/modules/zone/interfaces';
+import { type ZoneResponse } from '@/modules/zone/interfaces/zone-response.interface';
 
 interface ZoneStore {
   // Properties

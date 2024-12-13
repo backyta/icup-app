@@ -7,7 +7,7 @@ import { CheckIcon, ChevronsUpDown } from 'lucide-react';
 import { cn } from '@/shared/lib/utils';
 
 import { Button } from '@/shared/components/ui/button';
-import { type ChurchResponse } from '@/modules/church/interfaces';
+import { type ChurchResponse } from '@/modules/church/interfaces/church-response.interface';
 
 import {
   Command,

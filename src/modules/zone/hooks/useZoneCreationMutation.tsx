@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { type UseFormReturn } from 'react-hook-form';
 import { useMutation, type UseMutationResult } from '@tanstack/react-query';
 
-import { type ErrorResponse } from '@/shared/interfaces';
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
 
-import { createZone } from '@/modules/zone/services';
-import { type ZoneFormData, type ZoneResponse } from '@/modules/zone/interfaces';
+import { createZone } from '@/modules/zone/services/zone.service';
+import { type ZoneResponse } from '@/modules/zone/interfaces/zone-response.interface';
+import { type ZoneFormData } from '@/modules/zone/interfaces/zone-form-data.interface';
 
 interface Options {
   zoneCreationForm: UseFormReturn<ZoneFormData, any, ZoneFormData>;

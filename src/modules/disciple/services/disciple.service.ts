@@ -4,11 +4,12 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { RecordOrder } from '@/shared/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
-import { DiscipleSearchType } from '@/modules/disciple/enums';
-import { type DiscipleResponse, type DiscipleFormData, type DiscipleQueryParams } from '@/modules/disciple/interfaces';
-
+import { DiscipleSearchType } from '@/modules/disciple/enums/disciple-search-type.enum';
+import { type DiscipleResponse} from '@/modules/disciple/interfaces/disciple-response.interface';
+import { type DiscipleFormData } from '@/modules/disciple/interfaces/disciple-form-data.interface';
+import { type DiscipleQueryParams } from '@/modules/disciple/interfaces/disciple-query-params.interface';
 
 //* Create disciple
 export const createDisciple = async (formData:DiscipleFormData ): Promise<DiscipleResponse> => {
@@ -91,7 +92,7 @@ export const getDisciplesByTerm = async ({
   inputTerm, 
   dateTerm, 
   selectTerm, 
-  namesTerm,
+  firstNamesTerm,
   lastNamesTerm,
   limit, 
   offset, 
@@ -107,11 +108,12 @@ export const getDisciplesByTerm = async ({
      searchType === DiscipleSearchType.FamilyGroupCode ||
      searchType === DiscipleSearchType.FamilyGroupName ||
      searchType === DiscipleSearchType.OriginCountry||
-     searchType === DiscipleSearchType.Department ||
-     searchType === DiscipleSearchType.Province ||
-     searchType === DiscipleSearchType.District ||
-     searchType === DiscipleSearchType.UrbanSector ||
-     searchType === DiscipleSearchType.Address
+     searchType === DiscipleSearchType.ResidenceCountry||
+     searchType === DiscipleSearchType.ResidenceDepartment ||
+     searchType === DiscipleSearchType.ResidenceProvince ||
+     searchType === DiscipleSearchType.ResidenceDistrict ||
+     searchType === DiscipleSearchType.ResidenceUrbanSector ||
+     searchType === DiscipleSearchType.ResidenceAddress
     ) {
     try {
         if (!all) {
@@ -227,11 +229,11 @@ export const getDisciplesByTerm = async ({
   }
 
  //* First Name
-  if (searchType === DiscipleSearchType.FirstName
+  if (searchType === DiscipleSearchType.FirstNames
       ) {
       try {
         if (!all) {
-          const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${namesTerm}` , {
+          const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${firstNamesTerm}` , {
             params: {
               limit,
               offset,
@@ -244,7 +246,7 @@ export const getDisciplesByTerm = async ({
 
           result = data;
         }else {
-          const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${namesTerm}` , {
+          const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${firstNamesTerm}` , {
             params: {
               order,
               churchId,
@@ -268,7 +270,7 @@ export const getDisciplesByTerm = async ({
   }
 
  //* Last Name 
-  if (searchType === DiscipleSearchType.LastName
+  if (searchType === DiscipleSearchType.LastNames
       ) {
       try {
         if (!all) {
@@ -309,11 +311,11 @@ export const getDisciplesByTerm = async ({
   }
 
  //* Full Name
-  if (searchType === DiscipleSearchType.FullName
+  if (searchType === DiscipleSearchType.FullNames
       ) {
       try {
         if (!all) {
-          const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${namesTerm}-${lastNamesTerm}` , {
+          const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${firstNamesTerm}-${lastNamesTerm}` , {
             params: {
               limit,
               offset,
@@ -326,7 +328,7 @@ export const getDisciplesByTerm = async ({
           
           result = data;
         }else {
-          const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${namesTerm}-${lastNamesTerm}` , {
+          const {data} = await icupApi<DiscipleResponse[]>(`/disciples/${firstNamesTerm}-${lastNamesTerm}` , {
             params: {
               order,
               churchId,
@@ -435,7 +437,7 @@ export const getDisciplesReportByTerm = async ({
   inputTerm, 
   dateTerm, 
   selectTerm, 
-  namesTerm,
+  firstNamesTerm,
   lastNamesTerm,
   limit, 
   offset, 
@@ -445,9 +447,9 @@ export const getDisciplesReportByTerm = async ({
   let newTerm: string | undefined = '';
   
   const termMapping: Record<DiscipleSearchType, string | undefined> = {
-    [DiscipleSearchType.FirstName]: namesTerm,
-    [DiscipleSearchType.LastName]: lastNamesTerm,
-    [DiscipleSearchType.FullName]: `${namesTerm}-${lastNamesTerm}`,
+    [DiscipleSearchType.FirstNames]: firstNamesTerm,
+    [DiscipleSearchType.LastNames]: lastNamesTerm,
+    [DiscipleSearchType.FullNames]: `${firstNamesTerm}-${lastNamesTerm}`,
     [DiscipleSearchType.BirthDate]: dateTerm,
     [DiscipleSearchType.BirthMonth]: selectTerm,
     [DiscipleSearchType.Gender]: selectTerm,
@@ -456,11 +458,12 @@ export const getDisciplesReportByTerm = async ({
     [DiscipleSearchType.ZoneName]: inputTerm,
     [DiscipleSearchType.FamilyGroupCode]: inputTerm,
     [DiscipleSearchType.FamilyGroupName]: inputTerm,
-    [DiscipleSearchType.Department]: inputTerm,
-    [DiscipleSearchType.Province]: inputTerm,
-    [DiscipleSearchType.District]: inputTerm,
-    [DiscipleSearchType.UrbanSector]: inputTerm,
-    [DiscipleSearchType.Address]: inputTerm,
+    [DiscipleSearchType.ResidenceCountry]: inputTerm,
+    [DiscipleSearchType.ResidenceDepartment]: inputTerm,
+    [DiscipleSearchType.ResidenceProvince]: inputTerm,
+    [DiscipleSearchType.ResidenceDistrict]: inputTerm,
+    [DiscipleSearchType.ResidenceUrbanSector]: inputTerm,
+    [DiscipleSearchType.ResidenceAddress]: inputTerm,
     [DiscipleSearchType.RecordStatus]: selectTerm,
   };
   

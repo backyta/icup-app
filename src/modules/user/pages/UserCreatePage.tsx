@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-misused-promises */
 
 import { useEffect, useState } from 'react';
 
@@ -12,12 +12,14 @@ import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { userFormSchema } from '@/modules/user/validations';
-import { UserRole, UserRoleNames } from '@/modules/user/enums';
-import { useUserCreationSubmitButtonLogic, useUserCreationMutation } from '@/modules/user/hooks';
+import { userFormSchema } from '@/modules/user/validations/user-form-schema';
+import { UserRole, UserRoleNames } from '@/modules/user/enums/user-role.enum';
 
-import { GenderNames } from '@/shared/enums';
-import { PageTitle } from '@/shared/components/page';
+import { useUserCreationMutation } from '@/modules/user/hooks/useUserCreationMutation';
+import { useUserCreationSubmitButtonLogic } from '@/modules/user/hooks/useUserCreationSubmitButtonLogic';
+
+import { GenderNames } from '@/shared/enums/gender.enum';
+import { PageTitle } from '@/shared/components/page/PageTitle';
 
 import {
   Form,
@@ -57,8 +59,8 @@ export const UserCreatePage = (): JSX.Element => {
     mode: 'onChange',
     resolver: zodResolver(userFormSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      firstNames: '',
+      lastNames: '',
       gender: '',
       email: '',
       password: '',
@@ -100,8 +102,8 @@ export const UserCreatePage = (): JSX.Element => {
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof userFormSchema>): void => {
     userCreationMutation.mutate({
-      firstName: formData.firstName,
-      lastName: formData.lastName,
+      firstNames: formData.firstNames,
+      lastNames: formData.lastNames,
       gender: formData.gender,
       email: formData.email,
       password: formData.password,
@@ -128,7 +130,7 @@ export const UserCreatePage = (): JSX.Element => {
           >
             <FormField
               control={form.control}
-              name='firstName'
+              name='firstNames'
               render={({ field }) => {
                 return (
                   <FormItem>
@@ -151,7 +153,7 @@ export const UserCreatePage = (): JSX.Element => {
 
             <FormField
               control={form.control}
-              name='lastName'
+              name='lastNames'
               render={({ field }) => {
                 return (
                   <FormItem>
@@ -332,7 +334,7 @@ export const UserCreatePage = (): JSX.Element => {
                         return (
                           <FormItem
                             key={role}
-                            className='flex flex-row items-center space-x-3 space-y-0'
+                            className='flex flex-row items-center space-x-2 space-y-0'
                           >
                             <FormControl>
                               <Checkbox
@@ -349,7 +351,7 @@ export const UserCreatePage = (): JSX.Element => {
                                 }}
                               />
                             </FormControl>
-                            <FormLabel className='text-[14px] font-medium'>
+                            <FormLabel className='text-[14px] font-medium cursor-pointer'>
                               {UserRoleNames[role]}
                             </FormLabel>
                           </FormItem>

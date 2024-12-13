@@ -4,10 +4,14 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
-import { type ErrorResponse } from '@/shared/interfaces';
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
 
-import { type CopastorResponse } from '@/modules/copastor/interfaces';
-import { updateCopastor, type UpdateCopastorOptions } from '@/modules/copastor/services';
+import {
+  updateCopastor,
+  type UpdateCopastorOptions,
+} from '@/modules/copastor/services/copastor.service';
+
+import { type CopastorResponse } from '@/modules/copastor/interfaces/copastor-response.interface';
 
 interface Options {
   dialogClose: () => void;

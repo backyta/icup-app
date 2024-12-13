@@ -4,11 +4,12 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { DashboardSearchType } from '@/modules/dashboard/enums';
-import { type FamilyGroupResponse } from '@/modules/family-group/interfaces';
+import { DashboardSearchType } from '@/modules/dashboard/enums/dashboard-search-type.enum';
+import { type FamilyGroupResponse } from '@/modules/family-group/interfaces/family-group-response.interface';
 
-import { type LastSundaysOfferingsResponse, type DashboardQueryParams, type TopFamilyGroupsOfferingsResponse } from '@/modules/dashboard/interfaces';
-
+import {  type DashboardQueryParams,  } from '@/modules/dashboard/interfaces/dashboard-query-params.interface';
+import { type LastSundaysOfferingsResponse } from '@/modules/dashboard/interfaces/last-sundays-offerings-response';
+import {  type TopFamilyGroupsOfferingsResponse } from '@/modules/dashboard/interfaces/top-family-groups-offerings-response';
 
 // ? Get offering income by term (paginated)
 export const  getOfferingsForBarChartByTerm = async ({ 

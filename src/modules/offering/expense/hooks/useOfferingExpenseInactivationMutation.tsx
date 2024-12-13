@@ -7,9 +7,9 @@ import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/r
 import {
   inactivateOfferingExpense,
   type InactivateOfferingExpenseOptions,
-} from '@/modules/offering/expense/services';
+} from '@/modules/offering/expense/services/offering-expense.service';
 
-import { type ErrorResponse } from '@/shared/interfaces';
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
 
 interface Options {
   scrollToTop: () => void;

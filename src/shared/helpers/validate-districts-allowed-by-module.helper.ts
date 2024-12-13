@@ -3,8 +3,8 @@ import {
   MemberModuleDistrictsAllowed,
   ChurchModuleDistrictsAllowed,
   FamilyGroupModuleDistrictsAllowed,
-} from '@/shared/helpers';
-import { DistrictNames } from '@/shared/enums';
+} from '@/shared/helpers/allowed-districts-by-module.helper';
+import { DistrictNames } from '@/shared/enums/district.enum';
 
 interface DisabledDistrictsResult {
   districtsDataResult: string[];

@@ -6,24 +6,24 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
-import { getSimpleChurches } from '@/modules/church/services';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
-import { SelectChurch, MetricsSkeleton } from '@/modules/metrics/components/shared';
+import { SelectChurch } from '@/modules/metrics/components/shared/SelectChurch';
+import { MetricsSkeleton } from '@/modules/metrics/components/shared/MetricsSkeleton';
 
-import {
-  MemberProportionCard,
-  MemberAnalysisCardByCategory,
-  MemberAnalysisCardByBirthMonth,
-  MemberAnalysisCardByRecordStatus,
-  MemberAnalysisCardByMaritalStatus,
-  MemberAnalysisCardByZoneAndGender,
-  MemberAnalysisCardByRoleAndGender,
-  PreacherAnalysisCardByZoneAndGender,
-  MemberFluctuationAnalysisCardByYear,
-  MemberAnalysisCardByDistrictAndGender,
-  MemberAnalysisCardByCategoryAndGender,
-} from '@/modules/metrics/components/member/charts';
-import { MemberReportFormCard } from '@/modules/metrics/components/member/reports';
+import { MemberReportFormCard } from '@/modules/metrics/components/member/reports/MemberReportFormCard';
+
+import { MemberProportionCard } from '@/modules/metrics/components/member/charts/MemberProportionCard';
+import { MemberAnalysisCardByCategory } from '@/modules/metrics/components/member/charts/MemberAnalysisCardByCategory';
+import { MemberAnalysisCardByBirthMonth } from '@/modules/metrics/components/member/charts/MemberAnalysisCardByBirthMonth';
+import { MemberAnalysisCardByRecordStatus } from '@/modules/metrics/components/member/charts/MemberAnalysisCardByRecordStatus';
+import { MemberAnalysisCardByRoleAndGender } from '@/modules/metrics/components/member/charts/MemberAnalysisCardByRoleAndGender';
+import { MemberAnalysisCardByMaritalStatus } from '@/modules/metrics/components/member/charts/MemberAnalysisCardByMaritalStatus';
+import { MemberAnalysisCardByZoneAndGender } from '@/modules/metrics/components/member/charts/MemberAnalysisCardByZoneAndGender';
+import { PreacherAnalysisCardByZoneAndGender } from '@/modules/metrics/components/member/charts/PreacherAnalysisCardByZoneAndGender';
+import { MemberFluctuationAnalysisCardByYear } from '@/modules/metrics/components/member/charts/MemberFluctuationAnalysisCardByYear';
+import { MemberAnalysisCardByCategoryAndGender } from '@/modules/metrics/components/member/charts/MemberAnalysisCardByCategoryAndGender';
+import { MemberAnalysisCardByDistrictAndGender } from '@/modules/metrics/components/member/charts/MemberAnalysisCardByDistrictAndGender';
 
 export const MemberMetrics = (): JSX.Element => {
   //* States

@@ -10,11 +10,12 @@ import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
 import { Bar, YAxis, XAxis, BarChart, CartesianGrid } from 'recharts';
 
 import { cn } from '@/shared/lib/utils';
-import { MemberRole, MemberRoleNames, RecordOrder } from '@/shared/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { MemberRole, MemberRoleNames } from '@/shared/enums/member-role.enum';
 
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { getMembersByRecordStatus } from '@/modules/metrics/services';
-import { MembersByRecordStatusTooltipContent } from '@/modules/metrics/components/member/tooltips/components';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { getMembersByRecordStatus } from '@/modules/metrics/services/member-metrics.service';
+import { MembersByRecordStatusTooltipContent } from '@/modules/metrics/components/member/tooltips/components/MembersByRecordStatusTooltipContent';
 
 import {
   ChartLegend,

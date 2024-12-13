@@ -1,6 +1,6 @@
-import { getPercent } from '@/modules/metrics/helpers';
-import { type TooltipConfig } from '@/shared/interfaces';
-import { type MembersByRoleAndGenderPayload } from '@/modules/metrics/components/member/tooltips/interfaces';
+import { getPercent } from '@/modules/metrics/helpers/get-percent.helper';
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { type MembersByRoleAndGenderPayload } from '@/modules/metrics/components/member/tooltips/interfaces/members-by-role-and-gender-tooltip-payload.interface';
 
 export const MembersByRoleAndGenderTooltipContent = (
   props: TooltipConfig<MembersByRoleAndGenderPayload>

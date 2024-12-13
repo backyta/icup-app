@@ -2,7 +2,7 @@ import {
   type Anexe,
   type CreatedBy,
   type UpdatedBy,
-} from '@/shared/interfaces';
+} from '@/shared/interfaces/relations-response.interface';
 
 export interface OfferingExpenseResponse {
   id:                 string;

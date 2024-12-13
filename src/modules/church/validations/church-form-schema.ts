@@ -1,7 +1,13 @@
 import * as z from 'zod';
 
-import { ChurchServiceTime } from '@/modules/church/enums';
-import { Country, Department, District, Province, RecordStatus, UrbanSector } from '@/shared/enums';
+import { Country } from '@/shared/enums/country.enum';
+import { Province } from '@/shared/enums/province.enum';
+import { District } from '@/shared/enums/district.enum';
+import { Department } from '@/shared/enums/department.enum';
+import { UrbanSector } from '@/shared/enums/urban-sector.enum';
+import { RecordStatus } from '@/shared/enums/record-status.enum';
+
+import { ChurchServiceTime } from '@/modules/church/enums/church-service-time.enum';
 
 export const churchFormSchema = z
 .object({

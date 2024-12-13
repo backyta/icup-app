@@ -1,10 +1,8 @@
-import {
-  FamilyGroupCreatePage,
-  FamilyGroupUpdatePage,
-  FamilyGroupInactivatePage,
-  FamilyGroupsSearchPageByTerm,
-  FamilyGroupsGeneralSearchPage,
-} from '@/modules/family-group/pages';
+import { FamilyGroupCreatePage } from '@/modules/family-group/pages/FamilyGroupCreatePage';
+import { FamilyGroupUpdatePage } from '@/modules/family-group/pages/FamilyGroupUpdatePage';
+import { FamilyGroupInactivatePage } from '@/modules/family-group/pages/FamilyGroupInactivatePage';
+import { FamilyGroupsSearchPageByTerm } from '@/modules/family-group/pages/FamilyGroupsSearchPageByTerm';
+import { FamilyGroupsGeneralSearchPage } from '@/modules/family-group/pages/FamilyGroupsGeneralSearchPage';
 
 export const FamilyGroupChildrenRoutes = [
   {

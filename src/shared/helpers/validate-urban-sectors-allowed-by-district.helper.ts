@@ -4,8 +4,10 @@ import {
   UrbanSectorsCarabaylloAllowed, 
   UrbanSectorsPuentePiedraAllowed,
   UrbanSectorsIndependenciaAllowed,
-} from '@/shared/helpers';
-import { District, UrbanSectorNames, } from '@/shared/enums';
+} from '@/shared/helpers/allowed-urban-sectors-by-district.helper';
+
+import { District,  } from '@/shared/enums/district.enum';
+import { UrbanSectorNames } from '@/shared/enums/urban-sector.enum';
 
 interface DisabledUrbanSectorsResult {
   urbanSectorsDataResult: string[];

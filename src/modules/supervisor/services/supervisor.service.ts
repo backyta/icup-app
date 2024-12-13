@@ -4,10 +4,12 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { RecordOrder } from '@/shared/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
-import { SupervisorSearchType } from '@/modules/supervisor/enums';
-import { type SupervisorResponse, type SupervisorFormData, type SupervisorQueryParams } from '@/modules/supervisor/interfaces';
+import { SupervisorSearchType } from '@/modules/supervisor/enums/supervisor-search-type.enum';
+import { type SupervisorResponse} from '@/modules/supervisor/interfaces/supervisor-response.interface';
+import { type SupervisorFormData } from '@/modules/supervisor/interfaces/supervisor-form-data.interface';
+import { type SupervisorQueryParams } from '@/modules/supervisor/interfaces/supervisor-query-params.interface';
 
 //* Create Supervisor
 export const createSupervisor = async (formData:SupervisorFormData ): Promise<SupervisorResponse> => {
@@ -129,7 +131,7 @@ export const getSupervisorsByTerm = async ({
   inputTerm, 
   dateTerm, 
   selectTerm, 
-  namesTerm,
+  firstNamesTerm,
   lastNamesTerm,
   limit, 
   offset, 
@@ -142,12 +144,13 @@ export const getSupervisorsByTerm = async ({
 
  //* Origin country, department, province, district, urban sector, address, zone
  if (searchType === SupervisorSearchType.OriginCountry||
+     searchType === SupervisorSearchType.ResidenceCountry||
      searchType === SupervisorSearchType.ZoneName ||
-     searchType === SupervisorSearchType.Department ||
-     searchType === SupervisorSearchType.Province ||
-     searchType === SupervisorSearchType.District ||
-     searchType === SupervisorSearchType.UrbanSector ||
-     searchType === SupervisorSearchType.Address
+     searchType === SupervisorSearchType.ResidenceDepartment ||
+     searchType === SupervisorSearchType.ResidenceProvince ||
+     searchType === SupervisorSearchType.ResidenceDistrict ||
+     searchType === SupervisorSearchType.ResidenceUrbanSector ||
+     searchType === SupervisorSearchType.ResidenceAddress
     ) {
     try {
         if (!all) {
@@ -263,11 +266,11 @@ export const getSupervisorsByTerm = async ({
   }
 
  //* First Name
-  if (searchType === SupervisorSearchType.FirstName
+  if (searchType === SupervisorSearchType.FirstNames
       ) {
       try {
         if (!all) {
-          const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${namesTerm}` , {
+          const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${firstNamesTerm}` , {
             params: {
               limit,
               offset,
@@ -280,7 +283,7 @@ export const getSupervisorsByTerm = async ({
 
           result = data;
         }else {
-          const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${namesTerm}` , {
+          const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${firstNamesTerm}` , {
             params: {
               order,
               churchId,
@@ -304,7 +307,7 @@ export const getSupervisorsByTerm = async ({
   }
 
  //* Last Name 
-  if (searchType === SupervisorSearchType.LastName
+  if (searchType === SupervisorSearchType.LastNames
       ) {
       try {
         if (!all) {
@@ -345,11 +348,11 @@ export const getSupervisorsByTerm = async ({
   }
 
  //* Full Name
-  if (searchType === SupervisorSearchType.FullName
+  if (searchType === SupervisorSearchType.FullNames
       ) {
       try {
         if (!all) {
-          const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${namesTerm}-${lastNamesTerm}` , {
+          const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${firstNamesTerm}-${lastNamesTerm}` , {
             params: {
               limit,
               offset,
@@ -362,7 +365,7 @@ export const getSupervisorsByTerm = async ({
           
           result = data;
         }else {
-          const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${namesTerm}-${lastNamesTerm}` , {
+          const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${firstNamesTerm}-${lastNamesTerm}` , {
             params: {
               order,
               churchId,
@@ -471,7 +474,7 @@ export const getSupervisorsReportByTerm = async ({
   inputTerm, 
   dateTerm, 
   selectTerm, 
-  namesTerm,
+  firstNamesTerm,
   lastNamesTerm,
   limit, 
   offset, 
@@ -481,20 +484,21 @@ export const getSupervisorsReportByTerm = async ({
   let newTerm: string | undefined = '';
   
   const termMapping: Partial<Record<SupervisorSearchType, string | undefined>> = {
-    [SupervisorSearchType.FirstName]: namesTerm,
-    [SupervisorSearchType.LastName]: lastNamesTerm,
-    [SupervisorSearchType.FullName]: `${namesTerm}-${lastNamesTerm}`,
+    [SupervisorSearchType.FirstNames]: firstNamesTerm,
+    [SupervisorSearchType.LastNames]: lastNamesTerm,
+    [SupervisorSearchType.FullNames]: `${firstNamesTerm}-${lastNamesTerm}`,
     [SupervisorSearchType.BirthDate]: dateTerm,
     [SupervisorSearchType.BirthMonth]: selectTerm,
     [SupervisorSearchType.Gender]: selectTerm,
     [SupervisorSearchType.MaritalStatus]: selectTerm,
     [SupervisorSearchType.ZoneName]: inputTerm,
     [SupervisorSearchType.OriginCountry]: inputTerm,
-    [SupervisorSearchType.Department]: inputTerm,
-    [SupervisorSearchType.Province]: inputTerm,
-    [SupervisorSearchType.District]: inputTerm,
-    [SupervisorSearchType.UrbanSector]: inputTerm,
-    [SupervisorSearchType.Address]: inputTerm,
+    [SupervisorSearchType.ResidenceDepartment]: inputTerm,
+    [SupervisorSearchType.ResidenceCountry]: inputTerm,
+    [SupervisorSearchType.ResidenceProvince]: inputTerm,
+    [SupervisorSearchType.ResidenceDistrict]: inputTerm,
+    [SupervisorSearchType.ResidenceUrbanSector]: inputTerm,
+    [SupervisorSearchType.ResidenceAddress]: inputTerm,
     [SupervisorSearchType.RecordStatus]: selectTerm,
   };
   

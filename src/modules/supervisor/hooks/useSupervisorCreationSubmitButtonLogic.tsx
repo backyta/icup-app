@@ -5,8 +5,8 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums';
-import { type SupervisorFormData } from '@/modules/supervisor/interfaces';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { type SupervisorFormData } from '@/modules/supervisor/interfaces/supervisor-form-data.interface';
 
 interface Options {
   supervisorCreationForm: UseFormReturn<SupervisorFormData, any, SupervisorFormData>;
@@ -24,8 +24,8 @@ export const useSupervisorCreationSubmitButtonLogic = ({
   isInputDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = supervisorCreationForm.watch('firstName');
-  const lastName = supervisorCreationForm.watch('lastName');
+  const firstNames = supervisorCreationForm.watch('firstNames');
+  const lastNames = supervisorCreationForm.watch('lastNames');
   const gender = supervisorCreationForm.watch('gender');
   const birthDate = supervisorCreationForm.watch('birthDate');
   const conversionDate = supervisorCreationForm.watch('conversionDate');
@@ -34,12 +34,12 @@ export const useSupervisorCreationSubmitButtonLogic = ({
   const phoneNumber = supervisorCreationForm.watch('phoneNumber');
   const originCountry = supervisorCreationForm.watch('originCountry');
   const numberChildren = supervisorCreationForm.watch('numberChildren');
-  const country = supervisorCreationForm.watch('country');
-  const department = supervisorCreationForm.watch('department');
-  const province = supervisorCreationForm.watch('province');
-  const district = supervisorCreationForm.watch('district');
-  const urbanSector = supervisorCreationForm.watch('urbanSector');
-  const address = supervisorCreationForm.watch('address');
+  const residenceCountry = supervisorCreationForm.watch('residenceCountry');
+  const residenceDepartment = supervisorCreationForm.watch('residenceDepartment');
+  const residenceProvince = supervisorCreationForm.watch('residenceProvince');
+  const residenceDistrict = supervisorCreationForm.watch('residenceDistrict');
+  const residenceUrbanSector = supervisorCreationForm.watch('residenceUrbanSector');
+  const residenceAddress = supervisorCreationForm.watch('residenceAddress');
   const roles = supervisorCreationForm.watch('roles');
   const isDirectRelationToPastor = supervisorCreationForm.watch('isDirectRelationToPastor');
   const referenceAddress = supervisorCreationForm.watch('referenceAddress');
@@ -89,8 +89,8 @@ export const useSupervisorCreationSubmitButtonLogic = ({
     }
 
     if (
-      !firstName ||
-      !lastName ||
+      !firstNames ||
+      !lastNames ||
       !gender ||
       !birthDate ||
       !conversionDate ||
@@ -99,13 +99,13 @@ export const useSupervisorCreationSubmitButtonLogic = ({
       !phoneNumber ||
       !originCountry ||
       !numberChildren ||
-      !country ||
-      !department ||
-      !province ||
-      !district ||
-      !address ||
-      !urbanSector ||
-      !address ||
+      !residenceCountry ||
+      !residenceDepartment ||
+      !residenceProvince ||
+      !residenceDistrict ||
+      !residenceAddress ||
+      !residenceUrbanSector ||
+      !residenceAddress ||
       !referenceAddress ||
       roles.length === 0
     ) {
@@ -114,8 +114,8 @@ export const useSupervisorCreationSubmitButtonLogic = ({
     }
   }, [
     supervisorCreationForm.formState,
-    firstName,
-    lastName,
+    firstNames,
+    lastNames,
     gender,
     conversionDate,
     birthDate,
@@ -124,12 +124,12 @@ export const useSupervisorCreationSubmitButtonLogic = ({
     phoneNumber,
     originCountry,
     numberChildren,
-    country,
-    department,
-    province,
-    district,
-    address,
-    urbanSector,
+    residenceCountry,
+    residenceDepartment,
+    residenceProvince,
+    residenceDistrict,
+    residenceAddress,
+    residenceUrbanSector,
     isDirectRelationToPastor,
     referenceAddress,
     theirCopastor,

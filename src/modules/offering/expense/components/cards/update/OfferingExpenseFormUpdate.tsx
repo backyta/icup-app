@@ -19,27 +19,34 @@ import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import {
   OfferingExpenseSearchType,
   OfferingExpenseSearchTypeNames,
-  OfferingExpenseSearchSubTypeNames,
-  type OfferingExpenseSearchSubType,
-} from '@/modules/offering/expense/enums';
+} from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
 import {
-  useOfferingExpenseSetData,
-  useOfferingExpenseFileDropZone,
-  useOfferingExpenseUpdateMutation,
-  useOfferingExpenseUpdateSubmitButtonLogic,
-} from '@/modules/offering/expense/hooks';
+  type OfferingExpenseSearchSubType,
+  OfferingExpenseSearchSubTypeNames,
+} from '@/modules/offering/expense/enums/offering-expense-search-sub-type.enum';
 
-import { DestroyImageButton } from '@/modules/offering/shared/components';
-import { type FilesProps, type RejectionProps } from '@/modules/offering/shared/interfaces';
-import { useImagesUploadMutation } from '@/modules/offering/shared/hooks';
-import { CurrencyType, CurrencyTypeNames, OfferingFileType } from '@/modules/offering/shared/enums';
+import { useOfferingExpenseSetData } from '@/modules/offering/expense/hooks/useOfferingExpenseSetData';
+import { useOfferingExpenseFileDropZone } from '@/modules/offering/expense/hooks/useOfferingExpenseFileDropZone';
+import { useOfferingExpenseUpdateMutation } from '@/modules/offering/expense/hooks/useOfferingExpenseUpdateMutation';
+import { useOfferingExpenseUpdateSubmitButtonLogic } from '@/modules/offering/expense/hooks/useOfferingExpenseUpdateSubmitButtonLogic';
 
-import { offeringExpenseFormSchema } from '@/modules/offering/expense/validations';
-import { OfferingExpenseFormSkeleton } from '@/modules/offering/expense/components';
-import { type OfferingExpenseResponse } from '@/modules/offering/expense/interfaces';
+import { DestroyImageButton } from '@/modules/offering/shared/components/DestroyImageButton';
+import { type FilesProps } from '@/modules/offering/shared/interfaces/files-props.interface';
+import { type RejectionProps } from '@/modules/offering/shared/interfaces/rejected-props.interface';
+
+import {
+  CurrencyType,
+  CurrencyTypeNames,
+} from '@/modules/offering/shared/enums/currency-type.enum';
+import { OfferingFileType } from '@/modules/offering/shared/enums/offering-file-type.enum';
+import { useImagesUploadMutation } from '@/modules/offering/shared/hooks/useImagesUploadMutation';
+
+import { offeringExpenseFormSchema } from '@/modules/offering/expense/validations/offering-expense-form-schema';
+import { type OfferingExpenseResponse } from '@/modules/offering/expense/interfaces/offering-expense-response.interface';
+import { OfferingExpenseFormSkeleton } from '@/modules/offering/expense/components/cards/update/OfferingExpenseFormSkeleton';
 
 import { cn } from '@/shared/lib/utils';
-import { RecordStatus } from '@/shared/enums';
+import { RecordStatus } from '@/shared/enums/record-status.enum';
 
 import {
   Form,
@@ -71,7 +78,7 @@ import { Textarea } from '@/shared/components/ui/textarea';
 import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
-import { getSimpleChurches } from '@/modules/church/services';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 import { useQuery } from '@tanstack/react-query';
 
 interface OfferingExpenseFormUpdateProps {

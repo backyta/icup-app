@@ -7,25 +7,26 @@ import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
+import { addDays, format } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMediaQuery } from '@react-hook/media-query';
-import { addDays, format } from 'date-fns';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Bar, XAxis, YAxis, CartesianGrid, BarChart } from 'recharts';
 import { FcDataBackup, FcDataConfiguration, FcDeleteDatabase } from 'react-icons/fc';
 
 import { cn } from '@/shared/lib/utils';
 
-import { months } from '@/shared/data';
-import { RecordOrder } from '@/shared/enums';
+import { months } from '@/shared/data/months-data';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
-import { dateFormatterToDDMMYY, generateYearOptions } from '@/shared/helpers';
+import { generateYearOptions } from '@/shared/helpers/generate-year-options.helper';
+import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getOfferingIncomeBySundaySchool } from '@/modules/metrics/services';
-import { OfferingIncomeBySundaySchoolTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
+import { getOfferingIncomeBySundaySchool } from '@/modules/metrics/services/offering-income-metrics.service';
+import { OfferingIncomeBySundaySchoolTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components/OfferingIncomeBySundaySchoolTooltipContent';
 
 import {
   Command,

@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
-import { type ZoneSupervisorUpdateFormData } from '@/modules/zone/interfaces';
+import { type ZoneSupervisorUpdateFormData } from '@/modules/zone/interfaces/zone-supervisor-update-form-data.interface';
 
 interface Options {
   zoneSupervisorUpdateForm: UseFormReturn<

@@ -3,9 +3,9 @@ import {
   MetricMemberSearchType, 
   MetricFamilyGroupSearchType, 
   MetricOfferingIncomeSearchType, 
-  MetricOfferingExpenseSearchType,
-  MetricFinancialBalanceComparisonSearchType
-} from '@/modules/metrics/enums';
+  MetricOfferingExpenseSearchType, 
+  MetricFinancialBalanceComparisonSearchType, 
+} from '@/modules/metrics/enums/metrics-search-type.enum';
 
 export const memberReportFormSchema = z
 .object({

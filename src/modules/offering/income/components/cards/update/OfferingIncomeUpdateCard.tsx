@@ -3,9 +3,9 @@ import { useRef, useState, useCallback, useMemo } from 'react';
 import { GiArchiveRegister } from 'react-icons/gi';
 import { useMediaQuery } from '@react-hook/media-query';
 
-import { useOfferingIncomeStore } from '@/stores';
+import { useOfferingIncomeStore } from '@/stores/offering-income/offering-income.store';
 
-import { OfferingIncomeFormUpdate } from '@/modules/offering/income/components';
+import { OfferingIncomeFormUpdate } from '@/modules/offering/income/components/cards/update/OfferingIncomeFormUpdate';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

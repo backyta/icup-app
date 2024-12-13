@@ -4,10 +4,14 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { FamilyGroupSearchType } from '@/modules/family-group/enums';
-import { type FamilyGroupResponse , type FamilyGroupFormData, type FamilyGroupQueryParams, type FamilyGroupPreacherUpdateFormData } from '@/modules/family-group/interfaces';
-import { RecordOrder } from '@/shared/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
+import { FamilyGroupSearchType } from '@/modules/family-group/enums/family-group-search-type.enum';
+
+import { type FamilyGroupResponse } from '@/modules/family-group/interfaces/family-group-response.interface';
+import { type FamilyGroupFormData } from '@/modules/family-group/interfaces/family-group-form-data.interface';
+import { type FamilyGroupQueryParams } from '@/modules/family-group/interfaces/family-group-query-params.interface';
+import { type FamilyGroupPreacherUpdateFormData } from '@/modules/family-group/interfaces/family-group-preacher-update-form-data.interface';
 
 //* Create family-group
 export const createFamilyGroup = async (formData:FamilyGroupFormData ): Promise<FamilyGroupResponse> => {
@@ -90,7 +94,7 @@ export const getFamilyGroupsByTerm = async ({
   searchSubType, 
   inputTerm, 
   selectTerm, 
-  namesTerm,
+  firstNamesTerm,
   lastNamesTerm,
   limit, 
   offset, 
@@ -105,6 +109,7 @@ export const getFamilyGroupsByTerm = async ({
  if (searchType === FamilyGroupSearchType.ZoneName ||
      searchType === FamilyGroupSearchType.FamilyGroupCode ||
      searchType === FamilyGroupSearchType.FamilyGroupName ||
+     searchType === FamilyGroupSearchType.Country ||
      searchType === FamilyGroupSearchType.Department ||
      searchType === FamilyGroupSearchType.Province ||
      searchType === FamilyGroupSearchType.District ||
@@ -184,11 +189,11 @@ export const getFamilyGroupsByTerm = async ({
   }
 
  //* First Name
-  if (searchType === FamilyGroupSearchType.FirstName
+  if (searchType === FamilyGroupSearchType.FirstNames
       ) {
       try {
         if (!all) {
-          const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${namesTerm}` , {
+          const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${firstNamesTerm}` , {
             params: {
               limit,
               offset,
@@ -201,7 +206,7 @@ export const getFamilyGroupsByTerm = async ({
 
           result = data;
         }else {
-          const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${namesTerm}` , {
+          const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${firstNamesTerm}` , {
             params: {
               order,
               churchId,
@@ -225,7 +230,7 @@ export const getFamilyGroupsByTerm = async ({
   }
 
  //* Last Name 
-  if (searchType === FamilyGroupSearchType.LastName
+  if (searchType === FamilyGroupSearchType.LastNames
       ) {
       try {
         if (!all) {
@@ -266,11 +271,11 @@ export const getFamilyGroupsByTerm = async ({
   }
 
  //* Full Name
-  if (searchType === FamilyGroupSearchType.FullName
+  if (searchType === FamilyGroupSearchType.FullNames
       ) {
       try {
         if (!all) {
-          const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${namesTerm}-${lastNamesTerm}` , {
+          const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${firstNamesTerm}-${lastNamesTerm}` , {
             params: {
               limit,
               offset,
@@ -283,7 +288,7 @@ export const getFamilyGroupsByTerm = async ({
           
           result = data;
         }else {
-          const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${namesTerm}-${lastNamesTerm}` , {
+          const {data} = await icupApi<FamilyGroupResponse[]>(`/family-groups/${firstNamesTerm}-${lastNamesTerm}` , {
             params: {
               order,
               churchId,
@@ -389,7 +394,7 @@ export const getGeneralFamilyGroupsReport = async ({limit, offset, order, church
 export const getFamilyGroupsReportByTerm = async ({
   searchType,
   searchSubType,
-  namesTerm,
+  firstNamesTerm,
   lastNamesTerm,
   inputTerm, 
   selectTerm, 
@@ -401,9 +406,9 @@ export const getFamilyGroupsReportByTerm = async ({
   let newTerm: string | undefined = '';
   
   const termMapping: Partial<Record<FamilyGroupSearchType, string | undefined>> = {
-    [FamilyGroupSearchType.FirstName]: namesTerm,
-    [FamilyGroupSearchType.LastName]: lastNamesTerm,
-    [FamilyGroupSearchType.FullName]: `${namesTerm}-${lastNamesTerm}`,
+    [FamilyGroupSearchType.FirstNames]: firstNamesTerm,
+    [FamilyGroupSearchType.LastNames]: lastNamesTerm,
+    [FamilyGroupSearchType.FullNames]: `${firstNamesTerm}-${lastNamesTerm}`,
     [FamilyGroupSearchType.ZoneName]: inputTerm,
     [FamilyGroupSearchType.FamilyGroupCode]: inputTerm,
     [FamilyGroupSearchType.FamilyGroupName]: inputTerm,

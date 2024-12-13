@@ -4,12 +4,11 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { 
-  type OfferingExpenseResponse,
-  type OfferingExpenseFormData,
-  type OfferingExpenseQueryParams,
-} from '@/modules/offering/expense/interfaces';
-import { OfferingExpenseSearchType } from '@/modules/offering/expense/enums';
+import { type OfferingExpenseResponse } from '@/modules/offering/expense/interfaces/offering-expense-response.interface';
+import { type OfferingExpenseFormData } from '@/modules/offering/expense/interfaces/offering-expense-form-data.interface';
+import { type OfferingExpenseQueryParams } from '@/modules/offering/expense/interfaces/offering-expense-query-params.interface';
+
+import { OfferingExpenseSearchType } from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
 
 //* Create offering expense
 export const createOfferingExpense = async (formData:OfferingExpenseFormData ): Promise<OfferingExpenseResponse> => {

@@ -9,16 +9,19 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/shared/lib/utils';
-import { useOfferingIncomeStore } from '@/stores';
+import { useOfferingIncomeStore } from '@/stores/offering-income/offering-income.store';
 
 import {
   ExchangeCurrencyTypes,
   ExchangeCurrencyTypesNames,
-  OfferingIncomeInactivationReason,
-} from '@/modules/offering/income/enums';
-import { offeringInactivateFormSchema } from '@/modules/offering/shared/validations';
+} from '@/modules/offering/income/enums/exchange-currency-types.enum';
+import { OfferingIncomeInactivationReason } from '@/modules/offering/income/enums/offering-income-inactivation-reason.enum';
 
-import { useOfferingIncomeCurrencyExchangeMutation } from '@/modules/offering/income/hooks';
+import { offeringInactivateFormSchema } from '@/modules/offering/shared/validations/offering-inactivate-form-schema';
+
+import { useOfferingIncomeCurrencyExchangeMutation } from '@/modules/offering/income/hooks/useOfferingIncomeCurrencyExchangeMutation';
+
+import { CurrencyType } from '@/modules/offering/shared/enums/currency-type.enum';
 
 import {
   Form,
@@ -37,7 +40,6 @@ import {
 } from '@/shared/components/ui/select';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
-import { CurrencyType } from '@/modules/offering/shared/enums';
 import { Tabs, TabsContent } from '@/shared/components/ui/tabs';
 import { Card, CardContent } from '@/shared/components/ui/card';
 

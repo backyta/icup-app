@@ -7,9 +7,9 @@ import { BsFillPersonVcardFill } from 'react-icons/bs';
 
 import { cn } from '@/shared/lib/utils';
 
-import { usePreacherStore } from '@/stores/preacher';
+import { usePreacherStore } from '@/stores/preacher/preacher.store';
 
-import { PreacherTabsCard } from '@/modules/preacher/components';
+import { PreacherTabsCard } from '@/modules/preacher/components/cards/info/PreacherTabsCard';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

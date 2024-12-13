@@ -1,5 +1,5 @@
 export interface ErrorResponse {
   statusCode: 400;
-  message: string;
-  error: string;
+  message   : string;
+  error     : string;
 }

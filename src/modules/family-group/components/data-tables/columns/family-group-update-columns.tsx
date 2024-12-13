@@ -5,12 +5,11 @@ import { type ColumnDef } from '@tanstack/react-table';
 
 import { Button } from '@/shared/components/ui/button';
 
-import {
-  FamilyGroupInfoCard,
-  FamilyGroupUpdateCard,
-  FamilyGroupPreacherUpdateCard,
-} from '@/modules/family-group/components';
-import { type FamilyGroupColumns } from '@/modules/family-group/interfaces';
+import { type FamilyGroupColumns } from '@/modules/family-group/interfaces/family-group-columns.interface';
+
+import { FamilyGroupInfoCard } from '@/modules/family-group/components/cards/info/FamilyGroupInfoCard';
+import { FamilyGroupUpdateCard } from '@/modules/family-group/components/cards/update/FamilyGroupUpdateCard';
+import { FamilyGroupPreacherUpdateCard } from '@/modules/family-group/components/cards/update/FamilyGroupPreacherUpdateCard';
 
 export const familyGroupUpdateColumns: Array<ColumnDef<FamilyGroupColumns, any>> = [
   {

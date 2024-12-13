@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type SupervisorFieldNames } from '@/modules/supervisor/enums';
-import { type SupervisorFormData } from '@/modules/supervisor/interfaces';
+import { type SupervisorFieldNames } from '@/modules/supervisor/enums/supervisor-field-names.enum';
+import { type SupervisorFormData } from '@/modules/supervisor/interfaces/supervisor-form-data.interface';
 
 interface Options {
   supervisorUpdateForm: UseFormReturn<SupervisorFormData, any, SupervisorFormData>;
@@ -20,8 +20,8 @@ export const useSupervisorPromoteButtonLogic = ({
   const [lastValues, setLastValues] = useState<SupervisorFormData[]>([]);
 
   //* Watchers
-  const firstName = supervisorUpdateForm.watch('firstName');
-  const lastName = supervisorUpdateForm.watch('lastName');
+  const firstNames = supervisorUpdateForm.watch('firstNames');
+  const lastNames = supervisorUpdateForm.watch('lastNames');
   const gender = supervisorUpdateForm.watch('gender');
   const birthDate = supervisorUpdateForm.watch('birthDate');
   const originCountry = supervisorUpdateForm.watch('originCountry');
@@ -30,12 +30,12 @@ export const useSupervisorPromoteButtonLogic = ({
   const conversionDate = supervisorUpdateForm.watch('conversionDate');
   const email = supervisorUpdateForm.watch('email');
   const phoneNumber = supervisorUpdateForm.watch('phoneNumber');
-  const country = supervisorUpdateForm.watch('country');
-  const department = supervisorUpdateForm.watch('department');
-  const province = supervisorUpdateForm.watch('province');
-  const district = supervisorUpdateForm.watch('district');
-  const urbanSector = supervisorUpdateForm.watch('urbanSector');
-  const address = supervisorUpdateForm.watch('address');
+  const residenceCountry = supervisorUpdateForm.watch('residenceCountry');
+  const residenceDepartment = supervisorUpdateForm.watch('residenceDepartment');
+  const residenceProvince = supervisorUpdateForm.watch('residenceProvince');
+  const residenceDistrict = supervisorUpdateForm.watch('residenceDistrict');
+  const residenceUrbanSector = supervisorUpdateForm.watch('residenceUrbanSector');
+  const residenceAddress = supervisorUpdateForm.watch('residenceAddress');
   const referenceAddress = supervisorUpdateForm.watch('referenceAddress');
   const roles = supervisorUpdateForm.watch('roles');
   const isDirectRelationToPastor = supervisorUpdateForm.watch('isDirectRelationToPastor');
@@ -93,8 +93,8 @@ export const useSupervisorPromoteButtonLogic = ({
     //* Si no hay coincidencias setea el current value al lastValues
     setLastValues(currentValues);
   }, [
-    firstName,
-    lastName,
+    firstNames,
+    lastNames,
     gender,
     originCountry,
     maritalStatus,
@@ -103,13 +103,13 @@ export const useSupervisorPromoteButtonLogic = ({
     conversionDate,
     email,
     phoneNumber,
-    country,
-    department,
-    province,
-    urbanSector,
+    residenceCountry,
+    residenceDepartment,
+    residenceProvince,
+    residenceUrbanSector,
     referenceAddress,
-    district,
-    address,
+    residenceDistrict,
+    residenceAddress,
     roles,
     isDirectRelationToPastor,
     theirCopastor,

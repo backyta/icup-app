@@ -12,16 +12,16 @@ import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { months } from '@/shared/data';
 import { cn } from '@/shared/lib/utils';
-import { generateYearOptions } from '@/shared/helpers';
+import { months } from '@/shared/data/months-data';
+import { generateYearOptions } from '@/shared/helpers/generate-year-options.helper';
 
 import {
   MetricOfferingExpenseSearchType,
   MetricOfferingExpenseSearchTypeNames,
-} from '@/modules/metrics/enums';
-import { getOfferingExpenseMetricsReport } from '@/modules/metrics/services';
-import { offeringExpenseReportFormSchema } from '@/modules/metrics/validations';
+} from '@/modules/metrics/enums/metrics-search-type.enum';
+import { offeringExpenseReportFormSchema } from '@/modules/metrics/validations/report-form-schema';
+import { getOfferingExpenseMetricsReport } from '@/modules/metrics/services/offering-expense-metrics.service';
 
 import {
   Form,

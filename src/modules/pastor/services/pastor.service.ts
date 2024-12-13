@@ -4,10 +4,13 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { RecordOrder } from '@/shared/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
-import { PastorSearchType } from '@/modules/pastor/enums';
-import { type PastorResponse, type PastorFormData, type PastorQueryParams } from '@/modules/pastor/interfaces';
+import { PastorSearchType } from '@/modules/pastor/enums/pastor-search-type.enum';
+
+import { type PastorFormData, } from '@/modules/pastor/interfaces/pastor-form-data.interface';
+import { type PastorResponse,  } from '@/modules/pastor/interfaces/pastor-response.interface';
+import {  type PastorQueryParams } from '@/modules/pastor/interfaces/pastor-query-params.interface';
 
 
 //* Create pastor
@@ -92,7 +95,7 @@ export const getPastorsByTerm = async ({
   inputTerm, 
   dateTerm, 
   selectTerm, 
-  namesTerm,
+  firstNamesTerm,
   lastNamesTerm,
   limit, 
   offset, 
@@ -105,11 +108,12 @@ export const getPastorsByTerm = async ({
 
  //* Origin country, department, province, district, urban sector, address
  if (searchType === PastorSearchType.OriginCountry||
-     searchType === PastorSearchType.Department ||
-     searchType === PastorSearchType.Province ||
-     searchType === PastorSearchType.District ||
-     searchType === PastorSearchType.UrbanSector ||
-     searchType === PastorSearchType.Address
+    searchType === PastorSearchType.ResidenceCountry ||
+     searchType === PastorSearchType.ResidenceDepartment ||
+     searchType === PastorSearchType.ResidenceProvince ||
+     searchType === PastorSearchType.ResidenceDistrict ||
+     searchType === PastorSearchType.ResidenceUrbanSector ||
+     searchType === PastorSearchType.ResidenceAddress
     ) {
     try {
         if (!all) {
@@ -225,11 +229,11 @@ export const getPastorsByTerm = async ({
   }
 
  //* First Name
-  if (searchType === PastorSearchType.FirstName
+  if (searchType === PastorSearchType.FirstNames
       ) {
       try {
         if (!all) {
-          const {data} = await icupApi<PastorResponse[]>(`/pastors/${namesTerm}` , {
+          const {data} = await icupApi<PastorResponse[]>(`/pastors/${firstNamesTerm}` , {
             params: {
               limit,
               offset,
@@ -241,7 +245,7 @@ export const getPastorsByTerm = async ({
           
           result = data;
         }else {
-          const {data} = await icupApi<PastorResponse[]>(`/pastors/${namesTerm}` , {
+          const {data} = await icupApi<PastorResponse[]>(`/pastors/${firstNamesTerm}` , {
             params: {
               order,
               churchId,
@@ -264,7 +268,7 @@ export const getPastorsByTerm = async ({
   }
 
  //* Last Name 
-  if (searchType === PastorSearchType.LastName
+  if (searchType === PastorSearchType.LastNames
       ) {
       try {
         if (!all) {
@@ -303,11 +307,11 @@ export const getPastorsByTerm = async ({
   }
 
  //* Full Name
-  if (searchType === PastorSearchType.FullName
+  if (searchType === PastorSearchType.FullNames
       ) {
       try {
         if (!all) {
-          const {data} = await icupApi<PastorResponse[]>(`/pastors/${namesTerm}-${lastNamesTerm}` , {
+          const {data} = await icupApi<PastorResponse[]>(`/pastors/${firstNamesTerm}-${lastNamesTerm}` , {
             params: {
               limit,
               offset,
@@ -319,7 +323,7 @@ export const getPastorsByTerm = async ({
           
           result = data;
         }else {
-          const {data} = await icupApi<PastorResponse[]>(`/pastors/${namesTerm}-${lastNamesTerm}` , {
+          const {data} = await icupApi<PastorResponse[]>(`/pastors/${firstNamesTerm}-${lastNamesTerm}` , {
             params: {
               order,
               churchId,
@@ -427,7 +431,7 @@ export const getPastorsReportByTerm = async ({
   inputTerm, 
   dateTerm, 
   selectTerm, 
-  namesTerm,
+  firstNamesTerm,
   lastNamesTerm,
   limit, 
   offset, 
@@ -437,19 +441,20 @@ export const getPastorsReportByTerm = async ({
   let newTerm: string | undefined = '';
   
   const termMapping: Record<PastorSearchType, string | undefined> = {
-    [PastorSearchType.FirstName]: namesTerm,
-    [PastorSearchType.LastName]: lastNamesTerm,
-    [PastorSearchType.FullName]: `${namesTerm}-${lastNamesTerm}`,
+    [PastorSearchType.FirstNames]: firstNamesTerm,
+    [PastorSearchType.LastNames]: lastNamesTerm,
+    [PastorSearchType.FullNames]: `${firstNamesTerm}-${lastNamesTerm}`,
     [PastorSearchType.BirthDate]: dateTerm,
     [PastorSearchType.BirthMonth]: selectTerm,
     [PastorSearchType.Gender]: selectTerm,
     [PastorSearchType.MaritalStatus]: selectTerm,
     [PastorSearchType.OriginCountry]: inputTerm,
-    [PastorSearchType.Department]: inputTerm,
-    [PastorSearchType.Province]: inputTerm,
-    [PastorSearchType.District]: inputTerm,
-    [PastorSearchType.UrbanSector]: inputTerm,
-    [PastorSearchType.Address]: inputTerm,
+    [PastorSearchType.ResidenceCountry]: inputTerm,
+    [PastorSearchType.ResidenceDepartment]: inputTerm,
+    [PastorSearchType.ResidenceProvince]: inputTerm,
+    [PastorSearchType.ResidenceDistrict]: inputTerm,
+    [PastorSearchType.ResidenceUrbanSector]: inputTerm,
+    [PastorSearchType.ResidenceAddress]: inputTerm,
     [PastorSearchType.RecordStatus]: selectTerm,
   };
   

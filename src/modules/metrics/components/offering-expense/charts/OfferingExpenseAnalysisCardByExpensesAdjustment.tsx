@@ -16,14 +16,15 @@ import { FcDataBackup, FcDataConfiguration, FcDeleteDatabase } from 'react-icons
 
 import { cn } from '@/shared/lib/utils';
 
-import { RecordOrder } from '@/shared/enums';
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getOfferingExpensesAdjustment } from '@/modules/metrics/services';
-import { OfferingExpenseAdjustmentTooltipContent } from '@/modules/metrics/components/offering-expense/tooltips/components';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
+import { getOfferingExpensesAdjustment } from '@/modules/metrics/services/offering-expense-metrics.service';
+import { OfferingExpenseAdjustmentTooltipContent } from '@/modules/metrics/components/offering-expense/tooltips/components/OfferingExpenseAdjustmentTooltipContent';
 
-import { months } from '@/shared/data';
-import { dateFormatterToDDMMYY, generateYearOptions } from '@/shared/helpers';
+import { months } from '@/shared/data/months-data';
+import { generateYearOptions } from '@/shared/helpers/generate-year-options.helper';
+import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 
 import {
   Command,

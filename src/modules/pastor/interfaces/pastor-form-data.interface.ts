@@ -1,30 +1,30 @@
-import { type MemberRole } from '@/shared/enums';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
 export interface PastorFormData {
-  firstName: string;
-  lastName: string;
-  gender: string;
-  originCountry: string;
-  birthDate: Date;
-  maritalStatus: string;
-  numberChildren: string;
-  conversionDate: Date;
-  email: string,
-  phoneNumber: string,
-  country: string;
-  department: string;
-  province: string;
-  district: string;
-  urbanSector: string;
-  address: string;
-  referenceAddress: string;
-  roles: MemberRole[];
-  recordStatus?: string | undefined;
-  theirChurch?: string | undefined;
+  firstNames           : string;
+  lastNames            : string;
+  gender               : string;
+  originCountry        : string;
+  birthDate            : Date;
+  maritalStatus        : string;
+  numberChildren       : string;
+  conversionDate       : Date;
+  email                : string,
+  phoneNumber          : string,
+  residenceCountry     : string;
+  residenceDepartment  : string;
+  residenceProvince    : string;
+  residenceDistrict    : string;
+  residenceUrbanSector : string;
+  residenceAddress     : string;
+  referenceAddress     : string;
+  roles                : MemberRole[];
+  recordStatus        ?: string | undefined;
+  theirChurch         ?: string | undefined;
 }
 
 export type PastorFormDataKeys =
-  | 'firstName'
-  | 'lastName'
+  | 'firstNames'
+  | 'lastNames'
   | 'gender'
   | 'originCountry'
   | 'birthDate'
@@ -33,12 +33,12 @@ export type PastorFormDataKeys =
   | 'conversionDate'
   | 'email'
   | 'phoneNumber'
-  | 'country'
-  | 'department'
-  | 'province'
-  | 'district'
-  | 'urbanSector'
-  | 'address'
+  | 'residenceCountry'
+  | 'residenceDepartment'
+  | 'residenceProvince'
+  | 'residenceDistrict'
+  | 'residenceUrbanSector'
+  | 'residenceAddress'
   | 'referenceAddress'
   | 'roles'
   | 'status'

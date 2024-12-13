@@ -3,12 +3,12 @@
 import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
-import { 
-  type MetricQueryParams, 
-  type OfferingExpenseChartResponse,
-  type OfferingExpensesProportionResponse,
-  type OfferingExpensesAdjustmentResponse,
-} from '@/modules/metrics/interfaces';
+
+import { type MetricQueryParams } from '@/modules/metrics/interfaces/shared/metric-query-params.interface';
+
+import { type OfferingExpenseChartResponse } from '@/modules/metrics/interfaces/offering-expense-metrics/offering-expense-chart-response.interface';
+import { type OfferingExpensesProportionResponse } from '@/modules/metrics/interfaces/offering-expense-metrics/offering-expense-proportion-response.interface';
+import { type OfferingExpensesAdjustmentResponse } from '@/modules/metrics/interfaces/offering-expense-metrics/offering-expenses-adjustment-response.interface';
 
 //* Get proportion offering expenses 
 export const getOfferingExpensesProportion = async ({ 

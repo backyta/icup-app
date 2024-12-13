@@ -6,43 +6,49 @@ import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { Toaster } from 'sonner';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { useForm } from 'react-hook-form';
+import { CalendarIcon } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { usePreacherStore } from '@/stores/preacher/preacher.store';
 
-import { CalendarIcon } from 'lucide-react';
-import { getSimpleChurches } from '@/modules/church/services';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
-import {
-  SearchByTermPreacherDataTable,
-  preacherUpdateColumns as columns,
-} from '@/modules/preacher/components';
 import {
   PreacherSearchType,
   PreacherSearchTypeNames,
+} from '@/modules/preacher/enums/preacher-search-type.enum';
+import {
+  SubTypeNamesPreacherSearchByFullNames,
+  SubTypeNamesPreacherSearchByLastNames,
+  SubTypeNamesPreacherSearchByFirstNames,
+} from '@/modules/preacher/enums/preacher-search-sub-type.enum';
+import {
   PreacherSearchNamesByGender,
   PreacherSearchNamesByBirthMonth,
   PreacherSearchNamesByRecordStatus,
   PreacherSearchNamesByMaritalStatus,
-  SubTypeNamesPreacherSearchByFullNames,
-  SubTypeNamesPreacherSearchByLastNames,
-  SubTypeNamesPreacherSearchByFirstNames,
-} from '@/modules/preacher/enums';
-import { preacherSearchByTermFormSchema } from '@/modules/preacher/validations';
-import {
-  type PreacherResponse,
-  type PreacherSearchFormByTerm,
-} from '@/modules/preacher/interfaces';
+} from '@/modules/preacher/enums/preacher-search-select-option.enum';
 
-import { usePreacherStore } from '@/stores/preacher';
+import { SearchByTermPreacherDataTable } from '@/modules/preacher/components/data-tables/boards/search-by-term-preacher-data-table';
+import { preacherUpdateColumns as columns } from '@/modules/preacher/components/data-tables/columns/preacher-update-columns';
+
+import { type PreacherResponse } from '@/modules/preacher/interfaces/preacher-response.interface';
+import { type PreacherSearchFormByTerm } from '@/modules/preacher/interfaces/preacher-form-search-by-term.interface';
+
+import { preacherSearchByTermFormSchema } from '@/modules/preacher/validations/preacher-search-by-term-form-schema';
 
 import { cn } from '@/shared/lib/utils';
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-import { PageTitle, SearchTitle } from '@/shared/components/page';
-import { dateFormatterTermToTimestamp, namesFormatter, lastNamesFormatter } from '@/shared/helpers';
+
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+
+import { lastNamesFormatter, firstNamesFormatter } from '@/shared/helpers/names-formatter.helper';
+import { dateFormatterTermToTimestamp } from '@/shared/helpers/date-formatter-to-timestamp.helper';
 
 import {
   Form,
@@ -71,8 +77,8 @@ const dataFictional: PreacherResponse[] = [
     id: '',
     member: {
       id: '',
-      firstName: '',
-      lastName: '',
+      firstNames: '',
+      lastNames: '',
       gender: '',
       age: 0,
       originCountry: '',
@@ -82,12 +88,12 @@ const dataFictional: PreacherResponse[] = [
       conversionDate: new Date('2024-05-21'),
       email: '',
       phoneNumber: '',
-      country: '',
-      department: '',
-      province: '',
-      district: '',
-      urbanSector: '',
-      address: '',
+      residenceCountry: '',
+      residenceDepartment: '',
+      residenceProvince: '',
+      residenceDistrict: '',
+      residenceUrbanSector: '',
+      residenceAddress: '',
       referenceAddress: '',
       roles: [],
     },
@@ -118,7 +124,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
       searchSubType: '' as any,
       limit: '10',
       inputTerm: '',
-      namesTerm: '',
+      firstNamesTerm: '',
       lastNamesTerm: '',
       selectTerm: '',
       dateTerm: undefined,
@@ -179,12 +185,12 @@ export const PreacherUpdatePage = (): JSX.Element => {
       to: formData.dateTerm?.to ? formData.dateTerm?.to : newDateTermTo,
     });
 
-    const newNamesTerm = namesFormatter(formData?.namesTerm);
+    const newNamesTerm = firstNamesFormatter(formData?.firstNamesTerm);
     const newLastNamesTerm = lastNamesFormatter(formData?.lastNamesTerm);
 
     setSearchParams({
       ...formData,
-      namesTerm: newNamesTerm,
+      firstNamesTerm: newNamesTerm,
       lastNamesTerm: newLastNamesTerm,
       dateTerm: newDateTerm as any,
     });
@@ -233,7 +239,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                           form.resetField('searchSubType', {
                             keepError: true,
                           });
-                          form.resetField('namesTerm', {
+                          form.resetField('firstNamesTerm', {
                             keepError: true,
                           });
                           form.resetField('lastNamesTerm', {
@@ -265,9 +271,9 @@ export const PreacherUpdatePage = (): JSX.Element => {
                 }}
               />
 
-              {(searchType === PreacherSearchType.FirstName ||
-                searchType === PreacherSearchType.LastName ||
-                searchType === PreacherSearchType.FullName) && (
+              {(searchType === PreacherSearchType.FirstNames ||
+                searchType === PreacherSearchType.LastNames ||
+                searchType === PreacherSearchType.FullNames) && (
                 <FormField
                   control={form.control}
                   name='searchSubType'
@@ -283,7 +289,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                           defaultValue={field.value}
                           value={field.value}
                           onOpenChange={() => {
-                            form.resetField('namesTerm', {
+                            form.resetField('firstNamesTerm', {
                               defaultValue: '',
                             });
                             form.resetField('lastNamesTerm', {
@@ -311,9 +317,9 @@ export const PreacherUpdatePage = (): JSX.Element => {
                           </FormControl>
                           <SelectContent>
                             {Object.entries(
-                              searchType === PreacherSearchType.FirstName
+                              searchType === PreacherSearchType.FirstNames
                                 ? SubTypeNamesPreacherSearchByFirstNames
-                                : searchType === PreacherSearchType.LastName
+                                : searchType === PreacherSearchType.LastNames
                                   ? SubTypeNamesPreacherSearchByLastNames
                                   : SubTypeNamesPreacherSearchByFullNames
                             ).map(([key, value]) => (
@@ -338,11 +344,12 @@ export const PreacherUpdatePage = (): JSX.Element => {
                 searchType === PreacherSearchType.ZoneName ||
                 searchType === PreacherSearchType.FamilyGroupCode ||
                 searchType === PreacherSearchType.FamilyGroupName ||
-                searchType === PreacherSearchType.Department ||
-                searchType === PreacherSearchType.Province ||
-                searchType === PreacherSearchType.District ||
-                searchType === PreacherSearchType.UrbanSector ||
-                searchType === PreacherSearchType.Address) && (
+                searchType === PreacherSearchType.ResidenceCountry ||
+                searchType === PreacherSearchType.ResidenceDepartment ||
+                searchType === PreacherSearchType.ResidenceProvince ||
+                searchType === PreacherSearchType.ResidenceDistrict ||
+                searchType === PreacherSearchType.ResidenceUrbanSector ||
+                searchType === PreacherSearchType.ResidenceAddress) && (
                 <FormField
                   control={form.control}
                   name='inputTerm'
@@ -350,22 +357,24 @@ export const PreacherUpdatePage = (): JSX.Element => {
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>
                         {searchType === PreacherSearchType.OriginCountry
-                          ? `País de origen`
-                          : searchType === PreacherSearchType.Department
-                            ? 'Departamento'
-                            : searchType === PreacherSearchType.Province
-                              ? 'Provincia'
-                              : searchType === PreacherSearchType.District
-                                ? 'Distrito'
-                                : searchType === PreacherSearchType.UrbanSector
-                                  ? 'Sector Urbano'
-                                  : searchType === PreacherSearchType.ZoneName
-                                    ? 'Nombre de zona'
-                                    : searchType === PreacherSearchType.FamilyGroupCode
-                                      ? 'Código de grupo familiar'
-                                      : searchType === PreacherSearchType.FamilyGroupName
-                                        ? 'Nombre de grupo familiar'
-                                        : 'Dirección'}
+                          ? `País (origen)`
+                          : searchType === PreacherSearchType.ResidenceCountry
+                            ? 'País (residencia)'
+                            : searchType === PreacherSearchType.ResidenceDepartment
+                              ? 'Departamento (residencia)'
+                              : searchType === PreacherSearchType.ResidenceProvince
+                                ? 'Provincia (residencia)'
+                                : searchType === PreacherSearchType.ResidenceDistrict
+                                  ? 'Distrito (residencia)'
+                                  : searchType === PreacherSearchType.ResidenceUrbanSector
+                                    ? 'Sector Urbano (residencia)'
+                                    : searchType === PreacherSearchType.ResidenceAddress
+                                      ? 'Dirección (residencia)'
+                                      : searchType === PreacherSearchType.FamilyGroupCode
+                                        ? 'Código de grupo familiar'
+                                        : searchType === PreacherSearchType.FamilyGroupName
+                                          ? 'Nombre de grupo familiar'
+                                          : 'Nombre de zona'}
                       </FormLabel>
                       <FormDescription className='text-[13px] md:text-[14px]'>
                         Escribe aquí lo que deseas buscar.
@@ -373,7 +382,27 @@ export const PreacherUpdatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           className='text-[13px] md:text-[14px]'
-                          placeholder='Ejem: C-2, Av.Central 123, Lima ....'
+                          placeholder={
+                            searchType === PreacherSearchType.OriginCountry
+                              ? 'Ejem: Colombia , Mexico , Perú...'
+                              : searchType === PreacherSearchType.ResidenceCountry
+                                ? 'Ejem: Perú ...'
+                                : searchType === PreacherSearchType.ResidenceDepartment
+                                  ? 'Ejem: Lima, Ayacucho, Puno...'
+                                  : searchType === PreacherSearchType.ResidenceProvince
+                                    ? 'Ejem: Huaraz, Lima, Huamanga...'
+                                    : searchType === PreacherSearchType.ResidenceDistrict
+                                      ? 'Ejem: Independencia, Los Olivos, SJL...'
+                                      : searchType === PreacherSearchType.ResidenceUrbanSector
+                                        ? 'Ejem: Payet, Tahuantinsuyo, La Pascana ...'
+                                        : searchType === PreacherSearchType.ResidenceAddress
+                                          ? 'Ejem: Jr. Pardo 123 , Av.Central 555 , Mz. D Lt. 8 Nuevo Bosque...'
+                                          : searchType === PreacherSearchType.FamilyGroupCode
+                                            ? 'Ejem: Jr. Levi-1 , Isacar-3 , Ruben-5..'
+                                            : searchType === PreacherSearchType.FamilyGroupName
+                                              ? 'Nombre de grupo familiar'
+                                              : 'Ejem: Isacar, Levi, Neftali...'
+                          }
                           {...field}
                         />
                       </FormControl>
@@ -506,11 +535,11 @@ export const PreacherUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === PreacherSearchType.FirstName ||
-                searchType === PreacherSearchType.FullName) && (
+              {(searchType === PreacherSearchType.FirstNames ||
+                searchType === PreacherSearchType.FullNames) && (
                 <FormField
                   control={form.control}
-                  name='namesTerm'
+                  name='firstNamesTerm'
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Nombres</FormLabel>
@@ -530,8 +559,8 @@ export const PreacherUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === PreacherSearchType.LastName ||
-                searchType === PreacherSearchType.FullName) && (
+              {(searchType === PreacherSearchType.LastNames ||
+                searchType === PreacherSearchType.FullNames) && (
                 <FormField
                   control={form.control}
                   name='lastNamesTerm'
@@ -592,7 +621,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                     control={form.control}
                     name='all'
                     render={({ field }) => (
-                      <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
+                      <FormItem className='flex flex-row items-end space-x-2 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
                         <FormControl>
                           <Checkbox
                             disabled={!form.getValues('limit') || !!form.formState.errors.limit} // transform to boolean
@@ -608,7 +637,9 @@ export const PreacherUpdatePage = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[13px] md:text-[14px]'>Todos</FormLabel>
+                          <FormLabel className='text-[13px] md:text-[14px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </FormItem>
                     )}

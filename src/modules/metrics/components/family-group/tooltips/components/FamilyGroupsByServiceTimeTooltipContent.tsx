@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { type TooltipConfig } from '@/shared/interfaces';
-import { type FamilyGroupsByServiceTimePayload } from '@/modules/metrics/components/family-group/tooltips/interfaces';
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { type FamilyGroupsByServiceTimePayload } from '@/modules/metrics/components/family-group/tooltips/interfaces/family-groups-by-service-time-tooltip-config.interface';
 
 export const FamilyGroupsByServiceTimeTooltipContent = (
   props: TooltipConfig<FamilyGroupsByServiceTimePayload>

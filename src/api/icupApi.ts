@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import axios from 'axios';
-import { useAuthStore } from '@/stores';
+import { useAuthStore } from '@/stores/auth/auth.store';
 
 export const icupApi = axios.create({
   baseURL: import.meta.env.VITE_API_URL,

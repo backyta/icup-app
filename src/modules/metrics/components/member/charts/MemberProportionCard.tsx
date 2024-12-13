@@ -10,10 +10,10 @@ import { FaPeopleRoof } from 'react-icons/fa6';
 import { useQuery } from '@tanstack/react-query';
 import { BsGenderFemale, BsGenderMale } from 'react-icons/bs';
 
-import { RecordOrder } from '@/shared/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { getMembersProportion } from '@/modules/metrics/services';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { getMembersProportion } from '@/modules/metrics/services/member-metrics.service';
 
 import { type ChartConfig, ChartContainer } from '@/shared/components/ui/chart';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card';

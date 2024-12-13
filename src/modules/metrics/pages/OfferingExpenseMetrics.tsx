@@ -6,21 +6,20 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
-import { SelectChurch, MetricsSkeleton } from '@/modules/metrics/components/shared';
+import { SelectChurch } from '@/modules/metrics/components/shared/SelectChurch';
+import { MetricsSkeleton } from '@/modules/metrics/components/shared/MetricsSkeleton';
 
-import { getSimpleChurches } from '@/modules/church/services';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
-import {
-  OfferingExpenseProportionCard,
-  OfferingExpenseAnalysisCardBySuppliesExpenses,
-  OfferingExpenseAnalysisCardByExpensesAdjustment,
-  OfferingExpenseAnalysisCardByOperationalExpenses,
-  OfferingExpenseAnalysisCardByDecorationExpenses,
-  OfferingExpenseAnalysisCardByPlaningEventsExpenses,
-  OfferingExpenseAnalysisCardByMaintenanceAndRepairExpenses,
-  OfferingExpenseAnalysisCardByEquipmentAndTechnologyExpenses,
-} from '@/modules/metrics/components/offering-expense/charts';
-import { OfferingExpenseReportFormCard } from '@/modules/metrics/components/offering-expense/reports';
+import { OfferingExpenseProportionCard } from '@/modules/metrics/components/offering-expense/charts/OfferingExpenseProportionCard';
+import { OfferingExpenseReportFormCard } from '@/modules/metrics/components/offering-expense/reports/OfferingExpenseReportFormCard';
+import { OfferingExpenseAnalysisCardBySuppliesExpenses } from '@/modules/metrics/components/offering-expense/charts/OfferingExpenseAnalysisCardBySuppliesExpenses';
+import { OfferingExpenseAnalysisCardByExpensesAdjustment } from '@/modules/metrics/components/offering-expense/charts/OfferingExpenseAnalysisCardByExpensesAdjustment';
+import { OfferingExpenseAnalysisCardByDecorationExpenses } from '@/modules/metrics/components/offering-expense/charts/OfferingExpenseAnalysisCardByDecorationExpenses';
+import { OfferingExpenseAnalysisCardByOperationalExpenses } from '@/modules/metrics/components/offering-expense/charts/OfferingExpenseAnalysisCardByOperationalExpenses';
+import { OfferingExpenseAnalysisCardByPlaningEventsExpenses } from '@/modules/metrics/components/offering-expense/charts/OfferingExpenseAnalysisCardByPlaningEventsExpenses';
+import { OfferingExpenseAnalysisCardByMaintenanceAndRepairExpenses } from '@/modules/metrics/components/offering-expense/charts/OfferingExpenseAnalysisCardByMaintenanceAndRepairExpenses';
+import { OfferingExpenseAnalysisCardByEquipmentAndTechnologyExpenses } from '@/modules/metrics/components/offering-expense/charts/OfferingExpenseAnalysisCardByEquipmentAndTechnologyExpenses';
 
 export const OfferingExpenseMetrics = (): JSX.Element => {
   //* States

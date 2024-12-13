@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { z } from "zod";
-import { ExchangeCurrencyTypes } from "@/modules/offering/income/enums";
+import { ExchangeCurrencyTypes } from "@/modules/offering/income/enums/exchange-currency-types.enum";
 
 export const offeringInactivateFormSchema = z
 .object({

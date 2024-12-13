@@ -5,43 +5,48 @@
 import { useEffect, useState } from 'react';
 
 import type * as z from 'zod';
-import { toast, Toaster } from 'sonner';
-import { useForm } from 'react-hook-form';
-import { useQuery } from '@tanstack/react-query';
-import { zodResolver } from '@hookform/resolvers/zod';
-
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { toast, Toaster } from 'sonner';
+import { useForm } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
+import { useQuery } from '@tanstack/react-query';
 import { TiDeleteOutline } from 'react-icons/ti';
-
+import { zodResolver } from '@hookform/resolvers/zod';
 import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { getSimpleChurches } from '@/modules/church/services';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
 import {
   OfferingExpenseSearchType,
   OfferingExpenseSearchTypeNames,
+} from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
+import {
   SubTypeNamesOfferingExpenseSearchBySuppliesExpenses,
   SubTypeNamesOfferingExpenseSearchByOperativeExpenses,
   SubTypeNamesOfferingExpenseSearchByDecorationExpenses,
   SubTypeNamesOfferingExpenseSearchByPlaningEventsExpenses,
   SubTypeNamesOfferingExpenseSearchByMaintenanceAndRepairExpenses,
   SubTypeNamesOfferingExpenseSearchByEquipmentAndTechnologyExpenses,
-} from '@/modules/offering/expense/enums';
-import {
-  useOfferingExpenseFileDropZone,
-  useOfferingExpenseCreationMutation,
-  useOfferingExpenseCreationSubmitButtonLogic,
-} from '@/modules/offering/expense/hooks';
-import { offeringExpenseFormSchema } from '@/modules/offering/expense/validations';
+} from '@/modules/offering/expense/enums/offering-expense-search-sub-type.enum';
 
-import { CurrencyTypeNames, OfferingFileType } from '@/modules/offering/shared/enums';
-import { useImagesUploadMutation } from '@/modules/offering/shared/hooks';
-import { type FilesProps, type RejectionProps } from '@/modules/offering/shared/interfaces';
+import { useOfferingExpenseFileDropZone } from '@/modules/offering/expense/hooks/useOfferingExpenseFileDropZone';
+import { useOfferingExpenseCreationMutation } from '@/modules/offering/expense/hooks/useOfferingExpenseCreationMutation';
+import { useOfferingExpenseCreationSubmitButtonLogic } from '@/modules/offering/expense/hooks/useOfferingExpenseCreationSubmitButtonLogic';
+
+import { offeringExpenseFormSchema } from '@/modules/offering/expense/validations/offering-expense-form-schema';
+
+import { CurrencyTypeNames } from '@/modules/offering/shared/enums/currency-type.enum';
+import { OfferingFileType } from '@/modules/offering/shared/enums/offering-file-type.enum';
 
 import { cn } from '@/shared/lib/utils';
-import { PageTitle } from '@/shared/components/page';
+
+import { useImagesUploadMutation } from '@/modules/offering/shared/hooks/useImagesUploadMutation';
+
+import { type FilesProps } from '@/modules/offering/shared/interfaces/files-props.interface';
+import { type RejectionProps } from '@/modules/offering/shared/interfaces/rejected-props.interface';
+
+import { PageTitle } from '@/shared/components/page/PageTitle';
 
 import {
   Form,

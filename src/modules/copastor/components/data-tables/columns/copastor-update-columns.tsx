@@ -5,8 +5,10 @@ import { format, addDays } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import { type CopastorColumns } from '@/modules/copastor/interfaces';
-import { CopastorInfoCard, CopastorUpdateCard } from '@/modules/copastor/components';
+import { type CopastorColumns } from '@/modules/copastor/interfaces/copastor-columns.interface';
+
+import { CopastorInfoCard } from '@/modules/copastor/components/cards/info/CopastorInfoCard';
+import { CopastorUpdateCard } from '@/modules/copastor/components/cards/update/CopastorUpdateCard';
 
 import { Button } from '@/shared/components/ui/button';
 
@@ -34,8 +36,8 @@ export const copastorUpdateColumns: Array<ColumnDef<CopastorColumns, any>> = [
     },
   },
   {
-    id: 'firstName',
-    accessorKey: 'member.firstName',
+    id: 'firstNames',
+    accessorKey: 'member.firstNames',
     header: ({ column }) => {
       return (
         <Button
@@ -52,8 +54,8 @@ export const copastorUpdateColumns: Array<ColumnDef<CopastorColumns, any>> = [
     },
   },
   {
-    id: 'lastName',
-    accessorKey: 'member.lastName',
+    id: 'lastNames',
+    accessorKey: 'member.lastNames',
     header: ({ column }) => {
       return (
         <Button

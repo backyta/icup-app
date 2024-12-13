@@ -4,9 +4,13 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { RecordOrder } from '@/shared/enums';
-import { ZoneSearchType } from '@/modules/zone/enums';
-import { type ZoneFormData, type ZoneResponse, type ZoneQueryParams, type ZoneSupervisorUpdateFormData } from '@/modules/zone/interfaces';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { ZoneSearchType } from '@/modules/zone/enums/zone-search-type.enum';
+
+import { type ZoneFormData} from '@/modules/zone/interfaces/zone-form-data.interface';
+import { type ZoneResponse } from '@/modules/zone/interfaces/zone-response.interface';
+import { type ZoneQueryParams } from '@/modules/zone/interfaces/zone-query-params.interface';
+import {type ZoneSupervisorUpdateFormData } from '@/modules/zone/interfaces/zone-supervisor-update-form-data.interface';
 
 //* Create zone
 export const createZone = async (formData:ZoneFormData ): Promise<ZoneResponse> => {
@@ -85,10 +89,23 @@ export const getZones = async ({limit, offset, all, order, churchId}: ZoneQueryP
 }
 
 // ? Get zones by term (paginated)
-export const getZonesByTerm = async ({ searchType, inputTerm, selectTerm, limit, offset, all, order, churchId}: ZoneQueryParams): Promise<ZoneResponse[] | undefined> => {
+export const getZonesByTerm = async ({ 
+  searchType, 
+  searchSubType,
+  inputTerm, 
+  selectTerm, 
+  limit, 
+  offset, 
+  all, 
+  order, 
+  churchId,   
+  firstNamesTerm,
+  lastNamesTerm
+}: ZoneQueryParams): Promise<ZoneResponse[] | undefined> => {
 
  let result: ZoneResponse[];
 
+ //* Zone, country, department, province, district
  if (searchType === ZoneSearchType.ZoneName||
      searchType === ZoneSearchType.Country || 
      searchType === ZoneSearchType.Department || 
@@ -130,6 +147,7 @@ export const getZonesByTerm = async ({ searchType, inputTerm, selectTerm, limit,
     }
  }
 
+ //* Record Status
  if (searchType === ZoneSearchType.RecordStatus) {
     try {
       if (!all) {
@@ -165,6 +183,129 @@ export const getZonesByTerm = async ({ searchType, inputTerm, selectTerm, limit,
       throw new Error('Ocurrió un error inesperado, hable con el administrador')
     }
  }
+
+ //* First Names
+ if (searchType === ZoneSearchType.FirstNames
+ ) {
+ try {
+   if (!all) {
+     const {data} = await icupApi<ZoneResponse[]>(`/zones/${firstNamesTerm}` , {
+       params: {
+         limit,
+         offset,
+         order,
+         churchId,
+         'search-type': searchType,
+         'search-sub-type': searchSubType
+       },
+     });
+
+     result = data;
+   }else {
+     const {data} = await icupApi<ZoneResponse[]>(`/zones/${firstNamesTerm}` , {
+       params: {
+         order,
+         churchId,
+         'search-type': searchType,
+         'search-sub-type': searchSubType
+       },
+     });
+
+     result = data;
+   }
+ 
+   return result;
+ 
+ } catch (error) {
+   if (isAxiosError(error) && error.response) {
+     throw (error.response.data)
+   }
+   
+   throw new Error('Ocurrió un error inesperado, hable con el administrador')
+ }
+}
+
+//* Last Names
+if (searchType === ZoneSearchType.LastNames
+ ) {
+ try {
+   if (!all) {
+     const {data} = await icupApi<ZoneResponse[]>(`/zones/${lastNamesTerm}` , {
+       params: {
+         limit,
+         offset,
+         order,
+         churchId,
+         'search-type': searchType,
+         'search-sub-type': searchSubType
+       },
+     });
+     
+     result = data;
+   }else {
+     const {data} = await icupApi<ZoneResponse[]>(`/zones/${lastNamesTerm}` , {
+       params: {
+         order,
+         churchId,
+         'search-type': searchType,
+         'search-sub-type': searchSubType
+       },
+     });
+
+     result = data;
+   }
+ 
+   return result;
+ 
+ } catch (error) {
+   if (isAxiosError(error) && error.response) {
+     throw (error.response.data)
+   }
+   
+   throw new Error('Ocurrió un error inesperado, hable con el administrador')
+ }
+}
+
+//* Full Name
+if (searchType === ZoneSearchType.FullNames
+ ) {
+ try {
+   if (!all) {
+     const {data} = await icupApi<ZoneResponse[]>(`/zones/${firstNamesTerm}-${lastNamesTerm}` , {
+       params: {
+         limit,
+         offset,
+         order,
+         churchId,
+         'search-type': searchType,
+         'search-sub-type': searchSubType
+       },
+     });
+     
+     result = data;
+   }else {
+     const {data} = await icupApi<ZoneResponse[]>(`/zones/${firstNamesTerm}-${lastNamesTerm}` , {
+       params: {
+         order,
+         churchId,
+         'search-type': searchType,
+         'search-sub-type': searchSubType
+       },
+     });
+
+     result = data;
+   }
+ 
+   return result;
+ 
+ } catch (error) {
+   if (isAxiosError(error) && error.response) {
+     throw (error.response.data)
+   }
+   
+   throw new Error('Ocurrió un error inesperado, hable con el administrador')
+ }
+}
 }
 
 //* Update zone by ID

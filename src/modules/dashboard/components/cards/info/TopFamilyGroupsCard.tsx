@@ -5,25 +5,23 @@
 import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
-import { ArrowUpDown, CheckIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { FcDeleteDatabase } from 'react-icons/fc';
+import { ArrowUpDown, CheckIcon } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CaretSortIcon } from '@radix-ui/react-icons';
 
+import { getSimpleChurches } from '@/modules/church/services/church.service';
+
+import { DashboardSearchType } from '@/modules/dashboard/enums/dashboard-search-type.enum';
+import { getProportionFamilyGroups } from '@/modules/dashboard/services/dashboard.service';
+import { FamilyGroupInfoItem } from '@/modules/dashboard/components/cards/info/FamilyGroupInfoItem';
+import { dashBoardSearchFormSchema } from '@/modules/dashboard/validations/dashboard-search-form-schema';
+
 import { cn } from '@/shared/lib/utils';
-import { RecordOrder } from '@/shared/enums';
-import { LoadingSpinner } from '@/shared/components';
-
-import { getSimpleChurches } from '@/modules/church/services';
-
-import { dashBoardSearchFormSchema } from '@/modules/dashboard/validations';
-
-import { DashboardSearchType } from '@/modules/dashboard/enums';
-import { FamilyGroupInfoItem } from '@/modules/dashboard/components';
-
-import { getProportionFamilyGroups } from '@/modules/dashboard/services';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
 import {
   Card,

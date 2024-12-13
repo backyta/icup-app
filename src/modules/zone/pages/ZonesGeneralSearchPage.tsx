@@ -11,19 +11,23 @@ import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { useZoneStore } from '@/stores/zone/zone.store';
+
+import { getSimpleChurches } from '@/modules/church/services/church.service';
+
+import { type ZoneResponse } from '@/modules/zone/interfaces/zone-response.interface';
+
+import { zoneInfoColumns as columns } from '@/modules/zone/components/data-tables/columns/zone-info-columns';
+import { GeneralZoneSearchDataTable } from '@/modules/zone/components/data-tables/boards/general-zone-search-data-table';
+
 import { cn } from '@/shared/lib/utils';
 
-import { getSimpleChurches } from '@/modules/church/services';
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+import { type GeneralSearchForm } from '@/shared/interfaces/search-general-form.interface';
+import { formSearchGeneralSchema } from '@/shared/validations/form-search-general-schema';
 
-import { type GeneralSearchForm } from '@/shared/interfaces';
-import { formSearchGeneralSchema } from '@/shared/validations';
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-
-import { useZoneStore } from '@/stores/zone';
-
-import { type ZoneResponse } from '@/modules/zone/interfaces';
-import { PageTitle, SearchTitle } from '@/shared/components/page';
-import { zoneInfoColumns as columns, GeneralZoneSearchDataTable } from '@/modules/zone/components';
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
 
 import {
   Select,
@@ -210,7 +214,9 @@ export const ZonesGeneralSearchPage = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[12px] md:text-[13px]'>Todos</FormLabel>
+                          <FormLabel className='text-[12px] md:text-[13px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </div>
                     </FormItem>

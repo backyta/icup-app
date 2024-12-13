@@ -1,4 +1,4 @@
-import { type PastorSearchType } from '@/modules/pastor/enums';
+import { type PastorSearchType } from '@/modules/pastor/enums/pastor-search-type.enum';
 
 export interface PastorSearchFormByTerm {
   searchType: PastorSearchType;
@@ -10,7 +10,7 @@ export interface PastorSearchFormByTerm {
         from: Date;
         to?: Date | undefined;
     } | undefined;
-  namesTerm?: string | undefined;
+  firstNamesTerm?: string | undefined;
   lastNamesTerm?: string | undefined;
   limit?: string | undefined;
   all?: boolean | undefined;

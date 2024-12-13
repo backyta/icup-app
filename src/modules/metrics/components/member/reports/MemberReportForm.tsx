@@ -13,11 +13,14 @@ import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { generateYearOptions } from '@/shared/helpers';
+import { generateYearOptions } from '@/shared/helpers/generate-year-options.helper';
 
-import { getMemberMetricsReport } from '@/modules/metrics/services';
-import { memberReportFormSchema } from '@/modules/metrics/validations';
-import { MetricMemberSearchType, MetricMemberSearchTypeNames } from '@/modules/metrics/enums';
+import {
+  MetricMemberSearchType,
+  MetricMemberSearchTypeNames,
+} from '@/modules/metrics/enums/metrics-search-type.enum';
+import { memberReportFormSchema } from '@/modules/metrics/validations/report-form-schema';
+import { getMemberMetricsReport } from '@/modules/metrics/services/member-metrics.service';
 
 import {
   Form,

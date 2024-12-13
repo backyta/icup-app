@@ -7,47 +7,37 @@ import { useEffect, useState } from 'react';
 
 import type * as z from 'zod';
 import { Toaster } from 'sonner';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { useForm } from 'react-hook-form';
-
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
-
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
-
 import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
+
+import { GenderNames } from '@/shared/enums/gender.enum';
+import { DistrictNames } from '@/shared/enums/district.enum';
+import { Country, CountryNames } from '@/shared/enums/country.enum';
+import { UrbanSectorNames } from '@/shared/enums/urban-sector.enum';
+import { Province, ProvinceNames } from '@/shared/enums/province.enum';
+import { MaritalStatusNames } from '@/shared/enums/marital-status.enum';
+import { Department, DepartmentNames } from '@/shared/enums/department.enum';
+import { MemberRole, MemberRoleNames } from '@/shared/enums/member-role.enum';
+
+import { getSimpleChurches } from '@/modules/church/services/church.service';
+import { pastorFormSchema } from '@/modules/pastor/validations/pastor-form-schema';
+
+import { usePastorCreationMutation } from '@/modules/pastor/hooks/usePastorCreationMutation';
+import { usePastorCreationSubmitButtonLogic } from '@/modules/pastor/hooks/usePastorCreationSubmitButtonLogic';
 
 import { cn } from '@/shared/lib/utils';
 
-import { PageTitle } from '@/shared/components/page';
-import { getSimpleChurches } from '@/modules/church/services';
-import { pastorFormSchema } from '@/modules/pastor/validations';
-import {
-  usePastorCreationMutation,
-  usePastorCreationSubmitButtonLogic,
-} from '@/modules/pastor/hooks';
+import { PageTitle } from '@/shared/components/page/PageTitle';
 
-import { useRoleValidationByPath } from '@/shared/hooks';
+import { useRoleValidationByPath } from '@/shared/hooks/useRoleValidationByPath';
 
-import {
-  Country,
-  Province,
-  Department,
-  MemberRole,
-  GenderNames,
-  CountryNames,
-  ProvinceNames,
-  DistrictNames,
-  DepartmentNames,
-  MemberRoleNames,
-  UrbanSectorNames,
-  MaritalStatusNames,
-} from '@/shared/enums';
-import {
-  validateDistrictsAllowedByModule,
-  validateUrbanSectorsAllowedByDistrict,
-} from '@/shared/helpers';
+import { validateDistrictsAllowedByModule } from '@/shared/helpers/validate-districts-allowed-by-module.helper';
+import { validateUrbanSectorsAllowedByDistrict } from '@/shared/helpers/validate-urban-sectors-allowed-by-district.helper';
 
 import {
   Command,
@@ -97,8 +87,8 @@ export const PastorCreatePage = (): JSX.Element => {
     mode: 'onChange',
     resolver: zodResolver(pastorFormSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      firstNames: '',
+      lastNames: '',
       gender: '',
       originCountry: '',
       birthDate: undefined,
@@ -107,11 +97,11 @@ export const PastorCreatePage = (): JSX.Element => {
       maritalStatus: '',
       email: '',
       phoneNumber: '',
-      country: Country.Peru,
-      department: Department.Lima,
-      province: Province.Lima,
-      district: '',
-      address: '',
+      residenceCountry: Country.Peru,
+      residenceDepartment: Department.Lima,
+      residenceProvince: Province.Lima,
+      residenceDistrict: '',
+      residenceAddress: '',
       referenceAddress: '',
       roles: [MemberRole.Disciple],
       theirChurch: '',
@@ -119,7 +109,7 @@ export const PastorCreatePage = (): JSX.Element => {
   });
 
   //* Watchers
-  const district = form.watch('district');
+  const residenceDistrict = form.watch('residenceDistrict');
 
   usePastorCreationSubmitButtonLogic({
     pastorCreationForm: form,
@@ -131,10 +121,10 @@ export const PastorCreatePage = (): JSX.Element => {
 
   //* Effects
   useEffect(() => {
-    form.resetField('urbanSector', {
+    form.resetField('residenceUrbanSector', {
       keepError: true,
     });
-  }, [district]);
+  }, [residenceDistrict]);
 
   useEffect(() => {
     document.title = 'Modulo Pastor - IcupApp';
@@ -142,7 +132,7 @@ export const PastorCreatePage = (): JSX.Element => {
 
   //* Helpers
   const districtsValidation = validateDistrictsAllowedByModule(pathname);
-  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(residenceDistrict);
 
   //* Custom hooks
   const { disabledRoles } = useRoleValidationByPath({
@@ -189,7 +179,7 @@ export const PastorCreatePage = (): JSX.Element => {
               <legend className='font-bold text-[16px] md:text-[18px]'>Datos generales</legend>
               <FormField
                 control={form.control}
-                name='firstName'
+                name='firstNames'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -211,7 +201,7 @@ export const PastorCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='lastName'
+                name='lastNames'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -485,7 +475,7 @@ export const PastorCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='country'
+                name='residenceCountry'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -520,7 +510,7 @@ export const PastorCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='department'
+                name='residenceDepartment'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -555,7 +545,7 @@ export const PastorCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='province'
+                name='residenceProvince'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -590,7 +580,7 @@ export const PastorCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='district'
+                name='residenceDistrict'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -629,7 +619,7 @@ export const PastorCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='urbanSector'
+                name='residenceUrbanSector'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -651,7 +641,7 @@ export const PastorCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !residenceDistrict ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -668,7 +658,7 @@ export const PastorCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='address'
+                name='residenceAddress'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -745,7 +735,7 @@ export const PastorCreatePage = (): JSX.Element => {
                                 return (
                                   <FormItem
                                     key={role}
-                                    className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
+                                    className='flex flex-row cursor-pointer items-center space-x-2 space-y-0'
                                   >
                                     <FormControl>
                                       <Checkbox
@@ -823,7 +813,7 @@ export const PastorCreatePage = (): JSX.Element => {
                                 return (
                                   <FormItem
                                     key={role}
-                                    className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
+                                    className='flex flex-row items-center space-x-2 space-y-0'
                                   >
                                     <FormControl>
                                       <Checkbox

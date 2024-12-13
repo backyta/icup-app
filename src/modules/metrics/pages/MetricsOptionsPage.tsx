@@ -7,8 +7,9 @@ import { GiExpense } from 'react-icons/gi';
 import { FaBalanceScale } from 'react-icons/fa';
 import { FcConferenceCall, FcDonate, FcHome, FcRefresh } from 'react-icons/fc';
 
-import { useAuthStore } from '@/stores';
-import { WhiteCard } from '@/shared/components';
+import { useAuthStore } from '@/stores/auth/auth.store';
+
+import { WhiteCard } from '@/shared/components/card/WhiteCard';
 
 export const MetricsOptionsPage = (): JSX.Element => {
   const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);

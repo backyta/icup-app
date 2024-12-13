@@ -7,9 +7,9 @@ import { NavLink } from 'react-router-dom';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
 import { FcClearFilters, FcPodiumWithSpeaker, FcSearch, FcSupport } from 'react-icons/fc';
 
-import { useAuthStore } from '@/stores';
+import { useAuthStore } from '@/stores/auth/auth.store';
 
-import { WhiteCard } from '@/shared/components';
+import { WhiteCard } from '@/shared/components/card/WhiteCard';
 
 export const PastorOptionsPage = (): JSX.Element => {
   const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);

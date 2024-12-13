@@ -17,15 +17,15 @@ import { FcDataBackup, FcDataConfiguration, FcDeleteDatabase } from 'react-icons
 
 import { cn } from '@/shared/lib/utils';
 
-import { OfferingExpenseChartTooltipContent } from '@/modules/metrics/components/offering-expense/tooltips/components';
+import { OfferingExpenseChartTooltipContent } from '@/modules/metrics/components/offering-expense/tooltips/components/OfferingExpenseChartTooltipContent';
 
-import { RecordOrder } from '@/shared/enums';
-import { generateYearOptions } from '@/shared/helpers';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { generateYearOptions } from '@/shared/helpers/generate-year-options.helper';
 
-import { months } from '@/modules/metrics/data';
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getEquipmentAndTechnologyOfferingExpenses } from '@/modules/metrics/services';
+import { months } from '@/modules/metrics/data/months-data';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
+import { getEquipmentAndTechnologyOfferingExpenses } from '@/modules/metrics/services/offering-expense-metrics.service';
 
 import {
   Command,

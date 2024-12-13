@@ -7,45 +7,46 @@ import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { Toaster } from 'sonner';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { useForm } from 'react-hook-form';
+import { CalendarIcon } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { useOfferingExpenseStore } from '@/stores/offering-expense/offering-expenses.store';
 
-import { CalendarIcon } from 'lucide-react';
-
-import {
-  SearchByTermOfferingExpenseDataTable,
-  offeringExpenseUpdateColumns as columns,
-} from '@/modules/offering/expense/components';
 import {
   OfferingExpenseSearchType,
   OfferingExpenseSearchTypeNames,
-  OfferingExpenseSearchSelectOptionNames,
+} from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
+import {
   SubTypeNamesOfferingExpenseSearchBySuppliesExpenses,
   SubTypeNamesOfferingExpenseSearchByOperativeExpenses,
   SubTypeNamesOfferingExpenseSearchByDecorationExpenses,
   SubTypeNamesOfferingExpenseSearchByPlaningEventsExpenses,
   SubTypeNamesOfferingExpenseSearchByMaintenanceAndRepairExpenses,
   SubTypeNamesOfferingExpenseSearchByEquipmentAndTechnologyExpenses,
-} from '@/modules/offering/expense/enums';
-import {
-  type OfferingExpenseResponse,
-  type OfferingExpenseSearchFormByTerm,
-} from '@/modules/offering/expense/interfaces';
-import { offeringExpenseSearchByTermFormSchema } from '@/modules/offering/expense/validations';
+} from '@/modules/offering/expense/enums/offering-expense-search-sub-type.enum';
+import { OfferingExpenseSearchSelectOptionNames } from '@/modules/offering/expense/enums/offering-expense-search-select-option.enum';
 
-import { useOfferingExpenseStore } from '@/stores/offering-expense';
+import { SearchByTermOfferingExpenseDataTable } from '@/modules/offering/expense/components/data-tables/boards/search-by-term-offering-expense-data-table';
+import { offeringExpenseUpdateColumns as columns } from '@/modules/offering/expense/components/data-tables/columns/offering-expense-update-columns';
 
-import { getSimpleChurches } from '@/modules/church/services';
+import { type OfferingExpenseResponse } from '@/modules/offering/expense/interfaces/offering-expense-response.interface';
+import { type OfferingExpenseSearchFormByTerm } from '@/modules/offering/expense/interfaces/offering-expense-search-form-by-term.interface';
+
+import { offeringExpenseSearchByTermFormSchema } from '@/modules/offering/expense/validations/offering-expense-search-by-term-form-schema';
+
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
 import { cn } from '@/shared/lib/utils';
 
-import { PageTitle } from '@/shared/components/page';
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-import { dateFormatterTermToTimestamp } from '@/shared/helpers';
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+import { dateFormatterTermToTimestamp } from '@/shared/helpers/date-formatter-to-timestamp.helper';
+
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
 
 import {
   Form,
@@ -181,17 +182,7 @@ export const OfferingExpenseUpdatePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-orange-600'>Modulo de Salida</PageTitle>
 
-      <div className='flex items-center justify-start relative'>
-        <h2 className='w-[18.5rem] sm:w-auto flex items-center text-left pl-4 py-2 sm:pt-4 sm:pb-2 sm:pl-[1.5rem] xl:pl-[2rem] 2xl:pt-4 font-sans text-2xl sm:text-2xl font-bold text-orange-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl'>
-          Buscar registros de salida
-        </h2>
-        <span className='absolute left-24 sm:left-0 sm:relative sm:ml-3 bg-orange-300 text-slate-600 border text-center text-[10px] mt-[2.2rem] sm:mt-5 -py-1 px-2 rounded-full font-bold uppercase'>
-          Actualizar
-        </span>
-      </div>
-      <p className='dark:text-slate-300 text-left font-sans font-bold px-4 text-[12.5px] md:text-[15px] xl:text-base sm:px-[1.5rem] xl:px-[2rem]'>
-        Elige tus opciones de búsqueda para actualizar registros de salida de ofrendas.
-      </p>
+      <SearchTitle isUpdateSearch className='text-orange-500' titleName={'registros de salida'} />
 
       <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full'>
         {isFiltersSearchByTermDisabled && (
@@ -472,7 +463,7 @@ export const OfferingExpenseUpdatePage = (): JSX.Element => {
                     control={form.control}
                     name='all'
                     render={({ field }) => (
-                      <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
+                      <FormItem className='flex flex-row items-end space-x-2 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
                         <FormControl>
                           <Checkbox
                             disabled={!form.getValues('limit') || !!form.formState.errors.limit} // transform to boolean
@@ -488,7 +479,9 @@ export const OfferingExpenseUpdatePage = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[13px] md:text-[14px]'>Todos</FormLabel>
+                          <FormLabel className='text-[13px] md:text-[14px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </FormItem>
                     )}

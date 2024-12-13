@@ -2,7 +2,7 @@ import { Moon, Sun } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 
 import { cn } from '@/shared/lib/utils';
-import { useTheme } from '@/shared/components';
+import { useTheme } from '@/shared/components/toggle-theme/theme-provider';
 
 import {
   DropdownMenu,

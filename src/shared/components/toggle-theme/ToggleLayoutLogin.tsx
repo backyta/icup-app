@@ -1,4 +1,4 @@
-import { ModeToggle } from '@/shared/components';
+import { ModeToggle } from '@/shared/components/toggle-theme/mode-toggle';
 
 export const ToggleLayoutLogin = (): JSX.Element => {
   return (

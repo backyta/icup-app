@@ -13,19 +13,20 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/shared/lib/utils';
 
-import { getSimpleChurches } from '@/modules/church/services';
-import { useOfferingExpenseStore } from '@/stores/offering-expense';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
+import { useOfferingExpenseStore } from '@/stores/offering-expense/offering-expenses.store';
 
-import {
-  GeneralOfferingExpenseSearchDataTable,
-  offeringExpenseInfoColumns as columns,
-} from '@/modules/offering/expense/components';
-import { type OfferingExpenseResponse } from '@/modules/offering/expense/interfaces';
+import { offeringExpenseInfoColumns as columns } from '@/modules/offering/expense/components/data-tables/columns/offering-expense-info-columns';
+import { GeneralOfferingExpenseSearchDataTable } from '@/modules/offering/expense/components/data-tables/boards/general-offering-expense-search-data-table';
 
-import { PageTitle, SearchTitle } from '@/shared/components/page';
-import { type GeneralSearchForm } from '@/shared/interfaces';
-import { formSearchGeneralSchema } from '@/shared/validations';
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
+import { type OfferingExpenseResponse } from '@/modules/offering/expense/interfaces/offering-expense-response.interface';
+
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
+
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+import { type GeneralSearchForm } from '@/shared/interfaces/search-general-form.interface';
+import { formSearchGeneralSchema } from '@/shared/validations/form-search-general-schema';
 
 import {
   Select,
@@ -214,7 +215,9 @@ export const OfferingsExpenseGeneralSearchPage = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[12px] md:text-[13px]'>Todos</FormLabel>
+                          <FormLabel className='text-[12px] md:text-[13px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </div>
                     </FormItem>

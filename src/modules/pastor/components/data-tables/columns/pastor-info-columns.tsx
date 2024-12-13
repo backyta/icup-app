@@ -5,12 +5,12 @@ import { format, addDays } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import { PastorInfoCard } from '@/modules/pastor/components';
+import { PastorInfoCard } from '@/modules/pastor/components/cards/info/PastorInfoCard';
 
-import { getInitialFullNames } from '@/shared/helpers';
+import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 
 import { Button } from '@/shared/components/ui/button';
-import { type PastorColumns } from '@/modules/pastor/interfaces';
+import { type PastorColumns } from '@/modules/pastor/interfaces/pastor-columns.interface';
 
 export const pastorInfoColumns: Array<ColumnDef<PastorColumns, any>> = [
   {
@@ -36,8 +36,8 @@ export const pastorInfoColumns: Array<ColumnDef<PastorColumns, any>> = [
     },
   },
   {
-    id: 'firstName',
-    accessorKey: 'member.firstName',
+    id: 'firstNames',
+    accessorKey: 'member.firstNames',
     header: ({ column }) => {
       return (
         <Button
@@ -54,8 +54,8 @@ export const pastorInfoColumns: Array<ColumnDef<PastorColumns, any>> = [
     },
   },
   {
-    id: 'lastName',
-    accessorKey: 'member.lastName',
+    id: 'lastNames',
+    accessorKey: 'member.lastNames',
     header: ({ column }) => {
       return (
         <Button
@@ -120,8 +120,8 @@ export const pastorInfoColumns: Array<ColumnDef<PastorColumns, any>> = [
     id: 'updatedBy',
     accessorKey: 'updatedBy',
     cell: (info) => {
-      const firstNames = info.getValue()?.firstName;
-      const lastNames = info.getValue()?.lastName;
+      const firstNames = info.getValue()?.firstNames;
+      const lastNames = info.getValue()?.lastNames;
       return firstNames && lastNames
         ? getInitialFullNames({ firstNames: firstNames ?? '', lastNames: lastNames ?? '' })
         : '-';

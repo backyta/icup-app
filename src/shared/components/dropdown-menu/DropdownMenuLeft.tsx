@@ -2,10 +2,10 @@
 
 import { FcExport } from 'react-icons/fc';
 
-import { useAuthStore } from '@/stores';
+import { useAuthStore } from '@/stores/auth/auth.store';
 
-import { menuItems } from '@/shared/data';
-import { SideMenuItem } from '@/shared/components';
+import { menuItems } from '@/shared/data/menu-items-data';
+import { SideMenuItem } from '@/shared/components/side-menu/SideMenuItem';
 
 import { Button } from '@/shared/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/shared/components/ui/avatar';
@@ -13,8 +13,8 @@ import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/shared/compone
 
 export function DropdownMenuLeft(): JSX.Element {
   const logoutUser = useAuthStore((state) => state.logoutUser);
-  const userNames = useAuthStore((state) => state.user?.firstName ?? 'No User');
-  const userLastNames = useAuthStore((state) => state.user?.lastName ?? 'No User');
+  const userNames = useAuthStore((state) => state.user?.firstNames ?? 'No User');
+  const userLastNames = useAuthStore((state) => state.user?.lastNames ?? 'No User');
   const gender = useAuthStore((state) => state.user?.gender ?? undefined);
 
   return (

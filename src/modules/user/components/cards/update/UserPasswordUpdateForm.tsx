@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-misused-promises */
 
 import { useEffect, useState } from 'react';
 
@@ -11,12 +11,10 @@ import { useForm } from 'react-hook-form';
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import {
-  usePasswordUpdateMutation,
-  useUserUpdatePasswordSubmitButtonLogic,
-} from '@/modules/user/hooks';
+import { usePasswordUpdateMutation } from '@/modules/user/hooks/usePasswordUpdateMutation';
+import { useUserUpdatePasswordSubmitButtonLogic } from '@/modules/user/hooks/useUserUpdatePasswordSubmitButtonLogic';
 
-import { userUpdatePasswordFormSchema } from '@/modules/user/validations';
+import { userUpdatePasswordFormSchema } from '@/modules/user/validations/user-password-update-form-schema';
 
 import { cn } from '@/shared/lib/utils';
 

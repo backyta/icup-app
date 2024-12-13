@@ -17,14 +17,15 @@ import { FcDataBackup, FcDeleteDatabase, FcDataConfiguration } from 'react-icons
 
 import { cn } from '@/shared/lib/utils';
 
-import { RecordOrder } from '@/shared/enums';
-import { dateFormatterToDDMMYY, generateYearOptions } from '@/shared/helpers';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { generateYearOptions } from '@/shared/helpers/generate-year-options.helper';
+import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 
-import { months } from '@/modules/metrics/data';
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getOfferingIncomeBySundayService } from '@/modules/metrics/services';
-import { OfferingIncomeBySundayServiceTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components';
+import { months } from '@/modules/metrics/data/months-data';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
+import { getOfferingIncomeBySundayService } from '@/modules/metrics/services/offering-income-metrics.service';
+import { OfferingIncomeBySundayServiceTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components/OfferingIncomeBySundayServiceTooltipContent';
 
 import {
   Command,

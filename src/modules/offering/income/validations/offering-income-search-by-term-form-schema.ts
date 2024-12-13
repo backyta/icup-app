@@ -2,8 +2,9 @@
 
 import * as z from 'zod';
 
-import { RecordOrder } from '@/shared/enums';
-import { OfferingIncomeSearchSubType, OfferingIncomeSearchType } from '@/modules/offering/income/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import {  OfferingIncomeSearchType } from '@/modules/offering/income/enums/offering-income-search-type.enum';
+import { OfferingIncomeSearchSubType } from '@/modules/offering/income/enums/offering-income-search-sub-type.enum';
 
 export const offeringIncomeSearchByTermFormSchema = z
   .object({
@@ -23,7 +24,7 @@ export const offeringIncomeSearchByTermFormSchema = z
       required_error: "Por favor seleccione una fecha.",
     }).optional(),
 
-    namesTerm: z.string().max(30).optional(),
+    firstNamesTerm: z.string().max(30).optional(),
 
     lastNamesTerm: z.string().max(30).optional(),
 
@@ -84,12 +85,12 @@ export const offeringIncomeSearchByTermFormSchema = z
           (
             // data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorNames ||
             // data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFullName ||
-            data.searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherNames ||
-            data.searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFullName ||
-            data.searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorNames ||
-            data.searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorFullName)
+            data.searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFirstNames ||
+            data.searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFullNames ||
+            data.searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorFirstNames ||
+            data.searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorFullNames)
       ) {
-        return !!data.namesTerm; 
+        return !!data.firstNamesTerm; 
       }
       return true;
     },
@@ -110,9 +111,9 @@ export const offeringIncomeSearchByTermFormSchema = z
             // data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorLastNames ||
             // data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFullName ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherLastNames ||
-            data.searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFullName ||
+            data.searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFullNames ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorLastNames ||
-            data.searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorFullName)
+            data.searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorFullNames)
       ) {
         return !!data.lastNamesTerm;
       }
@@ -159,10 +160,10 @@ export const offeringIncomeSearchByTermFormSchema = z
             data.searchType === OfferingIncomeSearchType.ChurchGround) &&
             (data.searchSubType === OfferingIncomeSearchSubType.OfferingByShift ||
               data.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate ||
-              data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorNames ||
+              data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFirstNames ||
               data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorLastNames ||
               data.searchSubType ===
-                OfferingIncomeSearchSubType.OfferingByContributorFullName)))
+                OfferingIncomeSearchSubType.OfferingByContributorFullNames)))
         ) {
         return !!data.selectTerm;
       }

@@ -9,20 +9,20 @@ export interface Anexe {
 
 export interface Pastor {
   id:        string;
-  firstName: string;
-  lastName:  string;
+  firstNames: string;
+  lastNames:  string;
 }
 
 export interface Copastor {
   id:        string;
-  firstName: string;
-  lastName:  string;
+  firstNames: string;
+  lastNames:  string;
 }
 
 export interface Supervisor {
   id:        string;
-  firstName: string;
-  lastName:  string;
+  firstNames: string;
+  lastNames:  string;
 }
 
 export interface Zone {
@@ -33,8 +33,8 @@ export interface Zone {
 
 export interface Preacher {
   id:        string;
-  firstName: string;
-  lastName:  string;
+  firstNames: string;
+  lastNames:  string;
 }
 
 export interface FamilyGroup {
@@ -47,14 +47,14 @@ export interface FamilyGroup {
 
 export interface Disciple {
   id:        string;
-  firstName: string;
-  lastName:  string;
+  firstNames: string;
+  lastNames:  string;
 }
 
 export interface ExternalDonor {
   id              : string;
-  firstName       : string;
-  lastName        : string;
+  firstNames       : string;
+  lastNames        : string;
   originCountry   : string;
   residenceCountry: string;
   residenceCity   : string;
@@ -62,36 +62,36 @@ export interface ExternalDonor {
 
 
 export interface Member {
-  id:               string;
-  firstName:        string;
-  lastName:         string;
-  gender:           string;
-  originCountry:    string;
-  age:              number;
-  birthDate:        Date;
-  maritalStatus:    string;
-  numberChildren:   number;
-  conversionDate:   Date;
-  email:            string;
-  phoneNumber:      string;
-  country:          string;
-  department:       string;
-  province:         string;
-  district:         string;
-  urbanSector:      string;
-  address:          string;
-  referenceAddress: string;
-  roles:            string[];
-  createdAt?:       Date;
-  createdBy?:       CreatedBy;
-  updatedAt?:       Date;
-  updatedBy?:       UpdatedBy;
+  id                   : string;
+  firstNames            : string;
+  lastNames             : string;
+  gender               : string;
+  originCountry        : string;
+  age                  : number;
+  birthDate            : Date;
+  maritalStatus        : string;
+  numberChildren       : number;
+  conversionDate       : Date;
+  email                : string;
+  phoneNumber          : string;
+  residenceCountry     : string;
+  residenceDepartment  : string;
+  residenceProvince    : string;
+  residenceDistrict    : string;
+  residenceUrbanSector : string;
+  residenceAddress     : string;
+  referenceAddress     : string;
+  roles                : string[];
+  createdAt           ?: Date;
+  createdBy           ?: CreatedBy;
+  updatedAt           ?: Date;
+  updatedBy           ?: UpdatedBy;
 }
 
 export interface CreatedBy {
   id:         string;
-  firstName:  string;
-  lastName:   string;
+  firstNames:  string;
+  lastNames:   string;
   email:      string;
   roles:      string[];
   createdAt?:  Date;
@@ -103,8 +103,8 @@ export interface CreatedBy {
 
 export interface UpdatedBy {
   id:          string;
-  firstName:   string;
-  lastName:    string;
+  firstNames:   string;
+  lastNames:    string;
   email:       string;
   roles:       string[];
   createdAt?:  Date;
@@ -142,8 +142,8 @@ export type TheirChurch = MainChurch;
 
 export interface TheirPastor {
   id:               string;
-  firstName?:        string;
-  lastName?:         string;
+  firstNames?:        string;
+  lastNames?:         string;
   gender?:           string;
   originCountry?:    string;
   birthDate?:        Date;
@@ -170,8 +170,8 @@ export interface TheirPastor {
 
 export interface TheirCopastor {
   id:               string;
-  firstName?:        string;
-  lastName?:         string;
+  firstNames?:        string;
+  lastNames?:         string;
   gender?:           string;
   originCountry?:    string;
   birthDate?:        Date;
@@ -198,8 +198,8 @@ export interface TheirCopastor {
 
 export interface TheirSupervisor {
   id:               string;
-  firstName?:        string;
-  lastName?:         string;
+  firstNames?:        string;
+  lastNames?:         string;
   gender?:           string;
   originCountry?:    string;
   birthDate?:        Date;
@@ -226,8 +226,8 @@ export interface TheirSupervisor {
 }
 export interface TheirPreacher {
   id:               string;
-  firstName?:        string;
-  lastName?:         string;
+  firstNames?:        string;
+  lastNames?:         string;
   gender?:           string;
   originCountry?:    string;
   birthDate?:        Date;

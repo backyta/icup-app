@@ -5,8 +5,8 @@
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums';
-import { type DiscipleFormData } from '@/modules/disciple/interfaces';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { type DiscipleFormData } from '@/modules/disciple/interfaces/disciple-form-data.interface';
 
 interface Options {
   discipleUpdateForm: UseFormReturn<DiscipleFormData, any, DiscipleFormData>;
@@ -26,8 +26,8 @@ export const useDiscipleUpdateSubmitButtonLogic = ({
   isRelationSelectDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = discipleUpdateForm.watch('firstName');
-  const lastName = discipleUpdateForm.watch('lastName');
+  const firstNames = discipleUpdateForm.watch('firstNames');
+  const lastNames = discipleUpdateForm.watch('lastNames');
   const gender = discipleUpdateForm.watch('gender');
   const birthDate = discipleUpdateForm.watch('birthDate');
   const originCountry = discipleUpdateForm.watch('originCountry');
@@ -36,12 +36,12 @@ export const useDiscipleUpdateSubmitButtonLogic = ({
   const conversionDate = discipleUpdateForm.watch('conversionDate');
   const email = discipleUpdateForm.watch('email');
   const phoneNumber = discipleUpdateForm.watch('phoneNumber');
-  const country = discipleUpdateForm.watch('country');
-  const department = discipleUpdateForm.watch('department');
-  const province = discipleUpdateForm.watch('province');
-  const district = discipleUpdateForm.watch('district');
-  const urbanSector = discipleUpdateForm.watch('urbanSector');
-  const address = discipleUpdateForm.watch('address');
+  const residenceCountry = discipleUpdateForm.watch('residenceCountry');
+  const residenceDepartment = discipleUpdateForm.watch('residenceDepartment');
+  const residenceProvince = discipleUpdateForm.watch('residenceProvince');
+  const residenceDistrict = discipleUpdateForm.watch('residenceDistrict');
+  const residenceUrbanSector = discipleUpdateForm.watch('residenceUrbanSector');
+  const residenceAddress = discipleUpdateForm.watch('residenceAddress');
   const referenceAddress = discipleUpdateForm.watch('referenceAddress');
   const roles = discipleUpdateForm.watch('roles');
   const recordStatus = discipleUpdateForm.watch('recordStatus');
@@ -78,17 +78,12 @@ export const useDiscipleUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
 
-    if (
-      roles.includes(memberRoles.Disciple) &&
-      roles.includes(memberRoles.Preacher) &&
-      !theirSupervisor
-    ) {
+    if (roles.includes(memberRoles.Preacher) && !theirSupervisor) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
 
     if (
-      roles.includes(memberRoles.Disciple) &&
       roles.includes(memberRoles.Preacher) &&
       theirSupervisor &&
       Object.values(discipleUpdateForm.formState.errors).length === 0 &&
@@ -99,8 +94,8 @@ export const useDiscipleUpdateSubmitButtonLogic = ({
     }
 
     if (
-      !firstName ||
-      !lastName ||
+      !firstNames ||
+      !lastNames ||
       !gender ||
       !birthDate ||
       !conversionDate ||
@@ -109,12 +104,12 @@ export const useDiscipleUpdateSubmitButtonLogic = ({
       !phoneNumber ||
       !originCountry ||
       !numberChildren ||
-      !country ||
-      !department ||
-      !province ||
-      !district ||
-      !urbanSector ||
-      !address ||
+      !residenceCountry ||
+      !residenceDepartment ||
+      !residenceProvince ||
+      !residenceDistrict ||
+      !residenceUrbanSector ||
+      !residenceAddress ||
       !referenceAddress ||
       roles.length === 0
     ) {
@@ -123,8 +118,8 @@ export const useDiscipleUpdateSubmitButtonLogic = ({
     }
   }, [
     discipleUpdateForm.formState,
-    firstName,
-    lastName,
+    firstNames,
+    lastNames,
     gender,
     conversionDate,
     birthDate,
@@ -133,12 +128,12 @@ export const useDiscipleUpdateSubmitButtonLogic = ({
     phoneNumber,
     originCountry,
     numberChildren,
-    country,
-    department,
-    province,
-    district,
-    address,
-    urbanSector,
+    residenceCountry,
+    residenceDepartment,
+    residenceProvince,
+    residenceDistrict,
+    residenceAddress,
+    residenceUrbanSector,
     referenceAddress,
     theirFamilyGroup,
     theirSupervisor,

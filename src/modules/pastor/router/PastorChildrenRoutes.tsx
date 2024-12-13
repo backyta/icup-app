@@ -1,10 +1,8 @@
-import {
-  PastorUpdatePage,
-  PastorCreatePage,
-  PastorInactivatePage,
-  PastorsSearchPageByTerm,
-  PastorsGeneralSearchPage,
-} from '@/modules/pastor/pages';
+import { PastorUpdatePage } from '@/modules/pastor/pages/PastorUpdatePage';
+import { PastorCreatePage } from '@/modules/pastor/pages/PastorCreatePage';
+import { PastorInactivatePage } from '@/modules/pastor/pages/PastorInactivatePage';
+import { PastorsSearchPageByTerm } from '@/modules/pastor/pages/PastorsSearchPageByTerm';
+import { PastorsGeneralSearchPage } from '@/modules/pastor/pages/PastorsGeneralSearchPage';
 
 export const PastorChildrenRoutes = [
   {

@@ -3,9 +3,12 @@ import { type ColumnDef } from '@tanstack/react-table';
 
 import { Button } from '@/shared/components/ui/button';
 
-import { type UserColumns } from '@/modules/user/interfaces';
-import { type UserRole, UserRoleNames } from '@/modules/user/enums';
-import { UserInfoCard, UserUpdateCard, UserPasswordUpdateCard } from '@/modules/user/components';
+import { type UserColumns } from '@/modules/user/interfaces/user-columns.interface';
+import { type UserRole, UserRoleNames } from '@/modules/user/enums/user-role.enum';
+
+import { UserInfoCard } from '@/modules/user/components/cards/info/UserInfoCard';
+import { UserUpdateCard } from '@/modules/user/components/cards/update/UserUpdateCard';
+import { UserPasswordUpdateCard } from '@/modules/user/components/cards/update/UserPasswordUpdateCard';
 
 export const userUpdateColumns: Array<ColumnDef<UserColumns, any>> = [
   {
@@ -31,8 +34,8 @@ export const userUpdateColumns: Array<ColumnDef<UserColumns, any>> = [
     },
   },
   {
-    id: 'firstName',
-    accessorKey: 'firstName',
+    id: 'firstNames',
+    accessorKey: 'firstNames',
     header: ({ column }) => {
       return (
         <Button
@@ -49,8 +52,8 @@ export const userUpdateColumns: Array<ColumnDef<UserColumns, any>> = [
     },
   },
   {
-    id: 'lastName',
-    accessorKey: 'lastName',
+    id: 'lastNames',
+    accessorKey: 'lastNames',
     header: ({ column }) => {
       return (
         <Button

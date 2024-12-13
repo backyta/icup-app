@@ -10,7 +10,7 @@ import {
   type CreatedBy,
   type UpdatedBy,
   type MainChurch
-} from '@/shared/interfaces';
+} from '@/shared/interfaces/relations-response.interface';
 
 export interface ChurchResponse {
   id                    : string;

@@ -2,16 +2,15 @@
 
 import * as z from 'zod';
 
-import { 
-  MemberType, 
-  OfferingIncomeCreationType, 
-  OfferingIncomeCreationSubType, 
-  OfferingIncomeCreationShiftType, 
-  OfferingIncomeCreationCategory
-} from '@/modules/offering/income/enums';
+import { Gender } from '@/shared/enums/gender.enum';
+import { RecordStatus } from '@/shared/enums/record-status.enum';
+import { CurrencyType  } from '@/modules/offering/shared/enums/currency-type.enum';
 
-import { Gender, RecordStatus } from '@/shared/enums';
-import { CurrencyType  } from '@/modules/offering/shared/enums';
+import { MemberType } from '@/modules/offering/income/enums/member-type.enum';
+import { OfferingIncomeCreationType } from '@/modules/offering/income/enums/offering-income-creation-type.enum';
+import { OfferingIncomeCreationSubType } from '@/modules/offering/income/enums/offering-income-creation-sub-type.enum';
+import { OfferingIncomeCreationCategory } from '@/modules/offering/income/enums/offering-income-creation-category.enum';
+import { OfferingIncomeCreationShiftType } from '@/modules/offering/income/enums/offering-income-creation-shift-type.enum';
 
 export const offeringIncomeFormSchema = z
   .object({

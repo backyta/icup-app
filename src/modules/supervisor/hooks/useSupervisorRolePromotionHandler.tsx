@@ -1,6 +1,6 @@
 import { type UseFormReturn } from 'react-hook-form';
-import { type MemberRole } from '@/shared/enums';
-import { type SupervisorFormData } from '@/modules/supervisor/interfaces';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { type SupervisorFormData } from '@/modules/supervisor/interfaces/supervisor-form-data.interface';
 
 interface Options {
   supervisorUpdateForm: UseFormReturn<SupervisorFormData, any, SupervisorFormData>;

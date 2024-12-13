@@ -9,9 +9,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { MdDeleteForever } from 'react-icons/md';
 
-import { offeringInactivateFormSchema } from '@/modules/offering/shared/validations';
-import { useOfferingExpenseInactivationMutation } from '@/modules/offering/expense/hooks';
-import { OfferingExpenseInactivationReasonNames } from '@/modules/offering/expense/enums';
+import { offeringInactivateFormSchema } from '@/modules/offering/shared/validations/offering-inactivate-form-schema';
+import { useOfferingExpenseInactivationMutation } from '@/modules/offering/expense/hooks/useOfferingExpenseInactivationMutation';
+import { OfferingExpenseInactivationReasonNames } from '@/modules/offering/expense/enums/offering-expense-inactivation-reason.enum';
 
 import {
   Form,

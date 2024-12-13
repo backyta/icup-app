@@ -5,8 +5,8 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums';
-import { type PreacherFormData } from '@/modules/preacher/interfaces';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { type PreacherFormData } from '@/modules/preacher/interfaces/preacher-form-data.interface';
 
 interface Options {
   preacherCreationForm: UseFormReturn<PreacherFormData, any, PreacherFormData>;
@@ -24,8 +24,8 @@ export const usePreacherCreationSubmitButtonLogic = ({
   isInputDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = preacherCreationForm.watch('firstName');
-  const lastName = preacherCreationForm.watch('lastName');
+  const firstNames = preacherCreationForm.watch('firstNames');
+  const lastNames = preacherCreationForm.watch('lastNames');
   const gender = preacherCreationForm.watch('gender');
   const birthDate = preacherCreationForm.watch('birthDate');
   const conversionDate = preacherCreationForm.watch('conversionDate');
@@ -34,12 +34,12 @@ export const usePreacherCreationSubmitButtonLogic = ({
   const phoneNumber = preacherCreationForm.watch('phoneNumber');
   const originCountry = preacherCreationForm.watch('originCountry');
   const numberChildren = preacherCreationForm.watch('numberChildren');
-  const country = preacherCreationForm.watch('country');
-  const department = preacherCreationForm.watch('department');
-  const province = preacherCreationForm.watch('province');
-  const district = preacherCreationForm.watch('district');
-  const urbanSector = preacherCreationForm.watch('urbanSector');
-  const address = preacherCreationForm.watch('address');
+  const residenceCountry = preacherCreationForm.watch('residenceCountry');
+  const residenceDepartment = preacherCreationForm.watch('residenceDepartment');
+  const residenceProvince = preacherCreationForm.watch('residenceProvince');
+  const residenceDistrict = preacherCreationForm.watch('residenceDistrict');
+  const residenceUrbanSector = preacherCreationForm.watch('residenceUrbanSector');
+  const residenceAddress = preacherCreationForm.watch('residenceAddress');
   const roles = preacherCreationForm.watch('roles');
   const referenceAddress = preacherCreationForm.watch('referenceAddress');
   const theirSupervisor = preacherCreationForm.watch('theirSupervisor');
@@ -65,8 +65,8 @@ export const usePreacherCreationSubmitButtonLogic = ({
     }
 
     if (
-      !firstName ||
-      !lastName ||
+      !firstNames ||
+      !lastNames ||
       !gender ||
       !birthDate ||
       !conversionDate ||
@@ -75,13 +75,13 @@ export const usePreacherCreationSubmitButtonLogic = ({
       !phoneNumber ||
       !originCountry ||
       !numberChildren ||
-      !country ||
-      !department ||
-      !province ||
-      !district ||
-      !address ||
-      !urbanSector ||
-      !address ||
+      !residenceCountry ||
+      !residenceDepartment ||
+      !residenceProvince ||
+      !residenceDistrict ||
+      !residenceAddress ||
+      !residenceUrbanSector ||
+      !residenceAddress ||
       !referenceAddress ||
       !theirSupervisor ||
       roles.length === 0
@@ -91,8 +91,8 @@ export const usePreacherCreationSubmitButtonLogic = ({
     }
   }, [
     preacherCreationForm.formState,
-    firstName,
-    lastName,
+    firstNames,
+    lastNames,
     gender,
     conversionDate,
     birthDate,
@@ -101,12 +101,12 @@ export const usePreacherCreationSubmitButtonLogic = ({
     phoneNumber,
     originCountry,
     numberChildren,
-    country,
-    department,
-    province,
-    district,
-    address,
-    urbanSector,
+    residenceCountry,
+    residenceDepartment,
+    residenceProvince,
+    residenceDistrict,
+    residenceAddress,
+    residenceUrbanSector,
     referenceAddress,
     theirSupervisor,
     roles,

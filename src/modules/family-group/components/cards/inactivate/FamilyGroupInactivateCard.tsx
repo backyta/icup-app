@@ -9,19 +9,21 @@ import { useForm } from 'react-hook-form';
 import { MdDeleteForever } from 'react-icons/md';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useFamilyGroupInactivationMutation } from '@/modules/family-group/hooks';
-import { familyGroupInactivationFormSchema } from '@/modules/family-group/validations';
+import { useFamilyGroupInactivationMutation } from '@/modules/family-group/hooks/useFamilyGroupInactivationMutation';
+import { familyGroupInactivationFormSchema } from '@/modules/family-group/validations/family-group-inactivation-form-schema';
 
+import {
+  FamilyGroupInactivationCategory,
+  FamilyGroupInactivationCategoryNames,
+} from '@/modules/family-group/enums/family-group-inactivation-category.enum';
 import {
   ExternalFactorsReasonsNames,
   LeadershipIssuesReasonsNames,
   HostUnavailabilityReasonsNames,
-  FamilyGroupInactivationCategory,
   AdministrativeChangesReasonsNames,
   UnavoidableCircumstancesReasonsNames,
-  FamilyGroupInactivationCategoryNames,
   LackOfActivityOrCommitmentReasonsNames,
-} from '@/modules/family-group/enums';
+} from '@/modules/family-group/enums/family-group-inactivation-reason.enum';
 
 import {
   Form,

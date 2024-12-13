@@ -15,15 +15,18 @@ import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { toZonedTime, format as formatZonedTime } from 'date-fns-tz';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 
+import { LastSundaysOfferingsTooltipContent } from '@/modules/dashboard/components/cards/charts/LastSundaysOfferingsTooltipContent';
+
+import { DashboardSearchType } from '@/modules/dashboard/enums/dashboard-search-type.enum';
+import { getOfferingsForBarChartByTerm } from '@/modules/dashboard/services/dashboard.service';
+import { dashBoardSearchFormSchema } from '@/modules/dashboard/validations/dashboard-search-form-schema';
+
+import { getSimpleChurches } from '@/modules/church/services/church.service';
+
 import { cn } from '@/shared/lib/utils';
-import { RecordOrder } from '@/shared/enums';
-import { dateFormatterToDDMMYY } from '@/shared/helpers';
 
-import { LastSundaysOfferingsTooltipContent } from '@/modules/dashboard/components';
-
-import { getSimpleChurches } from '@/modules/church/services';
-import { DashboardSearchType } from '@/modules/dashboard/enums';
-import { getOfferingsForBarChartByTerm } from '@/modules/dashboard/services';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 
 import {
   ChartLegend,
@@ -47,7 +50,6 @@ import {
   CommandInput,
 } from '@/shared/components/ui/command';
 import { Button } from '@/shared/components/ui/button';
-import { dashBoardSearchFormSchema } from '@/modules/dashboard/validations';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/components/ui/form';
 

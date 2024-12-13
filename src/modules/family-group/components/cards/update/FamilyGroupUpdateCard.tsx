@@ -3,8 +3,8 @@ import { useRef, useState, useCallback, useMemo } from 'react';
 import { GiArchiveRegister } from 'react-icons/gi';
 import { useMediaQuery } from '@react-hook/media-query';
 
-import { useFamilyGroupStore } from '@/stores/family-group';
-import { FamilyGroupUpdateForm } from '@/modules/family-group/components';
+import { useFamilyGroupStore } from '@/stores/family-group/family-group.store';
+import { FamilyGroupUpdateForm } from '@/modules/family-group/components/cards/update/FamilyGroupUpdateForm';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

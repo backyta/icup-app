@@ -6,15 +6,14 @@ import { addDays, format } from 'date-fns';
 
 import { cn } from '@/shared/lib/utils';
 
-import {
-  OfferingExpenseSearchTypeNames,
-  OfferingExpenseSearchSubTypeNames,
-} from '@/modules/offering/expense/enums';
-import { RecordStatus } from '@/shared/enums';
-import { getInitialFullNames } from '@/shared/helpers';
-import { type OfferingExpenseResponse } from '@/modules/offering/expense/interfaces';
+import { OfferingExpenseSearchTypeNames } from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
+import { OfferingExpenseSearchSubTypeNames } from '@/modules/offering/expense/enums/offering-expense-search-sub-type.enum';
 
-import { CurrencyTypeNames } from '@/modules/offering/shared/enums';
+import { RecordStatus } from '@/shared/enums/record-status.enum';
+import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
+import { type OfferingExpenseResponse } from '@/modules/offering/expense/interfaces/offering-expense-response.interface';
+
+import { CurrencyTypeNames } from '@/modules/offering/shared/enums/currency-type.enum';
 
 import {
   Card,
@@ -183,8 +182,8 @@ export const OfferingExpenseTabsCard = ({
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdBy
                   ? getInitialFullNames({
-                      firstNames: data?.createdBy?.firstName ?? '-',
-                      lastNames: data?.createdBy?.lastName ?? '-',
+                      firstNames: data?.createdBy?.firstNames ?? '-',
+                      lastNames: data?.createdBy?.lastNames ?? '-',
                     })
                   : '-'}
               </CardDescription>
@@ -202,8 +201,8 @@ export const OfferingExpenseTabsCard = ({
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
                   ? getInitialFullNames({
-                      firstNames: data?.updatedBy?.firstName ?? '-',
-                      lastNames: data?.updatedBy?.lastName ?? '-',
+                      firstNames: data?.updatedBy?.firstNames ?? '-',
+                      lastNames: data?.updatedBy?.lastNames ?? '-',
                     })
                   : '-'}
               </CardDescription>

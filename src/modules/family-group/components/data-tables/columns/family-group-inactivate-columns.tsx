@@ -5,8 +5,10 @@ import { type ColumnDef } from '@tanstack/react-table';
 
 import { Button } from '@/shared/components/ui/button';
 
-import { type FamilyGroupColumns } from '@/modules/family-group/interfaces';
-import { FamilyGroupInfoCard, FamilyGroupInactivateCard } from '@/modules/family-group/components';
+import { type FamilyGroupColumns } from '@/modules/family-group/interfaces/family-group-columns.interface';
+
+import { FamilyGroupInfoCard } from '@/modules/family-group/components/cards/info/FamilyGroupInfoCard';
+import { FamilyGroupInactivateCard } from '@/modules/family-group/components/cards/inactivate/FamilyGroupInactivateCard';
 
 export const familyGroupInactivateColumns: Array<ColumnDef<FamilyGroupColumns, any>> = [
   {

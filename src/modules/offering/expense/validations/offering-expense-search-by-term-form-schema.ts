@@ -2,8 +2,9 @@
 
 import * as z from 'zod';
 
-import { RecordOrder } from '@/shared/enums';
-import { OfferingExpenseSearchSubType, OfferingExpenseSearchType } from '@/modules/offering/expense/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { OfferingExpenseSearchType } from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
+import { OfferingExpenseSearchSubType } from '@/modules/offering/expense/enums/offering-expense-search-sub-type.enum';
 
 export const offeringExpenseSearchByTermFormSchema = z
   .object({
@@ -47,13 +48,6 @@ export const offeringExpenseSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        // data.searchType === OfferingExpenseSearchType.PlaningEventsExpenses || 
-        // data.searchType === OfferingExpenseSearchType.DecorationExpenses || 
-        // data.searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpenses || 
-        // data.searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpenses || 
-        // data.searchType === OfferingExpenseSearchType.OperationalExpenses || 
-        // data.searchType === OfferingExpenseSearchType.SuppliesExpenses ||
-        // data.searchType === OfferingExpenseSearchType.ExpensesAdjustment
         data.searchType === OfferingExpenseSearchType.RecordStatus
       ) {
         return !!data.selectTerm;

@@ -3,15 +3,15 @@
 import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
-import { 
-  type MetricQueryParams,
-  type FamilyGroupsByCodeResponse,
-  type FamilyGroupsByZoneResponse,
-  type FamilyGroupsProportionResponse,
-  type FamilyGroupsFluctuationResponse,
-  type FamilyGroupsByServiceTimeResponse,
-  type FamilyGroupsByRecordStatusResponse,
-} from '@/modules/metrics/interfaces';
+
+import { type MetricQueryParams } from '@/modules/metrics/interfaces/shared/metric-query-params.interface';
+
+import { type FamilyGroupsByCodeResponse } from '@/modules/metrics/interfaces/family-group-metrics/family-groups-by-code-response.interface';
+import { type FamilyGroupsByZoneResponse } from '@/modules/metrics/interfaces/family-group-metrics/family-groups-by-zone-response.interface';
+import { type FamilyGroupsProportionResponse } from '@/modules/metrics/interfaces/family-group-metrics/family-groups-proportion-response.interface';
+import { type FamilyGroupsFluctuationResponse } from '@/modules/metrics/interfaces/family-group-metrics/family-groups-fluctuation-response.interface';
+import { type FamilyGroupsByServiceTimeResponse } from '@/modules/metrics/interfaces/family-group-metrics/family-groups-by-service-time-response.interface';
+import { type FamilyGroupsByRecordStatusResponse } from '@/modules/metrics/interfaces/family-group-metrics/family-groups-by-record-status-response.interface';
 
 //* Get proportion family groups
 export const  getFamilyGroupsProportion = async ({ 

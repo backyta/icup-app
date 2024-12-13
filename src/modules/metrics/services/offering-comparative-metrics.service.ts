@@ -3,17 +3,16 @@
 import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
-import { 
-  type MetricQueryParams, 
-  type IncomeAndExpensesComparativeResponse,
-  type ComparativeOfferingIncomeByTypeResponse,
-  type GeneralComparativeOfferingIncomeResponse,
-  type ComparativeOfferingExpensesByTypeResponse,
-  type GeneralComparativeOfferingExpensesResponse,
-  type ComparativeOfferingExpensesBySubTypeResponse,
-  type OfferingExpensesAndOfferingIncomeComparativeProportionResponse,
-} from '@/modules/metrics/interfaces';
 
+import { type MetricQueryParams } from '@/modules/metrics/interfaces/shared/metric-query-params.interface';
+
+import { type IncomeAndExpensesComparativeResponse } from '@/modules/metrics/interfaces/offering-comparative-metrics/income-and-expenses-comparative-response.interface';
+import { type ComparativeOfferingIncomeByTypeResponse } from '@/modules/metrics/interfaces/offering-comparative-metrics/comparative-offering-income-by-type-response.interface';
+import { type GeneralComparativeOfferingIncomeResponse } from '@/modules/metrics/interfaces/offering-comparative-metrics/general-comparative-offering-income-response.interface';
+import { type ComparativeOfferingExpensesByTypeResponse } from '@/modules/metrics/interfaces/offering-comparative-metrics/comparative-offering-expenses-by-type-response.interface';
+import { type GeneralComparativeOfferingExpensesResponse } from '@/modules/metrics/interfaces/offering-comparative-metrics/general-comparative-offering-expenses-response.interface';
+import { type ComparativeOfferingExpensesBySubTypeResponse } from '@/modules/metrics/interfaces/offering-comparative-metrics/comparative-offering-expenses-by-sub-type-response.interface';
+import { type OfferingExpensesAndOfferingIncomeComparativeProportionResponse } from '@/modules/metrics/interfaces/offering-comparative-metrics/offering-expenses-and-offering-income-proportion-response.interface';
 
 //* Get proportion offering comparative 
 export const getOfferingComparativeProportion = async ({ 

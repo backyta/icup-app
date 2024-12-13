@@ -8,10 +8,10 @@ import { GiHouse } from 'react-icons/gi';
 import { PieChart, Pie } from 'recharts';
 import { useQuery } from '@tanstack/react-query';
 
-import { RecordOrder } from '@/shared/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { getFamilyGroupsProportion } from '@/modules/metrics/services';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { getFamilyGroupsProportion } from '@/modules/metrics/services/family-group-metrics.service';
 
 import { ChartContainer, type ChartConfig } from '@/shared/components/ui/chart';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/shared/components/ui/card';

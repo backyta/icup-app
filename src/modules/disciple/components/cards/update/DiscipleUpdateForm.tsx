@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useState } from 'react';
@@ -17,41 +17,37 @@ import { es } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import {
-  useDiscipleUpdateEffects,
-  useDiscipleUpdateMutation,
-  useDiscipleRolePromotionHandler,
-  useDisciplePromoteButtonLogic,
-  useDiscipleUpdateSubmitButtonLogic,
-} from '@/modules/disciple/hooks';
-import { DiscipleFieldNames } from '@/modules/disciple/enums';
-import { discipleFormSchema } from '@/modules/disciple/validations';
-import { DiscipleFormSkeleton } from '@/modules/disciple/components';
-import { type DiscipleResponse } from '@/modules/disciple/interfaces';
+import { useDiscipleUpdateEffects } from '@/modules/disciple/hooks/useDiscipleUpdateEffects';
+import { useDiscipleUpdateMutation } from '@/modules/disciple/hooks/useDiscipleUpdateMutation';
+import { useDisciplePromoteButtonLogic } from '@/modules/disciple/hooks/useDisciplePromoteButtonLogic';
+import { useDiscipleRolePromotionHandler } from '@/modules/disciple/hooks/useDiscipleRolePromotionHandler';
+import { useDiscipleUpdateSubmitButtonLogic } from '@/modules/disciple/hooks/useDiscipleUpdateSubmitButtonLogic';
 
-import { getSimpleSupervisors } from '@/modules/supervisor/services';
-import { getSimpleFamilyGroups } from '@/modules/family-group/services';
+import { DiscipleFieldNames } from '@/modules/disciple/enums/disciple-field-names.enum';
+import { discipleFormSchema } from '@/modules/disciple/validations/disciple-form-schema';
+import { type DiscipleResponse } from '@/modules/disciple/interfaces/disciple-response.interface';
+import { DiscipleFormSkeleton } from '@/modules/disciple/components/cards/update/DiscipleFormSkeleton';
+
+import { getSimpleSupervisors } from '@/modules/supervisor/services/supervisor.service';
+import { getSimpleFamilyGroups } from '@/modules/family-group/services/family-group.service';
 
 import { cn } from '@/shared/lib/utils';
-import { useRoleValidationByPath } from '@/shared/hooks';
 
-import {
-  MemberRole,
-  GenderNames,
-  CountryNames,
-  DistrictNames,
-  ProvinceNames,
-  DepartmentNames,
-  MemberRoleNames,
-  UrbanSectorNames,
-  MaritalStatusNames,
-} from '@/shared/enums';
-import {
-  getFullNames,
-  getCodeAndNameFamilyGroup,
-  validateDistrictsAllowedByModule,
-  validateUrbanSectorsAllowedByDistrict,
-} from '@/shared/helpers';
+import { useRoleValidationByPath } from '@/shared/hooks/useRoleValidationByPath';
+
+import { GenderNames } from '@/shared/enums/gender.enum';
+import { CountryNames } from '@/shared/enums/country.enum';
+import { ProvinceNames } from '@/shared/enums/province.enum';
+import { DistrictNames } from '@/shared/enums/district.enum';
+import { DepartmentNames } from '@/shared/enums/department.enum';
+import { UrbanSectorNames } from '@/shared/enums/urban-sector.enum';
+import { MaritalStatusNames } from '@/shared/enums/marital-status.enum';
+import { MemberRole, MemberRoleNames } from '@/shared/enums/member-role.enum';
+
+import { getFullNames } from '@/shared/helpers/get-full-names.helper';
+import { getCodeAndNameFamilyGroup } from '@/shared/helpers/get-code-and-name-family-group.helper';
+import { validateDistrictsAllowedByModule } from '@/shared/helpers/validate-districts-allowed-by-module.helper';
+import { validateUrbanSectorsAllowedByDistrict } from '@/shared/helpers/validate-urban-sectors-allowed-by-district.helper';
 
 import {
   Form,
@@ -132,8 +128,8 @@ export const DiscipleUpdateForm = ({
     mode: 'onChange',
     resolver: zodResolver(discipleFormSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      firstNames: '',
+      lastNames: '',
       gender: '',
       originCountry: '',
       birthDate: undefined,
@@ -142,12 +138,12 @@ export const DiscipleUpdateForm = ({
       conversionDate: undefined,
       email: '',
       phoneNumber: '',
-      country: '',
-      department: '',
-      province: '',
-      district: '',
-      urbanSector: '',
-      address: '',
+      residenceCountry: '',
+      residenceDepartment: '',
+      residenceProvince: '',
+      residenceDistrict: '',
+      residenceUrbanSector: '',
+      residenceAddress: '',
       referenceAddress: '',
       roles: [MemberRole.Disciple],
       recordStatus: '',
@@ -157,13 +153,13 @@ export const DiscipleUpdateForm = ({
   });
 
   //* Watchers
-  const district = form.watch('district');
+  const residenceDistrict = form.watch('residenceDistrict');
   const theirSupervisor = form.watch('theirSupervisor');
   const theirFamilyGroup = form.watch('theirFamilyGroup');
 
   //* Helpers
   const districtsValidation = validateDistrictsAllowedByModule(pathname);
-  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(residenceDistrict);
 
   //* Custom Hooks
   useDiscipleUpdateEffects({
@@ -233,7 +229,7 @@ export const DiscipleUpdateForm = ({
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
               <div className='dark:text-slate-300 text-slate-500 font-bold text-[17px] md:text-[18px] mb-4 ml-0 md:pl-4'>
-                Discípulo: {data?.member?.firstName} {data?.member?.lastName}
+                Discípulo: {data?.member?.firstNames} {data?.member?.lastNames}
               </div>
               <Form {...form}>
                 <form
@@ -246,7 +242,7 @@ export const DiscipleUpdateForm = ({
                     </legend>
                     <FormField
                       control={form.control}
-                      name='firstName'
+                      name='firstNames'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -268,7 +264,7 @@ export const DiscipleUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='lastName'
+                      name='lastNames'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -616,7 +612,7 @@ export const DiscipleUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='country'
+                      name='residenceCountry'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -651,7 +647,7 @@ export const DiscipleUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='department'
+                      name='residenceDepartment'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -686,7 +682,7 @@ export const DiscipleUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='province'
+                      name='residenceProvince'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -721,7 +717,7 @@ export const DiscipleUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='district'
+                      name='residenceDistrict'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -760,7 +756,7 @@ export const DiscipleUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='urbanSector'
+                      name='residenceUrbanSector'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -782,7 +778,7 @@ export const DiscipleUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(UrbanSectorNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !residenceDistrict ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -799,7 +795,7 @@ export const DiscipleUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='address'
+                      name='residenceAddress'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -1128,7 +1124,7 @@ export const DiscipleUpdateForm = ({
                                         )}
                                       >
                                         {field.value
-                                          ? `${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.member?.firstName} ${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.member?.lastName}`
+                                          ? `${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.member?.firstNames} ${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.member?.lastNames}`
                                           : 'Busque y seleccione un supervisor'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
@@ -1149,8 +1145,8 @@ export const DiscipleUpdateForm = ({
                                               <CommandItem
                                                 className='text-[14px]'
                                                 value={getFullNames({
-                                                  firstNames: supervisor.member?.firstName ?? '',
-                                                  lastNames: supervisor.member?.lastName ?? '',
+                                                  firstNames: supervisor.member?.firstNames ?? '',
+                                                  lastNames: supervisor.member?.lastNames ?? '',
                                                 })}
                                                 key={supervisor.id}
                                                 onSelect={() => {
@@ -1158,7 +1154,7 @@ export const DiscipleUpdateForm = ({
                                                   setIsInputTheirSupervisorOpen(false);
                                                 }}
                                               >
-                                                {`${supervisor?.member?.firstName} ${supervisor?.member?.lastName}`}
+                                                {`${supervisor?.member?.firstNames} ${supervisor?.member?.lastNames}`}
                                                 <CheckIcon
                                                   className={cn(
                                                     'ml-auto h-4 w-4',

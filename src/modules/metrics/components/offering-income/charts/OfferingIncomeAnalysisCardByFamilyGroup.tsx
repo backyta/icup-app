@@ -16,17 +16,17 @@ import { FcDataBackup, FcDataConfiguration, FcDeleteDatabase } from 'react-icons
 
 import { cn } from '@/shared/lib/utils';
 
-import { getSimpleZones } from '@/modules/zone/services';
+import { getSimpleZones } from '@/modules/zone/services/zone.service';
 
-import { OfferingIncomeByFamilyGroupTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components';
+import { OfferingIncomeByFamilyGroupTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components/OfferingIncomeByFamilyGroupTooltipContent';
 
-import { RecordOrder } from '@/shared/enums';
-import { generateYearOptions } from '@/shared/helpers';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { generateYearOptions } from '@/shared/helpers/generate-year-options.helper';
 
-import { months } from '@/modules/metrics/data';
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getOfferingIncomeByFamilyGroup } from '@/modules/metrics/services';
+import { months } from '@/modules/metrics/data/months-data';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
+import { getOfferingIncomeByFamilyGroup } from '@/modules/metrics/services/offering-income-metrics.service';
 
 import {
   Command,

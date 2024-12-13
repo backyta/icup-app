@@ -3,12 +3,13 @@
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import { UserInfoCard } from '@/modules/user/components';
-import { type UserColumns } from '@/modules/user/interfaces';
-import { type UserRole, UserRoleNames } from '@/modules/user/enums';
+import { UserInfoCard } from '@/modules/user/components/cards/info/UserInfoCard';
+import { type UserColumns } from '@/modules/user/interfaces/user-columns.interface';
+
+import { type UserRole, UserRoleNames } from '@/modules/user/enums/user-role.enum';
 
 import { Button } from '@/shared/components/ui/button';
-import { getInitialFullNames } from '@/shared/helpers';
+import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 
 export const userInfoColumns: Array<ColumnDef<UserColumns, any>> = [
   {
@@ -34,8 +35,8 @@ export const userInfoColumns: Array<ColumnDef<UserColumns, any>> = [
     },
   },
   {
-    id: 'firstName',
-    accessorKey: 'firstName',
+    id: 'firstNames',
+    accessorKey: 'firstNames',
     header: ({ column }) => {
       return (
         <Button
@@ -52,8 +53,8 @@ export const userInfoColumns: Array<ColumnDef<UserColumns, any>> = [
     },
   },
   {
-    id: 'lastName',
-    accessorKey: 'lastName',
+    id: 'lastNames',
+    accessorKey: 'lastNames',
     header: ({ column }) => {
       return (
         <Button
@@ -117,8 +118,8 @@ export const userInfoColumns: Array<ColumnDef<UserColumns, any>> = [
     id: 'updatedBy',
     accessorKey: 'updatedBy',
     cell: (info) => {
-      const firstNames = info.getValue()?.firstName;
-      const lastNames = info.getValue()?.lastName;
+      const firstNames = info.getValue()?.firstNames;
+      const lastNames = info.getValue()?.lastNames;
       return firstNames && lastNames
         ? getInitialFullNames({ firstNames: firstNames ?? '', lastNames: lastNames ?? '' })
         : '-';

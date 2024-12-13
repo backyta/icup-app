@@ -3,11 +3,11 @@
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import { getInitialFullNames } from '@/shared/helpers';
-import { Button } from '@/shared/components/ui/button';
+import { ChurchInfoCard } from '@/modules/church/components/cards/info/ChurchInfoCard';
+import { type ChurchColumns } from '@/modules/church/interfaces/church-columns.interface';
 
-import { ChurchInfoCard } from '@/modules/church/components';
-import { type ChurchColumns } from '@/modules/church/interfaces';
+import { Button } from '@/shared/components/ui/button';
+import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 
 export const churchInfoColumns: Array<ColumnDef<ChurchColumns, any>> = [
   {
@@ -108,8 +108,8 @@ export const churchInfoColumns: Array<ColumnDef<ChurchColumns, any>> = [
     id: 'updatedBy',
     accessorKey: 'updatedBy',
     cell: (info) => {
-      const firstNames = info.getValue()?.firstName;
-      const lastNames = info.getValue()?.lastName;
+      const firstNames = info.getValue()?.firstNames;
+      const lastNames = info.getValue()?.lastNames;
       return firstNames && lastNames
         ? getInitialFullNames({ firstNames: firstNames ?? '', lastNames: lastNames ?? '' })
         : '-';

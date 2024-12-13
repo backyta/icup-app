@@ -3,8 +3,9 @@
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums';
-import { type PastorResponse, type PastorFormData } from '@/modules/pastor/interfaces';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { type PastorResponse } from '@/modules/pastor/interfaces/pastor-response.interface';
+import { type PastorFormData } from '@/modules/pastor/interfaces/pastor-form-data.interface';
 
 interface Options {
   id: string;
@@ -19,12 +20,12 @@ export const usePastorUpdateEffects = ({
   setIsLoadingData,
   pastorUpdateForm,
 }: Options): void => {
-  const district = pastorUpdateForm.watch('district');
+  const residenceDistrict = pastorUpdateForm.watch('residenceDistrict');
 
   //* Set data
   useEffect(() => {
-    pastorUpdateForm.setValue('firstName', data?.member?.firstName ?? '');
-    pastorUpdateForm.setValue('lastName', data?.member?.lastName ?? '');
+    pastorUpdateForm.setValue('firstNames', data?.member?.firstNames ?? '');
+    pastorUpdateForm.setValue('lastNames', data?.member?.lastNames ?? '');
     pastorUpdateForm.setValue('gender', data?.member?.gender ?? '');
     pastorUpdateForm.setValue('originCountry', data?.member?.originCountry ?? '');
     pastorUpdateForm.setValue(
@@ -39,12 +40,12 @@ export const usePastorUpdateEffects = ({
     );
     pastorUpdateForm.setValue('email', data?.member?.email ?? '');
     pastorUpdateForm.setValue('phoneNumber', data?.member?.phoneNumber ?? '');
-    pastorUpdateForm.setValue('country', data?.member?.country ?? '');
-    pastorUpdateForm.setValue('department', data?.member?.department ?? '');
-    pastorUpdateForm.setValue('province', data?.member?.province ?? '');
-    pastorUpdateForm.setValue('district', data?.member?.district ?? '');
-    pastorUpdateForm.setValue('urbanSector', data?.member?.urbanSector ?? '');
-    pastorUpdateForm.setValue('address', data?.member?.address ?? '');
+    pastorUpdateForm.setValue('residenceCountry', data?.member?.residenceCountry ?? '');
+    pastorUpdateForm.setValue('residenceDepartment', data?.member?.residenceDepartment ?? '');
+    pastorUpdateForm.setValue('residenceProvince', data?.member?.residenceProvince ?? '');
+    pastorUpdateForm.setValue('residenceDistrict', data?.member?.residenceDistrict ?? '');
+    pastorUpdateForm.setValue('residenceUrbanSector', data?.member?.residenceUrbanSector ?? '');
+    pastorUpdateForm.setValue('residenceAddress', data?.member?.residenceAddress ?? '');
     pastorUpdateForm.setValue('referenceAddress', data?.member?.referenceAddress ?? '');
     pastorUpdateForm.setValue('roles', data?.member?.roles as MemberRole[]);
     pastorUpdateForm.setValue('theirChurch', data?.theirChurch?.id);
@@ -61,10 +62,10 @@ export const usePastorUpdateEffects = ({
 
   //* Controller district and urban sector
   useEffect(() => {
-    pastorUpdateForm.resetField('urbanSector', {
+    pastorUpdateForm.resetField('residenceUrbanSector', {
       keepError: true,
     });
-  }, [district]);
+  }, [residenceDistrict]);
 
   //* Generate dynamic url
   useEffect(() => {

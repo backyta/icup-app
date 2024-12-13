@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { type UseFormReturn } from 'react-hook-form';
 import { useMutation, type UseMutationResult } from '@tanstack/react-query';
 
-import { type ErrorResponse } from '@/shared/interfaces';
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
 
-import { createUser } from '@/modules/user/services';
-import { type UserFormData, type UserResponse } from '@/modules/user/interfaces';
+import { createUser } from '@/modules/user/services/user.service';
+import { type UserResponse } from '@/modules/user/interfaces/user-response.interface';
+import { type UserFormData } from '@/modules/user/interfaces/user-form-data.interface';
 
 interface Options {
   userCreationForm: UseFormReturn<UserFormData, any, UserFormData>;

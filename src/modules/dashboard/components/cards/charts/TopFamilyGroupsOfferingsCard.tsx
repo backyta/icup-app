@@ -14,16 +14,16 @@ import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 
+import { getSimpleChurches } from '@/modules/church/services/church.service';
+
+import { DashboardSearchType } from '@/modules/dashboard/enums/dashboard-search-type.enum';
+import { getOfferingsForBarChartByTerm } from '@/modules/dashboard/services/dashboard.service';
+import { dashBoardSearchFormSchema } from '@/modules/dashboard/validations/dashboard-search-form-schema';
+import { TopFamilyGroupsTooltipContent } from '@/modules/dashboard/components/cards/charts/TopFamilyGroupsOfferingsTooltipContent';
+
 import { cn } from '@/shared/lib/utils';
 
-import { RecordOrder } from '@/shared/enums';
-
-import { getSimpleChurches } from '@/modules/church/services';
-import { DashboardSearchType } from '@/modules/dashboard/enums';
-
-import { TopFamilyGroupsTooltipContent } from '@/modules/dashboard/components';
-import { dashBoardSearchFormSchema } from '@/modules/dashboard/validations';
-import { getOfferingsForBarChartByTerm } from '@/modules/dashboard/services';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
 import {
   Command,

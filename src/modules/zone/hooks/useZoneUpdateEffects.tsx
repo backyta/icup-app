@@ -3,7 +3,8 @@
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type ZoneResponse, type ZoneFormData } from '@/modules/zone/interfaces';
+import { type ZoneResponse } from '@/modules/zone/interfaces/zone-response.interface';
+import { type ZoneFormData } from '@/modules/zone/interfaces/zone-form-data.interface';
 
 interface Options {
   id: string;

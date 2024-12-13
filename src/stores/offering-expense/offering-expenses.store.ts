@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 
 import { create, type StateCreator } from 'zustand';
-import { type OfferingExpenseResponse } from '@/modules/offering/expense/interfaces';
+import { type OfferingExpenseResponse } from '@/modules/offering/expense/interfaces/offering-expense-response.interface';
 
 interface OfferingExpenseStore {
   // Properties

@@ -6,37 +6,45 @@ import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { Toaster } from 'sonner';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { useForm } from 'react-hook-form';
+import { CalendarIcon } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { usePastorStore } from '@/stores/pastor/pastor.store';
 
-import { CalendarIcon } from 'lucide-react';
-
-import { usePastorStore } from '@/stores/pastor';
-import { getSimpleChurches } from '@/modules/church/services';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
 import {
   PastorSearchType,
   PastorSearchTypeNames,
+} from '@/modules/pastor/enums/pastor-search-type.enum';
+import {
   PastorSearchNamesByGender,
   PastorSearchNamesByBirthMonth,
   PastorSearchNamesByRecordStatus,
   PastorSearchNamesByMaritalStatus,
-} from '@/modules/pastor/enums';
-import {
-  SearchByTermPastorDataTable,
-  pastorUpdateColumns as columns,
-} from '@/modules/pastor/components';
-import { pastorSearchByTermFormSchema } from '@/modules/pastor/validations';
-import { type PastorSearchFormByTerm, type PastorResponse } from '@/modules/pastor/interfaces';
+} from '@/modules/pastor/enums/pastor-search-select-option.enum';
+
+import { pastorUpdateColumns as columns } from '@/modules/pastor/components/data-tables/columns/pastor-update-columns';
+import { SearchByTermPastorDataTable } from '@/modules/pastor/components/data-tables/boards/search-by-term-pastor-data-table';
+
+import { pastorSearchByTermFormSchema } from '@/modules/pastor/validations/pastor-search-by-term-form-schema';
+
+import { type PastorResponse } from '@/modules/pastor/interfaces/pastor-response.interface';
+import { type PastorSearchFormByTerm } from '@/modules/pastor/interfaces/pastor-search-form-by-term.interface';
 
 import { cn } from '@/shared/lib/utils';
-import { PageTitle, SearchTitle } from '@/shared/components/page';
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-import { dateFormatterTermToTimestamp, namesFormatter, lastNamesFormatter } from '@/shared/helpers';
+
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
+
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+
+import { lastNamesFormatter, firstNamesFormatter } from '@/shared/helpers/names-formatter.helper';
+import { dateFormatterTermToTimestamp } from '@/shared/helpers/date-formatter-to-timestamp.helper';
 
 import {
   Form,
@@ -65,8 +73,8 @@ const dataFictional: PastorResponse[] = [
     id: '',
     member: {
       id: '',
-      firstName: '',
-      lastName: '',
+      firstNames: '',
+      lastNames: '',
       gender: '',
       age: 0,
       originCountry: '',
@@ -76,12 +84,12 @@ const dataFictional: PastorResponse[] = [
       conversionDate: new Date('2024-05-21'),
       email: '',
       phoneNumber: '',
-      country: '',
-      department: '',
-      province: '',
-      district: '',
-      urbanSector: '',
-      address: '',
+      residenceCountry: '',
+      residenceDepartment: '',
+      residenceProvince: '',
+      residenceDistrict: '',
+      residenceUrbanSector: '',
+      residenceAddress: '',
       referenceAddress: '',
       roles: [],
     },
@@ -110,7 +118,7 @@ export const PastorUpdatePage = (): JSX.Element => {
     defaultValues: {
       limit: '10',
       inputTerm: '',
-      namesTerm: '',
+      firstNamesTerm: '',
       lastNamesTerm: '',
       selectTerm: '',
       dateTerm: undefined,
@@ -167,12 +175,12 @@ export const PastorUpdatePage = (): JSX.Element => {
       to: formData.dateTerm?.to ? formData.dateTerm?.to : newDateTermTo,
     });
 
-    const newNamesTerm = namesFormatter(formData?.namesTerm);
+    const newNamesTerm = firstNamesFormatter(formData?.firstNamesTerm);
     const newLastNamesTerm = lastNamesFormatter(formData?.lastNamesTerm);
 
     setSearchParams({
       ...formData,
-      namesTerm: newNamesTerm,
+      firstNamesTerm: newNamesTerm,
       lastNamesTerm: newLastNamesTerm,
       dateTerm: newDateTerm as any,
     });
@@ -218,7 +226,7 @@ export const PastorUpdatePage = (): JSX.Element => {
                           form.resetField('inputTerm', {
                             keepError: true,
                           });
-                          form.resetField('namesTerm', {
+                          form.resetField('firstNamesTerm', {
                             keepError: true,
                           });
                           form.resetField('lastNamesTerm', {
@@ -251,11 +259,12 @@ export const PastorUpdatePage = (): JSX.Element => {
               />
 
               {(searchType === PastorSearchType.OriginCountry ||
-                searchType === PastorSearchType.Department ||
-                searchType === PastorSearchType.Province ||
-                searchType === PastorSearchType.District ||
-                searchType === PastorSearchType.UrbanSector ||
-                searchType === PastorSearchType.Address) && (
+                searchType === PastorSearchType.ResidenceCountry ||
+                searchType === PastorSearchType.ResidenceDepartment ||
+                searchType === PastorSearchType.ResidenceProvince ||
+                searchType === PastorSearchType.ResidenceDistrict ||
+                searchType === PastorSearchType.ResidenceUrbanSector ||
+                searchType === PastorSearchType.ResidenceAddress) && (
                 <FormField
                   control={form.control}
                   name='inputTerm'
@@ -263,16 +272,18 @@ export const PastorUpdatePage = (): JSX.Element => {
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>
                         {searchType === PastorSearchType.OriginCountry
-                          ? `País de origen`
-                          : searchType === PastorSearchType.Department
-                            ? 'Departamento'
-                            : searchType === PastorSearchType.Province
-                              ? 'Provincia'
-                              : searchType === PastorSearchType.District
-                                ? 'Distrito'
-                                : searchType === PastorSearchType.UrbanSector
-                                  ? 'Sector Urbano'
-                                  : 'Dirección'}
+                          ? `País (origen)`
+                          : searchType === PastorSearchType.ResidenceCountry
+                            ? 'País (residencia)'
+                            : searchType === PastorSearchType.ResidenceDepartment
+                              ? 'Departamento (residencia)'
+                              : searchType === PastorSearchType.ResidenceProvince
+                                ? 'Provincia (residencia)'
+                                : searchType === PastorSearchType.ResidenceDistrict
+                                  ? 'Distrito (residencia)'
+                                  : searchType === PastorSearchType.ResidenceUrbanSector
+                                    ? 'Sector Urbano (residencia)'
+                                    : 'Dirección (residencia)'}
                       </FormLabel>
                       <FormDescription className='text-[13px] md:text-[14px]'>
                         Escribe aquí lo que deseas buscar.
@@ -280,7 +291,21 @@ export const PastorUpdatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           className='text-[13px] md:text-[14px]'
-                          placeholder='Ejem: C-2, Av.Central 123, Lima ....'
+                          placeholder={
+                            searchType === PastorSearchType.OriginCountry
+                              ? 'Ejem: Colombia , Mexico , Perú...'
+                              : searchType === PastorSearchType.ResidenceCountry
+                                ? 'Ejem: Perú ...'
+                                : searchType === PastorSearchType.ResidenceDepartment
+                                  ? 'Ejem: Lima, Ayacucho, Puno...'
+                                  : searchType === PastorSearchType.ResidenceProvince
+                                    ? 'Ejem: Huaraz, Lima, Huamanga...'
+                                    : searchType === PastorSearchType.ResidenceDistrict
+                                      ? 'Ejem: Independencia, Los Olivos, SJL...'
+                                      : searchType === PastorSearchType.ResidenceUrbanSector
+                                        ? 'Ejem: Payet, Tahuantinsuyo, La Pascana ...'
+                                        : 'Ejem: Jr. Pardo 123 , Av.Central 555 , Mz. D Lt. 8 Nuevo Bosque...'
+                          }
                           {...field}
                         />
                       </FormControl>
@@ -413,11 +438,11 @@ export const PastorUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === PastorSearchType.FirstName ||
-                searchType === PastorSearchType.FullName) && (
+              {(searchType === PastorSearchType.FirstNames ||
+                searchType === PastorSearchType.FullNames) && (
                 <FormField
                   control={form.control}
-                  name='namesTerm'
+                  name='firstNamesTerm'
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Nombres</FormLabel>
@@ -437,8 +462,8 @@ export const PastorUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === PastorSearchType.LastName ||
-                searchType === PastorSearchType.FullName) && (
+              {(searchType === PastorSearchType.LastNames ||
+                searchType === PastorSearchType.FullNames) && (
                 <FormField
                   control={form.control}
                   name='lastNamesTerm'
@@ -499,7 +524,7 @@ export const PastorUpdatePage = (): JSX.Element => {
                     control={form.control}
                     name='all'
                     render={({ field }) => (
-                      <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
+                      <FormItem className='flex flex-row items-end space-x-2 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
                         <FormControl>
                           <Checkbox
                             disabled={!form.getValues('limit') || !!form.formState.errors.limit} // transform to boolean
@@ -515,7 +540,9 @@ export const PastorUpdatePage = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[13px] md:text-[14px]'>Todos</FormLabel>
+                          <FormLabel className='text-[13px] md:text-[14px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </FormItem>
                     )}

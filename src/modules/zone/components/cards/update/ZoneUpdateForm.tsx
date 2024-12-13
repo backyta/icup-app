@@ -7,27 +7,30 @@ import { useState } from 'react';
 
 import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-
+import { zodResolver } from '@hookform/resolvers/zod';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import {
-  useUpdateZoneEffects,
-  useZoneUpdateMutation,
-  useZoneUpdateSubmitButtonLogic,
-} from '@/modules/zone/hooks';
-import { zoneFormSchema } from '@/modules/zone/validations';
-import { ZoneFormSkeleton } from '@/modules/zone/components';
-import { type ZoneResponse } from '@/modules/zone/interfaces';
+import { useUpdateZoneEffects } from '@/modules/zone/hooks/useZoneUpdateEffects';
+import { useZoneUpdateMutation } from '@/modules/zone/hooks/useZoneUpdateMutation';
+import { useZoneUpdateSubmitButtonLogic } from '@/modules/zone/hooks/useZoneUpdateSubmitButtonLogic';
 
-import { getSimpleSupervisors } from '@/modules/supervisor/services';
+import { zoneFormSchema } from '@/modules/zone/validations/zone-form-schema';
+import { type ZoneResponse } from '@/modules/zone/interfaces/zone-response.interface';
+import { ZoneFormSkeleton } from '@/modules/zone/components/cards/update/ZoneFormSkeleton';
+
+import { getSimpleSupervisors } from '@/modules/supervisor/services/supervisor.service';
 
 import { cn } from '@/shared/lib/utils';
-import { getFullNames, validateDistrictsAllowedByModule } from '@/shared/helpers';
-import { CountryNames, DepartmentNames, DistrictNames, ProvinceNames } from '@/shared/enums';
+
+import { getFullNames } from '@/shared/helpers/get-full-names.helper';
+import { validateDistrictsAllowedByModule } from '@/shared/helpers/validate-districts-allowed-by-module.helper';
+
+import { CountryNames } from '@/shared/enums/country.enum';
+import { ProvinceNames } from '@/shared/enums/province.enum';
+import { DistrictNames } from '@/shared/enums/district.enum';
+import { DepartmentNames } from '@/shared/enums/department.enum';
 
 import {
   Form,
@@ -387,7 +390,7 @@ export const ZoneUpdateForm = ({
                                     )}
                                   >
                                     {field.value
-                                      ? `${notAvailableSupervisorQuery?.data?.find((supervisor) => supervisor.id === field.value)?.member?.firstName} ${notAvailableSupervisorQuery?.data?.find((supervisor) => supervisor.id === field.value)?.member?.lastName}`
+                                      ? `${notAvailableSupervisorQuery?.data?.find((supervisor) => supervisor.id === field.value)?.member?.firstNames} ${notAvailableSupervisorQuery?.data?.find((supervisor) => supervisor.id === field.value)?.member?.lastNames}`
                                       : 'Busque y seleccione una iglesia'}
                                     <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                   </Button>
@@ -408,8 +411,8 @@ export const ZoneUpdateForm = ({
                                           <CommandItem
                                             className='text-[14px]'
                                             value={getFullNames({
-                                              firstNames: supervisor?.member?.firstName ?? '',
-                                              lastNames: supervisor?.member?.lastName ?? '',
+                                              firstNames: supervisor?.member?.firstNames ?? '',
+                                              lastNames: supervisor?.member?.lastNames ?? '',
                                             })}
                                             key={supervisor.id}
                                             onSelect={() => {
@@ -417,7 +420,7 @@ export const ZoneUpdateForm = ({
                                               setIsInputTheirSupervisorOpen(false);
                                             }}
                                           >
-                                            {`${supervisor?.member?.firstName} ${supervisor?.member?.lastName}`}
+                                            {`${supervisor?.member?.firstNames} ${supervisor?.member?.lastNames}`}
                                             <CheckIcon
                                               className={cn(
                                                 'ml-auto h-4 w-4',

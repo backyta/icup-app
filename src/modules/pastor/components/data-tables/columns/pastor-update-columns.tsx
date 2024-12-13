@@ -7,8 +7,10 @@ import { type ColumnDef } from '@tanstack/react-table';
 
 import { Button } from '@/shared/components/ui/button';
 
-import { type PastorColumns } from '@/modules/pastor/interfaces';
-import { PastorInfoCard, PastorUpdateCard } from '@/modules/pastor/components';
+import { type PastorColumns } from '@/modules/pastor/interfaces/pastor-columns.interface';
+
+import { PastorInfoCard } from '@/modules/pastor/components/cards/info/PastorInfoCard';
+import { PastorUpdateCard } from '@/modules/pastor/components/cards/update/PastorUpdateCard';
 
 export const pastorUpdateColumns: Array<ColumnDef<PastorColumns, any>> = [
   {
@@ -34,8 +36,8 @@ export const pastorUpdateColumns: Array<ColumnDef<PastorColumns, any>> = [
     },
   },
   {
-    id: 'firstName',
-    accessorKey: 'member.firstName',
+    id: 'firstNames',
+    accessorKey: 'member.firstNames',
     header: ({ column }) => {
       return (
         <Button
@@ -52,8 +54,8 @@ export const pastorUpdateColumns: Array<ColumnDef<PastorColumns, any>> = [
     },
   },
   {
-    id: 'lastName',
-    accessorKey: 'member.lastName',
+    id: 'lastNames',
+    accessorKey: 'member.lastNames',
     header: ({ column }) => {
       return (
         <Button

@@ -4,8 +4,12 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
-import { type ErrorResponse } from '@/shared/interfaces';
-import { inactivateChurch, type InactivateChurchOptions } from '@/modules/church/services';
+import {
+  inactivateChurch,
+  type InactivateChurchOptions,
+} from '@/modules/church/services/church.service';
+
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
 
 interface Options {
   scrollToTop: () => void;
@@ -15,10 +19,10 @@ interface Options {
 }
 
 export const useChurchInactivationMutation = ({
-  setIsButtonDisabled,
-  setIsSelectInputDisabled,
   scrollToTop,
   setIsCardOpen,
+  setIsButtonDisabled,
+  setIsSelectInputDisabled,
 }: Options): UseMutationResult<void, ErrorResponse, InactivateChurchOptions, unknown> => {
   //* Hooks (external libraries)
   const navigate = useNavigate();

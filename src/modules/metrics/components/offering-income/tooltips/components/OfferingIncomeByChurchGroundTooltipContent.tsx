@@ -3,17 +3,16 @@
 import { addDays } from 'date-fns';
 import { cn } from '@/shared/lib/utils';
 
-import { dateFormatterToDDMMYY } from '@/shared/helpers';
-import { type TooltipConfig } from '@/shared/interfaces';
+import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
 
-import { CurrencyType } from '@/modules/offering/shared/enums';
+import { CurrencyType } from '@/modules/offering/shared/enums/currency-type.enum';
 import {
-  type MemberType,
-  MemberTypeNames,
   type OfferingIncomeCreationCategory,
   OfferingIncomeCreationCategoryNames,
-} from '@/modules/offering/income/enums';
-import { type OfferingsIncomePayloadByChurchGround } from '@/modules/metrics/components/offering-income/tooltips/interfaces';
+} from '@/modules/offering/income/enums/offering-income-creation-category.enum';
+import { type MemberType, MemberTypeNames } from '@/modules/offering/income/enums/member-type.enum';
+import { type OfferingsIncomePayloadByChurchGround } from '@/modules/metrics/components/offering-income/tooltips/interfaces/offering-income-by-church-ground-tooltip-payload.interface';
 
 export const OfferingIncomeByChurchGroundTooltipContent = (
   props: TooltipConfig<OfferingsIncomePayloadByChurchGround>

@@ -2,8 +2,9 @@
 
 import * as z from 'zod';
 
-import { RecordOrder } from '@/shared/enums';
-import { UserRole, UserSearchType } from '@/modules/user/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { UserRole } from '@/modules/user/enums/user-role.enum';
+import { UserSearchType } from '@/modules/user/enums/user-search-type.enum';
 
 export const userSearchByTermFormSchema = z
   .object({
@@ -19,7 +20,7 @@ export const userSearchByTermFormSchema = z
 
     selectTerm: z.string().max(30).optional(),
 
-    namesTerm: z.string().max(30).optional(),
+    firstNamesTerm: z.string().max(30).optional(),
 
     lastNamesTerm: z.string().max(30).optional(),
 
@@ -44,9 +45,9 @@ export const userSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === UserSearchType.FirstName
+        data.searchType === UserSearchType.FirstNames
       ) {
-        return !!data.namesTerm; 
+        return !!data.firstNamesTerm; 
       }
       return true;
     },
@@ -58,7 +59,7 @@ export const userSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === UserSearchType.LastName
+        data.searchType === UserSearchType.LastNames
       ) {
         return !!data.lastNamesTerm;
       }
@@ -89,7 +90,7 @@ export const userSearchByTermFormSchema = z
       if (
         data.searchType === UserSearchType.FullName
       ) {
-        return !!data.namesTerm; 
+        return !!data.firstNamesTerm; 
       }
       return true;
     },

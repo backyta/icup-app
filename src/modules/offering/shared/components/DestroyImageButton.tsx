@@ -7,9 +7,12 @@ import { cn } from '@/shared/lib/utils';
 
 import { Button } from '@/shared/components/ui/button';
 
-import { type OfferingFileType } from '@/modules/offering/shared/enums';
-import { useImageDeletionMutation } from '@/modules/offering/shared/hooks';
-import { extractPath, extractPublicId } from '@/modules/offering/shared/helpers';
+import {
+  extractPath,
+  extractPublicId,
+} from '@/modules/offering/shared/helpers/extract-data-secure-url.helper';
+import { type OfferingFileType } from '@/modules/offering/shared/enums/offering-file-type.enum';
+import { useImageDeletionMutation } from '@/modules/offering/shared/hooks/useImageDeletionMutation';
 
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 

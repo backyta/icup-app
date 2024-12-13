@@ -1,31 +1,29 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-misused-promises */
 
 import { useState } from 'react';
 
 import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
-
 import { GiCardExchange } from 'react-icons/gi';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery } from '@tanstack/react-query';
-
+import { zodResolver } from '@hookform/resolvers/zod';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import {
-  useZoneSupervisorUpdateEffects,
-  useZoneSupervisorUpdateMutation,
-  useZoneSupervisorUpdateSubmitButtonLogic,
-} from '@/modules/zone/hooks';
-import { type ZoneResponse } from '@/modules/zone/interfaces';
-import { SupervisorSearchType } from '@/modules/supervisor/enums';
-import { getSupervisorsByCopastor } from '@/modules/supervisor/services';
-import { zoneSupervisorUpdateFormSchema } from '@/modules/zone/validations';
+import { useZoneSupervisorUpdateEffects } from '@/modules/zone/hooks/useZoneSupervisorUpdateEffects';
+import { useZoneSupervisorUpdateMutation } from '@/modules/zone/hooks/useZoneSupervisorUpdateMutation';
+import { useZoneSupervisorUpdateSubmitButtonLogic } from '@/modules/zone/hooks/useZoneSupervisorUpdateSubmitButtonLogic';
+
+import { type ZoneResponse } from '@/modules/zone/interfaces/zone-response.interface';
+import { getSupervisorsByCopastor } from '@/modules/supervisor/services/supervisor.service';
+import { SupervisorSearchType } from '@/modules/supervisor/enums/supervisor-search-type.enum';
+import { zoneSupervisorUpdateFormSchema } from '@/modules/zone/validations/zone-supervisor-update-form-schema';
 
 import { cn } from '@/shared/lib/utils';
-import { getFullNames, getInitialFullNames } from '@/shared/helpers';
+
+import { getFullNames, getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 
 import {
   Form,
@@ -143,8 +141,8 @@ export const ZoneSupervisorUpdateForm = ({
               Copastor:{' '}
               <span className='font-black text-blue-500 text-[16.5px] md:text-[17.5px]'>
                 {getInitialFullNames({
-                  firstNames: data?.theirCopastor?.firstName ?? '',
-                  lastNames: data?.theirCopastor?.lastName ?? '',
+                  firstNames: data?.theirCopastor?.firstNames ?? '',
+                  lastNames: data?.theirCopastor?.lastNames ?? '',
                 })}
               </span>
             </div>
@@ -232,7 +230,7 @@ export const ZoneSupervisorUpdateForm = ({
                                     className={cn('w-full justify-between font-medium text-[14px]')}
                                   >
                                     {field.value
-                                      ? `${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.member?.firstName} ${supervisorsQuery.data?.find((supervisor) => supervisor.id === field.value)?.member?.lastName}`
+                                      ? `${supervisorsQuery?.data?.find((supervisor) => supervisor.id === field.value)?.member?.firstNames} ${supervisorsQuery.data?.find((supervisor) => supervisor.id === field.value)?.member?.lastNames}`
                                       : 'Seleccione un supervisor'}
                                     <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                   </Button>
@@ -258,8 +256,8 @@ export const ZoneSupervisorUpdateForm = ({
                                         <CommandItem
                                           className='text-[14px]'
                                           value={getFullNames({
-                                            firstNames: supervisor?.member?.firstName ?? '',
-                                            lastNames: supervisor?.member?.lastName ?? '',
+                                            firstNames: supervisor?.member?.firstNames ?? '',
+                                            lastNames: supervisor?.member?.lastNames ?? '',
                                           })}
                                           key={supervisor.id}
                                           onSelect={() => {
@@ -267,7 +265,7 @@ export const ZoneSupervisorUpdateForm = ({
                                             setIsInputTheirSupervisorOpen(false);
                                           }}
                                         >
-                                          {`${supervisor?.member?.firstName} ${supervisor?.member?.lastName}`}
+                                          {`${supervisor?.member?.firstNames} ${supervisor?.member?.lastNames}`}
                                           <CheckIcon
                                             className={cn(
                                               'ml-auto h-4 w-4',

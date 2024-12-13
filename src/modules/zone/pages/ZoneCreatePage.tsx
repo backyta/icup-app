@@ -7,30 +7,27 @@ import { useEffect, useState } from 'react';
 import type * as z from 'zod';
 import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
-
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
-
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { cn } from '@/shared/lib/utils';
 
-import { PageTitle } from '@/shared/components/page';
-import { zoneFormSchema } from '@/modules/zone/validations';
-import { getSimpleSupervisors } from '@/modules/supervisor/services';
-import { useZoneCreationSubmitButtonLogic, useZoneCreationMutation } from '@/modules/zone/hooks';
+import { DistrictNames } from '@/shared/enums/district.enum';
+import { Country, CountryNames } from '@/shared/enums/country.enum';
+import { Province, ProvinceNames } from '@/shared/enums/province.enum';
+import { Department, DepartmentNames } from '@/shared/enums/department.enum';
 
-import {
-  Country,
-  Province,
-  Department,
-  CountryNames,
-  ProvinceNames,
-  DistrictNames,
-  DepartmentNames,
-} from '@/shared/enums';
-import { getFullNames, validateDistrictsAllowedByModule } from '@/shared/helpers';
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { zoneFormSchema } from '@/modules/zone/validations/zone-form-schema';
+import { getSimpleSupervisors } from '@/modules/supervisor/services/supervisor.service';
+
+import { useZoneCreationMutation } from '@/modules/zone/hooks/useZoneCreationMutation';
+import { useZoneCreationSubmitButtonLogic } from '@/modules/zone/hooks/useZoneCreationSubmitButtonLogic';
+
+import { getFullNames } from '@/shared/helpers/get-full-names.helper';
+import { validateDistrictsAllowedByModule } from '@/shared/helpers/validate-districts-allowed-by-module.helper';
 
 import {
   Form,
@@ -345,7 +342,7 @@ export const ZoneCreatePage = (): JSX.Element => {
                             className={cn('w-full justify-between ')}
                           >
                             {field.value
-                              ? `${data?.find((supervisor) => supervisor.id === field.value)?.member?.firstName} ${data?.find((supervisor) => supervisor.id === field.value)?.member?.lastName}`
+                              ? `${data?.find((supervisor) => supervisor.id === field.value)?.member?.firstNames} ${data?.find((supervisor) => supervisor.id === field.value)?.member?.lastNames}`
                               : 'Busque y seleccione un supervisor'}
                             <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                           </Button>
@@ -370,8 +367,8 @@ export const ZoneCreatePage = (): JSX.Element => {
                                   <CommandItem
                                     className='text-[14px]'
                                     value={getFullNames({
-                                      firstNames: supervisor?.member?.firstName ?? '',
-                                      lastNames: supervisor?.member?.lastName ?? '',
+                                      firstNames: supervisor?.member?.firstNames ?? '',
+                                      lastNames: supervisor?.member?.lastNames ?? '',
                                     })}
                                     key={supervisor?.id}
                                     onSelect={() => {
@@ -379,7 +376,7 @@ export const ZoneCreatePage = (): JSX.Element => {
                                       setIsInputTheirSupervisorOpen(false);
                                     }}
                                   >
-                                    {`${supervisor?.member?.firstName} ${supervisor?.member?.lastName}`}
+                                    {`${supervisor?.member?.firstNames} ${supervisor?.member?.lastNames}`}
                                     <CheckIcon
                                       className={cn(
                                         'ml-auto h-4 w-4',

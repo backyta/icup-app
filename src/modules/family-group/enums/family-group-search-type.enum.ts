@@ -1,10 +1,11 @@
 export enum FamilyGroupSearchType {
-  FirstName = 'first_name',
-  LastName = 'last_name',
-  FullName = 'full_name',
+  FirstNames = 'first_names',
+  LastNames = 'last_names',
+  FullNames = 'full_names',
   ZoneName = 'zone_name',
   FamilyGroupCode = 'family_group_code',
   FamilyGroupName = 'family_group_name',
+  Country = 'country',
   Department = 'department',
   Province = 'province',
   District = 'district',
@@ -14,12 +15,13 @@ export enum FamilyGroupSearchType {
 }
 
 export const FamilyGroupSearchTypeNames: Record<FamilyGroupSearchType, string> =  {
-  [FamilyGroupSearchType.FirstName]: 'Nombres',
-  [FamilyGroupSearchType.LastName]: 'Apellidos',
-  [FamilyGroupSearchType.FullName]: 'Nombres y Apellidos',
+  [FamilyGroupSearchType.FirstNames]: 'Nombres',
+  [FamilyGroupSearchType.LastNames]: 'Apellidos',
+  [FamilyGroupSearchType.FullNames]: 'Nombres y Apellidos',
   [FamilyGroupSearchType.ZoneName]: 'Nombre de Zona',
   [FamilyGroupSearchType.FamilyGroupCode]: 'Código de grupo familiar',
   [FamilyGroupSearchType.FamilyGroupName]: 'Nombre de grupo familiar',
+  [FamilyGroupSearchType.Country]: 'País',
   [FamilyGroupSearchType.Department]: 'Departamento',
   [FamilyGroupSearchType.Province]: 'Provincia',
   [FamilyGroupSearchType.District]: 'Distrito',

@@ -1,5 +1,5 @@
 import * as z from 'zod';
-import { RecordOrder } from '@/shared/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
 export const formSearchGeneralSchema = z
   .object({

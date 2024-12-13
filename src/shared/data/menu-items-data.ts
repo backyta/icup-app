@@ -1,20 +1,20 @@
-import { type MenuItem } from '@/shared/interfaces';
+import { type MenuItem } from '@/shared/interfaces/menu-item.interface';
+
 import { 
-  FcBullish, 
   FcHome, 
-  FcSportsMode, 
-  FcPodiumWithSpeaker, 
-  FcBusinesswoman, 
   FcLike, 
-  FcReadingEbook , 
-  FcStatistics,
+  FcBullish, 
   FcManager,
   FcFlowChart,
+  FcSportsMode, 
+  FcStatistics,
   FcBusinessman,
+  FcReadingEbook , 
+  FcBusinesswoman, 
+  FcPodiumWithSpeaker, 
   } from 'react-icons/fc';
 
 import { PiChurch } from "react-icons/pi";
-
 
 export const menuItems: MenuItem[] = [
   { title: 'Panel de Control', subTitle: 'Resumen informativo', href: '/dashboard', Icon: FcBullish },

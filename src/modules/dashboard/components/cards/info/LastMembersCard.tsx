@@ -12,16 +12,15 @@ import { FcDeleteDatabase } from 'react-icons/fc';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CaretSortIcon } from '@radix-ui/react-icons';
 
+import { getDisciples } from '@/modules/disciple/services/disciple.service';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
+
+import { MemberInfoItem } from '@/modules/dashboard/components/cards/info/MemberInfoItem';
+import { dashBoardSearchFormSchema } from '@/modules/dashboard/validations/dashboard-search-form-schema';
+
 import { cn } from '@/shared/lib/utils';
-import { RecordOrder } from '@/shared/enums';
-import { LoadingSpinner } from '@/shared/components';
-
-import { MemberInfoItem } from '@/modules/dashboard/components';
-
-import { getDisciples } from '@/modules/disciple/services';
-import { getSimpleChurches } from '@/modules/church/services';
-
-import { dashBoardSearchFormSchema } from '@/modules/dashboard/validations';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
 import {
   Card,

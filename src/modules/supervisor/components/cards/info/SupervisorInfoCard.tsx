@@ -6,9 +6,9 @@ import { useMediaQuery } from '@react-hook/media-query';
 
 import { cn } from '@/shared/lib/utils';
 
-import { useSupervisorStore } from '@/stores/supervisor';
+import { useSupervisorStore } from '@/stores/supervisor/supervisor.store';
 
-import { SupervisorTabsCard } from '@/modules/supervisor/components';
+import { SupervisorTabsCard } from '@/modules/supervisor/components/cards/info/SupervisorTabsCard';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

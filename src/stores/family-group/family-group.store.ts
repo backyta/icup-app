@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 
 import { create, type StateCreator } from 'zustand';
-import { type FamilyGroupResponse } from '@/modules/family-group/interfaces';
+import { type FamilyGroupResponse } from '@/modules/family-group/interfaces/family-group-response.interface';
 
 interface FamilyGroupStore {
   // Properties

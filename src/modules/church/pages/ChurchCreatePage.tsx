@@ -19,30 +19,26 @@ import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import {
-  useChurchCreationMutation,
-  useChurchCreationSubmitButtonLogic,
-} from '@/modules/church/hooks';
-import { getMainChurch } from '@/modules/church/services';
-import { churchFormSchema } from '@/modules/church/validations';
-import { ChurchServiceTime, ChurchServiceTimeNames } from '@/modules/church/enums';
+  ChurchServiceTime,
+  ChurchServiceTimeNames,
+} from '@/modules/church/enums/church-service-time.enum';
+import { getMainChurch } from '@/modules/church/services/church.service';
+import { churchFormSchema } from '@/modules/church/validations/church-form-schema';
+
+import { useChurchCreationMutation } from '@/modules/church/hooks/useChurchCreationMutation';
+import { useChurchCreationSubmitButtonLogic } from '@/modules/church/hooks/useChurchCreationSubmitButtonLogic';
 
 import { cn } from '@/shared/lib/utils';
-import { PageTitle } from '@/shared/components/page';
+import { PageTitle } from '@/shared/components/page/PageTitle';
 
-import {
-  Country,
-  Province,
-  Department,
-  CountryNames,
-  DistrictNames,
-  ProvinceNames,
-  DepartmentNames,
-  UrbanSectorNames,
-} from '@/shared/enums';
-import {
-  validateDistrictsAllowedByModule,
-  validateUrbanSectorsAllowedByDistrict,
-} from '@/shared/helpers';
+import { DistrictNames } from '@/shared/enums/district.enum';
+import { Country, CountryNames } from '@/shared/enums/country.enum';
+import { UrbanSectorNames } from '@/shared/enums/urban-sector.enum';
+import { Province, ProvinceNames } from '@/shared/enums/province.enum';
+import { Department, DepartmentNames } from '@/shared/enums/department.enum';
+
+import { validateDistrictsAllowedByModule } from '@/shared/helpers/validate-districts-allowed-by-module.helper';
+import { validateUrbanSectorsAllowedByDistrict } from '@/shared/helpers/validate-urban-sectors-allowed-by-district.helper';
 
 import {
   Form,
@@ -328,7 +324,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                                     }}
                                   />
                                 </FormControl>
-                                <FormLabel className='text-[14px] font-medium'>
+                                <FormLabel className='text-[14px] font-medium cursor-pointer'>
                                   {ChurchServiceTimeNames[serviceTime]}
                                 </FormLabel>
                               </FormItem>
@@ -666,7 +662,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                       />
                     </FormControl>
                     <div className='space-y-1 leading-none'>
-                      <FormLabel className='text-[13px] md:text-[14px]'>
+                      <FormLabel className='text-[13px] md:text-[14px] cursor-pointer'>
                         ¿Esta iglesia sera un anexo?
                       </FormLabel>
                     </div>

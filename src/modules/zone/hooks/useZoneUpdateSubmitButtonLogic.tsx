@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
-import { type ZoneFormData } from '@/modules/zone/interfaces';
+import { type ZoneFormData } from '@/modules/zone/interfaces/zone-form-data.interface';
 
 interface Options {
   zoneUpdateForm: UseFormReturn<ZoneFormData, any, ZoneFormData>;

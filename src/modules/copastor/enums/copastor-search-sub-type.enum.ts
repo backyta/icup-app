@@ -1,34 +1,34 @@
 export enum CopastorSearchSubType {
-  CopastorByPastorNames = 'copastor_by_pastor_names',
+  CopastorByPastorFirstNames = 'copastor_by_pastor_first_names',
   CopastorByPastorLastNames = 'copastor_by_pastor_last_names',
-  CopastorByPastorFullName = 'copastor_by_pastor_full_name',
-  ByCopastorNames = 'by_copastor_names',
+  CopastorByPastorFullNames = 'copastor_by_pastor_full_names',
+  ByCopastorFirstNames = 'by_copastor_first_names',
   ByCopastorLastNames = 'by_copastor_last_names',
-  ByCopastorFullName = 'by_copastor_full_name',
+  ByCopastorFullNames = 'by_copastor_full_name',
 }
 
 export const CopastorSearchSubTypeNames: Record<CopastorSearchSubType, string> = {
-  [CopastorSearchSubType.CopastorByPastorNames]: 'Por nombres de su pastor',
+  [CopastorSearchSubType.CopastorByPastorFirstNames]: 'Por nombres de su pastor',
   [CopastorSearchSubType.CopastorByPastorLastNames]: 'Por apellidos de su pastor',
-  [CopastorSearchSubType.CopastorByPastorFullName]: 'Por nombres y apellidos de su pastor',
-  [CopastorSearchSubType.ByCopastorNames]: 'Por sus nombres',
+  [CopastorSearchSubType.CopastorByPastorFullNames]: 'Por nombres y apellidos de su pastor',
+  [CopastorSearchSubType.ByCopastorFirstNames]: 'Por sus nombres',
   [CopastorSearchSubType.ByCopastorLastNames]: 'Por sus apellidos',
-  [CopastorSearchSubType.ByCopastorFullName]: 'Por sus nombres y apellidos',
+  [CopastorSearchSubType.ByCopastorFullNames]: 'Por sus nombres y apellidos',
 };
 
 
-//* FirstName
+//* FirstNames
 export enum SubTypeCopastorSearchByFirstNames {
-  CopastorByPastorNames = 'copastor_by_pastor_names',
-  ByCopastorNames = 'by_copastor_names',
+  CopastorByPastorFirstNames = 'copastor_by_pastor_first_names',
+  ByCopastorFirstNames = 'by_copastor_first_names',
 }
 
 export const SubTypeNamesCopastorSearchByFirstNames: Record<SubTypeCopastorSearchByFirstNames, string> =  {
-  [SubTypeCopastorSearchByFirstNames.CopastorByPastorNames]: 'Por nombres de su pastor',
-  [SubTypeCopastorSearchByFirstNames.ByCopastorNames]: 'Por sus nombres',
+  [SubTypeCopastorSearchByFirstNames.CopastorByPastorFirstNames]: 'Por nombres de su pastor',
+  [SubTypeCopastorSearchByFirstNames.ByCopastorFirstNames]: 'Por sus nombres',
 }
 
-//* LastName
+//* LastNames
 export enum SubTypeCopastorSearchByLastNames {
   CopastorByPastorLastNames = 'copastor_by_pastor_last_names',
   ByCopastorLastNames = 'by_copastor_last_names',
@@ -41,12 +41,12 @@ export const SubTypeNamesCopastorSearchByLastNames: Record<SubTypeCopastorSearch
 
 //* Full Name
 export enum SubTypeCopastorSearchByFullNames {
-  CopastorByPastorFullName = 'copastor_by_pastor_full_name',
-  ByCopastorFullName = 'by_copastor_full_name',
+  CopastorByPastorFullNames = 'copastor_by_pastor_full_names',
+  ByCopastorFullNames = 'by_copastor_full_names',
 }
 
 export const SubTypeNamesCopastorSearchByFullNames: Record<SubTypeCopastorSearchByFullNames, string> =  {
-  [SubTypeCopastorSearchByFullNames.CopastorByPastorFullName]: 'Por nombres y apellidos de su pastor',
-  [SubTypeCopastorSearchByFullNames.ByCopastorFullName]: 'Por sus nombres y apellidos',
+  [SubTypeCopastorSearchByFullNames.CopastorByPastorFullNames]: 'Por nombres y apellidos de su pastor',
+  [SubTypeCopastorSearchByFullNames.ByCopastorFullNames]: 'Por sus nombres y apellidos',
 }
 

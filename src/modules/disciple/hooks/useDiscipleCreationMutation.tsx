@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { type UseFormReturn } from 'react-hook-form';
 import { useMutation, type UseMutationResult } from '@tanstack/react-query';
 
-import { type ErrorResponse } from '@/shared/interfaces';
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
 
-import { createDisciple } from '@/modules/disciple/services';
-import { type DiscipleFormData, type DiscipleResponse } from '@/modules/disciple/interfaces';
+import { createDisciple } from '@/modules/disciple/services/disciple.service';
+import { type DiscipleResponse } from '@/modules/disciple/interfaces/disciple-response.interface';
+import { type DiscipleFormData } from '@/modules/disciple/interfaces/disciple-form-data.interface';
 
 interface Options {
   discipleCreationForm: UseFormReturn<DiscipleFormData, any, DiscipleFormData>;

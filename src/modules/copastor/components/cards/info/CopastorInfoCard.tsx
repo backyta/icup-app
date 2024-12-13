@@ -6,9 +6,9 @@ import { useMediaQuery } from '@react-hook/media-query';
 import { BsFillPersonVcardFill } from 'react-icons/bs';
 
 import { cn } from '@/shared/lib/utils';
-import { useCopastorStore } from '@/stores/copastor';
+import { useCopastorStore } from '@/stores/copastor/copastor.store';
 
-import { CopastorTabsCard } from '@/modules/copastor/components';
+import { CopastorTabsCard } from '@/modules/copastor/components/cards/info/CopastorTabsCard';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

@@ -3,8 +3,8 @@
 import { isAxiosError } from 'axios';
 import { icupApi } from '@/api/icupApi';
 
-import { type OfferingFileType } from '@/modules/offering/shared/enums';
-import { type UploadImageResponse } from '@/modules/offering/shared/interfaces';
+import { type OfferingFileType } from '@/modules/offering/shared/enums/offering-file-type.enum';
+import { type UploadImageResponse } from '@/modules/offering/shared/interfaces/upload-images-response';
 
 //* Upload Images
 export interface UploadImagesOptions{

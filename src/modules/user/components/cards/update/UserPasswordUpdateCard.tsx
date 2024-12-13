@@ -3,7 +3,7 @@ import { useRef, useState, useCallback } from 'react';
 import { ImKey2 } from 'react-icons/im';
 import { useMediaQuery } from '@react-hook/media-query';
 
-import { UserPasswordUpdateForm } from '@/modules/user/components';
+import { UserPasswordUpdateForm } from '@/modules/user/components/cards/update/UserPasswordUpdateForm';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

@@ -3,9 +3,9 @@ import { useRef, useState, useCallback, useMemo } from 'react';
 import { GiArchiveRegister } from 'react-icons/gi';
 import { useMediaQuery } from '@react-hook/media-query';
 
-import { useSupervisorStore } from '@/stores/supervisor';
+import { useSupervisorStore } from '@/stores/supervisor/supervisor.store';
 
-import { SupervisorUpdateForm } from '@/modules/supervisor/components';
+import { SupervisorUpdateForm } from '@/modules/supervisor/components/cards/update/SupervisorUpdateForm';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

@@ -3,21 +3,20 @@
 import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
-import { 
-  type MetricQueryParams, 
-  type OfferingIncomeProportionResponse,
-  type OfferingIncomeByActivitiesResponse,
-  type OfferingIncomeByFamilyGroupResponse,
-  type OfferingIncomeByYouthServiceResponse,
-  type OfferingIncomeBySundaySchoolResponse,
-  type OfferingIncomeBySundayServiceResponse, 
-  type OfferingIncomeByUnitedServiceResponse,
-  type OfferingIncomeByFastingAndVigilResponse,
-  type OfferingIncomeBySpecialOfferingResponse,
-  type OfferingIncomeByIncomeAdjustmentResponse,
-  type OfferingIncomeByChurchGroundOfferingResponse,
-} from '@/modules/metrics/interfaces';
 
+import { type MetricQueryParams } from '@/modules/metrics/interfaces/shared/metric-query-params.interface';
+
+import { type OfferingIncomeProportionResponse } from '@/modules/metrics/interfaces/offering-income-metrics/offering-income-proportion-response.interface';
+import { type OfferingIncomeByActivitiesResponse } from '@/modules/metrics/interfaces/offering-income-metrics/offering-income-by-activities-response.interface';
+import { type OfferingIncomeByFamilyGroupResponse } from '@/modules/metrics/interfaces/offering-income-metrics/offering-income-by-family-group-response.interface';
+import { type OfferingIncomeByYouthServiceResponse } from '@/modules/metrics/interfaces/offering-income-metrics/offering-income-by-youth-service-response.interface';
+import { type OfferingIncomeBySundaySchoolResponse } from '@/modules/metrics/interfaces/offering-income-metrics/offering-income-by-sunday-school-response.interface';
+import { type OfferingIncomeByUnitedServiceResponse } from '@/modules/metrics/interfaces/offering-income-metrics/offering-income-by-united-service-response.interface';
+import { type OfferingIncomeBySundayServiceResponse } from '@/modules/metrics/interfaces/offering-income-metrics/offering-income-by-sunday-service-response.interface';
+import { type OfferingIncomeBySpecialOfferingResponse } from '@/modules/metrics/interfaces/offering-income-metrics/offering-income-by-special-offering-response.interface';
+import { type OfferingIncomeByFastingAndVigilResponse } from '@/modules/metrics/interfaces/offering-income-metrics/offering-income-by-fasting-and-vigil-response.interface';
+import { type OfferingIncomeByIncomeAdjustmentResponse } from '@/modules/metrics/interfaces/offering-income-metrics/offering-income-by-income-adjustment-response.interface';
+import { type OfferingIncomeByChurchGroundOfferingResponse } from '@/modules/metrics/interfaces/offering-income-metrics/offering-income-by-church-ground-offering-response.interface';
 
 //* Get proportion offering income 
 export const getOfferingIncomeProportion = async ({ 

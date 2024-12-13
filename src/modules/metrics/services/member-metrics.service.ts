@@ -3,19 +3,19 @@
 import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
-import { 
-  type MetricQueryParams, 
-  type MembersProportionResponse, 
-  type MembersByCategoryResponse, 
-  type MembersFluctuationResponse,
-  type MembersByBirthMonthResponse, 
-  type MembersByRecordStatusResponse,
-  type MembersByMaritalStatusResponse, 
-  type MembersByZoneAndGenderResponse,
-  type MembersByRoleAndGenderResponse, 
-  type MembersByDistrictAndGenderResponse, 
-  type MembersByCategoryAndGenderResponse, 
-} from '@/modules/metrics/interfaces';
+
+import { type MetricQueryParams } from '@/modules/metrics/interfaces/shared/metric-query-params.interface';
+
+import { type MembersProportionResponse } from '@/modules/metrics/interfaces/member-metrics/members-proportion-response.interface';
+import { type MembersByCategoryResponse } from '@/modules/metrics/interfaces/member-metrics/members-by-category-response.interface';
+import { type MembersFluctuationResponse } from '@/modules/metrics/interfaces/member-metrics/members-fluctuation-response.interface';
+import { type MembersByBirthMonthResponse } from '@/modules/metrics/interfaces/member-metrics/members-by-birth-month-response.interface';
+import { type MembersByRecordStatusResponse } from '@/modules/metrics/interfaces/member-metrics/members-by-record-status-response.interface';
+import { type MembersByMaritalStatusResponse } from '@/modules/metrics/interfaces/member-metrics/members-by-marital-status-response.interface';
+import { type MembersByZoneAndGenderResponse } from '@/modules/metrics/interfaces/member-metrics/members-by-zone-and-gender-response.interface';
+import { type MembersByRoleAndGenderResponse } from '@/modules/metrics/interfaces/member-metrics/members-by-role-and-gender-response.interface';
+import { type MembersByDistrictAndGenderResponse } from '@/modules/metrics/interfaces/member-metrics/members-by-district-and-gender-response.interface';
+import { type MembersByCategoryAndGenderResponse } from '@/modules/metrics/interfaces/member-metrics/members-by-category-and-gender-response.interface';
 
 //* Get proportion members
 export const  getMembersProportion = async ({ 

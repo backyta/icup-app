@@ -23,21 +23,24 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table';
 
+import { useDiscipleStore } from '@/stores/disciple/disciple.store';
+
 import {
   DiscipleSearchType,
   DiscipleSearchTypeNames,
-  DiscipleSearchSubTypeNames,
-  DiscipleSearchSelectOptionNames,
-} from '@/modules/disciple/enums';
-import { getDisciplesByTerm, getDisciplesReportByTerm } from '@/modules/disciple/services';
-import {
-  type DiscipleQueryParams,
-  type DiscipleSearchFormByTerm,
-} from '@/modules/disciple/interfaces';
+} from '@/modules/disciple/enums/disciple-search-type.enum';
+import { DiscipleSearchSubTypeNames } from '@/modules/disciple/enums/disciple-search-sub-type.enum';
+import { DiscipleSearchSelectOptionNames } from '@/modules/disciple/enums/disciple-search-select-option.enum';
 
-import { useDiscipleStore } from '@/stores/disciple';
-import { LoadingSpinner } from '@/shared/components';
-import { dateFormatterToDDMMYYYY } from '@/shared/helpers';
+import {
+  getDisciplesByTerm,
+  getDisciplesReportByTerm,
+} from '@/modules/disciple/services/disciple.service';
+import { type DiscipleQueryParams } from '@/modules/disciple/interfaces/disciple-query-params.interface';
+import { type DiscipleSearchFormByTerm } from '@/modules/disciple/interfaces/disciple-form-search-by-term.interface';
+
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+import { dateFormatterToDDMMYYYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 
 import {
   Table,
@@ -49,7 +52,7 @@ import {
 } from '@/shared/components/ui/table';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
-import { getSimpleChurches } from '@/modules/church/services';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -190,9 +193,9 @@ export function SearchByTermDiscipleDataTable<TData, TValue>({
                 )?.[1]
               }`}
             </span>
-            {(dataForm?.searchType === DiscipleSearchType.FirstName ||
-              dataForm?.searchType === DiscipleSearchType.LastName ||
-              dataForm?.searchType === DiscipleSearchType.FullName) && (
+            {(dataForm?.searchType === DiscipleSearchType.FirstNames ||
+              dataForm?.searchType === DiscipleSearchType.LastNames ||
+              dataForm?.searchType === DiscipleSearchType.FullNames) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {' '}
                 -{' '}
@@ -211,31 +214,32 @@ export function SearchByTermDiscipleDataTable<TData, TValue>({
               Término de búsqueda:
             </span>{' '}
             {(dataForm?.searchType === DiscipleSearchType.OriginCountry ||
-              dataForm?.searchType === DiscipleSearchType.Department ||
+              dataForm?.searchType === DiscipleSearchType.ResidenceDepartment ||
+              dataForm?.searchType === DiscipleSearchType.ResidenceCountry ||
               dataForm?.searchType === DiscipleSearchType.ZoneName ||
               dataForm?.searchType === DiscipleSearchType.FamilyGroupCode ||
               dataForm?.searchType === DiscipleSearchType.FamilyGroupName ||
-              dataForm?.searchType === DiscipleSearchType.Province ||
-              dataForm?.searchType === DiscipleSearchType.District ||
-              dataForm?.searchType === DiscipleSearchType.UrbanSector ||
-              dataForm?.searchType === DiscipleSearchType.Address) && (
+              dataForm?.searchType === DiscipleSearchType.ResidenceProvince ||
+              dataForm?.searchType === DiscipleSearchType.ResidenceDistrict ||
+              dataForm?.searchType === DiscipleSearchType.ResidenceUrbanSector ||
+              dataForm?.searchType === DiscipleSearchType.ResidenceAddress) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.inputTerm}`}
               </span>
             )}
-            {dataForm?.searchType === DiscipleSearchType.FirstName && (
+            {dataForm?.searchType === DiscipleSearchType.FirstNames && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.namesTerm}`}
+                {`${dataForm?.firstNamesTerm}`}
               </span>
             )}
-            {dataForm?.searchType === DiscipleSearchType.LastName && (
+            {dataForm?.searchType === DiscipleSearchType.LastNames && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.lastNamesTerm}`}
               </span>
             )}
-            {dataForm?.searchType === DiscipleSearchType.FullName && (
+            {dataForm?.searchType === DiscipleSearchType.FullNames && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
+                {`${dataForm?.firstNamesTerm} - ${dataForm?.lastNamesTerm} `}
               </span>
             )}
             {dataForm?.searchType === DiscipleSearchType.BirthDate && (
@@ -260,7 +264,7 @@ export function SearchByTermDiscipleDataTable<TData, TValue>({
           {/* Search Church */}
           <div>
             <span className='dark:text-emerald-500 text-emerald-600 font-bold text-[14px] md:text-[15.5px]'>
-              Iglesia de Busqueda:
+              Iglesia de Búsqueda:
             </span>{' '}
             <span className='font-medium text-[13px] md:text-[14.5px] italic'>
               {`${
@@ -275,15 +279,17 @@ export function SearchByTermDiscipleDataTable<TData, TValue>({
             <Input
               disabled={isDisabledButton}
               placeholder='Filtro por nombres...'
-              value={(table.getColumn('firstName')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('firstName')?.setFilterValue(event.target.value)}
+              value={(table.getColumn('firstNames')?.getFilterValue() as string) ?? ''}
+              onChange={(event) =>
+                table.getColumn('firstNames')?.setFilterValue(event.target.value)
+              }
               className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
             />
             <Input
               disabled={isDisabledButton}
               placeholder='Filtro por apellidos...'
-              value={(table.getColumn('lastName')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('lastName')?.setFilterValue(event.target.value)}
+              value={(table.getColumn('lastNames')?.getFilterValue() as string) ?? ''}
+              onChange={(event) => table.getColumn('lastNames')?.setFilterValue(event.target.value)}
               className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
             />
             <Button
@@ -291,8 +297,8 @@ export function SearchByTermDiscipleDataTable<TData, TValue>({
               variant='ghost'
               className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 border-red-500 bg-gradient-to-r from-red-400 via-red-500 to-red-600 text-white hover:text-red-100 hover:from-red-500 hover:via-red-600 hover:to-red-700 dark:from-red-600 dark:via-red-700 dark:to-red-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-red-700 dark:hover:via-red-800 dark:hover:to-red-900'
               onClick={() => {
-                table.getColumn('firstName')?.setFilterValue('');
-                table.getColumn('lastName')?.setFilterValue('');
+                table.getColumn('firstNames')?.setFilterValue('');
+                table.getColumn('lastNames')?.setFilterValue('');
               }}
             >
               Borrar
@@ -303,8 +309,8 @@ export function SearchByTermDiscipleDataTable<TData, TValue>({
               className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
               onClick={() => {
                 setIsFiltersSearchByTermDisabled(true);
-                table.getColumn('firstName')?.setFilterValue('');
-                table.getColumn('lastName')?.setFilterValue('');
+                table.getColumn('firstNames')?.setFilterValue('');
+                table.getColumn('lastNames')?.setFilterValue('');
               }}
             >
               Nueva Búsqueda

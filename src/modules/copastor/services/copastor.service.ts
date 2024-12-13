@@ -4,13 +4,15 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { RecordOrder } from '@/shared/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
-import { CopastorSearchType } from '@/modules/copastor/enums';
-import { type CopastorResponse, type CopastorFormData, type CopastorQueryParams } from '@/modules/copastor/interfaces';
+import { CopastorSearchType } from '@/modules/copastor/enums/copastor-search-type.enum';
+import { type CopastorResponse} from '@/modules/copastor/interfaces/copastor-response.interface';
+import { type CopastorFormData } from '@/modules/copastor/interfaces/copastor-form-data.interface';
+import { type CopastorQueryParams } from '@/modules/copastor/interfaces/copastor-query-params.interface';
 
 
-//* Create co-pastor
+//* CREATE CO-PASTOR
 export const createCopastor = async (formData:CopastorFormData ): Promise<CopastorResponse> => {
   try {
     const {data} = await icupApi.post<CopastorResponse>('/copastors', formData)
@@ -25,7 +27,7 @@ export const createCopastor = async (formData:CopastorFormData ): Promise<Copast
   }
 }
 
-//* Get simple co-pastors
+//* GET SIMPLE CO-PASTORS
 export const getSimpleCopastors = async ({churchId, isSimpleQuery}: {churchId?: string; isSimpleQuery: boolean}): Promise<CopastorResponse[]> => {
   try {
     const {data} = await icupApi<CopastorResponse[]>('/copastors' , {
@@ -47,7 +49,7 @@ export const getSimpleCopastors = async ({churchId, isSimpleQuery}: {churchId?: 
   }
 }
 
-//* Get all co-pastors (paginated)
+//* GET ALL CO-PASTORS (PAGINATED)
 export const getCopastors = async ({limit, offset, all, order, churchId}: CopastorQueryParams): Promise<CopastorResponse[]> => {
 
  let result: CopastorResponse[];
@@ -85,14 +87,14 @@ export const getCopastors = async ({limit, offset, all, order, churchId}: Copast
   }
 }
 
-// ? Get co-pastors by term (paginated)
+// ? GET CO-PASTORS BY TERM (PAGINATED)
 export const getCopastorsByTerm = async ({ 
   searchType, 
   searchSubType, 
   inputTerm, 
   dateTerm, 
   selectTerm, 
-  namesTerm,
+  firstNamesTerm,
   lastNamesTerm,
   limit, 
   offset, 
@@ -105,11 +107,12 @@ export const getCopastorsByTerm = async ({
 
  //* Origin country, department, province, district, urban sector, address
  if (searchType === CopastorSearchType.OriginCountry||
-     searchType === CopastorSearchType.Department ||
-     searchType === CopastorSearchType.Province ||
-     searchType === CopastorSearchType.District ||
-     searchType === CopastorSearchType.UrbanSector ||
-     searchType === CopastorSearchType.Address
+     searchType === CopastorSearchType.ResidenceCountry||
+     searchType === CopastorSearchType.ResidenceDepartment ||
+     searchType === CopastorSearchType.ResidenceProvince ||
+     searchType === CopastorSearchType.ResidenceDistrict ||
+     searchType === CopastorSearchType.ResidenceUrbanSector ||
+     searchType === CopastorSearchType.ResidenceAddress
     ) {
     try {
         if (!all) {
@@ -225,11 +228,11 @@ export const getCopastorsByTerm = async ({
   }
 
  //* First Name
-  if (searchType === CopastorSearchType.FirstName
+  if (searchType === CopastorSearchType.FirstNames
       ) {
       try {
         if (!all) {
-          const {data} = await icupApi<CopastorResponse[]>(`/copastors/${namesTerm}` , {
+          const {data} = await icupApi<CopastorResponse[]>(`/copastors/${firstNamesTerm}` , {
             params: {
               limit,
               offset,
@@ -242,7 +245,7 @@ export const getCopastorsByTerm = async ({
 
           result = data;
         }else {
-          const {data} = await icupApi<CopastorResponse[]>(`/copastors/${namesTerm}` , {
+          const {data} = await icupApi<CopastorResponse[]>(`/copastors/${firstNamesTerm}` , {
             params: {
               order,
               churchId,
@@ -266,7 +269,7 @@ export const getCopastorsByTerm = async ({
   }
 
  //* Last Name 
-  if (searchType === CopastorSearchType.LastName
+  if (searchType === CopastorSearchType.LastNames
       ) {
       try {
         if (!all) {
@@ -307,11 +310,11 @@ export const getCopastorsByTerm = async ({
   }
 
  //* Full Name
-  if (searchType === CopastorSearchType.FullName
+  if (searchType === CopastorSearchType.FullNames
       ) {
       try {
         if (!all) {
-          const {data} = await icupApi<CopastorResponse[]>(`/copastors/${namesTerm}-${lastNamesTerm}` , {
+          const {data} = await icupApi<CopastorResponse[]>(`/copastors/${firstNamesTerm}-${lastNamesTerm}` , {
             params: {
               limit,
               offset,
@@ -324,7 +327,7 @@ export const getCopastorsByTerm = async ({
           
           result = data;
         }else {
-          const {data} = await icupApi<CopastorResponse[]>(`/copastors/${namesTerm}-${lastNamesTerm}` , {
+          const {data} = await icupApi<CopastorResponse[]>(`/copastors/${firstNamesTerm}-${lastNamesTerm}` , {
             params: {
               order,
               churchId,
@@ -348,7 +351,7 @@ export const getCopastorsByTerm = async ({
   }
 }
 
-// //* Update co-pastor by ID
+// ? UPDATE CO-PASTOR BY ID
 export interface UpdateCopastorOptions {
   id: string;
   formData: CopastorFormData;
@@ -368,7 +371,7 @@ export const updateCopastor = async ({id, formData}: UpdateCopastorOptions ): Pr
   }
 }
 
-// //! Inactivate  co-pastor by ID
+//! INACTIVATE CO-PASTOR BY ID
 export interface InactivateCopastorOptions {
   id: string;
   memberInactivationCategory: string;
@@ -401,6 +404,7 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
+//* General
 export const getGeneralCopastorsReport = async ({limit, offset, order, churchId}: CopastorQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/copastors' , {
@@ -427,13 +431,14 @@ export const getGeneralCopastorsReport = async ({limit, offset, order, churchId}
    }
  }
 
+ //* By term
 export const getCopastorsReportByTerm = async ({   
   searchType, 
   searchSubType,
   inputTerm, 
   dateTerm, 
   selectTerm, 
-  namesTerm,
+  firstNamesTerm,
   lastNamesTerm,
   limit, 
   offset, 
@@ -443,19 +448,20 @@ export const getCopastorsReportByTerm = async ({
   let newTerm: string | undefined = '';
   
   const termMapping: Record<CopastorSearchType, string | undefined> = {
-    [CopastorSearchType.FirstName]: namesTerm,
-    [CopastorSearchType.LastName]: lastNamesTerm,
-    [CopastorSearchType.FullName]: `${namesTerm}-${lastNamesTerm}`,
+    [CopastorSearchType.FirstNames]: firstNamesTerm,
+    [CopastorSearchType.LastNames]: lastNamesTerm,
+    [CopastorSearchType.FullNames]: `${firstNamesTerm}-${lastNamesTerm}`,
     [CopastorSearchType.BirthDate]: dateTerm,
     [CopastorSearchType.BirthMonth]: selectTerm,
     [CopastorSearchType.Gender]: selectTerm,
     [CopastorSearchType.MaritalStatus]: selectTerm,
     [CopastorSearchType.OriginCountry]: inputTerm,
-    [CopastorSearchType.Department]: inputTerm,
-    [CopastorSearchType.Province]: inputTerm,
-    [CopastorSearchType.District]: inputTerm,
-    [CopastorSearchType.UrbanSector]: inputTerm,
-    [CopastorSearchType.Address]: inputTerm,
+    [CopastorSearchType.ResidenceCountry]: inputTerm,
+    [CopastorSearchType.ResidenceDepartment]: inputTerm,
+    [CopastorSearchType.ResidenceProvince]: inputTerm,
+    [CopastorSearchType.ResidenceDistrict]: inputTerm,
+    [CopastorSearchType.ResidenceUrbanSector]: inputTerm,
+    [CopastorSearchType.ResidenceAddress]: inputTerm,
     [CopastorSearchType.RecordStatus]: selectTerm,
   };
   

@@ -1,5 +1,5 @@
-import { type TooltipConfig } from '@/shared/interfaces';
-import { type FamilyGroupByZonePayload } from '@/modules/metrics/components/family-group/tooltips/interfaces';
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { type FamilyGroupByZonePayload } from '@/modules/metrics/components/family-group/tooltips/interfaces/family-groups-by-zone-tooltip-config.interface';
 
 export const FamilyGroupsByZoneTooltipContent = (
   props: TooltipConfig<FamilyGroupByZonePayload>

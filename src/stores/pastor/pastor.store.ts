@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 
 import { create, type StateCreator } from 'zustand';
-import { type PastorResponse } from '@/modules/pastor/interfaces';
+import { type PastorResponse } from '@/modules/pastor/interfaces/pastor-response.interface';
 
 interface PastorStore {
   // Properties

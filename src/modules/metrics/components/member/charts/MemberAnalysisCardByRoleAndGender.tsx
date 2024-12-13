@@ -7,12 +7,14 @@ import { useQuery } from '@tanstack/react-query';
 import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
 import { Bar, XAxis, YAxis, CartesianGrid, BarChart } from 'recharts';
 
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { getMembersByRole } from '@/modules/metrics/services';
-import { MembersByRoleAndGenderTooltipContent } from '@/modules/metrics/components/member/tooltips/components';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { getMembersByRole } from '@/modules/metrics/services/member-metrics.service';
+import { MembersByRoleAndGenderTooltipContent } from '@/modules/metrics/components/member/tooltips/components/MembersByRoleAndGenderTooltipContent';
 
 import { cn } from '@/shared/lib/utils';
-import { MemberRole, MemberRoleNames, RecordOrder } from '@/shared/enums';
+
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { MemberRole, MemberRoleNames } from '@/shared/enums/member-role.enum';
 
 import {
   ChartLegend,

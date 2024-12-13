@@ -5,8 +5,8 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums';
-import { type DiscipleFormData } from '@/modules/disciple/interfaces';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { type DiscipleFormData } from '@/modules/disciple/interfaces/disciple-form-data.interface';
 
 interface Options {
   discipleCreationForm: UseFormReturn<DiscipleFormData, any, DiscipleFormData>;
@@ -24,8 +24,8 @@ export const useDiscipleCreationSubmitButtonLogic = ({
   setIsMessageErrorDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = discipleCreationForm.watch('firstName');
-  const lastName = discipleCreationForm.watch('lastName');
+  const firstNames = discipleCreationForm.watch('firstNames');
+  const lastNames = discipleCreationForm.watch('lastNames');
   const gender = discipleCreationForm.watch('gender');
   const birthDate = discipleCreationForm.watch('birthDate');
   const conversionDate = discipleCreationForm.watch('conversionDate');
@@ -34,12 +34,12 @@ export const useDiscipleCreationSubmitButtonLogic = ({
   const phoneNumber = discipleCreationForm.watch('phoneNumber');
   const originCountry = discipleCreationForm.watch('originCountry');
   const numberChildren = discipleCreationForm.watch('numberChildren');
-  const country = discipleCreationForm.watch('country');
-  const department = discipleCreationForm.watch('department');
-  const province = discipleCreationForm.watch('province');
-  const district = discipleCreationForm.watch('district');
-  const urbanSector = discipleCreationForm.watch('urbanSector');
-  const address = discipleCreationForm.watch('address');
+  const residenceCountry = discipleCreationForm.watch('residenceCountry');
+  const residenceDepartment = discipleCreationForm.watch('residenceDepartment');
+  const residenceProvince = discipleCreationForm.watch('residenceProvince');
+  const residenceDistrict = discipleCreationForm.watch('residenceDistrict');
+  const residenceUrbanSector = discipleCreationForm.watch('residenceUrbanSector');
+  const residenceAddress = discipleCreationForm.watch('residenceAddress');
   const roles = discipleCreationForm.watch('roles');
   const referenceAddress = discipleCreationForm.watch('referenceAddress');
   const theirFamilyGroup = discipleCreationForm.watch('theirFamilyGroup');
@@ -65,8 +65,8 @@ export const useDiscipleCreationSubmitButtonLogic = ({
     }
 
     if (
-      !firstName ||
-      !lastName ||
+      !firstNames ||
+      !lastNames ||
       !gender ||
       !birthDate ||
       !conversionDate ||
@@ -75,13 +75,13 @@ export const useDiscipleCreationSubmitButtonLogic = ({
       !phoneNumber ||
       !originCountry ||
       !numberChildren ||
-      !country ||
-      !department ||
-      !province ||
-      !district ||
-      !address ||
-      !urbanSector ||
-      !address ||
+      !residenceCountry ||
+      !residenceDepartment ||
+      !residenceProvince ||
+      !residenceDistrict ||
+      !residenceAddress ||
+      !residenceUrbanSector ||
+      !residenceAddress ||
       !referenceAddress ||
       !theirFamilyGroup ||
       roles.length === 0
@@ -91,8 +91,8 @@ export const useDiscipleCreationSubmitButtonLogic = ({
     }
   }, [
     discipleCreationForm.formState,
-    firstName,
-    lastName,
+    firstNames,
+    lastNames,
     gender,
     conversionDate,
     birthDate,
@@ -101,12 +101,12 @@ export const useDiscipleCreationSubmitButtonLogic = ({
     phoneNumber,
     originCountry,
     numberChildren,
-    country,
-    department,
-    province,
-    district,
-    address,
-    urbanSector,
+    residenceCountry,
+    residenceDepartment,
+    residenceProvince,
+    residenceDistrict,
+    residenceAddress,
+    residenceUrbanSector,
     referenceAddress,
     theirFamilyGroup,
     roles,

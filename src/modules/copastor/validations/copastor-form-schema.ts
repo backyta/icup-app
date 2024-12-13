@@ -1,25 +1,25 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import * as z from 'zod';
-import { 
-  Gender,
-  Country, 
-  Province, 
-  District, 
-  Department, 
-  MemberRole, 
-  UrbanSector, 
-  RecordStatus, 
-  MaritalStatus,
-} from '@/shared/enums';
+
+import { Gender } from '@/shared/enums/gender.enum';
+import { MaritalStatus } from '@/shared/enums/marital-status.enum';
+import { Country } from '@/shared/enums/country.enum';
+import { Department } from '@/shared/enums/department.enum';
+import { Province } from '@/shared/enums/province.enum';
+import { District } from '@/shared/enums/district.enum';
+import { UrbanSector } from '@/shared/enums/urban-sector.enum';
+import { MemberRole } from '@/shared/enums/member-role.enum';
+import { RecordStatus } from '@/shared/enums/record-status.enum';
+
 
 export const copastorFormSchema = z
   .object({
-    firstName: z.string()
+    firstNames: z.string()
       .min(1, {message: 'El campo debe contener al menos 1 carácter.'})
       .max(40, {message: 'El campo debe contener máximo 40 caracteres'}),
 
-    lastName: z.string()
+    lastNames: z.string()
       .min(1, {message: 'El campo debe contener al menos 1 carácter.'})
       .max(40, {message: 'El campo debe contener máximo 40 caracteres'}),
       
@@ -70,37 +70,37 @@ export const copastorFormSchema = z
       message: 'El campo solo debe contener números, "+", "-" y espacios',
     }),
      
-    country: z.string(z.nativeEnum(Country, {
+    residenceCountry: z.string(z.nativeEnum(Country, {
       required_error: "Por favor seleccione una opción válida.",
     })).refine((value) => value !== undefined && value.trim() !== '',
       { message: "Por favor seleccione una opción válida." }
     ),
 
-    department: z.string(z.nativeEnum(Department, {
+    residenceDepartment: z.string(z.nativeEnum(Department, {
       required_error: "Por favor seleccione una opción válida.",
     })).refine((value) => value !== undefined && value.trim() !== '',
       { message: "Por favor seleccione una opción válida." }
     ),
 
-    province: z.string(z.nativeEnum(Province, {
+    residenceProvince: z.string(z.nativeEnum(Province, {
       required_error: "Por favor seleccione una opción válida.",
     })).refine((value) => value !== undefined && value.trim() !== '',
       { message: "Por favor seleccione una opción válida." }
     ),
 
-    district: z.string(z.nativeEnum(District, {
+    residenceDistrict: z.string(z.nativeEnum(District, {
       required_error: "Por favor seleccione una opción válida.",
     })).refine((value) => value !== undefined && value.trim() !== '',
       { message: "Por favor seleccione una opción válida." }
     ),
 
-    urbanSector: z.string(z.nativeEnum(UrbanSector, {
+    residenceUrbanSector: z.string(z.nativeEnum(UrbanSector, {
       required_error: "Por favor seleccione una opción válida.",
     })).refine((value) => value !== undefined && value.trim() !== '',
       { message: "Por favor seleccione una opción válida." }
     ),
       
-    address: z.string()
+    residenceAddress: z.string()
       .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
       .max(80, { message: 'El campo debe contener máximo 80 caracteres.' }),
 

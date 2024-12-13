@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { type UseFormReturn } from 'react-hook-form';
 import { useMutation, type UseMutationResult } from '@tanstack/react-query';
 
-import { type ErrorResponse } from '@/shared/interfaces';
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
 
-import { createCopastor } from '@/modules/copastor/services';
-import { type CopastorFormData, type CopastorResponse } from '@/modules/copastor/interfaces';
+import { createCopastor } from '@/modules/copastor/services/copastor.service';
+import { type CopastorResponse } from '@/modules/copastor/interfaces/copastor-response.interface';
+import { type CopastorFormData } from '@/modules/copastor/interfaces/copastor-form-data.interface';
 
 interface Options {
   copastorCreationForm: UseFormReturn<CopastorFormData, any, CopastorFormData>;

@@ -3,9 +3,10 @@
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type UserRole } from '@/modules/user/enums';
+import { type UserRole } from '@/modules/user/enums/user-role.enum';
 
-import { type UserResponse, type UserFormData } from '@/modules/user/interfaces';
+import { type UserResponse } from '@/modules/user/interfaces/user-response.interface';
+import { type UserFormData } from '@/modules/user/interfaces/user-form-data.interface';
 
 interface Options {
   id: string;
@@ -22,8 +23,8 @@ export const useUserUpdateEffects = ({
 }: Options): void => {
   //* Set data
   useEffect(() => {
-    userUpdateForm.setValue('firstName', data?.firstName ?? '');
-    userUpdateForm.setValue('lastName', data?.lastName ?? '');
+    userUpdateForm.setValue('firstNames', data?.firstNames ?? '');
+    userUpdateForm.setValue('lastNames', data?.lastNames ?? '');
     userUpdateForm.setValue('gender', data?.gender ?? '');
     userUpdateForm.setValue('email', data?.email ?? '');
     userUpdateForm.setValue('roles', data?.roles as UserRole[]);

@@ -12,20 +12,20 @@ import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Bar, XAxis, YAxis, CartesianGrid, BarChart } from 'recharts';
 import { FcDataBackup, FcDataConfiguration, FcDeleteDatabase } from 'react-icons/fc';
 
-import { months } from '@/shared/data';
-import { cn } from '@/shared/lib/utils';
-import { RecordOrder } from '@/shared/enums';
-import { generateYearOptions } from '@/shared/helpers';
-
 import {
   OfferingExpenseSearchType,
   OfferingExpenseSearchTypeNames,
-} from '@/modules/offering/expense/enums';
+} from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
 
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getComparativeOfferingExpensesBySubType } from '@/modules/metrics/services';
-import { ComparativeOfferingExpensesBySubTypeTooltipContent } from '@/modules/metrics/components/financial-balance-comparative/tooltips/components';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
+import { getComparativeOfferingExpensesBySubType } from '@/modules/metrics/services/offering-comparative-metrics.service';
+import { ComparativeOfferingExpensesBySubTypeTooltipContent } from '@/modules/metrics/components/financial-balance-comparative/tooltips/components/ComparativeOfferingExpensesBySubTypeTooltipContent';
+
+import { cn } from '@/shared/lib/utils';
+import { months } from '@/shared/data/months-data';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { generateYearOptions } from '@/shared/helpers/generate-year-options.helper';
 
 import {
   Command,

@@ -6,21 +6,19 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
-import { SelectChurch, MetricsSkeleton } from '@/modules/metrics/components/shared';
+import { SelectChurch } from '@/modules/metrics/components/shared/SelectChurch';
+import { MetricsSkeleton } from '@/modules/metrics/components/shared/MetricsSkeleton';
 
-import { getSimpleChurches } from '@/modules/church/services';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
-import {
-  FamilyGroupProportionCard,
-  FamilyGroupAnalysisCardByCode,
-  FamilyGroupAnalysisCardByZone,
-  FamilyGroupAnalysisCardByDistrict,
-  FamilyGroupAnalysisCardByServiceTime,
-  FamilyGroupAnalysisCardByRecordStatus,
-  FamilyGroupFluctuationAnalysisCardByYear,
-} from '@/modules/metrics/components/family-group/charts';
-
-import { FamilyGroupReportFormCard } from '@/modules/metrics/components/family-group/reports';
+import { FamilyGroupProportionCard } from '@/modules/metrics/components/family-group/charts/FamilyGroupProportionCard';
+import { FamilyGroupReportFormCard } from '@/modules/metrics/components/family-group/reports/FamilyGroupReportFormCard';
+import { FamilyGroupAnalysisCardByCode } from '@/modules/metrics/components/family-group/charts/FamilyGroupAnalysisCardByCode';
+import { FamilyGroupAnalysisCardByZone } from '@/modules/metrics/components/family-group/charts/FamilyGroupAnalysisCardByZone';
+import { FamilyGroupAnalysisCardByDistrict } from '@/modules/metrics/components/family-group/charts/FamilyGroupAnalysisCardByDistrict';
+import { FamilyGroupAnalysisCardByServiceTime } from '@/modules/metrics/components/family-group/charts/FamilyGroupAnalysisCardByServiceTime';
+import { FamilyGroupAnalysisCardByRecordStatus } from '@/modules/metrics/components/family-group/charts/FamilyGroupAnalysisCardByRecordStatus';
+import { FamilyGroupFluctuationAnalysisCardByYear } from '@/modules/metrics/components/family-group/charts/FamilyGroupFluctuationAnalysisCardByYear';
 
 export const FamilyGroupMetrics = (): JSX.Element => {
   //* States

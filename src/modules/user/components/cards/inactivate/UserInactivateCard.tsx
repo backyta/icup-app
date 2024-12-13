@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -9,19 +9,21 @@ import { useForm } from 'react-hook-form';
 import { MdDeleteForever } from 'react-icons/md';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useUserInactivationMutation } from '@/modules/user/hooks';
-import { userInactivationFormSchema } from '@/modules/user/validations';
+import { useUserInactivationMutation } from '@/modules/user/hooks/useUserInactivationMutation';
+import { userInactivationFormSchema } from '@/modules/user/validations/user-inactivation-form-schema';
 
 import {
   UserInactivationCategory,
-  SecurityReasonsReasonsNames,
   UserInactivationCategoryNames,
+} from '@/modules/user/enums/user-inactivation-category.enum';
+import {
+  SecurityReasonsReasonsNames,
   PerformanceOrConductReasonsNames,
   AdministrativeChangesReasonsNames,
-  TransitionOrReassignmentReasonsNames,
   UnavoidableCircumstancesReasonsNames,
+  TransitionOrReassignmentReasonsNames,
   InactivityOrRoleIrrelevanceReasonsNames,
-} from '@/modules/user/enums';
+} from '@/modules/user/enums/user-inactivation-reason.enum';
 
 import {
   Form,

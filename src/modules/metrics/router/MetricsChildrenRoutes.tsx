@@ -1,10 +1,8 @@
-import {
-  MemberMetrics,
-  FamilyGroupMetrics,
-  OfferingIncomeMetrics,
-  OfferingExpenseMetrics,
-  FinancialBalanceComparisonMetrics,
-} from '@/modules/metrics/pages';
+import { MemberMetrics } from '@/modules/metrics/pages/MemberMetrics';
+import { FamilyGroupMetrics } from '@/modules/metrics/pages/FamilyGroupMetrics';
+import { OfferingIncomeMetrics } from '@/modules/metrics/pages/OfferingIncomeMetrics';
+import { OfferingExpenseMetrics } from '@/modules/metrics/pages/OfferingExpenseMetrics';
+import { FinancialBalanceComparisonMetrics } from '@/modules/metrics/pages/FinancialBalanceComparisonMetrics';
 
 export const MetricsChildrenRoutes = [
   {

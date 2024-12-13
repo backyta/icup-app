@@ -1,4 +1,4 @@
-import { DistrictNames } from '@/shared/enums';
+import { DistrictNames } from '@/shared/enums/district.enum';
 
 // ? Allowed Districts by module
 //* Church

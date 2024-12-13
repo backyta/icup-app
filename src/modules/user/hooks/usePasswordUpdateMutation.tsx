@@ -4,10 +4,10 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
-import { type ErrorResponse } from '@/shared/interfaces';
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
 
-import { type UserResponse } from '@/modules/user/interfaces';
-import { updateUser, type UpdateUserOptions } from '@/modules/user/services';
+import { type UserResponse } from '@/modules/user/interfaces/user-response.interface';
+import { updateUser, type UpdateUserOptions } from '@/modules/user/services/user.service';
 
 interface Options {
   dialogClose: () => void;

@@ -5,18 +5,20 @@ import { useNavigate } from 'react-router-dom';
 import { type UseFormReturn } from 'react-hook-form';
 import { useMutation, type UseMutationResult } from '@tanstack/react-query';
 
+import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces/offering-income-response.interface';
+import { type OfferingIncomeFormData } from '@/modules/offering/income/interfaces/offering-income-form-data.interface';
+
+import { createOfferingIncome } from '@/modules/offering/income/services/offering-income.service';
+
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
+
+import { deleteImage } from '@/modules/offering/shared/services/images-files.service';
+import { OfferingFileType } from '@/modules/offering/shared/enums/offering-file-type.enum';
+import { type FilesProps } from '@/modules/offering/shared/interfaces/files-props.interface';
 import {
-  type OfferingIncomeResponse,
-  type OfferingIncomeFormData,
-} from '@/modules/offering/income/interfaces';
-import { createOfferingIncome } from '@/modules/offering/income/services';
-
-import { type ErrorResponse } from '@/shared/interfaces';
-
-import { deleteImage } from '@/modules/offering/shared/services';
-import { OfferingFileType } from '@/modules/offering/shared/enums';
-import { type FilesProps } from '@/modules/offering/shared/interfaces';
-import { extractPath, extractPublicId } from '@/modules/offering/shared/helpers';
+  extractPath,
+  extractPublicId,
+} from '@/modules/offering/shared/helpers/extract-data-secure-url.helper';
 
 interface Options {
   setFiles: React.Dispatch<React.SetStateAction<FilesProps[]>>;

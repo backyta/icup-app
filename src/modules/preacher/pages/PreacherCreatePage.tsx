@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
@@ -6,47 +7,36 @@ import { useEffect, useState } from 'react';
 
 import type * as z from 'zod';
 import { Toaster } from 'sonner';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { useForm } from 'react-hook-form';
-
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
-
 import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { usePreacherCreationMutation } from '@/modules/preacher/hooks/usePreacherCreationMutation';
+import { usePreacherCreationSubmitButtonLogic } from '@/modules/preacher/hooks/usePreacherCreationSubmitButtonLogic';
 
-import {
-  usePreacherCreationMutation,
-  usePreacherCreationSubmitButtonLogic,
-} from '@/modules/preacher/hooks';
-import { PageTitle } from '@/shared/components/page';
-import { getSimpleSupervisors } from '@/modules/supervisor/services';
-import { preacherFormSchema } from '@/modules/preacher/validations';
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { getSimpleSupervisors } from '@/modules/supervisor/services/supervisor.service';
+import { preacherFormSchema } from '@/modules/preacher/validations/preacher-form-schema';
 
 import { cn } from '@/shared/lib/utils';
-import { useRoleValidationByPath } from '@/shared/hooks';
+import { useRoleValidationByPath } from '@/shared/hooks/useRoleValidationByPath';
 
-import {
-  Country,
-  Province,
-  Department,
-  MemberRole,
-  GenderNames,
-  CountryNames,
-  ProvinceNames,
-  DistrictNames,
-  DepartmentNames,
-  MemberRoleNames,
-  UrbanSectorNames,
-  MaritalStatusNames,
-} from '@/shared/enums';
-import {
-  getFullNames,
-  validateDistrictsAllowedByModule,
-  validateUrbanSectorsAllowedByDistrict,
-} from '@/shared/helpers';
+import { GenderNames } from '@/shared/enums/gender.enum';
+import { DistrictNames } from '@/shared/enums/district.enum';
+import { Country, CountryNames } from '@/shared/enums/country.enum';
+import { UrbanSectorNames } from '@/shared/enums/urban-sector.enum';
+import { Province, ProvinceNames } from '@/shared/enums/province.enum';
+import { MaritalStatusNames } from '@/shared/enums/marital-status.enum';
+import { Department, DepartmentNames } from '@/shared/enums/department.enum';
+import { MemberRole, MemberRoleNames } from '@/shared/enums/member-role.enum';
+
+import { getFullNames } from '@/shared/helpers/get-full-names.helper';
+import { validateDistrictsAllowedByModule } from '@/shared/helpers/validate-districts-allowed-by-module.helper';
+import { validateUrbanSectorsAllowedByDistrict } from '@/shared/helpers/validate-urban-sectors-allowed-by-district.helper';
 
 import {
   Form,
@@ -96,8 +86,8 @@ export const PreacherCreatePage = (): JSX.Element => {
     mode: 'onChange',
     resolver: zodResolver(preacherFormSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      firstNames: '',
+      lastNames: '',
       gender: '',
       originCountry: '',
       birthDate: undefined,
@@ -106,11 +96,11 @@ export const PreacherCreatePage = (): JSX.Element => {
       maritalStatus: '',
       email: '',
       phoneNumber: '',
-      country: Country.Peru,
-      department: Department.Lima,
-      province: Province.Lima,
-      district: '',
-      address: '',
+      residenceCountry: Country.Peru,
+      residenceDepartment: Department.Lima,
+      residenceProvince: Province.Lima,
+      residenceDistrict: '',
+      residenceAddress: '',
       referenceAddress: '',
       roles: [MemberRole.Preacher],
       theirCopastor: '',
@@ -119,14 +109,14 @@ export const PreacherCreatePage = (): JSX.Element => {
   });
 
   //* Watchers
-  const district = form.watch('district');
+  const residenceDistrict = form.watch('residenceDistrict');
 
   //* Effects
   useEffect(() => {
-    form.resetField('urbanSector', {
+    form.resetField('residenceUrbanSector', {
       keepError: true,
     });
-  }, [district]);
+  }, [residenceDistrict]);
 
   useEffect(() => {
     document.title = 'Modulo Predicador - IcupApp';
@@ -134,7 +124,7 @@ export const PreacherCreatePage = (): JSX.Element => {
 
   //* Helpers
   const districtsValidation = validateDistrictsAllowedByModule(pathname);
-  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(residenceDistrict);
 
   //* Custom hooks
   const { disabledRoles } = useRoleValidationByPath({
@@ -189,7 +179,7 @@ export const PreacherCreatePage = (): JSX.Element => {
               <legend className='font-bold text-[16px] md:text-[18px]'>Datos generales</legend>
               <FormField
                 control={form.control}
-                name='firstName'
+                name='firstNames'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -211,7 +201,7 @@ export const PreacherCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='lastName'
+                name='lastNames'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -484,7 +474,7 @@ export const PreacherCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='country'
+                name='residenceCountry'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -519,7 +509,7 @@ export const PreacherCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='department'
+                name='residenceDepartment'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -554,7 +544,7 @@ export const PreacherCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='province'
+                name='residenceProvince'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -589,7 +579,7 @@ export const PreacherCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='district'
+                name='residenceDistrict'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -628,7 +618,7 @@ export const PreacherCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='urbanSector'
+                name='residenceUrbanSector'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -650,7 +640,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !residenceDistrict ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -667,7 +657,7 @@ export const PreacherCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='address'
+                name='residenceAddress'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -743,7 +733,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                                 return (
                                   <FormItem
                                     key={role}
-                                    className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
+                                    className='flex flex-row items-center space-x-2 space-y-0'
                                   >
                                     <FormControl>
                                       <Checkbox
@@ -817,7 +807,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                                 return (
                                   <FormItem
                                     key={role}
-                                    className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
+                                    className='flex flex-row items-center space-x-2 space-y-0'
                                   >
                                     <FormControl>
                                       <Checkbox
@@ -891,7 +881,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                               )}
                             >
                               {field.value
-                                ? `${data?.find((supervisor) => supervisor.id === field.value)?.member?.firstName} ${data?.find((supervisor) => supervisor.id === field.value)?.member?.lastName}`
+                                ? `${data?.find((supervisor) => supervisor.id === field.value)?.member?.firstNames} ${data?.find((supervisor) => supervisor.id === field.value)?.member?.lastNames}`
                                 : 'Busque y seleccione un supervisor'}
                               <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                             </Button>
@@ -911,8 +901,8 @@ export const PreacherCreatePage = (): JSX.Element => {
                                     <CommandItem
                                       className='text-[14px]'
                                       value={getFullNames({
-                                        firstNames: supervisor.member?.firstName ?? '',
-                                        lastNames: supervisor.member?.lastName ?? '',
+                                        firstNames: supervisor.member?.firstNames ?? '',
+                                        lastNames: supervisor.member?.lastNames ?? '',
                                       })}
                                       key={supervisor.id}
                                       onSelect={() => {
@@ -920,7 +910,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                                         setIsInputTheirSupervisorOpen(false);
                                       }}
                                     >
-                                      {`${supervisor?.member?.firstName} ${supervisor?.member?.lastName}`}
+                                      {`${supervisor?.member?.firstNames} ${supervisor?.member?.lastNames}`}
                                       <CheckIcon
                                         className={cn(
                                           'ml-auto h-4 w-4',

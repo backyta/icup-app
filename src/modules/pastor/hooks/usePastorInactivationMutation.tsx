@@ -4,9 +4,12 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
-import { inactivatePastor, type InactivatePastorOptions } from '@/modules/pastor/services';
+import {
+  inactivatePastor,
+  type InactivatePastorOptions,
+} from '@/modules/pastor/services/pastor.service';
 
-import { type ErrorResponse } from '@/shared/interfaces';
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
 
 interface Options {
   scrollToTop: () => void;

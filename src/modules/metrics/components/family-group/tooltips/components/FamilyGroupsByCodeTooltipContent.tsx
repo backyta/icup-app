@@ -1,6 +1,6 @@
-import { getPercent } from '@/modules/metrics/helpers';
-import { type TooltipConfig } from '@/shared/interfaces';
-import { type FamilyGroupsByCodePayload } from '@/modules/metrics/components/family-group/tooltips/interfaces';
+import { getPercent } from '@/modules/metrics/helpers/get-percent.helper';
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { type FamilyGroupsByCodePayload } from '@/modules/metrics/components/family-group/tooltips/interfaces/family-groups-by-code-tooltip-payload.interface';
 
 export const FamilyGroupsByCodeTooltipContent = (
   props: TooltipConfig<FamilyGroupsByCodePayload>

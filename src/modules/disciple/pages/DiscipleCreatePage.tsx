@@ -6,47 +6,37 @@ import { useEffect, useState } from 'react';
 
 import type * as z from 'zod';
 import { Toaster } from 'sonner';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { useForm } from 'react-hook-form';
-
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
-
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
-
 import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { discipleFormSchema } from '@/modules/disciple/validations';
-import {
-  useDiscipleCreationMutation,
-  useDiscipleCreationSubmitButtonLogic,
-} from '@/modules/disciple/hooks';
-import { getSimpleFamilyGroups } from '@/modules/family-group/services';
+import { getSimpleFamilyGroups } from '@/modules/family-group/services/family-group.service';
+
+import { discipleFormSchema } from '@/modules/disciple/validations/disciple-form-schema';
+import { useDiscipleCreationMutation } from '@/modules/disciple/hooks/useDiscipleCreationMutation';
+import { useDiscipleCreationSubmitButtonLogic } from '@/modules/disciple/hooks/useDiscipleCreationSubmitButtonLogic';
 
 import { cn } from '@/shared/lib/utils';
-import { PageTitle } from '@/shared/components/page';
-import { useRoleValidationByPath } from '@/shared/hooks';
 
-import {
-  Country,
-  Province,
-  Department,
-  MemberRole,
-  GenderNames,
-  CountryNames,
-  DistrictNames,
-  ProvinceNames,
-  DepartmentNames,
-  MemberRoleNames,
-  UrbanSectorNames,
-  MaritalStatusNames,
-} from '@/shared/enums';
-import {
-  getCodeAndNameFamilyGroup,
-  validateDistrictsAllowedByModule,
-  validateUrbanSectorsAllowedByDistrict,
-} from '@/shared/helpers';
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { useRoleValidationByPath } from '@/shared/hooks/useRoleValidationByPath';
+
+import { GenderNames } from '@/shared/enums/gender.enum';
+import { DistrictNames } from '@/shared/enums/district.enum';
+import { Country, CountryNames } from '@/shared/enums/country.enum';
+import { UrbanSectorNames } from '@/shared/enums/urban-sector.enum';
+import { Province, ProvinceNames } from '@/shared/enums/province.enum';
+import { MaritalStatusNames } from '@/shared/enums/marital-status.enum';
+import { Department, DepartmentNames } from '@/shared/enums/department.enum';
+import { MemberRole, MemberRoleNames } from '@/shared/enums/member-role.enum';
+
+import { getCodeAndNameFamilyGroup } from '@/shared/helpers/get-code-and-name-family-group.helper';
+import { validateDistrictsAllowedByModule } from '@/shared/helpers/validate-districts-allowed-by-module.helper';
+import { validateUrbanSectorsAllowedByDistrict } from '@/shared/helpers/validate-urban-sectors-allowed-by-district.helper';
 
 import {
   Command,
@@ -97,8 +87,8 @@ export const DiscipleCreatePage = (): JSX.Element => {
     mode: 'onChange',
     resolver: zodResolver(discipleFormSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      firstNames: '',
+      lastNames: '',
       gender: '',
       originCountry: '',
       birthDate: undefined,
@@ -107,11 +97,11 @@ export const DiscipleCreatePage = (): JSX.Element => {
       maritalStatus: '',
       email: '',
       phoneNumber: '',
-      country: Country.Peru,
-      department: Department.Lima,
-      province: Province.Lima,
-      district: '',
-      address: '',
+      residenceCountry: Country.Peru,
+      residenceDepartment: Department.Lima,
+      residenceProvince: Province.Lima,
+      residenceDistrict: '',
+      residenceAddress: '',
       referenceAddress: '',
       roles: [MemberRole.Disciple],
       theirFamilyGroup: '',
@@ -119,7 +109,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
   });
 
   //* Watchers
-  const district = form.watch('district');
+  const residenceDistrict = form.watch('residenceDistrict');
 
   useDiscipleCreationSubmitButtonLogic({
     discipleCreationForm: form,
@@ -131,10 +121,10 @@ export const DiscipleCreatePage = (): JSX.Element => {
 
   //* Effects
   useEffect(() => {
-    form.resetField('urbanSector', {
+    form.resetField('residenceUrbanSector', {
       keepError: true,
     });
-  }, [district]);
+  }, [residenceDistrict]);
 
   useEffect(() => {
     document.title = 'Modulo Discípulo - IcupApp';
@@ -142,7 +132,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
 
   //* Helpers
   const districtsValidation = validateDistrictsAllowedByModule(pathname);
-  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(residenceDistrict);
 
   //* Custom hooks
   const { disabledRoles } = useRoleValidationByPath({
@@ -189,7 +179,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
               <legend className='font-bold text-[16px] sm:text-[18px]'>Datos generales</legend>
               <FormField
                 control={form.control}
-                name='firstName'
+                name='firstNames'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -211,7 +201,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='lastName'
+                name='lastNames'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -485,7 +475,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='country'
+                name='residenceCountry'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -520,7 +510,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='department'
+                name='residenceDepartment'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -555,7 +545,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='province'
+                name='residenceProvince'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -590,7 +580,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='district'
+                name='residenceDistrict'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -629,7 +619,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='urbanSector'
+                name='residenceUrbanSector'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -651,7 +641,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !residenceDistrict ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -668,7 +658,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='address'
+                name='residenceAddress'
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
@@ -744,7 +734,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                                 return (
                                   <FormItem
                                     key={role}
-                                    className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
+                                    className='flex flex-row items-center space-x-2 space-y-0'
                                   >
                                     <FormControl>
                                       <Checkbox
@@ -824,7 +814,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                                 return (
                                   <FormItem
                                     key={role}
-                                    className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
+                                    className='flex flex-row items-center space-x-2 space-y-0'
                                   >
                                     <FormControl>
                                       <Checkbox

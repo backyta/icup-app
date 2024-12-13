@@ -3,8 +3,9 @@ import { useRef, useState, useCallback, useMemo } from 'react';
 import { GiArchiveRegister } from 'react-icons/gi';
 import { useMediaQuery } from '@react-hook/media-query';
 
-import { useDiscipleStore } from '@/stores/disciple';
-import { DiscipleUpdateForm } from '@/modules/disciple/components';
+import { useDiscipleStore } from '@/stores/disciple/disciple.store';
+
+import { DiscipleUpdateForm } from '@/modules/disciple/components/cards/update/DiscipleUpdateForm';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

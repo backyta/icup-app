@@ -1,34 +1,34 @@
-import { type MemberRole } from '@/shared/enums';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
 
 export interface PreacherFormData {
-  firstName: string;
-  lastName: string;
-  gender: string;
-  originCountry: string;
-  birthDate: Date;
-  maritalStatus: string;
-  numberChildren: string;
-  conversionDate: Date;
-  email: string,
-  phoneNumber: string,
-  country: string;
-  department: string;
-  province: string;
-  district: string;
-  urbanSector: string;
-  address: string;
-  referenceAddress: string;
-  roles: MemberRole[];
-  recordStatus?: string | undefined;
+  firstNames               : string;
+  lastNames                : string;
+  gender                   : string;
+  originCountry            : string;
+  birthDate                : Date;
+  maritalStatus            : string;
+  numberChildren           : string;
+  conversionDate           : Date;
+  email                    : string,
+  phoneNumber              : string,
+  residenceCountry         : string;
+  residenceDepartment      : string;
+  residenceProvince        : string;
+  residenceDistrict        : string;
+  residenceUrbanSector     : string;
+  residenceAddress         : string;
+  referenceAddress         : string;
+  roles                    : MemberRole[];
+  recordStatus            ?: string | undefined;
   isDirectRelationToPastor?: boolean | undefined;
-  theirSupervisor?: string | undefined;
-  theirCopastor?: string | undefined;
-  theirPastor?: string | undefined;
+  theirSupervisor         ?: string | undefined;
+  theirCopastor           ?: string | undefined;
+  theirPastor             ?: string | undefined;
 }
 
 export type PreacherFormDataKeys =
-  | 'firstName'
-  | 'lastName'
+  | 'firstNames'
+  | 'lastNames'
   | 'gender'
   | 'originCountry'
   | 'birthDate'
@@ -37,14 +37,14 @@ export type PreacherFormDataKeys =
   | 'conversionDate'
   | 'email'
   | 'phoneNumber'
-  | 'country'
-  | 'department'
-  | 'province'
-  | 'district'
-  | 'urbanSector'
-  | 'address'
-  | 'referenceAddress'
-  | 'roles'
+  | 'residenceCountry'
+  | 'residenceDepartment'
+  | 'residenceProvince'
+  | 'residenceDistrict'
+  | 'residenceUrbanSector'
+  | 'residenceAddress'
+  | 'ReferenceAddress'
+  | 'residenceRoles'
   | 'recordStatus'
   | 'isDirectRelationToPastor'
   | 'theirSupervisor'

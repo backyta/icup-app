@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { type UseFormReturn } from 'react-hook-form';
 import { useMutation, type UseMutationResult } from '@tanstack/react-query';
 
-import { type ErrorResponse } from '@/shared/interfaces';
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
 
-import { createChurch } from '@/modules/church/services';
-import { type ChurchFormData, type ChurchResponse } from '@/modules/church/interfaces';
+import { createChurch } from '@/modules/church/services/church.service';
+import { type ChurchResponse } from '@/modules/church/interfaces/church-response.interface';
+import { type ChurchFormData } from '@/modules/church/interfaces/church-form-data.interface';
 
 interface Options {
   churchCreationForm: UseFormReturn<ChurchFormData, any, ChurchFormData>;

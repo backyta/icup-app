@@ -11,21 +11,23 @@ import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { XAxis, YAxis, CartesianGrid, BarChart, Bar } from 'recharts';
 import { FcDataBackup, FcDataConfiguration, FcDeleteDatabase } from 'react-icons/fc';
 
-import { cn } from '@/shared/lib/utils';
-import { RecordOrder } from '@/shared/enums';
-import { generateYearOptions } from '@/shared/helpers';
-
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getComparativeOfferingIncomeByType } from '@/modules/metrics/services';
-import { ComparativeOfferingIncomeByTypeTooltipContent } from '@/modules/metrics/components/financial-balance-comparative/tooltips/components';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
+import { getComparativeOfferingIncomeByType } from '@/modules/metrics/services/offering-comparative-metrics.service';
+import { ComparativeOfferingIncomeByTypeTooltipContent } from '@/modules/metrics/components/financial-balance-comparative/tooltips/components/ComparativeOfferingIncomeByTypeTooltipContent';
 
 import {
   OfferingIncomeCreationType,
-  OfferingIncomeCreationSubType,
   OfferingIncomeCreationTypeNames,
+} from '@/modules/offering/income/enums/offering-income-creation-type.enum';
+import {
+  OfferingIncomeCreationSubType,
   OfferingIncomeCreationSubTypeNames,
-} from '@/modules/offering/income/enums';
+} from '@/modules/offering/income/enums/offering-income-creation-sub-type.enum';
+
+import { cn } from '@/shared/lib/utils';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { generateYearOptions } from '@/shared/helpers/generate-year-options.helper';
 
 import {
   Command,

@@ -6,24 +6,23 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
-import { SelectChurch, MetricsSkeleton } from '@/modules/metrics/components/shared';
+import { SelectChurch } from '@/modules/metrics/components/shared/SelectChurch';
+import { MetricsSkeleton } from '@/modules/metrics/components/shared/MetricsSkeleton';
 
-import { getSimpleChurches } from '@/modules/church/services';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
-import {
-  OfferingIncomeProportionCard,
-  OfferingIncomeAnalysisCardByActivities,
-  OfferingIncomeAnalysisCardByFamilyGroup,
-  OfferingIncomeAnalysisCardBySundaySchool,
-  OfferingIncomeAnalysisCardByYouthService,
-  OfferingIncomeAnalysisCardByChurchGround,
-  OfferingIncomeAnalysisCardBySundayService,
-  OfferingIncomeAnalysisCardByUnitedService,
-  OfferingIncomeAnalysisCardByFastingAndVigil,
-  OfferingIncomeAnalysisCardBySpecialOffering,
-  OfferingIncomeAnalysisCardByIncomeAdjustment,
-} from '@/modules/metrics/components/offering-income/charts';
-import { OfferingIncomeReportFormCard } from '@/modules/metrics/components/offering-income/reports';
+import { OfferingIncomeProportionCard } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeProportionCard';
+import { OfferingIncomeReportFormCard } from '@/modules/metrics/components/offering-income/reports/OfferingIncomeReportFormCard';
+import { OfferingIncomeAnalysisCardByActivities } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByActivities';
+import { OfferingIncomeAnalysisCardByFamilyGroup } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByFamilyGroup';
+import { OfferingIncomeAnalysisCardByYouthService } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByYouthService';
+import { OfferingIncomeAnalysisCardBySundaySchool } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardBySundaySchool';
+import { OfferingIncomeAnalysisCardByChurchGround } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByChurchGround';
+import { OfferingIncomeAnalysisCardByUnitedService } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByUnitedService';
+import { OfferingIncomeAnalysisCardBySundayService } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardBySundayService';
+import { OfferingIncomeAnalysisCardByFastingAndVigil } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByFastingAndVigil';
+import { OfferingIncomeAnalysisCardBySpecialOffering } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardBySpecialOffering';
+import { OfferingIncomeAnalysisCardByIncomeAdjustment } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByIncomeAdjustment';
 
 export const OfferingIncomeMetrics = (): JSX.Element => {
   //* States

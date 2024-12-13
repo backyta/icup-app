@@ -11,21 +11,21 @@ import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
-
-import { cn } from '@/shared/lib/utils';
 import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { XAxis, YAxis, CartesianGrid, AreaChart, Area } from 'recharts';
 
-import { RecordOrder } from '@/shared/enums';
-import { getFullNames, getInitialFullNames } from '@/shared/helpers';
+import { getSimpleCopastors } from '@/modules/copastor/services/copastor.service';
 
-import { getSimpleCopastors } from '@/modules/copastor/services';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
+import { getMembersByZoneAndGender } from '@/modules/metrics/services/member-metrics.service';
+import { MembersByZoneAndGenderTooltipContent } from '@/modules/metrics/components/member/tooltips/components/MembersByZoneAndGenderTooltipContent';
 
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getMembersByZoneAndGender } from '@/modules/metrics/services';
-import { MembersByZoneAndGenderTooltipContent } from '@/modules/metrics/components/member/tooltips/components';
+import { cn } from '@/shared/lib/utils';
+
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { getFullNames, getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 
 import {
   Form,
@@ -218,9 +218,9 @@ export const MemberAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.Elem
                             )}
                           >
                             {field.value
-                              ? `${getInitialFullNames({ firstNames: copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.member?.firstName ?? '', lastNames: '' })} ${copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.member?.lastName ?? ''}`
+                              ? `${getInitialFullNames({ firstNames: copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.member?.firstNames ?? '', lastNames: '' })} ${copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.member?.lastNames ?? ''}`
                               : searchParams?.copastor
-                                ? `${getInitialFullNames({ firstNames: copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.member?.firstName ?? '', lastNames: '' })} ${copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.member?.lastName ?? ''}`
+                                ? `${getInitialFullNames({ firstNames: copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.member?.firstNames ?? '', lastNames: '' })} ${copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.member?.lastNames ?? ''}`
                                 : 'Elige un co-pastor'}
                             <CaretSortIcon className='ml-2 h-4 w-4 shrink-0' />
                           </Button>
@@ -240,8 +240,8 @@ export const MemberAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.Elem
                                   <CommandItem
                                     className='text-[12px] md:text-[14px]'
                                     value={getFullNames({
-                                      firstNames: copastor?.member?.firstName,
-                                      lastNames: copastor?.member?.lastName,
+                                      firstNames: copastor?.member?.firstNames,
+                                      lastNames: copastor?.member?.lastNames,
                                     })}
                                     key={copastor.id}
                                     onSelect={() => {
@@ -250,7 +250,7 @@ export const MemberAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.Elem
                                       setIsInputSearchCopastorOpen(false);
                                     }}
                                   >
-                                    {`${getInitialFullNames({ firstNames: copastor?.member?.firstName ?? '', lastNames: '' })} ${copastor?.member?.lastName ?? ''}`}
+                                    {`${getInitialFullNames({ firstNames: copastor?.member?.firstNames ?? '', lastNames: '' })} ${copastor?.member?.lastNames ?? ''}`}
                                     <CheckIcon
                                       className={cn(
                                         'ml-auto h-4 w-4',

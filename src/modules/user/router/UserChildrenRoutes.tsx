@@ -1,10 +1,8 @@
-import {
-  UserCreatePage,
-  UserInactivatePage,
-  UserUpdatePage,
-  UsersSearchPageByTerm,
-  UsersGeneralSearchPage,
-} from '@/modules/user/pages';
+import { UserCreatePage } from '@/modules/user/pages/UserCreatePage';
+import { UserUpdatePage } from '@/modules/user/pages/UserUpdatePage';
+import { UserInactivatePage } from '@/modules/user/pages/UserInactivatePage';
+import { UsersSearchPageByTerm } from '@/modules/user/pages/UsersSearchPageByTerm';
+import { UsersGeneralSearchPage } from '@/modules/user/pages/UsersGeneralSearchPage';
 
 export const UserChildrenRoutes = [
   {

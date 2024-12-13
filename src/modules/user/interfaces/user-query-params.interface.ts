@@ -1,12 +1,12 @@
 export interface UserQueryParams {
-  searchType?: string;
+  searchType     ?: string;
   multiSelectTerm?: string;
-  selectTerm?:string;
-  namesTerm?: string;
-  lastNamesTerm?: string; 
-  limit?: string;
-  offset?: string;
-  order: string;
+  selectTerm     ?: string;
+  firstNamesTerm  : string;
+  lastNamesTerm  ?: string;
+  limit          ?: string;
+  offset         ?: string;
+  order           : string;
 
   
   //* Validator for get all register

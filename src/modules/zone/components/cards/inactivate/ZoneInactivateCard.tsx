@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -9,18 +9,21 @@ import { useForm } from 'react-hook-form';
 import { MdDeleteForever } from 'react-icons/md';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { useZoneInactivationMutation } from '@/modules/zone/hooks';
-import { zoneInactivationFormSchema } from '@/modules/zone/validations';
+import { useZoneInactivationMutation } from '@/modules/zone/hooks/useZoneInactivationMutation';
+import { zoneInactivationFormSchema } from '@/modules/zone/validations/zone-inactivation-form-schema';
 
 import {
   ZoneInactivationCategory,
+  ZoneInactivationCategoryNames,
+} from '@/modules/zone/enums/zone-inactivation-category.enum';
+import {
   ExternalFactorsReasonsNames,
   LeadershipIssuesReasonsNames,
   AdministrativeChangesReasonsNames,
   UnavoidableCircumstancesReasonsNames,
   GroupFamilyRelatedReasonsReasonsNames,
   LackOfActivityOrCommitmentReasonsNames,
-} from '@/modules/zone/enums';
+} from '@/modules/zone/enums/zone-inactivation-reason.enum';
 
 import {
   Form,
@@ -40,7 +43,6 @@ import {
 } from '@/shared/components/ui/select';
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
-import { ZoneInactivationCategoryNames } from '@/modules/zone/enums/zone-inactivation-category.enum';
 
 interface ZoneInactivateCardProps {
   idRow: string;

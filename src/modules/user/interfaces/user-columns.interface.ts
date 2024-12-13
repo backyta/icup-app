@@ -1,8 +1,8 @@
 export interface UserColumns {
-  id: string;
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  roles?: string[];
+  id         : string;
+  firstNames?: string;
+  lastNames ?: string;
+  email     ?: string;
+  roles     ?: string[];
 }
 

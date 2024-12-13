@@ -3,12 +3,12 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
-import { type ErrorResponse } from '@/shared/interfaces';
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
 
 import {
   inactivateSupervisor,
   type InactivateSupervisorOptions,
-} from '@/modules/supervisor/services';
+} from '@/modules/supervisor/services/supervisor.service';
 
 interface Options {
   scrollToTop: () => void;

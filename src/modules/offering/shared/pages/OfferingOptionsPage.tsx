@@ -5,8 +5,8 @@ import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { FcBearish, FcBullish } from 'react-icons/fc';
 
-import { useAuthStore } from '@/stores';
-import { WhiteCard } from '@/shared/components';
+import { useAuthStore } from '@/stores/auth/auth.store';
+import { WhiteCard } from '@/shared/components/card/WhiteCard';
 
 export const OfferingOptionsPage = (): JSX.Element => {
   //* States

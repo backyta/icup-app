@@ -26,21 +26,21 @@ import {
 import {
   FamilyGroupSearchType,
   FamilyGroupSearchTypeNames,
-  FamilyGroupSearchSubTypeNames,
-  FamilyGroupSearchSelectOptionNames,
-} from '@/modules/family-group/enums';
-import {
-  type FamilyGroupQueryParams,
-  type FamilyGroupSearchFormByTerm,
-} from '@/modules/family-group/interfaces';
+} from '@/modules/family-group/enums/family-group-search-type.enum';
+import { FamilyGroupSearchSubTypeNames } from '@/modules/family-group/enums/family-group-search-sub-type.enum';
+import { FamilyGroupSearchSelectOptionNames } from '@/modules/family-group/enums/family-group-search-select-option.enum';
+
+import { type FamilyGroupQueryParams } from '@/modules/family-group/interfaces/family-group-query-params.interface';
+import { type FamilyGroupSearchFormByTerm } from '@/modules/family-group/interfaces/family-group-search-by-term.interface';
+
 import {
   getFamilyGroupsByTerm,
   getFamilyGroupsReportByTerm,
-} from '@/modules/family-group/services';
+} from '@/modules/family-group/services/family-group.service';
 
-import { useFamilyGroupStore } from '@/stores/family-group';
+import { useFamilyGroupStore } from '@/stores/family-group/family-group.store';
 
-import { LoadingSpinner } from '@/shared/components';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
 import {
   Table,
@@ -52,7 +52,7 @@ import {
 } from '@/shared/components/ui/table';
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
-import { getSimpleChurches } from '@/modules/church/services';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -193,9 +193,9 @@ export function SearchByTermFamilyGroupDataTable<TData, TValue>({
                 )?.[1]
               }`}
             </span>
-            {(dataForm?.searchType === FamilyGroupSearchType.FirstName ||
-              dataForm?.searchType === FamilyGroupSearchType.LastName ||
-              dataForm?.searchType === FamilyGroupSearchType.FullName) && (
+            {(dataForm?.searchType === FamilyGroupSearchType.FirstNames ||
+              dataForm?.searchType === FamilyGroupSearchType.LastNames ||
+              dataForm?.searchType === FamilyGroupSearchType.FullNames) && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {' '}
                 -{' '}
@@ -214,6 +214,7 @@ export function SearchByTermFamilyGroupDataTable<TData, TValue>({
               Término de búsqueda:
             </span>{' '}
             {(dataForm?.searchType === FamilyGroupSearchType.Department ||
+              dataForm?.searchType === FamilyGroupSearchType.Country ||
               dataForm?.searchType === FamilyGroupSearchType.Province ||
               dataForm?.searchType === FamilyGroupSearchType.FamilyGroupCode ||
               dataForm?.searchType === FamilyGroupSearchType.FamilyGroupName ||
@@ -225,19 +226,19 @@ export function SearchByTermFamilyGroupDataTable<TData, TValue>({
                 {`${dataForm?.inputTerm}`}
               </span>
             )}
-            {dataForm?.searchType === FamilyGroupSearchType.FirstName && (
+            {dataForm?.searchType === FamilyGroupSearchType.FirstNames && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.namesTerm}`}
+                {`${dataForm?.firstNamesTerm}`}
               </span>
             )}
-            {dataForm?.searchType === FamilyGroupSearchType.LastName && (
+            {dataForm?.searchType === FamilyGroupSearchType.LastNames && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
                 {`${dataForm?.lastNamesTerm}`}
               </span>
             )}
-            {dataForm?.searchType === FamilyGroupSearchType.FullName && (
+            {dataForm?.searchType === FamilyGroupSearchType.FullNames && (
               <span className='font-medium text-[13px] md:text-[14.5px] italic'>
-                {`${dataForm?.namesTerm} - ${dataForm?.lastNamesTerm} `}
+                {`${dataForm?.firstNamesTerm} - ${dataForm?.lastNamesTerm} `}
               </span>
             )}
             {dataForm?.searchType === FamilyGroupSearchType.RecordStatus && (
@@ -254,7 +255,7 @@ export function SearchByTermFamilyGroupDataTable<TData, TValue>({
           {/* Search Church */}
           <div>
             <span className='dark:text-emerald-500 text-emerald-600 font-bold text-[14px] md:text-[15.5px]'>
-              Iglesia de Busqueda:
+              Iglesia de Búsqueda:
             </span>{' '}
             <span className='font-medium text-[13px] md:text-[14.5px] italic'>
               {`${

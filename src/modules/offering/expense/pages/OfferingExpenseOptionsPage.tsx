@@ -7,8 +7,8 @@ import { GiExpense } from 'react-icons/gi';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
 import { FcClearFilters, FcSearch, FcSupport } from 'react-icons/fc';
 
-import { useAuthStore } from '@/stores';
-import { WhiteCard } from '@/shared/components';
+import { useAuthStore } from '@/stores/auth/auth.store';
+import { WhiteCard } from '@/shared/components/card/WhiteCard';
 
 export const OfferingExpenseOptionsPage = (): JSX.Element => {
   const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);

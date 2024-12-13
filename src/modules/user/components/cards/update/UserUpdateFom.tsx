@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useState } from 'react';
 
@@ -8,19 +8,18 @@ import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import {
-  useUserUpdateEffects,
-  useUserUpdateMutation,
-  useUserUpdateSubmitButtonLogic,
-} from '@/modules/user/hooks';
+import { useUserUpdateEffects } from '@/modules/user/hooks/useUserUpdateEffects';
+import { useUserUpdateMutation } from '@/modules/user/hooks/useUserUpdateMutation';
+import { useUserUpdateSubmitButtonLogic } from '@/modules/user/hooks/useUserUpdateSubmitButtonLogic';
 
-import { userFormSchema } from '@/modules/user/validations';
-import { UserFormSkeleton } from '@/modules/user/components';
-import { type UserResponse } from '@/modules/user/interfaces';
-import { UserRoleNames, UserRole } from '@/modules/user/enums';
+import { userFormSchema } from '@/modules/user/validations/user-form-schema';
+import { type UserResponse } from '@/modules/user/interfaces/user-response.interface';
+import { UserFormSkeleton } from '@/modules/user/components/cards/update/UserFormSkeleton';
+
+import { UserRoleNames, UserRole } from '@/modules/user/enums/user-role.enum';
 
 import { cn } from '@/shared/lib/utils';
-import { GenderNames } from '@/shared/enums';
+import { GenderNames } from '@/shared/enums/gender.enum';
 
 import {
   Form,
@@ -68,8 +67,8 @@ export const UserUpdateForm = ({
     mode: 'onChange',
     resolver: zodResolver(userFormSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      firstNames: '',
+      lastNames: '',
       gender: '',
       email: '',
       roles: [],
@@ -104,8 +103,8 @@ export const UserUpdateForm = ({
     userUpdateMutation.mutate({
       id,
       formData: {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
+        firstNames: formData.firstNames,
+        lastNames: formData.lastNames,
         gender: formData.gender,
         email: formData.email,
         roles: formData.roles,
@@ -130,7 +129,7 @@ export const UserUpdateForm = ({
           {!isLoadingData && (
             <CardContent className='py-4 px-4'>
               <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] mb-4 pl-0 md:pl-4'>
-                Usuario: {data?.firstName} {data?.lastName}
+                Usuario: {data?.firstNames} {data?.lastNames}
               </div>
 
               <Form {...form}>
@@ -140,7 +139,7 @@ export const UserUpdateForm = ({
                 >
                   <FormField
                     control={form.control}
-                    name='firstName'
+                    name='firstNames'
                     render={({ field }) => {
                       return (
                         <FormItem className='xl:w-[24rem]'>
@@ -163,7 +162,7 @@ export const UserUpdateForm = ({
 
                   <FormField
                     control={form.control}
-                    name='lastName'
+                    name='lastNames'
                     render={({ field }) => {
                       return (
                         <FormItem>

@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import type { IconType } from 'react-icons';
 
-import { useAuthStore } from '@/stores';
+import { useAuthStore } from '@/stores/auth/auth.store';
 
 import { SheetClose } from '@/shared/components/ui/sheet';
 

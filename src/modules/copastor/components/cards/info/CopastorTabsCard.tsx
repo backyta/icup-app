@@ -4,23 +4,26 @@ import { useEffect } from 'react';
 
 import { format, addDays } from 'date-fns';
 
-import { type CopastorResponse } from '@/modules/copastor/interfaces';
+import { type CopastorResponse } from '@/modules/copastor/interfaces/copastor-response.interface';
 
 import { cn } from '@/shared/lib/utils';
 
 import {
-  GenderNames,
-  type Gender,
-  RecordStatus,
-  type MemberRole,
-  MemberRoleNames,
-  MemberInactivationReasonNames,
   type MemberInactivationReason,
-  MemberInactivationCategoryNames,
+  MemberInactivationReasonNames,
+} from '@/shared/enums/member-inactivation-reason.enum';
+import {
   type MemberInactivationCategory,
-} from '@/shared/enums';
-import { PopoverDataCard } from '@/shared/components';
-import { getInitialFullNames } from '@/shared/helpers';
+  MemberInactivationCategoryNames,
+} from '@/shared/enums/member-inactivation-category.enum';
+
+import { RecordStatus } from '@/shared/enums/record-status.enum';
+import { type Gender, GenderNames } from '@/shared/enums/gender.enum';
+import { type MemberRole, MemberRoleNames } from '@/shared/enums/member-role.enum';
+
+import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
+
+import { PopoverDataCard } from '@/shared/components/card/PopoverDataCard';
 
 import {
   Card,
@@ -93,13 +96,13 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Nombres</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.firstName ?? '-'}
+                {data?.member?.firstNames ?? '-'}
               </CardDescription>
             </div>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Apellidos</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.lastName ?? '-'}
+                {data?.member?.lastNames ?? '-'}
               </CardDescription>
             </div>
             <div className='space-y-1'>
@@ -170,8 +173,8 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
                 data={data?.supervisors}
                 title={'Supervisores'}
                 moduleName={'Copastor'}
-                firstValue={'firstName'}
-                secondValue={'lastName'}
+                firstValue={'firstNames'}
+                secondValue={'lastNames'}
               />
             </div>
 
@@ -198,8 +201,8 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
                 data={data?.preachers}
                 title={'Predicadores'}
                 moduleName={'Copastor'}
-                firstValue={'firstName'}
-                secondValue={'lastName'}
+                firstValue={'firstNames'}
+                secondValue={'lastNames'}
               />
             </div>
 
@@ -226,8 +229,8 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
                 data={data?.disciples}
                 title={'Discípulos'}
                 moduleName={'Copastor'}
-                firstValue={'firstName'}
-                secondValue={'lastName'}
+                firstValue={'firstNames'}
+                secondValue={'lastNames'}
               />
             </div>
 
@@ -250,8 +253,8 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdBy
                   ? getInitialFullNames({
-                      firstNames: data?.createdBy?.firstName ?? '-',
-                      lastNames: data?.createdBy?.lastName ?? '-',
+                      firstNames: data?.createdBy?.firstNames ?? '-',
+                      lastNames: data?.createdBy?.lastNames ?? '-',
                     })
                   : '-'}
               </CardDescription>
@@ -280,8 +283,8 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
                   ? getInitialFullNames({
-                      firstNames: data?.updatedBy?.firstName ?? '-',
-                      lastNames: data?.updatedBy?.lastName ?? '-',
+                      firstNames: data?.updatedBy?.firstNames ?? '-',
+                      lastNames: data?.updatedBy?.lastNames ?? '-',
                     })
                   : '-'}
               </CardDescription>
@@ -403,7 +406,7 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
               <Label className='text-[14px] md:text-[15px]'>Pastor</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirPastor?.id
-                  ? `${data?.theirPastor?.firstName} ${data?.theirPastor?.lastName}`
+                  ? `${data?.theirPastor?.firstNames} ${data?.theirPastor?.lastNames}`
                   : 'Este co-pastor no tiene un pastor asignado.'}
               </CardDescription>
             </div>
@@ -477,49 +480,48 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>País</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.country ?? '-'}
+                {data?.member?.residenceCountry ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Departamento</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.department ?? '-'}
+                {data?.member?.residenceDepartment ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Provincia</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.province ?? '-'}
+                {data?.member?.residenceProvince ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Distrito</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.district ?? '-'}
+                {data?.member?.residenceDistrict ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Sector Urbano</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.urbanSector ?? '-'}
+                {data?.member?.residenceUrbanSector ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Dirección</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.address ?? '-'}
+                {data?.member?.residenceAddress ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Referencia de ubicación</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.address}
                 {data?.member?.referenceAddress}
               </CardDescription>
             </div>

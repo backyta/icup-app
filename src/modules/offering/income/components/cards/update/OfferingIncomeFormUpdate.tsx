@@ -6,57 +6,61 @@ import { useEffect, useState } from 'react';
 
 import type * as z from 'zod';
 import { toast } from 'sonner';
-import { useForm } from 'react-hook-form';
-import { useQuery } from '@tanstack/react-query';
-import { zodResolver } from '@hookform/resolvers/zod';
-
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { useForm } from 'react-hook-form';
 import { useDropzone } from 'react-dropzone';
+import { useQuery } from '@tanstack/react-query';
 import { TiDeleteOutline } from 'react-icons/ti';
-
+import { zodResolver } from '@hookform/resolvers/zod';
 import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import {
-  MemberType,
-  MemberTypeNames,
   OfferingIncomeCreationType,
-  OfferingIncomeCreationSubType,
-  OfferingIncomeCreationCategory,
   OfferingIncomeCreationTypeNames,
-  OfferingIncomeCreationSubTypeNames,
-  OfferingIncomeCreationShiftTypeNames,
-  OfferingIncomeCreationCategoryNames,
-} from '@/modules/offering/income/enums';
+} from '@/modules/offering/income/enums/offering-income-creation-type.enum';
 import {
-  useOfferingIncomeSetData,
-  useOfferingIncomeFileDropZone,
-  useOfferingIncomeUpdateMutation,
-  useOfferingIncomeUpdateSubmitButtonLogic,
-} from '@/modules/offering/income/hooks';
+  OfferingIncomeCreationSubType,
+  OfferingIncomeCreationSubTypeNames,
+} from '@/modules/offering/income/enums/offering-income-creation-sub-type.enum';
+import {
+  OfferingIncomeCreationCategory,
+  OfferingIncomeCreationCategoryNames,
+} from '@/modules/offering/income/enums/offering-income-creation-category.enum';
+import { MemberType, MemberTypeNames } from '@/modules/offering/income/enums/member-type.enum';
+import { OfferingIncomeCreationShiftTypeNames } from '@/modules/offering/income/enums/offering-income-creation-shift-type.enum';
 
-import { getSimpleZones } from '@/modules/zone/services';
-import { getSimpleChurches } from '@/modules/church/services';
-import { getSimpleFamilyGroups } from '@/modules/family-group/services';
+import { useOfferingIncomeSetData } from '@/modules/offering/income/hooks/useOfferingIncomeSetData';
+import { useOfferingIncomeFileDropZone } from '@/modules/offering/income/hooks/useOfferingIncomeFileDropZone';
+import { useOfferingIncomeUpdateMutation } from '@/modules/offering/income/hooks/useOfferingIncomeUpdateMutation';
+import { useOfferingIncomeUpdateSubmitButtonLogic } from '@/modules/offering/income/hooks/useOfferingIncomeUpdateSubmitButtonLogic';
 
-import { DestroyImageButton } from '@/modules/offering/shared/components';
-import { CurrencyTypeNames, OfferingFileType } from '@/modules/offering/shared/enums';
-import { type FilesProps, type RejectionProps } from '@/modules/offering/shared/interfaces';
-import { useImagesUploadMutation, useModuleQueries } from '@/modules/offering/shared/hooks';
+import { getSimpleZones } from '@/modules/zone/services/zone.service';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
+import { getSimpleFamilyGroups } from '@/modules/family-group/services/family-group.service';
 
-import { offeringIncomeFormSchema } from '@/modules/offering/income/validations';
-import { OfferingIncomeFormSkeleton } from '@/modules/offering/income/components';
-import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces';
+import { useModuleQueries } from '@/modules/offering/shared/hooks/useModuleQueries';
+import { CurrencyTypeNames } from '@/modules/offering/shared/enums/currency-type.enum';
+import { OfferingFileType } from '@/modules/offering/shared/enums/offering-file-type.enum';
+import { type FilesProps } from '@/modules/offering/shared/interfaces/files-props.interface';
+import { DestroyImageButton } from '@/modules/offering/shared/components/DestroyImageButton';
+import { useImagesUploadMutation } from '@/modules/offering/shared/hooks/useImagesUploadMutation';
+import { type RejectionProps } from '@/modules/offering/shared/interfaces/rejected-props.interface';
 
-import { type PastorResponse } from '@/modules/pastor/interfaces';
-import { type CopastorResponse } from '@/modules/copastor/interfaces';
-import { type PreacherResponse } from '@/modules/preacher/interfaces';
-import { type DiscipleResponse } from '@/modules/disciple/interfaces';
-import { type SupervisorResponse } from '@/modules/supervisor/interfaces';
+import { offeringIncomeFormSchema } from '@/modules/offering/income/validations/offering-income-form-schema';
+import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces/offering-income-response.interface';
+import { OfferingIncomeFormSkeleton } from '@/modules/offering/income/components/cards/update/OfferingIncomeFormSkeleton';
+
+import { type PastorResponse } from '@/modules/pastor/interfaces/pastor-response.interface';
+import { type CopastorResponse } from '@/modules/copastor/interfaces/copastor-response.interface';
+import { type PreacherResponse } from '@/modules/preacher/interfaces/preacher-response.interface';
+import { type DiscipleResponse } from '@/modules/disciple/interfaces/disciple-response.interface';
+import { type SupervisorResponse } from '@/modules/supervisor/interfaces/supervisor-response.interface';
 
 import { cn } from '@/shared/lib/utils';
-import { RecordStatus } from '@/shared/enums';
-import { getCodeAndNameFamilyGroup, getFullNames } from '@/shared/helpers';
+import { RecordStatus } from '@/shared/enums/record-status.enum';
+import { getFullNames } from '@/shared/helpers/get-full-names.helper';
+import { getCodeAndNameFamilyGroup } from '@/shared/helpers/get-code-and-name-family-group.helper';
 
 import {
   Form,
@@ -347,14 +351,14 @@ export const OfferingIncomeFormUpdate = ({
                             data?.subType === OfferingIncomeCreationSubType.ZonalVigil
                           ? `${data?.zone?.zoneName} - ${data?.zone?.district}`
                           : data?.memberType === MemberType.Disciple
-                            ? `${data?.disciple?.firstName} ${data?.disciple?.lastName}`
+                            ? `${data?.disciple?.firstNames} ${data?.disciple?.lastNames}`
                             : data?.memberType === MemberType.Preacher
-                              ? `${data?.preacher?.firstName} ${data?.preacher?.lastName}`
+                              ? `${data?.preacher?.firstNames} ${data?.preacher?.lastNames}`
                               : data?.memberType === MemberType.Supervisor
-                                ? `${data?.supervisor?.firstName} ${data?.supervisor?.lastName}`
+                                ? `${data?.supervisor?.firstNames} ${data?.supervisor?.lastNames}`
                                 : data?.memberType === MemberType.Copastor
-                                  ? `${data?.copastor?.firstName} ${data?.copastor?.lastName}`
-                                  : `${data?.pastor?.firstName} ${data?.pastor?.lastName}`
+                                  ? `${data?.copastor?.firstNames} ${data?.copastor?.lastNames}`
+                                  : `${data?.pastor?.firstNames} ${data?.pastor?.lastNames}`
                   }`}
                 </span>
               </div>
@@ -653,7 +657,7 @@ export const OfferingIncomeFormUpdate = ({
                                       )}
                                     >
                                       {field.value
-                                        ? `${queryData?.find((member) => member.id === field.value)?.member?.firstName} ${queryData?.find((member) => member.id === field.value)?.member?.lastName}`
+                                        ? `${queryData?.find((member) => member.id === field.value)?.member?.firstNames} ${queryData?.find((member) => member.id === field.value)?.member?.lastNames}`
                                         : 'Busque y seleccione un miembro'}
                                       <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                     </Button>
@@ -673,8 +677,8 @@ export const OfferingIncomeFormUpdate = ({
                                             <CommandItem
                                               className='text-[14px]'
                                               value={getFullNames({
-                                                firstNames: member?.member?.firstName ?? '',
-                                                lastNames: member?.member?.lastName ?? '',
+                                                firstNames: member?.member?.firstNames ?? '',
+                                                lastNames: member?.member?.lastNames ?? '',
                                               })}
                                               key={member.id}
                                               onSelect={() => {
@@ -682,7 +686,7 @@ export const OfferingIncomeFormUpdate = ({
                                                 setIsInputMemberOpen(false);
                                               }}
                                             >
-                                              {`${member?.member?.firstName} ${member?.member?.lastName}`}
+                                              {`${member?.member?.firstNames} ${member?.member?.lastNames}`}
                                               <CheckIcon
                                                 className={cn(
                                                   'ml-auto h-4 w-4',

@@ -1,20 +1,20 @@
-import { type UserRole } from '@/modules/user/enums';
+import { type UserRole } from '@/modules/user/enums/user-role.enum';
 
 export interface UserFormData {
-  firstName: string,
-  lastName:string,
-  email: string,
-  password?: string | undefined,
+  firstNames      : string,
+  lastNames       : string,
+  email           : string,
+  password       ?: string | undefined,
   passwordConfirm?: string  | undefined,
-  gender: string,
-  roles: UserRole[],
-  recordStatus?: string | undefined,
+  gender          : string,
+  roles           : UserRole[],
+  recordStatus   ?: string | undefined,
 }
 
 export type UserFormDataKeys =
   | 'id'
-  | 'firstName'
-  | 'lastName'
+  | 'firstNames'
+  | 'lastNames'
   | 'email'
   | 'gender'
   | 'password'

@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { useMediaQuery } from '@react-hook/media-query';
 
-import { DiscipleTabsCard } from '@/modules/disciple/components';
-import { type DiscipleResponse } from '@/modules/disciple/interfaces';
+import { DiscipleTabsCard } from '@/modules/disciple/components/cards/info/DiscipleTabsCard';
+import { type DiscipleResponse } from '@/modules/disciple/interfaces/disciple-response.interface';
 
 import { Button } from '@/shared/components/ui/button';
 import { CardContent } from '@/shared/components/ui/card';
@@ -35,8 +35,8 @@ export function MemberInfoItem({ data }: Props): JSX.Element {
           </Avatar>
 
           <div className='flex flex-col justify-center'>
-            <p className='text-sm sm:text-base font-bold'>{`${data?.member?.firstName} ${data?.member?.lastName}`}</p>
-            <p className='text-[12px] sm:text-[14px] ml-2'>{`${data?.member?.district} - ${data?.member?.urbanSector}`}</p>
+            <p className='text-sm sm:text-base font-bold'>{`${data?.member?.firstNames} ${data?.member?.lastNames}`}</p>
+            <p className='text-[12px] sm:text-[14px] ml-2'>{`${data?.member?.residenceDistrict} - ${data?.member?.residenceUrbanSector}`}</p>
           </div>
         </CardContent>
         <div className='pr-6 pt-2 pb-2'>
@@ -68,8 +68,8 @@ export function MemberInfoItem({ data }: Props): JSX.Element {
 
         <div className='flex flex-col'>
           <div className='flex flex-col justify-center'>
-            <p className='text-sm sm:text-base font-bold'>{`${data?.member?.firstName} ${data?.member?.lastName}`}</p>
-            <p className='text-[12px] sm:text-[14px] ml-2'>{`${data?.member?.district} - ${data?.member?.urbanSector}`}</p>
+            <p className='text-sm sm:text-base font-bold'>{`${data?.member?.firstNames} ${data?.member?.lastNames}`}</p>
+            <p className='text-[12px] sm:text-[14px] ml-2'>{`${data?.member?.residenceDistrict} - ${data?.member?.residenceUrbanSector}`}</p>
           </div>
         </div>
       </CardContent>

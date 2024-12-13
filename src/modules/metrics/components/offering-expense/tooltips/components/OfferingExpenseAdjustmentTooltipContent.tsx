@@ -2,11 +2,11 @@
 
 import { addDays } from 'date-fns';
 
-import { type TooltipConfig } from '@/shared/interfaces';
-import { dateFormatterToDDMMYY } from '@/shared/helpers';
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 
-import { CurrencyType } from '@/modules/offering/shared/enums';
-import { type OfferingExpenseAdjustmentPayload } from '@/modules/metrics/components/offering-expense/tooltips/interfaces';
+import { CurrencyType } from '@/modules/offering/shared/enums/currency-type.enum';
+import { type OfferingExpenseAdjustmentPayload } from '@/modules/metrics/components/offering-expense/tooltips/interfaces/offering-expense-adjustment-tooltip-payload.interface';
 
 export const OfferingExpenseAdjustmentTooltipContent = (
   props: TooltipConfig<OfferingExpenseAdjustmentPayload>

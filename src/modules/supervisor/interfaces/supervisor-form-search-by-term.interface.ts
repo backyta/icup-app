@@ -1,4 +1,5 @@
-import { type SupervisorSearchSubType, type SupervisorSearchType } from '@/modules/supervisor/enums';
+import { type SupervisorSearchType } from '@/modules/supervisor/enums/supervisor-search-type.enum';
+import { type SupervisorSearchSubType } from '@/modules/supervisor/enums/supervisor-search-sub-type.num';
 
 export interface SupervisorSearchFormByTerm {
   searchType?: SupervisorSearchType;
@@ -11,7 +12,7 @@ export interface SupervisorSearchFormByTerm {
         from: Date;
         to?: Date | undefined;
     } | undefined;
-  namesTerm?: string | undefined;
+  firstNamesTerm?: string | undefined;
   lastNamesTerm?: string | undefined;
   limit?: string | undefined;
   all?: boolean | undefined;

@@ -5,8 +5,8 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums';
-import { type CopastorFormData } from '@/modules/copastor/interfaces';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { type CopastorFormData } from '@/modules/copastor/interfaces/copastor-form-data.interface';
 
 interface Options {
   copastorCreationForm: UseFormReturn<CopastorFormData, any, CopastorFormData>;
@@ -24,8 +24,8 @@ export const useCopastorCreationSubmitButtonLogic = ({
   isInputDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = copastorCreationForm.watch('firstName');
-  const lastName = copastorCreationForm.watch('lastName');
+  const firstNames = copastorCreationForm.watch('firstNames');
+  const lastNames = copastorCreationForm.watch('lastNames');
   const gender = copastorCreationForm.watch('gender');
   const birthDate = copastorCreationForm.watch('birthDate');
   const conversionDate = copastorCreationForm.watch('conversionDate');
@@ -34,12 +34,12 @@ export const useCopastorCreationSubmitButtonLogic = ({
   const phoneNumber = copastorCreationForm.watch('phoneNumber');
   const originCountry = copastorCreationForm.watch('originCountry');
   const numberChildren = copastorCreationForm.watch('numberChildren');
-  const country = copastorCreationForm.watch('country');
-  const department = copastorCreationForm.watch('department');
-  const province = copastorCreationForm.watch('province');
-  const district = copastorCreationForm.watch('district');
-  const urbanSector = copastorCreationForm.watch('urbanSector');
-  const address = copastorCreationForm.watch('address');
+  const residenceCountry = copastorCreationForm.watch('residenceCountry');
+  const residenceDepartment = copastorCreationForm.watch('residenceDepartment');
+  const residenceProvince = copastorCreationForm.watch('residenceProvince');
+  const residenceDistrict = copastorCreationForm.watch('residenceDistrict');
+  const residenceUrbanSector = copastorCreationForm.watch('residenceUrbanSector');
+  const residenceAddress = copastorCreationForm.watch('residenceAddress');
   const roles = copastorCreationForm.watch('roles');
   const referenceAddress = copastorCreationForm.watch('referenceAddress');
   const theirPastor = copastorCreationForm.watch('theirPastor');
@@ -65,8 +65,8 @@ export const useCopastorCreationSubmitButtonLogic = ({
     }
 
     if (
-      !firstName ||
-      !lastName ||
+      !firstNames ||
+      !lastNames ||
       !gender ||
       !birthDate ||
       !conversionDate ||
@@ -75,13 +75,13 @@ export const useCopastorCreationSubmitButtonLogic = ({
       !phoneNumber ||
       !originCountry ||
       !numberChildren ||
-      !country ||
-      !department ||
-      !province ||
-      !district ||
-      !address ||
-      !urbanSector ||
-      !address ||
+      !residenceCountry ||
+      !residenceDepartment ||
+      !residenceProvince ||
+      !residenceDistrict ||
+      !residenceAddress ||
+      !residenceUrbanSector ||
+      !residenceAddress ||
       !referenceAddress ||
       !theirPastor ||
       roles.length === 0
@@ -91,8 +91,8 @@ export const useCopastorCreationSubmitButtonLogic = ({
     }
   }, [
     copastorCreationForm.formState,
-    firstName,
-    lastName,
+    firstNames,
+    lastNames,
     gender,
     conversionDate,
     birthDate,
@@ -101,12 +101,12 @@ export const useCopastorCreationSubmitButtonLogic = ({
     phoneNumber,
     originCountry,
     numberChildren,
-    country,
-    department,
-    province,
-    district,
-    address,
-    urbanSector,
+    residenceCountry,
+    residenceDepartment,
+    residenceProvince,
+    residenceDistrict,
+    residenceAddress,
+    residenceUrbanSector,
     referenceAddress,
     theirPastor,
     roles,

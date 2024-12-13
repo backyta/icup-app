@@ -6,10 +6,10 @@ import { useEffect } from 'react';
 
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { useAuthStore } from '@/stores';
+import { useAuthStore } from '@/stores/auth/auth.store';
 
-import { SideMenu } from '@/shared/components/side-menu';
-import { ToggleLayout } from '@/shared/components/toggle-theme';
+import { SideMenu } from '@/shared/components/side-menu/SideMenu';
+import { ToggleLayout } from '@/shared/components/toggle-theme/ToggleLayout';
 import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
 export const DashboardLayout = (): JSX.Element => {

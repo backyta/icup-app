@@ -8,8 +8,8 @@ import { BsFillPersonVcardFill } from 'react-icons/bs';
 
 import { cn } from '@/shared/lib/utils';
 
-import { useUserStore } from '@/stores/user';
-import { UserTabsCard } from '@/modules/user/components';
+import { useUserStore } from '@/stores/user/user.store';
+import { UserTabsCard } from '@/modules/user/components/cards/info/UserTabsCard';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

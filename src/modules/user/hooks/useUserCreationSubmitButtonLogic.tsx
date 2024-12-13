@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
-import { type UserFormData } from '@/modules/user/interfaces';
+import { type UserFormData } from '@/modules/user/interfaces/user-form-data.interface';
 
 interface Options {
   userCreationForm: UseFormReturn<UserFormData, any, UserFormData>;
@@ -23,8 +23,8 @@ export const useUserCreationSubmitButtonLogic = ({
   isInputDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = userCreationForm.watch('firstName');
-  const lastName = userCreationForm.watch('lastName');
+  const firstNames = userCreationForm.watch('firstNames');
+  const lastNames = userCreationForm.watch('lastNames');
   const email = userCreationForm.watch('email');
   const password = userCreationForm.watch('password');
   const passwordConfirm = userCreationForm.watch('passwordConfirm');
@@ -42,8 +42,8 @@ export const useUserCreationSubmitButtonLogic = ({
     }
 
     if (
-      firstName &&
-      lastName &&
+      firstNames &&
+      lastNames &&
       email &&
       password &&
       passwordConfirm &&
@@ -56,7 +56,7 @@ export const useUserCreationSubmitButtonLogic = ({
       setIsMessageErrorRolesDisabled(false);
     }
 
-    if (!firstName || !lastName || !email || !password || !passwordConfirm || !roles) {
+    if (!firstNames || !lastNames || !email || !password || !passwordConfirm || !roles) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
@@ -72,8 +72,8 @@ export const useUserCreationSubmitButtonLogic = ({
     }
   }, [
     userCreationForm.formState,
-    firstName,
-    lastName,
+    firstNames,
+    lastNames,
     email,
     password,
     passwordConfirm,

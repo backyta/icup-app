@@ -11,8 +11,8 @@ export interface TopFamilyGroupsOfferingsResponse {
   };
   preacher: {
     id: string;
-    firstName: string;
-    lastName: string;
+    firstNames: string;
+    lastNames: string;
   };
   church: {
     isAnexe: boolean;

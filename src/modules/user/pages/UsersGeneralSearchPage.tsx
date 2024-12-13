@@ -10,17 +10,20 @@ import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { useUserStore } from '@/stores/user/user.store';
+
+import { type UserResponse } from '@/modules/user/interfaces/user-response.interface';
+import { userInfoColumns as columns } from '@/modules/user/components/data-tables/columns/user-info-columns';
+import { GeneralUserSearchDataTable } from '@/modules/user/components/data-tables/boards/general-user-search-data-table';
+
 import { cn } from '@/shared/lib/utils';
 
-import { useUserStore } from '@/stores/user';
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
 
-import { type UserResponse } from '@/modules/user/interfaces';
-import { userInfoColumns as columns, GeneralUserSearchDataTable } from '@/modules/user/components';
-
-import { PageTitle, SearchTitle } from '@/shared/components/page';
-import { type GeneralSearchForm } from '@/shared/interfaces';
-import { formSearchGeneralSchema } from '@/shared/validations';
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+import { formSearchGeneralSchema } from '@/shared/validations/form-search-general-schema';
+import { type GeneralSearchForm } from '@/shared/interfaces/search-general-form.interface';
 
 import {
   Select,
@@ -45,8 +48,8 @@ import { Checkbox } from '@/shared/components/ui/checkbox';
 const dataFictional: UserResponse[] = [
   {
     id: '',
-    firstName: '',
-    lastName: '',
+    firstNames: '',
+    lastNames: '',
     gender: '',
     email: '',
     roles: [],
@@ -200,7 +203,9 @@ export const UsersGeneralSearchPage = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[12px] md:text-[13px]'>Todos</FormLabel>
+                          <FormLabel className='text-[12px] md:text-[13px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </div>
                     </FormItem>

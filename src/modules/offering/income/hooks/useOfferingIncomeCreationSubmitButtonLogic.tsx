@@ -5,20 +5,17 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import {
-  OfferingIncomeCreationCategory,
-  type OfferingIncomeCreationType,
-  type OfferingIncomeCreationSubType,
-} from '@/modules/offering/income/enums';
-import { type OfferingIncomeFormData } from '@/modules/offering/income/interfaces';
+import { OfferingIncomeCreationType } from '@/modules/offering/income/enums/offering-income-creation-type.enum';
+import { OfferingIncomeCreationCategory } from '@/modules/offering/income/enums/offering-income-creation-category.enum';
+import { OfferingIncomeCreationSubType } from '@/modules/offering/income/enums/offering-income-creation-sub-type.enum';
+
+import { type OfferingIncomeFormData } from '@/modules/offering/income/interfaces/offering-income-form-data.interface';
 
 interface Options {
   isDropZoneDisabled: boolean;
   isDeleteFileButtonDisabled: boolean;
   isInputDisabled: boolean;
   offeringIncomeCreationForm: UseFormReturn<OfferingIncomeFormData, any, OfferingIncomeFormData>;
-  offeringIncomeCreationSubType: typeof OfferingIncomeCreationSubType;
-  offeringIncomeCreationType: typeof OfferingIncomeCreationType;
   setIsDropZoneDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,8 +26,6 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
   isDeleteFileButtonDisabled,
   isInputDisabled,
   offeringIncomeCreationForm,
-  offeringIncomeCreationSubType,
-  offeringIncomeCreationType,
   setIsDropZoneDisabled,
   setIsMessageErrorDisabled,
   setIsSubmitButtonDisabled,
@@ -68,7 +63,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
 
     //* Income adjustment
     if (
-      type === offeringIncomeCreationType.IncomeAdjustment &&
+      type === OfferingIncomeCreationType.IncomeAdjustment &&
       !subType &&
       !category &&
       amount &&
@@ -84,7 +79,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.IncomeAdjustment &&
+      type === OfferingIncomeCreationType.IncomeAdjustment &&
       (!churchId || !amount || !currency || !date || !comments)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -94,9 +89,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     //* Sunday service
     if (
       churchId &&
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.OfferingBox &&
-      subType === offeringIncomeCreationSubType.SundayService &&
+      subType === OfferingIncomeCreationSubType.SundayService &&
       amount &&
       date &&
       currency &&
@@ -109,9 +104,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.OfferingBox &&
-      subType === offeringIncomeCreationSubType.SundayService &&
+      subType === OfferingIncomeCreationSubType.SundayService &&
       (!churchId || !date || !amount || !currency || !shift)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -121,9 +116,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     // ? Sunday School
     //* Sunday School (external donation)
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
-      subType === offeringIncomeCreationSubType.SundaySchool &&
+      subType === OfferingIncomeCreationSubType.SundaySchool &&
       isNewDonor &&
       donorFirstName &&
       donorLastName &&
@@ -140,9 +135,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
-      subType === offeringIncomeCreationSubType.SundaySchool &&
+      subType === OfferingIncomeCreationSubType.SundaySchool &&
       !isNewDonor &&
       donorId &&
       !donorFirstName &&
@@ -160,9 +155,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
-      subType === offeringIncomeCreationSubType.SundaySchool &&
+      subType === OfferingIncomeCreationSubType.SundaySchool &&
       isNewDonor &&
       (!churchId ||
         !date ||
@@ -177,9 +172,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
-      subType === offeringIncomeCreationSubType.SundaySchool &&
+      subType === OfferingIncomeCreationSubType.SundaySchool &&
       !isNewDonor &&
       (!churchId || !donorId || !date || !amount || !currency)
     ) {
@@ -189,9 +184,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
 
     //* Sunday school (offering box)
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.OfferingBox &&
-      subType === offeringIncomeCreationSubType.SundaySchool &&
+      subType === OfferingIncomeCreationSubType.SundaySchool &&
       amount &&
       date &&
       currency &&
@@ -205,9 +200,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.OfferingBox &&
-      subType === offeringIncomeCreationSubType.SundaySchool &&
+      subType === OfferingIncomeCreationSubType.SundaySchool &&
       (!churchId || !date || !amount || !currency || !shift)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -216,9 +211,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
 
     //* Sunday school (activities)
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.Activities &&
-      subType === offeringIncomeCreationSubType.SundaySchool &&
+      subType === OfferingIncomeCreationSubType.SundaySchool &&
       amount &&
       date &&
       currency &&
@@ -231,9 +226,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.Activities &&
-      subType === offeringIncomeCreationSubType.SundaySchool &&
+      subType === OfferingIncomeCreationSubType.SundaySchool &&
       (!churchId || !date || !amount || !currency)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -243,9 +238,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     //* Sunday school (internal donation)
     if (
       churchId &&
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.InternalDonation &&
-      subType === offeringIncomeCreationSubType.SundaySchool &&
+      subType === OfferingIncomeCreationSubType.SundaySchool &&
       amount &&
       date &&
       currency &&
@@ -259,9 +254,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.InternalDonation &&
-      subType === offeringIncomeCreationSubType.SundaySchool &&
+      subType === OfferingIncomeCreationSubType.SundaySchool &&
       (!churchId || !memberType || !memberId || !date || !amount || !currency)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -271,9 +266,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     // ? Youth Service
     //* Youth Service (external donation)
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
-      subType === offeringIncomeCreationSubType.YouthService &&
+      subType === OfferingIncomeCreationSubType.YouthService &&
       (isNewDonor || !isNewDonor) &&
       donorFirstName &&
       donorLastName &&
@@ -290,9 +285,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
-      subType === offeringIncomeCreationSubType.YouthService &&
+      subType === OfferingIncomeCreationSubType.YouthService &&
       !isNewDonor &&
       donorId &&
       !donorFirstName &&
@@ -310,9 +305,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
-      subType === offeringIncomeCreationSubType.YouthService &&
+      subType === OfferingIncomeCreationSubType.YouthService &&
       isNewDonor &&
       (!churchId ||
         !date ||
@@ -327,9 +322,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
-      subType === offeringIncomeCreationSubType.YouthService &&
+      subType === OfferingIncomeCreationSubType.YouthService &&
       !isNewDonor &&
       (!churchId || !donorId || !date || !amount || !currency)
     ) {
@@ -339,10 +334,10 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
 
     //* Youth Service (offering box and activities)
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       (category === OfferingIncomeCreationCategory.OfferingBox ||
         category === OfferingIncomeCreationCategory.Activities) &&
-      subType === offeringIncomeCreationSubType.YouthService &&
+      subType === OfferingIncomeCreationSubType.YouthService &&
       amount &&
       date &&
       currency &&
@@ -355,10 +350,10 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       (category === OfferingIncomeCreationCategory.OfferingBox ||
         category === OfferingIncomeCreationCategory.Activities) &&
-      subType === offeringIncomeCreationSubType.YouthService &&
+      subType === OfferingIncomeCreationSubType.YouthService &&
       (!churchId || !date || !amount || !currency)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -368,9 +363,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     //* Youth Service (internal donation)
     if (
       churchId &&
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.InternalDonation &&
-      subType === offeringIncomeCreationSubType.YouthService &&
+      subType === OfferingIncomeCreationSubType.YouthService &&
       amount &&
       date &&
       currency &&
@@ -384,9 +379,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.InternalDonation &&
-      subType === offeringIncomeCreationSubType.YouthService &&
+      subType === OfferingIncomeCreationSubType.YouthService &&
       (!churchId || !memberType || !memberId || !date || !amount || !currency)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -396,9 +391,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     // ? Church Ground
     //* Church ground (external donation)
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
-      subType === offeringIncomeCreationSubType.ChurchGround &&
+      subType === OfferingIncomeCreationSubType.ChurchGround &&
       isNewDonor &&
       donorFirstName &&
       donorLastName &&
@@ -415,9 +410,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
-      subType === offeringIncomeCreationSubType.ChurchGround &&
+      subType === OfferingIncomeCreationSubType.ChurchGround &&
       !isNewDonor &&
       donorId &&
       !donorFirstName &&
@@ -435,9 +430,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
-      subType === offeringIncomeCreationSubType.ChurchGround &&
+      subType === OfferingIncomeCreationSubType.ChurchGround &&
       isNewDonor &&
       (!churchId ||
         !date ||
@@ -452,9 +447,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
-      subType === offeringIncomeCreationSubType.ChurchGround &&
+      subType === OfferingIncomeCreationSubType.ChurchGround &&
       !isNewDonor &&
       (!churchId || !date || !donorId || !amount || !currency)
     ) {
@@ -464,9 +459,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
 
     //* Church Ground (activities)
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.Activities &&
-      subType === offeringIncomeCreationSubType.ChurchGround &&
+      subType === OfferingIncomeCreationSubType.ChurchGround &&
       amount &&
       date &&
       currency &&
@@ -479,9 +474,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.Activities &&
-      subType === offeringIncomeCreationSubType.ChurchGround &&
+      subType === OfferingIncomeCreationSubType.ChurchGround &&
       (!churchId || !date || !amount || !currency)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -491,9 +486,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     //* Church Ground (internal donation)
     if (
       churchId &&
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.InternalDonation &&
-      subType === offeringIncomeCreationSubType.ChurchGround &&
+      subType === OfferingIncomeCreationSubType.ChurchGround &&
       amount &&
       date &&
       currency &&
@@ -507,9 +502,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.InternalDonation &&
-      subType === offeringIncomeCreationSubType.ChurchGround &&
+      subType === OfferingIncomeCreationSubType.ChurchGround &&
       (!churchId || !memberType || !memberId || !date || !amount || !currency)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -519,9 +514,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     // ? Special offering
     //* Special offering (external donation)
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
-      subType === offeringIncomeCreationSubType.Special &&
+      subType === OfferingIncomeCreationSubType.Special &&
       isNewDonor &&
       donorFirstName &&
       donorLastName &&
@@ -538,9 +533,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
-      subType === offeringIncomeCreationSubType.Special &&
+      subType === OfferingIncomeCreationSubType.Special &&
       !isNewDonor &&
       donorId &&
       !donorFirstName &&
@@ -558,9 +553,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
-      subType === offeringIncomeCreationSubType.Special &&
+      subType === OfferingIncomeCreationSubType.Special &&
       isNewDonor &&
       (!churchId ||
         !date ||
@@ -575,9 +570,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
-      subType === offeringIncomeCreationSubType.Special &&
+      subType === OfferingIncomeCreationSubType.Special &&
       !isNewDonor &&
       (!churchId || !date || !donorId || !amount || !currency)
     ) {
@@ -588,9 +583,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     //* Special (internal donation)
     if (
       churchId &&
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.InternalDonation &&
-      subType === offeringIncomeCreationSubType.Special &&
+      subType === OfferingIncomeCreationSubType.Special &&
       amount &&
       date &&
       currency &&
@@ -604,9 +599,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.InternalDonation &&
-      subType === offeringIncomeCreationSubType.Special &&
+      subType === OfferingIncomeCreationSubType.Special &&
       (!churchId || !memberType || !memberId || !date || !amount || !currency)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -616,9 +611,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     // ? Family group
     if (
       churchId &&
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.OfferingBox &&
-      subType === offeringIncomeCreationSubType.FamilyGroup &&
+      subType === OfferingIncomeCreationSubType.FamilyGroup &&
       amount &&
       date &&
       currency &&
@@ -631,8 +626,8 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
-      subType === offeringIncomeCreationSubType.FamilyGroup &&
+      type === OfferingIncomeCreationType.Offering &&
+      subType === OfferingIncomeCreationSubType.FamilyGroup &&
       (!churchId || !date || !amount || !currency || !familyGroupId)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -642,10 +637,10 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     // ? Zone
     if (
       churchId &&
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.OfferingBox &&
-      (subType === offeringIncomeCreationSubType.ZonalVigil ||
-        subType === offeringIncomeCreationSubType.ZonalFasting) &&
+      (subType === OfferingIncomeCreationSubType.ZonalVigil ||
+        subType === OfferingIncomeCreationSubType.ZonalFasting) &&
       amount &&
       currency &&
       zoneId &&
@@ -658,9 +653,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
-      (subType === offeringIncomeCreationSubType.ZonalVigil ||
-        subType === offeringIncomeCreationSubType.ZonalFasting) &&
+      type === OfferingIncomeCreationType.Offering &&
+      (subType === OfferingIncomeCreationSubType.ZonalVigil ||
+        subType === OfferingIncomeCreationSubType.ZonalFasting) &&
       (!churchId || !date || !amount || !currency || !zoneId)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -669,16 +664,16 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
 
     // ? Others
     if (
-      type === offeringIncomeCreationType.Offering &&
+      type === OfferingIncomeCreationType.Offering &&
       (category === OfferingIncomeCreationCategory.OfferingBox ||
         category === OfferingIncomeCreationCategory.General) &&
-      subType !== offeringIncomeCreationSubType.Special &&
-      subType !== offeringIncomeCreationSubType.ChurchGround &&
-      subType !== offeringIncomeCreationSubType.ZonalFasting &&
-      subType !== offeringIncomeCreationSubType.ZonalVigil &&
-      subType !== offeringIncomeCreationSubType.FamilyGroup &&
-      subType !== offeringIncomeCreationSubType.SundaySchool &&
-      subType !== offeringIncomeCreationSubType.SundayService &&
+      subType !== OfferingIncomeCreationSubType.Special &&
+      subType !== OfferingIncomeCreationSubType.ChurchGround &&
+      subType !== OfferingIncomeCreationSubType.ZonalFasting &&
+      subType !== OfferingIncomeCreationSubType.ZonalVigil &&
+      subType !== OfferingIncomeCreationSubType.FamilyGroup &&
+      subType !== OfferingIncomeCreationSubType.SundaySchool &&
+      subType !== OfferingIncomeCreationSubType.SundayService &&
       amount &&
       currency &&
       churchId &&
@@ -841,9 +836,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
 
   useEffect(() => {
     if (
-      type === offeringIncomeCreationType.Offering &&
-      (subType === offeringIncomeCreationSubType.SundayService ||
-        subType === offeringIncomeCreationSubType.SundaySchool)
+      type === OfferingIncomeCreationType.Offering &&
+      (subType === OfferingIncomeCreationSubType.SundayService ||
+        subType === OfferingIncomeCreationSubType.SundaySchool)
     ) {
       offeringIncomeCreationForm.resetField('category', { keepDirty: true });
       offeringIncomeCreationForm.resetField('isNewDonor', { keepDirty: true });
@@ -859,9 +854,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
-      (subType === offeringIncomeCreationSubType.ChurchGround ||
-        subType === offeringIncomeCreationSubType.Special)
+      type === OfferingIncomeCreationType.Offering &&
+      (subType === OfferingIncomeCreationSubType.ChurchGround ||
+        subType === OfferingIncomeCreationSubType.Special)
     ) {
       offeringIncomeCreationForm.resetField('category', { keepDirty: true });
       offeringIncomeCreationForm.resetField('isNewDonor', { keepDirty: true });
@@ -875,8 +870,8 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
-      subType === offeringIncomeCreationSubType.FamilyGroup
+      type === OfferingIncomeCreationType.Offering &&
+      subType === OfferingIncomeCreationSubType.FamilyGroup
     ) {
       offeringIncomeCreationForm.resetField('category', { keepDirty: true });
       offeringIncomeCreationForm.resetField('isNewDonor', { keepDirty: true });
@@ -891,9 +886,9 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
-      (subType === offeringIncomeCreationSubType.ZonalVigil ||
-        subType === offeringIncomeCreationSubType.ZonalFasting)
+      type === OfferingIncomeCreationType.Offering &&
+      (subType === OfferingIncomeCreationSubType.ZonalVigil ||
+        subType === OfferingIncomeCreationSubType.ZonalFasting)
     ) {
       offeringIncomeCreationForm.resetField('category', { keepDirty: true });
       offeringIncomeCreationForm.resetField('isNewDonor', { keepDirty: true });
@@ -907,7 +902,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       offeringIncomeCreationForm.resetField('shift', { keepDirty: true });
     }
 
-    if (type === offeringIncomeCreationType.IncomeAdjustment) {
+    if (type === OfferingIncomeCreationType.IncomeAdjustment) {
       offeringIncomeCreationForm.resetField('category', { keepDirty: true });
       offeringIncomeCreationForm.resetField('isNewDonor', { keepDirty: true });
       offeringIncomeCreationForm.resetField('subType', { keepDirty: true });
@@ -923,12 +918,12 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringIncomeCreationType.Offering &&
-      subType !== offeringIncomeCreationSubType.Special &&
-      subType !== offeringIncomeCreationSubType.ChurchGround &&
-      subType !== offeringIncomeCreationSubType.FamilyGroup &&
-      subType !== offeringIncomeCreationSubType.ZonalVigil &&
-      subType !== offeringIncomeCreationSubType.ZonalFasting
+      type === OfferingIncomeCreationType.Offering &&
+      subType !== OfferingIncomeCreationSubType.Special &&
+      subType !== OfferingIncomeCreationSubType.ChurchGround &&
+      subType !== OfferingIncomeCreationSubType.FamilyGroup &&
+      subType !== OfferingIncomeCreationSubType.ZonalVigil &&
+      subType !== OfferingIncomeCreationSubType.ZonalFasting
     ) {
       offeringIncomeCreationForm.resetField('category', { keepDirty: true });
       offeringIncomeCreationForm.resetField('isNewDonor', { keepDirty: true });

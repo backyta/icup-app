@@ -3,7 +3,7 @@ import { useRef, useState, useCallback } from 'react';
 import { MdCurrencyExchange } from 'react-icons/md';
 import { useMediaQuery } from '@react-hook/media-query';
 
-import { OfferingIncomeCurrencyExchangeForm } from '@/modules/offering/income/components';
+import { OfferingIncomeCurrencyExchangeForm } from '@/modules/offering/income/components/cards/update/OfferingIncomeCurrencyExchangeForm';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

@@ -5,18 +5,20 @@ import { useNavigate } from 'react-router-dom';
 import { type UseFormReturn } from 'react-hook-form';
 import { useMutation, type UseMutationResult } from '@tanstack/react-query';
 
+import { createOfferingExpense } from '@/modules/offering/expense/services/offering-expense.service';
+
+import { type OfferingExpenseResponse } from '@/modules/offering/expense/interfaces/offering-expense-response.interface';
+import { type OfferingExpenseFormData } from '@/modules/offering/expense/interfaces/offering-expense-form-data.interface';
+
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
+
 import {
-  type OfferingExpenseResponse,
-  type OfferingExpenseFormData,
-} from '@/modules/offering/expense/interfaces';
-import { createOfferingExpense } from '@/modules/offering/expense/services';
-
-import { type ErrorResponse } from '@/shared/interfaces';
-
-import { deleteImage } from '@/modules/offering/shared/services';
-import { OfferingFileType } from '@/modules/offering/shared/enums';
-import { type FilesProps } from '@/modules/offering/shared/interfaces';
-import { extractPath, extractPublicId } from '@/modules/offering/shared/helpers';
+  extractPath,
+  extractPublicId,
+} from '@/modules/offering/shared/helpers/extract-data-secure-url.helper';
+import { deleteImage } from '@/modules/offering/shared/services/images-files.service';
+import { OfferingFileType } from '@/modules/offering/shared/enums/offering-file-type.enum';
+import { type FilesProps } from '@/modules/offering/shared/interfaces/files-props.interface';
 
 interface Options {
   setFiles: React.Dispatch<React.SetStateAction<FilesProps[]>>;

@@ -7,8 +7,8 @@ export interface OfferingIncomeByFastingAndVigilResponse {
   date: string | Date;
   supervisor: {
     id: string,
-    firstName: string,
-    lastName: string,
+    firstNames: string,
+    lastNames: string,
   } | null ;
   zone: {
     id: string,

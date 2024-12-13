@@ -7,8 +7,9 @@ import { type ColumnDef } from '@tanstack/react-table';
 
 import { Button } from '@/shared/components/ui/button';
 
-import { type DiscipleColumns } from '@/modules/disciple/interfaces';
-import { DiscipleInfoCard, DiscipleUpdateCard } from '@/modules/disciple/components';
+import { type DiscipleColumns } from '@/modules/disciple/interfaces/disciple-columns.interface';
+import { DiscipleInfoCard } from '@/modules/disciple/components/cards/info/DiscipleInfoCard';
+import { DiscipleUpdateCard } from '@/modules/disciple/components/cards/update/DiscipleUpdateCard';
 
 export const discipleUpdateColumns: Array<ColumnDef<DiscipleColumns, any>> = [
   {
@@ -34,8 +35,8 @@ export const discipleUpdateColumns: Array<ColumnDef<DiscipleColumns, any>> = [
     },
   },
   {
-    id: 'firstName',
-    accessorKey: 'member.firstName',
+    id: 'firstNames',
+    accessorKey: 'member.firstNames',
     header: ({ column }) => {
       return (
         <Button
@@ -52,8 +53,8 @@ export const discipleUpdateColumns: Array<ColumnDef<DiscipleColumns, any>> = [
     },
   },
   {
-    id: 'lastName',
-    accessorKey: 'member.lastName',
+    id: 'lastNames',
+    accessorKey: 'member.lastNames',
     header: ({ column }) => {
       return (
         <Button

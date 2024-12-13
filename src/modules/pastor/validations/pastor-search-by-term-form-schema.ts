@@ -2,8 +2,8 @@
 
 import * as z from 'zod';
 
-import { RecordOrder } from '@/shared/enums';
-import { PastorSearchType } from '@/modules/pastor/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { PastorSearchType } from '@/modules/pastor/enums/pastor-search-type.enum';
 
 export const pastorSearchByTermFormSchema  = z 
   .object({
@@ -18,7 +18,7 @@ export const pastorSearchByTermFormSchema  = z
       required_error: "Por favor seleccione una fecha.",
     }).optional(),
 
-    namesTerm: z.string().max(30).optional(),
+    firstNamesTerm: z.string().max(30).optional(),
 
     lastNamesTerm: z.string().max(30).optional(),
 
@@ -45,9 +45,9 @@ export const pastorSearchByTermFormSchema  = z
   .refine(
     (data) => {
       if (
-        data.searchType === PastorSearchType.FirstName
+        data.searchType === PastorSearchType.FirstNames
       ) {
-        return !!data.namesTerm; 
+        return !!data.firstNamesTerm; 
       }
       return true;
     },
@@ -59,7 +59,7 @@ export const pastorSearchByTermFormSchema  = z
   .refine(
     (data) => {
       if (
-        data.searchType === PastorSearchType.LastName
+        data.searchType === PastorSearchType.LastNames
       ) {
         return !!data.lastNamesTerm;
       }
@@ -74,7 +74,7 @@ export const pastorSearchByTermFormSchema  = z
   .refine(
     (data) => {
       if (
-        data.searchType === PastorSearchType.FullName
+        data.searchType === PastorSearchType.FullNames
       ) {
         return !!data.lastNamesTerm; 
       }
@@ -88,9 +88,9 @@ export const pastorSearchByTermFormSchema  = z
   .refine(
     (data) => {
       if (
-        data.searchType === PastorSearchType.FullName
+        data.searchType === PastorSearchType.FullNames
       ) {
-        return !!data.namesTerm; 
+        return !!data.firstNamesTerm; 
       }
       return true;
     },
@@ -102,11 +102,12 @@ export const pastorSearchByTermFormSchema  = z
   .refine(
     (data) => {
       if (data.searchType === PastorSearchType.OriginCountry ||
-          data.searchType === PastorSearchType.Department || 
-          data.searchType === PastorSearchType.Province || 
-          data.searchType === PastorSearchType.District || 
-          data.searchType === PastorSearchType.UrbanSector || 
-          data.searchType === PastorSearchType.Address
+          data.searchType === PastorSearchType.ResidenceCountry ||
+          data.searchType === PastorSearchType.ResidenceDepartment || 
+          data.searchType === PastorSearchType.ResidenceProvince || 
+          data.searchType === PastorSearchType.ResidenceDistrict || 
+          data.searchType === PastorSearchType.ResidenceUrbanSector || 
+          data.searchType === PastorSearchType.ResidenceAddress
           ) {
         return !!data.inputTerm; 
       }

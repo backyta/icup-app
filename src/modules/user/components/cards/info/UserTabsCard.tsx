@@ -6,18 +6,22 @@ import { format } from 'date-fns';
 
 import { cn } from '@/shared/lib/utils';
 
-import { type UserResponse } from '@/modules/user/interfaces';
+import { RecordStatus } from '@/shared/enums/record-status.enum';
+import { type Gender, GenderNames } from '@/shared/enums/gender.enum';
 
-import { getInitialFullNames } from '@/shared/helpers';
+import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
+
 import {
-  type UserRole,
-  UserRoleNames,
+  type UserInactivationCategory,
+  UserInactivationCategoryNames,
+} from '@/modules/user/enums/user-inactivation-category.enum';
+import {
   type UserInactivationReason,
   UserInactivationReasonNames,
-  UserInactivationCategoryNames,
-  type UserInactivationCategory,
-} from '@/modules/user/enums';
-import { type Gender, GenderNames, RecordStatus } from '@/shared/enums';
+} from '@/modules/user/enums/user-inactivation-reason.enum';
+import { type UserRole, UserRoleNames } from '@/modules/user/enums/user-role.enum';
+
+import { type UserResponse } from '@/modules/user/interfaces/user-response.interface';
 
 import {
   Card,
@@ -82,13 +86,13 @@ export const UserTabsCard = ({ id, data }: UserTabsCardProps): JSX.Element => {
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Nombres</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.firstName}
+                {data?.firstNames}
               </CardDescription>
             </div>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Apellidos</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.lastName}
+                {data?.lastNames}
               </CardDescription>
             </div>
             <div className='space-y-1'>
@@ -129,8 +133,8 @@ export const UserTabsCard = ({ id, data }: UserTabsCardProps): JSX.Element => {
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdBy
                   ? getInitialFullNames({
-                      firstNames: data?.createdBy?.firstName ?? '-',
-                      lastNames: data?.createdBy?.lastName ?? '-',
+                      firstNames: data?.createdBy?.firstNames ?? '-',
+                      lastNames: data?.createdBy?.lastNames ?? '-',
                     })
                   : '-'}
               </CardDescription>
@@ -159,8 +163,8 @@ export const UserTabsCard = ({ id, data }: UserTabsCardProps): JSX.Element => {
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
                   ? getInitialFullNames({
-                      firstNames: data?.updatedBy?.firstName ?? '-',
-                      lastNames: data?.updatedBy?.lastName ?? '-',
+                      firstNames: data?.updatedBy?.firstNames ?? '-',
+                      lastNames: data?.updatedBy?.lastNames ?? '-',
                     })
                   : '-'}
               </CardDescription>

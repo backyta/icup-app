@@ -7,45 +7,46 @@ import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { Toaster } from 'sonner';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { useForm } from 'react-hook-form';
+import { CalendarIcon } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { useOfferingExpenseStore } from '@/stores/offering-expense/offering-expenses.store';
 
-import { CalendarIcon } from 'lucide-react';
-
-import {
-  offeringExpenseInfoColumns as columns,
-  SearchByTermOfferingExpenseDataTable,
-} from '@/modules/offering/expense/components';
 import {
   OfferingExpenseSearchType,
   OfferingExpenseSearchTypeNames,
-  OfferingExpenseSearchSelectOptionNames,
+} from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
+import {
   SubTypeNamesOfferingExpenseSearchBySuppliesExpenses,
   SubTypeNamesOfferingExpenseSearchByOperativeExpenses,
   SubTypeNamesOfferingExpenseSearchByDecorationExpenses,
   SubTypeNamesOfferingExpenseSearchByPlaningEventsExpenses,
   SubTypeNamesOfferingExpenseSearchByMaintenanceAndRepairExpenses,
   SubTypeNamesOfferingExpenseSearchByEquipmentAndTechnologyExpenses,
-} from '@/modules/offering/expense/enums';
-import {
-  type OfferingExpenseResponse,
-  type OfferingExpenseSearchFormByTerm,
-} from '@/modules/offering/expense/interfaces';
-import { offeringExpenseSearchByTermFormSchema } from '@/modules/offering/expense/validations';
+} from '@/modules/offering/expense/enums/offering-expense-search-sub-type.enum';
+import { OfferingExpenseSearchSelectOptionNames } from '@/modules/offering/expense/enums/offering-expense-search-select-option.enum';
 
-import { useOfferingExpenseStore } from '@/stores/offering-expense';
+import { SearchByTermOfferingExpenseDataTable } from '@/modules/offering/expense/components/data-tables/boards/search-by-term-offering-expense-data-table';
+import { offeringExpenseInfoColumns as columns } from '@/modules/offering/expense/components/data-tables/columns/offering-expense-info-columns';
 
-import { getSimpleChurches } from '@/modules/church/services';
+import { type OfferingExpenseResponse } from '@/modules/offering/expense/interfaces/offering-expense-response.interface';
+import { type OfferingExpenseSearchFormByTerm } from '@/modules/offering/expense/interfaces/offering-expense-search-form-by-term.interface';
+
+import { offeringExpenseSearchByTermFormSchema } from '@/modules/offering/expense/validations/offering-expense-search-by-term-form-schema';
+
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
 import { cn } from '@/shared/lib/utils';
 
-import { PageTitle, SearchTitle } from '@/shared/components/page';
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-import { dateFormatterTermToTimestamp } from '@/shared/helpers';
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+import { dateFormatterTermToTimestamp } from '@/shared/helpers/date-formatter-to-timestamp.helper';
+
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
 
 import {
   Form,
@@ -461,7 +462,7 @@ export const OfferingsExpenseSearchPageByTerm = (): JSX.Element => {
                     control={form.control}
                     name='all'
                     render={({ field }) => (
-                      <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
+                      <FormItem className='flex flex-row items-end space-x-2 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
                         <FormControl>
                           <Checkbox
                             disabled={!form.getValues('limit') || !!form.formState.errors.limit} // transform to boolean
@@ -477,7 +478,9 @@ export const OfferingsExpenseSearchPageByTerm = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[13px] md:text-[14px]'>Todos</FormLabel>
+                          <FormLabel className='text-[13px] md:text-[14px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </FormItem>
                     )}

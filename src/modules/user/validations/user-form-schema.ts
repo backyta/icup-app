@@ -3,17 +3,18 @@
 
 import * as z from 'zod';
 
-import { UserRole } from '@/modules/user/enums';
+import { Gender,  } from '@/shared/enums/gender.enum';
+import { RecordStatus } from '@/shared/enums/record-status.enum';
 
-import { Gender, RecordStatus } from '@/shared/enums';
+import { UserRole } from '@/modules/user/enums/user-role.enum';
 
 export const userFormSchema = z
 .object({
-  firstName: z.string()
+  firstNames: z.string()
     .min(1, {message: 'El campo debe contener al menos 1 carácter.'})
     .max(40, {message: 'El campo debe contener máximo 40 caracteres'}),
 
-  lastName: z.string()
+  lastNames: z.string()
     .min(1, {message: 'El campo debe contener al menos 1 carácter.'})
     .max(40, {message: 'El campo debe contener máximo 40 caracteres'}),
     

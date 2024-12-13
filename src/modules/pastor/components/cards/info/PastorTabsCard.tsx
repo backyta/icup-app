@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
@@ -5,23 +6,24 @@ import { useEffect } from 'react';
 
 import { format, addDays } from 'date-fns';
 
-import { type PastorResponse } from '@/modules/pastor/interfaces';
+import { type PastorResponse } from '@/modules/pastor/interfaces/pastor-response.interface';
 
 import { cn } from '@/shared/lib/utils';
-import { PopoverDataCard } from '@/shared/components';
-import { getInitialFullNames } from '@/shared/helpers';
+
+import { PopoverDataCard } from '@/shared/components/card/PopoverDataCard';
+import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 
 import {
-  type Gender,
-  GenderNames,
-  RecordStatus,
-  type MemberRole,
-  MemberRoleNames,
+  type MemberInactivationCategory,
+  MemberInactivationCategoryNames,
+} from '@/shared/enums/member-inactivation-category.enum';
+import {
   type MemberInactivationReason,
   MemberInactivationReasonNames,
-  MemberInactivationCategoryNames,
-  type MemberInactivationCategory,
-} from '@/shared/enums';
+} from '@/shared/enums/member-inactivation-reason.enum';
+import { RecordStatus } from '@/shared/enums/record-status.enum';
+import { type Gender, GenderNames } from '@/shared/enums/gender.enum';
+import { type MemberRole, MemberRoleNames } from '@/shared/enums/member-role.enum';
 
 import {
   Card,
@@ -93,14 +95,14 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Nombres</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.firstName ?? '-'}
+                {data?.member?.firstNames ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Apellidos</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.lastName ?? '-'}
+                {data?.member?.lastNames ?? '-'}
               </CardDescription>
             </div>
 
@@ -175,8 +177,8 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
                 data={data?.copastors}
                 title={'Co-Pastores'}
                 moduleName={'Pastor'}
-                firstValue={'firstName'}
-                secondValue={'lastName'}
+                firstValue={'firstNames'}
+                secondValue={'lastNames'}
               />
             </div>
 
@@ -189,8 +191,8 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
                 data={data?.supervisors}
                 title={'Supervisores'}
                 moduleName={'Pastor'}
-                firstValue={'firstName'}
-                secondValue={'lastName'}
+                firstValue={'firstNames'}
+                secondValue={'lastNames'}
               />
             </div>
 
@@ -217,8 +219,8 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
                 data={data?.preachers}
                 title={'Predicadores'}
                 moduleName={'Pastor'}
-                firstValue={'firstName'}
-                secondValue={'lastName'}
+                firstValue={'firstNames'}
+                secondValue={'lastNames'}
               />
             </div>
 
@@ -245,8 +247,8 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
                 data={data?.disciples}
                 title={'Discípulos'}
                 moduleName={'Pastor'}
-                firstValue={'firstName'}
-                secondValue={'lastName'}
+                firstValue={'firstNames'}
+                secondValue={'lastNames'}
               />
             </div>
 
@@ -269,8 +271,8 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdBy
                   ? getInitialFullNames({
-                      firstNames: data?.createdBy?.firstName ?? '-',
-                      lastNames: data?.createdBy?.lastName ?? '-',
+                      firstNames: data?.createdBy?.firstNames ?? '-',
+                      lastNames: data?.createdBy?.lastNames ?? '-',
                     })
                   : '-'}
               </CardDescription>
@@ -299,8 +301,8 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
                   ? getInitialFullNames({
-                      firstNames: data?.updatedBy?.firstName ?? '-',
-                      lastNames: data?.updatedBy?.lastName ?? '-',
+                      firstNames: data?.updatedBy?.firstNames ?? '-',
+                      lastNames: data?.updatedBy?.lastNames ?? '-',
                     })
                   : '-'}
               </CardDescription>
@@ -494,42 +496,42 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>País</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.country ?? '-'}
+                {data?.member?.residenceCountry ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Departamento</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.department ?? '-'}
+                {data?.member?.residenceDepartment ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Provincia</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.province ?? '-'}
+                {data?.member?.residenceProvince ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Distrito</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.district ?? '-'}
+                {data?.member?.residenceDistrict ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Sector Urbano</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.urbanSector ?? '-'}
+                {data?.member?.residenceUrbanSector ?? '-'}
               </CardDescription>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Dirección</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.member?.address ?? '-'}
+                {data?.member?.residenceAddress ?? '-'}
               </CardDescription>
             </div>
 

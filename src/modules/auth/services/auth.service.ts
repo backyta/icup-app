@@ -4,12 +4,12 @@
 import { AxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
-import { type UserRole } from '@/modules/user/enums';
+import { type UserRole } from '@/modules/user/enums/user-role.enum';
 
 export interface LoginResponse {
   id: string;
-  firstName: string;
-  lastName: string;
+  firstNames: string;
+  lastNames: string;
   email: string;
   gender: string;
   roles: UserRole[];

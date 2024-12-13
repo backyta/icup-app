@@ -5,11 +5,11 @@ import { format, addDays } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import { DiscipleInfoCard } from '@/modules/disciple/components';
-import { type DiscipleColumns } from '@/modules/disciple/interfaces';
+import { DiscipleInfoCard } from '@/modules/disciple/components/cards/info/DiscipleInfoCard';
+import { type DiscipleColumns } from '@/modules/disciple/interfaces/disciple-columns.interface';
 
-import { getInitialFullNames } from '@/shared/helpers';
 import { Button } from '@/shared/components/ui/button';
+import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 
 export const discipleInfoColumns: Array<ColumnDef<DiscipleColumns, any>> = [
   {
@@ -35,8 +35,8 @@ export const discipleInfoColumns: Array<ColumnDef<DiscipleColumns, any>> = [
     },
   },
   {
-    id: 'firstName',
-    accessorKey: 'member.firstName',
+    id: 'firstNames',
+    accessorKey: 'member.firstNames',
     header: ({ column }) => {
       return (
         <Button
@@ -53,8 +53,8 @@ export const discipleInfoColumns: Array<ColumnDef<DiscipleColumns, any>> = [
     },
   },
   {
-    id: 'lastName',
-    accessorKey: 'member.lastName',
+    id: 'lastNames',
+    accessorKey: 'member.lastNames',
     header: ({ column }) => {
       return (
         <Button
@@ -119,8 +119,8 @@ export const discipleInfoColumns: Array<ColumnDef<DiscipleColumns, any>> = [
     id: 'updatedBy',
     accessorKey: 'updatedBy',
     cell: (info) => {
-      const firstNames = info.getValue()?.firstName;
-      const lastNames = info.getValue()?.lastName;
+      const firstNames = info.getValue()?.firstNames;
+      const lastNames = info.getValue()?.lastNames;
       return firstNames && lastNames
         ? getInitialFullNames({ firstNames: firstNames ?? '', lastNames: lastNames ?? '' })
         : '-';

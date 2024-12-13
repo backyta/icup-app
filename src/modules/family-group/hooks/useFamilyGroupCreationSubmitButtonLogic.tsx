@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
-import { type FamilyGroupFormData } from '@/modules/family-group/interfaces';
+import { type FamilyGroupFormData } from '@/modules/family-group/interfaces/family-group-form-data.interface';
 
 interface Options {
   familyGroupCreationForm: UseFormReturn<FamilyGroupFormData, any, FamilyGroupFormData>;

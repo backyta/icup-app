@@ -1,10 +1,9 @@
 import { create, type StateCreator } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
-import { AuthService } from '@/modules/auth/services';
-import { type AuthStatus } from '@/modules/auth/types';
-
-import { type User } from '@/modules/user/interfaces';
+import { AuthService } from '@/modules/auth/services/auth.service';
+import { type AuthStatus } from '@/modules/auth/types/auth-status.type';
+import { type User } from '@/modules/user/interfaces/user-form-data.interface';
 
 export interface AuthState {
   status: AuthStatus;
@@ -28,6 +27,7 @@ export const storeApi: StateCreator<AuthState> = (set) => ({
 
     } catch (error) {
       set({ status: 'unauthorized', token: undefined, user: undefined});
+      
       throw error;
     }
   },

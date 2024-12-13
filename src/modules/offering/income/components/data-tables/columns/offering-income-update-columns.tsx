@@ -5,15 +5,14 @@ import { addDays, format } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import {
-  OfferingIncomeCurrencyExchangeCard,
-  OfferingIncomeInfoCard,
-  OfferingIncomeUpdateCard,
-} from '@/modules/offering/income/components';
-import { type OfferingIncomeColumns } from '@/modules/offering/income/interfaces';
+import { OfferingIncomeInfoCard } from '@/modules/offering/income/components/cards/info/OfferingIncomeInfoCard';
+import { OfferingIncomeUpdateCard } from '@/modules/offering/income/components/cards/update/OfferingIncomeUpdateCard';
+import { OfferingIncomeCurrencyExchangeCard } from '@/modules/offering/income/components/cards/update/OfferingIncomeCurrencyExchangeCard';
+
+import { type OfferingIncomeColumns } from '@/modules/offering/income/interfaces/offering-income-columns.interface';
 
 import { Button } from '@/shared/components/ui/button';
-import { CurrencyTypeNames } from '@/modules/offering/shared/enums';
+import { CurrencyTypeNames } from '@/modules/offering/shared/enums/currency-type.enum';
 
 export const offeringIncomeUpdateColumns: Array<ColumnDef<OfferingIncomeColumns, any>> = [
   {

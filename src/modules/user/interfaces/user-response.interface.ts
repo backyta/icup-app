@@ -1,19 +1,19 @@
-import { type CreatedBy, type UpdatedBy } from '@/shared/interfaces';
+import { type CreatedBy, type UpdatedBy } from '@/shared/interfaces/relations-response.interface';
 
 export interface UserResponse {
-  id:           string;
-  firstName:    string;
-  lastName:     string;
-  gender:       string;
-  email:        string;
-  roles:        string[];
-  createdAt?:   Date;
-  createdBy?:   CreatedBy;
-  updatedAt?:   Date;
-  updatedBy?:   UpdatedBy;
+  id                   : string;
+  firstNames           : string;
+  lastNames            : string;
+  gender               : string;
+  email                : string;
+  roles                : string[];
+  createdAt           ?: Date;
+  createdBy           ?: CreatedBy;
+  updatedAt           ?: Date;
+  updatedBy           ?: UpdatedBy;
   inactivationCategory?: string;
   inactivationReason  ?: string;
-  recordStatus: string;
+  recordStatus         : string;
 }
 
 

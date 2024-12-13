@@ -1,6 +1,6 @@
 import { 
   type UpdatedBy, 
-} from '@/shared/interfaces';
+} from '@/shared/interfaces/relations-response.interface';
 
 export interface OfferingIncomeColumns {
   id:            string;

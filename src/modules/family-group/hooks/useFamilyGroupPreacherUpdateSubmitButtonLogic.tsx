@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
-import { type FamilyGroupPreacherUpdateFormData } from '@/modules/family-group/interfaces';
+import { type FamilyGroupPreacherUpdateFormData } from '@/modules/family-group/interfaces/family-group-preacher-update-form-data.interface';
 
 interface Options {
   familyGroupPreacherUpdateForm: UseFormReturn<

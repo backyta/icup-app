@@ -3,8 +3,9 @@
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums';
-import { type DiscipleResponse, type DiscipleFormData } from '@/modules/disciple/interfaces';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { type DiscipleResponse } from '@/modules/disciple/interfaces/disciple-response.interface';
+import { type DiscipleFormData } from '@/modules/disciple/interfaces/disciple-form-data.interface';
 
 interface Options {
   id: string;
@@ -19,12 +20,12 @@ export const useDiscipleUpdateEffects = ({
   setIsLoadingData,
   discipleUpdateForm,
 }: Options): void => {
-  const district = discipleUpdateForm.watch('district');
+  const residenceDistrict = discipleUpdateForm.watch('residenceDistrict');
 
   //* Set data
   useEffect(() => {
-    discipleUpdateForm.setValue('firstName', data?.member?.firstName ?? '');
-    discipleUpdateForm.setValue('lastName', data?.member?.lastName ?? '');
+    discipleUpdateForm.setValue('firstNames', data?.member?.firstNames ?? '');
+    discipleUpdateForm.setValue('lastNames', data?.member?.lastNames ?? '');
     discipleUpdateForm.setValue('gender', data?.member?.gender ?? '');
     discipleUpdateForm.setValue('originCountry', data?.member?.originCountry ?? '');
     discipleUpdateForm.setValue(
@@ -39,12 +40,12 @@ export const useDiscipleUpdateEffects = ({
     );
     discipleUpdateForm.setValue('email', data?.member?.email ?? '');
     discipleUpdateForm.setValue('phoneNumber', data?.member?.phoneNumber ?? '');
-    discipleUpdateForm.setValue('country', data?.member?.country ?? '');
-    discipleUpdateForm.setValue('department', data?.member?.department ?? '');
-    discipleUpdateForm.setValue('province', data?.member?.province ?? '');
-    discipleUpdateForm.setValue('district', data?.member?.district ?? '');
-    discipleUpdateForm.setValue('urbanSector', data?.member?.urbanSector ?? '');
-    discipleUpdateForm.setValue('address', data?.member?.address ?? '');
+    discipleUpdateForm.setValue('residenceCountry', data?.member?.residenceCountry ?? '');
+    discipleUpdateForm.setValue('residenceDepartment', data?.member?.residenceDepartment ?? '');
+    discipleUpdateForm.setValue('residenceProvince', data?.member?.residenceProvince ?? '');
+    discipleUpdateForm.setValue('residenceDistrict', data?.member?.residenceDistrict ?? '');
+    discipleUpdateForm.setValue('residenceUrbanSector', data?.member?.residenceUrbanSector ?? '');
+    discipleUpdateForm.setValue('residenceAddress', data?.member?.residenceAddress ?? '');
     discipleUpdateForm.setValue('referenceAddress', data?.member?.referenceAddress ?? '');
     discipleUpdateForm.setValue('roles', data?.member?.roles as MemberRole[]);
     discipleUpdateForm.setValue('theirFamilyGroup', data?.theirFamilyGroup?.id);
@@ -61,10 +62,10 @@ export const useDiscipleUpdateEffects = ({
 
   //* Controller district and urban sector
   useEffect(() => {
-    discipleUpdateForm.resetField('urbanSector', {
+    discipleUpdateForm.resetField('residenceUrbanSector', {
       keepError: true,
     });
-  }, [district]);
+  }, [residenceDistrict]);
 
   //* Generate dynamic url
   useEffect(() => {

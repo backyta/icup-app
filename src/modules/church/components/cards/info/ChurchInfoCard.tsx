@@ -4,9 +4,9 @@ import { useLocation } from 'react-router-dom';
 import { BsFillPersonVcardFill } from 'react-icons/bs';
 import { useMediaQuery } from '@react-hook/media-query';
 
-import { useChurchStore } from '@/stores/church';
+import { ChurchTabsCard } from '@/modules/church/components/cards/info/ChurchTabsCard';
 
-import { ChurchTabsCard } from '@/modules/church/components';
+import { useChurchStore } from '@/stores/church/church.store';
 
 import { cn } from '@/shared/lib/utils';
 

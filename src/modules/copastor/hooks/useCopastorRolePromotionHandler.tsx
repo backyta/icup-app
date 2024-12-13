@@ -1,7 +1,7 @@
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums';
-import { type CopastorFormData } from '@/modules/copastor/interfaces';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { type CopastorFormData } from '@/modules/copastor/interfaces/copastor-form-data.interface';
 
 interface Options {
   copastorUpdateForm: UseFormReturn<CopastorFormData, any, CopastorFormData>;

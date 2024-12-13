@@ -3,8 +3,12 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
-import { type ErrorResponse } from '@/shared/interfaces';
-import { inactivateCopastor, type InactivateCopastorOptions } from '@/modules/copastor/services';
+import {
+  inactivateCopastor,
+  type InactivateCopastorOptions,
+} from '@/modules/copastor/services/copastor.service';
+
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
 
 interface Options {
   scrollToTop: () => void;

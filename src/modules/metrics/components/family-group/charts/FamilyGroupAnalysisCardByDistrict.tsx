@@ -6,20 +6,21 @@ import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-
-import { cn } from '@/shared/lib/utils';
 import { useQuery } from '@tanstack/react-query';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Bar, XAxis, YAxis, CartesianGrid, BarChart } from 'recharts';
 
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getFamilyGroupsByDistrict } from '@/modules/metrics/services';
-import { FamilyGroupsByDistrictTooltipContent } from '@/modules/metrics/components/family-group/tooltips/components';
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
+import { getFamilyGroupsByDistrict } from '@/modules/metrics/services/family-group-metrics.service';
+import { FamilyGroupsByDistrictTooltipContent } from '@/modules/metrics/components/family-group/tooltips/components/FamilyGroupsByDistrictTooltipContent';
 
-import { District, RecordOrder } from '@/shared/enums';
+import { cn } from '@/shared/lib/utils';
+
+import { District } from '@/shared/enums/district.enum';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
 import {
   Command,

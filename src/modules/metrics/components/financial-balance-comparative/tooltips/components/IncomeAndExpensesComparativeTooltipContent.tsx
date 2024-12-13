@@ -1,5 +1,5 @@
-import { type TooltipConfig } from '@/shared/interfaces';
-import { type IncomeAndExpensesComparativePayload } from '@/modules/metrics/components/financial-balance-comparative/tooltips/interfaces';
+import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { type IncomeAndExpensesComparativePayload } from '@/modules/metrics/components/financial-balance-comparative/tooltips/interfaces/income-and-expenses-comparative-tooltip-payload.interface';
 
 export const IncomeAndExpensesComparativeTooltipContent = (
   props: TooltipConfig<IncomeAndExpensesComparativePayload>

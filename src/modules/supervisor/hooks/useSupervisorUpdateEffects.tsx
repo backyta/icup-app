@@ -3,8 +3,9 @@
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums';
-import { type SupervisorResponse, type SupervisorFormData } from '@/modules/supervisor/interfaces';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { type SupervisorResponse } from '@/modules/supervisor/interfaces/supervisor-response.interface';
+import { type SupervisorFormData } from '@/modules/supervisor/interfaces/supervisor-form-data.interface';
 
 interface Options {
   id: string;
@@ -23,14 +24,14 @@ export const useSupervisorUpdateEffects = ({
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
 }: Options): void => {
-  const district = supervisorUpdateForm.watch('district');
+  const residenceDistrict = supervisorUpdateForm.watch('residenceDistrict');
   const theirPastor = supervisorUpdateForm.watch('theirPastor');
   const isDirectRelationToPastor = supervisorUpdateForm.watch('isDirectRelationToPastor');
 
   //* Set data
   useEffect(() => {
-    supervisorUpdateForm.setValue('firstName', data?.member?.firstName ?? '');
-    supervisorUpdateForm.setValue('lastName', data?.member?.lastName ?? '');
+    supervisorUpdateForm.setValue('firstNames', data?.member?.firstNames ?? '');
+    supervisorUpdateForm.setValue('lastNames', data?.member?.lastNames ?? '');
     supervisorUpdateForm.setValue('gender', data?.member?.gender ?? '');
     supervisorUpdateForm.setValue('originCountry', data?.member?.originCountry ?? '');
     supervisorUpdateForm.setValue(
@@ -45,12 +46,12 @@ export const useSupervisorUpdateEffects = ({
     );
     supervisorUpdateForm.setValue('email', data?.member?.email ?? '');
     supervisorUpdateForm.setValue('phoneNumber', data?.member?.phoneNumber ?? '');
-    supervisorUpdateForm.setValue('country', data?.member?.country ?? '');
-    supervisorUpdateForm.setValue('department', data?.member?.department ?? '');
-    supervisorUpdateForm.setValue('province', data?.member?.province ?? '');
-    supervisorUpdateForm.setValue('district', data?.member?.district ?? '');
-    supervisorUpdateForm.setValue('urbanSector', data?.member?.urbanSector ?? '');
-    supervisorUpdateForm.setValue('address', data?.member?.address ?? '');
+    supervisorUpdateForm.setValue('residenceCountry', data?.member?.residenceCountry ?? '');
+    supervisorUpdateForm.setValue('residenceDepartment', data?.member?.residenceDepartment ?? '');
+    supervisorUpdateForm.setValue('residenceProvince', data?.member?.residenceProvince ?? '');
+    supervisorUpdateForm.setValue('residenceDistrict', data?.member?.residenceDistrict ?? '');
+    supervisorUpdateForm.setValue('residenceUrbanSector', data?.member?.residenceUrbanSector ?? '');
+    supervisorUpdateForm.setValue('residenceAddress', data?.member?.residenceAddress ?? '');
     supervisorUpdateForm.setValue('referenceAddress', data?.member?.referenceAddress ?? '');
     supervisorUpdateForm.setValue(
       'isDirectRelationToPastor',
@@ -72,10 +73,10 @@ export const useSupervisorUpdateEffects = ({
 
   //* Controller district and urban sector
   useEffect(() => {
-    supervisorUpdateForm.resetField('urbanSector', {
+    supervisorUpdateForm.resetField('residenceUrbanSector', {
       keepError: true,
     });
-  }, [district]);
+  }, [residenceDistrict]);
 
   //* Controller direct relation to pastor
   useEffect(() => {

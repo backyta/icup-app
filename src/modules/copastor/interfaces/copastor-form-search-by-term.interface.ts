@@ -1,18 +1,19 @@
-import { type CopastorSearchSubType, type CopastorSearchType } from '@/modules/copastor/enums';
+import { type CopastorSearchType } from '@/modules/copastor/enums/copastor-search-type.enum';
+import { type CopastorSearchSubType} from '@/modules/copastor/enums/copastor-search-sub-type.enum';
 
 export interface CopastorSearchFormByTerm {
-  searchType: CopastorSearchType;
+  searchType    : CopastorSearchType;
   searchSubType?: CopastorSearchSubType | undefined;
-  order: string;
-  inputTerm?: string | undefined;
-  selectTerm?: string | undefined;
-  churchId?: string | undefined;
-  dateTerm?: {
-        from: Date;
-        to?: Date | undefined;
+  order         : string;
+  inputTerm    ?: string | undefined;
+  selectTerm   ?: string | undefined;
+  churchId     ?: string | undefined;
+  dateTerm     ?: {
+        from : Date;
+        to  ?: Date | undefined;
     } | undefined;
-  namesTerm?: string | undefined;
-  lastNamesTerm?: string | undefined;
-  limit?: string | undefined;
-  all?: boolean | undefined;
+  firstNamesTerm?: string | undefined;
+  lastNamesTerm ?: string | undefined;
+  limit         ?: string | undefined;
+  all           ?: boolean | undefined;
 }

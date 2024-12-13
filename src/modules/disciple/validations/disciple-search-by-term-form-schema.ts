@@ -2,8 +2,9 @@
 
 import * as z from 'zod';
 
-import { RecordOrder } from '@/shared/enums';
-import { DiscipleSearchSubType, DiscipleSearchType } from '@/modules/disciple/enums';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import {DiscipleSearchType } from '@/modules/disciple/enums/disciple-search-type.enum';
+import { DiscipleSearchSubType} from '@/modules/disciple/enums/disciple-search-sub-type.enum';
 
 export const discipleSearchByTermFormSchema = z
   .object({
@@ -23,7 +24,7 @@ export const discipleSearchByTermFormSchema = z
       required_error: "Por favor seleccione una fecha.",
     }).optional(),
 
-    namesTerm: z.string().max(30).optional(),
+    firstNamesTerm: z.string().max(30).optional(),
 
     lastNamesTerm: z.string().max(30).optional(),
 
@@ -50,9 +51,9 @@ export const discipleSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === DiscipleSearchType.FirstName || 
-        data.searchType === DiscipleSearchType.LastName || 
-        data.searchType === DiscipleSearchType.FullName 
+        data.searchType === DiscipleSearchType.FirstNames || 
+        data.searchType === DiscipleSearchType.LastNames || 
+        data.searchType === DiscipleSearchType.FullNames 
       ) {
         return !!data.searchSubType; 
       }
@@ -66,9 +67,9 @@ export const discipleSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === DiscipleSearchType.FirstName
+        data.searchType === DiscipleSearchType.FirstNames
       ) {
-        return !!data.namesTerm; 
+        return !!data.firstNamesTerm; 
       }
       return true;
     },
@@ -80,7 +81,7 @@ export const discipleSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === DiscipleSearchType.LastName
+        data.searchType === DiscipleSearchType.LastNames
       ) {
         return !!data.lastNamesTerm;
       }
@@ -95,7 +96,7 @@ export const discipleSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === DiscipleSearchType.FullName
+        data.searchType === DiscipleSearchType.FullNames
       ) {
         return !!data.lastNamesTerm; 
       }
@@ -109,9 +110,9 @@ export const discipleSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-        data.searchType === DiscipleSearchType.FullName
+        data.searchType === DiscipleSearchType.FullNames
       ) {
-        return !!data.namesTerm; 
+        return !!data.firstNamesTerm; 
       }
       return true;
     },
@@ -126,11 +127,12 @@ export const discipleSearchByTermFormSchema = z
           data.searchType === DiscipleSearchType.FamilyGroupCode || 
           data.searchType === DiscipleSearchType.FamilyGroupName || 
           data.searchType === DiscipleSearchType.ZoneName || 
-          data.searchType === DiscipleSearchType.Department || 
-          data.searchType === DiscipleSearchType.Province || 
-          data.searchType === DiscipleSearchType.District || 
-          data.searchType === DiscipleSearchType.UrbanSector || 
-          data.searchType === DiscipleSearchType.Address
+          data.searchType === DiscipleSearchType.ResidenceCountry ||
+          data.searchType === DiscipleSearchType.ResidenceDepartment || 
+          data.searchType === DiscipleSearchType.ResidenceProvince || 
+          data.searchType === DiscipleSearchType.ResidenceDistrict || 
+          data.searchType === DiscipleSearchType.ResidenceUrbanSector || 
+          data.searchType === DiscipleSearchType.ResidenceAddress
           ) {
         return !!data.inputTerm; 
       }

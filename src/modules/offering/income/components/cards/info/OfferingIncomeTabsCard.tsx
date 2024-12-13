@@ -7,19 +7,19 @@ import { addDays, format } from 'date-fns';
 import { cn } from '@/shared/lib/utils';
 
 import {
-  MemberType,
-  MemberTypeNames,
-  OfferingIncomeCreationTypeNames,
-  OfferingIncomeCreationSubTypeNames,
-  OfferingIncomeCreationCategoryNames,
-  OfferingIncomeCreationShiftTypeNames,
   type OfferingIncomeCreationShiftType,
-} from '@/modules/offering/income/enums';
-import { RecordStatus } from '@/shared/enums';
-import { getInitialFullNames } from '@/shared/helpers';
-import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces';
+  OfferingIncomeCreationShiftTypeNames,
+} from '@/modules/offering/income/enums/offering-income-creation-shift-type.enum';
+import { MemberType, MemberTypeNames } from '@/modules/offering/income/enums/member-type.enum';
+import { OfferingIncomeCreationTypeNames } from '@/modules/offering/income/enums/offering-income-creation-type.enum';
+import { OfferingIncomeCreationSubTypeNames } from '@/modules/offering/income/enums/offering-income-creation-sub-type.enum';
+import { OfferingIncomeCreationCategoryNames } from '@/modules/offering/income/enums/offering-income-creation-category.enum';
 
-import { CurrencyTypeNames } from '@/modules/offering/shared/enums';
+import { RecordStatus } from '@/shared/enums/record-status.enum';
+import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
+import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces/offering-income-response.interface';
+
+import { CurrencyTypeNames } from '@/modules/offering/shared/enums/currency-type.enum';
 
 import {
   Card,
@@ -204,7 +204,7 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
                 </CardDescription>
                 <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                   {data?.externalDonor?.id
-                    ? `${data?.externalDonor?.firstName} ${data?.externalDonor?.lastName} ~ ${data?.externalDonor?.originCountry ?? 'S/N'} ~ ${data?.externalDonor?.residenceCountry ?? 'S/N'} ~ ${data?.externalDonor?.residenceCity ?? 'S/N'}`
+                    ? `${data?.externalDonor?.firstNames} ${data?.externalDonor?.lastNames} ~ ${data?.externalDonor?.originCountry ?? 'S/N'} ~ ${data?.externalDonor?.residenceCountry ?? 'S/N'} ~ ${data?.externalDonor?.residenceCity ?? 'S/N'}`
                     : '-'}
                 </CardDescription>
               </div>
@@ -221,16 +221,16 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
                 <div className='space-y-1 row-start-auto row-end-auto col-start-2 col-end-4'>
                   <Label className='text-[14px] md:text-[15px]'>Miembro</Label>
                   <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                    {data?.disciple?.firstName
-                      ? `${data?.disciple?.firstName} ${data?.disciple?.lastName}`
-                      : data?.preacher?.firstName
-                        ? `${data?.preacher?.firstName} ${data?.preacher?.lastName}`
-                        : data?.supervisor?.firstName
-                          ? `${data?.supervisor?.firstName} ${data?.supervisor?.lastName}`
-                          : data?.copastor?.firstName
-                            ? `${data?.copastor?.firstName} ${data?.copastor?.lastName}`
-                            : data?.pastor?.firstName
-                              ? `${data?.pastor?.firstName} ${data?.pastor?.lastName}`
+                    {data?.disciple?.firstNames
+                      ? `${data?.disciple?.firstNames} ${data?.disciple?.lastNames}`
+                      : data?.preacher?.firstNames
+                        ? `${data?.preacher?.firstNames} ${data?.preacher?.lastNames}`
+                        : data?.supervisor?.firstNames
+                          ? `${data?.supervisor?.firstNames} ${data?.supervisor?.lastNames}`
+                          : data?.copastor?.firstNames
+                            ? `${data?.copastor?.firstNames} ${data?.copastor?.lastNames}`
+                            : data?.pastor?.firstNames
+                              ? `${data?.pastor?.firstNames} ${data?.pastor?.lastNames}`
                               : '-'}
                   </CardDescription>
                 </div>
@@ -270,8 +270,8 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.createdBy
                   ? getInitialFullNames({
-                      firstNames: data?.createdBy?.firstName ?? '-',
-                      lastNames: data?.createdBy?.lastName ?? '-',
+                      firstNames: data?.createdBy?.firstNames ?? '-',
+                      lastNames: data?.createdBy?.lastNames ?? '-',
                     })
                   : '-'}
               </CardDescription>
@@ -301,8 +301,8 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.updatedBy
                   ? getInitialFullNames({
-                      firstNames: data?.updatedBy?.firstName ?? '-',
-                      lastNames: data?.updatedBy?.lastName ?? '-',
+                      firstNames: data?.updatedBy?.firstNames ?? '-',
+                      lastNames: data?.updatedBy?.lastNames ?? '-',
                     })
                   : '-'}
               </CardDescription>

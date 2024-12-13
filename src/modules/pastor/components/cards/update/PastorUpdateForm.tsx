@@ -1,50 +1,44 @@
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/promise-function-async */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
 import { useState } from 'react';
 
 import { type z } from 'zod';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { useForm } from 'react-hook-form';
+import { CalendarIcon } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
-
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
-
-import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
+import { getSimpleChurches } from '@/modules/church/services/church.service';
+
+import { GenderNames } from '@/shared/enums/gender.enum';
+import { CountryNames } from '@/shared/enums/country.enum';
+import { ProvinceNames } from '@/shared/enums/province.enum';
+import { DistrictNames } from '@/shared/enums/district.enum';
+import { DepartmentNames } from '@/shared/enums/department.enum';
+import { UrbanSectorNames } from '@/shared/enums/urban-sector.enum';
+import { MaritalStatusNames } from '@/shared/enums/marital-status.enum';
+import { MemberRole, MemberRoleNames } from '@/shared/enums/member-role.enum';
+
+import { pastorFormSchema } from '@/modules/pastor/validations/pastor-form-schema';
+import { type PastorResponse } from '@/modules/pastor/interfaces/pastor-response.interface';
+import { PastorFormSkeleton } from '@/modules/pastor/components/cards/update/PastorFormSkeleton';
+
+import { usePastorUpdateEffects } from '@/modules/pastor/hooks/usePastorUpdateEffects';
+import { usePastorUpdateMutation } from '@/modules/pastor/hooks/usePastorUpdateMutation';
+import { usePastorUpdateSubmitButtonLogic } from '@/modules/pastor/hooks/usePastorUpdateSubmitButtonLogic';
+
 import { cn } from '@/shared/lib/utils';
-import { useRoleValidationByPath } from '@/shared/hooks';
+import { useRoleValidationByPath } from '@/shared/hooks/useRoleValidationByPath';
 
-import {
-  usePastorUpdateEffects,
-  usePastorUpdateMutation,
-  usePastorUpdateSubmitButtonLogic,
-} from '@/modules/pastor/hooks';
-import { getSimpleChurches } from '@/modules/church/services';
-import { pastorFormSchema } from '@/modules/pastor/validations';
-import { PastorFormSkeleton } from '@/modules/pastor/components';
-import { type PastorResponse } from '@/modules/pastor/interfaces';
-
-import {
-  validateDistrictsAllowedByModule,
-  validateUrbanSectorsAllowedByDistrict,
-} from '@/shared/helpers';
-import {
-  MemberRole,
-  GenderNames,
-  CountryNames,
-  ProvinceNames,
-  DistrictNames,
-  DepartmentNames,
-  MemberRoleNames,
-  UrbanSectorNames,
-  MaritalStatusNames,
-} from '@/shared/enums';
+import { validateDistrictsAllowedByModule } from '@/shared/helpers/validate-districts-allowed-by-module.helper';
+import { validateUrbanSectorsAllowedByDistrict } from '@/shared/helpers/validate-urban-sectors-allowed-by-district.helper';
 
 import {
   Form,
@@ -110,8 +104,8 @@ export const PastorUpdateForm = ({
     mode: 'onChange',
     resolver: zodResolver(pastorFormSchema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
+      firstNames: '',
+      lastNames: '',
       gender: '',
       originCountry: '',
       birthDate: undefined,
@@ -120,12 +114,12 @@ export const PastorUpdateForm = ({
       conversionDate: undefined,
       email: '',
       phoneNumber: '',
-      country: '',
-      department: '',
-      province: '',
-      district: '',
-      urbanSector: '',
-      address: '',
+      residenceCountry: '',
+      residenceDepartment: '',
+      residenceProvince: '',
+      residenceDistrict: '',
+      residenceUrbanSector: '',
+      residenceAddress: '',
       referenceAddress: '',
       roles: [MemberRole.Pastor],
       recordStatus: '',
@@ -134,11 +128,11 @@ export const PastorUpdateForm = ({
   });
 
   //* Watchers
-  const district = form.watch('district');
+  const residenceDistrict = form.watch('residenceDistrict');
 
   //* Helpers
   const districtsValidation = validateDistrictsAllowedByModule(pathname);
-  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(district);
+  const urbanSectorsValidation = validateUrbanSectorsAllowedByDistrict(residenceDistrict);
 
   //* Custom Hooks
   usePastorUpdateEffects({
@@ -195,7 +189,7 @@ export const PastorUpdateForm = ({
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
               <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] pl-0 mb-4 md:pl-4'>
-                Pastor: {data?.member?.firstName} {data?.member?.lastName}
+                Pastor: {data?.member?.firstNames} {data?.member?.lastNames}
               </div>
               <Form {...form}>
                 <form
@@ -208,7 +202,7 @@ export const PastorUpdateForm = ({
                     </legend>
                     <FormField
                       control={form.control}
-                      name='firstName'
+                      name='firstNames'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-3'>
@@ -230,7 +224,7 @@ export const PastorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='lastName'
+                      name='lastNames'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -578,7 +572,7 @@ export const PastorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='country'
+                      name='residenceCountry'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -613,7 +607,7 @@ export const PastorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='department'
+                      name='residenceDepartment'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -648,7 +642,7 @@ export const PastorUpdateForm = ({
 
                     <FormField
                       control={form.control}
-                      name='province'
+                      name='residenceProvince'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -682,7 +676,7 @@ export const PastorUpdateForm = ({
                     />
                     <FormField
                       control={form.control}
-                      name='district'
+                      name='residenceDistrict'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -720,7 +714,7 @@ export const PastorUpdateForm = ({
                     />
                     <FormField
                       control={form.control}
-                      name='urbanSector'
+                      name='residenceUrbanSector'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>
@@ -742,7 +736,7 @@ export const PastorUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(UrbanSectorNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !residenceDistrict ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -758,7 +752,7 @@ export const PastorUpdateForm = ({
                     />
                     <FormField
                       control={form.control}
-                      name='address'
+                      name='residenceAddress'
                       render={({ field }) => {
                         return (
                           <FormItem className='mt-2'>

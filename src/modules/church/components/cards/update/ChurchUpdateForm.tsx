@@ -18,29 +18,28 @@ import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import {
-  useChurchUpdateEffects,
-  useChurchUpdateMutation,
-  useChurchUpdateSubmitButtonLogic,
-} from '@/modules/church/hooks';
-import { getMainChurch } from '@/modules/church/services';
-import { churchFormSchema } from '@/modules/church/validations';
-import { ChurchFormSkeleton } from '@/modules/church/components';
-import { type ChurchResponse } from '@/modules/church/interfaces';
-import { ChurchServiceTime, ChurchServiceTimeNames } from '@/modules/church/enums';
+  ChurchServiceTime,
+  ChurchServiceTimeNames,
+} from '@/modules/church/enums/church-service-time.enum';
+import { getMainChurch } from '@/modules/church/services/church.service';
+import { churchFormSchema } from '@/modules/church/validations/church-form-schema';
+import { type ChurchResponse } from '@/modules/church/interfaces/church-response.interface';
+import { ChurchFormSkeleton } from '@/modules/church/components/cards/update/ChurchFormSkeleton';
 
-import {
-  CountryNames,
-  DistrictNames,
-  ProvinceNames,
-  DepartmentNames,
-  UrbanSectorNames,
-} from '@/shared/enums';
-import {
-  validateDistrictsAllowedByModule,
-  validateUrbanSectorsAllowedByDistrict,
-} from '@/shared/helpers';
+import { useChurchUpdateEffects } from '@/modules/church/hooks/useChurchUpdateEffects';
+import { useChurchUpdateMutation } from '@/modules/church/hooks/useChurchUpdateMutation';
+import { useChurchUpdateSubmitButtonLogic } from '@/modules/church/hooks/useChurchUpdateSubmitButtonLogic';
 
 import { cn } from '@/shared/lib/utils';
+
+import { CountryNames } from '@/shared/enums/country.enum';
+import { ProvinceNames } from '@/shared/enums/province.enum';
+import { DistrictNames } from '@/shared/enums/district.enum';
+import { DepartmentNames } from '@/shared/enums/department.enum';
+import { UrbanSectorNames } from '@/shared/enums/urban-sector.enum';
+
+import { validateDistrictsAllowedByModule } from '@/shared/helpers/validate-districts-allowed-by-module.helper';
+import { validateUrbanSectorsAllowedByDistrict } from '@/shared/helpers/validate-urban-sectors-allowed-by-district.helper';
 
 import {
   Form,

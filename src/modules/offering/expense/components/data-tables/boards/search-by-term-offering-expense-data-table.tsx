@@ -24,27 +24,27 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table';
 
-import {
-  OfferingExpenseSearchType,
-  OfferingExpenseSearchTypeNames,
-  OfferingExpenseSearchSubTypeNames,
-  OfferingExpenseSearchSelectOptionNames,
-} from '@/modules/offering/expense/enums';
-import {
-  type OfferingExpenseQueryParams,
-  type OfferingExpenseSearchFormByTerm,
-} from '@/modules/offering/expense/interfaces';
+import { useOfferingExpenseStore } from '@/stores/offering-expense/offering-expenses.store';
+
 import {
   getOfferingExpensesReportByTerm,
   getOfferingsExpensesByTerm,
-} from '@/modules/offering/expense/services';
+} from '@/modules/offering/expense/services/offering-expense.service';
 
-import { getSimpleChurches } from '@/modules/church/services';
+import {
+  OfferingExpenseSearchType,
+  OfferingExpenseSearchTypeNames,
+} from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
+import { OfferingExpenseSearchSubTypeNames } from '@/modules/offering/expense/enums/offering-expense-search-sub-type.enum';
+import { OfferingExpenseSearchSelectOptionNames } from '@/modules/offering/expense/enums/offering-expense-search-select-option.enum';
 
-import { LoadingSpinner } from '@/shared/components';
-import { dateFormatterToDDMMYYYY } from '@/shared/helpers';
+import { type OfferingExpenseQueryParams } from '@/modules/offering/expense/interfaces/offering-expense-query-params.interface';
+import { type OfferingExpenseSearchFormByTerm } from '@/modules/offering/expense/interfaces/offering-expense-search-form-by-term.interface';
 
-import { useOfferingExpenseStore } from '@/stores/offering-expense';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
+
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+import { dateFormatterToDDMMYYYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 
 import {
   Table,
@@ -265,7 +265,7 @@ export function SearchByTermOfferingExpenseDataTable<TData, TValue>({
           {/* Search Church */}
           <div>
             <span className='dark:text-emerald-500 text-emerald-600 font-bold text-[14px] md:text-[15.5px]'>
-              Iglesia de Busqueda:
+              Iglesia de Búsqueda:
             </span>{' '}
             <span className='font-medium text-[13px] md:text-[14.5px] italic'>
               {`${

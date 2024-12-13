@@ -4,17 +4,15 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
-import { 
-  OfferingIncomeSearchType,
-  OfferingIncomeSearchSubType, 
-} from '@/modules/offering/income/enums';
-import { 
-  type ExternalDonorResponse, 
-  type OfferingIncomeFormData, 
-  type OfferingIncomeResponse,
-  type OfferingIncomeQueryParams,
-} from '@/modules/offering/income/interfaces';
-import { RecordOrder } from '@/shared/enums';
+import { OfferingIncomeSearchType } from '@/modules/offering/income/enums/offering-income-search-type.enum';
+import { OfferingIncomeSearchSubType } from '@/modules/offering/income/enums/offering-income-search-sub-type.enum';
+
+import { type ExternalDonorResponse } from '@/modules/offering/income/interfaces/external-donor-response.interface';
+import { type OfferingIncomeFormData } from '@/modules/offering/income/interfaces/offering-income-form-data.interface';
+import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces/offering-income-response.interface';
+import { type OfferingIncomeQueryParams } from '@/modules/offering/income/interfaces/offering-income-query-params.interface';
+
+import { RecordOrder } from '@/shared/enums/record-order.enum';
 
 //* Create offering income
 export const createOfferingIncome = async (formData:OfferingIncomeFormData ): Promise<OfferingIncomeResponse> => {
@@ -96,7 +94,7 @@ export const getOfferingsIncomeByTerm = async ({
   inputTerm,
   dateTerm, 
   selectTerm, 
-  namesTerm,
+  firstNamesTerm,
   lastNamesTerm,
   limit, 
   offset, 
@@ -117,11 +115,11 @@ export const getOfferingsIncomeByTerm = async ({
           ? dateTerm
           : searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate
           ? `${selectTerm}&${dateTerm}`
-          : searchSubType === OfferingIncomeSearchSubType.OfferingByContributorNames
-          ? `${selectTerm}&${namesTerm}`
+          : searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFirstNames
+          ? `${selectTerm}&${firstNamesTerm}`
           : searchSubType === OfferingIncomeSearchSubType.OfferingByContributorLastNames
             ? `${selectTerm}&${lastNamesTerm}`
-            : `${selectTerm}&${namesTerm}-${lastNamesTerm}`
+            : `${selectTerm}&${firstNamesTerm}-${lastNamesTerm}`
 
     try {
         if (!all) {
@@ -168,11 +166,11 @@ export const getOfferingsIncomeByTerm = async ({
         ? inputTerm
         : searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCodeDate || searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate
           ? `${inputTerm}&${dateTerm}`
-            : searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherNames
-            ? namesTerm
+            : searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFirstNames
+            ? firstNamesTerm
             : searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherLastNames
               ? lastNamesTerm
-              : `${namesTerm}-${lastNamesTerm}`
+              : `${firstNamesTerm}-${lastNamesTerm}`
 
     try {
       if (!all) {
@@ -219,11 +217,11 @@ export const getOfferingsIncomeByTerm = async ({
         ? inputTerm
         : searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate
           ? `${inputTerm}&${dateTerm}`
-            : searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorNames
-            ? namesTerm
+            : searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorFirstNames
+            ? firstNamesTerm
             : searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorLastNames
               ? lastNamesTerm
-              : `${namesTerm}-${lastNamesTerm}`
+              : `${firstNamesTerm}-${lastNamesTerm}`
               
     try {
       if (!all) {
@@ -269,11 +267,11 @@ export const getOfferingsIncomeByTerm = async ({
       || searchType === OfferingIncomeSearchType.YouthService) {
     const term = searchSubType === OfferingIncomeSearchSubType.OfferingByDate
       ? dateTerm
-        : searchSubType === OfferingIncomeSearchSubType.OfferingByContributorNames
-        ? `${selectTerm}&${namesTerm}`
+        : searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFirstNames
+        ? `${selectTerm}&${firstNamesTerm}`
         : searchSubType === OfferingIncomeSearchSubType.OfferingByContributorLastNames
           ? `${selectTerm}&${lastNamesTerm}`
-          : `${selectTerm}&${namesTerm}-${lastNamesTerm}`
+          : `${selectTerm}&${firstNamesTerm}-${lastNamesTerm}`
           
     try {
       if (!all) {
@@ -487,7 +485,7 @@ export const getOfferingIncomeReportByTerm = async ({
   inputTerm, 
   dateTerm, 
   selectTerm, 
-  namesTerm,
+  firstNamesTerm,
   lastNamesTerm,
   limit, 
   offset, 
@@ -498,23 +496,21 @@ export const getOfferingIncomeReportByTerm = async ({
   
   const termMapping: Partial<Record<OfferingIncomeSearchSubType | OfferingIncomeSearchType, string | undefined>> = {
     [OfferingIncomeSearchSubType.OfferingByDate]: dateTerm,
-    // [OfferingIncomeSearchSubType.OfferingByChurch]: selectTerm,
-    // [OfferingIncomeSearchSubType.OfferingByChurchDate]: `${selectTerm}&${dateTerm}`,
     [OfferingIncomeSearchSubType.OfferingByShift]: selectTerm,
     [OfferingIncomeSearchSubType.OfferingByShiftDate]: `${selectTerm}&${dateTerm}`,
     [OfferingIncomeSearchSubType.OfferingByZone]: inputTerm,
     [OfferingIncomeSearchSubType.OfferingByZoneDate]: `${inputTerm}&${dateTerm}`,
     [OfferingIncomeSearchSubType.OfferingByGroupCode]: inputTerm,
     [OfferingIncomeSearchSubType.OfferingByGroupCodeDate]: `${inputTerm}&${dateTerm}`,
-    [OfferingIncomeSearchSubType.OfferingByPreacherNames]: namesTerm,
+    [OfferingIncomeSearchSubType.OfferingByPreacherFirstNames]: firstNamesTerm,
     [OfferingIncomeSearchSubType.OfferingByPreacherLastNames]: lastNamesTerm,
-    [OfferingIncomeSearchSubType.OfferingByPreacherFullName]: `${namesTerm}-${lastNamesTerm}`,
-    [OfferingIncomeSearchSubType.OfferingBySupervisorNames]: namesTerm,
+    [OfferingIncomeSearchSubType.OfferingByPreacherFullNames]: `${firstNamesTerm}-${lastNamesTerm}`,
+    [OfferingIncomeSearchSubType.OfferingBySupervisorFirstNames]: firstNamesTerm,
     [OfferingIncomeSearchSubType.OfferingBySupervisorLastNames]: lastNamesTerm,
-    [OfferingIncomeSearchSubType.OfferingBySupervisorFullName]: `${namesTerm}-${lastNamesTerm}`,
-    [OfferingIncomeSearchSubType.OfferingByContributorNames]: `${selectTerm}&${namesTerm}`,
+    [OfferingIncomeSearchSubType.OfferingBySupervisorFullNames]: `${firstNamesTerm}-${lastNamesTerm}`,
+    [OfferingIncomeSearchSubType.OfferingByContributorFirstNames]: `${selectTerm}&${firstNamesTerm}`,
     [OfferingIncomeSearchSubType.OfferingByContributorLastNames]: `${selectTerm}&${lastNamesTerm}`,
-    [OfferingIncomeSearchSubType.OfferingByContributorFullName]: `${selectTerm}&${namesTerm}-${lastNamesTerm}`,
+    [OfferingIncomeSearchSubType.OfferingByContributorFullNames]: `${selectTerm}&${firstNamesTerm}-${lastNamesTerm}`,
     [OfferingIncomeSearchType.RecordStatus]: selectTerm,
   };
   

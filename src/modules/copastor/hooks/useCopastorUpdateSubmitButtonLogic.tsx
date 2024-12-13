@@ -5,8 +5,8 @@
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums';
-import { type CopastorFormData } from '@/modules/copastor/interfaces';
+import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { type CopastorFormData } from '@/modules/copastor/interfaces/copastor-form-data.interface';
 
 interface Options {
   copastorUpdateForm: UseFormReturn<CopastorFormData, any, CopastorFormData>;
@@ -26,8 +26,8 @@ export const useCopastorUpdateSubmitButtonLogic = ({
   setIsMessageErrorDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = copastorUpdateForm.watch('firstName');
-  const lastName = copastorUpdateForm.watch('lastName');
+  const firstNames = copastorUpdateForm.watch('firstNames');
+  const lastNames = copastorUpdateForm.watch('lastNames');
   const gender = copastorUpdateForm.watch('gender');
   const birthDate = copastorUpdateForm.watch('birthDate');
   const originCountry = copastorUpdateForm.watch('originCountry');
@@ -36,12 +36,12 @@ export const useCopastorUpdateSubmitButtonLogic = ({
   const conversionDate = copastorUpdateForm.watch('conversionDate');
   const email = copastorUpdateForm.watch('email');
   const phoneNumber = copastorUpdateForm.watch('phoneNumber');
-  const country = copastorUpdateForm.watch('country');
-  const department = copastorUpdateForm.watch('department');
-  const province = copastorUpdateForm.watch('province');
-  const district = copastorUpdateForm.watch('district');
-  const urbanSector = copastorUpdateForm.watch('urbanSector');
-  const address = copastorUpdateForm.watch('address');
+  const residenceCountry = copastorUpdateForm.watch('residenceCountry');
+  const residenceDepartment = copastorUpdateForm.watch('residenceDepartment');
+  const residenceProvince = copastorUpdateForm.watch('residenceProvince');
+  const residenceDistrict = copastorUpdateForm.watch('residenceDistrict');
+  const residenceUrbanSector = copastorUpdateForm.watch('residenceUrbanSector');
+  const residenceAddress = copastorUpdateForm.watch('residenceAddress');
   const referenceAddress = copastorUpdateForm.watch('referenceAddress');
   const roles = copastorUpdateForm.watch('roles');
   const recordStatus = copastorUpdateForm.watch('recordStatus');
@@ -90,8 +90,8 @@ export const useCopastorUpdateSubmitButtonLogic = ({
     }
 
     if (
-      !firstName ||
-      !lastName ||
+      !firstNames ||
+      !lastNames ||
       !gender ||
       !birthDate ||
       !conversionDate ||
@@ -100,12 +100,12 @@ export const useCopastorUpdateSubmitButtonLogic = ({
       !phoneNumber ||
       !originCountry ||
       !numberChildren ||
-      !country ||
-      !department ||
-      !province ||
-      !district ||
-      !urbanSector ||
-      !address ||
+      !residenceCountry ||
+      !residenceDepartment ||
+      !residenceProvince ||
+      !residenceDistrict ||
+      !residenceUrbanSector ||
+      !residenceAddress ||
       !referenceAddress ||
       roles.length === 0
     ) {
@@ -114,8 +114,8 @@ export const useCopastorUpdateSubmitButtonLogic = ({
     }
   }, [
     copastorUpdateForm.formState,
-    firstName,
-    lastName,
+    firstNames,
+    lastNames,
     gender,
     conversionDate,
     birthDate,
@@ -124,12 +124,12 @@ export const useCopastorUpdateSubmitButtonLogic = ({
     phoneNumber,
     originCountry,
     numberChildren,
-    country,
-    department,
-    province,
-    district,
-    address,
-    urbanSector,
+    residenceCountry,
+    residenceDepartment,
+    residenceProvince,
+    residenceDistrict,
+    residenceAddress,
+    residenceUrbanSector,
     referenceAddress,
     theirPastor,
     theirChurch,

@@ -6,44 +6,50 @@ import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { Toaster } from 'sonner';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { useForm } from 'react-hook-form';
+import { CalendarIcon } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { useDiscipleStore } from '@/stores/disciple/disciple.store';
 
-import { CalendarIcon } from 'lucide-react';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
-import { getSimpleChurches } from '@/modules/church/services';
+import { discipleUpdateColumns as columns } from '@/modules/disciple/components/data-tables/columns/disciple-update-columns';
+import { SearchByTermDiscipleDataTable } from '@/modules/disciple/components/data-tables/boards/search-by-term-disciple-data-table';
 
-import {
-  SearchByTermDiscipleDataTable,
-  discipleUpdateColumns as columns,
-} from '@/modules/disciple/components';
 import {
   DiscipleSearchType,
   DiscipleSearchTypeNames,
+} from '@/modules/disciple/enums/disciple-search-type.enum';
+import {
+  SubTypeNamesDiscipleSearchByFullNames,
+  SubTypeNamesDiscipleSearchByLastNames,
+  SubTypeNamesDiscipleSearchByFirstNames,
+} from '@/modules/disciple/enums/disciple-search-sub-type.enum';
+import {
   DiscipleSearchNamesByGender,
   DiscipleSearchNamesByBirthMonth,
   DiscipleSearchNamesByRecordStatus,
   DiscipleSearchNamesByMaritalStatus,
-  SubTypeNamesDiscipleSearchByLastNames,
-  SubTypeNamesDiscipleSearchByFullNames,
-  SubTypeNamesDiscipleSearchByFirstNames,
-} from '@/modules/disciple/enums';
-import {
-  type DiscipleResponse,
-  type DiscipleSearchFormByTerm,
-} from '@/modules/disciple/interfaces';
-import { discipleSearchByTermFormSchema } from '@/modules/disciple/validations';
+} from '@/modules/disciple/enums/disciple-search-select-option.enum';
+
+import { type DiscipleResponse } from '@/modules/disciple/interfaces/disciple-response.interface';
+import { type DiscipleSearchFormByTerm } from '@/modules/disciple/interfaces/disciple-form-search-by-term.interface';
+
+import { discipleSearchByTermFormSchema } from '@/modules/disciple/validations/disciple-search-by-term-form-schema';
 
 import { cn } from '@/shared/lib/utils';
-import { useDiscipleStore } from '@/stores/disciple';
 
-import { PageTitle, SearchTitle } from '@/shared/components/page';
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-import { dateFormatterTermToTimestamp, namesFormatter, lastNamesFormatter } from '@/shared/helpers';
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
+
+import { firstNamesFormatter, lastNamesFormatter } from '@/shared/helpers/names-formatter.helper';
+import { dateFormatterTermToTimestamp } from '@/shared/helpers/date-formatter-to-timestamp.helper';
 
 import {
   Form,
@@ -72,8 +78,8 @@ const dataFictional: DiscipleResponse[] = [
     id: '',
     member: {
       id: '',
-      firstName: '',
-      lastName: '',
+      firstNames: '',
+      lastNames: '',
       gender: '',
       age: 0,
       originCountry: '',
@@ -83,12 +89,12 @@ const dataFictional: DiscipleResponse[] = [
       conversionDate: new Date('2024-05-21'),
       email: '',
       phoneNumber: '',
-      country: '',
-      department: '',
-      province: '',
-      district: '',
-      urbanSector: '',
-      address: '',
+      residenceCountry: '',
+      residenceDepartment: '',
+      residenceProvince: '',
+      residenceDistrict: '',
+      residenceUrbanSector: '',
+      residenceAddress: '',
       referenceAddress: '',
       roles: [],
     },
@@ -119,7 +125,7 @@ export const DiscipleUpdatePage = (): JSX.Element => {
       searchSubType: '' as any,
       limit: '10',
       inputTerm: '',
-      namesTerm: '',
+      firstNamesTerm: '',
       lastNamesTerm: '',
       selectTerm: '',
       dateTerm: undefined,
@@ -180,12 +186,12 @@ export const DiscipleUpdatePage = (): JSX.Element => {
       to: formData.dateTerm?.to ? formData.dateTerm?.to : newDateTermTo,
     });
 
-    const newNamesTerm = namesFormatter(formData?.namesTerm);
+    const newNamesTerm = firstNamesFormatter(formData?.firstNamesTerm);
     const newLastNamesTerm = lastNamesFormatter(formData?.lastNamesTerm);
 
     setSearchParams({
       ...formData,
-      namesTerm: newNamesTerm,
+      firstNamesTerm: newNamesTerm,
       lastNamesTerm: newLastNamesTerm,
       dateTerm: newDateTerm as any,
     });
@@ -234,7 +240,7 @@ export const DiscipleUpdatePage = (): JSX.Element => {
                           form.resetField('searchSubType', {
                             keepError: true,
                           });
-                          form.resetField('namesTerm', {
+                          form.resetField('firstNamesTerm', {
                             keepError: true,
                           });
                           form.resetField('lastNamesTerm', {
@@ -266,9 +272,9 @@ export const DiscipleUpdatePage = (): JSX.Element => {
                 }}
               />
 
-              {(searchType === DiscipleSearchType.FirstName ||
-                searchType === DiscipleSearchType.LastName ||
-                searchType === DiscipleSearchType.FullName) && (
+              {(searchType === DiscipleSearchType.FirstNames ||
+                searchType === DiscipleSearchType.LastNames ||
+                searchType === DiscipleSearchType.FullNames) && (
                 <FormField
                   control={form.control}
                   name='searchSubType'
@@ -284,7 +290,7 @@ export const DiscipleUpdatePage = (): JSX.Element => {
                           defaultValue={field.value}
                           value={field.value}
                           onOpenChange={() => {
-                            form.resetField('namesTerm', {
+                            form.resetField('firstNamesTerm', {
                               defaultValue: '',
                             });
                             form.resetField('lastNamesTerm', {
@@ -312,9 +318,9 @@ export const DiscipleUpdatePage = (): JSX.Element => {
                           </FormControl>
                           <SelectContent>
                             {Object.entries(
-                              searchType === DiscipleSearchType.FirstName
+                              searchType === DiscipleSearchType.FirstNames
                                 ? SubTypeNamesDiscipleSearchByFirstNames
-                                : searchType === DiscipleSearchType.LastName
+                                : searchType === DiscipleSearchType.LastNames
                                   ? SubTypeNamesDiscipleSearchByLastNames
                                   : SubTypeNamesDiscipleSearchByFullNames
                             ).map(([key, value]) => (
@@ -339,11 +345,12 @@ export const DiscipleUpdatePage = (): JSX.Element => {
                 searchType === DiscipleSearchType.FamilyGroupName ||
                 searchType === DiscipleSearchType.OriginCountry ||
                 searchType === DiscipleSearchType.ZoneName ||
-                searchType === DiscipleSearchType.Department ||
-                searchType === DiscipleSearchType.Province ||
-                searchType === DiscipleSearchType.District ||
-                searchType === DiscipleSearchType.UrbanSector ||
-                searchType === DiscipleSearchType.Address) && (
+                searchType === DiscipleSearchType.ResidenceCountry ||
+                searchType === DiscipleSearchType.ResidenceDepartment ||
+                searchType === DiscipleSearchType.ResidenceProvince ||
+                searchType === DiscipleSearchType.ResidenceDistrict ||
+                searchType === DiscipleSearchType.ResidenceUrbanSector ||
+                searchType === DiscipleSearchType.ResidenceAddress) && (
                 <FormField
                   control={form.control}
                   name='inputTerm'
@@ -351,22 +358,24 @@ export const DiscipleUpdatePage = (): JSX.Element => {
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>
                         {searchType === DiscipleSearchType.OriginCountry
-                          ? `País de origen`
-                          : searchType === DiscipleSearchType.Department
-                            ? 'Departamento'
-                            : searchType === DiscipleSearchType.Province
-                              ? 'Provincia'
-                              : searchType === DiscipleSearchType.District
-                                ? 'Distrito'
-                                : searchType === DiscipleSearchType.UrbanSector
-                                  ? 'Sector Urbano'
-                                  : searchType === DiscipleSearchType.ZoneName
-                                    ? 'Nombre de zona'
-                                    : searchType === DiscipleSearchType.FamilyGroupCode
-                                      ? 'Código de grupo familiar'
-                                      : searchType === DiscipleSearchType.FamilyGroupName
-                                        ? 'Nombre de grupo familiar'
-                                        : 'Dirección'}
+                          ? `País (origen)`
+                          : searchType === DiscipleSearchType.ResidenceCountry
+                            ? 'País (residencia)'
+                            : searchType === DiscipleSearchType.ResidenceDepartment
+                              ? 'Departamento (residencia)'
+                              : searchType === DiscipleSearchType.ResidenceProvince
+                                ? 'Provincia (residencia)'
+                                : searchType === DiscipleSearchType.ResidenceDistrict
+                                  ? 'Distrito (residencia)'
+                                  : searchType === DiscipleSearchType.ResidenceUrbanSector
+                                    ? 'Sector Urbano (residencia)'
+                                    : searchType === DiscipleSearchType.ResidenceAddress
+                                      ? 'Dirección (residencia)'
+                                      : searchType === DiscipleSearchType.FamilyGroupCode
+                                        ? 'Código de grupo familiar'
+                                        : searchType === DiscipleSearchType.FamilyGroupName
+                                          ? 'Nombre de grupo familiar'
+                                          : 'Nombre de zona'}
                       </FormLabel>
                       <FormDescription className='text-[14px]'>
                         Escribe aquí lo que deseas buscar.
@@ -374,7 +383,27 @@ export const DiscipleUpdatePage = (): JSX.Element => {
                       <FormControl>
                         <Input
                           className='text-[13px] md:text-[14px]'
-                          placeholder='Ejem: C-2, Av.Central 123, Lima ....'
+                          placeholder={
+                            searchType === DiscipleSearchType.OriginCountry
+                              ? 'Ejem: Colombia , Mexico , Perú...'
+                              : searchType === DiscipleSearchType.ResidenceCountry
+                                ? 'Ejem: Perú ...'
+                                : searchType === DiscipleSearchType.ResidenceDepartment
+                                  ? 'Ejem: Lima, Ayacucho, Puno...'
+                                  : searchType === DiscipleSearchType.ResidenceProvince
+                                    ? 'Ejem: Huaraz, Lima, Huamanga...'
+                                    : searchType === DiscipleSearchType.ResidenceDistrict
+                                      ? 'Ejem: Independencia, Los Olivos, SJL...'
+                                      : searchType === DiscipleSearchType.ResidenceUrbanSector
+                                        ? 'Ejem: Payet, Tahuantinsuyo, La Pascana ...'
+                                        : searchType === DiscipleSearchType.ResidenceAddress
+                                          ? 'Ejem: Jr. Pardo 123 , Av.Central 555 , Mz. D Lt. 8 Nuevo Bosque...'
+                                          : searchType === DiscipleSearchType.FamilyGroupCode
+                                            ? 'Ejem: Jr. Levi-1 , Isacar-3 , Ruben-5..'
+                                            : searchType === DiscipleSearchType.FamilyGroupName
+                                              ? 'Nombre de grupo familiar'
+                                              : 'Ejem: Isacar, Levi, Neftali...'
+                          }
                           {...field}
                         />
                       </FormControl>
@@ -507,11 +536,11 @@ export const DiscipleUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === DiscipleSearchType.FirstName ||
-                searchType === DiscipleSearchType.FullName) && (
+              {(searchType === DiscipleSearchType.FirstNames ||
+                searchType === DiscipleSearchType.FullNames) && (
                 <FormField
                   control={form.control}
-                  name='namesTerm'
+                  name='firstNamesTerm'
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Nombres</FormLabel>
@@ -531,8 +560,8 @@ export const DiscipleUpdatePage = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === DiscipleSearchType.LastName ||
-                searchType === DiscipleSearchType.FullName) && (
+              {(searchType === DiscipleSearchType.LastNames ||
+                searchType === DiscipleSearchType.FullNames) && (
                 <FormField
                   control={form.control}
                   name='lastNamesTerm'
@@ -593,7 +622,7 @@ export const DiscipleUpdatePage = (): JSX.Element => {
                     control={form.control}
                     name='all'
                     render={({ field }) => (
-                      <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
+                      <FormItem className='flex flex-row items-end space-x-2 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
                         <FormControl>
                           <Checkbox
                             disabled={!form.getValues('limit') || !!form.formState.errors.limit} // transform to boolean
@@ -609,7 +638,9 @@ export const DiscipleUpdatePage = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[13px] md:text-[14px]'>Todos</FormLabel>
+                          <FormLabel className='text-[13px] md:text-[14px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </FormItem>
                     )}

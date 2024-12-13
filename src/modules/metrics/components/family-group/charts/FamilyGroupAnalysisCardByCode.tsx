@@ -12,15 +12,15 @@ import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { CartesianGrid, Area, AreaChart, XAxis, YAxis } from 'recharts';
 
+import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
+import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
+import { getFamilyGroupsByCode } from '@/modules/metrics/services/family-group-metrics.service';
+import { FamilyGroupsByCodeTooltipContent } from '@/modules/metrics/components/family-group/tooltips/components/FamilyGroupsByCodeTooltipContent';
+
 import { cn } from '@/shared/lib/utils';
-import { RecordOrder } from '@/shared/enums';
 
-import { MetricSearchType } from '@/modules/metrics/enums';
-import { metricsFormSchema } from '@/modules/metrics/validations';
-import { getFamilyGroupsByCode } from '@/modules/metrics/services';
-import { FamilyGroupsByCodeTooltipContent } from '@/modules/metrics/components/family-group/tooltips/components';
-
-import { getSimpleZones } from '@/modules/zone/services';
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+import { getSimpleZones } from '@/modules/zone/services/zone.service';
 
 import {
   Form,

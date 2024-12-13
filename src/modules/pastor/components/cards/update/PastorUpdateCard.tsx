@@ -4,8 +4,8 @@ import { useMediaQuery } from '@react-hook/media-query';
 
 import { GiArchiveRegister } from 'react-icons/gi';
 
-import { usePastorStore } from '@/stores/pastor';
-import { PastorUpdateForm } from '@/modules/pastor/components';
+import { usePastorStore } from '@/stores/pastor/pastor.store';
+import { PastorUpdateForm } from '@/modules/pastor/components/cards/update/PastorUpdateForm';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

@@ -13,19 +13,18 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import {
-  useFamilyGroupPreacherUpdateEffects,
-  useFamilyGroupPreacherUpdateMutation,
-  useFamilyGroupPreacherUpdateSubmitButtonLogic,
-} from '@/modules/family-group/hooks';
-import { getPreachersByZone } from '@/modules/preacher/services';
-import { type FamilyGroupResponse } from '@/modules/family-group/interfaces';
-import { familyGroupPreacherUpdateFormSchema } from '@/modules/family-group/validations';
+import { useFamilyGroupPreacherUpdateEffects } from '@/modules/family-group/hooks/useFamilyGroupPreacherUpdateEffects';
+import { useFamilyGroupPreacherUpdateMutation } from '@/modules/family-group/hooks/useFamilyGroupPreacherUpdateMutation';
+import { useFamilyGroupPreacherUpdateSubmitButtonLogic } from '@/modules/family-group/hooks/useFamilyGroupPreacherUpdateSubmitButtonLogic';
 
-import { PreacherSearchType } from '@/modules/preacher/enums';
+import { getPreachersByZone } from '@/modules/preacher/services/preacher.service';
+import { type FamilyGroupResponse } from '@/modules/family-group/interfaces/family-group-response.interface';
+import { familyGroupPreacherUpdateFormSchema } from '@/modules/family-group/validations/family-group-preacher-update-form-schema';
+
+import { PreacherSearchType } from '@/modules/preacher/enums/preacher-search-type.enum';
 
 import { cn } from '@/shared/lib/utils';
-import { getFullNames } from '@/shared/helpers';
+import { getFullNames } from '@/shared/helpers/get-full-names.helper';
 
 import {
   Form,
@@ -231,7 +230,7 @@ export const FamilyGroupPreacherUpdateForm = ({
                                     className={cn('w-full justify-between font-medium text-[14px]')}
                                   >
                                     {field.value
-                                      ? `${preachersQuery?.data?.find((preacher) => preacher.id === field.value)?.member?.firstName} ${preachersQuery.data?.find((preacher) => preacher.id === field.value)?.member?.lastName}`
+                                      ? `${preachersQuery?.data?.find((preacher) => preacher.id === field.value)?.member?.firstNames} ${preachersQuery.data?.find((preacher) => preacher.id === field.value)?.member?.lastNames}`
                                       : 'Seleccione un predicador'}
                                     <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                   </Button>
@@ -261,8 +260,8 @@ export const FamilyGroupPreacherUpdateForm = ({
                                               <CommandItem
                                                 className='text-[14px]'
                                                 value={getFullNames({
-                                                  firstNames: preacher?.member?.firstName ?? '',
-                                                  lastNames: preacher?.member?.lastName ?? '',
+                                                  firstNames: preacher?.member?.firstNames ?? '',
+                                                  lastNames: preacher?.member?.lastNames ?? '',
                                                 })}
                                                 key={preacher.id}
                                                 onSelect={() => {
@@ -270,7 +269,7 @@ export const FamilyGroupPreacherUpdateForm = ({
                                                   setIsInputTheirPreacherOpen(false);
                                                 }}
                                               >
-                                                {`${preacher?.member?.firstName} ${preacher?.member?.lastName}`}
+                                                {`${preacher?.member?.firstNames} ${preacher?.member?.lastNames}`}
                                                 <CheckIcon
                                                   className={cn(
                                                     'ml-auto h-4 w-4',

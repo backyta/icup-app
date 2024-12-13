@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type PreacherFieldNames } from '@/modules/preacher/enums';
-import { type PreacherFormData } from '@/modules/preacher/interfaces';
+import { type PreacherFieldNames } from '@/modules/preacher/enums/preacher-field-names.enum';
+import { type PreacherFormData } from '@/modules/preacher/interfaces/preacher-form-data.interface';
 
 interface Options {
   preacherUpdateForm: UseFormReturn<PreacherFormData, any, PreacherFormData>;
@@ -21,8 +21,8 @@ export const usePreacherPromoteButtonLogic = ({
   const [lastValues, setLastValues] = useState<PreacherFormData[]>([]);
 
   //* Watchers
-  const firstName = preacherUpdateForm.watch('firstName');
-  const lastName = preacherUpdateForm.watch('lastName');
+  const firstNames = preacherUpdateForm.watch('firstNames');
+  const lastNames = preacherUpdateForm.watch('lastNames');
   const gender = preacherUpdateForm.watch('gender');
   const birthDate = preacherUpdateForm.watch('birthDate');
   const originCountry = preacherUpdateForm.watch('originCountry');
@@ -31,12 +31,12 @@ export const usePreacherPromoteButtonLogic = ({
   const conversionDate = preacherUpdateForm.watch('conversionDate');
   const email = preacherUpdateForm.watch('email');
   const phoneNumber = preacherUpdateForm.watch('phoneNumber');
-  const country = preacherUpdateForm.watch('country');
-  const department = preacherUpdateForm.watch('department');
-  const province = preacherUpdateForm.watch('province');
-  const district = preacherUpdateForm.watch('district');
-  const urbanSector = preacherUpdateForm.watch('urbanSector');
-  const address = preacherUpdateForm.watch('address');
+  const residenceCountry = preacherUpdateForm.watch('residenceCountry');
+  const residenceDepartment = preacherUpdateForm.watch('residenceDepartment');
+  const residenceProvince = preacherUpdateForm.watch('residenceProvince');
+  const residenceDistrict = preacherUpdateForm.watch('residenceDistrict');
+  const residenceUrbanSector = preacherUpdateForm.watch('residenceUrbanSector');
+  const residenceAddress = preacherUpdateForm.watch('residenceAddress');
   const referenceAddress = preacherUpdateForm.watch('referenceAddress');
   const roles = preacherUpdateForm.watch('roles');
   const recordStatus = preacherUpdateForm.watch('recordStatus');
@@ -87,8 +87,8 @@ export const usePreacherPromoteButtonLogic = ({
     //* Si no hay coincidencias setea el current value al lastValues
     setLastValues(currentValues);
   }, [
-    firstName,
-    lastName,
+    firstNames,
+    lastNames,
     gender,
     originCountry,
     maritalStatus,
@@ -97,13 +97,13 @@ export const usePreacherPromoteButtonLogic = ({
     conversionDate,
     email,
     phoneNumber,
-    country,
-    department,
-    province,
-    urbanSector,
+    residenceCountry,
+    residenceDepartment,
+    residenceProvince,
+    residenceUrbanSector,
     referenceAddress,
-    district,
-    address,
+    residenceDistrict,
+    residenceAddress,
     roles,
     theirSupervisor,
     recordStatus,

@@ -10,6 +10,7 @@ import { cn } from '@/shared/lib/utils';
 import { useNavigate } from 'react-router-dom';
 import { FaRegFilePdf } from 'react-icons/fa6';
 import { useQuery } from '@tanstack/react-query';
+
 import {
   flexRender,
   useReactTable,
@@ -23,13 +24,13 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table';
 
-import { getChurches, getGeneralChurchesReport } from '@/modules/church/services';
-import { type ChurchQueryParams } from '@/modules/church/interfaces';
+import { getChurches, getGeneralChurchesReport } from '@/modules/church/services/church.service';
+import { type ChurchQueryParams } from '@/modules/church/interfaces/church-query-params.interface';
 
-import { useChurchStore } from '@/stores/church';
+import { useChurchStore } from '@/stores/church/church.store';
 
-import { LoadingSpinner } from '@/shared/components';
-import { type GeneralSearchForm } from '@/shared/interfaces';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+import { type GeneralSearchForm } from '@/shared/interfaces/search-general-form.interface';
 
 import {
   Table,

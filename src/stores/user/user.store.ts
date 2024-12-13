@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 
 import { create, type StateCreator } from 'zustand';
-import { type UserResponse } from '@/modules/user/interfaces';
+import { type UserResponse } from '@/modules/user/interfaces/user-response.interface';
 
 interface UserStore {
   // Properties

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-export const namesFormatter = (names: string | undefined ): string | undefined =>  {
+export const firstNamesFormatter = (names: string | undefined ): string | undefined =>  {
 
   if (names && names.includes(' ')) {
     const trimmedNamesTerm = names.trimStart();

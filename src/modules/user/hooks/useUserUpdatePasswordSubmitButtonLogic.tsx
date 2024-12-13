@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
-import { type UserPasswordUpdateFormData } from '@/modules/user/interfaces';
+import { type UserPasswordUpdateFormData } from '@/modules/user/interfaces/user-password-update-form-data.interface';
 
 interface Options {
   userPasswordUpdateForm: UseFormReturn<

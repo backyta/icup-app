@@ -1,4 +1,5 @@
-import { type PreacherSearchSubType, type PreacherSearchType } from '@/modules/preacher/enums';
+import { type PreacherSearchType } from '@/modules/preacher/enums/preacher-search-type.enum';
+import { type PreacherSearchSubType } from '@/modules/preacher/enums/preacher-search-sub-type.enum';
 
 export interface PreacherSearchFormByTerm {
   searchType: PreacherSearchType;
@@ -10,7 +11,7 @@ export interface PreacherSearchFormByTerm {
     from: Date;
     to?: Date | undefined;
   } | undefined;
-  namesTerm?: string | undefined;
+  firstNamesTerm?: string | undefined;
   lastNamesTerm?: string | undefined;
   order: string;
   limit?: string | undefined;

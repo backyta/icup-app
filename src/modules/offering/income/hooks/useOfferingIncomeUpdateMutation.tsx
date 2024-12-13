@@ -5,16 +5,19 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
-import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces';
+import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces/offering-income-response.interface';
 import {
   updateOfferingIncome,
   type UpdateOfferingIncomeOptions,
-} from '@/modules/offering/income/services';
+} from '@/modules/offering/income/services/offering-income.service';
 
-import { type ErrorResponse } from '@/shared/interfaces';
-import { deleteImage } from '@/modules/offering/shared/services';
-import { OfferingFileType } from '@/modules/offering/shared/enums';
-import { extractPath, extractPublicId } from '@/modules/offering/shared/helpers';
+import {
+  extractPath,
+  extractPublicId,
+} from '@/modules/offering/shared/helpers/extract-data-secure-url.helper';
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
+import { deleteImage } from '@/modules/offering/shared/services/images-files.service';
+import { OfferingFileType } from '@/modules/offering/shared/enums/offering-file-type.enum';
 
 interface Options {
   dialogClose: () => void;

@@ -1,6 +1,10 @@
 import * as z from 'zod';
 
-import { Country, Department, District, Province, RecordStatus } from '@/shared/enums';
+import { Country } from '@/shared/enums/country.enum';
+import { District } from '@/shared/enums/district.enum';
+import { Province } from '@/shared/enums/province.enum';
+import { Department } from '@/shared/enums/department.enum';
+import { RecordStatus } from '@/shared/enums/record-status.enum';
 
 export const zoneFormSchema = z
 .object({

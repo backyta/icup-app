@@ -5,12 +5,12 @@ import { format, addDays } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
-import { getInitialFullNames } from '@/shared/helpers';
+import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 
 import { Button } from '@/shared/components/ui/button';
 
-import { SupervisorInfoCard } from '@/modules/supervisor/components';
-import { type SupervisorColumns } from '@/modules/supervisor/interfaces';
+import { SupervisorInfoCard } from '@/modules/supervisor/components/cards/info/SupervisorInfoCard';
+import { type SupervisorColumns } from '@/modules/supervisor/interfaces/supervisor-columns.interface';
 
 export const supervisorInfoColumns: Array<ColumnDef<SupervisorColumns, any>> = [
   {
@@ -36,8 +36,8 @@ export const supervisorInfoColumns: Array<ColumnDef<SupervisorColumns, any>> = [
     },
   },
   {
-    id: 'firstName',
-    accessorKey: 'member.firstName',
+    id: 'firstNames',
+    accessorKey: 'member.firstNames',
     header: ({ column }) => {
       return (
         <Button
@@ -54,8 +54,8 @@ export const supervisorInfoColumns: Array<ColumnDef<SupervisorColumns, any>> = [
     },
   },
   {
-    id: 'lastName',
-    accessorKey: 'member.lastName',
+    id: 'lastNames',
+    accessorKey: 'member.lastNames',
     header: ({ column }) => {
       return (
         <Button
@@ -120,8 +120,8 @@ export const supervisorInfoColumns: Array<ColumnDef<SupervisorColumns, any>> = [
     id: 'updatedBy',
     accessorKey: 'updatedBy',
     cell: (info) => {
-      const firstNames = info.getValue()?.firstName;
-      const lastNames = info.getValue()?.lastName;
+      const firstNames = info.getValue()?.firstNames;
+      const lastNames = info.getValue()?.lastNames;
       return firstNames && lastNames
         ? getInitialFullNames({ firstNames: firstNames ?? '', lastNames: lastNames ?? '' })
         : '-';

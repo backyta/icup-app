@@ -1,18 +1,18 @@
 import { 
   type UpdatedBy, 
-} from '@/shared/interfaces';
+} from '@/shared/interfaces/relations-response.interface';
 
 export interface PreacherColumns {
-  id:             string;
-  firstName?:     string;
-  lastName?:      string;
-  gender?:        string;
+  id            : string;
+  firstNames   ?: string;
+  lastNames    ?: string;
+  gender       ?: string;
   originCountry?: string;
-  birthDate?:     Date;
-  email?:         string;
-  updatedAt?:     Date;
-  updatedBy?:     UpdatedBy;
-  recordStatus?:  string;
+  birthDate    ?: Date;
+  email        ?: string;
+  updatedAt    ?: Date;
+  updatedBy    ?: UpdatedBy;
+  recordStatus ?: string;
 }
 
 

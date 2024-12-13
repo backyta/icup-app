@@ -3,9 +3,9 @@ import { useRef, useState, useCallback, useMemo } from 'react';
 import { GiArchiveRegister } from 'react-icons/gi';
 import { useMediaQuery } from '@react-hook/media-query';
 
-import { usePreacherStore } from '@/stores/preacher';
+import { usePreacherStore } from '@/stores/preacher/preacher.store';
 
-import { PreacherUpdateForm } from '@/modules/preacher/components';
+import { PreacherUpdateForm } from '@/modules/preacher/components/cards/update/PreacherUpdateForm';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

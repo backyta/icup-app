@@ -13,18 +13,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/shared/lib/utils';
 
-import { useCopastorStore } from '@/stores/copastor';
+import { useCopastorStore } from '@/stores/copastor/copastor.store';
 
-import {
-  GeneralCopastorSearchDataTable,
-  copastorInfoColumns as columns,
-} from '@/modules/copastor/components';
-import { type CopastorResponse } from '@/modules/copastor/interfaces';
+import { type CopastorResponse } from '@/modules/copastor/interfaces/copastor-response.interface';
 
-import { type GeneralSearchForm } from '@/shared/interfaces';
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-import { formSearchGeneralSchema } from '@/shared/validations';
-import { PageTitle, SearchTitle } from '@/shared/components/page';
+import { copastorInfoColumns as columns } from '@/modules/copastor/components/data-tables/columns/copastor-info-columns';
+import { GeneralCopastorSearchDataTable } from '@/modules/copastor/components/data-tables/boards/general-copastor-search-data-table';
+
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+import { formSearchGeneralSchema } from '@/shared/validations/form-search-general-schema';
+import { type GeneralSearchForm } from '@/shared/interfaces/search-general-form.interface';
+
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
 
 import {
   Select,
@@ -45,15 +46,15 @@ import {
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
-import { getSimpleChurches } from '@/modules/church/services';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
 const dataFictional: CopastorResponse[] = [
   {
     id: '',
     member: {
       id: '',
-      firstName: '',
-      lastName: '',
+      firstNames: '',
+      lastNames: '',
       gender: '',
       age: 0,
       originCountry: '',
@@ -63,12 +64,12 @@ const dataFictional: CopastorResponse[] = [
       conversionDate: new Date('2024-05-21'),
       email: '',
       phoneNumber: '',
-      country: '',
-      department: '',
-      province: '',
-      district: '',
-      urbanSector: '',
-      address: '',
+      residenceCountry: '',
+      residenceDepartment: '',
+      residenceProvince: '',
+      residenceDistrict: '',
+      residenceUrbanSector: '',
+      residenceAddress: '',
       referenceAddress: '',
       roles: [],
     },
@@ -230,7 +231,9 @@ export const CopastorsGeneralSearchPage = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[12px] md:text-[13px]'>Todos</FormLabel>
+                          <FormLabel className='text-[12px] md:text-[13px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </div>
                     </FormItem>

@@ -4,7 +4,7 @@ import { useCallback, useRef, useState } from 'react';
 
 import { FcFinePrint } from 'react-icons/fc';
 
-import { FamilyGroupReportForm } from '@/modules/metrics/components/family-group/reports';
+import { FamilyGroupReportForm } from '@/modules/metrics/components/family-group/reports/FamilyGroupReportForm';
 
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';

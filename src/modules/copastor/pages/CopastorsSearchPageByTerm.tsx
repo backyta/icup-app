@@ -7,44 +7,50 @@ import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { Toaster } from 'sonner';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { useForm } from 'react-hook-form';
+import { CalendarIcon } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { useCopastorStore } from '@/stores/copastor/copastor.store';
 
-import { CalendarIcon } from 'lucide-react';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
-import { getSimpleChurches } from '@/modules/church/services';
+import { copastorInfoColumns as columns } from '@/modules/copastor/components/data-tables/columns/copastor-info-columns';
+import { SearchByTermCopastorDataTable } from '@/modules/copastor/components/data-tables/boards/search-by-term-copastor-data-table';
 
-import {
-  copastorInfoColumns as columns,
-  SearchByTermCopastorDataTable,
-} from '@/modules/copastor/components';
+import { type CopastorResponse } from '@/modules/copastor/interfaces/copastor-response.interface';
+import { type CopastorSearchFormByTerm } from '@/modules/copastor/interfaces/copastor-form-search-by-term.interface';
+
+import { copastorSearchByTermFormSchema } from '@/modules/copastor/validations/copastor-search-by-term-form-schema';
+
 import {
   CopastorSearchType,
   CopastorSearchTypeNames,
+} from '@/modules/copastor/enums/copastor-search-type.enum';
+import {
+  SubTypeNamesCopastorSearchByFullNames,
+  SubTypeNamesCopastorSearchByLastNames,
+  SubTypeNamesCopastorSearchByFirstNames,
+} from '@/modules/copastor/enums/copastor-search-sub-type.enum';
+import {
   CopastorSearchNamesByGender,
   CopastorSearchNamesByBirthMonth,
   CopastorSearchNamesByRecordStatus,
   CopastorSearchNamesByMaritalStatus,
-  SubTypeNamesCopastorSearchByFullNames,
-  SubTypeNamesCopastorSearchByLastNames,
-  SubTypeNamesCopastorSearchByFirstNames,
-} from '@/modules/copastor/enums';
-import {
-  type CopastorResponse,
-  type CopastorSearchFormByTerm,
-} from '@/modules/copastor/interfaces';
-import { copastorSearchByTermFormSchema } from '@/modules/copastor/validations';
+} from '@/modules/copastor/enums/copastor-search-select-option.enum';
 
 import { cn } from '@/shared/lib/utils';
-import { useCopastorStore } from '@/stores/copastor';
 
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
-import { PageTitle, SearchTitle } from '@/shared/components/page';
-import { dateFormatterTermToTimestamp, namesFormatter, lastNamesFormatter } from '@/shared/helpers';
+import { firstNamesFormatter, lastNamesFormatter } from '@/shared/helpers/names-formatter.helper';
+import { dateFormatterTermToTimestamp } from '@/shared/helpers/date-formatter-to-timestamp.helper';
+
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
 
 import {
   Form,
@@ -73,8 +79,8 @@ const dataFictional: CopastorResponse[] = [
     id: '',
     member: {
       id: '',
-      firstName: '',
-      lastName: '',
+      firstNames: '',
+      lastNames: '',
       gender: '',
       age: 0,
       originCountry: '',
@@ -84,12 +90,12 @@ const dataFictional: CopastorResponse[] = [
       conversionDate: new Date('2024-05-21'),
       email: '',
       phoneNumber: '',
-      country: '',
-      department: '',
-      province: '',
-      district: '',
-      urbanSector: '',
-      address: '',
+      residenceCountry: '',
+      residenceDepartment: '',
+      residenceProvince: '',
+      residenceDistrict: '',
+      residenceUrbanSector: '',
+      residenceAddress: '',
       referenceAddress: '',
       roles: [],
     },
@@ -120,7 +126,7 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
       searchSubType: '' as any,
       limit: '10',
       inputTerm: '',
-      namesTerm: '',
+      firstNamesTerm: '',
       lastNamesTerm: '',
       selectTerm: '',
       dateTerm: undefined,
@@ -181,12 +187,12 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
       to: formData.dateTerm?.to ? formData.dateTerm?.to : newDateTermTo,
     });
 
-    const newNamesTerm = namesFormatter(formData?.namesTerm);
+    const newNamesTerm = firstNamesFormatter(formData?.firstNamesTerm);
     const newLastNamesTerm = lastNamesFormatter(formData?.lastNamesTerm);
 
     setSearchParams({
       ...formData,
-      namesTerm: newNamesTerm,
+      firstNamesTerm: newNamesTerm,
       lastNamesTerm: newLastNamesTerm,
       dateTerm: newDateTerm as any,
     });
@@ -235,7 +241,7 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                           form.resetField('searchSubType', {
                             keepError: true,
                           });
-                          form.resetField('namesTerm', {
+                          form.resetField('firstNamesTerm', {
                             keepError: true,
                           });
                           form.resetField('lastNamesTerm', {
@@ -267,9 +273,9 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                 }}
               />
 
-              {(searchType === CopastorSearchType.FirstName ||
-                searchType === CopastorSearchType.LastName ||
-                searchType === CopastorSearchType.FullName) && (
+              {(searchType === CopastorSearchType.FirstNames ||
+                searchType === CopastorSearchType.LastNames ||
+                searchType === CopastorSearchType.FullNames) && (
                 <FormField
                   control={form.control}
                   name='searchSubType'
@@ -285,7 +291,7 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                           defaultValue={field.value}
                           value={field.value}
                           onOpenChange={() => {
-                            form.resetField('namesTerm', {
+                            form.resetField('firstNamesTerm', {
                               defaultValue: '',
                             });
                             form.resetField('lastNamesTerm', {
@@ -313,9 +319,9 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                           </FormControl>
                           <SelectContent>
                             {Object.entries(
-                              searchType === CopastorSearchType.FirstName
+                              searchType === CopastorSearchType.FirstNames
                                 ? SubTypeNamesCopastorSearchByFirstNames
-                                : searchType === CopastorSearchType.LastName
+                                : searchType === CopastorSearchType.LastNames
                                   ? SubTypeNamesCopastorSearchByLastNames
                                   : SubTypeNamesCopastorSearchByFullNames
                             ).map(([key, value]) => (
@@ -337,11 +343,12 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
               )}
 
               {(searchType === CopastorSearchType.OriginCountry ||
-                searchType === CopastorSearchType.Department ||
-                searchType === CopastorSearchType.Province ||
-                searchType === CopastorSearchType.District ||
-                searchType === CopastorSearchType.UrbanSector ||
-                searchType === CopastorSearchType.Address) && (
+                searchType === CopastorSearchType.ResidenceCountry ||
+                searchType === CopastorSearchType.ResidenceDepartment ||
+                searchType === CopastorSearchType.ResidenceProvince ||
+                searchType === CopastorSearchType.ResidenceDistrict ||
+                searchType === CopastorSearchType.ResidenceUrbanSector ||
+                searchType === CopastorSearchType.ResidenceAddress) && (
                 <FormField
                   control={form.control}
                   name='inputTerm'
@@ -349,16 +356,18 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>
                         {searchType === CopastorSearchType.OriginCountry
-                          ? `País de origen`
-                          : searchType === CopastorSearchType.Department
-                            ? 'Departamento'
-                            : searchType === CopastorSearchType.Province
-                              ? 'Provincia'
-                              : searchType === CopastorSearchType.District
-                                ? 'Distrito'
-                                : searchType === CopastorSearchType.UrbanSector
-                                  ? 'Sector Urbano'
-                                  : 'Dirección'}
+                          ? `País (origen)`
+                          : searchType === CopastorSearchType.ResidenceCountry
+                            ? 'País (residencia)'
+                            : searchType === CopastorSearchType.ResidenceDepartment
+                              ? 'Departamento (residencia)'
+                              : searchType === CopastorSearchType.ResidenceProvince
+                                ? 'Provincia (residencia)'
+                                : searchType === CopastorSearchType.ResidenceDistrict
+                                  ? 'Distrito (residencia)'
+                                  : searchType === CopastorSearchType.ResidenceUrbanSector
+                                    ? 'Sector Urbano (residencia)'
+                                    : 'Dirección (residencia)'}
                       </FormLabel>
                       <FormDescription className='text-[13px] md:text-[14px]'>
                         Escribe aquí lo que deseas buscar.
@@ -366,7 +375,21 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                       <FormControl>
                         <Input
                           className='text-[13px] md:text-[14px]'
-                          placeholder='Ejem: C-2, Av.Central 123, Lima ....'
+                          placeholder={
+                            searchType === CopastorSearchType.OriginCountry
+                              ? 'Ejem: Colombia , Mexico , Perú...'
+                              : searchType === CopastorSearchType.ResidenceCountry
+                                ? 'Ejem: Perú ...'
+                                : searchType === CopastorSearchType.ResidenceDepartment
+                                  ? 'Ejem: Lima, Ayacucho, Puno...'
+                                  : searchType === CopastorSearchType.ResidenceProvince
+                                    ? 'Ejem: Huaraz, Lima, Huamanga...'
+                                    : searchType === CopastorSearchType.ResidenceDistrict
+                                      ? 'Ejem: Independencia, Los Olivos, SJL...'
+                                      : searchType === CopastorSearchType.ResidenceUrbanSector
+                                        ? 'Ejem: Payet, Tahuantinsuyo, La Pascana ...'
+                                        : 'Ejem: Jr. Pardo 123 , Av.Central 555 , Mz. D Lt. 8 Nuevo Bosque...'
+                          }
                           {...field}
                         />
                       </FormControl>
@@ -499,11 +522,11 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === CopastorSearchType.FirstName ||
-                searchType === CopastorSearchType.FullName) && (
+              {(searchType === CopastorSearchType.FirstNames ||
+                searchType === CopastorSearchType.FullNames) && (
                 <FormField
                   control={form.control}
-                  name='namesTerm'
+                  name='firstNamesTerm'
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Nombres</FormLabel>
@@ -523,8 +546,8 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                 />
               )}
 
-              {(searchType === CopastorSearchType.LastName ||
-                searchType === CopastorSearchType.FullName) && (
+              {(searchType === CopastorSearchType.LastNames ||
+                searchType === CopastorSearchType.FullNames) && (
                 <FormField
                   control={form.control}
                   name='lastNamesTerm'
@@ -585,7 +608,7 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                     control={form.control}
                     name='all'
                     render={({ field }) => (
-                      <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
+                      <FormItem className='flex flex-row items-end space-x-2 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
                         <FormControl>
                           <Checkbox
                             disabled={!form.getValues('limit') || !!form.formState.errors.limit} // transform to boolean
@@ -601,7 +624,9 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[13px] md:text-[14px]'>Todos</FormLabel>
+                          <FormLabel className='text-[13px] md:text-[14px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </FormItem>
                     )}

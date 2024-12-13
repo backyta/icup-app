@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
-import { type UserFormData } from '@/modules/user/interfaces';
+import { type UserFormData } from '@/modules/user/interfaces/user-form-data.interface';
 
 interface Options {
   userUpdateForm: UseFormReturn<UserFormData, any, UserFormData>;
@@ -19,8 +19,8 @@ export const useUserUpdateSubmitButtonLogic = ({
   isInputDisabled,
 }: Options): void => {
   //* Watchers
-  const firstName = userUpdateForm.watch('firstName');
-  const lastName = userUpdateForm.watch('lastName');
+  const firstNames = userUpdateForm.watch('firstNames');
+  const lastNames = userUpdateForm.watch('lastNames');
   const email = userUpdateForm.watch('email');
   const gender = userUpdateForm.watch('gender');
   const roles = userUpdateForm.watch('roles');
@@ -36,12 +36,12 @@ export const useUserUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
 
-    if (firstName && lastName && email && roles && gender && !isInputDisabled) {
+    if (firstNames && lastNames && email && roles && gender && !isInputDisabled) {
       setIsSubmitButtonDisabled(false);
       setIsMessageErrorDisabled(false);
     }
 
-    if (!firstName || !lastName || !email || !roles || !gender) {
+    if (!firstNames || !lastNames || !email || !roles || !gender) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
@@ -49,5 +49,5 @@ export const useUserUpdateSubmitButtonLogic = ({
     if (roles?.length === 0) {
       setIsSubmitButtonDisabled(true);
     }
-  }, [userUpdateForm.formState, firstName, lastName, email, roles, gender, recordStatus]);
+  }, [userUpdateForm.formState, firstNames, lastNames, email, roles, gender, recordStatus]);
 };

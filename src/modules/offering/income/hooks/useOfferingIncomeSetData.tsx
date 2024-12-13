@@ -6,12 +6,10 @@
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import {
-  type OfferingIncomeResponse,
-  type OfferingIncomeFormData,
-} from '@/modules/offering/income/interfaces';
+import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces/offering-income-response.interface';
+import { type OfferingIncomeFormData } from '@/modules/offering/income/interfaces/offering-income-form-data.interface';
 
-import { type FilesProps } from '@/modules/offering/shared/interfaces';
+import { type FilesProps } from '@/modules/offering/shared/interfaces/files-props.interface';
 
 interface Options {
   id: string;

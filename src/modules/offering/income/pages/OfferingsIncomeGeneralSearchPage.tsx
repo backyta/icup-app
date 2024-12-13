@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+/* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
@@ -13,19 +13,22 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { cn } from '@/shared/lib/utils';
 
-import { getSimpleChurches } from '@/modules/church/services';
-import { useOfferingIncomeStore } from '@/stores/offering-income';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
+import { useOfferingIncomeStore } from '@/stores/offering-income/offering-income.store';
 
-import {
-  offeringIncomeInfoColumns as columns,
-  GeneralOfferingIncomeSearchDataTable,
-} from '@/modules/offering/income/components';
-import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces';
+import { offeringIncomeInfoColumns as columns } from '@/modules/offering/income/components/data-tables/columns/offering-income-info-columns';
+import { GeneralOfferingIncomeSearchDataTable } from '@/modules/offering/income/components/data-tables/boards/general-offering-income-search-data-table';
 
-import { PageTitle, SearchTitle } from '@/shared/components/page';
-import { type GeneralSearchForm } from '@/shared/interfaces';
-import { formSearchGeneralSchema } from '@/shared/validations';
-import { RecordOrder, RecordOrderNames } from '@/shared/enums';
+import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces/offering-income-response.interface';
+
+import { PageTitle } from '@/shared/components/page/PageTitle';
+import { SearchTitle } from '@/shared/components/page/SearchTitle';
+
+import { type GeneralSearchForm } from '@/shared/interfaces/search-general-form.interface';
+import { formSearchGeneralSchema } from '@/shared/validations/form-search-general-schema';
+
+import { RecordOrder, RecordOrderNames } from '@/shared/enums/record-order.enum';
+
 import {
   Select,
   SelectItem,
@@ -223,7 +226,9 @@ export const OfferingsIncomeGeneralSearchPage = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[12px] md:text-[13px]'>Todos</FormLabel>
+                          <FormLabel className='text-[12px] md:text-[13px] cursor-pointer'>
+                            Todos
+                          </FormLabel>
                         </div>
                       </div>
                     </FormItem>

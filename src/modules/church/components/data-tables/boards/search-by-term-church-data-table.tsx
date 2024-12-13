@@ -24,17 +24,22 @@ import {
 } from '@tanstack/react-table';
 
 import {
+  getChurchesByTerm,
+  getChurchesReportByTerm,
+} from '@/modules/church/services/church.service';
+import { type ChurchQueryParams } from '@/modules/church/interfaces/church-query-params.interface';
+import { type ChurchSearchFormByTerm } from '@/modules/church/interfaces/church-search-form-by-term.interface';
+
+import { useChurchStore } from '@/stores/church/church.store';
+
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+import { dateFormatterToDDMMYYYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
+
+import {
   ChurchSearchType,
   ChurchSearchTypeNames,
-  ChurchSearchSelectOptionNames,
-} from '@/modules/church/enums';
-import { getChurchesByTerm, getChurchesReportByTerm } from '@/modules/church/services';
-import { type ChurchSearchFormByTerm, type ChurchQueryParams } from '@/modules/church/interfaces';
-
-import { useChurchStore } from '@/stores/church';
-
-import { LoadingSpinner } from '@/shared/components';
-import { dateFormatterToDDMMYYYY } from '@/shared/helpers';
+} from '@/modules/church/enums/church-search-type.enum';
+import { ChurchSearchSelectOptionNames } from '@/modules/church/enums/church-search-select-option.enum';
 
 import {
   Table,

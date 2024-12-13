@@ -10,7 +10,7 @@ import {
   type FamilyGroup,
   type Anexe,
   type ExternalDonor
-} from '@/shared/interfaces';
+} from '@/shared/interfaces/relations-response.interface';
 
 export interface OfferingIncomeResponse {
   id            : string;
