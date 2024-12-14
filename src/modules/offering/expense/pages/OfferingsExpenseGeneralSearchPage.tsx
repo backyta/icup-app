@@ -344,3 +344,5 @@ export const OfferingsExpenseGeneralSearchPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default OfferingsExpenseGeneralSearchPage;

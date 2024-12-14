@@ -120,3 +120,5 @@ export const SupervisorOptionsPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default SupervisorOptionsPage;

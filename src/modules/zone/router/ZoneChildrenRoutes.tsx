@@ -1,28 +1,56 @@
-import { ZoneUpdatePage } from '@/modules/zone/pages/ZoneUpdatePage';
-import { ZoneCreatePage } from '@/modules/zone/pages/ZoneCreatePage';
-import { ZoneInactivatePage } from '@/modules/zone/pages/ZoneInactivatePage';
-import { ZonesSearchPageByTerm } from '@/modules/zone/pages/ZonesSearchPageByTerm';
-import { ZonesGeneralSearchPage } from '@/modules/zone/pages/ZonesGeneralSearchPage';
+/* eslint-disable @typescript-eslint/promise-function-async */
+
+import { lazy, Suspense } from 'react';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+
+//! Lazy load children routes
+const LazyZoneCreatePage = lazy(() => import('@/modules/zone/pages/ZoneCreatePage'));
+const LazyZoneUpdatePage = lazy(() => import('@/modules/zone/pages/ZoneUpdatePage'));
+const LazyZoneInactivatePage = lazy(() => import('@/modules/zone/pages/ZoneInactivatePage'));
+const LazyZonesSearchPageByTerm = lazy(() => import('@/modules/zone/pages/ZonesSearchPageByTerm'));
+const LazyZonesGeneralSearchPage = lazy(
+  () => import('@/modules/zone/pages/ZonesGeneralSearchPage')
+);
 
 export const ZoneChildrenRoutes = [
   {
     path: '/zones/create',
-    element: <ZoneCreatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyZoneCreatePage />,
+      </Suspense>
+    ),
   },
   {
     path: '/zones/general-search',
-    element: <ZonesGeneralSearchPage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyZonesGeneralSearchPage />,
+      </Suspense>
+    ),
   },
   {
     path: '/zones/search-by-term',
-    element: <ZonesSearchPageByTerm />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyZonesSearchPageByTerm />,
+      </Suspense>
+    ),
   },
   {
     path: '/zones/update',
-    element: <ZoneUpdatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyZoneUpdatePage />,
+      </Suspense>
+    ),
   },
   {
     path: '/zones/inactivate',
-    element: <ZoneInactivatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyZoneInactivatePage />,
+      </Suspense>
+    ),
   },
 ];

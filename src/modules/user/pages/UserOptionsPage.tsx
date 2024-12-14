@@ -121,3 +121,5 @@ export const UserOptionsPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default UserOptionsPage;

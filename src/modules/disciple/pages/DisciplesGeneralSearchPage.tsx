@@ -360,3 +360,5 @@ export const DisciplesGeneralSearchPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default DisciplesGeneralSearchPage;

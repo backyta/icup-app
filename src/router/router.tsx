@@ -1,35 +1,15 @@
+/* eslint-disable @typescript-eslint/return-await */
+/* eslint-disable @typescript-eslint/promise-function-async */
+
+import { lazy, Suspense } from 'react';
+
 import { createBrowserRouter } from 'react-router-dom';
 
 import { Root } from '@/Root';
-import { RedirectIfMatch } from '@/router/RedirectIfMatch';
 
 import { AuthLayout } from '@/layouts/AuthLayout';
-import { DashboardLayout } from '@/layouts/DashboardLayout';
 
-// ?  Direct pages
-//* Members
-import { DashboardPage } from '@/modules/dashboard/pages/DashboardPage';
-import { ChurchOptionsPage } from '@/modules/church/pages/ChurchOptionsPage';
-import { PastorOptionsPage } from '@/modules/pastor/pages/PastorOptionsPage';
-import { CopastorOptionsPage } from '@/modules/copastor/pages/CopastorOptionsPage';
-import { DiscipleOptionsPage } from '@/modules/disciple/pages/DiscipleOptionsPage';
-import { PreacherOptionsPage } from '@/modules/preacher/pages/PreacherOptionsPage';
-import { SupervisorOptionsPage } from '@/modules/supervisor/pages/SupervisorOptionsPage';
-
-//* Family groups and zones
-import { ZoneOptionsPage } from '@/modules/zone/pages/ZoneOptionsPage';
-import { FamilyGroupOptionsPage } from '@/modules/family-group/pages/FamilyGroupOptionsPage';
-
-//* Offerings
-import { OfferingOptionsPage } from '@/modules/offering/shared/pages/OfferingOptionsPage';
-import { OfferingIncomeOptionsPage } from '@/modules/offering/income/pages/OfferingIncomeOptionsPage';
-import { OfferingExpenseOptionsPage } from '@/modules/offering/expense/pages/OfferingExpenseOptionsPage';
-
-//* Metrics and charts
-import { MetricsOptionsPage } from '@/modules/metrics/pages/MetricsOptionsPage';
-
-//* Users
-import { UserOptionsPage } from '@/modules/user/pages/UserOptionsPage';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
 // ? Routers by module
 //* Members
@@ -57,8 +37,47 @@ import { UserChildrenRoutes } from '@/modules/user/router/UserChildrenRoutes';
 //* Auth
 import { AuthChildrenRoutes } from '@/modules/auth/router/AuthChildrenRoutes';
 
+const LazyDashboardLayout = lazy(() => import('@/layouts/DashboardLayout'));
+
+//! Lazy Load (Pages)
 //* NotFound page
-import { NotFoundPage } from '@/shared/pages/NotFoundPage';
+const LazyNotFoundPage = lazy(() => import('@/shared/pages/NotFoundPage'));
+
+//! Lazy Load (Options Pages)
+//* Dashboard, Member and church module
+const LazyRedirectIfMatch = lazy(() => import('@/router/RedirectIfMatch'));
+const LazySupervisorOptionsPage = lazy(
+  () => import('@/modules/supervisor/pages/SupervisorOptionsPage')
+);
+const LazyDashboardPage = lazy(() => import('@/modules/dashboard/pages/DashboardPage'));
+const LazyPastorOptionsPage = lazy(() => import('@/modules/pastor/pages/PastorOptionsPage'));
+const LazyChurchOptionsPage = lazy(() => import('@/modules/church/pages/ChurchOptionsPage'));
+const LazyCopastorOptionsPage = lazy(() => import('@/modules/copastor/pages/CopastorOptionsPage'));
+const LazyPreacherOptionsPage = lazy(() => import('@/modules/preacher/pages/PreacherOptionsPage'));
+const LazyDiscipleOptionsPage = lazy(() => import('@/modules/disciple/pages/DiscipleOptionsPage'));
+
+//* Zone and Family group
+const FamilyGroupOptionsPage = lazy(
+  () => import('@/modules/family-group/pages/FamilyGroupOptionsPage')
+);
+const ZoneOptionsPage = lazy(() => import('@/modules/zone/pages/ZoneOptionsPage'));
+
+//* Offerings
+const OfferingOptionsPage = lazy(
+  () => import('@/modules/offering/shared/pages/OfferingOptionsPage')
+);
+const OfferingIncomeOptionsPage = lazy(
+  () => import('@/modules/offering/income/pages/OfferingIncomeOptionsPage')
+);
+const OfferingExpenseOptionsPage = lazy(
+  () => import('@/modules/offering/expense/pages/OfferingExpenseOptionsPage')
+);
+
+//* Metrics
+const MetricsOptionsPage = lazy(() => import('@/modules/metrics/pages/MetricsOptionsPage'));
+
+//* User
+const UserOptionsPage = lazy(() => import('@/modules/user/pages/UserOptionsPage'));
 
 // ? Browser router
 export const router = createBrowserRouter([
@@ -68,56 +87,246 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <DashboardLayout />,
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <LazyDashboardLayout />
+          </Suspense>
+        ),
         children: [
           // * Main pages by module
-          { path: '/dashboard', element: <DashboardPage /> },
-          { path: '/churches', element: <ChurchOptionsPage /> },
-          { path: '/pastors', element: <PastorOptionsPage /> },
-          { path: '/copastors', element: <CopastorOptionsPage /> },
-          { path: '/supervisors', element: <SupervisorOptionsPage /> },
-          { path: '/preachers', element: <PreacherOptionsPage /> },
-          { path: '/disciples', element: <DiscipleOptionsPage /> },
-          { path: '/family-groups', element: <FamilyGroupOptionsPage /> },
-          { path: '/zones', element: <ZoneOptionsPage /> },
-          { path: '/offerings', element: <OfferingOptionsPage /> },
-          { path: '/offerings/income', element: <OfferingIncomeOptionsPage /> },
-          { path: '/offerings/expenses', element: <OfferingExpenseOptionsPage /> },
-          { path: '/metrics', element: <MetricsOptionsPage /> },
-          { path: '/users', element: <UserOptionsPage /> },
+          {
+            path: '/dashboard',
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <LazyDashboardPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/churches',
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <LazyChurchOptionsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/pastors',
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <LazyPastorOptionsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/copastors',
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <LazyCopastorOptionsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/supervisors',
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <LazySupervisorOptionsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/preachers',
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <LazyPreacherOptionsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/disciples',
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <LazyDiscipleOptionsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/family-groups',
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <FamilyGroupOptionsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/zones',
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <ZoneOptionsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/offerings',
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <OfferingOptionsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/offerings/income',
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <OfferingIncomeOptionsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/offerings/expenses',
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <OfferingExpenseOptionsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/metrics',
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <MetricsOptionsPage />
+              </Suspense>
+            ),
+          },
+          {
+            path: '/users',
+            element: (
+              <Suspense fallback={<LoadingSpinner />}>
+                <UserOptionsPage />
+              </Suspense>
+            ),
+          },
         ],
       },
 
       // ? Children routes and pages by module
       //* Members
-      { path: '/churches', element: <DashboardLayout />, children: ChurchChildrenRoutes },
-      { path: '/disciples', element: <DashboardLayout />, children: DiscipleChildrenRoutes },
-      { path: '/pastors', element: <DashboardLayout />, children: PastorChildrenRoutes },
-      { path: '/copastors', element: <DashboardLayout />, children: CopastorChildrenRoutes },
-      { path: '/supervisors', element: <DashboardLayout />, children: SupervisorChildrenRoutes },
-      { path: '/preachers', element: <DashboardLayout />, children: PreacherChildrenRoutes },
-      { path: '/family-groups', element: <DashboardLayout />, children: FamilyGroupChildrenRoutes },
-      { path: '/zones', element: <DashboardLayout />, children: ZoneChildrenRoutes },
+      {
+        path: '/churches',
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <LazyDashboardLayout />
+          </Suspense>
+        ),
+        children: ChurchChildrenRoutes,
+      },
+      {
+        path: '/disciples',
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <LazyDashboardLayout />
+          </Suspense>
+        ),
+        children: DiscipleChildrenRoutes,
+      },
+      {
+        path: '/pastors',
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <LazyDashboardLayout />
+          </Suspense>
+        ),
+        children: PastorChildrenRoutes,
+      },
+      {
+        path: '/copastors',
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <LazyDashboardLayout />
+          </Suspense>
+        ),
+        children: CopastorChildrenRoutes,
+      },
+      {
+        path: '/supervisors',
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <LazyDashboardLayout />
+          </Suspense>
+        ),
+        children: SupervisorChildrenRoutes,
+      },
+      {
+        path: '/preachers',
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <LazyDashboardLayout />
+          </Suspense>
+        ),
+        children: PreacherChildrenRoutes,
+      },
+      {
+        path: '/family-groups',
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <LazyDashboardLayout />
+          </Suspense>
+        ),
+        children: FamilyGroupChildrenRoutes,
+      },
+      {
+        path: '/zones',
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <LazyDashboardLayout />
+          </Suspense>
+        ),
+        children: ZoneChildrenRoutes,
+      },
 
       //* Offering income
       {
         path: '/offerings/income',
-        element: <DashboardLayout />,
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <LazyDashboardLayout />
+          </Suspense>
+        ),
         children: OfferingIncomeChildrenRoutes,
       },
 
       //* Offering expenses
       {
         path: '/offerings/expenses',
-        element: <DashboardLayout />,
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <LazyDashboardLayout />
+          </Suspense>
+        ),
         children: OfferingExpenseChildrenRoutes,
       },
 
       //* Users
-      { path: '/users', element: <DashboardLayout />, children: UserChildrenRoutes },
+      {
+        path: '/users',
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <LazyDashboardLayout />
+          </Suspense>
+        ),
+        children: UserChildrenRoutes,
+      },
 
       //* Metrics and charts
-      { path: '/metrics', element: <DashboardLayout />, children: MetricsChildrenRoutes },
+      {
+        path: '/metrics',
+        element: (
+          <Suspense fallback={<LoadingSpinner />}>
+            <LazyDashboardLayout />
+          </Suspense>
+        ),
+        children: MetricsChildrenRoutes,
+      },
 
       //* Auth
       { path: '/auth', element: <AuthLayout />, children: AuthChildrenRoutes },
@@ -125,10 +334,18 @@ export const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <RedirectIfMatch />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyRedirectIfMatch />
+      </Suspense>
+    ),
   },
   {
     path: '/404',
-    element: <NotFoundPage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyNotFoundPage />,
+      </Suspense>
+    ),
   },
 ]);

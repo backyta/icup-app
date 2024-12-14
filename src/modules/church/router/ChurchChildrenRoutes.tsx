@@ -1,28 +1,58 @@
-import { ChurchCreatePage } from '@/modules/church/pages/ChurchCreatePage';
-import { ChurchUpdatePage } from '@/modules/church/pages/ChurchUpdatePage';
-import { ChurchInactivatePage } from '@/modules/church/pages/ChurchInactivatePage';
-import { ChurchesSearchPageByTerm } from '@/modules/church/pages/ChurchesSearchPageByTerm';
-import { ChurchesGeneralSearchPage } from '@/modules/church/pages/ChurchesGeneralSearchPage';
+/* eslint-disable @typescript-eslint/promise-function-async */
+
+import { lazy, Suspense } from 'react';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+
+//! Lazy load children routes
+const LazyChurchesSearchPageByTerm = lazy(
+  () => import('@/modules/church/pages/ChurchesSearchPageByTerm')
+);
+const LazyChurchesGeneralSearchPage = lazy(
+  () => import('@/modules/church/pages/ChurchesGeneralSearchPage')
+);
+const LazyChurchCreatePage = lazy(() => import('@/modules/church/pages/ChurchCreatePage'));
+const LazyChurchUpdatePage = lazy(() => import('@/modules/church/pages/ChurchUpdatePage'));
+const LazyChurchInactivatePage = lazy(() => import('@/modules/church/pages/ChurchInactivatePage'));
 
 export const ChurchChildrenRoutes = [
   {
     path: '/churches/create',
-    element: <ChurchCreatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyChurchCreatePage />,
+      </Suspense>
+    ),
   },
   {
     path: '/churches/general-search',
-    element: <ChurchesGeneralSearchPage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyChurchesGeneralSearchPage />
+      </Suspense>
+    ),
   },
   {
     path: '/churches/search-by-term',
-    element: <ChurchesSearchPageByTerm />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyChurchesSearchPageByTerm />
+      </Suspense>
+    ),
   },
   {
     path: '/churches/update',
-    element: <ChurchUpdatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyChurchUpdatePage />
+      </Suspense>
+    ),
   },
   {
     path: '/churches/inactivate',
-    element: <ChurchInactivatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyChurchInactivatePage />
+      </Suspense>
+    ),
   },
 ];

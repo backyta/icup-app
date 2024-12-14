@@ -1,28 +1,64 @@
-import { SupervisorUpdatePage } from '@/modules/supervisor/pages/SupervisorUpdatePage';
-import { SupervisorCreatePage } from '@/modules/supervisor/pages/SupervisorCreatePage';
-import { SupervisorInactivatePage } from '@/modules/supervisor/pages/SupervisorInactivatePage';
-import { SupervisorsSearchPageByTerm } from '@/modules/supervisor/pages/SupervisorsSearchPageByTerm';
-import { SupervisorsGeneralSearchPage } from '@/modules/supervisor/pages/SupervisorsGeneralSearchPage';
+/* eslint-disable @typescript-eslint/promise-function-async */
+
+import { lazy, Suspense } from 'react';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+
+//! Lazy load children routes
+const LazySupervisorInactivatePage = lazy(
+  () => import('@/modules/supervisor/pages/SupervisorInactivatePage')
+);
+const LazySupervisorsSearchPageByTerm = lazy(
+  () => import('@/modules/supervisor/pages/SupervisorsSearchPageByTerm')
+);
+const LazySupervisorsGeneralSearchPage = lazy(
+  () => import('@/modules/supervisor/pages/SupervisorsGeneralSearchPage')
+);
+const LazySupervisorUpdatePage = lazy(
+  () => import('@/modules/supervisor/pages/SupervisorUpdatePage')
+);
+const LazySupervisorCreatePage = lazy(
+  () => import('@/modules/supervisor/pages/SupervisorCreatePage')
+);
 
 export const SupervisorChildrenRoutes = [
   {
     path: '/supervisors/create',
-    element: <SupervisorCreatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazySupervisorCreatePage />,
+      </Suspense>
+    ),
   },
   {
     path: '/supervisors/general-search',
-    element: <SupervisorsGeneralSearchPage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazySupervisorsGeneralSearchPage />,
+      </Suspense>
+    ),
   },
   {
     path: '/supervisors/search-by-term',
-    element: <SupervisorsSearchPageByTerm />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazySupervisorsSearchPageByTerm />,
+      </Suspense>
+    ),
   },
   {
     path: '/supervisors/update',
-    element: <SupervisorUpdatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazySupervisorUpdatePage />,
+      </Suspense>
+    ),
   },
   {
     path: '/supervisors/inactivate',
-    element: <SupervisorInactivatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazySupervisorInactivatePage />,
+      </Suspense>
+    ),
   },
 ];

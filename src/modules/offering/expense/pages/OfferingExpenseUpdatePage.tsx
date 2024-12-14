@@ -629,3 +629,5 @@ export const OfferingExpenseUpdatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default OfferingExpenseUpdatePage;

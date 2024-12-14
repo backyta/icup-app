@@ -119,3 +119,5 @@ export const PreacherOptionsPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default PreacherOptionsPage;

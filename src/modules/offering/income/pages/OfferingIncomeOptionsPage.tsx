@@ -120,3 +120,5 @@ export const OfferingIncomeOptionsPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default OfferingIncomeOptionsPage;

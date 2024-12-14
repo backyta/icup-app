@@ -690,3 +690,5 @@ export const PastorUpdatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default PastorUpdatePage;

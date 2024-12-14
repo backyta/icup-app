@@ -830,3 +830,5 @@ export const OfferingIncomeUpdatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default OfferingIncomeUpdatePage;

@@ -673,3 +673,5 @@ export const FamilyGroupInactivatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default FamilyGroupInactivatePage;

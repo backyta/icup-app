@@ -119,3 +119,5 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default FamilyGroupOptionsPage;

@@ -691,3 +691,5 @@ export const PastorsSearchPageByTerm = (): JSX.Element => {
     </div>
   );
 };
+
+export default PastorsSearchPageByTerm;

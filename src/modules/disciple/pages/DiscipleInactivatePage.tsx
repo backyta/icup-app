@@ -791,3 +791,5 @@ export const DiscipleInactivatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default DiscipleInactivatePage;

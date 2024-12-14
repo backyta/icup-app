@@ -775,3 +775,5 @@ export const CopastorInactivatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default CopastorInactivatePage;

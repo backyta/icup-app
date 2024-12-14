@@ -833,3 +833,5 @@ export const OfferingIncomeInactivatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default OfferingIncomeInactivatePage;

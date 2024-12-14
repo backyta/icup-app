@@ -360,3 +360,5 @@ export const PastorsGeneralSearchPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default PastorsGeneralSearchPage;

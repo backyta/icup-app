@@ -85,3 +85,5 @@ export const MemberMetrics = (): JSX.Element => {
     </div>
   );
 };
+
+export default MemberMetrics;

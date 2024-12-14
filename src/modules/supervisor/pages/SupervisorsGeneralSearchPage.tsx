@@ -361,3 +361,5 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default SupervisorsGeneralSearchPage;

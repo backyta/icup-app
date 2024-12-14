@@ -513,3 +513,5 @@ export const ChurchUpdatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default ChurchUpdatePage;

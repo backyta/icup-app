@@ -773,3 +773,5 @@ export const CopastorUpdatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default CopastorUpdatePage;

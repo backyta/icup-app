@@ -1749,3 +1749,5 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default OfferingIncomeCreatePage;

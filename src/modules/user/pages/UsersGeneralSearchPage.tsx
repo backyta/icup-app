@@ -284,3 +284,5 @@ export const UsersGeneralSearchPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default UsersGeneralSearchPage;

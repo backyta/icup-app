@@ -521,3 +521,5 @@ export const ChurchInactivatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default ChurchInactivatePage;

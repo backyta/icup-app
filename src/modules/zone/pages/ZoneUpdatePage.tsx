@@ -635,3 +635,5 @@ export const ZoneUpdatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default ZoneUpdatePage;

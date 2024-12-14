@@ -293,3 +293,5 @@ export const ChurchesGeneralSearchPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default ChurchesGeneralSearchPage;

@@ -523,3 +523,5 @@ export const UsersSearchPageByTerm = (): JSX.Element => {
     </div>
   );
 };
+
+export default UsersSearchPageByTerm;

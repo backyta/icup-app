@@ -787,3 +787,5 @@ export const PreacherUpdatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default PreacherUpdatePage;

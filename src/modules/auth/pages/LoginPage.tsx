@@ -6,11 +6,12 @@ import { useEffect, useState } from 'react';
 import { type z } from 'zod';
 import { AxiosError } from 'axios';
 import { Toaster, toast } from 'sonner';
-
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { zodResolver } from '@hookform/resolvers/zod';
+
+import { cn } from '@/shared/lib/utils';
 
 import { useAuthStore } from '@/stores/auth/auth.store';
 import { loginSchema } from '@/modules/auth/validations/login-schema';
@@ -32,6 +33,7 @@ export const LoginPage = (): JSX.Element => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
   const [statusCode, setStatusCode] = useState<number>(401);
+  const [countdown, setCountdown] = useState<number>(60);
 
   //* Hooks (external libraries)
   const navigate = useNavigate();
@@ -58,13 +60,26 @@ export const LoginPage = (): JSX.Element => {
 
   useEffect(() => {
     if (statusCode === 429) {
-      setTimeout(() => {
+      setIsInputDisabled(true);
+
+      const interval = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+
+      const timeout = setTimeout(() => {
+        clearInterval(interval);
+        setCountdown(60);
         setIsInputDisabled(false);
         setStatusCode(401);
-        toast.success('Limite de tiempo completado. Ya puede volver a intentarlo.', {
+        toast.success('Límite de tiempo completado. Ya puede volver a intentarlo.', {
           position: 'top-right',
         });
       }, 60000);
+
+      return () => {
+        clearInterval(interval);
+        clearTimeout(timeout);
+      };
     }
   }, [isInputDisabled]);
 
@@ -118,9 +133,19 @@ export const LoginPage = (): JSX.Element => {
       </div>
 
       <div className='w-[18rem] md:w-[24rem] md:mx-auto sm:max-w-md px-5 pb-7 pt-5 md:px-10 md:pt-8 md:pb-10 shadow-md overflow-hidden sm:rounded-lg bg-white dark:bg-slate-900'>
-        <h3 className='text-center text-[20px] md:text-[22px] lg:text-[25px] xl:text-[28px] mb-3 md:mb-5 leading-8 font-bold'>
+        <h3
+          className={cn(
+            'text-center text-[20px] md:text-[22px] lg:text-[25px] xl:text-[28px] mb-3 md:mb-5 leading-8 font-bold',
+            statusCode === 429 && 'mb-1 md:mb-1'
+          )}
+        >
           Inicia Sesión
         </h3>
+        {statusCode === 429 && (
+          <div className='text-center text-red-600 font-semibold'>
+            Por favor, espera {countdown} segundos antes de intentar nuevamente.
+          </div>
+        )}
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}

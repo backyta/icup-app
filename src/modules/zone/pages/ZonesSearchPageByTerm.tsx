@@ -636,3 +636,5 @@ export const ZonesSearchPageByTerm = (): JSX.Element => {
     </div>
   );
 };
+
+export default ZonesSearchPageByTerm;

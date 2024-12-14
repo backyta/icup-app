@@ -840,3 +840,5 @@ export const OfferingsIncomeSearchPageByTerm = (): JSX.Element => {
     </div>
   );
 };
+
+export default OfferingsIncomeSearchPageByTerm;

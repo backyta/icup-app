@@ -693,3 +693,5 @@ export const PastorInactivatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default PastorInactivatePage;

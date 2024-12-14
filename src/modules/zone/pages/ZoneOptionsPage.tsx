@@ -129,3 +129,5 @@ export const ZoneOptionsPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default ZoneOptionsPage;

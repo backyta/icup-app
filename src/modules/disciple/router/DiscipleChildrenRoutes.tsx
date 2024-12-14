@@ -1,28 +1,60 @@
-import { DiscipleCreatePage } from '@/modules/disciple/pages/DiscipleCreatePage';
-import { DiscipleUpdatePage } from '@/modules/disciple/pages/DiscipleUpdatePage';
-import { DiscipleInactivatePage } from '@/modules/disciple/pages/DiscipleInactivatePage';
-import { DisciplesSearchPageByTerm } from '@/modules/disciple/pages/DisciplesSearchPageByTerm';
-import { DisciplesGeneralSearchPage } from '@/modules/disciple/pages/DisciplesGeneralSearchPage';
+/* eslint-disable @typescript-eslint/promise-function-async */
+
+import { lazy, Suspense } from 'react';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+
+//! Lazy load children routes
+const LazyDiscipleInactivatePage = lazy(
+  () => import('@/modules/disciple/pages/DiscipleInactivatePage')
+);
+const LazyDisciplesSearchPageByTerm = lazy(
+  () => import('@/modules/disciple/pages/DisciplesSearchPageByTerm')
+);
+const LazyDisciplesGeneralSearchPage = lazy(
+  () => import('@/modules/disciple/pages/DisciplesGeneralSearchPage')
+);
+const LazyDiscipleCreatePage = lazy(() => import('@/modules/disciple/pages/DiscipleCreatePage'));
+const LazyDiscipleUpdatePage = lazy(() => import('@/modules/disciple/pages/DiscipleUpdatePage'));
 
 export const DiscipleChildrenRoutes = [
   {
     path: '/disciples/create',
-    element: <DiscipleCreatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyDiscipleCreatePage />,
+      </Suspense>
+    ),
   },
   {
     path: '/disciples/general-search',
-    element: <DisciplesGeneralSearchPage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyDisciplesGeneralSearchPage />,
+      </Suspense>
+    ),
   },
   {
     path: '/disciples/search-by-term',
-    element: <DisciplesSearchPageByTerm />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyDisciplesSearchPageByTerm />,
+      </Suspense>
+    ),
   },
   {
     path: '/disciples/update',
-    element: <DiscipleUpdatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyDiscipleUpdatePage />,
+      </Suspense>
+    ),
   },
   {
     path: '/disciples/inactivate',
-    element: <DiscipleInactivatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyDiscipleInactivatePage />,
+      </Suspense>
+    ),
   },
 ];

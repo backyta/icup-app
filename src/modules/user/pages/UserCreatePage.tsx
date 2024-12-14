@@ -405,3 +405,5 @@ export const UserCreatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default UserCreatePage;

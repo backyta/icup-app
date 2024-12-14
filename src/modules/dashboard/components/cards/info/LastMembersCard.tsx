@@ -20,7 +20,6 @@ import { dashBoardSearchFormSchema } from '@/modules/dashboard/validations/dashb
 
 import { cn } from '@/shared/lib/utils';
 import { RecordOrder } from '@/shared/enums/record-order.enum';
-import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
 import {
   Card,
@@ -195,15 +194,28 @@ export function MembersInfoCard(): JSX.Element {
 
       {query.isLoading ? (
         <CardContent className='h-[42.5rem]'>
-          <LoadingSpinner />
+          {
+            <>
+              <div className={'flex flex-col items-center justify-center space-y-4 h-full'}>
+                <div className='flex space-x-2'>
+                  <div className='w-4 h-4 bg-blue-500 rounded-full animate-bounce'></div>
+                  <div className='w-4 h-4 bg-blue-500 rounded-full animate-bounce animation-delay-200'></div>
+                  <div className='w-4 h-4 bg-blue-500 rounded-full animate-bounce animation-delay-400'></div>
+                </div>
+                <span className='text-blue-500 text-lg font-medium'>Cargando...</span>
+              </div>
+            </>
+          }
         </CardContent>
       ) : !query?.isLoading && query?.data ? (
         query?.data?.map((data) => <MemberInfoItem key={data.id} data={data} />)
       ) : (
-        <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
-          <FcDeleteDatabase className='text-[6rem] pb-2' />
-          <p>No hay datos disponibles para mostrar.</p>
-        </div>
+        <CardContent className='h-[42.5rem]'>
+          <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+            <FcDeleteDatabase className='text-[6rem] pb-2' />
+            <p>No hay datos disponibles para mostrar.</p>
+          </div>
+        </CardContent>
       )}
     </Card>
   );

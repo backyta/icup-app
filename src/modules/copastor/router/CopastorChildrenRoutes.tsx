@@ -1,28 +1,60 @@
-import { CopastorCreatePage } from '@/modules/copastor/pages/CopastorCreatePage';
-import { CopastorUpdatePage } from '@/modules/copastor/pages/CopastorUpdatePage';
-import { CopastorInactivatePage } from '@/modules/copastor/pages/CopastorInactivatePage';
-import { CopastorsSearchPageByTerm } from '@/modules/copastor/pages/CopastorsSearchPageByTerm';
-import { CopastorsGeneralSearchPage } from '@/modules/copastor/pages/CopastorsGeneralSearchPage';
+/* eslint-disable @typescript-eslint/promise-function-async */
+
+import { lazy, Suspense } from 'react';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+
+//! Lazy load children routes
+const LazyCopastorInactivatePage = lazy(
+  () => import('@/modules/copastor/pages/CopastorInactivatePage')
+);
+const LazyCopastorsSearchPageByTerm = lazy(
+  () => import('@/modules/copastor/pages/CopastorsSearchPageByTerm')
+);
+const LazyCopastorsGeneralSearchPage = lazy(
+  () => import('@/modules/copastor/pages/CopastorsGeneralSearchPage')
+);
+const LazyCopastorUpdatePage = lazy(() => import('@/modules/copastor/pages/CopastorUpdatePage'));
+const LazyCopastorCreatePage = lazy(() => import('@/modules/copastor/pages/CopastorCreatePage'));
 
 export const CopastorChildrenRoutes = [
   {
     path: '/copastors/create',
-    element: <CopastorCreatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyCopastorCreatePage />
+      </Suspense>
+    ),
   },
   {
     path: '/copastors/general-search',
-    element: <CopastorsGeneralSearchPage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyCopastorsGeneralSearchPage />
+      </Suspense>
+    ),
   },
   {
     path: '/copastors/search-by-term',
-    element: <CopastorsSearchPageByTerm />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyCopastorsSearchPageByTerm />
+      </Suspense>
+    ),
   },
   {
     path: '/copastors/update',
-    element: <CopastorUpdatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyCopastorUpdatePage />
+      </Suspense>
+    ),
   },
   {
     path: '/copastors/inactivate',
-    element: <CopastorInactivatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyCopastorInactivatePage />
+      </Suspense>
+    ),
   },
 ];

@@ -118,3 +118,5 @@ export const DiscipleOptionsPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default DiscipleOptionsPage;

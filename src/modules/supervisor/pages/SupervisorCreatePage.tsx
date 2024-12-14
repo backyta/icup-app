@@ -1107,3 +1107,5 @@ export const SupervisorCreatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default SupervisorCreatePage;

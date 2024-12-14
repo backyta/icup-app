@@ -110,6 +110,8 @@ module.exports = {
       "accordion-up": "accordion-up 0.2s ease-out",
       fadeIn: 'fadeIn .7s ease-in-out',
       fadeInPage: 'fadeIn .35s ease-in-out',
+      pulse: 'pulse 1.5s ease-in-out infinite',
+      bounce: 'bounce 1s infinite',
     },
     fontFamily: {
       'archivo': ['Archivo', 'sans-serif'],
@@ -121,6 +123,22 @@ module.exports = {
       fadeIn: {
         from: { opacity: 0 },
         to: { opacity: 1 },
+      },
+      pulse: {
+        '0%, 100%': { opacity: 1 },
+        '50%': { opacity: 0.4 },
+      },
+      bounce: {
+        '0%, 100%': { transform: 'translateY(0)' },
+        '50%': { transform: 'translateY(-10px)' },
+      },
+    },
+    extendUtilities: {
+      'animation-delay': {
+        100: '0.1s',
+        200: '0.2s',
+        300: '0.3s',
+        400: '0.4s',
       },
     },
     screens: {

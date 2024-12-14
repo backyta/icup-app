@@ -789,3 +789,5 @@ export const DisciplesSearchPageByTerm = (): JSX.Element => {
     </div>
   );
 };
+
+export default DisciplesSearchPageByTerm;

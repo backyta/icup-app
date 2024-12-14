@@ -343,3 +343,5 @@ export const ZonesGeneralSearchPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default ZonesGeneralSearchPage;

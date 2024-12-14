@@ -120,3 +120,5 @@ export const OfferingExpenseOptionsPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default OfferingExpenseOptionsPage;

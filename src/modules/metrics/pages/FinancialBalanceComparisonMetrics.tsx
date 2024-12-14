@@ -72,3 +72,5 @@ export const FinancialBalanceComparisonMetrics = (): JSX.Element => {
     </div>
   );
 };
+
+export default FinancialBalanceComparisonMetrics;

@@ -527,3 +527,5 @@ export const UserInactivatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default UserInactivatePage;

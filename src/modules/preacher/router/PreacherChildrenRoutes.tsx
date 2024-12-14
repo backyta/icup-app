@@ -1,28 +1,60 @@
-import { PreacherUpdatePage } from '@/modules/preacher/pages/PreacherUpdatePage';
-import { PreacherCreatePage } from '@/modules/preacher/pages/PreacherCreatePage';
-import { PreacherInactivatePage } from '@/modules/preacher/pages/PreacherInactivatePage';
-import { PreachersSearchPageByTerm } from '@/modules/preacher/pages/PreachersSearchPageByTerm';
-import { PreachersGeneralSearchPage } from '@/modules/preacher/pages/PreachersGeneralSearchPage';
+/* eslint-disable @typescript-eslint/promise-function-async */
+
+import { lazy, Suspense } from 'react';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+
+//! Lazy load children routes
+const LazyPreacherInactivatePage = lazy(
+  () => import('@/modules/preacher/pages/PreacherInactivatePage')
+);
+const LazyPreachersSearchPageByTerm = lazy(
+  () => import('@/modules/preacher/pages/PreachersSearchPageByTerm')
+);
+const LazyPreachersGeneralSearchPage = lazy(
+  () => import('@/modules/preacher/pages/PreachersGeneralSearchPage')
+);
+const LazyPreacherUpdatePage = lazy(() => import('@/modules/preacher/pages/PreacherUpdatePage'));
+const LazyPreacherCreatePage = lazy(() => import('@/modules/preacher/pages/PreacherCreatePage'));
 
 export const PreacherChildrenRoutes = [
   {
     path: '/preachers/create',
-    element: <PreacherCreatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyPreacherCreatePage />,
+      </Suspense>
+    ),
   },
   {
     path: '/preachers/general-search',
-    element: <PreachersGeneralSearchPage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyPreachersGeneralSearchPage />,
+      </Suspense>
+    ),
   },
   {
     path: '/preachers/search-by-term',
-    element: <PreachersSearchPageByTerm />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyPreachersSearchPageByTerm />,
+      </Suspense>
+    ),
   },
   {
     path: '/preachers/update',
-    element: <PreacherUpdatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyPreacherUpdatePage />,
+      </Suspense>
+    ),
   },
   {
     path: '/preachers/inactivate',
-    element: <PreacherInactivatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyPreacherInactivatePage />,
+      </Suspense>
+    ),
   },
 ];

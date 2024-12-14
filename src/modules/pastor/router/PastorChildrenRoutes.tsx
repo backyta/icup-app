@@ -1,28 +1,58 @@
-import { PastorUpdatePage } from '@/modules/pastor/pages/PastorUpdatePage';
-import { PastorCreatePage } from '@/modules/pastor/pages/PastorCreatePage';
-import { PastorInactivatePage } from '@/modules/pastor/pages/PastorInactivatePage';
-import { PastorsSearchPageByTerm } from '@/modules/pastor/pages/PastorsSearchPageByTerm';
-import { PastorsGeneralSearchPage } from '@/modules/pastor/pages/PastorsGeneralSearchPage';
+/* eslint-disable @typescript-eslint/promise-function-async */
+
+import { lazy, Suspense } from 'react';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+
+//! Lazy load children routes
+const LazyPastorsSearchPageByTerm = lazy(
+  () => import('@/modules/pastor/pages/PastorsSearchPageByTerm')
+);
+const LazyPastorsGeneralSearchPage = lazy(
+  () => import('@/modules/pastor/pages/PastorsGeneralSearchPage')
+);
+const LazyPastorUpdatePage = lazy(() => import('@/modules/pastor/pages/PastorUpdatePage'));
+const PastorCreatePage = lazy(() => import('@/modules/pastor/pages/PastorCreatePage'));
+const LazyPastorInactivatePage = lazy(() => import('@/modules/pastor/pages/PastorInactivatePage'));
 
 export const PastorChildrenRoutes = [
   {
     path: '/pastors/create',
-    element: <PastorCreatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <PastorCreatePage />
+      </Suspense>
+    ),
   },
   {
     path: '/pastors/general-search',
-    element: <PastorsGeneralSearchPage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyPastorsGeneralSearchPage />
+      </Suspense>
+    ),
   },
   {
     path: '/pastors/search-by-term',
-    element: <PastorsSearchPageByTerm />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyPastorsSearchPageByTerm />
+      </Suspense>
+    ),
   },
   {
     path: '/pastors/update',
-    element: <PastorUpdatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyPastorUpdatePage />
+      </Suspense>
+    ),
   },
   {
     path: '/pastors/inactivate',
-    element: <PastorInactivatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyPastorInactivatePage />
+      </Suspense>
+    ),
   },
 ];

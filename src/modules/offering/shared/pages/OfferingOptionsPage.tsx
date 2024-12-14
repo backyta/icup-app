@@ -69,3 +69,5 @@ export const OfferingOptionsPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default OfferingOptionsPage;

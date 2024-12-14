@@ -790,3 +790,5 @@ export const PreacherInactivatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default PreacherInactivatePage;

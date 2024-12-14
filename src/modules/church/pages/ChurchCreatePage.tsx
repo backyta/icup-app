@@ -792,3 +792,5 @@ export const ChurchCreatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default ChurchCreatePage;

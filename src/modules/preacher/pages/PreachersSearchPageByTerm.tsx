@@ -788,3 +788,5 @@ export const PreachersSearchPageByTerm = (): JSX.Element => {
     </div>
   );
 };
+
+export default PreachersSearchPageByTerm;

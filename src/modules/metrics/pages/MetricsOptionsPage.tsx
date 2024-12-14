@@ -125,3 +125,5 @@ export const MetricsOptionsPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default MetricsOptionsPage;

@@ -1,28 +1,64 @@
-import { FamilyGroupCreatePage } from '@/modules/family-group/pages/FamilyGroupCreatePage';
-import { FamilyGroupUpdatePage } from '@/modules/family-group/pages/FamilyGroupUpdatePage';
-import { FamilyGroupInactivatePage } from '@/modules/family-group/pages/FamilyGroupInactivatePage';
-import { FamilyGroupsSearchPageByTerm } from '@/modules/family-group/pages/FamilyGroupsSearchPageByTerm';
-import { FamilyGroupsGeneralSearchPage } from '@/modules/family-group/pages/FamilyGroupsGeneralSearchPage';
+/* eslint-disable @typescript-eslint/promise-function-async */
+
+import { lazy, Suspense } from 'react';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+
+//! Lazy load children routes
+const LazyFamilyGroupCreatePage = lazy(
+  () => import('@/modules/family-group/pages/FamilyGroupCreatePage')
+);
+const LazyFamilyGroupUpdatePage = lazy(
+  () => import('@/modules/family-group/pages/FamilyGroupUpdatePage')
+);
+const LazyFamilyGroupInactivatePage = lazy(
+  () => import('@/modules/family-group/pages/FamilyGroupInactivatePage')
+);
+const LazyFamilyGroupsSearchPageByTerm = lazy(
+  () => import('@/modules/family-group/pages/FamilyGroupsSearchPageByTerm')
+);
+const LazyFamilyGroupsGeneralSearchPage = lazy(
+  () => import('@/modules/family-group/pages/FamilyGroupsGeneralSearchPage')
+);
 
 export const FamilyGroupChildrenRoutes = [
   {
     path: '/family-groups/create',
-    element: <FamilyGroupCreatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyFamilyGroupCreatePage />,
+      </Suspense>
+    ),
   },
   {
     path: '/family-groups/general-search',
-    element: <FamilyGroupsGeneralSearchPage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyFamilyGroupsGeneralSearchPage />,
+      </Suspense>
+    ),
   },
   {
     path: '/family-groups/search-by-term',
-    element: <FamilyGroupsSearchPageByTerm />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyFamilyGroupsSearchPageByTerm />,
+      </Suspense>
+    ),
   },
   {
     path: '/family-groups/update',
-    element: <FamilyGroupUpdatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyFamilyGroupUpdatePage />,
+      </Suspense>
+    ),
   },
   {
     path: '/family-groups/inactivate',
-    element: <FamilyGroupInactivatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyFamilyGroupInactivatePage />,
+      </Suspense>
+    ),
   },
 ];

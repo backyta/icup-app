@@ -360,3 +360,5 @@ export const PreachersGeneralSearchPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default PreachersGeneralSearchPage;

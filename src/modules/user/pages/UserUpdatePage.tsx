@@ -524,3 +524,5 @@ export const UserUpdatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default UserUpdatePage;

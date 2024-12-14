@@ -355,3 +355,5 @@ export const OfferingsIncomeGeneralSearchPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default OfferingsIncomeGeneralSearchPage;

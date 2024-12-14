@@ -438,3 +438,5 @@ export const ZoneCreatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default ZoneCreatePage;

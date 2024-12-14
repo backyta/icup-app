@@ -349,3 +349,5 @@ export const FamilyGroupsGeneralSearchPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default FamilyGroupsGeneralSearchPage;

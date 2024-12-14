@@ -520,3 +520,5 @@ export const ChurchesSearchPageByTerm = (): JSX.Element => {
     </div>
   );
 };
+
+export default ChurchesSearchPageByTerm;

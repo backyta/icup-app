@@ -774,3 +774,5 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
     </div>
   );
 };
+
+export default CopastorsSearchPageByTerm;

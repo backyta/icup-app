@@ -41,3 +41,5 @@ export const DashboardPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default DashboardPage;

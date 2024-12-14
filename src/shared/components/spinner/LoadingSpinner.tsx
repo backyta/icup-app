@@ -75,8 +75,7 @@ export const LoadingSpinner = (): JSX.Element => {
           pathname === '/users/general-search' ||
           pathname === '/users/search-by-term' ||
           pathname === '/users/update' ||
-          pathname === '/users/inactivate' ||
-          pathname === '/dashboard') &&
+          pathname === '/users/inactivate') &&
           'min-h-screen',
         (pathname === '/metrics/member' ||
           pathname === '/metrics/family-group' ||
@@ -87,15 +86,58 @@ export const LoadingSpinner = (): JSX.Element => {
       )}
     >
       <div className='flex flex-col items-center justify-center px-4'>
-        <div
-          className={cn(
-            'loader ease-linear rounded-full border-8 border-t-8 border-blue-500 h-32 w-32 mb-2',
-            pathname === '/dashboard' && '-mt-10'
+        {(pathname === '/churches' ||
+          pathname === '/pastors' ||
+          pathname === '/copastors' ||
+          pathname === '/supervisors' ||
+          pathname === '/zones' ||
+          pathname === '/family-groups' ||
+          pathname === '/offerings' ||
+          pathname === '/offerings/income' ||
+          pathname === '/offerings/expenses' ||
+          pathname === '/preachers' ||
+          pathname === '/disciples' ||
+          pathname === '/users' ||
+          pathname === '/metrics' ||
+          pathname === '/zones' ||
+          pathname === '/dashboard') && (
+          <div className={cn('flex flex-col items-center justify-center space-y-4 min-h-screen')}>
+            <div className='flex space-x-2'>
+              <div className='w-4 h-4 bg-blue-500 rounded-full animate-bounce'></div>
+              <div className='w-4 h-4 bg-blue-500 rounded-full animate-bounce animation-delay-200'></div>
+              <div className='w-4 h-4 bg-blue-500 rounded-full animate-bounce animation-delay-400'></div>
+            </div>
+            <span className='text-blue-500 text-lg font-medium'>Cargando...</span>
+          </div>
+        )}
+
+        {pathname !== '/churches' &&
+          pathname !== '/pastors' &&
+          pathname !== '/copastors' &&
+          pathname !== '/supervisors' &&
+          pathname !== '/zones' &&
+          pathname !== '/family-groups' &&
+          pathname !== '/offerings' &&
+          pathname !== '/offerings/income' &&
+          pathname !== '/offerings/expenses' &&
+          pathname !== '/preachers' &&
+          pathname !== '/disciples' &&
+          pathname !== '/users' &&
+          pathname !== '/metrics' &&
+          pathname !== '/zones' &&
+          pathname !== '/dashboard' && (
+            <>
+              <div
+                className={cn(
+                  'loader ease-linear rounded-full border-8 border-t-8 border-blue-500 h-32 w-32 mb-2',
+                  pathname === '/dashboard' && '-mt-10'
+                )}
+              ></div>
+              <h2 className='text-center text-black dark:text-white text-[14px] md:text-[18px] font-semibold'>
+                {verse}
+              </h2>
+            </>
           )}
-        ></div>
-        <h2 className='text-center text-black dark:text-white text-[14px] md:text-[18px] font-semibold'>
-          {verse}
-        </h2>
       </div>
     </div>
   );

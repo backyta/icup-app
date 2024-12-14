@@ -1,28 +1,64 @@
-import { OfferingIncomeCreatePage } from '@/modules/offering/income/pages/OfferingIncomeCreatePage';
-import { OfferingIncomeUpdatePage } from '@/modules/offering/income/pages/OfferingIncomeUpdatePage';
-import { OfferingIncomeInactivatePage } from '@/modules/offering/income/pages/OfferingIncomeInactivatePage';
-import { OfferingsIncomeSearchPageByTerm } from '@/modules/offering/income/pages/OfferingsIncomeSearchPageByTerm';
-import { OfferingsIncomeGeneralSearchPage } from '@/modules/offering/income/pages/OfferingsIncomeGeneralSearchPage';
+/* eslint-disable @typescript-eslint/promise-function-async */
+
+import { lazy, Suspense } from 'react';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+
+//! Lazy load children routes
+const LazyOfferingIncomeCreatePage = lazy(
+  () => import('@/modules/offering/income/pages/OfferingIncomeCreatePage')
+);
+const LazyOfferingIncomeUpdatePage = lazy(
+  () => import('@/modules/offering/income/pages/OfferingIncomeUpdatePage')
+);
+const LazyOfferingIncomeInactivatePage = lazy(
+  () => import('@/modules/offering/income/pages/OfferingIncomeInactivatePage')
+);
+const LazyOfferingsIncomeSearchPageByTerm = lazy(
+  () => import('@/modules/offering/income/pages/OfferingsIncomeSearchPageByTerm')
+);
+const LazyOfferingsIncomeGeneralSearchPage = lazy(
+  () => import('@/modules/offering/income/pages/OfferingsIncomeGeneralSearchPage')
+);
 
 export const OfferingIncomeChildrenRoutes = [
   {
     path: '/offerings/income/create',
-    element: <OfferingIncomeCreatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyOfferingIncomeCreatePage />,
+      </Suspense>
+    ),
   },
   {
     path: '/offerings/income/general-search',
-    element: <OfferingsIncomeGeneralSearchPage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyOfferingsIncomeGeneralSearchPage />,
+      </Suspense>
+    ),
   },
   {
     path: '/offerings/income/search-by-term',
-    element: <OfferingsIncomeSearchPageByTerm />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyOfferingsIncomeSearchPageByTerm />,
+      </Suspense>
+    ),
   },
   {
     path: '/offerings/income/update',
-    element: <OfferingIncomeUpdatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyOfferingIncomeUpdatePage />,
+      </Suspense>
+    ),
   },
   {
     path: '/offerings/income/inactivate',
-    element: <OfferingIncomeInactivatePage />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyOfferingIncomeInactivatePage />,
+      </Suspense>
+    ),
   },
 ];

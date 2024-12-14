@@ -160,3 +160,5 @@ export const RedirectIfMatch = (): JSX.Element => {
   // If it doesn't match the pattern, show the 404 component or redirect in another way
   return <Navigate to='/404' />;
 };
+
+export default RedirectIfMatch;

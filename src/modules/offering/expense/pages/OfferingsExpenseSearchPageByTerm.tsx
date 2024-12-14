@@ -628,3 +628,5 @@ export const OfferingsExpenseSearchPageByTerm = (): JSX.Element => {
     </div>
   );
 };
+
+export default OfferingsExpenseSearchPageByTerm;

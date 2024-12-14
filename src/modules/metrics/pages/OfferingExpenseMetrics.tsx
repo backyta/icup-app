@@ -78,3 +78,5 @@ export const OfferingExpenseMetrics = (): JSX.Element => {
     </div>
   );
 };
+
+export default OfferingExpenseMetrics;

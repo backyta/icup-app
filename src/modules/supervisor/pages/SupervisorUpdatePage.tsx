@@ -779,3 +779,5 @@ export const SupervisorUpdatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default SupervisorUpdatePage;

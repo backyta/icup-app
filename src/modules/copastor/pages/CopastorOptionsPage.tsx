@@ -121,3 +121,5 @@ export const CopastorOptionsPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default CopastorOptionsPage;

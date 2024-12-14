@@ -981,3 +981,5 @@ export const DiscipleCreatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default DiscipleCreatePage;

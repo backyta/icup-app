@@ -122,3 +122,5 @@ export const ChurchOptionsPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default ChurchOptionsPage;

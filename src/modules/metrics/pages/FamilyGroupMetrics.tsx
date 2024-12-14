@@ -75,3 +75,5 @@ export const FamilyGroupMetrics = (): JSX.Element => {
     </div>
   );
 };
+
+export default FamilyGroupMetrics;

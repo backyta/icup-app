@@ -1,28 +1,60 @@
-import { MemberMetrics } from '@/modules/metrics/pages/MemberMetrics';
-import { FamilyGroupMetrics } from '@/modules/metrics/pages/FamilyGroupMetrics';
-import { OfferingIncomeMetrics } from '@/modules/metrics/pages/OfferingIncomeMetrics';
-import { OfferingExpenseMetrics } from '@/modules/metrics/pages/OfferingExpenseMetrics';
-import { FinancialBalanceComparisonMetrics } from '@/modules/metrics/pages/FinancialBalanceComparisonMetrics';
+/* eslint-disable @typescript-eslint/promise-function-async */
+
+import { lazy, Suspense } from 'react';
+import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
+
+//! Lazy load children routes
+const LazyFinancialBalanceComparisonMetrics = lazy(
+  () => import('@/modules/metrics/pages/FinancialBalanceComparisonMetrics')
+);
+const LazyMemberMetrics = lazy(() => import('@/modules/metrics/pages/MemberMetrics'));
+const LazyFamilyGroupMetrics = lazy(() => import('@/modules/metrics/pages/FamilyGroupMetrics'));
+const LazyOfferingIncomeMetrics = lazy(
+  () => import('@/modules/metrics/pages/OfferingIncomeMetrics')
+);
+const LazyOfferingExpenseMetrics = lazy(
+  () => import('@/modules/metrics/pages/OfferingExpenseMetrics')
+);
 
 export const MetricsChildrenRoutes = [
   {
     path: '/metrics/member',
-    element: <MemberMetrics />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyMemberMetrics />,
+      </Suspense>
+    ),
   },
   {
     path: '/metrics/family-group',
-    element: <FamilyGroupMetrics />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyFamilyGroupMetrics />,
+      </Suspense>
+    ),
   },
   {
     path: '/metrics/offering-income',
-    element: <OfferingIncomeMetrics />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyOfferingIncomeMetrics />,
+      </Suspense>
+    ),
   },
   {
     path: '/metrics/offering-expense',
-    element: <OfferingExpenseMetrics />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyOfferingExpenseMetrics />,
+      </Suspense>
+    ),
   },
   {
     path: '/metrics/offering-comparative',
-    element: <FinancialBalanceComparisonMetrics />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <LazyFinancialBalanceComparisonMetrics />,
+      </Suspense>
+    ),
   },
 ];

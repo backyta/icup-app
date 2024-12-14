@@ -43,3 +43,5 @@ export const DashboardLayout = (): JSX.Element => {
     </div>
   );
 };
+
+export default DashboardLayout;

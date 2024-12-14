@@ -782,3 +782,5 @@ export const SupervisorInactivatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default SupervisorInactivatePage;

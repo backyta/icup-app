@@ -631,3 +631,5 @@ export const OfferingExpenseInactivatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default OfferingExpenseInactivatePage;

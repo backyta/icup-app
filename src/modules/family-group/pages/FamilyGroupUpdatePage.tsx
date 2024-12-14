@@ -669,3 +669,5 @@ export const FamilyGroupUpdatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default FamilyGroupUpdatePage;

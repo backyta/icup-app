@@ -360,3 +360,5 @@ export const CopastorsGeneralSearchPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default CopastorsGeneralSearchPage;

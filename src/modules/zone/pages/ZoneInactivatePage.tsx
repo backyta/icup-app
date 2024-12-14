@@ -638,3 +638,5 @@ export const ZoneInactivatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default ZoneInactivatePage;

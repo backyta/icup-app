@@ -788,3 +788,5 @@ export const DiscipleUpdatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default DiscipleUpdatePage;

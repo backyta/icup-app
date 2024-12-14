@@ -83,3 +83,5 @@ export const OfferingIncomeMetrics = (): JSX.Element => {
     </div>
   );
 };
+
+export default OfferingIncomeMetrics;

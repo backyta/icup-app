@@ -974,3 +974,5 @@ export const PreacherCreatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default PreacherCreatePage;

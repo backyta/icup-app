@@ -121,3 +121,5 @@ export const PastorOptionsPage = (): JSX.Element => {
     </div>
   );
 };
+
+export default PastorOptionsPage;

@@ -978,3 +978,5 @@ export const PastorCreatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default PastorCreatePage;

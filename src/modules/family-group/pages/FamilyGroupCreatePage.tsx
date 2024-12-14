@@ -721,3 +721,5 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default FamilyGroupCreatePage;

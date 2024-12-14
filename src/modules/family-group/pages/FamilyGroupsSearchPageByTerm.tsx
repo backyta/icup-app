@@ -670,3 +670,5 @@ export const FamilyGroupsSearchPageByTerm = (): JSX.Element => {
     </div>
   );
 };
+
+export default FamilyGroupsSearchPageByTerm;

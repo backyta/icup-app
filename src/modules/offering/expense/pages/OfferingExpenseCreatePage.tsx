@@ -722,3 +722,5 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
     </div>
   );
 };
+
+export default OfferingExpenseCreatePage;

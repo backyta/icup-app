@@ -780,3 +780,5 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
     </div>
   );
 };
+
+export default SupervisorsSearchPageByTerm;
