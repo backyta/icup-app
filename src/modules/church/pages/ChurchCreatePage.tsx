@@ -228,7 +228,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                 control={form.control}
                 name='foundingDate'
                 render={({ field }) => (
-                  <FormItem className='mt-3'>
+                  <FormItem className='mt-4'>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                       Fecha de fundación
                     </FormLabel>
