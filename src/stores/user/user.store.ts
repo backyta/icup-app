@@ -26,12 +26,11 @@ export const storeUser: StateCreator<UserStore> = (set) => ({
   dataSearchGeneralResponse: undefined,
   dataSearchByTermResponse: undefined,
 
-  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( state => ({isFiltersSearchGeneralDisabled: value})),
-  setIsFiltersSearchByTermDisabled: (value: boolean) => set( state => ({isFiltersSearchByTermDisabled: value})),
+  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( ({isFiltersSearchGeneralDisabled: value} )),
+  setIsFiltersSearchByTermDisabled: (value: boolean) => set( ({isFiltersSearchByTermDisabled: value} )),
 
-  setDataSearchGeneralResponse: (value: UserResponse[] |  undefined) => set( state => ({dataSearchGeneralResponse: value})),
-  setDataSearchByTermResponse: (value: UserResponse[] | undefined) => set( state => ({dataSearchByTermResponse: value})),
-
+  setDataSearchGeneralResponse: (value: UserResponse[] |  undefined) => set( ({dataSearchGeneralResponse: value} )),
+  setDataSearchByTermResponse: (value: UserResponse[] | undefined) => set( ({dataSearchByTermResponse: value} )),
 })
 
 export const useUserStore = create<UserStore>()(storeUser);

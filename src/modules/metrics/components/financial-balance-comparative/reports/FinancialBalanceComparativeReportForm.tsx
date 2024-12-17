@@ -125,9 +125,7 @@ export const FinancialBalanceComparativeReportForm = ({
   });
 
   //* Form handler
-  const handleSubmit = (
-    formData: z.infer<typeof FinancialBalanceComparativeReportFormSchema>
-  ): void => {
+  const handleSubmit = (): void => {
     generateReportQuery.refetch();
   };
 

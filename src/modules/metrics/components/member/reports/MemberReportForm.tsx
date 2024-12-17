@@ -113,7 +113,7 @@ export const MemberReportForm = ({ churchId, dialogClose }: Props): JSX.Element 
   });
 
   //* Form handler
-  const handleSubmit = (formData: z.infer<typeof memberReportFormSchema>): void => {
+  const handleSubmit = (): void => {
     generateReportQuery.refetch();
   };
 

@@ -26,11 +26,11 @@ export const storeOfferingExpense: StateCreator<OfferingExpenseStore> = (set) =>
   dataSearchGeneralResponse: undefined,
   dataSearchByTermResponse: undefined,
 
-  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( state => ({isFiltersSearchGeneralDisabled: value})),
-  setIsFiltersSearchByTermDisabled: (value: boolean) => set( state => ({isFiltersSearchByTermDisabled: value})),
+  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( ({isFiltersSearchGeneralDisabled: value}) ),
+  setIsFiltersSearchByTermDisabled: (value: boolean) => set( ({isFiltersSearchByTermDisabled: value}) ),
 
-  setDataSearchGeneralResponse: (value: OfferingExpenseResponse[] |  undefined) => set( state => ({dataSearchGeneralResponse: value})),
-  setDataSearchByTermResponse: (value: OfferingExpenseResponse[] | undefined) => set( state => ({dataSearchByTermResponse: value})),
+  setDataSearchGeneralResponse: (value: OfferingExpenseResponse[] |  undefined) => set( ({dataSearchGeneralResponse: value}) ),
+  setDataSearchByTermResponse: (value: OfferingExpenseResponse[] | undefined) => set( ({dataSearchByTermResponse: value}) ),
 })
 
 export const useOfferingExpenseStore = create<OfferingExpenseStore>()(storeOfferingExpense);

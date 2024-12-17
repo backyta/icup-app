@@ -26,12 +26,11 @@ export const storePreacher: StateCreator<PreacherStore> = (set) => ({
   dataSearchGeneralResponse: undefined,
   dataSearchByTermResponse: undefined,
 
-  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( state => ({isFiltersSearchGeneralDisabled: value})),
-  setIsFiltersSearchByTermDisabled: (value: boolean) => set( state => ({isFiltersSearchByTermDisabled: value})),
+  setIsFiltersSearchGeneralDisabled: (value: boolean) => set(({isFiltersSearchGeneralDisabled: value}) ),
+  setIsFiltersSearchByTermDisabled: (value: boolean) => set(({isFiltersSearchByTermDisabled: value}) ),
 
-  setDataSearchGeneralResponse: (value: PreacherResponse[] |  undefined) => set( state => ({dataSearchGeneralResponse: value})),
-  setDataSearchByTermResponse: (value: PreacherResponse[] | undefined) => set( state => ({dataSearchByTermResponse: value})),
-
+  setDataSearchGeneralResponse: (value: PreacherResponse[] |  undefined) => set(({dataSearchGeneralResponse: value}) ),
+  setDataSearchByTermResponse: (value: PreacherResponse[] | undefined) => set(({dataSearchByTermResponse: value}) ),
 })
 
 export const usePreacherStore = create<PreacherStore>()(storePreacher);

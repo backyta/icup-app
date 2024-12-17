@@ -26,11 +26,11 @@ export const storeChurch: StateCreator<ChurchStore> = (set) => ({
   dataSearchGeneralResponse: undefined,
   dataSearchByTermResponse: undefined,
 
-  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( state => ({isFiltersSearchGeneralDisabled: value})),
-  setIsFiltersSearchByTermDisabled: (value: boolean) => set( state => ({isFiltersSearchByTermDisabled: value})),
+  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( ({isFiltersSearchGeneralDisabled: value}) ),
+  setIsFiltersSearchByTermDisabled: (value: boolean) => set( ({isFiltersSearchByTermDisabled: value}) ),
 
-  setDataSearchGeneralResponse: (value: ChurchResponse[] |  undefined) => set( state => ({dataSearchGeneralResponse: value})),
-  setDataSearchByTermResponse: (value: ChurchResponse[] | undefined) => set( state => ({dataSearchByTermResponse: value})),
+  setDataSearchGeneralResponse: (value: ChurchResponse[] |  undefined) => set( ({dataSearchGeneralResponse: value}) ),
+  setDataSearchByTermResponse: (value: ChurchResponse[] | undefined) => set( ({dataSearchByTermResponse: value}) ),
 
 })
 

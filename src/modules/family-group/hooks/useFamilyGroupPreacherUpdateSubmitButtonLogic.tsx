@@ -6,11 +6,7 @@ import { type UseFormReturn } from 'react-hook-form';
 import { type FamilyGroupPreacherUpdateFormData } from '@/modules/family-group/interfaces/family-group-preacher-update-form-data.interface';
 
 interface Options {
-  familyGroupPreacherUpdateForm: UseFormReturn<
-    FamilyGroupPreacherUpdateFormData,
-    any,
-    FamilyGroupPreacherUpdateFormData
-  >;
+  familyGroupPreacherUpdateForm: UseFormReturn<FamilyGroupPreacherUpdateFormData, any, undefined>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputTheirPreacherDisabled: boolean;

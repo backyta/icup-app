@@ -26,11 +26,11 @@ export const storePastor: StateCreator<PastorStore> = (set) => ({
   dataSearchGeneralResponse: undefined,
   dataSearchByTermResponse: undefined,
 
-  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( state => ({isFiltersSearchGeneralDisabled: value})),
-  setIsFiltersSearchByTermDisabled: (value: boolean) => set( state => ({isFiltersSearchByTermDisabled: value})),
+  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( ({isFiltersSearchGeneralDisabled: value}) ),
+  setIsFiltersSearchByTermDisabled: (value: boolean) => set( ({isFiltersSearchByTermDisabled: value}) ),
 
-  setDataSearchGeneralResponse: (value: PastorResponse[] |  undefined) => set( state => ({dataSearchGeneralResponse: value})),
-  setDataSearchByTermResponse: (value: PastorResponse[] | undefined) => set( state => ({dataSearchByTermResponse: value})),
+  setDataSearchGeneralResponse: (value: PastorResponse[] |  undefined) => set( ({dataSearchGeneralResponse: value}) ),
+  setDataSearchByTermResponse: (value: PastorResponse[] | undefined) => set( ({dataSearchByTermResponse: value}) ),
 
 })
 

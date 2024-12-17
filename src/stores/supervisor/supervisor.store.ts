@@ -26,12 +26,11 @@ export const storeSupervisor: StateCreator<SupervisorStore> = (set) => ({
   dataSearchGeneralResponse: undefined,
   dataSearchByTermResponse: undefined,
 
-  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( state => ({isFiltersSearchGeneralDisabled: value})),
-  setIsFiltersSearchByTermDisabled: (value: boolean) => set( state => ({isFiltersSearchByTermDisabled: value})),
+  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( ({isFiltersSearchGeneralDisabled: value}) ),
+  setIsFiltersSearchByTermDisabled: (value: boolean) => set( ({isFiltersSearchByTermDisabled: value}) ),
 
-  setDataSearchGeneralResponse: (value: SupervisorResponse[] |  undefined) => set( state => ({dataSearchGeneralResponse: value})),
-  setDataSearchByTermResponse: (value: SupervisorResponse[] | undefined) => set( state => ({dataSearchByTermResponse: value})),
-
+  setDataSearchGeneralResponse: (value: SupervisorResponse[] |  undefined) => set( ({dataSearchGeneralResponse: value}) ),
+  setDataSearchByTermResponse: (value: SupervisorResponse[] | undefined) => set( ({dataSearchByTermResponse: value}) ),
 })
 
 export const useSupervisorStore = create<SupervisorStore>()(storeSupervisor);

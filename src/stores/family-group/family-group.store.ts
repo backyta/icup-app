@@ -26,11 +26,11 @@ export const storeFamilyGroup: StateCreator<FamilyGroupStore> = (set) => ({
   dataSearchGeneralResponse: undefined,
   dataSearchByTermResponse: undefined,
 
-  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( state => ({isFiltersSearchGeneralDisabled: value})),
-  setIsFiltersSearchByTermDisabled: (value: boolean) => set( state => ({isFiltersSearchByTermDisabled: value})),
+  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( ({isFiltersSearchGeneralDisabled: value}) ),
+  setIsFiltersSearchByTermDisabled: (value: boolean) => set( ({isFiltersSearchByTermDisabled: value}) ),
 
-  setDataSearchGeneralResponse: (value: FamilyGroupResponse[] |  undefined) => set( state => ({dataSearchGeneralResponse: value})),
-  setDataSearchByTermResponse: (value: FamilyGroupResponse[] | undefined) => set( state => ({dataSearchByTermResponse: value})),
+  setDataSearchGeneralResponse: (value: FamilyGroupResponse[] |  undefined) => set( ({dataSearchGeneralResponse: value}) ),
+  setDataSearchByTermResponse: (value: FamilyGroupResponse[] | undefined) => set( ({dataSearchByTermResponse: value}) ),
 })
 
 export const useFamilyGroupStore = create<FamilyGroupStore>()(storeFamilyGroup);

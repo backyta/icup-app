@@ -113,7 +113,7 @@ export const FamilyGroupReportForm = ({ churchId, dialogClose }: Props): JSX.Ele
   });
 
   //* Form handler
-  const handleSubmit = (formData: z.infer<typeof familyGroupReportFormSchema>): void => {
+  const handleSubmit = (): void => {
     generateReportQuery.refetch();
   };
 
