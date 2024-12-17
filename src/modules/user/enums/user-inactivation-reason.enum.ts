@@ -1,30 +1,30 @@
 export enum UserInactivationReason {
-// Razones por cambios administrativos
+  //* Reasons for administrative changes
   OrganizationalRestructure = 'organizational_restructure',
   RoleReassignment = 'role_reassignment',
   PermissionRevocation = 'permission_revocation',
 
-// Razones de rendimiento o conducta inapropiada
+  //* Reasons for inappropriate performance or behavior
   PolicyViolation = 'policy_violation',
   UnprofessionalBehavior = 'unprofessional_behavior',
   GrossNegligence = 'gross_negligence',
 
-// Razones por falta de actividad o relevancia del rol
+  //* Reasons for lack of activity or relevance of the role
   ProlongedInactivity = 'prolonged_inactivity',
   ObsoleteRole = 'obsolete_role',
   LowUsageFrequency = 'low_usage_frequency',
 
-// Razones de transición o reasignación
+  //* Reasons for transition or reassignment
   RoleTransfer = 'role_transfer',
   ResponsibilityChange = 'responsibility_change',
   ResignationOrExit = 'resignation_or_exit',
 
-// Razones de seguridad
+  //* Security reasons
   UnauthorizedAccess = 'unauthorized_access',
   SecurityRisk = 'security_risk',
   CredentialCompromise = 'credential_compromise',
 
-// Razones circunstancias inevitables o naturales
+  //* Reasons inevitable or natural circumstances
   HealthIssues = 'health_issues',
   Deceased = 'deceased',
   ForceMajeure = 'force_majeure',
