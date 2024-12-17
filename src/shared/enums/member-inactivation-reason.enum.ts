@@ -1,44 +1,44 @@
 export enum MemberInactivationReason {
-  // Razones de cambio personal o familiar
+  //* Reasons for personal or family change
   Relocation = 'relocation', 
   FamilyRelocation = 'family_relocation', 
   JoiningAnotherChurch = 'joining_another_church', 
 
-  // Razones relacionadas con la congregación
+  //* Reasons related to the congregation
   CongregationalDetachment = 'congregational_detachment', 
   DissatisfactionWithChurchLeadership = 'dissatisfaction_with_church_leadership',
   LackOfSpiritualGrowth = 'lack_of_spiritual_growth', 
   DoctrinalDisagreement = 'doctrinal_disagreement',
 
-  // Razones disciplinarias
+  //* Disciplinary reasons
   Expulsion = 'expulsion', 
   EthicalViolation = 'ethical_violation', 
   LeadershipConflict = 'leadership_conflict', 
   PublicScandal = 'public_scandal',
   
-  // Razones personales
+  //* Personal reasons
   HealthIssues = 'health_issues', 
   TimeConstraints = 'time_constraints',
   MentalHealthChallenges = 'mental_health_challenges', 
 
-  // Razones naturales o inevitables
+  //* Natural or inevitable reasons
   Death = 'death',
   AgingOrPhysicalIncapacity = 'aging_or_physical_incapacity',
 
-  // Razones de inactividad
+  //* Reasons for inactivity
   Inactivity = 'inactivity', 
   LackOfCommitment = 'lack_of_commitment',
 
-  // Razones administrativas
+  //* Razones administrativas
   RequestForRemoval = 'request_for_removal', 
   DataCorrection = 'data_correction',
 
-  // Razones externas
+  //* Administrative reasons
   LegalIssues = 'legal_issues',
   ImmigrationChallenges = 'immigration_challenges',
   CulturalBarriers = 'cultural_barriers',
 
-  // Razones especiales
+  //* Special reasons
   VoluntaryMissionaryWork = 'voluntary_missionary_work',
   ChurchClosure = 'church_closure',
 }
@@ -80,7 +80,7 @@ export const MemberInactivationReasonNames: Record<MemberInactivationReason, str
 };
 
 // ? Individuals
-
+//* Reasons for personal or family change
 export enum PersonalOrFamilyChangesReasons {
   Relocation = 'relocation', 
   FamilyRelocation = 'family_relocation', 
@@ -93,6 +93,7 @@ export const PersonalOrFamilyChangesReasonsNames: Record<PersonalOrFamilyChanges
   [MemberInactivationReason.JoiningAnotherChurch]: 'Cambio a otra iglesia debido a preferencia personal o doctrinal',
 }
 
+//* Reasons related to the congregation
 export enum ChurchRelatedIssuesReasons {
   CongregationalDetachment = 'congregational_detachment', 
   DissatisfactionWithChurchLeadership = 'dissatisfaction_with_church_leadership',
@@ -107,6 +108,7 @@ export const ChurchRelatedIssuesReasonsNames: Record<ChurchRelatedIssuesReasons,
   [ChurchRelatedIssuesReasons.DoctrinalDisagreement]: 'Desacuerdo con las enseñanzas o doctrinas de la iglesia',
 };
 
+//* Disciplinary reasons
 export enum DisciplinaryActionsReasons {
   Expulsion = 'expulsion', 
   EthicalViolation = 'ethical_violation', 
@@ -121,6 +123,7 @@ export const DisciplinaryActionsReasonsNames: Record<DisciplinaryActionsReasons,
   [DisciplinaryActionsReasons.PublicScandal]: 'Escándalo público que compromete la reputación de la iglesia',
 };
 
+//* Personal reasons
 export enum PersonalChallengesReasons {
   HealthIssues = 'health_issues', 
   TimeConstraints = 'time_constraints',
@@ -133,6 +136,7 @@ export const PersonalChallengesReasonsNames: Record<PersonalChallengesReasons, s
   [PersonalChallengesReasons.MentalHealthChallenges]: 'Problemas de salud mental que dificultan la integración',
 };
 
+//* Natural or inevitable reasons
 export enum UnavoidableCircumstancesReasons {
   Death = 'death',
   AgingOrPhysicalIncapacity = 'aging_or_physical_incapacity',
@@ -143,6 +147,7 @@ export const UnavoidableCircumstancesReasonsNames: Record<UnavoidableCircumstanc
   [UnavoidableCircumstancesReasons.AgingOrPhysicalIncapacity]: 'Incapacidad física debido a la edad avanzada u otras condiciones',
 };
 
+//* Reasons for inactivity
 export enum InactivityOrLackOfCommitmentReasons {
   Inactivity = 'inactivity', 
   LackOfCommitment = 'lack_of_commitment',
@@ -153,6 +158,7 @@ export const InactivityOrLackOfCommitmentReasonsNames: Record<InactivityOrLackOf
   [InactivityOrLackOfCommitmentReasons.LackOfCommitment]: 'Falta de compromiso continuo con la iglesia y sus actividades',
 };
 
+//* Administrative reasons
 export enum AdministrativeReasons {
   RequestForRemoval = 'request_for_removal', 
   DataCorrection = 'data_correction',
@@ -163,6 +169,7 @@ export const AdministrativeReasonsNames: Record<AdministrativeReasons, string> =
   [AdministrativeReasons.DataCorrection]: 'Eliminación debido a correcciones en registros o duplicados',
 };
 
+//* Razones administrativas
 export enum ExternalFactorsReasons {
   LegalIssues = 'legal_issues',
   ImmigrationChallenges = 'immigration_challenges',
@@ -175,6 +182,7 @@ export const ExternalFactorsNames: Record<ExternalFactorsReasons, string> = {
   [ExternalFactorsReasons.CulturalBarriers]: 'Barreras culturales que afectan la integración del miembro',
 };
 
+//* Special reasons
 export enum SpecialCircumstancesReasons {
   VoluntaryMissionaryWork = 'voluntary_missionary_work',
   ChurchClosure = 'church_closure',
@@ -184,8 +192,3 @@ export const SpecialReasonsNames: Record<SpecialCircumstancesReasons, string> = 
   [SpecialCircumstancesReasons.VoluntaryMissionaryWork]: 'Salida debido a trabajo misionero en otra región o país',
   [SpecialCircumstancesReasons.ChurchClosure]: 'Eliminación debido al cierre de la iglesia local',
 };
-
-
-// inactivacion parcial
-// inactivacion completa
-// En searcg poner buscar general o por categoria / inactivos (aramar mejor)

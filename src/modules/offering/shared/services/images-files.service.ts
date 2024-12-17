@@ -6,7 +6,7 @@ import { icupApi } from '@/api/icupApi';
 import { type OfferingFileType } from '@/modules/offering/shared/enums/offering-file-type.enum';
 import { type UploadImageResponse } from '@/modules/offering/shared/interfaces/upload-images-response';
 
-//* Upload Images
+// ? UPLOAD IMAGES
 export interface UploadImagesOptions{
   files: File[],
   fileType: OfferingFileType,
@@ -40,7 +40,7 @@ export const uploadImages = async ({files, fileType, offeringType, offeringSubTy
   }
 }
 
-//! Delete Image
+//! DELETE IMAGE
 export interface DeleteImageOptions{
   publicId: string,
   path: string,

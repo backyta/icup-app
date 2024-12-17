@@ -6,7 +6,7 @@ import { type UseFormReturn } from 'react-hook-form';
 import { type ZoneFormData } from '@/modules/zone/interfaces/zone-form-data.interface';
 
 interface Options {
-  zoneUpdateForm: UseFormReturn<ZoneFormData, any, ZoneFormData>;
+  zoneUpdateForm: UseFormReturn<ZoneFormData, any, undefined>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;

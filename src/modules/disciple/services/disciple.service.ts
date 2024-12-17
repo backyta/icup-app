@@ -11,7 +11,7 @@ import { type DiscipleResponse} from '@/modules/disciple/interfaces/disciple-res
 import { type DiscipleFormData } from '@/modules/disciple/interfaces/disciple-form-data.interface';
 import { type DiscipleQueryParams } from '@/modules/disciple/interfaces/disciple-query-params.interface';
 
-//* Create disciple
+// ? CREATE DISCIPLE
 export const createDisciple = async (formData:DiscipleFormData ): Promise<DiscipleResponse> => {
   try {
     const {data} = await icupApi.post<DiscipleResponse>('/disciples', formData)
@@ -26,7 +26,7 @@ export const createDisciple = async (formData:DiscipleFormData ): Promise<Discip
   }
 }
 
-//* Get simple disciples
+// ? GET SIMPLE DISCIPLES
 export const getSimpleDisciples = async ({isSimpleQuery}:{isSimpleQuery: true}): Promise<DiscipleResponse[]> => {
   try {
     const {data} = await icupApi<DiscipleResponse[]>('/disciples' , {
@@ -47,7 +47,7 @@ export const getSimpleDisciples = async ({isSimpleQuery}:{isSimpleQuery: true}):
   }
 }
 
-//* Get disciples (paginated)
+// ? GET DISCIPLES (paginated)
 export const getDisciples = async ({limit, offset, all, order, churchId}: DiscipleQueryParams): Promise<DiscipleResponse[]> => {
   
  let result: DiscipleResponse[];
@@ -85,7 +85,7 @@ export const getDisciples = async ({limit, offset, all, order, churchId}: Discip
   }
 }
 
-// ? Get disciples by term (paginated)
+// ? GET DISCIPLES BY TERM (paginated)
 export const getDisciplesByTerm = async ({ 
   searchType, 
   searchSubType, 
@@ -352,7 +352,7 @@ export const getDisciplesByTerm = async ({
   }
 }
 
-// //* Update disciple by ID
+// ? UPDATE DISCIPLES BY ID
 export interface UpdateDiscipleOptions {
   id: string;
   formData: DiscipleFormData;
@@ -372,7 +372,7 @@ export const updateDisciple = async ({id, formData}: UpdateDiscipleOptions ): Pr
   }
 }
 
-// //! Inactivate  disciple by ID
+// ! INACTIVATE DISCIPLES BY ID
 export interface InactivateDiscipleOptions {
   id: string;
   memberInactivationCategory: string;
@@ -405,6 +405,7 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
+//* General
 export const getGeneralDisciplesReport = async ({limit, offset, order, churchId}: DiscipleQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/disciples' , {
@@ -431,6 +432,7 @@ export const getGeneralDisciplesReport = async ({limit, offset, order, churchId}
    }
  }
 
+//* By term
 export const getDisciplesReportByTerm = async ({   
   searchType, 
   searchSubType,

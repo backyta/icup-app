@@ -72,7 +72,7 @@ export const ZoneCreatePage = (): JSX.Element => {
     resolver: zodResolver(zoneFormSchema),
     defaultValues: {
       zoneName: '',
-      country: Country.Peru,
+      country: Country.Perú,
       department: Department.Lima,
       province: Province.Lima,
       district: '',

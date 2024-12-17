@@ -12,7 +12,7 @@ import { type ZoneResponse } from '@/modules/zone/interfaces/zone-response.inter
 import { type ZoneQueryParams } from '@/modules/zone/interfaces/zone-query-params.interface';
 import {type ZoneSupervisorUpdateFormData } from '@/modules/zone/interfaces/zone-supervisor-update-form-data.interface';
 
-//* Create zone
+// ? CREATE ZONE
 export const createZone = async (formData:ZoneFormData ): Promise<ZoneResponse> => {
   try {
     const {data} = await icupApi.post<ZoneResponse>('/zones', formData)
@@ -27,7 +27,7 @@ export const createZone = async (formData:ZoneFormData ): Promise<ZoneResponse> 
   }
 }
 
-//* Get simple zones
+// ? GET SIMPLE ZONES
 export const getSimpleZones = async ({churchId, isSimpleQuery }:{churchId?: string; isSimpleQuery: boolean }): Promise<ZoneResponse[]> => {
   try {
     const {data} = await icupApi<ZoneResponse[]>('/zones' , {
@@ -49,7 +49,7 @@ export const getSimpleZones = async ({churchId, isSimpleQuery }:{churchId?: stri
   }
 }
 
-//* Get zones (paginated)
+// ? GET ZONES (paginated)
 export const getZones = async ({limit, offset, all, order, churchId}: ZoneQueryParams): Promise<ZoneResponse[]> => {
 
  let result: ZoneResponse[];
@@ -88,7 +88,7 @@ export const getZones = async ({limit, offset, all, order, churchId}: ZoneQueryP
   }
 }
 
-// ? Get zones by term (paginated)
+// ? GET ZONES BY TERM (paginated)
 export const getZonesByTerm = async ({ 
   searchType, 
   searchSubType,
@@ -308,7 +308,7 @@ if (searchType === ZoneSearchType.FullNames
 }
 }
 
-//* Update zone by ID
+// ? UPDATE ZONE BY ID
 export interface UpdateZoneOptions {
   id: string;
   formData: ZoneFormData | ZoneSupervisorUpdateFormData;
@@ -328,7 +328,7 @@ export const updateZone = async ({id, formData}: UpdateZoneOptions ): Promise<Zo
   }
 }
 
-//! Inactivate  zone by ID
+//! INACTIVATE ZONE BY ID
 export interface InactivateZoneOptions {
   id: string;
   zoneInactivationCategory: string;
@@ -361,6 +361,7 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
+//* General
 export const getGeneralZonesReport = async ({limit, offset, order, churchId}: ZoneQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/zones' , {
@@ -387,6 +388,7 @@ export const getGeneralZonesReport = async ({limit, offset, order, churchId}: Zo
    }
  }
 
+//* By term
 export const getZonesReportByTerm = async ({   
   searchType, 
   inputTerm, 

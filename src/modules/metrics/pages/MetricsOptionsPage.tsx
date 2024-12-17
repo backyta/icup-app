@@ -12,8 +12,10 @@ import { useAuthStore } from '@/stores/auth/auth.store';
 import { WhiteCard } from '@/shared/components/card/WhiteCard';
 
 export const MetricsOptionsPage = (): JSX.Element => {
+  //* States
   const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
 
+  //* Effects
   useEffect(() => {
     checkAuthStatus();
   }, []);

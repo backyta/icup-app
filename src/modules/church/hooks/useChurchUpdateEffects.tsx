@@ -14,7 +14,7 @@ interface Options {
   id: string;
   data: ChurchResponse | undefined;
   setIsLoadingData: React.Dispatch<React.SetStateAction<boolean>>;
-  churchUpdateForm: UseFormReturn<ChurchFormData, any, ChurchFormData>;
+  churchUpdateForm: UseFormReturn<ChurchFormData, any, undefined>;
 }
 
 export const useChurchUpdateEffects = ({

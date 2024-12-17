@@ -12,7 +12,6 @@ import { UrbanSector } from '@/shared/enums/urban-sector.enum';
 import { RecordStatus } from '@/shared/enums/record-status.enum';
 import { MaritalStatus } from '@/shared/enums/marital-status.enum';
 
-
 export const discipleFormSchema = z
   .object({
     firstNames: z.string()

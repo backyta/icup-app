@@ -10,7 +10,7 @@ import { type OfferingExpenseChartResponse } from '@/modules/metrics/interfaces/
 import { type OfferingExpensesProportionResponse } from '@/modules/metrics/interfaces/offering-expense-metrics/offering-expense-proportion-response.interface';
 import { type OfferingExpensesAdjustmentResponse } from '@/modules/metrics/interfaces/offering-expense-metrics/offering-expenses-adjustment-response.interface';
 
-//* Get proportion offering expenses 
+// ? GET PROPORTION OFFERING EXPENSES 
 export const getOfferingExpensesProportion = async ({ 
   searchType, 
   church,
@@ -34,7 +34,7 @@ export const getOfferingExpensesProportion = async ({
   }
 }
 
-// ? Search By Term
+// ? SEARCH BY TERM
 //* Operational offering expenses
 export const getOperationalOfferingExpenses = async ({ 
   searchType,

@@ -10,7 +10,7 @@ import { type ChurchResponse } from '@/modules/church/interfaces/church-response
 import { type ChurchFormData, } from '@/modules/church/interfaces/church-form-data.interface';
 import { type ChurchQueryParams } from '@/modules/church/interfaces/church-query-params.interface';
 
-//* Create church
+// ? CREATE CHURCH
 export const createChurch = async (formData:ChurchFormData ): Promise<ChurchResponse> => {
   try {
     const {data} = await icupApi.post<ChurchResponse>('/churches', formData)
@@ -25,7 +25,7 @@ export const createChurch = async (formData:ChurchFormData ): Promise<ChurchResp
   }
 }
 
-//* Get main church
+// ? GET MAIN CHURCH
 export const getMainChurch = async (): Promise<ChurchResponse[]> => {
   try {
     const {data} = await icupApi<ChurchResponse[]>('/churches/main-church' , {
@@ -47,7 +47,7 @@ export const getMainChurch = async (): Promise<ChurchResponse[]> => {
   }
 }
 
-//* Get simple churches
+// ? GET SIMPLE CHURCHES
 export const getSimpleChurches = async ({isSimpleQuery}: {isSimpleQuery: boolean}): Promise<ChurchResponse[]> => {
   try {
     const {data} = await icupApi<ChurchResponse[]>('/churches' , {
@@ -68,7 +68,7 @@ export const getSimpleChurches = async ({isSimpleQuery}: {isSimpleQuery: boolean
   }
 }
 
-//* Get churches (paginated)
+// ? GET CHURCHES (paginated)
 export const getChurches = async ({limit, offset, all, order}: ChurchQueryParams): Promise<ChurchResponse[]> => {
 
  let result: ChurchResponse[];
@@ -104,7 +104,7 @@ export const getChurches = async ({limit, offset, all, order}: ChurchQueryParams
   }
 }
 
-// ? Get churches by term (paginated)
+// ? GET CHURCHES BY TERM (paginated)
 export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selectTerm, limit, offset, all, order}: ChurchQueryParams): Promise<ChurchResponse[] | undefined> => {
 
  let result: ChurchResponse[];
@@ -221,7 +221,7 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
  }
 }
 
-//* Update church by ID
+// ? UPDATE CHURCH BY ID
 export interface UpdateChurchOptions {
   id: string;
   formData: ChurchFormData;
@@ -268,13 +268,14 @@ export const inactivateChurch = async ({id, churchInactivationCategory, churchIn
 }
 
 
-// ? CHURCH REPORTS
+// ? CHURCHES REPORT
 const openPdfInNewTab = (pdfBlob: Blob): void => {
   const pdfUrl = URL.createObjectURL(pdfBlob);
   const newTab = window.open(pdfUrl, '_blank');
   newTab?.focus();
 }
 
+//* General
 export const getGeneralChurchesReport = async ({limit, offset, order}: ChurchQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/churches' , {
@@ -300,6 +301,7 @@ export const getGeneralChurchesReport = async ({limit, offset, order}: ChurchQue
    }
  }
 
+//* By term
 export const getChurchesReportByTerm = async ({ searchType, inputTerm, dateTerm, selectTerm, limit, offset, order}: ChurchQueryParams): Promise<void> => {
 
   let newTerm: string | undefined = '';

@@ -12,7 +12,6 @@ export const useRoleValidationByPath = ({ path, memberRoles }: Options) => {
   let disabledRoles;
 
   // ? Create and Update forms
-
   //* Pastor
   if (path === '/pastors/create') {
     disabledRoles = [

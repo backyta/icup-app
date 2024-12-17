@@ -26,7 +26,7 @@ interface Options {
   setIsInputMemberDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsDeleteFileButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  offeringIncomeCreationForm: UseFormReturn<OfferingIncomeFormData, any, OfferingIncomeFormData>;
+  offeringIncomeCreationForm: UseFormReturn<OfferingIncomeFormData, any, undefined>;
   imageUrls: string[];
 }
 

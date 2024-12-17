@@ -12,7 +12,7 @@ import { type CopastorFormData } from '@/modules/copastor/interfaces/copastor-fo
 import { type CopastorQueryParams } from '@/modules/copastor/interfaces/copastor-query-params.interface';
 
 
-//* CREATE CO-PASTOR
+// ? CREATE CO-PASTOR
 export const createCopastor = async (formData:CopastorFormData ): Promise<CopastorResponse> => {
   try {
     const {data} = await icupApi.post<CopastorResponse>('/copastors', formData)
@@ -27,7 +27,7 @@ export const createCopastor = async (formData:CopastorFormData ): Promise<Copast
   }
 }
 
-//* GET SIMPLE CO-PASTORS
+// ? GET SIMPLE CO-PASTORS
 export const getSimpleCopastors = async ({churchId, isSimpleQuery}: {churchId?: string; isSimpleQuery: boolean}): Promise<CopastorResponse[]> => {
   try {
     const {data} = await icupApi<CopastorResponse[]>('/copastors' , {
@@ -49,7 +49,7 @@ export const getSimpleCopastors = async ({churchId, isSimpleQuery}: {churchId?: 
   }
 }
 
-//* GET ALL CO-PASTORS (PAGINATED)
+// ? GET CO-PASTORS (PAGINATED)
 export const getCopastors = async ({limit, offset, all, order, churchId}: CopastorQueryParams): Promise<CopastorResponse[]> => {
 
  let result: CopastorResponse[];

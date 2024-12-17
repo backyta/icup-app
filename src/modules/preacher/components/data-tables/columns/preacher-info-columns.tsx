@@ -5,11 +5,12 @@ import { format, addDays } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
+import { Button } from '@/shared/components/ui/button';
+
 import { PreacherInfoCard } from '@/modules/preacher/components/cards/info/PreacherInfoCard';
 import { type PreacherColumns } from '@/modules/preacher/interfaces/preacher-columns.interface';
 
 import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
-import { Button } from '@/shared/components/ui/button';
 
 export const preacherInfoColumns: Array<ColumnDef<PreacherColumns, any>> = [
   {

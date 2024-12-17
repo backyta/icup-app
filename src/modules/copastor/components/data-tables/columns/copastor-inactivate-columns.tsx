@@ -5,12 +5,12 @@ import { format, addDays } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
+import { Button } from '@/shared/components/ui/button';
+
 import { type CopastorColumns } from '@/modules/copastor/interfaces/copastor-columns.interface';
 
 import { CopastorInfoCard } from '@/modules/copastor/components/cards/info/CopastorInfoCard';
 import { CopastorInactivateCard } from '@/modules/copastor/components/cards/inactivate/CopastorInactivateCard';
-
-import { Button } from '@/shared/components/ui/button';
 
 export const copastorInactivateColumns: Array<ColumnDef<CopastorColumns, any>> = [
   {

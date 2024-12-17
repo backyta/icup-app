@@ -10,8 +10,8 @@ const LazyPastorsSearchPageByTerm = lazy(
 const LazyPastorsGeneralSearchPage = lazy(
   () => import('@/modules/pastor/pages/PastorsGeneralSearchPage')
 );
-const LazyPastorUpdatePage = lazy(() => import('@/modules/pastor/pages/PastorUpdatePage'));
 const PastorCreatePage = lazy(() => import('@/modules/pastor/pages/PastorCreatePage'));
+const LazyPastorUpdatePage = lazy(() => import('@/modules/pastor/pages/PastorUpdatePage'));
 const LazyPastorInactivatePage = lazy(() => import('@/modules/pastor/pages/PastorInactivatePage'));
 
 export const PastorChildrenRoutes = [

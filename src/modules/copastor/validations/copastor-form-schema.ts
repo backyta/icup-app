@@ -12,7 +12,6 @@ import { UrbanSector } from '@/shared/enums/urban-sector.enum';
 import { MemberRole } from '@/shared/enums/member-role.enum';
 import { RecordStatus } from '@/shared/enums/record-status.enum';
 
-
 export const copastorFormSchema = z
   .object({
     firstNames: z.string()

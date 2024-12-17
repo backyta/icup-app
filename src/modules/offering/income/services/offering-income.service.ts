@@ -4,17 +4,18 @@ import { isAxiosError } from 'axios';
 
 import { icupApi } from '@/api/icupApi';
 
+import { RecordOrder } from '@/shared/enums/record-order.enum';
+
 import { OfferingIncomeSearchType } from '@/modules/offering/income/enums/offering-income-search-type.enum';
 import { OfferingIncomeSearchSubType } from '@/modules/offering/income/enums/offering-income-search-sub-type.enum';
 
 import { type ExternalDonorResponse } from '@/modules/offering/income/interfaces/external-donor-response.interface';
-import { type OfferingIncomeFormData } from '@/modules/offering/income/interfaces/offering-income-form-data.interface';
+import { type ExternalDonorFormData } from '@/modules/offering/income/interfaces/external-donor-form-data.interface';
 import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces/offering-income-response.interface';
+import { type OfferingIncomeFormData } from '@/modules/offering/income/interfaces/offering-income-form-data.interface';
 import { type OfferingIncomeQueryParams } from '@/modules/offering/income/interfaces/offering-income-query-params.interface';
 
-import { RecordOrder } from '@/shared/enums/record-order.enum';
-
-//* Create offering income
+// ? CREATE OFFERING INCOME
 export const createOfferingIncome = async (formData:OfferingIncomeFormData ): Promise<OfferingIncomeResponse> => {
   try {
     const {data} = await icupApi.post<OfferingIncomeResponse>('/offering-income', formData)
@@ -29,7 +30,7 @@ export const createOfferingIncome = async (formData:OfferingIncomeFormData ): Pr
   }
 }
 
-//* Get all external donors (paginated)
+// ? GET ALL EXTERNAL DONORS (paginated)
 export const getExternalDonors = async (): Promise<ExternalDonorResponse[]> => {
   
   try {
@@ -49,7 +50,7 @@ export const getExternalDonors = async (): Promise<ExternalDonorResponse[]> => {
    }
  }
 
-//* Get all offering income (paginated)
+//* GET ALL OFFERING INCOME (paginated)
 export const getOfferingsIncome = async ({limit, offset, all, order, churchId}: OfferingIncomeQueryParams): Promise<OfferingIncomeResponse[]> => {
  let result: OfferingIncomeResponse[];
 
@@ -87,7 +88,7 @@ export const getOfferingsIncome = async ({limit, offset, all, order, churchId}: 
   }
 }
 
-// ? Get offering income by term (paginated)
+// ? GET OFFERING INCOME BY TERM (paginated)
 export const getOfferingsIncomeByTerm = async ({ 
   searchType, 
   searchSubType, 
@@ -397,7 +398,7 @@ export const getOfferingsIncomeByTerm = async ({
   }
 }
 
-//* Update offering income by ID
+// ? UPDATE OFFERING INCOME BY TERM
 export interface UpdateOfferingIncomeOptions {
   id: string;
   formData: OfferingIncomeFormData;
@@ -417,7 +418,29 @@ export const updateOfferingIncome = async ({id, formData}: UpdateOfferingIncomeO
   }
 }
 
-//! Inactivate offering income by ID
+// ? UPDATE EXTERNAL DONOR BY ID
+export interface UpdateExternalDonorOptions {
+  id: string | undefined;
+  formData: ExternalDonorFormData;
+}
+
+export const updateExternalDonor = async ({id, formData}: UpdateExternalDonorOptions ): Promise<ExternalDonorResponse> => {
+  try {
+    const {data} = await icupApi.patch<ExternalDonorResponse>(`/external-donor/${id}`, formData)
+
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw (error.response.data)
+    }
+    
+    throw new Error('Ocurrió un error inesperado')
+  }
+}
+
+
+
+//! INACTIVATE OFFERING INCOME BY ID
 export interface InactivateOfferingIncomeOptions {
   id: string;
   offeringInactivationReason: string;
@@ -453,6 +476,7 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
+//* General
 export const getGeneralOfferingIncomeReport = async ({limit, offset, order, churchId}: OfferingIncomeQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/offering-income' , {
@@ -479,6 +503,7 @@ export const getGeneralOfferingIncomeReport = async ({limit, offset, order, chur
    }
  }
 
+ //* By term
 export const getOfferingIncomeReportByTerm = async ({   
   searchType, 
   searchSubType,

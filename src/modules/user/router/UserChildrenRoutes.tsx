@@ -4,13 +4,13 @@ import { lazy, Suspense } from 'react';
 import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
 //! Lazy load children routes
+const LazyUsersGeneralSearchPage = lazy(
+  () => import('@/modules/user/pages/UsersGeneralSearchPage')
+);
 const LazyUserCreatePage = lazy(() => import('@/modules/user/pages/UserCreatePage'));
 const LazyUserUpdatePage = lazy(() => import('@/modules/user/pages/UserUpdatePage'));
 const LazyUserInactivatePage = lazy(() => import('@/modules/user/pages/UserInactivatePage'));
 const LazyUsersSearchPageByTerm = lazy(() => import('@/modules/user/pages/UsersSearchPageByTerm'));
-const LazyUsersGeneralSearchPage = lazy(
-  () => import('@/modules/user/pages/UsersGeneralSearchPage')
-);
 
 export const UserChildrenRoutes = [
   {

@@ -11,7 +11,7 @@ interface Options {
   isDropZoneDisabled: boolean;
   isDeleteFileButtonDisabled: boolean;
   isInputDisabled: boolean;
-  offeringExpenseCreationForm: UseFormReturn<OfferingExpenseFormData, any, OfferingExpenseFormData>;
+  offeringExpenseCreationForm: UseFormReturn<OfferingExpenseFormData, any, undefined>;
   offeringExpenseSearchType: typeof OfferingExpenseSearchType;
   setIsDropZoneDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -79,7 +79,8 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
         type === offeringExpenseSearchType.DecorationExpenses ||
         type === offeringExpenseSearchType.EquipmentAndTechnologyExpenses ||
         type === offeringExpenseSearchType.MaintenanceAndRepairExpenses ||
-        type === offeringExpenseSearchType.SuppliesExpenses) &&
+        type === offeringExpenseSearchType.SuppliesExpenses ||
+        type === offeringExpenseSearchType.OtherExpenses) &&
       date &&
       subType &&
       amount &&
@@ -175,6 +176,14 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
     }
 
     if (type === offeringExpenseSearchType.SuppliesExpenses) {
+      offeringExpenseCreationForm.resetField('subType', { keepDirty: true });
+      offeringExpenseCreationForm.resetField('amount', { keepDirty: true });
+      offeringExpenseCreationForm.resetField('date', { keepDirty: true });
+      offeringExpenseCreationForm.resetField('currency', { keepDirty: true });
+      offeringExpenseCreationForm.resetField('comments', { keepDirty: true });
+    }
+
+    if (type === offeringExpenseSearchType.OtherExpenses) {
       offeringExpenseCreationForm.resetField('subType', { keepDirty: true });
       offeringExpenseCreationForm.resetField('amount', { keepDirty: true });
       offeringExpenseCreationForm.resetField('date', { keepDirty: true });

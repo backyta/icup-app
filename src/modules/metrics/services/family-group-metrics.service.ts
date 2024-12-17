@@ -13,7 +13,7 @@ import { type FamilyGroupsFluctuationResponse } from '@/modules/metrics/interfac
 import { type FamilyGroupsByServiceTimeResponse } from '@/modules/metrics/interfaces/family-group-metrics/family-groups-by-service-time-response.interface';
 import { type FamilyGroupsByRecordStatusResponse } from '@/modules/metrics/interfaces/family-group-metrics/family-groups-by-record-status-response.interface';
 
-//* Get proportion family groups
+// ? GET PROPORTION BY FAMILY GROUP
 export const  getFamilyGroupsProportion = async ({ 
   searchType, 
   church,
@@ -37,7 +37,7 @@ export const  getFamilyGroupsProportion = async ({
   }
 }
 
-// ? Search By Term
+// ? SEARCH BY TERM
 //* Get Fluctuation Members by year
 export const  getFluctuationFamilyGroupsByYear = async ({ 
   searchType, 

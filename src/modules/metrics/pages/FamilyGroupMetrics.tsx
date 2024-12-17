@@ -27,12 +27,14 @@ export const FamilyGroupMetrics = (): JSX.Element => {
   //* Library hooks
   const { pathname } = useLocation();
 
+  //* Queries
   const { data } = useQuery({
     queryKey: ['churches-for-family-group-metrics'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
     staleTime: 1000 * 60,
   });
 
+  //* Effects
   useEffect(() => {
     const church = data?.map((church) => church?.id)[0];
     setChurchId(church);

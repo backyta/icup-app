@@ -11,11 +11,7 @@ import { type ZoneSupervisorUpdateFormData } from '@/modules/zone/interfaces/zon
 interface Options {
   id: string;
   data: ZoneResponse | undefined;
-  zoneSupervisorUpdateForm: UseFormReturn<
-    ZoneSupervisorUpdateFormData,
-    any,
-    ZoneSupervisorUpdateFormData
-  >;
+  zoneSupervisorUpdateForm: UseFormReturn<ZoneSupervisorUpdateFormData, any, undefined>;
   supervisorsQuery: UseQueryResult<SupervisorResponse[], Error>;
 }
 

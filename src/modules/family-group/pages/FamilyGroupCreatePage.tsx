@@ -85,7 +85,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
     resolver: zodResolver(familyGroupFormSchema),
     defaultValues: {
       familyGroupName: '',
-      country: Country.Peru,
+      country: Country.Perú,
       department: Department.Lima,
       province: Province.Lima,
       district: District.Independencia,
@@ -441,7 +441,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${(urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >

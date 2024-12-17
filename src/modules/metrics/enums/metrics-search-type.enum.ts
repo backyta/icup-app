@@ -1,4 +1,5 @@
 export enum MetricSearchType {
+  //* Members
   MembersByProportion = 'members_by_proportion',
   MembersFluctuationByYear = 'members_fluctuation_by_year',
   MembersByBirthMonth = 'members_by_birth_month',
@@ -11,6 +12,7 @@ export enum MetricSearchType {
   MembersByDistrictAndGender = 'members_by_district_and_gender',
   MembersByRecordStatus = 'members_by_record_status',
 
+  //* Family groups
   FamilyGroupsByProportion = 'family_groups_by_proportion',
   FamilyGroupsFluctuationByYear = 'family_groups_fluctuation_by_year',
   FamilyGroupsByCode = 'family_groups_by_code',
@@ -19,6 +21,7 @@ export enum MetricSearchType {
   FamilyGroupsByServiceTime = 'family_groups_by_service_time',
   FamilyGroupsByRecordStatus = 'family_groups_by_record_status',
 
+  //* Offering Income
   OfferingIncomeByProportion = 'offering_income_by_proportion',
   OfferingIncomeBySundayService = 'offering_income_by_sunday_service',
   OfferingIncomeByFamilyGroup = 'offering_income_by_family_group',
@@ -31,6 +34,7 @@ export enum MetricSearchType {
   OfferingIncomeByActivities = 'offering_income_by_activities',
   OfferingIncomeAdjustment = 'offering_income_adjustment',
 
+  //* Offering Expenses
   OfferingExpensesByProportion = 'offering_expenses_by_proportion',
   OperationalOfferingExpenses = 'operational_offering_expenses',
   MaintenanceAndRepairOfferingExpenses = 'maintenance_and_repair_offering_expenses',
@@ -40,6 +44,7 @@ export enum MetricSearchType {
   PlaningEventsOfferingExpenses = 'planing_events_offering_expenses',
   OfferingExpensesAdjustment = 'offering_expenses_adjustment',
 
+  //* Financial Balance
   OfferingExpensesAndOfferingIncomeByProportion = 'offering_expenses_and_offering_income_by_proportion',
   IncomeAndExpensesComparativeByYear = 'income_and_expense_comparative_by_year',
   GeneralComparativeOfferingIncome = 'general_comparative_offering_income',
@@ -100,7 +105,7 @@ export const MetricSearchTypeNames: Record<MetricSearchType, string> =  {
   [MetricSearchType.ComparativeOfferingExpensesBySubType]: 'Análisis de comparación de salida de ofrenda por sub-tipo.',
 }
 
-//* Para los reportes
+// ? Individual types (for the reports)
 export enum MetricMemberSearchType {
   MembersFluctuationByYear = 'members_fluctuation_by_year',
   MembersByBirthMonth = 'members_by_birth_month',

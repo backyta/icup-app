@@ -290,7 +290,7 @@ export const PastorUpdateForm = ({
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
-                                placeholder='Ejem: Peru, Colombia, Mexico...'
+                                placeholder='Ejem: Perú, Colombia, Mexico...'
                                 type='text'
                                 {...field}
                               />
@@ -736,7 +736,7 @@ export const PastorUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(UrbanSectorNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !residenceDistrict ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${(urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !residenceDistrict) ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >

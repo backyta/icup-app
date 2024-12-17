@@ -10,7 +10,7 @@ import { type MemberRole } from '@/shared/enums/member-role.enum';
 import { type PreacherFormData } from '@/modules/preacher/interfaces/preacher-form-data.interface';
 
 interface Options {
-  preacherUpdateForm: UseFormReturn<PreacherFormData, any, PreacherFormData>;
+  preacherUpdateForm: UseFormReturn<PreacherFormData, any, undefined>;
   memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;

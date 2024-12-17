@@ -13,7 +13,7 @@ import { type FamilyGroupFormData } from '@/modules/family-group/interfaces/fami
 import { type FamilyGroupQueryParams } from '@/modules/family-group/interfaces/family-group-query-params.interface';
 import { type FamilyGroupPreacherUpdateFormData } from '@/modules/family-group/interfaces/family-group-preacher-update-form-data.interface';
 
-//* Create family-group
+// ? CREATE FAMILY-GROUP
 export const createFamilyGroup = async (formData:FamilyGroupFormData ): Promise<FamilyGroupResponse> => {
   try {
     const {data} = await icupApi.post<FamilyGroupResponse>('/family-groups', formData)
@@ -28,7 +28,7 @@ export const createFamilyGroup = async (formData:FamilyGroupFormData ): Promise<
   }
 }
 
-//* Get simple family-groups
+// ? GET SIMPLE FAMILY GROUPS
 export const getSimpleFamilyGroups = async ({isSimpleQuery, churchId}:{isSimpleQuery: boolean; churchId?: string}): Promise<FamilyGroupResponse[]> => {
   try {
     const {data} = await icupApi<FamilyGroupResponse[]>('/family-groups' , {
@@ -50,7 +50,7 @@ export const getSimpleFamilyGroups = async ({isSimpleQuery, churchId}:{isSimpleQ
   }
 }
 
-//* Get family groups (paginated)
+// ? GET FAMILY GROUPS (paginated)
 export const getFamilyGroups = async ({limit, offset, all, order, churchId}: FamilyGroupQueryParams): Promise<FamilyGroupResponse[]> => {
 
  let result: FamilyGroupResponse[];
@@ -88,7 +88,7 @@ export const getFamilyGroups = async ({limit, offset, all, order, churchId}: Fam
   }
 }
 
-// ? Get family groups by term (paginated)
+// ? GET FAMILY GROUPS BY TERM (paginated)
 export const getFamilyGroupsByTerm = async ({ 
   searchType, 
   searchSubType, 
@@ -312,7 +312,7 @@ export const getFamilyGroupsByTerm = async ({
   }
 }
 
-//* Update family group by ID
+//* UPDATE FAMILY GROUP BY ID
 export interface UpdateFamilyGroupOptions {
   id: string;
   formData: FamilyGroupFormData | FamilyGroupPreacherUpdateFormData;
@@ -332,7 +332,7 @@ export const updateFamilyGroup = async ({id, formData}: UpdateFamilyGroupOptions
   }
 }
 
-// //! Inactivate family group by ID
+//! INACTIVATE FAMILY GROUP BY ID
 export interface InactivateFamilyGroupOptions {
   id: string;
   familyGroupInactivationCategory: string;
@@ -365,6 +365,7 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
+//* General
 export const getGeneralFamilyGroupsReport = async ({limit, offset, order, churchId}: FamilyGroupQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/family-groups' , {
@@ -391,6 +392,7 @@ export const getGeneralFamilyGroupsReport = async ({limit, offset, order, church
    }
  }
 
+//* By term
 export const getFamilyGroupsReportByTerm = async ({
   searchType,
   searchSubType,

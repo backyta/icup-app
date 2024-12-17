@@ -10,7 +10,7 @@ import { type OfferingExpenseQueryParams } from '@/modules/offering/expense/inte
 
 import { OfferingExpenseSearchType } from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
 
-//* Create offering expense
+// ? CREATE OFFERING EXPENSE
 export const createOfferingExpense = async (formData:OfferingExpenseFormData ): Promise<OfferingExpenseResponse> => {
   try {
     const {data} = await icupApi.post<OfferingExpenseResponse>('/offering-expenses', formData)
@@ -25,7 +25,7 @@ export const createOfferingExpense = async (formData:OfferingExpenseFormData ): 
   }
 }
 
-//* Get all offerings expense (paginated)
+// ? GET ALL OFFERING EXPENSES (paginated)
 export const getOfferingsExpenses = async ({limit, offset, all, order, churchId}: OfferingExpenseQueryParams): Promise<OfferingExpenseResponse[]> => {
 
  let result: OfferingExpenseResponse[];
@@ -64,7 +64,7 @@ export const getOfferingsExpenses = async ({limit, offset, all, order, churchId}
   }
 }
 
-// ? Get offerings expense by term (paginated)
+// ? GET OFFERING EXPENSES BY TERM (paginated)
 export const getOfferingsExpensesByTerm = async ({ 
   searchType, 
   searchSubType, 
@@ -119,44 +119,6 @@ export const getOfferingsExpensesByTerm = async ({
     }
  }
 
-//  //* Expense Adjustment
-//   if (searchType === OfferingExpenseSearchType.ExpensesAdjustment) {
-//     try {
-//       if (!all) {
-//         const {data} = await icupApi<OfferingExpenseResponse[]>(`/offering-expenses/${dateTerm}` , {
-//           params: {
-//             limit,
-//             offset,
-//             order,
-//             churchId,
-//             'search-type': searchType,
-//           },
-//         });
-        
-//         result = data;
-//       }else {
-//         const {data} = await icupApi<OfferingExpenseResponse[]>(`/offering-expenses/${selectTerm}&${dateTerm}` , {
-//           params: {
-//             order,
-//             churchId,
-//             'search-type': searchType,
-//           },
-//         });
-        
-//         result = data;
-//       }
-    
-//       return result;
-    
-//     } catch (error) {
-//       if (isAxiosError(error) && error.response) {
-//         throw (error.response.data)
-//       }
-      
-//       throw new Error('Ocurrió un error inesperado, hable con el administrador')
-//     }
-//   }
-
  //* Record Status
   if (searchType === OfferingExpenseSearchType.RecordStatus) {
       try {
@@ -196,7 +158,7 @@ export const getOfferingsExpensesByTerm = async ({
   }
 }
 
-//* Update offering expense by ID
+// ? UPDATE OFFERING EXPENSE BY ID
 export interface UpdateOfferingExpenseOptions {
   id: string;
   formData: OfferingExpenseFormData;
@@ -216,7 +178,7 @@ export const updateOfferingExpense = async ({id, formData}: UpdateOfferingExpens
   }
 }
 
-//! Inactivate  offering expense by ID
+//! INACTIVATE OFFERING EXPENSE BY ID
 export interface InactivateOfferingExpenseOptions {
   id: string;
   offeringInactivationReason: string;
@@ -248,6 +210,7 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
+//* General
 export const getGeneralOfferingExpensesReport = async ({limit, offset, order, churchId}: OfferingExpenseQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/offering-expenses' , {
@@ -274,6 +237,7 @@ export const getGeneralOfferingExpensesReport = async ({limit, offset, order, ch
    }
  }
 
+ //* By term
 export const getOfferingExpensesReportByTerm = async ({   
   searchType, 
   searchSubType,
@@ -294,6 +258,7 @@ export const getOfferingExpensesReportByTerm = async ({
     [OfferingExpenseSearchType.OperationalExpenses]: `${dateTerm}`,
     [OfferingExpenseSearchType.PlaningEventsExpenses]: `${dateTerm}`,
     [OfferingExpenseSearchType.SuppliesExpenses]: `${dateTerm}`,
+    [OfferingExpenseSearchType.OtherExpenses]: `${dateTerm}`,
     [OfferingExpenseSearchType.RecordStatus]: selectTerm,
   };
   

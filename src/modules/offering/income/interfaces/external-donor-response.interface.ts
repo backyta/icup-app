@@ -5,8 +5,8 @@ import {
 
 export interface ExternalDonorResponse {
   id              ?: string;
-  firstNames       ?: string;
-  lastNames        ?: string;
+  firstNames      ?: string;
+  lastNames       ?: string;
   age             ?: string;
   birthDate       ?: string;
   gender          ?: string;
@@ -14,8 +14,8 @@ export interface ExternalDonorResponse {
   phoneNumber     ?: string;
   originCountry   ?: string;
   residenceCountry?: string;
-  cityCountry     ?: string;
-  donorMessage    ?: string;
+  residenceCity   ?: string;
+  postalCode      ?: string;
   createdAt       ?: Date;
   createdBy       ?: CreatedBy;
   updatedAt       ?: Date;

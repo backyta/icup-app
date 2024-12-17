@@ -11,10 +11,10 @@ import { type ChurchResponse } from '@/modules/church/interfaces/church-response
 
 import {
   Command,
+  CommandItem,
   CommandEmpty,
   CommandGroup,
   CommandInput,
-  CommandItem,
 } from '@/shared/components/ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 

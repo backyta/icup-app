@@ -11,7 +11,7 @@ import { type SupervisorResponse} from '@/modules/supervisor/interfaces/supervis
 import { type SupervisorFormData } from '@/modules/supervisor/interfaces/supervisor-form-data.interface';
 import { type SupervisorQueryParams } from '@/modules/supervisor/interfaces/supervisor-query-params.interface';
 
-//* Create Supervisor
+// ? CREATE SUPERVISOR
 export const createSupervisor = async (formData:SupervisorFormData ): Promise<SupervisorResponse> => {
   try {
     const {data} = await icupApi.post<SupervisorResponse>('/supervisors', formData)
@@ -26,7 +26,7 @@ export const createSupervisor = async (formData:SupervisorFormData ): Promise<Su
   }
 }
 
-//* Get simple supervisors
+// ? GET SIMPLE SUPERVISORS
 export interface GetSimpleSupervisorsOptions {
   isNullZone: boolean;
   isSimpleQuery: boolean;
@@ -53,7 +53,7 @@ export const getSimpleSupervisors = async ({isNullZone, isSimpleQuery}: GetSimpl
   }
 }
 
-//* Get supervisors (paginated)
+// ? GET SUPERVISORS (paginated)
 export const getSupervisors = async ({limit, offset, all, order, churchId}: SupervisorQueryParams): Promise<SupervisorResponse[]> => {
 
  let result: SupervisorResponse[];
@@ -91,7 +91,7 @@ export const getSupervisors = async ({limit, offset, all, order, churchId}: Supe
   }
 }
 
-//* Get supervisors by copastor
+// ? GET SUPERVISORS BY PASTOR
 export interface GetSupervisorsByCopastorOptions {
   searchType: string;
   copastorId: string;
@@ -124,7 +124,7 @@ export const getSupervisorsByCopastor = async ({
 }
 
 
-// ? Get supervisors by term (paginated)
+// ? GET SUPERVISOR BY TERM (paginated)
 export const getSupervisorsByTerm = async ({ 
   searchType, 
   searchSubType, 
@@ -389,7 +389,7 @@ export const getSupervisorsByTerm = async ({
   }
 }
 
-//* Update supervisor by ID
+// ? UPDATE SUPERVISORS BY ID
 export interface UpdateSupervisorOptions {
   id: string;
   formData: SupervisorFormData;
@@ -409,7 +409,7 @@ export const updateSupervisor = async ({id, formData}: UpdateSupervisorOptions )
   }
 }
 
-//! Inactivate supervisor by ID
+//! INACTIVATE SUPERVISOR BY ID
 export interface InactivateSupervisorOptions {
   id: string;
   memberInactivationCategory: string;
@@ -442,6 +442,7 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
+//* General
 export const getGeneralSupervisorsReport = async ({limit, offset, order, churchId}: SupervisorQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/supervisors' , {
@@ -468,6 +469,7 @@ export const getGeneralSupervisorsReport = async ({limit, offset, order, churchI
    }
  }
 
+//* By term
 export const getSupervisorsReportByTerm = async ({   
   searchType, 
   searchSubType,

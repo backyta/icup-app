@@ -13,7 +13,7 @@ import { type PastorResponse,  } from '@/modules/pastor/interfaces/pastor-respon
 import {  type PastorQueryParams } from '@/modules/pastor/interfaces/pastor-query-params.interface';
 
 
-//* Create pastor
+// ? CREATE PASTOR
 export const createPastor = async (formData:PastorFormData ): Promise<PastorResponse> => {
   try {
     const {data} = await icupApi.post<PastorResponse>('/pastors', formData)
@@ -28,7 +28,7 @@ export const createPastor = async (formData:PastorFormData ): Promise<PastorResp
   }
 }
 
-//* Get simple pastors
+// ? GET SIMPLE PASTORS
 export const getSimplePastors = async ({isSimpleQuery}: {isSimpleQuery: boolean}): Promise<PastorResponse[]> => {
   try {
     const {data} = await icupApi<PastorResponse[]>('/pastors' , {
@@ -50,7 +50,7 @@ export const getSimplePastors = async ({isSimpleQuery}: {isSimpleQuery: boolean}
 }
 
 
-//* Get all pastors (paginated)
+// ? GET PASTORS (paginated)
 export const getPastors = async ({limit, offset, all, order, churchId}: PastorQueryParams): Promise<PastorResponse[]> => {
 
  let result: PastorResponse[];
@@ -89,7 +89,7 @@ export const getPastors = async ({limit, offset, all, order, churchId}: PastorQu
   }
 }
 
-// ? Get pastors by term (paginated)
+// ? GET PASTORS BY TERM (paginated)
 export const getPastorsByTerm = async ({ 
   searchType, 
   inputTerm, 
@@ -346,7 +346,7 @@ export const getPastorsByTerm = async ({
   }
 }
 
-//* Update pastor by ID
+//* UPDATE PASTOR BY ID
 export interface UpdatePastorOptions {
   id: string;
   formData: PastorFormData;
@@ -366,7 +366,7 @@ export const updatePastor = async ({id, formData}: UpdatePastorOptions ): Promis
   }
 }
 
-//! Inactivate pastor by ID
+//! INACTIVATE PASTOR BY ID
 export interface InactivatePastorOptions {
   id: string;
   memberInactivationCategory: string;
@@ -399,6 +399,7 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
+//* General
 export const getGeneralPastorsReport = async ({limit, offset, order, churchId}: PastorQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/pastors' , {
@@ -426,6 +427,7 @@ export const getGeneralPastorsReport = async ({limit, offset, order, churchId}: 
    }
  }
 
+//* By term
 export const getPastorsReportByTerm = async ({   
   searchType, 
   inputTerm, 

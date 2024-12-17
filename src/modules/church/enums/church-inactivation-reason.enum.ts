@@ -1,33 +1,33 @@
 export enum ChurchInactivationReason {
-  // Razones administrativas
+  //* Administrative reasons
   MergerWithAnotherChurch = 'merger_with_another_church',
   Relocation = 'relocation',
   TemporaryClosure = 'temporary_closure',
   DataReorganization = 'data_reorganization',
 
-  // Razones naturales o inesperadas
+  //* Natural or unexpected reasons
   NaturalDisaster = 'natural_disaster',
   Pandemic = 'pandemic',
   InfrastructureLoss = 'infrastructure_loss',
 
-  // Razones relacionados con la comunidad
+  //* Reasons related to the community
   MembershipDecline = 'membership_decline',
   InternalConflicts = 'internal_conflicts',
   LeadershipVacancy = 'leadership_vacancy',
 
-  // Razones económicas
+  //* Economic reasons
   FinancialInfeasibility = 'financial_infeasibility',
   LossOfSupport = 'loss_of_support',
 
-  // Razones legales o normativos
+  //* Razones legales o normativos
   LegalDisputes = 'legal_disputes',
   RegulatoryNonCompliance = 'regulatory_non_compliance',
 
-  // Razones estratégicas
+  //* Legal or regulatory reasons
   MinistryRefocus = 'ministry_refocus',
   ConsolidationWithNearbyChurches = 'consolidation_with_nearby_churches',
 
-  // Razones por factores externos
+  //* Reasons due to external factors
   CommunityRelocation = 'community_relocation',
   GovernmentMandatedClosure = 'government_mandated_closure',
 }
@@ -60,7 +60,7 @@ export const ChurchInactivationReasonNames: Record<ChurchInactivationReason, str
 };
 
 // ? Individuals
-
+//* Administrative reasons
 export enum AdministrativeReasons {
   MergerWithAnotherChurch = 'merger_with_another_church',
   Relocation = 'relocation',
@@ -75,6 +75,7 @@ export const AdministrativeReasonsNames: Record<AdministrativeReasons, string> =
   [AdministrativeReasons.TemporaryClosure]: ' Cierre temporal por remodelación',
 }
 
+//* Natural or unexpected reasons
 export enum NaturalCircumstancesReasons {
   NaturalDisaster = 'natural_disaster',
   Pandemic = 'pandemic',
@@ -87,6 +88,7 @@ export const NaturalCircumstancesReasonsNames: Record<NaturalCircumstancesReason
   [NaturalCircumstancesReasons.Pandemic]: 'Pandemias o emergencias sanitarias.',
 };
 
+//* Reasons related to the community
 export enum CommunityRelatedIssuesReasons {
   MembershipDecline = 'membership_decline',
   InternalConflicts = 'internal_conflicts',
@@ -99,6 +101,7 @@ export const CommunityRelatedIssuesReasonsNames: Record<CommunityRelatedIssuesRe
   [CommunityRelatedIssuesReasons.InternalConflicts]: 'Conflictos internos graves entre líderes o miembros',
 };
 
+//* Economic reasons
 export enum FinancialChallengesReasons {
   FinancialInfeasibility = 'financial_infeasibility',
   LossOfSupport = 'loss_of_support',
@@ -109,6 +112,7 @@ export const FinancialChallengesReasonsNames: Record<FinancialChallengesReasons,
   [FinancialChallengesReasons.FinancialInfeasibility]: 'Problemas financieros, imposibilidad de mantener gastos operativos',
 };
 
+//* Razones legales o normativos
 export enum LegalOrRegulatoryIssuesReasons {
   LegalDisputes = 'legal_disputes',
   RegulatoryNonCompliance = 'regulatory_non_compliance',
@@ -119,6 +123,7 @@ export const LegalOrRegulatoryIssuesReasonsNames: Record<LegalOrRegulatoryIssues
   [LegalOrRegulatoryIssuesReasons.RegulatoryNonCompliance]: 'Incumplimiento de normativas legales, permisos, registros.',
 };
 
+//* Legal or regulatory reasons
 export enum StrategicDecisionsReasons {
   MinistryRefocus = 'ministry_refocus',
   ConsolidationWithNearbyChurches = 'consolidation_with_nearby_churches',
@@ -129,6 +134,7 @@ export const StrategicDecisionsReasonsNames: Record<StrategicDecisionsReasons, s
   [StrategicDecisionsReasons.MinistryRefocus]: 'Cambio de enfoque ministerial, redirección de recursos.',
 };
 
+//* Reasons due to external factors
 export enum ExternalFactorsReasons {
   CommunityRelocation = 'community_relocation',
   GovernmentMandatedClosure = 'government_mandated_closure',

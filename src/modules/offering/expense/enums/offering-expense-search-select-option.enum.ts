@@ -6,7 +6,6 @@ export const OfferingExpenseSearchSelectOptionNames: Record<OfferingExpenseSearc
   [OfferingExpenseSearchSelectOption.Inactive]: 'Inactivo',
 }
 
-
 //* Record Status
 export enum SubTypeSearchOfferingExpenseByRecordStatus {
   Inactive = 'inactive',

@@ -15,11 +15,11 @@ interface Options {
   files: FilesProps[];
   setFiles: React.Dispatch<React.SetStateAction<FilesProps[]>>;
   setRejected: React.Dispatch<React.SetStateAction<RejectionProps[]>>;
-  offeringIncomeForm: UseFormReturn<OfferingExpenseFormData, any, OfferingExpenseFormData>;
+  offeringExpenseForm: UseFormReturn<OfferingExpenseFormData, any, undefined>;
 }
 
 export const useOfferingExpenseFileDropZone = ({
-  offeringIncomeForm,
+  offeringExpenseForm,
   files,
   setRejected,
   setFiles,
@@ -50,14 +50,14 @@ export const useOfferingExpenseFileDropZone = ({
           ...mappedFiles.map((file) => file.name),
         ];
 
-        offeringIncomeForm.setValue('fileNames', allFileNames); // Update the form field with file URLs
+        offeringExpenseForm.setValue('fileNames', allFileNames); // Update the form field with file URLs
       }
 
       if (rejectedFiles?.length) {
         setRejected((previousFiles) => [...previousFiles, ...rejectedFiles]);
       }
     },
-    [offeringIncomeForm, files, setFiles]
+    [offeringExpenseForm, files, setFiles]
   );
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export const useOfferingExpenseFileDropZone = ({
 
   useEffect(() => {
     const allFileNames = [...files.filter((item) => item instanceof File).map((file) => file.name)];
-    offeringIncomeForm.setValue('fileNames', allFileNames as any);
+    offeringExpenseForm.setValue('fileNames', allFileNames as any);
   }, [files]);
 
   const removeFile = (name: any): void => {

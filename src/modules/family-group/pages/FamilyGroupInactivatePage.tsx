@@ -189,7 +189,7 @@ export const FamilyGroupInactivatePage = (): JSX.Element => {
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Tipo</FormLabel>
                       <FormDescription className='text-[14px]'>
-                        ¿Qué tipo de búsqueda desea hacer?
+                        ¿Qué tipo de búsqueda deseas hacer?
                       </FormDescription>
                       <Select
                         onOpenChange={() => {
@@ -495,7 +495,7 @@ export const FamilyGroupInactivatePage = (): JSX.Element => {
                             {...field}
                             disabled={form.getValues('all')}
                             className='text-[13px] md:text-[14px]'
-                            value={form.getValues('all') ? '-' : field.value ?? ''}
+                            value={form.getValues('all') ? '-' : (field.value ?? '')}
                             placeholder='Limite de registros'
                           />
                         </FormControl>

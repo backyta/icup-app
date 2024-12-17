@@ -17,7 +17,7 @@ import { type MembersByRoleAndGenderResponse } from '@/modules/metrics/interface
 import { type MembersByDistrictAndGenderResponse } from '@/modules/metrics/interfaces/member-metrics/members-by-district-and-gender-response.interface';
 import { type MembersByCategoryAndGenderResponse } from '@/modules/metrics/interfaces/member-metrics/members-by-category-and-gender-response.interface';
 
-//* Get proportion members
+// ? GET PROPORTION MEMBERS
 export const  getMembersProportion = async ({ 
   searchType, 
   church,
@@ -41,7 +41,7 @@ export const  getMembersProportion = async ({
   }
 }
 
-// ? Search By Term
+// ? SEARCH BY TERM
 //* Get Fluctuation Members by year
 export const  getFluctuationMembersByYear = async ({ 
   searchType, 

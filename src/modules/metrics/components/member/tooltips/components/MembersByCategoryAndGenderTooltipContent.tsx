@@ -1,4 +1,5 @@
 import { getPercent } from '@/modules/metrics/helpers/get-percent.helper';
+
 import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
 import { type MembersByCategoryAndGenderPayload } from '@/modules/metrics/components/member/tooltips/interfaces/members-by-category-and-gender-tooltip-payload.interface';
 

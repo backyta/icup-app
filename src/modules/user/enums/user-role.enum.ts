@@ -7,8 +7,8 @@ export enum UserRole {
 
 export const UserRoleNames: Record<UserRole, string> = {
   [UserRole.SuperUser]: 'Super Usuario',
-  [UserRole.AdminUser]: 'Usuario Admin.',
-  [UserRole.TreasurerUser]: 'Usuario Tesor.',
+  [UserRole.AdminUser]: 'Usuario Administrador',
+  [UserRole.TreasurerUser]: 'Usuario Tesorero',
   [UserRole.User]: 'Usuario',
 };
 

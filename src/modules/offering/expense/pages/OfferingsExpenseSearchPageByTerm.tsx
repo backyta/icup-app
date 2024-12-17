@@ -27,6 +27,7 @@ import {
   SubTypeNamesOfferingExpenseSearchByPlaningEventsExpenses,
   SubTypeNamesOfferingExpenseSearchByMaintenanceAndRepairExpenses,
   SubTypeNamesOfferingExpenseSearchByEquipmentAndTechnologyExpenses,
+  SubTypeNamesOfferingExpenseSearchByOtherExpenses,
 } from '@/modules/offering/expense/enums/offering-expense-search-sub-type.enum';
 import { OfferingExpenseSearchSelectOptionNames } from '@/modules/offering/expense/enums/offering-expense-search-select-option.enum';
 
@@ -181,7 +182,7 @@ export const OfferingsExpenseSearchPageByTerm = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-red-600'>Modulo de Salida</PageTitle>
 
-      <SearchTitle isGeneralSearch titleName={'registros de salida'} />
+      <SearchTitle isByTypeSearch titleName={'registros de salida'} />
 
       <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full'>
         {isFiltersSearchByTermDisabled && (
@@ -198,7 +199,7 @@ export const OfferingsExpenseSearchPageByTerm = (): JSX.Element => {
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Tipo</FormLabel>
                       <FormDescription className='text-[14px]'>
-                        ¿Qué tipo de búsqueda desea hacer?
+                        ¿Qué tipo de búsqueda deseas hacer?
                       </FormDescription>
                       <Select
                         onOpenChange={() => {
@@ -242,7 +243,8 @@ export const OfferingsExpenseSearchPageByTerm = (): JSX.Element => {
                 searchType === OfferingExpenseSearchType.EquipmentAndTechnologyExpenses ||
                 searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpenses ||
                 searchType === OfferingExpenseSearchType.OperationalExpenses ||
-                searchType === OfferingExpenseSearchType.SuppliesExpenses) && (
+                searchType === OfferingExpenseSearchType.SuppliesExpenses ||
+                searchType === OfferingExpenseSearchType.OtherExpenses) && (
                 <FormField
                   control={form.control}
                   name='searchSubType'
@@ -292,7 +294,9 @@ export const OfferingsExpenseSearchPageByTerm = (): JSX.Element => {
                                       ? SubTypeNamesOfferingExpenseSearchByMaintenanceAndRepairExpenses
                                       : searchType === OfferingExpenseSearchType.OperationalExpenses
                                         ? SubTypeNamesOfferingExpenseSearchByOperativeExpenses
-                                        : SubTypeNamesOfferingExpenseSearchBySuppliesExpenses
+                                        : searchType === OfferingExpenseSearchType.SuppliesExpenses
+                                          ? SubTypeNamesOfferingExpenseSearchBySuppliesExpenses
+                                          : SubTypeNamesOfferingExpenseSearchByOtherExpenses
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[13px] md:text-[14px]`)}
@@ -367,7 +371,8 @@ export const OfferingsExpenseSearchPageByTerm = (): JSX.Element => {
                 searchType === OfferingExpenseSearchType.MaintenanceAndRepairExpenses ||
                 searchType === OfferingExpenseSearchType.OperationalExpenses ||
                 searchType === OfferingExpenseSearchType.ExpensesAdjustment ||
-                searchType === OfferingExpenseSearchType.SuppliesExpenses) && (
+                searchType === OfferingExpenseSearchType.SuppliesExpenses ||
+                searchType === OfferingExpenseSearchType.OtherExpenses) && (
                 <FormField
                   control={form.control}
                   name='dateTerm'
@@ -450,7 +455,7 @@ export const OfferingsExpenseSearchPageByTerm = (): JSX.Element => {
                             {...field}
                             disabled={form.getValues('all')}
                             className='text-[13px] md:text-[14px]'
-                            value={form.getValues('all') ? '-' : field.value ?? ''}
+                            value={form.getValues('all') ? '-' : (field.value ?? '')}
                             placeholder='Limite de registros'
                           />
                         </FormControl>

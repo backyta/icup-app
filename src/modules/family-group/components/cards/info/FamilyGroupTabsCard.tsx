@@ -17,6 +17,8 @@ import { type FamilyGroupResponse } from '@/modules/family-group/interfaces/fami
 
 import { cn } from '@/shared/lib/utils';
 
+import { PopoverDataCard } from '@/shared/components/card/PopoverDataCard';
+
 import { RecordStatus } from '@/shared/enums/record-status.enum';
 import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 
@@ -29,8 +31,6 @@ import {
 } from '@/shared/components/ui/card';
 import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
-
-import { PopoverDataCard } from '@/shared/components/card/PopoverDataCard';
 
 interface FamilyGroupTabsCardProps {
   id: string;

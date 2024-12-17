@@ -13,7 +13,7 @@ interface Options {
   data: FamilyGroupResponse | undefined;
   setIsLoadingData: React.Dispatch<React.SetStateAction<boolean>>;
   setIsInputTheirPreacherDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  familyGroupUpdateForm: UseFormReturn<FamilyGroupFormData, any, FamilyGroupFormData>;
+  familyGroupUpdateForm: UseFormReturn<FamilyGroupFormData, any, undefined>;
 }
 
 export const useFamilyGroupUpdateEffects = ({

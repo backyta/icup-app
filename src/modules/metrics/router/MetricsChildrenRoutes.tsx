@@ -4,17 +4,17 @@ import { lazy, Suspense } from 'react';
 import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
 //! Lazy load children routes
-const LazyFinancialBalanceComparisonMetrics = lazy(
-  () => import('@/modules/metrics/pages/FinancialBalanceComparisonMetrics')
-);
-const LazyMemberMetrics = lazy(() => import('@/modules/metrics/pages/MemberMetrics'));
-const LazyFamilyGroupMetrics = lazy(() => import('@/modules/metrics/pages/FamilyGroupMetrics'));
 const LazyOfferingIncomeMetrics = lazy(
   () => import('@/modules/metrics/pages/OfferingIncomeMetrics')
 );
 const LazyOfferingExpenseMetrics = lazy(
   () => import('@/modules/metrics/pages/OfferingExpenseMetrics')
 );
+const LazyFinancialBalanceComparisonMetrics = lazy(
+  () => import('@/modules/metrics/pages/FinancialBalanceComparisonMetrics')
+);
+const LazyMemberMetrics = lazy(() => import('@/modules/metrics/pages/MemberMetrics'));
+const LazyFamilyGroupMetrics = lazy(() => import('@/modules/metrics/pages/FamilyGroupMetrics'));
 
 export const MetricsChildrenRoutes = [
   {

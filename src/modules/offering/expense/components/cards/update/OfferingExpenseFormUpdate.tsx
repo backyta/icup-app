@@ -161,7 +161,7 @@ export const OfferingExpenseFormUpdate = ({
   });
 
   const { onDrop, removeFile, removeCloudFile, removeRejected } = useOfferingExpenseFileDropZone({
-    offeringIncomeForm: form,
+    offeringExpenseForm: form,
     files,
     setFiles,
     setRejected,

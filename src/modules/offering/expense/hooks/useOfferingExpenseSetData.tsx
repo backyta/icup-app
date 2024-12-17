@@ -14,7 +14,7 @@ interface Options {
   data: OfferingExpenseResponse | undefined;
   setFiles: React.Dispatch<React.SetStateAction<FilesProps[]>>;
   setIsLoadingData: React.Dispatch<React.SetStateAction<boolean>>;
-  offeringExpenseUpdateForm: UseFormReturn<OfferingExpenseFormData, any, OfferingExpenseFormData>;
+  offeringExpenseUpdateForm: UseFormReturn<OfferingExpenseFormData, any, undefined>;
 }
 
 export const useOfferingExpenseSetData = ({

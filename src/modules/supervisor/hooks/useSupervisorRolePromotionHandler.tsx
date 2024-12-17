@@ -3,7 +3,7 @@ import { type MemberRole } from '@/shared/enums/member-role.enum';
 import { type SupervisorFormData } from '@/modules/supervisor/interfaces/supervisor-form-data.interface';
 
 interface Options {
-  supervisorUpdateForm: UseFormReturn<SupervisorFormData, any, SupervisorFormData>;
+  supervisorUpdateForm: UseFormReturn<SupervisorFormData, any, undefined>;
   memberRoles: typeof MemberRole;
   setIsDisabledInput: React.Dispatch<React.SetStateAction<boolean>>;
   setIsDisabledPromoteButton: React.Dispatch<React.SetStateAction<boolean>>;

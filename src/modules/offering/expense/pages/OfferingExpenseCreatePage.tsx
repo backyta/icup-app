@@ -22,6 +22,7 @@ import {
   OfferingExpenseSearchTypeNames,
 } from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
 import {
+  SubTypeNamesOfferingExpenseSearchByOtherExpenses,
   SubTypeNamesOfferingExpenseSearchBySuppliesExpenses,
   SubTypeNamesOfferingExpenseSearchByOperativeExpenses,
   SubTypeNamesOfferingExpenseSearchByDecorationExpenses,
@@ -134,7 +135,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
   });
 
   const { onDrop, removeAll, removeFile, removeRejected } = useOfferingExpenseFileDropZone({
-    offeringIncomeForm: form,
+    offeringExpenseForm: form,
     files,
     setFiles,
     setRejected,
@@ -394,7 +395,9 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                                       : type ===
                                           OfferingExpenseSearchType.MaintenanceAndRepairExpenses
                                         ? SubTypeNamesOfferingExpenseSearchByMaintenanceAndRepairExpenses
-                                        : SubTypeNamesOfferingExpenseSearchBySuppliesExpenses
+                                        : type === OfferingExpenseSearchType.SuppliesExpenses
+                                          ? SubTypeNamesOfferingExpenseSearchBySuppliesExpenses
+                                          : SubTypeNamesOfferingExpenseSearchByOtherExpenses
                             ).map(([key, value]) => (
                               <SelectItem key={key} value={key}>
                                 {value}

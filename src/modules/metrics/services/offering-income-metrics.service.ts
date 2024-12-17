@@ -18,7 +18,7 @@ import { type OfferingIncomeByFastingAndVigilResponse } from '@/modules/metrics/
 import { type OfferingIncomeByIncomeAdjustmentResponse } from '@/modules/metrics/interfaces/offering-income-metrics/offering-income-by-income-adjustment-response.interface';
 import { type OfferingIncomeByChurchGroundOfferingResponse } from '@/modules/metrics/interfaces/offering-income-metrics/offering-income-by-church-ground-offering-response.interface';
 
-//* Get proportion offering income 
+// ? GET PROPORTION OFFERING INCOME 
 export const getOfferingIncomeProportion = async ({ 
   searchType, 
   church,
@@ -42,7 +42,7 @@ export const getOfferingIncomeProportion = async ({
   }
 }
 
-// ? Search By Term
+// ? SEARCH BY TERM
 //* Offering income by sunday service
 export const getOfferingIncomeBySundayService = async ({ 
   searchType, 

@@ -10,7 +10,7 @@ import { type UserFormData } from '@/modules/user/interfaces/user-form-data.inte
 import { type UserQueryParams } from '@/modules/user/interfaces/user-query-params.interface';
 import { type UserPasswordUpdateFormData } from '@/modules/user/interfaces/user-password-update-form-data.interface';
 
-//* Create user
+// ? CREATE USER
 export const createUser = async (formData:UserFormData ): Promise<UserResponse> => {
   try {
     const {data} = await icupApi.post<UserResponse>('/users', formData)
@@ -25,7 +25,7 @@ export const createUser = async (formData:UserFormData ): Promise<UserResponse> 
   }
 }
 
-//* Get all users (paginated)
+// ? GET USERS (paginated)
 export const getUsers = async ({limit, offset, all, order}: UserQueryParams): Promise<UserResponse[]> => {
 
  let result: UserResponse[];
@@ -61,7 +61,7 @@ export const getUsers = async ({limit, offset, all, order}: UserQueryParams): Pr
   }
 }
 
-// ? Get users by term (paginated)
+// ? GET USERS BY TERM (paginated)
 export const getUsersByTerm = async ({ 
   multiSelectTerm,
   searchType, 
@@ -258,7 +258,7 @@ export const getUsersByTerm = async ({
   }
 }
 
-// //* Update user by ID
+// ? UPDATE USER BY ID
 export interface UpdateUserOptions {
   id: string;
   formData: UserFormData | UserPasswordUpdateFormData;
@@ -278,7 +278,7 @@ export const updateUser = async ({id, formData}: UpdateUserOptions ): Promise<Us
   }
 }
 
-// //! Inactivate user by ID
+//! INACTIVATE USER BY ID
 export interface InactivateUserOptions {
   id: string;
   userInactivationCategory: string;
@@ -311,6 +311,7 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
+//* General
 export const getGeneralUsersReport = async ({limit, offset, order}: UserQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/users' , {
@@ -336,6 +337,7 @@ export const getGeneralUsersReport = async ({limit, offset, order}: UserQueryPar
    }
  }
 
+//* By term
 export const getUsersReportByTerm = async ({   
   searchType, 
   selectTerm, 

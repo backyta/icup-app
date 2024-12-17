@@ -11,4 +11,4 @@ export const familyGroupInactivationFormSchema = z
   familyGroupInactivationReason: z.string()
   .min(1, {message: 'El campo debe contener al menos 1 carácter.'})
   .max(100, {message: 'El campo debe contener máximo 100 caracteres'}),
-})   
+})

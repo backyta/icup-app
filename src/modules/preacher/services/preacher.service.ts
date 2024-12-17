@@ -11,8 +11,7 @@ import { type PreacherFormData } from '@/modules/preacher/interfaces/preacher-fo
 import { type PreacherResponse, } from '@/modules/preacher/interfaces/preacher-response.interface';
 import { type PreacherQueryParams } from '@/modules/preacher/interfaces/preacher-query-params.interface';
 
-
-//* Create Preacher
+// ? CREATE PREACHER
 export const createPreacher = async (formData:PreacherFormData ): Promise<PreacherResponse> => {
   try {
     const {data} = await icupApi.post<PreacherResponse>('/preachers', formData)
@@ -27,7 +26,7 @@ export const createPreacher = async (formData:PreacherFormData ): Promise<Preach
   }
 }
 
-//* Get simple preachers
+// ? GET SIMPLE PREACHERS
 export const getSimplePreachers = async ({isSimpleQuery}: {isSimpleQuery: boolean}): Promise<PreacherResponse[]> => {
   try {
     const {data} = await icupApi<PreacherResponse[]>('/preachers' , {
@@ -48,7 +47,7 @@ export const getSimplePreachers = async ({isSimpleQuery}: {isSimpleQuery: boolea
   }
 }
 
-//* Get preachers by zone
+// ? GET PREACHERS BY ZONE
 export interface GetPreachersByZoneOptions {
   searchType: string;
   zoneId: string;
@@ -80,7 +79,7 @@ export const getPreachersByZone = async ({
   }
 }
 
-//* Get preachers (paginated)
+// ? GET PREACHERS (paginated)
 export const getPreachers = async ({limit, offset, all, order, churchId}: PreacherQueryParams): Promise<PreacherResponse[]> => {
 
  let result: PreacherResponse[];
@@ -118,7 +117,7 @@ export const getPreachers = async ({limit, offset, all, order, churchId}: Preach
   }
 }
 
-// ? Get preachers by term (paginated)
+// ? GET PREACHER BY TERM (paginated)
 export const getPreachersByTerm = async ({ 
   searchType, 
   searchSubType, 
@@ -385,7 +384,7 @@ export const getPreachersByTerm = async ({
   }
 }
 
-//* Update preacher by ID
+// ? UPDATE PREACHER BY ID
 export interface UpdatePreacherOptions {
   id: string;
   formData: PreacherFormData;
@@ -405,7 +404,7 @@ export const updatePreacher = async ({id, formData}: UpdatePreacherOptions ): Pr
   }
 }
 
-//! Inactivate  preacher by ID
+//! INACTIVATE PREACHER BY ID
 export interface InactivatePreacherOptions {
   id: string;
   memberInactivationCategory: string;
@@ -439,6 +438,7 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
   newTab?.focus();
 }
 
+//* General
 export const getGeneralPreachersReport = async ({limit, offset, order, churchId}: PreacherQueryParams): Promise<void> => {
    try {
     const res = await icupApi<Blob>('/reports/preachers' , {
@@ -465,6 +465,7 @@ export const getGeneralPreachersReport = async ({limit, offset, order, churchId}
    }
  }
 
+//* By term
 export const getPreachersReportByTerm = async ({   
   searchType, 
   searchSubType,

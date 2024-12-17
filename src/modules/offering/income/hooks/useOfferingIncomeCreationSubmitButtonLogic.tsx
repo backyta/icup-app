@@ -15,7 +15,7 @@ interface Options {
   isDropZoneDisabled: boolean;
   isDeleteFileButtonDisabled: boolean;
   isInputDisabled: boolean;
-  offeringIncomeCreationForm: UseFormReturn<OfferingIncomeFormData, any, OfferingIncomeFormData>;
+  offeringIncomeCreationForm: UseFormReturn<OfferingIncomeFormData, any, undefined>;
   setIsDropZoneDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -34,11 +34,11 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
   const type = offeringIncomeCreationForm.watch('type');
   const subType = offeringIncomeCreationForm.watch('subType');
   const category = offeringIncomeCreationForm.watch('category');
-  const isNewDonor = offeringIncomeCreationForm.watch('isNewDonor');
-  const donorId = offeringIncomeCreationForm.watch('donorId');
-  const donorFirstName = offeringIncomeCreationForm.watch('donorFirstName');
-  const donorLastName = offeringIncomeCreationForm.watch('donorLastName');
-  const donorGender = offeringIncomeCreationForm.watch('donorGender');
+  const isNewExternalDonor = offeringIncomeCreationForm.watch('isNewExternalDonor');
+  const externalDonorId = offeringIncomeCreationForm.watch('externalDonorId');
+  const externalDonorFirstNames = offeringIncomeCreationForm.watch('externalDonorFirstNames');
+  const externalDonorLastNames = offeringIncomeCreationForm.watch('externalDonorLastNames');
+  const externalDonorGender = offeringIncomeCreationForm.watch('externalDonorGender');
   const amount = offeringIncomeCreationForm.watch('amount');
   const shift = offeringIncomeCreationForm.watch('shift');
   const currency = offeringIncomeCreationForm.watch('currency');
@@ -119,10 +119,10 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
       subType === OfferingIncomeCreationSubType.SundaySchool &&
-      isNewDonor &&
-      donorFirstName &&
-      donorLastName &&
-      donorGender &&
+      isNewExternalDonor &&
+      externalDonorFirstNames &&
+      externalDonorLastNames &&
+      externalDonorGender &&
       amount &&
       date &&
       currency &&
@@ -138,11 +138,11 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
       subType === OfferingIncomeCreationSubType.SundaySchool &&
-      !isNewDonor &&
-      donorId &&
-      !donorFirstName &&
-      !donorLastName &&
-      !donorGender &&
+      !isNewExternalDonor &&
+      externalDonorId &&
+      !externalDonorFirstNames &&
+      !externalDonorLastNames &&
+      !externalDonorGender &&
       amount &&
       date &&
       currency &&
@@ -158,13 +158,13 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
       subType === OfferingIncomeCreationSubType.SundaySchool &&
-      isNewDonor &&
+      isNewExternalDonor &&
       (!churchId ||
         !date ||
         !amount ||
-        !donorFirstName ||
-        !donorLastName ||
-        !donorGender ||
+        !externalDonorFirstNames ||
+        !externalDonorLastNames ||
+        !externalDonorGender ||
         !currency)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -175,8 +175,8 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
       subType === OfferingIncomeCreationSubType.SundaySchool &&
-      !isNewDonor &&
-      (!churchId || !donorId || !date || !amount || !currency)
+      !isNewExternalDonor &&
+      (!churchId || !externalDonorId || !date || !amount || !currency)
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -212,7 +212,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     //* Sunday school (activities)
     if (
       type === OfferingIncomeCreationType.Offering &&
-      category === OfferingIncomeCreationCategory.Activities &&
+      category === OfferingIncomeCreationCategory.FundraisingProMinistry &&
       subType === OfferingIncomeCreationSubType.SundaySchool &&
       amount &&
       date &&
@@ -227,7 +227,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
 
     if (
       type === OfferingIncomeCreationType.Offering &&
-      category === OfferingIncomeCreationCategory.Activities &&
+      category === OfferingIncomeCreationCategory.FundraisingProMinistry &&
       subType === OfferingIncomeCreationSubType.SundaySchool &&
       (!churchId || !date || !amount || !currency)
     ) {
@@ -269,10 +269,10 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
       subType === OfferingIncomeCreationSubType.YouthService &&
-      (isNewDonor || !isNewDonor) &&
-      donorFirstName &&
-      donorLastName &&
-      donorGender &&
+      (isNewExternalDonor || !isNewExternalDonor) &&
+      externalDonorFirstNames &&
+      externalDonorLastNames &&
+      externalDonorGender &&
       amount &&
       date &&
       currency &&
@@ -288,11 +288,11 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
       subType === OfferingIncomeCreationSubType.YouthService &&
-      !isNewDonor &&
-      donorId &&
-      !donorFirstName &&
-      !donorLastName &&
-      !donorGender &&
+      !isNewExternalDonor &&
+      externalDonorId &&
+      !externalDonorFirstNames &&
+      !externalDonorLastNames &&
+      !externalDonorGender &&
       amount &&
       date &&
       currency &&
@@ -308,13 +308,13 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
       subType === OfferingIncomeCreationSubType.YouthService &&
-      isNewDonor &&
+      isNewExternalDonor &&
       (!churchId ||
         !date ||
         !amount ||
-        !donorFirstName ||
-        !donorLastName ||
-        !donorGender ||
+        !externalDonorFirstNames ||
+        !externalDonorLastNames ||
+        !externalDonorGender ||
         !currency)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -325,8 +325,8 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
       subType === OfferingIncomeCreationSubType.YouthService &&
-      !isNewDonor &&
-      (!churchId || !donorId || !date || !amount || !currency)
+      !isNewExternalDonor &&
+      (!churchId || !externalDonorId || !date || !amount || !currency)
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -336,7 +336,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     if (
       type === OfferingIncomeCreationType.Offering &&
       (category === OfferingIncomeCreationCategory.OfferingBox ||
-        category === OfferingIncomeCreationCategory.Activities) &&
+        category === OfferingIncomeCreationCategory.FundraisingProMinistry) &&
       subType === OfferingIncomeCreationSubType.YouthService &&
       amount &&
       date &&
@@ -352,7 +352,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     if (
       type === OfferingIncomeCreationType.Offering &&
       (category === OfferingIncomeCreationCategory.OfferingBox ||
-        category === OfferingIncomeCreationCategory.Activities) &&
+        category === OfferingIncomeCreationCategory.FundraisingProMinistry) &&
       subType === OfferingIncomeCreationSubType.YouthService &&
       (!churchId || !date || !amount || !currency)
     ) {
@@ -394,10 +394,10 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
       subType === OfferingIncomeCreationSubType.ChurchGround &&
-      isNewDonor &&
-      donorFirstName &&
-      donorLastName &&
-      donorGender &&
+      isNewExternalDonor &&
+      externalDonorFirstNames &&
+      externalDonorLastNames &&
+      externalDonorGender &&
       amount &&
       date &&
       currency &&
@@ -413,11 +413,11 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
       subType === OfferingIncomeCreationSubType.ChurchGround &&
-      !isNewDonor &&
-      donorId &&
-      !donorFirstName &&
-      !donorLastName &&
-      !donorGender &&
+      !isNewExternalDonor &&
+      externalDonorId &&
+      !externalDonorFirstNames &&
+      !externalDonorLastNames &&
+      !externalDonorGender &&
       amount &&
       date &&
       currency &&
@@ -433,13 +433,13 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
       subType === OfferingIncomeCreationSubType.ChurchGround &&
-      isNewDonor &&
+      isNewExternalDonor &&
       (!churchId ||
         !date ||
         !amount ||
-        !donorFirstName ||
-        !donorLastName ||
-        !donorGender ||
+        !externalDonorFirstNames ||
+        !externalDonorLastNames ||
+        !externalDonorGender ||
         !currency)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -450,8 +450,8 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
       subType === OfferingIncomeCreationSubType.ChurchGround &&
-      !isNewDonor &&
-      (!churchId || !date || !donorId || !amount || !currency)
+      !isNewExternalDonor &&
+      (!churchId || !date || !externalDonorId || !amount || !currency)
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -460,7 +460,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
     //* Church Ground (activities)
     if (
       type === OfferingIncomeCreationType.Offering &&
-      category === OfferingIncomeCreationCategory.Activities &&
+      category === OfferingIncomeCreationCategory.ActivitiesProChurchGround &&
       subType === OfferingIncomeCreationSubType.ChurchGround &&
       amount &&
       date &&
@@ -475,7 +475,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
 
     if (
       type === OfferingIncomeCreationType.Offering &&
-      category === OfferingIncomeCreationCategory.Activities &&
+      category === OfferingIncomeCreationCategory.ActivitiesProChurchGround &&
       subType === OfferingIncomeCreationSubType.ChurchGround &&
       (!churchId || !date || !amount || !currency)
     ) {
@@ -517,10 +517,10 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
       subType === OfferingIncomeCreationSubType.Special &&
-      isNewDonor &&
-      donorFirstName &&
-      donorLastName &&
-      donorGender &&
+      isNewExternalDonor &&
+      externalDonorFirstNames &&
+      externalDonorLastNames &&
+      externalDonorGender &&
       amount &&
       date &&
       currency &&
@@ -536,11 +536,11 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
       subType === OfferingIncomeCreationSubType.Special &&
-      !isNewDonor &&
-      donorId &&
-      !donorFirstName &&
-      !donorLastName &&
-      !donorGender &&
+      !isNewExternalDonor &&
+      externalDonorId &&
+      !externalDonorFirstNames &&
+      !externalDonorLastNames &&
+      !externalDonorGender &&
       amount &&
       date &&
       currency &&
@@ -556,13 +556,13 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
       subType === OfferingIncomeCreationSubType.Special &&
-      isNewDonor &&
+      isNewExternalDonor &&
       (!churchId ||
         !date ||
         !amount ||
-        !donorFirstName ||
-        !donorLastName ||
-        !donorGender ||
+        !externalDonorFirstNames ||
+        !externalDonorLastNames ||
+        !externalDonorGender ||
         !currency)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -573,8 +573,8 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       type === OfferingIncomeCreationType.Offering &&
       category === OfferingIncomeCreationCategory.ExternalDonation &&
       subType === OfferingIncomeCreationSubType.Special &&
-      !isNewDonor &&
-      (!churchId || !date || !donorId || !amount || !currency)
+      !isNewExternalDonor &&
+      (!churchId || !date || !externalDonorId || !amount || !currency)
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -711,8 +711,8 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
   }, [
     offeringIncomeCreationForm.formState,
     type,
-    donorId,
-    isNewDonor,
+    externalDonorId,
+    isNewExternalDonor,
     subType,
     amount,
     currency,
@@ -735,18 +735,18 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       offeringIncomeCreationForm.resetField('currency', { keepDirty: true });
       offeringIncomeCreationForm.resetField('comments', { keepDirty: true });
       offeringIncomeCreationForm.resetField('shift', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('isNewDonor', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorId', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorFirstName', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorLastName', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorGender', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorBirthDate', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorOriginCountry', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorResidenceCountry', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorEmail', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorPhoneNumber', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorResidenceCity', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorPostalCode', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('isNewExternalDonor', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorId', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorFirstNames', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorLastNames', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorGender', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorBirthDate', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorOriginCountry', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorResidenceCountry', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorEmail', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorPhoneNumber', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorResidenceCity', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorPostalCode', { keepDirty: true });
     }
     if (category === OfferingIncomeCreationCategory.OfferingBox) {
       offeringIncomeCreationForm.resetField('shift', { keepDirty: true });
@@ -756,39 +756,39 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       offeringIncomeCreationForm.resetField('comments', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberType', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('isNewDonor', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorId', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorFirstName', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorLastName', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorGender', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorBirthDate', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorOriginCountry', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorResidenceCountry', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorEmail', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorPhoneNumber', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorResidenceCity', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorPostalCode', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('isNewExternalDonor', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorId', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorFirstNames', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorLastNames', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorGender', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorBirthDate', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorOriginCountry', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorResidenceCountry', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorEmail', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorPhoneNumber', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorResidenceCity', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorPostalCode', { keepDirty: true });
     }
-    if (category === OfferingIncomeCreationCategory.Activities) {
+    if (category === OfferingIncomeCreationCategory.ActivitiesProChurchGround) {
       offeringIncomeCreationForm.resetField('amount', { keepDirty: true });
       offeringIncomeCreationForm.resetField('date', { keepDirty: true });
       offeringIncomeCreationForm.resetField('currency', { keepDirty: true });
       offeringIncomeCreationForm.resetField('comments', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberType', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('isNewDonor', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('isNewExternalDonor', { keepDirty: true });
       offeringIncomeCreationForm.resetField('shift', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorId', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorFirstName', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorLastName', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorGender', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorBirthDate', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorOriginCountry', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorResidenceCountry', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorEmail', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorPhoneNumber', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorResidenceCity', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorPostalCode', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorId', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorFirstNames', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorLastNames', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorGender', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorBirthDate', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorOriginCountry', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorResidenceCountry', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorEmail', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorPhoneNumber', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorResidenceCity', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorPostalCode', { keepDirty: true });
     }
     if (category === OfferingIncomeCreationCategory.ExternalDonation) {
       offeringIncomeCreationForm.resetField('shift', { keepDirty: true });
@@ -798,18 +798,18 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       offeringIncomeCreationForm.resetField('date', { keepDirty: true });
       offeringIncomeCreationForm.resetField('currency', { keepDirty: true });
       offeringIncomeCreationForm.resetField('comments', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('isNewDonor', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorId', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorFirstName', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorLastName', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorGender', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorBirthDate', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorOriginCountry', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorResidenceCountry', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorEmail', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorPhoneNumber', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorResidenceCity', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorPostalCode', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('isNewExternalDonor', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorId', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorFirstNames', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorLastNames', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorGender', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorBirthDate', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorOriginCountry', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorResidenceCountry', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorEmail', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorPhoneNumber', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorResidenceCity', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorPostalCode', { keepDirty: true });
     }
     if (category === OfferingIncomeCreationCategory.General) {
       offeringIncomeCreationForm.resetField('shift', { keepDirty: true });
@@ -819,18 +819,18 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       offeringIncomeCreationForm.resetField('date', { keepDirty: true });
       offeringIncomeCreationForm.resetField('currency', { keepDirty: true });
       offeringIncomeCreationForm.resetField('comments', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('isNewDonor', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorId', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorFirstName', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorLastName', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorGender', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorBirthDate', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorOriginCountry', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorResidenceCountry', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorEmail', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorPhoneNumber', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorResidenceCity', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('donorPostalCode', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('isNewExternalDonor', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorId', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorFirstNames', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorLastNames', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorGender', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorBirthDate', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorOriginCountry', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorResidenceCountry', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorEmail', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorPhoneNumber', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorResidenceCity', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('externalDonorPostalCode', { keepDirty: true });
     }
   }, [category]);
 
@@ -841,7 +841,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
         subType === OfferingIncomeCreationSubType.SundaySchool)
     ) {
       offeringIncomeCreationForm.resetField('category', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('isNewDonor', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('isNewExternalDonor', { keepDirty: true });
       offeringIncomeCreationForm.resetField('familyGroupId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('zoneId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberId', { keepDirty: true });
@@ -859,7 +859,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
         subType === OfferingIncomeCreationSubType.Special)
     ) {
       offeringIncomeCreationForm.resetField('category', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('isNewDonor', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('isNewExternalDonor', { keepDirty: true });
       offeringIncomeCreationForm.resetField('familyGroupId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('zoneId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('amount', { keepDirty: true });
@@ -874,7 +874,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       subType === OfferingIncomeCreationSubType.FamilyGroup
     ) {
       offeringIncomeCreationForm.resetField('category', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('isNewDonor', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('isNewExternalDonor', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberType', { keepDirty: true });
       offeringIncomeCreationForm.resetField('zoneId', { keepDirty: true });
@@ -891,7 +891,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
         subType === OfferingIncomeCreationSubType.ZonalFasting)
     ) {
       offeringIncomeCreationForm.resetField('category', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('isNewDonor', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('isNewExternalDonor', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberType', { keepDirty: true });
       offeringIncomeCreationForm.resetField('familyGroupId', { keepDirty: true });
@@ -904,7 +904,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
 
     if (type === OfferingIncomeCreationType.IncomeAdjustment) {
       offeringIncomeCreationForm.resetField('category', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('isNewDonor', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('isNewExternalDonor', { keepDirty: true });
       offeringIncomeCreationForm.resetField('subType', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberType', { keepDirty: true });
@@ -926,7 +926,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       subType !== OfferingIncomeCreationSubType.ZonalFasting
     ) {
       offeringIncomeCreationForm.resetField('category', { keepDirty: true });
-      offeringIncomeCreationForm.resetField('isNewDonor', { keepDirty: true });
+      offeringIncomeCreationForm.resetField('isNewExternalDonor', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberId', { keepDirty: true });
       offeringIncomeCreationForm.resetField('memberType', { keepDirty: true });
       offeringIncomeCreationForm.resetField('familyGroupId', { keepDirty: true });

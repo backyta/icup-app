@@ -8,6 +8,7 @@ import { type ColumnDef } from '@tanstack/react-table';
 import { Button } from '@/shared/components/ui/button';
 
 import { type DiscipleColumns } from '@/modules/disciple/interfaces/disciple-columns.interface';
+
 import { DiscipleInfoCard } from '@/modules/disciple/components/cards/info/DiscipleInfoCard';
 import { DiscipleUpdateCard } from '@/modules/disciple/components/cards/update/DiscipleUpdateCard';
 

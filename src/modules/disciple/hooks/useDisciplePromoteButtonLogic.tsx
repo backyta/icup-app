@@ -6,7 +6,7 @@ import { type DiscipleFieldNames } from '@/modules/disciple/enums/disciple-field
 import { type DiscipleFormData } from '@/modules/disciple/interfaces/disciple-form-data.interface';
 
 interface Options {
-  discipleUpdateForm: UseFormReturn<DiscipleFormData, any, DiscipleFormData>;
+  discipleUpdateForm: UseFormReturn<DiscipleFormData, any, undefined>;
   fieldName: typeof DiscipleFieldNames;
   setIsPromoteButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }

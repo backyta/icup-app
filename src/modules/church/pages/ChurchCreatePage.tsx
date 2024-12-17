@@ -91,7 +91,7 @@ export const ChurchCreatePage = (): JSX.Element => {
       isAnexe: false,
       email: '',
       phoneNumber: '',
-      country: Country.Peru,
+      country: Country.Perú,
       department: Department.Lima,
       province: Province.Lima,
       district: '',
@@ -584,7 +584,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
+                              className={`text-[14px] ${(urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >

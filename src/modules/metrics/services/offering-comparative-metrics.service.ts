@@ -14,7 +14,7 @@ import { type GeneralComparativeOfferingExpensesResponse } from '@/modules/metri
 import { type ComparativeOfferingExpensesBySubTypeResponse } from '@/modules/metrics/interfaces/offering-comparative-metrics/comparative-offering-expenses-by-sub-type-response.interface';
 import { type OfferingExpensesAndOfferingIncomeComparativeProportionResponse } from '@/modules/metrics/interfaces/offering-comparative-metrics/offering-expenses-and-offering-income-proportion-response.interface';
 
-//* Get proportion offering comparative 
+// ? GET PROPORTION OFFERING COMPARATIVE 
 export const getOfferingComparativeProportion = async ({ 
   searchType, 
   church,
@@ -38,7 +38,7 @@ export const getOfferingComparativeProportion = async ({
   }
 }
 
-// ? Search By Term
+// ? SEARCH BY TERM
 //* Income and Expenses comparative
 export const getIncomeAndExpensesComparativeByYear = async ({ 
   searchType,

@@ -177,7 +177,7 @@ export const ChurchUpdatePage = (): JSX.Element => {
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Tipo</FormLabel>
                       <FormDescription className='text-[14px]'>
-                        ¿Qué tipo de búsqueda desea hacer?
+                        ¿Qué tipo de búsqueda deseas hacer?
                       </FormDescription>
                       <Select
                         onOpenChange={() => {

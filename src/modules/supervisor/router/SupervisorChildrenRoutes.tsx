@@ -4,6 +4,12 @@ import { lazy, Suspense } from 'react';
 import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
 //! Lazy load children routes
+const LazySupervisorUpdatePage = lazy(
+  () => import('@/modules/supervisor/pages/SupervisorUpdatePage')
+);
+const LazySupervisorCreatePage = lazy(
+  () => import('@/modules/supervisor/pages/SupervisorCreatePage')
+);
 const LazySupervisorInactivatePage = lazy(
   () => import('@/modules/supervisor/pages/SupervisorInactivatePage')
 );
@@ -12,12 +18,6 @@ const LazySupervisorsSearchPageByTerm = lazy(
 );
 const LazySupervisorsGeneralSearchPage = lazy(
   () => import('@/modules/supervisor/pages/SupervisorsGeneralSearchPage')
-);
-const LazySupervisorUpdatePage = lazy(
-  () => import('@/modules/supervisor/pages/SupervisorUpdatePage')
-);
-const LazySupervisorCreatePage = lazy(
-  () => import('@/modules/supervisor/pages/SupervisorCreatePage')
 );
 
 export const SupervisorChildrenRoutes = [

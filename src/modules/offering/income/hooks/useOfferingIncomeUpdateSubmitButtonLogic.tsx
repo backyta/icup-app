@@ -18,7 +18,7 @@ interface Options {
   isInputDisabled: boolean;
   OfferingIncomeCreationSubType: typeof OfferingIncomeCreationSubType;
   OfferingIncomeCreationType: typeof OfferingIncomeCreationType;
-  offeringIncomeUpdateForm: UseFormReturn<OfferingIncomeFormData, any, OfferingIncomeFormData>;
+  offeringIncomeUpdateForm: UseFormReturn<OfferingIncomeFormData, any, undefined>;
   setIsDropZoneDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;

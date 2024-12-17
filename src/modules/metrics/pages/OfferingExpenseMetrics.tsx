@@ -28,12 +28,14 @@ export const OfferingExpenseMetrics = (): JSX.Element => {
   //* Library hooks
   const { pathname } = useLocation();
 
+  //* Queries
   const { data } = useQuery({
     queryKey: ['churches-for-offering-income-metrics'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
     staleTime: 1000 * 60,
   });
 
+  //* Effects
   useEffect(() => {
     const church = data?.map((church) => church?.id)[0];
     setChurchId(church);

@@ -13,6 +13,22 @@ import { memberInactivationFormSchema } from '@/shared/validations/member-inacti
 import { useDiscipleInactivationMutation } from '@/modules/disciple/hooks/useDiscipleInactivationMutation';
 
 import {
+  MemberInactivationCategory,
+  MemberInactivationCategoryNames,
+} from '@/shared/enums/member-inactivation-category.enum';
+import {
+  SpecialReasonsNames,
+  ExternalFactorsNames,
+  AdministrativeReasonsNames,
+  PersonalChallengesReasonsNames,
+  ChurchRelatedIssuesReasonsNames,
+  DisciplinaryActionsReasonsNames,
+  PersonalOrFamilyChangesReasonsNames,
+  UnavoidableCircumstancesReasonsNames,
+  InactivityOrLackOfCommitmentReasonsNames,
+} from '@/shared/enums/member-inactivation-reason.enum';
+
+import {
   Form,
   FormItem,
   FormField,
@@ -30,21 +46,6 @@ import {
 } from '@/shared/components/ui/select';
 import { Button } from '@/shared/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
-import {
-  MemberInactivationCategory,
-  MemberInactivationCategoryNames,
-} from '@/shared/enums/member-inactivation-category.enum';
-import {
-  AdministrativeReasonsNames,
-  ChurchRelatedIssuesReasonsNames,
-  DisciplinaryActionsReasonsNames,
-  ExternalFactorsNames,
-  InactivityOrLackOfCommitmentReasonsNames,
-  PersonalChallengesReasonsNames,
-  PersonalOrFamilyChangesReasonsNames,
-  SpecialReasonsNames,
-  UnavoidableCircumstancesReasonsNames,
-} from '@/shared/enums/member-inactivation-reason.enum';
 
 interface DiscipleInactivateCardProps {
   idRow: string;

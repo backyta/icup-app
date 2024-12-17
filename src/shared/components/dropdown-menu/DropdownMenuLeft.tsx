@@ -1,12 +1,23 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
+import { useState } from 'react';
+
 import { FcExport } from 'react-icons/fc';
+import { ChevronsUpDown } from 'lucide-react';
 
 import { useAuthStore } from '@/stores/auth/auth.store';
 
 import { menuItems } from '@/shared/data/menu-items-data';
 import { SideMenuItem } from '@/shared/components/side-menu/SideMenuItem';
 
+import { UserRole, UserRoleNames } from '@/modules/user/enums/user-role.enum';
+
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/shared/components/ui/collapsible';
 import { Button } from '@/shared/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/shared/components/ui/avatar';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/shared/components/ui/sheet';
@@ -16,6 +27,9 @@ export function DropdownMenuLeft(): JSX.Element {
   const userNames = useAuthStore((state) => state.user?.firstNames ?? 'No User');
   const userLastNames = useAuthStore((state) => state.user?.lastNames ?? 'No User');
   const gender = useAuthStore((state) => state.user?.gender ?? undefined);
+  const roles = useAuthStore((state) => state.user?.roles ?? undefined);
+
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Sheet>
@@ -78,7 +92,11 @@ export function DropdownMenuLeft(): JSX.Element {
             </p>
           </div>
 
-          <div id='profile' className='pb-2 md:pb-4 px-6 text-center md:pt-2'>
+          {/* Profile */}
+          <div
+            id='profile'
+            className='pb-2 md:pb-3 px-6 text-center md:pt-1 border-b-[0.5px] border-slate-600'
+          >
             <p className='text-lg text-white'>Bienvenido,</p>
             <div className='flex justify-center gap-2 items-center h-auto'>
               <span>
@@ -94,9 +112,70 @@ export function DropdownMenuLeft(): JSX.Element {
                   </Avatar>
                 )}
               </span>
-
               <span className='text-md md:text-base font-medium text-white'>{`${userNames} ${userLastNames}`}</span>
             </div>
+
+            {/* Their Roles */}
+            <p className='text-[15px] ml-6 text-left font-bold text-sky-500'>
+              <span>Roles:</span>
+              <span className='text-[14px] text-white font-medium pl-2 '>
+                {roles?.map((role) => UserRoleNames[role]).join(' - ')}
+              </span>
+            </p>
+
+            {/* Allowed Access */}
+            <Collapsible
+              open={isOpen}
+              onOpenChange={setIsOpen}
+              className='text-[15px] ml-6 text-left font-bold text-green-500'
+            >
+              <div className='flex items-center justify-between'>
+                <p>Accesos permitidos</p>
+                <CollapsibleTrigger asChild>
+                  <Button className='hover:text-green-500' variant='ghost' size='sm'>
+                    <ChevronsUpDown className='h-4 w-4' />
+                    <span className='sr-only'>Toggle</span>
+                  </Button>
+                </CollapsibleTrigger>
+              </div>
+
+              <CollapsibleContent className='space-y-2'>
+                <p className='text-[14px] ml-2 text-amber-500'>Membresía:</p>
+                <ul className='ml-8 font-medium text-white list-disc'>
+                  {(roles?.includes(UserRole.AdminUser) || roles?.includes(UserRole.SuperUser)) && (
+                    <li className='text-[14px]'>Creación, actualización e inactivación.</li>
+                  )}
+                  <li className='text-[14px]'>Búsqueda general y detallada.</li>
+                  <li className='text-[14px]'>Generación de reportes PDF.</li>
+                </ul>
+
+                <p className='text-[14px] ml-2 text-amber-500'>Finanzas:</p>
+                <ul className='ml-8 font-medium text-white list-disc'>
+                  {(roles?.includes(UserRole.AdminUser) ||
+                    roles?.includes(UserRole.SuperUser) ||
+                    roles?.includes(UserRole.TreasurerUser)) && (
+                    <li className='text-[14px]'>Creación, actualización e inactivación.</li>
+                  )}
+                  <li className='text-[14px]'>Búsqueda general.</li>
+                  <li className='text-[14px]'>Búsqueda detallada.</li>
+                  <li className='text-[14px]'>Generación de reportes.</li>
+                </ul>
+
+                <p className='text-[14px] ml-2 text-amber-500'>Usuarios:</p>
+                <ul className='ml-8 font-medium text-white list-disc'>
+                  {(roles?.includes(UserRole.AdminUser) || roles?.includes(UserRole.SuperUser)) && (
+                    <li className='text-[14px]'>Creación, actualización e inactivación.</li>
+                  )}
+                  <li className='text-[14px]'>Búsqueda general y detallada.</li>
+                  <li className='text-[14px]'>Generación de reportes.</li>
+                </ul>
+
+                <p className='text-[14px] ml-2 text-amber-500'>Métricas y Estadísticas:</p>
+                <ul className='ml-8 font-medium text-white list-disc'>
+                  <li className='text-[14px]'>Visualización de gráficas.</li>
+                </ul>
+              </CollapsibleContent>
+            </Collapsible>
           </div>
         </SheetHeader>
 

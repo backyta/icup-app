@@ -11,7 +11,7 @@ interface Options {
   isDropZoneDisabled: boolean;
   isDeleteFileButtonDisabled: boolean;
   isInputDisabled: boolean;
-  offeringExpenseUpdateForm: UseFormReturn<OfferingExpenseFormData, any, OfferingExpenseFormData>;
+  offeringExpenseUpdateForm: UseFormReturn<OfferingExpenseFormData, any, undefined>;
   offeringExpenseSearchType: typeof OfferingExpenseSearchType;
   setIsDropZoneDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;

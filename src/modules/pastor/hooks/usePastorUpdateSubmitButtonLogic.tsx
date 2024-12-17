@@ -10,7 +10,7 @@ import { type MemberRole } from '@/shared/enums/member-role.enum';
 import { type PastorFormData } from '@/modules/pastor/interfaces/pastor-form-data.interface';
 
 interface Options {
-  pastorUpdateForm: UseFormReturn<PastorFormData, any, PastorFormData>;
+  pastorUpdateForm: UseFormReturn<PastorFormData, any, undefined>;
   memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;

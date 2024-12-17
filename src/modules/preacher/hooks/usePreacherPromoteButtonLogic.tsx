@@ -6,7 +6,7 @@ import { type PreacherFieldNames } from '@/modules/preacher/enums/preacher-field
 import { type PreacherFormData } from '@/modules/preacher/interfaces/preacher-form-data.interface';
 
 interface Options {
-  preacherUpdateForm: UseFormReturn<PreacherFormData, any, PreacherFormData>;
+  preacherUpdateForm: UseFormReturn<PreacherFormData, any, undefined>;
   fieldNames: typeof PreacherFieldNames;
   setIsPromoteButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }

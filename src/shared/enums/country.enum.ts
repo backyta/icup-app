@@ -1,7 +1,7 @@
 export enum Country {
-  Peru = 'Peru',
+  Perú = 'Perú',
 }
 
 export const CountryNames: Record<Country, string> = {
-  [Country.Peru]: 'Perú',
+  [Country.Perú]: 'Perú',
 };

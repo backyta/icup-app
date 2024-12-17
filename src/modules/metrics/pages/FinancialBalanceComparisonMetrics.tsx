@@ -23,12 +23,14 @@ export const FinancialBalanceComparisonMetrics = (): JSX.Element => {
   //* States
   const [churchId, setChurchId] = useState<string | undefined>(undefined);
 
+  //* Queries
   const { data } = useQuery({
     queryKey: ['churches-for-overall-balance-and-financial-comparative-metrics'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
     staleTime: 1000 * 60,
   });
 
+  //* Effects
   useEffect(() => {
     const church = data?.map((church) => church?.id)[0];
     setChurchId(church);

@@ -1,31 +1,31 @@
 export enum ZoneInactivationReason {
-  // Razones por cambios administrativos
+  //* Reasons for administrative changes
   StructuralReorganization = 'structural_reorganization',
   ZoneReduction = 'zone_reduction',
   ZoneFusion = 'zone_fusion',
   NoSupervisorAssigned = 'no_supervisor_assigned',
  
-  // Razones por problemas de liderazgo
+  //* Reasons for leadership problems
   SupervisorResignation = 'supervisor_resignation',
   LeadershipConflicts = 'leadership_conflicts',
   LeadershipIncapacity = 'leadership_incapacity',
 
-  // Razones por falta de actividad o compromiso
+  //* Reasons for lack of activity or commitment
   GeneralInactivity = 'general_inactivity',
   LackOfParticipation = 'lack_of_participation',
   LowDiscipleCommitment = 'low_disciple_commitment',
 
-  // Razones relacionadas con los grupos familiares
+  //* Reasons related to family groups
   FamilyGroupDissolution = 'family_group_dissolution',
   FamilyGroupRelocation = 'family_group_relocation',
   MemberLoss = 'member_loss',
 
-  // Razones por factores externos
+  //* Reasons due to external factor
   DemographicChanges = 'demographic_changes',
   LegalRestrictions = 'legal_restrictions',
   AccessIssues = 'access_issues',
 
-  // Razones inevitables o naturales
+  //* Unavoidable or natural reasons
   NaturalDisasters = 'natural_disasters',
   HealthCrisis = 'health_crisis',
   ResourceShortage = 'resource_shortage',
@@ -59,7 +59,7 @@ export const ZoneInactivationReasonNames: Record<ZoneInactivationReason, string>
 };
 
 // ? Individuals
-
+//* Reasons for administrative changes
 export enum AdministrativeChangesReasons {
   StructuralReorganization = 'structural_reorganization',
   ZoneReduction = 'zone_reduction',
@@ -74,6 +74,7 @@ export const AdministrativeChangesReasonsNames: Record<AdministrativeChangesReas
   [AdministrativeChangesReasons.NoSupervisorAssigned]: 'Falta de un supervisor designado',
 }
 
+//* Reasons for leadership problems
 export enum LeadershipIssuesReasons {
   SupervisorResignation = 'supervisor_resignation',
   LeadershipConflicts = 'leadership_conflicts',
@@ -84,9 +85,10 @@ export const LeadershipIssuesReasonsNames: Record<LeadershipIssuesReasons, strin
   [LeadershipIssuesReasons.SupervisorResignation]: 'Renuncia o inactividad prolongada del supervisor',
   [LeadershipIssuesReasons.LeadershipConflicts]: 'Conflictos graves entre el supervisor y los discípulos o grupos familiares',
   [LeadershipIssuesReasons.LeadershipIncapacity]: 'Incapacidad del liderazgo para cumplir con las responsabilidades',
-
+  
 };
 
+//* Reasons for lack of activity or commitment
 export enum LackOfActivityOrCommitmentReasons {
   GeneralInactivity = 'general_inactivity',
   LackOfParticipation = 'lack_of_participation',
@@ -99,6 +101,7 @@ export const LackOfActivityOrCommitmentReasonsNames: Record<LackOfActivityOrComm
   [LackOfActivityOrCommitmentReasons.LowDiscipleCommitment]: 'Bajo compromiso de los discípulos asignados',
 };
 
+//* Reasons related to family groups
 export enum GroupFamilyRelatedReasonsReasons {
   FamilyGroupDissolution = 'family_group_dissolution',
   FamilyGroupRelocation = 'family_group_relocation',
@@ -111,6 +114,7 @@ export const GroupFamilyRelatedReasonsReasonsNames: Record<GroupFamilyRelatedRea
   [GroupFamilyRelatedReasonsReasons.MemberLoss]: 'Pérdida significativa de miembros en los grupos familiares',
 };
 
+//* Reasons due to external factor
 export enum ExternalFactorsReasons {
   DemographicChanges = 'demographic_changes',
   LegalRestrictions = 'legal_restrictions',
@@ -123,6 +127,7 @@ export const ExternalFactorsReasonsNames: Record<ExternalFactorsReasons, string>
   [ExternalFactorsReasons.AccessIssues]: 'Dificultades de acceso al área por problemas de infraestructura',
 };
 
+//* Unavoidable or natural reasons
 export enum UnavoidableCircumstancesReasons {
   NaturalDisasters = 'natural_disasters',
   HealthCrisis = 'health_crisis',

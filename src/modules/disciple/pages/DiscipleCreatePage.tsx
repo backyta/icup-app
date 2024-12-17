@@ -97,7 +97,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
       maritalStatus: '',
       email: '',
       phoneNumber: '',
-      residenceCountry: Country.Peru,
+      residenceCountry: Country.Perú,
       residenceDepartment: Department.Lima,
       residenceProvince: Province.Lima,
       residenceDistrict: '',
@@ -641,7 +641,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !residenceDistrict ? 'hidden' : ''}`}
+                              className={`text-[14px] ${(urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !residenceDistrict) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
