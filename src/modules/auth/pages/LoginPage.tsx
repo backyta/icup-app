@@ -132,7 +132,7 @@ export const LoginPage = (): JSX.Element => {
         </h2>
       </div>
 
-      <div className='w-[18rem] md:w-[24rem] md:mx-auto sm:max-w-md px-5 pb-7 pt-5 md:px-10 md:pt-8 md:pb-10 shadow-md overflow-hidden sm:rounded-lg bg-white dark:bg-slate-900'>
+      <div className='mx-auto w-[18rem] md:w-[24rem] md:mx-auto sm:max-w-md px-5 pb-7 pt-5 md:px-10 md:pt-8 md:pb-10 shadow-md overflow-hidden sm:rounded-lg bg-white dark:bg-slate-900'>
         <h3
           className={cn(
             'text-center text-[20px] md:text-[22px] lg:text-[25px] xl:text-[28px] mb-3 md:mb-5 leading-8 font-bold',
@@ -146,6 +146,7 @@ export const LoginPage = (): JSX.Element => {
             Por favor, espera {countdown} segundos antes de intentar nuevamente.
           </div>
         )}
+
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
