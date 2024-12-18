@@ -25,7 +25,7 @@ export function FamilyGroupInfoItem({ data }: Props): JSX.Element {
       <div className='flex justify-between items-center pb-1.5'>
         <CardContent className='flex gap-1 pl-6 py-2'>
           <Avatar className='p-1 h-[50px] w-14'>
-            <AvatarImage className='rounded-full' src={'/src/assets/family-group.webp'} />
+            <AvatarImage className='rounded-full' src={'/family-group.webp'} />
             <AvatarFallback>FGI</AvatarFallback>
           </Avatar>
 

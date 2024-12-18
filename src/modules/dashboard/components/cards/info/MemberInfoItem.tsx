@@ -27,9 +27,7 @@ export function MemberInfoItem({ data }: Props): JSX.Element {
           <Avatar className='p-1 h-12 w-12'>
             <AvatarImage
               className='rounded-full'
-              src={
-                data?.member?.gender === 'male' ? '/src/assets/boy.webp' : '/src/assets/girl.webp'
-              }
+              src={data?.member?.gender === 'male' ? '/boy.webp' : '/girl.webp'}
             />
             <AvatarFallback>UI</AvatarFallback>
           </Avatar>
@@ -61,7 +59,7 @@ export function MemberInfoItem({ data }: Props): JSX.Element {
         <Avatar className='p-1'>
           <AvatarImage
             className='rounded-full w-10'
-            src={data?.member?.gender === 'male' ? '/src/assets/boy.webp' : '/src/assets/girl.webp'}
+            src={data?.member?.gender === 'male' ? '/boy.webp' : '/girl.webp'}
           />
           <AvatarFallback>UI</AvatarFallback>
         </Avatar>

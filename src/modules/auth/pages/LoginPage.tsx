@@ -120,7 +120,7 @@ export const LoginPage = (): JSX.Element => {
     <div className='overflow-y-scroll pt-6 pb-8'>
       <div className='flex flex-col -mt-28'>
         <img
-          src='/src/assets/logo-sn.webp'
+          src='/logo-sn.webp'
           alt='Logo Iglesia'
           className='w-[30rem] md:w-[33rem] lg:w-[37rem] xl:w-[45rem] pb-8 pt-[6rem] mx-auto'
         />
