@@ -204,7 +204,7 @@ export const PastorCreatePage = (): JSX.Element => {
                 name='lastNames'
                 render={({ field }) => {
                   return (
-                    <FormItem className='mt-3'>
+                    <FormItem className='mt-4'>
                       <FormLabel className='text-[14px] font-medium'>Apellidos</FormLabel>
                       <FormControl>
                         <Input
