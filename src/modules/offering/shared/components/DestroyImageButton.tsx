@@ -54,18 +54,18 @@ export const DestroyImageButton = ({
       </DialogTrigger>
       <DialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
         <div className='h-auto'>
-          <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-3 flex flex-col'>
-            <span>¿Estas seguro de inactivar a esta imagen?</span>
+          <h2 className='dark:text-yellow-500 text-amber-500 font-bold text-[22px] text-center md:text-[25px] pb-3 flex flex-col'>
+            <span>¿Estas seguro de eliminar esta imagen?</span>
           </h2>
           <p>
             <span className='text-green-500 font-bold mb-1 inline-block text-[15px] md:text-[17px]'>
               Recomendaciones
             </span>
             <br />
-            <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
+            <span className='inline-block mb-2 text-[14.5px] md:text-[15px]'>
               ✅ Para mayor seguridad, descarga la imagen y guárdala como respaldo.
             </span>
-            <span className='inline-block text-[14px] md:text-[15px]'>
+            <span className='inline-block text-[14.5px] md:text-[15px]'>
               ✅ Consulta con el administrador del sistema antes de ejecutar esta acción.
             </span>
 
@@ -73,16 +73,16 @@ export const DestroyImageButton = ({
               Consideraciones
             </span>
             <br />
-            <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
+            <span className='inline-block mb-2 text-[14.5px] md:text-[15px]'>
               ❌ Esta imagen se borrara del alojamiento en la nube y del registro de la ofrenda.
             </span>
-            <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
+            <span className='inline-block mb-2 text-[14.5px] md:text-[15px]'>
               ❌ No se podrá recuperar esta imagen después de ejecutar esta acción.
             </span>
 
             <br />
-            <span className='text-blue-500 font-bold inline-block mt-1 mb-1 text-[10.5px] md:text-[12.5px]'>
-              ☑ Nota: Al finalizar esta acción puedes seguir editando el formulario.
+            <span className='text-blue-500 font-bold inline-block mt-1 mb-1 text-[13.5px] md:text-[13.5px]'>
+              NOTA: Al finalizar esta acción puedes seguir editando el formulario.
             </span>
           </p>
         </div>
@@ -90,7 +90,7 @@ export const DestroyImageButton = ({
         <div className='flex justify-center md:justify-end gap-x-4'>
           <Button
             disabled={isButtonDisabled}
-            className='w-full md:w-auto bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
+            className='m-auto text-[14px] w-full border-1 border-red-500 bg-gradient-to-r from-red-400 via-red-500 to-red-600 text-white hover:text-red-100 hover:from-red-500 hover:via-red-600 hover:to-red-700 dark:from-red-600 dark:via-red-700 dark:to-red-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-red-700 dark:hover:via-red-800 dark:hover:to-red-900'
             onClick={() => {
               setIsCardOpen(false);
             }}
@@ -110,12 +110,12 @@ export const DestroyImageButton = ({
               removeCloudFile(secureUrl);
             }}
             className={cn(
-              'w-full md:w-auto bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]',
+              'm-auto text-[14px] w-full border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900',
               imageDeletionMutation?.isPending &&
                 'bg-emerald-500 disabled:opacity-100 disabled:md:text-[14.5px] text-white'
             )}
           >
-            {imageDeletionMutation?.isPending ? 'Procesando...' : 'Sí, inactivar'}
+            {imageDeletionMutation?.isPending ? 'Procesando...' : 'Sí, eliminar'}
           </Button>
         </div>
       </DialogContent>

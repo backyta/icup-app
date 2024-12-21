@@ -102,7 +102,7 @@ export function MembersInfoCard(): JSX.Element {
           <CardTitle className='font-bold md:pl-[7rem] lg:pl-[16rem] xl:pl-[4rem] 2xl:pl-[8.5rem] 3-xl:pl-[16rem] text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px] inline-block'>
             Discípulos Nuevos
           </CardTitle>
-          <CardDescription className='text-[13.5px] md:text-[14.5px] md:pl-[7rem] lg:pl-[16rem] xl:pl-[4rem] 2xl:pl-[8.5rem] 3-xl:pl-[16rem] text-center'>
+          <CardDescription className='text-[14px] md:text-[14.5px] md:pl-[7rem] lg:pl-[16rem] xl:pl-[4rem] 2xl:pl-[8.5rem] 3-xl:pl-[16rem] text-center'>
             Últimos discípulos registrados.
           </CardDescription>
         </CardHeader>
@@ -123,12 +123,12 @@ export function MembersInfoCard(): JSX.Element {
                         onOpenChange={setIsInputSearchChurchOpen}
                       >
                         <PopoverTrigger asChild>
-                          <FormControl>
+                          <FormControl className='text-[14px] md:text-[14px]'>
                             <Button
                               variant='outline'
                               role='combobox'
                               className={cn(
-                                'justify-between w-full text-center px-2 text-[12px] md:text-[14px]',
+                                'justify-between w-full text-center px-2 text-[13px] md:text-[14px]',
                                 !field.value &&
                                   'text-slate-500 dark:text-slate-200 font-normal px-2'
                               )}
@@ -154,13 +154,13 @@ export function MembersInfoCard(): JSX.Element {
                           <Command>
                             <CommandInput
                               placeholder='Busque una iglesia'
-                              className='h-9 text-[12px] md:text-[14px]'
+                              className='h-9 text-[13px] md:text-[14px]'
                             />
                             <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
                             <CommandGroup className='max-h-[100px] h-auto'>
                               {churchesQuery?.data?.map((church) => (
                                 <CommandItem
-                                  className='text-[12px] md:text-[14px]'
+                                  className='text-[14px] md:text-[14px]'
                                   value={church.churchCode}
                                   key={church.id}
                                   onSelect={() => {
@@ -182,7 +182,7 @@ export function MembersInfoCard(): JSX.Element {
                           </Command>
                         </PopoverContent>
                       </Popover>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}

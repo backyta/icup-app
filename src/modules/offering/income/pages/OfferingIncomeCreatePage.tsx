@@ -340,10 +340,10 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-green-600'>Modulo de Ingreso</PageTitle>
 
-      <h1 className='text-left leading-7 pb-2 pt-3 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h1 className='text-left leading-7 pb-[2px] pt-3 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear nuevo ingreso de ofrenda
       </h1>
-      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6  sm:pl-7 2xl:px-28 text-[12px] md:text-[15px] xl:text-base'>
+      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6 sm:pl-7 2xl:px-28 text-[13.5px] md:text-[15px] xl:text-base'>
         Por favor llena los siguientes datos para crear un nuevo registro de ingreso.
       </p>
 
@@ -358,22 +358,22 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 control={form.control}
                 name='churchId'
                 render={({ field }) => (
-                  <FormItem className='mt-3'>
+                  <FormItem>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                       Iglesia
                     </FormLabel>
-                    <FormDescription className='text-[14px]'>
+                    <FormDescription className='text-[13.5px] md:text-[14px]'>
                       Selecciona la iglesia de destino para este registro.
                     </FormDescription>
                     <Popover open={isInputChurchOpen} onOpenChange={setIsInputChurchOpen}>
                       <PopoverTrigger asChild>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Button
                             disabled={isInputDisabled}
                             variant='outline'
                             role='combobox'
                             className={cn(
-                              'w-full justify-between',
+                              'text-[14px] w-full justify-between',
                               !field.value && 'text-slate-500 font-normal'
                             )}
                           >
@@ -418,7 +418,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                             </>
                           ) : (
                             churchesQuery?.data?.length === 0 && (
-                              <p className='text-[14.5px] text-red-500 text-center'>
+                              <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                 ❌No hay iglesias disponibles.
                               </p>
                             )
@@ -426,7 +426,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                         </Command>
                       </PopoverContent>
                     </Popover>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 )}
               />
@@ -438,7 +438,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Tipo</FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna un tipo de ofrenda al nuevo registro.
                       </FormDescription>
                       <Select
@@ -446,7 +446,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                         value={field.value}
                         onValueChange={field.onChange}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona una tipo de ofrenda' />
@@ -457,13 +457,13 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                         </FormControl>
                         <SelectContent>
                           {Object.entries(OfferingIncomeCreationTypeNames).map(([key, value]) => (
-                            <SelectItem key={key} value={key}>
+                            <SelectItem className='text-[14px]' key={key} value={key}>
                               {value}
                             </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -479,7 +479,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                         <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                           Sub-Tipo
                         </FormLabel>
-                        <FormDescription className='text-[14px]'>
+                        <FormDescription className='text-[13.5px] md:text-[14px]'>
                           Asigna un sub-tipo de ofrenda al nuevo registro.
                         </FormDescription>
                         <Select
@@ -487,7 +487,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           value={field.value}
                           onValueChange={field.onChange}
                         >
-                          <FormControl>
+                          <FormControl className='text-[14px] md:text-[14px]'>
                             <SelectTrigger>
                               {field.value ? (
                                 <SelectValue placeholder='Selecciona una sub-tipo de ofrenda' />
@@ -499,14 +499,14 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           <SelectContent>
                             {Object.entries(OfferingIncomeCreationSubTypeNames).map(
                               ([key, value]) => (
-                                <SelectItem key={key} value={key}>
+                                <SelectItem className='text-[14px]' key={key} value={key}>
                                   {value}
                                 </SelectItem>
                               )
                             )}
                           </SelectContent>
                         </Select>
-                        <FormMessage />
+                        <FormMessage className='text-[13px]' />
                       </FormItem>
                     );
                   }}
@@ -523,7 +523,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                         <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                           Categoría
                         </FormLabel>
-                        <FormDescription className='text-[14px]'>
+                        <FormDescription className='text-[13.5px] md:text-[14px]'>
                           Asigna una categoría al nuevo registro.
                         </FormDescription>
                         <Select
@@ -531,7 +531,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           value={field.value}
                           onValueChange={field.onChange}
                         >
-                          <FormControl>
+                          <FormControl className='text-[14px] md:text-[14px]'>
                             <SelectTrigger>
                               {field.value ? (
                                 <SelectValue placeholder='Selecciona una categoría de ofrenda' />
@@ -599,7 +599,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                             )}
                           </SelectContent>
                         </Select>
-                        <FormMessage />
+                        <FormMessage className='text-[13px]' />
                       </FormItem>
                     );
                   }}
@@ -612,7 +612,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   name='isNewExternalDonor'
                   render={({ field }) => (
                     <FormItem className='flex flex-row gap-2 items-end mt-3 px-1 py-3 h-[2.5rem]'>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Checkbox
                           disabled={isInputDisabled}
                           checked={field?.value}
@@ -633,7 +633,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                         />
                       </FormControl>
                       <div className='space-y-1 leading-none'>
-                        <FormLabel className='text-[13px] md:text-[14px] cursor-pointer'>
+                        <FormLabel className='text-[14px] md:text-[14px] cursor-pointer'>
                           ¿Esta persona es un nuevo donante?
                         </FormLabel>
                       </div>
@@ -654,7 +654,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                             Donante
                           </FormLabel>
                           <div className='flex justify-between items-center h-[1.5rem]'>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna un donante para este registro.
                             </FormDescription>
 
@@ -680,9 +680,10 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                               </DialogContent>
                             </Dialog>
                           </div>
+
                           <Popover open={isInputDonorOpen} onOpenChange={setIsInputDonorOpen}>
                             <PopoverTrigger asChild>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Button
                                   disabled={isInputDisabled}
                                   variant='outline'
@@ -730,7 +731,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                       ))}
 
                                       {data?.length === 0 && (
-                                        <p className='text-[14.5px] text-red-500 text-center'>
+                                        <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                           ❌No hay donantes disponibles.
                                         </p>
                                       )}
@@ -738,7 +739,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   </>
                                 ) : (
                                   (!data || data?.length === 0) && (
-                                    <p className='text-[14.5px] text-red-500 text-center'>
+                                    <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                       ❌No hay donantes no disponibles.
                                     </p>
                                   )
@@ -746,7 +747,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                               </Command>
                             </PopoverContent>
                           </Popover>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       );
                     }}
@@ -774,7 +775,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   Requerido
                                 </span>
                               </div>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Input
                                   className='text-[14px]'
                                   disabled={isInputDisabled}
@@ -783,7 +784,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   {...field}
                                 />
                               </FormControl>
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -803,7 +804,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   Requerido
                                 </span>
                               </div>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Input
                                   disabled={isInputDisabled}
                                   placeholder='Ejem: Saavedra Ramirez'
@@ -811,7 +812,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   {...field}
                                 />
                               </FormControl>
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -838,7 +839,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                 value={field.value}
                                 disabled={isInputDisabled}
                               >
-                                <FormControl>
+                                <FormControl className='text-[14px] md:text-[14px]'>
                                   <SelectTrigger>
                                     {field.value ? (
                                       <SelectValue placeholder='Selecciona el tipo de Género' />
@@ -855,7 +856,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   ))}
                                 </SelectContent>
                               </Select>
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -884,7 +885,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                     disabled={isInputDisabled}
                                     variant={'outline'}
                                     className={cn(
-                                      'w-full pl-3 text-left font-normal',
+                                      'text-[14px] w-full pl-3 text-left font-normal',
                                       !field.value && 'text-muted-foreground'
                                     )}
                                   >
@@ -913,7 +914,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                               </PopoverContent>
                             </Popover>
 
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         )}
                       />
@@ -934,7 +935,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   Opcional
                                 </span>
                               </div>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Input
                                   disabled={isInputDisabled}
                                   placeholder='Ejem: pedro123@gmail.com'
@@ -943,7 +944,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   {...field}
                                 />
                               </FormControl>
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -963,7 +964,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   Opcional
                                 </span>
                               </div>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Input
                                   disabled={isInputDisabled}
                                   placeholder='Ejem: +51 999 999 999'
@@ -971,7 +972,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   {...field}
                                 />
                               </FormControl>
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -993,7 +994,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   Opcional
                                 </span>
                               </div>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Input
                                   disabled={isInputDisabled}
                                   placeholder='Ejem:  EE.UU, Italia, Mexico...'
@@ -1001,7 +1002,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   {...field}
                                 />
                               </FormControl>
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -1021,7 +1022,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   Opcional
                                 </span>
                               </div>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Input
                                   disabled={isInputDisabled}
                                   placeholder='Ejem: Perú , Colombia, Argentina...'
@@ -1029,7 +1030,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   {...field}
                                 />
                               </FormControl>
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -1051,7 +1052,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   Opcional
                                 </span>
                               </div>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Input
                                   disabled={isInputDisabled}
                                   placeholder='Ejem:  Madrid, Paris, Lima...'
@@ -1059,7 +1060,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   {...field}
                                 />
                               </FormControl>
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -1079,7 +1080,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   Opcional
                                 </span>
                               </div>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Input
                                   disabled={isInputDisabled}
                                   placeholder='Ejem:  000133, 000154...'
@@ -1087,8 +1088,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   {...field}
                                 />
                               </FormControl>
-                              <FormMessage />
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -1123,7 +1124,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           value={field.value}
                           disabled={isInputDisabled}
                         >
-                          <FormControl>
+                          <FormControl className='text-[14px] md:text-[14px]'>
                             <SelectTrigger>
                               {field.value ? (
                                 <SelectValue placeholder='Selecciona el tipo de miembro' />
@@ -1143,7 +1144,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                             )}
                           </SelectContent>
                         </Select>
-                        <FormMessage />
+                        <FormMessage className='text-[13px]' />
                       </FormItem>
                     );
                   }}
@@ -1170,7 +1171,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Miembro
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Seleccione un miembro para asignarlo al registro.
                       </FormDescription>
                       {disciplesQuery?.isFetching ||
@@ -1184,7 +1185,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                       ) : (
                         <Popover open={isInputMemberOpen} onOpenChange={setIsInputMemberOpen}>
                           <PopoverTrigger asChild>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Button
                                 disabled={isInputMemberDisabled}
                                 variant='outline'
@@ -1237,7 +1238,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                 </>
                               ) : (
                                 queryData?.length === 0 && (
-                                  <p className='text-[14.5px] text-red-500 text-center'>
+                                  <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                     ❌No hay miembros disponibles.
                                   </p>
                                 )
@@ -1246,7 +1247,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           </PopoverContent>
                         </Popover>
                       )}
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   )}
                 />
@@ -1263,7 +1264,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                         <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                           Grupo Familiar
                         </FormLabel>
-                        <FormDescription className='text-[14px]'>
+                        <FormDescription className='text-[13.5px] md:text-[14px]'>
                           Seleccione un grupo familiar para asignarlo al registro.
                         </FormDescription>
                         <Popover
@@ -1271,7 +1272,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           onOpenChange={setIsInputFamilyGroupOpen}
                         >
                           <PopoverTrigger asChild>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Button
                                 disabled={isInputDisabled}
                                 variant='outline'
@@ -1327,7 +1328,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                 </>
                               ) : (
                                 familyGroupsQuery?.data?.length === 0 && (
-                                  <p className='text-[14.5px] text-red-500 text-center'>
+                                  <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                     ❌No hay grupos familiares disponibles.
                                   </p>
                                 )
@@ -1336,7 +1337,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           </PopoverContent>
                         </Popover>
 
-                        <FormMessage />
+                        <FormMessage className='text-[13px]' />
                       </FormItem>
                     )}
                   />
@@ -1354,12 +1355,12 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   render={({ field }) => (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Zona</FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Seleccione una zona para asignarlo al registro.
                       </FormDescription>
                       <Popover open={isInputZoneOpen} onOpenChange={setIsInputZoneOpen}>
                         <PopoverTrigger asChild>
-                          <FormControl>
+                          <FormControl className='text-[14px] md:text-[14px]'>
                             <Button
                               disabled={isInputDisabled}
                               variant='outline'
@@ -1410,7 +1411,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                               </>
                             ) : (
                               zonesQuery?.data?.length === 0 && (
-                                <p className='text-[14.5px] text-red-500 text-center'>
+                                <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                   ❌No hay zonas disponibles.
                                 </p>
                               )
@@ -1418,7 +1419,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           </Command>
                         </PopoverContent>
                       </Popover>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   )}
                 />
@@ -1436,7 +1437,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                             Turno
                           </FormLabel>
-                          <FormDescription className='text-[14px]'>
+                          <FormDescription className='text-[13.5px] md:text-[14px]'>
                             Elige el turno de la ofrenda para el registro.
                           </FormDescription>
                           <Select
@@ -1444,7 +1445,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                             value={field.value}
                             onValueChange={field.onChange}
                           >
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <SelectTrigger>
                                 {field.value ? (
                                   <SelectValue placeholder='Selecciona un turno para la ofrenda' />
@@ -1463,7 +1464,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                               )}
                             </SelectContent>
                           </Select>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       );
                     }}
@@ -1479,10 +1480,10 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Monto
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Digita la cantidad o monto de la ofrenda.
                       </FormDescription>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
                           disabled={isInputDisabled}
                           placeholder='Monto total de la ofrenda'
@@ -1490,7 +1491,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -1505,7 +1506,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Divisa / Moneda
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asignar un tipo de divisa o moneda al registro.
                       </FormDescription>
                       <Select
@@ -1513,7 +1514,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                         value={field.value}
                         onValueChange={field.onChange}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona una tipo de divisa o moneda' />
@@ -1530,7 +1531,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -1542,26 +1543,24 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 render={({ field }) => (
                   <FormItem className='mt-3'>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Fecha</FormLabel>
-                    <FormDescription className='text-[14px]'>
+                    <FormDescription className='text-[13.5px] md:text-[14px]'>
                       Elige la fecha de deposito de la ofrenda.
                     </FormDescription>
                     <Popover open={isInputDateOpen} onOpenChange={setIsInputDateOpen}>
                       <PopoverTrigger asChild>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Button
                             disabled={isInputDisabled}
                             variant={'outline'}
                             className={cn(
-                              'w-full pl-3 text-left font-normal',
+                              'text-[14px] w-full pl-3 text-left font-normal',
                               !field.value && 'text-muted-foreground'
                             )}
                           >
                             {field.value ? (
                               format(field.value, 'LLL dd, y', { locale: es })
                             ) : (
-                              <span className='text-sm md:text-[12px] lg:text-sm'>
-                                Seleccione la fecha de la ofrenda
-                              </span>
+                              <span className='text-[14px]'>Seleccione la fecha de la ofrenda</span>
                             )}
                             <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                           </Button>
@@ -1592,7 +1591,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                         />
                       </PopoverContent>
                     </Popover>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 )}
               />
@@ -1621,7 +1620,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           Escribe una breve descripción sobre el ajuste
                         </FormDescription>
                       )}
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Textarea
                           disabled={isInputDisabled}
                           placeholder={`${
@@ -1632,7 +1631,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -1647,16 +1646,16 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3 md:mt-0'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
-                        Subir imagen{' '}
+                        Subir imagen
                         <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
                           Opcional
                         </span>
                       </FormLabel>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <div
                           {...getRootProps({
                             className:
-                              'font-medium text-sm sm:text-[15px] p-10 sm:p-12 md:p-16 max-w-[25rem] md:max-w-[25rem] m-auto border border-dashed border-black dark:border-white hover:bg-green-200 dark:hover:text-black ease-in duration-200 text-center',
+                              'h-[10rem] font-medium text-sm sm:text-[15px] p-10 sm:p-12 md:p-16 max-w-[25rem] md:max-w-[25rem] m-auto border border-dashed border-black dark:border-white hover:bg-green-200 dark:hover:text-black ease-in duration-200 text-center',
                           })}
                         >
                           <input {...getInputProps()} className='m-auto w-[20rem]' />
@@ -1664,19 +1663,20 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           {isDragActive ? (
                             <p>Suelte sus archivos aquí ...</p>
                           ) : (
-                            <p>
+                            <p className='pt-5 md:pt-0'>
                               Arrastre y suelte sus archivos aquí, o haga clic para seleccionar.
                             </p>
                           )}
                         </div>
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
+
                       {files && files.length > 3 ? (
-                        <span className='text-red-500 font-bold text-[11.5px] md:text-[12.5px] text-center mx-auto justify-center flex'>
+                        <span className='text-red-500 font-bold text-[12.5px] md:text-[13.5px] text-center mx-auto justify-center flex'>
                           ❌ Sobrepasa el limite, elige como máximo solo 3 imágenes.
                         </span>
                       ) : (
-                        <span className='font-bold text-[11.5px] md:text-[12.5px] pl-6 mt-1 flex flex-col'>
+                        <span className='font-bold text-[12.5px] md:text-[13.5px] pl-3 md:pl-6 mt-1 flex flex-col'>
                           <span>✅ Máximo 3 archivos.</span>
                           <span>✅ El campo se bloqueara al llegar o pasar los 3 archivos.</span>
                         </span>
@@ -1693,7 +1693,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                     type='button'
                     disabled={isDeleteFileButtonDisabled}
                     onClick={removeAll}
-                    className='mt-1 text-[10.5px] md:text-[11px] w-[8rem] md:w-[10rem] p-2 uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md  hover:bg-secondary-400 hover:text-white ease-in duration-200 hover:bg-red-500 transition-colors'
+                    className='mt-1 text-[11px] md:text-[11px] w-[8rem] md:w-[10rem] p-2 uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md  hover:bg-secondary-400 hover:text-white ease-in duration-200 hover:bg-red-500 transition-colors'
                   >
                     Remover todos los archivos
                   </button>
@@ -1780,7 +1780,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 disabled={isSubmitButtonDisabled}
                 type='submit'
                 className={cn(
-                  'w-full text-[14px] md:text-[14.5px]',
+                  'w-full text-[14px]',
                   uploadImagesMutation?.isPending &&
                     'bg-emerald-500 disabled:opacity-100 disabled:md:text-[14.5px] text-white'
                 )}

@@ -177,7 +177,7 @@ export const ChurchUpdateForm = ({
 
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
-              <div className='italic dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] pl-0 mb-4 md:pl-4'>
+              <div className='italic dark:text-slate-300 text-slate-500 font-bold text-[16.5px] md:text-[18px] pl-0 mb-4 md:pl-4'>
                 Iglesia: {data?.abbreviatedChurchName} ~ {data?.district}
               </div>
               <Form {...form}>
@@ -191,22 +191,23 @@ export const ChurchUpdateForm = ({
                       name='churchName'
                       render={({ field }) => {
                         return (
-                          <FormItem>
+                          <FormItem className='mt-0 md:mt-0'>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Nombre
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna un nombre a la iglesia.
                             </FormDescription>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
+                                className='text-[14px]'
                                 disabled={isInputDisabled}
                                 placeholder='Ejem: Iglesia Cristiana Unidos en su Presencia - Roca Fuerte'
                                 type='text'
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -221,18 +222,19 @@ export const ChurchUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Nombre abreviado
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna una abreviación de nombre a la iglesia.
                             </FormDescription>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
+                                className='text-[14px]'
                                 disabled={isInputDisabled}
                                 placeholder='Ejem: ICUP - Roca Fuerte'
                                 type='text'
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -246,7 +248,7 @@ export const ChurchUpdateForm = ({
                           <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                             Fecha de fundación
                           </FormLabel>
-                          <FormDescription className='text-[14px]'>
+                          <FormDescription className='text-[13.5px] md:text-[14px]'>
                             Asigna la fecha de fundación de la iglesia.
                           </FormDescription>
                           <Popover
@@ -254,19 +256,19 @@ export const ChurchUpdateForm = ({
                             onOpenChange={setIsInputFoundingDateOpen}
                           >
                             <PopoverTrigger asChild>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Button
                                   disabled={isInputDisabled}
                                   variant={'outline'}
                                   className={cn(
-                                    'w-full pl-3 text-left font-normal',
+                                    'text-[14px] w-full pl-3 text-left font-normal',
                                     !field.value && 'text-muted-foreground'
                                   )}
                                 >
                                   {field.value ? (
                                     format(field.value, 'LLL dd, y', { locale: es })
                                   ) : (
-                                    <span className='text-sm md:text-[14px] lg:text-sm'>
+                                    <span className='text-[14px] md:text-[14px]'>
                                       Selecciona la fecha de fundación
                                     </span>
                                   )}
@@ -289,10 +291,8 @@ export const ChurchUpdateForm = ({
                               />
                             </PopoverContent>
                           </Popover>
-                          <FormDescription className='pl-2 text-blue-600 text-[11.5px] xl:text-[12.5px] font-bold italic'>
-                            * Fecha en la que se fundo o se creo la iglesia.
-                          </FormDescription>
-                          <FormMessage />
+
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -306,7 +306,7 @@ export const ChurchUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Horarios
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Selecciona los horarios de culto que tendrá la nueva iglesia.
                             </FormDescription>
                           </div>
@@ -320,7 +320,7 @@ export const ChurchUpdateForm = ({
                                   return (
                                     <FormItem
                                       key={serviceTime}
-                                      className='flex items-center space-x-2 space-y-0'
+                                      className='text-[14px] flex items-center space-x-2 space-y-0'
                                     >
                                       <FormControl className='grid'>
                                         <Checkbox
@@ -350,7 +350,7 @@ export const ChurchUpdateForm = ({
                               />
                             ))}
                           </div>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -364,11 +364,12 @@ export const ChurchUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               E-mail
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna un e-mail a la iglesia.
                             </FormDescription>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
+                                className='text-[14px]'
                                 disabled={isInputDisabled}
                                 placeholder='Ejem: iglesia.central@example.com'
                                 type='email'
@@ -376,7 +377,7 @@ export const ChurchUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -391,18 +392,19 @@ export const ChurchUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Número de teléfono
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigne un número telefónico que tendrá la iglesia.
                             </FormDescription>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
+                                className='text-[14px]'
                                 disabled={isInputDisabled}
                                 placeholder='Ejem: +51 999 999 999'
                                 type='text'
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -417,7 +419,7 @@ export const ChurchUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               País
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna el país al que pertenece la iglesia.
                             </FormDescription>
                             <Select
@@ -425,7 +427,7 @@ export const ChurchUpdateForm = ({
                               onValueChange={field.onChange}
                               value={field.value}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el país' />
@@ -442,7 +444,7 @@ export const ChurchUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -457,7 +459,7 @@ export const ChurchUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Departamento
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna el departamento al que pertenece la iglesia.
                             </FormDescription>
                             <Select
@@ -465,7 +467,7 @@ export const ChurchUpdateForm = ({
                               onValueChange={field.onChange}
                               value={field.value}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el departamento' />
@@ -482,7 +484,7 @@ export const ChurchUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -495,11 +497,11 @@ export const ChurchUpdateForm = ({
                       name='province'
                       render={({ field }) => {
                         return (
-                          <FormItem>
+                          <FormItem className=''>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Provincia
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna la provincia a la que pertenece la iglesia.
                             </FormDescription>
                             <Select
@@ -507,7 +509,7 @@ export const ChurchUpdateForm = ({
                               onValueChange={field.onChange}
                               value={field.value}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona la provincia' />
@@ -524,7 +526,7 @@ export const ChurchUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -539,7 +541,7 @@ export const ChurchUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Distrito
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna el distrito al que pertenece la iglesia.
                             </FormDescription>
                             <Select
@@ -552,7 +554,7 @@ export const ChurchUpdateForm = ({
                               }}
                               value={field.value}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el distrito' />
@@ -573,7 +575,7 @@ export const ChurchUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -588,7 +590,7 @@ export const ChurchUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Sector Urbano
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna el sector urbano al que pertenece la iglesia.
                             </FormDescription>
                             <Select
@@ -596,7 +598,7 @@ export const ChurchUpdateForm = ({
                               onValueChange={field.onChange}
                               value={field.value}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el sector urbano' />
@@ -617,7 +619,7 @@ export const ChurchUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -632,18 +634,19 @@ export const ChurchUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Dirección
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna la dirección de la iglesia.
                             </FormDescription>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
+                                className='text-[14px]'
                                 disabled={isInputDisabled}
                                 placeholder='Ej: Av. Central 123 - Mz.A Lt.3'
                                 type='text'
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -658,14 +661,14 @@ export const ChurchUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Referencia de dirección
                             </FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Textarea
                                 disabled={isInputDisabled}
                                 placeholder='Comentarios sobre la ubicación de referencia de la iglesia...'
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -676,7 +679,7 @@ export const ChurchUpdateForm = ({
                       name='isAnexe'
                       render={({ field }) => (
                         <FormItem className='flex flex-row gap-2 items-end mt-2 px-1 py-3 h-[2.5rem]'>
-                          <FormControl>
+                          <FormControl className='text-[14px] md:text-[14px]'>
                             <Checkbox
                               disabled={isInputDisabled}
                               checked={field?.value}
@@ -689,7 +692,7 @@ export const ChurchUpdateForm = ({
                             />
                           </FormControl>
                           <div className='space-y-1 leading-none'>
-                            <FormLabel className='text-[13px] md:text-[14px]'>
+                            <FormLabel className='text-[14px] md:text-[14px]'>
                               ¿Esta iglesia sera un anexo?
                             </FormLabel>
                           </div>
@@ -707,7 +710,7 @@ export const ChurchUpdateForm = ({
                               <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                                 Iglesia Principal
                               </FormLabel>
-                              <FormDescription className='text-[14px]'>
+                              <FormDescription className='text-[13.5px] md:text-[14px]'>
                                 Asigna una iglesia principal para este anexo.
                               </FormDescription>
                               <Popover
@@ -715,13 +718,13 @@ export const ChurchUpdateForm = ({
                                 onOpenChange={setIsInputMainChurchOpen}
                               >
                                 <PopoverTrigger asChild>
-                                  <FormControl>
+                                  <FormControl className='text-[14px] md:text-[14px]'>
                                     <Button
                                       value={field.value}
                                       disabled={isInputDisabled}
                                       variant='outline'
                                       role='combobox'
-                                      className={cn('w-full justify-between ')}
+                                      className={cn('text-[14px] w-full justify-between ')}
                                     >
                                       {field.value
                                         ? mainChurchQuery?.data?.find(
@@ -768,7 +771,7 @@ export const ChurchUpdateForm = ({
                                       </>
                                     ) : (
                                       mainChurchQuery?.data?.length === 0 && (
-                                        <p className='text-[14.5px] text-red-500 text-center'>
+                                        <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                           ❌Iglesia Central no disponible.
                                         </p>
                                       )
@@ -776,7 +779,7 @@ export const ChurchUpdateForm = ({
                                   </Command>
                                 </PopoverContent>
                               </Popover>
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -814,7 +817,7 @@ export const ChurchUpdateForm = ({
                               </SelectContent>
                             </Select>
                             {form.getValues('recordStatus') === 'active' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>Activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
                                 debe inactivar el registro desde el modulo{' '}
@@ -822,12 +825,12 @@ export const ChurchUpdateForm = ({
                               </FormDescription>
                             )}
                             {form.getValues('recordStatus') === 'inactive' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                                 * El registro esta <span className='text-red-500 '>Inactivo</span>,
                                 puede modificar el estado eligiendo otra opción.
                               </FormDescription>
                             )}
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}

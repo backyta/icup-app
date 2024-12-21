@@ -60,6 +60,7 @@ import {
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
 import { getSimpleChurches } from '@/modules/church/services/church.service';
+import { Trash } from 'lucide-react';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -208,10 +209,10 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
         <div>
           {/* Search Types */}
           <div>
-            <span className='dark:text-offering-color text-search-color font-bold text-[14px] md:text-[15.5px]'>
+            <span className='text-amber-500 dark:text-offering-color font-bold text-[14.5px] md:text-[15.5px]'>
               Tipo de búsqueda:
             </span>{' '}
-            <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+            <span className='font-medium text-[14px] md:text-[14.5px] italic'>
               {`${
                 Object.entries(OfferingIncomeSearchTypeNames).find(
                   ([key, value]) => key === dataForm?.searchType && value
@@ -231,7 +232,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               dataForm?.searchType === OfferingIncomeSearchType.YouthService ||
               dataForm?.searchType === OfferingIncomeSearchType.ZonalFasting ||
               dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil) && (
-              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+              <span className='font-medium text-[14px] md:text-[14.5px] italic'>
                 {' '}
                 ~{' '}
                 {`${
@@ -245,7 +246,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
 
           {/* Search Terms */}
           <div>
-            <span className='text-indigo-500 font-bold text-[14px] md:text-[15.5px]'>
+            <span className='text-indigo-500 font-bold text-[14.5px] md:text-[15.5px]'>
               Término de búsqueda:
             </span>{' '}
             {(dataForm?.searchType === OfferingIncomeSearchType.ChurchGround ||
@@ -258,7 +259,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
                   OfferingIncomeSearchSubType.OfferingByContributorLastNames ||
                 dataForm?.searchSubType ===
                   OfferingIncomeSearchSubType.OfferingByContributorFullNames) && (
-                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                <span className='font-medium text-[14px] md:text-[14.5px] italic'>
                   {`${
                     Object.entries(OfferingIncomeSearchSelectOptionNames).find(
                       ([key, value]) => key === dataForm?.selectTerm && value
@@ -273,7 +274,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
                 dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCodeDate ||
                 dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByZone ||
                 dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate) && (
-                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                <span className='font-medium text-[14px] md:text-[14.5px] italic'>
                   {`${dataForm?.inputTerm}`}
                 </span>
               )}
@@ -290,7 +291,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
                   OfferingIncomeSearchSubType.OfferingByPreacherFirstNames ||
                 dataForm?.searchSubType ===
                   OfferingIncomeSearchSubType.OfferingBySupervisorFirstNames) && (
-                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                <span className='font-medium text-[14px] md:text-[14.5px] italic'>
                   {`${dataForm?.firstNamesTerm ? dataForm?.firstNamesTerm : 'Todos'}`}
                 </span>
               )}
@@ -307,7 +308,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
                   OfferingIncomeSearchSubType.OfferingByPreacherLastNames ||
                 dataForm?.searchSubType ===
                   OfferingIncomeSearchSubType.OfferingBySupervisorLastNames) && (
-                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                <span className='font-medium text-[14px] md:text-[14.5px] italic'>
                   {`${dataForm?.lastNamesTerm ? dataForm?.lastNamesTerm : 'Todos'}`}
                 </span>
               )}
@@ -324,7 +325,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
                   OfferingIncomeSearchSubType.OfferingByPreacherFullNames ||
                 dataForm?.searchSubType ===
                   OfferingIncomeSearchSubType.OfferingBySupervisorFullNames) && (
-                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                <span className='font-medium text-[14px] md:text-[14.5px] italic'>
                   {`${dataForm?.firstNamesTerm ? dataForm?.firstNamesTerm : 'Todos'} ${dataForm?.lastNamesTerm ? dataForm?.lastNamesTerm : 'Todos'} `}
                 </span>
               )}
@@ -345,7 +346,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
                 dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCodeDate ||
                 dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate ||
                 dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate) && (
-                <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+                <span className='font-medium text-[14px] md:text-[14.5px] italic'>
                   {dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByZoneDate ||
                   dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCodeDate
                     ? ` - ${dataForm?.dateTerm?.from ? dateFormatterToDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${dateFormatterToDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`
@@ -357,7 +358,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               (dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByShift ||
                 dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate)) ||
               dataForm?.searchType === OfferingIncomeSearchType.RecordStatus) && (
-              <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+              <span className='font-medium text-[14px] md:text-[14.5px] italic'>
                 {dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate
                   ? ` - ${
                       Object.entries(OfferingIncomeSearchSelectOptionNames).find(
@@ -375,10 +376,10 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
 
           {/* Search Church */}
           <div>
-            <span className='dark:text-emerald-500 text-emerald-600 font-bold text-[14px] md:text-[15.5px]'>
-              Iglesia de Búsqueda:
+            <span className='dark:text-emerald-500 text-emerald-600 font-bold text-[14.5px] md:text-[15.5px]'>
+              Iglesia de búsqueda:
             </span>{' '}
-            <span className='font-medium text-[13px] md:text-[14.5px] italic'>
+            <span className='font-medium text-[14px] md:text-[14.5px] italic'>
               {`${
                 churchesQuery?.data?.find((church) => church.id === dataForm?.churchId)
                   ?.abbreviatedChurchName ?? 'Todas las Iglesias'
@@ -387,36 +388,39 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
           </div>
 
           {/* Inputs Filters */}
-          <div className='pb-8 pt-4 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-6'>
-            <Input
-              disabled={isDisabledButton}
-              placeholder='Filtro por tipo..'
-              value={(table.getColumn('type')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('type')?.setFilterValue(event.target.value)}
-              className='text-[13px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
-            />
-            <Input
-              disabled={isDisabledButton}
-              placeholder='Filtro por sub-tipo...'
-              value={(table.getColumn('subType')?.getFilterValue() as string) ?? ''}
-              onChange={(event) => table.getColumn('subType')?.setFilterValue(event.target.value)}
-              className='col-start-2 col-end-3 row-start-1 row-end-2 text-[13px] lg:text-[14px] w-full'
-            />
+          <div className='pb-8 pt-4 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-3'>
+            <div className='flex w-full col-span-2 gap-2 md:gap-3 md:row-start-1 md:row-end-2'>
+              <Input
+                disabled={isDisabledButton}
+                placeholder='Tipo...'
+                value={(table.getColumn('type')?.getFilterValue() as string) ?? ''}
+                onChange={(event) => table.getColumn('type')?.setFilterValue(event.target.value)}
+                className='text-[14px] lg:text-[14px] w-full col-start-1 col-end-2 row-start-1 row-end-2'
+              />
+              <Input
+                disabled={isDisabledButton}
+                placeholder='Sub-tipo...'
+                value={(table.getColumn('subType')?.getFilterValue() as string) ?? ''}
+                onChange={(event) => table.getColumn('subType')?.setFilterValue(event.target.value)}
+                className='col-start-2 col-end-3 row-start-1 row-end-2 text-[14px] lg:text-[14px] w-full'
+              />
+              <Button
+                disabled={isDisabledButton}
+                variant='ghost'
+                className='w-[15%] col-start-2 col-end-3 row-start-2 row-end-3 m-auto text-[14px] lg:text-[14px] h-full md:w-[5rem] px-4 py-2 border-1 border-red-500 bg-gradient-to-r from-red-400 via-red-500 to-red-600 text-white hover:text-red-100 hover:from-red-500 hover:via-red-600 hover:to-red-700 dark:from-red-600 dark:via-red-700 dark:to-red-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-red-700 dark:hover:via-red-800 dark:hover:to-red-900'
+                onClick={() => {
+                  table.getColumn('type')?.setFilterValue('');
+                  table.getColumn('subType')?.setFilterValue('');
+                }}
+              >
+                <Trash />
+              </Button>
+            </div>
+
             <Button
               disabled={isDisabledButton}
               variant='ghost'
-              className='col-start-2 col-end-3 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-[8rem] px-4 py-2 border-1 border-red-500 bg-gradient-to-r from-red-400 via-red-500 to-red-600 text-white hover:text-red-100 hover:from-red-500 hover:via-red-600 hover:to-red-700 dark:from-red-600 dark:via-red-700 dark:to-red-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-red-700 dark:hover:via-red-800 dark:hover:to-red-900'
-              onClick={() => {
-                table.getColumn('type')?.setFilterValue('');
-                table.getColumn('subType')?.setFilterValue('');
-              }}
-            >
-              Borrar
-            </Button>
-            <Button
-              disabled={isDisabledButton}
-              variant='ghost'
-              className='col-start-1 col-end-2 row-start-2 row-end-3 w-full m-auto text-[13px] lg:text-[14px] h-full md:w-[15rem] lg:w-auto px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
+              className='col-start-1 col-end-3 row-start-2 row-end-3 md:row-start-1 md:row-end-2 md:col-start-3 w-full m-auto text-[14px] lg:text-[14px] h-full md:w-[15rem] px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
               onClick={() => {
                 setIsFiltersSearchByTermDisabled(true);
                 table.getColumn('type')?.setFilterValue('');
@@ -456,7 +460,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               {table?.getRowModel()?.rows?.length ? (
                 table?.getRowModel()?.rows.map((row) => (
                   <TableRow
-                    className='text-center font-normal text-[13px] lg:text-[14px]'
+                    className='text-center font-normal text-[14px] lg:text-[14px]'
                     key={row.id}
                     data-state={row.getIsSelected() && 'selected'}
                   >
@@ -486,7 +490,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               type='submit'
               variant='ghost'
               className={cn(
-                'px-4 py-3 text-[15px] font-semibold rounded-lg shadow-lg transition-transform transform focus:outline-none focus:ring-red-300',
+                'px-4 py-3 text-[14px] font-semibold rounded-lg shadow-lg transition-transform transform focus:outline-none focus:ring-red-300',
                 !generateReportQuery.isFetching &&
                   'text-white hover:text-white dark:text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:via-amber-700 hover:to-amber-800',
                 generateReportQuery.isFetching &&
@@ -506,7 +510,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
 
           <div>
             <Button
-              className='text-[13px] lg:text-sm'
+              className='text-[14px] lg:text-[14px]'
               variant='outline'
               size='sm'
               onClick={() => {
@@ -517,7 +521,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               Anterior
             </Button>
             <Button
-              className='text-[13px] lg:text-sm'
+              className='text-[14px] lg:text-[14px]'
               variant='outline'
               size='sm'
               onClick={() => {
@@ -533,7 +537,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
 
       {searchParams && query?.isPending && (
         <div className='py-10'>
-          <LoadingSpinner />
+          <LoadingSpinner isPendingRequest={query?.isPending} />
         </div>
       )}
     </div>

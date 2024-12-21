@@ -5,7 +5,7 @@ export const Root = (): JSX.Element => {
   const { pathname } = useLocation();
 
   if (pathname === '/') {
-    return <Navigate to='/dashboard' />;
+    return <Navigate to='/auth/login' />;
   }
 
   return (

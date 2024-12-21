@@ -53,7 +53,7 @@ export const pastorSearchByTermFormSchema  = z
     },
     {
       message: 'El nombre es requerido.',
-      path: ['namesTerm'],
+      path: ['firstNamesTerm'],
     }
   )
   .refine(
@@ -96,7 +96,7 @@ export const pastorSearchByTermFormSchema  = z
     },
     {
       message: 'El apellido es requerido.',
-      path: ['namesTerm'],
+      path: ['firstNamesTerm'],
     }
   )
   .refine(

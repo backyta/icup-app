@@ -21,7 +21,7 @@ export const zoneInactivateColumns: Array<ColumnDef<ZoneColumns, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='font-bold text-[13px] md:text-[14px]'
+          className='font-bold text-[14px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -39,7 +39,7 @@ export const zoneInactivateColumns: Array<ColumnDef<ZoneColumns, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='font-bold text-[13px] md:text-[14px]'
+          className='font-bold text-[14px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -57,7 +57,7 @@ export const zoneInactivateColumns: Array<ColumnDef<ZoneColumns, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='font-bold text-[13px] md:text-[14px]'
+          className='font-bold text-[14px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -75,7 +75,7 @@ export const zoneInactivateColumns: Array<ColumnDef<ZoneColumns, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='font-bold text-[13px] md:text-[14px]'
+          className='font-bold text-[14px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -93,7 +93,7 @@ export const zoneInactivateColumns: Array<ColumnDef<ZoneColumns, any>> = [
     header: ({ column }) => {
       return (
         <Button
-          className='font-bold text-[13px] md:text-[14px]'
+          className='font-bold text-[14px] md:text-[14px]'
           variant='ghost'
           onClick={() => {
             column.toggleSorting(column.getIsSorted() === 'asc');
@@ -115,7 +115,7 @@ export const zoneInactivateColumns: Array<ColumnDef<ZoneColumns, any>> = [
     header: () => {
       return (
         <Button
-          className='font-bold text-[13px] md:text-[14px] text-blue-500 hover:text-blue-500'
+          className='font-bold text-[14px] md:text-[14px] text-blue-500 hover:text-blue-500'
           variant='ghost'
         >
           Info
@@ -133,7 +133,7 @@ export const zoneInactivateColumns: Array<ColumnDef<ZoneColumns, any>> = [
     header: () => {
       return (
         <Button
-          className='font-bold text-[13px] md:text-[14px] text-red-500 hover:text-red-500'
+          className='font-bold text-[14px] md:text-[14px] text-red-500 hover:text-red-500'
           variant='ghost'
         >
           Inactivar

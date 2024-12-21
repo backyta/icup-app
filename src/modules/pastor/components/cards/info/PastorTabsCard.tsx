@@ -69,13 +69,13 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full grid-cols-3 px-auto'>
-        <TabsTrigger value='general-info' className='text-[14px] md:text-[15px]'>
-          Info. General
+        <TabsTrigger value='general-info' className='text-[14.5px] md:text-[15px]'>
+          General
         </TabsTrigger>
-        <TabsTrigger value='ecclesiastical-info' className='text-[13.5px] md:text-[15px]'>
-          Info. Eclesiástica
+        <TabsTrigger value='ecclesiastical-info' className='text-[14.5px] md:text-[15px]'>
+          Eclesiástica
         </TabsTrigger>
-        <TabsTrigger value='contact-info' className='text-[14px] md:text-[15px]'>
+        <TabsTrigger value='contact-info' className='text-[14.5px] md:text-[15px]'>
           Contacto
         </TabsTrigger>
       </TabsList>
@@ -206,7 +206,7 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
                 title={'Zonas'}
                 moduleName={'Pastor'}
                 firstValue={'zoneName'}
-                secondValue={'urbanSector'}
+                secondValue={'district'}
               />
             </div>
 
@@ -380,7 +380,7 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid  grid-cols-2 pl-[3.5rem] gap-x-6 gap-y-4 md:gap-x-4 md:gap-y-6 md:pl-[6rem] md:pr-[3rem]'>
+          <CardContent className='grid grid-cols-2 pl-[2rem] pr-[0.5rem] gap-x-8 gap-y-4 md:gap-x-4 md:gap-y-6 md:pl-[6rem] md:pr-[3rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Roles de Membresía</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -478,10 +478,10 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid grid-cols-2 pl-[3rem] sm:pl-[6rem] gap-x-8 gap-y-4  md:gap-x-16 md:gap-y-6 md:pl-[6.5rem] md:pr-[2.5rem]'>
+          <CardContent className='grid grid-cols-2 pl-[2rem] pr-[1rem] sm:pl-[6rem] gap-x-8 gap-y-4 md:gap-x-16 md:gap-y-6 md:pl-[6.5rem] md:pr-[2.5rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Correo Electrónico</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+              <CardDescription className='px-2 break-words text-[14px] md:text-[14.5px]'>
                 {data?.member?.email ?? '-'}
               </CardDescription>
             </div>

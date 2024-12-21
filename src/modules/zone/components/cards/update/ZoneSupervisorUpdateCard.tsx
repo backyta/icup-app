@@ -81,7 +81,7 @@ export const ZoneSupervisorUpdateCard = ({
 
       <DialogContent
         ref={topRef}
-        className='max-w-auto sm:max-w-[530px] w-full max-h-full justify-center pt-6 pb-4 px-8 overflow-y-auto overflow-x-hidden'
+        className='max-w-auto sm:max-w-[530px] w-full max-h-full justify-center pt-6 pb-4 px-6 overflow-y-auto overflow-x-hidden'
       >
         <ZoneSupervisorUpdateForm
           id={idRow}

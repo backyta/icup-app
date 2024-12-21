@@ -88,7 +88,7 @@ export const ChurchesGeneralSearchPage = (): JSX.Element => {
       limit: '10',
       offset: '0',
       all: false,
-      order: RecordOrder.Ascending,
+      order: RecordOrder.Descending,
     },
   });
 
@@ -136,7 +136,7 @@ export const ChurchesGeneralSearchPage = (): JSX.Element => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className='grid grid-cols-2 gap-y-2 gap-x-4 items-end mb-10 md:mb-10 lg:flex lg:justify-between 2xl:justify-normal'
+              className='grid grid-cols-2 gap-y-2 md:gap-x-2 items-end mb-8 md:mb-10 lg:flex lg:justify-between 2xl:justify-normal'
             >
               <div className='w-full flex flex-row col-start-1 col-end-3 gap-3'>
                 <FormField
@@ -145,19 +145,19 @@ export const ChurchesGeneralSearchPage = (): JSX.Element => {
                   render={({ field }) => (
                     <FormItem className='w-full'>
                       <FormLabel className='text-[14px] font-bold'>Limite</FormLabel>
-                      <FormDescription className='text-[13px] md:text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         ¿Cuantos registros necesitas?
                       </FormDescription>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
                           {...field}
                           disabled={form.getValues('all')}
-                          className='text-[13px] md:text-[14px]'
+                          className='text-[14px] md:text-[14px]'
                           value={form.getValues('all') ? '-' : field.value || ''}
                           placeholder='Limite de registros'
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   )}
                 />
@@ -168,19 +168,19 @@ export const ChurchesGeneralSearchPage = (): JSX.Element => {
                   render={({ field }) => (
                     <FormItem className='w-full'>
                       <FormLabel className='text-[14px] font-bold'>Desplazamiento</FormLabel>
-                      <FormDescription className='text-[13px] md:text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         ¿Cuantos registros quieres saltar?
                       </FormDescription>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
                           disabled={form.getValues('all')}
-                          className='text-[13px] md:text-[14px]'
+                          className='text-[14px] md:text-[14px]'
                           placeholder='Nro. de registros desplazados'
                           {...field}
                           value={form.getValues('all') ? '-' : field?.value || ''}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   )}
                 />
@@ -190,10 +190,10 @@ export const ChurchesGeneralSearchPage = (): JSX.Element => {
                   name='all'
                   render={({ field }) => (
                     <FormItem className='flex flex-col justify-end'>
-                      <FormLabel className=''></FormLabel>
-                      <FormDescription className=''></FormDescription>
+                      <FormLabel></FormLabel>
+                      <FormDescription></FormDescription>
                       <div className='flex items-center space-x-2 space-y-0 rounded-md border p-2.5 h-[2.5rem]'>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Checkbox
                             disabled={
                               !form.getValues('limit') ||
@@ -214,7 +214,7 @@ export const ChurchesGeneralSearchPage = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[12px] md:text-[13px] cursor-pointer'>
+                          <FormLabel className='text-[13.5px] md:text-[14px] cursor-pointer'>
                             Todos
                           </FormLabel>
                         </div>
@@ -228,17 +228,17 @@ export const ChurchesGeneralSearchPage = (): JSX.Element => {
                 control={form.control}
                 name='order'
                 render={({ field }) => (
-                  <FormItem className='w-auto lg:min-w-[13rem] xl:min-w-[12rem] 2xl:w-full'>
+                  <FormItem className='col-span-2 md:col-auto w-auto lg:min-w-[12rem] xl:min-w-[16rem] 2xl:w-full'>
                     <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
-                    <FormDescription className='text-[13px] md:text-[14px]'>
+                    <FormDescription className='text-[13.5px] md:text-[14px]'>
                       Selecciona el tipo de orden de los registros.
                     </FormDescription>
                     <Select value={field.value} onValueChange={field.onChange}>
-                      <FormControl className='text-[13px] md:text-[14px] lg:w-full'>
+                      <FormControl className='text-[14px] md:text-[14px] lg:w-full'>
                         <SelectTrigger>
                           {field.value ? (
                             <SelectValue
-                              className='text-[13px] md:text-[14px]'
+                              className='text-[14px] md:text-[14px]'
                               placeholder='Selecciona un tipo de orden'
                             />
                           ) : (
@@ -249,7 +249,7 @@ export const ChurchesGeneralSearchPage = (): JSX.Element => {
                       <SelectContent>
                         {Object.entries(RecordOrderNames).map(([key, value]) => (
                           <SelectItem
-                            className={`text-[13px] md:text-[14px]`}
+                            className={`text-[14px] md:text-[14px]`}
                             key={key}
                             value={key}
                           >
@@ -258,7 +258,7 @@ export const ChurchesGeneralSearchPage = (): JSX.Element => {
                         ))}
                       </SelectContent>
                     </Select>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 )}
               />
@@ -269,7 +269,7 @@ export const ChurchesGeneralSearchPage = (): JSX.Element => {
                 type='submit'
                 variant='ghost'
                 className={cn(
-                  'w-full px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
+                  'text-[14px] mt-0 col-start-1 col-end-3 md:row-start-2 md:row-end-3 md:col-start-2 md:col-end-3 w-full lg:w-[50%] px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
                 )}
               >
                 Buscar

@@ -49,8 +49,8 @@ export const PopoverDataCard = ({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button className='px-2 py-0 text-[12.5px]' variant='outline'>
-          Ver {title}
+        <Button className='px-2 py-0 text-[13.5px] md:text-[13.5px]' variant='outline'>
+          Ver más
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -58,17 +58,22 @@ export const PopoverDataCard = ({
       >
         <div className='grid gap-4'>
           <div className='space-y-2'>
-            <h4 className='font-medium text-[13px] md:text-[15px] leading-none'>{title}</h4>
-            <p className='text-[12px] md:text-[14px] text-muted-foreground'>
+            <h4 className='font-medium text-[15px] md:text-[15px] leading-none'>{title}</h4>
+            <p className='text-[14px] md:text-[14px] text-muted-foreground'>
               {title} que pertenecen a este {moduleName}.
             </p>
           </div>
-          <ul className='grid grid-cols-2 text-[12px] md:text-[14px] pl-6 gap-2 gap-x-8 list-disc'>
+          <ul
+            className={cn(
+              'grid grid-cols-2 text-[14px] md:text-[14px] pl-6 gap-2 gap-x-8 list-disc',
+              title === 'Anexos' && 'grid-cols-1'
+            )}
+          >
             {data?.map((element: any) => {
               const key = element?.id;
               const displayValue =
                 title === 'Anexos' || title === 'Zonas' || title === 'Grupos Fam.'
-                  ? element?.[firstValue]
+                  ? `${element?.[firstValue]} - ${element?.[secondValue]}`
                   : getInitialFullNames({
                       firstNames: element?.[firstValue] ?? '',
                       lastNames: element?.[secondValue] ?? '',
@@ -86,3 +91,5 @@ export const PopoverDataCard = ({
     </Popover>
   );
 };
+
+// TODO: CAMBIAR LOS key={index}

@@ -196,7 +196,7 @@ export const FamilyGroupUpdateForm = ({
 
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
-              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] mb-4 pl-0 md:pl-4'>
+              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16.5px] md:text-[18px] mb-4 pl-0 md:pl-4'>
                 Grupo Familiar: {`${data?.familyGroupName} (${data?.familyGroupCode ?? 'SC'})`}
               </div>
               <Form {...form}>
@@ -214,10 +214,10 @@ export const FamilyGroupUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Nombre
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna una nombre al grupo familiar.
                             </FormDescription>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 placeholder='Ejem: Los Guerreros de Dios...'
@@ -225,7 +225,7 @@ export const FamilyGroupUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -240,7 +240,7 @@ export const FamilyGroupUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Horario de culto
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna un horario de culto al grupo familiar.
                             </FormDescription>
                             <Select
@@ -248,7 +248,7 @@ export const FamilyGroupUpdateForm = ({
                               value={field.value}
                               disabled={isInputDisabled}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona un horario' />
@@ -265,7 +265,7 @@ export const FamilyGroupUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -280,7 +280,7 @@ export const FamilyGroupUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               País
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna el país al que pertenece el grupo familiar.
                             </FormDescription>
                             <Select
@@ -288,7 +288,7 @@ export const FamilyGroupUpdateForm = ({
                               value={field.value}
                               disabled={isInputDisabled}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el país' />
@@ -305,7 +305,7 @@ export const FamilyGroupUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -320,7 +320,7 @@ export const FamilyGroupUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Departamento
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna el departamento al que pertenece el grupo familiar.
                             </FormDescription>
                             <Select
@@ -328,7 +328,7 @@ export const FamilyGroupUpdateForm = ({
                               value={field.value}
                               disabled={isInputDisabled}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el departamento' />
@@ -345,7 +345,7 @@ export const FamilyGroupUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -360,7 +360,7 @@ export const FamilyGroupUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Provincia
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna la provincia a la que pertenece el grupo familiar.
                             </FormDescription>
                             <Select
@@ -368,7 +368,7 @@ export const FamilyGroupUpdateForm = ({
                               value={field.value}
                               disabled={isInputDisabled}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona la provincia' />
@@ -385,7 +385,7 @@ export const FamilyGroupUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -400,7 +400,7 @@ export const FamilyGroupUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Distrito
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna el distrito al que pertenece el grupo familiar.
                             </FormDescription>
                             <Select
@@ -408,7 +408,7 @@ export const FamilyGroupUpdateForm = ({
                               value={field.value}
                               disabled={isInputDisabled}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el distrito' />
@@ -429,7 +429,7 @@ export const FamilyGroupUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -446,7 +446,7 @@ export const FamilyGroupUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Sector Urbano
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna el sector urbano al que pertenece el grupo familiar.
                             </FormDescription>
                             <Select
@@ -454,7 +454,7 @@ export const FamilyGroupUpdateForm = ({
                               value={field.value}
                               disabled={isInputDisabled}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el sector urbano' />
@@ -466,7 +466,7 @@ export const FamilyGroupUpdateForm = ({
                               <SelectContent>
                                 {Object.entries(UrbanSectorNames).map(([key, value]) => (
                                   <SelectItem
-                                    className={`text-[14px] ${urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district ? 'hidden' : ''}`}
+                                    className={`text-[14px] ${(urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district) ? 'hidden' : ''}`}
                                     key={key}
                                     value={key}
                                   >
@@ -475,7 +475,7 @@ export const FamilyGroupUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -490,10 +490,10 @@ export const FamilyGroupUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Dirección
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna la dirección al que pertenece el grupo familiar.
                             </FormDescription>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 placeholder='Ej: Av. Central 123 - Mz.A Lt.3'
@@ -501,7 +501,7 @@ export const FamilyGroupUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -516,14 +516,14 @@ export const FamilyGroupUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Referencia de dirección
                             </FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Textarea
                                 disabled={isInputDisabled}
                                 placeholder='Comentarios sobre la referencia de ubicación del grupo familiar...'
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -538,7 +538,7 @@ export const FamilyGroupUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Zona
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna la Zona a la que pertenecerá este Grupo Familiar.
                             </FormDescription>
                             <Popover
@@ -546,7 +546,7 @@ export const FamilyGroupUpdateForm = ({
                               onOpenChange={setIsInputTheirZoneOpen}
                             >
                               <PopoverTrigger asChild>
-                                <FormControl>
+                                <FormControl className='text-[14px] md:text-[14px]'>
                                   <Button
                                     disabled={isInputTheirZoneDisabled}
                                     variant='outline'
@@ -601,7 +601,7 @@ export const FamilyGroupUpdateForm = ({
                                     </>
                                   ) : (
                                     zonesQuery?.data?.length === 0 && (
-                                      <p className='text-[14.5px] text-red-500 text-center'>
+                                      <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                         ❌No hay zonas disponibles.
                                       </p>
                                     )
@@ -609,7 +609,7 @@ export const FamilyGroupUpdateForm = ({
                                 </Command>
                               </PopoverContent>
                             </Popover>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -624,7 +624,7 @@ export const FamilyGroupUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Predicador
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna el Predicador responsable para este Grupo Familiar.
                             </FormDescription>
                             {preachersByZoneQuery?.isFetching &&
@@ -639,7 +639,7 @@ export const FamilyGroupUpdateForm = ({
                                 onOpenChange={setIsInputTheirPreacherOpen}
                               >
                                 <PopoverTrigger asChild>
-                                  <FormControl>
+                                  <FormControl className='text-[14px] md:text-[14px]'>
                                     <Button
                                       disabled={isInputTheirPreacherDisabled}
                                       variant='outline'
@@ -686,7 +686,7 @@ export const FamilyGroupUpdateForm = ({
                                     >
                                       {data?.recordStatus === RecordStatus.Active &&
                                       data.theirPreacher?.id
-                                        ? preachersQuery?.data?.map((preacher) => (
+                                        ? (preachersQuery?.data?.map((preacher) => (
                                             <CommandItem
                                               className='text-[14px]'
                                               value={getFullNames({
@@ -710,12 +710,12 @@ export const FamilyGroupUpdateForm = ({
                                               />
                                             </CommandItem>
                                           )) ?? (
-                                            <p className='text-[14.5px] text-red-500 text-center'>
+                                            <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                               ❌ No se encontró predicadores disponibles, todos
                                               están asignados a un grupo familiar.
                                             </p>
-                                          )
-                                        : preachersByZoneQuery?.data?.map((preacher) => (
+                                          ))
+                                        : (preachersByZoneQuery?.data?.map((preacher) => (
                                             <CommandItem
                                               className='text-[14px]'
                                               value={getFullNames({
@@ -739,18 +739,18 @@ export const FamilyGroupUpdateForm = ({
                                               />
                                             </CommandItem>
                                           )) ?? (
-                                            <p className='text-[14.5px] text-red-500 text-center'>
+                                            <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                               ❌ No se encontró predicadores disponibles, todos
                                               están asignados a un grupo familiar.
                                             </p>
-                                          )}
+                                          ))}
                                     </CommandGroup>
                                   </Command>
                                 </PopoverContent>
                               </Popover>
                             )}
 
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -768,7 +768,7 @@ export const FamilyGroupUpdateForm = ({
                               value={field.value}
                               onValueChange={field.onChange}
                             >
-                              <FormControl className='text-[13px] md:text-[14px]'>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value === 'active' ? (
                                     <SelectValue placeholder='Activo' />
@@ -787,7 +787,7 @@ export const FamilyGroupUpdateForm = ({
                               </SelectContent>
                             </Select>
                             {form.getValues('recordStatus') === 'active' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>Activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
                                 debe inactivar el registro desde el modulo{' '}
@@ -797,12 +797,12 @@ export const FamilyGroupUpdateForm = ({
                               </FormDescription>
                             )}
                             {form.getValues('recordStatus') === 'inactive' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                                 * El registro esta <span className='text-red-500 '>Inactivo</span>,
                                 puede modificar el estado eligiendo otra opción.
                               </FormDescription>
                             )}
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -827,7 +827,7 @@ export const FamilyGroupUpdateForm = ({
                       className={cn(
                         'w-full text-[14px]',
                         familyGroupUpdateMutation?.isPending &&
-                          'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] text-white'
+                          'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] dark:text-black text-white'
                       )}
                       onClick={() => {
                         setTimeout(() => {

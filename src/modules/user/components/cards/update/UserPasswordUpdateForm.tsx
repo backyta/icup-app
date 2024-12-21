@@ -127,7 +127,7 @@ export const UserPasswordUpdateForm = ({
       defaultValue='general-info'
       className='w-auto sm:w-[420px] md:w-[480px] lg:w-[440px] xl:w-[530px]'
     >
-      <h2 className='text-center text-purple-500 pb-2 font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
+      <h2 className='text-center text-purple-500 pb-2 font-bold text-[22px] sm:text-[22px] md:text-[24px]'>
         Actualizar contraseña
       </h2>
 
@@ -148,7 +148,7 @@ export const UserPasswordUpdateForm = ({
                         <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                           Contraseña Actual
                         </FormLabel>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <div className='relative'>
                             <Input
                               disabled={isInputDisabled}
@@ -166,7 +166,7 @@ export const UserPasswordUpdateForm = ({
                             </button>
                           </div>
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className='text-[13px]' />
                       </FormItem>
                     );
                   }}
@@ -181,7 +181,7 @@ export const UserPasswordUpdateForm = ({
                         <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                           Contraseña Nueva
                         </FormLabel>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <div className='relative'>
                             <Input
                               disabled={isInputDisabled}
@@ -199,7 +199,7 @@ export const UserPasswordUpdateForm = ({
                             </button>
                           </div>
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className='text-[13px]' />
                       </FormItem>
                     );
                   }}
@@ -214,7 +214,7 @@ export const UserPasswordUpdateForm = ({
                         <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                           Confirmar Contraseña Nueva
                         </FormLabel>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <div className='relative'>
                             <Input
                               disabled={isInputDisabled}
@@ -232,18 +232,18 @@ export const UserPasswordUpdateForm = ({
                             </button>
                           </div>
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className='text-[13px]' />
                         {(form.formState.errors.newPassword ||
                           form.formState.errors.newPasswordConfirm) && (
-                          <div className='text-red-500 font-medium text-[12px] md:text-[13px]'>
+                          <div className='text-red-500 font-medium text-[12.5px] md:text-[13px]'>
                             <ul className='pl-2'>
-                              <li className='pl-2 text-white'>✅ Al menos un dígito.</li>
-                              <li className='pl-2 text-white'>✅ No espacios en blanco.</li>
-                              <li className='pl-2 text-white'>✅ Al menos 1 carácter especial.</li>
-                              <li className='pl-2 text-white'>
+                              <li className='pl-2'>✅ Al menos un dígito.</li>
+                              <li className='pl-2'>✅ No espacios en blanco.</li>
+                              <li className='pl-2'>✅ Al menos 1 carácter especial.</li>
+                              <li className='pl-2'>
                                 ✅ Mínimo 8 caracteres y máximo 15 caracteres.
                               </li>
-                              <li className='pl-2 text-white'>
+                              <li className='pl-2'>
                                 ✅ Al menos una letra mayúscula y al menos una letra minúscula.
                               </li>
                             </ul>
@@ -276,7 +276,7 @@ export const UserPasswordUpdateForm = ({
                     className={cn(
                       'w-full text-[14px]',
                       passwordUpdateMutation?.isPending &&
-                        'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] text-white'
+                        'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] dark:text-black text-white'
                     )}
                     onClick={() => {
                       setTimeout(() => {

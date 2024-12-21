@@ -317,11 +317,11 @@ export const OfferingIncomeFormUpdate = ({
       defaultValue='general-info'
       className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
-      <div className='text-center'>
-        <h2 className='text-orange-500  font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
-          Actualizar información del registro
-        </h2>
-      </div>
+      {/* <div className='text-center'> */}
+      <h2 className='text-center text-orange-500 font-bold text-[22px] sm:text-[22px] md:text-[24px]'>
+        Actualizar información del registro
+      </h2>
+      {/* </div> */}
 
       <TabsContent value='general-info'>
         <Card className='w-full'>
@@ -330,11 +330,11 @@ export const OfferingIncomeFormUpdate = ({
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
               <div className='flex flex-col mb-4 pl-0 md:pl-4'>
-                <span className='italic dark:text-amber-400 font-bold text-[16px] md:text-[18px] text-amber-500'>
+                <span className='italic dark:text-amber-400 font-bold text-[16.5px] md:text-[18px] text-amber-500'>
                   Tipo de registro:{' '}
                   {`${OfferingIncomeCreationTypeNames[data?.type as OfferingIncomeCreationType]} ${data?.subType ? '-' : ''} ${OfferingIncomeCreationSubTypeNames[data?.subType as OfferingIncomeCreationSubType] ?? ''}`}
                 </span>
-                <span className='italic dark:text-slate-300 text-slate-500 font-bold text-[15px] md:text-[17px] ml-1'>
+                <span className='italic dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[17px] md:ml-1'>
                   Pertenencia:{' '}
                   {`${
                     data?.type === OfferingIncomeCreationType.IncomeAdjustment ||
@@ -344,7 +344,7 @@ export const OfferingIncomeFormUpdate = ({
                     data?.subType === OfferingIncomeCreationSubType.GeneralVigil ||
                     data?.subType === OfferingIncomeCreationSubType.YouthService ||
                     data?.subType === OfferingIncomeCreationSubType.Activities
-                      ? data?.church?.churchName
+                      ? data?.church?.abbreviatedChurchName
                       : data?.subType === OfferingIncomeCreationSubType.FamilyGroup
                         ? `${data?.familyGroup?.familyGroupCode} - ${data?.familyGroup?.familyGroupName}`
                         : data?.subType === OfferingIncomeCreationSubType.ZonalFasting ||
@@ -373,16 +373,16 @@ export const OfferingIncomeFormUpdate = ({
                       control={form.control}
                       name='churchId'
                       render={({ field }) => (
-                        <FormItem className='mt-3'>
+                        <FormItem>
                           <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                             Iglesia
                           </FormLabel>
-                          <FormDescription className='text-[14px]'>
+                          <FormDescription className='text-[13.5px] md:text-[14px]'>
                             Seleccione una iglesia para asignarla al registro.
                           </FormDescription>
                           <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
                             <PopoverTrigger asChild>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Button
                                   disabled
                                   variant='outline'
@@ -394,7 +394,7 @@ export const OfferingIncomeFormUpdate = ({
                                 >
                                   {field.value
                                     ? churchesQuery?.data?.find((zone) => zone.id === field.value)
-                                        ?.churchName
+                                        ?.abbreviatedChurchName
                                     : 'Busque y seleccione una iglesia'}
                                   <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                 </Button>
@@ -413,14 +413,14 @@ export const OfferingIncomeFormUpdate = ({
                                       {churchesQuery?.data?.map((church) => (
                                         <CommandItem
                                           className='text-[14px]'
-                                          value={church.churchName}
+                                          value={church.abbreviatedChurchName}
                                           key={church.id}
                                           onSelect={() => {
                                             form.setValue('churchId', church.id);
                                             setIsInputRelationOpen(false);
                                           }}
                                         >
-                                          {church.churchName}
+                                          {church.abbreviatedChurchName}
                                           <CheckIcon
                                             className={cn(
                                               'ml-auto h-4 w-4',
@@ -435,7 +435,7 @@ export const OfferingIncomeFormUpdate = ({
                                   </>
                                 ) : (
                                   churchesQuery?.data?.length === 0 && (
-                                    <p className='text-[14.5px] text-red-500 text-center'>
+                                    <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                       ❌No hay iglesias disponibles.
                                     </p>
                                   )
@@ -443,7 +443,7 @@ export const OfferingIncomeFormUpdate = ({
                               </Command>
                             </PopoverContent>
                           </Popover>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -457,11 +457,11 @@ export const OfferingIncomeFormUpdate = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Tipo
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asignar un tipo de ofrenda al registro.
                             </FormDescription>
                             <Select disabled value={field.value} onValueChange={field.onChange}>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona una tipo de ofrenda' />
@@ -480,7 +480,7 @@ export const OfferingIncomeFormUpdate = ({
                                 )}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -496,11 +496,11 @@ export const OfferingIncomeFormUpdate = ({
                               <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                                 Sub-Tipo
                               </FormLabel>
-                              <FormDescription className='text-[14px]'>
+                              <FormDescription className='text-[13.5px] md:text-[14px]'>
                                 Asignar un sub-tipo de ofrenda al registro.
                               </FormDescription>
                               <Select disabled value={field.value} onValueChange={field.onChange}>
-                                <FormControl>
+                                <FormControl className='text-[14px] md:text-[14px]'>
                                   <SelectTrigger>
                                     {field.value ? (
                                       <SelectValue placeholder='Selecciona una sub-tipo de ofrenda' />
@@ -519,7 +519,7 @@ export const OfferingIncomeFormUpdate = ({
                                   )}
                                 </SelectContent>
                               </Select>
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -536,11 +536,11 @@ export const OfferingIncomeFormUpdate = ({
                               <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                                 Categoría
                               </FormLabel>
-                              <FormDescription className='text-[14px]'>
+                              <FormDescription className='text-[13.5px] md:text-[14px]'>
                                 Asigna una categoría al nuevo registro.
                               </FormDescription>
                               <Select disabled value={field.value} onValueChange={field.onChange}>
-                                <FormControl>
+                                <FormControl className='text-[14px] md:text-[14px]'>
                                   <SelectTrigger>
                                     {field.value ? (
                                       <SelectValue placeholder='Selecciona una categoría de ofrenda' />
@@ -559,7 +559,7 @@ export const OfferingIncomeFormUpdate = ({
                                   )}
                                 </SelectContent>
                               </Select>
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -588,7 +588,7 @@ export const OfferingIncomeFormUpdate = ({
                                 Tipo de Miembro
                               </FormLabel>
                               <Select disabled onValueChange={field.onChange} value={field.value}>
-                                <FormControl>
+                                <FormControl className='text-[14px] md:text-[14px]'>
                                   <SelectTrigger>
                                     {field.value ? (
                                       <SelectValue placeholder='Selecciona el tipo de miembro' />
@@ -605,7 +605,7 @@ export const OfferingIncomeFormUpdate = ({
                                   ))}
                                 </SelectContent>
                               </Select>
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -632,7 +632,7 @@ export const OfferingIncomeFormUpdate = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Miembro
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Seleccione un miembro para asignarlo al registro.
                             </FormDescription>
                             {disciplesQuery?.isFetching ||
@@ -646,7 +646,7 @@ export const OfferingIncomeFormUpdate = ({
                             ) : (
                               <Popover open={isInputMemberOpen} onOpenChange={setIsInputMemberOpen}>
                                 <PopoverTrigger asChild>
-                                  <FormControl>
+                                  <FormControl className='text-[14px] md:text-[14px]'>
                                     <Button
                                       disabled
                                       variant='outline'
@@ -701,7 +701,7 @@ export const OfferingIncomeFormUpdate = ({
                                       </>
                                     ) : (
                                       queryData?.length === 0 && (
-                                        <p className='text-[14.5px] text-red-500 text-center'>
+                                        <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                           ❌No hay miembros disponibles.
                                         </p>
                                       )
@@ -710,7 +710,7 @@ export const OfferingIncomeFormUpdate = ({
                                 </PopoverContent>
                               </Popover>
                             )}
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         )}
                       />
@@ -727,7 +727,7 @@ export const OfferingIncomeFormUpdate = ({
                               <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                                 Grupo Familiar
                               </FormLabel>
-                              <FormDescription className='text-[14px]'>
+                              <FormDescription className='text-[13.5px] md:text-[14px]'>
                                 Seleccione un grupo familiar para asignarlo al registro.
                               </FormDescription>
                               <Popover
@@ -735,7 +735,7 @@ export const OfferingIncomeFormUpdate = ({
                                 onOpenChange={setIsInputRelationOpen}
                               >
                                 <PopoverTrigger asChild>
-                                  <FormControl>
+                                  <FormControl className='text-[14px] md:text-[14px]'>
                                     <Button
                                       disabled
                                       variant='outline'
@@ -791,7 +791,7 @@ export const OfferingIncomeFormUpdate = ({
                                       </>
                                     ) : (
                                       familyGroupsQuery?.data?.length === 0 && (
-                                        <p className='text-[14.5px] text-red-500 text-center'>
+                                        <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                           ❌No hay grupos familiares disponibles.
                                         </p>
                                       )
@@ -800,7 +800,7 @@ export const OfferingIncomeFormUpdate = ({
                                 </PopoverContent>
                               </Popover>
 
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           )}
                         />
@@ -820,7 +820,7 @@ export const OfferingIncomeFormUpdate = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Zona
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Seleccione una zona para asignarlo al registro.
                             </FormDescription>
                             <Popover
@@ -828,7 +828,7 @@ export const OfferingIncomeFormUpdate = ({
                               onOpenChange={setIsInputRelationOpen}
                             >
                               <PopoverTrigger asChild>
-                                <FormControl>
+                                <FormControl className='text-[14px] md:text-[14px]'>
                                   <Button
                                     disabled
                                     variant='outline'
@@ -881,7 +881,7 @@ export const OfferingIncomeFormUpdate = ({
                                     </>
                                   ) : (
                                     zonesQuery?.data?.length === 0 && (
-                                      <p className='text-[14.5px] text-red-500 text-center'>
+                                      <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                         ❌No hay zonas disponibles.
                                       </p>
                                     )
@@ -889,7 +889,7 @@ export const OfferingIncomeFormUpdate = ({
                                 </Command>
                               </PopoverContent>
                             </Popover>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         )}
                       />
@@ -907,11 +907,11 @@ export const OfferingIncomeFormUpdate = ({
                                 <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                                   Turno
                                 </FormLabel>
-                                <FormDescription className='text-[14px]'>
+                                <FormDescription className='text-[13.5px] md:text-[14px]'>
                                   Elige el turno de la ofrenda para el registro.
                                 </FormDescription>
                                 <Select disabled value={field.value} onValueChange={field.onChange}>
-                                  <FormControl>
+                                  <FormControl className='text-[14px] md:text-[14px]'>
                                     <SelectTrigger>
                                       {field.value ? (
                                         <SelectValue placeholder='Selecciona un turno para la ofrenda' />
@@ -930,7 +930,7 @@ export const OfferingIncomeFormUpdate = ({
                                     )}
                                   </SelectContent>
                                 </Select>
-                                <FormMessage />
+                                <FormMessage className='text-[13px]' />
                               </FormItem>
                             );
                           }}
@@ -947,10 +947,10 @@ export const OfferingIncomeFormUpdate = ({
                               <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                                 Monto
                               </FormLabel>
-                              <FormDescription className='text-[14px]'>
+                              <FormDescription className='text-[13.5px] md:text-[14px]'>
                                 Digita el monto de la ofrenda.
                               </FormDescription>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Input
                                   disabled={isInputDisabled}
                                   placeholder='Monto total de la ofrenda'
@@ -958,7 +958,7 @@ export const OfferingIncomeFormUpdate = ({
                                   {...field}
                                 />
                               </FormControl>
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -973,7 +973,7 @@ export const OfferingIncomeFormUpdate = ({
                               <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                                 Divisa / Moneda
                               </FormLabel>
-                              <FormDescription className='text-[14px]'>
+                              <FormDescription className='text-[13.5px] md:text-[14px]'>
                                 Asignar un tipo de divisa al registro.
                               </FormDescription>
                               <Select
@@ -981,7 +981,7 @@ export const OfferingIncomeFormUpdate = ({
                                 value={field.value}
                                 onValueChange={field.onChange}
                               >
-                                <FormControl>
+                                <FormControl className='text-[14px] md:text-[14px]'>
                                   <SelectTrigger>
                                     {field.value ? (
                                       <SelectValue placeholder='Selecciona una tipo de divisa o moneda' />
@@ -998,7 +998,7 @@ export const OfferingIncomeFormUpdate = ({
                                   ))}
                                 </SelectContent>
                               </Select>
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -1020,24 +1020,24 @@ export const OfferingIncomeFormUpdate = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Fecha
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Selecciona la fecha de deposito.
                             </FormDescription>
                             <Popover open={isInputDateOpen} onOpenChange={setIsInputDateOpen}>
                               <PopoverTrigger asChild>
-                                <FormControl>
+                                <FormControl className='text-[14px] md:text-[14px]'>
                                   <Button
                                     disabled={isInputDisabled}
                                     variant={'outline'}
                                     className={cn(
-                                      'w-full pl-3 text-left font-normal',
+                                      'text-[14px] w-full pl-3 text-left font-normal',
                                       !field.value && 'text-muted-foreground'
                                     )}
                                   >
                                     {field.value ? (
                                       format(field?.value, 'LLL dd, y', { locale: es })
                                     ) : (
-                                      <span className='text-sm md:text-[12px] lg:text-sm'>
+                                      <span className='text-[14px]'>
                                         Seleccione la fecha de la ofrenda
                                       </span>
                                     )}
@@ -1069,7 +1069,7 @@ export const OfferingIncomeFormUpdate = ({
                                 />
                               </PopoverContent>
                             </Popover>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         )}
                       />
@@ -1083,7 +1083,7 @@ export const OfferingIncomeFormUpdate = ({
                               <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                                 Estado
                               </FormLabel>
-                              <FormDescription className='text-[14px]'>
+                              <FormDescription className='text-[13.5px] md:text-[14px]'>
                                 Selecciona el estado del registro.
                               </FormDescription>
                               <Select
@@ -1091,7 +1091,7 @@ export const OfferingIncomeFormUpdate = ({
                                 value={field.value}
                                 onValueChange={field.onChange}
                               >
-                                <FormControl className='text-[13px] md:text-[14px]'>
+                                <FormControl className='text-[14px] md:text-[14px]'>
                                   <SelectTrigger>
                                     {field.value === 'active' ? (
                                       <SelectValue placeholder='Activo' />
@@ -1110,7 +1110,7 @@ export const OfferingIncomeFormUpdate = ({
                                 </SelectContent>
                               </Select>
 
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -1148,7 +1148,7 @@ export const OfferingIncomeFormUpdate = ({
                                 Escribe una breve descripción sobre el ajuste.
                               </FormDescription>
                             )}
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Textarea
                                 className={cn(comments && 'h-full')}
                                 disabled={isInputDisabled}
@@ -1160,7 +1160,7 @@ export const OfferingIncomeFormUpdate = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -1180,28 +1180,28 @@ export const OfferingIncomeFormUpdate = ({
                                 Opcional
                               </span>
                             </FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <div
                                 {...getRootProps({
                                   className:
-                                    'font-medium text-sm sm:text-[15px] p-10 sm:p-12 md:p-16 max-w-[25rem] md:max-w-[25rem] m-auto border border-dashed border-black dark:border-white hover:bg-green-200 dark:hover:text-black ease-in duration-200 text-center',
+                                    'h-[10rem] font-medium text-sm sm:text-[15px] p-10 sm:p-12 md:p-16 max-w-[25rem] md:max-w-[25rem] m-auto border border-dashed border-black dark:border-white hover:bg-green-200 dark:hover:text-black ease-in duration-200 text-center',
                                 })}
                               >
                                 <input {...getInputProps()} className='m-auto w-[20rem]' />
 
                                 {isDragActive ? (
-                                  <p>Suelte sus archivos aquí ...</p>
+                                  <p> Suelte sus archivos aquí ...</p>
                                 ) : (
-                                  <p>
+                                  <p className='pt-5 md:pt-0'>
                                     Arrastre y suelte sus archivos aquí, o haga clic para
                                     seleccionar.
                                   </p>
                                 )}
                               </div>
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                             {files && files.length > 3 ? (
-                              <span className='text-red-500 font-bold text-[11.5px] md:text-[12.5px] text-center mx-auto justify-center flex'>
+                              <span className='text-red-500 font-bold text-[12.5px] md:text-[13.5px] text-center mx-auto justify-center flex'>
                                 ❌ Sobrepasa el limite, elige como máximo solo 3 imágenes.
                               </span>
                             ) : (

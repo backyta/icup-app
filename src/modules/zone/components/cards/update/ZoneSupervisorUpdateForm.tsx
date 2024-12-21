@@ -130,14 +130,14 @@ export const ZoneSupervisorUpdateForm = ({
       defaultValue='general-info'
       className='w-auto sm:w-[480px] md:w-[550px] lg:w-[550px] xl:w-[600px]'
     >
-      <h2 className='text-center text-emerald-500 pb-2 font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
+      <h2 className='text-center text-emerald-500 pb-2 font-bold text-[24px] sm:text-[22px] md:text-[24px]'>
         Intercambiar Supervisores
       </h2>
 
       <TabsContent value='general-info' className='overflow-y-auto'>
         <Card className='w-full'>
           <CardContent className='py-4 px-4'>
-            <div className='font-bold text-[14.5px] md:text-[15px] mb-4'>
+            <div className='font-bold text-[15px] md:text-[15px] mb-4'>
               Copastor:{' '}
               <span className='font-black text-blue-500 text-[16.5px] md:text-[17.5px]'>
                 {getInitialFullNames({
@@ -163,7 +163,7 @@ export const ZoneSupervisorUpdateForm = ({
                             <FormLabel className='text-[14px] font-bold'>
                               Supervisor Actual
                             </FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 className={cn(
                                   'text-[14px] font-medium ',
@@ -174,7 +174,7 @@ export const ZoneSupervisorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -187,7 +187,7 @@ export const ZoneSupervisorUpdateForm = ({
                         return (
                           <FormItem>
                             <FormLabel className='text-[14px] font-bold'>Zona Actual</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 className='font-medium'
                                 disabled={isInputDisabled}
@@ -195,7 +195,7 @@ export const ZoneSupervisorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -222,7 +222,7 @@ export const ZoneSupervisorUpdateForm = ({
                               onOpenChange={setIsInputTheirSupervisorOpen}
                             >
                               <PopoverTrigger asChild>
-                                <FormControl>
+                                <FormControl className='text-[14px] md:text-[14px]'>
                                   <Button
                                     disabled={isInputTheirSupervisorDisabled}
                                     variant='outline'
@@ -277,7 +277,7 @@ export const ZoneSupervisorUpdateForm = ({
                                         </CommandItem>
                                       ) : null
                                     ) ?? (
-                                      <p className='text-[14.5px] text-red-500 text-center'>
+                                      <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                         ❌ No se encontró supervisores disponibles, todos están
                                         asignados a una zona.
                                       </p>
@@ -287,7 +287,7 @@ export const ZoneSupervisorUpdateForm = ({
                               </PopoverContent>
                             </Popover>
 
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -300,7 +300,7 @@ export const ZoneSupervisorUpdateForm = ({
                         return (
                           <FormItem>
                             <FormLabel className='text-[14px] font-bold'>Zona Nueva</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 className='font-medium'
                                 disabled={isInputDisabled}
@@ -308,7 +308,7 @@ export const ZoneSupervisorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -352,18 +352,18 @@ export const ZoneSupervisorUpdateForm = ({
               </form>
             </Form>
             <div className='mt-3'>
-              <p className='text-red-500 text-[13px] md:text-[14px] font-bold mb-2'>
+              <p className='text-red-500 text-[14px] md:text-[14px] font-bold mb-2'>
                 Consideraciones
               </p>
 
-              <p className='text-[12px] md:text-[13px] mb-2 font-medium '>
+              <p className='text-[12.5px] md:text-[13px] mb-2 font-medium '>
                 ✅ Solo se podrá hacer intercambio entre los supervisores que tengan el mismo
                 Co-Pastor.
               </p>
-              <p className='text-[12px] md:text-[13px] mb-2 font-medium '>
+              <p className='text-[12.5px] md:text-[13px] mb-2 font-medium '>
                 ✅ Al ejecutar el intercambio el supervisor pasara a la otra Zona y viceversa.
               </p>
-              <p className='text-[12px] md:text-[13px] mb-2 font-medium '>
+              <p className='text-[12.5px] md:text-[13px] mb-2 font-medium '>
                 ✅ Si quieres intercambiar por otro Supervisor, primero deberás actualizar ese
                 Supervisor al Co-Pastor correspondiente.
               </p>

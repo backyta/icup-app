@@ -131,7 +131,7 @@ export const OfferingIncomeInactivateCard = ({
         className='w-[23rem] sm:w-[25rem] md:w-full max-h-full overflow-x-hidden overflow-y-auto'
       >
         <div className='h-auto'>
-          <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-3'>
+          <h2 className='dark:text-yellow-500 text-amber-500 font-bold text-[22px] text-center md:text-[25px] pb-3'>
             ¿Estas seguro de inactivar este registro?
           </h2>
           <p className={cn('h-[19rem] md:h-[16.5rem]')}>
@@ -139,15 +139,15 @@ export const OfferingIncomeInactivateCard = ({
               Luego de realizar esta operación sucederá lo siguiente:
             </span>
             <br />
-            <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
+            <span className='w-full text-left inline-block mb-2 text-[14.5px] md:text-[15px]'>
               ❌ El registro de este Ingreso de Ofrenda se colocara en estado{' '}
               <span className='font-bold '>INACTIVO.</span>
             </span>
-            <span className='w-full text-left inline-block mb-2 text-[14px] md:text-[15px]'>
+            <span className='w-full text-left inline-block mb-2 text-[14.5px] md:text-[15px]'>
               ❌ Este registro no podrá ser activado nuevamente, se quedara inactivo de modo
               permanente para control interno.
             </span>
-            <span className='w-full text-left mb-2 text-[14px] md:text-[15px] flex flex-col'>
+            <span className='w-full text-left mb-2 text-[14.5px] md:text-[15px] flex flex-col'>
               ✅ Se añadirán a los detalles y/u observaciones del registro:
               <span className='pl-8'>- El motivo de eliminación.</span>
               <span className='pl-8'>- La fecha en la que se elimino.</span>
@@ -164,11 +164,11 @@ export const OfferingIncomeInactivateCard = ({
                 name='offeringInactivationReason'
                 render={({ field }) => {
                   return (
-                    <FormItem className={cn('mb-4')}>
+                    <FormItem className={cn('mt-8 md:mt-0')}>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold text-red-500'>
                         ¿Cual es el motivo por el cual se esta eliminando este registro?
                       </FormLabel>
-                      <FormDescription className='text-[14px] pl-1'>
+                      <FormDescription className='text-[13px] md:text-[14px] pl-1'>
                         Elige un motivo de eliminación.
                       </FormDescription>
                       <Select
@@ -176,7 +176,7 @@ export const OfferingIncomeInactivateCard = ({
                         value={field.value}
                         onValueChange={field.onChange}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona una tipo de ofrenda' />
@@ -189,24 +189,24 @@ export const OfferingIncomeInactivateCard = ({
                           {Object.entries(OfferingIncomeInactivationReasonNames).map(
                             ([key, value]) =>
                               key !== OfferingIncomeInactivationReason.CurrencyExchange && (
-                                <SelectItem key={key} value={key}>
+                                <SelectItem className='text-[14px]' key={key} value={key}>
                                   {value}
                                 </SelectItem>
                               )
                           )}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
               />
 
-              <div className='flex justify-end gap-x-4'>
+              <div className='mt-4 flex justify-end gap-x-4'>
                 <Button
-                  type='button'
                   disabled={isButtonDisabled}
-                  className='bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
+                  className='m-auto text-[14px] w-full border-1 border-red-500 bg-gradient-to-r from-red-400 via-red-500 to-red-600 text-white hover:text-red-100 hover:from-red-500 hover:via-red-600 hover:to-red-700 dark:from-red-600 dark:via-red-700 dark:to-red-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-red-700 dark:hover:via-red-800 dark:hover:to-red-900'
+                  type='button'
                   onClick={() => {
                     setIsCardOpen(false);
                   }}
@@ -216,7 +216,7 @@ export const OfferingIncomeInactivateCard = ({
                 <Button
                   disabled={isButtonDisabled}
                   type='submit'
-                  className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
+                  className='m-auto text-[14px] w-full border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
                 >
                   Sí, inactivar
                 </Button>

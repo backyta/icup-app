@@ -138,24 +138,24 @@ export const ZoneInactivateCard = ({ idRow }: ZoneInactivateCardProps): JSX.Elem
         className='w-[23rem] sm:w-[25rem] md:w-full max-h-full overflow-x-hidden overflow-y-auto'
       >
         <div className='h-auto'>
-          <h2 className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-3'>
-            ¿Estas seguro de inactivar a esta Zona?
+          <h2 className='dark:text-yellow-500 text-amber-500 font-bold text-[22px] text-center md:text-[25px] pb-3'>
+            ¿Estas seguro de inactivar esta Zona?
           </h2>
           <p>
             <span className='text-blue-500 font-bold mb-3 inline-block text-[16px] md:text-[18px]'>
               Luego de realizar esta operación sucederá lo siguiente:
             </span>
             <br />
-            <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
+            <span className='inline-block mb-2 text-[14.5px] md:text-[15px]'>
               ❌ El registro de esta Zona se colocara en estado{' '}
               <span className='font-bold'>INACTIVO.</span>
             </span>
-            <span className='inline-block mb-2 text-[14px] md:text-[15px]'>
+            <span className='inline-block mb-2 text-[14.5px] md:text-[15px]'>
               ❌ El registro de esta Zona se eliminara de los lugares donde estaba relacionado con
               algunos de estos roles:
               <li>Pastor, Co-Pastor, Supervisor, Zona, Predicador, G. Familiar, Discípulo.</li>
             </span>
-            <span className='inline-block text-[14px] md:text-[15px]'>
+            <span className='inline-block text-[14.5px] md:text-[15px]'>
               ✅ Para poder activarlo nuevamente deberás hacerlo desde el modulo{' '}
               <span className='font-bold'>Actualizar Zona.</span>
             </span>
@@ -173,7 +173,7 @@ export const ZoneInactivateCard = ({ idRow }: ZoneInactivateCardProps): JSX.Elem
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold text-red-500'>
                         ¿Cual es el motivo por el cual se esta inactivando este registro?
                       </FormLabel>
-                      <FormDescription className='text-[14px] pl-1'>
+                      <FormDescription className='text-[13.5px] md:text-[14px] pl-1'>
                         Elige una categoría de eliminación.
                       </FormDescription>
                       <Select
@@ -186,7 +186,7 @@ export const ZoneInactivateCard = ({ idRow }: ZoneInactivateCardProps): JSX.Elem
                         }}
                         onValueChange={field.onChange}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona una categoría' />
@@ -197,13 +197,13 @@ export const ZoneInactivateCard = ({ idRow }: ZoneInactivateCardProps): JSX.Elem
                         </FormControl>
                         <SelectContent>
                           {Object.entries(ZoneInactivationCategoryNames).map(([key, value]) => (
-                            <SelectItem key={key} value={key}>
+                            <SelectItem className='text-[14px]' key={key} value={key}>
                               {value}
                             </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -215,7 +215,7 @@ export const ZoneInactivateCard = ({ idRow }: ZoneInactivateCardProps): JSX.Elem
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormDescription className='text-[14px] pl-1'>
+                      <FormDescription className='text-[13.5px] md:text-[14px] pl-1'>
                         Elige un motivo de eliminación según su categoría.
                       </FormDescription>
                       <Select
@@ -223,7 +223,7 @@ export const ZoneInactivateCard = ({ idRow }: ZoneInactivateCardProps): JSX.Elem
                         value={field.value}
                         onValueChange={field.onChange}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona un motivo' />
@@ -232,7 +232,7 @@ export const ZoneInactivateCard = ({ idRow }: ZoneInactivateCardProps): JSX.Elem
                             )}
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent className='w-screen sm:ml-[0rem] sm:w-[95%] md:mx-auto md:w-full'>
+                        <SelectContent className='mr-[0rem] w-[80%] sm:ml-[0rem] sm:w-[95%] md:mx-auto md:w-full'>
                           {Object.entries(
                             zoneInactivationCategory ===
                               ZoneInactivationCategory.AdministrativeChanges
@@ -254,13 +254,13 @@ export const ZoneInactivateCard = ({ idRow }: ZoneInactivateCardProps): JSX.Elem
                                         ? UnavoidableCircumstancesReasonsNames
                                         : []
                           ).map(([key, value]) => (
-                            <SelectItem className='' key={key} value={key}>
+                            <SelectItem className='text-[14px]' key={key} value={key}>
                               {value}
                             </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -269,7 +269,7 @@ export const ZoneInactivateCard = ({ idRow }: ZoneInactivateCardProps): JSX.Elem
               <div className='flex justify-center md:justify-end gap-x-4 mt-4'>
                 <Button
                   disabled={isButtonDisabled}
-                  className='w-full md:w-auto bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
+                  className='m-auto text-[14px] w-full border-1 border-red-500 bg-gradient-to-r from-red-400 via-red-500 to-red-600 text-white hover:text-red-100 hover:from-red-500 hover:via-red-600 hover:to-red-700 dark:from-red-600 dark:via-red-700 dark:to-red-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-red-700 dark:hover:via-red-800 dark:hover:to-red-900'
                   type='button'
                   onClick={() => {
                     setIsCardOpen(false);
@@ -280,7 +280,7 @@ export const ZoneInactivateCard = ({ idRow }: ZoneInactivateCardProps): JSX.Elem
                 <Button
                   disabled={isButtonDisabled}
                   type='submit'
-                  className='w-full md:w-auto bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
+                  className='m-auto text-[14px] w-full border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
                 >
                   Sí, inactivar
                 </Button>

@@ -68,23 +68,23 @@ export function FamilyGroupInfoItem({ data }: Props): JSX.Element {
     <div className='flex justify-between items-center'>
       <CardContent className='flex gap-1 p-2'>
         <Avatar className='p-1'>
-          <AvatarImage className='rounded-full w-12' src={'/src/assets/family-group.webp'} />
+          <AvatarImage className='rounded-full w-12' src={'/family-group.webp'} />
           <AvatarFallback>FGI</AvatarFallback>
         </Avatar>
 
         <div className='flex flex-col'>
-          <p className='text-sm sm:text-base font-bold'>{data.familyGroupName}</p>
+          <p className='text-[14px] sm:text-[14px] font-bold'>{data.familyGroupName}</p>
           <div className='p-1'>
             <div className='flex flex-col justify-start'>
-              <p className='text-[12px] sm:text-[14px] font-normal'>
+              <p className='text-[13px] sm:text-[14px] font-normal'>
                 <span className='font-bold'>Código: </span>
                 {data.familyGroupCode}
               </p>
-              <p className='text-[12px] sm:text-[14px] font-normal'>
+              <p className='text-[13px] sm:text-[14px] font-normal'>
                 <span className='font-bold'>Discípulos: </span> {data.disciples?.length}
               </p>
             </div>
-            <p className='text-[12px] sm:text-[14px] font-normal'>
+            <p className='text-[13px] sm:text-[14px] font-normal'>
               <span className='font-bold'>Líder:</span>{' '}
               {`${data.theirPreacher?.firstNames} ${data.theirPreacher?.lastNames}`}
             </p>
@@ -94,7 +94,7 @@ export function FamilyGroupInfoItem({ data }: Props): JSX.Element {
       <div className='pl-0 pr-3.5 pt-0 pb-2 sm:p-6 sm:pt-0'>
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerTrigger asChild>
-            <Button className='text-[0.7rem] sm:text-sm w-[6.5rem] sm:w-[8rem] lg:w-[7.8rem] xl:w-[8rem] 2xl:w-[10rem] 2xl:text-md'>
+            <Button className='text-[12.5px] sm:text-sm w-[6.5rem] sm:w-[8rem] lg:w-[7.8rem] xl:w-[8rem] 2xl:w-[10rem] 2xl:text-md'>
               Ver Grupo Fam.
             </Button>
           </DrawerTrigger>

@@ -3,9 +3,9 @@ import { Skeleton } from '@/shared/components/ui/skeleton';
 
 export const SupervisorFormSkeleton = (): JSX.Element => {
   return (
-    <CardContent className='py-3 px-4'>
+    <CardContent className='py-3 px-6'>
       <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mt-2 mb-5 pl-0 md:pl-4'>
-        <Skeleton className='h-5 w-96' />
+        <Skeleton className='ml-2 h-7 w-[18rem] md:w-[40rem]' />
       </div>
       <div>
         <form className='w-full flex flex-col md:grid md:grid-cols-3 gap-x-10 gap-y-5 px-2 sm:px-12'>

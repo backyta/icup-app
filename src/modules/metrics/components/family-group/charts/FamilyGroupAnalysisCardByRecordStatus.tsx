@@ -177,7 +177,7 @@ export const FamilyGroupAnalysisCardByRecordStatus = ({ churchId }: Props): JSX.
                   <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
                     <Popover open={isInputSearchZoneOpen} onOpenChange={setIsInputSearchZoneOpen}>
                       <PopoverTrigger asChild>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Button
                             disabled={all}
                             variant='outline'
@@ -238,7 +238,7 @@ export const FamilyGroupAnalysisCardByRecordStatus = ({ churchId }: Props): JSX.
                         </Command>
                       </PopoverContent>
                     </Popover>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 );
               }}
@@ -248,7 +248,7 @@ export const FamilyGroupAnalysisCardByRecordStatus = ({ churchId }: Props): JSX.
               name='all'
               render={({ field }) => (
                 <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem]'>
-                  <FormControl>
+                  <FormControl className='text-[14px] md:text-[14px]'>
                     <Checkbox
                       checked={field?.value}
                       onCheckedChange={(checked) => {

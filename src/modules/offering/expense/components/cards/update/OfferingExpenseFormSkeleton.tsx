@@ -3,10 +3,10 @@ import { Skeleton } from '@/shared/components/ui/skeleton';
 
 export const OfferingExpenseFormSkeleton = (): JSX.Element => {
   return (
-    <CardContent className='py-3 px-4'>
+    <CardContent className='py-3 px-1'>
       <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] mb-4 md:pl-4'>
-        <Skeleton className='h-5 w-[30rem]' />
-        <Skeleton className='h-5 w-[35rem] mt-2 ml-1' />
+        <Skeleton className='ml-2 h-7 w-auto md:w-[40rem]' />
+        <Skeleton className='ml-2 h-4 w-auto md:w-[40rem] mt-2' />
       </div>
       <div>
         <form className='w-full flex flex-col md:grid sm:grid-cols-2 gap-x-8 gap-y-6 px-2 sm:px-8'>

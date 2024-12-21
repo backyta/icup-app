@@ -67,7 +67,7 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full px-auto grid-cols-1'>
-        <TabsTrigger value='general-info' className='text-[14px] md:text-[15px]'>
+        <TabsTrigger value='general-info' className='text-[14.5px] md:text-[15px]'>
           Información General
         </TabsTrigger>
       </TabsList>
@@ -82,7 +82,7 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid grid-cols-3 pl-[3rem] pr-[3rem] pb-5 sm:pl-[5.3rem] sm:pr-[5rem] gap-x-4 gap-y-2.5 md:gap-x-6 md:gap-y-4 md:pl-[5.8rem] md:pr-[2.5rem]'>
+          <CardContent className='grid grid-cols-3 pl-[1.5rem] pr-[1.5rem] pb-5 sm:pl-[5.3rem] sm:pr-[5rem] gap-x-4 gap-y-2.5 md:gap-x-6 md:gap-y-4 md:pl-[5.8rem] md:pr-[2.5rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Tipo</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>

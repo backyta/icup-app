@@ -157,11 +157,11 @@ export const ChurchCreatePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-slate-500 dark:text-slate-400'>Modulo Iglesia</PageTitle>
 
-      <h1 className='text-left leading-7 pb-2 pt-3 px-4 sm:px-5  2xl:px-24 font-sans font-bold text-green-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h1 className='text-left leading-7 pb-[2px] pt-3 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear una nueva iglesia
       </h1>
 
-      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6  sm:pl-7 2xl:px-28 text-[12px] md:text-[15px] xl:text-base'>
+      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6 sm:pl-7 2xl:px-28 text-[13.5px] md:text-[15px] xl:text-base'>
         Por favor llena los siguientes datos para crear una nueva iglesia.
       </p>
 
@@ -181,18 +181,19 @@ export const ChurchCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Nombre
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna una nombre a la nueva iglesia.
                       </FormDescription>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
+                          className='text-[14px] md:text-[14px]'
                           disabled={isInputDisabled}
                           placeholder='Ejem: Iglesia Cristiana Unidos en su Presencia - Roca Fuerte'
                           type='text'
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -207,18 +208,19 @@ export const ChurchCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Nombre abreviado
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna una abreviación de nombre a la nueva iglesia.
                       </FormDescription>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
+                          className='text-[14px] md:text-[14px]'
                           disabled={isInputDisabled}
                           placeholder='Ejem: ICUP - Roca Fuerte'
                           type='text'
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -228,11 +230,11 @@ export const ChurchCreatePage = (): JSX.Element => {
                 control={form.control}
                 name='foundingDate'
                 render={({ field }) => (
-                  <FormItem className='mt-4'>
+                  <FormItem className='mt-3'>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                       Fecha de fundación
                     </FormLabel>
-                    <FormDescription className='text-[14px]'>
+                    <FormDescription className='text-[13.5px] md:text-[14px]'>
                       Asigna la fecha de fundación de la nueva iglesia.
                     </FormDescription>
                     <Popover
@@ -240,19 +242,19 @@ export const ChurchCreatePage = (): JSX.Element => {
                       onOpenChange={setIsInputFoundingDateOpen}
                     >
                       <PopoverTrigger asChild>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Button
                             disabled={isInputDisabled}
                             variant={'outline'}
                             className={cn(
-                              'w-full pl-3 text-left font-normal',
+                              'text-[14px] w-full pl-3 text-left font-normal',
                               !field.value && 'text-muted-foreground'
                             )}
                           >
                             {field.value ? (
                               format(field.value, 'LLL dd, y', { locale: es })
                             ) : (
-                              <span className='text-sm md:text-[14px] lg:text-sm'>
+                              <span className='text-[14px] md:text-[14px]'>
                                 Selecciona la fecha de fundación
                               </span>
                             )}
@@ -273,10 +275,8 @@ export const ChurchCreatePage = (): JSX.Element => {
                         />
                       </PopoverContent>
                     </Popover>
-                    <FormDescription className='pl-2 text-blue-600 text-[11.5px] xl:text-[12.5px] font-bold italic'>
-                      * Fecha en la que se fundo o se creo la iglesia.
-                    </FormDescription>
-                    <FormMessage />
+
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 )}
               />
@@ -290,7 +290,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Horarios
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Selecciona los horarios de culto que tendrá la nueva iglesia.
                       </FormDescription>
                     </div>
@@ -304,7 +304,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                             return (
                               <FormItem
                                 key={serviceTime}
-                                className='flex items-center space-x-2 space-y-0'
+                                className='text-[14px] flex items-center space-x-2 space-y-0'
                               >
                                 <FormControl className='grid'>
                                   <Checkbox
@@ -324,7 +324,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                                     }}
                                   />
                                 </FormControl>
-                                <FormLabel className='text-[14px] font-medium cursor-pointer'>
+                                <FormLabel className='text-[14px] md:text-[14px] font-medium cursor-pointer'>
                                   {ChurchServiceTimeNames[serviceTime]}
                                 </FormLabel>
                               </FormItem>
@@ -333,7 +333,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         />
                       ))}
                     </div>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 )}
               />
@@ -347,11 +347,12 @@ export const ChurchCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         E-mail
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna un e-mail a la nueva iglesia.
                       </FormDescription>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
+                          className='text-[14px] md:text-[14px]'
                           disabled={isInputDisabled}
                           placeholder='Ejem: iglesia.rocafuerte@gmail.com'
                           type='email'
@@ -359,7 +360,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -374,18 +375,19 @@ export const ChurchCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Número de teléfono
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna un número telefónico a la nueva iglesia.
                       </FormDescription>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
+                          className='text-[14px] md:text-[14px]'
                           disabled={isInputDisabled}
                           placeholder='Ejem: +51 999-999-999'
                           type='text'
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -398,7 +400,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>País</FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna el país al que pertenece la nueva iglesia.
                       </FormDescription>
                       <Select
@@ -406,7 +408,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         onValueChange={field.onChange}
                         value={field.value}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona el país' />
@@ -417,20 +419,24 @@ export const ChurchCreatePage = (): JSX.Element => {
                         </FormControl>
                         <SelectContent>
                           {Object.entries(CountryNames).map(([key, value]) => (
-                            <SelectItem className={`text-[14px]`} key={key} value={key}>
+                            <SelectItem
+                              className={`text-[14px] md:text-[14px]`}
+                              key={key}
+                              value={key}
+                            >
                               {value}
                             </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
               />
             </div>
 
-            <div className='col-start-2 col-end-3'>
+            <div className='-mt-3 md:mt-0 col-start-2 col-end-3'>
               <FormField
                 control={form.control}
                 name='department'
@@ -440,7 +446,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Departamento
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna el departamento al que pertenece la nueva iglesia.
                       </FormDescription>
                       <Select
@@ -448,7 +454,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         onValueChange={field.onChange}
                         value={field.value}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona el departamento' />
@@ -459,13 +465,17 @@ export const ChurchCreatePage = (): JSX.Element => {
                         </FormControl>
                         <SelectContent>
                           {Object.entries(DepartmentNames).map(([key, value]) => (
-                            <SelectItem className={`text-[14px]`} key={key} value={key}>
+                            <SelectItem
+                              className={`text-[14px] md:text-[14px]`}
+                              key={key}
+                              value={key}
+                            >
                               {value}
                             </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -480,7 +490,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Provincia
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna la provincia a la que pertenece la nueva iglesia.
                       </FormDescription>
                       <Select
@@ -488,7 +498,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         onValueChange={field.onChange}
                         value={field.value}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona la provincia' />
@@ -499,13 +509,17 @@ export const ChurchCreatePage = (): JSX.Element => {
                         </FormControl>
                         <SelectContent>
                           {Object.entries(ProvinceNames).map(([key, value]) => (
-                            <SelectItem className={`text-[14px]`} key={key} value={key}>
+                            <SelectItem
+                              className={`text-[14px] md:text-[14px]`}
+                              key={key}
+                              value={key}
+                            >
                               {value}
                             </SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -520,7 +534,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Distrito
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna el distrito al que pertenece la iglesia.
                       </FormDescription>
                       <Select
@@ -528,7 +542,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         onValueChange={field.onChange}
                         value={field.value}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona el distrito' />
@@ -540,7 +554,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(DistrictNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${districtsValidation?.districtsDataResult?.includes(value) ? 'hidden' : ''}`}
+                              className={`text-[14px] md:text-[14px] ${districtsValidation?.districtsDataResult?.includes(value) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -549,7 +563,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -564,7 +578,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Sector Urbano
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna el sector urbano al que pertenece la nueva iglesia.
                       </FormDescription>
                       <Select
@@ -572,7 +586,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         onValueChange={field.onChange}
                         value={field.value}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona el sector urbano' />
@@ -584,7 +598,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(UrbanSectorNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[14px] ${(urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district) ? 'hidden' : ''}`}
+                              className={`text-[14px] md:text-[14px] ${(urbanSectorsValidation?.urbanSectorsDataResult?.includes(value) ?? !district) ? 'hidden' : ''}`}
                               key={key}
                               value={key}
                             >
@@ -593,7 +607,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -608,18 +622,19 @@ export const ChurchCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Dirección
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna la dirección de la nueva iglesia.
                       </FormDescription>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
+                          className='text-[14px] md:text-[14px]'
                           disabled={isInputDisabled}
                           placeholder='Ejem: Av. Central 123 - Mz.A Lt.3'
                           type='text'
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -634,14 +649,15 @@ export const ChurchCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Referencia de dirección
                       </FormLabel>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Textarea
+                          className='text-[14px] md:text-[14px]'
                           disabled={isInputDisabled}
                           placeholder='Comentarios de referencia sobre la ubicación de la iglesia...'
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -652,7 +668,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                 name='isAnexe'
                 render={({ field }) => (
                   <FormItem className='flex flex-row gap-2 items-end mt-3 px-1 py-3 h-[2.5rem]'>
-                    <FormControl>
+                    <FormControl className='text-[14px] md:text-[14px]'>
                       <Checkbox
                         disabled={isInputDisabled}
                         checked={field?.value}
@@ -662,7 +678,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                       />
                     </FormControl>
                     <div className='space-y-1 leading-none'>
-                      <FormLabel className='text-[13px] md:text-[14px] cursor-pointer'>
+                      <FormLabel className='text-[14px] md:text-[14px] cursor-pointer'>
                         ¿Esta iglesia sera un anexo?
                       </FormLabel>
                     </div>
@@ -680,7 +696,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                         <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                           Iglesia Principal
                         </FormLabel>
-                        <FormDescription className='text-[14px]'>
+                        <FormDescription className='text-[13.5px] md:text-[14px]'>
                           Asigna una iglesia principal para este anexo.
                         </FormDescription>
                         <Popover
@@ -688,12 +704,12 @@ export const ChurchCreatePage = (): JSX.Element => {
                           onOpenChange={setIsInputMainChurchOpen}
                         >
                           <PopoverTrigger asChild>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Button
                                 disabled={isInputDisabled}
                                 variant='outline'
                                 role='combobox'
-                                className={cn('w-full justify-between ')}
+                                className={cn('text-[14px] md:text-[14px] w-full justify-between')}
                               >
                                 {field.value
                                   ? data?.find((church) => church.id === field.value)
@@ -709,13 +725,13 @@ export const ChurchCreatePage = (): JSX.Element => {
                                 <>
                                   <CommandInput
                                     placeholder='Busque una iglesia'
-                                    className='h-9 text-[14px]'
+                                    className='h-9 text-[14px] md:text-[14px]'
                                   />
                                   <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
                                   <CommandGroup className='max-h-[200px] h-auto'>
                                     {data?.map((church) => (
                                       <CommandItem
-                                        className='text-[14px]'
+                                        className='text-[14px] md:text-[14px]'
                                         value={church?.abbreviatedChurchName}
                                         key={church?.id}
                                         onSelect={() => {
@@ -734,7 +750,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                                     ))}
 
                                     {data?.length === 0 && (
-                                      <p className='text-[14.5px] text-red-500 text-center'>
+                                      <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                         ❌No hay iglesias disponibles.
                                       </p>
                                     )}
@@ -742,7 +758,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                                 </>
                               ) : (
                                 data?.length === 0 && (
-                                  <p className='text-[14.5px] text-red-500 text-center'>
+                                  <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                     ❌Iglesia Central no disponible.
                                   </p>
                                 )
@@ -750,7 +766,7 @@ export const ChurchCreatePage = (): JSX.Element => {
                             </Command>
                           </PopoverContent>
                         </Popover>
-                        <FormMessage />
+                        <FormMessage className='text-[13px]' />
                       </FormItem>
                     );
                   }}

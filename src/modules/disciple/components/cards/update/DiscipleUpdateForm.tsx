@@ -247,7 +247,7 @@ export const DiscipleUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Nombres</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -256,7 +256,7 @@ export const DiscipleUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -269,7 +269,7 @@ export const DiscipleUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Apellidos</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -278,7 +278,7 @@ export const DiscipleUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -313,7 +313,7 @@ export const DiscipleUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -326,7 +326,7 @@ export const DiscipleUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>País de Origen</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -335,7 +335,7 @@ export const DiscipleUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -352,12 +352,12 @@ export const DiscipleUpdateForm = ({
                             onOpenChange={setIsInputBirthDateOpen}
                           >
                             <PopoverTrigger asChild>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Button
                                   disabled={isInputDisabled}
                                   variant={'outline'}
                                   className={cn(
-                                    'w-full pl-3 text-left font-normal',
+                                    'text-[14px] w-full pl-3 text-left font-normal',
                                     !field.value && 'text-muted-foreground'
                                   )}
                                 >
@@ -387,10 +387,10 @@ export const DiscipleUpdateForm = ({
                               />
                             </PopoverContent>
                           </Popover>
-                          <FormDescription className='pl-3 text-blue-600 text-[11.5px] xl:text-[12.5px] font-bold italic'>
+                          <FormDescription className='pl-2 text-blue-600 text-[12.5px] xl:text-[13px] font-bold italic'>
                             * Su fecha de nacimiento se utiliza para calcular su edad.
                           </FormDescription>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -424,7 +424,7 @@ export const DiscipleUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -437,7 +437,7 @@ export const DiscipleUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Nro. de hijos</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -445,7 +445,7 @@ export const DiscipleUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -462,12 +462,12 @@ export const DiscipleUpdateForm = ({
                             onOpenChange={setIsInputConvertionDateOpen}
                           >
                             <PopoverTrigger asChild>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Button
                                   disabled={isInputDisabled}
                                   variant={'outline'}
                                   className={cn(
-                                    'w-full pl-3 text-left font-normal',
+                                    'text-[14px] w-full pl-3 text-left font-normal',
                                     !field.value && 'text-muted-foreground'
                                   )}
                                 >
@@ -476,9 +476,7 @@ export const DiscipleUpdateForm = ({
                                       locale: es,
                                     })
                                   ) : (
-                                    <span className='text-[12px] xl:text-[13px]'>
-                                      Fecha de conversion
-                                    </span>
+                                    <span className='text-[14px]'>Fecha de conversion</span>
                                   )}
                                   <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                                 </Button>
@@ -499,10 +497,10 @@ export const DiscipleUpdateForm = ({
                               />
                             </PopoverContent>
                           </Popover>
-                          <FormDescription className='pl-3 text-blue-600 text-[11.5px] xl:text-[12.5px] font-bold italic'>
+                          <FormDescription className='pl-2 text-blue-600 text-[12.5px] xl:text-[13px] font-bold italic'>
                             * Fecha en la que el creyente se convirtió.
                           </FormDescription>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -538,7 +536,7 @@ export const DiscipleUpdateForm = ({
                               </SelectContent>
                             </Select>
                             {form.getValues('recordStatus') === 'active' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>Activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
                                 debe inactivar el registro desde el modulo{' '}
@@ -546,12 +544,12 @@ export const DiscipleUpdateForm = ({
                               </FormDescription>
                             )}
                             {form.getValues('recordStatus') === 'inactive' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                                 * El registro esta <span className='text-red-500 '>Inactivo</span>,
                                 puede modificar el estado eligiendo otra opción.
                               </FormDescription>
                             )}
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -572,7 +570,7 @@ export const DiscipleUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>E-mail</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -582,7 +580,7 @@ export const DiscipleUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -595,7 +593,7 @@ export const DiscipleUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Número de Teléfono</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -604,7 +602,7 @@ export const DiscipleUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -639,7 +637,7 @@ export const DiscipleUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -674,7 +672,7 @@ export const DiscipleUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -709,7 +707,7 @@ export const DiscipleUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -727,7 +725,7 @@ export const DiscipleUpdateForm = ({
                               value={field.value}
                               onValueChange={field.onChange}
                             >
-                              <FormControl className='text-[13px] md:text-[14px]'>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el distrito' />
@@ -748,7 +746,7 @@ export const DiscipleUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -766,7 +764,7 @@ export const DiscipleUpdateForm = ({
                               value={field.value}
                               disabled={isInputDisabled}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el sector urbano' />
@@ -787,7 +785,7 @@ export const DiscipleUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -800,7 +798,7 @@ export const DiscipleUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Dirección</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -809,7 +807,7 @@ export const DiscipleUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -824,7 +822,7 @@ export const DiscipleUpdateForm = ({
                             <FormLabel className='text-[14px] font-medium'>
                               Referencia de dirección
                             </FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Textarea
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -832,7 +830,7 @@ export const DiscipleUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -869,7 +867,7 @@ export const DiscipleUpdateForm = ({
                                         key={role}
                                         className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
                                       >
-                                        <FormControl>
+                                        <FormControl className='text-[14px] md:text-[14px]'>
                                           <Checkbox
                                             checked={field.value?.includes(role)}
                                             disabled={isDisabled || isInputDisabled}
@@ -900,7 +898,7 @@ export const DiscipleUpdateForm = ({
                                 />
                               )
                           )}
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -945,7 +943,7 @@ export const DiscipleUpdateForm = ({
                                         key={role}
                                         className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
                                       >
-                                        <FormControl>
+                                        <FormControl className='text-[14px] md:text-[14px]'>
                                           <Checkbox
                                             checked={field.value?.includes(role)}
                                             disabled={isDisabled || isInputDisabled}
@@ -976,15 +974,15 @@ export const DiscipleUpdateForm = ({
                                 />
                               )
                           )}
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
 
                     {isMessagePromoteDisabled && (
-                      <span className='text-[13px] md:text-[14px] text-yellow-500 font-bold text-center'>
+                      <span className='text-[14px] md:text-[14px] dark:text-yellow-500 text-amber-500 font-bold text-center'>
                         !SE HA PROMOVIDO CORRECTAMENTE! <br />
-                        <span className='text-[12px] md:text-[13px]'>
+                        <span className='text-[14px] md:text-[14px]'>
                           <div>
                             <span className='text-red-500 text-center inline-block'>
                               Roles anteriores: Discípulo
@@ -1013,7 +1011,7 @@ export const DiscipleUpdateForm = ({
                                 <FormLabel className='text-[14px] md:text-[15px] font-bold'>
                                   Grupo Familiar
                                 </FormLabel>
-                                <FormDescription className='text-[14px]'>
+                                <FormDescription className='text-[13.5px] md:text-[14px]'>
                                   Seleccione un grupo familiar para este discípulo.
                                 </FormDescription>
                                 <Popover
@@ -1021,7 +1019,7 @@ export const DiscipleUpdateForm = ({
                                   onOpenChange={setIsInputTheirFamilyGroupOpen}
                                 >
                                   <PopoverTrigger asChild>
-                                    <FormControl>
+                                    <FormControl className='text-[14px] md:text-[14px]'>
                                       <Button
                                         disabled={isRelationSelectDisabled}
                                         variant='outline'
@@ -1080,7 +1078,7 @@ export const DiscipleUpdateForm = ({
                                         </>
                                       ) : (
                                         familyGroupsQuery?.data?.length === 0 && (
-                                          <p className='text-[14.5px] text-red-500 text-center'>
+                                          <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                             ❌No hay grupos familiares disponibles.
                                           </p>
                                         )
@@ -1088,7 +1086,7 @@ export const DiscipleUpdateForm = ({
                                     </Command>
                                   </PopoverContent>
                                 </Popover>
-                                <FormMessage />
+                                <FormMessage className='text-[13px]' />
                               </FormItem>
                             );
                           }}
@@ -1105,7 +1103,7 @@ export const DiscipleUpdateForm = ({
                                 <FormLabel className='text-[14px] md:text-[15px] font-bold'>
                                   Supervisor
                                 </FormLabel>
-                                <FormDescription className='text-[14px]'>
+                                <FormDescription className='text-[13.5px] md:text-[14px]'>
                                   Seleccione un supervisor para este predicador.
                                 </FormDescription>
                                 <Popover
@@ -1113,7 +1111,7 @@ export const DiscipleUpdateForm = ({
                                   onOpenChange={setIsInputTheirSupervisorOpen}
                                 >
                                   <PopoverTrigger asChild>
-                                    <FormControl>
+                                    <FormControl className='text-[14px] md:text-[14px]'>
                                       <Button
                                         disabled={isRelationSelectDisabled}
                                         variant='outline'
@@ -1169,7 +1167,7 @@ export const DiscipleUpdateForm = ({
                                         </>
                                       ) : (
                                         supervisorsQuery?.data?.length === 0 && (
-                                          <p className='text-[14.5px] text-red-500 text-center'>
+                                          <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                             ❌No hay supervisores disponibles.
                                           </p>
                                         )
@@ -1177,7 +1175,7 @@ export const DiscipleUpdateForm = ({
                                     </Command>
                                   </PopoverContent>
                                 </Popover>
-                                <FormMessage />
+                                <FormMessage className='text-[13px]' />
                               </FormItem>
                             );
                           }}
@@ -1186,7 +1184,7 @@ export const DiscipleUpdateForm = ({
                     </div>
 
                     {isPromoteButtonDisabled && !theirSupervisor && !theirFamilyGroup && (
-                      <span className='text-[12px] md:text-[13px] font-bold text-center text-red-500'>
+                      <span className='-mt-2 text-[12.5px] md:text-[13px] font-bold text-center text-red-500'>
                         ! Por favor asigna la nueva relación para los roles promovidos !
                       </span>
                     )}
@@ -1202,11 +1200,11 @@ export const DiscipleUpdateForm = ({
                       </AlertDialogTrigger>
                       <AlertDialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
                         <AlertDialogHeader className='h-auto'>
-                          <AlertDialogTitle className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-3 flex flex-col'>
+                          <AlertDialogTitle className='dark:text-yellow-500 text-amber-500 font-bold text-xl text-center md:text-[25px] pb-3 flex flex-col'>
                             <span>¿Estas seguro de promover a este</span>
                             <span className='w-full text-center'>Discípulo?</span>
                           </AlertDialogTitle>
-                          <AlertDialogDescription className={cn('h-[18rem] md:h-[15.5rem]')}>
+                          <AlertDialogDescription className={cn('h-[17.5rem] md:h-[15.5rem]')}>
                             <span className='w-full text-left text-blue-500 font-medium mb-3 inline-block text-[16px] md:text-[18px]'>
                               Secuencia de pasos y acciones:
                             </span>
@@ -1235,11 +1233,11 @@ export const DiscipleUpdateForm = ({
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                          <AlertDialogCancel className='bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'>
+                          <AlertDialogCancel className='mt-3 text-[14px] w-full border-1 border-red-500 bg-gradient-to-r from-red-400 via-red-500 to-red-600 text-white hover:text-red-100 hover:from-red-500 hover:via-red-600 hover:to-red-700 dark:from-red-600 dark:via-red-700 dark:to-red-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-red-700 dark:hover:via-red-800 dark:hover:to-red-900'>
                             No, Cancelar
                           </AlertDialogCancel>
                           <AlertDialogAction
-                            className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
+                            className='text-[14px] w-full border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
                             onClick={() => {
                               useDiscipleRolePromotionHandler({
                                 discipleUpdateForm: form,
@@ -1258,14 +1256,14 @@ export const DiscipleUpdateForm = ({
                     </AlertDialog>
 
                     <div className=''>
-                      <p className='text-red-500 text-[13px] md:text-[14px] font-bold mb-2'>
+                      <p className='text-red-500 text-[13.5px] md:text-[14px] font-bold mb-2'>
                         Consideraciones
                       </p>
-                      <p className='text-[12px] md:text-[13px] mb-2 font-medium '>
+                      <p className='text-[12.5px] md:text-[13px] mb-2 font-medium '>
                         ❌ Mientras estés en modo de edición y los datos cambien no podrás promover
                         de cargo.{' '}
                       </p>
-                      <p className='text-[12px] md:text-[13px] font-medium '>
+                      <p className='text-[12.5px] md:text-[13px] font-medium '>
                         ❌ Mientras el &#34;Estado&#34; sea{' '}
                         <span className='text-red-500 font-bold'>Inactivo</span> no podrás promover
                         de cargo.
@@ -1291,7 +1289,7 @@ export const DiscipleUpdateForm = ({
                       className={cn(
                         'w-full text-[14px]',
                         discipleUpdateMutation?.isPending &&
-                          'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] text-white'
+                          'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] dark:text-black text-white'
                       )}
                       onClick={() => {
                         setTimeout(() => {

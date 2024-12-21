@@ -75,7 +75,7 @@ export const copastorSearchByTermFormSchema = z
     },
     {
       message: 'El nombre es requerido.',
-      path: ['namesTerm'],
+      path: ['firstNamesTerm'],
     }
   )
   .refine(
@@ -118,7 +118,7 @@ export const copastorSearchByTermFormSchema = z
     },
     {
       message: 'El apellido es requerido.',
-      path: ['namesTerm'],
+      path: ['firstNamesTerm'],
     }
   )
   .refine(

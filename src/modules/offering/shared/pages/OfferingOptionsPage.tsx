@@ -23,7 +23,7 @@ export const OfferingOptionsPage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeIn'>
-      <h1 className='text-center pb-2 pt-1 md:pt-2 md:pb-2 font-sans text-2xl sm:text-3xl font-bold text-offering-color text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
+      <h1 className='text-center pb-2 pt-2 md:pt-2 md:pb-2 font-sans text-2xl sm:text-3xl font-bold text-amber-500 dark:text-offering-color text-[2rem] sm:text-[2.4rem] md:text-[2.6rem] lg:text-5xl xl:text-5xl'>
         Modulo Ofrenda
       </h1>
       <p className='text-center font-sans text-sm sm:text-md md:text-[15px] font-bold px-4 pb-4 lg:text-base xl:text-lg'>
@@ -31,7 +31,7 @@ export const OfferingOptionsPage = (): JSX.Element => {
       </p>
       <hr className='p-[0.015rem] bg-slate-500' />
 
-      <div className='w-full px-8 py-6 flex flex-col gap-10 lg:grid md:gap-8 lg:h-[45rem] 2xl:h-[43rem]'>
+      <div className='w-full h-[35rem] justify-center lg:justify-normal px-8 py-10 flex flex-col gap-10 lg:grid md:gap-8 sm:h-[40rem] md:h-[45rem] lg:h-[48rem] 2xl:h-[45rem]'>
         <NavLink
           key='/offerings/income'
           to='/offerings/income'

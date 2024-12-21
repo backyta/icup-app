@@ -167,11 +167,11 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-family-group-color '>Modulo Grupo Familiar</PageTitle>
 
-      <h1 className='text-left leading-7 pb-2 pt-3 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h1 className='text-left leading-7 pb-[2px] pt-3 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear un nuevo grupo familiar
       </h1>
 
-      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6  sm:pl-7 2xl:px-28 text-[12px] md:text-[15px] xl:text-base'>
+      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6 sm:pl-7 2xl:px-28 text-[13.5px] md:text-[15px] xl:text-base'>
         Por favor llena los siguientes datos para crear un nuevo grupo familiar.
       </p>
 
@@ -191,10 +191,10 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Nombre
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna una nombre al nuevo grupo familiar.
                       </FormDescription>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
                           disabled={isInputDisabled}
                           placeholder='Ejem: Los Guerreros de Dios...'
@@ -202,7 +202,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -217,7 +217,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Horario de culto
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna un horario de culto al nuevo grupo familiar.
                       </FormDescription>
                       <Select
@@ -225,7 +225,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                         value={field.value}
                         disabled={isInputDisabled}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona un horario' />
@@ -234,7 +234,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                             )}
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent className='h-[15rem]'>
+                        <SelectContent className='h-[12rem] md:h-[15rem]'>
                           {Object.entries(FamilyGroupServiceTimeNames).map(([key, value]) => (
                             <SelectItem className={`text-[14px]`} key={key} value={key}>
                               {value}
@@ -242,7 +242,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -255,7 +255,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>País</FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna el país al que pertenece el nuevo grupo familiar.
                       </FormDescription>
                       <Select
@@ -263,7 +263,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                         value={field.value}
                         disabled={isInputDisabled}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona el país' />
@@ -280,7 +280,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -295,7 +295,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Departamento
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna el departamento al que pertenece el nuevo grupo familiar.
                       </FormDescription>
                       <Select
@@ -303,7 +303,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                         value={field.value}
                         disabled={isInputDisabled}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona el departamento' />
@@ -320,7 +320,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -335,7 +335,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Provincia
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna la provincia a la que pertenece el nuevo grupo familiar.
                       </FormDescription>
                       <Select
@@ -343,7 +343,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                         value={field.value}
                         disabled={isInputDisabled}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona la provincia' />
@@ -360,7 +360,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -375,7 +375,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Distrito
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna el distrito al que pertenece el nuevo grupo familiar.
                       </FormDescription>
                       <Select
@@ -383,7 +383,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                         value={field.value}
                         disabled={isInputDisabled}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona el distrito' />
@@ -404,7 +404,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -421,7 +421,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Sector Urbano
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna el sector urbano al que pertenece el grupo familiar.
                       </FormDescription>
                       <Select
@@ -429,7 +429,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                         value={field.value}
                         disabled={isInputDisabled}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona el sector urbano' />
@@ -450,7 +450,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -465,10 +465,10 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Dirección
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna la dirección al que pertenece el nuevo grupo familiar.
                       </FormDescription>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
                           disabled={isInputDisabled}
                           placeholder='Ej: Av. Central 123 - Mz.A Lt.3'
@@ -476,7 +476,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -491,14 +491,14 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Referencia de dirección
                       </FormLabel>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Textarea
                           disabled={isInputDisabled}
                           placeholder='Comentarios de referencia sobre la ubicación del grupo familiar...'
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -511,12 +511,12 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Zona</FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna la Zona a la que pertenecerá este Grupo Familiar.
                       </FormDescription>
                       <Popover open={isInputTheirZoneOpen} onOpenChange={setIsInputTheirZoneOpen}>
                         <PopoverTrigger asChild>
-                          <FormControl>
+                          <FormControl className='text-[14px] md:text-[14px]'>
                             <Button
                               disabled={isInputDisabled}
                               variant='outline'
@@ -567,7 +567,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                               </>
                             ) : (
                               zonesQuery?.data?.length === 0 && (
-                                <p className='text-[14.5px] text-red-500 text-center'>
+                                <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                   ❌No hay zonas disponibles.
                                 </p>
                               )
@@ -575,14 +575,14 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                           </Command>
                         </PopoverContent>
                       </Popover>
-                      <FormMessage />
-                      <FormDescription className='text-[12px] md:text-[13px] text-blue-500 font-bold'>
+                      <FormMessage className='text-[13px]' />
+
+                      <FormDescription className='text-[12.5px] md:text-[13px] text-blue-500 font-bold'>
                         <p>
                           *Si no hay zonas disponibles o necesitas una nueva zona, debes crearla en{' '}
-                          <Link className='text-red-500 underline' to={'/zones/create-zone'}>
-                            Crear Zona
-                          </Link>{' '}
-                          .
+                          <Link className='text-green-500 underline' to={'/zones/create-zone'}>
+                            Crear Zona.
+                          </Link>
                         </p>
                       </FormDescription>
                     </FormItem>
@@ -599,7 +599,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Predicador
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna el Predicador responsable para este Grupo Familiar.
                       </FormDescription>
                       {preachersQuery?.isFetching ? (
@@ -612,7 +612,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                           onOpenChange={setIsInputTheirPreacherOpen}
                         >
                           <PopoverTrigger asChild>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Button
                                 disabled={isInputTheirPreacherDisabled}
                                 variant='outline'
@@ -669,7 +669,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                                 </>
                               ) : (
                                 preachersQuery?.data?.length === 0 && (
-                                  <p className='text-[14.5px] text-red-500 text-center'>
+                                  <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                     ❌No hay predicadores disponibles.
                                   </p>
                                 )
@@ -679,7 +679,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                         </Popover>
                       )}
 
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}

@@ -114,7 +114,7 @@ export function HousesInfoCard(): JSX.Element {
             Grupos Familiares
           </CardTitle>
 
-          <CardDescription className='text-[13.5px] ml-[0rem] md:ml-[1rem] md:text-[14.5px]'>
+          <CardDescription className='text-[14px] ml-[0rem] md:ml-[1rem] md:text-[14.5px]'>
             {`Grupos familiares con  ${changedValue ? 'más' : 'menos'} discípulos.`}
           </CardDescription>
         </CardHeader>
@@ -139,12 +139,12 @@ export function HousesInfoCard(): JSX.Element {
                           onOpenChange={setIsInputSearchChurchOpen}
                         >
                           <PopoverTrigger asChild>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Button
                                 variant='outline'
                                 role='combobox'
                                 className={cn(
-                                  'justify-between w-full text-center px-2 text-[12px] md:text-[14px]',
+                                  'justify-between w-full text-center px-2 text-[13px] md:text-[14px]',
                                   !field.value &&
                                     'text-slate-500 dark:text-slate-200 font-normal px-2'
                                 )}
@@ -170,13 +170,13 @@ export function HousesInfoCard(): JSX.Element {
                             <Command>
                               <CommandInput
                                 placeholder='Busque una iglesia'
-                                className='h-9 text-[12px] md:text-[14px]'
+                                className='h-9 text-[13px] md:text-[14px]'
                               />
                               <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
                               <CommandGroup className='max-h-[100px] h-auto'>
                                 {churchesQuery?.data?.map((church) => (
                                   <CommandItem
-                                    className='text-[12px] md:text-[14px]'
+                                    className='text-[14px] md:text-[14px]'
                                     value={church.churchCode}
                                     key={church.id}
                                     onSelect={() => {
@@ -198,7 +198,7 @@ export function HousesInfoCard(): JSX.Element {
                             </Command>
                           </PopoverContent>
                         </Popover>
-                        <FormMessage />
+                        <FormMessage className='text-[13px]' />
                       </FormItem>
                     );
                   }}

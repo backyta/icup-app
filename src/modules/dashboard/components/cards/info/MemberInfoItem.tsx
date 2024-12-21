@@ -66,15 +66,15 @@ export function MemberInfoItem({ data }: Props): JSX.Element {
 
         <div className='flex flex-col'>
           <div className='flex flex-col justify-center'>
-            <p className='text-sm sm:text-base font-bold'>{`${data?.member?.firstNames} ${data?.member?.lastNames}`}</p>
-            <p className='text-[12px] sm:text-[14px] ml-2'>{`${data?.member?.residenceDistrict} - ${data?.member?.residenceUrbanSector}`}</p>
+            <p className='text-[14px] sm:text-[14px] font-bold'>{`${data?.member?.firstNames} ${data?.member?.lastNames}`}</p>
+            <p className='text-[13px] sm:text-[14px] ml-2'>{`${data?.member?.residenceDistrict} - ${data?.member?.residenceUrbanSector}`}</p>
           </div>
         </div>
       </CardContent>
       <div className='px-2 pt-2 pb-2 pr-4 sm:p-6 sm:pt-0'>
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerTrigger asChild>
-            <Button className='text-[12px] sm:text-sm lg:w-[7rem] xl:w-[8rem] 2xl:w-[10rem] '>
+            <Button className='text-[12.5px] sm:text-sm lg:w-[7rem] xl:w-[8rem] 2xl:w-[10rem] '>
               Ver Discípulo
             </Button>
           </DrawerTrigger>

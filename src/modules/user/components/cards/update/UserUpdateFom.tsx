@@ -128,7 +128,7 @@ export const UserUpdateForm = ({
 
           {!isLoadingData && (
             <CardContent className='py-4 px-4'>
-              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] mb-4 pl-0 md:pl-4'>
+              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16.5px] md:text-[18px] mb-4 pl-0 md:pl-4'>
                 Usuario: {data?.firstNames} {data?.lastNames}
               </div>
 
@@ -146,7 +146,7 @@ export const UserUpdateForm = ({
                           <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                             Nombres
                           </FormLabel>
-                          <FormControl>
+                          <FormControl className='text-[14px] md:text-[14px]'>
                             <Input
                               disabled={isInputDisabled}
                               placeholder='Nombres del usuario'
@@ -154,7 +154,7 @@ export const UserUpdateForm = ({
                               {...field}
                             />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       );
                     }}
@@ -169,7 +169,7 @@ export const UserUpdateForm = ({
                           <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                             Apellidos
                           </FormLabel>
-                          <FormControl>
+                          <FormControl className='text-[14px] md:text-[14px]'>
                             <Input
                               disabled={isInputDisabled}
                               placeholder='Apellidos del usuario'
@@ -177,7 +177,7 @@ export const UserUpdateForm = ({
                               {...field}
                             />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       );
                     }}
@@ -197,7 +197,7 @@ export const UserUpdateForm = ({
                             value={field.value}
                             disabled={isInputDisabled}
                           >
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <SelectTrigger>
                                 {field.value ? (
                                   <SelectValue placeholder='Selecciona el tipo de género' />
@@ -214,7 +214,7 @@ export const UserUpdateForm = ({
                               ))}
                             </SelectContent>
                           </Select>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       );
                     }}
@@ -229,7 +229,7 @@ export const UserUpdateForm = ({
                           <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                             Correo Electrónico
                           </FormLabel>
-                          <FormControl>
+                          <FormControl className='text-[14px] md:text-[14px]'>
                             <Input
                               disabled={isInputDisabled}
                               placeholder='Dirección de correo electrónico'
@@ -238,7 +238,7 @@ export const UserUpdateForm = ({
                               {...field}
                             />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       );
                     }}
@@ -252,7 +252,7 @@ export const UserUpdateForm = ({
                         <FormItem>
                           <FormLabel className='text-[14px]'>Estado</FormLabel>
                           <Select disabled={isInputDisabled} onValueChange={field.onChange}>
-                            <FormControl className='text-[13px] md:text-[14px]'>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <SelectTrigger>
                                 {field.value === 'active' ? (
                                   <SelectValue placeholder='Activo' />
@@ -268,7 +268,7 @@ export const UserUpdateForm = ({
                             </SelectContent>
                           </Select>
                           {form.getValues('recordStatus') === 'active' && (
-                            <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                            <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                               *El registro esta <span className='text-green-500'>Activo</span>, para
                               colocar nuevamente como <span className='text-red-500'>inactivo</span>{' '}
                               inactivar el registro desde el modulo{' '}
@@ -276,12 +276,12 @@ export const UserUpdateForm = ({
                             </FormDescription>
                           )}
                           {form.getValues('recordStatus') === 'inactive' && (
-                            <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                            <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                               * El registro esta <span className='text-red-500'>inactivo</span>,
                               puede modificar el estado eligiendo otra opción.
                             </FormDescription>
                           )}
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       );
                     }}
@@ -311,7 +311,7 @@ export const UserUpdateForm = ({
                                   key={role}
                                   className='flex flex-row items-center space-x-3 space-y-0'
                                 >
-                                  <FormControl>
+                                  <FormControl className='text-[14px] md:text-[14px]'>
                                     <Checkbox
                                       disabled={isInputDisabled}
                                       checked={field.value?.includes(role)}
@@ -336,7 +336,7 @@ export const UserUpdateForm = ({
                             }}
                           />
                         ))}
-                        <FormMessage />
+                        <FormMessage className='text-[13px]' />
                       </FormItem>
                     )}
                   />
@@ -359,7 +359,7 @@ export const UserUpdateForm = ({
                       className={cn(
                         'w-full text-[14px]',
                         userUpdateMutation?.isPending &&
-                          'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] text-white'
+                          'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] dark:text-black text-white'
                       )}
                       onClick={() => {
                         setTimeout(() => {

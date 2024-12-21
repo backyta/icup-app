@@ -131,14 +131,14 @@ export const FamilyGroupPreacherUpdateForm = ({
       defaultValue='general-info'
       className='w-auto sm:w-[480px] md:w-[550px] lg:w-[550px] xl:w-[600px]'
     >
-      <h2 className='text-center text-emerald-500 pb-2 font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
+      <h2 className='text-center text-emerald-500 pb-2 font-bold text-[22px] sm:text-[22px] md:text-[24px]'>
         Intercambiar Predicadores
       </h2>
 
       <TabsContent value='general-info' className='overflow-y-auto'>
         <Card className='w-full'>
           <CardContent className='py-4 px-4'>
-            <div className='font-bold text-[14.5px] md:text-[15px] mb-4'>
+            <div className='font-bold text-[15px] md:text-[15px] mb-4'>
               Nombre de Zona:{' '}
               <span className='font-black text-blue-500 text-[16.5px] md:text-[17.5px]'>
                 {data?.theirZone?.zoneName}
@@ -161,7 +161,7 @@ export const FamilyGroupPreacherUpdateForm = ({
                             <FormLabel className='text-[14px] font-bold'>
                               Predicador Actual
                             </FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 className={cn(
                                   'text-[14px] font-medium',
@@ -172,7 +172,7 @@ export const FamilyGroupPreacherUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -187,7 +187,7 @@ export const FamilyGroupPreacherUpdateForm = ({
                             <FormLabel className='text-[14px] font-bold'>
                               Grupo Familiar Actual
                             </FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 className='font-medium'
                                 disabled={isInputDisabled}
@@ -195,7 +195,7 @@ export const FamilyGroupPreacherUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -222,7 +222,7 @@ export const FamilyGroupPreacherUpdateForm = ({
                               onOpenChange={setIsInputTheirPreacherOpen}
                             >
                               <PopoverTrigger asChild>
-                                <FormControl>
+                                <FormControl className='text-[14px] md:text-[14px]'>
                                   <Button
                                     disabled={isInputTheirPreacherDisabled}
                                     variant='outline'
@@ -285,7 +285,7 @@ export const FamilyGroupPreacherUpdateForm = ({
                                     </>
                                   ) : (
                                     preachersQuery?.data?.length === 0 && (
-                                      <p className='text-[14px] w-[280px] md:w-[210px] text-red-500 text-center'>
+                                      <p className='text-[13.5px] md:text-[14px] w-[280px] md:w-[210px] text-red-500 text-center'>
                                         ❌ No se encontró predicadores disponibles, todos están
                                         asignados a un grupo familiar.
                                       </p>
@@ -295,7 +295,7 @@ export const FamilyGroupPreacherUpdateForm = ({
                               </PopoverContent>
                             </Popover>
 
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -310,7 +310,7 @@ export const FamilyGroupPreacherUpdateForm = ({
                             <FormLabel className='text-[14px] font-bold'>
                               Grupo Familiar Nuevo
                             </FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 className='font-medium'
                                 disabled={isInputDisabled}
@@ -318,7 +318,7 @@ export const FamilyGroupPreacherUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -327,11 +327,11 @@ export const FamilyGroupPreacherUpdateForm = ({
                 </div>
 
                 {isMessageErrorDisabled ? (
-                  <p className='-mb-2 md:-mb-3 md:row-start-5 md:row-end-6 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
+                  <p className='-mb-3 md:-mb-3 md:row-start-5 md:row-end-6 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
                     ❌ Datos incompletos, completa todos los campos para actualizar el registro.
                   </p>
                 ) : (
-                  <p className='-mt-1 order-last md:-mt-3 md:row-start-6 md:row-end-7 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
+                  <p className='-mt-2 order-last md:-mt-3 md:row-start-6 md:row-end-7 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
                     ¡Campos completados correctamente! <br /> Para finalizar por favor guarde los
                     cambios.
                   </p>
@@ -364,18 +364,18 @@ export const FamilyGroupPreacherUpdateForm = ({
               </form>
             </Form>
             <div className='mt-3'>
-              <p className='text-red-500 text-[13px] md:text-[14px] font-bold mb-2'>
+              <p className='text-red-500 text-[14px] md:text-[14px] font-bold mb-2'>
                 Consideraciones
               </p>
-              <p className='text-[12px] md:text-[13px] mb-2 font-medium '>
+              <p className='text-[12.5px] md:text-[13px] mb-2 font-medium '>
                 ✅ Se requiere que los Predicadores tengan la misma Zona para intercambiarlos entre
                 los Grupos Familiares.
               </p>
-              <p className='text-[12px] md:text-[13px] mb-2 font-medium '>
+              <p className='text-[12.5px] md:text-[13px] mb-2 font-medium '>
                 ✅ Al ejecutar el intercambio el predicador pasara al otro Grupo Familiar y
                 viceversa.
               </p>
-              <p className='text-[12px] md:text-[13px] mb-2 font-medium '>
+              <p className='text-[12.5px] md:text-[13px] mb-2 font-medium '>
                 ✅ Si quieres intercambiar por otro Predicador, primero deberás actualizar ese
                 Predicador a la Zona correspondiente.
               </p>

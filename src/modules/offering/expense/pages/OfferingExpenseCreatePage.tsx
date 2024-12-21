@@ -217,10 +217,10 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-red-600'>Modulo de Salida</PageTitle>
 
-      <h1 className='text-left leading-7 pb-2 pt-3 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h1 className='text-left leading-7 pb-[2px] pt-3 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear nueva salida de ofrenda
       </h1>
-      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6  sm:pl-7 2xl:px-28 text-[12px] md:text-[15px] xl:text-base'>
+      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6 sm:pl-7 2xl:px-28 text-[13.5px] md:text-[15px] xl:text-base'>
         Por favor llena los siguientes datos para crear un nuevo registro de salida.
       </p>
 
@@ -235,16 +235,16 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                 control={form.control}
                 name='churchId'
                 render={({ field }) => (
-                  <FormItem className='mt-3'>
+                  <FormItem>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                       Iglesia
                     </FormLabel>
-                    <FormDescription className='text-[14px]'>
+                    <FormDescription className='text-[13.5px] md:text-[14px]'>
                       Selecciona una iglesia para asignarla al registro.
                     </FormDescription>
                     <Popover open={isInputChurchOpen} onOpenChange={setIsInputChurchOpen}>
                       <PopoverTrigger asChild>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Button
                             disabled={isInputDisabled}
                             variant='outline'
@@ -295,7 +295,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                             </>
                           ) : (
                             churchesQuery?.data?.length === 0 && (
-                              <p className='text-[14.5px] text-red-500 text-center'>
+                              <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                 ❌No hay iglesias disponibles.
                               </p>
                             )
@@ -303,7 +303,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                         </Command>
                       </PopoverContent>
                     </Popover>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 )}
               />
@@ -315,7 +315,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Tipo</FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Selecciona un tipo de gasto para el registro.
                       </FormDescription>
                       <Select
@@ -328,7 +328,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                         value={field.value}
                         onValueChange={field.onChange}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona una tipo de egreso o gasto' />
@@ -348,7 +348,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                           )}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -364,7 +364,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                         <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                           Sub-Tipo
                         </FormLabel>
-                        <FormDescription className='text-[14px]'>
+                        <FormDescription className='text-[13.5px] md:text-[14px]'>
                           Asignar un sub-tipo de gasto al registro.
                         </FormDescription>
                         <Select
@@ -372,7 +372,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                           value={field.value}
                           onValueChange={field.onChange}
                         >
-                          <FormControl>
+                          <FormControl className='text-[14px] md:text-[14px]'>
                             <SelectTrigger>
                               {field.value ? (
                                 <SelectValue placeholder='Selecciona una sub-tipo de gasto' />
@@ -405,7 +405,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                             ))}
                           </SelectContent>
                         </Select>
-                        <FormMessage />
+                        <FormMessage className='text-[13px]' />
                       </FormItem>
                     );
                   }}
@@ -421,10 +421,10 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Monto
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Digita la cantidad del gasto realizado.
                       </FormDescription>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
                           disabled={isInputDisabled}
                           placeholder='Monto total del gasto realizado'
@@ -432,7 +432,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -447,7 +447,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                         Divisa / Moneda
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asignar un tipo de divisa o moneda al registro.
                       </FormDescription>
                       <Select
@@ -455,7 +455,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                         value={field.value}
                         onValueChange={field.onChange}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona una tipo de divisa o moneda' />
@@ -472,7 +472,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -484,24 +484,24 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                 render={({ field }) => (
                   <FormItem className='mt-3'>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Fecha</FormLabel>
-                    <FormDescription className='text-[14px]'>
+                    <FormDescription className='text-[13.5px] md:text-[14px]'>
                       Elige la fecha de gasto o compra realizada.
                     </FormDescription>
                     <Popover open={isInputDateOpen} onOpenChange={setIsInputDateOpen}>
                       <PopoverTrigger asChild>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Button
                             disabled={isInputDisabled}
                             variant={'outline'}
                             className={cn(
-                              'w-full pl-3 text-left font-normal',
+                              'text-[14px] w-full pl-3 text-left font-normal',
                               !field.value && 'text-muted-foreground'
                             )}
                           >
                             {field.value ? (
                               format(field.value, 'LLL dd, y', { locale: es })
                             ) : (
-                              <span className='text-sm md:text-[12px] lg:text-sm'>
+                              <span className='text-[14px]'>
                                 Seleccione la fecha del gasto o compra
                               </span>
                             )}
@@ -522,7 +522,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                         />
                       </PopoverContent>
                     </Popover>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 )}
               />
@@ -544,7 +544,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                           Escribe una breve descripción sobre el ajuste
                         </FormDescription>
                       )}
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Textarea
                           disabled={isInputDisabled}
                           placeholder={`${
@@ -555,7 +555,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -570,16 +570,16 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3 md:mt-0'>
                       <FormLabel className='text-[14px] md:text-[14.5px] font-bold flex items-center'>
-                        Subir imagen{' '}
+                        Subir imagen
                         <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[2px] rounded-full mr-1'>
                           Opcional
                         </span>
                       </FormLabel>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <div
                           {...getRootProps({
                             className:
-                              'font-medium text-sm sm:text-[15px] p-10 sm:p-12 md:p-16 max-w-[25rem] md:max-w-[25rem] m-auto border border-dashed border-black dark:border-white hover:bg-green-200 dark:hover:text-black ease-in duration-200 text-center',
+                              'h-[10rem] font-medium text-sm sm:text-[15px] p-10 sm:p-12 md:p-16 max-w-[25rem] md:max-w-[25rem] m-auto border border-dashed border-black dark:border-white hover:bg-green-200 dark:hover:text-black ease-in duration-200 text-center',
                           })}
                         >
                           <input {...getInputProps()} className='m-auto w-[20rem]' />
@@ -587,20 +587,19 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                           {isDragActive ? (
                             <p>Suelte sus archivos aquí ...</p>
                           ) : (
-                            <p>
+                            <p className='pt-5 md:pt-0'>
                               Arrastre y suelte sus archivos aquí, o haga clic para seleccionar.
                             </p>
                           )}
                         </div>
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                       {files && files.length > 3 ? (
-                        <span className='text-red-500 font-bold text-[11.5px] md:text-[12.5px] text-center mx-auto justify-center flex'>
+                        <span className='text-red-500 font-bold text-[12.5px] md:text-[12.3px] text-center mx-auto justify-center flex'>
                           ❌ Sobrepasa el limite, elige como máximo solo 3 imágenes.
                         </span>
                       ) : (
-                        <span className='font-bold text-[11.5px] md:text-[12.5px] pl-1 md:pl-5 mt-1 flex flex-col'>
-                          {' '}
+                        <span className='font-bold text-[12.5px] md:text-[12.3px] pl-3 md:pl-6 mt-1 flex flex-col'>
                           <span>✅ Máximo 3 archivos.</span>
                           <span>✅ El campo se bloqueara al llegar o pasar los 3 archivos.</span>
                         </span>
@@ -616,7 +615,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                     type='button'
                     disabled={isDeleteFileButtonDisabled}
                     onClick={removeAll}
-                    className='mt-1 text-[10.5px] md:text-[11px] w-[8rem] md:w-[10rem] p-2 uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md  hover:bg-secondary-400 hover:text-white ease-in duration-200 hover:bg-red-500 transition-colors'
+                    className='mt-1 text-[11px] md:text-[11px] w-[8rem] md:w-[10rem] p-2 uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md  hover:bg-secondary-400 hover:text-white ease-in duration-200 hover:bg-red-500 transition-colors'
                   >
                     Remover todos los archivos
                   </button>
@@ -679,7 +678,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                           removeRejected(file.name);
                         }}
                       >
-                        remove
+                        remover
                       </button>
                     </li>
                   ))}

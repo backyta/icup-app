@@ -168,7 +168,7 @@ export const OfferingIncomeAnalysisCardByUnitedService = ({ churchId }: Props): 
                       }}
                     >
                       <PopoverTrigger asChild>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Button
                             variant='outline'
                             role='combobox'
@@ -216,7 +216,7 @@ export const OfferingIncomeAnalysisCardByUnitedService = ({ churchId }: Props): 
                         </Command>
                       </PopoverContent>
                     </Popover>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 );
               }}
@@ -238,7 +238,7 @@ export const OfferingIncomeAnalysisCardByUnitedService = ({ churchId }: Props): 
                       }}
                     >
                       <PopoverTrigger asChild>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Button
                             variant='outline'
                             role='combobox'
@@ -286,7 +286,7 @@ export const OfferingIncomeAnalysisCardByUnitedService = ({ churchId }: Props): 
                         </Command>
                       </PopoverContent>
                     </Popover>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 );
               }}

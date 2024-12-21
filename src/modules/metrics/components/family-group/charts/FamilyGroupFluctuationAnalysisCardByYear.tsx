@@ -121,7 +121,7 @@ export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): J
                   <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
                     <Popover open={isInputSearchYearOpen} onOpenChange={setIsInputSearchYearOpen}>
                       <PopoverTrigger asChild>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Button
                             variant='outline'
                             role='combobox'
@@ -169,7 +169,7 @@ export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): J
                         </Command>
                       </PopoverContent>
                     </Popover>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 );
               }}

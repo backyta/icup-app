@@ -144,7 +144,7 @@ export const DonorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Nombres</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -153,7 +153,7 @@ export const DonorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -166,7 +166,7 @@ export const DonorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Apellidos</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -175,7 +175,7 @@ export const DonorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -210,7 +210,7 @@ export const DonorUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -227,12 +227,12 @@ export const DonorUpdateForm = ({
                             onOpenChange={setIsInputBirthDateOpen}
                           >
                             <PopoverTrigger asChild>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Button
                                   disabled={isInputDisabled}
                                   variant={'outline'}
                                   className={cn(
-                                    'w-full pl-3 text-left font-normal',
+                                    'text-[14px] w-full pl-3 text-left font-normal',
                                     !field.value && 'text-muted-foreground'
                                   )}
                                 >
@@ -263,7 +263,7 @@ export const DonorUpdateForm = ({
                             </PopoverContent>
                           </Popover>
 
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -275,7 +275,7 @@ export const DonorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>País de Origen</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -284,7 +284,7 @@ export const DonorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -299,7 +299,7 @@ export const DonorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>País de Residencia</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -308,7 +308,7 @@ export const DonorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -321,7 +321,7 @@ export const DonorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Ciudad de Residencia</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -330,7 +330,7 @@ export const DonorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -343,7 +343,7 @@ export const DonorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>E-mail</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -353,7 +353,7 @@ export const DonorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -366,7 +366,7 @@ export const DonorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Número de Teléfono</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -375,7 +375,7 @@ export const DonorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -388,7 +388,7 @@ export const DonorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Código Postal</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -397,7 +397,7 @@ export const DonorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}

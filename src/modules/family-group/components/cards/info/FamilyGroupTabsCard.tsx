@@ -68,13 +68,13 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full grid-cols-3 px-auto'>
-        <TabsTrigger value='general-info' className='text-[14px] md:text-[15px]'>
-          Info. General
+        <TabsTrigger value='general-info' className='text-[14.5px] md:text-[15px]'>
+          General
         </TabsTrigger>
         <TabsTrigger value='ecclesiastical-info' className='text-[14px] md:text-[15px]'>
-          Info. Eclesiástica
+          Eclesiástica
         </TabsTrigger>
-        <TabsTrigger value='contact-info' className='text-[14px] md:text-[15px]'>
+        <TabsTrigger value='contact-info' className='text-[14.5px] md:text-[15px]'>
           Contacto
         </TabsTrigger>
       </TabsList>
@@ -89,7 +89,7 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid grid-cols-3 pl-[2rem] sm:pl-[4rem] sm:pr-[5rem] gap-x-4 gap-y-2.5 md:gap-x-6 md:gap-y-4 md:pl-[6rem] md:pr-[2rem]'>
+          <CardContent className='grid grid-cols-3 pl-[1.5rem] sm:pl-[4rem] sm:pr-[5rem] gap-x-4 gap-y-2.5 md:gap-x-6 md:gap-y-4 md:pl-[6rem] md:pr-[2rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Nombre</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -261,13 +261,14 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
         <Card>
           <CardHeader className='text-center pb-6 pt-2'>
             <CardTitle className='text-yellow-500 text-[23px] md:text-[28px] font-bold -mb-2'>
-              Info. Eclesiástica
+              Eclesiástica
             </CardTitle>
             <CardDescription className='text-[14px] md:text-[15px]'>
               Información eclesiástica y relaciones ministeriales.
             </CardDescription>
           </CardHeader>
-          <CardContent className='grid grid-cols-2  pl-[2.5rem] sm:pl-[6rem] gap-x-6 gap-y-4 md:gap-x-4 md:gap-y-8 md:pl-[6.5rem] md:pr-[3.5rem]'>
+
+          <CardContent className='grid grid-cols-2 pl-[2rem] pr-[1rem] sm:pl-[6rem] gap-x-6 gap-y-4 md:gap-x-4 md:gap-y-8 md:pl-[6.5rem] md:pr-[3.5rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Iglesia</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -347,7 +348,8 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
               Información de contacto y ubicación.
             </CardDescription>
           </CardHeader>
-          <CardContent className='grid grid-cols-2 pl-[3rem] sm:pl-[7rem] gap-x-8 gap-y-5 md:gap-x-16 md:gap-y-6 md:pl-[7.5rem] md:pr-[1rem]'>
+
+          <CardContent className='grid grid-cols-2 pl-[2.5rem] sm:pl-[7rem] gap-x-8 gap-y-5 md:gap-x-16 md:gap-y-6 md:pl-[7.5rem] md:pr-[1rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>País</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>

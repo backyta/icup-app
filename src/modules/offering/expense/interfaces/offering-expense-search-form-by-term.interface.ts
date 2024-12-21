@@ -12,7 +12,7 @@ export interface OfferingExpenseSearchFormByTerm {
         from: Date;
         to?: Date | undefined;
     } | undefined;
-  namesTerm?: string | undefined;
+  firstNamesTerm?: string | undefined;
   lastNamesTerm?: string | undefined;
   limit?: string | undefined;
   all?: boolean | undefined;

@@ -100,7 +100,7 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
       limit: '10',
       offset: '0',
       all: false,
-      order: RecordOrder.Ascending,
+      order: RecordOrder.Descending,
     },
   });
 
@@ -154,7 +154,7 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className='grid grid-cols-2 gap-y-2 gap-x-4 items-end mb-10 md:mb-10 lg:flex lg:justify-between 2xl:justify-normal'
+              className='grid grid-cols-2 gap-y-2 gap-x-2 items-end mb-8 md:mb-10 lg:flex lg:justify-between 2xl:justify-normal'
             >
               <div className='w-full flex flex-row col-start-1 col-end-3 gap-3'>
                 <FormField
@@ -163,19 +163,19 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
                   render={({ field }) => (
                     <FormItem className='w-full'>
                       <FormLabel className='text-[14px] font-bold'>Limite</FormLabel>
-                      <FormDescription className='text-[13px] md:text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         ¿Cuantos registros necesitas?
                       </FormDescription>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
                           {...field}
                           disabled={form.getValues('all')}
-                          className='text-[13px] md:text-[14px]'
+                          className='text-[14px] md:text-[14px]'
                           value={form.getValues('all') ? '-' : field.value || ''}
                           placeholder='Limite de registros'
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   )}
                 />
@@ -186,19 +186,19 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
                   render={({ field }) => (
                     <FormItem className='w-full'>
                       <FormLabel className='text-[14px] font-bold'>Desplazamiento</FormLabel>
-                      <FormDescription className='text-[13px] md:text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         ¿Cuantos registros quieres saltar?
                       </FormDescription>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
                           disabled={form.getValues('all')}
-                          className='text-[13px] md:text-[14px]'
+                          className='text-[14px] md:text-[14px]'
                           placeholder='Nro. de registros desplazados'
                           {...field}
                           value={form.getValues('all') ? '-' : field?.value || ''}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   )}
                 />
@@ -211,7 +211,7 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
                       <FormLabel className=''></FormLabel>
                       <FormDescription className=''></FormDescription>
                       <div className='flex items-center space-x-2 space-y-0 rounded-md border p-2.5 h-[2.5rem]'>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Checkbox
                             disabled={
                               !form.getValues('limit') ||
@@ -232,7 +232,7 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[12px] md:text-[13px] cursor-pointer'>
+                          <FormLabel className='text-[12.5px] md:text-[13px] cursor-pointer'>
                             Todos
                           </FormLabel>
                         </div>
@@ -246,17 +246,17 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
                 control={form.control}
                 name='order'
                 render={({ field }) => (
-                  <FormItem className='w-auto lg:min-w-[13rem] xl:min-w-[12rem] 2xl:w-full'>
+                  <FormItem className='w-auto lg:min-w-[13rem] xl:min-w-[15rem] 2xl:w-full'>
                     <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
-                    <FormDescription className='text-[13px] md:text-[14px]'>
+                    <FormDescription className='text-[13.5px] md:text-[14px]'>
                       Selecciona el tipo de orden de los registros.
                     </FormDescription>
                     <Select value={field.value} onValueChange={field.onChange}>
-                      <FormControl className='text-[13px] md:text-[14px] lg:w-full'>
+                      <FormControl className='md:text-[14px]'>
                         <SelectTrigger>
                           {field.value ? (
                             <SelectValue
-                              className='text-[13px] md:text-[14px]'
+                              className='text-[14px] md:text-[14px]'
                               placeholder='Selecciona un tipo de orden'
                             />
                           ) : (
@@ -267,7 +267,7 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
                       <SelectContent>
                         {Object.entries(RecordOrderNames).map(([key, value]) => (
                           <SelectItem
-                            className={`text-[13px] md:text-[14px]`}
+                            className={`text-[14px] md:text-[14px]`}
                             key={key}
                             value={key}
                           >
@@ -276,7 +276,7 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
                         ))}
                       </SelectContent>
                     </Select>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 )}
               />
@@ -286,14 +286,14 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
                 name='churchId'
                 render={({ field }) => {
                   return (
-                    <FormItem className='w-auto lg:min-w-[12rem] xl:min-w-[10rem] 2xl:w-full'>
+                    <FormItem className='w-auto lg:min-w-[12rem] xl:min-w-[13rem] 2xl:w-full'>
                       <FormLabel className='text-[14px] font-bold'>
                         Iglesia
                         <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[1px] rounded-full mr-1'>
                           Opcional
                         </span>
                       </FormLabel>
-                      <FormDescription className='text-[13px] md:text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Selecciona una iglesia para la búsqueda.
                       </FormDescription>
                       <Select
@@ -301,11 +301,11 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
                         defaultValue={field.value}
                         value={field.value}
                       >
-                        <FormControl className='text-[13px] md:text-[14px]'>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue
-                                className='text-[13px] md:text-[14px]'
+                                className='text-[14px] md:text-[14px]'
                                 placeholder='Elige una opción'
                               />
                             ) : (
@@ -316,7 +316,7 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
                         <SelectContent>
                           {churchesQuery?.data?.map((church) => (
                             <SelectItem
-                              className={`text-[13px] md:text-[14px]`}
+                              className={`text-[14px] md:text-[14px]`}
                               key={church.id}
                               value={church.id}
                             >
@@ -325,7 +325,7 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -337,7 +337,7 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
                 type='submit'
                 variant='ghost'
                 className={cn(
-                  'mt-4 col-start-1 col-end-3 w-full px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
+                  'text-[14px] mt-0 col-start-1 col-end-3 w-full px-4 py-2 border-1 lg:w-[50%] border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
                 )}
               >
                 Buscar

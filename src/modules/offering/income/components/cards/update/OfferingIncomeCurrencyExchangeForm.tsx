@@ -120,7 +120,7 @@ export const OfferingIncomeCurrencyExchangeForm = ({
       defaultValue='general-info'
       className='w-auto sm:w-[420px] md:w-[480px] lg:w-[440px] xl:w-[530px]'
     >
-      <h2 className='text-center text-teal-500 pb-1 font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
+      <h2 className='text-center text-teal-500 pb-1 font-bold text-[22px] sm:text-[22px] md:text-[24px]'>
         Cambio de Divisa
       </h2>
 
@@ -128,22 +128,22 @@ export const OfferingIncomeCurrencyExchangeForm = ({
         <Card className='w-full'>
           <CardContent className='py-4 px-4'>
             <span className='w-full text-left mb-2 flex flex-col'>
-              <span className='text-blue-500 font-bold text-[14.5px] md:text-[16px] mb-1'>
+              <span className='text-blue-500 font-bold text-[15px] md:text-[16px] mb-2'>
                 Procedimiento para el cambio de divisa
               </span>
-              <span className='pl-2 text-[12.5px] md:text-[14.5px] mb-1'>
+              <span className='pl-2 text-[14px] md:text-[14.5px] mb-1'>
                 ✅ <span className='font-medium'>El sistema buscará un registro existente</span> con
                 el tipo de divisa de destino, la fecha y datos similares.
               </span>
-              <span className='pl-2 text-[12.5px] md:text-[14.5px] mb-1'>
+              <span className='pl-2 text-[14px] md:text-[14.5px] mb-1'>
                 ✅ <span className='font-medium'>El registro de destino será actualizado</span>,
                 incrementando su monto con el valor calculado en el tipo de cambio.
               </span>
-              <span className='pl-2 text-[12.5px] md:text-[14.5px] mb-1'>
+              <span className='pl-2 text-[14px] md:text-[14.5px] mb-1'>
                 ✅ <span className='font-medium'>Si no se encuentra un registro</span>, el sistema
                 creará uno nuevo para este cambio de divisa.
               </span>
-              <span className='pl-2 text-[12.5px] md:text-[14.5px]'>
+              <span className='pl-2 text-[14px] md:text-[14.5px]'>
                 ❌ <span className='font-medium'>El registro original</span>, cuyo monto fue
                 transformado, será eliminado.
               </span>
@@ -158,7 +158,7 @@ export const OfferingIncomeCurrencyExchangeForm = ({
                     render={({ field }) => {
                       return (
                         <FormItem className='mt-3 mb-3 md:mb-6 w-full'>
-                          <FormDescription className='text-orange-500 text-[12.5px] md:text-[14px] pl-1 font-medium'>
+                          <FormDescription className='text-orange-500 text-[14px] md:text-[14px] pl-1 font-medium'>
                             Tipo de cambio (moneda)
                           </FormDescription>
                           <Select
@@ -166,7 +166,7 @@ export const OfferingIncomeCurrencyExchangeForm = ({
                             disabled={isInputDisabled}
                             onValueChange={field.onChange}
                           >
-                            <FormControl className='text-[12px] md:text-[14px]'>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <SelectTrigger>
                                 {field.value ? (
                                   <SelectValue placeholder='Selecciona las monedas' />
@@ -182,7 +182,7 @@ export const OfferingIncomeCurrencyExchangeForm = ({
                                       key !== ExchangeCurrencyTypes.EURtoPEN &&
                                       key !== ExchangeCurrencyTypes.USDtoPEN && (
                                         <SelectItem
-                                          className={`text-[12px] md:text-[14px]`}
+                                          className={`text-[14px] md:text-[14px]`}
                                           key={key}
                                           value={key}
                                         >
@@ -197,7 +197,7 @@ export const OfferingIncomeCurrencyExchangeForm = ({
                                         key !== ExchangeCurrencyTypes.PENtoUSD &&
                                         key !== ExchangeCurrencyTypes.PENtoEUR && (
                                           <SelectItem
-                                            className={`text-[12px] md:text-[14px]`}
+                                            className={`text-[14px] md:text-[14px]`}
                                             key={key}
                                             value={key}
                                           >
@@ -211,7 +211,7 @@ export const OfferingIncomeCurrencyExchangeForm = ({
                                         key !== ExchangeCurrencyTypes.PENtoUSD &&
                                         key !== ExchangeCurrencyTypes.PENtoEUR && (
                                           <SelectItem
-                                            className={`text-[12px] md:text-[14px]`}
+                                            className={`text-[14px] md:text-[14px]`}
                                             key={key}
                                             value={key}
                                           >
@@ -221,7 +221,7 @@ export const OfferingIncomeCurrencyExchangeForm = ({
                                     )}
                             </SelectContent>
                           </Select>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       );
                     }}
@@ -233,19 +233,19 @@ export const OfferingIncomeCurrencyExchangeForm = ({
                     render={({ field }) => {
                       return (
                         <FormItem className='mt-3 mb-6 w-full'>
-                          <FormDescription className='text-green-500 text-[12.5px] md:text-[14px] pl-1 font-medium'>
+                          <FormDescription className='text-green-500 text-[14px] md:text-[14px] pl-1 font-medium'>
                             Tipo de cambio (precio)
                           </FormDescription>
-                          <FormControl>
+                          <FormControl className='text-[14px] md:text-[14px]'>
                             <Input
-                              className='text-[12px] md:text-[14px]'
+                              className='text-[14px] md:text-[14px]'
                               disabled={isInputDisabled}
                               placeholder='Precio tipo de cambio...'
                               type='text'
                               {...field}
                             />
                           </FormControl>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       );
                     }}
@@ -253,30 +253,13 @@ export const OfferingIncomeCurrencyExchangeForm = ({
                 </div>
 
                 <div className='flex justify-end gap-x-4'>
-                  {/* <Button
-                    type='button'
-                    disabled={isButtonDisabled}
-                    className='bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'
-                    onClick={() => {
-                      setIsCardOpen(false);
-                    }}
-                  >
-                    No, cancelar
-                  </Button>
-                  <Button
-                    disabled={isButtonDisabled}
-                    type='submit'
-                    className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
-                  >
-                    Sí, inactivar
-                  </Button> */}
                   <Button
                     disabled={isButtonDisabled}
                     type='submit'
                     className={cn(
                       'w-full text-[14px]',
                       offeringIncomeCurrencyExchangeMutation?.isPending &&
-                        'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] text-white'
+                        'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] dark:text-black text-white'
                     )}
                     onClick={() => {
                       setTimeout(() => {

@@ -35,6 +35,7 @@ export function ModeToggle(): JSX.Element {
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
         <DropdownMenuItem
+          className='text-[15px] md:text-[14]'
           onClick={() => {
             setTheme('light');
           }}
@@ -42,6 +43,7 @@ export function ModeToggle(): JSX.Element {
           Claro
         </DropdownMenuItem>
         <DropdownMenuItem
+          className='text-[15px] md:text-[14]'
           onClick={() => {
             setTheme('dark');
           }}
@@ -49,6 +51,7 @@ export function ModeToggle(): JSX.Element {
           Oscuro
         </DropdownMenuItem>
         <DropdownMenuItem
+          className='text-[15px] md:text-[14]'
           onClick={() => {
             setTheme('system');
           }}

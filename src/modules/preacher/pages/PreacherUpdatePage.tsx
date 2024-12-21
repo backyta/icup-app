@@ -129,7 +129,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
       selectTerm: '',
       dateTerm: undefined,
       all: false,
-      order: RecordOrder.Ascending,
+      order: RecordOrder.Descending,
     },
   });
 
@@ -213,7 +213,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className='grid grid-cols-1 gap-4 gap-y-4 items-end mb-10 md:mb-10 md:grid-cols-3 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4 w-auto'
+              className='grid grid-cols-1 gap-y-2 md:gap-4 items-end mb-8 md:mb-10 md:grid-cols-3 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4 w-auto'
             >
               <FormField
                 control={form.control}
@@ -222,7 +222,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                   return (
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Tipo</FormLabel>
-                      <FormDescription className='text-[13px] md:text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         ¿Qué tipo de búsqueda deseas hacer?
                       </FormDescription>
                       <Select
@@ -248,7 +248,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                         }}
                         onValueChange={field.onChange}
                       >
-                        <FormControl className='text-[13px] md:text-[14px]'>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             <SelectValue placeholder='Selecciona un tipo' />
                           </SelectTrigger>
@@ -256,7 +256,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                         <SelectContent>
                           {Object.entries(PreacherSearchTypeNames).map(([key, value]) => (
                             <SelectItem
-                              className={`text-[13px] md:text-[14px]`}
+                              className={`text-[14px] md:text-[14px]`}
                               key={key}
                               value={key}
                             >
@@ -265,7 +265,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -281,7 +281,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                     return (
                       <FormItem>
                         <FormLabel className='text-[14px] font-bold'>Sub-tipo</FormLabel>
-                        <FormDescription className='text-[13px] md:text-[14px]'>
+                        <FormDescription className='text-[13.5px] md:text-[14px]'>
                           ¿Qué sub tipo de búsqueda deseas hacer?
                         </FormDescription>
                         <Select
@@ -306,7 +306,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                             });
                           }}
                         >
-                          <FormControl className='text-[13px] md:text-[14px]'>
+                          <FormControl className='text-[14px] md:text-[14px]'>
                             <SelectTrigger>
                               {field.value ? (
                                 <SelectValue placeholder='Selecciona un sub-tipo' />
@@ -324,7 +324,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                                   : SubTypeNamesPreacherSearchByFullNames
                             ).map(([key, value]) => (
                               <SelectItem
-                                className={cn(`text-[13px] md:text-[14px]`)}
+                                className={cn(`text-[14px] md:text-[14px]`)}
                                 key={key}
                                 value={key}
                               >
@@ -333,7 +333,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                             ))}
                           </SelectContent>
                         </Select>
-                        <FormMessage />
+                        <FormMessage className='text-[13px]' />
                       </FormItem>
                     );
                   }}
@@ -376,12 +376,12 @@ export const PreacherUpdatePage = (): JSX.Element => {
                                           ? 'Nombre de grupo familiar'
                                           : 'Nombre de zona'}
                       </FormLabel>
-                      <FormDescription className='text-[13px] md:text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Escribe aquí lo que deseas buscar.
                       </FormDescription>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
-                          className='text-[13px] md:text-[14px]'
+                          className='text-[14px] md:text-[14px]'
                           placeholder={
                             searchType === PreacherSearchType.OriginCountry
                               ? 'Ejem: Colombia , Mexico , Perú...'
@@ -406,7 +406,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   )}
                 />
@@ -419,16 +419,16 @@ export const PreacherUpdatePage = (): JSX.Element => {
                   render={({ field }) => (
                     <FormItem className=''>
                       <FormLabel className='text-[14px] font-bold'>Fecha</FormLabel>
-                      <FormDescription className='text-[13px] md:text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Buscar por fecha o rango de fechas.
                       </FormDescription>
                       <Popover>
                         <PopoverTrigger asChild>
-                          <FormControl>
+                          <FormControl className='text-[14px] md:text-[14px]'>
                             <Button
                               variant={'outline'}
                               className={cn(
-                                'w-full text-left font-normal justify-center p-4 text-[13px] md:text-[14px]',
+                                'w-full text-left font-normal justify-center p-4 text-[14px]',
                                 !field.value && 'text-muted-foreground'
                               )}
                             >
@@ -448,7 +448,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                                   format(field?.value.from, 'LLL dd, y')
                                 )
                               ) : (
-                                <span className='text-[13px] md:text-[14px]'>Elige una fecha</span>
+                                <span className='text-[14px] md:text-[14px]'>Elige una fecha</span>
                               )}
                             </Button>
                           </FormControl>
@@ -463,7 +463,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                           />
                         </PopoverContent>
                       </Popover>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   )}
                 />
@@ -488,7 +488,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                                 ? 'Estado civil'
                                 : 'Estado de registro'}
                         </FormLabel>
-                        <FormDescription className='text-[13px] md:text-[14px]'>
+                        <FormDescription className='text-[13.5px] md:text-[14px]'>
                           Selecciona una opción de búsqueda.
                         </FormDescription>
                         <Select
@@ -496,11 +496,11 @@ export const PreacherUpdatePage = (): JSX.Element => {
                           defaultValue={field.value}
                           value={field.value}
                         >
-                          <FormControl className='text-[13px] md:text-[14px]'>
+                          <FormControl className='text-[14px] md:text-[14px]'>
                             <SelectTrigger>
                               {field.value ? (
                                 <SelectValue
-                                  className='text-[13px] md:text-[14px]'
+                                  className='text-[14px] md:text-[14px]'
                                   placeholder='Elige una opción'
                                 />
                               ) : (
@@ -519,7 +519,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                                     : PreacherSearchNamesByRecordStatus
                             ).map(([key, value]) => (
                               <SelectItem
-                                className={cn(`text-[13px] md:text-[14px]`)}
+                                className={cn(`text-[14px] md:text-[14px]`)}
                                 key={key}
                                 value={key}
                               >
@@ -528,7 +528,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                             ))}
                           </SelectContent>
                         </Select>
-                        <FormMessage />
+                        <FormMessage className='text-[13px]' />
                       </FormItem>
                     );
                   }}
@@ -543,17 +543,17 @@ export const PreacherUpdatePage = (): JSX.Element => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Nombres</FormLabel>
-                      <FormDescription className='text-[13px] md:text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Escribe los nombres que deseas buscar.
                       </FormDescription>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
-                          className='text-[13px] md:text-[14px]'
+                          className='text-[14px] md:text-[14px]'
                           placeholder='Ejem: Rolando Martin...'
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   )}
                 />
@@ -567,17 +567,17 @@ export const PreacherUpdatePage = (): JSX.Element => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Apellidos</FormLabel>
-                      <FormDescription className='text-[13px] md:text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Escribe los apellidos que deseas buscar.
                       </FormDescription>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
-                          className='text-[13px] md:text-[14px]'
+                          className='text-[14px] md:text-[14px]'
                           placeholder='Ejem: Sanchez Torres...'
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   )}
                 />
@@ -591,7 +591,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                     render={() => (
                       <FormItem>
                         <FormLabel className='text-[14px] font-bold'>Limite</FormLabel>
-                        <FormDescription className='text-[13px] md:text-[14px]'>
+                        <FormDescription className='text-[13.5px] md:text-[14px]'>
                           ¿Cuantos registros necesitas?
                         </FormDescription>
                       </FormItem>
@@ -604,11 +604,11 @@ export const PreacherUpdatePage = (): JSX.Element => {
                     name='limit'
                     render={({ field }) => (
                       <FormItem className='w-full'>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Input
                             {...field}
                             disabled={form.getValues('all')}
-                            className='text-[13px] md:text-[14px]'
+                            className='text-[14px] md:text-[14px]'
                             value={form.getValues('all') ? '-' : (field.value ?? '')}
                             placeholder='Limite de registros'
                           />
@@ -622,7 +622,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                     name='all'
                     render={({ field }) => (
                       <FormItem className='flex flex-row items-end space-x-2 space-y-0 rounded-md border p-3 h-[2.5rem] w-[8rem] justify-center'>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Checkbox
                             disabled={!form.getValues('limit') || !!form.formState.errors.limit} // transform to boolean
                             checked={field?.value}
@@ -637,7 +637,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                           />
                         </FormControl>
                         <div className='space-y-1 leading-none'>
-                          <FormLabel className='text-[13px] md:text-[14px] cursor-pointer'>
+                          <FormLabel className='text-[13.5px] md:text-[14px] cursor-pointer'>
                             Todos
                           </FormLabel>
                         </div>
@@ -656,7 +656,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                     name='limit'
                     render={() => (
                       <FormItem>
-                        <FormMessage />
+                        <FormMessage className='text-[13px]' />
                       </FormItem>
                     )}
                   />
@@ -669,7 +669,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                 render={({ field }) => (
                   <FormItem className='w-full'>
                     <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
-                    <FormDescription className='text-[14px]'>
+                    <FormDescription className='text-[13.5px] md:text-[14px]'>
                       Elige el tipo de orden de los registros.
                     </FormDescription>
                     <Select
@@ -681,7 +681,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                         <SelectTrigger>
                           {field.value ? (
                             <SelectValue
-                              className='text-[13px] md:text-[14px]'
+                              className='text-[14px] md:text-[14px]'
                               placeholder='Selecciona un tipo de orden'
                             />
                           ) : (
@@ -692,7 +692,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                       <SelectContent>
                         {Object.entries(RecordOrderNames).map(([key, value]) => (
                           <SelectItem
-                            className={`text-[13px] md:text-[14px]`}
+                            className={`text-[14px] md:text-[14px]`}
                             key={key}
                             value={key}
                           >
@@ -701,7 +701,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                         ))}
                       </SelectContent>
                     </Select>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 )}
               />
@@ -718,7 +718,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                           Opcional
                         </span>
                       </FormLabel>
-                      <FormDescription className='text-[13px] md:text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Selecciona una iglesia para la búsqueda.
                       </FormDescription>
                       <Select
@@ -726,11 +726,11 @@ export const PreacherUpdatePage = (): JSX.Element => {
                         defaultValue={field.value}
                         value={field.value}
                       >
-                        <FormControl className='text-[13px] md:text-[14px]'>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue
-                                className='text-[13px] md:text-[14px]'
+                                className='text-[14px] md:text-[14px]'
                                 placeholder='Elige una opción'
                               />
                             ) : (
@@ -741,7 +741,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                         <SelectContent>
                           {churchesQuery?.data?.map((church) => (
                             <SelectItem
-                              className={`text-[13px] md:text-[14px]`}
+                              className={`text-[14px] md:text-[14px]`}
                               key={church.id}
                               value={church.id}
                             >
@@ -750,7 +750,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -762,7 +762,7 @@ export const PreacherUpdatePage = (): JSX.Element => {
                   disabled={isDisabledSubmitButton}
                   type='submit'
                   variant='ghost'
-                  className='mx-auto w-full mt-2 md:mt-3 xl:mt-0 md:col-start-2 md:col-end-3 lg:col-start-2 lg:col-end-3 lg:row-start-auto lg:row-end-auto xl:row-start-auto xl:row-end-auto xl:col-start-auto xl:col-end-auto text-[13px] lg:text-[14px] h-[2.5rem] xl:-ml-0 2xl:w-full 2xl:mx-auto px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
+                  className='mx-auto w-full mt-2 md:mt-0 md:col-start-2 md:col-end-3 lg:col-start-2 lg:col-end-3 lg:row-start-auto lg:row-end-auto xl:row-start-auto xl:row-end-auto xl:col-start-auto xl:col-end-auto text-[14px] lg:text-[14px] h-[2.5rem] xl:-ml-0 2xl:w-full 2xl:mx-auto px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
                 >
                   Buscar
                 </Button>

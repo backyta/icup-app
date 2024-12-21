@@ -220,7 +220,8 @@ export const CopastorUpdateForm = ({
       className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
       <h2 className='text-center leading-7 text-orange-500 pb-2 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
-        Actualizar información del Co-Pastor
+        Actualizar información del
+        <p>Co-Pastor</p>
       </h2>
 
       <TabsContent value='general-info'>
@@ -229,7 +230,7 @@ export const CopastorUpdateForm = ({
 
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
-              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] pl-0 mb-4 md:pl-4'>
+              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16.5px] md:text-[18px] pl-0 mb-4 md:pl-4'>
                 Co-Pastor: {data?.member?.firstNames} {data?.member?.lastNames}
               </div>
               <Form {...form}>
@@ -248,7 +249,7 @@ export const CopastorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Nombres</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -257,7 +258,7 @@ export const CopastorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -270,7 +271,7 @@ export const CopastorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Apellidos</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -279,7 +280,7 @@ export const CopastorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -314,7 +315,7 @@ export const CopastorUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -327,7 +328,7 @@ export const CopastorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>País de Origen</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -336,7 +337,7 @@ export const CopastorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -353,12 +354,12 @@ export const CopastorUpdateForm = ({
                             onOpenChange={setIsInputBirthDateOpen}
                           >
                             <PopoverTrigger asChild>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Button
                                   disabled={isInputDisabled}
                                   variant={'outline'}
                                   className={cn(
-                                    'w-full pl-3 text-left font-normal',
+                                    'text-[14px] w-full pl-3 text-left font-normal',
                                     !field.value && 'text-muted-foreground'
                                   )}
                                 >
@@ -388,10 +389,10 @@ export const CopastorUpdateForm = ({
                               />
                             </PopoverContent>
                           </Popover>
-                          <FormDescription className='pl-3 text-blue-600 text-[11.5px] xl:text-[12.5px] font-bold italic'>
+                          <FormDescription className='pl-2 text-blue-600 text-[12.5px] xl:text-[13px] font-bold italic'>
                             * Su fecha de nacimiento se utiliza para calcular su edad.
                           </FormDescription>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -425,7 +426,7 @@ export const CopastorUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -438,7 +439,7 @@ export const CopastorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Nro. de hijos</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -446,7 +447,7 @@ export const CopastorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -463,12 +464,12 @@ export const CopastorUpdateForm = ({
                             onOpenChange={setIsInputConvertionDateOpen}
                           >
                             <PopoverTrigger asChild>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Button
                                   disabled={isInputDisabled}
                                   variant={'outline'}
                                   className={cn(
-                                    'w-full pl-3 text-left font-normal',
+                                    'text-[14px] w-full pl-3 text-left font-normal',
                                     !field.value && 'text-muted-foreground'
                                   )}
                                 >
@@ -477,9 +478,7 @@ export const CopastorUpdateForm = ({
                                       locale: es,
                                     })
                                   ) : (
-                                    <span className='text-[12px] xl:text-[13px]'>
-                                      Fecha de conversion
-                                    </span>
+                                    <span className='text-[14px]'>Fecha de conversion</span>
                                   )}
                                   <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                                 </Button>
@@ -500,10 +499,10 @@ export const CopastorUpdateForm = ({
                               />
                             </PopoverContent>
                           </Popover>
-                          <FormDescription className='pl-3 text-blue-600 text-[11.5px] xl:text-[12.5px] font-bold italic'>
+                          <FormDescription className='pl-2 text-blue-600 text-[12.5px] xl:text-[13px] font-bold italic'>
                             * Fecha en la que el creyente se convirtió.
                           </FormDescription>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -539,7 +538,7 @@ export const CopastorUpdateForm = ({
                               </SelectContent>
                             </Select>
                             {form.getValues('recordStatus') === 'active' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>Activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
                                 debe inactivar el registro desde el modulo{' '}
@@ -547,12 +546,12 @@ export const CopastorUpdateForm = ({
                               </FormDescription>
                             )}
                             {form.getValues('recordStatus') === 'inactive' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                                 * El registro esta <span className='text-red-500 '>Inactivo</span>,
                                 puede modificar el estado eligiendo otra opción.
                               </FormDescription>
                             )}
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -573,7 +572,7 @@ export const CopastorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>E-mail</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -583,7 +582,7 @@ export const CopastorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -596,7 +595,7 @@ export const CopastorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Número de Teléfono</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -605,7 +604,7 @@ export const CopastorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -640,7 +639,7 @@ export const CopastorUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -675,7 +674,7 @@ export const CopastorUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -710,7 +709,7 @@ export const CopastorUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -728,7 +727,7 @@ export const CopastorUpdateForm = ({
                               value={field.value}
                               onValueChange={field.onChange}
                             >
-                              <FormControl className='text-[13px] md:text-[14px]'>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el distrito' />
@@ -749,7 +748,7 @@ export const CopastorUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -767,7 +766,7 @@ export const CopastorUpdateForm = ({
                               value={field.value}
                               disabled={isInputDisabled}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el sector urbano' />
@@ -788,7 +787,7 @@ export const CopastorUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -801,7 +800,7 @@ export const CopastorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Dirección</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -810,7 +809,7 @@ export const CopastorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -825,7 +824,7 @@ export const CopastorUpdateForm = ({
                             <FormLabel className='text-[14px] font-medium'>
                               Referencia de dirección
                             </FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Textarea
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -833,7 +832,7 @@ export const CopastorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -871,7 +870,7 @@ export const CopastorUpdateForm = ({
                                         key={role}
                                         className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
                                       >
-                                        <FormControl>
+                                        <FormControl className='text-[14px] md:text-[14px]'>
                                           <Checkbox
                                             checked={field.value?.includes(role)}
                                             disabled={isDisabled || isInputDisabled}
@@ -902,7 +901,7 @@ export const CopastorUpdateForm = ({
                                 />
                               )
                           )}
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -942,7 +941,7 @@ export const CopastorUpdateForm = ({
                                         key={role}
                                         className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
                                       >
-                                        <FormControl>
+                                        <FormControl className='text-[14px] md:text-[14px]'>
                                           <Checkbox
                                             checked={field.value?.includes(role)}
                                             disabled={isDisabled || isInputDisabled}
@@ -973,15 +972,15 @@ export const CopastorUpdateForm = ({
                                 />
                               )
                           )}
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
 
                     {isMessagePromoteDisabled && (
-                      <span className='text-[13px] md:text-[14px] text-yellow-500 font-bold text-center'>
+                      <span className='text-[14px] md:text-[14px] dark:text-yellow-500 text-amber-500 font-bold text-center'>
                         !SE HA PROMOVIDO CORRECTAMENTE! <br />
-                        <span className='text-[12px] md:text-[13px]'>
+                        <span className='text-[14px] md:text-[14px]'>
                           {form.getValues('roles').includes(MemberRole.Pastor) &&
                             !form.getValues('roles').includes(MemberRole.Presbyter) && (
                               <div>
@@ -1021,11 +1020,11 @@ export const CopastorUpdateForm = ({
                           name='theirPastor'
                           render={({ field }) => {
                             return (
-                              <FormItem className='mt-2'>
+                              <FormItem className='mt-3'>
                                 <FormLabel className='text-[14px] md:text-[15px] font-bold'>
                                   Pastor
                                 </FormLabel>
-                                <FormDescription className='text-[14px]'>
+                                <FormDescription className='text-[13.5px] md:text-[14px]'>
                                   Asigna el Pastor responsable de este por Co-Pastor.
                                 </FormDescription>
                                 <Popover
@@ -1033,7 +1032,7 @@ export const CopastorUpdateForm = ({
                                   onOpenChange={setIsInputTheirPastorOpen}
                                 >
                                   <PopoverTrigger asChild>
-                                    <FormControl>
+                                    <FormControl className='text-[14px] md:text-[14px]'>
                                       <Button
                                         disabled={isRelationSelectDisabled}
                                         variant='outline'
@@ -1089,7 +1088,7 @@ export const CopastorUpdateForm = ({
                                         </>
                                       ) : (
                                         pastorsQuery?.data?.length === 0 && (
-                                          <p className='text-[14.5px] text-red-500 text-center'>
+                                          <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                             ❌No hay pastores disponibles.
                                           </p>
                                         )
@@ -1097,7 +1096,7 @@ export const CopastorUpdateForm = ({
                                     </Command>
                                   </PopoverContent>
                                 </Popover>
-                                <FormMessage />
+                                <FormMessage className='text-[13px]' />
                               </FormItem>
                             );
                           }}
@@ -1114,7 +1113,7 @@ export const CopastorUpdateForm = ({
                                 <FormLabel className='text-[14px] md:text-[15px] font-bold'>
                                   Iglesia
                                 </FormLabel>
-                                <FormDescription className='text-[14px]'>
+                                <FormDescription className='text-[13.5px] md:text-[14px]'>
                                   Asigna una Iglesia a la que pertenecerá este Pastor.
                                 </FormDescription>
                                 <Popover
@@ -1122,7 +1121,7 @@ export const CopastorUpdateForm = ({
                                   onOpenChange={setIsInputTheirChurchOpen}
                                 >
                                   <PopoverTrigger asChild>
-                                    <FormControl>
+                                    <FormControl className='text-[14px] md:text-[14px]'>
                                       <Button
                                         disabled={isRelationSelectDisabled}
                                         variant='outline'
@@ -1177,7 +1176,7 @@ export const CopastorUpdateForm = ({
                                         </>
                                       ) : (
                                         churchesQuery?.data?.length === 0 && (
-                                          <p className='text-[14.5px] text-red-500 text-center'>
+                                          <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                             ❌No hay iglesias disponibles.
                                           </p>
                                         )
@@ -1185,7 +1184,7 @@ export const CopastorUpdateForm = ({
                                     </Command>
                                   </PopoverContent>
                                 </Popover>
-                                <FormMessage />
+                                <FormMessage className='text-[13px]' />
                               </FormItem>
                             );
                           }}
@@ -1194,7 +1193,7 @@ export const CopastorUpdateForm = ({
                     </div>
 
                     {isPromoteButtonDisabled && !theirChurch && !theirPastor && (
-                      <span className='text-[12px] md:text-[13px] font-bold text-center text-red-500'>
+                      <span className='-mt-2 text-[12.5px] md:text-[13px] font-bold text-center text-red-500'>
                         ! Por favor asigna la nueva relación para los roles promovidos !
                       </span>
                     )}
@@ -1209,8 +1208,8 @@ export const CopastorUpdateForm = ({
                         </Button>
                       </AlertDialogTrigger>
                       <AlertDialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
-                        <AlertDialogHeader className='h-auto'>
-                          <AlertDialogTitle className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-3 flex flex-col'>
+                        <AlertDialogHeader className='h-[28rem] md:h-[24.5rem]'>
+                          <AlertDialogTitle className='dark:text-yellow-500 text-amber-500 font-bold text-xl text-center md:text-[25px] pb-3 flex flex-col'>
                             <span>¿Estas seguro de promover a este</span>
                             <span className='w-full text-center'>Co-Pastor?</span>
                           </AlertDialogTitle>
@@ -1248,12 +1247,13 @@ export const CopastorUpdateForm = ({
                             </span>
                           </AlertDialogDescription>
                         </AlertDialogHeader>
+
                         <AlertDialogFooter>
-                          <AlertDialogCancel className='bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'>
+                          <AlertDialogCancel className='mt-3 text-[14px] w-full border-1 border-red-500 bg-gradient-to-r from-red-400 via-red-500 to-red-600 text-white hover:text-red-100 hover:from-red-500 hover:via-red-600 hover:to-red-700 dark:from-red-600 dark:via-red-700 dark:to-red-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-red-700 dark:hover:via-red-800 dark:hover:to-red-900'>
                             No, Cancelar
                           </AlertDialogCancel>
                           <AlertDialogAction
-                            className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
+                            className='text-[14px] w-full border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
                             onClick={() => {
                               useCopastorRolePromotionHandler({
                                 copastorUpdateForm: form,
@@ -1271,15 +1271,15 @@ export const CopastorUpdateForm = ({
                       </AlertDialogContent>
                     </AlertDialog>
 
-                    <div className=''>
-                      <p className='text-red-500 text-[13px] md:text-[14px] font-bold mb-2'>
+                    <div>
+                      <p className='text-red-500 text-[13.5px] md:text-[14px] font-bold mb-2'>
                         Consideraciones
                       </p>
-                      <p className='text-[12px] md:text-[13px] mb-2 font-medium '>
+                      <p className='text-[12.5px] md:text-[13px] mb-2 font-medium '>
                         ❌ Mientras estés en modo de edición y los datos cambien no podrás promover
                         de cargo.{' '}
                       </p>
-                      <p className='text-[12px] md:text-[13px] font-medium '>
+                      <p className='text-[12.5px] md:text-[13px] font-medium '>
                         ❌ Mientras el &#34;Estado&#34; sea{' '}
                         <span className='text-red-500 font-bold'>Inactivo</span> no podrás promover
                         de cargo.

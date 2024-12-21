@@ -41,7 +41,7 @@ export const MetricsOptionsPage = (): JSX.Element => {
           end
           className='row-start-1 row-end-2 lg:row-start-1 lg:row-end-4 lg:col-start-1 lg:col-end- 2xl:row-start-1 2xl:row-end-7 2xl:col-start-1 2xl:col-end-2'
         >
-          <WhiteCard className='md:h-[11rem]' centered>
+          <WhiteCard className='h-[12rem] md:h-[11rem]' centered>
             <FcConferenceCall className='text-[10rem] lg:text-[8rem] xl:text-[7rem]' />
             <h2 className='text-sky-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Métricas de Miembro
@@ -58,7 +58,7 @@ export const MetricsOptionsPage = (): JSX.Element => {
           end
           className='row-start-2 row-end-3 lg:row-start-4 lg:row-end-7 lg:col-start-1 lg:col-end-2 2xl:row-start-1 2xl:row-end-7 2xl:col-start-2 2xl:col-end-3'
         >
-          <WhiteCard className='md:h-[11rem]' centered>
+          <WhiteCard className='h-[12rem] md:h-[11rem]' centered>
             <FcHome className='text-[10rem] lg:text-[7rem] xl:text-[8rem]' />
             <h2 className='text-orange-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Métricas de Grupo Familiar
@@ -75,7 +75,7 @@ export const MetricsOptionsPage = (): JSX.Element => {
           end
           className='row-start-3 row-end-4 lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3 2xl:row-start-1 2xl:row-end-7 2xl:col-start-3 2xl:col-end-4'
         >
-          <WhiteCard className='md:h-[11rem]' centered>
+          <WhiteCard className='h-[12rem] md:h-[11rem]' centered>
             <FcDonate className='text-[10rem] lg:text-[7.5rem] xl:text-[7.5rem]' />
             <h2 className='text-green-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Métricas de Ofrenda (Ingreso)
@@ -92,8 +92,8 @@ export const MetricsOptionsPage = (): JSX.Element => {
           end
           className='row-start-4 row-end-5 lg:row-start-4 lg:row-end-7 lg:col-start-2 lg:col-end-3 2xl:row-start-1 2xl:row-end-7 2xl:col-start-4 2xl:col-end-5'
         >
-          <WhiteCard className='md:h-[11rem]' centered>
-            <GiExpense className='text-[9rem] lg:text-[7.5rem] xl:text-[7rem] text-amber-500' />
+          <WhiteCard className='h-[12rem] md:h-[11rem]' centered>
+            <GiExpense className='text-[5rem] lg:text-[7.5rem] xl:text-[7rem] text-amber-500' />
             <h2 className='text-red-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Métricas de Ofrenda (Salida)
             </h2>
@@ -109,10 +109,10 @@ export const MetricsOptionsPage = (): JSX.Element => {
           end
           className='row-start-5 row-end-6 lg:row-start-7 lg:row-end-9 lg:col-start-1 lg:col-end-3 2xl:row-start-1 2xl:row-end-7 2xl:col-start-5 2xl:col-end-6'
         >
-          <WhiteCard className='md:h-[11rem]' centered>
+          <WhiteCard className='h-[15rem] md:h-[11rem]' centered>
             <div className='flex'>
-              <FcRefresh className='text-[9rem] lg:text-[7.5rem] xl:text-[7rem]' />
-              <FaBalanceScale className='text-[9rem] lg:text-[7.5rem] text-[#1565C0] xl:text-[7rem]' />
+              <FcRefresh className='text-[3rem] lg:text-[7.5rem] xl:text-[7rem]' />
+              <FaBalanceScale className='text-[3rem] lg:text-[7.5rem] text-[#1565C0] xl:text-[7rem]' />
             </div>
             <h2 className='text-blue-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               <span className='block'>Métricas de Ofrenda</span>

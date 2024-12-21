@@ -69,13 +69,13 @@ export const PreacherTabsCard = ({ data, id }: PreacherTabsCardProps): JSX.Eleme
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full grid-cols-3 px-auto'>
-        <TabsTrigger value='general-info' className='text-[14px] md:text-[15px]'>
-          Info. General
+        <TabsTrigger value='general-info' className='text-[14.5px] md:text-[15px]'>
+          General
         </TabsTrigger>
-        <TabsTrigger value='ecclesiastical-info' className='text-[13.5px] md:text-[15px]'>
-          Info. Eclesiástica
+        <TabsTrigger value='ecclesiastical-info' className='text-[14.5px] md:text-[15px]'>
+          Eclesiástica
         </TabsTrigger>
-        <TabsTrigger value='contact-info' className='text-[14px] md:text-[15px]'>
+        <TabsTrigger value='contact-info' className='text-[14.5px] md:text-[15px]'>
           Contacto
         </TabsTrigger>
       </TabsList>
@@ -303,7 +303,8 @@ export const PreacherTabsCard = ({ data, id }: PreacherTabsCardProps): JSX.Eleme
               Información eclesiástica y relaciones ministeriales.
             </CardDescription>
           </CardHeader>
-          <CardContent className='grid  grid-cols-2 pl-[3.5rem] gap-x-6 gap-y-4 md:gap-x-10 md:gap-y-7 md:pl-[5.5rem] md:pr-[2.5rem]'>
+
+          <CardContent className='grid grid-cols-2 pl-[1.5rem] pr-[1rem] gap-x-6 gap-y-4 md:gap-x-10 md:gap-y-7 md:pl-[5.5rem] md:pr-[2.5rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Roles de Membresía</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -416,10 +417,10 @@ export const PreacherTabsCard = ({ data, id }: PreacherTabsCardProps): JSX.Eleme
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid grid-cols-2 pl-[3rem] sm:pl-[6rem] gap-x-8 gap-y-4  md:gap-x-16 md:gap-y-6 md:pl-[5.5rem] md:pr-[3rem]'>
+          <CardContent className='grid grid-cols-2 pl-[2rem] pr-[0.5rem] sm:pl-[6rem] gap-x-8 gap-y-4  md:gap-x-16 md:gap-y-6 md:pl-[5.5rem] md:pr-[3rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Correo Electrónico</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+              <CardDescription className='break-words px-2 text-[14px] md:text-[14.5px]'>
                 {data?.member?.email ?? '-'}
               </CardDescription>
             </div>

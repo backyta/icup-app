@@ -239,7 +239,7 @@ export const PreacherUpdateForm = ({
 
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
-              <div className='dark:text-slate-300 text-slate-500 font-bold text-[17px] md:text-[18px] mb-4 pl-0 md:pl-4'>
+              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16.5px] md:text-[18px] mb-4 pl-0 md:pl-4'>
                 Predicador: {data?.member?.firstNames} {data?.member?.lastNames}
               </div>
               <Form {...form}>
@@ -258,7 +258,7 @@ export const PreacherUpdateForm = ({
                         return (
                           <FormItem className='mt-3'>
                             <FormLabel className='text-[14px]'>Nombres</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -267,7 +267,7 @@ export const PreacherUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -280,7 +280,7 @@ export const PreacherUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Apellidos</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -289,7 +289,7 @@ export const PreacherUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -324,7 +324,7 @@ export const PreacherUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -337,7 +337,7 @@ export const PreacherUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>País de Origen</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -346,7 +346,7 @@ export const PreacherUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -363,12 +363,12 @@ export const PreacherUpdateForm = ({
                             onOpenChange={setIsInputBirthDateOpen}
                           >
                             <PopoverTrigger asChild>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Button
                                   disabled={isInputDisabled}
                                   variant={'outline'}
                                   className={cn(
-                                    'w-full pl-3 text-left font-normal',
+                                    'text-[14px] w-full pl-3 text-left font-normal',
                                     !field.value && 'text-muted-foreground'
                                   )}
                                 >
@@ -398,10 +398,10 @@ export const PreacherUpdateForm = ({
                               />
                             </PopoverContent>
                           </Popover>
-                          <FormDescription className='pl-3 text-blue-600 text-[11.5px] xl:text-[12.5px] font-bold italic'>
+                          <FormDescription className='pl-2 text-blue-600 text-[12.5px] xl:text-[13px] font-bold italic'>
                             * Su fecha de nacimiento se utiliza para calcular su edad.
                           </FormDescription>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -435,7 +435,7 @@ export const PreacherUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -448,7 +448,7 @@ export const PreacherUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Nro. de hijos</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -456,7 +456,7 @@ export const PreacherUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -473,12 +473,12 @@ export const PreacherUpdateForm = ({
                             onOpenChange={setIsInputConvertionDateOpen}
                           >
                             <PopoverTrigger asChild>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Button
                                   disabled={isInputDisabled}
                                   variant={'outline'}
                                   className={cn(
-                                    'w-full pl-3 text-left font-normal',
+                                    'text-[14px] w-full pl-3 text-left font-normal',
                                     !field.value && 'text-muted-foreground'
                                   )}
                                 >
@@ -487,9 +487,7 @@ export const PreacherUpdateForm = ({
                                       locale: es,
                                     })
                                   ) : (
-                                    <span className='text-[12px] xl:text-[13px]'>
-                                      Fecha de conversion
-                                    </span>
+                                    <span className='text-[14px]'>Fecha de conversion</span>
                                   )}
                                   <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                                 </Button>
@@ -510,10 +508,10 @@ export const PreacherUpdateForm = ({
                               />
                             </PopoverContent>
                           </Popover>
-                          <FormDescription className='pl-3 text-blue-600 text-[11.5px] xl:text-[12.5px] font-bold italic'>
+                          <FormDescription className='pl-2 text-blue-600 text-[12.5px] xl:text-[13px] font-bold italic'>
                             * Fecha en la que el creyente se convirtió.
                           </FormDescription>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -549,7 +547,7 @@ export const PreacherUpdateForm = ({
                               </SelectContent>
                             </Select>
                             {form.getValues('recordStatus') === 'active' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>Activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
                                 debe inactivar el registro desde el modulo{' '}
@@ -559,12 +557,12 @@ export const PreacherUpdateForm = ({
                               </FormDescription>
                             )}
                             {form.getValues('recordStatus') === 'inactive' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                                 * El registro esta <span className='text-red-500 '>Inactivo</span>,
                                 puede modificar el estado eligiendo otra opción.
                               </FormDescription>
                             )}
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -585,7 +583,7 @@ export const PreacherUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>E-mail</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -595,7 +593,7 @@ export const PreacherUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -608,7 +606,7 @@ export const PreacherUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Número de Teléfono</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -617,7 +615,7 @@ export const PreacherUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -652,7 +650,7 @@ export const PreacherUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -687,7 +685,7 @@ export const PreacherUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -722,7 +720,7 @@ export const PreacherUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -740,7 +738,7 @@ export const PreacherUpdateForm = ({
                               value={field.value}
                               onValueChange={field.onChange}
                             >
-                              <FormControl className='text-[13px] md:text-[14px]'>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el distrito' />
@@ -761,7 +759,7 @@ export const PreacherUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -779,7 +777,7 @@ export const PreacherUpdateForm = ({
                               value={field.value}
                               disabled={isInputDisabled}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el sector urbano' />
@@ -800,7 +798,7 @@ export const PreacherUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -813,7 +811,7 @@ export const PreacherUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Dirección</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -822,7 +820,7 @@ export const PreacherUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -837,7 +835,7 @@ export const PreacherUpdateForm = ({
                             <FormLabel className='text-[14px] font-medium'>
                               Referencia de dirección
                             </FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Textarea
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -845,7 +843,7 @@ export const PreacherUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -882,7 +880,7 @@ export const PreacherUpdateForm = ({
                                         key={role}
                                         className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
                                       >
-                                        <FormControl>
+                                        <FormControl className='text-[14px] md:text-[14px]'>
                                           <Checkbox
                                             checked={field.value?.includes(role)}
                                             disabled={isDisabled || isInputDisabled}
@@ -913,7 +911,7 @@ export const PreacherUpdateForm = ({
                                 />
                               )
                           )}
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -953,7 +951,7 @@ export const PreacherUpdateForm = ({
                                         key={role}
                                         className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
                                       >
-                                        <FormControl>
+                                        <FormControl className='text-[14px] md:text-[14px]'>
                                           <Checkbox
                                             checked={field.value?.includes(role)}
                                             disabled={isDisabled || isInputDisabled}
@@ -984,15 +982,15 @@ export const PreacherUpdateForm = ({
                                 />
                               )
                           )}
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
 
                     {isMessagePromoteDisabled && (
-                      <span className='text-[13px] md:text-[14px] text-yellow-500 font-bold text-center'>
+                      <span className='text-[14px] md:text-[14px] dark:text-yellow-500 text-amber-500 font-bold text-center'>
                         !SE HA PROMOVIDO CORRECTAMENTE! <br />
-                        <span className='text-[12px] md:text-[13px]'>
+                        <span className='text-[14px] md:text-[14px]'>
                           {form.getValues('roles').includes(MemberRole.Supervisor) &&
                             !form.getValues('roles').includes(MemberRole.Treasurer) && (
                               <div>
@@ -1037,7 +1035,7 @@ export const PreacherUpdateForm = ({
                                 <FormLabel className='text-[14px] md:text-[15px] font-bold'>
                                   Supervisor
                                 </FormLabel>
-                                <FormDescription className='text-[14px]'>
+                                <FormDescription className='text-[13.5px] md:text-[14px]'>
                                   Asigna el Supervisor responsable para este Predicador.
                                 </FormDescription>
                                 <Popover
@@ -1045,7 +1043,7 @@ export const PreacherUpdateForm = ({
                                   onOpenChange={setIsInputTheirSupervisorOpen}
                                 >
                                   <PopoverTrigger asChild>
-                                    <FormControl>
+                                    <FormControl className='text-[14px] md:text-[14px]'>
                                       <Button
                                         disabled={isRelationSelectDisabled}
                                         variant='outline'
@@ -1098,7 +1096,7 @@ export const PreacherUpdateForm = ({
                                     </Command>
                                   </PopoverContent>
                                 </Popover>
-                                <FormMessage />
+                                <FormMessage className='text-[13px]' />
                               </FormItem>
                             );
                           }}
@@ -1111,7 +1109,7 @@ export const PreacherUpdateForm = ({
                           name='isDirectRelationToPastor'
                           render={({ field }) => (
                             <FormItem className='flex flex-row gap-2 items-center mt-2 px-1 py-3 h-[2.5rem]'>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Checkbox
                                   className={cn(isCheckBoxDisabled && 'bg-slate-500')}
                                   disabled={isCheckBoxDisabled}
@@ -1122,7 +1120,7 @@ export const PreacherUpdateForm = ({
                                 />
                               </FormControl>
                               <div className='space-y-1 leading-none'>
-                                <FormLabel className='text-[13px] cursor-pointer md:text-[14px]'>
+                                <FormLabel className='text-[14px] cursor-pointer md:text-[14px]'>
                                   ¿Este registro estará relacionado directamente con un pastor?
                                 </FormLabel>
                               </div>
@@ -1140,11 +1138,11 @@ export const PreacherUpdateForm = ({
                             name='theirCopastor'
                             render={({ field }) => {
                               return (
-                                <FormItem className='mt-2'>
+                                <FormItem className='mt-3'>
                                   <FormLabel className='text-[14px] md:text-[15px] font-bold'>
                                     Copastor
                                   </FormLabel>
-                                  <FormDescription className='text-[14px]'>
+                                  <FormDescription className='text-[13.5px] md:text-[14px]'>
                                     Asigna el Copastor responsable para este Supervisor.
                                   </FormDescription>
                                   <Popover
@@ -1152,7 +1150,7 @@ export const PreacherUpdateForm = ({
                                     onOpenChange={setIsInputTheirCopastorOpen}
                                   >
                                     <PopoverTrigger asChild>
-                                      <FormControl>
+                                      <FormControl className='text-[14px] md:text-[14px]'>
                                         <Button
                                           disabled={isRelationSelectDisabled}
                                           variant='outline'
@@ -1208,7 +1206,7 @@ export const PreacherUpdateForm = ({
                                           </>
                                         ) : (
                                           copastorsQuery?.data?.length === 0 && (
-                                            <p className='text-[14.5px] text-red-500 text-center'>
+                                            <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                               ❌No hay co-pastores disponibles.
                                             </p>
                                           )
@@ -1216,7 +1214,7 @@ export const PreacherUpdateForm = ({
                                       </Command>
                                     </PopoverContent>
                                   </Popover>
-                                  <FormMessage />
+                                  <FormMessage className='text-[13px]' />
                                 </FormItem>
                               );
                             }}
@@ -1233,7 +1231,7 @@ export const PreacherUpdateForm = ({
                                 <FormLabel className='text-[14px] md:text-[15px] font-bold'>
                                   Pastor
                                 </FormLabel>
-                                <FormDescription className='text-[14px]'>
+                                <FormDescription className='text-[13.5px] md:text-[14px]'>
                                   Asigna el Pastor responsable para este Supervisor.
                                 </FormDescription>
                                 <Popover
@@ -1241,7 +1239,7 @@ export const PreacherUpdateForm = ({
                                   onOpenChange={setIsInputTheirPastorOpen}
                                 >
                                   <PopoverTrigger asChild>
-                                    <FormControl>
+                                    <FormControl className='text-[14px] md:text-[14px]'>
                                       <Button
                                         disabled={isRelationSelectDisabled}
                                         variant='outline'
@@ -1297,7 +1295,7 @@ export const PreacherUpdateForm = ({
                                         </>
                                       ) : (
                                         pastorsQuery?.data?.length === 0 && (
-                                          <p className='text-[14.5px] text-red-500 text-center'>
+                                          <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                             ❌No hay pastores disponibles.
                                           </p>
                                         )
@@ -1305,7 +1303,7 @@ export const PreacherUpdateForm = ({
                                     </Command>
                                   </PopoverContent>
                                 </Popover>
-                                <FormMessage />
+                                <FormMessage className='text-[13px]' />
                               </FormItem>
                             );
                           }}
@@ -1317,7 +1315,7 @@ export const PreacherUpdateForm = ({
                       !theirSupervisor &&
                       !theirCopastor &&
                       !theirPastor && (
-                        <span className='text-[12px] md:text-[13px] font-bold text-center text-red-500'>
+                        <span className='mt-2text-[12.5px] md:text-[13px] font-bold text-center text-red-500'>
                           ! Por favor asigna la nueva relación para los roles promovidos !
                         </span>
                       )}
@@ -1333,46 +1331,47 @@ export const PreacherUpdateForm = ({
                       </AlertDialogTrigger>
                       <AlertDialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
                         <AlertDialogHeader className='h-auto'>
-                          <AlertDialogTitle className='text-yellow-500 font-bold text-xl text-center md:text-[25px] pb-3'>
+                          <AlertDialogTitle className='dark:text-yellow-500 text-amber-500 font-bold text-xl text-center md:text-[25px] pb-3'>
                             ¿Estas seguro de promover a este Predicador?
                           </AlertDialogTitle>
-                          <AlertDialogDescription className={cn('h-[19.5rem] md:h-[17rem]')}>
+                          <AlertDialogDescription className={cn('h-[20.5rem] md:h-[17rem]')}>
                             <span className='w-full text-left text-blue-500 font-medium mb-3 inline-block text-[16px] md:text-[18px]'>
                               Secuencia de pasos y acciones:
                             </span>
                             <br />
-                            <span className='-ml-10 md:ml-0 text-left inline-block mb-2 text-[14px] md:text-[15px]'>
+                            <span className='-ml-10 md:ml-0 text-left inline-block mb-2 text-[14.5px] md:text-[15px]'>
                               ✅ Asignar la relación según el nuevo cargo.
                             </span>
-                            <span className='-ml-1 md:ml-0 text-left inline-block mb-2 text-[14px] md:text-[15px]'>
+                            <span className='-ml-1 md:ml-0 text-left inline-block mb-2 text-[14.5px] md:text-[15px]'>
                               ✅ Guardar estos datos para aplicar la promoción.
                             </span>
-                            <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
+                            <span className='text-left inline-block mb-2 text-[14.5px] md:text-[15px]'>
                               ❌ De manera automática se eliminara el registro y se eliminaran todas
                               sus relaciones que tenia en el anterior cargo.
                             </span>
 
-                            <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
+                            <span className='text-left inline-block mb-2 text-[14.5px] md:text-[15px]'>
                               ❌ Si era Predicador(a) y sube a Supervisor(a), se eliminara su
                               relación con sus discípulos y grupo familiar.
                             </span>
-                            <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
+                            <span className='text-left inline-block mb-2 text-[14.5px] md:text-[15px]'>
                               ✅ Se deberá asignar otro Predicador(a) para los discípulos y grupos
                               familiares que se quedaron sin predicador.
                             </span>
 
-                            <span className='text-left inline-block mb-2 text-[14px] md:text-[15px]'>
+                            <span className='text-left inline-block mb-2 text-[14.5px] md:text-[15px]'>
                               ✅ Finalmente el registro promovido esta apto para ser usado en su
                               nuevo rol o cargo.
                             </span>
                           </AlertDialogDescription>
                         </AlertDialogHeader>
+
                         <AlertDialogFooter>
-                          <AlertDialogCancel className='bg-red-500 text-red-950 hover:bg-red-500 hover:text-white text-[14px]'>
+                          <AlertDialogCancel className='mt-3 text-[14px] w-full border-1 border-red-500 bg-gradient-to-r from-red-400 via-red-500 to-red-600 text-white hover:text-red-100 hover:from-red-500 hover:via-red-600 hover:to-red-700 dark:from-red-600 dark:via-red-700 dark:to-red-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-red-700 dark:hover:via-red-800 dark:hover:to-red-900'>
                             No, Cancelar
                           </AlertDialogCancel>
                           <AlertDialogAction
-                            className='bg-green-500 text-green-950 hover:bg-green-500 hover:text-white text-[14px]'
+                            className='text-[14px] w-full border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
                             onClick={() => {
                               usePreacherRolePromotionHandler({
                                 preacherUpdateForm: form,
@@ -1391,14 +1390,14 @@ export const PreacherUpdateForm = ({
                     </AlertDialog>
 
                     <div className=''>
-                      <p className='text-red-500 text-[13px] md:text-[14px] font-bold mb-2'>
+                      <p className='text-red-500 text-[13.5px] md:text-[14px] font-bold mb-2'>
                         Consideraciones
                       </p>
-                      <p className='text-[12px] md:text-[13px] mb-2 font-medium '>
+                      <p className='text-[12.5px] md:text-[13px] mb-2 font-medium '>
                         ❌ Mientras estés en modo de edición y los datos cambien no podrás promover
                         de cargo.{' '}
                       </p>
-                      <p className='text-[12px] md:text-[13px] font-medium '>
+                      <p className='text-[12.5px] md:text-[13px] font-medium '>
                         ❌ Mientras el &#34;Estado&#34; sea{' '}
                         <span className='text-red-500 font-bold'>Inactivo</span> no podrás promover
                         de cargo.
@@ -1424,7 +1423,7 @@ export const PreacherUpdateForm = ({
                       className={cn(
                         'w-full text-[14px]',
                         preacherUpdateMutation?.isPending &&
-                          'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] text-white'
+                          'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] dark:text-black text-white'
                       )}
                       onClick={() => {
                         setTimeout(() => {

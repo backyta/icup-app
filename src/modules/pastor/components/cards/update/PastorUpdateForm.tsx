@@ -188,7 +188,7 @@ export const PastorUpdateForm = ({
 
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
-              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] pl-0 mb-4 md:pl-4'>
+              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16.5px] md:text-[18px] pl-0 mb-4 md:pl-4'>
                 Pastor: {data?.member?.firstNames} {data?.member?.lastNames}
               </div>
               <Form {...form}>
@@ -207,7 +207,7 @@ export const PastorUpdateForm = ({
                         return (
                           <FormItem className='mt-3'>
                             <FormLabel className='text-[14px]'>Nombres</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -216,7 +216,7 @@ export const PastorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -229,7 +229,7 @@ export const PastorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Apellidos</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -238,7 +238,7 @@ export const PastorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -273,7 +273,7 @@ export const PastorUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -286,7 +286,7 @@ export const PastorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>País de Origen</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -295,7 +295,7 @@ export const PastorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -312,12 +312,12 @@ export const PastorUpdateForm = ({
                             onOpenChange={setIsInputBirthDateOpen}
                           >
                             <PopoverTrigger asChild>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Button
                                   disabled={isInputDisabled}
                                   variant={'outline'}
                                   className={cn(
-                                    'w-full pl-3 text-left font-normal',
+                                    'text-[14px] w-full pl-3 text-left font-normal',
                                     !field.value && 'text-muted-foreground'
                                   )}
                                 >
@@ -347,10 +347,10 @@ export const PastorUpdateForm = ({
                               />
                             </PopoverContent>
                           </Popover>
-                          <FormDescription className='pl-3 text-blue-600 text-[11.5px] xl:text-[12.5px] font-bold italic'>
+                          <FormDescription className='pl-2 text-blue-600 text-[12.5px] xl:text-[13px] font-bold italic'>
                             * Su fecha de nacimiento se utiliza para calcular su edad.
                           </FormDescription>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -384,7 +384,7 @@ export const PastorUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -397,7 +397,7 @@ export const PastorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Nro. de hijos</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -405,7 +405,7 @@ export const PastorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -422,12 +422,12 @@ export const PastorUpdateForm = ({
                             onOpenChange={setIsInputConvertionDateOpen}
                           >
                             <PopoverTrigger asChild>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Button
                                   disabled={isInputDisabled}
                                   variant={'outline'}
                                   className={cn(
-                                    'w-full pl-3 text-left font-normal',
+                                    'text-[14px] w-full pl-3 text-left font-normal',
                                     !field.value && 'text-muted-foreground'
                                   )}
                                 >
@@ -436,9 +436,7 @@ export const PastorUpdateForm = ({
                                       locale: es,
                                     })
                                   ) : (
-                                    <span className='text-[12px] xl:text-[13px]'>
-                                      Fecha de conversion
-                                    </span>
+                                    <span className='text-[14px]'>Fecha de conversion</span>
                                   )}
                                   <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                                 </Button>
@@ -459,10 +457,10 @@ export const PastorUpdateForm = ({
                               />
                             </PopoverContent>
                           </Popover>
-                          <FormDescription className='pl-3 text-blue-600 text-[11.5px] xl:text-[12.5px] font-bold italic'>
+                          <FormDescription className='pl-2 text-blue-600 text-[12.5px] xl:text-[13px] font-bold italic'>
                             * Fecha en la que el creyente se convirtió.
                           </FormDescription>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -498,7 +496,7 @@ export const PastorUpdateForm = ({
                               </SelectContent>
                             </Select>
                             {form.getValues('recordStatus') === 'active' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>Activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
                                 debe inactivar el registro desde el modulo{' '}
@@ -506,12 +504,12 @@ export const PastorUpdateForm = ({
                               </FormDescription>
                             )}
                             {form.getValues('recordStatus') === 'inactive' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                                 * El registro esta <span className='text-red-500 '>Inactivo</span>,
                                 puede modificar el estado eligiendo otra opción.
                               </FormDescription>
                             )}
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -532,7 +530,7 @@ export const PastorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>E-mail</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -542,7 +540,7 @@ export const PastorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -555,7 +553,7 @@ export const PastorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Número de Teléfono</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -564,7 +562,7 @@ export const PastorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -599,7 +597,7 @@ export const PastorUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -634,7 +632,7 @@ export const PastorUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -669,7 +667,7 @@ export const PastorUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -686,7 +684,7 @@ export const PastorUpdateForm = ({
                               value={field.value}
                               onValueChange={field.onChange}
                             >
-                              <FormControl className='text-[13px] md:text-[14px]'>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el distrito' />
@@ -707,7 +705,7 @@ export const PastorUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -724,7 +722,7 @@ export const PastorUpdateForm = ({
                               value={field.value}
                               disabled={isInputDisabled}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el sector urbano' />
@@ -745,7 +743,7 @@ export const PastorUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -757,7 +755,7 @@ export const PastorUpdateForm = ({
                         return (
                           <FormItem className='mt-2'>
                             <FormLabel className='text-[14px]'>Dirección</FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -766,7 +764,7 @@ export const PastorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -781,7 +779,7 @@ export const PastorUpdateForm = ({
                             <FormLabel className='text-[14px] font-medium'>
                               Referencia de dirección
                             </FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Textarea
                                 disabled={isInputDisabled}
                                 className='text-[14px]'
@@ -789,7 +787,7 @@ export const PastorUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -828,7 +826,7 @@ export const PastorUpdateForm = ({
                                         key={role}
                                         className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
                                       >
-                                        <FormControl>
+                                        <FormControl className='text-[14px] md:text-[14px]'>
                                           <Checkbox
                                             checked={field.value?.includes(role)}
                                             disabled={isDisabled || isInputDisabled}
@@ -859,7 +857,7 @@ export const PastorUpdateForm = ({
                                 />
                               )
                           )}
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -899,7 +897,7 @@ export const PastorUpdateForm = ({
                                         key={role}
                                         className='flex flex-row cursor-pointer items-center space-x-3 space-y-0'
                                       >
-                                        <FormControl>
+                                        <FormControl className='text-[14px] md:text-[14px]'>
                                           <Checkbox
                                             checked={field.value?.includes(role)}
                                             disabled={isDisabled || isInputDisabled}
@@ -930,7 +928,7 @@ export const PastorUpdateForm = ({
                                 />
                               )
                           )}
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -950,7 +948,7 @@ export const PastorUpdateForm = ({
                               <FormLabel className='text-[14px] md:text-[15px] font-bold'>
                                 Iglesia
                               </FormLabel>
-                              <FormDescription className='text-[14px]'>
+                              <FormDescription className='text-[13.5px] md:text-[14px]'>
                                 Asigna una Iglesia a la que pertenecerá este Pastor.
                               </FormDescription>
                               <Popover
@@ -958,7 +956,7 @@ export const PastorUpdateForm = ({
                                 onOpenChange={setIsInputTheirChurchOpen}
                               >
                                 <PopoverTrigger asChild>
-                                  <FormControl>
+                                  <FormControl className='text-[14px] md:text-[14px]'>
                                     <Button
                                       disabled={isInputDisabled}
                                       variant='outline'
@@ -1013,7 +1011,7 @@ export const PastorUpdateForm = ({
                                       </>
                                     ) : (
                                       churchesQuery?.data?.length === 0 && (
-                                        <p className='text-[14.5px] text-red-500 text-center'>
+                                        <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                           ❌No hay iglesias disponibles.
                                         </p>
                                       )
@@ -1021,7 +1019,7 @@ export const PastorUpdateForm = ({
                                   </Command>
                                 </PopoverContent>
                               </Popover>
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -1047,7 +1045,7 @@ export const PastorUpdateForm = ({
                       className={cn(
                         'w-full text-[14px]',
                         pastorUpdateMutation?.isPending &&
-                          'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] text-white'
+                          'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] dark:text-black text-white'
                       )}
                       onClick={() => {
                         setTimeout(() => {

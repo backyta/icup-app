@@ -66,13 +66,15 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
     };
   }, [id]);
 
+  console.log(data?.anexes);
+
   return (
     <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full grid-cols-2 px-auto'>
-        <TabsTrigger value='general-info' className='text-[14px] md:text-[15px]'>
-          Info. General
+        <TabsTrigger value='general-info' className='text-[14.5px] md:text-[15px]'>
+          General
         </TabsTrigger>
-        <TabsTrigger value='contact-info' className='text-[14px] md:text-[15px]'>
+        <TabsTrigger value='contact-info' className='text-[14.5px] md:text-[15px]'>
           Contacto
         </TabsTrigger>
       </TabsList>
@@ -88,7 +90,7 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid grid-cols-3 pl-[2rem] sm:pl-[4rem] sm:pr-[5rem] gap-x-4 gap-y-2.5 md:gap-x-6 md:gap-y-4 md:pl-[4.8rem] md:pr-[2rem]'>
+          <CardContent className='grid grid-cols-3 pl-[1.5rem] pr-[1rem] sm:pl-[4rem] sm:pr-[5rem] gap-x-4 gap-y-2.5 md:gap-x-6 md:gap-y-4 md:pl-[4.8rem] md:pr-[2rem]'>
             <div className='space-y-1 col-start-1 col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Nombre Completo</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -170,7 +172,7 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
                   data={data?.anexes}
                   title={'Anexos'}
                   moduleName={'Iglesia'}
-                  firstValue={'churchName'}
+                  firstValue={'abbreviatedChurchName'}
                   secondValue={'urbanSector'}
                 />
               </div>
@@ -228,7 +230,7 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
                 title={'Zonas'}
                 moduleName={'Iglesia'}
                 firstValue={'zoneName'}
-                secondValue={'urbanSector'}
+                secondValue={'district'}
               />
             </div>
 
@@ -401,10 +403,11 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               Información de contacto y ubicación.
             </CardDescription>
           </CardHeader>
-          <CardContent className='grid grid-cols-2 pl-[3rem] sm:pl-[7rem] gap-x-8 gap-y-5 md:gap-x-16 md:gap-y-6 md:pl-[7rem] md:pr-[1rem]'>
+
+          <CardContent className='grid grid-cols-2 pl-[2.5rem] sm:pl-[7rem] gap-x-8 gap-y-5 md:gap-x-16 md:gap-y-6 md:pl-[7rem] md:pr-[1rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>E-mail</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+              <CardDescription className='break-words px-2 text-[14px] md:text-[14.5px]'>
                 {data?.email ?? '-'}
               </CardDescription>
             </div>

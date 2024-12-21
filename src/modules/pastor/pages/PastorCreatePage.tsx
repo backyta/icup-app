@@ -161,11 +161,11 @@ export const PastorCreatePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-pastor-color'>Modulo Pastor</PageTitle>
 
-      <h2 className='font- text-left leading-7 pb-2 pt-3 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h2 className='font- text-left leading-7 pb-[2px] pt-3 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear un nuevo pastor
       </h2>
 
-      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6  sm:pl-7 2xl:px-28 text-[12.5px] md:text-[15px] xl:text-base'>
+      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6 sm:pl-7 2xl:px-28 text-[13.5px] md:text-[15px] xl:text-base'>
         Por favor llena los siguientes datos para crear un nuevo pastor.
       </p>
 
@@ -184,7 +184,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] font-medium'>Nombres</FormLabel>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
                           className='text-[14px]'
                           disabled={isInputDisabled}
@@ -193,7 +193,7 @@ export const PastorCreatePage = (): JSX.Element => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -206,7 +206,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-4'>
                       <FormLabel className='text-[14px] font-medium'>Apellidos</FormLabel>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
                           disabled={isInputDisabled}
                           placeholder='Ejem: Saavedra Ramirez'
@@ -214,7 +214,7 @@ export const PastorCreatePage = (): JSX.Element => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -232,7 +232,7 @@ export const PastorCreatePage = (): JSX.Element => {
                         value={field.value}
                         disabled={isInputDisabled}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona el tipo de Género' />
@@ -249,7 +249,7 @@ export const PastorCreatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -262,7 +262,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] font-medium'>País de origen</FormLabel>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
                           disabled={isInputDisabled}
                           placeholder='Ejem:  Colombia, Panama, Ecuador...'
@@ -270,7 +270,7 @@ export const PastorCreatePage = (): JSX.Element => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -284,12 +284,12 @@ export const PastorCreatePage = (): JSX.Element => {
                     <FormLabel className='text-[14px] font-medium'>Fecha de nacimiento</FormLabel>
                     <Popover open={isInputBirthDateOpen} onOpenChange={setIsInputBirthDateOpen}>
                       <PopoverTrigger asChild>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Button
                             disabled={isInputDisabled}
                             variant={'outline'}
                             className={cn(
-                              'w-full pl-3 text-left font-normal',
+                              'text-[14px] w-full pl-3 text-left font-normal',
                               !field.value && 'text-muted-foreground'
                             )}
                           >
@@ -315,10 +315,10 @@ export const PastorCreatePage = (): JSX.Element => {
                         />
                       </PopoverContent>
                     </Popover>
-                    <FormDescription className='pl-3 text-blue-600 text-[11.5px] xl:text-[12.5px] font-bold italic'>
+                    <FormDescription className='pl-2 text-blue-600 text-[12.5px] xl:text-[13px] font-bold italic'>
                       * Su fecha de nacimiento se utilizara para calcular su edad.
                     </FormDescription>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 )}
               />
@@ -335,7 +335,7 @@ export const PastorCreatePage = (): JSX.Element => {
                         disabled={isInputDisabled}
                         onValueChange={field.onChange}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona el estado civil' />
@@ -352,7 +352,7 @@ export const PastorCreatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -365,10 +365,10 @@ export const PastorCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className=' mt-3'>
                       <FormLabel className='text-[14px] font-medium'>Nro. de hijos</FormLabel>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input disabled={isInputDisabled} placeholder='Ejem: 2' {...field} />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -385,21 +385,19 @@ export const PastorCreatePage = (): JSX.Element => {
                       onOpenChange={setIsInputConvertionDateOpen}
                     >
                       <PopoverTrigger asChild>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Button
                             disabled={isInputDisabled}
                             variant={'outline'}
                             className={cn(
-                              'w-full pl-3 text-left font-normal',
+                              'text-[14px] w-full pl-3 text-left font-normal',
                               !field.value && 'text-muted-foreground'
                             )}
                           >
                             {field.value ? (
                               format(field.value, 'LLL dd, y', { locale: es })
                             ) : (
-                              <span className='text-sm md:text-[14px] lg:text-sm'>
-                                Selecciona la fecha de conversión
-                              </span>
+                              <span className='text-[14px]'>Selecciona la fecha de conversión</span>
                             )}
                             <CalendarIcon className='ml-auto h-4 w-4 opacity-50' />
                           </Button>
@@ -418,10 +416,10 @@ export const PastorCreatePage = (): JSX.Element => {
                         />
                       </PopoverContent>
                     </Popover>
-                    <FormDescription className='pl-3 text-blue-600 text-[11.5px] xl:text-[12.5px] font-bold italic'>
+                    <FormDescription className='pl-2 text-blue-600 text-[12.5px] xl:text-[13px] font-bold italic'>
                       * Fecha en la que el creyente se convirtió.
                     </FormDescription>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 )}
               />
@@ -437,7 +435,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] font-medium'>E-mail</FormLabel>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
                           disabled={isInputDisabled}
                           placeholder='Ejem: pedro123@gmail.com'
@@ -446,7 +444,7 @@ export const PastorCreatePage = (): JSX.Element => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -459,7 +457,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] font-medium'>Número de teléfono</FormLabel>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
                           disabled={isInputDisabled}
                           placeholder='Ejem: +51 999 999 999'
@@ -467,7 +465,7 @@ export const PastorCreatePage = (): JSX.Element => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -485,7 +483,7 @@ export const PastorCreatePage = (): JSX.Element => {
                         value={field.value}
                         disabled={isInputDisabled}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona el país' />
@@ -502,7 +500,7 @@ export const PastorCreatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -520,7 +518,7 @@ export const PastorCreatePage = (): JSX.Element => {
                         value={field.value}
                         disabled={isInputDisabled}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona el departamento' />
@@ -537,7 +535,7 @@ export const PastorCreatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -555,7 +553,7 @@ export const PastorCreatePage = (): JSX.Element => {
                         value={field.value}
                         disabled={isInputDisabled}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona la provincia' />
@@ -572,7 +570,7 @@ export const PastorCreatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -590,7 +588,7 @@ export const PastorCreatePage = (): JSX.Element => {
                         value={field.value}
                         disabled={isInputDisabled}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona el distrito' />
@@ -611,7 +609,7 @@ export const PastorCreatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -629,7 +627,7 @@ export const PastorCreatePage = (): JSX.Element => {
                         value={field.value}
                         disabled={isInputDisabled}
                       >
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <SelectTrigger>
                             {field.value ? (
                               <SelectValue placeholder='Selecciona el sector urbano' />
@@ -650,7 +648,7 @@ export const PastorCreatePage = (): JSX.Element => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -663,7 +661,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   return (
                     <FormItem className='mt-3'>
                       <FormLabel className='text-[14px] font-medium'>Dirección</FormLabel>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
                           disabled={isInputDisabled}
                           placeholder='Ejem: Jr. Rosales 111 - Mz.A Lt.14'
@@ -671,7 +669,7 @@ export const PastorCreatePage = (): JSX.Element => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -686,14 +684,14 @@ export const PastorCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14px] font-medium'>
                         Referencia de dirección
                       </FormLabel>
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <Textarea
                           disabled={isInputDisabled}
                           placeholder='Comentarios de referencia sobre la ubicación de la vivienda....'
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}
@@ -712,7 +710,7 @@ export const PastorCreatePage = (): JSX.Element => {
                       <FormLabel className='font-bold text-[16px] md:text-[18px]'>
                         Roles de Membresía
                       </FormLabel>
-                      <FormDescription className='font-medium'>
+                      <FormDescription className='font-medium text-[13.5px] md:text-[14px]'>
                         Asigna los roles de membresía correspondientes para este registro.
                       </FormDescription>
                     </div>
@@ -737,7 +735,7 @@ export const PastorCreatePage = (): JSX.Element => {
                                     key={role}
                                     className='flex flex-row cursor-pointer items-center space-x-2 space-y-0'
                                   >
-                                    <FormControl>
+                                    <FormControl className='text-[14px] md:text-[14px]'>
                                       <Checkbox
                                         checked={field.value?.includes(role)}
                                         disabled={isDisabled || isInputDisabled}
@@ -770,7 +768,7 @@ export const PastorCreatePage = (): JSX.Element => {
                       )}
                     </div>
 
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 )}
               />
@@ -784,12 +782,12 @@ export const PastorCreatePage = (): JSX.Element => {
                       <FormLabel className='font-bold text-[16px] md:text-[18px]'>
                         Roles Ministeriales
                       </FormLabel>
-                      <FormDescription className='font-medium'>
+                      <FormDescription className='font-medium text-[13.5px] md:text-[14px]'>
                         Asigna los roles ministeriales correspondientes para este registro.
                       </FormDescription>
                     </div>
 
-                    <div className='grid  grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4'>
                       {Object.values(MemberRole).map(
                         (role) =>
                           role !== MemberRole.Pastor &&
@@ -815,7 +813,7 @@ export const PastorCreatePage = (): JSX.Element => {
                                     key={role}
                                     className='flex flex-row items-center space-x-2 space-y-0'
                                   >
-                                    <FormControl>
+                                    <FormControl className='text-[14px] md:text-[14px]'>
                                       <Checkbox
                                         checked={field.value?.includes(role)}
                                         disabled={isDisabled || isInputDisabled}
@@ -847,8 +845,7 @@ export const PastorCreatePage = (): JSX.Element => {
                           )
                       )}
                     </div>
-
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 )}
               />
@@ -870,7 +867,7 @@ export const PastorCreatePage = (): JSX.Element => {
                       <FormLabel className='text-[14.5px] md:text-[15px] font-bold'>
                         Iglesia
                       </FormLabel>
-                      <FormDescription className='text-[14px]'>
+                      <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Asigna una Iglesia a la que pertenecerá este Pastor.
                       </FormDescription>
                       <Popover
@@ -878,7 +875,7 @@ export const PastorCreatePage = (): JSX.Element => {
                         onOpenChange={setIsInputTheirChurchOpen}
                       >
                         <PopoverTrigger asChild>
-                          <FormControl>
+                          <FormControl className='text-[14px] md:text-[14px]'>
                             <Button
                               disabled={isInputDisabled}
                               variant='outline'
@@ -929,7 +926,7 @@ export const PastorCreatePage = (): JSX.Element => {
                               </>
                             ) : (
                               data?.length === 0 && (
-                                <p className='text-[14.5px] text-red-500 text-center'>
+                                <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                   ❌No hay iglesias disponibles.
                                 </p>
                               )
@@ -937,7 +934,7 @@ export const PastorCreatePage = (): JSX.Element => {
                           </Command>
                         </PopoverContent>
                       </Popover>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   );
                 }}

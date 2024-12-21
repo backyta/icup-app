@@ -115,10 +115,10 @@ export const UserCreatePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-user-color'>Modulo Usuario</PageTitle>
 
-      <h1 className='text-left leading-7 pb-2 pt-3 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.5rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h1 className='text-left leading-7 pb-[2px] pt-3 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear un nuevo usuario
       </h1>
-      <p className='dark:text-slate-300 text-left font-sans text-[14px] font-bold px-4 sm:px-10 text-sm md:text-[15px] xl:text-base 2xl:text-center'>
+      <p className='dark:text-slate-300 text-left pl-5 pr-6 sm:pl-7 font-sans text-[13.5px] font-bold px-4 sm:px-10 text-sm md:text-[15px] xl:text-base 2xl:text-center'>
         Por favor llena los siguientes datos para crear un nuevo usuario.
       </p>
 
@@ -137,7 +137,7 @@ export const UserCreatePage = (): JSX.Element => {
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                       Nombres
                     </FormLabel>
-                    <FormControl>
+                    <FormControl className='text-[14px] md:text-[14px]'>
                       <Input
                         disabled={isInputDisabled}
                         placeholder='Nombres del usuario'
@@ -145,7 +145,7 @@ export const UserCreatePage = (): JSX.Element => {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 );
               }}
@@ -160,7 +160,7 @@ export const UserCreatePage = (): JSX.Element => {
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                       Apellidos
                     </FormLabel>
-                    <FormControl>
+                    <FormControl className='text-[14px] md:text-[14px]'>
                       <Input
                         disabled={isInputDisabled}
                         placeholder='Apellidos del usuario'
@@ -168,7 +168,7 @@ export const UserCreatePage = (): JSX.Element => {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 );
               }}
@@ -186,7 +186,7 @@ export const UserCreatePage = (): JSX.Element => {
                       value={field.value}
                       disabled={isInputDisabled}
                     >
-                      <FormControl>
+                      <FormControl className='text-[14px] md:text-[14px]'>
                         <SelectTrigger>
                           {field.value ? (
                             <SelectValue placeholder='Selecciona el tipo de género' />
@@ -203,7 +203,7 @@ export const UserCreatePage = (): JSX.Element => {
                         ))}
                       </SelectContent>
                     </Select>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 );
               }}
@@ -218,7 +218,7 @@ export const UserCreatePage = (): JSX.Element => {
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                       Correo Electrónico
                     </FormLabel>
-                    <FormControl>
+                    <FormControl className='text-[14px] md:text-[14px]'>
                       <Input
                         disabled={isInputDisabled}
                         placeholder='Dirección de correo electrónico'
@@ -227,7 +227,7 @@ export const UserCreatePage = (): JSX.Element => {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 );
               }}
@@ -242,7 +242,7 @@ export const UserCreatePage = (): JSX.Element => {
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                       Contraseña
                     </FormLabel>
-                    <FormControl>
+                    <FormControl className='text-[14px] md:text-[14px]'>
                       <div className='relative'>
                         <Input
                           disabled={isInputDisabled}
@@ -260,7 +260,7 @@ export const UserCreatePage = (): JSX.Element => {
                         </button>
                       </div>
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 );
               }}
@@ -275,7 +275,7 @@ export const UserCreatePage = (): JSX.Element => {
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                       Confirmar Contraseña
                     </FormLabel>
-                    <FormControl>
+                    <FormControl className='text-[14px] md:text-[14px]'>
                       <div className='relative'>
                         <Input
                           disabled={isInputDisabled}
@@ -293,17 +293,16 @@ export const UserCreatePage = (): JSX.Element => {
                         </button>
                       </div>
                     </FormControl>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
+
                     {(form.formState.errors.password || form.formState.errors.passwordConfirm) && (
-                      <div className='text-red-500 font-medium text-[12px] md:text-[13px]'>
+                      <div className='text-red-500 font-medium text-[13.5px] md:text-[13.5px]'>
                         <ul className='pl-2'>
-                          <li className='pl-2 text-white'>✅ Al menos un dígito.</li>
-                          <li className='pl-2 text-white'>✅ No espacios en blanco.</li>
-                          <li className='pl-2 text-white'>✅ Al menos 1 carácter especial.</li>
-                          <li className='pl-2 text-white'>
-                            ✅ Mínimo 8 caracteres y máximo 15 caracteres.
-                          </li>
-                          <li className='pl-2 text-white'>
+                          <li className='pl-2'>✅ Al menos un dígito.</li>
+                          <li className='pl-2'>✅ No espacios en blanco.</li>
+                          <li className='pl-2'>✅ Al menos 1 carácter especial.</li>
+                          <li className='pl-2'>✅ Mínimo 8 caracteres y máximo 15 caracteres.</li>
+                          <li className='pl-2'>
                             ✅ Al menos una letra mayúscula y al menos una letra minúscula.
                           </li>
                         </ul>
@@ -321,7 +320,7 @@ export const UserCreatePage = (): JSX.Element => {
                 <FormItem>
                   <div className='mb-4'>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Roles</FormLabel>
-                    <FormDescription className='text-[14px]'>
+                    <FormDescription className='text-[13.5px] md:text-[14px]'>
                       Seleccione los roles de acceso que tendrá el usuario.
                     </FormDescription>
                   </div>
@@ -336,7 +335,7 @@ export const UserCreatePage = (): JSX.Element => {
                             key={role}
                             className='flex flex-row items-center space-x-2 space-y-0'
                           >
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Checkbox
                                 disabled={isInputDisabled}
                                 checked={field.value?.includes(role)}
@@ -359,7 +358,7 @@ export const UserCreatePage = (): JSX.Element => {
                       }}
                     />
                   ))}
-                  <FormMessage />
+                  <FormMessage className='text-[13px]' />
                 </FormItem>
               )}
             />

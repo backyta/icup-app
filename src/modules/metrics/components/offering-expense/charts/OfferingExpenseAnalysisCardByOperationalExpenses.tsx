@@ -218,7 +218,7 @@ export const OfferingExpenseAnalysisCardByOperationalExpenses = ({
                       }}
                     >
                       <PopoverTrigger asChild>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Button
                             variant='outline'
                             role='combobox'
@@ -266,7 +266,7 @@ export const OfferingExpenseAnalysisCardByOperationalExpenses = ({
                         </Command>
                       </PopoverContent>
                     </Popover>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 );
               }}
@@ -288,7 +288,7 @@ export const OfferingExpenseAnalysisCardByOperationalExpenses = ({
                       }}
                     >
                       <PopoverTrigger asChild>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Button
                             variant='outline'
                             role='combobox'
@@ -336,7 +336,7 @@ export const OfferingExpenseAnalysisCardByOperationalExpenses = ({
                         </Command>
                       </PopoverContent>
                     </Popover>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 );
               }}

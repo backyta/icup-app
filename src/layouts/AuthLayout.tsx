@@ -34,9 +34,9 @@ export const AuthLayout = (): JSX.Element => {
             Ven y sígueme
           </span>
 
-          <img src='/jesus-image.webp' alt='Imagen Jesus' className='w-full h-full ' />
+          <img src='/jesus-image.webp' alt='Imagen Jesus' className='w-full h-full' />
         </div>
-        <div className='pl-4 pr-1 w-full lg:w-1/2 flex flex-col justify-center items-center'>
+        <div className='pl-4 pr-1 w-full lg:w-1/2 flex flex-col mt-7 items-center'>
           <Outlet />
         </div>
       </div>

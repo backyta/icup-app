@@ -160,7 +160,7 @@ export const ZoneUpdateForm = ({
 
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
-              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[18px] mb-4 md:pl-4'>
+              <div className='dark:text-slate-300 text-slate-500 font-bold text-[16.5px] md:text-[18px] mb-4 md:pl-4'>
                 Zona: {data?.zoneName} - {data?.district}
               </div>
               <Form {...form}>
@@ -178,10 +178,10 @@ export const ZoneUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Nombre
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asignar una nombre a la zona.
                             </FormDescription>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Input
                                 disabled={isInputDisabled}
                                 placeholder='Ejem: Iglesia Roca Fuerte...'
@@ -189,7 +189,7 @@ export const ZoneUpdateForm = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -204,7 +204,7 @@ export const ZoneUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               País
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asignar el país al que pertenece la iglesia.
                             </FormDescription>
                             <Select
@@ -212,7 +212,7 @@ export const ZoneUpdateForm = ({
                               onValueChange={field.onChange}
                               value={field.value}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el país' />
@@ -229,7 +229,7 @@ export const ZoneUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -244,7 +244,7 @@ export const ZoneUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Departamento
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asignar el departamento al que pertenece la casa familiar.
                             </FormDescription>
                             <Select
@@ -252,7 +252,7 @@ export const ZoneUpdateForm = ({
                               onValueChange={field.onChange}
                               value={field.value}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el departamento' />
@@ -269,7 +269,7 @@ export const ZoneUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -284,7 +284,7 @@ export const ZoneUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Provincia
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asignar la provincia a la que pertenece la iglesia.
                             </FormDescription>
                             <Select
@@ -292,7 +292,7 @@ export const ZoneUpdateForm = ({
                               onValueChange={field.onChange}
                               value={field.value}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona la provincia' />
@@ -309,7 +309,7 @@ export const ZoneUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -326,7 +326,7 @@ export const ZoneUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Distrito
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asignar el distrito al que pertenece la iglesia.
                             </FormDescription>
                             <Select
@@ -334,7 +334,7 @@ export const ZoneUpdateForm = ({
                               onValueChange={field.onChange}
                               value={field.value}
                             >
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value ? (
                                     <SelectValue placeholder='Selecciona el distrito' />
@@ -355,7 +355,7 @@ export const ZoneUpdateForm = ({
                                 ))}
                               </SelectContent>
                             </Select>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -370,7 +370,7 @@ export const ZoneUpdateForm = ({
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Supervisor
                             </FormLabel>
-                            <FormDescription className='text-[14px]'>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
                               Asigna el Supervisor responsable de esta Zona.
                             </FormDescription>
                             <Popover
@@ -378,7 +378,7 @@ export const ZoneUpdateForm = ({
                               onOpenChange={setIsInputTheirSupervisorOpen}
                             >
                               <PopoverTrigger asChild>
-                                <FormControl>
+                                <FormControl className='text-[14px] md:text-[14px]'>
                                   <Button
                                     value={field.value}
                                     disabled={isInputTheirSupervisorDisabled}
@@ -445,7 +445,7 @@ export const ZoneUpdateForm = ({
                                 </Command>
                               </PopoverContent>
                             </Popover>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -482,7 +482,7 @@ export const ZoneUpdateForm = ({
                               </SelectContent>
                             </Select>
                             {form.getValues('recordStatus') === 'active' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>Activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
                                 debe inactivar el registro desde el modulo{' '}
@@ -490,12 +490,12 @@ export const ZoneUpdateForm = ({
                               </FormDescription>
                             )}
                             {form.getValues('recordStatus') === 'inactive' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                                 * El registro esta <span className='text-red-500 '>Inactivo</span>,
                                 puede modificar el estado eligiendo otra opción.
                               </FormDescription>
                             )}
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}

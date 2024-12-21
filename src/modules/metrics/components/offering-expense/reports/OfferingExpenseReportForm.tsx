@@ -167,7 +167,7 @@ export const OfferingExpenseReportForm = ({ churchId, dialogClose }: Props): JSX
                           onOpenChange={setIsInputSearchYearOpen}
                         >
                           <PopoverTrigger asChild>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Button
                                 disabled={isInputDisabled}
                                 variant='outline'
@@ -216,7 +216,7 @@ export const OfferingExpenseReportForm = ({ churchId, dialogClose }: Props): JSX
                             </Command>
                           </PopoverContent>
                         </Popover>
-                        <FormMessage />
+                        <FormMessage className='text-[13px]' />
                       </FormItem>
                     );
                   }}
@@ -242,7 +242,7 @@ export const OfferingExpenseReportForm = ({ churchId, dialogClose }: Props): JSX
                             onOpenChange={setIsInputSearchStartMonthOpen}
                           >
                             <PopoverTrigger asChild>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Button
                                   disabled={isInputDisabled}
                                   variant='outline'
@@ -291,7 +291,7 @@ export const OfferingExpenseReportForm = ({ churchId, dialogClose }: Props): JSX
                               </Command>
                             </PopoverContent>
                           </Popover>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       );
                     }}
@@ -307,7 +307,7 @@ export const OfferingExpenseReportForm = ({ churchId, dialogClose }: Props): JSX
                             onOpenChange={setIsInputSearchEndMonthOpen}
                           >
                             <PopoverTrigger asChild>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Button
                                   disabled={isInputDisabled}
                                   variant='outline'
@@ -356,7 +356,7 @@ export const OfferingExpenseReportForm = ({ churchId, dialogClose }: Props): JSX
                               </Command>
                             </PopoverContent>
                           </Popover>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       );
                     }}
@@ -385,7 +385,7 @@ export const OfferingExpenseReportForm = ({ churchId, dialogClose }: Props): JSX
                                   key={type}
                                   className='flex flex-row items-center space-x-3 space-y-0'
                                 >
-                                  <FormControl>
+                                  <FormControl className='text-[14px] md:text-[14px]'>
                                     <Checkbox
                                       disabled={isInputDisabled}
                                       checked={field.value?.includes(type)}
@@ -413,7 +413,7 @@ export const OfferingExpenseReportForm = ({ churchId, dialogClose }: Props): JSX
                           />
                         ))}
                       </div>
-                      <FormMessage />
+                      <FormMessage className='text-[13px]' />
                     </FormItem>
                   )}
                 />
@@ -434,7 +434,7 @@ export const OfferingExpenseReportForm = ({ churchId, dialogClose }: Props): JSX
                     type='submit'
                     variant='ghost'
                     className={cn(
-                      'w-full px-4 py-3 text-[15px] font-semibold rounded-lg shadow-lg transition-transform transform focus:outline-none focus:ring-red-300',
+                      'w-full px-4 py-3 text-[14px] font-semibold rounded-lg shadow-lg transition-transform transform focus:outline-none focus:ring-red-300',
                       !generateReportQuery.isFetching &&
                         'text-white hover:text-white dark:text-white bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:via-amber-700 hover:to-amber-800',
                       generateReportQuery.isFetching &&

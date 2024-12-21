@@ -207,7 +207,7 @@ export const MemberAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.Elem
                       onOpenChange={setIsInputSearchCopastorOpen}
                     >
                       <PopoverTrigger asChild>
-                        <FormControl>
+                        <FormControl className='text-[14px] md:text-[14px]'>
                           <Button
                             disabled={all}
                             variant='outline'
@@ -271,7 +271,7 @@ export const MemberAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.Elem
                         </Command>
                       </PopoverContent>
                     </Popover>
-                    <FormMessage />
+                    <FormMessage className='text-[13px]' />
                   </FormItem>
                 );
               }}
@@ -282,7 +282,7 @@ export const MemberAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.Elem
               name='all'
               render={({ field }) => (
                 <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem]'>
-                  <FormControl>
+                  <FormControl className='text-[14px] md:text-[14px]'>
                     <Checkbox
                       checked={field?.value}
                       onCheckedChange={(checked) => {

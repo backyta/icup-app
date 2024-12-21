@@ -58,7 +58,7 @@ export const SearchTitle = (props: PageTitleProps): JSX.Element => {
         )}
       </div>
 
-      <p className='dark:text-slate-300 text-left font-sans font-bold px-4 text-[12.5px] md:text-[15px] xl:text-base xl:px-[2rem]'>
+      <p className='dark:text-slate-300 text-left font-sans font-bold px-4 text-[13.5px] md:text-[15px] xl:text-base xl:px-[2rem]'>
         Explora, filtra y organiza los registros de {titleName} según tus necesidades.
       </p>
     </>

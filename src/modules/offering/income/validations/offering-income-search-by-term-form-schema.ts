@@ -96,7 +96,7 @@ export const offeringIncomeSearchByTermFormSchema = z
     },
     {
       message: 'El nombre es requerido.',
-      path: ['namesTerm'],
+      path: ['firstNamesTerm'],
     }
   )
   .refine(

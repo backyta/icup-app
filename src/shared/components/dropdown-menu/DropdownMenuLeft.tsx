@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { FcExport } from 'react-icons/fc';
 import { ChevronsUpDown } from 'lucide-react';
@@ -30,9 +31,41 @@ export function DropdownMenuLeft(): JSX.Element {
   const roles = useAuthStore((state) => state.user?.roles ?? undefined);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [touchStartX, setTouchStartX] = useState(0);
+
+  useEffect(() => {
+    const handleTouchStart = (e: TouchEvent) => {
+      setTouchStartX(e.touches[0].clientX);
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const touchEndX = e.touches[0].clientX;
+      const diffX = touchEndX - touchStartX;
+
+      if (diffX > 100) {
+        setIsSheetOpen(true);
+      }
+    };
+    // TODO : problema con las tablas se abre sin querer
+
+    const handleTouchEnd = () => {
+      setTouchStartX(0);
+    };
+
+    window.addEventListener('touchstart', handleTouchStart);
+    window.addEventListener('touchmove', handleTouchMove);
+    window.addEventListener('touchend', handleTouchEnd);
+
+    return () => {
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [touchStartX]);
 
   return (
-    <Sheet>
+    <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
       <SheetTrigger asChild>
         <Button
           id='button'
@@ -75,7 +108,7 @@ export function DropdownMenuLeft(): JSX.Element {
       <SheetContent side={'left'} className='h-full w-[20rem] md:h-full md:w-full md:py-6'>
         <SheetHeader>
           <div id='logo' className='py-1 text-center'>
-            <a href='/dashboard' className='inline-flex gap-x-6 items-center justify-center'>
+            <div className='inline-flex gap-x-6 items-center justify-center'>
               <h1 className='text-[1.85rem] font-bold font-dancing-script italic text-white'>
                 ICUP - APP
               </h1>
@@ -86,8 +119,8 @@ export function DropdownMenuLeft(): JSX.Element {
                   alt='logo-iglesia'
                 />
               </span>
-            </a>
-            <p className='mt-2 text-md sm:w-[20rem] sm:mx-auto border-b border-slate-700 pb-2 text-white'>
+            </div>
+            <p className='mt-2 text-[16px] sm:w-[20rem] sm:mx-auto border-b border-slate-700 pb-2 text-white'>
               Panel administrativo, registros y consultas.
             </p>
           </div>
@@ -97,28 +130,28 @@ export function DropdownMenuLeft(): JSX.Element {
             id='profile'
             className='pb-2 md:pb-3 px-6 text-center md:pt-1 border-b-[0.5px] border-slate-600'
           >
-            <p className='text-lg text-white'>Bienvenido,</p>
-            <div className='flex justify-center gap-2 items-center h-auto'>
+            {/* <p className='text-lg text-slate-400'>Bienvenido,</p> */}
+            <div className='flex justify-center gap-2 items-center h-auto pb-2'>
               <span>
                 {gender === 'male' ? (
                   <Avatar className='p-1 w-12 h-12'>
-                    <AvatarImage className='rounded-full' src={'/src/assets/boy.webp'} />
+                    <AvatarImage className='rounded-full' src={'/boy.webp'} />
                     <AvatarFallback>UI</AvatarFallback>
                   </Avatar>
                 ) : (
                   <Avatar className='p-1 w-12 h-12'>
-                    <AvatarImage className='rounded-full' src={'/src/assets/girl.webp'} />
+                    <AvatarImage className='rounded-full' src={'/girl.webp'} />
                     <AvatarFallback>UI</AvatarFallback>
                   </Avatar>
                 )}
               </span>
-              <span className='text-md md:text-base font-medium text-white'>{`${userNames} ${userLastNames}`}</span>
+              <span className='text-[16px] font-medium text-white'>{`${userNames} ${userLastNames}`}</span>
             </div>
 
             {/* Their Roles */}
-            <p className='text-[15px] ml-6 text-left font-bold text-sky-500'>
+            <p className='text-[14px] md:text-[15px] ml-6 text-left font-bold text-sky-500'>
               <span>Roles:</span>
-              <span className='text-[14px] text-white font-medium pl-2 '>
+              <span className='text-[13px] md:text-[14px] text-white font-medium pl-2 '>
                 {roles?.map((role) => UserRoleNames[role]).join(' - ')}
               </span>
             </p>
@@ -130,9 +163,13 @@ export function DropdownMenuLeft(): JSX.Element {
               className='text-[15px] ml-6 text-left font-bold text-green-500'
             >
               <div className='flex items-center justify-between'>
-                <p>Accesos permitidos</p>
+                <p className='text-[14px] md:text-[15px]'>Accesos permitidos</p>
                 <CollapsibleTrigger asChild>
-                  <Button className='hover:text-green-500' variant='ghost' size='sm'>
+                  <Button
+                    className='hover:text-green-500 focus:bg-slate-800'
+                    variant='ghost'
+                    size='sm'
+                  >
                     <ChevronsUpDown className='h-4 w-4' />
                     <span className='sr-only'>Toggle</span>
                   </Button>
@@ -140,39 +177,47 @@ export function DropdownMenuLeft(): JSX.Element {
               </div>
 
               <CollapsibleContent className='space-y-2'>
-                <p className='text-[14px] ml-2 text-amber-500'>Membresía:</p>
+                <p className='text-[13px] md:text-[14px] ml-2 text-amber-500'>Membresía:</p>
                 <ul className='ml-8 font-medium text-white list-disc'>
                   {(roles?.includes(UserRole.AdminUser) || roles?.includes(UserRole.SuperUser)) && (
-                    <li className='text-[14px]'>Creación, actualización e inactivación.</li>
+                    <li className='text-[13px] md:text-[14px]'>
+                      Creación, actualización e inactivación.
+                    </li>
                   )}
-                  <li className='text-[14px]'>Búsqueda general y detallada.</li>
-                  <li className='text-[14px]'>Generación de reportes PDF.</li>
+                  <li className='text-[13px] md:text-[14px]'>Búsqueda general y detallada.</li>
+                  <li className='text-[13px] md:text-[14px]'>Generación de reportes PDF.</li>
                 </ul>
 
-                <p className='text-[14px] ml-2 text-amber-500'>Finanzas:</p>
+                <p className='text-[13px] md:text-[14px] ml-2 text-amber-500'>Finanzas:</p>
                 <ul className='ml-8 font-medium text-white list-disc'>
                   {(roles?.includes(UserRole.AdminUser) ||
                     roles?.includes(UserRole.SuperUser) ||
                     roles?.includes(UserRole.TreasurerUser)) && (
-                    <li className='text-[14px]'>Creación, actualización e inactivación.</li>
+                    <li className='text-[13px] md:text-[14px]'>
+                      Creación, actualización e inactivación.
+                    </li>
                   )}
-                  <li className='text-[14px]'>Búsqueda general.</li>
-                  <li className='text-[14px]'>Búsqueda detallada.</li>
-                  <li className='text-[14px]'>Generación de reportes.</li>
+                  <li className='text-[13px] md:text-[14px]'>Búsqueda general.</li>
+                  <li className='text-[13px] md:text-[14px]'>Búsqueda detallada.</li>
+                  <li className='text-[13px] md:text-[14px]'>Generación de reportes.</li>
                 </ul>
 
-                <p className='text-[14px] ml-2 text-amber-500'>Usuarios:</p>
+                <p className='text-[13px] md:text-[14px] ml-2 text-amber-500'>Usuarios:</p>
                 <ul className='ml-8 font-medium text-white list-disc'>
                   {(roles?.includes(UserRole.AdminUser) || roles?.includes(UserRole.SuperUser)) && (
-                    <li className='text-[14px]'>Creación, actualización e inactivación.</li>
+                    <li className='text-[13px] md:text-[14px]'>
+                      Creación, actualización e inactivación.
+                    </li>
                   )}
-                  <li className='text-[14px]'>Búsqueda general y detallada.</li>
-                  <li className='text-[14px]'>Generación de reportes.</li>
+                  <li className='text-[13px] md:text-[14px]'>Búsqueda general y detallada.</li>
+                  <li className='text-[13px] md:text-[14px]'>Generación de reportes.</li>
                 </ul>
 
-                <p className='text-[14px] ml-2 text-amber-500'>Métricas y Estadísticas:</p>
+                <p className='text-[13px] md:text-[14px] ml-2 text-amber-500'>
+                  Métricas y Estadísticas:
+                </p>
                 <ul className='ml-8 font-medium text-white list-disc'>
-                  <li className='text-[14px]'>Visualización de gráficas.</li>
+                  <li className='text-[13px] md:text-[14px]'>Visualización de gráficas.</li>
                 </ul>
               </CollapsibleContent>
             </Collapsible>
@@ -187,10 +232,7 @@ export function DropdownMenuLeft(): JSX.Element {
           </div>
 
           {/* Logout */}
-          <a
-            onClick={logoutUser}
-            className='flex w-full cursor-pointer text-center justify-center '
-          >
+          <a onClick={logoutUser} className='flex w-full cursor-pointer text-center justify-center'>
             <FcExport className='text-2xl' />
             <span className='text-[18px] text-red-500 font-bold leading-5'>Salir</span>
           </a>

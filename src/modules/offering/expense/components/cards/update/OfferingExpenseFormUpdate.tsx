@@ -265,12 +265,12 @@ export const OfferingExpenseFormUpdate = ({
           {!isLoadingData && (
             <CardContent className='py-3 px-4'>
               <div className='flex flex-col mb-4 md:pl-4'>
-                <span className='italic dark:text-amber-400 font-bold text-[16px] md:text-[18px] text-amber-500'>
+                <span className='italic dark:text-yellow-500 font-bold text-[16.5px] md:text-[18px] text-amber-500'>
                   Tipo de registro:{' '}
                   {`${OfferingExpenseSearchTypeNames[data?.type as OfferingExpenseSearchType]} ${data?.subType ? '-' : ''} ${OfferingExpenseSearchSubTypeNames[data?.subType as OfferingExpenseSearchSubType] ?? ''}`}
                 </span>
-                <span className='italic dark:text-slate-300 text-slate-500 font-bold text-[15px] md:text-[17px] ml-1'>
-                  Pertenencia: {`${data?.church?.churchName}`}
+                <span className='italic dark:text-slate-300 text-slate-500 font-bold text-[16px] md:text-[17px] md:ml-1'>
+                  Pertenencia: {`${data?.church?.abbreviatedChurchName}`}
                 </span>
               </div>
 
@@ -282,96 +282,18 @@ export const OfferingExpenseFormUpdate = ({
                   <div className='lg:col-start-1 lg:col-end-2'>
                     <FormField
                       control={form.control}
-                      name='type'
-                      render={({ field }) => {
-                        return (
-                          <FormItem>
-                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                              Tipo
-                            </FormLabel>
-                            <FormDescription className='text-[14px]'>
-                              Selecciona un tipo de gasto para el registro.
-                            </FormDescription>
-                            <Select disabled value={field.value} onValueChange={field.onChange}>
-                              <FormControl>
-                                <SelectTrigger>
-                                  {field.value ? (
-                                    <SelectValue placeholder='Selecciona una tipo de egreso o gasto' />
-                                  ) : (
-                                    'Selecciona una tipo de egreso o gasto'
-                                  )}
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {Object.entries(OfferingExpenseSearchTypeNames).map(
-                                  ([key, value]) => (
-                                    <SelectItem key={key} value={key}>
-                                      {value}
-                                    </SelectItem>
-                                  )
-                                )}
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        );
-                      }}
-                    />
-
-                    {type !== OfferingExpenseSearchType.ExpensesAdjustment && (
-                      <FormField
-                        control={form.control}
-                        name='subType'
-                        render={({ field }) => {
-                          return (
-                            <FormItem className='mt-3'>
-                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                                Sub-Tipo
-                              </FormLabel>
-                              <FormDescription className='text-[14px]'>
-                                Asignar un sub-tipo de gasto al registro.
-                              </FormDescription>
-                              <Select disabled value={field.value} onValueChange={field.onChange}>
-                                <FormControl>
-                                  <SelectTrigger>
-                                    {field.value ? (
-                                      <SelectValue placeholder='Selecciona una sub-tipo de gasto' />
-                                    ) : (
-                                      'Selecciona una sub-tipo de gasto'
-                                    )}
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  {Object.entries(OfferingExpenseSearchSubTypeNames).map(
-                                    ([key, value]) => (
-                                      <SelectItem key={key} value={key}>
-                                        {value}
-                                      </SelectItem>
-                                    )
-                                  )}
-                                </SelectContent>
-                              </Select>
-                              <FormMessage />
-                            </FormItem>
-                          );
-                        }}
-                      />
-                    )}
-
-                    <FormField
-                      control={form.control}
                       name='churchId'
                       render={({ field }) => (
-                        <FormItem className='mt-3'>
+                        <FormItem>
                           <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                             Iglesia
                           </FormLabel>
-                          <FormDescription className='text-[14px]'>
+                          <FormDescription className='text-[13.5px] md:text-[14px]'>
                             Seleccione una iglesia para asignarla al registro.
                           </FormDescription>
                           <Popover open={isInputRelationOpen} onOpenChange={setIsInputRelationOpen}>
                             <PopoverTrigger asChild>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Button
                                   disabled
                                   variant='outline'
@@ -383,7 +305,7 @@ export const OfferingExpenseFormUpdate = ({
                                 >
                                   {field.value
                                     ? churchesQuery?.data?.find((zone) => zone.id === field.value)
-                                        ?.churchName
+                                        ?.abbreviatedChurchName
                                     : 'Busque y seleccione una iglesia'}
                                   <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                 </Button>
@@ -402,14 +324,14 @@ export const OfferingExpenseFormUpdate = ({
                                       {churchesQuery?.data?.map((church) => (
                                         <CommandItem
                                           className='text-[14px]'
-                                          value={church.churchName}
+                                          value={church.abbreviatedChurchName}
                                           key={church.id}
                                           onSelect={() => {
                                             form.setValue('churchId', church.id);
                                             setIsInputRelationOpen(false);
                                           }}
                                         >
-                                          {church.churchName}
+                                          {church.abbreviatedChurchName}
                                           <CheckIcon
                                             className={cn(
                                               'ml-auto h-4 w-4',
@@ -424,7 +346,7 @@ export const OfferingExpenseFormUpdate = ({
                                   </>
                                 ) : (
                                   churchesQuery?.data?.length === 0 && (
-                                    <p className='text-[14.5px] text-red-500 text-center'>
+                                    <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
                                       ❌No hay iglesias disponibles.
                                     </p>
                                   )
@@ -432,10 +354,88 @@ export const OfferingExpenseFormUpdate = ({
                               </Command>
                             </PopoverContent>
                           </Popover>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
+
+                    <FormField
+                      control={form.control}
+                      name='type'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='mt-3'>
+                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                              Tipo
+                            </FormLabel>
+                            <FormDescription className='text-[13.5px] md:text-[14px]'>
+                              Selecciona un tipo de gasto para el registro.
+                            </FormDescription>
+                            <Select disabled value={field.value} onValueChange={field.onChange}>
+                              <FormControl className='text-[14px] md:text-[14px]'>
+                                <SelectTrigger>
+                                  {field.value ? (
+                                    <SelectValue placeholder='Selecciona una tipo de egreso o gasto' />
+                                  ) : (
+                                    'Selecciona una tipo de egreso o gasto'
+                                  )}
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {Object.entries(OfferingExpenseSearchTypeNames).map(
+                                  ([key, value]) => (
+                                    <SelectItem key={key} value={key}>
+                                      {value}
+                                    </SelectItem>
+                                  )
+                                )}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage className='text-[13px]' />
+                          </FormItem>
+                        );
+                      }}
+                    />
+
+                    {type !== OfferingExpenseSearchType.ExpensesAdjustment && (
+                      <FormField
+                        control={form.control}
+                        name='subType'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className='mt-3'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                                Sub-Tipo
+                              </FormLabel>
+                              <FormDescription className='text-[13.5px] md:text-[14px]'>
+                                Asignar un sub-tipo de gasto al registro.
+                              </FormDescription>
+                              <Select disabled value={field.value} onValueChange={field.onChange}>
+                                <FormControl className='text-[14px] md:text-[14px]'>
+                                  <SelectTrigger>
+                                    {field.value ? (
+                                      <SelectValue placeholder='Selecciona una sub-tipo de gasto' />
+                                    ) : (
+                                      'Selecciona una sub-tipo de gasto'
+                                    )}
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  {Object.entries(OfferingExpenseSearchSubTypeNames).map(
+                                    ([key, value]) => (
+                                      <SelectItem key={key} value={key}>
+                                        {value}
+                                      </SelectItem>
+                                    )
+                                  )}
+                                </SelectContent>
+                              </Select>
+                              <FormMessage className='text-[13px]' />
+                            </FormItem>
+                          );
+                        }}
+                      />
+                    )}
 
                     <div
                       className={cn(
@@ -453,10 +453,10 @@ export const OfferingExpenseFormUpdate = ({
                               <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                                 Monto
                               </FormLabel>
-                              <FormDescription className='text-[14px]'>
+                              <FormDescription className='text-[13.5px] md:text-[14px]'>
                                 Digita la cantidad del gasto realizado.
                               </FormDescription>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Input
                                   disabled={isInputDisabled}
                                   placeholder='Monto total del gasto realizado'
@@ -464,7 +464,7 @@ export const OfferingExpenseFormUpdate = ({
                                   {...field}
                                 />
                               </FormControl>
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -479,7 +479,7 @@ export const OfferingExpenseFormUpdate = ({
                               <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                                 Divisa / Moneda
                               </FormLabel>
-                              <FormDescription className='text-[14px]'>
+                              <FormDescription className='text-[13.5px] md:text-[14px]'>
                                 Asignar un tipo de divisa al registro.
                               </FormDescription>
                               <Select
@@ -487,7 +487,7 @@ export const OfferingExpenseFormUpdate = ({
                                 value={field.value}
                                 onValueChange={field.onChange}
                               >
-                                <FormControl>
+                                <FormControl className='text-[14px] md:text-[14px]'>
                                   <SelectTrigger>
                                     <SelectValue
                                       placeholder={
@@ -508,7 +508,7 @@ export const OfferingExpenseFormUpdate = ({
                                   ))}
                                 </SelectContent>
                               </Select>
-                              <FormMessage />
+                              <FormMessage className='text-[13px]' />
                             </FormItem>
                           );
                         }}
@@ -523,24 +523,24 @@ export const OfferingExpenseFormUpdate = ({
                           <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                             Fecha
                           </FormLabel>
-                          <FormDescription className='text-[14px]'>
+                          <FormDescription className='text-[13.5px] md:text-[14px]'>
                             Elige la fecha de gasto o compra realizada.
                           </FormDescription>
                           <Popover open={isInputDateOpen} onOpenChange={setIsInputDateOpen}>
                             <PopoverTrigger asChild>
-                              <FormControl>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <Button
                                   disabled={isInputDisabled}
                                   variant={'outline'}
                                   className={cn(
-                                    'w-full pl-3 text-left font-normal',
+                                    'text-[14px] w-full pl-3 text-left font-normal',
                                     !field.value && 'text-muted-foreground'
                                   )}
                                 >
                                   {field.value ? (
                                     format(field.value, 'LLL dd, y', { locale: es })
                                   ) : (
-                                    <span className='text-sm md:text-[12px] lg:text-sm'>
+                                    <span className='text-[14px]'>
                                       Seleccione la fecha del gasto o compra
                                     </span>
                                   )}
@@ -563,7 +563,7 @@ export const OfferingExpenseFormUpdate = ({
                               />
                             </PopoverContent>
                           </Popover>
-                          <FormMessage />
+                          <FormMessage className='text-[13px]' />
                         </FormItem>
                       )}
                     />
@@ -580,7 +580,7 @@ export const OfferingExpenseFormUpdate = ({
                                 Requerido
                               </span>
                             </FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <Textarea
                                 className={cn(comments && 'h-full')}
                                 disabled={isInputDisabled}
@@ -592,7 +592,7 @@ export const OfferingExpenseFormUpdate = ({
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -610,7 +610,7 @@ export const OfferingExpenseFormUpdate = ({
                               value={field.value}
                               onValueChange={field.onChange}
                             >
-                              <FormControl className='text-[13px] md:text-[14px]'>
+                              <FormControl className='text-[14px] md:text-[14px]'>
                                 <SelectTrigger>
                                   {field.value === 'active' ? (
                                     <SelectValue placeholder='Activo' />
@@ -629,7 +629,7 @@ export const OfferingExpenseFormUpdate = ({
                               </SelectContent>
                             </Select>
                             {form.getValues('recordStatus') === 'active' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                                 *El registro esta <span className='text-green-500'>Activo</span>,
                                 para colocarla como <span className='text-red-500'>Inactivo</span>{' '}
                                 debe inactivar el registro desde el modulo{' '}
@@ -637,12 +637,12 @@ export const OfferingExpenseFormUpdate = ({
                               </FormDescription>
                             )}
                             {form.getValues('recordStatus') === 'inactive' && (
-                              <FormDescription className='pl-2 text-[12px] xl:text-[13px] font-bold'>
+                              <FormDescription className='pl-2 text-[12.5px] xl:text-[13px] font-bold'>
                                 * El registro esta <span className='text-red-500 '>Inactivo</span>,
                                 y ya no se podrá activar nuevamente.
                               </FormDescription>
                             )}
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                           </FormItem>
                         );
                       }}
@@ -662,11 +662,11 @@ export const OfferingExpenseFormUpdate = ({
                                 Opcional
                               </span>
                             </FormLabel>
-                            <FormControl>
+                            <FormControl className='text-[14px] md:text-[14px]'>
                               <div
                                 {...getRootProps({
                                   className:
-                                    'font-medium text-sm sm:text-[15px] p-10 sm:p-12 md:p-16 max-w-[25rem] md:max-w-[25rem] m-auto border border-dashed border-black dark:border-white hover:bg-green-200 dark:hover:text-black ease-in duration-200 text-center',
+                                    'h-[10rem] font-medium text-sm sm:text-[15px] p-10 sm:p-12 md:p-16 max-w-[25rem] md:max-w-[25rem] m-auto border border-dashed border-black dark:border-white hover:bg-green-200 dark:hover:text-black ease-in duration-200 text-center',
                                 })}
                               >
                                 <input {...getInputProps()} className='m-auto w-[20rem]' />
@@ -674,20 +674,20 @@ export const OfferingExpenseFormUpdate = ({
                                 {isDragActive ? (
                                   <p>Suelte sus archivos aquí ...</p>
                                 ) : (
-                                  <p>
+                                  <p className='pt-5 md:pt-0'>
                                     Arrastre y suelte sus archivos aquí, o haga clic para
                                     seleccionar.
                                   </p>
                                 )}
                               </div>
                             </FormControl>
-                            <FormMessage />
+                            <FormMessage className='text-[13px]' />
                             {files && files.length > 3 ? (
-                              <span className='text-red-500 font-bold text-[11.5px] md:text-[12.5px] text-center mx-auto justify-center flex'>
+                              <span className='text-red-500 font-bold text-[12.5px] md:text-[13.5px] text-center mx-auto justify-center flex'>
                                 ❌ Sobrepasa el limite, elige como máximo solo 3 imágenes.
                               </span>
                             ) : (
-                              <span className='font-bold text-[11.5px] md:text-[12.5px] pl-1 md:pl-5 mt-1 flex flex-col'>
+                              <span className='font-bold text-[12.5px] md:text-[12.5px] pl-1 md:pl-5 mt-1 flex flex-col'>
                                 {' '}
                                 <span>✅ Máximo 3 archivos.</span>
                                 <span>
@@ -780,7 +780,7 @@ export const OfferingExpenseFormUpdate = ({
                             <button
                               disabled={isDeleteFileButtonDisabled}
                               type='button'
-                              className='mt-1 py-1 text-[11px] md:text-[12px] uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md px-3 hover:bg-red-500 hover:text-white ease-in duration-200 transition-colors'
+                              className='mt-1 py-1 text-[11px] md:text-[11.5px] uppercase tracking-wider font-bold text-red-500 border border-red-400 rounded-md px-3 hover:bg-red-500 hover:text-white ease-in duration-200 transition-colors'
                               onClick={() => {
                                 removeRejected(file.name);
                               }}

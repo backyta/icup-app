@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 
-import { useEffect } from 'react';
-
 import { NavLink } from 'react-router-dom';
 import type { IconType } from 'react-icons';
 
-import { useAuthStore } from '@/stores/auth/auth.store';
 import { SheetClose } from '@/shared/components/ui/sheet';
 
 interface Props {
@@ -16,12 +13,6 @@ interface Props {
 }
 
 export const SideMenuItem = ({ href, Icon, title, subTitle }: Props): JSX.Element => {
-  const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
-
-  useEffect(() => {
-    checkAuthStatus();
-  }, []);
-
   return (
     <SheetClose asChild>
       <NavLink key={href} to={href} end>

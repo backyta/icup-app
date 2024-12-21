@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { cn } from '@/shared/lib/utils';
 import { useLocation } from 'react-router-dom';
 
@@ -19,12 +20,16 @@ const bibleVerses = [
   'Esforzaos y cobrad ánimo, no temáis ni tengáis miedo. - Deuteronomio 31:6',
 ];
 
+interface SpinnerProps {
+  isPendingRequest?: boolean;
+}
+
 const getRandomVerse = (): string => {
   const randomIndex = Math.floor(Math.random() * bibleVerses.length);
   return bibleVerses[randomIndex];
 };
 
-export const LoadingSpinner = (): JSX.Element => {
+export const LoadingSpinner = ({ isPendingRequest }: SpinnerProps): JSX.Element => {
   const verse = getRandomVerse();
   const { pathname } = useLocation();
 
@@ -32,6 +37,9 @@ export const LoadingSpinner = (): JSX.Element => {
     <div
       className={cn(
         'min-h-screen flex items-center justify-center md:min-h-full text-slate-100 dark:bg-slate-950',
+        isPendingRequest && '-mt-[20.5rem] md:mt-0',
+        !isPendingRequest &&
+          'md:min-h-screen md:flex md:flex-col md:items-center md:justify-center -mt-[5rem]',
         (pathname === '/churches/general-search' ||
           pathname === '/churches/search-by-term' ||
           pathname === '/churches/update' ||
@@ -133,7 +141,7 @@ export const LoadingSpinner = (): JSX.Element => {
                   pathname === '/dashboard' && '-mt-10'
                 )}
               ></div>
-              <h2 className='text-center text-black dark:text-white text-[14px] md:text-[18px] font-semibold'>
+              <h2 className='text-center text-black dark:text-white text-[15px] md:text-[18px] font-semibold'>
                 {verse}
               </h2>
             </>
