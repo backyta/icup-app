@@ -4,6 +4,7 @@
 
 import { useEffect, useState } from 'react';
 
+import { Trash } from 'lucide-react';
 import { Toaster, toast } from 'sonner';
 import { cn } from '@/shared/lib/utils';
 import { useNavigate } from 'react-router-dom';
@@ -53,7 +54,6 @@ import {
 import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
 import { getSimpleChurches } from '@/modules/church/services/church.service';
-import { Trash } from 'lucide-react';
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>;
@@ -267,7 +267,7 @@ export function SearchByTermFamilyGroupDataTable<TData, TValue>({
           </div>
 
           {/* Inputs Filters */}
-          <div className='pb-8 pt-4 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-3'>
+          <div className='pb-8 pt-4 lg:pb-8 grid grid-cols-2 gap-4 lg:flex lg:items-center lg:py-4 lg:gap-3'>
             <div className='flex w-full col-span-2 gap-2 md:gap-3 md:row-start-1 md:row-end-2'>
               <Input
                 disabled={isDisabledButton}

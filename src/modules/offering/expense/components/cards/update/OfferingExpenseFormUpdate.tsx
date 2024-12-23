@@ -147,7 +147,6 @@ export const OfferingExpenseFormUpdate = ({
     isDeleteFileButtonDisabled,
     isInputDisabled,
     offeringExpenseUpdateForm: form,
-    offeringExpenseSearchType: OfferingExpenseSearchType,
     setIsDropZoneDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
@@ -250,7 +249,7 @@ export const OfferingExpenseFormUpdate = ({
   return (
     <Tabs
       defaultValue='general-info'
-      className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
+      className='w-auto -mt-8 sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
       <div className='text-center'>
         <h2 className='text-orange-500  font-bold text-[20px] sm:text-[22px] md:text-[24px]'>

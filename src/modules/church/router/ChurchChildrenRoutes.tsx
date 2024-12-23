@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/promise-function-async */
 
 import { lazy, Suspense } from 'react';
+import { type RouteObject } from 'react-router-dom';
 import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
 //! Lazy load children routes
@@ -14,9 +15,9 @@ const LazyChurchCreatePage = lazy(() => import('@/modules/church/pages/ChurchCre
 const LazyChurchUpdatePage = lazy(() => import('@/modules/church/pages/ChurchUpdatePage'));
 const LazyChurchInactivatePage = lazy(() => import('@/modules/church/pages/ChurchInactivatePage'));
 
-export const ChurchChildrenRoutes = [
+export const ChurchChildrenRoutes: RouteObject[] = [
   {
-    path: '/churches/create',
+    path: 'create',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyChurchCreatePage />,
@@ -24,7 +25,7 @@ export const ChurchChildrenRoutes = [
     ),
   },
   {
-    path: '/churches/general-search',
+    path: 'general-search',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyChurchesGeneralSearchPage />
@@ -32,7 +33,7 @@ export const ChurchChildrenRoutes = [
     ),
   },
   {
-    path: '/churches/search-by-term',
+    path: 'search-by-term',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyChurchesSearchPageByTerm />
@@ -40,7 +41,7 @@ export const ChurchChildrenRoutes = [
     ),
   },
   {
-    path: '/churches/update',
+    path: 'update',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyChurchUpdatePage />
@@ -48,7 +49,7 @@ export const ChurchChildrenRoutes = [
     ),
   },
   {
-    path: '/churches/inactivate',
+    path: 'inactivate',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyChurchInactivatePage />

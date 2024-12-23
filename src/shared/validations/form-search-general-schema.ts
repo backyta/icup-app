@@ -10,12 +10,12 @@ export const formSearchGeneralSchema = z
     limit: z.string().refine(limit => {
       return /^\d+$/.test(limit);
     }, {
-      message: 'El límite debe ser un número positivo'
+      message: 'El límite debe ser un número mayor a 0.'
     }).refine(limit => {
       const parsedLimit = parseInt(limit);
       return !isNaN(parsedLimit) && parsedLimit > 0;
     }, {
-      message: 'El límite debe ser un número mayor a 0'
+      message: 'El límite debe ser un número mayor a 0.'
     }).optional(),
 
     offset: z.string().refine(offset => {

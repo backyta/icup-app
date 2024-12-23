@@ -22,7 +22,7 @@ const LazyOfferingsIncomeGeneralSearchPage = lazy(
 
 export const OfferingIncomeChildrenRoutes = [
   {
-    path: '/offerings/income/create',
+    path: 'create',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyOfferingIncomeCreatePage />,
@@ -30,7 +30,7 @@ export const OfferingIncomeChildrenRoutes = [
     ),
   },
   {
-    path: '/offerings/income/general-search',
+    path: 'general-search',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyOfferingsIncomeGeneralSearchPage />,
@@ -38,7 +38,7 @@ export const OfferingIncomeChildrenRoutes = [
     ),
   },
   {
-    path: '/offerings/income/search-by-term',
+    path: 'search-by-term',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyOfferingsIncomeSearchPageByTerm />,
@@ -46,7 +46,7 @@ export const OfferingIncomeChildrenRoutes = [
     ),
   },
   {
-    path: '/offerings/income/update',
+    path: 'update',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyOfferingIncomeUpdatePage />,
@@ -54,7 +54,7 @@ export const OfferingIncomeChildrenRoutes = [
     ),
   },
   {
-    path: '/offerings/income/inactivate',
+    path: 'inactivate',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyOfferingIncomeInactivatePage />,

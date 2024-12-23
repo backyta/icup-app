@@ -5,12 +5,11 @@
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { MemberRole } from '@/shared/enums/member-role.enum';
 import { type DiscipleFormData } from '@/modules/disciple/interfaces/disciple-form-data.interface';
 
 interface Options {
   discipleUpdateForm: UseFormReturn<DiscipleFormData, any, undefined>;
-  memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
@@ -19,7 +18,6 @@ interface Options {
 
 export const useDiscipleUpdateSubmitButtonLogic = ({
   discipleUpdateForm,
-  memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
   isInputDisabled,
@@ -59,8 +57,8 @@ export const useDiscipleUpdateSubmitButtonLogic = ({
     }
 
     if (
-      roles.includes(memberRoles.Disciple) &&
-      !roles.includes(memberRoles.Preacher) &&
+      roles.includes(MemberRole.Disciple) &&
+      !roles.includes(MemberRole.Preacher) &&
       theirFamilyGroup &&
       Object.values(discipleUpdateForm.formState.errors).length === 0 &&
       !isInputDisabled
@@ -70,21 +68,21 @@ export const useDiscipleUpdateSubmitButtonLogic = ({
     }
 
     if (
-      roles.includes(memberRoles.Disciple) &&
-      !roles.includes(memberRoles.Preacher) &&
+      roles.includes(MemberRole.Disciple) &&
+      !roles.includes(MemberRole.Preacher) &&
       !theirFamilyGroup
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
 
-    if (roles.includes(memberRoles.Preacher) && !theirSupervisor) {
+    if (roles.includes(MemberRole.Preacher) && !theirSupervisor) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
 
     if (
-      roles.includes(memberRoles.Preacher) &&
+      roles.includes(MemberRole.Preacher) &&
       theirSupervisor &&
       Object.values(discipleUpdateForm.formState.errors).length === 0 &&
       !isRelationSelectDisabled
@@ -100,8 +98,6 @@ export const useDiscipleUpdateSubmitButtonLogic = ({
       !birthDate ||
       !conversionDate ||
       !maritalStatus ||
-      !email ||
-      !phoneNumber ||
       !originCountry ||
       !numberChildren ||
       !residenceCountry ||

@@ -15,25 +15,25 @@ import { OfferingIncomeCreationShiftType } from '@/modules/offering/income/enums
 export const offeringIncomeFormSchema = z
   .object({
     churchId: z.string({
-      required_error: "Por favor seleccione una Iglesia.",
+      required_error: "La Iglesia es requerida.",
     }),
 
     type: z.string(z.nativeEnum(OfferingIncomeCreationType,{
-      required_error: "Por favor seleccione un tipo.",
+      required_error: "El tipo de ofrenda es requerido.",
     })),
 
     subType: z.string(z.nativeEnum(OfferingIncomeCreationSubType,{
-      required_error: "Por favor seleccione una opción.",
+      required_error: "El sub-tipo de ofrenda es requerido.",
     })).optional(),
 
     category: z.string(z.nativeEnum(OfferingIncomeCreationCategory,{
-      required_error: "Por favor seleccione una opción.",
+      required_error: "La categoría de ofrenda es requerida.",
     })).optional(),
 
     isNewExternalDonor: z.boolean().optional(),
 
     externalDonorId: z.string({required_error: 
-      'Por favor asigne un donante al registro.'}).optional(),
+      'Debe asignar un donante al registro.'}).optional(),
 
     externalDonorFirstNames: z.string()
     .min(1, { message: 'El campo debe contener al menos 1 carácter.'})
@@ -44,19 +44,19 @@ export const offeringIncomeFormSchema = z
     .max(50, { message: 'El campo debe contener máximo 50 caracteres.'}).optional(),
 
     externalDonorGender: z.string(z.nativeEnum(Gender, {
-      required_error: "Por favor seleccione una opción válida.",
+      required_error: "El género es requerido.",
     })).refine((value) => value !== undefined && value.trim() !== '',
-      { message: "Por favor seleccione una opción válida." }
+      { message: "El género es requerido." }
     ).optional(),
 
     externalDonorBirthDate: z.date({
-      required_error: "Por favor selecciona una fecha.",
+      required_error: "La fecha de nacimiento es requerida.",
     }).optional(),
 
    externalDonorEmail: z
     .preprocess(
       (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
-      z.string().email({ message: "Email inválido." }).optional()
+      z.string().email({ message: "E-mail inválido." }).optional()
     ),
 
     externalDonorPhoneNumber: z.preprocess(
@@ -67,7 +67,7 @@ export const offeringIncomeFormSchema = z
         .max(20, { message: 'El campo debe tener un máximo de 20 dígitos.' })
         .refine(
           (value) => /^[0-9+\-\s]+$/.test(value),
-          { message: 'El campo solo debe contener números, "+", "-" y espacios' }
+          { message: 'El campo solo debe contener números, "+", "-" y espacios.' }
         )
         .optional()
     ),
@@ -89,26 +89,26 @@ export const offeringIncomeFormSchema = z
     .max(40, { message: 'El campo debe contener máximo 40 caracteres.'}).optional(),
 
     shift: z.string(z.nativeEnum(OfferingIncomeCreationShiftType,{
-      required_error: "Por favor seleccione una opción.",
+      required_error: "El turno es requerido.",
     })).optional(),
     
     amount: z.string().refine(amount => {
       return /^\d+(\.\d+)?$/.test(amount);
     }, {
-      message: 'El monto debe ser un número'
+      message: 'El monto debe ser un número >= a 0.'
     }).refine(amount => {
       const parsedAmount = parseFloat(amount);
       return !isNaN(parsedAmount) && parsedAmount >= 0;
     }, {
-      message: 'El monto debe ser un número mayor o igual a 0'
+      message: 'El monto debe ser un número >= a 0.'
     }),
 
     currency: z.string(z.nativeEnum(CurrencyType,{
-      required_error: "Por favor seleccione una opción.",
+      required_error: "Debe seleccionar una opción.",
     })),
 
     date: z.date({
-      required_error: "Por favor selecciona una fecha.",
+      required_error: "La fecha de deposito es requerida.",
     }),
 
     comments: z.string()
@@ -119,7 +119,7 @@ export const offeringIncomeFormSchema = z
     imageUrls: z.array(z.string()).optional(),
 
     memberType: z.string(z.nativeEnum(MemberType, {
-      required_error: "Por favor seleccione una opción válida.",
+      required_error: "Selecciones un tipo de miembro.",
     })).optional(),
 
     familyGroupId: z.string().optional(),
@@ -127,7 +127,7 @@ export const offeringIncomeFormSchema = z
     zoneId: z.string().optional(),
     
     recordStatus: z.string(z.nativeEnum(RecordStatus, {
-      required_error: "Por favor seleccione una opción.",
+      required_error: "El estado de registro es requerido.",
     })).optional(),
     
   })
@@ -153,7 +153,7 @@ export const offeringIncomeFormSchema = z
       return true;
     },
     {
-      message: 'Por favor elige una zona.',
+      message: 'La Zona es requerida.',
       path: ['zoneId'],
     }
   )
@@ -167,7 +167,7 @@ export const offeringIncomeFormSchema = z
       return true;
     },
     {
-      message: 'Por favor elige una zona.',
+      message: 'La Zona es requerida.',
       path: ['zoneId'],
     }
   )
@@ -181,7 +181,7 @@ export const offeringIncomeFormSchema = z
       return true;
     },
     {
-      message: 'Por favor elige un grupo familiar.',
+      message: 'El Grupo Familiar es requerido.',
       path: ['familyGroupId'],
     }
   )
@@ -202,7 +202,7 @@ export const offeringIncomeFormSchema = z
       return true;
     },
     {
-      message: 'Por favor elige una iglesia.',
+      message: 'La Iglesia es requerida.',
       path: ['churchId'],
     }
   );

@@ -2,18 +2,16 @@ import { useEffect, useState } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type DiscipleFieldNames } from '@/modules/disciple/enums/disciple-field-names.enum';
+import { DiscipleFieldNames } from '@/modules/disciple/enums/disciple-field-names.enum';
 import { type DiscipleFormData } from '@/modules/disciple/interfaces/disciple-form-data.interface';
 
 interface Options {
   discipleUpdateForm: UseFormReturn<DiscipleFormData, any, undefined>;
-  fieldName: typeof DiscipleFieldNames;
   setIsPromoteButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useDisciplePromoteButtonLogic = ({
   discipleUpdateForm,
-  fieldName,
   setIsPromoteButtonDisabled,
 }: Options): any => {
   //* States
@@ -45,7 +43,7 @@ export const useDisciplePromoteButtonLogic = ({
   // ? Effects
   //* Setea los valores fijos en un estado
   useEffect(() => {
-    const initialValues = discipleUpdateForm.getValues([...Object.values(fieldName)]);
+    const initialValues = discipleUpdateForm.getValues([...Object.values(DiscipleFieldNames)]);
     setFixedValues(initialValues);
   }, []);
 
@@ -53,7 +51,7 @@ export const useDisciplePromoteButtonLogic = ({
     //* Asigna los previous values y los current values
     const previousValues: DiscipleFormData[] = lastValues;
     const currentValues: DiscipleFormData[] = discipleUpdateForm.getValues([
-      ...Object.values(fieldName),
+      ...Object.values(DiscipleFieldNames),
     ]);
 
     //* Valida y compara si tiene la misma información inicial, ordena y activa el botón

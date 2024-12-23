@@ -2,13 +2,20 @@
 
 import { z } from "zod";
 
+import { UserInactivationReason } from "@/modules/user/enums/user-inactivation-reason.enum";
+import { UserInactivationCategory } from "@/modules/user/enums/user-inactivation-category.enum";
+
 export const userInactivationFormSchema = z
 .object({
-  userInactivationCategory: z.string()
-  .min(1, {message: 'El campo debe contener al menos 1 carácter.'})
-  .max(50, {message: 'El campo debe contener máximo 50 caracteres'}),
+  userInactivationCategory: z.string(z.nativeEnum(UserInactivationCategory, {
+      required_error: "Debe seleccionar una opción.",
+    })).refine((value) => value !== undefined && value.trim() !== '',
+      { message: "Debe seleccionar una opción." }
+  ),
 
-  userInactivationReason: z.string()
-  .min(1, {message: 'El campo debe contener al menos 1 carácter.'})
-  .max(100, {message: 'El campo debe contener máximo 100 caracteres'}),
+  userInactivationReason: z.string(z.nativeEnum(UserInactivationReason, {
+      required_error: "Debe seleccionar una opción.",
+    })).refine((value) => value !== undefined && value.trim() !== '',
+      { message: "Debe seleccionar una opción." }
+  ),
 })   

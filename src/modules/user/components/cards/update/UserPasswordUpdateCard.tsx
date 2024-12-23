@@ -5,8 +5,14 @@ import { useMediaQuery } from '@react-hook/media-query';
 
 import { UserPasswordUpdateForm } from '@/modules/user/components/cards/update/UserPasswordUpdateForm';
 
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogTrigger,
+  DialogDescription,
+} from '@/shared/components/ui/dialog';
 import { Button } from '@/shared/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 
 interface UserPasswordUpdateCardProps {
   idRow: string;
@@ -46,6 +52,8 @@ export const UserPasswordUpdateCard = ({ idRow }: UserPasswordUpdateCardProps): 
           ref={topRef}
           className='md:max-w-[540px] lg:max-w-[500px] xl:max-w-[600px] w-full max-h-full justify-center pt-[0.9rem] pb-[1.3rem] overflow-x-hidden overflow-y-auto'
         >
+          <DialogTitle></DialogTitle>
+          <DialogDescription></DialogDescription>
           <UserPasswordUpdateForm
             id={idRow}
             dialogClose={handleContainerClose}
@@ -71,6 +79,8 @@ export const UserPasswordUpdateCard = ({ idRow }: UserPasswordUpdateCardProps): 
         ref={topRef}
         className='max-w-auto sm:max-w-[490px] w-full max-h-full justify-center pt-6 pb-4 px-6 md:px-8  overflow-y-auto overflow-x-hidden'
       >
+        <DialogTitle></DialogTitle>
+        <DialogDescription></DialogDescription>
         <UserPasswordUpdateForm
           id={idRow}
           dialogClose={handleContainerClose}

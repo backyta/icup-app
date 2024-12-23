@@ -366,7 +366,7 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
 }
 
 //* General
-export const getGeneralFamilyGroupsReport = async ({limit, offset, order, churchId}: FamilyGroupQueryParams): Promise<void> => {
+export const getGeneralFamilyGroupsReport = async ({limit, offset, order, churchId}: FamilyGroupQueryParams): Promise<boolean> => {
    try {
     const res = await icupApi<Blob>('/reports/family-groups' , {
       params: {
@@ -382,7 +382,8 @@ export const getGeneralFamilyGroupsReport = async ({limit, offset, order, church
     });
     
     openPdfInNewTab(res.data);
-    
+
+    return true;
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)
@@ -404,7 +405,7 @@ export const getFamilyGroupsReportByTerm = async ({
   offset, 
   order,
   churchId
-}: FamilyGroupQueryParams): Promise<void> => {
+}: FamilyGroupQueryParams): Promise<boolean> => {
   let newTerm: string | undefined = '';
   
   const termMapping: Partial<Record<FamilyGroupSearchType, string | undefined>> = {
@@ -442,6 +443,7 @@ export const getFamilyGroupsReportByTerm = async ({
     
     openPdfInNewTab(res.data);
     
+    return true;
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)

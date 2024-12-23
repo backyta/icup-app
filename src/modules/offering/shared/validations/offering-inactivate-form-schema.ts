@@ -6,8 +6,7 @@ import { ExchangeCurrencyTypes } from "@/modules/offering/income/enums/exchange-
 export const offeringInactivateFormSchema = z
 .object({
   offeringInactivationReason: z.string()
-  .min(1, {message: 'El campo debe contener al menos 1 carácter.'})
-  .max(40, {message: 'El campo debe contener máximo 40 caracteres'}),
+  .min(1, {message: 'Debe seleccionar una opción.'}),
 
   exchangeRate: z.string().optional().refine(value => {
     if (!value) return true;
@@ -18,7 +17,7 @@ export const offeringInactivateFormSchema = z
 
   exchangeCurrencyTypes: z.string().optional()
     .refine(value => value === '' || Object.values(ExchangeCurrencyTypes).includes(value as ExchangeCurrencyTypes),
-      { message: "Por favor seleccione una opción." }
+      { message: "Selecciona una opción." }
     ).optional()
   
 })   

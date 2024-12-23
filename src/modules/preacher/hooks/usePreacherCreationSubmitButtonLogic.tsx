@@ -5,12 +5,11 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { MemberRole } from '@/shared/enums/member-role.enum';
 import { type PreacherFormData } from '@/modules/preacher/interfaces/preacher-form-data.interface';
 
 interface Options {
   preacherCreationForm: UseFormReturn<PreacherFormData, any, undefined>;
-  memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
@@ -18,7 +17,6 @@ interface Options {
 
 export const usePreacherCreationSubmitButtonLogic = ({
   preacherCreationForm,
-  memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
   isInputDisabled,
@@ -56,7 +54,7 @@ export const usePreacherCreationSubmitButtonLogic = ({
 
     if (
       theirSupervisor &&
-      roles.includes(memberRoles.Preacher) &&
+      roles.includes(MemberRole.Preacher) &&
       Object.values(preacherCreationForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
@@ -71,8 +69,6 @@ export const usePreacherCreationSubmitButtonLogic = ({
       !birthDate ||
       !conversionDate ||
       !maritalStatus ||
-      !email ||
-      !phoneNumber ||
       !originCountry ||
       !numberChildren ||
       !residenceCountry ||
@@ -113,6 +109,6 @@ export const usePreacherCreationSubmitButtonLogic = ({
   ]);
 
   useEffect(() => {
-    preacherCreationForm.setValue('roles', [memberRoles.Preacher]);
+    preacherCreationForm.setValue('roles', [MemberRole.Preacher]);
   }, []);
 };

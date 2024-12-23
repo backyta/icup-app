@@ -11,7 +11,13 @@ import { useOfferingIncomeStore } from '@/stores/offering-income/offering-income
 import { OfferingIncomeTabsCard } from '@/modules/offering/income/components/cards/info/OfferingIncomeTabsCard';
 
 import { Button } from '@/shared/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogTrigger,
+  DialogDescription,
+} from '@/shared/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/shared/components/ui/drawer';
 
 interface OfferingIncomeInfoCardProps {
@@ -55,6 +61,8 @@ export const OfferingIncomeInfoCard = ({ idRow }: OfferingIncomeInfoCardProps): 
         </DialogTrigger>
 
         <DialogContent className='max-w-[690px] w-full justify-center py-6 max-h-full overflow-y-auto overflow-x-hidden'>
+          <DialogTitle></DialogTitle>
+          <DialogDescription></DialogDescription>
           <OfferingIncomeTabsCard data={currentOfferingIncome} id={idRow} />
         </DialogContent>
       </Dialog>

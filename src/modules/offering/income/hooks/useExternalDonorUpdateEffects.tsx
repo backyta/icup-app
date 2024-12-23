@@ -17,7 +17,6 @@ export const useExternalDonorEffects = ({
   setIsLoadingData,
   externalDonorUpdateForm,
 }: Options): void => {
-  console.log(typeof data?.birthDate);
   //* Set data
   useEffect(() => {
     externalDonorUpdateForm.setValue('externalDonorFirstNames', data?.firstNames ?? '');

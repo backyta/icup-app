@@ -1,4 +1,5 @@
 export interface OfferingExpenseFormData {
+  churchId    : string,
   type         : string,
   subType     ?: string | undefined,
   amount       : string,
@@ -7,7 +8,6 @@ export interface OfferingExpenseFormData {
   comments     : string,
   fileNames   ?: string[] | undefined,
   imageUrls   ?: string[] | undefined,
-  churchId    ?: string | undefined,
   recordStatus?: string | undefined,
 }
 

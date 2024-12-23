@@ -11,7 +11,13 @@ import { useCopastorStore } from '@/stores/copastor/copastor.store';
 import { CopastorTabsCard } from '@/modules/copastor/components/cards/info/CopastorTabsCard';
 
 import { Button } from '@/shared/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogTrigger,
+  DialogDescription,
+} from '@/shared/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/shared/components/ui/drawer';
 
 interface CopastorInfoCardProps {
@@ -51,6 +57,8 @@ export const CopastorInfoCard = ({ idRow }: CopastorInfoCardProps): JSX.Element 
         </DialogTrigger>
 
         <DialogContent className='max-w-[690px] w-full justify-center py-6 max-h-full overflow-y-auto overflow-x-hidden'>
+          <DialogTitle></DialogTitle>
+          <DialogDescription></DialogDescription>
           <CopastorTabsCard data={currentCopastor} id={idRow} />
         </DialogContent>
       </Dialog>

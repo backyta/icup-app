@@ -443,7 +443,7 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
 }
 
 //* General
-export const getGeneralSupervisorsReport = async ({limit, offset, order, churchId}: SupervisorQueryParams): Promise<void> => {
+export const getGeneralSupervisorsReport = async ({limit, offset, order, churchId}: SupervisorQueryParams): Promise<boolean> => {
    try {
     const res = await icupApi<Blob>('/reports/supervisors' , {
       params: {
@@ -460,6 +460,7 @@ export const getGeneralSupervisorsReport = async ({limit, offset, order, churchI
     
     openPdfInNewTab(res.data);
     
+    return true;
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)
@@ -482,7 +483,7 @@ export const getSupervisorsReportByTerm = async ({
   offset, 
   order,
   churchId,
-}: SupervisorQueryParams): Promise<void> => {
+}: SupervisorQueryParams): Promise<boolean> => {
   let newTerm: string | undefined = '';
   
   const termMapping: Partial<Record<SupervisorSearchType, string | undefined>> = {
@@ -524,6 +525,7 @@ export const getSupervisorsReportByTerm = async ({
     
     openPdfInNewTab(res.data);
     
+    return true;
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)

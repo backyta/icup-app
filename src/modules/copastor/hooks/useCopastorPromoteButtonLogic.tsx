@@ -2,18 +2,16 @@ import { useEffect, useState } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type CopastorFieldNames } from '@/modules/copastor/enums/copastor-field-names.enum';
+import { CopastorFieldNames } from '@/modules/copastor/enums/copastor-field-names.enum';
 import { type CopastorFormData } from '@/modules/copastor/interfaces/copastor-form-data.interface';
 
 interface Options {
   copastorUpdateForm: UseFormReturn<CopastorFormData, any, undefined>;
-  fieldName: typeof CopastorFieldNames;
   setIsPromoteButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useCopastorPromoteButtonLogic = ({
   copastorUpdateForm,
-  fieldName,
   setIsPromoteButtonDisabled,
 }: Options): any => {
   //* States
@@ -46,7 +44,7 @@ export const useCopastorPromoteButtonLogic = ({
   // ? Effects
   useEffect(() => {
     //* Setea los valores fijos en un estado
-    const initialValues = copastorUpdateForm.getValues([...Object.values(fieldName)]);
+    const initialValues = copastorUpdateForm.getValues([...Object.values(CopastorFieldNames)]);
     setFixedValues(initialValues);
   }, []);
 
@@ -54,7 +52,7 @@ export const useCopastorPromoteButtonLogic = ({
     //* Asigna los previous values y los current values
     const previousValues: CopastorFormData[] = lastValues;
     const currentValues: CopastorFormData[] = copastorUpdateForm.getValues([
-      ...Object.values(fieldName),
+      ...Object.values(CopastorFieldNames),
     ]);
 
     //* Valida si hay algún cambio y coloca a true el promote button

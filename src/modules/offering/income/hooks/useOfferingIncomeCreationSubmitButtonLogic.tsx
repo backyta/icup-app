@@ -12,9 +12,9 @@ import { OfferingIncomeCreationSubType } from '@/modules/offering/income/enums/o
 import { type OfferingIncomeFormData } from '@/modules/offering/income/interfaces/offering-income-form-data.interface';
 
 interface Options {
+  isInputDisabled: boolean;
   isDropZoneDisabled: boolean;
   isDeleteFileButtonDisabled: boolean;
-  isInputDisabled: boolean;
   offeringIncomeCreationForm: UseFormReturn<OfferingIncomeFormData, any, undefined>;
   setIsDropZoneDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;

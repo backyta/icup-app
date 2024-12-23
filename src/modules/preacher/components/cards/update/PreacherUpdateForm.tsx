@@ -26,7 +26,6 @@ import { usePreacherPromoteButtonLogic } from '@/modules/preacher/hooks/usePreac
 import { usePreacherRolePromotionHandler } from '@/modules/preacher/hooks/usePreacherRolePromotionHandler';
 import { usePreacherUpdateSubmitButtonLogic } from '@/modules/preacher/hooks/usePreacherUpdateSubmitButtonLogic';
 
-import { PreacherFieldNames } from '@/modules/preacher/enums/preacher-field-names.enum';
 import { getSimpleSupervisors } from '@/modules/supervisor/services/supervisor.service';
 import { preacherFormSchema } from '@/modules/preacher/validations/preacher-form-schema';
 import { type PreacherResponse } from '@/modules/preacher/interfaces/preacher-response.interface';
@@ -176,18 +175,16 @@ export const PreacherUpdateForm = ({
 
   const { disabledRoles } = useRoleValidationByPath({
     path: pathname,
-    memberRoles: MemberRole,
   });
 
   usePreacherPromoteButtonLogic({
     preacherUpdateForm: form,
-    fieldNames: PreacherFieldNames,
     setIsPromoteButtonDisabled,
   });
 
   usePreacherUpdateSubmitButtonLogic({
     preacherUpdateForm: form,
-    memberRoles: MemberRole,
+
     isInputDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
@@ -227,7 +224,7 @@ export const PreacherUpdateForm = ({
   return (
     <Tabs
       defaultValue='general-info'
-      className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
+      className='w-auto -mt-8 sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
       <h2 className='text-center leading-7 text-orange-500 pb-2 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
         Actualizar información del Predicador
@@ -1375,7 +1372,7 @@ export const PreacherUpdateForm = ({
                             onClick={() => {
                               usePreacherRolePromotionHandler({
                                 preacherUpdateForm: form,
-                                memberRoles: MemberRole,
+
                                 setIsDisabledPromoteButton: setIsPromoteButtonDisabled,
                                 setIsDisabledInput: setIsInputDisabled,
                               });

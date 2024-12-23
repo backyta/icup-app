@@ -22,7 +22,7 @@ const LazySupervisorsGeneralSearchPage = lazy(
 
 export const SupervisorChildrenRoutes = [
   {
-    path: '/supervisors/create',
+    path: 'create',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazySupervisorCreatePage />,
@@ -30,7 +30,7 @@ export const SupervisorChildrenRoutes = [
     ),
   },
   {
-    path: '/supervisors/general-search',
+    path: 'general-search',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazySupervisorsGeneralSearchPage />,
@@ -38,7 +38,7 @@ export const SupervisorChildrenRoutes = [
     ),
   },
   {
-    path: '/supervisors/search-by-term',
+    path: 'search-by-term',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazySupervisorsSearchPageByTerm />,
@@ -46,7 +46,7 @@ export const SupervisorChildrenRoutes = [
     ),
   },
   {
-    path: '/supervisors/update',
+    path: 'update',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazySupervisorUpdatePage />,
@@ -54,7 +54,7 @@ export const SupervisorChildrenRoutes = [
     ),
   },
   {
-    path: '/supervisors/inactivate',
+    path: 'inactivate',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazySupervisorInactivatePage />,

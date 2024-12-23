@@ -18,7 +18,7 @@ const LazyFamilyGroupMetrics = lazy(() => import('@/modules/metrics/pages/Family
 
 export const MetricsChildrenRoutes = [
   {
-    path: '/metrics/member',
+    path: 'member',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyMemberMetrics />,
@@ -26,7 +26,7 @@ export const MetricsChildrenRoutes = [
     ),
   },
   {
-    path: '/metrics/family-group',
+    path: 'family-group',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyFamilyGroupMetrics />,
@@ -34,7 +34,7 @@ export const MetricsChildrenRoutes = [
     ),
   },
   {
-    path: '/metrics/offering-income',
+    path: 'offering-income',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyOfferingIncomeMetrics />,
@@ -42,7 +42,7 @@ export const MetricsChildrenRoutes = [
     ),
   },
   {
-    path: '/metrics/offering-expense',
+    path: 'offering-expense',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyOfferingExpenseMetrics />,
@@ -50,7 +50,7 @@ export const MetricsChildrenRoutes = [
     ),
   },
   {
-    path: '/metrics/offering-comparative',
+    path: 'offering-comparative',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyFinancialBalanceComparisonMetrics />,

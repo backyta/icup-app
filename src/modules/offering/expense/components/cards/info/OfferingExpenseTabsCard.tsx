@@ -62,7 +62,7 @@ export const OfferingExpenseTabsCard = ({
   }, [id]);
 
   return (
-    <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
+    <Tabs defaultValue='general-info' className='md:-mt-8 w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full px-auto grid-cols-1'>
         <TabsTrigger value='general-info' className='text-[14.5px] md:text-[15px]'>
           Información General
@@ -127,9 +127,9 @@ export const OfferingExpenseTabsCard = ({
                 {!data?.comments
                   ? '-'
                   : data?.comments.split('\n').map((line, index) => (
-                      <p key={index} className='whitespace-pre-wrap'>
+                      <span key={index} className='whitespace-pre-wrap'>
                         {line}
-                      </p>
+                      </span>
                     ))}
               </CardDescription>
             </div>

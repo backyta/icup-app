@@ -12,8 +12,8 @@ interface Options {
   id: string;
   data: FamilyGroupResponse | undefined;
   setIsLoadingData: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsInputTheirPreacherDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   familyGroupUpdateForm: UseFormReturn<FamilyGroupFormData, any, undefined>;
+  setIsInputTheirPreacherDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useFamilyGroupUpdateEffects = ({

@@ -66,10 +66,8 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
     };
   }, [id]);
 
-  console.log(data?.anexes);
-
   return (
-    <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
+    <Tabs defaultValue='general-info' className='md:-mt-8 w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full grid-cols-2 px-auto'>
         <TabsTrigger value='general-info' className='text-[14.5px] md:text-[15px]'>
           General
@@ -255,7 +253,7 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               </CardDescription>
               <PopoverDataCard
                 data={data?.familyGroups}
-                title={'Grupos Fam.'}
+                title={'Grupos Familiares'}
                 moduleName={'Iglesia'}
                 firstValue={'familyGroupCode'}
                 secondValue={'familyGroupName'}

@@ -13,9 +13,9 @@ import { type ErrorResponse } from '@/shared/interfaces/error-response.interface
 
 interface Options {
   scrollToTop: () => void;
-  setIsSelectInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSelectInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useChurchInactivationMutation = ({

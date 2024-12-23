@@ -15,19 +15,19 @@ export const ExternalDonorUpdateFormSchema = z
     .max(50, { message: 'El campo debe contener máximo 50 caracteres.'}),
 
     externalDonorGender: z.string(z.nativeEnum(Gender, {
-      required_error: "Por favor seleccione una opción válida.",
+      required_error: "El género es requerido.",
     })).refine((value) => value !== undefined && value.trim() !== '',
-      { message: "Por favor seleccione una opción válida." }
+      { message: "El género es requerido." }
     ),
 
     externalDonorBirthDate: z.date({
-      required_error: "Por favor selecciona una fecha.",
+      required_error: "La fecha es requerida.",
     }).optional().nullable(),
 
     externalDonorEmail: z
     .preprocess(
       (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
-      z.string().email({ message: "Email inválido." }).optional()
+      z.string().email({ message: "E-mail inválido." }).optional()
     ),
 
     externalDonorPhoneNumber: z.preprocess(
@@ -38,7 +38,7 @@ export const ExternalDonorUpdateFormSchema = z
         .max(20, { message: 'El campo debe tener un máximo de 20 dígitos.' })
         .refine(
           (value) => /^[0-9+\-\s]+$/.test(value),
-          { message: 'El campo solo debe contener números, "+", "-" y espacios' }
+          { message: 'El campo solo debe contener números, "+", "-" y espacios.' }
         )
         .optional()
     ),

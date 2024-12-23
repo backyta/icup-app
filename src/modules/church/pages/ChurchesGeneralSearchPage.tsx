@@ -136,7 +136,7 @@ export const ChurchesGeneralSearchPage = (): JSX.Element => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className='grid grid-cols-2 gap-y-2 md:gap-x-2 items-end mb-8 md:mb-10 lg:flex lg:justify-between 2xl:justify-normal'
+              className='grid grid-cols-2 gap-y-2 md:gap-x-2 items-end mb-8 md:mb-10 lg:flex lg:justify-between 2xl:justify-normal lg:w-full'
             >
               <div className='w-full flex flex-row col-start-1 col-end-3 gap-3'>
                 <FormField
@@ -228,7 +228,7 @@ export const ChurchesGeneralSearchPage = (): JSX.Element => {
                 control={form.control}
                 name='order'
                 render={({ field }) => (
-                  <FormItem className='col-span-2 md:col-auto w-auto lg:min-w-[12rem] xl:min-w-[16rem] 2xl:w-full'>
+                  <FormItem className='col-span-2 md:col-auto w-auto lg:min-w-[14rem] xl:min-w-[16rem] 2xl:w-full'>
                     <FormLabel className='text-[14px] font-bold'>Orden</FormLabel>
                     <FormDescription className='text-[13.5px] md:text-[14px]'>
                       Selecciona el tipo de orden de los registros.
@@ -263,17 +263,19 @@ export const ChurchesGeneralSearchPage = (): JSX.Element => {
                 )}
               />
 
-              <Toaster position='top-center' richColors />
-              <Button
-                disabled={isDisabledSubmitButton}
-                type='submit'
-                variant='ghost'
-                className={cn(
-                  'text-[14px] mt-0 col-start-1 col-end-3 md:row-start-2 md:row-end-3 md:col-start-2 md:col-end-3 w-full lg:w-[50%] px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
-                )}
-              >
-                Buscar
-              </Button>
+              <div className='col-start-1 col-end-3 md:row-start-2 md:row-end-3 md:col-start-2 md:col-end-3 lg:row-start-auto lg:col-start-auto lg:w-[50%]'>
+                <Toaster position='top-center' richColors />
+                <Button
+                  disabled={isDisabledSubmitButton}
+                  type='submit'
+                  variant='ghost'
+                  className={cn(
+                    'text-[14px] w-full mt-2 px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
+                  )}
+                >
+                  Buscar
+                </Button>
+              </div>
             </form>
           </Form>
         )}

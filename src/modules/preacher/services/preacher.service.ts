@@ -439,7 +439,7 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
 }
 
 //* General
-export const getGeneralPreachersReport = async ({limit, offset, order, churchId}: PreacherQueryParams): Promise<void> => {
+export const getGeneralPreachersReport = async ({limit, offset, order, churchId}: PreacherQueryParams): Promise<boolean> => {
    try {
     const res = await icupApi<Blob>('/reports/preachers' , {
       params: {
@@ -456,6 +456,7 @@ export const getGeneralPreachersReport = async ({limit, offset, order, churchId}
     
     openPdfInNewTab(res.data);
     
+    return true;
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)
@@ -478,7 +479,7 @@ export const getPreachersReportByTerm = async ({
   offset, 
   order,
   churchId
-}: PreacherQueryParams): Promise<void> => {
+}: PreacherQueryParams): Promise<boolean> => {
   let newTerm: string | undefined = '';
   
   const termMapping: Partial<Record<PreacherSearchType, string | undefined>> = {
@@ -522,6 +523,7 @@ export const getPreachersReportByTerm = async ({
     
     openPdfInNewTab(res.data);
     
+    return true;
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)

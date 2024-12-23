@@ -5,12 +5,11 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { MemberRole } from '@/shared/enums/member-role.enum';
 import { type SupervisorFormData } from '@/modules/supervisor/interfaces/supervisor-form-data.interface';
 
 interface Options {
   supervisorCreationForm: UseFormReturn<SupervisorFormData, any, undefined>;
-  memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
@@ -18,7 +17,6 @@ interface Options {
 
 export const useSupervisorCreationSubmitButtonLogic = ({
   supervisorCreationForm,
-  memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
   isInputDisabled,
@@ -59,7 +57,7 @@ export const useSupervisorCreationSubmitButtonLogic = ({
     if (
       isDirectRelationToPastor &&
       theirPastor &&
-      roles.includes(memberRoles.Supervisor) &&
+      roles.includes(MemberRole.Supervisor) &&
       Object.values(supervisorCreationForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
@@ -75,7 +73,7 @@ export const useSupervisorCreationSubmitButtonLogic = ({
     if (
       !isDirectRelationToPastor &&
       theirCopastor &&
-      roles.includes(memberRoles.Supervisor) &&
+      roles.includes(MemberRole.Supervisor) &&
       Object.values(supervisorCreationForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
@@ -95,8 +93,6 @@ export const useSupervisorCreationSubmitButtonLogic = ({
       !birthDate ||
       !conversionDate ||
       !maritalStatus ||
-      !email ||
-      !phoneNumber ||
       !originCountry ||
       !numberChildren ||
       !residenceCountry ||
@@ -138,6 +134,6 @@ export const useSupervisorCreationSubmitButtonLogic = ({
   ]);
 
   useEffect(() => {
-    supervisorCreationForm.setValue('roles', [memberRoles.Supervisor]);
+    supervisorCreationForm.setValue('roles', [MemberRole.Supervisor]);
   }, []);
 };

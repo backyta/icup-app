@@ -23,9 +23,9 @@ export const discipleFormSchema = z
       .max(40, {message: 'El campo debe contener máximo 40 caracteres'}),
       
     gender: z.string(z.nativeEnum(Gender, {
-      required_error: "Por favor seleccione una opción válida.",
+      required_error: "El género es requerido.",
     })).refine((value) => value !== undefined && value.trim() !== '',
-      { message: "Por favor seleccione una opción válida." }
+      { message: "El género es requerido." }
     ),
 
     originCountry: z.string()
@@ -33,96 +33,104 @@ export const discipleFormSchema = z
       .max(20, {message: 'El campo debe contener máximo 20 caracteres.'}),
 
     birthDate: z.date({
-      required_error: "Por favor selecciona una fecha.",
+      required_error: "La fecha de nacimiento es requerida.",
     }),
 
     maritalStatus: z.string( z.nativeEnum(MaritalStatus,{
-      required_error: "Por favor seleccione una opción válida.",
+      required_error: "El estado civil es requerido.",
     })).refine((value) => value !== undefined && value.trim() !== '',
-      { message: "Por favor seleccione una opción válida." }
+      { message: "El estado civil es requerido." }
     ),
 
     numberChildren: z.string().refine(number => {
       return /^\d+$/.test(number);
     }, {
-      message: 'El campo debe contener un número positivo'
+      message: 'El campo debe contener un número >= 0.'
     }).refine(number => {
       const parsedNumber = parseInt(number);
       return !isNaN(parsedNumber) && parsedNumber >= 0;
     }, {
-      message: 'El campo debe contener un número positivo'
+      message: 'El campo debe contener un número >= 0.'
     }),
     
     conversionDate: z.date({
-      required_error: "Por favor selecciona una fecha.",
+      required_error: "La fecha de conversión es requerida.",
     }),
     
     //* Contact Info and status
-    email: z.string().email({ message: "Email invalido." }),
+    email: z
+    .preprocess(
+      (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
+      z.string().email({ message: "E-mail inválido." }).optional()
+    ),
 
-    phoneNumber:z.string()
-    .min(6, { message: 'El campo debe tener al menos 6 dígitos.' })
-    .max(20, { message: 'El campo debe tener un máximo de 20 dígitos.' })
-    .refine(value => {
-      return /^[0-9+\-\s]+$/.test(value);
-    }, {
-      message: 'El campo solo debe contener números, "+", "-" y espacios',
-    }),
+    phoneNumber: z.preprocess(
+      (value) => (typeof value === "string" && value.trim() === "" ? undefined : value),
+      z
+        .string()
+        .min(1, { message: 'El campo debe tener al menos 1 dígito.' })
+        .max(20, { message: 'El campo debe tener un máximo de 20 dígitos.' })
+        .refine(
+          (value) => /^[0-9+\-\s]+$/.test(value),
+          { message: 'El campo solo debe contener números, "+", "-" y espacios.' }
+        )
+        .optional()
+    ),
      
     residenceCountry: z.string(z.nativeEnum(Country, {
-      required_error: "Por favor seleccione una opción válida.",
-    })).refine((value) => value !== undefined && value.trim() !== '',
-      { message: "Por favor seleccione una opción válida." }
-    ),
-
-    residenceDepartment: z.string(z.nativeEnum(Department, {
-      required_error: "Por favor seleccione una opción válida.",
-    })).refine((value) => value !== undefined && value.trim() !== '',
-      { message: "Por favor seleccione una opción válida." }
-    ),
-
-    residenceProvince: z.string(z.nativeEnum(Province, {
-      required_error: "Por favor seleccione una opción válida.",
-    })).refine((value) => value !== undefined && value.trim() !== '',
-      { message: "Por favor seleccione una opción válida." }
-    ),
-
-    residenceDistrict: z.string(z.nativeEnum(District, {
-      required_error: "Por favor seleccione una opción válida.",
-    })).refine((value) => value !== undefined && value.trim() !== '',
-      { message: "Por favor seleccione una opción válida." }
-    ),
-
-    residenceUrbanSector: z.string(z.nativeEnum(UrbanSector, {
-      required_error: "Por favor seleccione una opción válida.",
-    })).refine((value) => value !== undefined && value.trim() !== '',
-      { message: "Por favor seleccione una opción válida." }
-    ),
-      
-    residenceAddress: z.string()
-      .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
-      .max(80, { message: 'El campo debe contener máximo 80 caracteres.' }),
-
-    referenceAddress: z.string()
-      .min(1, { message: 'El campo debe contener al menos 1 carácter.' })
-      .max(150, { message: 'El campo debe contener máximo 150 caracteres.' }),
-
-    roles: z.array(z.nativeEnum(MemberRole),{
-      required_error: "Debes seleccionar al menos un rol.",
-    }).refine((value) => value.some((item) => item), {
-      message: "Debes seleccionar al menos un rol.",
-    }),
-
+       required_error: "El país es requerido.",
+     })).refine((value) => value !== undefined && value.trim() !== '',
+       { message: "El país es requerido." }
+     ),
+ 
+     residenceDepartment: z.string(z.nativeEnum(Department, {
+       required_error: "El departamento es requerido.",
+     })).refine((value) => value !== undefined && value.trim() !== '',
+       { message: "El departamento es requerido." }
+     ),
+ 
+     residenceProvince: z.string(z.nativeEnum(Province, {
+       required_error: "Debe seleccionar una opción.",
+     })).refine((value) => value !== undefined && value.trim() !== '',
+       { message: "Debe seleccionar una opción." }
+     ),
+ 
+     residenceDistrict: z.string(z.nativeEnum(District, {
+       required_error: "El distrito es requerido.",
+     })).refine((value) => value !== undefined && value.trim() !== '',
+       { message: "El distrito es requerido." }
+     ),
+ 
+     residenceUrbanSector: z.string(z.nativeEnum(UrbanSector, {
+       required_error: "El sector urbano es requerido.",
+     })).refine((value) => value !== undefined && value.trim() !== '',
+       { message: "El sector urbano es requerido.", }
+     ),
+       
+     residenceAddress: z.string()
+       .min(5, { message: 'El campo debe contener al menos 5 caracteres.' })
+       .max(80, { message: 'El campo debe contener máximo 80 caracteres.' }),
+ 
+     referenceAddress: z.string()
+       .min(5, { message: 'El campo debe contener al menos 5 carácter.' })
+       .max(150, { message: 'El campo debe contener máximo 150 caracteres.' }),
+ 
+     roles: z.array(z.nativeEnum(MemberRole),{
+       required_error: "Debe seleccionar al menos un rol.",
+     }).refine((value) => value.some((item) => item), {
+       message: "Debe seleccionar al menos un rol.",
+     }),
+ 
     recordStatus: z.string(z.nativeEnum(RecordStatus, {
-      required_error: "Por favor seleccione una opción.",
+      required_error: "El estado de registro es requerido.",
     })).optional(),
 
     //* Relations
     theirFamilyGroup: z.string({required_error: 
-      'Por favor asigne un Pastor.'}).optional(),
+      'Debe asignar un Grupo Familiar.'}).optional(),
 
     theirSupervisor: z.string({required_error: 
-      'Por favor asigne una Iglesia.'}).optional(),
+      'Debe asignar un Supervisor.'}).optional(),
   })
   .refine(
     (data) => {
@@ -132,7 +140,7 @@ export const discipleFormSchema = z
       return true;
     },
     {
-      message: 'Es necesario asignar un Grupo Familiar.',
+      message: 'Debe asignar un Grupo Familiar.',
       path: ['theirFamilyGroup'],
     }
   )
@@ -144,7 +152,7 @@ export const discipleFormSchema = z
       return true;
     },
     {
-      message: 'Es necesario asignar una Supervisor.',
+      message: 'Debe asignar un Supervisor.',
       path: ['theirSupervisor'],
     }
   )

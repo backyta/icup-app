@@ -223,7 +223,7 @@ export const getFinancialBalanceComparativeMetricsReport = async ({
   endMonth,
   types, 
   dialogClose,
-}: MetricReportQueryParams): Promise<void> => {
+}: MetricReportQueryParams): Promise<boolean> => {
   const joinedReportTypes = types.join('+');
 
   try {
@@ -243,6 +243,8 @@ export const getFinancialBalanceComparativeMetricsReport = async ({
     
     openPdfInNewTab(res.data);
     dialogClose();
+
+    return true;
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)

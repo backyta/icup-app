@@ -4,29 +4,27 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type OfferingExpenseSearchType } from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
+import { OfferingExpenseSearchType } from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
 import { type OfferingExpenseFormData } from '@/modules/offering/expense/interfaces/offering-expense-form-data.interface';
 
 interface Options {
   isDropZoneDisabled: boolean;
   isDeleteFileButtonDisabled: boolean;
   isInputDisabled: boolean;
-  offeringExpenseUpdateForm: UseFormReturn<OfferingExpenseFormData, any, undefined>;
-  offeringExpenseSearchType: typeof OfferingExpenseSearchType;
   setIsDropZoneDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  offeringExpenseUpdateForm: UseFormReturn<OfferingExpenseFormData, any, undefined>;
 }
 
 export const useOfferingExpenseUpdateSubmitButtonLogic = ({
-  isDropZoneDisabled,
-  isDeleteFileButtonDisabled,
   isInputDisabled,
-  offeringExpenseUpdateForm,
-  offeringExpenseSearchType,
+  isDropZoneDisabled,
   setIsDropZoneDisabled,
+  offeringExpenseUpdateForm,
   setIsMessageErrorDisabled,
   setIsSubmitButtonDisabled,
+  isDeleteFileButtonDisabled,
 }: Options): void => {
   //* Watchers
   const type = offeringExpenseUpdateForm.watch('type');
@@ -50,7 +48,7 @@ export const useOfferingExpenseUpdateSubmitButtonLogic = ({
 
     //* Expense adjustment
     if (
-      type === offeringExpenseSearchType.ExpensesAdjustment &&
+      type === OfferingExpenseSearchType.ExpensesAdjustment &&
       !subType &&
       amount &&
       currency &&
@@ -65,7 +63,7 @@ export const useOfferingExpenseUpdateSubmitButtonLogic = ({
     }
 
     if (
-      type === offeringExpenseSearchType.ExpensesAdjustment &&
+      type === OfferingExpenseSearchType.ExpensesAdjustment &&
       (!churchId || !amount || !currency || !date || !comments)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -74,12 +72,12 @@ export const useOfferingExpenseUpdateSubmitButtonLogic = ({
 
     //* Others types
     if (
-      (type === offeringExpenseSearchType.OperationalExpenses ||
-        type === offeringExpenseSearchType.PlaningEventsExpenses ||
-        type === offeringExpenseSearchType.DecorationExpenses ||
-        type === offeringExpenseSearchType.EquipmentAndTechnologyExpenses ||
-        type === offeringExpenseSearchType.MaintenanceAndRepairExpenses ||
-        type === offeringExpenseSearchType.SuppliesExpenses) &&
+      (type === OfferingExpenseSearchType.OperationalExpenses ||
+        type === OfferingExpenseSearchType.PlaningEventsExpenses ||
+        type === OfferingExpenseSearchType.DecorationExpenses ||
+        type === OfferingExpenseSearchType.EquipmentAndTechnologyExpenses ||
+        type === OfferingExpenseSearchType.MaintenanceAndRepairExpenses ||
+        type === OfferingExpenseSearchType.SuppliesExpenses) &&
       date &&
       subType &&
       amount &&

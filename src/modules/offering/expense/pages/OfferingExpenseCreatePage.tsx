@@ -121,7 +121,6 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
     isDeleteFileButtonDisabled,
     isInputDisabled,
     offeringExpenseCreationForm: form,
-    offeringExpenseSearchType: OfferingExpenseSearchType,
     setIsDropZoneDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,

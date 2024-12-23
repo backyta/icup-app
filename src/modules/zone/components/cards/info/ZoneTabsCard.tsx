@@ -63,7 +63,7 @@ export const ZoneTabsCard = ({ data, id }: ZoneTabsCardProps): JSX.Element => {
   }, [id]);
 
   return (
-    <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
+    <Tabs defaultValue='general-info' className='md:-mt-8 w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full grid-cols-2 px-auto'>
         <TabsTrigger value='general-info' className='text-[14.5px] md:text-[15px]'>
           General

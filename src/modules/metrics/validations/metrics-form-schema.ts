@@ -5,43 +5,42 @@ import * as z from 'zod';
 export const metricsFormSchema = z
   .object({
     date: z.object({from: z.date(), to: z.date().optional()}, {
-      required_error: "Por favor seleccione un rango de fechas.",
+      required_error: "Selecciona un rango de fechas.",
     }).refine(date =>  {
       return date.to !== undefined},{
-      message: 'Debes seleccionar un rango de fechas'
+      message: 'Selecciona un rango de fechas'
     }).optional(),
 
     zone: z.string({required_error: 
-      'Por favor elige un zona.'}).optional(),
+      'Selecciona un zona.'}).optional(),
 
     copastor: z.string({required_error: 
-      'Por favor elige un co-pastor.'}).optional(),
+      'Selecciona un co-pastor.'}).optional(),
 
     district: z.string({required_error: 
-      'Por favor elige un distrito.'}).optional(),
+      'Selecciona un distrito.'}).optional(),
 
     month: z.string({required_error: 
-      'Por favor elige un mes.'}).optional(),
+      'Selecciona un mes.'}).optional(),
 
     startMonth: z.string({required_error: 
-      'Por favor elige un mes.'}).optional(),
+      'Selecciona un mes de inicio.'}).optional(),
 
     endMonth: z.string({required_error: 
-      'Por favor elige un mes.'}).optional(),
+      'Selecciona un mes de fin.'}).optional(),
 
     year: z.string({required_error: 
-      'Por favor elige un año.'}).optional(),
+      'Selecciona un año.'}).optional(),
 
     currency: z.string({required_error: 
-      'Por favor elige una divisa.'}).optional(),
+      'Selecciona una divisa.'}).optional(),
 
     subType: z.string({required_error: 
-      'Por favor elige un sub-tipo.'}).optional(),
+      'Selecciona un sub-tipo.'}).optional(),
 
     type: z.string({required_error: 
-      'Por favor elige un tipo.'}).optional(),
+      'Selecciona un tipo.'}).optional(),
 
     all: z.boolean().optional(),
-
   })
  

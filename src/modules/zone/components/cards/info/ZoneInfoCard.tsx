@@ -11,7 +11,13 @@ import { useZoneStore } from '@/stores/zone/zone.store';
 import { ZoneTabsCard } from '@/modules/zone/components/cards/info/ZoneTabsCard';
 
 import { Button } from '@/shared/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogTrigger,
+  DialogDescription,
+} from '@/shared/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/shared/components/ui/drawer';
 
 interface ZoneInfoCardProps {
@@ -51,6 +57,8 @@ export const ZoneInfoCard = ({ idRow }: ZoneInfoCardProps): JSX.Element => {
         </DialogTrigger>
 
         <DialogContent className='max-w-[690px] w-full justify-center py-6 max-h-full overflow-y-auto overflow-x-hidden'>
+          <DialogTitle></DialogTitle>
+          <DialogDescription></DialogDescription>
           <ZoneTabsCard data={currentZone} id={idRow} />
         </DialogContent>
       </Dialog>

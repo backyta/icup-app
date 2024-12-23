@@ -15,6 +15,8 @@ export const OfferingIncomeByActivitiesTooltipContent = (
 ): JSX.Element => {
   const { payload, label } = props;
 
+  // TODO : revisar estas keys
+  console.log(payload?.[0]?.payload?.allOfferings);
   return (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
       <p>
@@ -23,7 +25,7 @@ export const OfferingIncomeByActivitiesTooltipContent = (
       <span className='font-semibold text-[12px] md:text-[14px]'>Lista de Ofrendas</span>
       {payload?.[0]?.payload?.allOfferings.map((off, index) => (
         <>
-          <div key={index}>
+          <div key={`${String(off.date)}-${off.currency}`}>
             <span
               className='inline-block h-2.5 w-2.5 rounded-[2px] mr-2'
               style={{

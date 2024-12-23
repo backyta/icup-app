@@ -6,21 +6,19 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { MemberRole } from '@/shared/enums/member-role.enum';
 import { type SupervisorFormData } from '@/modules/supervisor/interfaces/supervisor-form-data.interface';
 
 interface Options {
-  supervisorUpdateForm: UseFormReturn<SupervisorFormData, any, undefined>;
-  memberRoles: typeof MemberRole;
-  setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
   isRelationSelectDisabled: boolean;
+  supervisorUpdateForm: UseFormReturn<SupervisorFormData, any, undefined>;
+  setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useSupervisorUpdateSubmitButtonLogic = ({
   supervisorUpdateForm,
-  memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
   isRelationSelectDisabled,
@@ -63,7 +61,7 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
     if (
       !isDirectRelationToPastor &&
       theirCopastor &&
-      roles.includes(memberRoles.Supervisor) &&
+      roles.includes(MemberRole.Supervisor) &&
       Object.values(supervisorUpdateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
@@ -79,7 +77,7 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
     if (
       isDirectRelationToPastor &&
       theirPastor &&
-      roles.includes(memberRoles.Supervisor) &&
+      roles.includes(MemberRole.Supervisor) &&
       Object.values(supervisorUpdateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
@@ -93,7 +91,7 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
     }
 
     if (
-      roles.includes(memberRoles.Copastor) &&
+      roles.includes(MemberRole.Copastor) &&
       theirPastor &&
       Object.values(supervisorUpdateForm.formState.errors).length === 0 &&
       !isRelationSelectDisabled
@@ -109,8 +107,6 @@ export const useSupervisorUpdateSubmitButtonLogic = ({
       !birthDate ||
       !conversionDate ||
       !maritalStatus ||
-      !email ||
-      !phoneNumber ||
       !originCountry ||
       !numberChildren ||
       !residenceCountry ||

@@ -95,6 +95,8 @@ export const ZoneInactivatePage = (): JSX.Element => {
       limit: '10',
       inputTerm: '',
       selectTerm: '',
+      firstNamesTerm: '',
+      lastNamesTerm: '',
       all: false,
       order: RecordOrder.Descending,
     },
@@ -165,7 +167,7 @@ export const ZoneInactivatePage = (): JSX.Element => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className='grid grid-cols-1 gap-y-2 md:gap-4 items-end mb-8 md:mb-10 md:grid-cols-3 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4 w-auto'
+              className='grid grid-cols-1 gap-y-2 md:gap-4 items-end mb-8 md:mb-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-4 xl:grid-cols-4 w-auto'
             >
               <FormField
                 control={form.control}
@@ -449,7 +451,7 @@ export const ZoneInactivatePage = (): JSX.Element => {
                     )}
                   />
                 </div>
-                <div className='flex gap-4 col-start-1 col-end-3 justify-between sm:justify-normal sm:gap-6 md:gap-6 lg:gap-4 md:justify-start'>
+                <div className='flex gap-4 col-start-1 col-end-3 justify-between sm:justify-normal md:justify-start'>
                   <FormField
                     control={form.control}
                     name='limit'
@@ -607,13 +609,25 @@ export const ZoneInactivatePage = (): JSX.Element => {
                 }}
               />
 
-              <div>
+              <div
+                className={cn(
+                  'w-full mt-2 md:mt-0 md:col-span-2 lg:col-span-3 xl:col-span-2',
+                  !searchType && 'md:col-span-2 lg:col-span-2 xl:col-span-4',
+                  searchType === ZoneSearchType.FullNames &&
+                    'md:col-span-1 lg:col-span-2 xl:col-span-1',
+                  searchType !== ZoneSearchType.FirstNames &&
+                    searchType !== ZoneSearchType.LastNames &&
+                    searchType !== ZoneSearchType.FullNames &&
+                    searchType &&
+                    'md:col-span-1 lg:col-span-1 xl:col-span-3'
+                )}
+              >
                 <Toaster position='top-center' richColors />
                 <Button
                   disabled={isDisabledSubmitButton}
                   type='submit'
                   variant='ghost'
-                  className='mx-auto w-full mt-2 md:mt-0 md:col-start-2 md:col-end-3 lg:col-start-2 lg:col-end-3 lg:row-start-auto lg:row-end-auto xl:row-start-auto xl:row-end-auto xl:col-start-auto xl:col-end-auto text-[14px] lg:text-[14px] h-[2.5rem] 2xl:mx-auto px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
+                  className='mx-auto w-full text-[14px] h-[2.5rem] 2xl:mx-auto px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
                 >
                   Buscar
                 </Button>

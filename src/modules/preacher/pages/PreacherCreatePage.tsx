@@ -129,12 +129,10 @@ export const PreacherCreatePage = (): JSX.Element => {
   //* Custom hooks
   const { disabledRoles } = useRoleValidationByPath({
     path: pathname,
-    memberRoles: MemberRole,
   });
 
   usePreacherCreationSubmitButtonLogic({
     preacherCreationForm: form,
-    memberRoles: MemberRole,
     isInputDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
@@ -433,7 +431,12 @@ export const PreacherCreatePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel className='text-[14px] font-medium'>E-mail</FormLabel>
+                      <FormLabel className='text-[14px] font-medium'>
+                        E-mail
+                        <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[1px] rounded-full mr-1'>
+                          Opcional
+                        </span>
+                      </FormLabel>
                       <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
                           disabled={isInputDisabled}
@@ -455,7 +458,12 @@ export const PreacherCreatePage = (): JSX.Element => {
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel className='text-[14px] font-medium'>Número de teléfono</FormLabel>
+                      <FormLabel className='text-[14px] font-medium'>
+                        Número de teléfono
+                        <span className='ml-3 inline-block bg-gray-200 text-slate-600 border text-[10px] font-semibold uppercase px-2 py-[1px] rounded-full mr-1'>
+                          Opcional
+                        </span>
+                      </FormLabel>
                       <FormControl className='text-[14px] md:text-[14px]'>
                         <Input
                           disabled={isInputDisabled}

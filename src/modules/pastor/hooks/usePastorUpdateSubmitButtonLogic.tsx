@@ -6,12 +6,11 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { MemberRole } from '@/shared/enums/member-role.enum';
 import { type PastorFormData } from '@/modules/pastor/interfaces/pastor-form-data.interface';
 
 interface Options {
   pastorUpdateForm: UseFormReturn<PastorFormData, any, undefined>;
-  memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
@@ -19,7 +18,6 @@ interface Options {
 
 export const usePastorUpdateSubmitButtonLogic = ({
   pastorUpdateForm,
-  memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
   isInputDisabled,
@@ -58,7 +56,7 @@ export const usePastorUpdateSubmitButtonLogic = ({
 
     if (
       theirChurch &&
-      roles.includes(memberRoles.Pastor) &&
+      roles.includes(MemberRole.Pastor) &&
       Object.values(pastorUpdateForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
@@ -73,8 +71,6 @@ export const usePastorUpdateSubmitButtonLogic = ({
       !birthDate ||
       !conversionDate ||
       !maritalStatus ||
-      !email ||
-      !phoneNumber ||
       !originCountry ||
       !numberChildren ||
       !residenceCountry ||

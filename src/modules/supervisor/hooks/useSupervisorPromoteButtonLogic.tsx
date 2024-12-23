@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type SupervisorFieldNames } from '@/modules/supervisor/enums/supervisor-field-names.enum';
+import { SupervisorFieldNames } from '@/modules/supervisor/enums/supervisor-field-names.enum';
 import { type SupervisorFormData } from '@/modules/supervisor/interfaces/supervisor-form-data.interface';
 
 interface Options {
   supervisorUpdateForm: UseFormReturn<SupervisorFormData, any, undefined>;
-  fieldName: typeof SupervisorFieldNames;
   setIsPromoteButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useSupervisorPromoteButtonLogic = ({
   supervisorUpdateForm,
-  fieldName,
   setIsPromoteButtonDisabled,
 }: Options): any => {
   //* States
@@ -46,7 +44,7 @@ export const useSupervisorPromoteButtonLogic = ({
   // ? Effects
   //* Setea los valores fijos en un estado
   useEffect(() => {
-    const initialValues = supervisorUpdateForm.getValues([...Object.values(fieldName)]);
+    const initialValues = supervisorUpdateForm.getValues([...Object.values(SupervisorFieldNames)]);
     setFixedValues(initialValues);
   }, []);
 
@@ -54,7 +52,7 @@ export const useSupervisorPromoteButtonLogic = ({
     //* Asigna los previous values y los current values
     const previousValues: SupervisorFormData[] = lastValues;
     const currentValues: SupervisorFormData[] = supervisorUpdateForm.getValues([
-      ...Object.values(fieldName),
+      ...Object.values(SupervisorFieldNames),
     ]);
 
     //* Si se coloca el co-pastor inicial que tenia, se setea su mismo pastor (para guardar referencia)

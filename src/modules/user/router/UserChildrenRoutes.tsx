@@ -14,7 +14,7 @@ const LazyUsersSearchPageByTerm = lazy(() => import('@/modules/user/pages/UsersS
 
 export const UserChildrenRoutes = [
   {
-    path: '/users/create',
+    path: 'create',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyUserCreatePage />,
@@ -22,7 +22,7 @@ export const UserChildrenRoutes = [
     ),
   },
   {
-    path: '/users/general-search',
+    path: 'general-search',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyUsersGeneralSearchPage />,
@@ -30,7 +30,7 @@ export const UserChildrenRoutes = [
     ),
   },
   {
-    path: '/users/search-by-term',
+    path: 'search-by-term',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyUsersSearchPageByTerm />,
@@ -38,7 +38,7 @@ export const UserChildrenRoutes = [
     ),
   },
   {
-    path: '/users/update',
+    path: 'update',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyUserUpdatePage />,
@@ -46,7 +46,7 @@ export const UserChildrenRoutes = [
     ),
   },
   {
-    path: '/users/inactivate',
+    path: 'inactivate',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyUserInactivatePage />,

@@ -34,25 +34,25 @@ export const SearchTitle = (props: PageTitleProps): JSX.Element => {
         </h2>
 
         {isGeneralSearch && (
-          <span className='ml-3 bg-sky-300 text-slate-600 border text-center text-[10px] mt-[0.6rem] sm:mt-3 px-2 2xl:mt-6 rounded-full font-bold uppercase'>
+          <span className='ml-3 bg-sky-300 text-slate-600 border text-center text-[10px] mt-[0.5rem] py-[1px] pt-[2.5px] sm:mt-3 px-2 2xl:mt-6 rounded-full font-bold uppercase'>
             En general
           </span>
         )}
 
         {isByTypeSearch && (
-          <span className='ml-3 bg-sky-300 text-slate-600 border text-center text-[10px] mt-[0.6rem] sm:mt-3 px-2 2xl:mt-6 rounded-full font-bold uppercase'>
+          <span className='ml-3 bg-sky-300 text-slate-600 border text-center text-[10px] mt-[0.5rem] py-[1px] pt-[2.5px] sm:mt-3 px-2 2xl:mt-6 rounded-full font-bold uppercase'>
             Por Tipo
           </span>
         )}
 
         {isUpdateSearch && (
-          <span className='ml-3 bg-orange-300 text-slate-600 border text-center text-[10px] mt-[0.6rem] sm:mt-3 px-2 2xl:mt-6 rounded-full font-bold uppercase'>
+          <span className='ml-3 bg-orange-300 text-slate-600 border text-center text-[10px] mt-[0.5rem] py-[1px] pt-[2.5px] sm:mt-3 px-2 2xl:mt-6 rounded-full font-bold uppercase'>
             Actualizar
           </span>
         )}
 
         {isInactivateSearch && (
-          <span className='ml-3 bg-red-300 text-slate-600 border text-center text-[10px] mt-[0.6rem] sm:mt-3 px-2 2xl:mt-6 rounded-full font-bold uppercase'>
+          <span className='ml-3 bg-red-300 text-slate-600 border text-center text-[10px] mt-[0.5rem] py-[1px] pt-[2.5px] sm:mt-3 px-2 2xl:mt-6 rounded-full font-bold uppercase'>
             Inactivar
           </span>
         )}

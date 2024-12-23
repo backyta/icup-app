@@ -8,29 +8,29 @@ import { ChurchSearchType } from '@/modules/church/enums/church-search-type.enum
 export const churchSearchByTermFormSchema = z 
   .object({
     searchType: z.nativeEnum(ChurchSearchType,{
-      required_error: "Por favor seleccione un tipo.",
+      required_error: "El tipo de búsqueda es requerido.",
     }),
     
     inputTerm: z.string().max(30).optional(),
     selectTerm: z.string().max(30).optional(),
 
     dateTerm: z.object({from: z.date(), to: z.date().optional()}, {
-      required_error: "Por favor seleccione una fecha.",
+        required_error: "La fecha o rango de fechas es requerida.",
     }).optional(),
 
     limit: z.string().refine(limit => {
       return /^\d+$/.test(limit);
     }, {
-      message: 'El límite debe ser un número positivo'
+      message: 'El límite debe ser un número mayor a 0.'
     }).refine(limit => {
       const parsedLimit = parseInt(limit);
       return !isNaN(parsedLimit) && parsedLimit > 0;
     }, {
-      message: 'El límite debe ser un número mayor a 0'
+      message: 'El límite debe ser un número mayor a 0.'
     }).optional(),
 
     order: z.string(z.nativeEnum(RecordOrder, {
-      required_error: "Seleccione un orden para al consulta.",
+      required_error: "El orden de los registros es requerido.",
     })),
 
     all: z.boolean().optional(),
@@ -50,7 +50,7 @@ export const churchSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El Término es requerido.',
+      message: 'El término de búsqueda es requerido.',
       path: ['inputTerm'],
     }
   )
@@ -64,7 +64,7 @@ export const churchSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'Por favor seleccione una opción.',
+      message: 'El término de búsqueda es requerido.',
       path: ['selectTerm'],
     }
   )
@@ -78,7 +78,7 @@ export const churchSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'Por favor seleccione una fecha.',
+      message: 'La fecha o rango de fechas es requerida.',
       path: ['dateTerm'],
     }
   )

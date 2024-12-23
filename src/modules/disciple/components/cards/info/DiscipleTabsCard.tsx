@@ -66,7 +66,7 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
   }, [id]);
 
   return (
-    <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
+    <Tabs defaultValue='general-info' className='md:-mt-8 w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full grid-cols-3 px-auto'>
         <TabsTrigger value='general-info' className='text-[14.5px] md:text-[15px]'>
           General
@@ -291,7 +291,7 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
           <CardContent className='grid  grid-cols-2 pl-[1.5rem] pr-[1rem] gap-x-6 gap-y-4 md:gap-x-10 md:gap-y-6 md:pl-[6rem] md:pr-[3rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Roles de Membresía</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+              <div className='px-2 text-[14px] md:text-[14.5px]'>
                 <ul className='list-disc pl-5'>
                   {data?.member?.roles &&
                   data?.member?.roles.filter(
@@ -302,12 +302,12 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
                         .map((rol) => <li key={rol}>{MemberRoleNames[rol as MemberRole]}</li>)
                     : '-'}
                 </ul>
-              </CardDescription>
+              </div>
             </div>
 
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Roles Ministeriales</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+              <div className='px-2 text-[14px] md:text-[14.5px]'>
                 <ul className='list-disc pl-5'>
                   {data?.member?.roles &&
                   data?.member?.roles.filter((rol) =>
@@ -318,7 +318,7 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
                         .map((rol) => <li key={rol}>{MemberRoleNames[rol as MemberRole]}</li>)
                     : '-'}
                 </ul>
-              </CardDescription>
+              </div>
             </div>
 
             <div className='space-y-1'>

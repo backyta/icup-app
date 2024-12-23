@@ -6,11 +6,11 @@ import { type UseFormReturn } from 'react-hook-form';
 import { type UserPasswordUpdateFormData } from '@/modules/user/interfaces/user-password-update-form-data.interface';
 
 interface Options {
-  userPasswordUpdateForm: UseFormReturn<UserPasswordUpdateFormData, any, undefined>;
+  isInputDisabled: boolean;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  userPasswordUpdateForm: UseFormReturn<UserPasswordUpdateFormData, any, undefined>;
   setIsMessageErrorPasswordDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  isInputDisabled: boolean;
 }
 
 export const useUserUpdatePasswordSubmitButtonLogic = ({

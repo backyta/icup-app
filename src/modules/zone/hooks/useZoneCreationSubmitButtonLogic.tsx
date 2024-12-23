@@ -6,10 +6,10 @@ import { type UseFormReturn } from 'react-hook-form';
 import { type ZoneFormData } from '@/modules/zone/interfaces/zone-form-data.interface';
 
 interface Options {
-  zoneCreationForm: UseFormReturn<ZoneFormData, any, undefined>;
+  isInputDisabled: boolean;
   setIsSubmitButtonDisabled: (value: boolean) => void;
   setIsMessageErrorDisabled: (value: boolean) => void;
-  isInputDisabled: boolean;
+  zoneCreationForm: UseFormReturn<ZoneFormData, any, undefined>;
 }
 
 export const useZoneCreationSubmitButtonLogic = ({

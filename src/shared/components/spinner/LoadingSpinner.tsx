@@ -37,9 +37,9 @@ export const LoadingSpinner = ({ isPendingRequest }: SpinnerProps): JSX.Element 
     <div
       className={cn(
         'min-h-screen flex items-center justify-center md:min-h-full text-slate-100 dark:bg-slate-950',
-        isPendingRequest && '-mt-[20.5rem] md:mt-0',
+        isPendingRequest && '-mt-[20rem] md:mt-0',
         !isPendingRequest &&
-          'md:min-h-screen md:flex md:flex-col md:items-center md:justify-center -mt-[5rem]',
+          'md:min-h-screen md:flex md:flex-col md:items-center md:justify-center -mt-[4rem]',
         (pathname === '/churches/general-search' ||
           pathname === '/churches/search-by-term' ||
           pathname === '/churches/update' ||
@@ -93,7 +93,7 @@ export const LoadingSpinner = ({ isPendingRequest }: SpinnerProps): JSX.Element 
           'bg-slate-50/40 dark:bg-slate-950/10'
       )}
     >
-      <div className='flex flex-col items-center justify-center px-4'>
+      <div className='flex flex-col items-center justify-center px-4 mt-[2rem]'>
         {(pathname === '/churches' ||
           pathname === '/pastors' ||
           pathname === '/copastors' ||

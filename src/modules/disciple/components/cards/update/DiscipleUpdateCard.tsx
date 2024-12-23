@@ -8,7 +8,13 @@ import { useDiscipleStore } from '@/stores/disciple/disciple.store';
 import { DiscipleUpdateForm } from '@/modules/disciple/components/cards/update/DiscipleUpdateForm';
 
 import { Button } from '@/shared/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogTrigger,
+  DialogDescription,
+} from '@/shared/components/ui/dialog';
 
 interface DiscipleUpdateCardProps {
   idRow: string;
@@ -55,6 +61,8 @@ export const DiscipleUpdateCard = ({ idRow }: DiscipleUpdateCardProps): JSX.Elem
           ref={topRef}
           className='md:max-w-[740px] lg:max-w-[1050px] xl:max-w-[1160px] w-full max-h-full justify-center pt-[0.9rem] pb-[1.3rem] overflow-x-hidden overflow-y-auto'
         >
+          <DialogTitle></DialogTitle>
+          <DialogDescription></DialogDescription>
           <DiscipleUpdateForm
             id={idRow}
             data={currentDisciple}
@@ -81,6 +89,8 @@ export const DiscipleUpdateCard = ({ idRow }: DiscipleUpdateCardProps): JSX.Elem
         ref={topRef}
         className='max-w-auto sm:max-w-[590px] w-full max-h-full justify-center pt-6 pb-4 px-6 overflow-y-auto overflow-x-hidden'
       >
+        <DialogTitle></DialogTitle>
+        <DialogDescription></DialogDescription>
         <DiscipleUpdateForm
           id={idRow}
           data={currentDisciple}

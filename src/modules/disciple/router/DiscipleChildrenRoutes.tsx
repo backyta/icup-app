@@ -18,7 +18,7 @@ const LazyDiscipleUpdatePage = lazy(() => import('@/modules/disciple/pages/Disci
 
 export const DiscipleChildrenRoutes = [
   {
-    path: '/disciples/create',
+    path: 'create',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyDiscipleCreatePage />,
@@ -26,7 +26,7 @@ export const DiscipleChildrenRoutes = [
     ),
   },
   {
-    path: '/disciples/general-search',
+    path: 'general-search',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyDisciplesGeneralSearchPage />,
@@ -34,7 +34,7 @@ export const DiscipleChildrenRoutes = [
     ),
   },
   {
-    path: '/disciples/search-by-term',
+    path: 'search-by-term',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyDisciplesSearchPageByTerm />,
@@ -42,7 +42,7 @@ export const DiscipleChildrenRoutes = [
     ),
   },
   {
-    path: '/disciples/update',
+    path: 'update',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyDiscipleUpdatePage />,
@@ -50,7 +50,7 @@ export const DiscipleChildrenRoutes = [
     ),
   },
   {
-    path: '/disciples/inactivate',
+    path: 'inactivate',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyDiscipleInactivatePage />,

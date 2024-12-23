@@ -5,12 +5,11 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { MemberRole } from '@/shared/enums/member-role.enum';
 import { type CopastorFormData } from '@/modules/copastor/interfaces/copastor-form-data.interface';
 
 interface Options {
   copastorCreationForm: UseFormReturn<CopastorFormData, any, undefined>;
-  memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
@@ -18,7 +17,6 @@ interface Options {
 
 export const useCopastorCreationSubmitButtonLogic = ({
   copastorCreationForm,
-  memberRoles,
   setIsSubmitButtonDisabled,
   setIsMessageErrorDisabled,
   isInputDisabled,
@@ -56,7 +54,7 @@ export const useCopastorCreationSubmitButtonLogic = ({
 
     if (
       theirPastor &&
-      roles.includes(memberRoles.Copastor) &&
+      roles.includes(MemberRole.Copastor) &&
       Object.values(copastorCreationForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
@@ -71,8 +69,6 @@ export const useCopastorCreationSubmitButtonLogic = ({
       !birthDate ||
       !conversionDate ||
       !maritalStatus ||
-      !email ||
-      !phoneNumber ||
       !originCountry ||
       !numberChildren ||
       !residenceCountry ||
@@ -113,6 +109,6 @@ export const useCopastorCreationSubmitButtonLogic = ({
   ]);
 
   useEffect(() => {
-    copastorCreationForm.setValue('roles', [memberRoles.Copastor]);
+    copastorCreationForm.setValue('roles', [MemberRole.Copastor]);
   }, []);
 };

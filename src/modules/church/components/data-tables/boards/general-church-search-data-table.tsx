@@ -5,8 +5,8 @@
 
 import { useEffect, useState } from 'react';
 
-import { Toaster, toast } from 'sonner';
 import { Trash } from 'lucide-react';
+import { Toaster, toast } from 'sonner';
 import { cn } from '@/shared/lib/utils';
 import { useNavigate } from 'react-router-dom';
 import { FaRegFilePdf } from 'react-icons/fa6';
@@ -169,7 +169,7 @@ export function GeneralChurchSearchDataTable<TData, TValue>({
           <span className='font-medium text-[14px] md:text-[15px] italic'>
             Iglesias y anexos (Todas)
           </span>
-          <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center py-4 md:py-6 lg:py-4 lg:gap-3'>
+          <div className='pb-8 lg:pb-8 grid grid-cols-2 gap-4 lg:flex lg:items-center py-4 md:py-6 lg:py-4 lg:gap-3'>
             <div className='flex w-full col-span-2 gap-2 md:gap-3 md:row-start-1 md:row-end-2'>
               <Input
                 disabled={isDisabledButton}

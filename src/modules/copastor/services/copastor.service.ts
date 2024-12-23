@@ -405,7 +405,7 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
 }
 
 //* General
-export const getGeneralCopastorsReport = async ({limit, offset, order, churchId}: CopastorQueryParams): Promise<void> => {
+export const getGeneralCopastorsReport = async ({limit, offset, order, churchId}: CopastorQueryParams): Promise<boolean> => {
    try {
     const res = await icupApi<Blob>('/reports/copastors' , {
       params: {
@@ -421,7 +421,8 @@ export const getGeneralCopastorsReport = async ({limit, offset, order, churchId}
     });
     
     openPdfInNewTab(res.data);
-    
+
+    return true;
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)
@@ -444,7 +445,7 @@ export const getCopastorsReportByTerm = async ({
   offset, 
   order,
   churchId,
-}: CopastorQueryParams): Promise<void> => {
+}: CopastorQueryParams): Promise<boolean> => {
   let newTerm: string | undefined = '';
   
   const termMapping: Record<CopastorSearchType, string | undefined> = {
@@ -484,7 +485,8 @@ export const getCopastorsReportByTerm = async ({
     });
     
     openPdfInNewTab(res.data);
-    
+
+    return true;
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)

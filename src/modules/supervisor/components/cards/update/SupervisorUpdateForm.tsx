@@ -32,7 +32,6 @@ import { useSupervisorPromoteButtonLogic } from '@/modules/supervisor/hooks/useS
 import { useSupervisorRolePromotionHandler } from '@/modules/supervisor/hooks/useSupervisorRolePromotionHandler';
 import { useSupervisorUpdateSubmitButtonLogic } from '@/modules/supervisor/hooks/useSupervisorUpdateSubmitButtonLogic';
 
-import { SupervisorFieldNames } from '@/modules/supervisor/enums/supervisor-field-names.enum';
 import { supervisorFormSchema } from '@/modules/supervisor/validations/supervisor-form-schema';
 import { type SupervisorResponse } from '@/modules/supervisor/interfaces/supervisor-response.interface';
 import { SupervisorFormSkeleton } from '@/modules/supervisor/components/cards/update/SupervisorFormSkeleton';
@@ -174,18 +173,15 @@ export const SupervisorUpdateForm = ({
 
   const { disabledRoles } = useRoleValidationByPath({
     path: pathname,
-    memberRoles: MemberRole,
   });
 
   useSupervisorPromoteButtonLogic({
     supervisorUpdateForm: form,
-    fieldName: SupervisorFieldNames,
     setIsPromoteButtonDisabled,
   });
 
   useSupervisorUpdateSubmitButtonLogic({
     supervisorUpdateForm: form,
-    memberRoles: MemberRole,
     isInputDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
@@ -219,7 +215,7 @@ export const SupervisorUpdateForm = ({
   return (
     <Tabs
       defaultValue='general-info'
-      className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
+      className='w-auto -mt-8 sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
       <h2 className='text-center leading-7 text-orange-500 pb-2 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
         Actualizar información del Supervisor
@@ -1287,7 +1283,7 @@ export const SupervisorUpdateForm = ({
                             onClick={() => {
                               useSupervisorRolePromotionHandler({
                                 supervisorUpdateForm: form,
-                                memberRoles: MemberRole,
+
                                 setIsDisabledPromoteButton: setIsPromoteButtonDisabled,
                                 setIsDisabledInput: setIsInputDisabled,
                               });

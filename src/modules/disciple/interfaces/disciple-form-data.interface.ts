@@ -9,8 +9,8 @@ export interface DiscipleFormData {
   maritalStatus        : string;
   numberChildren       : string;
   conversionDate       : Date;
-  email                : string,
-  phoneNumber          : string,
+  email               ?: string | undefined,
+  phoneNumber         ?: string | undefined,
   residenceCountry     : string;
   residenceDepartment  : string;
   residenceProvince    : string;

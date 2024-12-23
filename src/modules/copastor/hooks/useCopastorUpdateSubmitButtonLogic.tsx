@@ -5,12 +5,11 @@
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { MemberRole } from '@/shared/enums/member-role.enum';
 import { type CopastorFormData } from '@/modules/copastor/interfaces/copastor-form-data.interface';
 
 interface Options {
   copastorUpdateForm: UseFormReturn<CopastorFormData, any, undefined>;
-  memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
@@ -18,7 +17,6 @@ interface Options {
 }
 
 export const useCopastorUpdateSubmitButtonLogic = ({
-  memberRoles,
   isInputDisabled,
   copastorUpdateForm,
   setIsSubmitButtonDisabled,
@@ -60,7 +58,7 @@ export const useCopastorUpdateSubmitButtonLogic = ({
     }
 
     if (
-      roles.includes(memberRoles.Copastor) &&
+      roles.includes(MemberRole.Copastor) &&
       theirPastor &&
       Object.values(copastorUpdateForm.formState.errors).length === 0 &&
       !isInputDisabled
@@ -69,18 +67,18 @@ export const useCopastorUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(false);
     }
 
-    if (roles.includes(memberRoles.Copastor) && !theirPastor) {
+    if (roles.includes(MemberRole.Copastor) && !theirPastor) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
 
-    if (roles.includes(memberRoles.Pastor) && !theirChurch) {
+    if (roles.includes(MemberRole.Pastor) && !theirChurch) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
 
     if (
-      roles.includes(memberRoles.Pastor) &&
+      roles.includes(MemberRole.Pastor) &&
       theirChurch &&
       Object.values(copastorUpdateForm.formState.errors).length === 0 &&
       !isRelationSelectDisabled
@@ -96,8 +94,6 @@ export const useCopastorUpdateSubmitButtonLogic = ({
       !birthDate ||
       !conversionDate ||
       !maritalStatus ||
-      !email ||
-      !phoneNumber ||
       !originCountry ||
       !numberChildren ||
       !residenceCountry ||

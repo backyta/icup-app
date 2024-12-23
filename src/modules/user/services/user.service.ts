@@ -312,7 +312,7 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
 }
 
 //* General
-export const getGeneralUsersReport = async ({limit, offset, order}: UserQueryParams): Promise<void> => {
+export const getGeneralUsersReport = async ({limit, offset, order}: UserQueryParams): Promise<boolean> => {
    try {
     const res = await icupApi<Blob>('/reports/users' , {
       params: {
@@ -328,6 +328,7 @@ export const getGeneralUsersReport = async ({limit, offset, order}: UserQueryPar
     
     openPdfInNewTab(res.data);
     
+    return true;
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)
@@ -347,7 +348,7 @@ export const getUsersReportByTerm = async ({
   limit, 
   offset, 
   order
-}: UserQueryParams): Promise<void> => {
+}: UserQueryParams): Promise<boolean> => {
   let newTerm: string | undefined = '';
   
   const termMapping: Record<UserSearchType, string | undefined> = {
@@ -377,6 +378,7 @@ export const getUsersReportByTerm = async ({
     
     openPdfInNewTab(res.data);
     
+    return true;
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)

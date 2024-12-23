@@ -362,7 +362,7 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
 }
 
 //* General
-export const getGeneralZonesReport = async ({limit, offset, order, churchId}: ZoneQueryParams): Promise<void> => {
+export const getGeneralZonesReport = async ({limit, offset, order, churchId}: ZoneQueryParams): Promise<boolean> => {
    try {
     const res = await icupApi<Blob>('/reports/zones' , {
       params: {
@@ -379,6 +379,7 @@ export const getGeneralZonesReport = async ({limit, offset, order, churchId}: Zo
     
     openPdfInNewTab(res.data);
     
+    return true;
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)
@@ -390,17 +391,23 @@ export const getGeneralZonesReport = async ({limit, offset, order, churchId}: Zo
 
 //* By term
 export const getZonesReportByTerm = async ({   
+  firstNamesTerm,
+  lastNamesTerm,
   searchType, 
   inputTerm, 
   selectTerm, 
+  searchSubType,
   limit, 
   offset, 
   order,
   churchId,
-}: ZoneQueryParams): Promise<void> => {
+}: ZoneQueryParams): Promise<boolean> => {
   let newTerm: string | undefined = '';
   
   const termMapping: Partial<Record<ZoneSearchType, string | undefined>> = {
+    [ZoneSearchType.FirstNames]: firstNamesTerm,
+    [ZoneSearchType.LastNames]: lastNamesTerm,
+    [ZoneSearchType.FullNames]: `${firstNamesTerm}-${lastNamesTerm}`,
     [ZoneSearchType.ZoneName]: inputTerm,
     [ZoneSearchType.Country]: inputTerm,
     [ZoneSearchType.Department]: inputTerm,
@@ -419,6 +426,7 @@ export const getZonesReportByTerm = async ({
         order,
         churchId,
         'search-type': searchType,
+        'search-sub-type': searchSubType
       },
       headers: {
       'Content-Type': 'application/pdf',
@@ -428,6 +436,7 @@ export const getZonesReportByTerm = async ({
     
     openPdfInNewTab(res.data);
     
+    return true;
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)

@@ -1,18 +1,16 @@
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { MemberRole } from '@/shared/enums/member-role.enum';
 import { type CopastorFormData } from '@/modules/copastor/interfaces/copastor-form-data.interface';
 
 interface Options {
   copastorUpdateForm: UseFormReturn<CopastorFormData, any, undefined>;
-  memberRoles: typeof MemberRole;
   setIsDisabledInput: React.Dispatch<React.SetStateAction<boolean>>;
   setIsDisabledPromoteButton: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useCopastorRolePromotionHandler = ({
   copastorUpdateForm,
-  memberRoles,
   setIsDisabledInput,
   setIsDisabledPromoteButton,
 }: Options): void => {
@@ -21,18 +19,18 @@ export const useCopastorRolePromotionHandler = ({
   const currentRoles: MemberRole[] = copastorUpdateForm.getValues('roles');
 
   const hasRole = (role: MemberRole): boolean => currentRoles.includes(role);
-  const isCopastor = hasRole(memberRoles.Copastor);
+  const isCopastor = hasRole(MemberRole.Copastor);
   const isEligibleForPromotion =
-    !hasRole(memberRoles.Supervisor) &&
-    !hasRole(memberRoles.Preacher) &&
-    !hasRole(memberRoles.Treasurer) &&
-    !hasRole(memberRoles.Pastor) &&
-    !hasRole(memberRoles.Disciple);
+    !hasRole(MemberRole.Supervisor) &&
+    !hasRole(MemberRole.Preacher) &&
+    !hasRole(MemberRole.Treasurer) &&
+    !hasRole(MemberRole.Pastor) &&
+    !hasRole(MemberRole.Disciple);
 
-  const updatedRoles = currentRoles.filter((role) => role !== memberRoles.Copastor);
+  const updatedRoles = currentRoles.filter((role) => role !== MemberRole.Copastor);
 
   if (isCopastor && isEligibleForPromotion) {
-    copastorUpdateForm.setValue('roles', [...updatedRoles, memberRoles.Pastor]);
+    copastorUpdateForm.setValue('roles', [...updatedRoles, MemberRole.Pastor]);
   }
 
   setIsDisabledInput(true);

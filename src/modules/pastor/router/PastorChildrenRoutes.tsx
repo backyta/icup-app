@@ -16,7 +16,7 @@ const LazyPastorInactivatePage = lazy(() => import('@/modules/pastor/pages/Pasto
 
 export const PastorChildrenRoutes = [
   {
-    path: '/pastors/create',
+    path: 'create',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <PastorCreatePage />
@@ -24,7 +24,7 @@ export const PastorChildrenRoutes = [
     ),
   },
   {
-    path: '/pastors/general-search',
+    path: 'general-search',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyPastorsGeneralSearchPage />
@@ -32,7 +32,7 @@ export const PastorChildrenRoutes = [
     ),
   },
   {
-    path: '/pastors/search-by-term',
+    path: 'search-by-term',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyPastorsSearchPageByTerm />
@@ -40,7 +40,7 @@ export const PastorChildrenRoutes = [
     ),
   },
   {
-    path: '/pastors/update',
+    path: 'update',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyPastorUpdatePage />
@@ -48,7 +48,7 @@ export const PastorChildrenRoutes = [
     ),
   },
   {
-    path: '/pastors/inactivate',
+    path: 'inactivate',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyPastorInactivatePage />

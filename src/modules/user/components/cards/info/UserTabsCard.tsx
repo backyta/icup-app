@@ -65,7 +65,7 @@ export const UserTabsCard = ({ id, data }: UserTabsCardProps): JSX.Element => {
   }, [id]);
 
   return (
-    <Tabs defaultValue='general-info' className='w-[650px] md:w-[630px]'>
+    <Tabs defaultValue='general-info' className='md:-mt-8 w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full px-auto grid-cols-1'>
         <TabsTrigger value='general-info' className='text-[14.5px] md:text-[15px]'>
           General

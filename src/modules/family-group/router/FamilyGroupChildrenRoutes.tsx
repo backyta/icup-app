@@ -22,7 +22,7 @@ const LazyFamilyGroupsGeneralSearchPage = lazy(
 
 export const FamilyGroupChildrenRoutes = [
   {
-    path: '/family-groups/create',
+    path: 'create',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyFamilyGroupCreatePage />,
@@ -30,7 +30,7 @@ export const FamilyGroupChildrenRoutes = [
     ),
   },
   {
-    path: '/family-groups/general-search',
+    path: 'general-search',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyFamilyGroupsGeneralSearchPage />,
@@ -38,7 +38,7 @@ export const FamilyGroupChildrenRoutes = [
     ),
   },
   {
-    path: '/family-groups/search-by-term',
+    path: 'search-by-term',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyFamilyGroupsSearchPageByTerm />,
@@ -46,7 +46,7 @@ export const FamilyGroupChildrenRoutes = [
     ),
   },
   {
-    path: '/family-groups/update',
+    path: 'update',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyFamilyGroupUpdatePage />,
@@ -54,7 +54,7 @@ export const FamilyGroupChildrenRoutes = [
     ),
   },
   {
-    path: '/family-groups/inactivate',
+    path: 'inactivate',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyFamilyGroupInactivatePage />,

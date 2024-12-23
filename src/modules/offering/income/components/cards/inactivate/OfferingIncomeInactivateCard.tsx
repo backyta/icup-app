@@ -34,9 +34,14 @@ import {
   SelectContent,
   SelectTrigger,
 } from '@/shared/components/ui/select';
-
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogTrigger,
+  DialogDescription,
+} from '@/shared/components/ui/dialog';
 import { Button } from '@/shared/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 
 interface OfferingIncomeInactivateCardProps {
   id: string;
@@ -131,14 +136,16 @@ export const OfferingIncomeInactivateCard = ({
         className='w-[23rem] sm:w-[25rem] md:w-full max-h-full overflow-x-hidden overflow-y-auto'
       >
         <div className='h-auto'>
-          <h2 className='dark:text-yellow-500 text-amber-500 font-bold text-[22px] text-center md:text-[25px] pb-3'>
+          <DialogTitle className='dark:text-yellow-500 text-amber-500 font-bold text-[22px] text-center md:text-[25px] pb-3'>
             ¿Estas seguro de inactivar este registro?
-          </h2>
-          <p className={cn('h-[19rem] md:h-[16.5rem]')}>
-            <span className='w-full text-left text-blue-500 font-bold mb-2 inline-block text-[15px] md:text-[17px]'>
+          </DialogTitle>
+
+          <div className={cn('h-[19rem] md:h-[16.5rem]')}>
+            <DialogDescription className='w-full text-left text-blue-500 font-bold mb-2 inline-block text-[15px] md:text-[17px]'>
               Luego de realizar esta operación sucederá lo siguiente:
-            </span>
+            </DialogDescription>
             <br />
+
             <span className='w-full text-left inline-block mb-2 text-[14.5px] md:text-[15px]'>
               ❌ El registro de este Ingreso de Ofrenda se colocara en estado{' '}
               <span className='font-bold '>INACTIVO.</span>
@@ -156,7 +163,7 @@ export const OfferingIncomeInactivateCard = ({
             </span>
 
             <br />
-          </p>
+          </div>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)}>
               <FormField
@@ -165,8 +172,8 @@ export const OfferingIncomeInactivateCard = ({
                 render={({ field }) => {
                   return (
                     <FormItem className={cn('mt-8 md:mt-0')}>
-                      <FormLabel className='text-[14px] md:text-[14.5px] font-bold text-red-500'>
-                        ¿Cual es el motivo por el cual se esta eliminando este registro?
+                      <FormLabel className='text-[14px] md:text-[14.5px] font-bold text-emerald-500'>
+                        ¿Cuál es el motivo por el cual se esta eliminando este registro?
                       </FormLabel>
                       <FormDescription className='text-[13px] md:text-[14px] pl-1'>
                         Elige un motivo de eliminación.

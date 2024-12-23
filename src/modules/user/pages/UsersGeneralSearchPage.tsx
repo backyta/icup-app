@@ -252,14 +252,14 @@ export const UsersGeneralSearchPage = (): JSX.Element => {
                 )}
               />
 
-              <div className='w-full'>
+              <div className='w-full mt-0 lg:col-start-1 lg:col-end-3 lg:w-[80%]'>
                 <Toaster position='top-center' richColors />
                 <Button
                   disabled={isDisabledSubmitButton}
                   type='submit'
                   variant='ghost'
                   className={cn(
-                    'text-[14px] mt-0 col-start-1 col-end-3 w-full px-4 py-2 border-1 lg:w-full border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
+                    'text-[14px] w-full px-4 py-2 border-1 border-green-500 bg-gradient-to-r from-green-400 via-green-500 to-green-600 text-white hover:text-green-100 hover:from-green-500 hover:via-green-600 hover:to-green-700 dark:from-green-600 dark:via-green-700 dark:to-green-800 dark:text-gray-100 dark:hover:text-gray-200 dark:hover:from-green-700 dark:hover:via-green-800 dark:hover:to-green-900'
                   )}
                 >
                   Buscar

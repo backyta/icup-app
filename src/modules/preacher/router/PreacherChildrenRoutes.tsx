@@ -18,7 +18,7 @@ const LazyPreacherCreatePage = lazy(() => import('@/modules/preacher/pages/Preac
 
 export const PreacherChildrenRoutes = [
   {
-    path: '/preachers/create',
+    path: 'create',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyPreacherCreatePage />,
@@ -26,7 +26,7 @@ export const PreacherChildrenRoutes = [
     ),
   },
   {
-    path: '/preachers/general-search',
+    path: 'general-search',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyPreachersGeneralSearchPage />,
@@ -34,7 +34,7 @@ export const PreacherChildrenRoutes = [
     ),
   },
   {
-    path: '/preachers/search-by-term',
+    path: 'search-by-term',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyPreachersSearchPageByTerm />,
@@ -42,7 +42,7 @@ export const PreacherChildrenRoutes = [
     ),
   },
   {
-    path: '/preachers/update',
+    path: 'update',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyPreacherUpdatePage />,
@@ -50,7 +50,7 @@ export const PreacherChildrenRoutes = [
     ),
   },
   {
-    path: '/preachers/inactivate',
+    path: 'inactivate',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyPreacherInactivatePage />,

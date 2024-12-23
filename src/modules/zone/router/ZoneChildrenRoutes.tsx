@@ -14,7 +14,7 @@ const LazyZonesSearchPageByTerm = lazy(() => import('@/modules/zone/pages/ZonesS
 
 export const ZoneChildrenRoutes = [
   {
-    path: '/zones/create',
+    path: 'create',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyZoneCreatePage />,
@@ -22,7 +22,7 @@ export const ZoneChildrenRoutes = [
     ),
   },
   {
-    path: '/zones/general-search',
+    path: 'general-search',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyZonesGeneralSearchPage />,
@@ -30,7 +30,7 @@ export const ZoneChildrenRoutes = [
     ),
   },
   {
-    path: '/zones/search-by-term',
+    path: 'search-by-term',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyZonesSearchPageByTerm />,
@@ -38,7 +38,7 @@ export const ZoneChildrenRoutes = [
     ),
   },
   {
-    path: '/zones/update',
+    path: 'update',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyZoneUpdatePage />,
@@ -46,7 +46,7 @@ export const ZoneChildrenRoutes = [
     ),
   },
   {
-    path: '/zones/inactivate',
+    path: 'inactivate',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyZoneInactivatePage />,

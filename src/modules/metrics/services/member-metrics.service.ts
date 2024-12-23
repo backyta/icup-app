@@ -309,7 +309,7 @@ export const getMemberMetricsReport = async ({
   churchId, 
   types, 
   dialogClose,
-}: MetricReportQueryParams): Promise<void> => {
+}: MetricReportQueryParams): Promise<boolean> => {
   const joinedReportTypes = types.join('+');
 
   try {
@@ -327,6 +327,8 @@ export const getMemberMetricsReport = async ({
     
     openPdfInNewTab(res.data);
     dialogClose();
+
+    return true;
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)

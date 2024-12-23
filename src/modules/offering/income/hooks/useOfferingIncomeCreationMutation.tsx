@@ -21,13 +21,13 @@ import {
 } from '@/modules/offering/shared/helpers/extract-data-secure-url.helper';
 
 interface Options {
+  imageUrls: string[];
   setFiles: React.Dispatch<React.SetStateAction<FilesProps[]>>;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsInputMemberDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsDeleteFileButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   offeringIncomeCreationForm: UseFormReturn<OfferingIncomeFormData, any, undefined>;
-  imageUrls: string[];
 }
 
 export const useOfferingIncomeCreationMutation = ({

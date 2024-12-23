@@ -2,13 +2,20 @@
 
 import { z } from "zod";
 
+import { FamilyGroupInactivationReason } from "@/modules/family-group/enums/family-group-inactivation-reason.enum";
+import { FamilyGroupInactivationCategory } from "@/modules/family-group/enums/family-group-inactivation-category.enum";
+
 export const familyGroupInactivationFormSchema = z
 .object({
-  familyGroupInactivationCategory: z.string()
-  .min(1, {message: 'El campo debe contener al menos 1 carácter.'})
-  .max(50, {message: 'El campo debe contener máximo 50 caracteres'}),
+ familyGroupInactivationCategory: z.string(z.nativeEnum(FamilyGroupInactivationCategory, {
+      required_error: "Debe seleccionar una opción.",
+    })).refine((value) => value !== undefined && value.trim() !== '',
+      { message: "Debe seleccionar una opción." }
+  ),
 
-  familyGroupInactivationReason: z.string()
-  .min(1, {message: 'El campo debe contener al menos 1 carácter.'})
-  .max(100, {message: 'El campo debe contener máximo 100 caracteres'}),
+  familyGroupInactivationReason: z.string(z.nativeEnum(FamilyGroupInactivationReason, {
+      required_error: "Debe seleccionar una opción.",
+    })).refine((value) => value !== undefined && value.trim() !== '',
+      { message: "Debe seleccionar una opción." }
+  ),
 })

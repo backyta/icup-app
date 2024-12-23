@@ -7,8 +7,14 @@ import { ZoneSupervisorUpdateForm } from '@/modules/zone/components/cards/update
 
 import { useZoneStore } from '@/stores/zone/zone.store';
 
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogTrigger,
+  DialogDescription,
+} from '@/shared/components/ui/dialog';
 import { Button } from '@/shared/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 
 interface FamilyGroupPreacherUpdateCardProps {
   idRow: string;
@@ -57,6 +63,8 @@ export const ZoneSupervisorUpdateCard = ({
           ref={topRef}
           className='md:max-w-[600px] lg:max-w-[600px] xl:max-w-[650px] w-full max-h-full justify-center pt-[0.9rem] pb-[1.3rem] overflow-x-hidden overflow-y-auto'
         >
+          <DialogTitle></DialogTitle>
+          <DialogDescription></DialogDescription>
           <ZoneSupervisorUpdateForm
             id={idRow}
             data={currentZone}
@@ -83,6 +91,8 @@ export const ZoneSupervisorUpdateCard = ({
         ref={topRef}
         className='max-w-auto sm:max-w-[530px] w-full max-h-full justify-center pt-6 pb-4 px-6 overflow-y-auto overflow-x-hidden'
       >
+        <DialogTitle></DialogTitle>
+        <DialogDescription></DialogDescription>
         <ZoneSupervisorUpdateForm
           id={idRow}
           data={currentZone}

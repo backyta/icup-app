@@ -15,20 +15,18 @@ export const SideMenu = (): JSX.Element => {
   const logoutUser = useAuthStore((state) => state.logoutUser);
 
   return (
-    <div className='bg-slate-900 md:min-h-screen z-10 text-slate-300 w-full md:w-[7.5rem]'>
-      <ToggleNavBar />
-
+    <div className='bg-slate-900  h-[5.3rem] md:h-auto md:min-h-screen z-10 text-slate-300 w-full md:w-[7.5rem]'>
       {/* Header */}
       <div className='flex justify-between items-center md:flex-col md:pt-2 md:pb-4 md:px-2 md:gap-6'>
         {/* Image, Title */}
         <div id='logo' className='my-4 md:m-0 px-0 md:pt-4'>
           <a
             href='/dashboard'
-            className='inline-flex gap-x-4 items-center mt-2 md:mt-0 pl-4 pr-3 md:py-4 md:px-0 md:flex md:flex-col-reverse md:gap-3'
+            className='inline-flex gap-x-5 items-center md:mt-0 pl-4 pr-3 md:py-4 md:px-0 md:flex md:flex-col-reverse md:gap-3'
           >
-            <h1 className='text-[1.7rem] md:-ml-3 md:text-[1.8rem] font-bold font-dancing-script italic text-white'>
+            <h1 className='text-[1.8rem] pl-1 md:-ml-3 md:text-[1.8rem] font-bold font-dancing-script italic text-white'>
               ICUP <span className='md:hidden'> - </span>
-              <span className='md:block text-[1.6rem] md:text-[1.7rem] md:text-center leading-3'>
+              <span className='md:block text-[1.8rem] md:text-[1.8rem] md:text-center leading-3'>
                 APP
               </span>
             </h1>
@@ -42,11 +40,14 @@ export const SideMenu = (): JSX.Element => {
           </a>
         </div>
         {/* Button */}
-        <DropdownMenuLeft />
+        <div className='flex gap-3 pr-1'>
+          <ToggleNavBar />
+          <DropdownMenuLeft />
+        </div>
       </div>
 
       {/* Menu Icon Items */}
-      <nav id='menu' className='w-full px-8 py-6 md:flex md:flex-col gap-y-[1rem] hidden'>
+      <nav id='menu' className='w-full px-8 py-4 md:flex md:flex-col gap-y-[1rem] hidden'>
         <div className='flex flex-col gap-y-1 justify-center items-left'>
           {menuItems.map((item) => (
             <MenuBarTooltip key={item.href} item={item}>

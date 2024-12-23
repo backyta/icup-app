@@ -8,9 +8,9 @@ import { type UseFormReturn } from 'react-hook-form';
 import { type ExternalDonorFormData } from '@/modules/offering/income/interfaces/external-donor-form-data.interface';
 
 interface Options {
-  externalDonorUpdateForm: UseFormReturn<ExternalDonorFormData, any, undefined>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  externalDonorUpdateForm: UseFormReturn<ExternalDonorFormData, any, undefined>;
 }
 
 export const useExternalDonorUpdateSubmitButtonLogic = ({

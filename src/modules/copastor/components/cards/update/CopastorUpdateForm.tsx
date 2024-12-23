@@ -20,7 +20,6 @@ import { CalendarIcon } from 'lucide-react';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
 import { getSimplePastors } from '@/modules/pastor/services/pastor.service';
-import { CopastorFieldNames } from '@/modules/copastor/enums/copastor-field-names.enum';
 import { copastorFormSchema } from '@/modules/copastor/validations/copastor-form-schema';
 import { type CopastorResponse } from '@/modules/copastor/interfaces/copastor-response.interface';
 import { CopastorFormSkeleton } from '@/modules/copastor/components/cards/update/CopastorFormSkeleton';
@@ -172,18 +171,15 @@ export const CopastorUpdateForm = ({
 
   const { disabledRoles } = useRoleValidationByPath({
     path: pathname,
-    memberRoles: MemberRole,
   });
 
   useCopastorPromoteButtonLogic({
     copastorUpdateForm: form,
-    fieldName: CopastorFieldNames,
     setIsPromoteButtonDisabled,
   });
 
   useCopastorUpdateSubmitButtonLogic({
     copastorUpdateForm: form,
-    memberRoles: MemberRole,
     isInputDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
@@ -217,7 +213,7 @@ export const CopastorUpdateForm = ({
   return (
     <Tabs
       defaultValue='general-info'
-      className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
+      className='w-auto -mt-8 sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
       <h2 className='text-center leading-7 text-orange-500 pb-2 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
         Actualizar información del
@@ -1257,7 +1253,7 @@ export const CopastorUpdateForm = ({
                             onClick={() => {
                               useCopastorRolePromotionHandler({
                                 copastorUpdateForm: form,
-                                memberRoles: MemberRole,
+
                                 setIsDisabledPromoteButton: setIsPromoteButtonDisabled,
                                 setIsDisabledInput: setIsInputDisabled,
                               });

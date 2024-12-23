@@ -29,8 +29,14 @@ import {
   SelectTrigger,
   SelectContent,
 } from '@/shared/components/ui/select';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogTrigger,
+  DialogDescription,
+} from '@/shared/components/ui/dialog';
 import { Button } from '@/shared/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 
 interface OfferingExpenseInactivateCardProps {
   idRow: string;
@@ -124,13 +130,14 @@ export const OfferingExpenseInactivateCard = ({
         className='w-[23rem] sm:w-[25rem] md:w-full max-h-full overflow-x-hidden overflow-y-auto'
       >
         <div className='h-auto'>
-          <h2 className='dark:text-yellow-500 text-amber-500 font-bold text-[22px] text-center md:text-[25px] pb-3'>
+          <DialogTitle className='dark:text-yellow-500 text-amber-500 font-bold text-[22px] text-center md:text-[25px] pb-3'>
             ¿Estas seguro de inactivar este registro?
-          </h2>
-          <p className='h-[15rem] md:h-[14.5rem]'>
-            <span className='w-full text-left text-blue-500 font-medium mb-3 inline-block text-[16px] md:text-[18px]'>
+          </DialogTitle>
+
+          <div className='h-[15rem] md:h-[14.5rem]'>
+            <DialogDescription className='w-full text-left text-blue-500 font-medium mb-3 inline-block text-[16px] md:text-[18px]'>
               Luego de realizar esta operación sucederá lo siguiente:
-            </span>
+            </DialogDescription>
             <br />
             <span className='w-full text-left inline-block mb-2 text-[14.5px] md:text-[15px]'>
               ❌ El registro de esta Salida de Ofrenda se colocara en estado{' '}
@@ -147,7 +154,7 @@ export const OfferingExpenseInactivateCard = ({
               <span className='pl-8'>- El usuario que ejecuto esta acción.</span>
             </span>
             <br />
-          </p>
+          </div>
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -157,8 +164,8 @@ export const OfferingExpenseInactivateCard = ({
                 render={({ field }) => {
                   return (
                     <FormItem className='mb-6 mt-14 md:mt-4'>
-                      <FormLabel className='text-[14px] md:text-[14.5px] font-bold text-red-500'>
-                        ¿Cual es el motivo por el cual se esta eliminando este registro?
+                      <FormLabel className='text-[14px] md:text-[14.5px] font-bold text-emerald-500'>
+                        ¿Cuál es el motivo por el cual se esta eliminando este registro?
                       </FormLabel>
                       <FormDescription className='text-[13.5px] md:text-[14px] pl-1 mt-10'>
                         Elige un motivo de eliminación.

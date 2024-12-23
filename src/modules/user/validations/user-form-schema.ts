@@ -18,13 +18,13 @@ export const userFormSchema = z
     .min(1, {message: 'El campo debe contener al menos 1 carácter.'})
     .max(40, {message: 'El campo debe contener máximo 40 caracteres'}),
     
-    gender: z.string(z.nativeEnum(Gender, {
-      required_error: "Por favor seleccione una opción válida.",
-    })).refine((value) => value !== undefined && value.trim() !== '',
-      { message: "Por favor seleccione una opción válida." }
-    ),
+  gender: z.string(z.nativeEnum(Gender, {
+    required_error: "El género es requerido.",
+  })).refine((value) => value !== undefined && value.trim() !== '',
+    { message: "El género es requerido." }
+  ),
 
-  email: z.string().email({ message: "Email invalido." }),
+  email: z.string().email({ message: "E-mail invalido." }),
 
   password: z.string()
     .regex(new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,15}$"), 
@@ -41,7 +41,7 @@ export const userFormSchema = z
   }),
 
   recordStatus: z.string(z.nativeEnum(RecordStatus, {
-    required_error: "Por favor seleccione una opción.",
+    required_error: "El estado de registro es requerido.",
   })).optional(),
 })
 .refine(

@@ -6,10 +6,10 @@ import { type UseFormReturn } from 'react-hook-form';
 import { type UserFormData } from '@/modules/user/interfaces/user-form-data.interface';
 
 interface Options {
+  isInputDisabled: boolean;
   userUpdateForm: UseFormReturn<UserFormData, any, undefined>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  isInputDisabled: boolean;
 }
 
 export const useUserUpdateSubmitButtonLogic = ({

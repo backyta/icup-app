@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { addDays } from 'date-fns';
 
 import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
@@ -16,6 +17,23 @@ export const OfferingIncomeByUnitedServiceTooltipContent = (
 ): JSX.Element => {
   const { payload, label } = props;
 
+  const getStyle = (currency: string) => ({
+    backgroundColor:
+      currency === CurrencyType.PEN
+        ? 'var(--color-accumulatedOfferingPEN)'
+        : currency === CurrencyType.USD
+          ? 'var(--color-accumulatedOfferingUSD)'
+          : 'var(--color-accumulatedOfferingEUR)',
+    border:
+      currency === CurrencyType.PEN
+        ? '1px var(--color-accumulatedOfferingPEN)'
+        : currency === CurrencyType.USD
+          ? '1px var(--color-accumulatedOfferingUSD)'
+          : '1px var(--color-accumulatedOfferingEUR)',
+  });
+
+  // TODO : revisar este key (considerar el off id) tmb en los line de los comments traer el id del backend
+  // TODO : COLOCAR UL EN LOS LI O CAMBIAR POR PARRAFO
   return (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
       <p>
@@ -23,34 +41,16 @@ export const OfferingIncomeByUnitedServiceTooltipContent = (
       </p>
       <span className='font-semibold text-[12.5px] md:text-[13.5px]'>Lista de Ofrendas</span>
       {payload?.[0]?.payload?.allOfferings.map((off, index) => (
-        <>
-          <div key={index}>
-            <span
-              className='inline-block h-2.5 w-2.5 rounded-[2px] mr-2'
-              style={{
-                backgroundColor:
-                  off.currency === CurrencyType.PEN
-                    ? 'var(--color-accumulatedOfferingPEN)'
-                    : off.currency === CurrencyType.USD
-                      ? 'var(--color-accumulatedOfferingUSD)'
-                      : 'var(--color-accumulatedOfferingEUR)',
-                border:
-                  off.currency === CurrencyType.PEN
-                    ? '1px var(--color-accumulatedOfferingPEN)'
-                    : off.currency === CurrencyType.USD
-                      ? '1px var(--color-accumulatedOfferingUSD)'
-                      : '1px var(--color-accumulatedOfferingEUR)',
-              }}
-            ></span>
-            <span className='font-medium text-[11.5px] md:text-[13.5px]'>{`${index + 1}° Ofrenda:`}</span>
-            <span
-              className='pl-1 dark:text-white text-black font-normal text-[12px] md:text-[14px]'
-              key={`item-${index}`}
-            >
-              {`${off.offering} ${off.currency}`}
-            </span>
-          </div>
-        </>
+        <div key={`${String(off.date)}-${off.currency}`}>
+          <span
+            className='inline-block h-2.5 w-2.5 rounded-[2px] mr-2'
+            style={getStyle(off.currency)}
+          ></span>
+          <span className='font-medium text-[11.5px] md:text-[13.5px]'>{`${index + 1}° Ofrenda:`}</span>
+          <span className='pl-1 dark:text-white text-black font-normal text-[12px] md:text-[14px]'>
+            {`${off.offering} ${off.currency}`}
+          </span>
+        </div>
       ))}
 
       <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>

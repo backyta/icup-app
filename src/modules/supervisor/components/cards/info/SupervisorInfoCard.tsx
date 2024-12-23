@@ -11,7 +11,13 @@ import { useSupervisorStore } from '@/stores/supervisor/supervisor.store';
 import { SupervisorTabsCard } from '@/modules/supervisor/components/cards/info/SupervisorTabsCard';
 
 import { Button } from '@/shared/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from '@/shared/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/shared/components/ui/drawer';
 
 interface CopastorInfoCardProps {
@@ -51,6 +57,8 @@ export const SupervisorInfoCard = ({ idRow }: CopastorInfoCardProps): JSX.Elemen
         </DialogTrigger>
 
         <DialogContent className='max-w-[690px] w-full justify-center py-6 max-h-full overflow-y-auto overflow-x-hidden'>
+          <DialogTitle></DialogTitle>
+          <DialogDescription></DialogDescription>
           <SupervisorTabsCard data={currentSupervisor} id={idRow} />
         </DialogContent>
       </Dialog>

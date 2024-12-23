@@ -8,14 +8,14 @@ import { PastorSearchType } from '@/modules/pastor/enums/pastor-search-type.enum
 export const pastorSearchByTermFormSchema  = z 
   .object({
     searchType: z.nativeEnum(PastorSearchType,{
-      required_error: "Por favor seleccione un tipo.",
+      required_error: "El tipo de búsqueda es requerido.",
     }),
     
     inputTerm: z.string().max(30).optional(),
     selectTerm: z.string().max(30).optional(),
 
     dateTerm: z.object({from: z.date(), to: z.date().optional()}, {
-      required_error: "Por favor seleccione una fecha.",
+        required_error: "La fecha o rango de fechas es requerida.",
     }).optional(),
 
     firstNamesTerm: z.string().max(30).optional(),
@@ -25,16 +25,16 @@ export const pastorSearchByTermFormSchema  = z
     limit: z.string().refine(limit => {
       return /^\d+$/.test(limit);
     }, {
-      message: 'El límite debe ser un número positivo'
+      message: 'El límite debe ser un número mayor a 0.'
     }).refine(limit => {
       const parsedLimit = parseInt(limit);
       return !isNaN(parsedLimit) && parsedLimit > 0;
     }, {
-      message: 'El límite debe ser un número mayor a 0'
+      message: 'El límite debe ser un número mayor a 0.'
     }).optional(),
 
     order: z.string(z.nativeEnum(RecordOrder, {
-      required_error: "Seleccione un orden para al consulta.",
+      required_error: "El orden de registros es requerido.",
     })),
 
     churchId: z.string().max(40).optional(),
@@ -114,7 +114,7 @@ export const pastorSearchByTermFormSchema  = z
       return true;
     },
     {
-      message: 'El Término es requerido.',
+      message: 'El término de búsqueda es requerido.',
       path: ['inputTerm'],
     }
   )
@@ -131,7 +131,7 @@ export const pastorSearchByTermFormSchema  = z
       return true;
     },
     {
-      message: 'Por favor seleccione una opción.',
+      message: 'El término de búsqueda es requerido.',
       path: ['selectTerm'],
     }
   )
@@ -145,7 +145,7 @@ export const pastorSearchByTermFormSchema  = z
       return true;
     },
     {
-      message: 'Por favor seleccione una fecha.',
+      message: 'La fecha o rango de fechas es requerido.',
       path: ['dateTerm'],
     }
   )

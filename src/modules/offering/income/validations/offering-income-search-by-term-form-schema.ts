@@ -9,19 +9,19 @@ import { OfferingIncomeSearchSubType } from '@/modules/offering/income/enums/off
 export const offeringIncomeSearchByTermFormSchema = z
   .object({
     searchType: z.nativeEnum(OfferingIncomeSearchType,{
-      required_error: "Por favor seleccione un tipo.",
+      required_error: "El tipo de búsqueda es requerido.",
     }),
 
     searchSubType: z.nativeEnum(OfferingIncomeSearchSubType ,{
-      message: 'Por favor seleccione una opción.',
-      required_error: "Por favor seleccione una opción.",
+      message: 'El sub-tipo de búsqueda es requerido.',
+      required_error: "El sub-tipo de búsqueda es requerido.",
     }).optional(),
     
     inputTerm: z.string().max(30).optional(),
     selectTerm: z.string().max(40).optional(),
 
     dateTerm: z.object({from: z.date(), to: z.date().optional()}, {
-      required_error: "Por favor seleccione una fecha.",
+        required_error: "La fecha o rango de fechas es requerida.",
     }).optional(),
 
     firstNamesTerm: z.string().max(30).optional(),
@@ -31,16 +31,16 @@ export const offeringIncomeSearchByTermFormSchema = z
     limit: z.string().refine(limit => {
       return /^\d+$/.test(limit);
     }, {
-      message: 'El límite debe ser un número positivo'
+      message: 'El límite debe ser un número mayor a 0.'
     }).refine(limit => {
       const parsedLimit = parseInt(limit);
       return !isNaN(parsedLimit) && parsedLimit > 0;
     }, {
-      message: 'El límite debe ser un número mayor a 0'
+      message: 'El límite debe ser un número mayor a 0.'
     }).optional(),
 
     order: z.string(z.nativeEnum(RecordOrder, {
-      required_error: "Seleccione un orden para al consulta.",
+      required_error: "El orden de registros es requerido.",
     })),
 
     churchId: z.string().max(40).optional(),
@@ -82,10 +82,7 @@ export const offeringIncomeSearchByTermFormSchema = z
           data.searchType === OfferingIncomeSearchType.Special ||
           data.searchType === OfferingIncomeSearchType.ZonalFasting ||
           data.searchType === OfferingIncomeSearchType.ZonalVigil) &&
-          (
-            // data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorNames ||
-            // data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFullName ||
-            data.searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFirstNames ||
+          (data.searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFirstNames ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFullNames ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorFirstNames ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorFullNames)
@@ -107,10 +104,7 @@ export const offeringIncomeSearchByTermFormSchema = z
           data.searchType === OfferingIncomeSearchType.Special ||
           data.searchType === OfferingIncomeSearchType.ZonalFasting ||
           data.searchType === OfferingIncomeSearchType.ZonalVigil) &&
-          (
-            // data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorLastNames ||
-            // data.searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFullName ||
-            data.searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherLastNames ||
+          (data.searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherLastNames ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFullNames ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorLastNames ||
             data.searchSubType === OfferingIncomeSearchSubType.OfferingBySupervisorFullNames)
@@ -140,7 +134,7 @@ export const offeringIncomeSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'El Término es requerido.',
+      message: 'El término de búsqueda es requerido.',
       path: ['inputTerm'],
     }
   )
@@ -170,7 +164,7 @@ export const offeringIncomeSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'Por favor seleccione una opción.',
+      message: 'El término de búsqueda es requerido.',
       path: ['selectTerm'],
     }
   )
@@ -200,7 +194,7 @@ export const offeringIncomeSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'Por favor seleccione una fecha.',
+      message: 'La fecha o range de fechas es requerido.',
       path: ['dateTerm'],
     }
   )

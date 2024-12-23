@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type OfferingIncomeCreationType } from '@/modules/offering/income/enums/offering-income-creation-type.enum';
-import { type OfferingIncomeCreationSubType } from '@/modules/offering/income/enums/offering-income-creation-sub-type.enum';
+import { OfferingIncomeCreationType } from '@/modules/offering/income/enums/offering-income-creation-type.enum';
+import { OfferingIncomeCreationSubType } from '@/modules/offering/income/enums/offering-income-creation-sub-type.enum';
 
 import { type OfferingIncomeFormData } from '@/modules/offering/income/interfaces/offering-income-form-data.interface';
 
@@ -16,8 +16,6 @@ interface Options {
   isDeleteFileButtonDisabled: boolean;
   isDropZoneDisabled: boolean;
   isInputDisabled: boolean;
-  OfferingIncomeCreationSubType: typeof OfferingIncomeCreationSubType;
-  OfferingIncomeCreationType: typeof OfferingIncomeCreationType;
   offeringIncomeUpdateForm: UseFormReturn<OfferingIncomeFormData, any, undefined>;
   setIsDropZoneDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,15 +24,13 @@ interface Options {
 
 export const useOfferingIncomeUpdateSubmitButtonLogic = ({
   files,
-  isDeleteFileButtonDisabled,
-  isDropZoneDisabled,
   isInputDisabled,
-  OfferingIncomeCreationSubType,
-  OfferingIncomeCreationType,
-  offeringIncomeUpdateForm,
+  isDropZoneDisabled,
   setIsDropZoneDisabled,
+  offeringIncomeUpdateForm,
   setIsMessageErrorDisabled,
   setIsSubmitButtonDisabled,
+  isDeleteFileButtonDisabled,
 }: Options): void => {
   //* Watchers
   const type = offeringIncomeUpdateForm.watch('type');

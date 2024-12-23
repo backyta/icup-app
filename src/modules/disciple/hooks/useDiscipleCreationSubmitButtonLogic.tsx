@@ -5,19 +5,17 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { MemberRole } from '@/shared/enums/member-role.enum';
 import { type DiscipleFormData } from '@/modules/disciple/interfaces/disciple-form-data.interface';
 
 interface Options {
   discipleCreationForm: UseFormReturn<DiscipleFormData, any, undefined>;
-  memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
 }
 
 export const useDiscipleCreationSubmitButtonLogic = ({
-  memberRoles,
   isInputDisabled,
   discipleCreationForm,
   setIsSubmitButtonDisabled,
@@ -56,7 +54,7 @@ export const useDiscipleCreationSubmitButtonLogic = ({
 
     if (
       theirFamilyGroup &&
-      roles.includes(memberRoles.Disciple) &&
+      roles.includes(MemberRole.Disciple) &&
       Object.values(discipleCreationForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
@@ -71,8 +69,6 @@ export const useDiscipleCreationSubmitButtonLogic = ({
       !birthDate ||
       !conversionDate ||
       !maritalStatus ||
-      !email ||
-      !phoneNumber ||
       !originCountry ||
       !numberChildren ||
       !residenceCountry ||
@@ -113,6 +109,6 @@ export const useDiscipleCreationSubmitButtonLogic = ({
   ]);
 
   useEffect(() => {
-    discipleCreationForm.setValue('roles', [memberRoles.Disciple]);
+    discipleCreationForm.setValue('roles', [MemberRole.Disciple]);
   }, []);
 };

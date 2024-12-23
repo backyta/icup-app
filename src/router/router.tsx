@@ -49,6 +49,7 @@ const LazyRedirectIfMatch = lazy(() => import('@/router/RedirectIfMatch'));
 const LazySupervisorOptionsPage = lazy(
   () => import('@/modules/supervisor/pages/SupervisorOptionsPage')
 );
+
 const LazyDashboardPage = lazy(() => import('@/modules/dashboard/pages/DashboardPage'));
 const LazyPastorOptionsPage = lazy(() => import('@/modules/pastor/pages/PastorOptionsPage'));
 const LazyChurchOptionsPage = lazy(() => import('@/modules/church/pages/ChurchOptionsPage'));
@@ -95,7 +96,7 @@ export const router = createBrowserRouter([
         children: [
           // * Main pages by module
           {
-            path: '/dashboard',
+            path: 'dashboard',
             element: (
               <Suspense fallback={<LoadingSpinner />}>
                 <LazyDashboardPage />
@@ -103,7 +104,7 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: '/churches',
+            path: 'churches',
             element: (
               <Suspense fallback={<LoadingSpinner />}>
                 <LazyChurchOptionsPage />
@@ -111,7 +112,7 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: '/pastors',
+            path: 'pastors',
             element: (
               <Suspense fallback={<LoadingSpinner />}>
                 <LazyPastorOptionsPage />
@@ -119,7 +120,7 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: '/copastors',
+            path: 'copastors',
             element: (
               <Suspense fallback={<LoadingSpinner />}>
                 <LazyCopastorOptionsPage />
@@ -127,7 +128,7 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: '/supervisors',
+            path: 'supervisors',
             element: (
               <Suspense fallback={<LoadingSpinner />}>
                 <LazySupervisorOptionsPage />
@@ -143,7 +144,7 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: '/disciples',
+            path: 'disciples',
             element: (
               <Suspense fallback={<LoadingSpinner />}>
                 <LazyDiscipleOptionsPage />
@@ -151,7 +152,7 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: '/family-groups',
+            path: 'family-groups',
             element: (
               <Suspense fallback={<LoadingSpinner />}>
                 <FamilyGroupOptionsPage />
@@ -159,7 +160,7 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: '/zones',
+            path: 'zones',
             element: (
               <Suspense fallback={<LoadingSpinner />}>
                 <ZoneOptionsPage />
@@ -167,7 +168,7 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: '/offerings',
+            path: 'offerings',
             element: (
               <Suspense fallback={<LoadingSpinner />}>
                 <OfferingOptionsPage />
@@ -175,7 +176,7 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: '/offerings/income',
+            path: 'offerings/income',
             element: (
               <Suspense fallback={<LoadingSpinner />}>
                 <OfferingIncomeOptionsPage />
@@ -183,7 +184,7 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: '/offerings/expenses',
+            path: 'offerings/expenses',
             element: (
               <Suspense fallback={<LoadingSpinner />}>
                 <OfferingExpenseOptionsPage />
@@ -191,7 +192,7 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: '/metrics',
+            path: 'metrics',
             element: (
               <Suspense fallback={<LoadingSpinner />}>
                 <MetricsOptionsPage />
@@ -199,7 +200,7 @@ export const router = createBrowserRouter([
             ),
           },
           {
-            path: '/users',
+            path: 'users',
             element: (
               <Suspense fallback={<LoadingSpinner />}>
                 <UserOptionsPage />
@@ -212,7 +213,7 @@ export const router = createBrowserRouter([
       // ? Children routes and pages by module
       //* Members
       {
-        path: '/churches',
+        path: 'churches',
         element: (
           <Suspense fallback={<LoadingSpinner />}>
             <LazyDashboardLayout />
@@ -221,7 +222,7 @@ export const router = createBrowserRouter([
         children: ChurchChildrenRoutes,
       },
       {
-        path: '/disciples',
+        path: 'disciples',
         element: (
           <Suspense fallback={<LoadingSpinner />}>
             <LazyDashboardLayout />
@@ -230,7 +231,7 @@ export const router = createBrowserRouter([
         children: DiscipleChildrenRoutes,
       },
       {
-        path: '/pastors',
+        path: 'pastors',
         element: (
           <Suspense fallback={<LoadingSpinner />}>
             <LazyDashboardLayout />
@@ -239,7 +240,7 @@ export const router = createBrowserRouter([
         children: PastorChildrenRoutes,
       },
       {
-        path: '/copastors',
+        path: 'copastors',
         element: (
           <Suspense fallback={<LoadingSpinner />}>
             <LazyDashboardLayout />
@@ -248,7 +249,7 @@ export const router = createBrowserRouter([
         children: CopastorChildrenRoutes,
       },
       {
-        path: '/supervisors',
+        path: 'supervisors',
         element: (
           <Suspense fallback={<LoadingSpinner />}>
             <LazyDashboardLayout />
@@ -257,7 +258,7 @@ export const router = createBrowserRouter([
         children: SupervisorChildrenRoutes,
       },
       {
-        path: '/preachers',
+        path: 'preachers',
         element: (
           <Suspense fallback={<LoadingSpinner />}>
             <LazyDashboardLayout />
@@ -266,7 +267,7 @@ export const router = createBrowserRouter([
         children: PreacherChildrenRoutes,
       },
       {
-        path: '/family-groups',
+        path: 'family-groups',
         element: (
           <Suspense fallback={<LoadingSpinner />}>
             <LazyDashboardLayout />
@@ -275,7 +276,7 @@ export const router = createBrowserRouter([
         children: FamilyGroupChildrenRoutes,
       },
       {
-        path: '/zones',
+        path: 'zones',
         element: (
           <Suspense fallback={<LoadingSpinner />}>
             <LazyDashboardLayout />
@@ -286,7 +287,7 @@ export const router = createBrowserRouter([
 
       //* Offering income
       {
-        path: '/offerings/income',
+        path: 'offerings/income',
         element: (
           <Suspense fallback={<LoadingSpinner />}>
             <LazyDashboardLayout />
@@ -297,7 +298,7 @@ export const router = createBrowserRouter([
 
       //* Offering expenses
       {
-        path: '/offerings/expenses',
+        path: 'offerings/expenses',
         element: (
           <Suspense fallback={<LoadingSpinner />}>
             <LazyDashboardLayout />
@@ -308,7 +309,7 @@ export const router = createBrowserRouter([
 
       //* Users
       {
-        path: '/users',
+        path: 'users',
         element: (
           <Suspense fallback={<LoadingSpinner />}>
             <LazyDashboardLayout />
@@ -319,7 +320,7 @@ export const router = createBrowserRouter([
 
       //* Metrics and charts
       {
-        path: '/metrics',
+        path: 'metrics',
         element: (
           <Suspense fallback={<LoadingSpinner />}>
             <LazyDashboardLayout />
@@ -329,7 +330,7 @@ export const router = createBrowserRouter([
       },
 
       //* Auth
-      { path: '/auth', element: <AuthLayout />, children: AuthChildrenRoutes },
+      { path: 'auth', element: <AuthLayout />, children: AuthChildrenRoutes },
     ],
   },
   {

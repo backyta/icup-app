@@ -406,7 +406,7 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
 }
 
 //* General
-export const getGeneralDisciplesReport = async ({limit, offset, order, churchId}: DiscipleQueryParams): Promise<void> => {
+export const getGeneralDisciplesReport = async ({limit, offset, order, churchId}: DiscipleQueryParams): Promise<boolean> => {
    try {
     const res = await icupApi<Blob>('/reports/disciples' , {
       params: {
@@ -423,6 +423,7 @@ export const getGeneralDisciplesReport = async ({limit, offset, order, churchId}
     
     openPdfInNewTab(res.data);
     
+    return true;
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)
@@ -445,7 +446,7 @@ export const getDisciplesReportByTerm = async ({
   offset, 
   order,
   churchId,
-}: DiscipleQueryParams): Promise<void> => {
+}: DiscipleQueryParams): Promise<boolean> => {
   let newTerm: string | undefined = '';
   
   const termMapping: Record<DiscipleSearchType, string | undefined> = {
@@ -489,6 +490,7 @@ export const getDisciplesReportByTerm = async ({
     
     openPdfInNewTab(res.data);
     
+    return true;
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)

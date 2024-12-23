@@ -2,18 +2,16 @@ import { useEffect, useState } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type PreacherFieldNames } from '@/modules/preacher/enums/preacher-field-names.enum';
+import { PreacherFieldNames } from '@/modules/preacher/enums/preacher-field-names.enum';
 import { type PreacherFormData } from '@/modules/preacher/interfaces/preacher-form-data.interface';
 
 interface Options {
   preacherUpdateForm: UseFormReturn<PreacherFormData, any, undefined>;
-  fieldNames: typeof PreacherFieldNames;
   setIsPromoteButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const usePreacherPromoteButtonLogic = ({
   preacherUpdateForm,
-  fieldNames,
   setIsPromoteButtonDisabled,
 }: Options): any => {
   //* States
@@ -46,7 +44,7 @@ export const usePreacherPromoteButtonLogic = ({
   // ? Effects
   //* Setea los valores fijos en un estado
   useEffect(() => {
-    const initialValues = preacherUpdateForm.getValues([...Object.values(fieldNames)]);
+    const initialValues = preacherUpdateForm.getValues([...Object.values(PreacherFieldNames)]);
     setFixedValues(initialValues);
   }, []);
 
@@ -54,7 +52,7 @@ export const usePreacherPromoteButtonLogic = ({
     //* Asigna los previous values y los current values
     const previousValues: PreacherFormData[] = lastValues;
     const currentValues: PreacherFormData[] = preacherUpdateForm.getValues([
-      ...Object.values(fieldNames),
+      ...Object.values(PreacherFieldNames),
     ]);
 
     //* Valida si hay algún cambio y coloca a true el promote button

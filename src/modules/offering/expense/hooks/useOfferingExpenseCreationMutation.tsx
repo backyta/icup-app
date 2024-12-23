@@ -21,11 +21,11 @@ import { OfferingFileType } from '@/modules/offering/shared/enums/offering-file-
 import { type FilesProps } from '@/modules/offering/shared/interfaces/files-props.interface';
 
 interface Options {
+  imageUrls: string[];
   setFiles: React.Dispatch<React.SetStateAction<FilesProps[]>>;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   offeringExpenseCreationForm: UseFormReturn<OfferingExpenseFormData, any, undefined>;
-  imageUrls: string[];
 }
 
 export const useOfferingExpenseCreationMutation = ({

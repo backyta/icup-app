@@ -12,8 +12,8 @@ import { type PreacherResponse } from '@/modules/preacher/interfaces/preacher-re
 interface Options {
   id: string;
   data: FamilyGroupResponse | undefined;
-  familyGroupPreacherUpdateForm: UseFormReturn<FamilyGroupPreacherUpdateFormData, any, undefined>;
   preachersQuery: UseQueryResult<PreacherResponse[], Error>;
+  familyGroupPreacherUpdateForm: UseFormReturn<FamilyGroupPreacherUpdateFormData, any, undefined>;
 }
 
 export const useFamilyGroupPreacherUpdateEffects = ({

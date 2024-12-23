@@ -9,7 +9,7 @@ import { UserSearchType } from '@/modules/user/enums/user-search-type.enum';
 export const userSearchByTermFormSchema = z
   .object({
     searchType: z.nativeEnum(UserSearchType,{
-      required_error: "Por favor seleccione un tipo.",
+      required_error: "El tipo de búsqueda es requerido.",
     }),
     
     multiSelectTerm: z.array(z.nativeEnum(UserRole),{
@@ -27,16 +27,16 @@ export const userSearchByTermFormSchema = z
     limit: z.string().refine(limit => {
       return /^\d+$/.test(limit);
     }, {
-      message: 'El límite debe ser un número positivo'
+      message: 'El límite debe ser un número mayor a 0.'
     }).refine(limit => {
       const parsedLimit = parseInt(limit);
       return !isNaN(parsedLimit) && parsedLimit > 0;
     }, {
-      message: 'El límite debe ser un número mayor a 0'
+      message: 'El límite debe ser un número mayor a 0.'
     }).optional(),
 
     order: z.string(z.nativeEnum(RecordOrder, {
-      required_error: "Seleccione un orden para al consulta.",
+         required_error: "Debe seleccionar una opción.",
     })),
 
     all: z.boolean().optional(),
@@ -110,7 +110,7 @@ export const userSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'Por favor seleccione una opción.',
+      message: 'El termino de búsqueda es requerido.',
       path: ['selectTerm'],
     }
   )
@@ -124,7 +124,7 @@ export const userSearchByTermFormSchema = z
       return true;
     },
     {
-      message: 'Por favor seleccione al menos un rol.',
+      message: 'Debes seleccionar al menos un rol.',
       path: ['multiSelectTerm'],
     }
   )

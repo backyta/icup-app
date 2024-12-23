@@ -5,19 +5,17 @@ import { useEffect } from 'react';
 
 import { type UseFormReturn } from 'react-hook-form';
 
-import { type MemberRole } from '@/shared/enums/member-role.enum';
+import { MemberRole } from '@/shared/enums/member-role.enum';
 import { type PastorFormData } from '@/modules/pastor/interfaces/pastor-form-data.interface';
 
 interface Options {
   pastorCreationForm: UseFormReturn<PastorFormData, any, undefined>;
-  memberRoles: typeof MemberRole;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   isInputDisabled: boolean;
 }
 
 export const usePastorCreationSubmitButtonLogic = ({
-  memberRoles,
   isInputDisabled,
   pastorCreationForm,
   setIsSubmitButtonDisabled,
@@ -56,7 +54,7 @@ export const usePastorCreationSubmitButtonLogic = ({
 
     if (
       theirChurch &&
-      roles.includes(memberRoles.Pastor) &&
+      roles.includes(MemberRole.Pastor) &&
       Object.values(pastorCreationForm.formState.errors).length === 0 &&
       !isInputDisabled
     ) {
@@ -71,8 +69,6 @@ export const usePastorCreationSubmitButtonLogic = ({
       !birthDate ||
       !conversionDate ||
       !maritalStatus ||
-      !email ||
-      !phoneNumber ||
       !originCountry ||
       !numberChildren ||
       !country ||
@@ -113,6 +109,6 @@ export const usePastorCreationSubmitButtonLogic = ({
   ]);
 
   useEffect(() => {
-    pastorCreationForm.setValue('roles', [memberRoles.Pastor]);
+    pastorCreationForm.setValue('roles', [MemberRole.Pastor]);
   }, []);
 };

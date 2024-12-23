@@ -6,10 +6,10 @@ import { type UseFormReturn } from 'react-hook-form';
 import { type FamilyGroupFormData } from '@/modules/family-group/interfaces/family-group-form-data.interface';
 
 interface Options {
-  familyGroupCreationForm: UseFormReturn<FamilyGroupFormData, any, undefined>;
+  isInputDisabled: boolean;
   setIsSubmitButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsMessageErrorDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  isInputDisabled: boolean;
+  familyGroupCreationForm: UseFormReturn<FamilyGroupFormData, any, undefined>;
 }
 
 export const useFamilyGroupCreationSubmitButtonLogic = ({

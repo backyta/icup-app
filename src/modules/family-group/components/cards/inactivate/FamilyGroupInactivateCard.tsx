@@ -41,8 +41,14 @@ import {
   SelectContent,
   SelectTrigger,
 } from '@/shared/components/ui/select';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogTrigger,
+  DialogDescription,
+} from '@/shared/components/ui/dialog';
 import { Button } from '@/shared/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 
 interface FamilyGroupInactivateCardProps {
   idRow: string;
@@ -139,29 +145,29 @@ export const FamilyGroupInactivateCard = ({
         className='w-[23rem] sm:w-[25rem] md:w-full max-h-full overflow-x-hidden overflow-y-auto'
       >
         <div className='h-auto'>
-          <h2 className='dark:text-yellow-500 text-amber-500 font-bold text-[22px] text-center md:text-[25px] pb-3'>
+          <DialogTitle className='dark:text-yellow-500 text-amber-500 font-bold text-[22px] text-center md:text-[25px] pb-3'>
             ¿Estas seguro de inactivar este Grupo Familiar?
-          </h2>
-          <p>
-            <span className='text-blue-500 font-bold mb-3 inline-block text-[16px] md:text-[18px]'>
-              Luego de realizar esta operación sucederá lo siguiente:
-            </span>
-            <br />
-            <span className='inline-block mb-2 text-[14.5px] md:text-[15px]'>
-              ❌ El registro de este Grupo Familiar se colocara en estado{' '}
-              <span className='font-bold'>INACTIVO.</span>
-            </span>
-            <span className='inline-block mb-2 text-[14.5px] md:text-[15px]'>
-              ❌ El registro de este Grupo Familiar se eliminara de los lugares donde estaba
-              relacionado con algunos de estos roles:
-              <li>Pastor, Co-Pastor, Supervisor, Zona, Predicador, G. Familiar, Discípulo.</li>
-            </span>
-            <span className='inline-block text-[14.5px] md:text-[15px]'>
-              ✅ Para poder activarlo nuevamente deberás hacerlo desde el modulo{' '}
-              <span className='font-bold'>Actualizar Grupo Familiar.</span>
-            </span>
-            <br />
-          </p>
+          </DialogTitle>
+
+          <DialogDescription className='text-blue-500 font-bold mb-3 inline-block text-[16px] md:text-[18px]'>
+            Luego de realizar esta operación sucederá lo siguiente:
+          </DialogDescription>
+
+          <br />
+          <span className='inline-block mb-2 text-[14.5px] md:text-[15px]'>
+            ❌ El registro de este Grupo Familiar se colocara en estado{' '}
+            <span className='font-bold'>INACTIVO.</span>
+          </span>
+          <span className='inline-block mb-2 text-[14.5px] md:text-[15px]'>
+            ❌ El registro de este Grupo Familiar se eliminara de los lugares donde estaba
+            relacionado con algunos de estos roles:
+            <li>Pastor, Co-Pastor, Supervisor, Zona, Predicador, G. Familiar, Discípulo.</li>
+          </span>
+          <span className='inline-block text-[14.5px] md:text-[15px]'>
+            ✅ Para poder activarlo nuevamente deberás hacerlo desde el modulo{' '}
+            <span className='font-bold'>Actualizar Grupo Familiar.</span>
+          </span>
+          <br />
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -171,8 +177,8 @@ export const FamilyGroupInactivateCard = ({
                 render={({ field }) => {
                   return (
                     <FormItem className='mt-3'>
-                      <FormLabel className='text-[14px] md:text-[14.5px] font-bold text-red-500'>
-                        ¿Cual es el motivo por el cual se esta inactivando este registro?
+                      <FormLabel className='text-[14px] md:text-[14.5px] font-bold text-emerald-500'>
+                        ¿Cuál es el motivo por el cual se esta inactivando este registro?
                       </FormLabel>
                       <FormDescription className='text-[13.5px] md:text-[14px] pl-1'>
                         Elige una categoría de eliminación.

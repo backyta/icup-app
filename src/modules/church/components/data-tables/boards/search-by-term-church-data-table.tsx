@@ -54,11 +54,11 @@ import { Input } from '@/shared/components/ui/input';
 import { Button } from '@/shared/components/ui/button';
 
 interface DataTableProps<TData, TValue> {
-  columns: Array<ColumnDef<TData, TValue>>;
   data: TData[];
+  columns: Array<ColumnDef<TData, TValue>>;
+  dataForm: ChurchSearchFormByTerm | undefined;
   searchParams: ChurchSearchFormByTerm | undefined;
   setSearchParams: React.Dispatch<React.SetStateAction<ChurchSearchFormByTerm | undefined>>;
-  dataForm: ChurchSearchFormByTerm | undefined;
 }
 
 export function SearchByTermChurchDataTable<TData, TValue>({
@@ -221,7 +221,7 @@ export function SearchByTermChurchDataTable<TData, TValue>({
           </div>
 
           {/* Inputs Filters */}
-          <div className='pb-8 pt-4 lg:pb-8 grid grid-cols-2 gap-3 lg:flex lg:items-center lg:py-4 lg:gap-3'>
+          <div className='pb-8 pt-4 lg:pb-8 grid grid-cols-2 gap-4 lg:flex lg:items-center lg:py-4 lg:gap-3'>
             <div className='flex w-full col-span-2 gap-2 md:gap-3 md:row-start-1 md:row-end-2'>
               <Input
                 disabled={isDisabledButton}

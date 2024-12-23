@@ -18,7 +18,7 @@ const LazyCopastorCreatePage = lazy(() => import('@/modules/copastor/pages/Copas
 
 export const CopastorChildrenRoutes = [
   {
-    path: '/copastors/create',
+    path: 'create',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyCopastorCreatePage />
@@ -26,7 +26,7 @@ export const CopastorChildrenRoutes = [
     ),
   },
   {
-    path: '/copastors/general-search',
+    path: 'general-search',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyCopastorsGeneralSearchPage />
@@ -34,7 +34,7 @@ export const CopastorChildrenRoutes = [
     ),
   },
   {
-    path: '/copastors/search-by-term',
+    path: 'search-by-term',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyCopastorsSearchPageByTerm />
@@ -42,7 +42,7 @@ export const CopastorChildrenRoutes = [
     ),
   },
   {
-    path: '/copastors/update',
+    path: 'update',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyCopastorUpdatePage />
@@ -50,7 +50,7 @@ export const CopastorChildrenRoutes = [
     ),
   },
   {
-    path: '/copastors/inactivate',
+    path: 'inactivate',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <LazyCopastorInactivatePage />

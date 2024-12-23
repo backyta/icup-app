@@ -23,7 +23,6 @@ import { useDisciplePromoteButtonLogic } from '@/modules/disciple/hooks/useDisci
 import { useDiscipleRolePromotionHandler } from '@/modules/disciple/hooks/useDiscipleRolePromotionHandler';
 import { useDiscipleUpdateSubmitButtonLogic } from '@/modules/disciple/hooks/useDiscipleUpdateSubmitButtonLogic';
 
-import { DiscipleFieldNames } from '@/modules/disciple/enums/disciple-field-names.enum';
 import { discipleFormSchema } from '@/modules/disciple/validations/disciple-form-schema';
 import { type DiscipleResponse } from '@/modules/disciple/interfaces/disciple-response.interface';
 import { DiscipleFormSkeleton } from '@/modules/disciple/components/cards/update/DiscipleFormSkeleton';
@@ -171,18 +170,15 @@ export const DiscipleUpdateForm = ({
 
   const { disabledRoles } = useRoleValidationByPath({
     path: pathname,
-    memberRoles: MemberRole,
   });
 
   useDisciplePromoteButtonLogic({
     discipleUpdateForm: form,
-    fieldName: DiscipleFieldNames,
     setIsPromoteButtonDisabled,
   });
 
   useDiscipleUpdateSubmitButtonLogic({
     discipleUpdateForm: form,
-    memberRoles: MemberRole,
     isInputDisabled,
     setIsMessageErrorDisabled,
     setIsSubmitButtonDisabled,
@@ -216,7 +212,7 @@ export const DiscipleUpdateForm = ({
   return (
     <Tabs
       defaultValue='general-info'
-      className='w-auto sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
+      className='w-auto -mt-8 sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
       <h2 className='text-center leading-7 text-orange-500 pb-2 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
         Actualizar información del Discípulo
@@ -1241,7 +1237,7 @@ export const DiscipleUpdateForm = ({
                             onClick={() => {
                               useDiscipleRolePromotionHandler({
                                 discipleUpdateForm: form,
-                                memberRoles: MemberRole,
+
                                 setIsDisabledPromoteButton: setIsPromoteButtonDisabled,
                                 setIsDisabledInput: setIsInputDisabled,
                               });
