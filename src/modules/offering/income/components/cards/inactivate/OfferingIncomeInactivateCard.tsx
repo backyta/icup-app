@@ -102,9 +102,9 @@ export const OfferingIncomeInactivateCard = ({
 
   //* Custom hooks
   const offeringIncomeInactivationMutation = useOfferingIncomeInactivationMutation({
-    setIsSelectInputDisabled,
     setIsCardOpen,
     setIsButtonDisabled,
+    setIsSelectInputDisabled,
     scrollToTop: handleContainerScroll,
   });
 

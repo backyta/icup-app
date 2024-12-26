@@ -12,6 +12,7 @@ export interface FamilyGroupsByServiceTimePayload {
   payload: {
     serviceTime: string;
     serviceTimesCount: number;
+    copastor: string;
     supervisor: string;
     church:{
       isAnexe: boolean;

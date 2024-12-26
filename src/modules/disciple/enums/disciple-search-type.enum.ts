@@ -37,5 +37,5 @@ export const DiscipleSearchTypeNames: Record<DiscipleSearchType, string> =  {
   [DiscipleSearchType.ResidenceDistrict]: 'Distrito (residencia)',
   [DiscipleSearchType.ResidenceUrbanSector]: 'Sector Urbano (residencia)',
   [DiscipleSearchType.ResidenceAddress]: 'Dirección (residencia)',
-  [DiscipleSearchType.RecordStatus]: 'Estado de registro (residencia)',
+  [DiscipleSearchType.RecordStatus]: 'Estado de registro',
 }

@@ -142,7 +142,7 @@ export const OfferingComparativeAnalysisCardByIncomeAndExpenses = ({
                             variant='outline'
                             role='combobox'
                             className={cn(
-                              'justify-between w-full text-[12px] md:text-[14px] text-center px-2',
+                              'justify-between w-full text-[14px] md:text-[14px] text-center px-2',
                               !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-2'
                             )}
                           >
@@ -157,13 +157,13 @@ export const OfferingComparativeAnalysisCardByIncomeAndExpenses = ({
                         <Command>
                           <CommandInput
                             placeholder='Busque un divisa...'
-                            className='h-9 text-[12px] md:text-[14px]'
+                            className='h-9 text-[14px] md:text-[14px]'
                           />
                           <CommandEmpty>Divisa no encontrado.</CommandEmpty>
                           <CommandGroup className='max-h-[100px] h-auto'>
                             {Object.values(CurrencyType).map((currency) => (
                               <CommandItem
-                                className='text-[12px] md:text-[14px]'
+                                className='text-[14px] md:text-[14px]'
                                 value={currency}
                                 key={currency}
                                 onSelect={() => {
@@ -203,7 +203,7 @@ export const OfferingComparativeAnalysisCardByIncomeAndExpenses = ({
                             variant='outline'
                             role='combobox'
                             className={cn(
-                              'justify-between w-full text-[12px] md:text-[14px] text-center px-2',
+                              'justify-between w-full text-[14px] md:text-[14px] text-center px-2',
                               !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-2'
                             )}
                           >
@@ -218,13 +218,13 @@ export const OfferingComparativeAnalysisCardByIncomeAndExpenses = ({
                         <Command>
                           <CommandInput
                             placeholder='Busque un año...'
-                            className='h-9 text-[12px] md:text-[14px] '
+                            className='h-9 text-[14px] md:text-[14px] '
                           />
                           <CommandEmpty>Año no encontrado.</CommandEmpty>
                           <CommandGroup className='max-h-[100px] h-auto'>
                             {years.map((year) => (
                               <CommandItem
-                                className='text-[12px] md:text-[14px] '
+                                className='text-[14px] md:text-[14px] '
                                 value={year.label}
                                 key={year.value}
                                 onSelect={() => {
@@ -256,14 +256,14 @@ export const OfferingComparativeAnalysisCardByIncomeAndExpenses = ({
       </CardHeader>
 
       {!incomeAndExpensesComparativeByYear?.data?.length && !searchParams ? (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[8rem] pb-2' />
             <p>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           {incomeAndExpensesComparativeByYear?.isFetching &&
             (!incomeAndExpensesComparativeByYear?.data ||
               incomeAndExpensesComparativeByYear?.data?.length === 0) &&
@@ -284,7 +284,7 @@ export const OfferingComparativeAnalysisCardByIncomeAndExpenses = ({
                 <AreaChart
                   accessibilityLayer
                   data={incomeAndExpensesComparativeByYear?.data}
-                  margin={{ top: 5, right: 5, left: -10, bottom: 10 }}
+                  margin={{ top: 5, right: 5, left: -20, bottom: 10 }}
                 >
                   <CartesianGrid vertical={false} />
                   <XAxis
@@ -292,10 +292,10 @@ export const OfferingComparativeAnalysisCardByIncomeAndExpenses = ({
                     tickLine={false}
                     axisLine={false}
                     tickMargin={8}
-                    className='text-[12px] md:text-[14px]'
+                    className='text-[12.5px] md:text-[14px]'
                     tickFormatter={(value) => value.slice(0, 3)}
                   />
-                  <YAxis type='number' className='text-[12px] md:text-[14px]' />
+                  <YAxis type='number' className='text-[12.5px] md:text-[14px]' />
 
                   <ChartTooltip
                     cursor={false}
@@ -303,7 +303,7 @@ export const OfferingComparativeAnalysisCardByIncomeAndExpenses = ({
                   />
 
                   <ChartLegend
-                    content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}
+                    content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
                   />
 
                   <Area
@@ -325,7 +325,7 @@ export const OfferingComparativeAnalysisCardByIncomeAndExpenses = ({
                 <AreaChart
                   accessibilityLayer
                   data={incomeAndExpensesComparativeByYear?.data}
-                  margin={{ top: 5, right: 5, left: -10, bottom: 10 }}
+                  margin={{ top: 5, right: 5, left: -20, bottom: 10 }}
                 >
                   <CartesianGrid vertical={false} />
                   <XAxis
@@ -333,10 +333,10 @@ export const OfferingComparativeAnalysisCardByIncomeAndExpenses = ({
                     tickLine={false}
                     axisLine={false}
                     tickMargin={8}
-                    className='text-[12px] md:text-[14px]'
+                    className='text-[12.5px] md:text-[14px]'
                     tickFormatter={(value) => value.slice(0, 3)}
                   />
-                  <YAxis type='number' className='text-[12px] md:text-[14px]' />
+                  <YAxis type='number' className='text-[12.5px] md:text-[14px]' />
 
                   <ChartTooltip
                     cursor={false}
@@ -344,7 +344,7 @@ export const OfferingComparativeAnalysisCardByIncomeAndExpenses = ({
                   />
 
                   <ChartLegend
-                    content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}
+                    content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
                   />
 
                   <Area

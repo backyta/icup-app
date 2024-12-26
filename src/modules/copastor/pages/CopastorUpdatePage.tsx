@@ -403,7 +403,7 @@ export const CopastorUpdatePage = (): JSX.Element => {
                   control={form.control}
                   name='dateTerm'
                   render={({ field }) => (
-                    <FormItem className=''>
+                    <FormItem>
                       <FormLabel className='text-[14px] font-bold'>Fecha</FormLabel>
                       <FormDescription className='text-[13.5px] md:text-[14px]'>
                         Buscar por fecha o rango de fechas.

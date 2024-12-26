@@ -158,7 +158,7 @@ export const MemberAnalysisCardByDistrictAndGender = ({ churchId }: Props): JSX.
             Object.entries(membersByDistrictAndGenderQuery?.data)?.length > 0 && (
               <Badge
                 variant='active'
-                className='mt-1 text-[10px] md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
+                className='mt-1 text-[11px] text-white md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
               >
                 Activos
               </Badge>
@@ -183,7 +183,7 @@ export const MemberAnalysisCardByDistrictAndGender = ({ churchId }: Props): JSX.
                             variant='outline'
                             role='combobox'
                             className={cn(
-                              'justify-between w-full text-center px-2 text-[12px] md:text-[14px]',
+                              'justify-between w-full text-center px-2 text-[14px] md:text-[14px]',
                               !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-4'
                             )}
                           >
@@ -198,13 +198,13 @@ export const MemberAnalysisCardByDistrictAndGender = ({ churchId }: Props): JSX.
                         <Command>
                           <CommandInput
                             placeholder='Busque un distrito...'
-                            className='h-9 text-[12px] md:text-[14px]'
+                            className='h-9 text-[14px] md:text-[14px]'
                           />
                           <CommandEmpty>Distrito no encontrado.</CommandEmpty>
                           <CommandGroup className='max-h-[200px] h-auto'>
                             {Object.values(District).map((district) => (
                               <CommandItem
-                                className='text-[12px] md:text-[14px]'
+                                className='text-[14px] md:text-[14px]'
                                 value={district}
                                 key={district}
                                 onSelect={() => {
@@ -236,14 +236,14 @@ export const MemberAnalysisCardByDistrictAndGender = ({ churchId }: Props): JSX.
       </CardHeader>
 
       {membersByDistrictAndGenderQuery?.isFetching && !mappedData?.length ? (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
             <p>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           {membersByDistrictAndGenderQuery?.isFetching && !mappedData?.length && (
             <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDataBackup className='text-[6rem] pb-2' />
@@ -260,7 +260,7 @@ export const MemberAnalysisCardByDistrictAndGender = ({ churchId }: Props): JSX.
               <BarChart
                 accessibilityLayer
                 data={mappedData}
-                margin={{ top: 5, right: 5, left: -28, bottom: 10 }}
+                margin={{ top: 5, right: 5, left: -30, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
                 <XAxis
@@ -269,15 +269,15 @@ export const MemberAnalysisCardByDistrictAndGender = ({ churchId }: Props): JSX.
                   tickMargin={10}
                   axisLine={true}
                   tickFormatter={(value) => value.slice(0, 10)}
-                  className='text-[12px] md:text-[14px]'
+                  className='text-[12.5px] md:text-[14px]'
                 />
-                <YAxis type='number' className='text-[12px] md:text-[14px]' />
+                <YAxis type='number' className='text-[12.5px] md:text-[14px]' />
                 <ChartTooltip
                   cursor={false}
                   content={MembersByDistrictAndGenderTooltipContent as any}
                 />
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}
+                  content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
                 />
                 <Bar dataKey='men' fill='var(--color-men)' radius={4} />
                 <Bar dataKey='women' fill='var(--color-women)' radius={4} />

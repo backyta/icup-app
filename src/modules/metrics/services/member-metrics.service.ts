@@ -187,8 +187,8 @@ export const  getMembersByMaritalStatus = async ({
   }
 }
 
-//* Get members by zone and gender
-export const  getMembersByZoneAndGender = async ({ 
+//* Get disciples by zone and gender
+export const  getDisciplesByZoneAndGender = async ({ 
   searchType,
   church,
   copastor,

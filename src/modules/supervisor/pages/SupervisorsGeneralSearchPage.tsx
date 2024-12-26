@@ -208,8 +208,8 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
                   name='all'
                   render={({ field }) => (
                     <FormItem className='flex flex-col justify-end'>
-                      <FormLabel className=''></FormLabel>
-                      <FormDescription className=''></FormDescription>
+                      <FormLabel></FormLabel>
+                      <FormDescription></FormDescription>
                       <div className='flex items-center space-x-2 space-y-0 rounded-md border p-2.5 h-[2.5rem]'>
                         <FormControl className='text-[14px] md:text-[14px]'>
                           <Checkbox

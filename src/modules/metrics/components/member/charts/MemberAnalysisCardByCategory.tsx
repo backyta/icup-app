@@ -146,15 +146,15 @@ export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element =
   return (
     <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] md:h-[25rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardTitle className='flex items-center gap-2.5 justify-center px-4 py-2 text-center font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-        <span className='ml-20'>Categoría</span>
+        <span className='ml-16 md:ml-20'>Categoría</span>
         <Badge
           variant='active'
-          className='mt-1 text-[10px] md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
+          className='mt-1 text-white text-[11px] md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
         >
           Activos
         </Badge>
       </CardTitle>
-      <span className='-mt-2 text-[12px] md:text-[14px] pl-3 text-center font-medium text-slate-500 dark:text-slate-400'>
+      <span className='-mt-2 text-[14px] md:text-[14px] md:pl-3 text-center font-medium text-slate-500 dark:text-slate-400'>
         {church?.abbreviatedChurchName}
       </span>
 
@@ -183,7 +183,7 @@ export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element =
 
                 return (
                   <SelectItem key={key} value={key} className='rounded-lg [&_span]:flex'>
-                    <div className='flex items-center gap-2 text-xs pr-1.5'>
+                    <div className='flex text-[13px] items-center gap-2 pr-1.5'>
                       <span
                         className={cn(
                           'flex h-3 w-3 shrink-0 rounded-sm',
@@ -221,7 +221,7 @@ export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element =
                     cursor={false}
                     content={
                       <ChartTooltipContent
-                        className='text-[12px] md:text-[14px] w-[10rem]'
+                        className='text-[14px] md:text-[14px] w-[10rem]'
                         indicator='dot'
                         hideLabel
                       />
@@ -258,14 +258,14 @@ export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element =
                               <tspan
                                 x={viewBox.cx}
                                 y={viewBox.cy}
-                                className='fill-foreground text-[40px] md:text-5xl font-bold'
+                                className='fill-foreground text-[45px] md:text-5xl font-bold'
                               >
                                 {mappedData?.[activeIndex]?.membersCount.toLocaleString()}
                               </tspan>
                               <tspan
                                 x={viewBox.cx}
                                 y={(viewBox.cy || 0) + 34}
-                                className='fill-muted-foreground text-[12.5px] md:text-[14px]'
+                                className='fill-muted-foreground text-[14px] md:text-[14px]'
                               >
                                 Miembros
                               </tspan>

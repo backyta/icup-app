@@ -123,12 +123,12 @@ export function MembersInfoCard(): JSX.Element {
                         onOpenChange={setIsInputSearchChurchOpen}
                       >
                         <PopoverTrigger asChild>
-                          <FormControl className='text-[14px] md:text-[14px]'>
+                          <FormControl>
                             <Button
                               variant='outline'
                               role='combobox'
                               className={cn(
-                                'justify-between w-full text-center px-2 text-[13px] md:text-[14px]',
+                                'justify-between w-full text-center px-2 text-[13.5px] md:text-[14px]',
                                 !field.value &&
                                   'text-slate-500 dark:text-slate-200 font-normal px-2'
                               )}
@@ -154,7 +154,7 @@ export function MembersInfoCard(): JSX.Element {
                           <Command>
                             <CommandInput
                               placeholder='Busque una iglesia'
-                              className='h-9 text-[13px] md:text-[14px]'
+                              className='h-9 text-[14px] md:text-[14px]'
                             />
                             <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
                             <CommandGroup className='max-h-[100px] h-auto'>

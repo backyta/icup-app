@@ -179,7 +179,7 @@ export const UserCreatePage = (): JSX.Element => {
               name='gender'
               render={({ field }) => {
                 return (
-                  <FormItem className=''>
+                  <FormItem>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Género</FormLabel>
                     <Select
                       onValueChange={field.onChange}

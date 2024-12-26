@@ -1,12 +1,11 @@
 interface FamilyGroupStats  {
   copastor: string;
   supervisor: string;
-  serviceTimesCount: number;
-  church: {
+  familyGroupsCount: number;
+  church:{
     isAnexe: boolean;
     abbreviatedChurchName: string;
-  };
+  }
 }
 
-export type FamilyGroupsByServiceTimeResponse = Record<string, FamilyGroupStats>;
-
+export type FamilyGroupsByCopastorAndZoneResponse = Record<string, FamilyGroupStats>;

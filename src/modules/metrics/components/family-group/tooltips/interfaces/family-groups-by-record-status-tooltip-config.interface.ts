@@ -10,6 +10,7 @@ export interface FamilyGroupsByRecordStatusPayload {
   type?: string | undefined;
   payload: {
     zoneName: string;
+    copastor: string;
     supervisor: string;
     active: number;
     inactive: number;

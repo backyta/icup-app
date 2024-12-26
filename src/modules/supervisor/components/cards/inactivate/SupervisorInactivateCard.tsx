@@ -114,6 +114,7 @@ export const SupervisorInactivateCard = ({ idRow }: SupervisorInactivateCardProp
   const supervisorInactivationMutation = useSupervisorInactivationMutation({
     setIsCardOpen,
     setIsButtonDisabled,
+    setIsSelectInputDisabled,
     scrollToTop: handleContainerScroll,
   });
 

@@ -191,7 +191,7 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
           Salidas de Ofrenda (Sub-tipo)
         </CardTitle>
         <Form {...form}>
-          <form className='flex items-center flex-col md:flex-row'>
+          <form className='flex items-center flex-col md:flex-row gap-2'>
             <FormField
               control={form.control}
               name='type'
@@ -213,7 +213,7 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
                             variant='outline'
                             role='combobox'
                             className={cn(
-                              'justify-between w-full text-[12px] md:text-[14px] text-center px-2',
+                              'justify-between w-full text-[14px] md:text-[14px] text-center px-2',
                               !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-4'
                             )}
                           >
@@ -228,7 +228,7 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
                         <Command>
                           <CommandInput
                             placeholder='Busque un tipo...'
-                            className='h-9 text-[12px] md:text-[14px]'
+                            className='h-9 text-[14px] md:text-[14px]'
                           />
                           <CommandEmpty>Tipo no encontrado.</CommandEmpty>
                           <CommandGroup className='max-h-[100px] h-auto'>
@@ -236,7 +236,7 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
                               (type) =>
                                 type.key !== OfferingExpenseSearchType.ExpensesAdjustment && (
                                   <CommandItem
-                                    className='text-[12px] md:text-[14px]'
+                                    className='text-[14px] md:text-[14px]'
                                     value={type.value}
                                     key={type.key}
                                     onSelect={() => {
@@ -264,7 +264,7 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
               }}
             />
 
-            <div className='flex'>
+            <div className='flex gap-2'>
               <FormField
                 control={form.control}
                 name='startMonth'
@@ -281,7 +281,7 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
                               variant='outline'
                               role='combobox'
                               className={cn(
-                                'justify-between w-full text-[12px] md:text-[14px] text-center px-2',
+                                'justify-between w-full text-[14px] md:text-[14px] text-center px-2',
                                 !field.value &&
                                   'text-slate-500 dark:text-slate-200 font-normal px-4'
                               )}
@@ -297,13 +297,13 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
                           <Command>
                             <CommandInput
                               placeholder='Busque un mes...'
-                              className='h-9 text-[12px] md:text-[14px]'
+                              className='h-9 text-[14px] md:text-[14px]'
                             />
                             <CommandEmpty>Mes no encontrado.</CommandEmpty>
                             <CommandGroup className='max-h-[100px] h-auto'>
                               {months.map((month) => (
                                 <CommandItem
-                                  className='text-[12px] md:text-[14px]'
+                                  className='text-[14px] md:text-[14px]'
                                   value={month.label}
                                   key={month.value}
                                   onSelect={() => {
@@ -351,7 +351,7 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
                               variant='outline'
                               role='combobox'
                               className={cn(
-                                'justify-between w-full text-[12px] md:text-[14px] text-center px-2',
+                                'justify-between w-full text-[14px] md:text-[14px] text-center px-2',
                                 !field.value &&
                                   'text-slate-500 dark:text-slate-200 font-normal px-4'
                               )}
@@ -367,13 +367,13 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
                           <Command>
                             <CommandInput
                               placeholder='Busque un mes...'
-                              className='h-9 text-[12px] md:text-[14px]'
+                              className='h-9 text-[14px] md:text-[14px]'
                             />
                             <CommandEmpty>Mes no encontrado.</CommandEmpty>
                             <CommandGroup className='max-h-[100px] h-auto'>
                               {months.map((month) => (
                                 <CommandItem
-                                  className='text-[12px] md:text-[14px]'
+                                  className='text-[14px] md:text-[14px]'
                                   value={month.label}
                                   key={month.value}
                                   onSelect={() => {
@@ -418,7 +418,7 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
                               variant='outline'
                               role='combobox'
                               className={cn(
-                                'justify-between w-full text-[12px] md:text-[14px] text-center px-2',
+                                'justify-between w-full text-[14px] md:text-[14px] text-center px-2',
                                 !field.value &&
                                   'text-slate-500 dark:text-slate-200 font-normal px-2'
                               )}
@@ -434,13 +434,13 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
                           <Command>
                             <CommandInput
                               placeholder='Busque un año...'
-                              className='h-9 text-[12px] md:text-[14px]'
+                              className='h-9 text-[14px] md:text-[14px]'
                             />
                             <CommandEmpty>Año no encontrado.</CommandEmpty>
                             <CommandGroup className='max-h-[100px] h-auto'>
                               {years.map((year) => (
                                 <CommandItem
-                                  className='text-[12px] md:text-[14px]'
+                                  className='text-[14px] md:text-[14px]'
                                   value={year.label}
                                   key={year.value}
                                   onSelect={() => {
@@ -477,14 +477,14 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
       </CardHeader>
 
       {!comparativeOfferingExpensesBySubType?.data?.length && !searchParams ? (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
             <p>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           {comparativeOfferingExpensesBySubType?.isFetching &&
             !comparativeOfferingExpensesBySubType?.data?.length &&
             year && (
@@ -497,13 +497,13 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[305px] sm:h-[345px] md:h-[350px] lg:h-[415px] xl:h-[410px] 2xl:h-[410px]'
+                'w-full h-[300px] sm:h-[345px] md:h-[350px] lg:h-[415px] xl:h-[410px] 2xl:h-[410px]'
               )}
             >
               <BarChart
                 accessibilityLayer
                 data={mappedData}
-                margin={{ top: 5, right: 5, left: -10, bottom: 10 }}
+                margin={{ top: 5, right: 5, left: -20, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
                 <XAxis
@@ -511,21 +511,21 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
                   tickLine={false}
                   tickMargin={10}
                   axisLine={true}
-                  className='text-[12px] sm:text-[14px]'
+                  className='text-[12.5px] sm:text-[14px]'
                   tickFormatter={(value) => {
                     const [firstWord, secondWord] = value.split(' ');
                     return secondWord ? `${firstWord} ${secondWord.charAt(0)}.` : firstWord;
                   }}
                 />
 
-                <YAxis className='text-[12px] sm:text-[14px]' />
+                <YAxis className='text-[12.5px] sm:text-[14px]' />
                 <ChartTooltip
                   cursor={false}
                   content={ComparativeOfferingExpensesBySubTypeTooltipContent as any}
                 />
 
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}
+                  content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
                 />
 
                 <Bar

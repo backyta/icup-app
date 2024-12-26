@@ -113,6 +113,7 @@ export const FamilyGroupInactivateCard = ({
   const familyGroupInactivationMutation = useFamilyGroupInactivationMutation({
     setIsCardOpen,
     setIsButtonDisabled,
+    setIsSelectInputDisabled,
     scrollToTop: handleContainerScroll,
   });
 

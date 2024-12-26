@@ -47,7 +47,7 @@ export const OfferingExpenseMetrics = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h2 className='text-center text-red-500 text-[1.6rem] sm:text-[1.8rem] md:text-[2rem] lg:text-[2.5rem] xl:text-[3rem] font-sans font-bold pt-2 leading-tight'>
+      <h2 className='text-center leading-12 sm:leading-none text-red-500 pt-2 md:py-2 xl:pt-3 font-sans font-bold text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
         Métricas de Ofrendas
       </h2>
 

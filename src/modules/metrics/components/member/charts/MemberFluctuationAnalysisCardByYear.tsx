@@ -129,7 +129,7 @@ export const MemberFluctuationAnalysisCardByYear = ({ churchId }: Props): JSX.El
                             variant='outline'
                             role='combobox'
                             className={cn(
-                              'justify-between w-full text-center px-2 text-[12px] md:text-[14px]',
+                              'justify-between w-full text-center px-2 text-[14px] md:text-[14px]',
                               !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-2'
                             )}
                           >
@@ -144,13 +144,13 @@ export const MemberFluctuationAnalysisCardByYear = ({ churchId }: Props): JSX.El
                         <Command>
                           <CommandInput
                             placeholder='Busque un año...'
-                            className='h-9 text-[12px] md:text-[14px]'
+                            className='h-9 text-[14px] md:text-[14px]'
                           />
                           <CommandEmpty>Año no encontrado.</CommandEmpty>
                           <CommandGroup className='max-h-[100px] h-auto'>
                             {years.map((year) => (
                               <CommandItem
-                                className='text-[12px] md:text-[14px]'
+                                className='text-[14px] md:text-[14px]'
                                 value={year.label}
                                 key={year.value}
                                 onSelect={() => {
@@ -182,14 +182,14 @@ export const MemberFluctuationAnalysisCardByYear = ({ churchId }: Props): JSX.El
       </CardHeader>
 
       {!membersFluctuationByYearQuery?.data?.length ? (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
             <p>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           {membersFluctuationByYearQuery?.isFetching &&
             !membersFluctuationByYearQuery?.data?.length && (
               <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
@@ -207,7 +207,7 @@ export const MemberFluctuationAnalysisCardByYear = ({ churchId }: Props): JSX.El
               <BarChart
                 accessibilityLayer
                 data={membersFluctuationByYearQuery?.data}
-                margin={{ top: 5, right: 5, left: -28, bottom: 10 }}
+                margin={{ top: 5, right: 5, left: -30, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
                 <XAxis
@@ -216,10 +216,10 @@ export const MemberFluctuationAnalysisCardByYear = ({ churchId }: Props): JSX.El
                   tickMargin={10}
                   axisLine={true}
                   tickFormatter={(value) => value.slice(0, 3)}
-                  className='text-[12px] md:text-[14px]'
+                  className='text-[12.5px] md:text-[14px]'
                 />
 
-                <YAxis className='text-[12px] md:text-[14px]' />
+                <YAxis className='text-[12.5px] md:text-[14px]' />
 
                 <ChartTooltip
                   cursor={false}
@@ -227,7 +227,7 @@ export const MemberFluctuationAnalysisCardByYear = ({ churchId }: Props): JSX.El
                 />
 
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}
+                  content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
                 />
 
                 <Bar dataKey='newMembers' fill='var(--color-newMembers)' radius={4} />

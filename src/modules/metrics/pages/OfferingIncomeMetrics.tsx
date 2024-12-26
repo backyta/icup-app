@@ -50,7 +50,7 @@ export const OfferingIncomeMetrics = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h2 className='text-center leading-12 sm:leading-none text-green-500 py-2 md:py-2 xl:pt-3 font-sans font-bold text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+      <h2 className='text-center text-green-500 pt-2 md:py-2 xl:pt-3 font-sans font-bold text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
         Métricas de Ofrendas
       </h2>
       <p className='text-center text-[15px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-medium'>

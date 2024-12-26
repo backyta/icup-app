@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import type * as z from 'zod';
 import { Toaster } from 'sonner';
 import { useForm } from 'react-hook-form';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
@@ -160,7 +160,7 @@ export const ZoneCreatePage = (): JSX.Element => {
               name='country'
               render={({ field }) => {
                 return (
-                  <FormItem className=''>
+                  <FormItem>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>País</FormLabel>
                     <FormDescription className='text-[13.5px] md:text-[14px]'>
                       Asigna el país al que pertenece la nueva zona.
@@ -399,6 +399,14 @@ export const ZoneCreatePage = (): JSX.Element => {
                       </PopoverContent>
                     </Popover>
                     <FormMessage className='text-[13px]' />
+                    <FormDescription className='text-[12.5px] md:text-[13px] text-blue-500 italic font-medium'>
+                      <p>
+                        * Si no hay supervisores disponibles o necesitas uno nuevo, debes crearlo en{' '}
+                        <Link className='text-green-500 underline' to={'/supervisors/create'}>
+                          Crear Supervisor.
+                        </Link>
+                      </p>
+                    </FormDescription>
                   </FormItem>
                 );
               }}

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { FcExport } from 'react-icons/fc';
 import { ChevronsUpDown } from 'lucide-react';
@@ -32,37 +32,37 @@ export function DropdownMenuLeft(): JSX.Element {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const [touchStartX, setTouchStartX] = useState(0);
+  // const [touchStartX, setTouchStartX] = useState(0);
 
-  useEffect(() => {
-    const handleTouchStart = (e: TouchEvent) => {
-      setTouchStartX(e.touches[0].clientX);
-    };
+  // useEffect(() => {
+  //   const handleTouchStart = (e: TouchEvent) => {
+  //     setTouchStartX(e.touches[0].clientX);
+  //   };
 
-    const handleTouchMove = (e: TouchEvent) => {
-      const touchEndX = e.touches[0].clientX;
-      const diffX = touchEndX - touchStartX;
+  //   const handleTouchMove = (e: TouchEvent) => {
+  //     const touchEndX = e.touches[0].clientX;
+  //     const diffX = touchEndX - touchStartX;
 
-      if (diffX > 100) {
-        setIsSheetOpen(true);
-      }
-    };
-    // TODO : problema con las tablas se abre sin querer
+  //     if (diffX > 100) {
+  //       setIsSheetOpen(true);
+  //     }
+  //   };
+  //   // TODO : problema con las tablas se abre sin querer
 
-    const handleTouchEnd = () => {
-      setTouchStartX(0);
-    };
+  //   const handleTouchEnd = () => {
+  //     setTouchStartX(0);
+  //   };
 
-    window.addEventListener('touchstart', handleTouchStart);
-    window.addEventListener('touchmove', handleTouchMove);
-    window.addEventListener('touchend', handleTouchEnd);
+  //   window.addEventListener('touchstart', handleTouchStart);
+  //   window.addEventListener('touchmove', handleTouchMove);
+  //   window.addEventListener('touchend', handleTouchEnd);
 
-    return () => {
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('touchend', handleTouchEnd);
-    };
-  }, [touchStartX]);
+  //   return () => {
+  //     window.removeEventListener('touchstart', handleTouchStart);
+  //     window.removeEventListener('touchmove', handleTouchMove);
+  //     window.removeEventListener('touchend', handleTouchEnd);
+  //   };
+  // }, [touchStartX]);
 
   return (
     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>

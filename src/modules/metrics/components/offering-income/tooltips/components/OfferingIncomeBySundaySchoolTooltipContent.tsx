@@ -36,8 +36,8 @@ export const OfferingIncomeBySundaySchoolTooltipContent = (
 
   return (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
-      <p className='font-medium text-[12px] sm:text-[14px]'>{`${dateFormatterToDDMMYY(addDays(label, 1))}`}</p>
-      <span className='font-semibold text-[12.5px] md:text-[13.5px]'>Lista de Ofrendas</span>
+      <p className='font-medium text-[14px] sm:text-[14px]'>{`${dateFormatterToDDMMYY(addDays(label, 1))}`}</p>
+      <span className='font-semibold text-[13.5px] md:text-[13.5px]'>Lista de Ofrendas</span>
       <ul className='list grid gap-1.5'>
         {(() => {
           let count = 0;
@@ -48,7 +48,7 @@ export const OfferingIncomeBySundaySchoolTooltipContent = (
                 <div key={`item-${index}`}>
                   <li
                     key={`item-${index}`}
-                    className='flex items-center font-medium text-[12px] sm:text-[14px]'
+                    className='flex items-center font-medium text-[13.5px] sm:text-[13.5px]'
                   >
                     <span
                       className='inline-block h-2.5 w-2.5 rounded-[2px] mr-2'
@@ -59,22 +59,22 @@ export const OfferingIncomeBySundaySchoolTooltipContent = (
                     ></span>
                     <span className='font-semibold'>
                       {`${
-                        entry.dataKey !== 'accumulatedOfferingPEN' &&
-                        entry.dataKey !== 'accumulatedOfferingUSD' &&
-                        entry.dataKey !== 'accumulatedOfferingEUR'
+                        entry?.dataKey !== 'accumulatedOfferingPEN' &&
+                        entry?.dataKey !== 'accumulatedOfferingUSD' &&
+                        entry?.dataKey !== 'accumulatedOfferingEUR'
                           ? `${entry.name.charAt(0).toUpperCase() + entry.name.slice(1, -4)}:`
                           : `${count}° Ofrenda:`
                       }`}
                     </span>
                     <span className='pl-1 font-normal dark:text-white text-black'>{`${entry.value} 
               ${
-                entry.dataKey === 'dayPEN' ||
-                entry.dataKey === 'afternoonPEN' ||
-                entry.dataKey === 'accumulatedOfferingPEN'
+                entry?.dataKey === 'dayPEN' ||
+                entry?.dataKey === 'afternoonPEN' ||
+                entry?.dataKey === 'accumulatedOfferingPEN'
                   ? CurrencyType.PEN
-                  : entry.dataKey === 'dayUSD' ||
-                      entry.dataKey === 'afternoonUSD' ||
-                      entry.dataKey === 'accumulatedOfferingUSD'
+                  : entry?.dataKey === 'dayUSD' ||
+                      entry?.dataKey === 'afternoonUSD' ||
+                      entry?.dataKey === 'accumulatedOfferingUSD'
                     ? CurrencyType.USD
                     : CurrencyType.EUR
               }`}</span>
@@ -87,31 +87,31 @@ export const OfferingIncomeBySundaySchoolTooltipContent = (
         })()}
       </ul>
 
-      <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
+      <li className={'font-medium text-[13.5px] sm:text-[13.5px]'}>
         <span className='-ml-2'>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
       </li>
       {payload?.[0]?.payload?.memberFullName && payload?.[0]?.payload?.memberType && (
         <>
-          <li className='pl-1 font-medium text-[11px] sm:text-[13px]'>
+          <li className='pl-1 font-medium text-[11px] sm:text-[13.5px]'>
             <span className='-ml-2'>{`Miembro: ${payload?.[0]?.payload?.memberFullName}`}</span>
           </li>
-          <li className='pl-1 font-medium text-[11px] sm:text-[13px]'>
+          <li className='pl-1 font-medium text-[11px] sm:text-[13.5px]'>
             <span className='-ml-2 '>{`Cargo: ${MemberTypeNames[payload?.[0]?.payload?.memberType as MemberType]}`}</span>
           </li>
         </>
       )}
 
-      <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
+      <li className={'font-medium text-[13.5px] sm:text-[13.5px]'}>
         <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
       </li>
 
       {(totalAccumulatedPEN > 0 && totalAccumulatedUSD > 0) ||
       (totalAccumulatedPEN > 0 && totalAccumulatedEUR > 0) ? (
-        <p className='font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
+        <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
           Totales acumulados:
         </p>
       ) : totalAccumulatedPEN > 0 || totalAccumulatedUSD > 0 || totalAccumulatedEUR > 0 ? (
-        <p className='font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
+        <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
           Total acumulado:
         </p>
       ) : (
@@ -119,17 +119,17 @@ export const OfferingIncomeBySundaySchoolTooltipContent = (
       )}
 
       {totalAccumulatedPEN > 0 && (
-        <li className='pl-1 font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
+        <li className='pl-1 font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
           <span className='-ml-2'>{`Soles: ${totalAccumulatedPEN} ${CurrencyType.PEN}`}</span>
         </li>
       )}
       {totalAccumulatedUSD > 0 && (
-        <li className='pl-1 font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
+        <li className='pl-1 font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
           <span className='-ml-2'> {`Dolares: ${totalAccumulatedUSD} ${CurrencyType.USD}`}</span>
         </li>
       )}
       {totalAccumulatedEUR > 0 && (
-        <li className='pl-1 font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
+        <li className='pl-1 font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
           <span className='-ml-2'> {`Euros: ${totalAccumulatedEUR} ${CurrencyType.EUR}`}</span>
         </li>
       )}

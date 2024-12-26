@@ -11,6 +11,7 @@ export interface MembersByZoneAndGenderPayload {
   payload: {
     zoneName: string,
     supervisor:string,
+    copastor:string,
     men: number,
     women: number,
     totalPercentage: string,

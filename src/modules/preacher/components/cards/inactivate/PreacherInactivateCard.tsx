@@ -114,6 +114,7 @@ export const PreacherInactivateCard = ({ idRow }: PreacherInactivateCardProps): 
   const preacherInactivationMutation = usePreacherInactivationMutation({
     setIsCardOpen,
     setIsButtonDisabled,
+    setIsSelectInputDisabled,
     scrollToTop: handleContainerScroll,
   });
 

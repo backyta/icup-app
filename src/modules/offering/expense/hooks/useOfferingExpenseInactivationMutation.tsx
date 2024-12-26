@@ -43,6 +43,7 @@ export const useOfferingExpenseInactivationMutation = ({
         setTimeout(() => {
           setIsCardOpen(true);
           setIsButtonDisabled(false);
+          setIsSelectInputDisabled(false);
         }, 2000);
       }
 
@@ -73,6 +74,7 @@ export const useOfferingExpenseInactivationMutation = ({
 
       setTimeout(() => {
         setIsCardOpen(false);
+        setIsButtonDisabled(false);
         setIsSelectInputDisabled(false);
       }, 2000);
     },

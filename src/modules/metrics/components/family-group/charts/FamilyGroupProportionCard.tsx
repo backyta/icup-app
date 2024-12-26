@@ -101,7 +101,7 @@ export const FamilyGroupProportionCard = ({ churchId }: Props): JSX.Element => {
           <div className='flex justify-center gap-4'>
             <GiHouse className='text-[5rem] text-orange-500' />
             <div className='flex flex-col gap-2 items-top justify-center'>
-              <CardTitle className='text-center text-[2.8rem] md:text-[3rem] lg:text-[3.2rem] xl:text-[3.5rem] font-extrabold leading-10'>
+              <CardTitle className='text-center text-[3rem] md:text-[3rem] lg:text-[3.2rem] xl:text-[3.5rem] font-extrabold leading-10'>
                 {<CountUp end={Number(data?.totalCountFamilyGroups)} start={0} duration={4} />}
               </CardTitle>
               <CardDescription className='text-[14.5px] md:text-[15px] xl:text-[16px] font-bold text-center'>
@@ -117,7 +117,7 @@ export const FamilyGroupProportionCard = ({ churchId }: Props): JSX.Element => {
         <Card className='w-[270px] md:w-[300px] cursor-default shadow-md dark:shadow-slate-700 dark:bg-slate-900 bg-slate-50'>
           <CardHeader className='py-5'>
             <div className='flex justify-center gap-4 h-[5rem] relative'>
-              <span className='absolute -top-3 left-12 md:left-14 font-bold text-[14px] md:text-[15px]'>
+              <span className='absolute -top-3 left-12 md:left-14 font-bold text-[15px] md:text-[15px]'>
                 {(() => {
                   const activeFamilyGroups = data?.countFamilyGroupsActive ?? 0;
                   const inactiveFamilyGroups = data?.countFamilyGroupsInactive ?? 0;
@@ -142,7 +142,7 @@ export const FamilyGroupProportionCard = ({ churchId }: Props): JSX.Element => {
               </ChartContainer>
 
               <div className='flex flex-col  items-center justify-center'>
-                <CardDescription className='text-[14px] md:text-[15px] font-bold text-center'>
+                <CardDescription className='text-[15px] md:text-[15px] font-bold text-center'>
                   Tasa de grupos fam. <span className='text-green-500'>Activas</span>
                 </CardDescription>
                 <CardTitle className='text-center text-[2.2rem] xl:text-[2.5rem] font-extrabold leading-10'>
@@ -157,7 +157,7 @@ export const FamilyGroupProportionCard = ({ churchId }: Props): JSX.Element => {
         <Card className='w-[270px] md:w-[300px] cursor-default shadow-md dark:shadow-slate-700 dark:bg-slate-900 bg-slate-50'>
           <CardHeader className='py-5'>
             <div className='flex justify-center gap-4 h-[5rem] relative'>
-              <span className='absolute -top-3 left-12 md:left-14 font-bold text-[14px] md:text-[15px]'>
+              <span className='absolute -top-3 left-12 md:left-14 font-bold text-[15px] md:text-[15px]'>
                 {(() => {
                   const activeFamilyGroups = data?.countFamilyGroupsActive ?? 0;
                   const inactiveFamilyGroups = data?.countFamilyGroupsInactive ?? 0;
@@ -181,7 +181,7 @@ export const FamilyGroupProportionCard = ({ churchId }: Props): JSX.Element => {
                 </PieChart>
               </ChartContainer>
               <div className='flex flex-col  items-center justify-center'>
-                <CardDescription className='text-[14px] md:text-[15px] font-bold text-center'>
+                <CardDescription className='text-[15px] md:text-[15px] font-bold text-center'>
                   Tasa de grupos fam. <span className='text-red-500'>Inactivas</span>
                 </CardDescription>
                 <CardTitle className='text-center text-[2.2rem] xl:text-[2.5rem] font-extrabold leading-10'>

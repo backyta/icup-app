@@ -1,4 +1,5 @@
-export interface FamilyGroupsByCodePayload {
+//* Payload
+export interface FamilyGroupByCopastorAndZonePayload {
   fill: string;
   radius: number;
   dataKey: string;
@@ -9,15 +10,15 @@ export interface FamilyGroupsByCodePayload {
   value: number;
   type?: string | undefined;
   payload: {
-    familyGroupCode: string,
-    preacher:string,
-    men: number,
-    women: number,
+    zoneName: string;
+    copastor: string;
+    supervisor: string;
+    familyGroupsCount: number;
     church:{
       isAnexe: boolean;
       abbreviatedChurchName: string;
     }
-    totalPercentage: string,
+    totalPercentage: string;
   };
   chartType?: string | undefined;
   hide: boolean;

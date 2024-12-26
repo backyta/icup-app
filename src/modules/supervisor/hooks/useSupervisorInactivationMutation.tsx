@@ -14,12 +14,14 @@ interface Options {
   scrollToTop: () => void;
   setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSelectInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useSupervisorInactivationMutation = ({
   scrollToTop,
   setIsCardOpen,
   setIsButtonDisabled,
+  setIsSelectInputDisabled,
 }: Options): UseMutationResult<void, ErrorResponse, InactivateSupervisorOptions, unknown> => {
   //* Hooks (external libraries)
   const navigate = useNavigate();
@@ -40,6 +42,7 @@ export const useSupervisorInactivationMutation = ({
         setTimeout(() => {
           setIsCardOpen(true);
           setIsButtonDisabled(false);
+          setIsSelectInputDisabled(false);
         }, 2000);
       }
 
@@ -70,6 +73,8 @@ export const useSupervisorInactivationMutation = ({
 
       setTimeout(() => {
         setIsCardOpen(false);
+        setIsButtonDisabled(false);
+        setIsSelectInputDisabled(false);
       }, 2000);
     },
   });

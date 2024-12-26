@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 
 import { useEffect, useState } from 'react';
 
@@ -12,19 +10,17 @@ import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
-import { Bar, XAxis, YAxis, CartesianGrid, BarChart } from 'recharts';
-
-import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
+import { CartesianGrid, Area, AreaChart, XAxis, YAxis } from 'recharts';
 
 import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
-import { getSimpleCopastors } from '@/modules/copastor/services/copastor.service';
+import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
 import { getFamilyGroupsByZone } from '@/modules/metrics/services/family-group-metrics.service';
 import { FamilyGroupsByZoneTooltipContent } from '@/modules/metrics/components/family-group/tooltips/components/FamilyGroupsByZoneTooltipContent';
 
 import { cn } from '@/shared/lib/utils';
 
 import { RecordOrder } from '@/shared/enums/record-order.enum';
-import { getFullNames, getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
+import { getSimpleZones } from '@/modules/zone/services/zone.service';
 
 import {
   Form,
@@ -48,23 +44,35 @@ import {
   type ChartConfig,
   ChartLegendContent,
 } from '@/shared/components/ui/chart';
+import {
+  Card,
+  CardTitle,
+  CardHeader,
+  CardContent,
+  CardDescription,
+} from '@/shared/components/ui/card';
 import { Badge } from '@/shared/components/ui/badge';
 import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
-import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
 const chartConfig = {
-  familyGroupsCount: {
-    label: 'Zona',
+  men: {
+    label: 'Varones',
     color: '#2662D9',
+  },
+  women: {
+    label: 'Mujeres',
+    color: '#E23670',
   },
 } satisfies ChartConfig;
 
 interface ResultDataOptions {
-  zoneName: string;
+  familyGroupCode: string;
   supervisor: string;
-  familyGroupsCount: number;
+  preacher: string;
+  men: number;
+  women: number;
   church: {
     isAnexe: boolean;
     abbreviatedChurchName: string;
@@ -73,7 +81,7 @@ interface ResultDataOptions {
 }
 
 interface SearchParamsOptions {
-  copastor?: string;
+  zone?: string;
   all?: boolean;
 }
 
@@ -84,7 +92,7 @@ interface Props {
 export const FamilyGroupAnalysisCardByZone = ({ churchId }: Props): JSX.Element => {
   //* States
   const [mappedData, setMappedData] = useState<ResultDataOptions[]>();
-  const [isInputSearchCopastorOpen, setIsInputSearchCopastorOpen] = useState<boolean>(false);
+  const [isInputSearchZoneOpen, setIsInputSearchZoneOpen] = useState<boolean>(false);
   const [searchParams, setSearchParams] = useState<SearchParamsOptions | undefined>(undefined);
 
   //* Form
@@ -92,80 +100,76 @@ export const FamilyGroupAnalysisCardByZone = ({ churchId }: Props): JSX.Element 
     resolver: zodResolver(metricsFormSchema),
     mode: 'onChange',
     defaultValues: {
-      copastor: searchParams ? searchParams.copastor : '',
+      zone: searchParams ? searchParams.zone : '',
       all: false,
     },
   });
 
   //* Watchers
-  const copastor = form.watch('copastor');
+  const zone = form.watch('zone');
   const all = form.watch('all');
 
   //* Queries
-  const copastorsQuery = useQuery({
-    queryKey: ['copastors-for-zone', churchId],
-    queryFn: () => getSimpleCopastors({ churchId: churchId ?? '', isSimpleQuery: true }),
+  const zonesQuery = useQuery({
+    queryKey: ['zones-for-family-groups-code', churchId],
+    queryFn: () => getSimpleZones({ churchId: churchId ?? '', isSimpleQuery: true }),
   });
 
-  const familyGroupsByZoneQuery = useQuery({
-    queryKey: ['family-groups-by-zone', { ...searchParams, church: churchId }],
+  const familyGroupByCodeQuery = useQuery({
+    queryKey: ['family-groups-by-code', { ...searchParams, church: churchId }],
     queryFn: () => {
       return getFamilyGroupsByZone({
         searchType: MetricSearchType.FamilyGroupsByZone,
-        copastor: searchParams?.copastor ?? copastor,
-        allZones: searchParams?.all ?? all,
+        zone: searchParams?.zone ?? zone,
+        allFamilyGroups: searchParams?.all ?? all,
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       });
     },
     retry: 1,
-    enabled:
-      !!searchParams?.copastor &&
-      !!churchId &&
-      !!copastorsQuery?.data &&
-      !!copastorsQuery.data.length,
+    enabled: !!searchParams?.zone && !!churchId && !!zonesQuery?.data && !!zonesQuery.data.length,
   });
 
   //* Effects
   // Default value
   useEffect(() => {
-    if (copastorsQuery.data) {
-      const copastor = copastorsQuery?.data?.map((copastor) => copastor?.id)[1];
-      setSearchParams({ copastor, all: false });
-      form.setValue('copastor', copastor);
+    if (zonesQuery.data) {
+      const zone = zonesQuery?.data?.map((zone) => zone?.id)[0];
+      setSearchParams({ zone, all: false });
+      form.setValue('zone', zone);
       form.setValue('all', false);
     }
-  }, [copastorsQuery?.data]);
+  }, [zonesQuery?.data]);
 
   // Set data
   useEffect(() => {
-    if (familyGroupsByZoneQuery?.data) {
-      const transformedData = Object.entries(familyGroupsByZoneQuery?.data).map(
-        ([zoneName, payload]) => {
-          const totalFamilyGroups: number = Object.values(familyGroupsByZoneQuery?.data).reduce(
-            (total: number, item: { familyGroupsCount: number }) => total + item.familyGroupsCount,
-            0
-          );
+    if (familyGroupByCodeQuery?.data) {
+      const transformedData = Object.entries(familyGroupByCodeQuery?.data).map(([_, payload]) => {
+        const totalMembers: number = Object.values(familyGroupByCodeQuery?.data).reduce(
+          (total: number, item: { men: number; women: number }) => total + item.men + item.women,
+          0
+        );
 
-          return {
-            zoneName,
-            familyGroupsCount: payload?.familyGroupsCount,
-            supervisor: payload?.supervisor,
-            church: {
-              isAnexe: payload?.church?.isAnexe,
-              abbreviatedChurchName: payload?.church?.abbreviatedChurchName,
-            },
-            totalPercentage: ((payload.familyGroupsCount / totalFamilyGroups) * 100).toFixed(1),
-          };
-        }
-      );
+        return {
+          familyGroupCode: payload?.familyGroupCode,
+          men: payload?.men,
+          women: payload?.women,
+          supervisor: payload?.supervisor,
+          preacher: payload?.preacher,
+          church: {
+            isAnexe: payload?.church?.isAnexe,
+            abbreviatedChurchName: payload?.church?.abbreviatedChurchName,
+          },
+          totalPercentage: (((payload.men + payload?.women) / totalMembers) * 100).toFixed(1),
+        };
+      });
       setMappedData(transformedData);
     }
 
-    if (!familyGroupsByZoneQuery?.data) {
+    if (!familyGroupByCodeQuery?.data) {
       setMappedData([]);
     }
-  }, [familyGroupsByZoneQuery?.data, copastor]);
+  }, [familyGroupByCodeQuery?.data, zone]);
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof metricsFormSchema>): void => {
@@ -173,31 +177,33 @@ export const FamilyGroupAnalysisCardByZone = ({ churchId }: Props): JSX.Element 
   };
 
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] md:h-[25rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
-      <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 py-2.5'>
-        <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-          <span className=''> Grupos F. (zona)</span>
-          {!!copastorsQuery?.data?.length && (
-            <Badge
-              variant='active'
-              className='mt-1 text-[10px] md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
-            >
-              Activos
-            </Badge>
-          )}
-        </CardTitle>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40  flex flex-col col-start-2 col-end-3 h-[24rem] md:h-[27rem] lg:h-[27rem] 2xl:h-[27rem] m-0 border-slate-200 dark:border-slate-800'>
+      <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 pt-1.5 pb-2'>
+        <div className='flex flex-col'>
+          <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
+            Grupos Familiares
+            {!!zonesQuery?.data?.length && (
+              <Badge
+                variant='active'
+                className='mt-1 text-[11px] text-white md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
+              >
+                Activos
+              </Badge>
+            )}
+          </CardTitle>
+          <CardDescription className='-ml-1 sm:ml-1 text-center sm:text-left text-[14px] md:text-[14.5px] italic'>
+            Por Zona (discípulos y género).
+          </CardDescription>
+        </div>
         <Form {...form}>
           <form className='flex'>
             <FormField
               control={form.control}
-              name='copastor'
+              name='zone'
               render={({ field }) => {
                 return (
                   <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
-                    <Popover
-                      open={isInputSearchCopastorOpen}
-                      onOpenChange={setIsInputSearchCopastorOpen}
-                    >
+                    <Popover open={isInputSearchZoneOpen} onOpenChange={setIsInputSearchZoneOpen}>
                       <PopoverTrigger asChild>
                         <FormControl className='text-[14px] md:text-[14px]'>
                           <Button
@@ -205,48 +211,45 @@ export const FamilyGroupAnalysisCardByZone = ({ churchId }: Props): JSX.Element 
                             variant='outline'
                             role='combobox'
                             className={cn(
-                              'justify-between w-full text-center overflow-hidden px-2 text-[12px] md:text-[14px]',
+                              'justify-between w-full text-center overflow-hidden px-2 text-[14px] md:text-[14px]',
                               !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-2'
                             )}
                           >
                             {field.value
-                              ? `${getInitialFullNames({ firstNames: copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.member?.firstNames ?? '', lastNames: '' })} ${copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.member?.lastNames ?? ''}`
-                              : searchParams?.copastor
-                                ? `${getInitialFullNames({ firstNames: copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.member?.firstNames ?? '', lastNames: '' })} ${copastorsQuery?.data?.find((copastor) => copastor.id === searchParams?.copastor)?.member?.lastNames ?? ''}`
-                                : 'Elige un co-pastor'}
+                              ? `${zonesQuery?.data?.find((zone) => zone.id === searchParams?.zone)?.zoneName}`
+                              : searchParams?.zone
+                                ? `${zonesQuery?.data?.find((zone) => zone.id === searchParams?.zone)?.zoneName}`
+                                : 'Elige una zona'}
                             <CaretSortIcon className='ml-2 h-4 w-4 shrink-0' />
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent align='center' className='w-auto px-4 py-2'>
                         <Command>
-                          {copastorsQuery?.data?.length && copastorsQuery?.data?.length > 0 ? (
+                          {zonesQuery?.data?.length && zonesQuery?.data?.length > 0 ? (
                             <>
                               <CommandInput
-                                placeholder='Busque un co-pastor...'
-                                className='h-9 text-[12px] md:text-[14px]'
+                                placeholder='Busque una zona...'
+                                className='h-9 text-[14px] md:text-[14px]'
                               />
-                              <CommandEmpty>Co-pastor no encontrado.</CommandEmpty>
+                              <CommandEmpty>Zona no encontrada.</CommandEmpty>
                               <CommandGroup className='max-h-[200px] h-auto'>
-                                {copastorsQuery?.data?.map((copastor) => (
+                                {zonesQuery?.data?.map((zone) => (
                                   <CommandItem
-                                    className='text-[12px] md:text-[14px]'
-                                    value={getFullNames({
-                                      firstNames: copastor?.member?.firstNames ?? '',
-                                      lastNames: copastor?.member?.lastNames ?? '',
-                                    })}
-                                    key={copastor.id}
+                                    className='text-[14px] md:text-[14px]'
+                                    value={zone.zoneName}
+                                    key={zone.id}
                                     onSelect={() => {
-                                      form.setValue('copastor', copastor.id);
+                                      form.setValue('zone', zone.id);
                                       form.handleSubmit(handleSubmit)();
-                                      setIsInputSearchCopastorOpen(false);
+                                      setIsInputSearchZoneOpen(false);
                                     }}
                                   >
-                                    {`${getInitialFullNames({ firstNames: copastor?.member?.firstNames ?? '', lastNames: '' })} ${copastor?.member?.lastNames ?? ''}`}
+                                    {zone.zoneName}
                                     <CheckIcon
                                       className={cn(
                                         'ml-auto h-4 w-4',
-                                        copastor.id === field.value ? 'opacity-100' : 'opacity-0'
+                                        zone.id === field.value ? 'opacity-100' : 'opacity-0'
                                       )}
                                     />
                                   </CommandItem>
@@ -254,9 +257,9 @@ export const FamilyGroupAnalysisCardByZone = ({ churchId }: Props): JSX.Element 
                               </CommandGroup>
                             </>
                           ) : (
-                            copastorsQuery?.data?.length === 0 && (
+                            zonesQuery?.data?.length === 0 && (
                               <p className='text-[12px] md:text-[14px] font-medium text-red-500 text-center'>
-                                ❌No hay co-pastores disponibles.
+                                ❌No hay zonas disponibles.
                               </p>
                             )
                           )}
@@ -274,7 +277,7 @@ export const FamilyGroupAnalysisCardByZone = ({ churchId }: Props): JSX.Element 
               name='all'
               render={({ field }) => (
                 <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem]'>
-                  <FormControl className='text-[14px] md:text-[14px]'>
+                  <FormControl>
                     <Checkbox
                       checked={field?.value}
                       onCheckedChange={(checked) => {
@@ -284,7 +287,7 @@ export const FamilyGroupAnalysisCardByZone = ({ churchId }: Props): JSX.Element 
                     />
                   </FormControl>
                   <div className='space-y-1 leading-none'>
-                    <FormLabel className='text-[12px] md:text-[14px]'>Todos</FormLabel>
+                    <FormLabel className='text-[13px] md:text-[14px]'>Todos</FormLabel>
                   </div>
                 </FormItem>
               )}
@@ -294,15 +297,15 @@ export const FamilyGroupAnalysisCardByZone = ({ churchId }: Props): JSX.Element 
       </CardHeader>
 
       {!mappedData?.length && !searchParams ? (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
             <p>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
-          {familyGroupsByZoneQuery?.isFetching && !mappedData?.length && (
+        <CardContent className='h-full pl-3 pr-4 py-0'>
+          {familyGroupByCodeQuery?.isFetching && !mappedData?.length && (
             <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDataBackup className='text-[6rem] pb-2' />
               <p>Consultando datos....</p>
@@ -312,36 +315,50 @@ export const FamilyGroupAnalysisCardByZone = ({ churchId }: Props): JSX.Element 
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[252px] sm:h-[285px] md:h-[330px] lg:h-[330px] xl:h-[330px] 2xl:h-[345px]'
+                'w-full h-[270px] sm:h-[305px] md:h-[350px] lg:h-[350px] xl:h-[350px] 2xl:h-[345px]'
               )}
             >
-              <BarChart
+              <AreaChart
                 accessibilityLayer
                 data={mappedData}
-                margin={{ top: 5, right: 5, left: -28, bottom: 10 }}
+                margin={{ top: 5, right: 5, left: -30, bottom: 10 }}
               >
-                <CartesianGrid vertical={true} />
+                <CartesianGrid vertical={false} />
                 <XAxis
-                  dataKey='zoneName'
+                  dataKey='familyGroupCode'
                   tickLine={false}
-                  tickMargin={10}
-                  axisLine={true}
-                  tickFormatter={(value) => value.slice(0, 10)}
-                  className='text-[12px] md:text-[14px]'
+                  axisLine={false}
+                  tickMargin={8}
+                  className='text-[12.5px] md:text-[14px]'
+                  tickFormatter={(value) => value.slice(0, 5)}
                 />
+                <YAxis type='number' className='text-[12.5px] md:text-[14px]' />
 
-                <YAxis className='text-[12px] md:text-[14px]' />
                 <ChartTooltip cursor={false} content={FamilyGroupsByZoneTooltipContent as any} />
 
-                <ChartLegend
-                  content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}
+                <Area
+                  dataKey='men'
+                  type='natural'
+                  fill='var(--color-men)'
+                  fillOpacity={0.4}
+                  stroke='var(--color-men)'
+                  stackId='men'
                 />
-
-                <Bar dataKey='familyGroupsCount' fill='var(--color-familyGroupsCount)' radius={4} />
-              </BarChart>
+                <Area
+                  dataKey='women'
+                  type='natural'
+                  fill='var(--color-women)'
+                  fillOpacity={0.4}
+                  stroke='var(--color-women)'
+                  stackId='women'
+                />
+                <ChartLegend
+                  content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
+                />
+              </AreaChart>
             </ChartContainer>
           )}
-          {!familyGroupsByZoneQuery?.isFetching && !mappedData?.length && (
+          {!familyGroupByCodeQuery?.isFetching && !mappedData?.length && (
             <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDeleteDatabase className='text-[6rem] pb-2' />
               <p>No hay datos disponibles para mostrar.</p>

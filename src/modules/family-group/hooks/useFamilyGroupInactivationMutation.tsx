@@ -15,12 +15,14 @@ interface Options {
   scrollToTop: () => void;
   setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSelectInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useFamilyGroupInactivationMutation = ({
   scrollToTop,
   setIsCardOpen,
   setIsButtonDisabled,
+  setIsSelectInputDisabled,
 }: Options): UseMutationResult<void, ErrorResponse, InactivateFamilyGroupOptions, unknown> => {
   //* Hooks (external libraries)
   const navigate = useNavigate();
@@ -41,6 +43,7 @@ export const useFamilyGroupInactivationMutation = ({
         setTimeout(() => {
           setIsCardOpen(true);
           setIsButtonDisabled(false);
+          setIsSelectInputDisabled(false);
         }, 2000);
       }
 
@@ -71,6 +74,8 @@ export const useFamilyGroupInactivationMutation = ({
 
       setTimeout(() => {
         setIsCardOpen(false);
+        setIsButtonDisabled(false);
+        setIsSelectInputDisabled(false);
       }, 2000);
     },
   });

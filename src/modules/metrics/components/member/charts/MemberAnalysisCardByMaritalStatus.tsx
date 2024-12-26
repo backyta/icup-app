@@ -27,7 +27,7 @@ import { Card, CardContent, CardTitle } from '@/shared/components/ui/card';
 
 const chartConfig = {
   membersCount: {
-    label: 'Miembros',
+    label: 'N° miembros',
   },
   single: {
     label: 'Soltero(a)',
@@ -109,16 +109,16 @@ export const MemberAnalysisCardByMaritalStatus = ({ churchId }: Props): JSX.Elem
 
   return (
     <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-2 col-end-3 h-[22rem] md:h-[25rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
-      <CardTitle className='flex justify-center items-center gap-2.5 px-4 py-2.5 text-center font-bold  text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-        <span className='ml-20'>Estado civil</span>
+      <CardTitle className='flex justify-center items-center gap-2.5 px-4 py-2.5 text-center font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
+        <span className='ml-12 md:ml-20'>Estado civil</span>
         <Badge
           variant='active'
-          className='mt-1 text-[10px] md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
+          className='mt-1 text-[11px] text-white md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
         >
           Activos
         </Badge>
       </CardTitle>
-      <span className='-mt-3 text-[12px] md:text-[14px] pl-3 text-center font-medium text-slate-500 dark:text-slate-400'>
+      <span className='-mt-3 -ml-8 text-[14px] md:text-[14px] pl-3 text-center font-medium text-slate-500 dark:text-slate-400'>
         {church?.abbreviatedChurchName}
       </span>
 
@@ -158,14 +158,14 @@ export const MemberAnalysisCardByMaritalStatus = ({ churchId }: Props): JSX.Elem
                   tickLine={false}
                   tickMargin={10}
                   axisLine={false}
-                  className='text-[12px] md:text-[14px]'
+                  className='text-[12.5px] md:text-[14px]'
                   tickFormatter={(value) => chartConfig[value as keyof typeof chartConfig]?.label}
                 />
                 <XAxis dataKey='membersCount' type='number' hide />
 
                 <ChartTooltip
                   cursor={false}
-                  content={<ChartTooltipContent className='text-[12px] md:text-[13.5px]' />}
+                  content={<ChartTooltipContent className='text-[13.5px] md:text-[13.5px]' />}
                 />
 
                 <Bar dataKey='membersCount' layout='vertical' radius={5}></Bar>

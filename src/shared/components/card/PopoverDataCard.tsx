@@ -77,11 +77,7 @@ export const PopoverDataCard = ({
                     lastNames: element?.[secondValue] ?? '',
                   });
 
-            return (
-              <li key={key} className=''>
-                {displayValue}
-              </li>
-            );
+            return <li key={key}>{displayValue}</li>;
           })}
         </ul>
         {/* </div> */}

@@ -19,7 +19,7 @@ import { MemberAnalysisCardByBirthMonth } from '@/modules/metrics/components/mem
 import { MemberAnalysisCardByRecordStatus } from '@/modules/metrics/components/member/charts/MemberAnalysisCardByRecordStatus';
 import { MemberAnalysisCardByRoleAndGender } from '@/modules/metrics/components/member/charts/MemberAnalysisCardByRoleAndGender';
 import { MemberAnalysisCardByMaritalStatus } from '@/modules/metrics/components/member/charts/MemberAnalysisCardByMaritalStatus';
-import { MemberAnalysisCardByZoneAndGender } from '@/modules/metrics/components/member/charts/MemberAnalysisCardByZoneAndGender';
+import { DiscipleAnalysisCardByZoneAndGender } from '@/modules/metrics/components/member/charts/DiscipleAnalysisCardByZoneAndGender';
 import { PreacherAnalysisCardByZoneAndGender } from '@/modules/metrics/components/member/charts/PreacherAnalysisCardByZoneAndGender';
 import { MemberFluctuationAnalysisCardByYear } from '@/modules/metrics/components/member/charts/MemberFluctuationAnalysisCardByYear';
 import { MemberAnalysisCardByCategoryAndGender } from '@/modules/metrics/components/member/charts/MemberAnalysisCardByCategoryAndGender';
@@ -51,7 +51,7 @@ export const MemberMetrics = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h2 className='text-center text-amber-500 py-2 md:py-2 xl:pt-3 font-sans font-bold text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+      <h2 className='text-center text-amber-500 pt-2 md:py-2 xl:pt-3 font-sans font-bold text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
         Métricas de Miembro
       </h2>
 
@@ -78,7 +78,7 @@ export const MemberMetrics = (): JSX.Element => {
           <MemberAnalysisCardByCategoryAndGender churchId={churchId} />
           <MemberAnalysisCardByRoleAndGender churchId={churchId} />
           <MemberAnalysisCardByMaritalStatus churchId={churchId} />
-          <MemberAnalysisCardByZoneAndGender churchId={churchId} />
+          <DiscipleAnalysisCardByZoneAndGender churchId={churchId} />
           <PreacherAnalysisCardByZoneAndGender churchId={churchId} />
           <MemberAnalysisCardByDistrictAndGender churchId={churchId} />
           <MemberAnalysisCardByRecordStatus churchId={churchId} />

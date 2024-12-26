@@ -41,9 +41,9 @@ export const useChurchInactivationMutation = ({
         });
 
         setTimeout(() => {
-          setIsSelectInputDisabled(false);
-          setIsCardOpen(false);
+          setIsCardOpen(true);
           setIsButtonDisabled(false);
+          setIsSelectInputDisabled(false);
         }, 2000);
       }
 
@@ -74,6 +74,8 @@ export const useChurchInactivationMutation = ({
 
       setTimeout(() => {
         setIsCardOpen(false);
+        setIsButtonDisabled(false);
+        setIsSelectInputDisabled(false);
       }, 2000);
     },
   });

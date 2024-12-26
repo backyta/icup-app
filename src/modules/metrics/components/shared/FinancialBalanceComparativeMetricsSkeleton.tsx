@@ -19,7 +19,7 @@ export const FinancialBalanceComparativeMetricsSkeleton = (): JSX.Element => {
           <Skeleton className='h-7 w-44 mt-1' />
           <Skeleton className='h-10 w-20 mt-1' />
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <Skeleton className='h-[13.5rem] w-full mt-1' />
           <Skeleton className='h-3 w-10 mt-3 mx-auto' />
           <Skeleton className='h-[13.5rem] w-full mt-3' />
@@ -32,7 +32,7 @@ export const FinancialBalanceComparativeMetricsSkeleton = (): JSX.Element => {
           <Skeleton className='h-7 w-44 mt-1' />
           <Skeleton className='h-10 w-20 mt-1' />
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <Skeleton className='h-[22rem] w-full mt-1' />
           <div className='flex justify-center gap-10'>
             <Skeleton className='h-3 w-10 mt-3' />
@@ -46,7 +46,7 @@ export const FinancialBalanceComparativeMetricsSkeleton = (): JSX.Element => {
           <Skeleton className='h-7 w-44 mt-1' />
           <Skeleton className='h-10 w-20 mt-1' />
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <Skeleton className='h-[22rem] w-full mt-1' />
           <div className='flex justify-center gap-10'>
             <Skeleton className='h-3 w-10 mt-3' />
@@ -60,7 +60,7 @@ export const FinancialBalanceComparativeMetricsSkeleton = (): JSX.Element => {
           <Skeleton className='h-7 w-44 mt-1' />
           <Skeleton className='h-10 w-20 mt-1' />
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <Skeleton className='h-[22rem] w-full mt-1' />
           <div className='flex justify-center gap-10'>
             <Skeleton className='h-3 w-10 mt-3' />
@@ -74,7 +74,7 @@ export const FinancialBalanceComparativeMetricsSkeleton = (): JSX.Element => {
           <Skeleton className='h-7 w-44 mt-1' />
           <Skeleton className='h-10 w-20 mt-1' />
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <Skeleton className='h-[22rem] w-full mt-1' />
           <div className='flex justify-center gap-10'>
             <Skeleton className='h-3 w-10 mt-3' />
@@ -88,7 +88,7 @@ export const FinancialBalanceComparativeMetricsSkeleton = (): JSX.Element => {
           <Skeleton className='h-7 w-44 mt-1' />
           <Skeleton className='h-10 w-20 mt-1' />
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <Skeleton className='h-[22rem] w-full mt-1' />
           <div className='flex justify-center gap-10'>
             <Skeleton className='h-3 w-10 mt-3' />

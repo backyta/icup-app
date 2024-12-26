@@ -105,7 +105,7 @@ export const MemberAnalysisCardByRecordStatus = ({ churchId }: Props): JSX.Eleme
       </CardTitle>
 
       {!mappedData?.length ? (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           {membersByRecordStatusQuery?.isFetching && !mappedData?.length && (
             <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDataBackup className='text-[6rem] pb-2' />
@@ -114,7 +114,7 @@ export const MemberAnalysisCardByRecordStatus = ({ churchId }: Props): JSX.Eleme
           )}
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           {membersByRecordStatusQuery?.isFetching && !mappedData?.length && (
             <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDataBackup className='text-[6rem] pb-2' />
@@ -131,7 +131,7 @@ export const MemberAnalysisCardByRecordStatus = ({ churchId }: Props): JSX.Eleme
               <BarChart
                 accessibilityLayer
                 data={mappedData}
-                margin={{ top: 5, right: 5, left: -28, bottom: 10 }}
+                margin={{ top: 5, right: 5, left: -30, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
                 <XAxis
@@ -140,15 +140,15 @@ export const MemberAnalysisCardByRecordStatus = ({ churchId }: Props): JSX.Eleme
                   tickMargin={10}
                   axisLine={true}
                   tickFormatter={(value) => value.slice(0, 8)}
-                  className='text-[12px] md:text-[14px]'
+                  className='text-[12.5px] md:text-[14px]'
                 />
 
-                <YAxis className='text-[12px] md:text-[14px]' />
+                <YAxis className='text-[12.5px] md:text-[14px]' />
 
                 <ChartTooltip cursor={false} content={MembersByRecordStatusTooltipContent as any} />
 
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}
+                  content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
                 />
 
                 <Bar dataKey='active' fill='var(--color-active)' radius={4} />

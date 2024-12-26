@@ -114,6 +114,7 @@ export const PastorInactivateCard = ({ idRow }: PastorInactivateCardProps): JSX.
   const pastorInactivationMutation = usePastorInactivationMutation({
     setIsCardOpen,
     setIsButtonDisabled,
+    setIsSelectInputDisabled,
     scrollToTop: handleContainerScroll,
   });
 

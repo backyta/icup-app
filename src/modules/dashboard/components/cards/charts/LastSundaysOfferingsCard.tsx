@@ -169,12 +169,12 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
                         onOpenChange={setIsInputSearchChurchOpen}
                       >
                         <PopoverTrigger asChild>
-                          <FormControl className='text-[14px] md:text-[14px]'>
+                          <FormControl>
                             <Button
                               variant='outline'
                               role='combobox'
                               className={cn(
-                                'justify-between w-full text-center px-2 text-[13px] md:text-[14px]',
+                                'justify-between w-full text-center px-2 text-[13.5px] md:text-[14px]',
                                 !field.value &&
                                   'text-slate-500 dark:text-slate-200 font-normal px-2'
                               )}
@@ -200,7 +200,7 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
                           <Command>
                             <CommandInput
                               placeholder='Busque una iglesia'
-                              className='h-9 text-[13px] md:text-[14px]'
+                              className='h-9 text-[14px] md:text-[14px]'
                             />
                             <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
                             <CommandGroup className='max-h-[100px] h-auto'>
@@ -265,7 +265,7 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
               <BarChart
                 accessibilityLayer
                 data={lastSundaysOfferings?.data}
-                margin={{ top: 5, right: 5, left: -20, bottom: 10 }}
+                margin={{ top: 5, right: 5, left: -30, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
                 <XAxis
@@ -274,15 +274,15 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
                   tickMargin={10}
                   axisLine={true}
                   tickFormatter={(value) => dateFormatterToDDMMYY(addDays(value, 1))}
-                  className='text-[12px] sm:text-[14px]'
+                  className='text-[12.5px] sm:text-[14px]'
                 />
 
-                <YAxis className='text-[12px] sm:text-[14px]' />
+                <YAxis className='text-[12.5px] sm:text-[14px]' />
                 <ChartTooltip cursor={false} content={LastSundaysOfferingsTooltipContent as any} />
 
                 <ChartLegend
                   content={
-                    <ChartLegendContent className='ml-3 md:ml-10 text-[12.5px] md:text-[14px]' />
+                    <ChartLegendContent className='ml-5 md:ml-10 text-[12.5px] md:text-[14px]' />
                   }
                 />
 

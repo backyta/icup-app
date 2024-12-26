@@ -95,12 +95,12 @@ export const offeringIncomeFormSchema = z
     amount: z.string().refine(amount => {
       return /^\d+(\.\d+)?$/.test(amount);
     }, {
-      message: 'El monto debe ser un número >= a 0.'
+      message: 'El monto debe ser un número mayor o igual a 0.'
     }).refine(amount => {
       const parsedAmount = parseFloat(amount);
       return !isNaN(parsedAmount) && parsedAmount >= 0;
     }, {
-      message: 'El monto debe ser un número >= a 0.'
+      message: 'El monto debe ser un número mayor o igual a 0.'
     }),
 
     currency: z.string(z.nativeEnum(CurrencyType,{

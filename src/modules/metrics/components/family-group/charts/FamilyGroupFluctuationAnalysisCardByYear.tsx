@@ -8,6 +8,7 @@ import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMediaQuery } from '@react-hook/media-query';
 import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
@@ -65,6 +66,12 @@ export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): J
   const [isInputSearchYearOpen, setIsInputSearchYearOpen] = useState(false);
   const [searchParams, setSearchParams] = useState<SearchParamsOptions | undefined>(undefined);
 
+  //* Media Queries
+  const intermediateSM = useMediaQuery('(min-width: 640px)');
+  const intermediateLG = useMediaQuery('(min-width: 1280px)');
+  const intermediateXL = useMediaQuery('(min-width: 1300px)');
+  const intermediate2XL = useMediaQuery('(min-width: 1450px)');
+
   //* Form
   const form = useForm<z.infer<typeof metricsFormSchema>>({
     resolver: zodResolver(metricsFormSchema),
@@ -106,10 +113,20 @@ export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): J
   }
 
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] md:h-[25rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] md:h-[25rem] lg:h-[27rem] 2xl:h-[27rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='flex flex-row items-center justify-between px-4 py-2.5'>
         <CardTitle className='font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px] inline-block'>
-          Fluctuación de Grupos Familiares
+          {intermediate2XL ? (
+            <span>Fluctuación de Grupos Familiares</span>
+          ) : intermediateXL ? (
+            <span>Fluctuación de Grupos Familiares</span>
+          ) : intermediateLG ? (
+            <span>Fluctuación de Grupos Familiares</span>
+          ) : intermediateSM ? (
+            <span>Fluctuación de Grupos Familiares</span>
+          ) : (
+            <span>Fluct. de Grupos Familiares</span>
+          )}
         </CardTitle>
         <Form {...form}>
           <form>
@@ -126,7 +143,7 @@ export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): J
                             variant='outline'
                             role='combobox'
                             className={cn(
-                              'justify-between w-full text-center px-2 text-[12px] md:text-[14px]',
+                              'justify-between w-full text-center px-2 text-[14px] md:text-[14px]',
                               !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-2'
                             )}
                           >
@@ -141,13 +158,13 @@ export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): J
                         <Command>
                           <CommandInput
                             placeholder='Busque un año...'
-                            className='h-9 text-[12px] md:text-[14px]'
+                            className='h-9 text-[14px] md:text-[14px]'
                           />
                           <CommandEmpty>Año no encontrado.</CommandEmpty>
                           <CommandGroup className='max-h-[100px] h-auto'>
                             {years.map((year) => (
                               <CommandItem
-                                className='text-[12px] md:text-[14px]'
+                                className='text-[14px] md:text-[14px]'
                                 value={year.label}
                                 key={year.value}
                                 onSelect={() => {
@@ -179,14 +196,14 @@ export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): J
       </CardHeader>
 
       {!familyGroupsFluctuationByYearQuery?.data?.length && !searchParams ? (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
             <p>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           {familyGroupsFluctuationByYearQuery?.isFetching &&
             !familyGroupsFluctuationByYearQuery?.data?.length && (
               <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
@@ -198,13 +215,13 @@ export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): J
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[285px] sm:h-[285px] md:h-[330px] lg:h-[330px] xl:h-[330px] 2xl:h-[345px]'
+                'w-full h-[285px] sm:h-[285px] md:h-[330px] lg:h-[330px] xl:h-[360px] 2xl:h-[360px]'
               )}
             >
               <BarChart
                 accessibilityLayer
                 data={familyGroupsFluctuationByYearQuery?.data}
-                margin={{ top: 5, right: 5, left: -28, bottom: 10 }}
+                margin={{ top: 5, right: 5, left: -35, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
                 <XAxis
@@ -213,10 +230,10 @@ export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): J
                   tickMargin={10}
                   axisLine={true}
                   tickFormatter={(value) => value.slice(0, 3)}
-                  className='text-[12px] md:text-[14px]'
+                  className='text-[12.5px] md:text-[14px]'
                 />
 
-                <YAxis className='text-[12px] md:text-[14px]' />
+                <YAxis className='text-[12.5px] md:text-[14px]' />
 
                 <ChartTooltip
                   cursor={false}
@@ -224,7 +241,7 @@ export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): J
                 />
 
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}
+                  content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
                 />
 
                 <Bar dataKey='newFamilyGroups' fill='var(--color-newFamilyGroups)' radius={4} />

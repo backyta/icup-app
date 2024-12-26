@@ -102,14 +102,14 @@ export const MemberProportionCard = ({ churchId }: Props): JSX.Element => {
             <div className='flex flex-col justify-center items-center gap-6 md:gap-3'>
               <div className='flex justify-center items-center gap-1.5'>
                 <BsGenderMale className='text-blue-500 font-bold text-[1.8rem] md:text-[2rem]' />
-                <span className='text-[20px] md:text-[26px] font-extrabold'>
+                <span className='text-[22px] md:text-[26px] font-extrabold'>
                   {<CountUp end={Number(data?.countMembersMale)} start={0} duration={4} />}
                 </span>
               </div>
 
               <div className='flex justify-center gap-1.5 items-center'>
                 <BsGenderFemale className='text-pink-500 font-bold text-[1.8rem] md:text-[2rem]' />
-                <span className='text-[20px] md:text-[26px] font-extrabold'>
+                <span className='text-[22px] md:text-[26px] font-extrabold'>
                   {<CountUp end={Number(data?.countMembersFemale)} start={0} duration={4} />}
                 </span>
               </div>
@@ -122,10 +122,10 @@ export const MemberProportionCard = ({ churchId }: Props): JSX.Element => {
             <div className='flex justify-center gap-4'>
               <FaPeopleRoof className='text-[5rem] text-sky-500' />
               <div className='flex flex-col gap-2 items-top justify-center'>
-                <CardTitle className='text-center text-[2.8rem] md:text-[3rem] lg:text-[3.2rem] xl:text-[3.5rem] font-extrabold leading-10'>
+                <CardTitle className='text-center text-[3rem] md:text-[3rem] lg:text-[3.2rem] xl:text-[3.5rem] font-extrabold leading-10'>
                   {<CountUp end={Number(data?.totalCountMembers)} start={0} duration={4} />}
                 </CardTitle>
-                <CardDescription className='text-[14px] md:text-[15px] xl:text-[16px] font-bold text-center'>
+                <CardDescription className='text-[15px] md:text-[15px] xl:text-[16px] font-bold text-center'>
                   Miembros totales
                 </CardDescription>
               </div>
@@ -139,7 +139,7 @@ export const MemberProportionCard = ({ churchId }: Props): JSX.Element => {
         <Card className='w-[270px] md:w-[300px] cursor-default shadow-md dark:shadow-slate-700 dark:bg-slate-900 bg-slate-50'>
           <CardHeader className='py-5'>
             <div className='flex justify-center gap-4 h-[5rem] relative'>
-              <span className='absolute -top-3 left-12 md:left-14 font-bold text-[14px] md:text-[15px]'>
+              <span className='absolute -top-3 left-[3.2rem] md:left-14 font-bold text-[15px] md:text-[15px]'>
                 {(() => {
                   const activeMembers = data?.countMembersActive ?? 0;
                   const inactiveMembers = data?.countMembersInactive ?? 0;
@@ -165,7 +165,7 @@ export const MemberProportionCard = ({ churchId }: Props): JSX.Element => {
               </ChartContainer>
 
               <div className='flex flex-col  items-center justify-center'>
-                <CardDescription className='text-[14px] md:text-[15px] font-bold text-center'>
+                <CardDescription className='text-[15px] md:text-[15px] font-bold text-center'>
                   Tasa de miembros <span className='text-green-500'>Activos</span>
                 </CardDescription>
                 <CardTitle className='text-center text-[2.2rem] xl:text-[2.4rem] font-extrabold leading-10'>
@@ -180,7 +180,7 @@ export const MemberProportionCard = ({ churchId }: Props): JSX.Element => {
         <Card className='w-[270px] md:w-[300px] cursor-default shadow-md dark:shadow-slate-700 dark:bg-slate-900 bg-slate-50'>
           <CardHeader className='py-5'>
             <div className='flex justify-center gap-4 h-[5rem] relative'>
-              <span className='absolute -top-3 left-12 md:left-14 font-bold text-[14px] md:text-[15px]'>
+              <span className='absolute -top-3 left-[3.2rem] md:left-14 font-bold text-[15px] md:text-[15px]'>
                 {(() => {
                   const activeMembers = data?.countMembersActive ?? 0;
                   const inactiveMembers = data?.countMembersInactive ?? 0;
@@ -204,7 +204,7 @@ export const MemberProportionCard = ({ churchId }: Props): JSX.Element => {
                 </PieChart>
               </ChartContainer>
               <div className='flex flex-col  items-center justify-center'>
-                <CardDescription className='text-[14px] md:text-[15px] font-bold text-center'>
+                <CardDescription className='text-[15px] md:text-[15px] font-bold text-center'>
                   Tasa de miembros <span className='text-red-500'>Inactivos</span>
                 </CardDescription>
                 <CardTitle className='text-center text-[2.2rem] xl:text-[2.4rem] font-extrabold leading-10'>

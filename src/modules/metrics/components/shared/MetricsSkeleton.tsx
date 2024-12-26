@@ -25,7 +25,7 @@ export const MetricsSkeleton = ({ pathname }: Options): JSX.Element => {
           <Skeleton className='h-7 w-44 mt-1' />
           <Skeleton className='h-10 w-20 mt-1' />
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <Skeleton
             className={cn(
               'h-[18rem] w-full mt-1',
@@ -44,7 +44,7 @@ export const MetricsSkeleton = ({ pathname }: Options): JSX.Element => {
           <Skeleton className='h-7 w-44 mt-1' />
           <Skeleton className='h-10 w-20 mt-1' />
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <Skeleton
             className={cn(
               'h-[18rem] w-full mt-1',
@@ -63,7 +63,7 @@ export const MetricsSkeleton = ({ pathname }: Options): JSX.Element => {
           <Skeleton className='h-7 w-44 mt-1' />
           <Skeleton className='h-10 w-20 mt-1' />
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <Skeleton
             className={cn(
               'h-[18rem] w-full mt-1',
@@ -82,7 +82,7 @@ export const MetricsSkeleton = ({ pathname }: Options): JSX.Element => {
           <Skeleton className='h-7 w-44 mt-1' />
           <Skeleton className='h-10 w-20 mt-1' />
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <Skeleton
             className={cn(
               'h-[18rem] w-full mt-1',
@@ -101,7 +101,7 @@ export const MetricsSkeleton = ({ pathname }: Options): JSX.Element => {
           <Skeleton className='h-7 w-44 mt-1' />
           <Skeleton className='h-10 w-20 mt-1' />
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <Skeleton
             className={cn(
               'h-[18rem] w-full mt-1',
@@ -120,7 +120,7 @@ export const MetricsSkeleton = ({ pathname }: Options): JSX.Element => {
           <Skeleton className='h-7 w-44 mt-1' />
           <Skeleton className='h-10 w-20 mt-1' />
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <Skeleton
             className={cn(
               'h-[18rem] w-full mt-1',

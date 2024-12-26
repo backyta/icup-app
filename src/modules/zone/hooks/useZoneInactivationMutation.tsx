@@ -12,12 +12,14 @@ interface Options {
   scrollToTop: () => void;
   setIsCardOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsButtonDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSelectInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useZoneInactivationMutation = ({
   scrollToTop,
   setIsCardOpen,
   setIsButtonDisabled,
+  setIsSelectInputDisabled,
 }: Options): UseMutationResult<void, ErrorResponse, InactivateZoneOptions, unknown> => {
   //* Hooks (external libraries)
   const navigate = useNavigate();
@@ -38,6 +40,7 @@ export const useZoneInactivationMutation = ({
         setTimeout(() => {
           setIsCardOpen(true);
           setIsButtonDisabled(false);
+          setIsSelectInputDisabled(false);
         }, 2000);
       }
 
@@ -68,6 +71,8 @@ export const useZoneInactivationMutation = ({
 
       setTimeout(() => {
         setIsCardOpen(false);
+        setIsButtonDisabled(false);
+        setIsSelectInputDisabled(false);
       }, 2000);
     },
   });

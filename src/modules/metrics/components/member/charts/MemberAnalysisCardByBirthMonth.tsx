@@ -23,13 +23,13 @@ import { Badge } from '@/shared/components/ui/badge';
 import { Card, CardContent, CardTitle } from '@/shared/components/ui/card';
 
 const chartConfig = {
-  averageAge: {
-    label: 'Edad Prom.',
-    color: '#2662D9',
-  },
   membersCount: {
     label: 'N° Miembros',
     color: '#4391ee',
+  },
+  averageAge: {
+    label: 'Edad Prom.',
+    color: '#2662D9',
   },
 } satisfies ChartConfig;
 
@@ -54,11 +54,11 @@ export const MemberAnalysisCardByBirthMonth = ({ churchId }: Props): JSX.Element
   return (
     <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-2 col-end-3 h-[22rem] md:h-[25rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardTitle className='flex items-center justify-center gap-2.5 px-4 py-2.5 text-center font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-        <span className='ml-20'>Mes de Nacimiento</span>
+        <span className='ml-6 md:ml-20'>Mes de Nacimiento</span>
 
         <Badge
           variant='active'
-          className='mt-1 text-[10px] md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
+          className='mt-1 text-white text-[11px] md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
         >
           Activos
         </Badge>
@@ -99,16 +99,17 @@ export const MemberAnalysisCardByBirthMonth = ({ churchId }: Props): JSX.Element
                   axisLine={false}
                   tickMargin={10}
                   tickFormatter={(value) => value.slice(0, 8)}
-                  className='text-[12px] md:text-[14px]'
+                  className='text-[12.5px] md:text-[14px]'
                 />
-                <YAxis type='number' className='text-[12px] md:text-[14px]' />
+                <YAxis type='number' className='text-[12.5px] md:text-[14px]' />
 
                 <ChartTooltip cursor={false} content={MembersByBirthMonthTooltipContent as any} />
 
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}
+                  content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
                 />
 
+                <Bar dataKey='membersCount' fill='var(--color-membersCount)' radius={4} />
                 <Area
                   dataKey='averageAge'
                   type='linear'
@@ -116,7 +117,6 @@ export const MemberAnalysisCardByBirthMonth = ({ churchId }: Props): JSX.Element
                   fillOpacity={0.4}
                   stroke='var(--color-averageAge)'
                 />
-                <Bar dataKey='membersCount' fill='var(--color-membersCount)' radius={4} />
               </ComposedChart>
             </ChartContainer>
           )}

@@ -36,9 +36,15 @@ import {
   type ChartConfig,
   ChartLegendContent,
 } from '@/shared/components/ui/chart';
+import {
+  Card,
+  CardTitle,
+  CardHeader,
+  CardContent,
+  CardDescription,
+} from '@/shared/components/ui/card';
 import { Badge } from '@/shared/components/ui/badge';
 import { Button } from '@/shared/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/components/ui/form';
 
@@ -138,20 +144,25 @@ export const FamilyGroupAnalysisCardByDistrict = ({ churchId }: Props): JSX.Elem
     setSearchParams(formData);
   };
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-2 col-end-3 h-[22rem] md:h-[25rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
-      <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 py-2.5'>
-        <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-          <span>Grupos F. (distrito)</span>
-          {familyGroupsByDistrictQuery?.data &&
-            Object.entries(familyGroupsByDistrictQuery?.data)?.length > 0 && (
-              <Badge
-                variant='active'
-                className='mt-1 text-[10px] md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
-              >
-                Activos
-              </Badge>
-            )}
-        </CardTitle>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-2 col-end-3 h-[24rem] md:h-[27rem] lg:h-[27rem] 2xl:h-[27rem] m-0 border-slate-200 dark:border-slate-800'>
+      <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 pt-1.5 pb-2'>
+        <div className='flex flex-col'>
+          <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
+            Grupos Familiares
+            {familyGroupsByDistrictQuery?.data &&
+              Object.entries(familyGroupsByDistrictQuery?.data)?.length > 0 && (
+                <Badge
+                  variant='active'
+                  className='mt-1 text-[11px] text-white md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
+                >
+                  Activos
+                </Badge>
+              )}
+          </CardTitle>
+          <CardDescription className='-ml-6 sm:ml-1 text-center sm:text-left text-[14px] md:text-[14.5px] italic'>
+            Por Distrito.
+          </CardDescription>
+        </div>
         <Form {...form}>
           <form>
             <FormField
@@ -171,7 +182,7 @@ export const FamilyGroupAnalysisCardByDistrict = ({ churchId }: Props): JSX.Elem
                             variant='outline'
                             role='combobox'
                             className={cn(
-                              'justify-between w-full text-center px-2 text-[12px] md:text-[14px]',
+                              'justify-between w-full text-center px-2 text-[14px] md:text-[14px]',
                               !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-4'
                             )}
                           >
@@ -186,13 +197,13 @@ export const FamilyGroupAnalysisCardByDistrict = ({ churchId }: Props): JSX.Elem
                         <Command>
                           <CommandInput
                             placeholder='Busque un distrito...'
-                            className='h-9 text-[12px] md:text-[14px]'
+                            className='h-9 text-[14px] md:text-[14px]'
                           />
                           <CommandEmpty>Distrito no encontrado.</CommandEmpty>
                           <CommandGroup className='max-h-[200px] h-auto'>
                             {Object.values(District).map((district) => (
                               <CommandItem
-                                className='text-[12px] md:text-[14px]'
+                                className='text-[14px] md:text-[14px]'
                                 value={district}
                                 key={district}
                                 onSelect={() => {
@@ -224,14 +235,14 @@ export const FamilyGroupAnalysisCardByDistrict = ({ churchId }: Props): JSX.Elem
       </CardHeader>
 
       {!mappedData?.length && !searchParams ? (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
             <p>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           {familyGroupsByDistrictQuery?.isFetching && !mappedData?.length && (
             <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDataBackup className='text-[6rem] pb-2' />
@@ -242,13 +253,13 @@ export const FamilyGroupAnalysisCardByDistrict = ({ churchId }: Props): JSX.Elem
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[252px] sm:h-[285px] md:h-[330px] lg:h-[330px] xl:h-[330px] 2xl:h-[345px]'
+                'w-full h-[270px] sm:h-[310px] md:h-[350px] lg:h-[350px] xl:h-[350px] 2xl:h-[345px]'
               )}
             >
               <BarChart
                 accessibilityLayer
                 data={mappedData}
-                margin={{ top: 5, right: 5, left: -28, bottom: 10 }}
+                margin={{ top: 5, right: 5, left: -30, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
                 <XAxis
@@ -257,15 +268,15 @@ export const FamilyGroupAnalysisCardByDistrict = ({ churchId }: Props): JSX.Elem
                   tickMargin={10}
                   axisLine={true}
                   tickFormatter={(value) => value.slice(0, 10)}
-                  className='text-[12px] md:text-[14px]'
+                  className='text-[12.5px] md:text-[14px]'
                 />
-                <YAxis type='number' className='text-[12px] md:text-[14px]' />
+                <YAxis type='number' className='text-[12.5px] md:text-[14px]' />
                 <ChartTooltip
                   cursor={false}
                   content={FamilyGroupsByDistrictTooltipContent as any}
                 />
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}
+                  content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
                 />
                 <Bar dataKey='familyGroupsCount' fill='var(--color-familyGroupsCount)' radius={4} />
               </BarChart>

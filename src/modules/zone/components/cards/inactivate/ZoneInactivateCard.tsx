@@ -112,6 +112,7 @@ export const ZoneInactivateCard = ({ idRow }: ZoneInactivateCardProps): JSX.Elem
   const zoneInactivationMutation = useZoneInactivationMutation({
     setIsCardOpen,
     setIsButtonDisabled,
+    setIsSelectInputDisabled,
     scrollToTop: handleContainerScroll,
   });
 

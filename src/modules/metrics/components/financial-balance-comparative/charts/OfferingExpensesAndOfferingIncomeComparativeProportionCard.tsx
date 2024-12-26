@@ -105,11 +105,11 @@ export const OfferingExpensesAndOfferingIncomeComparativeProportionCard = ({
               <CardTitle className='text-center text-[2.8rem] md:text-[3rem] lg:text-[3.2rem] xl:text-[3.5rem] font-extrabold leading-10'>
                 {<CountUp end={Number(data?.totalOfferingRecordsCount)} start={0} duration={4} />}
               </CardTitle>
-              <CardDescription className='text-[14.5px] md:text-[15px] xl:text-[16px] font-bold text-center'>
+              <CardDescription className='text-[15px] md:text-[15px] xl:text-[16px] font-bold text-center'>
                 Total Registros
                 <Badge
                   variant='active'
-                  className='mt-1 text-white text-[10px] md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
+                  className='mt-1 text-white text-[11px] md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
                 >
                   Activos
                 </Badge>
@@ -124,7 +124,7 @@ export const OfferingExpensesAndOfferingIncomeComparativeProportionCard = ({
         <Card className='w-[270px] md:w-[300px] cursor-default shadow-md dark:shadow-slate-700 dark:bg-slate-900 bg-slate-50'>
           <CardHeader className='py-5'>
             <div className='flex justify-center gap-4 h-[5rem] relative'>
-              <span className='absolute -top-3 left-12 md:left-14 font-bold text-[14px] md:text-[15px]'>
+              <span className='absolute -top-3 left-12 md:left-14 font-bold text-[15px] md:text-[15px]'>
                 {(() => {
                   const activeOfferingsIncome = data?.offeringIncomeRecordsCount ?? 0;
                   const inactiveOfferingsIncome = data?.offeringExpenseRecordsCount ?? 0;
@@ -152,7 +152,7 @@ export const OfferingExpensesAndOfferingIncomeComparativeProportionCard = ({
               </ChartContainer>
 
               <div className='flex flex-col  items-center justify-center'>
-                <CardDescription className='text-[14px] md:text-[15px] font-bold text-center'>
+                <CardDescription className='text-[15px] md:text-[15px] font-bold text-center'>
                   Tasa de registros <span className='text-green-500'>Ingresos</span>
                 </CardDescription>
                 <CardTitle className='text-center text-[2.2rem] xl:text-[2.5rem] font-extrabold leading-10'>
@@ -173,7 +173,7 @@ export const OfferingExpensesAndOfferingIncomeComparativeProportionCard = ({
         <Card className='w-[270px] md:w-[300px] cursor-default shadow-md dark:shadow-slate-700 dark:bg-slate-900 bg-slate-50'>
           <CardHeader className='py-5'>
             <div className='flex justify-center gap-4 h-[5rem] relative'>
-              <span className='absolute -top-3 left-12 md:left-14 font-bold text-[14px] md:text-[15px]'>
+              <span className='absolute -top-3 left-12 md:left-14 font-bold text-[15px] md:text-[15px]'>
                 {(() => {
                   const activeOfferingsIncome = data?.offeringIncomeRecordsCount ?? 0;
                   const inactiveOfferingsIncome = data?.offeringExpenseRecordsCount ?? 0;
@@ -200,7 +200,7 @@ export const OfferingExpensesAndOfferingIncomeComparativeProportionCard = ({
                 </PieChart>
               </ChartContainer>
               <div className='flex flex-col  items-center justify-center'>
-                <CardDescription className='text-[14px] md:text-[15px] font-bold text-center'>
+                <CardDescription className='text-[15px] md:text-[15px] font-bold text-center'>
                   Tasa de registros <span className='text-red-500'>Salidas</span>
                 </CardDescription>
                 <CardTitle className='text-center text-[2.2rem] xl:text-[2.5rem] font-extrabold leading-10'>

@@ -111,6 +111,7 @@ export const UserInactivateCard = ({ idRow }: UserInactivateCardProps): JSX.Elem
   const userInactivationMutation = useUserInactivationMutation({
     setIsCardOpen,
     setIsButtonDisabled,
+    setIsSelectInputDisabled,
     scrollToTop: handleContainerScroll,
   });
 

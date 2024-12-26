@@ -577,10 +577,10 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                       </Popover>
                       <FormMessage className='text-[13px]' />
 
-                      <FormDescription className='text-[12.5px] md:text-[13px] text-blue-500 font-bold'>
+                      <FormDescription className='text-[12.5px] md:text-[13px] text-blue-500 italic font-medium'>
                         <p>
-                          *Si no hay zonas disponibles o necesitas una nueva zona, debes crearla en{' '}
-                          <Link className='text-green-500 underline' to={'/zones/create-zone'}>
+                          * Si no hay zonas disponibles o necesitas una nueva zona, debes crearla en{' '}
+                          <Link className='text-green-500 underline' to={'/zones/create'}>
                             Crear Zona.
                           </Link>
                         </p>
@@ -680,6 +680,15 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                       )}
 
                       <FormMessage className='text-[13px]' />
+                      <FormDescription className='text-[12.5px] md:text-[13px] text-blue-500 italic font-medium'>
+                        <p>
+                          * Si no hay predicadores disponibles o necesitas uno nuevo, debes crearlo
+                          en{' '}
+                          <Link className='text-green-500 underline' to={'/preachers/create'}>
+                            Crear Predicador.
+                          </Link>
+                        </p>
+                      </FormDescription>
                     </FormItem>
                   );
                 }}

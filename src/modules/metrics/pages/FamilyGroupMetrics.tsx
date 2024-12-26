@@ -13,12 +13,12 @@ import { getSimpleChurches } from '@/modules/church/services/church.service';
 
 import { FamilyGroupProportionCard } from '@/modules/metrics/components/family-group/charts/FamilyGroupProportionCard';
 import { FamilyGroupReportFormCard } from '@/modules/metrics/components/family-group/reports/FamilyGroupReportFormCard';
-import { FamilyGroupAnalysisCardByCode } from '@/modules/metrics/components/family-group/charts/FamilyGroupAnalysisCardByCode';
 import { FamilyGroupAnalysisCardByZone } from '@/modules/metrics/components/family-group/charts/FamilyGroupAnalysisCardByZone';
 import { FamilyGroupAnalysisCardByDistrict } from '@/modules/metrics/components/family-group/charts/FamilyGroupAnalysisCardByDistrict';
 import { FamilyGroupAnalysisCardByServiceTime } from '@/modules/metrics/components/family-group/charts/FamilyGroupAnalysisCardByServiceTime';
 import { FamilyGroupAnalysisCardByRecordStatus } from '@/modules/metrics/components/family-group/charts/FamilyGroupAnalysisCardByRecordStatus';
 import { FamilyGroupFluctuationAnalysisCardByYear } from '@/modules/metrics/components/family-group/charts/FamilyGroupFluctuationAnalysisCardByYear';
+import { FamilyGroupAnalysisCardByCopastorAndZone } from '@/modules/metrics/components/family-group/charts/FamilyGroupAnalysisCardByCopastorAndZone';
 
 export const FamilyGroupMetrics = (): JSX.Element => {
   //* States
@@ -46,7 +46,7 @@ export const FamilyGroupMetrics = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h2 className='text-center leading-12 sm:leading-none text-amber-500 py-2 md:py-2 xl:pt-3 font-sans font-bold text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+      <h2 className='text-center leading-10 sm:leading-none text-amber-500 pt-2 md:py-2 xl:pt-3 font-sans font-bold text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
         Métricas de Grupos Familiares
       </h2>
       <p className='text-center text-[15px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-medium'>
@@ -65,10 +65,10 @@ export const FamilyGroupMetrics = (): JSX.Element => {
       {!churchId ? (
         <MetricsSkeleton pathname={pathname} />
       ) : (
-        <div className='mt-6 px-2 sm:pb-10 md:px-6 xl:pb-14 flex flex-col xl:grid xl:grid-cols-2 gap-8 h-[145rem] sm:h-auto'>
+        <div className='mt-6 px-2 sm:pb-10 md:px-6 xl:pb-14 flex flex-col xl:grid xl:grid-cols-2 gap-8 h-[155rem] sm:h-auto'>
           <FamilyGroupFluctuationAnalysisCardByYear churchId={churchId} />
-          <FamilyGroupAnalysisCardByCode churchId={churchId} />
           <FamilyGroupAnalysisCardByZone churchId={churchId} />
+          <FamilyGroupAnalysisCardByCopastorAndZone churchId={churchId} />
           <FamilyGroupAnalysisCardByDistrict churchId={churchId} />
           <FamilyGroupAnalysisCardByServiceTime churchId={churchId} />
           <FamilyGroupAnalysisCardByRecordStatus churchId={churchId} />

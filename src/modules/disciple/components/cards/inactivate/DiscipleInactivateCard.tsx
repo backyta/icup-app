@@ -114,6 +114,7 @@ export const DiscipleInactivateCard = ({ idRow }: DiscipleInactivateCardProps): 
   const discipleInactivationMutation = useDiscipleInactivationMutation({
     setIsCardOpen,
     setIsButtonDisabled,
+    setIsSelectInputDisabled,
     scrollToTop: handleContainerScroll,
   });
 

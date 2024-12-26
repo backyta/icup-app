@@ -5,10 +5,16 @@ import { useMediaQuery } from '@react-hook/media-query';
 import { FamilyGroupTabsCard } from '@/modules/family-group/components/cards/info/FamilyGroupTabsCard';
 import { type FamilyGroupResponse } from '@/modules/family-group/interfaces/family-group-response.interface';
 
+import {
+  Dialog,
+  DialogTitle,
+  DialogTrigger,
+  DialogContent,
+  DialogDescription,
+} from '@/shared/components/ui/dialog';
 import { Button } from '@/shared/components/ui/button';
 import { CardContent } from '@/shared/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/components/ui/avatar';
-import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/shared/components/ui/drawer';
 
 interface Props {
@@ -56,6 +62,8 @@ export function FamilyGroupInfoItem({ data }: Props): JSX.Element {
               </Button>
             </DialogTrigger>
             <DialogContent className='max-w-[690px] w-full justify-center py-6 max-h-full overflow-y-auto'>
+              <DialogTitle></DialogTitle>
+              <DialogDescription></DialogDescription>
               <FamilyGroupTabsCard data={data} id={data.id} />
             </DialogContent>
           </Dialog>

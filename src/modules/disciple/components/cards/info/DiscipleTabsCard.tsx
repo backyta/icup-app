@@ -379,7 +379,7 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
               <Label className='text-[14px] md:text-[15px]'>Grupo Familiar</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.theirFamilyGroup?.id
-                  ? `${data?.theirFamilyGroup?.familyGroupName} - ${data?.theirFamilyGroup?.urbanSector}`
+                  ? `${data?.theirFamilyGroup?.familyGroupName} (${data?.theirFamilyGroup?.familyGroupCode} - ${data?.theirFamilyGroup?.urbanSector})`
                   : 'Este discípulo no tiene un grupo familiar asignado.'}
               </CardDescription>
             </div>

@@ -38,6 +38,6 @@ export const PreacherSearchTypeNames: Partial<Record<PreacherSearchType, string>
   [PreacherSearchType.ResidenceDistrict]: 'Distrito (residencia)',
   [PreacherSearchType.ResidenceUrbanSector]: 'Sector Urbano (residencia)',
   [PreacherSearchType.ResidenceAddress]: 'Dirección (residencia)',
-  [PreacherSearchType.RecordStatus]: 'Estado de registro (residencia)',
+  [PreacherSearchType.RecordStatus]: 'Estado de registro',
 }
 

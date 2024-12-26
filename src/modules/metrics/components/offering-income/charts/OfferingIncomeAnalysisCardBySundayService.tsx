@@ -155,7 +155,7 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
             Object.entries(offeringIncomeBySundayService?.data)?.length > 0 && (
               <Badge
                 variant='active'
-                className='mt-1 text-[10px] md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
+                className='mt-1 text-[11px] text-white md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
               >
                 Activos
               </Badge>
@@ -184,7 +184,7 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
                             variant='outline'
                             role='combobox'
                             className={cn(
-                              'justify-between text-[12px] md:text-[14px] w-full text-center px-2',
+                              'justify-between text-[14px] md:text-[14px] w-full text-center px-2',
                               !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-4'
                             )}
                           >
@@ -199,13 +199,13 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
                         <Command>
                           <CommandInput
                             placeholder='Busque un mes...'
-                            className='h-9 text-[12px] md:text-[14px]'
+                            className='h-9 text-[14px] md:text-[14px]'
                           />
                           <CommandEmpty>Mes no encontrado.</CommandEmpty>
                           <CommandGroup className='max-h-[100px] h-auto'>
                             {months.map((month) => (
                               <CommandItem
-                                className='text-[12px] md:text-[14px]'
+                                className='text-[14px] md:text-[14px]'
                                 value={month.label}
                                 key={month.value}
                                 onSelect={() => {
@@ -244,7 +244,7 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
                             variant='outline'
                             role='combobox'
                             className={cn(
-                              'justify-between w-full text-[12px] md:text-[14px] text-center px-2',
+                              'justify-between w-full text-[14px] md:text-[14px] text-center px-2',
                               !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-2'
                             )}
                           >
@@ -259,13 +259,13 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
                         <Command>
                           <CommandInput
                             placeholder='Busque un año...'
-                            className='h-9 text-[12px] md:text-[14px]'
+                            className='h-9 text-[14px] md:text-[14px]'
                           />
                           <CommandEmpty>Año no encontrado.</CommandEmpty>
                           <CommandGroup className='max-h-[100px] h-auto'>
                             {years.map((year) => (
                               <CommandItem
-                                className='text-[12px] md:text-[14px]'
+                                className='text-[14px] md:text-[14px]'
                                 value={year.label}
                                 key={year.value}
                                 onSelect={() => {
@@ -297,14 +297,14 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
       </CardHeader>
 
       {!offeringIncomeBySundayService?.data?.length && !searchParams ? (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
             <p>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           {offeringIncomeBySundayService?.isFetching &&
             !offeringIncomeBySundayService?.data?.length &&
             year && (
@@ -324,7 +324,7 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
               <BarChart
                 accessibilityLayer
                 data={offeringIncomeBySundayService?.data}
-                margin={{ top: 5, right: 5, left: -28, bottom: 10 }}
+                margin={{ top: 5, right: 5, left: -25, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
                 <XAxis
@@ -333,17 +333,17 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
                   tickMargin={10}
                   axisLine={true}
                   tickFormatter={(value) => dateFormatterToDDMMYY(addDays(value, 1))}
-                  className='text-[12px] sm:text-[14px]'
+                  className='text-[12.5px] sm:text-[14px]'
                 />
 
-                <YAxis className='text-[12px] sm:text-[14px]' />
+                <YAxis className='text-[12.5px] sm:text-[14px]' />
                 <ChartTooltip
                   cursor={false}
                   content={OfferingIncomeBySundayServiceTooltipContent as any}
                 />
 
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}
+                  content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
                 />
 
                 <Bar

@@ -35,11 +35,15 @@ export const SelectChurch = ({ churchId, setChurchId, data }: Props): JSX.Elemen
             variant='outline'
             role='combobox'
             aria-expanded={open}
-            className='w-auto px-3 py-0 text-[12px] md:text-[14px]'
+            className='w-auto px-3 py-0 text-[14px] md:text-[14px]'
           >
             {churchId
-              ? data?.find((church) => church.id === churchId)?.abbreviatedChurchName
-              : 'ICUP - Central'}
+              ? data
+                  ?.find((church) => church.id === churchId)
+                  ?.churchCode.split('-')
+                  .slice(0, 2)
+                  .join('-')
+              : 'ICUP-CENTRAL'}
             <ChevronsUpDown className='ml-2 h-4 w-4 shrink-0 opacity-50' />
           </Button>
         </PopoverTrigger>
@@ -47,13 +51,13 @@ export const SelectChurch = ({ churchId, setChurchId, data }: Props): JSX.Elemen
           <Command>
             <CommandInput
               placeholder='Busque una iglesia'
-              className='h-9 text-[12px] md:text-[14px]'
+              className='h-9 text-[14px] md:text-[14px]'
             />
             <CommandEmpty>Iglesia no encontrada.</CommandEmpty>
             <CommandGroup className='max-h-[100px] h-auto'>
               {data?.map((church) => (
                 <CommandItem
-                  className='text-[12px] md:text-[14px]'
+                  className='text-[14px] md:text-[14px]'
                   value={church.abbreviatedChurchName}
                   key={church.id}
                   onSelect={() => {

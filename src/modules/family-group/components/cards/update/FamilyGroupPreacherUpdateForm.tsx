@@ -129,7 +129,7 @@ export const FamilyGroupPreacherUpdateForm = ({
   return (
     <Tabs
       defaultValue='general-info'
-      className='w-auto sm:w-[480px] md:w-[550px] lg:w-[550px] xl:w-[600px]'
+      className='-mt-8 w-auto sm:w-[480px] md:w-[550px] lg:w-[550px] xl:w-[600px]'
     >
       <h2 className='text-center text-emerald-500 pb-2 font-bold text-[22px] sm:text-[22px] md:text-[24px]'>
         Intercambiar Predicadores
@@ -212,7 +212,7 @@ export const FamilyGroupPreacherUpdateForm = ({
                       name='newTheirPreacher'
                       render={({ field }) => {
                         return (
-                          <FormItem className=''>
+                          <FormItem>
                             <FormLabel className='text-[14px] font-bold'>
                               Predicador Nuevo
                             </FormLabel>

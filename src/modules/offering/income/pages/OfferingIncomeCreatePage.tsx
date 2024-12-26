@@ -583,7 +583,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   )
                                 ) : subType === OfferingIncomeCreationSubType.SundaySchool ||
                                   subType === OfferingIncomeCreationSubType.YouthService ? (
-                                  (key === OfferingIncomeCreationCategory.InternalDonation ||
+                                  (key === OfferingIncomeCreationCategory.OfferingBox ||
+                                    key === OfferingIncomeCreationCategory.InternalDonation ||
                                     key === OfferingIncomeCreationCategory.ExternalDonation ||
                                     key ===
                                       OfferingIncomeCreationCategory.FundraisingProMinistry) && (
@@ -1575,17 +1576,25 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                             setIsInputDateOpen(false);
                           }}
                           disabled={
-                            (subType !== OfferingIncomeCreationSubType.SundayService &&
-                              subType !== OfferingIncomeCreationSubType.SundaySchool &&
-                              subType !== OfferingIncomeCreationSubType.FamilyGroup) ||
-                            category !== OfferingIncomeCreationCategory.OfferingBox
-                              ? (date) => date > new Date() || date < new Date('1900-01-01')
-                              : (date) => {
+                            (subType === OfferingIncomeCreationSubType.SundayService ||
+                              subType === OfferingIncomeCreationSubType.SundaySchool ||
+                              subType === OfferingIncomeCreationSubType.FamilyGroup) &&
+                            category === OfferingIncomeCreationCategory.OfferingBox
+                              ? (date) => {
                                   const today = new Date();
                                   const minDate = new Date('1900-01-01');
                                   const dayOfWeek = date.getDay();
                                   return dayOfWeek !== 0 || date > today || date < minDate;
                                 }
+                              : subType === OfferingIncomeCreationSubType.YouthService &&
+                                  category === OfferingIncomeCreationCategory.OfferingBox
+                                ? (date) => {
+                                    const today = new Date();
+                                    const minDate = new Date('1900-01-01');
+                                    const dayOfWeek = date.getDay();
+                                    return dayOfWeek !== 6 || date > today || date < minDate;
+                                  }
+                                : (date) => date > new Date() || date < new Date('1900-01-01')
                           }
                           initialFocus
                         />

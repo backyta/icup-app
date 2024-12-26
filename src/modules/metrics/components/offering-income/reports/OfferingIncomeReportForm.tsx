@@ -131,14 +131,14 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
       defaultValue='general-info'
       className='w-auto sm:w-[480px] md:w-[550px] lg:w-[550px] xl:w-[600px]'
     >
-      <h2 className='text-center text-yellow-500  leading-6 pb-1 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
+      <h2 className='text-center text-amber-500 leading-6 pb-1 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
         Generar Reporte
       </h2>
 
       <TabsContent value='general-info' className='overflow-y-auto'>
         <Card className='w-full'>
           <CardContent className='py-3 px-3'>
-            <span className='text-[12.5px] md:text-[14px] font-medium dark:text-slate-400 text-slate-500'>
+            <span className='text-[13.5px] md:text-[14px] font-medium dark:text-slate-400 text-slate-500'>
               👋🏻 Bienvenido al generador de reportes, por favor selecciona las opciones que quieres
               agregar al reporte.
             </span>
@@ -155,10 +155,10 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
                     return (
                       <FormItem className='flex justify-start gap-5 items-center'>
                         <div className='w-auto'>
-                          <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                          <FormLabel className='text-[14.5px] md:text-[14.5px] font-bold'>
                             Año de búsqueda
                           </FormLabel>
-                          <FormDescription className='text-[12px] md:text-[13px] font-medium'>
+                          <FormDescription className='text-[13px] md:text-[13px] font-medium'>
                             Selecciona el año de búsqueda que tendrán los reportes.
                           </FormDescription>
                         </div>
@@ -173,7 +173,7 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
                                 variant='outline'
                                 role='combobox'
                                 className={cn(
-                                  'mt-2 justify-center w-auto text-center px-2 text-[12px] md:text-[14px] ',
+                                  'mt-2 justify-center w-auto text-center px-2 text-[14px] md:text-[14px] ',
                                   !field.value &&
                                     'text-slate-500  dark:text-slate-200 font-normal px-2'
                                 )}
@@ -189,13 +189,13 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
                             <Command>
                               <CommandInput
                                 placeholder='Busque un año...'
-                                className='h-9 text-[12px] md:text-[14px]'
+                                className='h-9 text-[14px] md:text-[14px]'
                               />
                               <CommandEmpty>Año no encontrado.</CommandEmpty>
                               <CommandGroup className='max-h-[100px] h-auto'>
                                 {years.map((year) => (
                                   <CommandItem
-                                    className='text-[12px] md:text-[14px]'
+                                    className='text-[14px] md:text-[14px]'
                                     value={year.label}
                                     key={year.value}
                                     onSelect={() => {
@@ -230,10 +230,10 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
                       return (
                         <FormItem className='flex justify-start gap-3 items-center'>
                           <div className='w-auto'>
-                            <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                            <FormLabel className='text-[14.5px] md:text-[14.5px] font-bold'>
                               Rango de meses de búsqueda
                             </FormLabel>
-                            <FormDescription className='text-[12px] md:text-[13px] font-medium'>
+                            <FormDescription className='text-[13px] md:text-[13px] font-medium'>
                               Selecciona el rango de meses de búsqueda que tendrán los reportes.
                             </FormDescription>
                           </div>
@@ -248,7 +248,7 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
                                   variant='outline'
                                   role='combobox'
                                   className={cn(
-                                    'justify-center w-auto text-center px-2 text-[12px] md:text-[14px] ',
+                                    'justify-center w-auto text-center px-2 text-[14px] md:text-[14px] ',
                                     !field.value &&
                                       'text-slate-500  dark:text-slate-200 font-normal px-2'
                                   )}
@@ -264,13 +264,13 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
                               <Command>
                                 <CommandInput
                                   placeholder='Busque un mes...'
-                                  className='h-9 text-[12px] md:text-[14px]'
+                                  className='h-9 text-[14px] md:text-[14px]'
                                 />
                                 <CommandEmpty>Mes no encontrado.</CommandEmpty>
                                 <CommandGroup className='max-h-[100px] h-auto'>
                                   {months.map((month) => (
                                     <CommandItem
-                                      className='text-[12px] md:text-[14px]'
+                                      className='text-[14px] md:text-[14px]'
                                       value={month.label}
                                       key={month.value}
                                       onSelect={() => {
@@ -314,7 +314,7 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
                                   variant='outline'
                                   role='combobox'
                                   className={cn(
-                                    'mt-2 justify-center w-auto text-center px-2 text-[12px] md:text-[14px] ',
+                                    'mt-2 justify-center w-auto text-center px-2 text-[14px] md:text-[14px] ',
                                     !field.value &&
                                       'text-slate-500  dark:text-slate-200 font-normal px-2'
                                   )}
@@ -330,13 +330,13 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
                               <Command>
                                 <CommandInput
                                   placeholder='Busque un mes...'
-                                  className='h-9 text-[12px] md:text-[14px]'
+                                  className='h-9 text-[14px] md:text-[14px]'
                                 />
                                 <CommandEmpty>Mes no encontrado.</CommandEmpty>
                                 <CommandGroup className='max-h-[100px] h-auto'>
                                   {months.map((month) => (
                                     <CommandItem
-                                      className='text-[12px] md:text-[14px]'
+                                      className='text-[14px] md:text-[14px]'
                                       value={month.label}
                                       key={month.value}
                                       onSelect={() => {
@@ -370,11 +370,11 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
                   render={() => (
                     <FormItem>
                       <div>
-                        <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                        <FormLabel className='text-[14.5px] md:text-[14.5px] font-bold'>
                           Opciones
                         </FormLabel>
                       </div>
-                      <div className='flex flex-col md:grid md:grid-cols-2 items-start md:items-center mx-auto gap-x-[5rem] justify-between gap-y-2 cursor-pointer'>
+                      <div className='flex flex-col md:grid md:grid-cols-2 items-start md:items-center mx-auto gap-x-[5rem] justify-between gap-y-2'>
                         {Object.values(MetricOfferingIncomeSearchType).map((type) => (
                           <FormField
                             key={type}
@@ -404,7 +404,7 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
                                     />
                                   </FormControl>
                                   <FormLabel
-                                    className={`text-[12px] md:text-[13px] font-medium cursor-pointer`}
+                                    className={`text-[14px] md:text-[14px] font-medium cursor-pointer`}
                                   >
                                     {MetricOfferingIncomeSearchTypeNames[type]}
                                   </FormLabel>
@@ -420,11 +420,11 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
                 />
 
                 {isMessageErrorDisabled ? (
-                  <p className='-mb-2 md:-mb-3 md:row-start-5 md:row-end-6 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
+                  <p className='-mb-3 md:-mb-3 md:row-start-5 md:row-end-6 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-red-500 text-[12.5px] md:text-[13px] font-bold'>
                     ❌ Datos incompletos, completa los campos requeridos.
                   </p>
                 ) : (
-                  <p className='-mt-1 order-last md:-mt-3 md:row-start-6 md:row-end-7 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
+                  <p className='-mt-3 order-last md:-mt-3 md:row-start-6 md:row-end-7 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
                     ¡Campos completados correctamente!
                   </p>
                 )}
@@ -462,10 +462,10 @@ export const OfferingIncomeReportForm = ({ churchId, dialogClose }: Props): JSX.
               </form>
             </Form>
             <div className='mt-3'>
-              <p className='text-blue-500 text-[13px] md:text-[14px] font-bold mb-2'>
+              <p className='text-blue-500 text-[14px] md:text-[14px] font-bold mb-2'>
                 Consideraciones
               </p>
-              <p className='text-[12px] md:text-[13px] font-medium'>
+              <p className='text-[13px] md:text-[13px] font-medium'>
                 ✅ Se generara el reporte pdf con la iglesia actual de la búsqueda.
               </p>
             </div>

@@ -22,7 +22,6 @@ import { getSimpleCopastors } from '@/modules/copastor/services/copastor.service
 import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
 import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
 import { getPreachersByZoneAndGender } from '@/modules/metrics/services/member-metrics.service';
-import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
 
 import { PreachersByZoneAndGenderTooltipContent } from '@/modules/metrics/components/member/tooltips/components/PreachersByZoneAndGenderTooltipContent';
 
@@ -48,6 +47,13 @@ import {
   type ChartConfig,
   ChartLegendContent,
 } from '@/shared/components/ui/chart';
+import {
+  Card,
+  CardTitle,
+  CardHeader,
+  CardContent,
+  CardDescription,
+} from '@/shared/components/ui/card';
 import { Badge } from '@/shared/components/ui/badge';
 import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
@@ -67,6 +73,7 @@ const chartConfig = {
 interface ResultDataOptions {
   zoneName: string;
   supervisor: string;
+  copastor: string;
   men: number;
   women: number;
   church: {
@@ -156,6 +163,7 @@ export const PreacherAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.El
             men: payload?.men,
             women: payload?.women,
             supervisor: payload?.supervisor,
+            copastor: payload?.copastor,
             church: {
               isAnexe: payload?.church?.isAnexe,
               abbreviatedChurchName: payload?.church?.abbreviatedChurchName,
@@ -178,19 +186,24 @@ export const PreacherAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.El
   };
 
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-2 col-end-3 h-[22rem] md:h-[25rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
-      <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 py-2.5'>
-        <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-          <span>Pred. (zona)</span>
-          {!!copastorsQuery?.data?.length && (
-            <Badge
-              variant='active'
-              className='mt-1 text-[10px] md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
-            >
-              Activos
-            </Badge>
-          )}
-        </CardTitle>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-2 col-end-3 h-[24rem] md:h-[27rem] lg:h-[27rem] 2xl:h-[27rem] m-0 border-slate-200 dark:border-slate-800'>
+      <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 pt-1.5 pb-2'>
+        <div className='flex flex-col'>
+          <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
+            Predicadores
+            {!!copastorsQuery?.data?.length && (
+              <Badge
+                variant='active'
+                className='mt-1 text-[11px] text-white md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
+              >
+                Activos
+              </Badge>
+            )}
+          </CardTitle>
+          <CardDescription className='-ml-1 sm:ml-1 text-center sm:text-left text-[14px] md:text-[14.5px] italic'>
+            Por Zona (cantidad y género).
+          </CardDescription>
+        </div>
         <Form {...form}>
           <form className='flex'>
             <FormField
@@ -207,7 +220,7 @@ export const PreacherAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.El
                             variant='outline'
                             role='combobox'
                             className={cn(
-                              'justify-between w-full text-center overflow-hidden px-2 text-[12px] md:text-[14px]',
+                              'justify-between w-full text-center overflow-hidden px-2 text-[14px] md:text-[14px]',
                               !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-2'
                             )}
                           >
@@ -226,13 +239,13 @@ export const PreacherAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.El
                             <>
                               <CommandInput
                                 placeholder='Busque un co-pastor...'
-                                className='h-9 text-[12px] md:text-[14px]'
+                                className='h-9 text-[14px] md:text-[14px]'
                               />
                               <CommandEmpty>Co-pastor no encontrado.</CommandEmpty>
                               <CommandGroup className='max-h-[200px] h-auto'>
                                 {copastorsQuery?.data?.map((copastor) => (
                                   <CommandItem
-                                    className='text-[12px] md:text-[14px]'
+                                    className='text-[14px] md:text-[14px]'
                                     value={getFullNames({
                                       firstNames: copastor?.member.firstNames ?? '',
                                       lastNames: copastor?.member?.lastNames ?? '',
@@ -286,7 +299,7 @@ export const PreacherAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.El
                     />
                   </FormControl>
                   <div className='space-y-1 leading-none'>
-                    <FormLabel className='text-[12px] md:text-[14px]'>Todos</FormLabel>
+                    <FormLabel className='text-[13px] md:text-[14px]'>Todos</FormLabel>
                   </div>
                 </FormItem>
               )}
@@ -296,14 +309,14 @@ export const PreacherAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.El
       </CardHeader>
 
       {!mappedData?.length && !searchParams ? (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
             <p>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           {preachersByZoneAndGenderQuery?.isFetching && !mappedData?.length && (
             <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDataBackup className='text-[6rem] pb-2' />
@@ -314,13 +327,13 @@ export const PreacherAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.El
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[252px] sm:h-[285px] md:h-[330px] lg:h-[330px] xl:h-[330px] 2xl:h-[345px]'
+                'w-full h-[270px] sm:h-[305px] md:h-[350px] lg:h-[350px] xl:h-[350px] 2xl:h-[345px]'
               )}
             >
               <AreaChart
                 accessibilityLayer
                 data={mappedData}
-                margin={{ top: 5, right: 5, left: -28, bottom: 10 }}
+                margin={{ top: 5, right: 5, left: -35, bottom: 10 }}
               >
                 <CartesianGrid vertical={false} />
                 <XAxis
@@ -328,10 +341,10 @@ export const PreacherAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.El
                   tickLine={false}
                   axisLine={false}
                   tickMargin={8}
-                  className='text-[12px] md:text-[14px]'
+                  className='text-[12.5px] md:text-[14px]'
                   tickFormatter={(value) => value.slice(0, 7)}
                 />
-                <YAxis type='number' className='text-[12px] md:text-[14px]' />
+                <YAxis type='number' className='text-[12.5px] md:text-[14px]' />
 
                 <ChartTooltip
                   cursor={false}
@@ -355,7 +368,7 @@ export const PreacherAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.El
                   stackId='women'
                 />
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}
+                  content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
                 />
               </AreaChart>
             </ChartContainer>

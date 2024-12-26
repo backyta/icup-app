@@ -102,6 +102,7 @@ export const FamilyGroupUpdateForm = ({
   //* Hooks (external libraries)
   const { pathname } = useLocation();
 
+  console.log(data);
   //* Form
   const form = useForm<z.infer<typeof familyGroupFormSchema>>({
     mode: 'onChange',
@@ -665,18 +666,19 @@ export const FamilyGroupUpdateForm = ({
                                 </PopoverTrigger>
                                 <PopoverContent align='center' className='w-auto px-4 py-2'>
                                   <Command>
-                                    <CommandInput
-                                      placeholder='Busque un predicador...'
-                                      className='h-9 text-[14px]'
-                                    />
+                                    {(data?.theirPreacher?.id ||
+                                      preachersByZoneQuery?.data?.length !== 0) && (
+                                      <CommandInput
+                                        placeholder='Busque un predicador...'
+                                        className='h-9 text-[14px]'
+                                      />
+                                    )}
                                     {data?.recordStatus === RecordStatus.Active &&
-                                    data?.theirPreacher?.id
-                                      ? preachersQuery?.data && (
-                                          <CommandEmpty>Predicador no encontrado.</CommandEmpty>
-                                        )
-                                      : preachersByZoneQuery?.data && (
-                                          <CommandEmpty>Predicador no encontrado.</CommandEmpty>
-                                        )}
+                                      data?.theirPreacher &&
+                                      preachersQuery?.data &&
+                                      preachersByZoneQuery?.data?.length !== 0 && (
+                                        <CommandEmpty>Predicador no encontrado.</CommandEmpty>
+                                      )}
                                     <CommandGroup
                                       className={cn(
                                         'max-h-[200px] h-auto ',
@@ -686,7 +688,7 @@ export const FamilyGroupUpdateForm = ({
                                     >
                                       {data?.recordStatus === RecordStatus.Active &&
                                       data.theirPreacher?.id
-                                        ? (preachersQuery?.data?.map((preacher) => (
+                                        ? preachersQuery?.data?.map((preacher) => (
                                             <CommandItem
                                               className='text-[14px]'
                                               value={getFullNames({
@@ -709,41 +711,41 @@ export const FamilyGroupUpdateForm = ({
                                                 )}
                                               />
                                             </CommandItem>
-                                          )) ?? (
-                                            <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
-                                              ❌ No se encontró predicadores disponibles, todos
-                                              están asignados a un grupo familiar.
-                                            </p>
                                           ))
-                                        : (preachersByZoneQuery?.data?.map((preacher) => (
-                                            <CommandItem
-                                              className='text-[14px]'
-                                              value={getFullNames({
-                                                firstNames: preacher?.member?.firstNames ?? '',
-                                                lastNames: preacher?.member?.lastNames ?? '',
-                                              })}
-                                              key={preacher.id}
-                                              onSelect={() => {
-                                                form.setValue('theirPreacher', preacher.id);
-                                                setIsInputTheirPreacherOpen(false);
-                                              }}
-                                            >
-                                              {`${preacher?.member?.firstNames} ${preacher?.member?.lastNames}`}
-                                              <CheckIcon
-                                                className={cn(
-                                                  'ml-auto h-4 w-4',
-                                                  preacher.id === field.value
-                                                    ? 'opacity-100'
-                                                    : 'opacity-0'
-                                                )}
-                                              />
-                                            </CommandItem>
-                                          )) ?? (
-                                            <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
-                                              ❌ No se encontró predicadores disponibles, todos
-                                              están asignados a un grupo familiar.
-                                            </p>
-                                          ))}
+                                        : (data?.recordStatus === RecordStatus.Active ||
+                                              data?.recordStatus === RecordStatus.Inactive) &&
+                                            !data.theirPreacher?.id &&
+                                            preachersByZoneQuery?.data?.length !== 0
+                                          ? preachersByZoneQuery?.data?.map((preacher) => (
+                                              <CommandItem
+                                                className='text-[14px]'
+                                                value={getFullNames({
+                                                  firstNames: preacher?.member?.firstNames ?? '',
+                                                  lastNames: preacher?.member?.lastNames ?? '',
+                                                })}
+                                                key={preacher.id}
+                                                onSelect={() => {
+                                                  form.setValue('theirPreacher', preacher.id);
+                                                  setIsInputTheirPreacherOpen(false);
+                                                }}
+                                              >
+                                                {`${preacher?.member?.firstNames} ${preacher?.member?.lastNames}`}
+                                                <CheckIcon
+                                                  className={cn(
+                                                    'ml-auto h-4 w-4',
+                                                    preacher.id === field.value
+                                                      ? 'opacity-100'
+                                                      : 'opacity-0'
+                                                  )}
+                                                />
+                                              </CommandItem>
+                                            ))
+                                          : preachersByZoneQuery?.data?.length === 0 && (
+                                              <p className='text-[13.5px] md:text-[14.5px] w-[20rem] font-medium text-red-500 text-center'>
+                                                ❌ No se encontró predicadores disponibles, todos
+                                                están asignados a un grupo familiar.
+                                              </p>
+                                            )}
                                     </CommandGroup>
                                   </Command>
                                 </PopoverContent>

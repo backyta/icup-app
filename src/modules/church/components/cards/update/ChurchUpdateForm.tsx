@@ -497,7 +497,7 @@ export const ChurchUpdateForm = ({
                       name='province'
                       render={({ field }) => {
                         return (
-                          <FormItem className=''>
+                          <FormItem>
                             <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
                               Provincia
                             </FormLabel>

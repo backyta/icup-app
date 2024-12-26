@@ -1,4 +1,5 @@
 interface FamilyGroupStats  {
+  copastor: string;
   supervisor: string;
   active: number;
   inactive: number;

@@ -1386,7 +1386,7 @@ export const PreacherUpdateForm = ({
                       </AlertDialogContent>
                     </AlertDialog>
 
-                    <div className=''>
+                    <div>
                       <p className='text-red-500 text-[13.5px] md:text-[14px] font-bold mb-2'>
                         Consideraciones
                       </p>

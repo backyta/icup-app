@@ -9,23 +9,23 @@ export const GeneralComparativeOfferingIncomeTooltipContent = (
   return (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
       <p>
-        <span className='font-medium text-[13px] sm:text-[14px]'>{`${payload[0]?.payload?.type}`}</span>
+        <span className='font-medium text-[14px] sm:text-[14px]'>{`${payload[0]?.payload?.type}`}</span>
         {payload[0]?.payload?.subType !== 'Ajuste por Ingreso' && (
-          <span className='font-medium text-[13px] sm:text-[14px]'>{` ~ ${payload[0]?.payload?.subType}`}</span>
+          <span className='font-medium text-[14px] sm:text-[14px]'>{` ~ ${payload[0]?.payload?.subType}`}</span>
         )}
 
-        <span className='font-medium text-[13px] sm:text-[14px] text-slate-500 md:text-slate-400'>{` (${payload[0]?.payload?.totalPercentage}%)`}</span>
+        <span className='font-medium text-[14px] sm:text-[14px] text-slate-500 md:text-slate-400'>{` (${payload[0]?.payload?.totalPercentage}%)`}</span>
       </p>
 
       {(payload[0]?.payload?.accumulatedOfferingPEN > 0 &&
         payload[0]?.payload?.accumulatedOfferingUSD > 0) ||
       (payload[0]?.payload?.accumulatedOfferingPEN > 0 &&
         payload[0]?.payload?.accumulatedOfferingEUR > 0) ? (
-        <p className='font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
+        <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
           Totales acumulados:
         </p>
       ) : (
-        <p className='font-medium text-[11.5px] sm:text-[13px] dark:text-slate-400 text-slate-500'>
+        <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
           Total acumulado:
         </p>
       )}
@@ -39,7 +39,7 @@ export const GeneralComparativeOfferingIncomeTooltipContent = (
               border: `1px solid #029012`,
             }}
           ></span>
-          <p className='-mt-[2px] font-medium text-[11.5px] sm:text-[13px] text-[#029012]'>
+          <p className='-mt-[2px] font-medium text-[13.5px] sm:text-[13.5px] text-[#029012]'>
             Soles:
             <span className='text-foreground pl-1'>{`${payload[0]?.payload?.accumulatedOfferingPEN} PEN`}</span>
           </p>
@@ -55,7 +55,7 @@ export const GeneralComparativeOfferingIncomeTooltipContent = (
               border: `1px solid #813cb4`,
             }}
           ></span>
-          <p className='-mt-[2px] font-medium text-[11.5px] sm:text-[13px] text-[#813cb4]'>
+          <p className='-mt-[2px] font-medium text-[13.5px] sm:text-[13.5px] text-[#813cb4]'>
             Dolares:
             <span className='text-foreground pl-1'>{`${payload[0]?.payload?.accumulatedOfferingUSD} USD`}</span>
           </p>
@@ -71,14 +71,14 @@ export const GeneralComparativeOfferingIncomeTooltipContent = (
               border: `1px solid #279fb3`,
             }}
           ></span>
-          <p className='-mt-[2px] font-medium text-[11.5px] sm:text-[13px] text-[#279fb3]'>
+          <p className='-mt-[2px] font-medium text-[13.5px] sm:text-[13.5px] text-[#279fb3]'>
             Euros:
             <span className='text-foreground pl-1'>{`${payload[0]?.payload?.accumulatedOfferingEUR} EUR`}</span>
           </p>
         </div>
       )}
 
-      <li className={'pl-[2px] font-medium text-[11.5px] sm:text-[13px]'}>
+      <li className={'font-medium text-[13.5px] sm:text-[13.5px]'}>
         <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
       </li>
     </div>

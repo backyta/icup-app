@@ -1,12 +1,10 @@
-import { getPercent } from '@/modules/metrics/helpers/get-percent.helper';
 import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
-import { type FamilyGroupsByZonePayload } from '@/modules/metrics/components/family-group/tooltips/interfaces/family-groups-by-zone-tooltip-payload.interface';
+import { type FamilyGroupByCopastorAndZonePayload } from '@/modules/metrics/components/family-group/tooltips/interfaces/family-groups-by-copastor-and-zone-tooltip-config.interface';
 
-export const FamilyGroupsByZoneTooltipContent = (
-  props: TooltipConfig<FamilyGroupsByZonePayload>
+export const FamilyGroupsByCopastorAndZoneTooltipContent = (
+  props: TooltipConfig<FamilyGroupByCopastorAndZonePayload>
 ): JSX.Element => {
   const { payload, label } = props;
-  const total = payload.reduce((result, entry) => result + entry.value, 0);
 
   return (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
@@ -27,20 +25,18 @@ export const FamilyGroupsByZoneTooltipContent = (
                 border: `1px solid ${entry.color}`,
               }}
             ></span>
-            {`${entry.name === 'men' ? 'Varones' : 'Mujeres'}: ${entry.value} (${getPercent(entry.value, total)})`}
+            {`Grupos familiares: ${entry.value}`}
           </li>
         ))}
       </ul>
 
-      <li className='font-medium italic text-[13.5px] sm:text-[13.5px] dark:text-emerald-500 text-emerald-500'>
-        <span className='-ml-2'>Discípulos totales: {total}</span>
-      </li>
       <li className='font-medium italic text-[13.5px] sm:text-[13.5px] dark:text-sky-500 text-sky-500'>
-        <span className='-ml-2'>Predicador: {payload[0]?.payload?.preacher}</span>
-      </li>
-      <li className='font-medium italic text-[13.5px] sm:text-[13.5px] dark:text-violet-500 text-violet-500'>
         <span className='-ml-2'>Supervisor: {payload[0]?.payload?.supervisor}</span>
       </li>
+      <li className='font-medium italic text-[13.5px] sm:text-[13.5px] dark:text-violet-500 text-violet-500'>
+        <span className='-ml-2'>Co-Pastor: {payload[0]?.payload?.copastor}</span>
+      </li>
+
       <li
         className={
           ' italic font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-300 text-slate-500'
@@ -50,8 +46,7 @@ export const FamilyGroupsByZoneTooltipContent = (
       </li>
 
       <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-yellow-500 text-amber-500'>
-        Porcentaje total general:{' '}
-        {`${isNaN(+payload[0]?.payload?.totalPercentage) ? '0' : payload[0]?.payload?.totalPercentage}%`}
+        Porcentaje total general: {`${payload[0]?.payload?.totalPercentage}%`}
       </p>
     </div>
   );

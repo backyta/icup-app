@@ -109,24 +109,24 @@ export const MemberAnalysisCardByRoleAndGender = ({ churchId }: Props): JSX.Elem
   return (
     <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] md:h-[25rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardTitle className='flex justify-center items-center gap-2.5 px-4 py-2.5 text-center font-bold mb-2 sm:mb-0 text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-        <span className='ml-20'>Roles Eclesiásticos</span>
+        <span className='ml-6 md:ml-20'>Roles Eclesiásticos</span>
         <Badge
           variant='active'
-          className='mt-1 text-[10px] md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
+          className='mt-1 text-[11px] text-white md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
         >
           Activos
         </Badge>
       </CardTitle>
 
       {!mappedData?.length ? (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
             <p>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-6 py-0'>
+        <CardContent className='h-full pl-3 pr-4 py-0'>
           {membersByRoleAndGenderQuery?.isFetching && !mappedData?.length && (
             <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDataBackup className='text-[6rem] pb-2' />
@@ -143,7 +143,7 @@ export const MemberAnalysisCardByRoleAndGender = ({ churchId }: Props): JSX.Elem
               <BarChart
                 accessibilityLayer
                 data={mappedData}
-                margin={{ top: 5, right: 5, left: -28, bottom: 10 }}
+                margin={{ top: 5, right: 5, left: -30, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
                 <XAxis
@@ -152,17 +152,17 @@ export const MemberAnalysisCardByRoleAndGender = ({ churchId }: Props): JSX.Elem
                   tickMargin={10}
                   axisLine={true}
                   tickFormatter={(value) => value.slice(0, 10)}
-                  className='text-[12px] md:text-[14px]'
+                  className='text-[12.5px] md:text-[14px]'
                 />
 
-                <YAxis className='text-[12px] md:text-[14px]' />
+                <YAxis className='text-[12.5px] md:text-[14px]' />
                 <ChartTooltip
                   cursor={false}
                   content={MembersByRoleAndGenderTooltipContent as any}
                 />
 
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-10 text-[12px] md:text-[14px]' />}
+                  content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
                 />
 
                 <Bar dataKey='men' fill='var(--color-men)' radius={4} />

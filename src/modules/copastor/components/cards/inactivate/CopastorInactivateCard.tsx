@@ -114,6 +114,7 @@ export const CopastorInactivateCard = ({ idRow }: CopastorInactivateCardProps): 
   const copastorInactivationMutation = useCopastorInactivationMutation({
     setIsCardOpen,
     setIsButtonDisabled,
+    setIsSelectInputDisabled,
     scrollToTop: handleContainerScroll,
   });
 
