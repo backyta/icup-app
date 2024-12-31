@@ -1,6 +1,7 @@
 interface FamilyGroupStats  {
   copastor: string;
   supervisor: string;
+  district: string;
   familyGroupsCount: number;
   church:{
     isAnexe: boolean;

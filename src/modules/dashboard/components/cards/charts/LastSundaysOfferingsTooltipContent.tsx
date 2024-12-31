@@ -72,10 +72,10 @@ export const LastSundaysOfferingsTooltipContent = (
       </ul>
 
       <li className={' font-medium italic text-[13.5px] sm:text-[13.5px]'}>
-        <span className='-ml-2'>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
+        <span>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
       </li>
       <li className={' font-medium italic text-[13.5px] sm:text-[13.5px]'}>
-        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
+        <span>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
       </li>
 
       {(totalAccumulatedPEN > 0 && totalAccumulatedUSD > 0) ||
@@ -90,18 +90,18 @@ export const LastSundaysOfferingsTooltipContent = (
       )}
 
       {totalAccumulatedPEN > 0 && (
-        <li className='pl-1 font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-          <span className='-ml-2'>{`Soles: ${totalAccumulatedPEN} ${CurrencyType.PEN}`}</span>
+        <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+          <span>{`Soles: ${totalAccumulatedPEN} ${CurrencyType.PEN}`}</span>
         </li>
       )}
       {totalAccumulatedUSD > 0 && (
-        <li className='pl-1 font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-          <span className='-ml-2'> {`Dolares: ${totalAccumulatedUSD} ${CurrencyType.USD}`}</span>
+        <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+          <span> {`Dolares: ${totalAccumulatedUSD} ${CurrencyType.USD}`}</span>
         </li>
       )}
       {totalAccumulatedEUR > 0 && (
-        <li className='pl-1 font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-          <span className='-ml-2'> {`Euros: ${totalAccumulatedEUR} ${CurrencyType.EUR}`}</span>
+        <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+          <span> {`Euros: ${totalAccumulatedEUR} ${CurrencyType.EUR}`}</span>
         </li>
       )}
     </div>

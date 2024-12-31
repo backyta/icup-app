@@ -57,6 +57,7 @@ const chartConfig = {
 
 interface ResultDataOptions {
   urbanSectorName: string;
+  district: string;
   familyGroupsCount: number;
   church: {
     isAnexe: boolean;
@@ -127,6 +128,7 @@ export const FamilyGroupAnalysisCardByDistrict = ({ churchId }: Props): JSX.Elem
           return {
             urbanSectorName,
             familyGroupsCount: payload?.familyGroupsCount,
+            district: payload?.district,
             church: {
               isAnexe: payload?.church?.isAnexe,
               abbreviatedChurchName: payload?.church?.abbreviatedChurchName,

@@ -284,7 +284,7 @@ export const OfferingComparativeAnalysisCardByIncomeAndExpenses = ({
                 <AreaChart
                   accessibilityLayer
                   data={incomeAndExpensesComparativeByYear?.data}
-                  margin={{ top: 5, right: 5, left: -20, bottom: 10 }}
+                  margin={{ top: 5, right: 5, left: -15, bottom: 10 }}
                 >
                   <CartesianGrid vertical={false} />
                   <XAxis

@@ -5,7 +5,7 @@ import { addDays } from 'date-fns';
 import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 
 import {
-  type OfferingIncomeCreationCategory,
+  OfferingIncomeCreationCategory,
   OfferingIncomeCreationCategoryNames,
 } from '@/modules/offering/income/enums/offering-income-creation-category.enum';
 import { CurrencyType } from '@/modules/offering/shared/enums/currency-type.enum';
@@ -37,19 +37,18 @@ export const OfferingIncomeBySundaySchoolTooltipContent = (
   return (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
       <p className='font-medium text-[14px] sm:text-[14px]'>{`${dateFormatterToDDMMYY(addDays(label, 1))}`}</p>
-      <span className='font-semibold text-[13.5px] md:text-[13.5px]'>Lista de Ofrendas</span>
+      {payload[0]?.payload?.allOfferings?.length > 1 && (
+        <span className='font-medium text-[13.5px] md:text-[13.5px]'>Lista de Ofrendas</span>
+      )}
       <ul className='list grid gap-1.5'>
         {(() => {
           let count = 0;
-          return payload.map((entry, index) => {
+          return payload.map((entry, _) => {
             if (entry.value) {
               count += 1;
               return (
-                <div key={`item-${index}`}>
-                  <li
-                    key={`item-${index}`}
-                    className='flex items-center font-medium text-[13.5px] sm:text-[13.5px]'
-                  >
+                <div key={`${entry.dataKey}-${entry.payload.category}`}>
+                  <li className='flex items-center font-medium text-[13.5px] sm:text-[13.5px]'>
                     <span
                       className='inline-block h-2.5 w-2.5 rounded-[2px] mr-2'
                       style={{
@@ -63,7 +62,9 @@ export const OfferingIncomeBySundaySchoolTooltipContent = (
                         entry?.dataKey !== 'accumulatedOfferingUSD' &&
                         entry?.dataKey !== 'accumulatedOfferingEUR'
                           ? `${entry.name.charAt(0).toUpperCase() + entry.name.slice(1, -4)}:`
-                          : `${count}° Ofrenda:`
+                          : payload[0]?.payload?.allOfferings?.length > 1
+                            ? `${count}° Ofrenda:`
+                            : 'Ofrenda'
                       }`}
                     </span>
                     <span className='pl-1 font-normal dark:text-white text-black'>{`${entry.value} 
@@ -87,51 +88,70 @@ export const OfferingIncomeBySundaySchoolTooltipContent = (
         })()}
       </ul>
 
-      <li className={'font-medium text-[13.5px] sm:text-[13.5px]'}>
-        <span className='-ml-2'>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
-      </li>
-      {payload?.[0]?.payload?.memberFullName && payload?.[0]?.payload?.memberType && (
-        <>
-          <li className='pl-1 font-medium text-[11px] sm:text-[13.5px]'>
-            <span className='-ml-2'>{`Miembro: ${payload?.[0]?.payload?.memberFullName}`}</span>
-          </li>
-          <li className='pl-1 font-medium text-[11px] sm:text-[13.5px]'>
-            <span className='-ml-2 '>{`Cargo: ${MemberTypeNames[payload?.[0]?.payload?.memberType as MemberType]}`}</span>
-          </li>
-        </>
-      )}
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+        <li className={'font-medium italic text-[13.5px] sm:text-[13.5px]'}>
+          <span className='sm:-ml-1'>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
+        </li>
 
-      <li className={'font-medium text-[13.5px] sm:text-[13.5px]'}>
-        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
-      </li>
+        {payload?.[0]?.payload?.internalDonor?.memberFullName &&
+          payload?.[0]?.payload?.internalDonor?.memberType && (
+            <>
+              <li className='font-medium italic text-[13.5px] sm:text-[13.5px]'>
+                <span className='sm:-ml-1'>{`Miembro: ${payload?.[0]?.payload?.internalDonor?.memberFullName}`}</span>
+              </li>
+              <li className='font-medium italic text-[13.5px] sm:text-[13.5px]'>
+                <span className='sm:-ml-1'>{`Cargo: ${MemberTypeNames[payload?.[0]?.payload?.internalDonor?.memberType as MemberType]}`}</span>
+              </li>
+            </>
+          )}
+
+        {payload?.[0]?.payload?.externalDonor?.donorFullName && (
+          <>
+            <li className='font-medium italic text-[13.5px] sm:text-[13.5px]'>
+              <span className='sm:-ml-1'>{`País remitente: ${payload?.[0]?.payload?.externalDonor?.sendingCountry}`}</span>
+            </li>
+            <li className='font-medium italic text-[13.5px] sm:text-[13.5px]'>
+              <span className='sm:-ml-1'>{`Donante: ${payload?.[0]?.payload?.externalDonor?.donorFullName}`}</span>
+            </li>
+          </>
+        )}
+
+        <li className={'font-medium italic text-[13.5px] sm:text-[13.5px]'}>
+          <span className='sm:-ml-1'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
+        </li>
+      </ul>
 
       {(totalAccumulatedPEN > 0 && totalAccumulatedUSD > 0) ||
       (totalAccumulatedPEN > 0 && totalAccumulatedEUR > 0) ? (
-        <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+        <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-yellow-500 text-yellow-500'>
           Totales acumulados:
         </p>
       ) : totalAccumulatedPEN > 0 || totalAccumulatedUSD > 0 || totalAccumulatedEUR > 0 ? (
-        <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+        <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-yellow-500 text-yellow-500'>
           Total acumulado:
         </p>
       ) : (
         ''
       )}
 
-      {totalAccumulatedPEN > 0 && (
-        <li className='pl-1 font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-          <span className='-ml-2'>{`Soles: ${totalAccumulatedPEN} ${CurrencyType.PEN}`}</span>
-        </li>
-      )}
-      {totalAccumulatedUSD > 0 && (
-        <li className='pl-1 font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-          <span className='-ml-2'> {`Dolares: ${totalAccumulatedUSD} ${CurrencyType.USD}`}</span>
-        </li>
-      )}
-      {totalAccumulatedEUR > 0 && (
-        <li className='pl-1 font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-          <span className='-ml-2'> {`Euros: ${totalAccumulatedEUR} ${CurrencyType.EUR}`}</span>
-        </li>
+      {payload?.[0]?.payload?.category === OfferingIncomeCreationCategory.OfferingBox && (
+        <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+          {totalAccumulatedPEN > 0 && (
+            <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+              <span className='sm:-ml-1'>{`Soles: ${totalAccumulatedPEN} ${CurrencyType.PEN}`}</span>
+            </li>
+          )}
+          {totalAccumulatedUSD > 0 && (
+            <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+              <span className='sm:-ml-1'>{`Dolares: ${totalAccumulatedUSD} ${CurrencyType.USD}`}</span>
+            </li>
+          )}
+          {totalAccumulatedEUR > 0 && (
+            <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+              <span className='sm:-ml-1'>{`Euros: ${totalAccumulatedEUR} ${CurrencyType.EUR}`}</span>
+            </li>
+          )}
+        </ul>
       )}
     </div>
   );

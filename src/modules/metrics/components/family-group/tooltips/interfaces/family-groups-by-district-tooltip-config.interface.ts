@@ -11,6 +11,7 @@ export interface FamilyGroupsByDistrictPayload {
   payload: {
     urbanSectorName: string,
     familyGroupsCount: number,
+    district: string;
     church:{
       isAnexe: boolean;
       abbreviatedChurchName: string;

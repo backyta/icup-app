@@ -31,6 +31,11 @@ export interface OfferingIncomePayloadByFamilyGroup {
       firstNames: string;
       lastNames: string;
     };
+    supervisor: {
+      id: string;
+      firstNames: string;
+      lastNames: string;
+    };
     church: {
       isAnexe: boolean;
       abbreviatedChurchName: string;

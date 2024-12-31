@@ -566,7 +566,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   (key === OfferingIncomeCreationCategory.InternalDonation ||
                                     key === OfferingIncomeCreationCategory.ExternalDonation ||
                                     key ===
-                                      OfferingIncomeCreationCategory.ActivitiesProChurchGround) && (
+                                      OfferingIncomeCreationCategory.FundraisingProChurchGround) && (
                                     <SelectItem key={key} value={key}>
                                       {value}
                                     </SelectItem>

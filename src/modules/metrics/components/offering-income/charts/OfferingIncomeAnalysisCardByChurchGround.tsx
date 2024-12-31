@@ -50,15 +50,15 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/co
 const chartConfig = {
   accumulatedOfferingPEN: {
     label: 'Ofrenda PEN',
-    color: '#F39C12',
+    color: '#32CB32',
   },
   accumulatedOfferingUSD: {
     label: 'Ofrenda USD',
-    color: '#E74C3C',
+    color: '#F09330',
   },
   accumulatedOfferingEUR: {
     label: 'Ofrenda EUR',
-    color: '#1aaf7f',
+    color: '#813CB4',
   },
 } satisfies ChartConfig;
 
@@ -109,7 +109,7 @@ export const OfferingIncomeAnalysisCardByChurchGround = ({ churchId }: Props): J
         year: searchParams?.year ?? year,
         isSingleMonth: true,
         church: churchId ?? '',
-        order: RecordOrder.Descending,
+        order: RecordOrder.Ascending,
       });
     },
     retry: 1,
@@ -307,7 +307,7 @@ export const OfferingIncomeAnalysisCardByChurchGround = ({ churchId }: Props): J
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[285px] sm:h-[320px] md:h-[330px] lg:h-[345px] xl:h-[345px] 2xl:h-[345px]'
+                'w-full h-[285px] sm:h-[315px] md:h-[330px] lg:h-[345px] xl:h-[345px] 2xl:h-[345px]'
               )}
             >
               <BarChart

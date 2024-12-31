@@ -96,7 +96,7 @@ export const FamilyGroupReportForm = ({ churchId, dialogClose }: Props): JSX.Ele
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
-  }, [form.formState, churchId, types]);
+  }, [churchId, types]);
 
   //* Query Report and Event trigger
   const generateReportQuery = useQuery({
@@ -120,7 +120,7 @@ export const FamilyGroupReportForm = ({ churchId, dialogClose }: Props): JSX.Ele
   return (
     <Tabs
       defaultValue='general-info'
-      className='w-auto sm:w-[480px] md:w-[550px] lg:w-[550px] xl:w-[600px]'
+      className='w-auto -mt-8 sm:w-[480px] md:w-[550px] lg:w-[550px] xl:w-[600px]'
     >
       <h2 className='text-center text-yellow-500  leading-6 pb-1 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
         Generar Reporte
@@ -137,7 +137,7 @@ export const FamilyGroupReportForm = ({ churchId, dialogClose }: Props): JSX.Ele
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(handleSubmit)}
-                className='w-full pt-2 flex flex-col gap-x-10 gap-y-5 md:gap-y-5 px-2 md:px-4'
+                className='w-full pt-2 flex flex-col gap-x-10 gap-y-4 md:gap-y-4 px-2 md:px-4'
               >
                 <FormField
                   control={form.control}
@@ -273,7 +273,7 @@ export const FamilyGroupReportForm = ({ churchId, dialogClose }: Props): JSX.Ele
                     ❌ Datos incompletos, completa los campos requeridos.
                   </p>
                 ) : (
-                  <p className='-mt-3 order-last md:-mt-3 md:row-start-6 md:row-end-7 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
+                  <p className='-mt-2 order-last md:-mt-3 md:row-start-6 md:row-end-7 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
                     ¡Campos completados correctamente!
                   </p>
                 )}

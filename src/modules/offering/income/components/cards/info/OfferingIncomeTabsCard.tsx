@@ -64,8 +64,6 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
     };
   }, [id]);
 
-  console.log(data?.comments.split('\n'));
-
   return (
     <Tabs defaultValue='general-info' className='md:-mt-8 w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full px-auto grid-cols-1'>
@@ -152,8 +150,8 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] overflow-hidden text-ellipsis'>
                 {!data?.comments
                   ? '-'
-                  : data?.comments.split('\n').map((line, _) => (
-                      <p key={line} className='whitespace-pre-wrap'>
+                  : data?.comments.split('\n').map((line, index) => (
+                      <p key={index} className='whitespace-pre-wrap'>
                         {line}
                       </p>
                     ))}

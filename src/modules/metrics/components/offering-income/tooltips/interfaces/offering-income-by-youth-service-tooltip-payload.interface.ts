@@ -18,9 +18,16 @@ export interface OfferingIncomePayloadByYouthService {
   payload: {
     date: string;
     category: string;
-    memberType: string;
-    memberId: string;
-    memberFullName: string;
+    internalDonor: {
+      memberType: string;
+      memberId: string;
+      memberFullName: string;
+    };
+    externalDonor: {
+      donorId: string;
+      donorFullName: string;
+      sendingCountry: string;
+    };
     accumulatedOfferingPEN: number;
     accumulatedOfferingUSD: number;
     accumulatedOfferingEUR: number;

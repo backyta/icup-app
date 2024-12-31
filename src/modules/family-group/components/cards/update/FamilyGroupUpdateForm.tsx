@@ -102,7 +102,6 @@ export const FamilyGroupUpdateForm = ({
   //* Hooks (external libraries)
   const { pathname } = useLocation();
 
-  console.log(data);
   //* Form
   const form = useForm<z.infer<typeof familyGroupFormSchema>>({
     mode: 'onChange',

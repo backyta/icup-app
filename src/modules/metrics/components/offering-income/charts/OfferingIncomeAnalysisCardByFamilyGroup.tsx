@@ -152,7 +152,7 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
           ) : intermediateXL ? (
             <span>Ofrendas G. Fam.</span>
           ) : intermediateLG ? (
-            <span>Ofre. G.F.</span>
+            <span>Ofre. G. Fam.</span>
           ) : intermediateSM ? (
             <span>Ofre. Grupo Familiar</span>
           ) : (

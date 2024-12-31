@@ -18,6 +18,7 @@ export interface OfferingExpenseChartPayload {
   payload: {
     subType: string;
     date: string;
+    comments: string;
     accumulatedOfferingPEN: number;
     accumulatedOfferingUSD: number;
     accumulatedOfferingEUR: number;

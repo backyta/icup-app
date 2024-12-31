@@ -25,56 +25,72 @@ export const OfferingIncomeByYouthServiceTooltipContent = (
       <p>
         <span className='font-semibold text-[14px] sm:text-[14px]'>{`${dateFormatterToDDMMYY(addDays(label, 1))}`}</span>
       </p>
-      <span className='font-semibold text-[13.5px] md:text-[13.5px]'>Lista de Ofrendas</span>
+      {payload?.[0]?.payload?.allOfferings.length > 1 && (
+        <span className='font-medium text-[13.5px] md:text-[13.5px]'>Lista de Ofrendas</span>
+      )}
       {payload?.[0]?.payload?.allOfferings.map((off, index) => (
-        <>
-          <div>
-            <span
-              className='inline-block h-2.5 w-2.5 rounded-[2px] mr-2'
-              style={{
-                backgroundColor:
-                  off.currency === CurrencyType.PEN
-                    ? 'var(--color-accumulatedOfferingPEN)'
-                    : off.currency === CurrencyType.USD
-                      ? 'var(--color-accumulatedOfferingUSD)'
-                      : 'var(--color-accumulatedOfferingEUR)',
-                border:
-                  off.currency === CurrencyType.PEN
-                    ? '1px var(--color-accumulatedOfferingPEN)'
-                    : off.currency === CurrencyType.USD
-                      ? '1px var(--color-accumulatedOfferingUSD)'
-                      : '1px var(--color-accumulatedOfferingEUR)',
-              }}
-            ></span>
-            <span className='font-medium text-[13.5px] md:text-[13.5px]'>{`${index + 1}° Ofrenda:`}</span>
-            <span
-              className='pl-1 dark:text-white text-black font-normal text-[13.5px] md:text-[13.5px]'
-              key={`item-${index}`}
-            >
-              {`${off.offering} ${off.currency}`}
-            </span>
-          </div>
-        </>
+        <div key={`${String(off.date)}-${off.currency}`}>
+          <span
+            className='inline-block h-2.5 w-2.5 rounded-[2px] mr-2'
+            style={{
+              backgroundColor:
+                off.currency === CurrencyType.PEN
+                  ? 'var(--color-accumulatedOfferingPEN)'
+                  : off.currency === CurrencyType.USD
+                    ? 'var(--color-accumulatedOfferingUSD)'
+                    : 'var(--color-accumulatedOfferingEUR)',
+              border:
+                off.currency === CurrencyType.PEN
+                  ? '1px var(--color-accumulatedOfferingPEN)'
+                  : off.currency === CurrencyType.USD
+                    ? '1px var(--color-accumulatedOfferingUSD)'
+                    : '1px var(--color-accumulatedOfferingEUR)',
+            }}
+          ></span>
+          <span className='font-medium text-[13.5px] md:text-[13.5px]'>
+            {payload?.[0]?.payload?.allOfferings.length > 1 ? `${index + 1}° Ofrenda:` : `Ofrenda:`}
+          </span>
+          <span className='pl-1 dark:text-white text-black font-normal text-[13.5px] md:text-[13.5px]'>
+            {`${off.offering} ${off.currency}`}
+          </span>
+        </div>
       ))}
 
-      <li className={'font-medium text-[13.5px] sm:text-[13.5px]'}>
-        <span className='-ml-2'>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
-      </li>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+        <li className={'font-medium italic text-[13.5px] sm:text-[13.5px]'}>
+          <span className='sm:-ml-1'>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
+        </li>
 
-      {payload?.[0]?.payload?.memberFullName && payload?.[0]?.payload?.memberType && (
-        <>
-          <li className='pl-1 font-medium text-[13.5px] sm:text-[13.5px]'>
-            <span className='-ml-2'>{`Miembro: ${payload?.[0]?.payload?.memberFullName}`}</span>
-          </li>
-          <li className='pl-1 font-medium text-[13.5px] sm:text-[13.5px]'>
-            <span className='-ml-2 '>{`Cargo: ${MemberTypeNames[payload?.[0]?.payload?.memberType as MemberType]}`}</span>
-          </li>
-        </>
-      )}
+        {payload?.[0]?.payload?.internalDonor?.memberFullName &&
+          payload?.[0]?.payload?.internalDonor?.memberType && (
+            <>
+              <li className='font-medium italic text-[13.5px] sm:text-[13.5px]'>
+                <span className='sm:-ml-1'>{`Miembro: ${payload?.[0]?.payload?.internalDonor?.memberFullName}`}</span>
+              </li>
+              <li className='font-medium italic text-[13.5px] sm:text-[13.5px]'>
+                <span className='sm:-ml-1'>
+                  {' '}
+                  {`Cargo: ${MemberTypeNames[payload?.[0]?.payload?.internalDonor?.memberType as MemberType]}`}
+                </span>
+              </li>
+            </>
+          )}
 
-      <li className={'font-medium text-[13.5px] sm:text-[13.5px]'}>
-        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
-      </li>
+        {payload?.[0]?.payload?.externalDonor?.donorFullName && (
+          <>
+            <li className='font-medium italic text-[13.5px] sm:text-[13.5px]'>
+              <span className='sm:-ml-1'>{`País remitente: ${payload?.[0]?.payload?.externalDonor?.sendingCountry}`}</span>
+            </li>
+            <li className='font-medium italic text-[13.5px] sm:text-[13.5px]'>
+              <span className='sm:-ml-1'>{`Donante: ${payload?.[0]?.payload?.externalDonor?.donorFullName}`}</span>
+            </li>
+          </>
+        )}
+
+        <li className={'font-medium italic text-[13.5px] sm:text-[13.5px]'}>
+          <span className='sm:-ml-1'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
+        </li>
+      </ul>
     </div>
   );
 };

@@ -4,9 +4,16 @@ export interface OfferingIncomeByYouthServiceResponse {
   accumulatedOfferingPEN: number;
   accumulatedOfferingUSD: number;
   accumulatedOfferingEUR: number;
-  memberType: string;
-  memberId: string;
-  memberFullName: string;
+  internalDonor: {
+    memberType: string;
+    memberId: string;
+    memberFullName: string;
+  };
+  externalDonor: {
+    donorId: string;
+    donorFullName: string;
+    sendingCountry: string;
+  };
   church: {
     isAnexe: boolean;
     abbreviatedChurchName: string;

@@ -1,6 +1,7 @@
 export interface OfferingExpenseChartResponse {
   subType: string;
   date: Date;
+  comments: string;
   accumulatedOfferingPEN: number;
   accumulatedOfferingUSD: number;
   accumulatedOfferingEUR: number;

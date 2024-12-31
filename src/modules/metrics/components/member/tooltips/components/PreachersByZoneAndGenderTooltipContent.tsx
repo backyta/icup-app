@@ -16,7 +16,7 @@ export const PreachersByZoneAndGenderTooltipContent = (
       <ul className='list grid gap-1.5'>
         {payload.map((entry, _) => (
           <li
-            key={`${entry?.dataKey}-${entry?.payload?.zoneName}`}
+            key={`${entry.dataKey}-${entry?.payload?.zoneName}`}
             className='font-medium text-[13.5px] md:text-[13.5px]'
             style={{ color: entry.color }}
           >
@@ -32,22 +32,24 @@ export const PreachersByZoneAndGenderTooltipContent = (
         ))}
       </ul>
 
-      <li className='font-medium italic text-[13.5px] sm:text-[13.5px] dark:text-emerald-500 text-emerald-500'>
-        <span className='-ml-2'>Predicadores totales: {total}</span>
-      </li>
-      <li className='font-medium italic text-[13.5px] sm:text-[13px] dark:text-sky-500 text-sky-500'>
-        <span className='-ml-2'> Supervisor: {payload[0]?.payload?.supervisor}</span>
-      </li>
-      <li className='font-medium italic text-[13.5px] sm:text-[13.5px] dark:text-violet-500 text-violet-500'>
-        <span className='-ml-2'>Co-Pastor: {payload[0]?.payload?.copastor}</span>
-      </li>
-      <li
-        className={
-          'font-medium italic text-[13.5px] sm:text-[13.5px] dark:text-slate-300 text-slate-500'
-        }
-      >
-        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
-      </li>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+        <li className='font-medium italic text-[13.5px] sm:text-[13.5px] dark:text-emerald-500 text-emerald-500'>
+          <span className='sm:-ml-1'>Predicadores totales: {total}</span>
+        </li>
+        <li className='font-medium italic text-[13.5px] sm:text-[13px] dark:text-sky-500 text-sky-500'>
+          <span className='sm:-ml-1'>Supervisor: {payload[0]?.payload?.supervisor}</span>
+        </li>
+        <li className='font-medium italic text-[13.5px] sm:text-[13.5px] dark:text-violet-500 text-violet-500'>
+          <span className='sm:-ml-1'>Co-Pastor: {payload[0]?.payload?.copastor}</span>
+        </li>
+        <li
+          className={
+            'font-medium italic text-[13.5px] sm:text-[13.5px] dark:text-slate-300 text-slate-500'
+          }
+        >
+          <span className='sm:-ml-1'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
+        </li>
+      </ul>
 
       <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-yellow-500 text-amber-500'>
         Porcentaje total general: {`${payload[0]?.payload?.totalPercentage}%`}

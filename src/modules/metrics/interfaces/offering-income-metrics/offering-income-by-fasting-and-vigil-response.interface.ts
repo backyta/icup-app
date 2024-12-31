@@ -5,6 +5,11 @@ export interface OfferingIncomeByFastingAndVigilResponse {
   accumulatedOfferingUSD: number;
   accumulatedOfferingEUR: number;
   date: string | Date;
+  copastor: {
+    id: string,
+    firstNames: string,
+    lastNames: string,
+  } | null ;
   supervisor: {
     id: string,
     firstNames: string,

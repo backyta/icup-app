@@ -241,8 +241,13 @@ export const getFinancialBalanceComparativeMetricsReport = async ({
       responseType: 'blob',
     });
     
-    openPdfInNewTab(res.data);
-    dialogClose();
+    setTimeout(() => {
+      dialogClose();
+    }, 100);
+
+    setTimeout(() => {
+      openPdfInNewTab(res.data);
+    },300);
 
     return true;
    } catch (error) {

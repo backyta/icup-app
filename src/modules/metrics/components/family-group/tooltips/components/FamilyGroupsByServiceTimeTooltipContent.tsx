@@ -14,9 +14,9 @@ export const FamilyGroupsByServiceTimeTooltipContent = (
         <span className='font-medium text-[14px] sm:text-[14px]'>{label}</span>
       </div>
       <ul className='list grid gap-1.5'>
-        {payload.map((entry, index) => (
+        {payload.map((entry, _) => (
           <li
-            key={`item-${index}`}
+            key={`${entry?.payload?.serviceTime}`}
             className='font-medium text-[13.5px] md:text-[13.5px]'
             style={{ color: entry.color }}
           >
@@ -32,23 +32,25 @@ export const FamilyGroupsByServiceTimeTooltipContent = (
         ))}
       </ul>
 
-      {payload[0]?.payload?.supervisor && (
-        <li className='font-medium italic text-[13.5px] sm:text-[13.5px] dark:text-sky-500 text-sky-500'>
-          <span className='-ml-2'>Supervisor: {`${payload[0]?.payload?.supervisor}`}</span>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+        {payload[0]?.payload?.supervisor && (
+          <li className='font-medium italic text-[13.5px] sm:text-[13.5px] dark:text-sky-500 text-sky-500'>
+            <span className='sm:-ml-1'>Supervisor: {`${payload[0]?.payload?.supervisor}`}</span>
+          </li>
+        )}
+        {payload[0]?.payload?.copastor && (
+          <li className='font-medium italic text-[13.5px] sm:text-[13.5px] dark:text-violet-500 text-violet-500'>
+            <span className='sm:-ml-1'>Co-Pastor: {`${payload[0]?.payload?.copastor}`}</span>
+          </li>
+        )}
+        <li
+          className={
+            'italic font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-300 text-slate-500'
+          }
+        >
+          <span className='sm:-ml-1'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
         </li>
-      )}
-      {payload[0]?.payload?.copastor && (
-        <li className='font-medium italic text-[13.5px] sm:text-[13.5px] dark:text-violet-500 text-violet-500'>
-          <span className='-ml-2'>Co-Pastor: {`${payload[0]?.payload?.copastor}`}</span>
-        </li>
-      )}
-      <li
-        className={
-          ' italic font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-300 text-slate-500'
-        }
-      >
-        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
-      </li>
+      </ul>
 
       <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-yellow-500 text-amber-500'>
         Porcentaje total general: {`${payload[0]?.payload?.totalPercentage}%`}

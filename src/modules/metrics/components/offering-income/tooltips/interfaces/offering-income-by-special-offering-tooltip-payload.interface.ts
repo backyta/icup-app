@@ -1,4 +1,7 @@
 interface Offering {
+  donorId: string | null;
+  lastDonor: string | null;
+  sendingCountry: string | null;
   offering: number;
   currency: string;
   date: string | Date;
@@ -19,8 +22,13 @@ export interface OfferingIncomePayloadBySpecialOffering {
     date: Date;
     category: string;
     memberType: string;
-    memberId: string;
     memberFullName: string;
+    memberId: string | undefined;
+    externalDonor: {
+      donorId: string;
+      donorFullName: string;
+      sendingCountry: string;
+    };
     allOfferings: Offering[];
     church: {
       isAnexe: boolean;

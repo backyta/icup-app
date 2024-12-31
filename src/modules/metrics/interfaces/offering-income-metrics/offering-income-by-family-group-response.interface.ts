@@ -9,6 +9,11 @@ export interface OfferingIncomeByFamilyGroupResponse {
     familyGroupName: string;
     familyGroupCode: string;
   };
+  supervisor: {
+    id: string;
+    firstNames: string;
+    lastNames: string;
+  };
   preacher: {
     id: string;
     firstNames: string;

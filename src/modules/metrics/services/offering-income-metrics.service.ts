@@ -364,16 +364,21 @@ export const getOfferingIncomeMetricsReport = async ({
       },
       responseType: 'blob',
     });
-    
-    openPdfInNewTab(res.data);
-    dialogClose();
 
+    setTimeout(() => {
+      dialogClose();
+    }, 100);
+
+    setTimeout(() => {
+      openPdfInNewTab(res.data);
+    },300);
+  
     return true;
-   } catch (error) {
-     if (isAxiosError(error) && error.response) {
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
        throw (error.response.data)
-     }
-     
+      }
+      
      throw new Error('Ocurrió un error inesperado, hable con el administrador')
    }
  }

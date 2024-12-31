@@ -2,12 +2,20 @@ export interface OfferingIncomeBySpecialOfferingResponse {
   date: Date;
   category: string;
   memberType: string;
-  memberId: string;
   memberFullName: string;
+  memberId: string | undefined;
+  externalDonor: {
+    donorId: string;
+    donorFullName: string;
+    sendingCountry: string;
+  };
   allOfferings: Array<{
+    donorId: string | null;
+    lastDonor: string | null;
+    sendingCountry: string | null;
     offering: number;
     currency: string;
-    date: Date;
+    date: string;
   }>;
   church: {
     isAnexe: boolean;

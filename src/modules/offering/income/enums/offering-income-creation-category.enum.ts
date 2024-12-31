@@ -8,7 +8,7 @@ export enum OfferingIncomeCreationCategory {
   ExternalDonation = 'external_donation',
   FundraisingProTemple   = 'fundraising_pro_temple',
   FundraisingProMinistry = 'fundraising_pro_ministry',
-  ActivitiesProChurchGround = 'activities_pro_church_ground',
+  FundraisingProChurchGround = 'fundraising_pro_church_ground',
 }
 
 export const OfferingIncomeCreationCategoryNames: Record<
@@ -16,13 +16,13 @@ export const OfferingIncomeCreationCategoryNames: Record<
   string
 > = {
   [OfferingIncomeCreationCategory.General]: 'General',
-  [OfferingIncomeCreationCategory.FundraisingProTemple]: 'Pro-Templo',
   [OfferingIncomeCreationCategory.SocialAid]: 'Ayuda Social',
   [OfferingIncomeCreationCategory.OfferingBox]: 'Alfolí',
   [OfferingIncomeCreationCategory.InternalDonation]: 'Donación Interna',
   [OfferingIncomeCreationCategory.ExternalDonation]: 'Donación Externa',
-  [OfferingIncomeCreationCategory.ActivitiesProChurchGround]: 'Actividades Pro-Terreno',
-  [OfferingIncomeCreationCategory.Events]: 'Eventos (campañas, dedicaciones, etc.)',
-  [OfferingIncomeCreationCategory.FundraisingProMinistry]: 'Actividades Pro-Ministerio',
-  [OfferingIncomeCreationCategory.Meetings]: 'Reuniones (enseñanzas, conferencias, etc.)',
+  [OfferingIncomeCreationCategory.FundraisingProTemple]: 'Actividad Pro-Templo',
+  [OfferingIncomeCreationCategory.FundraisingProChurchGround]: 'Actividad Pro-Terreno',
+  [OfferingIncomeCreationCategory.Events]: 'Eventos (campañas, cruzadas, etc.)',
+  [OfferingIncomeCreationCategory.FundraisingProMinistry]: 'Actividad Pro-Ministerio',
+  [OfferingIncomeCreationCategory.Meetings]: 'Reuniones (enseñanzas, talleres bíblicos, etc.)',
 };

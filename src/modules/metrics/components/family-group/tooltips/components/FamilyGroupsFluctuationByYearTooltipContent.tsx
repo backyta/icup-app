@@ -12,9 +12,9 @@ export const FamilyGroupsFluctuationByYearTooltipContent = (
         <span className='font-medium text-[14px] sm:text-[14px]'>{label}</span>
       </div>
       <ul className='list grid gap-1.5'>
-        {payload.map((entry, index) => (
+        {payload.map((entry, _) => (
           <li
-            key={`item-${index}`}
+            key={`${entry.dataKey}-${entry?.payload?.month}`}
             className='font-medium text-[13.5px] md:text-[13.5px]'
             style={{ color: entry.color }}
           >
@@ -31,13 +31,15 @@ export const FamilyGroupsFluctuationByYearTooltipContent = (
         ))}
       </ul>
 
-      <li
-        className={
-          ' italic font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-300 text-slate-500'
-        }
-      >
-        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
-      </li>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+        <li
+          className={
+            'italic font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-300 text-slate-500'
+          }
+        >
+          <span className='sm:-ml-1'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
+        </li>
+      </ul>
     </div>
   );
 };

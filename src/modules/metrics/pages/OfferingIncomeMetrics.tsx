@@ -76,9 +76,9 @@ export const OfferingIncomeMetrics = (): JSX.Element => {
           <OfferingIncomeAnalysisCardByUnitedService churchId={churchId} />
           <OfferingIncomeAnalysisCardByFastingAndVigil churchId={churchId} />
           <OfferingIncomeAnalysisCardByYouthService churchId={churchId} />
-          <OfferingIncomeAnalysisCardBySpecialOffering churchId={churchId} />
           <OfferingIncomeAnalysisCardByChurchGround churchId={churchId} />
           <OfferingIncomeAnalysisCardByActivities churchId={churchId} />
+          <OfferingIncomeAnalysisCardBySpecialOffering churchId={churchId} />
           <OfferingIncomeAnalysisCardByIncomeAdjustment churchId={churchId} />
         </div>
       )}

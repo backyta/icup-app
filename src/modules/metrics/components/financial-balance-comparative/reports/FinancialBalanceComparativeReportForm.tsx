@@ -70,8 +70,8 @@ export const FinancialBalanceComparativeReportForm = ({
       types: Object.values(MetricFinancialBalanceComparisonSearchType),
       church: churchId,
       year: new Date().getFullYear().toString(),
-      startMonth: months[0].value,
-      endMonth: months[0].value,
+      startMonth: months[new Date().getMonth()]?.value,
+      endMonth: months[new Date().getMonth()]?.value,
     },
   });
 
@@ -106,7 +106,7 @@ export const FinancialBalanceComparativeReportForm = ({
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
-  }, [form.formState, churchId, types]);
+  }, [churchId, types]);
 
   //* Query Report and Event trigger
   const generateReportQuery = useQuery({
@@ -132,7 +132,7 @@ export const FinancialBalanceComparativeReportForm = ({
   return (
     <Tabs
       defaultValue='general-info'
-      className='w-auto sm:w-[480px] md:w-[550px] lg:w-[550px] xl:w-[600px]'
+      className='w-auto -mt-8 sm:w-[480px] md:w-[550px] lg:w-[550px] xl:w-[600px]'
     >
       <h2 className='text-center text-yellow-500  leading-6 pb-1 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
         Generar Reporte
@@ -149,7 +149,7 @@ export const FinancialBalanceComparativeReportForm = ({
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(handleSubmit)}
-                className='w-full pt-2 flex flex-col gap-x-10 gap-y-5 md:gap-y-5 px-2 md:px-4'
+                className='w-full pt-2 flex flex-col gap-x-10 gap-y-4 md:gap-y-4 px-2 md:px-4'
               >
                 <FormField
                   control={form.control}
@@ -225,145 +225,150 @@ export const FinancialBalanceComparativeReportForm = ({
                   }}
                 />
 
-                <div className='flex gap-3 items-center'>
-                  <FormField
-                    control={form.control}
-                    name='startMonth'
-                    render={({ field }) => {
-                      return (
-                        <FormItem className='flex justify-start gap-3 items-center'>
-                          <div className='w-auto'>
-                            <FormLabel className='text-[14.5px] md:text-[14.5px] font-bold'>
-                              Rango de meses de búsqueda
-                            </FormLabel>
-                            <FormDescription className='text-[13px] md:text-[13px] font-medium'>
-                              Selecciona el rango de meses de búsqueda que tendrán los reportes.
-                            </FormDescription>
-                          </div>
-                          <Popover
-                            open={isInputSearchStartMonthOpen}
-                            onOpenChange={setIsInputSearchStartMonthOpen}
-                          >
-                            <PopoverTrigger asChild>
-                              <FormControl className='text-[14px] md:text-[14px]'>
-                                <Button
-                                  disabled={isInputDisabled}
-                                  variant='outline'
-                                  role='combobox'
-                                  className={cn(
-                                    'justify-center w-auto text-center px-2 text-[14px] md:text-[14px] ',
-                                    !field.value &&
-                                      'text-slate-500  dark:text-slate-200 font-normal px-2'
-                                  )}
-                                >
-                                  {field.value
-                                    ? months.find((month) => month.value === field.value)?.label
-                                    : 'Elige un mes'}
-                                  <CaretSortIcon className='h-4 w-4 shrink-0' />
-                                </Button>
-                              </FormControl>
-                            </PopoverTrigger>
-                            <PopoverContent align='center' className='w-auto px-4 py-2'>
-                              <Command>
-                                <CommandInput
-                                  placeholder='Busque un mes...'
-                                  className='h-9 text-[14px] md:text-[14px]'
-                                />
-                                <CommandEmpty>Mes no encontrado.</CommandEmpty>
-                                <CommandGroup className='max-h-[100px] h-auto'>
-                                  {months.map((month) => (
-                                    <CommandItem
-                                      className='text-[14px] md:text-[14px]'
-                                      value={month.label}
-                                      key={month.value}
-                                      onSelect={() => {
-                                        form.setValue('startMonth', month.value);
-                                        setIsInputSearchStartMonthOpen(false);
-                                      }}
-                                    >
-                                      {month.label}
-                                      <CheckIcon
-                                        className={cn(
-                                          'ml-auto h-4 w-4',
-                                          month.value === field.value ? 'opacity-100' : 'opacity-0'
-                                        )}
-                                      />
-                                    </CommandItem>
-                                  ))}
-                                </CommandGroup>
-                              </Command>
-                            </PopoverContent>
-                          </Popover>
-                          <FormMessage className='text-[13px]' />
-                        </FormItem>
-                      );
-                    }}
-                  />
-                  <FormField
-                    control={form.control}
-                    name='endMonth'
-                    render={({ field }) => {
-                      return (
-                        <FormItem className='flex justify-start gap-3 items-center'>
-                          <Popover
-                            open={isInputSearchEndMonthOpen}
-                            onOpenChange={setIsInputSearchEndMonthOpen}
-                          >
-                            <PopoverTrigger asChild>
-                              <FormControl className='text-[14px] md:text-[14px]'>
-                                <Button
-                                  disabled={isInputDisabled}
-                                  variant='outline'
-                                  role='combobox'
-                                  className={cn(
-                                    'mt-2 justify-center w-auto text-center px-2 text-[14px] md:text-[14px] ',
-                                    !field.value &&
-                                      'text-slate-500  dark:text-slate-200 font-normal px-2'
-                                  )}
-                                >
-                                  {field.value
-                                    ? months.find((month) => month.value === field.value)?.label
-                                    : 'Elige un mes'}
-                                  <CaretSortIcon className='h-4 w-4 shrink-0' />
-                                </Button>
-                              </FormControl>
-                            </PopoverTrigger>
-                            <PopoverContent align='center' className='w-auto px-4 py-2'>
-                              <Command>
-                                <CommandInput
-                                  placeholder='Busque un mes...'
-                                  className='h-9 text-[14px] md:text-[14px]'
-                                />
-                                <CommandEmpty>Mes no encontrado.</CommandEmpty>
-                                <CommandGroup className='max-h-[100px] h-auto'>
-                                  {months.map((month) => (
-                                    <CommandItem
-                                      className='text-[14px] md:text-[14px]'
-                                      value={month.label}
-                                      key={month.value}
-                                      onSelect={() => {
-                                        form.setValue('endMonth', month.value);
-                                        setIsInputSearchEndMonthOpen(false);
-                                      }}
-                                    >
-                                      {month.label}
-                                      <CheckIcon
-                                        className={cn(
-                                          'ml-auto h-4 w-4',
-                                          month.value === field.value ? 'opacity-100' : 'opacity-0'
-                                        )}
-                                      />
-                                    </CommandItem>
-                                  ))}
-                                </CommandGroup>
-                              </Command>
-                            </PopoverContent>
-                          </Popover>
-                          <FormMessage className='text-[13px]' />
-                        </FormItem>
-                      );
-                    }}
-                  />
+                <div className='flex flex-col gap-2 w-full'>
+                  <FormLabel className='text-[14.5px] md:text-[14.5px] font-bold'>
+                    Rango de meses de búsqueda
+                  </FormLabel>
+                  <FormDescription className='-mt-2 text-[13px] md:text-[13px] font-medium'>
+                    Selecciona el rango de meses de búsqueda que tendrán los reportes.
+                  </FormDescription>
+
+                  <div className='flex gap-4 w-full'>
+                    <FormField
+                      control={form.control}
+                      name='startMonth'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='w-full'>
+                            <Popover
+                              open={isInputSearchStartMonthOpen}
+                              onOpenChange={setIsInputSearchStartMonthOpen}
+                            >
+                              <PopoverTrigger asChild>
+                                <FormControl className='text-[14px] md:text-[14px]'>
+                                  <Button
+                                    disabled={isInputDisabled}
+                                    variant='outline'
+                                    role='combobox'
+                                    className={cn(
+                                      'justify-center w-full text-center px-2 text-[14px] md:text-[14px] ',
+                                      !field.value &&
+                                        'text-slate-500  dark:text-slate-200 font-normal px-2'
+                                    )}
+                                  >
+                                    {field.value
+                                      ? months.find((month) => month.value === field.value)?.label
+                                      : 'Elige un mes'}
+                                    <CaretSortIcon className='h-4 w-4 shrink-0' />
+                                  </Button>
+                                </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent align='center' className='w-auto px-4 py-2'>
+                                <Command>
+                                  <CommandInput
+                                    placeholder='Busque un mes...'
+                                    className='h-9 text-[14px] md:text-[14px]'
+                                  />
+                                  <CommandEmpty>Mes no encontrado.</CommandEmpty>
+                                  <CommandGroup className='max-h-[100px] h-auto'>
+                                    {months.map((month) => (
+                                      <CommandItem
+                                        className='text-[14px] md:text-[14px]'
+                                        value={month.label}
+                                        key={month.value}
+                                        onSelect={() => {
+                                          form.setValue('startMonth', month.value);
+                                          setIsInputSearchStartMonthOpen(false);
+                                        }}
+                                      >
+                                        {month.label}
+                                        <CheckIcon
+                                          className={cn(
+                                            'ml-auto h-4 w-4',
+                                            month.value === field.value
+                                              ? 'opacity-100'
+                                              : 'opacity-0'
+                                          )}
+                                        />
+                                      </CommandItem>
+                                    ))}
+                                  </CommandGroup>
+                                </Command>
+                              </PopoverContent>
+                            </Popover>
+                            <FormMessage className='text-[13px]' />
+                          </FormItem>
+                        );
+                      }}
+                    />
+                    <FormField
+                      control={form.control}
+                      name='endMonth'
+                      render={({ field }) => {
+                        return (
+                          <FormItem className='w-full'>
+                            <Popover
+                              open={isInputSearchEndMonthOpen}
+                              onOpenChange={setIsInputSearchEndMonthOpen}
+                            >
+                              <PopoverTrigger asChild>
+                                <FormControl className='text-[14px] md:text-[14px]'>
+                                  <Button
+                                    disabled={isInputDisabled}
+                                    variant='outline'
+                                    role='combobox'
+                                    className={cn(
+                                      'justify-center w-full text-center px-2 text-[14px] md:text-[14px]',
+                                      !field.value &&
+                                        'text-slate-500  dark:text-slate-200 font-normal px-2'
+                                    )}
+                                  >
+                                    {field.value
+                                      ? months.find((month) => month.value === field.value)?.label
+                                      : 'Elige un mes'}
+                                    <CaretSortIcon className='h-4 w-4 shrink-0' />
+                                  </Button>
+                                </FormControl>
+                              </PopoverTrigger>
+                              <PopoverContent align='center' className='w-auto px-4 py-2'>
+                                <Command>
+                                  <CommandInput
+                                    placeholder='Busque un mes...'
+                                    className='h-9 text-[14px] md:text-[14px]'
+                                  />
+                                  <CommandEmpty>Mes no encontrado.</CommandEmpty>
+                                  <CommandGroup className='max-h-[100px] h-auto'>
+                                    {months.map((month) => (
+                                      <CommandItem
+                                        className='text-[14px] md:text-[14px]'
+                                        value={month.label}
+                                        key={month.value}
+                                        onSelect={() => {
+                                          form.setValue('endMonth', month.value);
+                                          setIsInputSearchEndMonthOpen(false);
+                                        }}
+                                      >
+                                        {month.label}
+                                        <CheckIcon
+                                          className={cn(
+                                            'ml-auto h-4 w-4',
+                                            month.value === field.value
+                                              ? 'opacity-100'
+                                              : 'opacity-0'
+                                          )}
+                                        />
+                                      </CommandItem>
+                                    ))}
+                                  </CommandGroup>
+                                </Command>
+                              </PopoverContent>
+                            </Popover>
+                            <FormMessage className='text-[13px]' />
+                          </FormItem>
+                        );
+                      }}
+                    />
+                  </div>
                 </div>
 
                 <FormField
@@ -427,7 +432,7 @@ export const FinancialBalanceComparativeReportForm = ({
                     ❌ Datos incompletos, completa los campos requeridos.
                   </p>
                 ) : (
-                  <p className='-mt-3 order-last md:-mt-3 md:row-start-6 md:row-end-7 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
+                  <p className='-mt-2 order-last md:-mt-3 md:row-start-6 md:row-end-7 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
                     ¡Campos completados correctamente!
                   </p>
                 )}

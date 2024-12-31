@@ -108,16 +108,16 @@ export const TopFamilyGroupsTooltipContent = (
       </ul>
 
       <li className={' font-medium italic text-[13.5px] sm:text-[13.5px]'}>
-        <span className='-ml-2'>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
+        <span>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
       </li>
       <li className={' font-medium italic text-[13.5px] sm:text-[13.5px]'}>
-        <span className='-ml-2'>{`Predicador: ${payload[0]?.payload?.preacher?.firstNames} ${payload[0]?.payload?.preacher?.lastNames}`}</span>
+        <span>{`Predicador: ${payload[0]?.payload?.preacher?.firstNames} ${payload[0]?.payload?.preacher?.lastNames}`}</span>
       </li>
       <li className=' font-medium italic text-[13.5px] sm:text-[13.5px]'>
-        <span className='-ml-2'>{`Miembros: ${payload[0]?.payload?.familyGroup?.disciples}`}</span>
+        <span>{`Miembros: ${payload[0]?.payload?.familyGroup?.disciples}`}</span>
       </li>
       <li className={' font-medium italic text-[13.5px] sm:text-[13.5px]'}>
-        <span className='-ml-2'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
+        <span>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
       </li>
 
       {(payload[0]?.payload?.accumulatedOfferingPEN > 0 &&
@@ -134,20 +134,20 @@ export const TopFamilyGroupsTooltipContent = (
       )}
 
       {payload[0]?.payload?.accumulatedOfferingPEN > 0 && (
-        <li className='pl-1 font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-          <span className='-ml-2'>{`Soles: ${payload[0]?.payload?.accumulatedOfferingPEN} PEN`}</span>
+        <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+          <span>{`Soles: ${payload[0]?.payload?.accumulatedOfferingPEN} PEN`}</span>
         </li>
       )}
 
       {payload[0]?.payload?.accumulatedOfferingUSD > 0 && (
-        <li className='pl-1 font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-          <span className='-ml-2'>{`Dolares: ${payload[0]?.payload?.accumulatedOfferingUSD} USD`}</span>
+        <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+          <span>{`Dolares: ${payload[0]?.payload?.accumulatedOfferingUSD} USD`}</span>
         </li>
       )}
 
       {payload[0]?.payload?.accumulatedOfferingEUR > 0 && (
-        <li className='pl-1 font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-          <span className='-ml-2'>{`Euros: ${payload[0]?.payload?.accumulatedOfferingEUR} EUR`}</span>
+        <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+          <span>{`Euros: ${payload[0]?.payload?.accumulatedOfferingEUR} EUR`}</span>
         </li>
       )}
     </div>

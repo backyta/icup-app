@@ -24,6 +24,11 @@ export interface OfferingIncomePayloadByFastingAndVigil {
     accumulatedOfferingPEN: number;
     accumulatedOfferingUSD: number;
     accumulatedOfferingEUR: number;
+    copastor: {
+      id: string;
+      firstNames: string;
+      lastNames: string;
+    }
     supervisor: {
       id: string;
       firstNames: string;
