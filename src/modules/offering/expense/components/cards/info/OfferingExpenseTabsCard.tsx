@@ -137,7 +137,7 @@ export const OfferingExpenseTabsCard = ({
             <div className='space-y-1 col-start-1 col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Imágenes adjuntas</Label>
               <div className='px-2 text-green-600 w-full overflow-x-auto'>
-                <ul className='pl-5 flex justify-between gap-x-10 gap-y-2 list-disc w-fit'>
+                <ul className='pl-4 flex justify-between gap-x-10 gap-y-2 list-disc w-fit'>
                   {data?.imageUrls?.length !== undefined && data?.imageUrls?.length > 0 ? (
                     data?.imageUrls?.map((image, index) => (
                       <li key={image} className='w-full'>
@@ -152,7 +152,9 @@ export const OfferingExpenseTabsCard = ({
                       </li>
                     ))
                   ) : (
-                    <li className='text-red-500'>No hay imágenes adjuntadas.</li>
+                    <li className='text-red-500 text-[14px] md:text-[15px]'>
+                      No hay imágenes adjuntadas.
+                    </li>
                   )}
                 </ul>
               </div>

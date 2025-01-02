@@ -10,19 +10,18 @@ export const GeneralComparativeOfferingExpensesTooltipContent = (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
       <p>
         <span className='font-medium text-[14px] sm:text-[14px]'>{`${payload[0]?.payload?.type}`}</span>
-
-        <span className='font-medium text-[14px] sm:text-[14px] text-slate-500 md:text-slate-400'>{` (${payload[0]?.payload?.totalPercentage}%)`}</span>
+        <span className='font-medium text-[14px] sm:text-[14px] dark:text-slate-400 text-slate-500'>{` (${payload[0]?.payload?.totalPercentage}%)`}</span>
       </p>
 
       {(payload[0]?.payload?.accumulatedOfferingPEN > 0 &&
         payload[0]?.payload?.accumulatedOfferingUSD > 0) ||
       (payload[0]?.payload?.accumulatedOfferingPEN > 0 &&
         payload[0]?.payload?.accumulatedOfferingEUR > 0) ? (
-        <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+        <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-yellow-400 text-amber-500'>
           Totales acumulados:
         </p>
       ) : (
-        <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+        <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-yellow-400 text-amber-500'>
           Total acumulado:
         </p>
       )}
@@ -75,9 +74,11 @@ export const GeneralComparativeOfferingExpensesTooltipContent = (
         </div>
       )}
 
-      <li className={'font-medium text-[13.5px] sm:text-[13.5px]'}>
-        <span>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
-      </li>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+        <li className={'font-medium text-[13.5px] sm:text-[13.5px]'}>
+          <span className='sm:-ml-1'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
+        </li>
+      </ul>
     </div>
   );
 };

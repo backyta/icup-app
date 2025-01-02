@@ -41,8 +41,14 @@ import {
   type ChartConfig,
   ChartLegendContent,
 } from '@/shared/components/ui/chart';
+import {
+  Card,
+  CardTitle,
+  CardHeader,
+  CardContent,
+  CardDescription,
+} from '@/shared/components/ui/card';
 import { Button } from '@/shared/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/components/ui/form';
 
@@ -185,13 +191,18 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
   };
 
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-3 h-[28rem] sm:h-[31rem] md:h-[29rem] lg:h-[33rem] xl:h-[30rem] 2xl:h-[30rem] m-0 border-slate-200 dark:border-slate-800'>
-      <CardHeader className='z-10 flex flex-col xl:flex-row items-center justify-between px-4 py-2.5'>
-        <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-          Salidas de Ofrenda (Sub-tipo)
-        </CardTitle>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-3 h-[28rem] sm:h-[29.5rem] md:h-[27rem] lg:h-[31.5rem] 2xl:h-[31.5rem] m-0 border-slate-200 dark:border-slate-800'>
+      <CardHeader className='z-10 flex flex-col xl:flex-row items-center justify-between px-2 py-2.5'>
+        <div className='flex flex-col items-center md:items-start'>
+          <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
+            Salidas de Ofrenda
+          </CardTitle>
+          <CardDescription className='mr-2 sm:ml-[2px] w-full sm:text-left text-center text-[14px] md:text-[16px] italic'>
+            Detallado (Acumulado por sub-tipo, rg. meses y año).
+          </CardDescription>
+        </div>
         <Form {...form}>
-          <form className='flex items-center flex-col md:flex-row gap-2'>
+          <form className='flex items-center flex-col sm:flex-row'>
             <FormField
               control={form.control}
               name='type'
@@ -264,7 +275,7 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
               }}
             />
 
-            <div className='flex gap-2'>
+            <div className='flex'>
               <FormField
                 control={form.control}
                 name='startMonth'
@@ -273,7 +284,12 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
                     <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
                       <Popover
                         open={isInputSearchStartMonthOpen}
-                        onOpenChange={setIsInputSearchStartMonthOpen}
+                        onOpenChange={(e) => {
+                          setIsInputSearchStartMonthOpen(e);
+                          form.resetField('year', {
+                            defaultValue: '',
+                          });
+                        }}
                       >
                         <PopoverTrigger asChild>
                           <FormControl className='text-[14px] md:text-[14px]'>
@@ -343,7 +359,12 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
                     <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
                       <Popover
                         open={isInputSearchEndMonthOpen}
-                        onOpenChange={setIsInputSearchEndMonthOpen}
+                        onOpenChange={(e) => {
+                          setIsInputSearchEndMonthOpen(e);
+                          form.resetField('year', {
+                            defaultValue: '',
+                          });
+                        }}
                       >
                         <PopoverTrigger asChild>
                           <FormControl className='text-[14px] md:text-[14px]'>
@@ -497,7 +518,7 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[300px] sm:h-[345px] md:h-[350px] lg:h-[415px] xl:h-[410px] 2xl:h-[410px]'
+                'w-full h-[288px] sm:h-[345px] md:h-[350px] lg:h-[415px] xl:h-[415px] 2xl:h-[415px]'
               )}
             >
               <BarChart

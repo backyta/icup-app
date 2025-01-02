@@ -102,7 +102,7 @@ export const OfferingExpensesAndOfferingIncomeComparativeProportionCard = ({
           <div className='flex justify-center gap-4'>
             <GiCardExchange className='text-[5rem] text-blue-500' />
             <div className='flex flex-col gap-2 items-top justify-center'>
-              <CardTitle className='text-center text-[2.8rem] md:text-[3rem] lg:text-[3.2rem] xl:text-[3.5rem] font-extrabold leading-10'>
+              <CardTitle className='text-center text-[3rem] md:text-[3rem] lg:text-[3.2rem] xl:text-[3.5rem] font-extrabold leading-10'>
                 {<CountUp end={Number(data?.totalOfferingRecordsCount)} start={0} duration={4} />}
               </CardTitle>
               <CardDescription className='text-[15px] md:text-[15px] xl:text-[16px] font-bold text-center'>

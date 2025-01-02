@@ -59,15 +59,15 @@ export const useUserCreationMutation = ({
       setTimeout(() => {
         setIsInputDisabled(false);
         setIsSubmitButtonDisabled(false);
-      }, 1500);
-
-      setTimeout(() => {
-        userCreationForm.reset();
       }, 1600);
 
       setTimeout(() => {
         navigate('/users');
-      }, 2000);
+      }, 1600);
+
+      setTimeout(() => {
+        userCreationForm.reset();
+      }, 1800);
     },
   });
 

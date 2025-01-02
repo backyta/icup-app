@@ -1420,7 +1420,7 @@ export const PreacherUpdateForm = ({
                       className={cn(
                         'w-full text-[14px]',
                         preacherUpdateMutation?.isPending &&
-                          'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] dark:text-black text-white'
+                          'bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
                       )}
                       onClick={() => {
                         setTimeout(() => {

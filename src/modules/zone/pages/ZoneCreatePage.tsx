@@ -427,7 +427,11 @@ export const ZoneCreatePage = (): JSX.Element => {
               <Button
                 disabled={isSubmitButtonDisabled}
                 type='submit'
-                className='w-full text-[14px]'
+                className={cn(
+                  'w-full text-[14px]',
+                  zoneCreationMutation?.isPending &&
+                    'bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
+                )}
                 onClick={() => {
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
@@ -437,7 +441,7 @@ export const ZoneCreatePage = (): JSX.Element => {
                   }, 100);
                 }}
               >
-                Registrar Iglesia
+                {zoneCreationMutation?.isPending ? 'Procesando...' : 'Registrar Zona'}
               </Button>
             </div>
           </form>

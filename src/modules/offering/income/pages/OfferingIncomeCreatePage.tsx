@@ -1790,8 +1790,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 type='submit'
                 className={cn(
                   'w-full text-[14px]',
-                  uploadImagesMutation?.isPending &&
-                    'bg-emerald-500 disabled:opacity-100 disabled:md:text-[14.5px] text-white'
+                  (uploadImagesMutation?.isPending || offeringIncomeCreationMutation?.isPending) &&
+                    'bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
                 )}
                 onClick={() => {
                   setTimeout(() => {
@@ -1805,7 +1805,9 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   }, 100);
                 }}
               >
-                {uploadImagesMutation?.isPending ? 'Procesando...' : 'Registrar'}
+                {uploadImagesMutation?.isPending || offeringIncomeCreationMutation?.isPending
+                  ? 'Procesando...'
+                  : 'Registrar'}
               </Button>
             </div>
           </form>

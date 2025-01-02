@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 import type * as z from 'zod';
 import { Toaster } from 'sonner';
+import { cn } from '@/shared/lib/utils';
 import { useForm } from 'react-hook-form';
 
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
@@ -385,7 +386,11 @@ export const UserCreatePage = (): JSX.Element => {
               <Button
                 disabled={isSubmitButtonDisabled}
                 type='submit'
-                className='w-full text-[14px]'
+                className={cn(
+                  'w-full text-[14px]',
+                  userCreationMutation?.isPending &&
+                    'bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
+                )}
                 onClick={() => {
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
@@ -395,7 +400,7 @@ export const UserCreatePage = (): JSX.Element => {
                   }, 100);
                 }}
               >
-                Registrar Usuario
+                {userCreationMutation?.isPending ? 'Procesando...' : 'Registrar Usuario'}
               </Button>
             </div>
           </form>

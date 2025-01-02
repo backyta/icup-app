@@ -968,7 +968,11 @@ export const DiscipleCreatePage = (): JSX.Element => {
               <Button
                 disabled={isSubmitButtonDisabled}
                 type='submit'
-                className='w-full text-[14px]'
+                className={cn(
+                  'w-full text-[14px]',
+                  discipleCreationMutation?.isPending &&
+                    'bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
+                )}
                 onClick={() => {
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
@@ -978,7 +982,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                   }, 100);
                 }}
               >
-                Registrar Discípulo
+                {discipleCreationMutation?.isPending ? 'Procesando...' : 'Registrar Discípulo'}
               </Button>
             </div>
           </form>

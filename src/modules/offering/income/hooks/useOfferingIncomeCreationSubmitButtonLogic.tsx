@@ -714,7 +714,6 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       setIsDropZoneDisabled(false);
     }
   }, [
-    offeringIncomeCreationForm.formState,
     type,
     externalDonorId,
     isNewExternalDonor,

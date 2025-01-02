@@ -959,7 +959,11 @@ export const CopastorCreatePage = (): JSX.Element => {
               <Button
                 disabled={isSubmitButtonDisabled}
                 type='submit'
-                className='w-full text-[14px]'
+                className={cn(
+                  'w-full text-[14px]',
+                  copastorCreationMutation?.isPending &&
+                    'bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
+                )}
                 onClick={() => {
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
@@ -969,7 +973,7 @@ export const CopastorCreatePage = (): JSX.Element => {
                   }, 100);
                 }}
               >
-                Registrar Co-Pastor
+                {copastorCreationMutation?.isPending ? 'Procesando...' : '  Registrar Co-Pastor'}
               </Button>
             </div>
           </form>

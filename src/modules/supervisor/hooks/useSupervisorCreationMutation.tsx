@@ -59,15 +59,15 @@ export const useSupervisorCreationMutation = ({
       setTimeout(() => {
         setIsInputDisabled(false);
         setIsSubmitButtonDisabled(false);
-      }, 1500);
-
-      setTimeout(() => {
-        supervisorCreationForm.reset();
       }, 1600);
 
       setTimeout(() => {
         navigate('/supervisors');
-      }, 2000);
+      }, 1600);
+
+      setTimeout(() => {
+        supervisorCreationForm.reset();
+      }, 1800);
     },
   });
 

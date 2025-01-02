@@ -1094,7 +1094,11 @@ export const SupervisorCreatePage = (): JSX.Element => {
               <Button
                 disabled={isSubmitButtonDisabled}
                 type='submit'
-                className='w-full text-[14px]'
+                className={cn(
+                  'w-full text-[14px]',
+                  supervisorCreationMutation?.isPending &&
+                    'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] text-white'
+                )}
                 onClick={() => {
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
@@ -1104,7 +1108,7 @@ export const SupervisorCreatePage = (): JSX.Element => {
                   }, 100);
                 }}
               >
-                Registrar Supervisor
+                {supervisorCreationMutation?.isPending ? 'Procesando...' : 'Registrar Supervisor'}
               </Button>
             </div>
           </form>

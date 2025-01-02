@@ -110,15 +110,5 @@ export const useOfferingExpenseUpdateSubmitButtonLogic = ({
     ) {
       setIsDropZoneDisabled(false);
     }
-  }, [
-    offeringExpenseUpdateForm.formState,
-    type,
-    subType,
-    amount,
-    currency,
-    comments,
-    churchId,
-    date,
-    fileNames,
-  ]);
+  }, [type, subType, amount, currency, comments, churchId, date, fileNames]);
 };

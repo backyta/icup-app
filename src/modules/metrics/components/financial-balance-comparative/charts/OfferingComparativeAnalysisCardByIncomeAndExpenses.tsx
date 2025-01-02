@@ -257,7 +257,7 @@ export const OfferingComparativeAnalysisCardByIncomeAndExpenses = ({
 
       {!incomeAndExpensesComparativeByYear?.data?.length && !searchParams ? (
         <CardContent className='h-full pl-3 pr-4 py-0'>
-          <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+          <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-[27rem] sm:h-full -mt-6'>
             <FcDataBackup className='text-[8rem] pb-2' />
             <p>Consultando datos....</p>
           </div>
@@ -268,7 +268,7 @@ export const OfferingComparativeAnalysisCardByIncomeAndExpenses = ({
             (!incomeAndExpensesComparativeByYear?.data ||
               incomeAndExpensesComparativeByYear?.data?.length === 0) &&
             year && (
-              <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+              <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-[27rem] sm:h-full -mt-6'>
                 <FcDataBackup className='text-[8rem] pb-2' />
                 <p>Consultando datos....</p>
               </div>

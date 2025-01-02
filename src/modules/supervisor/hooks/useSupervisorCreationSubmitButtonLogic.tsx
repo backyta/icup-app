@@ -109,7 +109,6 @@ export const useSupervisorCreationSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    supervisorCreationForm.formState,
     firstNames,
     lastNames,
     gender,

@@ -139,7 +139,7 @@ export const MemberAnalysisCardByCategoryAndGender = ({ churchId }: Props): JSX.
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[295px] sm:h-[295px] md:h-[330px] lg:h-[330px] xl:h-[330px] 2xl:h-[345px]'
+                'w-full h-[300px] sm:h-[300px] md:h-[330px] lg:h-[330px] xl:h-[330px] 2xl:h-[345px]'
               )}
             >
               <AreaChart

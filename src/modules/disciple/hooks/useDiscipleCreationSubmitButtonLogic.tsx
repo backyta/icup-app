@@ -86,7 +86,6 @@ export const useDiscipleCreationSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    discipleCreationForm.formState,
     firstNames,
     lastNames,
     gender,

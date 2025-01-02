@@ -229,7 +229,6 @@ export const useOfferingIncomeUpdateSubmitButtonLogic = ({
       setIsDropZoneDisabled(false);
     }
   }, [
-    offeringIncomeUpdateForm.formState,
     type,
     subType,
     amount,

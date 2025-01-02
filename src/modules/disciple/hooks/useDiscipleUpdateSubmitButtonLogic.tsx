@@ -113,7 +113,6 @@ export const useDiscipleUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    discipleUpdateForm.formState,
     firstNames,
     lastNames,
     gender,

@@ -3,11 +3,10 @@
 
 import { useEffect, useState } from 'react';
 
-import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 import { SelectChurch } from '@/modules/metrics/components/shared/SelectChurch';
-import { MetricsSkeleton } from '@/modules/metrics/components/shared/MetricsSkeleton';
+import { FamilyGroupMetricsSkeleton } from '@/modules/metrics/components/shared/FamilyGroupMetricsSkeleton';
 
 import { getSimpleChurches } from '@/modules/church/services/church.service';
 
@@ -23,9 +22,6 @@ import { FamilyGroupAnalysisCardByCopastorAndZone } from '@/modules/metrics/comp
 export const FamilyGroupMetrics = (): JSX.Element => {
   //* States
   const [churchId, setChurchId] = useState<string | undefined>(undefined);
-
-  //* Library hooks
-  const { pathname } = useLocation();
 
   //* Queries
   const { data } = useQuery({
@@ -63,7 +59,7 @@ export const FamilyGroupMetrics = (): JSX.Element => {
       </div>
 
       {!churchId ? (
-        <MetricsSkeleton pathname={pathname} />
+        <FamilyGroupMetricsSkeleton />
       ) : (
         <div className='mt-6 px-2 sm:pb-10 md:px-6 xl:pb-14 flex flex-col xl:grid xl:grid-cols-2 gap-8 h-[155rem] sm:h-auto'>
           <FamilyGroupFluctuationAnalysisCardByYear churchId={churchId} />

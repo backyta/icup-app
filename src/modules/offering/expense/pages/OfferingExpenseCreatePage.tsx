@@ -702,7 +702,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                 type='submit'
                 className={cn(
                   'w-full text-[14px] md:text-[14.5px]',
-                  uploadImagesMutation?.isPending &&
+                  (uploadImagesMutation?.isPending || offeringExpenseCreationMutation?.isPending) &&
                     'bg-emerald-500 disabled:opacity-100 disabled:md:text-[14.5px] text-white'
                 )}
                 onClick={() => {
@@ -714,7 +714,9 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                   }, 100);
                 }}
               >
-                {uploadImagesMutation?.isPending ? 'Procesando...' : 'Registrar'}
+                {uploadImagesMutation?.isPending || offeringExpenseCreationMutation?.isPending
+                  ? 'Procesando...'
+                  : 'Registrar'}
               </Button>
             </div>
           </form>

@@ -710,7 +710,11 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
               <Button
                 disabled={isSubmitButtonDisabled}
                 type='submit'
-                className='w-full text-[14px]'
+                className={cn(
+                  'w-full text-[14px]',
+                  familyGroupCreationMutation?.isPending &&
+                    'bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
+                )}
                 onClick={() => {
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
@@ -721,7 +725,9 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                   }, 100);
                 }}
               >
-                Registrar Casa Familiar
+                {familyGroupCreationMutation?.isPending
+                  ? 'Procesando...'
+                  : 'Registrar Casa Familiar'}
               </Button>
             </div>
           </form>

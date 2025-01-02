@@ -65,7 +65,6 @@ export const useFamilyGroupCreationSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    familyGroupCreationForm.formState,
     familyGroupName,
     serviceTime,
     country,

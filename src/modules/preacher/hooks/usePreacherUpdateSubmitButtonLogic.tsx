@@ -124,7 +124,6 @@ export const usePreacherUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    preacherUpdateForm.formState,
     firstNames,
     lastNames,
     gender,

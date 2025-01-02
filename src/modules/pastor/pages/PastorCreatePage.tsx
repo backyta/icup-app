@@ -964,7 +964,11 @@ export const PastorCreatePage = (): JSX.Element => {
               <Button
                 disabled={isSubmitButtonDisabled}
                 type='submit'
-                className='w-full text-[14px]'
+                className={cn(
+                  'w-full text-[14px]',
+                  pastorCreationMutation?.isPending &&
+                    'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] text-white'
+                )}
                 onClick={() => {
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
@@ -974,7 +978,7 @@ export const PastorCreatePage = (): JSX.Element => {
                   }, 100);
                 }}
               >
-                Registrar Pastor
+                {pastorCreationMutation?.isPending ? 'Procesando...' : 'Registrar Pastor'}
               </Button>
             </div>
           </form>

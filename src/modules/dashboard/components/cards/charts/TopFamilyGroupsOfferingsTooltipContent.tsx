@@ -107,18 +107,20 @@ export const TopFamilyGroupsTooltipContent = (
         )}
       </ul>
 
-      <li className={' font-medium italic text-[13.5px] sm:text-[13.5px]'}>
-        <span>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
-      </li>
-      <li className={' font-medium italic text-[13.5px] sm:text-[13.5px]'}>
-        <span>{`Predicador: ${payload[0]?.payload?.preacher?.firstNames} ${payload[0]?.payload?.preacher?.lastNames}`}</span>
-      </li>
-      <li className=' font-medium italic text-[13.5px] sm:text-[13.5px]'>
-        <span>{`Miembros: ${payload[0]?.payload?.familyGroup?.disciples}`}</span>
-      </li>
-      <li className={' font-medium italic text-[13.5px] sm:text-[13.5px]'}>
-        <span>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
-      </li>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+        <li className={' font-medium italic text-[13.5px] sm:text-[13.5px]'}>
+          <span className='sm:-ml-1'>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
+        </li>
+        <li className={' font-medium italic text-[13.5px] sm:text-[13.5px]'}>
+          <span className='sm:-ml-1'>{`Predicador: ${payload[0]?.payload?.preacher?.firstNames} ${payload[0]?.payload?.preacher?.lastNames}`}</span>
+        </li>
+        <li className=' font-medium italic text-[13.5px] sm:text-[13.5px]'>
+          <span className='sm:-ml-1'>{`Miembros: ${payload[0]?.payload?.familyGroup?.disciples}`}</span>
+        </li>
+        <li className={' font-medium italic text-[13.5px] sm:text-[13.5px]'}>
+          <span className='sm:-ml-1'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
+        </li>
+      </ul>
 
       {(payload[0]?.payload?.accumulatedOfferingPEN > 0 &&
         payload[0]?.payload?.accumulatedOfferingUSD > 0) ||
@@ -133,23 +135,25 @@ export const TopFamilyGroupsTooltipContent = (
         </p>
       )}
 
-      {payload[0]?.payload?.accumulatedOfferingPEN > 0 && (
-        <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-          <span>{`Soles: ${payload[0]?.payload?.accumulatedOfferingPEN} PEN`}</span>
-        </li>
-      )}
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+        {payload[0]?.payload?.accumulatedOfferingPEN > 0 && (
+          <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+            <span className='sm:-ml-1'>{`Soles: ${payload[0]?.payload?.accumulatedOfferingPEN} PEN`}</span>
+          </li>
+        )}
 
-      {payload[0]?.payload?.accumulatedOfferingUSD > 0 && (
-        <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-          <span>{`Dolares: ${payload[0]?.payload?.accumulatedOfferingUSD} USD`}</span>
-        </li>
-      )}
+        {payload[0]?.payload?.accumulatedOfferingUSD > 0 && (
+          <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+            <span className='sm:-ml-1'>{`Dolares: ${payload[0]?.payload?.accumulatedOfferingUSD} USD`}</span>
+          </li>
+        )}
 
-      {payload[0]?.payload?.accumulatedOfferingEUR > 0 && (
-        <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-          <span>{`Euros: ${payload[0]?.payload?.accumulatedOfferingEUR} EUR`}</span>
-        </li>
-      )}
+        {payload[0]?.payload?.accumulatedOfferingEUR > 0 && (
+          <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+            <span className='sm:-ml-1'>{`Euros: ${payload[0]?.payload?.accumulatedOfferingEUR} EUR`}</span>
+          </li>
+        )}
+      </ul>
     </div>
   );
 };

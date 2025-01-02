@@ -86,7 +86,6 @@ export const useCopastorCreationSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    copastorCreationForm.formState,
     firstNames,
     lastNames,
     gender,

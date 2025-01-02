@@ -109,7 +109,6 @@ export const useCopastorUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    copastorUpdateForm.formState,
     firstNames,
     lastNames,
     gender,

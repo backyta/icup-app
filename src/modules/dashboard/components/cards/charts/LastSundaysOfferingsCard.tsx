@@ -148,7 +148,7 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
           <CardTitle className='font-bold md:pl-[7rem] lg:pl-[16rem] xl:pl-[4rem] 2xl:pl-[8.5rem] 3-xl:pl-[16rem] text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px] inline-block'>
             Ofrendas - Dominicales
           </CardTitle>
-          <CardDescription className='text-[14px] md:text-[14.5px] md:pl-[7rem] lg:pl-[16rem] xl:pl-[4rem] 2xl:pl-[8.5rem] 3-xl:pl-[16rem] text-center'>
+          <CardDescription className='backdrop:text-[14px] md:text-[14.5px] md:pl-[7rem] lg:pl-[16rem] xl:pl-[4rem] 2xl:pl-[8.5rem] 3-xl:pl-[16rem] text-center'>
             {`Ultimas ofrendas dominicales (${new Date().getFullYear()})`}
           </CardDescription>
         </CardHeader>

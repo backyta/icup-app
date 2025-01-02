@@ -87,7 +87,6 @@ export const usePastorUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    pastorUpdateForm.formState,
     firstNames,
     lastNames,
     gender,

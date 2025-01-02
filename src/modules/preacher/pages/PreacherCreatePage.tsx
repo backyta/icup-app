@@ -961,7 +961,11 @@ export const PreacherCreatePage = (): JSX.Element => {
               <Button
                 disabled={isSubmitButtonDisabled}
                 type='submit'
-                className='w-full text-[14px]'
+                className={cn(
+                  'w-full text-[14px]',
+                  preacherCreationMutation?.isPending &&
+                    'bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px]  text-white'
+                )}
                 onClick={() => {
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
@@ -971,7 +975,7 @@ export const PreacherCreatePage = (): JSX.Element => {
                   }, 100);
                 }}
               >
-                Registrar Predicador
+                {preacherCreationMutation?.isPending ? 'Procesando...' : 'Registrar Predicador'}
               </Button>
             </div>
           </form>

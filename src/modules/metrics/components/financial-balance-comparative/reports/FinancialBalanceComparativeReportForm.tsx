@@ -134,7 +134,7 @@ export const FinancialBalanceComparativeReportForm = ({
       defaultValue='general-info'
       className='w-auto -mt-8 sm:w-[480px] md:w-[550px] lg:w-[550px] xl:w-[600px]'
     >
-      <h2 className='text-center text-yellow-500  leading-6 pb-1 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
+      <h2 className='text-center text-yellow-500 leading-6 pb-1 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
         Generar Reporte
       </h2>
 

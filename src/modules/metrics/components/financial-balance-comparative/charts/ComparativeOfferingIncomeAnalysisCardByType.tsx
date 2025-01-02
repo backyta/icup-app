@@ -43,8 +43,14 @@ import {
   type ChartConfig,
   ChartLegendContent,
 } from '@/shared/components/ui/chart';
+import {
+  Card,
+  CardTitle,
+  CardHeader,
+  CardContent,
+  CardDescription,
+} from '@/shared/components/ui/card';
 import { Button } from '@/shared/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/components/ui/form';
 
@@ -176,11 +182,16 @@ export const ComparativeOfferingIncomeAnalysisCardByType = ({ churchId }: Props)
   };
 
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-3 h-[24rem] sm:h-[26rem] md:h-[26rem] lg:h-[30rem] 2xl:h-[30rem] m-0 border-slate-200 dark:border-slate-800'>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-3 h-[25.5rem] sm:h-[26.5rem] md:h-[27rem] lg:h-[31.5rem] 2xl:h-[31.5rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 py-2.5'>
-        <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-          Ingresos de Ofrenda (Tipo)
-        </CardTitle>
+        <div className='flex flex-col items-center sm:items-start'>
+          <CardTitle className='font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
+            Ingresos de Ofrenda
+          </CardTitle>
+          <CardDescription className='sm:ml-[2px] sm:text-left text-center text-[14px] md:text-[16px] italic'>
+            Detallado (Acumulado por sub-tipo, mes y año).
+          </CardDescription>
+        </div>
         <Form {...form}>
           <form className='flex'>
             <FormField
@@ -341,7 +352,7 @@ export const ComparativeOfferingIncomeAnalysisCardByType = ({ churchId }: Props)
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[283px] sm:h-[345px] md:h-[345px] lg:h-[410px] xl:h-[410px] 2xl:h-[410px]'
+                'w-full h-[288px] sm:h-[345px] md:h-[345px] lg:h-[415px] xl:h-[415px] 2xl:h-[415px]'
               )}
             >
               <BarChart

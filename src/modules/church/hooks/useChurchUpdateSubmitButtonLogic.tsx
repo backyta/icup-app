@@ -87,7 +87,6 @@ export const useChurchUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
-    churchUpdateForm.formState,
     nameChurch,
     foundingDate,
     serviceTimes,

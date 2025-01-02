@@ -59,15 +59,15 @@ export const usePastorCreationMutation = ({
       setTimeout(() => {
         setIsInputDisabled(false);
         setIsSubmitButtonDisabled(false);
-      }, 1500);
-
-      setTimeout(() => {
-        pastorCreationForm.reset();
       }, 1600);
 
       setTimeout(() => {
         navigate('/pastors');
-      }, 2000);
+      }, 1600);
+
+      setTimeout(() => {
+        pastorCreationForm.reset();
+      }, 1800);
     },
   });
 

@@ -3,11 +3,10 @@
 
 import { useEffect, useState } from 'react';
 
-import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 import { SelectChurch } from '@/modules/metrics/components/shared/SelectChurch';
-import { MetricsSkeleton } from '@/modules/metrics/components/shared/MetricsSkeleton';
+import { OfferingExpenseMetricsSkeleton } from '@/modules/metrics/components/shared/OfferingExpenseMetricsSkeleton';
 
 import { getSimpleChurches } from '@/modules/church/services/church.service';
 
@@ -24,9 +23,6 @@ import { OfferingExpenseAnalysisCardByEquipmentAndTechnologyExpenses } from '@/m
 export const OfferingExpenseMetrics = (): JSX.Element => {
   //* States
   const [churchId, setChurchId] = useState<string | undefined>(undefined);
-
-  //* Library hooks
-  const { pathname } = useLocation();
 
   //* Queries
   const { data } = useQuery({
@@ -65,7 +61,7 @@ export const OfferingExpenseMetrics = (): JSX.Element => {
       </div>
 
       {!churchId ? (
-        <MetricsSkeleton pathname={pathname} />
+        <OfferingExpenseMetricsSkeleton />
       ) : (
         <div className='mt-6 px-2 pb-10 sm:pb-10 md:px-6 xl:pb-14 flex flex-col gap-8 h-auto'>
           <OfferingExpenseAnalysisCardByOperationalExpenses churchId={churchId} />

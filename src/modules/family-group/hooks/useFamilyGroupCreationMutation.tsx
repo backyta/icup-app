@@ -73,20 +73,20 @@ export const useFamilyGroupCreationMutation = ({
       setTimeout(() => {
         setIsInputDisabled(false);
         setIsSubmitButtonDisabled(false);
-      }, 1500);
-
-      setTimeout(() => {
-        familyGroupCreationForm.reset();
       }, 1600);
 
       setTimeout(() => {
         navigate('/family-groups');
-      }, 2000);
+      }, 1600);
 
       // New refetch in exchange preachers (new)
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['preachers-by-zone', theirZone] });
-      }, 2200);
+      }, 1700);
+
+      setTimeout(() => {
+        familyGroupCreationForm.reset();
+      }, 1800);
     },
   });
 

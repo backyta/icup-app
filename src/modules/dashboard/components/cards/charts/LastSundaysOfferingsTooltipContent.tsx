@@ -71,13 +71,14 @@ export const LastSundaysOfferingsTooltipContent = (
         )}
       </ul>
 
-      <li className={' font-medium italic text-[13.5px] sm:text-[13.5px]'}>
-        <span>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
-      </li>
-      <li className={' font-medium italic text-[13.5px] sm:text-[13.5px]'}>
-        <span>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
-      </li>
-
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+        <li className={' font-medium italic text-[13.5px] sm:text-[13.5px]'}>
+          <span className='sm:-ml-1'>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
+        </li>
+        <li className={' font-medium italic text-[13.5px] sm:text-[13.5px]'}>
+          <span className='sm:-ml-1'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
+        </li>
+      </ul>
       {(totalAccumulatedPEN > 0 && totalAccumulatedUSD > 0) ||
       (totalAccumulatedPEN > 0 && totalAccumulatedEUR > 0) ? (
         <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
@@ -89,21 +90,26 @@ export const LastSundaysOfferingsTooltipContent = (
         </p>
       )}
 
-      {totalAccumulatedPEN > 0 && (
-        <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-          <span>{`Soles: ${totalAccumulatedPEN} ${CurrencyType.PEN}`}</span>
-        </li>
-      )}
-      {totalAccumulatedUSD > 0 && (
-        <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-          <span> {`Dolares: ${totalAccumulatedUSD} ${CurrencyType.USD}`}</span>
-        </li>
-      )}
-      {totalAccumulatedEUR > 0 && (
-        <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-          <span> {`Euros: ${totalAccumulatedEUR} ${CurrencyType.EUR}`}</span>
-        </li>
-      )}
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+        {totalAccumulatedPEN > 0 && (
+          <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+            <span className='sm:-ml-1'>{`Soles: ${totalAccumulatedPEN} ${CurrencyType.PEN}`}</span>
+          </li>
+        )}
+        {totalAccumulatedUSD > 0 && (
+          <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+            <span className='sm:-ml-1'>
+              {' '}
+              {`Dolares: ${totalAccumulatedUSD} ${CurrencyType.USD}`}
+            </span>
+          </li>
+        )}
+        {totalAccumulatedEUR > 0 && (
+          <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
+            <span className='sm:-ml-1'> {`Euros: ${totalAccumulatedEUR} ${CurrencyType.EUR}`}</span>
+          </li>
+        )}
+      </ul>
     </div>
   );
 };

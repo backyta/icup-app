@@ -49,13 +49,5 @@ export const useZoneCreationSubmitButtonLogic = ({
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
-  }, [
-    zoneCreationForm.formState,
-    zoneName,
-    country,
-    department,
-    province,
-    district,
-    theirSupervisor,
-  ]);
+  }, [zoneName, country, department, province, district, theirSupervisor]);
 };

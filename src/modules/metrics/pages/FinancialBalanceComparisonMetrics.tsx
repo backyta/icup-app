@@ -12,7 +12,7 @@ import { FinancialBalanceComparativeMetricsSkeleton } from '@/modules/metrics/co
 
 import { FinancialBalanceComparativeReportFormCard } from '@/modules/metrics/components/financial-balance-comparative/reports/FinancialBalanceComparativeReportFormCard';
 import { GeneralComparativeOfferingIncomeAnalysisCard } from '@/modules/metrics/components/financial-balance-comparative/charts/GeneralComparativeOfferingIncomeAnalysis';
-import { ComparativeOfferingExpensesAnalysisCard } from '@/modules/metrics/components/financial-balance-comparative/charts/GeneralComparativeOfferingExpensesAnalysisCard';
+import { GeneralComparativeOfferingExpensesAnalysisCard } from '@/modules/metrics/components/financial-balance-comparative/charts/GeneralComparativeOfferingExpensesAnalysisCard';
 import { ComparativeOfferingIncomeAnalysisCardByType } from '@/modules/metrics/components/financial-balance-comparative/charts/ComparativeOfferingIncomeAnalysisCardByType';
 import { ComparativeOfferingExpensesAnalysisCardByType } from '@/modules/metrics/components/financial-balance-comparative/charts/ComparativeOfferingExpensesAnalysisCardByType';
 import { ComparativeOfferingExpensesAnalysisCardBySubType } from '@/modules/metrics/components/financial-balance-comparative/charts/ComparativeOfferingExpensesAnalysisCardBySubType';
@@ -66,7 +66,7 @@ export const FinancialBalanceComparisonMetrics = (): JSX.Element => {
           <OfferingComparativeAnalysisCardByIncomeAndExpenses churchId={churchId} />
           <GeneralComparativeOfferingIncomeAnalysisCard churchId={churchId} />
           <ComparativeOfferingIncomeAnalysisCardByType churchId={churchId} />
-          <ComparativeOfferingExpensesAnalysisCard churchId={churchId} />
+          <GeneralComparativeOfferingExpensesAnalysisCard churchId={churchId} />
           <ComparativeOfferingExpensesAnalysisCardByType churchId={churchId} />
           <ComparativeOfferingExpensesAnalysisCardBySubType churchId={churchId} />
         </div>

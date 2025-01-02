@@ -244,7 +244,7 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
               <BarChart
                 accessibilityLayer
                 data={topFamilyGroupOfferings?.data}
-                margin={{ top: 5, right: 5, left: -30, bottom: 10 }}
+                margin={{ top: 5, right: 5, left: -25, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
                 <XAxis

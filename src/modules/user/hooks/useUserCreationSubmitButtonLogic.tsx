@@ -70,14 +70,5 @@ export const useUserCreationSubmitButtonLogic = ({
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorRolesDisabled(true);
     }
-  }, [
-    userCreationForm.formState,
-    firstNames,
-    lastNames,
-    email,
-    password,
-    passwordConfirm,
-    roles,
-    recordStatus,
-  ]);
+  }, [firstNames, lastNames, email, password, passwordConfirm, roles, recordStatus]);
 };

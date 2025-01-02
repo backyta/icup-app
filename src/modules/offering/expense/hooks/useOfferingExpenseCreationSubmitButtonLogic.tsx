@@ -111,17 +111,7 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
     ) {
       setIsDropZoneDisabled(false);
     }
-  }, [
-    offeringExpenseCreationForm.formState,
-    type,
-    subType,
-    amount,
-    currency,
-    comments,
-    churchId,
-    date,
-    fileNames,
-  ]);
+  }, [type, subType, amount, currency, comments, churchId, date, fileNames]);
 
   //* Reset relations
   useEffect(() => {

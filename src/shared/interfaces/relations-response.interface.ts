@@ -53,11 +53,16 @@ export interface Disciple {
 
 export interface ExternalDonor {
   id              : string;
-  firstNames       : string;
-  lastNames        : string;
+  firstNames      : string;
+  lastNames       : string;
+  gender          : string;
+  birthDate       : string;
+  email           : string;
+  phoneNumber     : string;
   originCountry   : string;
   residenceCountry: string;
   residenceCity   : string;
+  postalCode      : string;
 }
 
 
