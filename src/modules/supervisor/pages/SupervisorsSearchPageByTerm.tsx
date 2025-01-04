@@ -211,7 +211,12 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
 
       <SearchTitle isByTypeSearch titleName={'supervisores'} />
 
-      <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full'>
+      <div
+        className={cn(
+          'px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full',
+          searchType === SearchType.BirthDate && 'h-[48rem] md:h-full'
+        )}
+      >
         {isFiltersSearchByTermDisabled && (
           <Form {...form}>
             <form

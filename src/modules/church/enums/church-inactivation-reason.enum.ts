@@ -19,7 +19,7 @@ export enum ChurchInactivationReason {
   FinancialInfeasibility = 'financial_infeasibility',
   LossOfSupport = 'loss_of_support',
 
-  //* Razones legales o normativos
+ //* Legal or regulatory reasons
   LegalDisputes = 'legal_disputes',
   RegulatoryNonCompliance = 'regulatory_non_compliance',
 

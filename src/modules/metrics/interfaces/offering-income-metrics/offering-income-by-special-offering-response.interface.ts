@@ -5,9 +5,9 @@ export interface OfferingIncomeBySpecialOfferingResponse {
   memberFullName: string;
   memberId: string | undefined;
   externalDonor: {
-    donorId: string;
-    donorFullName: string;
-    sendingCountry: string;
+    donorId: string | null;
+    donorFullName: string | null;
+    sendingCountry: string | null;
   };
   allOfferings: Array<{
     donorId: string | null;

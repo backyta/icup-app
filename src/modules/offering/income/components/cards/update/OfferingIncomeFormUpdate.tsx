@@ -38,6 +38,7 @@ import { useOfferingIncomeUpdateSubmitButtonLogic } from '@/modules/offering/inc
 import { getSimpleZones } from '@/modules/zone/services/zone.service';
 import { getSimpleChurches } from '@/modules/church/services/church.service';
 import { getSimpleFamilyGroups } from '@/modules/family-group/services/family-group.service';
+import { getExternalDonors } from '@/modules/offering/income/services/offering-income.service';
 
 import { useModuleQueries } from '@/modules/offering/shared/hooks/useModuleQueries';
 import { CurrencyTypeNames } from '@/modules/offering/shared/enums/currency-type.enum';
@@ -134,6 +135,8 @@ export const OfferingIncomeFormUpdate = ({
   const [isInputMemberOpen, setIsInputMemberOpen] = useState<boolean>(false);
   const [imageUrls, setImageUrls] = useState<string[]>([]);
 
+  const [isInputDonorOpen, setIsInputDonorOpen] = useState<boolean>(false);
+
   //* Form
   const form = useForm<z.infer<typeof offeringIncomeFormSchema>>({
     mode: 'onChange',
@@ -185,6 +188,12 @@ export const OfferingIncomeFormUpdate = ({
   });
 
   //* Queries
+
+  const externalDonorsQuery = useQuery({
+    queryKey: ['external-donors', churchId],
+    queryFn: getExternalDonors,
+  });
+
   const churchesQuery = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
@@ -557,6 +566,98 @@ export const OfferingIncomeFormUpdate = ({
                                   )}
                                 </SelectContent>
                               </Select>
+                              <FormMessage className='text-[13px]' />
+                            </FormItem>
+                          );
+                        }}
+                      />
+                    )}
+
+                    {category === OfferingIncomeCreationCategory.ExternalDonation && (
+                      <FormField
+                        control={form.control}
+                        name='externalDonorId'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className='mt-3'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                                Donante
+                              </FormLabel>
+
+                              <FormDescription className='text-[13.5px] md:text-[14px]'>
+                                Asigna un donante para este registro.
+                              </FormDescription>
+
+                              <Popover open={isInputDonorOpen} onOpenChange={setIsInputDonorOpen}>
+                                <PopoverTrigger asChild>
+                                  <FormControl className='text-[14px] md:text-[14px]'>
+                                    <Button
+                                      disabled
+                                      variant='outline'
+                                      role='combobox'
+                                      className={cn('w-full justify-between ')}
+                                    >
+                                      {field.value
+                                        ? `${externalDonorsQuery?.data?.find((donor) => donor.id === field.value)?.firstNames} ${externalDonorsQuery?.data?.find((donor) => donor.id === field.value)?.lastNames}`
+                                        : 'Busque y seleccione un donante'}
+                                      <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
+                                    </Button>
+                                  </FormControl>
+                                </PopoverTrigger>
+                                <PopoverContent align='center' className='w-auto px-4 py-2'>
+                                  <Command>
+                                    {externalDonorsQuery?.data?.length &&
+                                    externalDonorsQuery?.data?.length > 0 ? (
+                                      <>
+                                        <CommandInput
+                                          placeholder='Busque un donante'
+                                          className='h-9 text-[14px]'
+                                        />
+                                        <CommandEmpty>Donante no encontrado.</CommandEmpty>
+                                        <CommandGroup className='max-h-[200px] h-auto'>
+                                          {externalDonorsQuery?.data?.map((donor) => (
+                                            <CommandItem
+                                              className='text-[14px]'
+                                              value={getFullNames({
+                                                firstNames: donor?.firstNames ?? '',
+                                                lastNames: donor?.lastNames ?? '',
+                                              })}
+                                              key={donor?.id}
+                                              onSelect={() => {
+                                                form.setValue('externalDonorId', donor?.id);
+                                                setIsInputDonorOpen(false);
+                                              }}
+                                            >
+                                              {`${donor?.firstNames} ${donor?.lastNames}`}
+                                              <CheckIcon
+                                                className={cn(
+                                                  'ml-auto h-4 w-4',
+                                                  donor.id === field.value
+                                                    ? 'opacity-100'
+                                                    : 'opacity-0'
+                                                )}
+                                              />
+                                            </CommandItem>
+                                          ))}
+
+                                          {externalDonorsQuery?.data?.length === 0 && (
+                                            <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
+                                              ❌No hay donantes disponibles.
+                                            </p>
+                                          )}
+                                        </CommandGroup>
+                                      </>
+                                    ) : (
+                                      (!externalDonorsQuery?.data ||
+                                        externalDonorsQuery?.data?.length === 0) && (
+                                        <p className='text-[13.5px] md:text-[14.5px] font-medium text-red-500 text-center'>
+                                          ❌No hay donantes no disponibles.
+                                        </p>
+                                      )
+                                    )}
+                                  </Command>
+                                </PopoverContent>
+                              </Popover>
                               <FormMessage className='text-[13px]' />
                             </FormItem>
                           );

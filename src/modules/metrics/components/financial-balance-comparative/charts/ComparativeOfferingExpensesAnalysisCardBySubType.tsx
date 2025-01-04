@@ -198,7 +198,7 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
             Salidas de Ofrenda
           </CardTitle>
           <CardDescription className='mr-2 sm:ml-[2px] w-full sm:text-left text-center text-[14px] md:text-[16px] italic'>
-            Detallado (Acumulado por sub-tipo, rg. meses y año).
+            Detallado (Acumulado por sub-tipo, rng. meses y año).
           </CardDescription>
         </div>
         <Form {...form}>

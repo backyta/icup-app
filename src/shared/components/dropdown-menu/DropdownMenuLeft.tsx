@@ -32,37 +32,6 @@ export function DropdownMenuLeft(): JSX.Element {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
-  // const [touchStartX, setTouchStartX] = useState(0);
-
-  // useEffect(() => {
-  //   const handleTouchStart = (e: TouchEvent) => {
-  //     setTouchStartX(e.touches[0].clientX);
-  //   };
-
-  //   const handleTouchMove = (e: TouchEvent) => {
-  //     const touchEndX = e.touches[0].clientX;
-  //     const diffX = touchEndX - touchStartX;
-
-  //     if (diffX > 100) {
-  //       setIsSheetOpen(true);
-  //     }
-  //   };
-  //   // TODO : problema con las tablas se abre sin querer
-
-  //   const handleTouchEnd = () => {
-  //     setTouchStartX(0);
-  //   };
-
-  //   window.addEventListener('touchstart', handleTouchStart);
-  //   window.addEventListener('touchmove', handleTouchMove);
-  //   window.addEventListener('touchend', handleTouchEnd);
-
-  //   return () => {
-  //     window.removeEventListener('touchstart', handleTouchStart);
-  //     window.removeEventListener('touchmove', handleTouchMove);
-  //     window.removeEventListener('touchend', handleTouchEnd);
-  //   };
-  // }, [touchStartX]);
 
   return (
     <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>

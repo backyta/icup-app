@@ -13,7 +13,6 @@ import { type LatestSundaysOfferingsPayload } from '@/modules/dashboard/interfac
 import { type OfferingIncomeCreationCategory } from '@/modules/offering/income/enums/offering-income-creation-category.enum';
 import { OfferingIncomeCreationCategoryNames } from '@/modules/offering/income/enums/offering-income-creation-category.enum';
 
-// NOTE:  example for tooltips
 export const LastSundaysOfferingsTooltipContent = (
   props: TooltipConfig<LatestSundaysOfferingsPayload>
 ): JSX.Element => {

@@ -25,9 +25,9 @@ export interface OfferingsIncomePayloadByChurchGround {
     memberFullName: string;
     memberId: string | undefined;
     externalDonor: {
-      donorId: string;
-      donorFullName: string;
-      sendingCountry: string;
+      donorId: string | null;
+      donorFullName: string | null;
+      sendingCountry: string | null;
     };
     allOfferings: Offering[];
     church: {

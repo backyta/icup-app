@@ -8,14 +8,14 @@ export interface OfferingIncomeBySundaySchoolResponse {
   dayEUR: number;
   afternoonEUR: number;
   internalDonor: {
-    memberType: string;
-    memberId: string;
-    memberFullName: string;
+    memberType: string | null;
+    memberId: string | null;
+    memberFullName: string | null;
   };
   externalDonor: {
-    donorId: string;
-    donorFullName: string;
-    sendingCountry: string;
+    donorId: string | null;
+    donorFullName: string | null;
+    sendingCountry: string | null;
   };
   accumulatedOfferingPEN: number;
   accumulatedOfferingUSD: number;

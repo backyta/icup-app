@@ -208,7 +208,12 @@ export const CopastorInactivatePage = (): JSX.Element => {
 
       <SearchTitle isInactivateSearch className='text-red-500' titleName={'co-pastores'} />
 
-      <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full'>
+      <div
+        className={cn(
+          'px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full',
+          searchType === CopastorSearchType.BirthDate && 'h-[48rem] md:h-full'
+        )}
+      >
         {isFiltersSearchByTermDisabled && (
           <Form {...form}>
             <form

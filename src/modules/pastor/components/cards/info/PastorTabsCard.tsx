@@ -91,7 +91,7 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid grid-cols-3 gap-x-4 gap-y-2.5 px-4 md:gap-x-6 md:gap-y-4 md:pl-[4.3rem] md:pr-[2.5rem]'>
+          <CardContent className='grid grid-cols-3 gap-x-4 gap-y-2 px-4 md:gap-x-6 md:gap-y-4 md:pl-[4.3rem] md:pr-[2.5rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Nombres</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>

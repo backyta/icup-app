@@ -14,7 +14,7 @@ export enum FamilyGroupInactivationReason {
   HostFamilyIssues = 'host_family_issues',
   HostFamilyRelocation = 'host_family_relocation',
 
-  //* Razones por falta de actividad o compromiso
+//* Reasons for lack of activity or commitment
   GroupInactivity = 'group_inactivity',
   LowEngagement = 'low_engagement',
   TotalInactivity = 'total_inactivity',

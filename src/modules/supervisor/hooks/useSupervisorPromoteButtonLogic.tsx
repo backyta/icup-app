@@ -42,14 +42,14 @@ export const useSupervisorPromoteButtonLogic = ({
   const theirPastor = supervisorUpdateForm.watch('theirPastor');
 
   // ? Effects
-  //* Setea los valores fijos en un estado
+  //* Set the fixed values in a state
   useEffect(() => {
     const initialValues = supervisorUpdateForm.getValues([...Object.values(SupervisorFieldNames)]);
     setFixedValues(initialValues);
   }, []);
 
   useEffect(() => {
-    //* Asigna los previous values y los current values
+    //* Assigns the previous values and the current values
     const previousValues: SupervisorFormData[] = lastValues;
     const currentValues: SupervisorFormData[] = supervisorUpdateForm.getValues([
       ...Object.values(SupervisorFieldNames),
@@ -61,7 +61,7 @@ export const useSupervisorPromoteButtonLogic = ({
       supervisorUpdateForm.setValue('theirPastor', String(currentValues[21]));
     }
 
-    //* Valida si hay algún cambio y coloca a true el promote button
+    //* Validates if there is any change and sets the promote button to true
     if (
       previousValues.length !== 0 &&
       JSON.stringify(fixedValues) === JSON.stringify(previousValues)
@@ -69,7 +69,7 @@ export const useSupervisorPromoteButtonLogic = ({
       setIsPromoteButtonDisabled(true);
     }
 
-    //* Valida y compara si tiene la misma información inicial, ordena y activa el botón
+    //* Validates and compares if it has the same initial information, sorts and activates the button
     const arrayEqualsIgnoreOrder = (
       fixed: SupervisorFormData[],
       current: SupervisorFormData[]
@@ -88,7 +88,7 @@ export const useSupervisorPromoteButtonLogic = ({
       setIsPromoteButtonDisabled(false);
     }
 
-    //* Si no hay coincidencias setea el current value al lastValues
+    //* If there are no matches, set the current value to lastValues
     setLastValues(currentValues);
   }, [
     firstNames,

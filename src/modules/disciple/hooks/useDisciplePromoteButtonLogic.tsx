@@ -41,20 +41,20 @@ export const useDisciplePromoteButtonLogic = ({
   const theirFamilyGroup = discipleUpdateForm.watch('theirFamilyGroup');
 
   // ? Effects
-  //* Setea los valores fijos en un estado
+  //* Set the fixed values in a new state
   useEffect(() => {
     const initialValues = discipleUpdateForm.getValues([...Object.values(DiscipleFieldNames)]);
     setFixedValues(initialValues);
   }, []);
 
   useEffect(() => {
-    //* Asigna los previous values y los current values
+    //* Assigns the previous values and the current values
     const previousValues: DiscipleFormData[] = lastValues;
     const currentValues: DiscipleFormData[] = discipleUpdateForm.getValues([
       ...Object.values(DiscipleFieldNames),
     ]);
 
-    //* Valida y compara si tiene la misma información inicial, ordena y activa el botón
+    //* Validates and compares if it has the same initial information, sorts and activates the button
     if (
       previousValues.length !== 0 &&
       JSON.stringify(fixedValues) === JSON.stringify(previousValues)
@@ -62,7 +62,7 @@ export const useDisciplePromoteButtonLogic = ({
       setIsPromoteButtonDisabled(true);
     }
 
-    //* Valida y compara si tiene la misma información inicial, ordena y activa el botón
+    //* Validates and compares if it has the same initial information, sorts and activates the button
     const arrayEqualsIgnoreOrder = (
       fixed: DiscipleFormData[],
       current: DiscipleFormData[]
@@ -81,7 +81,7 @@ export const useDisciplePromoteButtonLogic = ({
       setIsPromoteButtonDisabled(false);
     }
 
-    //* Si no hay coincidencias setea el current value al lastValues
+    //* If there are no matches, set the current value to lastValues
     setLastValues(currentValues);
   }, [
     firstNames,

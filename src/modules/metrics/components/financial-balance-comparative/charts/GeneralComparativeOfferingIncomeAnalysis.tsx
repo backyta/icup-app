@@ -180,7 +180,7 @@ export const GeneralComparativeOfferingIncomeAnalysisCard = ({ churchId }: Props
             Ingresos de Ofrenda
           </CardTitle>
           <CardDescription className='mr-2 sm:ml-[2px] w-full sm:text-left text-center text-[14px] md:text-[16px] italic'>
-            General (Acumulado por sub-tipo, rg. de meses y año).
+            General (Acumulado por sub-tipo, rng. de meses y año).
           </CardDescription>
         </div>
         <Form {...form}>

@@ -324,5 +324,3 @@ export const MemberReportForm = ({ churchId, dialogClose }: Props): JSX.Element 
     </Tabs>
   );
 };
-
-// TODO : ver si cambiamos los church por churchID

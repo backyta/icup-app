@@ -89,7 +89,7 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid grid-cols-3 pl-[1.5rem] sm:pl-[4rem] sm:pr-[5rem] gap-x-4 gap-y-2.5 md:gap-x-6 md:gap-y-4 md:pl-[6rem] md:pr-[2rem]'>
+          <CardContent className='grid grid-cols-3 pl-[1.5rem] sm:pl-[4rem] sm:pr-[5rem] gap-x-4 gap-y-2 md:gap-x-6 md:gap-y-4 md:pl-[6rem] md:pr-[2rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Nombre</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>

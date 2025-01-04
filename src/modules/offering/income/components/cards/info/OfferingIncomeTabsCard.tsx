@@ -12,13 +12,17 @@ import {
 } from '@/modules/offering/income/enums/offering-income-creation-shift-type.enum';
 import { MemberType, MemberTypeNames } from '@/modules/offering/income/enums/member-type.enum';
 import { OfferingIncomeCreationTypeNames } from '@/modules/offering/income/enums/offering-income-creation-type.enum';
-import { OfferingIncomeCreationSubTypeNames } from '@/modules/offering/income/enums/offering-income-creation-sub-type.enum';
+import {
+  OfferingIncomeCreationSubType,
+  OfferingIncomeCreationSubTypeNames,
+} from '@/modules/offering/income/enums/offering-income-creation-sub-type.enum';
 import {
   OfferingIncomeCreationCategory,
   OfferingIncomeCreationCategoryNames,
 } from '@/modules/offering/income/enums/offering-income-creation-category.enum';
 
 import { RecordStatus } from '@/shared/enums/record-status.enum';
+import { GenderNames, type Gender } from '@/shared/enums/gender.enum';
 import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces/offering-income-response.interface';
 
@@ -33,7 +37,6 @@ import {
 } from '@/shared/components/ui/card';
 import { Label } from '@/shared/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
-import { GenderNames, type Gender } from '../../../../../../shared/enums/gender.enum';
 
 interface OfferingIncomeTabsCardProps {
   id: string;
@@ -68,8 +71,6 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
     };
   }, [id]);
 
-  console.log(data?.externalDonor?.birthDate);
-
   return (
     <Tabs defaultValue='general-info' className='md:-mt-8 w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full px-auto grid-cols-1'>
@@ -88,7 +89,7 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid grid-cols-3 pl-[1.5rem] pr-[1.5rem] pb-5 sm:pl-[5.3rem] sm:pr-[5rem] gap-x-4 gap-y-2.5 md:gap-x-6 md:gap-y-4 md:pl-[5.8rem] md:pr-[2.5rem]'>
+          <CardContent className='grid grid-cols-3 pl-[1.5rem] pr-[1.5rem] pb-5 sm:pl-[5.3rem] sm:pr-[5rem] gap-x-4 gap-y-1 md:gap-x-6 md:gap-y-4 md:pl-[5.8rem] md:pr-[2.5rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Tipo</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
@@ -193,10 +194,120 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
                 </ul>
               </div>
             </div>
+            {data?.category === OfferingIncomeCreationCategory.ExternalDonation ||
+              data?.category === OfferingIncomeCreationCategory.InternalDonation ||
+              data?.subType === OfferingIncomeCreationSubType.FamilyGroup ||
+              data?.subType === OfferingIncomeCreationSubType.ZonalFasting ||
+              (data?.subType === OfferingIncomeCreationSubType.ZonalVigil && (
+                <>
+                  <Label className='md:-mb-3 mt-1 md:-mt-2 col-start-1 col-end-4 row-start-auto row-end-auto text-[15px] md:text-[16px] font-bold text-violet-500'>
+                    Información del aportante
+                  </Label>
+                  {data?.externalDonor?.id && (
+                    <div className='row-start-auto row-end-auto col-start-1 col-end-4 space-y-1'>
+                      <Label className='text-[14px] md:text-[15px]'>Datos del donante</Label>
 
-            {/* TODO : hacer pertenencia y destinatario y tmb hacer Aportante sea interneo externo y  zona o grup famuliar */}
-            <Label className='md:-mb-3 -mt-2 col-start-1 col-end-4 row-start-auto row-end-auto text-[15px] md:text-[16px] font-bold text-emerald-500'>
-              Pertenecía de la ofrenda
+                      <CardDescription className='px-2 text-[14px] md:text-[14.5px] grid grid-cols-1 md:grid-cols-2 gap-1'>
+                        <p>
+                          <span className='font-semibold'>Nombres:</span>{' '}
+                          {data?.externalDonor?.firstNames}
+                        </p>
+                        <p>
+                          <span className='font-semibold'>Apellidos:</span>{' '}
+                          {data?.externalDonor?.lastNames}
+                        </p>
+                        <p>
+                          <span className='font-semibold'>Género:</span>{' '}
+                          {GenderNames[data?.externalDonor?.gender as Gender] ?? 'Anónimo'}
+                        </p>
+                        <p>
+                          <span className='font-semibold'>F. Nacimiento:</span>{' '}
+                          {data?.externalDonor?.birthDate === '1900-01-01'
+                            ? 'Anónimo'
+                            : format(
+                                new Date(addDays(data?.externalDonor?.birthDate, 1)),
+                                'dd/MM/yyyy'
+                              )}
+                        </p>
+                        <p>
+                          <span className='font-semibold'>País de origen:</span>{' '}
+                          {data?.externalDonor?.originCountry ?? 'Anónimo'}
+                        </p>
+                        <p>
+                          <span className='font-semibold'>E-mail:</span>{' '}
+                          {data?.externalDonor?.email ?? 'Anónimo'}
+                        </p>
+                        <p>
+                          <span className='font-semibold'>Teléfono:</span>{' '}
+                          {data?.externalDonor?.phoneNumber ?? 'Anónimo'}
+                        </p>
+                        <p>
+                          <span className='font-semibold'>País de residencia:</span>{' '}
+                          {data?.externalDonor?.residenceCountry ?? 'Anónimo'}
+                        </p>
+                        <p>
+                          <span className='font-semibold'>Ciudad de residencia:</span>{' '}
+                          {data?.externalDonor?.residenceCountry ?? 'Anónimo'}
+                        </p>
+                        <p>
+                          <span className='font-semibold'>Código Postal:</span>{' '}
+                          {data?.externalDonor?.postalCode ?? 'Anónimo'}
+                        </p>
+                      </CardDescription>
+                    </div>
+                  )}
+
+                  {data?.memberType && data?.memberType !== MemberType.ExternalDonor && (
+                    <>
+                      <div className='col-start-1 col-end-2 row-start-auto row-end-auto space-y-1'>
+                        <Label className='text-[14px] md:text-[15px]'>Tipo de Miembro</Label>
+                        <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                          {data?.memberType ? MemberTypeNames[data?.memberType as MemberType] : '-'}
+                        </CardDescription>
+                      </div>
+                      <div className='space-y-1 row-start-auto row-end-auto col-start-2 col-end-4'>
+                        <Label className='text-[14px] md:text-[15px]'>Miembro</Label>
+                        <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                          {data?.disciple?.firstNames
+                            ? `${data?.disciple?.firstNames} ${data?.disciple?.lastNames}`
+                            : data?.preacher?.firstNames
+                              ? `${data?.preacher?.firstNames} ${data?.preacher?.lastNames}`
+                              : data?.supervisor?.firstNames
+                                ? `${data?.supervisor?.firstNames} ${data?.supervisor?.lastNames}`
+                                : data?.copastor?.firstNames
+                                  ? `${data?.copastor?.firstNames} ${data?.copastor?.lastNames}`
+                                  : data?.pastor?.firstNames
+                                    ? `${data?.pastor?.firstNames} ${data?.pastor?.lastNames}`
+                                    : '-'}
+                        </CardDescription>
+                      </div>
+                    </>
+                  )}
+
+                  {data?.zone?.id && (
+                    <div className='row-start-auto row-end-auto col-start-1 col-end-4 space-y-1'>
+                      <Label className='text-[14px] md:text-[15px]'>Zona</Label>
+                      <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                        {data?.zone?.id ? `${data?.zone?.zoneName} - ${data?.zone?.district}` : '-'}
+                      </CardDescription>
+                    </div>
+                  )}
+
+                  {data?.familyGroup?.id && (
+                    <div className='row-start-auto row-end-auto col-start-1 col-end-4  space-y-1'>
+                      <Label className='text-[14px] md:text-[15px] '>Grupo Familiar</Label>
+                      <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                        {data?.familyGroup?.id
+                          ? `${data?.familyGroup?.familyGroupName} - ${data?.familyGroup?.urbanSector} (${data?.familyGroup?.familyGroupCode})`
+                          : '-'}
+                      </CardDescription>
+                    </div>
+                  )}
+                </>
+              ))}
+
+            <Label className='md:-mb-3 mt-1 md:-mt-2 col-start-1 col-end-4 row-start-auto row-end-auto text-[15px] md:text-[16px] font-bold text-emerald-500'>
+              Información de pertenecía
             </Label>
             {data?.church?.id && (
               <div className='row-start-auto row-end-auto col-start-1 col-end-4 space-y-1'>
@@ -204,104 +315,6 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
                 <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                   {data?.church?.id
                     ? `${data?.church?.abbreviatedChurchName} - ${data?.church?.district}`
-                    : '-'}
-                </CardDescription>
-              </div>
-            )}
-
-            {data?.externalDonor?.id && (
-              <div className='row-start-auto row-end-auto col-start-1 col-end-4 space-y-1'>
-                <Label className='text-[14px] md:text-[15px]'>Datos del donante</Label>
-
-                <CardDescription className='px-2 text-[14px] md:text-[14.5px] grid grid-cols-1 md:grid-cols-2 gap-1'>
-                  <p>
-                    <span className='font-semibold'>Nombres:</span>{' '}
-                    {data?.externalDonor?.firstNames}
-                  </p>
-                  <p>
-                    <span className='font-semibold'>Apellidos:</span>{' '}
-                    {data?.externalDonor?.lastNames}
-                  </p>
-                  <p>
-                    <span className='font-semibold'>Género:</span>{' '}
-                    {GenderNames[data?.externalDonor?.gender as Gender] ?? 'Anónimo'}
-                  </p>
-                  <p>
-                    <span className='font-semibold'>F. Nacimiento:</span>{' '}
-                    {data?.externalDonor?.birthDate === '1900-01-01'
-                      ? 'Anónimo'
-                      : format(new Date(addDays(data?.externalDonor?.birthDate, 1)), 'dd/MM/yyyy')}
-                  </p>
-                  <p>
-                    <span className='font-semibold'>País de origen:</span>{' '}
-                    {data?.externalDonor?.originCountry ?? 'Anónimo'}
-                  </p>
-                  <p>
-                    <span className='font-semibold'>E-mail:</span>{' '}
-                    {data?.externalDonor?.email ?? 'Anónimo'}
-                  </p>
-                  <p>
-                    <span className='font-semibold'>Teléfono:</span>{' '}
-                    {data?.externalDonor?.phoneNumber ?? 'Anónimo'}
-                  </p>
-                  <p>
-                    <span className='font-semibold'>País de residencia:</span>{' '}
-                    {data?.externalDonor?.residenceCountry ?? 'Anónimo'}
-                  </p>
-                  <p>
-                    <span className='font-semibold'>Ciudad de residencia:</span>{' '}
-                    {data?.externalDonor?.residenceCountry ?? 'Anónimo'}
-                  </p>
-                  <p>
-                    <span className='font-semibold'>Código Postal:</span>{' '}
-                    {data?.externalDonor?.postalCode ?? 'Anónimo'}
-                  </p>
-                </CardDescription>
-              </div>
-            )}
-
-            {data?.memberType && data?.memberType !== MemberType.ExternalDonor && (
-              <>
-                <div className='col-start-1 col-end-2 row-start-auto row-end-auto space-y-1'>
-                  <Label className='text-[14px] md:text-[15px]'>Tipo de Miembro</Label>
-                  <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                    {data?.memberType ? MemberTypeNames[data?.memberType as MemberType] : '-'}
-                  </CardDescription>
-                </div>
-                <div className='space-y-1 row-start-auto row-end-auto col-start-2 col-end-4'>
-                  <Label className='text-[14px] md:text-[15px]'>Miembro</Label>
-                  <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                    {data?.disciple?.firstNames
-                      ? `${data?.disciple?.firstNames} ${data?.disciple?.lastNames}`
-                      : data?.preacher?.firstNames
-                        ? `${data?.preacher?.firstNames} ${data?.preacher?.lastNames}`
-                        : data?.supervisor?.firstNames
-                          ? `${data?.supervisor?.firstNames} ${data?.supervisor?.lastNames}`
-                          : data?.copastor?.firstNames
-                            ? `${data?.copastor?.firstNames} ${data?.copastor?.lastNames}`
-                            : data?.pastor?.firstNames
-                              ? `${data?.pastor?.firstNames} ${data?.pastor?.lastNames}`
-                              : '-'}
-                  </CardDescription>
-                </div>
-              </>
-            )}
-
-            {data?.zone?.id && (
-              <div className='row-start-auto row-end-auto col-start-1 col-end-4 space-y-1'>
-                <Label className='text-[14px] md:text-[15px]'>Zona</Label>
-                <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                  {data?.zone?.id ? `${data?.zone?.zoneName} - ${data?.zone?.district}` : '-'}
-                </CardDescription>
-              </div>
-            )}
-
-            {data?.familyGroup?.id && (
-              <div className='row-start-auto row-end-auto col-start-1 col-end-4  space-y-1'>
-                <Label className='text-[14px] md:text-[15px] '>Grupo Familiar</Label>
-                <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                  {data?.familyGroup?.id
-                    ? `${data?.familyGroup?.familyGroupName} - ${data?.familyGroup?.urbanSector} (${data?.familyGroup?.familyGroupCode})`
                     : '-'}
                 </CardDescription>
               </div>

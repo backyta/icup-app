@@ -91,16 +91,10 @@ export const OfferingIncomeByChurchGroundTooltipContent = (
                     {entry.payload.category === OfferingIncomeCreationCategory.ExternalDonation &&
                       `${
                         entry?.name === 'accumulatedOfferingPEN'
-                          ? entry?.payload?.allOfferings?.findLast(
-                              (item: any) => item.currency === CurrencyType.PEN
-                            )?.offering
+                          ? entry?.payload?.allOfferings?.at(-1)?.offering
                           : entry?.name === 'accumulatedOfferingUSD'
-                            ? entry?.payload?.allOfferings?.findLast(
-                                (item: any) => item.currency === CurrencyType.USD
-                              )?.offering
-                            : entry?.payload?.allOfferings?.findLast(
-                                (item: any) => item.currency === CurrencyType.EUR
-                              )?.offering
+                            ? entry?.payload?.allOfferings?.at(-1)?.offering
+                            : entry?.payload?.allOfferings?.at(-1)?.offering
                       }   
                   ${
                     entry?.name === 'accumulatedOfferingPEN'
@@ -111,45 +105,24 @@ export const OfferingIncomeByChurchGroundTooltipContent = (
                   } - ${
                     entry?.name === 'accumulatedOfferingPEN'
                       ? dateFormatterToDDMMYY(
-                          addDays(
-                            entry?.payload?.allOfferings?.findLast(
-                              (item: any) => item.currency === CurrencyType.PEN
-                            )?.date as string,
-                            1
-                          )
+                          addDays(entry?.payload?.allOfferings?.at(-1)?.date as string, 1)
                         )
                       : entry?.name === 'accumulatedOfferingUSD'
                         ? dateFormatterToDDMMYY(
-                            addDays(
-                              entry?.payload?.allOfferings?.findLast(
-                                (item: any) => item.currency === CurrencyType.USD
-                              )?.date as string,
-                              1
-                            )
+                            addDays(entry?.payload?.allOfferings?.at(-1)?.date as string, 1)
                           )
                         : dateFormatterToDDMMYY(
-                            addDays(
-                              entry?.payload?.allOfferings?.findLast(
-                                (item: any) => item.currency === CurrencyType.EUR
-                              )?.date as string,
-                              1
-                            )
+                            addDays(entry?.payload?.allOfferings?.at(-1)?.date as string, 1)
                           )
                   }`}
 
                     {entry.payload.category !== OfferingIncomeCreationCategory.ExternalDonation &&
                       `${
                         entry?.name === 'accumulatedOfferingPEN'
-                          ? entry?.payload?.allOfferings?.findLast(
-                              (item: any) => item.currency === CurrencyType.PEN
-                            )?.offering
+                          ? entry?.payload?.allOfferings?.at(-1)?.offering
                           : entry?.name === 'accumulatedOfferingUSD'
-                            ? entry?.payload?.allOfferings?.findLast(
-                                (item: any) => item.currency === CurrencyType.USD
-                              )?.offering
-                            : entry?.payload?.allOfferings?.findLast(
-                                (item: any) => item.currency === CurrencyType.EUR
-                              )?.offering
+                            ? entry?.payload?.allOfferings?.at(-1)?.offering
+                            : entry?.payload?.allOfferings?.at(-1)?.offering
                       }   
                   ${
                     entry?.name === 'accumulatedOfferingPEN'
@@ -160,29 +133,14 @@ export const OfferingIncomeByChurchGroundTooltipContent = (
                   } - ${
                     entry?.name === 'accumulatedOfferingPEN'
                       ? dateFormatterToDDMMYY(
-                          addDays(
-                            entry?.payload?.allOfferings?.findLast(
-                              (item: any) => item.currency === CurrencyType.PEN
-                            )?.date as string,
-                            1
-                          )
+                          addDays(entry?.payload?.allOfferings?.at(-1)?.date as string, 1)
                         )
                       : entry?.name === 'accumulatedOfferingUSD'
                         ? dateFormatterToDDMMYY(
-                            addDays(
-                              entry?.payload?.allOfferings?.findLast(
-                                (item: any) => item.currency === CurrencyType.USD
-                              )?.date as string,
-                              1
-                            )
+                            addDays(entry?.payload?.allOfferings?.at(-1)?.date as string, 1)
                           )
                         : dateFormatterToDDMMYY(
-                            addDays(
-                              entry?.payload?.allOfferings?.findLast(
-                                (item: any) => item.currency === CurrencyType.EUR
-                              )?.date as string,
-                              1
-                            )
+                            addDays(entry?.payload?.allOfferings?.at(-1)?.date as string, 1)
                           )
                   }`}
                   </span>
@@ -200,16 +158,10 @@ export const OfferingIncomeByChurchGroundTooltipContent = (
                     <span className='font-medium'>Donante:</span>{' '}
                     <span className='font-normal'>
                       {entry?.name === 'accumulatedOfferingPEN'
-                        ? entry?.payload?.allOfferings?.findLast(
-                            (item: any) => item.currency === CurrencyType.PEN
-                          )?.lastDonor
+                        ? entry?.payload?.allOfferings?.at(-1)?.lastDonor
                         : entry?.name === 'accumulatedOfferingUSD'
-                          ? entry?.payload?.allOfferings?.findLast(
-                              (item: any) => item.currency === CurrencyType.USD
-                            )?.lastDonor
-                          : entry?.payload?.allOfferings?.findLast(
-                              (item: any) => item.currency === CurrencyType.EUR
-                            )?.lastDonor}
+                          ? entry?.payload?.allOfferings?.at(-1)?.lastDonor
+                          : entry?.payload?.allOfferings?.at(-1)?.lastDonor}
                     </span>
                   </div>
                 )}
@@ -226,16 +178,10 @@ export const OfferingIncomeByChurchGroundTooltipContent = (
                     <span className='font-medium'>País remitente:</span>{' '}
                     <span className='font-normal'>
                       {entry?.name === 'accumulatedOfferingPEN'
-                        ? entry?.payload?.allOfferings?.findLast(
-                            (item: any) => item.currency === CurrencyType.PEN
-                          )?.sendingCountry
+                        ? entry?.payload?.allOfferings?.at(-1)?.sendingCountry
                         : entry?.name === 'accumulatedOfferingUSD'
-                          ? entry?.payload?.allOfferings?.findLast(
-                              (item: any) => item.currency === CurrencyType.USD
-                            )?.sendingCountry
-                          : entry?.payload?.allOfferings?.findLast(
-                              (item: any) => item.currency === CurrencyType.EUR
-                            )?.sendingCountry}
+                          ? entry?.payload?.allOfferings?.at(-1)?.sendingCountry
+                          : entry?.payload?.allOfferings?.at(-1)?.sendingCountry}
                     </span>
                   </div>
                 )}
@@ -287,5 +233,3 @@ export const OfferingIncomeByChurchGroundTooltipContent = (
     </div>
   );
 };
-
-// TODO : probar la fecha 1ero en todos los ingresos  aver si se lanbza al mes anterior

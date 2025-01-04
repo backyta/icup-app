@@ -85,5 +85,3 @@ export const PopoverDataCard = ({
     </Dialog>
   );
 };
-
-// TODO: CAMBIAR LOS key={index}

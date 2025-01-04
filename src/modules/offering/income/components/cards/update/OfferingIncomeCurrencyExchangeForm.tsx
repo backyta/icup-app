@@ -56,7 +56,7 @@ export const OfferingIncomeCurrencyExchangeForm = ({
 }: UserPasswordUpdateFormProps): JSX.Element => {
   //* States
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
   const dataSearchByTermResponse = useOfferingIncomeStore(
     (state) => state.dataSearchByTermResponse
@@ -79,6 +79,10 @@ export const OfferingIncomeCurrencyExchangeForm = ({
     [dataSearchByTermResponse, id]
   );
 
+  //* Watchers
+  const exchangeRate = form.watch('exchangeRate');
+  const exchangeCurrencyTypes = form.watch('exchangeCurrencyTypes');
+
   useEffect(() => {
     const originalUrl = window.location.href;
 
@@ -93,6 +97,13 @@ export const OfferingIncomeCurrencyExchangeForm = ({
       };
     }
   }, [id]);
+
+  //* Effects
+  useEffect(() => {
+    if (exchangeCurrencyTypes && exchangeRate) {
+      setIsButtonDisabled(false);
+    }
+  }, [exchangeCurrencyTypes, exchangeRate]);
 
   //* Custom hooks
   const offeringIncomeCurrencyExchangeMutation = useOfferingIncomeCurrencyExchangeMutation({
@@ -118,7 +129,7 @@ export const OfferingIncomeCurrencyExchangeForm = ({
   return (
     <Tabs
       defaultValue='general-info'
-      className='w-auto sm:w-[420px] md:w-[480px] lg:w-[440px] xl:w-[530px]'
+      className='w-auto -mt-8 sm:w-[420px] md:w-[480px] lg:w-[440px] xl:w-[530px]'
     >
       <h2 className='text-center text-teal-500 pb-1 font-bold text-[22px] sm:text-[22px] md:text-[24px]'>
         Cambio de Divisa
@@ -131,15 +142,15 @@ export const OfferingIncomeCurrencyExchangeForm = ({
               <span className='text-blue-500 font-bold text-[15px] md:text-[16px] mb-2'>
                 Procedimiento para el cambio de divisa
               </span>
-              <span className='pl-2 text-[14px] md:text-[14.5px] mb-1'>
+              <span className='pl-2 text-[14px] md:text-[14.5px] mb-2'>
                 ✅ <span className='font-medium'>El sistema buscará un registro existente</span> con
                 el tipo de divisa de destino, la fecha y datos similares.
               </span>
-              <span className='pl-2 text-[14px] md:text-[14.5px] mb-1'>
+              <span className='pl-2 text-[14px] md:text-[14.5px] mb-2'>
                 ✅ <span className='font-medium'>El registro de destino será actualizado</span>,
                 incrementando su monto con el valor calculado en el tipo de cambio.
               </span>
-              <span className='pl-2 text-[14px] md:text-[14.5px] mb-1'>
+              <span className='pl-2 text-[14px] md:text-[14.5px] mb-2'>
                 ✅ <span className='font-medium'>Si no se encuentra un registro</span>, el sistema
                 creará uno nuevo para este cambio de divisa.
               </span>
@@ -259,7 +270,7 @@ export const OfferingIncomeCurrencyExchangeForm = ({
                     className={cn(
                       'w-full text-[14px]',
                       offeringIncomeCurrencyExchangeMutation?.isPending &&
-                        'bg-emerald-500 disabled:opacity-100 disabled:md:text-[16px] dark:text-black text-white'
+                        'bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
                     )}
                     onClick={() => {
                       setTimeout(() => {

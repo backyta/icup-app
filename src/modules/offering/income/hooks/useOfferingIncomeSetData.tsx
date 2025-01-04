@@ -47,6 +47,7 @@ export const useOfferingIncomeSetData = ({
         data?.copastor?.id ??
         data?.pastor?.id
     );
+    offeringIncomeUpdateForm.setValue('externalDonorId', data?.externalDonor?.id ?? '');
     offeringIncomeUpdateForm.setValue('shift', data?.shift ?? '');
     setFiles(data?.imageUrls as any);
     offeringIncomeUpdateForm.setValue('recordStatus', data?.recordStatus);

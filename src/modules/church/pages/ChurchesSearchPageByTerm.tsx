@@ -115,6 +115,8 @@ export const ChurchesSearchPageByTerm = (): JSX.Element => {
   const limit = form.watch('limit');
   const order = form.watch('order');
 
+  console.log(searchType);
+
   //* Effects
   useEffect(() => {
     if (form.getValues('all')) {
@@ -166,7 +168,12 @@ export const ChurchesSearchPageByTerm = (): JSX.Element => {
 
       <SearchTitle isByTypeSearch titleName={'iglesias'} />
 
-      <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full'>
+      <div
+        className={cn(
+          'px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full',
+          searchType === ChurchSearchType.FoundingDate && 'h-[45rem] md:h-full'
+        )}
+      >
         {isFiltersSearchByTermDisabled && (
           <Form {...form}>
             <form
@@ -276,7 +283,7 @@ export const ChurchesSearchPageByTerm = (): JSX.Element => {
                             <Button
                               variant={'outline'}
                               className={cn(
-                                'w-full text-left font-normal justify-center p-4 text-[13.5px] md:text-[14px]',
+                                'w-full text-left font-normal justify-center p-4 text-[14px] md:text-[14px]',
                                 !field.value && 'text-muted-foreground'
                               )}
                             >
