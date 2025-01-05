@@ -90,7 +90,10 @@ export const LoginPage = (): JSX.Element => {
       navigate('/dashboard');
     } catch (error) {
       if (error instanceof AxiosError) {
-        if (error?.response?.statusText === 'Unauthorized') {
+        console.log(error.isAxiosError);
+        console.log(error);
+        if (error?.response?.status === 401) {
+          console.log(error?.response);
           toast.error(error?.response?.data?.message, {
             position: 'top-right',
           });
