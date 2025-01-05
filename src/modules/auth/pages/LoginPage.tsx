@@ -90,10 +90,7 @@ export const LoginPage = (): JSX.Element => {
       navigate('/dashboard');
     } catch (error) {
       if (error instanceof AxiosError) {
-        console.log(error.isAxiosError);
-        console.log(error);
         if (error?.response?.status === 401) {
-          console.log(error?.response);
           toast.error(error?.response?.data?.message, {
             position: 'top-right',
           });
@@ -105,7 +102,7 @@ export const LoginPage = (): JSX.Element => {
           }, 1500);
         }
 
-        if (error?.response?.statusText === 'Too Many Requests') {
+        if (error?.response?.status === 429) {
           toast.warning(error?.response?.data?.message, {
             position: 'top-right',
           });
