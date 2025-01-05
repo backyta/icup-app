@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
@@ -32,7 +34,7 @@ export const useOfferingExpenseSetData = ({
     offeringExpenseUpdateForm.setValue('currency', data?.currency ?? '');
     offeringExpenseUpdateForm.setValue('date', new Date(String(data?.date).replace(/-/g, '/')));
     offeringExpenseUpdateForm.setValue('comments', data?.comments ?? '');
-    offeringExpenseUpdateForm.setValue('churchId', data?.church?.id);
+    offeringExpenseUpdateForm.setValue('churchId', data?.church?.id!);
     offeringExpenseUpdateForm.setValue('recordStatus', data?.recordStatus);
     setFiles(data?.imageUrls as any);
 
