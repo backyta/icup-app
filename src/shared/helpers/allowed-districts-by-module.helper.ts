@@ -8,17 +8,17 @@ export const ChurchModuleDistrictsAllowed = [
 
 //* Disciple - Pastor - Copastor - Supervisor - Preacher
 export const MemberModuleDistrictsAllowed = [
- DistrictNames.Independencia,
- DistrictNames['Puente Piedra'],
  DistrictNames.Comas,
- DistrictNames.Carabayllo,
+ DistrictNames.Independencia,
  DistrictNames['Los Olivos'],
+ //  DistrictNames.Carabayllo,
+ DistrictNames['Puente Piedra'],
 ];
 
 //* Family group
 export const FamilyGroupModuleDistrictsAllowed = [
   DistrictNames.Independencia,
-  DistrictNames['Puente Piedra'],
+  // DistrictNames['Puente Piedra'],
 ];
 
 

@@ -89,12 +89,16 @@ export const useOfferingExpenseCreationMutation = ({
       setTimeout(() => {
         setIsInputDisabled(false);
         setIsSubmitButtonDisabled(false);
-      }, 1500);
+      }, 1600);
 
       setTimeout(() => {
-        offeringExpenseCreationForm.reset();
-        setFiles([]);
+        navigate('/offerings/income');
       }, 1600);
+
+      setTimeout(() => {
+        setFiles([]);
+        offeringExpenseCreationForm.reset();
+      }, 1800);
     },
   });
 

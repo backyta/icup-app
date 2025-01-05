@@ -292,7 +292,7 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Roles de Membresía</Label>
               <div className='px-2 text-[14px] md:text-[14.5px]'>
-                <ul className='list-disc pl-5'>
+                <ul className='list-disc pl-5 text-slate-500 dark:text-slate-400'>
                   {data?.member?.roles &&
                   data?.member?.roles.filter(
                     (rol) => !MemberRoleNames[rol as MemberRole]?.includes('Min.')
@@ -308,7 +308,7 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Roles Ministeriales</Label>
               <div className='px-2 text-[14px] md:text-[14.5px]'>
-                <ul className='list-disc pl-5'>
+                <ul className='list-disc pl-5 text-slate-500 dark:text-slate-400'>
                   {data?.member?.roles &&
                   data?.member?.roles.filter((rol) =>
                     MemberRoleNames[rol as MemberRole]?.includes('Min.')

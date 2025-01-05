@@ -232,7 +232,7 @@ export enum SubTypeOfferingExpenseSearchByDecorationExpenses {
   DecorationServices = "decoration_services",
   LightingAndIlluminationServices = "lighting_and_illumination_services",
   StageSetupServices = "stage_setup_services",
-  EventDecorationRentals = "event_decoration_services",
+  EventDecorationRentals = "event_decoration_rentals",
   CleaningPostEventServices = "cleaning_post_event_services",
 }
 

@@ -57,7 +57,7 @@ export const useOfferingIncomeCreationMutation = ({
           className: 'justify-center',
         });
 
-        //! Execute destroy if form fails
+        //! Execute destroy if form fails (upload and destroy images if throw error)
         imageUrls?.forEach(async (imageUrl) => {
           await deleteImage({
             publicId: extractPublicId(imageUrl),
@@ -95,12 +95,16 @@ export const useOfferingIncomeCreationMutation = ({
       setTimeout(() => {
         setIsInputDisabled(false);
         setIsSubmitButtonDisabled(false);
-      }, 1500);
+      }, 1600);
 
       setTimeout(() => {
-        offeringIncomeCreationForm.reset();
-        setFiles([]);
+        navigate('/offerings/income');
       }, 1600);
+
+      setTimeout(() => {
+        setFiles([]);
+        offeringIncomeCreationForm.reset();
+      }, 1800);
     },
   });
 
