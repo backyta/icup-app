@@ -81,7 +81,7 @@ export const LoginPage = (): JSX.Element => {
         clearTimeout(timeout);
       };
     }
-  }, [isInputDisabled]);
+  }, [statusCode]);
 
   //* Form handler
   const handleSubmit = async (values: z.infer<typeof loginSchema>): Promise<void> => {
