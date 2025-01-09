@@ -376,7 +376,7 @@ export const UserCreatePage = (): JSX.Element => {
                 ❌ Debes elegir al menos un rol para el usuario.
               </p>
             ) : (
-              <p className='-mt-4 order-last md:-mt-3 md:row-start-5 md:row-end-6 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
+              <p className='-mt-3 order-last md:-mt-3 md:row-start-5 md:row-end-6 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
                 ¡Campos completados correctamente! <br />
               </p>
             )}
@@ -389,7 +389,7 @@ export const UserCreatePage = (): JSX.Element => {
                 className={cn(
                   'w-full text-[14px]',
                   userCreationMutation?.isPending &&
-                    'bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
+                    'bg-emerald-50 hover:bg-emerald-5000 disabled:opacity-100 disabled:md:text-[15px] text-white'
                 )}
                 onClick={() => {
                   setTimeout(() => {

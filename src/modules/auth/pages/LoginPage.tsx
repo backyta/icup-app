@@ -207,7 +207,7 @@ export const LoginPage = (): JSX.Element => {
               }}
             />
 
-            <div className='mt-2 col-start-1 col-end-3 row-start-2 row-end-3 w-full md:m-auto'>
+            <div className='mt-2 col-start-1 col-end-3 row-start-2 h-full row-end-3 w-full md:m-auto'>
               <Toaster position='bottom-center' richColors />
               <Button
                 disabled={isInputDisabled}
@@ -216,7 +216,7 @@ export const LoginPage = (): JSX.Element => {
                   'w-full text-[14px]',
                   isInputDisabled &&
                     statusCode !== 429 &&
-                    'dark:bg-teal-500 bg-teal-600 text-[15px] text-white'
+                    'dark:bg-emerald-500 bg-emerald-600 dark:hover:bg-emerald-500 hover:bg-emerald-600 text-[15px] w-full h-full text-white'
                 )}
                 onClick={() => {
                   setTimeout(() => {

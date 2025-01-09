@@ -1030,7 +1030,7 @@ export const PastorUpdateForm = ({
                       ❌ Datos incompletos, completa todos los campos para guardar el registro.
                     </p>
                   ) : (
-                    <p className='-mt-4 order-last md:-mt-3 md:row-start-3 md:row-end-4 md:col-start-2 md:col-end-3 mx-auto md:w-full text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
+                    <p className='-mt-3 order-last md:-mt-3 md:row-start-3 md:row-end-4 md:col-start-2 md:col-end-3 mx-auto md:w-full text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
                       ¡Campos completados correctamente! <br /> Para finalizar por favor guarde los
                       cambios.
                     </p>
@@ -1043,7 +1043,7 @@ export const PastorUpdateForm = ({
                       className={cn(
                         'w-full text-[14px]',
                         pastorUpdateMutation?.isPending &&
-                          'bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
+                          'bg-emerald-500 hover:bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
                       )}
                       onClick={() => {
                         setTimeout(() => {

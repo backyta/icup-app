@@ -518,7 +518,7 @@ export const ZoneUpdateForm = ({
                       className={cn(
                         'w-full text-[14px]',
                         zoneUpdateMutation?.isPending &&
-                          'bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
+                          'bg-emerald-500 hover:bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
                       )}
                       onClick={() => {
                         setTimeout(() => {

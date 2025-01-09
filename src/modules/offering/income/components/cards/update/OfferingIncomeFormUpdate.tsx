@@ -1426,9 +1426,9 @@ export const OfferingIncomeFormUpdate = ({
                       disabled={isSubmitButtonDisabled}
                       type='submit'
                       className={cn(
-                        'w-full text-[14px] md:text-[14.5px]',
+                        'w-full text-[14px]',
                         uploadImagesMutation?.isPending &&
-                          'bg-emerald-500 disabled:opacity-100 disabled:md:text-[14.5px] text-white'
+                          'bg-emerald-500 hover:bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
                       )}
                       onClick={() => {
                         setTimeout(() => {

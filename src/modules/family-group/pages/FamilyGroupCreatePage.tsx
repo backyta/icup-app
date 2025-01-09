@@ -713,7 +713,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                 className={cn(
                   'w-full text-[14px]',
                   familyGroupCreationMutation?.isPending &&
-                    'bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
+                    'bg-emerald-500 hover:bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
                 )}
                 onClick={() => {
                   setTimeout(() => {

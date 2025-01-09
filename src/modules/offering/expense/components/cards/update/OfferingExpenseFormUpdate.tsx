@@ -798,7 +798,7 @@ export const OfferingExpenseFormUpdate = ({
                       sistema.
                     </p>
                   ) : (
-                    <p className='-mt-4 order-last md:-mt-3 md:row-start-3 md:row-end-4 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
+                    <p className='-mt-3 order-last md:-mt-3 md:row-start-3 md:row-end-4 md:col-start-1 md:col-end-3 mx-auto md:w-[80%] lg:w-[80%] text-center text-green-500 text-[12.5px] md:text-[13px] font-bold'>
                       ¡Campos completados correctamente! <br /> Para finalizar por favor guarde los
                       cambios
                     </p>
@@ -809,9 +809,9 @@ export const OfferingExpenseFormUpdate = ({
                       disabled={isSubmitButtonDisabled}
                       type='submit'
                       className={cn(
-                        'w-full text-[14px] md:text-[14.5px]',
+                        'w-full text-[14px]',
                         uploadImagesMutation?.isPending &&
-                          'bg-emerald-500 disabled:opacity-100 disabled:md:text-[14.5px] text-white'
+                          'bg-emerald-500 hover:bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
                       )}
                       onClick={() => {
                         setTimeout(() => {
