@@ -161,7 +161,7 @@ export const CopastorCreatePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-copastor-color'>Modulo Co-Pastor</PageTitle>
 
-      <h2 className='text-left leading-7 pb-[2px] pt-3 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h2 className='text-left whitespace-nowrap pb-[2px] pt-2 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear un nuevo co-pastor
       </h2>
 

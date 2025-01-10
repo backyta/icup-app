@@ -173,14 +173,14 @@ export const GeneralComparativeOfferingIncomeAnalysisCard = ({ churchId }: Props
   };
 
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-3 h-[25.5rem] sm:h-[26.5rem] md:h-[27rem] lg:h-[31.5rem] 2xl:h-[31.5rem] m-0 border-slate-200 dark:border-slate-800'>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-3 h-auto sm:h-[26.5rem] md:h-[27rem] lg:h-[31.5rem] 2xl:h-[31.5rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 py-2.5'>
         <div className='flex flex-col items-center sm:items-start'>
           <CardTitle className='font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
             Ingresos de Ofrenda
           </CardTitle>
           <CardDescription className='mr-2 sm:ml-[2px] w-full sm:text-left text-center text-[14px] md:text-[16px] italic'>
-            General (Acumulado por sub-tipo, rng. de meses y año).
+            General (Acumulado por sub-tipo, rango de meses y año).
           </CardDescription>
         </div>
         <Form {...form}>
@@ -396,20 +396,20 @@ export const GeneralComparativeOfferingIncomeAnalysisCard = ({ churchId }: Props
       </CardHeader>
 
       {!generalComparativeOfferingIncome?.data?.length && !searchParams ? (
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
-            <p>Consultando datos....</p>
+            <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           {generalComparativeOfferingIncome?.isFetching &&
             !generalComparativeOfferingIncome?.data?.length &&
             year && (
               <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDataBackup className='text-[6rem] pb-2' />
-                <p>Consultando datos....</p>
+                <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
               </div>
             )}
           {!!mappedData?.length && searchParams && (
@@ -444,7 +444,9 @@ export const GeneralComparativeOfferingIncomeAnalysisCard = ({ churchId }: Props
                 />
 
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
+                  content={
+                    <ChartLegendContent className='ml-4 sm:ml-8 text-[13px] md:text-[14px] flex gap-2 sm:gap-5' />
+                  }
                 />
 
                 <Bar
@@ -477,9 +479,11 @@ export const GeneralComparativeOfferingIncomeAnalysisCard = ({ churchId }: Props
           {!generalComparativeOfferingIncome?.isFetching &&
             !generalComparativeOfferingIncome?.data?.length &&
             year && (
-              <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+              <div className='text-red-500 flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDeleteDatabase className='text-[6rem] pb-2' />
-                <p>No hay datos disponibles para mostrar.</p>
+                <p className='font-medium text-[15px] md:text-[16px]'>
+                  No hay datos disponibles para mostrar.
+                </p>
               </div>
             )}
         </CardContent>

@@ -92,7 +92,7 @@ export const useOfferingExpenseCreationMutation = ({
       }, 1600);
 
       setTimeout(() => {
-        navigate('/offerings/income');
+        navigate('/offerings/expenses');
       }, 1600);
 
       setTimeout(() => {

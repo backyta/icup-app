@@ -22,7 +22,7 @@ export const OfferingIncomeMetricsSkeleton = (): JSX.Element => {
             <Skeleton className='h-10 w-16 mt-1' />
           </div>
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <Skeleton
             className={cn('h-[15.5rem] sm:h-[17.5rem] md:h-[18.5rem] lg:h-[19.5rem] w-full mt-1')}
           />
@@ -42,7 +42,7 @@ export const OfferingIncomeMetricsSkeleton = (): JSX.Element => {
             <Skeleton className='h-10 w-16 mt-1' />
           </div>
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <Skeleton
             className={cn('h-[15.5rem] sm:h-[17.5rem] md:h-[18.5rem] lg:h-[19.5rem] w-full mt-1')}
           />
@@ -61,7 +61,7 @@ export const OfferingIncomeMetricsSkeleton = (): JSX.Element => {
             <Skeleton className='h-10 w-16 mt-1' />
           </div>
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <Skeleton
             className={cn('h-[15.5rem] sm:h-[17.5rem] md:h-[18.5rem] lg:h-[19.5rem] w-full mt-1')}
           />
@@ -80,7 +80,7 @@ export const OfferingIncomeMetricsSkeleton = (): JSX.Element => {
             <Skeleton className='h-10 w-16 mt-1' />
           </div>
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <Skeleton
             className={cn('h-[15.5rem] sm:h-[17.5rem] md:h-[18.5rem] lg:h-[19.5rem] w-full mt-1')}
           />
@@ -99,7 +99,7 @@ export const OfferingIncomeMetricsSkeleton = (): JSX.Element => {
             <Skeleton className='h-10 w-16 mt-1' />
           </div>
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <Skeleton
             className={cn('h-[15.5rem] sm:h-[17.5rem] md:h-[18.5rem] lg:h-[19.5rem] w-full mt-1')}
           />
@@ -118,7 +118,7 @@ export const OfferingIncomeMetricsSkeleton = (): JSX.Element => {
             <Skeleton className='h-10 w-16 mt-1' />
           </div>
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <Skeleton
             className={cn('h-[15.5rem] sm:h-[17.5rem] md:h-[18.5rem] lg:h-[19.5rem] w-full mt-1')}
           />
@@ -136,7 +136,7 @@ export const OfferingIncomeMetricsSkeleton = (): JSX.Element => {
             <Skeleton className='h-10 w-16 mt-1' />
           </div>
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <Skeleton
             className={cn('h-[15.5rem] sm:h-[17.5rem] md:h-[18.5rem] lg:h-[19.5rem] w-full mt-1')}
           />
@@ -154,7 +154,7 @@ export const OfferingIncomeMetricsSkeleton = (): JSX.Element => {
             <Skeleton className='h-10 w-16 mt-1' />
           </div>
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <Skeleton
             className={cn('h-[15.5rem] sm:h-[17.5rem] md:h-[18.5rem] lg:h-[19.5rem] w-full mt-1')}
           />
@@ -172,7 +172,7 @@ export const OfferingIncomeMetricsSkeleton = (): JSX.Element => {
             <Skeleton className='h-10 w-16 mt-1' />
           </div>
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <Skeleton
             className={cn('h-[15.5rem] sm:h-[17.5rem] md:h-[18.5rem] lg:h-[19.5rem] w-full mt-1')}
           />
@@ -190,7 +190,7 @@ export const OfferingIncomeMetricsSkeleton = (): JSX.Element => {
             <Skeleton className='h-10 w-16 mt-1' />
           </div>
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <Skeleton
             className={cn('h-[15.5rem] sm:h-[17.5rem] md:h-[18.5rem] lg:h-[19.5rem] w-full mt-1')}
           />

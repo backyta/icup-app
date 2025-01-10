@@ -10,7 +10,6 @@ import { format } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMediaQuery } from '@react-hook/media-query';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Bar, XAxis, YAxis, CartesianGrid, BarChart } from 'recharts';
 import { FcDataBackup, FcDataConfiguration, FcDeleteDatabase } from 'react-icons/fc';
@@ -108,11 +107,6 @@ export const OfferingExpenseAnalysisCardByOperationalExpenses = ({
   //* Helpers
   const years = generateYearOptions();
 
-  //* Media Queries
-  const intermediateLG = useMediaQuery('(min-width: 1280px)');
-  const intermediateXL = useMediaQuery('(min-width: 1390px)');
-  const intermediate2XL = useMediaQuery('(min-width: 1530px)');
-
   //* Watchers
   const year = form.watch('year');
   const month = form.watch('month');
@@ -181,15 +175,7 @@ export const OfferingExpenseAnalysisCardByOperationalExpenses = ({
     <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[24rem] sm:h-[26rem] md:h-[28rem] lg:h-[30rem] 2xl:h-[30rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 py-2.5'>
         <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-          {intermediate2XL ? (
-            <span>Gastos Operativos</span>
-          ) : intermediateXL ? (
-            <span>Gastos Operativos</span>
-          ) : intermediateLG ? (
-            <span>Gastos Operativos</span>
-          ) : (
-            <span>Gastos Operativos</span>
-          )}
+          <span>Operativos</span>
           {operationalOfferingExpenses?.data &&
             Object.entries(operationalOfferingExpenses?.data)?.length > 0 && (
               <Badge
@@ -346,20 +332,20 @@ export const OfferingExpenseAnalysisCardByOperationalExpenses = ({
       </CardHeader>
 
       {!operationalOfferingExpenses?.data?.length && !searchParams ? (
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
-            <p>Consultando datos....</p>
+            <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           {operationalOfferingExpenses?.isFetching &&
             !operationalOfferingExpenses?.data?.length &&
             year && (
               <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDataBackup className='text-[6rem] pb-2' />
-                <p>Consultando datos....</p>
+                <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
               </div>
             )}
           {!!mappedData?.length && searchParams && (
@@ -387,7 +373,9 @@ export const OfferingExpenseAnalysisCardByOperationalExpenses = ({
                 <ChartTooltip cursor={false} content={OfferingExpenseChartTooltipContent as any} />
 
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
+                  content={
+                    <ChartLegendContent className='ml-6 sm:ml-8 text-[13px] md:text-[14px] flex gap-2 sm:gap-5' />
+                  }
                 />
 
                 <Bar
@@ -420,9 +408,11 @@ export const OfferingExpenseAnalysisCardByOperationalExpenses = ({
           {!operationalOfferingExpenses?.isFetching &&
             !operationalOfferingExpenses?.data?.length &&
             year && (
-              <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+              <div className='text-red-500 flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDeleteDatabase className='text-[6rem] pb-2' />
-                <p>No hay datos disponibles para mostrar.</p>
+                <p className='font-medium text-[15px] md:text-[16px]'>
+                  No hay datos disponibles para mostrar.
+                </p>
               </div>
             )}
         </CardContent>

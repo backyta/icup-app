@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
@@ -15,9 +16,7 @@ import { FcDataBackup, FcDataConfiguration, FcDeleteDatabase } from 'react-icons
 
 import { cn } from '@/shared/lib/utils';
 
-import { getSimpleZones } from '@/modules/zone/services/zone.service';
-
-import { OfferingIncomeByFamilyGroupTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components/OfferingIncomeByFamilyGroupTooltipContent';
+import { OfferingExpenseChartTooltipContent } from '@/modules/metrics/components/offering-expense/tooltips/components/OfferingExpenseChartTooltipContent';
 
 import { RecordOrder } from '@/shared/enums/record-order.enum';
 import { generateYearOptions } from '@/shared/helpers/generate-year-options.helper';
@@ -25,7 +24,7 @@ import { generateYearOptions } from '@/shared/helpers/generate-year-options.help
 import { months } from '@/modules/metrics/data/months-data';
 import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
 import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
-import { getOfferingIncomeByFamilyGroup } from '@/modules/metrics/services/offering-income-metrics.service';
+import { getOthersOfferingExpenses } from '@/modules/metrics/services/offering-expense-metrics.service';
 
 import {
   Command,
@@ -50,33 +49,47 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/co
 const chartConfig = {
   accumulatedOfferingPEN: {
     label: 'Ofrenda PEN',
-    color: '#029012',
+    color: '#44d41c',
   },
   accumulatedOfferingUSD: {
     label: 'Ofrenda USD',
-    color: '#813cb4',
+    color: '#2c59ff',
   },
   accumulatedOfferingEUR: {
     label: 'Ofrenda EUR',
-    color: '#279fb3',
+    color: '#d4871c',
   },
 } satisfies ChartConfig;
 
 interface SearchParamsOptions {
-  zone?: string;
   month?: string;
   year?: string;
+}
+
+interface ResultDataOptions {
+  subType: string;
+  date: Date;
+  accumulatedOfferingPEN: number;
+  accumulatedOfferingUSD: number;
+  accumulatedOfferingEUR: number;
+  church: {
+    isAnexe: boolean;
+    abbreviatedChurchName: string;
+  };
+  allOfferings: Array<{ offering: number; currency: string; date: string | Date }>;
+  totalAmount: number;
+  totalPercentage: string;
 }
 
 interface Props {
   churchId: string | undefined;
 }
 
-export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JSX.Element => {
+export const OfferingExpenseAnalysisCardByOthersExpenses = ({ churchId }: Props): JSX.Element => {
   //* States
-  const [isInputSearchMonthOpen, setIsInputSearchMonthOpen] = useState<boolean>(false);
+  const [mappedData, setMappedData] = useState<ResultDataOptions[]>();
   const [isInputSearchYearOpen, setIsInputSearchYearOpen] = useState<boolean>(false);
-  const [isInputSearchZoneOpen, setIsInputSearchZoneOpen] = useState<boolean>(false);
+  const [isInputSearchMonthOpen, setIsInputSearchMonthOpen] = useState<boolean>(false);
   const [searchParams, setSearchParams] = useState<SearchParamsOptions | undefined>(undefined);
 
   //* Form
@@ -84,7 +97,6 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
     resolver: zodResolver(metricsFormSchema),
     mode: 'onChange',
     defaultValues: {
-      zone: searchParams?.zone ? searchParams?.zone : '',
       month: format(new Date(), 'MMMM').toLowerCase(),
       year: new Date().getFullYear().toString(),
     },
@@ -94,42 +106,63 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
   const years = generateYearOptions();
 
   //* Watchers
-  const zone = form.watch('zone');
   const year = form.watch('year');
   const month = form.watch('month');
 
   //* Queries
-  const zonesQuery = useQuery({
-    queryKey: ['zones-for-offering-income-by-family-group', churchId],
-    queryFn: () => getSimpleZones({ churchId: churchId ?? '', isSimpleQuery: true }),
-  });
-
-  const offeringIncomeByFamilyGroup = useQuery({
-    queryKey: ['offering-income-by-family-group', { ...searchParams, church: churchId }],
+  const othersOfferingExpenses = useQuery({
+    queryKey: ['offering-others-expenses', { ...searchParams, church: churchId }],
     queryFn: () => {
-      return getOfferingIncomeByFamilyGroup({
-        searchType: MetricSearchType.OfferingIncomeByFamilyGroup,
-        zone: searchParams?.zone ?? zone,
+      return getOthersOfferingExpenses({
+        searchType: MetricSearchType.OtherOfferingExpenses,
         month: searchParams?.month ?? month,
-        isSingleMonth: true,
         year: searchParams?.year ?? year,
+        isSingleMonth: true,
         church: churchId ?? '',
         order: RecordOrder.Ascending,
       });
     },
     retry: 1,
-    enabled: !!searchParams?.zone && !!searchParams?.year && !!searchParams?.month && !!churchId,
+    enabled: !!searchParams?.year && !!searchParams?.month && !!churchId,
   });
 
   //* Effects
   // Default value
   useEffect(() => {
-    if (zonesQuery.data) {
-      const zone = zonesQuery?.data?.map((zone) => zone?.id)[0];
-      setSearchParams({ zone, year, month });
-      form.setValue('zone', zone);
+    setSearchParams({ year, month });
+  }, [othersOfferingExpenses?.data, year]);
+
+  // Set data
+  useEffect(() => {
+    if (othersOfferingExpenses?.data) {
+      const transformedData = othersOfferingExpenses?.data.map((offeringExpense) => {
+        const totalGeneral = othersOfferingExpenses.data
+          .map((item) => item.totalAmount)
+          .reduce((acc, item) => acc + item, 0);
+
+        return {
+          subType: offeringExpense.subType,
+          date: offeringExpense.date,
+          accumulatedOfferingPEN: offeringExpense.accumulatedOfferingPEN,
+          accumulatedOfferingUSD: offeringExpense.accumulatedOfferingUSD,
+          accumulatedOfferingEUR: offeringExpense.accumulatedOfferingEUR,
+          church: {
+            isAnexe: offeringExpense.church.isAnexe,
+            abbreviatedChurchName: offeringExpense.church.abbreviatedChurchName,
+          },
+          allOfferings: offeringExpense.allOfferings,
+          totalAmount: offeringExpense.totalAmount,
+          totalPercentage: ((offeringExpense.totalAmount / totalGeneral) * 100).toFixed(1),
+        };
+      });
+
+      setMappedData(transformedData);
     }
-  }, [zonesQuery?.data, year]);
+
+    if (!othersOfferingExpenses?.data) {
+      setMappedData([]);
+    }
+  }, [othersOfferingExpenses?.data]);
 
   //* Form handler
   const handleSubmit = (formData: z.infer<typeof metricsFormSchema>): void => {
@@ -137,13 +170,12 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
   };
 
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-2 col-end-3 h-[24rem] md:h-[25rem] lg:h-[26rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-2 col-end-3 h-[24rem] sm:h-[26rem] md:h-[28rem] lg:h-[30rem] 2xl:h-[30rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 py-2.5'>
-        <CardTitle className='flex whitespace-nowrap justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-          <span>Grupos Familiares</span>
-
-          {offeringIncomeByFamilyGroup?.data &&
-            Object.entries(offeringIncomeByFamilyGroup?.data)?.length > 0 && (
+        <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
+          <span>Otros Gastos</span>
+          {othersOfferingExpenses?.data &&
+            Object.entries(othersOfferingExpenses?.data)?.length > 0 && (
               <Badge
                 variant='active'
                 className='mt-1 text-[11px] text-white md:text-[11px] py-0.3 md:py-0.35 tracking-wide'
@@ -154,77 +186,6 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
         </CardTitle>
         <Form {...form}>
           <form className='flex'>
-            <FormField
-              control={form.control}
-              name='zone'
-              render={({ field }) => {
-                return (
-                  <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
-                    <Popover open={isInputSearchZoneOpen} onOpenChange={setIsInputSearchZoneOpen}>
-                      <PopoverTrigger asChild>
-                        <FormControl className='text-[14px] md:text-[14px]'>
-                          <Button
-                            variant='outline'
-                            role='combobox'
-                            className={cn(
-                              'justify-between w-full text-[14px] md:text-[14px] text-center px-2',
-                              !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-2'
-                            )}
-                          >
-                            {field.value
-                              ? zonesQuery?.data?.find((zone) => zone.id === field.value)?.zoneName
-                              : 'Zona'}
-                            <CaretSortIcon className='h-4 w-4 shrink-0' />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent align='center' className='w-auto px-4 py-2'>
-                        <Command>
-                          {zonesQuery?.data?.length && zonesQuery?.data?.length > 0 ? (
-                            <>
-                              <CommandInput
-                                placeholder='Busque una zona...'
-                                className='h-9 text-[14px] md:text-[14px]'
-                              />
-                              <CommandEmpty>Zona no encontrada.</CommandEmpty>
-                              <CommandGroup className='max-h-[200px] h-auto'>
-                                {zonesQuery?.data?.map((zone) => (
-                                  <CommandItem
-                                    className='text-[14px] md:text-[14px]'
-                                    value={zone.id}
-                                    key={zone.zoneName}
-                                    onSelect={() => {
-                                      form.setValue('zone', zone.id);
-                                      zone && month && year && form.handleSubmit(handleSubmit)();
-                                      setIsInputSearchZoneOpen(false);
-                                    }}
-                                  >
-                                    {zone.zoneName}
-                                    <CheckIcon
-                                      className={cn(
-                                        'ml-auto h-4 w-4',
-                                        zone.id === field.value ? 'opacity-100' : 'opacity-0'
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
-                              </CommandGroup>
-                            </>
-                          ) : (
-                            zonesQuery?.data?.length === 0 && (
-                              <p className='text-[12px] md:text-[14px] font-medium text-red-500 text-center'>
-                                ❌No hay zonas disponibles.
-                              </p>
-                            )
-                          )}
-                        </Command>
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage className='text-[13px]' />
-                  </FormItem>
-                );
-              }}
-            />
             <FormField
               control={form.control}
               name='month'
@@ -247,12 +208,12 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
                             role='combobox'
                             className={cn(
                               'justify-between w-full text-[14px] md:text-[14px] text-center px-2',
-                              !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-2'
+                              !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-4'
                             )}
                           >
                             {field.value
                               ? months.find((month) => month.value === field.value)?.label
-                              : 'Mes'}
+                              : 'Elige un mes'}
                             <CaretSortIcon className='h-4 w-4 shrink-0' />
                           </Button>
                         </FormControl>
@@ -272,6 +233,7 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
                                 key={month.value}
                                 onSelect={() => {
                                   form.setValue('month', month.value);
+                                  month && year && form.handleSubmit(handleSubmit)();
                                   setIsInputSearchMonthOpen(false);
                                 }}
                               >
@@ -299,7 +261,16 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
               render={({ field }) => {
                 return (
                   <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
-                    <Popover open={isInputSearchYearOpen} onOpenChange={setIsInputSearchYearOpen}>
+                    <Popover
+                      open={isInputSearchYearOpen}
+                      onOpenChange={(e) => {
+                        setIsInputSearchYearOpen(e);
+                        !month &&
+                          form.resetField('month', {
+                            defaultValue: '',
+                          });
+                      }}
+                    >
                       <PopoverTrigger asChild>
                         <FormControl className='text-[14px] md:text-[14px]'>
                           <Button
@@ -332,7 +303,7 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
                                 key={year.value}
                                 onSelect={() => {
                                   form.setValue('year', year.value);
-                                  zone && month && year && form.handleSubmit(handleSubmit)();
+                                  month && year && form.handleSubmit(handleSubmit)();
                                   setIsInputSearchYearOpen(false);
                                 }}
                               >
@@ -358,7 +329,7 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
         </Form>
       </CardHeader>
 
-      {!offeringIncomeByFamilyGroup?.data?.length && !searchParams ? (
+      {!othersOfferingExpenses?.data?.length && !searchParams ? (
         <CardContent className='h-full px-2 sm:px-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
@@ -367,85 +338,77 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
         </CardContent>
       ) : (
         <CardContent className='h-full px-2 sm:px-4 py-0'>
-          {offeringIncomeByFamilyGroup?.isFetching &&
-            !offeringIncomeByFamilyGroup?.data?.length &&
-            year && (
-              <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
-                <FcDataBackup className='text-[6rem] pb-2' />
-                <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
-              </div>
-            )}
-          {!!offeringIncomeByFamilyGroup?.data?.length && searchParams && (
+          {othersOfferingExpenses?.isFetching && !othersOfferingExpenses?.data?.length && year && (
+            <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+              <FcDataBackup className='text-[6rem] pb-2' />
+              <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
+            </div>
+          )}
+          {!!mappedData?.length && searchParams && (
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[285px] sm:h-[315px] md:h-[330px] lg:h-[345px] xl:h-[345px] 2xl:h-[345px]'
+                'w-full h-[283px] sm:h-[345px] md:h-[380px] lg:h-[410px] xl:h-[410px] 2xl:h-[410px]'
               )}
             >
               <BarChart
                 accessibilityLayer
-                data={offeringIncomeByFamilyGroup?.data}
+                data={mappedData}
                 margin={{ top: 5, right: 5, left: -25, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
                 <XAxis
-                  dataKey='familyGroup.familyGroupCode'
+                  dataKey='subType'
                   tickLine={false}
                   tickMargin={10}
                   axisLine={true}
-                  tickFormatter={(value) => value.slice(0, 12)}
                   className='text-[12.5px] sm:text-[14px]'
                 />
 
                 <YAxis className='text-[12.5px] sm:text-[14px]' />
-                <ChartTooltip
-                  cursor={false}
-                  content={OfferingIncomeByFamilyGroupTooltipContent as any}
-                />
+                <ChartTooltip cursor={false} content={OfferingExpenseChartTooltipContent as any} />
 
                 <ChartLegend
                   content={
-                    <ChartLegendContent className='ml-6 sm:ml-8 text-[13px] md:text-[14px] gap-2 sm:gap-5' />
+                    <ChartLegendContent className='ml-6 sm:ml-6 text-[13px] md:text-[14px] flex gap-2 sm:gap-5' />
                   }
                 />
 
                 <Bar
                   dataKey='accumulatedOfferingPEN'
-                  stackId='familyGroup'
+                  stackId='subType'
                   fill='var(--color-accumulatedOfferingPEN)'
                   radius={[2, 2, 2, 2]}
                 />
                 <Bar
                   dataKey='accumulatedOfferingEUR'
-                  stackId='familyGroup'
+                  stackId='subType'
                   fill='var(--color-accumulatedOfferingEUR)'
                   radius={[2, 2, 0, 0]}
                 />
                 <Bar
                   dataKey='accumulatedOfferingUSD'
-                  stackId='familyGroup'
+                  stackId='subType'
                   fill='var(--color-accumulatedOfferingUSD)'
                   radius={[2, 2, 0, 0]}
                 />
               </BarChart>
             </ChartContainer>
           )}
-          {!year && !offeringIncomeByFamilyGroup?.data?.length && (
+          {!year && !mappedData?.length && (
             <div className='text-emerald-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDataConfiguration className='text-[6rem] pb-2' />
               <p>Esperando parámetros de consulta...</p>
             </div>
           )}
-          {!offeringIncomeByFamilyGroup?.isFetching &&
-            !offeringIncomeByFamilyGroup?.data?.length &&
-            year && (
-              <div className='text-red-500 flex flex-col justify-center items-center h-full -mt-6'>
-                <FcDeleteDatabase className='text-[6rem] pb-2' />
-                <p className='font-medium text-[15px] md:text-[16px]'>
-                  No hay datos disponibles para mostrar.
-                </p>
-              </div>
-            )}
+          {!othersOfferingExpenses?.isFetching && !othersOfferingExpenses?.data?.length && year && (
+            <div className='text-red-500 flex flex-col justify-center items-center h-full -mt-6'>
+              <FcDeleteDatabase className='text-[6rem] pb-2' />
+              <p className='font-medium text-[15px] md:text-[16px]'>
+                No hay datos disponibles para mostrar.
+              </p>
+            </div>
+          )}
         </CardContent>
       )}
     </Card>

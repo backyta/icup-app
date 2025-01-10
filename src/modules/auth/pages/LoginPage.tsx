@@ -99,7 +99,7 @@ export const LoginPage = (): JSX.Element => {
             if (Object.keys(form.formState.errors).length === 0) {
               setIsInputDisabled(false);
             }
-          }, 1500);
+          }, 1000);
         }
 
         if (error?.response?.status === 429) {

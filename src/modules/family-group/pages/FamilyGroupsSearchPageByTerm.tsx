@@ -171,9 +171,13 @@ export const FamilyGroupsSearchPageByTerm = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <PageTitle className='text-family-group-color '>Modulo Grupo Familiar</PageTitle>
+      <PageTitle className='text-family-group-color leading-10'>Modulo Grupo Familiar</PageTitle>
 
-      <SearchTitle className='w-[12rem] md:w-auto' isByTypeSearch titleName={'grupos familiares'} />
+      <SearchTitle
+        className='w-[12rem] sm:w-auto leading-9'
+        isByTypeSearch
+        titleName={'grupos familiares'}
+      />
 
       <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full'>
         {isFiltersSearchByTermDisabled && (

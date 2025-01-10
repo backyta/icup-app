@@ -118,7 +118,7 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
               </CardDescription>
             </div>
 
-            <div className='space-y-1'>
+            <div className='space-y-1 col-start-2 col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Nro. discípulos</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.disciples?.length ?? '-'}

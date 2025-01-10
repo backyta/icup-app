@@ -94,8 +94,8 @@ export const MemberProportionCard = ({ churchId }: Props): JSX.Element => {
   }, [data]);
 
   return (
-    <div className='grid gap-6 xl:flex xl:gap-10 justify-center px-5'>
-      <div className='flex gap-4 justify-center'>
+    <div className='grid gap-6 xl:flex xl:gap-10 justify-center px-2'>
+      <div className='flex gap-4 justify-center mx-auto w-[90%] sm:w-auto sm:mx-0'>
         {/* Total and Total by Gender */}
         <Card className='w-auto h-auto shadow-md dark:shadow-slate-700 dark:bg-slate-900 bg-slate-50'>
           <CardHeader className='p-2 pt-4'>

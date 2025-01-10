@@ -205,9 +205,13 @@ export const PreachersSearchPageByTerm = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <PageTitle className='text-preacher-color '>Modulo Predicador</PageTitle>
+      <PageTitle className='text-preacher-color'>Modulo Predicador</PageTitle>
 
-      <SearchTitle isByTypeSearch titleName={'predicadores'} />
+      <SearchTitle
+        className='-ml-2 sm:ml-0 w-[15.8rem] sm:w-auto whitespace-nowrap'
+        isByTypeSearch
+        titleName={'predicadores'}
+      />
 
       <div
         className={cn(

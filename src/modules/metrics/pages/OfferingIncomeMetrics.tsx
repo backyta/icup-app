@@ -49,6 +49,9 @@ export const OfferingIncomeMetrics = (): JSX.Element => {
       <h2 className='text-center text-green-500 pt-2 md:py-2 xl:pt-3 font-sans font-bold text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
         Métricas de Ofrendas
       </h2>
+      <p className='text-center text-green-500 font-bold text-[24px] sm:text-[32px] -mt-2 sm:-mt-3 md:-mt-5 lg:-mt-5 xl:-mt-2'>
+        (Ingresos)
+      </p>
       <p className='text-center text-[15px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-medium'>
         Análisis, comparativas e indicadores de los ingresos de ofrenda
       </p>

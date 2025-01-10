@@ -147,7 +147,11 @@ export const SupervisorsGeneralSearchPage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-supervisor-color'>Modulo Supervisor</PageTitle>
 
-      <SearchTitle isGeneralSearch titleName={'supervisores'} />
+      <SearchTitle
+        className='-ml-2 sm:ml-0 w-[15.5rem] sm:w-auto whitespace-nowrap'
+        isGeneralSearch
+        titleName={'supervisores'}
+      />
 
       <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full'>
         {isFiltersSearchGeneralDisabled && (

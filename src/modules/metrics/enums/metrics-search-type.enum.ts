@@ -42,6 +42,7 @@ export enum MetricSearchType {
   EquipmentAndTechnologyOfferingExpenses = 'equipment_and_technology_offering_expenses',
   SuppliesOfferingExpenses = 'supplies_offering_expenses',
   PlaningEventsOfferingExpenses = 'planing_events_offering_expenses',
+  OtherOfferingExpenses = 'other_offering_expenses',
   OfferingExpensesAdjustment = 'offering_expenses_adjustment',
 
   //* Financial Balance
@@ -94,6 +95,7 @@ export const MetricSearchTypeNames: Record<MetricSearchType, string> =  {
   [MetricSearchType.EquipmentAndTechnologyOfferingExpenses]: 'Análisis de salidas de ofrenda por gastos de equipamiento y tecnología.',
   [MetricSearchType.SuppliesOfferingExpenses]: 'Análisis de salidas de ofrenda por gastos de suministros.',
   [MetricSearchType.PlaningEventsOfferingExpenses]: 'Análisis de salidas de ofrenda por gastos de planificación de eventos.',
+  [MetricSearchType.OtherOfferingExpenses]: 'Análisis de salidas de ofrenda por otros gastos.',
   [MetricSearchType.OfferingExpensesAdjustment]: 'Análisis de salidas de ofrenda por ajustes de salida.',
 
   [MetricSearchType.OfferingExpensesAndOfferingIncomeByProportion]: 'Análisis de proporción de ingresos y salidas de ofrendas.',
@@ -183,6 +185,7 @@ export enum MetricOfferingExpenseSearchType {
   EquipmentAndTechnologyOfferingExpenses = 'equipment_and_technology_offering_expenses',
   SuppliesOfferingExpenses = 'supplies_offering_expenses',
   PlaningEventsOfferingExpenses = 'planing_events_offering_expenses',
+  OtherOfferingExpenses = 'other_offering_expenses',
   OfferingExpensesAdjustment = 'offering_expenses_adjustment',
 }
 
@@ -193,6 +196,7 @@ export const MetricOfferingExpenseSearchTypeNames: Record<MetricOfferingExpenseS
   [MetricOfferingExpenseSearchType.EquipmentAndTechnologyOfferingExpenses]: 'Gastos de Equipamiento y Tecnología.',
   [MetricOfferingExpenseSearchType.SuppliesOfferingExpenses]: 'Gastos de Suministros.',
   [MetricOfferingExpenseSearchType.PlaningEventsOfferingExpenses]: 'Gastos de Planificación de Eventos.',
+  [MetricOfferingExpenseSearchType.OtherOfferingExpenses]: 'Otros Gastos.',
   [MetricOfferingExpenseSearchType.OfferingExpensesAdjustment]: 'Ajustes por salida.',
 }
 

@@ -105,20 +105,20 @@ export const MemberAnalysisCardByRecordStatus = ({ churchId }: Props): JSX.Eleme
       </CardTitle>
 
       {!mappedData?.length ? (
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           {membersByRecordStatusQuery?.isFetching && !mappedData?.length && (
             <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDataBackup className='text-[6rem] pb-2' />
-              <p>Consultando datos....</p>
+              <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
             </div>
           )}
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           {membersByRecordStatusQuery?.isFetching && !mappedData?.length && (
             <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDataBackup className='text-[6rem] pb-2' />
-              <p>Consultando datos....</p>
+              <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
             </div>
           )}
           {mappedData?.length && (
@@ -131,7 +131,7 @@ export const MemberAnalysisCardByRecordStatus = ({ churchId }: Props): JSX.Eleme
               <BarChart
                 accessibilityLayer
                 data={mappedData}
-                margin={{ top: 5, right: 5, left: -30, bottom: 10 }}
+                margin={{ top: 5, right: 5, left: -35, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
                 <XAxis
@@ -157,9 +157,11 @@ export const MemberAnalysisCardByRecordStatus = ({ churchId }: Props): JSX.Eleme
             </ChartContainer>
           )}
           {!membersByRecordStatusQuery?.isFetching && !mappedData?.length && (
-            <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+            <div className='text-red-500 flex flex-col justify-center items-center h-full -mt-6'>
               <FcDeleteDatabase className='text-[6rem] pb-2' />
-              <p>No hay datos disponibles para mostrar.</p>
+              <p className='font-medium text-[15px] md:text-[16px]'>
+                No hay datos disponibles para mostrar.
+              </p>
             </div>
           )}
         </CardContent>

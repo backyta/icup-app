@@ -211,9 +211,11 @@ export function MembersInfoCard(): JSX.Element {
         query?.data?.map((data) => <MemberInfoItem key={data.id} data={data} />)
       ) : (
         <CardContent className='h-[42.5rem]'>
-          <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+          <div className='text-red-500 flex flex-col justify-center items-center h-full -mt-6'>
             <FcDeleteDatabase className='text-[6rem] pb-2' />
-            <p>No hay datos disponibles para mostrar.</p>
+            <p className='font-medium text-[15px] md:text-[16px]'>
+              No hay datos disponibles para mostrar.
+            </p>
           </div>
         </CardContent>
       )}

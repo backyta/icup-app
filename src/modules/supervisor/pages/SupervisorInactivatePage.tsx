@@ -208,7 +208,11 @@ export const SupervisorInactivatePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-supervisor-color'>Modulo Supervisor</PageTitle>
 
-      <SearchTitle isInactivateSearch className='text-red-500' titleName={'supervisores'} />
+      <SearchTitle
+        isInactivateSearch
+        className='-ml-2.5 sm:mt-0 text-red-500 w-[15.5rem] sm:w-auto whitespace-nowrap'
+        titleName={'supervisores'}
+      />
 
       <div
         className={cn(

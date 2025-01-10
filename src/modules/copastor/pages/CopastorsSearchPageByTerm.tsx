@@ -208,7 +208,11 @@ export const CopastorsSearchPageByTerm = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-copastor-color'>Modulo Co-Pastor</PageTitle>
 
-      <SearchTitle isByTypeSearch titleName={'co-pastores'} />
+      <SearchTitle
+        className='w-[14.85rem] sm:w-auto whitespace-nowrap'
+        isByTypeSearch
+        titleName={'co-pastores'}
+      />
 
       <div
         className={cn(

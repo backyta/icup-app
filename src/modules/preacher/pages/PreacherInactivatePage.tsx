@@ -206,7 +206,11 @@ export const PreacherInactivatePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-preacher-color '>Modulo Predicador</PageTitle>
 
-      <SearchTitle isInactivateSearch className='text-red-500' titleName={'predicadores'} />
+      <SearchTitle
+        isInactivateSearch
+        className='text-red-500 -ml-[10px] sm:ml-0 w-[15.7rem] sm:w-auto whitespace-nowrap'
+        titleName={'predicadores'}
+      />
 
       <div
         className={cn(

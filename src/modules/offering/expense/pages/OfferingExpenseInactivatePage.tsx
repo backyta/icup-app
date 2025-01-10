@@ -185,7 +185,7 @@ export const OfferingExpenseInactivatePage = (): JSX.Element => {
 
       <SearchTitle
         isInactivateSearch
-        className='text-red-500 w-[14rem] md:w-auto'
+        className='text-red-500 w-[14rem] sm:w-auto leading-8 sm:leading-10'
         titleName={'registros de salida'}
       />
 

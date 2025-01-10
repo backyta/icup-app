@@ -117,7 +117,7 @@ export const ZoneCreatePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-cyan-400 dark:text-cyan-500'>Modulo Zona</PageTitle>
 
-      <h1 className='text-left leading-7 pb-[2px] pt-3 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h1 className='text-left pb-[2px] pt-2 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear una nueva zona
       </h1>
 

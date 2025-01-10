@@ -12,6 +12,7 @@ import { getSimpleChurches } from '@/modules/church/services/church.service';
 
 import { OfferingExpenseProportionCard } from '@/modules/metrics/components/offering-expense/charts/OfferingExpenseProportionCard';
 import { OfferingExpenseReportFormCard } from '@/modules/metrics/components/offering-expense/reports/OfferingExpenseReportFormCard';
+import { OfferingExpenseAnalysisCardByOthersExpenses } from '@/modules/metrics/components/offering-expense/charts/OfferingExpenseAnalysisCardByOtherExpenses';
 import { OfferingExpenseAnalysisCardBySuppliesExpenses } from '@/modules/metrics/components/offering-expense/charts/OfferingExpenseAnalysisCardBySuppliesExpenses';
 import { OfferingExpenseAnalysisCardByExpensesAdjustment } from '@/modules/metrics/components/offering-expense/charts/OfferingExpenseAnalysisCardByExpensesAdjustment';
 import { OfferingExpenseAnalysisCardByDecorationExpenses } from '@/modules/metrics/components/offering-expense/charts/OfferingExpenseAnalysisCardByDecorationExpenses';
@@ -47,6 +48,10 @@ export const OfferingExpenseMetrics = (): JSX.Element => {
         Métricas de Ofrendas
       </h2>
 
+      <p className='text-center text-red-500 font-bold text-[24px] sm:text-[32px] -mt-2 sm:-mt-3 md:-mt-5 lg:-mt-5 xl:-mt-2'>
+        (Gastos)
+      </p>
+
       <p className='text-center text-[15px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-medium'>
         Análisis, comparativas e indicadores de los salidas de ofrenda
       </p>
@@ -70,6 +75,7 @@ export const OfferingExpenseMetrics = (): JSX.Element => {
           <OfferingExpenseAnalysisCardByEquipmentAndTechnologyExpenses churchId={churchId} />
           <OfferingExpenseAnalysisCardBySuppliesExpenses churchId={churchId} />
           <OfferingExpenseAnalysisCardByPlaningEventsExpenses churchId={churchId} />
+          <OfferingExpenseAnalysisCardByOthersExpenses churchId={churchId} />
           <OfferingExpenseAnalysisCardByExpensesAdjustment churchId={churchId} />
         </div>
       )}

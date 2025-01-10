@@ -366,7 +366,7 @@ export function SearchByTermZoneDataTable<TData, TValue>({
 
           <div>
             <Button
-              className='text-[14px] lg:text-[14px]'
+              className='w-full sm:w-auto text-[14px] lg:text-[14px]'
               variant='outline'
               size='sm'
               onClick={() => {
@@ -377,7 +377,7 @@ export function SearchByTermZoneDataTable<TData, TValue>({
               Anterior
             </Button>
             <Button
-              className='text-[14px] lg:text-[14px]'
+              className='w-full sm:w-auto text-[14px] lg:text-[14px]'
               variant='outline'
               size='sm'
               onClick={() => {

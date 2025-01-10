@@ -203,6 +203,36 @@ export const getPlaningEventsOfferingExpenses = async ({
   }
 }
 
+//* Others offering expenses
+export const getOthersOfferingExpenses = async ({ 
+  searchType,
+  church,
+  month,
+  year,
+  isSingleMonth,
+  order
+}: MetricQueryParams): Promise<OfferingExpenseChartResponse[]> => {
+  try {
+    const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
+      params: {
+        'search-type': searchType,
+        isSingleMonth: isSingleMonth?.toString(),
+        order
+      },
+    });
+
+    console.log(data);
+    
+    return data;
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw (error.response.data)
+    }
+    
+    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+  }
+}
+
 //* Offering expenses adjustment
 export const getOfferingExpensesAdjustment = async ({ 
   searchType,

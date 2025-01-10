@@ -184,7 +184,7 @@ export const OfferingsExpenseSearchPageByTerm = (): JSX.Element => {
       <PageTitle className='text-red-600'>Modulo de Salida</PageTitle>
 
       <SearchTitle
-        className='w-[14rem] md:w-auto'
+        className='w-[14rem] sm:w-auto leading-8 sm:leading-10'
         isByTypeSearch
         titleName={'registros de salida'}
       />

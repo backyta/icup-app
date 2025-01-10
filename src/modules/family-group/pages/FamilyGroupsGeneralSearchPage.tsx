@@ -133,10 +133,10 @@ export const FamilyGroupsGeneralSearchPage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <PageTitle className='text-family-group-color '>Modulo Grupo Familiar</PageTitle>
+      <PageTitle className='text-family-group-color leading-10'>Modulo Grupo Familiar</PageTitle>
 
       <SearchTitle
-        className='w-[12rem] md:w-auto'
+        className='w-[12rem] sm:w-auto leading-9'
         isGeneralSearch
         titleName={'grupos familiares'}
       />

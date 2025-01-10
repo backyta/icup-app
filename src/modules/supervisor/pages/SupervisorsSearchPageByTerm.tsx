@@ -209,7 +209,11 @@ export const SupervisorsSearchPageByTerm = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-supervisor-color'>Modulo Supervisor</PageTitle>
 
-      <SearchTitle isByTypeSearch titleName={'supervisores'} />
+      <SearchTitle
+        className='-ml-2 sm:ml-0 w-[15.5rem] sm:w-auto whitespace-nowrap'
+        isByTypeSearch
+        titleName={'supervisores'}
+      />
 
       <div
         className={cn(

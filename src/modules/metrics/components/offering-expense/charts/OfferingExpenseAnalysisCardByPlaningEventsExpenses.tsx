@@ -10,7 +10,6 @@ import { format } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMediaQuery } from '@react-hook/media-query';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Bar, XAxis, YAxis, CartesianGrid, BarChart } from 'recharts';
 import { FcDataBackup, FcDataConfiguration, FcDeleteDatabase } from 'react-icons/fc';
@@ -105,9 +104,6 @@ export const OfferingExpenseAnalysisCardByPlaningEventsExpenses = ({
     },
   });
 
-  //* Media Queries
-  const intermediateMD = useMediaQuery('(min-width: 900px)');
-
   //* Helpers
   const years = generateYearOptions();
 
@@ -179,11 +175,7 @@ export const OfferingExpenseAnalysisCardByPlaningEventsExpenses = ({
     <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-2 col-end-3 h-[24rem] sm:h-[26rem] md:h-[28rem] lg:h-[30rem] 2xl:h-[30rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 py-2.5'>
         <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-          {intermediateMD ? (
-            <span>Gastos Planificación de Eventos</span>
-          ) : (
-            <span>Gastos Plan. de Eventos</span>
-          )}
+          <span>Plan. de Eventos</span>
           {planingEventsOfferingExpenses?.data &&
             Object.entries(planingEventsOfferingExpenses?.data)?.length > 0 && (
               <Badge
@@ -340,20 +332,20 @@ export const OfferingExpenseAnalysisCardByPlaningEventsExpenses = ({
       </CardHeader>
 
       {!planingEventsOfferingExpenses?.data?.length && !searchParams ? (
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
-            <p>Consultando datos....</p>
+            <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           {planingEventsOfferingExpenses?.isFetching &&
             !planingEventsOfferingExpenses?.data?.length &&
             year && (
               <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDataBackup className='text-[6rem] pb-2' />
-                <p>Consultando datos....</p>
+                <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
               </div>
             )}
           {!!mappedData?.length && searchParams && (
@@ -381,7 +373,9 @@ export const OfferingExpenseAnalysisCardByPlaningEventsExpenses = ({
                 <ChartTooltip cursor={false} content={OfferingExpenseChartTooltipContent as any} />
 
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
+                  content={
+                    <ChartLegendContent className='ml-6 sm:ml-6 text-[13px] md:text-[14px] flex gap-2 sm:gap-5' />
+                  }
                 />
 
                 <Bar
@@ -414,9 +408,11 @@ export const OfferingExpenseAnalysisCardByPlaningEventsExpenses = ({
           {!planingEventsOfferingExpenses?.isFetching &&
             !planingEventsOfferingExpenses?.data?.length &&
             year && (
-              <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+              <div className='text-red-500 flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDeleteDatabase className='text-[6rem] pb-2' />
-                <p>No hay datos disponibles para mostrar.</p>
+                <p className='font-medium text-[15px] md:text-[16px]'>
+                  No hay datos disponibles para mostrar.
+                </p>
               </div>
             )}
         </CardContent>

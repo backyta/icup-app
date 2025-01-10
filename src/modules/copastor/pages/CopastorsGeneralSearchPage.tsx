@@ -146,7 +146,11 @@ export const CopastorsGeneralSearchPage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-copastor-color'>Modulo Co-Pastor</PageTitle>
 
-      <SearchTitle isGeneralSearch titleName={'co-pastores'} />
+      <SearchTitle
+        className='-ml-2 sm:ml-0 w-[14.85rem] sm:w-auto whitespace-nowrap'
+        isGeneralSearch
+        titleName={'co-pastores'}
+      />
 
       <div className='px-4 md:-px-2 md:px-[2rem] xl:px-[3rem] py-4 md:py-7 w-full'>
         {isFiltersSearchGeneralDisabled && (

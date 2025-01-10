@@ -274,20 +274,20 @@ export const OfferingIncomeAnalysisCardBySpecialOffering = ({ churchId }: Props)
       </CardHeader>
 
       {!offeringIncomeBySpecialOffering?.data?.length && !searchParams ? (
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
-            <p>Consultando datos....</p>
+            <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           {offeringIncomeBySpecialOffering?.isFetching &&
             !offeringIncomeBySpecialOffering?.data?.length &&
             year && (
               <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDataBackup className='text-[6rem] pb-2' />
-                <p>Consultando datos....</p>
+                <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
               </div>
             )}
           {!!offeringIncomeBySpecialOffering?.data?.length && searchParams && (
@@ -323,7 +323,9 @@ export const OfferingIncomeAnalysisCardBySpecialOffering = ({ churchId }: Props)
                 />
 
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
+                  content={
+                    <ChartLegendContent className='ml-6 sm:ml-8 text-[13px] md:text-[14px] flex gap-2 sm:gap-5' />
+                  }
                 />
 
                 <Bar
@@ -356,9 +358,11 @@ export const OfferingIncomeAnalysisCardBySpecialOffering = ({ churchId }: Props)
           {!offeringIncomeBySpecialOffering?.isFetching &&
             !offeringIncomeBySpecialOffering?.data?.length &&
             year && (
-              <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+              <div className='text-red-500 flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDeleteDatabase className='text-[6rem] pb-2' />
-                <p>No hay datos disponibles para mostrar.</p>
+                <p className='font-medium text-[15px] md:text-[16px]'>
+                  No hay datos disponibles para mostrar.
+                </p>
               </div>
             )}
         </CardContent>

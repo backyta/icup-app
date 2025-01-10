@@ -11,7 +11,6 @@ export const icupApi = axios.create({
 //* Interceptors (read zustand storage)
 // Any request that passes through the API executes the interceptor
 
-// TODO : revisar el getState en zustand
 icupApi.interceptors.request.use(
   (config) => {
     const token = useAuthStore.getState().token;

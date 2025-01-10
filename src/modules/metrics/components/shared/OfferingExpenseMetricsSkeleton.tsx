@@ -22,7 +22,7 @@ export const OfferingExpenseMetricsSkeleton = (): JSX.Element => {
             <Skeleton className='h-10 w-16 mt-1' />
           </div>
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <Skeleton className={cn('h-[15.5rem] md:h-[21.5rem] lg:h-[23.5rem] w-full mt-1')} />
           <div className='flex justify-center gap-10'>
             <Skeleton className='h-3 w-10 mt-3' />
@@ -39,7 +39,7 @@ export const OfferingExpenseMetricsSkeleton = (): JSX.Element => {
             <Skeleton className='h-10 w-16 mt-1' />
           </div>
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <Skeleton className={cn('h-[15.5rem] md:h-[21.5rem] lg:h-[23.5rem] w-full mt-1')} />
           <div className='flex justify-center gap-10'>
             <Skeleton className='h-3 w-10 mt-3' />
@@ -59,7 +59,7 @@ export const OfferingExpenseMetricsSkeleton = (): JSX.Element => {
             </div>
           </div>
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <Skeleton className={cn('h-[15.5rem] md:h-[21.5rem] lg:h-[23.5rem] w-full mt-1')} />
           <div className='flex justify-center gap-10'>
             <Skeleton className='h-3 w-10 mt-3' />
@@ -76,7 +76,7 @@ export const OfferingExpenseMetricsSkeleton = (): JSX.Element => {
             <Skeleton className='h-10 w-16 mt-1' />
           </div>
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <Skeleton className={cn('h-[15.5rem] md:h-[21.5rem] lg:h-[23.5rem] w-full mt-1')} />
           <div className='flex justify-center gap-10'>
             <Skeleton className='h-3 w-10 mt-3' />
@@ -93,7 +93,7 @@ export const OfferingExpenseMetricsSkeleton = (): JSX.Element => {
             <Skeleton className='h-10 w-16 mt-1' />
           </div>
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <Skeleton className={cn('h-[15.5rem] md:h-[21.5rem] lg:h-[23.5rem] w-full mt-1')} />
           <div className='flex justify-center gap-10'>
             <Skeleton className='h-3 w-10 mt-3' />
@@ -110,7 +110,7 @@ export const OfferingExpenseMetricsSkeleton = (): JSX.Element => {
             <Skeleton className='h-10 w-16 mt-1' />
           </div>
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <Skeleton className={cn('h-[15.5rem] md:h-[21.5rem] lg:h-[23.5rem] w-full mt-1')} />
           <div className='flex justify-center gap-10'>
             <Skeleton className='h-3 w-10 mt-3' />
@@ -126,7 +126,7 @@ export const OfferingExpenseMetricsSkeleton = (): JSX.Element => {
             <Skeleton className='h-10 w-16 mt-1' />
           </div>
         </CardHeader>
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <Skeleton className={cn('h-[15.5rem] md:h-[21.5rem] lg:h-[23.5rem] w-full mt-1')} />
           <div className='flex justify-center gap-10'>
             <Skeleton className='h-3 w-10 mt-3' />

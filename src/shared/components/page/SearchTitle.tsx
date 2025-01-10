@@ -26,7 +26,7 @@ export const SearchTitle = (props: PageTitleProps): JSX.Element => {
       <div className='flex items-center justify-start'>
         <h2
           className={cn(
-            'flex items-center leading-tight text-left pl-4 pt-1 xl:pl-[2rem] 2xl:pt-2 2xl:pb-1 font-sans text-2xl sm:text-2xl font-bold text-sky-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl',
+            'flex items-center text-left pl-4 pt-1 xl:pl-[2rem] 2xl:pt-2 2xl:pb-1 font-sans text-2xl sm:text-2xl font-bold text-sky-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.98rem] xl:text-[2.1rem] 2xl:text-4xl',
             className
           )}
         >
@@ -58,7 +58,7 @@ export const SearchTitle = (props: PageTitleProps): JSX.Element => {
         )}
       </div>
 
-      <p className='dark:text-slate-300 text-left font-sans font-bold px-4 text-[13.5px] md:text-[15px] xl:text-base xl:px-[2rem]'>
+      <p className='dark:text-slate-300 mt-1 text-left font-sans font-bold px-4 text-[13.5px] md:text-[15px] xl:text-base xl:px-[2rem]'>
         Explora, filtra y organiza los registros de {titleName} según tus necesidades.
       </p>
     </>

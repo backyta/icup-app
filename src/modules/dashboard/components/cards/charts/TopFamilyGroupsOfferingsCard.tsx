@@ -124,10 +124,10 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
     <Card className='flex flex-col row-start-2 row-end-3 col-start-1 col-end-3 md:row-start-2 md:row-end-3 md:col-start-1 md:col-end-3 lg:row-start-2 lg:row-end-3 xl:col-start-4 xl:col-end-7 xl:row-start-1 xl:row-end-2 h-[25rem] sm:h-[26rem] md:h-[28rem] lg:h-[28rem] 2xl:h-[30rem] mt-0 border-slate-500'>
       <div className='flex flex-col md:grid md:grid-cols-4 md:justify-center md:items-center'>
         <CardHeader className='flex flex-col items-center justify-center px-4 py-2.5 col-span-3'>
-          <CardTitle className='font-bold md:pl-[7rem] lg:pl-[16rem] xl:pl-[4rem] 2xl:pl-[7rem] 3-xl:pl-[16rem] text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px] inline-block'>
+          <CardTitle className='font-bold md:pl-[5rem] lg:pl-[16rem] xl:pl-[2.7rem] 2xl:pl-[7rem] 3-xl:pl-[16rem] text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px] inline-block'>
             Ofrendas - Grupo Familiar
           </CardTitle>
-          <CardDescription className='text-[14px] md:text-[14.5px] md:pl-[7rem] lg:pl-[16rem] xl:pl-[4rem] 2xl:pl-[7rem] 3-xl:pl-[16rem] text-center'>
+          <CardDescription className='text-[14px] md:text-[14.5px] md:pl-[5rem] lg:pl-[16rem] xl:pl-[2.7rem] 2xl:pl-[7rem] 3-xl:pl-[16rem] text-center'>
             {`Grupos familiares destacados (${new Date().getFullYear()})`}
           </CardDescription>
         </CardHeader>
@@ -220,25 +220,25 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
       {/* Chart */}
 
       {!topFamilyGroupOfferings?.data?.length && !searchParams ? (
-        <CardContent className='h-full py-0'>
+        <CardContent className='h-full py-0 px-2'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
-            <p>Consultando datos....</p>
+            <p className='text-[14px] md:text-[14.5px] font-medium'>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full py-0'>
+        <CardContent className='h-full py-0 px-2'>
           {topFamilyGroupOfferings?.isFetching && !topFamilyGroupOfferings?.data?.length && (
             <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDataBackup className='text-[6rem] pb-2' />
-              <p>Consultando datos....</p>
+              <p className='text-[14px] md:text-[14.5px] font-medium'>Consultando datos....</p>
             </div>
           )}
           {!!topFamilyGroupOfferings?.data?.length && searchParams && (
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[270px] sm:h-[280px] md:h-[355px] lg:h-[355px] xl:h-[355px] 2xl:h-[385px]'
+                'w-full h-[273px] sm:h-[280px] md:h-[355px] lg:h-[355px] xl:h-[355px] 2xl:h-[385px]'
               )}
             >
               <BarChart
@@ -256,12 +256,12 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
                   className='text-[12.5px] sm:text-[14px]'
                 />
 
-                <YAxis className='text-[12.5px] sm:text-[14px]' />
+                <YAxis className='text-[13px] sm:text-[14px]' />
                 <ChartTooltip cursor={false} content={TopFamilyGroupsTooltipContent as any} />
 
                 <ChartLegend
                   content={
-                    <ChartLegendContent className='ml-5 md:ml-10 text-[13px] md:text-[14px]' />
+                    <ChartLegendContent className='ml-6 md:ml-10 text-[13px] flex gap-2.5 md:text-[14px]' />
                   }
                 />
 
@@ -287,9 +287,11 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
             </ChartContainer>
           )}
           {!topFamilyGroupOfferings?.isFetching && !topFamilyGroupOfferings?.data?.length && (
-            <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+            <div className='text-red-500 flex flex-col justify-center items-center h-full -mt-6'>
               <FcDeleteDatabase className='text-[6rem] pb-2' />
-              <p>No hay datos disponibles para mostrar.</p>
+              <p className='font-medium text-[15px] md:text-[16px]'>
+                No hay datos disponibles para mostrar.
+              </p>
             </div>
           )}
         </CardContent>

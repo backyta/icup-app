@@ -170,11 +170,11 @@ export const FamilyGroupUpdatePage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <PageTitle className='text-family-group-color '>Modulo Grupo Familiar</PageTitle>
+      <PageTitle className='text-family-group-color leading-10'>Modulo Grupo Familiar</PageTitle>
 
       <SearchTitle
         isUpdateSearch
-        className='text-orange-500 w-[12rem] md:w-auto'
+        className='text-orange-500 w-[12rem] sm:w-auto leading-9'
         titleName={'grupos familiares'}
       />
 

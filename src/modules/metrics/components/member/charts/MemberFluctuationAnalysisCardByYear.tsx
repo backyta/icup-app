@@ -110,7 +110,7 @@ export const MemberFluctuationAnalysisCardByYear = ({ churchId }: Props): JSX.El
 
   return (
     <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-2 h-[22rem] md:h-[25rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
-      <CardHeader className='flex flex-row items-center justify-between px-4 py-2.5'>
+      <CardHeader className='flex flex-col sm:flex-row items-center justify-between px-4 py-2.5'>
         <CardTitle className='font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px] inline-block'>
           Fluctuación de Miembros
         </CardTitle>
@@ -182,32 +182,32 @@ export const MemberFluctuationAnalysisCardByYear = ({ churchId }: Props): JSX.El
       </CardHeader>
 
       {!membersFluctuationByYearQuery?.data?.length ? (
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
-            <p>Consultando datos....</p>
+            <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           {membersFluctuationByYearQuery?.isFetching &&
             !membersFluctuationByYearQuery?.data?.length && (
               <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDataBackup className='text-[6rem] pb-2' />
-                <p>Consultando datos....</p>
+                <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
               </div>
             )}
           {!!membersFluctuationByYearQuery?.data?.length && searchParams && (
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[285px] sm:h-[285px] md:h-[330px] lg:h-[330px] xl:h-[330px] 2xl:h-[345px]'
+                'w-full h-[255px] sm:h-[285px] md:h-[330px] lg:h-[330px] xl:h-[330px] 2xl:h-[345px]'
               )}
             >
               <BarChart
                 accessibilityLayer
                 data={membersFluctuationByYearQuery?.data}
-                margin={{ top: 5, right: 5, left: -30, bottom: 10 }}
+                margin={{ top: 5, right: 5, left: -32, bottom: 10 }}
               >
                 <CartesianGrid vertical={true} />
                 <XAxis
@@ -237,9 +237,11 @@ export const MemberFluctuationAnalysisCardByYear = ({ churchId }: Props): JSX.El
           )}
           {!membersFluctuationByYearQuery?.isFetching &&
             !membersFluctuationByYearQuery?.data?.length && (
-              <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+              <div className='text-red-500 flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDeleteDatabase className='text-[6rem] pb-2' />
-                <p>No hay datos disponibles para mostrar.</p>
+                <p className='font-medium text-[15px] md:text-[16px]'>
+                  No hay datos disponibles para mostrar.
+                </p>
               </div>
             )}
         </CardContent>

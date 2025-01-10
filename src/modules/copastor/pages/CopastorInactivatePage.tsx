@@ -206,7 +206,11 @@ export const CopastorInactivatePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-copastor-color'>Modulo Co-Pastor</PageTitle>
 
-      <SearchTitle isInactivateSearch className='text-red-500' titleName={'co-pastores'} />
+      <SearchTitle
+        isInactivateSearch
+        className='-ml-2 sm:ml-0 text-red-500 w-[14.85rem] sm:w-auto whitespace-nowrap'
+        titleName={'co-pastores'}
+      />
 
       <div
         className={cn(

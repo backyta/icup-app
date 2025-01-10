@@ -31,12 +31,12 @@ export const OfferingOptionsPage = (): JSX.Element => {
       </p>
       <hr className='p-[0.015rem] bg-slate-500' />
 
-      <div className='w-full h-[35rem] justify-center lg:justify-normal px-8 py-10 flex flex-col gap-10 lg:grid md:gap-8 sm:h-[45rem] md:h-[50rem] lg:h-[50rem] 2xl:h-[50rem]'>
+      <div className='w-full h-[35rem] justify-center lg:justify-normal px-8 py-10 flex flex-col gap-10 lg:grid md:gap-8 sm:h-[45rem] md:h-screen lg:h-screen'>
         <NavLink
           key='/offerings/income'
           to='/offerings/income'
           end
-          className='row-start-1 row-end-3 col-start-1 col-end-3'
+          className='row-start-1 row-end-3 col-start-1 col-end-3 h-full'
         >
           <WhiteCard className='h-full sm:h-full gap-2 sm:gap-4 lg:gap-5' centered>
             <FcBullish className='text-[5rem] sm:text-[8rem] md:text-[10rem]' />
@@ -53,7 +53,7 @@ export const OfferingOptionsPage = (): JSX.Element => {
           key='/offerings/expenses'
           to='/offerings/expenses'
           end
-          className=' row-start-1 row-end-3 col-start-3 col-end-5'
+          className=' row-start-1 row-end-3 col-start-3 col-end-5 h-full'
         >
           <WhiteCard className='h-full sm:h-full gap-2 sm:gap-4 lg:gap-5' centered>
             <FcBearish className='text-[5rem] sm:text-[8rem] lg:text-[10rem]' />

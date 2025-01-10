@@ -19,13 +19,19 @@ In this project, the user interface is developed to connect with ICUP-Server, th
 
 ## Installation and Run Locally
 
-Install my-project with npm or yarn
+Install my-project with npm or pnpm
 
 1. Clone the project
 2. Install dependencies
 
 ```
-npm install or yarn
+npm i or pnpm i
 ```
 
 3. Clone the `.env.template` and change it to `.env` and configure its environment variables.
+
+4. Raise the frontend-server dev mode
+
+```
+npm run dev or pnpm run dev
+```

@@ -30,14 +30,14 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
       </p>
       <hr className='p-[0.015rem] bg-slate-500' />
 
-      <div className='w-full px-[2rem] pt-6 pb-10 sm:px-[7rem] md:px-[4rem] lg:px-[3rem] xl:px-[3rem] 2xl:px-16 grid gap-8 md:gap-6 xl:gap-5 2xl:gap-4 grid-cols-1 grid-rows-1 lg:grid-cols-2 lg:grid-rows-1 2xl:grid-cols-4 2xl:grid-rows-1 h-auto 2xl:h-[43rem]'>
+      <div className='w-full pt-6 pb-10 px-[2rem] sm:px-[7rem] md:px-[4rem] lg:px-[3rem] xl:px-[3rem] 2xl:px-[4rem] grid gap-8 md:gap-6 2xl:gap-4 grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 lg:grid-rows-3 2xl:grid-rows-2 h-auto lg:h-screen'>
         <NavLink
           key='/family-groups/create'
           to='/family-groups/create'
           end
           className='row-start-1 row-end-2 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-2 lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-2 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-1 2xl:col-end-2'
         >
-          <WhiteCard className='md:h-[11rem]' centered>
+          <WhiteCard className='h-[11.5rem] md:h-[11rem]' centered>
             <FcHome className='text-[10rem] lg:text-[8rem] xl:text-[7rem]' />
             <h2 className='text-green-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Registrar Grupo Familiar
@@ -54,7 +54,7 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
           end
           className='row-start-2 row-end-3 lg:row-start-3 lg:row-end-4 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-3 xl:col-start-2 xl:col-end-3 2xl:row-start-1 2xl:row-end-2 2xl:col-start-2 2xl:col-end-3 '
         >
-          <WhiteCard className='md:h-[11rem]' centered>
+          <WhiteCard className='h-[11.5rem] md:h-[11rem]' centered>
             <FcSearch className='text-[10rem] lg:text-[7rem] xl:text-[8rem]' />
             <h2 className='text-blue-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Consultar Grupos Familiares
@@ -71,7 +71,7 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
           end
           className='row-start-3 row-end-4 lg:row-start-1 lg:row-end-2 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-2 xl:col-end-3 2xl:row-start-2 2xl:row-end-3 2xl:col-start-2 2xl:col-end-3'
         >
-          <WhiteCard className='md:h-[11rem]' centered>
+          <WhiteCard className='h-[11.5rem] md:h-[11rem]' centered>
             <FcClearFilters className='text-[10rem] lg:text-[6rem] xl:text-[6rem]' />
             <h2 className='text-sky-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Consultar Grupos Familiares
@@ -88,7 +88,7 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
           end
           className='row-start-4 row-end-5 lg:h-full lg:row-start-2 lg:row-end-3 lg:col-start-2 lg:col-end-3 xl:row-start-2 xl:row-end-3 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-3 2xl:col-end-4'
         >
-          <WhiteCard className='md:h-[11rem]' centered>
+          <WhiteCard className='h-[11.5rem] md:h-[11rem]' centered>
             <FcSupport className='text-[10rem] lg:text-[8rem] xl:text-[6rem]' />
             <h2 className='text-orange-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Actualizar Casa Familiar
@@ -105,7 +105,7 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
           end
           className='row-start-5 row-end-6 lg:row-start-3 lg:row-end-4 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-4 2xl:col-end-5'
         >
-          <WhiteCard className='md:h-[11rem]' centered>
+          <WhiteCard className='h-[11.5rem] md:h-[11rem]' centered>
             <RiDeleteBin2Fill className='text-[4rem] lg:text-[7rem] xl:text-[6rem] text-red-500' />
             <h2 className='text-red-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Inactivar Casa Familiar

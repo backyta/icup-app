@@ -162,7 +162,7 @@ export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element =
         <CardContent className='flex flex-1 justify-center pb-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
-            <p>Consultando datos....</p>
+            <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
@@ -207,7 +207,7 @@ export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element =
             {membersByCategoryQuery?.isFetching && !mappedData?.length && (
               <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDataBackup className='text-[6rem] pb-2' />
-                <p>Consultando datos....</p>
+                <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
               </div>
             )}
             {!!mappedData?.length && (
@@ -280,9 +280,11 @@ export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element =
               </ChartContainer>
             )}
             {!membersByCategoryQuery?.isFetching && !mappedData?.length && (
-              <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+              <div className='text-red-500 flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDeleteDatabase className='text-[6rem] pb-2' />
-                <p>No hay datos disponibles para mostrar.</p>
+                <p className='font-medium text-[15px] md:text-[16px]'>
+                  No hay datos disponibles para mostrar.
+                </p>
               </div>
             )}
           </CardContent>

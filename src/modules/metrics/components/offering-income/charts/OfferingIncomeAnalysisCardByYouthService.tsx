@@ -10,7 +10,6 @@ import { useForm } from 'react-hook-form';
 import { addDays, format } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMediaQuery } from '@react-hook/media-query';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Bar, XAxis, YAxis, CartesianGrid, BarChart } from 'recharts';
 import { FcDataBackup, FcDeleteDatabase, FcDataConfiguration } from 'react-icons/fc';
@@ -90,11 +89,6 @@ export const OfferingIncomeAnalysisCardByYouthService = ({ churchId }: Props): J
   //* Helpers
   const years = generateYearOptions();
 
-  //* Media Queries
-  const intermediateLG = useMediaQuery('(min-width: 1280px)');
-  const intermediateXL = useMediaQuery('(min-width: 1375px)');
-  const intermediate2XL = useMediaQuery('(min-width: 1500px)');
-
   //* Watchers
   const year = form.watch('year');
   const month = form.watch('month');
@@ -131,15 +125,7 @@ export const OfferingIncomeAnalysisCardByYouthService = ({ churchId }: Props): J
     <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-3 h-[24rem] md:h-[25rem] lg:h-[26rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 py-2.5'>
         <CardTitle className='flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-          {intermediate2XL ? (
-            <span>Ofrendas Culto Jóvenes</span>
-          ) : intermediateXL ? (
-            <span> Ofre. Culto Jóvenes</span>
-          ) : intermediateLG ? (
-            <span>Ofre. Culto Jóvenes</span>
-          ) : (
-            <span>Ofrendas Culto Jóvenes</span>
-          )}
+          <span>Culto de Jóvenes</span>
           {offeringIncomeByYouthService?.data &&
             Object.entries(offeringIncomeByYouthService?.data)?.length > 0 && (
               <Badge
@@ -287,20 +273,20 @@ export const OfferingIncomeAnalysisCardByYouthService = ({ churchId }: Props): J
       </CardHeader>
 
       {!offeringIncomeByYouthService?.data?.length && !searchParams ? (
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
-            <p>Consultando datos....</p>
+            <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           {offeringIncomeByYouthService?.isFetching &&
             !offeringIncomeByYouthService?.data?.length &&
             year && (
               <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDataBackup className='text-[6rem] pb-2' />
-                <p>Consultando datos....</p>
+                <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
               </div>
             )}
           {!!offeringIncomeByYouthService?.data?.length && searchParams && (
@@ -332,7 +318,9 @@ export const OfferingIncomeAnalysisCardByYouthService = ({ churchId }: Props): J
                 />
 
                 <ChartLegend
-                  content={<ChartLegendContent className='ml-8 text-[13px] md:text-[14px]' />}
+                  content={
+                    <ChartLegendContent className='ml-6 sm:ml-8 text-[13px] md:text-[14px] flex gap-2 sm:gap-5' />
+                  }
                 />
 
                 <Bar
@@ -365,9 +353,11 @@ export const OfferingIncomeAnalysisCardByYouthService = ({ churchId }: Props): J
           {!offeringIncomeByYouthService?.isFetching &&
             !offeringIncomeByYouthService?.data?.length &&
             year && (
-              <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+              <div className='text-red-500 flex flex-col justify-center items-center h-full -mt-6'>
                 <FcDeleteDatabase className='text-[6rem] pb-2' />
-                <p>No hay datos disponibles para mostrar.</p>
+                <p className='font-medium text-[15px] md:text-[16px]'>
+                  No hay datos disponibles para mostrar.
+                </p>
               </div>
             )}
         </CardContent>

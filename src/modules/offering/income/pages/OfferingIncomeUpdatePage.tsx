@@ -212,7 +212,7 @@ export const OfferingIncomeUpdatePage = (): JSX.Element => {
 
       <SearchTitle
         isUpdateSearch
-        className='text-orange-500 w-[14rem] md:w-auto'
+        className='text-orange-500 w-[14rem] sm:w-auto leading-8 sm:leading-10'
         titleName={'registros de ingreso'}
       />
 

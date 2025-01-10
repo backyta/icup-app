@@ -208,7 +208,11 @@ export const SupervisorUpdatePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-supervisor-color'>Modulo Supervisor</PageTitle>
 
-      <SearchTitle isUpdateSearch className='text-orange-500' titleName={'supervisores'} />
+      <SearchTitle
+        isUpdateSearch
+        className='-ml-2.5 sm:mt-0 text-orange-500 w-[15.5rem] sm:w-auto whitespace-nowrap'
+        titleName={'supervisores'}
+      />
 
       <div
         className={cn(

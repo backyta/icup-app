@@ -110,7 +110,7 @@ export const MemberAnalysisCardByCategoryAndGender = ({ churchId }: Props): JSX.
   return (
     <Card className='bg-slate-50/40 dark:bg-slate-900/40  flex flex-col col-start-2 col-end-3 h-[22rem] md:h-[25rem] lg:h-[25rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardTitle className='flex justify-center items-center gap-2.5 px-4 py-2.5 text-center font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-        <span className='ml-6 md:ml-20'>Categoría y Género</span>
+        <span className='md:ml-20'>Categoría y Género</span>
 
         <Badge
           variant='active'
@@ -121,18 +121,18 @@ export const MemberAnalysisCardByCategoryAndGender = ({ churchId }: Props): JSX.
       </CardTitle>
 
       {!mappedData?.length ? (
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
-            <p>Consultando datos....</p>
+            <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full pl-3 pr-4 py-0'>
+        <CardContent className='h-full px-2 sm:px-4 py-0'>
           {membersByCategoryAndGenderQuery?.isFetching && !mappedData?.length && (
             <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDataBackup className='text-[6rem] pb-2' />
-              <p>Consultando datos....</p>
+              <p className='font-medium text-[15px] md:text-[16px]'>Consultando datos....</p>
             </div>
           )}
           {mappedData?.length && (
@@ -145,7 +145,7 @@ export const MemberAnalysisCardByCategoryAndGender = ({ churchId }: Props): JSX.
               <AreaChart
                 accessibilityLayer
                 data={mappedData}
-                margin={{ top: 5, right: 5, left: -30, bottom: 10 }}
+                margin={{ top: 5, right: 5, left: -35, bottom: 10 }}
               >
                 <CartesianGrid vertical={false} />
                 <XAxis
@@ -186,9 +186,11 @@ export const MemberAnalysisCardByCategoryAndGender = ({ churchId }: Props): JSX.
             </ChartContainer>
           )}
           {!membersByCategoryAndGenderQuery?.isFetching && !mappedData?.length && (
-            <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+            <div className='text-red-500 flex flex-col justify-center items-center h-full -mt-6'>
               <FcDeleteDatabase className='text-[6rem] pb-2' />
-              <p>No hay datos disponibles para mostrar.</p>
+              <p className='font-medium text-[15px] md:text-[16px]'>
+                No hay datos disponibles para mostrar.
+              </p>
             </div>
           )}
         </CardContent>

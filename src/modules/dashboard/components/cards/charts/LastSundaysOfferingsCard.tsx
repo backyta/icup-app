@@ -241,25 +241,25 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
       {/* Chart */}
 
       {!lastSundaysOfferings?.data?.length && !searchParams ? (
-        <CardContent className='h-full py-0'>
+        <CardContent className='h-full py-0 px-2'>
           <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
             <FcDataBackup className='text-[6rem] pb-2' />
-            <p>Consultando datos....</p>
+            <p className='text-[14px] md:text-[14.5px] font-medium'>Consultando datos....</p>
           </div>
         </CardContent>
       ) : (
-        <CardContent className='h-full py-0'>
+        <CardContent className='h-full py-0 px-2'>
           {lastSundaysOfferings?.isFetching && !lastSundaysOfferings?.data?.length && (
             <div className='text-blue-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
               <FcDataBackup className='text-[6rem] pb-2' />
-              <p>Consultando datos....</p>
+              <p className='text-[14px] md:text-[14.5px] font-medium'>Consultando datos....</p>
             </div>
           )}
           {!!lastSundaysOfferings?.data?.length && searchParams && (
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[270px] sm:h-[280px] md:h-[355px] lg:h-[355px] xl:h-[355px] 2xl:h-[385px]'
+                'w-full h-[275px] sm:h-[280px] md:h-[355px] lg:h-[355px] xl:h-[355px] 2xl:h-[385px]'
               )}
             >
               <BarChart
@@ -282,7 +282,7 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
 
                 <ChartLegend
                   content={
-                    <ChartLegendContent className='ml-5 md:ml-10 text-[12.5px] md:text-[14px]' />
+                    <ChartLegendContent className='ml-8 md:ml-10 text-[13px] md:text-[14px] flex flex-wrap gap-y-1.5 gap-x-3 md:gap-x-3' />
                   }
                 />
 
@@ -333,9 +333,11 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
             </ChartContainer>
           )}
           {!lastSundaysOfferings?.isFetching && !lastSundaysOfferings?.data?.length && (
-            <div className='text-red-500 text-[14px] md:text-lg flex flex-col justify-center items-center h-full -mt-6'>
+            <div className='text-red-500 flex flex-col justify-center items-center h-full -mt-6'>
               <FcDeleteDatabase className='text-[6rem] pb-2' />
-              <p>No hay datos disponibles para mostrar.</p>
+              <p className='font-medium text-[15px] md:text-[16px]'>
+                No hay datos disponibles para mostrar.
+              </p>
             </div>
           )}
         </CardContent>

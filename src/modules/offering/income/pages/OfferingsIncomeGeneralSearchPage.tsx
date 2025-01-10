@@ -142,7 +142,7 @@ export const OfferingsIncomeGeneralSearchPage = (): JSX.Element => {
       <PageTitle className='text-green-600'>Modulo de Ingreso</PageTitle>
 
       <SearchTitle
-        className='w-[14rem] md:w-auto'
+        className='w-[14rem] sm:w-auto leading-8 sm:leading-10'
         isGeneralSearch
         titleName={'registros de ingreso'}
       />
