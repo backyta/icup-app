@@ -225,13 +225,13 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
             </div>
 
             <div className='space-y-1'>
-              <Label className='text-[14px] md:text-[15px]'>G. Familiares</Label>
+              <Label className='text-[14px] md:text-[15px]'>Grupos Familiares</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.familyGroups?.length ?? '-'}
               </CardDescription>
               <PopoverDataCard
                 data={data?.familyGroups}
-                title={'G. Familiares'}
+                title={'Grupos Familiares'}
                 moduleName={'Pastor'}
                 firstValue={'familyGroupCode'}
                 secondValue={'familyGroupName'}

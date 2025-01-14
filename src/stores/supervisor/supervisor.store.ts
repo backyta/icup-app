@@ -4,14 +4,14 @@ import { create, type StateCreator } from 'zustand';
 import { type SupervisorResponse } from '@/modules/supervisor/interfaces/supervisor-response.interface';
 
 interface SupervisorStore {
-  // Properties
+   //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
   dataSearchGeneralResponse: SupervisorResponse[] | undefined;
   dataSearchByTermResponse: SupervisorResponse[] | undefined;
 
-  // Methods
+  //* Methods
   setIsFiltersSearchGeneralDisabled: (value: boolean) => void;
   setIsFiltersSearchByTermDisabled: (value: boolean) => void;
 

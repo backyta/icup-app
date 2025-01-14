@@ -4,14 +4,14 @@ import { create, type StateCreator } from 'zustand';
 import { type UserResponse } from '@/modules/user/interfaces/user-response.interface';
 
 interface UserStore {
-  // Properties
+   //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
   dataSearchGeneralResponse: UserResponse[] | undefined;
   dataSearchByTermResponse: UserResponse[] | undefined;
 
-  // Methods
+  //* Methods
   setIsFiltersSearchGeneralDisabled: (value: boolean) => void;
   setIsFiltersSearchByTermDisabled: (value: boolean) => void;
 

@@ -4,14 +4,14 @@ import { create, type StateCreator } from 'zustand';
 import { type PreacherResponse } from '@/modules/preacher/interfaces/preacher-response.interface';
 
 interface PreacherStore {
-  // Properties
+  //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
   dataSearchGeneralResponse: PreacherResponse[] | undefined;
   dataSearchByTermResponse: PreacherResponse[] | undefined;
 
-  // Methods
+  //* Methods
   setIsFiltersSearchGeneralDisabled: (value: boolean) => void;
   setIsFiltersSearchByTermDisabled: (value: boolean) => void;
 

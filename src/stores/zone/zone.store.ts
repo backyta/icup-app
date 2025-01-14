@@ -4,14 +4,14 @@ import { create, type StateCreator } from 'zustand';
 import { type ZoneResponse } from '@/modules/zone/interfaces/zone-response.interface';
 
 interface ZoneStore {
-  // Properties
+   //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
   dataSearchGeneralResponse: ZoneResponse[] | undefined;
   dataSearchByTermResponse: ZoneResponse[] | undefined;
 
-  // Methods
+  //* Methods
   setIsFiltersSearchGeneralDisabled: (value: boolean) => void;
   setIsFiltersSearchByTermDisabled: (value: boolean) => void;
 

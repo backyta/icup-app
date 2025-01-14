@@ -188,7 +188,7 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
                 title={'Zonas'}
                 moduleName={'Copastor'}
                 firstValue={'zoneName'}
-                secondValue={'urbanSector'}
+                secondValue={'district'}
               />
             </div>
 
@@ -213,10 +213,10 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
               </CardDescription>
               <PopoverDataCard
                 data={data?.familyGroups}
-                title={'Grupos'}
+                title={'Grupos Familiares'}
                 moduleName={'Copastor'}
                 firstValue={'familyGroupCode'}
-                secondValue={'familyGroupHouse'}
+                secondValue={'familyGroupName'}
               />
             </div>
 

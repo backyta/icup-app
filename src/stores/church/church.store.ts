@@ -4,14 +4,14 @@ import { create, type StateCreator } from 'zustand';
 import { type ChurchResponse } from '@/modules/church/interfaces/church-response.interface';
 
 interface ChurchStore {
-  // Properties
+   //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
   dataSearchGeneralResponse: ChurchResponse[] | undefined;
   dataSearchByTermResponse: ChurchResponse[] | undefined;
 
-  // Methods
+  //* Methods
   setIsFiltersSearchGeneralDisabled: (value: boolean) => void;
   setIsFiltersSearchByTermDisabled: (value: boolean) => void;
 

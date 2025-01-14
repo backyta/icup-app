@@ -4,14 +4,14 @@ import { create, type StateCreator } from 'zustand';
 import { type OfferingExpenseResponse } from '@/modules/offering/expense/interfaces/offering-expense-response.interface';
 
 interface OfferingExpenseStore {
-  // Properties
+   //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
   dataSearchGeneralResponse: OfferingExpenseResponse[] | undefined;
   dataSearchByTermResponse: OfferingExpenseResponse[] | undefined;
 
-  // Methods
+  //* Methods
   setIsFiltersSearchGeneralDisabled: (value: boolean) => void;
   setIsFiltersSearchByTermDisabled: (value: boolean) => void;
 

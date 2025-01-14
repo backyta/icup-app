@@ -4,14 +4,14 @@ import { create, type StateCreator } from 'zustand';
 import { type DiscipleResponse } from '@/modules/disciple/interfaces/disciple-response.interface';
 
 interface DiscipleStore {
-  // Properties
+   //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
   dataSearchGeneralResponse: DiscipleResponse[] | undefined;
   dataSearchByTermResponse: DiscipleResponse[] | undefined;
 
-  // Methods
+  //* Methods
   setIsFiltersSearchGeneralDisabled: (value: boolean) => void;
   setIsFiltersSearchByTermDisabled: (value: boolean) => void;
 

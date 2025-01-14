@@ -143,7 +143,7 @@ export const ZoneTabsCard = ({ data, id }: ZoneTabsCardProps): JSX.Element => {
               </CardDescription>
               <PopoverDataCard
                 data={data?.familyGroups}
-                title={'Grupos'}
+                title={'Grupos Familiares'}
                 moduleName={'Zona'}
                 firstValue={'familyGroupCode'}
                 secondValue={'familyGroupName'}

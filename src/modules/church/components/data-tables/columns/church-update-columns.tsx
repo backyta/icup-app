@@ -42,7 +42,7 @@ export const churchUpdateColumns: Array<ColumnDef<ChurchColumns, any>> = [
             column.toggleSorting(column.getIsSorted() === 'asc');
           }}
         >
-          Nombre
+          Nombre Abreviado
           <ArrowUpDown className='ml-2 h-4 w-4' />
         </Button>
       );

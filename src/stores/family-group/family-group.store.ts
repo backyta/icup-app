@@ -4,14 +4,14 @@ import { create, type StateCreator } from 'zustand';
 import { type FamilyGroupResponse } from '@/modules/family-group/interfaces/family-group-response.interface';
 
 interface FamilyGroupStore {
-  // Properties
+   //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
   dataSearchGeneralResponse: FamilyGroupResponse[] | undefined;
   dataSearchByTermResponse: FamilyGroupResponse[] | undefined;
 
-  // Methods
+  //* Methods
   setIsFiltersSearchGeneralDisabled: (value: boolean) => void;
   setIsFiltersSearchByTermDisabled: (value: boolean) => void;
 

@@ -74,9 +74,12 @@ export const useDiscipleInactivationMutation = ({
 
       setTimeout(() => {
         setIsCardOpen(false);
+      }, 2000);
+
+      setTimeout(() => {
         setIsButtonDisabled(false);
         setIsSelectInputDisabled(false);
-      }, 2000);
+      }, 2100);
     },
   });
   return mutation;

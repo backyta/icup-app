@@ -173,7 +173,7 @@ export function GeneralChurchSearchDataTable<TData, TValue>({
             <div className='flex w-full col-span-2 gap-2 md:gap-3 md:row-start-1 md:row-end-2'>
               <Input
                 disabled={isDisabledButton}
-                placeholder='Nombre de iglesia...'
+                placeholder='Nombre abreviado de iglesia...'
                 value={(table.getColumn('abbreviatedChurchName')?.getFilterValue() as string) ?? ''}
                 onChange={(event) =>
                   table.getColumn('abbreviatedChurchName')?.setFilterValue(event.target.value)

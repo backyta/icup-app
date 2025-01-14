@@ -4,14 +4,14 @@ import { create, type StateCreator } from 'zustand';
 import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces/offering-income-response.interface';
 
 interface OfferingIncomeStore {
-  // Properties
+   //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
   dataSearchGeneralResponse: OfferingIncomeResponse[] | undefined;
   dataSearchByTermResponse: OfferingIncomeResponse[] | undefined;
 
-  // Methods
+  //* Methods
   setIsFiltersSearchGeneralDisabled: (value: boolean) => void;
   setIsFiltersSearchByTermDisabled: (value: boolean) => void;
 

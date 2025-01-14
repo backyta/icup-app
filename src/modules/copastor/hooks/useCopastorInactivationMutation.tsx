@@ -73,9 +73,12 @@ export const useCopastorInactivationMutation = ({
 
       setTimeout(() => {
         setIsCardOpen(false);
+      }, 2000);
+
+      setTimeout(() => {
         setIsButtonDisabled(false);
         setIsSelectInputDisabled(false);
-      }, 2000);
+      }, 2100);
     },
   });
 

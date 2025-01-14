@@ -4,14 +4,14 @@ import { create, type StateCreator } from 'zustand';
 import { type PastorResponse } from '@/modules/pastor/interfaces/pastor-response.interface';
 
 interface PastorStore {
-  // Properties
+   //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
   dataSearchGeneralResponse: PastorResponse[] | undefined;
   dataSearchByTermResponse: PastorResponse[] | undefined;
 
-  // Methods
+  //* Methods
   setIsFiltersSearchGeneralDisabled: (value: boolean) => void;
   setIsFiltersSearchByTermDisabled: (value: boolean) => void;
 

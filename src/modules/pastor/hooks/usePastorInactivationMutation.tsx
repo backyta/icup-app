@@ -74,9 +74,12 @@ export const usePastorInactivationMutation = ({
 
       setTimeout(() => {
         setIsCardOpen(false);
+      }, 2000);
+
+      setTimeout(() => {
         setIsSelectInputDisabled(false);
         setIsButtonDisabled(false);
-      }, 2000);
+      }, 2100);
     },
   });
 

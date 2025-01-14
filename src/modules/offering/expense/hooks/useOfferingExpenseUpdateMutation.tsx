@@ -97,7 +97,7 @@ export const useOfferingExpenseUpdateMutation = ({
       }, 150);
 
       setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['offerings-expense-by-term'] });
+        queryClient.invalidateQueries({ queryKey: ['offering-expenses-by-term'] });
       }, 700);
 
       setTimeout(() => {

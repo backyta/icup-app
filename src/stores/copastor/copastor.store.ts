@@ -4,14 +4,14 @@ import { create, type StateCreator } from 'zustand';
 import { type CopastorResponse } from '@/modules/copastor/interfaces/copastor-response.interface';
 
 interface CopastorStore {
-  // Properties
+   //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
   dataSearchGeneralResponse: CopastorResponse[] | undefined;
   dataSearchByTermResponse: CopastorResponse[] | undefined;
 
-  // Methods
+  //* Methods
   setIsFiltersSearchGeneralDisabled: (value: boolean) => void;
   setIsFiltersSearchByTermDisabled: (value: boolean) => void;
 

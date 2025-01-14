@@ -69,14 +69,17 @@ export const useOfferingExpenseInactivationMutation = ({
       }, 150);
 
       setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['offerings-expense-by-term'] });
+        queryClient.invalidateQueries({ queryKey: ['offering-expenses-by-term'] });
       }, 1000);
 
       setTimeout(() => {
         setIsCardOpen(false);
+      }, 2000);
+
+      setTimeout(() => {
         setIsButtonDisabled(false);
         setIsSelectInputDisabled(false);
-      }, 2000);
+      }, 2100);
     },
   });
 

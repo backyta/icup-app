@@ -183,10 +183,10 @@ export const SupervisorTabsCard = ({ data, id }: SupervisorTabsCardProps): JSX.E
               </CardDescription>
               <PopoverDataCard
                 data={data?.familyGroups}
-                title={'Grupos'}
+                title={'Grupos Familiares'}
                 moduleName={'Supervisor'}
                 firstValue={'familyGroupCode'}
-                secondValue={'familyGroupHouse'}
+                secondValue={'familyGroupName'}
               />
             </div>
 
