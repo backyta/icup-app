@@ -191,7 +191,7 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
   };
 
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-3 h-auto sm:h-[29.5rem] md:h-[27rem] lg:h-[31.5rem] 2xl:h-[31.5rem] m-0 border-slate-200 dark:border-slate-800'>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-3 h-[28.2rem] sm:h-[29.5rem] md:h-[27rem] lg:h-[31.5rem] 2xl:h-[31.5rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='z-10 flex flex-col lg:flex-row items-center justify-between px-2 py-2.5'>
         <div className='flex flex-col items-center lg:items-start'>
           <CardTitle className='font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
@@ -238,7 +238,7 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
                       <PopoverContent align='center' className='w-auto px-4 py-2'>
                         <Command>
                           <CommandInput
-                            placeholder='Busque un tipo...'
+                            placeholder='Busque un tipo'
                             className='h-9 text-[14px] md:text-[14px]'
                           />
                           <CommandEmpty>Tipo no encontrado.</CommandEmpty>
@@ -310,9 +310,9 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
                           </FormControl>
                         </PopoverTrigger>
                         <PopoverContent align='center' className='w-auto px-4 py-2'>
-                          <Command>
+                          <Command className='w-[10rem]'>
                             <CommandInput
-                              placeholder='Busque un mes...'
+                              placeholder='Busque un mes'
                               className='h-9 text-[14px] md:text-[14px]'
                             />
                             <CommandEmpty>Mes no encontrado.</CommandEmpty>
@@ -385,9 +385,9 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
                           </FormControl>
                         </PopoverTrigger>
                         <PopoverContent align='center' className='w-auto px-4 py-2'>
-                          <Command>
+                          <Command className='w-[10rem]'>
                             <CommandInput
-                              placeholder='Busque un mes...'
+                              placeholder='Busque un mes'
                               className='h-9 text-[14px] md:text-[14px]'
                             />
                             <CommandEmpty>Mes no encontrado.</CommandEmpty>
@@ -452,9 +452,9 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
                           </FormControl>
                         </PopoverTrigger>
                         <PopoverContent align='center' className='w-auto px-4 py-2'>
-                          <Command>
+                          <Command className='w-[10rem]'>
                             <CommandInput
-                              placeholder='Busque un año...'
+                              placeholder='Busque un año'
                               className='h-9 text-[14px] md:text-[14px]'
                             />
                             <CommandEmpty>Año no encontrado.</CommandEmpty>

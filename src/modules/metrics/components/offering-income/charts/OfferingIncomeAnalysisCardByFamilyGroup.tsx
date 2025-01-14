@@ -129,6 +129,11 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
       setSearchParams({ zone, year, month });
       form.setValue('zone', zone);
     }
+
+    if (searchParams?.zone) {
+      setSearchParams({ zone, year, month });
+      form.setValue('zone', zone);
+    }
   }, [zonesQuery?.data, year]);
 
   //* Form handler
@@ -179,11 +184,11 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent align='center' className='w-auto px-4 py-2'>
-                        <Command>
+                        <Command className='w-[10rem]'>
                           {zonesQuery?.data?.length && zonesQuery?.data?.length > 0 ? (
                             <>
                               <CommandInput
-                                placeholder='Busque una zona...'
+                                placeholder='Busque una zona'
                                 className='h-9 text-[14px] md:text-[14px]'
                               />
                               <CommandEmpty>Zona no encontrada.</CommandEmpty>
@@ -258,9 +263,9 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent align='center' className='w-auto px-4 py-2'>
-                        <Command>
+                        <Command className='w-[10rem]'>
                           <CommandInput
-                            placeholder='Busque un mes...'
+                            placeholder='Busque un mes'
                             className='h-9 text-[14px] md:text-[14px]'
                           />
                           <CommandEmpty>Mes no encontrado.</CommandEmpty>
@@ -318,9 +323,9 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent align='center' className='w-auto px-4 py-2'>
-                        <Command>
+                        <Command className='w-[10rem]'>
                           <CommandInput
-                            placeholder='Busque un año...'
+                            placeholder='Busque un año'
                             className='h-9 text-[14px] md:text-[14px]'
                           />
                           <CommandEmpty>Año no encontrado.</CommandEmpty>

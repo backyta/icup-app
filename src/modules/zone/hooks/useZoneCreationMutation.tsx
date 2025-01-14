@@ -57,17 +57,12 @@ export const useZoneCreationMutation = ({
       });
 
       setTimeout(() => {
-        setIsInputDisabled(false);
-        setIsSubmitButtonDisabled(false);
-      }, 1600);
-
-      setTimeout(() => {
         navigate('/zones');
       }, 1600);
 
       setTimeout(() => {
         zoneCreationForm.reset();
-      }, 1800);
+      }, 1700);
     },
   });
 

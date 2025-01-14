@@ -225,11 +225,11 @@ export const FamilyGroupAnalysisCardByZone = ({ churchId }: Props): JSX.Element 
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent align='center' className='w-auto px-4 py-2'>
-                        <Command>
+                        <Command className='w-[10rem]'>
                           {zonesQuery?.data?.length && zonesQuery?.data?.length > 0 ? (
                             <>
                               <CommandInput
-                                placeholder='Busque una zona...'
+                                placeholder='Busque una zona'
                                 className='h-9 text-[14px] md:text-[14px]'
                               />
                               <CommandEmpty>Zona no encontrada.</CommandEmpty>

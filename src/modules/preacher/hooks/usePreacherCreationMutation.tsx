@@ -57,17 +57,12 @@ export const usePreacherCreationMutation = ({
       });
 
       setTimeout(() => {
-        setIsInputDisabled(false);
-        setIsSubmitButtonDisabled(false);
-      }, 1600);
-
-      setTimeout(() => {
         navigate('/preachers');
       }, 1600);
 
       setTimeout(() => {
         preacherCreationForm.reset();
-      }, 1800);
+      }, 1700);
     },
   });
 

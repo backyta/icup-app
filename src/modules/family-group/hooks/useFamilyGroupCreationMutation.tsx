@@ -71,11 +71,6 @@ export const useFamilyGroupCreationMutation = ({
       });
 
       setTimeout(() => {
-        setIsInputDisabled(false);
-        setIsSubmitButtonDisabled(false);
-      }, 1600);
-
-      setTimeout(() => {
         navigate('/family-groups');
       }, 1600);
 
@@ -86,7 +81,7 @@ export const useFamilyGroupCreationMutation = ({
 
       setTimeout(() => {
         familyGroupCreationForm.reset();
-      }, 1800);
+      }, 1700);
     },
   });
 

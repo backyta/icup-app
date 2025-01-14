@@ -72,7 +72,7 @@ export const LoadingSpinner = ({ isPendingRequest }: SpinnerProps): JSX.Element 
     <div
       className={cn(
         'min-h-screen flex items-center justify-center text-slate-100 dark:bg-slate-950',
-        isPendingRequest && '-mt-[20rem] md:-mt-[25rem]',
+        isPendingRequest && '-mt-[20rem] md:-mt-[22rem]',
         !isPendingRequest &&
           'md:min-h-screen md:flex md:flex-col md:items-center md:justify-center -mt-[4rem]',
         isSearchOrUpdatePath(pathname) && 'min-h-screen',

@@ -93,18 +93,13 @@ export const useOfferingIncomeCreationMutation = ({
       });
 
       setTimeout(() => {
-        setIsInputDisabled(false);
-        setIsSubmitButtonDisabled(false);
-      }, 1600);
-
-      setTimeout(() => {
         navigate('/offerings/income');
       }, 1600);
 
       setTimeout(() => {
         setFiles([]);
         offeringIncomeCreationForm.reset();
-      }, 1800);
+      }, 1700);
     },
   });
 

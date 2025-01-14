@@ -57,17 +57,12 @@ export const usePastorCreationMutation = ({
       });
 
       setTimeout(() => {
-        setIsInputDisabled(false);
-        setIsSubmitButtonDisabled(false);
-      }, 1600);
-
-      setTimeout(() => {
         navigate('/pastors');
       }, 1600);
 
       setTimeout(() => {
         pastorCreationForm.reset();
-      }, 1800);
+      }, 1700);
     },
   });
 

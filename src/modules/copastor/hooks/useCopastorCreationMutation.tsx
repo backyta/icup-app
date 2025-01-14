@@ -57,17 +57,12 @@ export const useCopastorCreationMutation = ({
       });
 
       setTimeout(() => {
-        setIsInputDisabled(false);
-        setIsSubmitButtonDisabled(false);
-      }, 1600);
-
-      setTimeout(() => {
         navigate('/copastors');
       }, 1600);
 
       setTimeout(() => {
         copastorCreationForm.reset();
-      }, 1800);
+      }, 1700);
     },
   });
 

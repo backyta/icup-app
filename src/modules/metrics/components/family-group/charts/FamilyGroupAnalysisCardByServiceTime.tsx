@@ -252,9 +252,9 @@ export const FamilyGroupAnalysisCardByServiceTime = ({ churchId }: Props): JSX.E
                       <PopoverContent align='center' className='w-auto px-4 py-2'>
                         {zonesQuery?.data?.length && zonesQuery?.data?.length > 0 ? (
                           <>
-                            <Command>
+                            <Command className='w-[10rem]'>
                               <CommandInput
-                                placeholder='Busque una zona...'
+                                placeholder='Busque una zona'
                                 className='h-9 text-[14px] md:text-[14px]'
                               />
                               <CommandEmpty>Zona no encontrada.</CommandEmpty>

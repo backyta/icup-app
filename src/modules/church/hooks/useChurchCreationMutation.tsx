@@ -57,17 +57,12 @@ export const useChurchCreationMutation = ({
       });
 
       setTimeout(() => {
-        setIsInputDisabled(false);
-        setIsSubmitButtonDisabled(false);
-      }, 1600);
-
-      setTimeout(() => {
         navigate('/churches');
       }, 1600);
 
       setTimeout(() => {
         churchCreationForm.reset();
-      }, 1800);
+      }, 1700);
     },
   });
 

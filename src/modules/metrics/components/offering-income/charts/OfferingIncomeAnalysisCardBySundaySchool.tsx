@@ -195,9 +195,9 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent align='center' className='w-auto px-4 py-2'>
-                        <Command>
+                        <Command className='w-[10rem]'>
                           <CommandInput
-                            placeholder='Busque un mes...'
+                            placeholder='Busque un mes'
                             className='h-9 text-[14px] md:text-[14px]'
                           />
                           <CommandEmpty>Mes no encontrado.</CommandEmpty>
@@ -255,9 +255,9 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent align='center' className='w-auto px-4 py-2'>
-                        <Command>
+                        <Command className='w-[10rem]'>
                           <CommandInput
-                            placeholder='Busque un año...'
+                            placeholder='Busque un año'
                             className='h-9 text-[14px] md:text-[14px]'
                           />
                           <CommandEmpty>Año no encontrado.</CommandEmpty>

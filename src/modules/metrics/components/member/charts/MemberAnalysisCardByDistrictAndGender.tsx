@@ -212,9 +212,9 @@ export const MemberAnalysisCardByDistrictAndGender = ({ churchId }: Props): JSX.
                         </FormControl>
                       </PopoverTrigger>
                       <PopoverContent align='center' className='w-auto px-4 py-2'>
-                        <Command>
+                        <Command className='w-[10rem]'>
                           <CommandInput
-                            placeholder='Busque un distrito...'
+                            placeholder='Busque un distrito'
                             className='h-9 text-[14px] md:text-[14px]'
                           />
                           <CommandEmpty>Distrito no encontrado.</CommandEmpty>

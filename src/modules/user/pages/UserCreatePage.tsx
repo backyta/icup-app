@@ -386,11 +386,7 @@ export const UserCreatePage = (): JSX.Element => {
               <Button
                 disabled={isSubmitButtonDisabled}
                 type='submit'
-                className={cn(
-                  'w-full text-[14px]',
-                  userCreationMutation?.isPending &&
-                    'bg-emerald-50 hover:bg-emerald-5000 disabled:opacity-100 disabled:md:text-[15px] text-white'
-                )}
+                className={cn('w-full text-[14px]')}
                 onClick={() => {
                   setTimeout(() => {
                     if (Object.keys(form.formState.errors).length === 0) {
@@ -400,7 +396,7 @@ export const UserCreatePage = (): JSX.Element => {
                   }, 100);
                 }}
               >
-                {userCreationMutation?.isPending ? 'Procesando...' : 'Registrar Usuario'}
+                Registrar Usuario
               </Button>
             </div>
           </form>

@@ -571,7 +571,7 @@ export const FamilyGroupUpdateForm = ({
                                   {zonesQuery?.data?.length && zonesQuery?.data?.length > 0 ? (
                                     <>
                                       <CommandInput
-                                        placeholder='Busque una zona...'
+                                        placeholder='Busque una zona'
                                         className='h-9 text-[14px]'
                                       />
                                       <CommandEmpty>Zona no encontrada.</CommandEmpty>

@@ -179,7 +179,7 @@ export const FamilyGroupReportForm = ({ churchId, dialogClose }: Props): JSX.Ele
                           <PopoverContent align='center' className='w-auto px-4 py-2'>
                             <Command>
                               <CommandInput
-                                placeholder='Busque un año...'
+                                placeholder='Busque un año'
                                 className='h-9 text-[14px] md:text-[14px]'
                               />
                               <CommandEmpty>Año no encontrado.</CommandEmpty>

@@ -57,17 +57,12 @@ export const useDiscipleCreationMutation = ({
       });
 
       setTimeout(() => {
-        setIsInputDisabled(false);
-        setIsSubmitButtonDisabled(false);
-      }, 1600);
-
-      setTimeout(() => {
         navigate('/disciples');
       }, 1600);
 
       setTimeout(() => {
         discipleCreationForm.reset();
-      }, 1800);
+      }, 1700);
     },
   });
 

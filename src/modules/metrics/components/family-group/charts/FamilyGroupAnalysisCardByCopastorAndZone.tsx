@@ -252,7 +252,7 @@ export const FamilyGroupAnalysisCardByCopastorAndZone = ({ churchId }: Props): J
                           {copastorsQuery?.data?.length && copastorsQuery?.data?.length > 0 ? (
                             <>
                               <CommandInput
-                                placeholder='Busque un co-pastor...'
+                                placeholder='Busque un co-pastor'
                                 className='h-9 text-[14px] md:text-[14px]'
                               />
                               <CommandEmpty>Co-pastor no encontrado.</CommandEmpty>
