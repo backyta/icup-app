@@ -20,7 +20,6 @@ export const OfferingIncomeBySpecialOfferingTooltipContent = (
 ): JSX.Element => {
   const { payload, label } = props;
 
-  console.log(payload);
   return (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
       <p>
@@ -57,10 +56,10 @@ export const OfferingIncomeBySpecialOfferingTooltipContent = (
                 <span className='pl-1 font-normal dark:text-white text-black'>
                   {`${
                     entry?.name === 'accumulatedOfferingPEN'
-                      ? entry?.payload?.allOfferings?.at(-1)?.offering
+                      ? entry?.payload?.allOfferings?.at(-1)?.offering.toFixed(2)
                       : entry?.name === 'accumulatedOfferingUSD'
-                        ? entry?.payload?.allOfferings?.at(-1)?.offering
-                        : entry?.payload?.allOfferings?.at(-1)?.offering
+                        ? entry?.payload?.allOfferings?.at(-1)?.offering.toFixed(2)
+                        : entry?.payload?.allOfferings?.at(-1)?.offering.toFixed(2)
                   }   
                ${
                  entry?.name === 'accumulatedOfferingPEN'
@@ -127,7 +126,7 @@ export const OfferingIncomeBySpecialOfferingTooltipContent = (
           )
       )}
 
-      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1.5'>
         <li className={'font-medium italic text-[13.5px] sm:text-[13.5px]'}>
           <span className='sm:-ml-1'>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
         </li>
@@ -149,22 +148,22 @@ export const OfferingIncomeBySpecialOfferingTooltipContent = (
         </p>
       )}
 
-      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1.5'>
         {payload[0]?.payload?.accumulatedOfferingPEN > 0 && (
           <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-            <span className='sm:-ml-1'>{`Soles: ${payload[0]?.payload?.accumulatedOfferingPEN} PEN`}</span>
+            <span className='sm:-ml-1'>{`Soles: ${payload[0]?.payload?.accumulatedOfferingPEN.toFixed(2)} PEN`}</span>
           </li>
         )}
 
         {payload[0]?.payload?.accumulatedOfferingUSD > 0 && (
           <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-            <span className='sm:-ml-1'>{`Dolares: ${payload[0]?.payload?.accumulatedOfferingUSD} USD`}</span>
+            <span className='sm:-ml-1'>{`Dolares: ${payload[0]?.payload?.accumulatedOfferingUSD.toFixed(2)} USD`}</span>
           </li>
         )}
 
         {payload[0]?.payload?.accumulatedOfferingEUR > 0 && (
           <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-            <span className='sm:-ml-1'>{`Euros: ${payload[0]?.payload?.accumulatedOfferingEUR} EUR`}</span>
+            <span className='sm:-ml-1'>{`Euros: ${payload[0]?.payload?.accumulatedOfferingEUR.toFixed(2)} EUR`}</span>
           </li>
         )}
       </ul>

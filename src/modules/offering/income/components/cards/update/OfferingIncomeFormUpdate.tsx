@@ -325,8 +325,8 @@ export const OfferingIncomeFormUpdate = ({
       className='w-auto -mt-8 sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
       {/* <div className='text-center'> */}
-      <h2 className='text-center text-orange-500 font-bold text-[22px] sm:text-[22px] md:text-[24px]'>
-        Actualizar información del registro
+      <h2 className='text-center text-orange-500 font-bold text-[22px] sm:text-[26px] md:text-[28px]'>
+        Modificar información del registro
       </h2>
       {/* </div> */}
 

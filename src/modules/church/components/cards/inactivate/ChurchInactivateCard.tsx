@@ -161,7 +161,11 @@ export const ChurchInactivateCard = ({ idRow }: ChurchInactivateCardProps): JSX.
           <span className='inline-block mb-2 text-[14.5px] md:text-[15px]'>
             ❌ El registro de esta Iglesia se eliminara de los lugares donde estaba relacionado con
             algunos de estos roles:
-            <li>Pastor, Co-Pastor, Supervisor, Zona, Predicador, G. Familiar, Discípulo.</li>
+            <li className='ml-2'>
+              <span className='-ml-2'>
+                Pastor, Co-Pastor, Supervisor, Zona, Predicador, G. Familiar, Discípulo.
+              </span>
+            </li>
           </span>
           <span className='inline-block text-[14.5px] md:text-[15px]'>
             ✅ Para poder activarlo nuevamente deberás hacerlo desde el modulo{' '}

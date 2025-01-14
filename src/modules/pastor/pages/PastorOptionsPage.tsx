@@ -79,7 +79,7 @@ export const PastorOptionsPage = (): JSX.Element => {
               Consultar Pastores
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de pastores por tipo de búsqueda
+              Consultar registros de pastores por filtros
             </p>
           </WhiteCard>
         </NavLink>
@@ -96,7 +96,7 @@ export const PastorOptionsPage = (): JSX.Element => {
               Actualizar Pastor
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Actualizar información del registro de un pastor
+              Modificar datos del registro de un pastor
             </p>
           </WhiteCard>
         </NavLink>

@@ -122,7 +122,7 @@ export const LoginPage = (): JSX.Element => {
         <img
           src='/logo-sn.webp'
           alt='Logo Iglesia'
-          className='w-[30rem] md:w-[33rem] lg:w-[37rem] xl:w-[45rem] pb-8 pt-[6rem] md:pt-[4rem] mx-auto'
+          className='w-[30rem] md:w-[33rem] lg:w-[37rem] xl:w-[45rem] pb-8 pt-[8rem] md:pt-[1rem] mx-auto'
         />
         <h1 className='text-4xl md:text-5xl lg:text-[3.60rem] xl:text-7xl text-center font-semibold dark:text-blue-600 text-blue-800 font-dancing-script mb-0 md:mb-4 lg:mb-4 xl:mb-2 xl:leading-[4.5rem]'>
           ICUP APP

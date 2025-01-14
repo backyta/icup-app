@@ -78,7 +78,7 @@ export const OfferingExpenseOptionsPage = (): JSX.Element => {
               Consultar Salidas
             </h2>
             <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de salida de ofrendas por tipo de búsqueda
+              Consultar registros de salida de ofrendas por filtros
             </p>
           </WhiteCard>
         </NavLink>

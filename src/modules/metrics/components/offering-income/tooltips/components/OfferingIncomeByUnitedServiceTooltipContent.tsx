@@ -51,12 +51,12 @@ export const OfferingIncomeByUnitedServiceTooltipContent = (
             {payload?.[0]?.payload?.allOfferings.length > 1 ? `${index + 1}° Ofrenda:` : `Ofrenda:`}
           </span>
           <span className='pl-1 dark:text-white text-black font-normal text-[13.5px] md:text-[13.5px]'>
-            {`${off.offering} ${off.currency}`}
+            {`${off.offering.toFixed(2)} ${off.currency}`}
           </span>
         </div>
       ))}
 
-      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1.5'>
         <li
           className={
             'font-medium italic text-[13.5px] sm:text-[13.5px] dark:text-slate-300 text-slate-500'

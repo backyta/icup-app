@@ -143,7 +143,7 @@ export const FamilyGroupAnalysisCardByCopastorAndZone = ({ churchId }: Props): J
   // Default value
   useEffect(() => {
     if (copastorsQuery.data) {
-      const copastor = copastorsQuery?.data?.map((copastor) => copastor?.id)[1];
+      const copastor = copastorsQuery?.data?.map((copastor) => copastor?.id)[0];
       setSearchParams({ copastor, all: false });
       form.setValue('copastor', copastor);
       form.setValue('all', false);
@@ -302,7 +302,7 @@ export const FamilyGroupAnalysisCardByCopastorAndZone = ({ churchId }: Props): J
               control={form.control}
               name='all'
               render={({ field }) => (
-                <FormItem className='flex flex-row items-end space-x-3 space-y-0 rounded-md border p-3 h-[2.5rem]'>
+                <FormItem className='flex flex-row items-end space-x-2 space-y-0 rounded-md border p-3 h-[2.5rem]'>
                   <FormControl>
                     <Checkbox
                       checked={field?.value}
@@ -313,7 +313,9 @@ export const FamilyGroupAnalysisCardByCopastorAndZone = ({ churchId }: Props): J
                     />
                   </FormControl>
                   <div className='space-y-1 leading-none'>
-                    <FormLabel className='text-[13px] md:text-[14px]'>Todos</FormLabel>
+                    <FormLabel className='text-[13px] md:text-[14px] cursor-pointer'>
+                      Todos
+                    </FormLabel>
                   </div>
                 </FormItem>
               )}

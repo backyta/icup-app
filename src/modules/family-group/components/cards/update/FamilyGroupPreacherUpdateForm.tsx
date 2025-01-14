@@ -131,7 +131,7 @@ export const FamilyGroupPreacherUpdateForm = ({
       defaultValue='general-info'
       className='-mt-8 w-auto sm:w-[480px] md:w-[550px] lg:w-[550px] xl:w-[600px]'
     >
-      <h2 className='text-center text-emerald-500 pb-2 font-bold text-[22px] sm:text-[22px] md:text-[24px]'>
+      <h2 className='text-center text-emerald-500 font-bold text-[22px] sm:text-[22px] md:text-[26px]'>
         Intercambiar Predicadores
       </h2>
 
@@ -364,18 +364,18 @@ export const FamilyGroupPreacherUpdateForm = ({
               </form>
             </Form>
             <div className='mt-3'>
-              <p className='text-red-500 text-[14px] md:text-[14px] font-bold mb-2'>
+              <p className='text-sky-500 text-[14px] md:text-[14px] font-bold mb-2'>
                 Consideraciones
               </p>
-              <p className='text-[12.5px] md:text-[13px] mb-2 font-medium '>
+              <p className='text-[13px] md:text-[13px] mb-2 font-medium '>
                 ✅ Se requiere que los Predicadores tengan la misma Zona para intercambiarlos entre
                 los Grupos Familiares.
               </p>
-              <p className='text-[12.5px] md:text-[13px] mb-2 font-medium '>
+              <p className='text-[13px] md:text-[13px] mb-2 font-medium '>
                 ✅ Al ejecutar el intercambio el predicador pasara al otro Grupo Familiar y
                 viceversa.
               </p>
-              <p className='text-[12.5px] md:text-[13px] mb-2 font-medium '>
+              <p className='text-[13px] md:text-[13px] mb-2 font-medium '>
                 ✅ Si quieres intercambiar por otro Predicador, primero deberás actualizar ese
                 Predicador a la Zona correspondiente.
               </p>

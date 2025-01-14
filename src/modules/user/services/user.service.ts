@@ -312,23 +312,39 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
 }
 
 //* General
-export const getGeneralUsersReport = async ({limit, offset, order}: UserQueryParams): Promise<boolean> => {
+export const getGeneralUsersReport = async ({limit, offset, all, order}: UserQueryParams): Promise<boolean> => {
    try {
-    const res = await icupApi<Blob>('/reports/users' , {
-      params: {
-        limit,
-        offset,
-        order,
-      },
-      headers: {
-      'Content-Type': 'application/pdf',
-      },
-      responseType: 'blob',
-    });
-    
-    openPdfInNewTab(res.data);
-    
-    return true;
+     if (!all) {
+      const res = await icupApi<Blob>('/reports/users' , {
+        params: {
+          limit,
+          offset,
+          order,
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+      
+      openPdfInNewTab(res.data);
+      
+      return true;
+    }else {
+      const res = await icupApi<Blob>('/reports/users' , {
+        params: {
+          order,
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+      
+      openPdfInNewTab(res.data);
+      
+      return true;
+    }
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)
@@ -346,7 +362,8 @@ export const getUsersReportByTerm = async ({
   lastNamesTerm,
   multiSelectTerm,
   limit, 
-  offset, 
+  offset,
+  all,
   order
 }: UserQueryParams): Promise<boolean> => {
   let newTerm: string | undefined = '';
@@ -363,22 +380,39 @@ export const getUsersReportByTerm = async ({
   newTerm = termMapping[searchType as UserSearchType];
 
    try {
-    const res = await icupApi<Blob>(`/reports/users/${newTerm}` , {
-      params: {
-        limit,
-        offset,
-        order,
-        'search-type': searchType,
-      },
-      headers: {
-      'Content-Type': 'application/pdf',
-      },
-      responseType: 'blob',
-    });
-    
-    openPdfInNewTab(res.data);
-    
-    return true;
+    if (!all) {
+      const res = await icupApi<Blob>(`/reports/users/${newTerm}` , {
+        params: {
+          limit,
+          offset,
+          order,
+          'search-type': searchType,
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+      
+      openPdfInNewTab(res.data);
+      
+      return true;
+    }else {
+      const res = await icupApi<Blob>(`/reports/users/${newTerm}` , {
+        params: {
+          order,
+          'search-type': searchType,
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+      
+      openPdfInNewTab(res.data);
+      
+      return true;
+    }
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)

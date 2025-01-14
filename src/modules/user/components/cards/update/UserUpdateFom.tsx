@@ -116,10 +116,10 @@ export const UserUpdateForm = ({
   return (
     <Tabs
       defaultValue='general-info'
-      className='w-auto sm:w-[520px] md:w-[680px] lg:w-[830px] xl:w-[930px]'
+      className='w-auto sm:w-[520px] md:w-[680px] lg:w-[830px] xl:w-[930px] -mt-8'
     >
       <h2 className='text-center leading-7 text-orange-500 pb-2 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
-        Actualizar información del Usuario
+        Modificar información del Usuario
       </h2>
 
       <TabsContent value='general-info' className='overflow-y-auto'>

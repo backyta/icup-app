@@ -380,7 +380,7 @@ export const PastorTabsCard = ({ data, id }: PastorTabsCardProps): JSX.Element =
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid grid-cols-2 pl-[2rem] pr-[0.5rem] gap-x-8 gap-y-4 md:gap-x-4 md:gap-y-6 md:pl-[6rem] md:pr-[3rem]'>
+          <CardContent className='grid grid-cols-2 pl-[2rem] pr-[0.5rem] gap-x-8 gap-y-4 md:gap-x-4 md:gap-y-6 md:pl-[8rem] md:pr-[3rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Roles de Membresía</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>

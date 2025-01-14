@@ -79,7 +79,7 @@ export const SupervisorOptionsPage = (): JSX.Element => {
               Consultar Supervisores
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de supervisores por tipo de búsqueda
+              Consultar registros de supervisores por filtros
             </p>
           </WhiteCard>
         </NavLink>
@@ -96,7 +96,7 @@ export const SupervisorOptionsPage = (): JSX.Element => {
               Actualizar Supervisor
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Actualizar información del registro de un supervisor
+              Modificar datos del registro de un supervisor
             </p>
           </WhiteCard>
         </NavLink>

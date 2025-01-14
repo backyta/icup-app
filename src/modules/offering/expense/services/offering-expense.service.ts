@@ -211,24 +211,41 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
 }
 
 //* General
-export const getGeneralOfferingExpensesReport = async ({limit, offset, order, churchId}: OfferingExpenseQueryParams): Promise<boolean> => {
+export const getGeneralOfferingExpensesReport = async ({limit, offset, all, order, churchId}: OfferingExpenseQueryParams): Promise<boolean> => {
    try {
-    const res = await icupApi<Blob>('/reports/offering-expenses' , {
-      params: {
-        limit,
-        offset,
-        order,
-        churchId,
-      },
-      headers: {
-      'Content-Type': 'application/pdf',
-      },
-      responseType: 'blob',
-    });
-    
-    openPdfInNewTab(res.data);
-    
-    return true;
+    if (!all) {
+      const res = await icupApi<Blob>('/reports/offering-expenses' , {
+        params: {
+          limit,
+          offset,
+          order,
+          churchId,
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+      
+      openPdfInNewTab(res.data);
+      
+      return true;
+    }else {
+      const res = await icupApi<Blob>('/reports/offering-expenses' , {
+        params: {
+          order,
+          churchId,
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+      
+      openPdfInNewTab(res.data);
+      
+      return true;
+    }
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)
@@ -245,7 +262,8 @@ export const getOfferingExpensesReportByTerm = async ({
   dateTerm, 
   selectTerm, 
   limit, 
-  offset, 
+  offset,
+  all,
   order,
   churchId
 }: OfferingExpenseQueryParams): Promise<boolean> => {
@@ -266,24 +284,43 @@ export const getOfferingExpensesReportByTerm = async ({
   newTerm = termMapping[searchType as OfferingExpenseSearchType];
 
    try {
-    const res = await icupApi<Blob>(`/reports/offering-expenses/${newTerm}` , {
-      params: {
-        limit,
-        offset,
-        order,
-        churchId,
-        'search-type': searchType,
-        'search-sub-type': searchSubType
-      },
-      headers: {
-      'Content-Type': 'application/pdf',
-      },
-      responseType: 'blob',
-    });
-    
-    openPdfInNewTab(res.data);
-    
-    return true;
+    if (!all) {
+      const res = await icupApi<Blob>(`/reports/offering-expenses/${newTerm}` , {
+        params: {
+          limit,
+          offset,
+          order,
+          churchId,
+          'search-type': searchType,
+          'search-sub-type': searchSubType
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+      
+      openPdfInNewTab(res.data);
+      
+      return true;
+    }else {
+      const res = await icupApi<Blob>(`/reports/offering-expenses/${newTerm}` , {
+        params: {
+          order,
+          churchId,
+          'search-type': searchType,
+          'search-sub-type': searchSubType
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+      
+      openPdfInNewTab(res.data);
+      
+      return true;
+    }
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)

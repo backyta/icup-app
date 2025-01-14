@@ -253,7 +253,7 @@ export const OfferingExpenseFormUpdate = ({
     >
       <div className='text-center'>
         <h2 className='text-orange-500  font-bold text-[20px] sm:text-[22px] md:text-[24px]'>
-          Actualizar información del registro
+          Modificar datos del registro
         </h2>
       </div>
 

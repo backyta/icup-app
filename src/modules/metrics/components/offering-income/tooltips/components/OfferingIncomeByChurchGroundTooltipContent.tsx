@@ -56,7 +56,7 @@ export const OfferingIncomeByChurchGroundTooltipContent = (
             ></span>
             <span className='font-medium text-[13.5px] md:text-[13.5px]'>{`${index + 1}° Ofrenda:`}</span>
             <span className='pl-1 dark:text-white text-black font-normal text-[13.5px] md:text-[13.5px]'>
-              {`${off.offering} ${off.currency} - ${dateFormatterToDDMMYY(addDays(off.date, 1))}`}
+              {`${off.offering.toFixed(2)} ${off.currency} - ${dateFormatterToDDMMYY(addDays(off.date, 1))}`}
             </span>
           </div>
         ))}
@@ -91,10 +91,10 @@ export const OfferingIncomeByChurchGroundTooltipContent = (
                     {entry.payload.category === OfferingIncomeCreationCategory.ExternalDonation &&
                       `${
                         entry?.name === 'accumulatedOfferingPEN'
-                          ? entry?.payload?.allOfferings?.at(-1)?.offering
+                          ? entry?.payload?.allOfferings?.at(-1)?.offering.toFixed(2)
                           : entry?.name === 'accumulatedOfferingUSD'
-                            ? entry?.payload?.allOfferings?.at(-1)?.offering
-                            : entry?.payload?.allOfferings?.at(-1)?.offering
+                            ? entry?.payload?.allOfferings?.at(-1)?.offering.toFixed(2)
+                            : entry?.payload?.allOfferings?.at(-1)?.offering.toFixed(2)
                       }   
                   ${
                     entry?.name === 'accumulatedOfferingPEN'
@@ -119,10 +119,10 @@ export const OfferingIncomeByChurchGroundTooltipContent = (
                     {entry.payload.category !== OfferingIncomeCreationCategory.ExternalDonation &&
                       `${
                         entry?.name === 'accumulatedOfferingPEN'
-                          ? entry?.payload?.allOfferings?.at(-1)?.offering
+                          ? entry?.payload?.allOfferings?.at(-1)?.offering.toFixed(2)
                           : entry?.name === 'accumulatedOfferingUSD'
-                            ? entry?.payload?.allOfferings?.at(-1)?.offering
-                            : entry?.payload?.allOfferings?.at(-1)?.offering
+                            ? entry?.payload?.allOfferings?.at(-1)?.offering.toFixed(2)
+                            : entry?.payload?.allOfferings?.at(-1)?.offering.toFixed(2)
                       }   
                   ${
                     entry?.name === 'accumulatedOfferingPEN'
@@ -189,7 +189,7 @@ export const OfferingIncomeByChurchGroundTooltipContent = (
             )
         )}
 
-      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1.5'>
         <li className={'font-medium italic text-[13.5px] sm:text-[13.5px]'}>
           <span className='sm:-ml-1'>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
         </li>
@@ -211,22 +211,22 @@ export const OfferingIncomeByChurchGroundTooltipContent = (
         </p>
       )}
 
-      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1.5'>
         {payload[0]?.payload?.accumulatedOfferingPEN > 0 && (
           <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-            <span className='sm:-ml-1'>{`Soles: ${payload[0]?.payload?.accumulatedOfferingPEN} PEN`}</span>
+            <span className='sm:-ml-1'>{`Soles: ${payload[0]?.payload?.accumulatedOfferingPEN.toFixed(2)} PEN`}</span>
           </li>
         )}
 
         {payload[0]?.payload?.accumulatedOfferingUSD > 0 && (
           <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-            <span className='sm:-ml-1'>{`Dolares: ${payload[0]?.payload?.accumulatedOfferingUSD} USD`}</span>
+            <span className='sm:-ml-1'>{`Dolares: ${payload[0]?.payload?.accumulatedOfferingUSD.toFixed(2)} USD`}</span>
           </li>
         )}
 
         {payload[0]?.payload?.accumulatedOfferingEUR > 0 && (
           <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-            <span className='sm:-ml-1'>{`Euros: ${payload[0]?.payload?.accumulatedOfferingEUR} EUR`}</span>
+            <span className='sm:-ml-1'>{`Euros: ${payload[0]?.payload?.accumulatedOfferingEUR.toFixed(2)} EUR`}</span>
           </li>
         )}
       </ul>

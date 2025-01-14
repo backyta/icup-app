@@ -60,8 +60,10 @@ export const UrbanSectorsLosOlivosAllowed = [
 //* Comas
 export const UrbanSectorsComasAllowed = [
   UrbanSectorNames['La Pascana'],
+  UrbanSectorNames['La Merced'],
   UrbanSectorNames['El Retablo'],
   UrbanSectorNames['San Agustín'],
+  UrbanSectorNames['San Felipe'],
   UrbanSectorNames.Collique,
   UrbanSectorNames['Carmen Alto'],
   UrbanSectorNames['Chacra Cerro'],

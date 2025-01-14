@@ -48,7 +48,7 @@ export const IncomeAndExpensesComparativeTooltipContent = (
         Diferencia: {payload[0]?.payload?.netResult.toFixed(2)} {payload[0]?.payload?.currency}
       </p>
 
-      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1.5'>
         <li className={'font-medium text-[13.5px] sm:text-[13.5px]'}>
           <span className='sm:-ml-1'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
         </li>

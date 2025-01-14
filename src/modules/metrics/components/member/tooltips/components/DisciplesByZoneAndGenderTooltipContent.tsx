@@ -32,7 +32,7 @@ export const DisciplesByZoneAndGenderTooltipContent = (
         ))}
       </ul>
 
-      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1.5'>
         <li className='font-medium italic text-[13.5px] sm:text-[13.5px] dark:text-emerald-500 text-emerald-500'>
           <span className='sm:-ml-1'>Discípulos totales: {total}</span>
         </li>

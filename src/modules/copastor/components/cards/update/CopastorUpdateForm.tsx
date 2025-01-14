@@ -216,8 +216,7 @@ export const CopastorUpdateForm = ({
       className='w-auto -mt-8 sm:w-[520px] md:w-[680px] lg:w-[990px] xl:w-[1100px]'
     >
       <h2 className='text-center leading-7 text-orange-500 pb-2 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
-        Actualizar información del
-        <p>Co-Pastor</p>
+        Modificar información del Co-Pastor
       </h2>
 
       <TabsContent value='general-info'>

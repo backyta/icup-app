@@ -37,7 +37,7 @@ export const GeneralComparativeOfferingExpensesTooltipContent = (
           ></span>
           <p className='-mt-[2px] font-medium text-[13.5px] sm:text-[13.5px] text-[#ed5846]'>
             Soles:
-            <span className='text-foreground pl-1'>{`${payload[0]?.payload?.accumulatedOfferingPEN} PEN`}</span>
+            <span className='text-foreground pl-1'>{`${payload[0]?.payload?.accumulatedOfferingPEN.toFixed(2)} PEN`}</span>
           </p>
         </div>
       )}
@@ -53,7 +53,7 @@ export const GeneralComparativeOfferingExpensesTooltipContent = (
           ></span>
           <p className='-mt-[2px] font-medium text-[13.5px] sm:text-[13.5px] text-[#399df8]'>
             Dolares:
-            <span className='text-foreground pl-1'>{`${payload[0]?.payload?.accumulatedOfferingUSD} USD`}</span>
+            <span className='text-foreground pl-1'>{`${payload[0]?.payload?.accumulatedOfferingUSD.toFixed(2)} USD`}</span>
           </p>
         </div>
       )}
@@ -69,12 +69,12 @@ export const GeneralComparativeOfferingExpensesTooltipContent = (
           ></span>
           <p className='-mt-[2px] font-medium text-[13.5px] sm:text-[13.5px] text-[#FFD700]'>
             Euros:
-            <span className='text-foreground pl-1'>{`${payload[0]?.payload?.accumulatedOfferingEUR} EUR`}</span>
+            <span className='text-foreground pl-1'>{`${payload[0]?.payload?.accumulatedOfferingEUR.toFixed(2)} EUR`}</span>
           </p>
         </div>
       )}
 
-      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1.5'>
         <li className={'font-medium text-[13.5px] sm:text-[13.5px]'}>
           <span className='sm:-ml-1'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
         </li>

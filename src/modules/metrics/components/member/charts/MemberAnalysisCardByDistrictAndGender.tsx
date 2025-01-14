@@ -42,6 +42,7 @@ import { Button } from '@/shared/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/components/ui/form';
+import { getSimpleChurches } from '@/modules/church/services/church.service';
 
 const chartConfig = {
   men: {
@@ -79,6 +80,7 @@ export const MemberAnalysisCardByDistrictAndGender = ({ churchId }: Props): JSX.
   const [mappedData, setMappedData] = useState<ResultDataOptions[]>();
   const [isInputSearchDistrictOpen, setIsInputSearchDistrictOpen] = useState<boolean>(false);
   const [searchParams, setSearchParams] = useState<SearchParamsOptions | undefined>(undefined);
+  const [currentDistricts, setCurrentDistricts] = useState<string[]>([]);
 
   //* Form
   const form = useForm<z.infer<typeof metricsFormSchema>>({
@@ -94,6 +96,11 @@ export const MemberAnalysisCardByDistrictAndGender = ({ churchId }: Props): JSX.
   const all = form.watch('all');
 
   //* Queries
+  const churchesQuery = useQuery({
+    queryKey: ['churches'],
+    queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+  });
+
   const membersByDistrictAndGenderQuery = useQuery({
     queryKey: ['members-by-district-and-gender', { ...searchParams, church: churchId }],
     queryFn: () => {
@@ -109,11 +116,21 @@ export const MemberAnalysisCardByDistrictAndGender = ({ churchId }: Props): JSX.
   });
 
   //* Effects
-  // Default value
   useEffect(() => {
-    setSearchParams({ district });
-    form.setValue('district', district);
-  }, [membersByDistrictAndGenderQuery?.data]);
+    const currentChurch = churchesQuery.data?.find((church) => church.id === churchId);
+    setSearchParams({ district: currentChurch?.district });
+    form.setValue('district', currentChurch?.district);
+  }, [churchId]);
+
+  useEffect(() => {
+    if (membersByDistrictAndGenderQuery?.data) {
+      const districts = Object.values(membersByDistrictAndGenderQuery?.data).map(
+        (payload) => payload.district
+      );
+
+      setCurrentDistricts([...new Set(districts)]);
+    }
+  }, [membersByDistrictAndGenderQuery?.data, churchId]);
 
   // Set data
   useEffect(() => {
@@ -202,26 +219,29 @@ export const MemberAnalysisCardByDistrictAndGender = ({ churchId }: Props): JSX.
                           />
                           <CommandEmpty>Distrito no encontrado.</CommandEmpty>
                           <CommandGroup className='max-h-[200px] h-auto'>
-                            {Object.values(District).map((district) => (
-                              <CommandItem
-                                className='text-[14px] md:text-[14px]'
-                                value={district}
-                                key={district}
-                                onSelect={() => {
-                                  form.setValue('district', district);
-                                  form.handleSubmit(handleSubmit)();
-                                  setIsInputSearchDistrictOpen(false);
-                                }}
-                              >
-                                {district}
-                                <CheckIcon
-                                  className={cn(
-                                    'ml-auto h-4 w-4',
-                                    district === field.value ? 'opacity-100' : 'opacity-0'
-                                  )}
-                                />
-                              </CommandItem>
-                            ))}
+                            {Object.values(District).map(
+                              (district) =>
+                                currentDistricts.includes(district) && (
+                                  <CommandItem
+                                    className='text-[14px] md:text-[14px]'
+                                    value={district}
+                                    key={district}
+                                    onSelect={() => {
+                                      form.setValue('district', district);
+                                      form.handleSubmit(handleSubmit)();
+                                      setIsInputSearchDistrictOpen(false);
+                                    }}
+                                  >
+                                    {district}
+                                    <CheckIcon
+                                      className={cn(
+                                        'ml-auto h-4 w-4',
+                                        district === field.value ? 'opacity-100' : 'opacity-0'
+                                      )}
+                                    />
+                                  </CommandItem>
+                                )
+                            )}
                           </CommandGroup>
                         </Command>
                       </PopoverContent>

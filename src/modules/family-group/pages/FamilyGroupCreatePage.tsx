@@ -727,7 +727,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
               >
                 {familyGroupCreationMutation?.isPending
                   ? 'Procesando...'
-                  : 'Registrar Casa Familiar'}
+                  : 'Registrar Grupo Familiar'}
               </Button>
             </div>
           </form>

@@ -36,7 +36,7 @@ export const AuthLayout = (): JSX.Element => {
 
           <img src='/jesus-image.webp' alt='Imagen Jesus' className='w-full h-full' />
         </div>
-        <div className='pl-4 pr-1 w-full lg:w-1/2 flex flex-col mt-7 items-center'>
+        <div className='pl-4 pr-1 w-full lg:w-1/2 flex flex-col justify-start md:justify-center items-center'>
           <Outlet />
         </div>
       </div>

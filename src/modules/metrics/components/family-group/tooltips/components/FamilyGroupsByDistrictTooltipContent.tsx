@@ -30,7 +30,7 @@ export const FamilyGroupsByDistrictTooltipContent = (
         ))}
       </ul>
 
-      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1.5'>
         <li
           className={
             'italic font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-300 text-slate-500'

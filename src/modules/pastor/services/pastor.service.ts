@@ -400,8 +400,9 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
 }
 
 //* General
-export const getGeneralPastorsReport = async ({limit, offset, order, churchId}: PastorQueryParams): Promise<boolean> => {
+export const getGeneralPastorsReport = async ({limit, offset, all, order, churchId}: PastorQueryParams): Promise<boolean> => {
    try {
+     if (!all) {
     const res = await icupApi<Blob>('/reports/pastors' , {
       params: {
         limit,
@@ -415,10 +416,25 @@ export const getGeneralPastorsReport = async ({limit, offset, order, churchId}: 
       responseType: 'blob',
     });
 
-  
     openPdfInNewTab(res.data);
 
     return true;
+    }else {
+      const res = await icupApi<Blob>('/reports/pastors' , {
+        params: {
+          order,
+          churchId
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+  
+      openPdfInNewTab(res.data);
+  
+      return true;
+    }
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)
@@ -437,7 +453,8 @@ export const getPastorsReportByTerm = async ({
   firstNamesTerm,
   lastNamesTerm,
   limit, 
-  offset, 
+  offset,
+  all,
   order,
   churchId
 }: PastorQueryParams): Promise<boolean> => {
@@ -464,6 +481,7 @@ export const getPastorsReportByTerm = async ({
   newTerm = termMapping[searchType as PastorSearchType];
 
    try {
+    if (!all) {
     const res = await icupApi<Blob>(`/reports/pastors/${newTerm}` , {
       params: {
         limit,
@@ -481,6 +499,23 @@ export const getPastorsReportByTerm = async ({
     openPdfInNewTab(res.data);
     
     return true;
+    }else {
+      const res = await icupApi<Blob>(`/reports/pastors/${newTerm}` , {
+        params: {
+          order,
+          churchId,
+          'search-type': searchType
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+      
+      openPdfInNewTab(res.data);
+      
+      return true;
+    }
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)

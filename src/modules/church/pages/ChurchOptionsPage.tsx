@@ -80,7 +80,7 @@ export const ChurchOptionsPage = (): JSX.Element => {
               Consultar Iglesias
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de iglesias y anexos por tipo de búsqueda
+              Consultar registros de iglesias y anexos por filtros
             </p>
           </WhiteCard>
         </NavLink>
@@ -97,7 +97,7 @@ export const ChurchOptionsPage = (): JSX.Element => {
               Actualizar Iglesia
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Actualizar información del registro de una iglesia
+              Modificar datos del registro de una iglesia
             </p>
           </WhiteCard>
         </NavLink>

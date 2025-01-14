@@ -34,7 +34,7 @@ export const MetricsOptionsPage = (): JSX.Element => {
       </p>
       <hr className='p-[0.015rem] bg-slate-500' />
 
-      <div className='w-full grid gap-8 px-[2rem] py-6 sm:px-[7rem] md:px-[4rem] lg:px-[3rem] xl:px-[3rem] 2xl:px-16 lg:gap-5 2xl:gap-8 lg:h-[54rem] 2xl:h-[43rem]'>
+      <div className='w-full grid gap-8 px-[2rem] py-6 sm:px-[7rem] md:px-[4rem] lg:px-[3rem] xl:px-[3rem] 2xl:px-16 lg:gap-5 2xl:gap-8 h-auto lg:h-screen'>
         <NavLink
           key='/metrics/member'
           to='/metrics/member'

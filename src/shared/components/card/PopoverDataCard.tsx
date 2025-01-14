@@ -3,7 +3,13 @@
 import { cn } from '@/shared/lib/utils';
 
 import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
-import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+} from '@/shared/components/ui/dialog';
 
 import { Button } from '@/shared/components/ui/button';
 
@@ -51,34 +57,60 @@ export const PopoverDataCard = ({
         </Button>
       </DialogTrigger>
 
-      <DialogContent className='flex flex-col w-[20rem] md:w-[24rem] h-auto overflow-y-auto rounded-lg p-5'>
+      <DialogContent
+        className={cn(
+          'flex flex-col w-[20rem] md:w-[23rem] h-auto rounded-lg pl-7 pr-0 overflow-scroll',
+          data && data?.length >= 36 && 'h-[40rem]',
+          title === 'Grupos Familiares' && 'md:w-[32rem]'
+        )}
+      >
         <div className='space-y-2'>
-          <h4 className='text-teal-500 font-bold text-[16px] md:text-[16px] leading-none'>
+          <DialogTitle className='text-teal-500 font-bold text-[16px] md:text-[18px] leading-none'>
             {title}
-          </h4>
-          <p className='text-[14px] md:text-[14px] text-muted-foreground'>
+          </DialogTitle>
+          <DialogDescription className='text-[14px] md:text-[15.5px] text-muted-foreground'>
             {title} que pertenecen a este {moduleName}.
-          </p>
+          </DialogDescription>
         </div>
 
         <ul
           className={cn(
-            'grid grid-cols-2 text-[14px] md:text-[14px] px-3 md:px-4 gap-2 gap-x-8 list-disc',
+            'grid grid-cols-2 text-[14px] md:text-[15px] px-3 md:px-4 gap-2 gap-x-8 list-disc',
             title === 'Anexos' && 'grid-cols-1'
           )}
         >
-          {data?.map((element: any) => {
-            const key = element?.id;
-            const displayValue =
-              title === 'Anexos' || title === 'Zonas' || title === 'Grupos Fam.'
-                ? `${element?.[firstValue]} - ${element?.[secondValue]}`
-                : getInitialFullNames({
-                    firstNames: element?.[firstValue] ?? '',
-                    lastNames: element?.[secondValue] ?? '',
-                  });
+          {data
+            ?.sort((a: any, b: any) => {
+              const valueA =
+                title === 'Anexos' || title === 'Zonas' || title === 'Grupos Familiares'
+                  ? `${a?.[firstValue]} - ${a?.[secondValue]}`
+                  : getInitialFullNames({
+                      firstNames: a?.[firstValue] ?? '',
+                      lastNames: a?.[secondValue] ?? '',
+                    });
 
-            return <li key={key}>{displayValue}</li>;
-          })}
+              const valueB =
+                title === 'Anexos' || title === 'Zonas' || title === 'Grupos Familiares'
+                  ? `${b?.[firstValue]} - ${b?.[secondValue]}`
+                  : getInitialFullNames({
+                      firstNames: b?.[firstValue] ?? '',
+                      lastNames: b?.[secondValue] ?? '',
+                    });
+
+              return valueA.localeCompare(valueB);
+            })
+            .map((element: any) => {
+              const key = element?.id;
+              const displayValue =
+                title === 'Anexos' || title === 'Zonas' || title === 'Grupos Familiares'
+                  ? `${element?.[firstValue]} - ${element?.[secondValue]}`
+                  : getInitialFullNames({
+                      firstNames: element?.[firstValue] ?? '',
+                      lastNames: element?.[secondValue] ?? '',
+                    });
+
+              return <li key={key}>{displayValue}</li>;
+            })}
         </ul>
         {/* </div> */}
       </DialogContent>

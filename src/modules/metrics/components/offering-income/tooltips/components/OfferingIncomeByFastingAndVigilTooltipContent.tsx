@@ -55,12 +55,12 @@ export const OfferingIncomeByFastingAndVigilTooltipContent = (
             {payload?.[0]?.payload?.allOfferings.length > 1 ? `${index + 1}° Ofrenda:` : `Ofrenda:`}
           </span>
           <span className='pl-1 dark:text-white text-black font-normal text-[13.5px] md:text-[13.5px]'>
-            {`${off.offering} ${off.currency} - ${dateFormatterToDDMMYY(addDays(off.date, 1))}`}
+            {`${off.offering.toFixed(2)} ${off.currency} - ${dateFormatterToDDMMYY(addDays(off.date, 1))}`}
           </span>
         </div>
       ))}
 
-      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1.5'>
         {(payload[0]?.payload?.type === OfferingIncomeCreationSubType.ZonalFasting ||
           payload[0]?.payload?.type === OfferingIncomeCreationSubType.ZonalVigil) && (
           <>

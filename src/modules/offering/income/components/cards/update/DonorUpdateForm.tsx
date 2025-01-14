@@ -122,7 +122,7 @@ export const DonorUpdateForm = ({
       className='w-[350px] sm:w-[450px] md:w-[630px] lg:w-[700px] xl:w-[700px]'
     >
       <h2 className='text-center leading-7 text-orange-500 pb-2 font-bold text-[24px] sm:text-[26px] md:text-[28px]'>
-        Actualizar información
+        Modificar datos
       </h2>
 
       <TabsContent value='general-info'>

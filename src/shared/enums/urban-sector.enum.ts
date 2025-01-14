@@ -48,8 +48,10 @@ export enum UrbanSector {
 
   //* Comas
   LaPascana = 'La Pascana',
+  LaMerced = 'La Merced',
   ElRetablo = 'El Retablo',
   SanAgustin = 'San Agustín',
+  SanFelipe = 'San Felipe',
   Collique = 'Collique',
   CarmenAlto = 'Carmen Alto',
   ChacraCerro = 'Chacra Cerro',
@@ -94,9 +96,11 @@ export const UrbanSectorNames: Record<UrbanSector, string> = {
 
   //* Comas
   [UrbanSector.LaPascana]: 'Sect. La Pascana',
+  [UrbanSector.LaMerced]: 'Sect. La Merced',
   [UrbanSector.ElRetablo]: 'Sect. El Retablo',
   [UrbanSector.SanAgustin]: 'Sect. San Agustin',
   [UrbanSector.Collique]: 'Sect. Collique',
+  [UrbanSector.SanFelipe]: 'Sect. San Felipe',
   [UrbanSector.CarmenAlto]: 'Sect. Carmen Alto',
   [UrbanSector.ChacraCerro]: 'Sect. Chacra Cerro',
   [UrbanSector.SantaLuzmila]: 'Sect. Santa Luzmila',

@@ -131,7 +131,7 @@ export const OfferingIncomeCurrencyExchangeForm = ({
       defaultValue='general-info'
       className='w-auto -mt-8 sm:w-[420px] md:w-[480px] lg:w-[440px] xl:w-[530px]'
     >
-      <h2 className='text-center text-teal-500 pb-1 font-bold text-[22px] sm:text-[22px] md:text-[24px]'>
+      <h2 className='text-center text-teal-500 font-bold text-[22px] sm:text-[22px] md:text-[26px]'>
         Cambio de Divisa
       </h2>
 

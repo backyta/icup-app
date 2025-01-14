@@ -405,24 +405,41 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
 }
 
 //* General
-export const getGeneralCopastorsReport = async ({limit, offset, order, churchId}: CopastorQueryParams): Promise<boolean> => {
+export const getGeneralCopastorsReport = async ({limit, offset, all, order, churchId}: CopastorQueryParams): Promise<boolean> => {
    try {
-    const res = await icupApi<Blob>('/reports/copastors' , {
-      params: {
-        limit,
-        offset,
-        order,
-        churchId,
-      },
-      headers: {
-      'Content-Type': 'application/pdf',
-      },
-      responseType: 'blob',
-    });
-    
-    openPdfInNewTab(res.data);
-
-    return true;
+     if (!all) {
+      const res = await icupApi<Blob>('/reports/copastors' , {
+        params: {
+          limit,
+          offset,
+          order,
+          churchId,
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+      
+      openPdfInNewTab(res.data);
+  
+      return true;
+      }else {
+      const res = await icupApi<Blob>('/reports/copastors' , {
+        params: {
+          order,
+          churchId,
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+      
+      openPdfInNewTab(res.data);
+  
+      return true;
+    }
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)
@@ -442,7 +459,8 @@ export const getCopastorsReportByTerm = async ({
   firstNamesTerm,
   lastNamesTerm,
   limit, 
-  offset, 
+  offset,
+  all,
   order,
   churchId,
 }: CopastorQueryParams): Promise<boolean> => {
@@ -469,24 +487,43 @@ export const getCopastorsReportByTerm = async ({
   newTerm = termMapping[searchType as CopastorSearchType];
 
    try {
-    const res = await icupApi<Blob>(`/reports/copastors/${newTerm}` , {
-      params: {
-        limit,
-        offset,
-        order,
-        churchId,
-        'search-type': searchType,
-        'search-sub-type': searchSubType
-      },
-      headers: {
-      'Content-Type': 'application/pdf',
-      },
-      responseType: 'blob',
-    });
-    
-    openPdfInNewTab(res.data);
+    if (!all) {
+      const res = await icupApi<Blob>(`/reports/copastors/${newTerm}` , {
+        params: {
+          limit,
+          offset,
+          order,
+          churchId,
+          'search-type': searchType,
+          'search-sub-type': searchSubType
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+      
+      openPdfInNewTab(res.data);
 
-    return true;
+      return true;
+    }else {
+      const res = await icupApi<Blob>(`/reports/copastors/${newTerm}` , {
+        params: {
+          order,
+          churchId,
+          'search-type': searchType,
+          'search-sub-type': searchSubType
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+      
+      openPdfInNewTab(res.data);
+
+      return true;
+    }
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)

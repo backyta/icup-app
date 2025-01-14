@@ -15,6 +15,7 @@ import { type TopFamilyGroupOfferingsPayload } from '@/modules/dashboard/interfa
 
 import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
 import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
+import { getFirstNameAndLastNames } from '@/shared/helpers/get-full-names.helper';
 
 export const TopFamilyGroupsTooltipContent = (
   props: TooltipConfig<TopFamilyGroupOfferingsPayload>
@@ -107,12 +108,17 @@ export const TopFamilyGroupsTooltipContent = (
         )}
       </ul>
 
-      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1.5'>
         <li className={' font-medium italic text-[13.5px] sm:text-[13.5px]'}>
           <span className='sm:-ml-1'>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
         </li>
         <li className={' font-medium italic text-[13.5px] sm:text-[13.5px]'}>
-          <span className='sm:-ml-1'>{`Predicador: ${payload[0]?.payload?.preacher?.firstNames} ${payload[0]?.payload?.preacher?.lastNames}`}</span>
+          <span className='sm:-ml-1'>
+            {`Predicador: ${getFirstNameAndLastNames({
+              firstNames: `${payload?.[0]?.payload?.preacher?.firstNames || ''}`,
+              lastNames: `${payload?.[0]?.payload?.preacher?.lastNames || ''}`,
+            })}`}
+          </span>
         </li>
         <li className=' font-medium italic text-[13.5px] sm:text-[13.5px]'>
           <span className='sm:-ml-1'>{`Miembros: ${payload[0]?.payload?.familyGroup?.disciples}`}</span>
@@ -135,7 +141,7 @@ export const TopFamilyGroupsTooltipContent = (
         </p>
       )}
 
-      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1.5'>
         {payload[0]?.payload?.accumulatedOfferingPEN > 0 && (
           <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
             <span className='sm:-ml-1'>{`Soles: ${payload[0]?.payload?.accumulatedOfferingPEN} PEN`}</span>

@@ -78,7 +78,7 @@ export const OfferingIncomeOptionsPage = (): JSX.Element => {
               Consultar Ingresos
             </h2>
             <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de ingreso de ofrendas por tipo de búsqueda
+              Consultar registros de ingreso de ofrendas por filtros
             </p>
           </WhiteCard>
         </NavLink>

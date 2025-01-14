@@ -23,7 +23,7 @@ import { zoneSupervisorUpdateFormSchema } from '@/modules/zone/validations/zone-
 
 import { cn } from '@/shared/lib/utils';
 
-import { getFullNames, getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
+import { getFullNames } from '@/shared/helpers/get-full-names.helper';
 
 import {
   Form,
@@ -130,7 +130,7 @@ export const ZoneSupervisorUpdateForm = ({
       defaultValue='general-info'
       className='-mt-8 w-auto sm:w-[480px] md:w-[550px] lg:w-[550px] xl:w-[600px]'
     >
-      <h2 className='text-center text-emerald-500 pb-2 font-bold text-[24px] sm:text-[22px] md:text-[24px]'>
+      <h2 className='text-center text-emerald-500 font-bold text-[24px] sm:text-[22px] md:text-[26px]'>
         Intercambiar Supervisores
       </h2>
 
@@ -140,10 +140,7 @@ export const ZoneSupervisorUpdateForm = ({
             <div className='font-bold text-[15px] md:text-[15px] mb-4'>
               Copastor:{' '}
               <span className='font-black text-blue-500 text-[16.5px] md:text-[17.5px]'>
-                {getInitialFullNames({
-                  firstNames: data?.theirCopastor?.firstNames ?? '',
-                  lastNames: data?.theirCopastor?.lastNames ?? '',
-                })}
+                {`${data?.theirCopastor?.firstNames} ${data?.theirCopastor?.lastNames}`}
               </span>
             </div>
 
@@ -352,18 +349,18 @@ export const ZoneSupervisorUpdateForm = ({
               </form>
             </Form>
             <div className='mt-3'>
-              <p className='text-red-500 text-[14px] md:text-[14px] font-bold mb-2'>
+              <p className='text-sky-500 text-[14px] md:text-[14px] font-bold mb-2'>
                 Consideraciones
               </p>
 
-              <p className='text-[12.5px] md:text-[13px] mb-2 font-medium '>
+              <p className='text-[13px] md:text-[13px] mb-2 font-medium '>
                 ✅ Solo se podrá hacer intercambio entre los supervisores que tengan el mismo
                 Co-Pastor.
               </p>
-              <p className='text-[12.5px] md:text-[13px] mb-2 font-medium '>
+              <p className='text-[13px] md:text-[13px] mb-2 font-medium '>
                 ✅ Al ejecutar el intercambio el supervisor pasara a la otra Zona y viceversa.
               </p>
-              <p className='text-[12.5px] md:text-[13px] mb-2 font-medium '>
+              <p className='text-[13px] md:text-[13px] mb-2 font-medium '>
                 ✅ Si quieres intercambiar por otro Supervisor, primero deberás actualizar ese
                 Supervisor al Co-Pastor correspondiente.
               </p>

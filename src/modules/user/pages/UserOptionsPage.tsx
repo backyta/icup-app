@@ -79,7 +79,7 @@ export const UserOptionsPage = (): JSX.Element => {
               Consultar Usuarios
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de usuarios por tipo de búsqueda
+              Consultar registros de usuarios por filtros
             </p>
           </WhiteCard>
         </NavLink>
@@ -96,7 +96,7 @@ export const UserOptionsPage = (): JSX.Element => {
               Actualizar Usuario
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Actualizar información del registro de un usuario
+              Modificar datos del registro de un usuario
             </p>
           </WhiteCard>
         </NavLink>

@@ -52,9 +52,8 @@ export const getSimpleFamilyGroups = async ({isSimpleQuery, churchId}:{isSimpleQ
 
 // ? GET FAMILY GROUPS (paginated)
 export const getFamilyGroups = async ({limit, offset, all, order, churchId}: FamilyGroupQueryParams): Promise<FamilyGroupResponse[]> => {
-
  let result: FamilyGroupResponse[];
-
+  
   try {
     if (!all) {
       const {data} = await icupApi<FamilyGroupResponse[]>('/family-groups' , {
@@ -366,24 +365,42 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
 }
 
 //* General
-export const getGeneralFamilyGroupsReport = async ({limit, offset, order, churchId}: FamilyGroupQueryParams): Promise<boolean> => {
-   try {
-    const res = await icupApi<Blob>('/reports/family-groups' , {
-      params: {
-        limit,
-        offset,
-        order,
-        churchId
-      },
-      headers: {
-      'Content-Type': 'application/pdf',
-      },
-      responseType: 'blob',
-    });
-    
-    openPdfInNewTab(res.data);
+export const getGeneralFamilyGroupsReport = async ({limit, all, offset, order, churchId}: FamilyGroupQueryParams): Promise<boolean> => {
 
-    return true;
+  try {
+    if (!all) {
+      const res = await icupApi<Blob>('/reports/family-groups' , {
+        params: {
+          limit,
+          offset,
+          order,
+          churchId
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+  
+      openPdfInNewTab(res.data);
+  
+      return true;
+    }else {
+      const res = await icupApi<Blob>('/reports/family-groups' , {
+        params: {
+          order,
+          churchId
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+  
+      openPdfInNewTab(res.data);
+  
+      return true;
+    }
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)
@@ -404,6 +421,7 @@ export const getFamilyGroupsReportByTerm = async ({
   limit, 
   offset, 
   order,
+  all,
   churchId
 }: FamilyGroupQueryParams): Promise<boolean> => {
   let newTerm: string | undefined = '';
@@ -415,6 +433,7 @@ export const getFamilyGroupsReportByTerm = async ({
     [FamilyGroupSearchType.ZoneName]: inputTerm,
     [FamilyGroupSearchType.FamilyGroupCode]: inputTerm,
     [FamilyGroupSearchType.FamilyGroupName]: inputTerm,
+    [FamilyGroupSearchType.Country]: inputTerm,
     [FamilyGroupSearchType.Department]: inputTerm,
     [FamilyGroupSearchType.Province]: inputTerm,
     [FamilyGroupSearchType.District]: inputTerm,
@@ -426,24 +445,43 @@ export const getFamilyGroupsReportByTerm = async ({
   newTerm = termMapping[searchType as FamilyGroupSearchType];
 
    try {
-    const res = await icupApi<Blob>(`/reports/family-groups/${newTerm}` , {
-      params: {
-        limit,
-        offset,
-        order,
-        churchId,
-        'search-type': searchType,
-        'search-sub-type': searchSubType
-      },
-      headers: {
-      'Content-Type': 'application/pdf',
-      },
-      responseType: 'blob',
-    });
-    
-    openPdfInNewTab(res.data);
-    
-    return true;
+    if (!all) {
+      const res = await icupApi<Blob>(`/reports/family-groups/${newTerm}` , {
+        params: {
+          limit,
+          offset,
+          order,
+          churchId,
+          'search-type': searchType,
+          'search-sub-type': searchSubType
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+      
+      openPdfInNewTab(res.data);
+      
+      return true;
+    }else {
+      const res = await icupApi<Blob>(`/reports/family-groups/${newTerm}` , {
+        params: {
+          order,
+          churchId,
+          'search-type': searchType,
+          'search-sub-type': searchSubType
+        },
+        headers: {
+        'Content-Type': 'application/pdf',
+        },
+        responseType: 'blob',
+      });
+      
+      openPdfInNewTab(res.data);
+      
+      return true;
+    }
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)

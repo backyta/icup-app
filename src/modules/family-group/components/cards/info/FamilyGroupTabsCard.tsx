@@ -15,6 +15,9 @@ import {
 
 import { type FamilyGroupResponse } from '@/modules/family-group/interfaces/family-group-response.interface';
 
+import { FamilyGroupServiceTime } from '@/modules/family-group/enums/family-group-service-time.enum';
+import { FamilyGroupServiceTimeNames } from '@/modules/family-group/enums/family-group-service-time.enum';
+
 import { cn } from '@/shared/lib/utils';
 
 import { PopoverDataCard } from '@/shared/components/card/PopoverDataCard';
@@ -118,10 +121,17 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
               </CardDescription>
             </div>
 
-            <div className='space-y-1 col-start-2 col-end-4'>
+            <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Nro. discípulos</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.disciples?.length ?? '-'}
+              </CardDescription>
+            </div>
+
+            <div className='space-y-1'>
+              <Label className='text-[14px] md:text-[15px]'>Hr. Culto</Label>
+              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                {FamilyGroupServiceTimeNames[data?.serviceTime as FamilyGroupServiceTime] ?? '-'}
               </CardDescription>
             </div>
 
@@ -261,7 +271,7 @@ export const FamilyGroupTabsCard = ({ data, id }: FamilyGroupTabsCardProps): JSX
         <Card>
           <CardHeader className='text-center pb-6 pt-2'>
             <CardTitle className='text-yellow-500 text-[23px] md:text-[28px] font-bold -mb-2'>
-              Eclesiástica
+              Información Eclesiástica
             </CardTitle>
             <CardDescription className='text-[14px] md:text-[15px]'>
               Información eclesiástica y relaciones ministeriales.

@@ -125,10 +125,10 @@ export const UserPasswordUpdateForm = ({
   return (
     <Tabs
       defaultValue='general-info'
-      className='w-auto sm:w-[420px] md:w-[480px] lg:w-[440px] xl:w-[530px]'
+      className='w-auto sm:w-[420px] md:w-[480px] lg:w-[440px] xl:w-[530px] -mt-8'
     >
-      <h2 className='text-center text-purple-500 pb-2 font-bold text-[22px] sm:text-[22px] md:text-[24px]'>
-        Actualizar contraseña
+      <h2 className='text-center text-purple-500 font-bold text-[22px] sm:text-[22px] md:text-[26px]'>
+        Modificar contraseña
       </h2>
 
       <TabsContent value='general-info' className='overflow-y-auto'>

@@ -71,8 +71,6 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
     };
   }, [id]);
 
-  console.log(data);
-
   return (
     <Tabs defaultValue='general-info' className='md:-mt-8 w-[650px] md:w-[630px]'>
       <TabsList className='grid w-full px-auto grid-cols-1'>

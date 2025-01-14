@@ -67,7 +67,7 @@ export const OfferingIncomeBySundaySchoolTooltipContent = (
                             : 'Ofrenda'
                       }`}
                     </span>
-                    <span className='pl-1 font-normal dark:text-white text-black'>{`${entry.value} 
+                    <span className='pl-1 font-normal dark:text-white text-black'>{`${entry.value.toFixed(2)} 
               ${
                 entry?.dataKey === 'dayPEN' ||
                 entry?.dataKey === 'afternoonPEN' ||
@@ -88,7 +88,7 @@ export const OfferingIncomeBySundaySchoolTooltipContent = (
         })()}
       </ul>
 
-      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1.5'>
         <li className={'font-medium italic text-[13.5px] sm:text-[13.5px]'}>
           <span className='sm:-ml-1'>{`Categoría: ${OfferingIncomeCreationCategoryNames[payload[0]?.payload?.category as OfferingIncomeCreationCategory]}`}</span>
         </li>
@@ -135,7 +135,7 @@ export const OfferingIncomeBySundaySchoolTooltipContent = (
       )}
 
       {payload?.[0]?.payload?.category === OfferingIncomeCreationCategory.OfferingBox && (
-        <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+        <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1.5'>
           {totalAccumulatedPEN > 0 && (
             <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
               <span className='sm:-ml-1'>{`Soles: ${totalAccumulatedPEN} ${CurrencyType.PEN}`}</span>

@@ -463,7 +463,7 @@ export const CopastorTabsCard = ({ data, id }: CopastorTabsCardProps): JSX.Eleme
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid grid-cols-2 pl-[2rem] pr-[0.5rem] sm:pl-[6rem] gap-x-8 gap-y-4  md:gap-x-16 md:gap-y-6 md:pl-[5.5rem] md:pr-[3rem]'>
+          <CardContent className='grid grid-cols-2 pl-[2rem] pr-[0.5rem] sm:pl-[6rem] gap-x-8 gap-y-4  md:gap-x-16 md:gap-y-6 md:pl-[6rem] md:pr-[3rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Correo Electrónico</Label>
               <CardDescription className='break-words px-2 text-[14px] md:text-[14.5px]'>

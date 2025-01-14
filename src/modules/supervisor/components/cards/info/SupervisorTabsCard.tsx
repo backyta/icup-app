@@ -451,7 +451,7 @@ export const SupervisorTabsCard = ({ data, id }: SupervisorTabsCardProps): JSX.E
             </CardDescription>
           </CardHeader>
 
-          <CardContent className='grid grid-cols-2 pl-[1.5rem] pr-[0.5rem] sm:pl-[6rem] gap-x-10 gap-y-4  md:gap-x-16 md:gap-y-6 md:pl-[5.5rem] md:pr-[3rem]'>
+          <CardContent className='grid grid-cols-2 pl-[1.5rem] pr-[0.5rem] sm:pl-[6rem] gap-x-10 gap-y-4  md:gap-x-16 md:gap-y-6 md:pl-[6rem] md:pr-[3rem]'>
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Correo Electrónico</Label>
               <CardDescription className='break-words px-2 text-[14px] md:text-[14.5px]'>

@@ -33,7 +33,7 @@ function Calendar({
         dropdown_icon: '',
         caption_dropdowns: 'flex gap-x-2 -ml-2',
         dropdown:
-          'text-black text-[1rem] md:text-[0.9rem] w-auto border-none dark:bg-slate-300 rounded-md',
+          'text-black text-[1rem] md:text-[0.9rem] w-auto border-none bg-slate-100 dark:bg-slate-300 rounded-md',
         dropdown_month: 'w-full flex text-[0rem]',
         dropdown_year: 'w-full flex text-[0rem]',
         caption: 'flex flex-col justify-items-start pt-1 relative items-center',
@@ -42,7 +42,7 @@ function Calendar({
         nav: 'space-x-1 flex items-center text-[2rem]',
         nav_button: cn(
           buttonVariants({ variant: 'outline' }),
-          'h-8 w-8 bg-transparent p-0 opacity-50 hover:opacity-100 bg-slate-300 dark:bg-none text-slate-950'
+          'h-8 w-8 p-0 dark:bg-slate-300 bg-slate-100 text-slate-950'
         ),
         nav_button_previous: 'absolute left-0',
         nav_button_next: 'absolute right-0',

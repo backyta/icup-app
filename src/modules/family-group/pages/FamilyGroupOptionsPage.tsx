@@ -77,7 +77,7 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
               Consultar Grupos Familiares
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de grupos familiares por tipo de búsqueda
+              Consultar registros de grupos familiares por filtros
             </p>
           </WhiteCard>
         </NavLink>
@@ -91,10 +91,10 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
           <WhiteCard className='h-[11.5rem] md:h-[11rem]' centered>
             <FcSupport className='text-[10rem] lg:text-[8rem] xl:text-[6rem]' />
             <h2 className='text-orange-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
-              Actualizar Casa Familiar
+              Actualizar Grupo Familiar
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Actualizar información del registro de un grupo familiar
+              Modificar datos del registro de un grupo familiar
             </p>
           </WhiteCard>
         </NavLink>
@@ -108,7 +108,7 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
           <WhiteCard className='h-[11.5rem] md:h-[11rem]' centered>
             <RiDeleteBin2Fill className='text-[4rem] lg:text-[7rem] xl:text-[6rem] text-red-500' />
             <h2 className='text-red-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
-              Inactivar Casa Familiar
+              Inactivar Grupo Familiar
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
               Inactivar registro de un grupo familiar.

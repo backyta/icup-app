@@ -80,7 +80,7 @@ export const ZoneOptionsPage = (): JSX.Element => {
               Consultar Zonas
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Consultar registros de zonas por tipo de búsqueda
+              Consultar registros de zonas por filtros
             </p>
           </WhiteCard>
         </NavLink>
@@ -97,7 +97,7 @@ export const ZoneOptionsPage = (): JSX.Element => {
               Actualizar Zona
             </h2>
             <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
-              Actualizar información del registro de una zona
+              Modificar datos del registro de una zona
             </p>
           </WhiteCard>
         </NavLink>

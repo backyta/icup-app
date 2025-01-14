@@ -117,10 +117,7 @@ export default {
       bounce: 'bounce 1s infinite',
     },
     fontFamily: {
-      'archivo': ['Archivo', 'sans-serif'],
-      'cormorant-garamond': ['Cormorant Garamond', 'serif'],
       'dancing-script': ['Dancing Script', 'cursive'],
-      'satisfy': ['Satisfy', 'cursive'],
     },
     keyframes: {
       fadeIn: {

@@ -276,8 +276,9 @@ const openPdfInNewTab = (pdfBlob: Blob): void => {
 }
 
 //* General
-export const getGeneralChurchesReport = async ({limit, offset, order}: ChurchQueryParams): Promise<boolean> => {
+export const getGeneralChurchesReport = async ({limit, offset, all, order}: ChurchQueryParams): Promise<boolean> => {
    try {
+    if (!all) {
     const res = await icupApi<Blob>('/reports/churches' , {
       params: {
         limit,
@@ -293,6 +294,21 @@ export const getGeneralChurchesReport = async ({limit, offset, order}: ChurchQue
     openPdfInNewTab(res.data);
 
     return true;
+    }else {
+    const res = await icupApi<Blob>('/reports/churches' , {
+      params: {
+        order,
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+
+    return true;
+    }
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)
@@ -303,7 +319,7 @@ export const getGeneralChurchesReport = async ({limit, offset, order}: ChurchQue
  }
 
 //* By term
-export const getChurchesReportByTerm = async ({ searchType, inputTerm, dateTerm, selectTerm, limit, offset, order}: ChurchQueryParams): Promise<boolean> => {
+export const getChurchesReportByTerm = async ({ searchType, inputTerm, all, dateTerm, selectTerm, limit, offset, order}: ChurchQueryParams): Promise<boolean> => {
 
   let newTerm: string | undefined = '';
   
@@ -321,6 +337,7 @@ export const getChurchesReportByTerm = async ({ searchType, inputTerm, dateTerm,
   newTerm = termMapping[searchType as ChurchSearchType];
 
    try {
+    if (!all) {
     const res = await icupApi<Blob>(`/reports/churches/${newTerm}` , {
       params: {
         limit,
@@ -337,6 +354,22 @@ export const getChurchesReportByTerm = async ({ searchType, inputTerm, dateTerm,
     openPdfInNewTab(res.data);
     
     return true;
+    }else {
+    const res = await icupApi<Blob>(`/reports/churches/${newTerm}` , {
+      params: {
+        order,
+        'search-type': searchType
+      },
+      headers: {
+      'Content-Type': 'application/pdf',
+      },
+      responseType: 'blob',
+    });
+    
+    openPdfInNewTab(res.data);
+    
+    return true;
+    }
    } catch (error) {
      if (isAxiosError(error) && error.response) {
        throw (error.response.data)

@@ -115,8 +115,6 @@ export const ChurchesSearchPageByTerm = (): JSX.Element => {
   const limit = form.watch('limit');
   const order = form.watch('order');
 
-  console.log(searchType);
-
   //* Effects
   useEffect(() => {
     if (form.getValues('all')) {

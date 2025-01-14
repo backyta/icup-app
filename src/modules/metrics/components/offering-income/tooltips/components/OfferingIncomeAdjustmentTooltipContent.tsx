@@ -39,7 +39,7 @@ export const OfferingIncomeAdjustmentTooltipContent = (
             }}
           ></span>
           <span className='font-medium text-[13.5px] md:text-[13.5px]'>
-            {payload?.[0]?.payload?.allOfferings.length > 1 ? `${index + 1}° Ofrenda:` : `Ofrenda:`}
+            {payload?.[0]?.payload?.allOfferings.length > 1 ? `${index + 1}° Ofrenda:` : `Monto:`}
           </span>
           <span className='pl-1 dark:text-white text-black font-normal text-[13.5px] md:text-[13.5px]'>
             {`${off.offering} ${off.currency}`}
@@ -47,43 +47,10 @@ export const OfferingIncomeAdjustmentTooltipContent = (
         </div>
       ))}
 
-      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
+      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1.5'>
         <li className={'font-medium italic text-[13.5px] sm:text-[13.5px]'}>
           <span className='sm:-ml-1'>{`Iglesia: ${payload[0]?.payload?.church?.abbreviatedChurchName} ${payload[0]?.payload?.church?.isAnexe ? ' - (Anexo)' : ''}`}</span>
         </li>
-      </ul>
-
-      {(payload[0]?.payload?.accumulatedOfferingPEN > 0 &&
-        payload[0]?.payload?.accumulatedOfferingUSD > 0) ||
-      (payload[0]?.payload?.accumulatedOfferingPEN > 0 &&
-        payload[0]?.payload?.accumulatedOfferingEUR > 0) ? (
-        <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-yellow-500 text-amber-500'>
-          Totales acumulados:
-        </p>
-      ) : (
-        <p className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-yellow-500 text-amber-500'>
-          Total acumulado:
-        </p>
-      )}
-
-      <ul className='list-disc pl-3 sm:pl-4 flex flex-col gap-1'>
-        {payload[0]?.payload?.accumulatedOfferingPEN > 0 && (
-          <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-            <span className='sm:-ml-1'>{`Soles: ${payload[0]?.payload?.accumulatedOfferingPEN} PEN`}</span>
-          </li>
-        )}
-
-        {payload[0]?.payload?.accumulatedOfferingUSD > 0 && (
-          <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-            <span className='sm:-ml-1'>{`Dolares: ${payload[0]?.payload?.accumulatedOfferingUSD} USD`}</span>
-          </li>
-        )}
-
-        {payload[0]?.payload?.accumulatedOfferingEUR > 0 && (
-          <li className='font-medium text-[13.5px] sm:text-[13.5px] dark:text-slate-400 text-slate-500'>
-            <span className='sm:-ml-1'>{`Euros: ${payload[0]?.payload?.accumulatedOfferingEUR} EUR`}</span>
-          </li>
-        )}
       </ul>
     </div>
   );
