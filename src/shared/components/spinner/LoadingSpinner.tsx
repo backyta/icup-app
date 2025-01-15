@@ -37,7 +37,7 @@ const generalPaths = [
   '/dashboard',
 ];
 
-const searchOrUpdatePaths = ['/general-search', '/search-by-term', '/update', '/inactivate'];
+const searchOrUpdatePaths = ['/general-search', '/search-by-term', '/update', '/inactivate', '/'];
 
 const metricsPaths = [
   '/metrics/member',
@@ -71,11 +71,11 @@ export const LoadingSpinner = ({ isPendingRequest }: SpinnerProps): JSX.Element 
   return (
     <div
       className={cn(
-        'className="min-h-screen flex items-center justify-center text-slate-100 dark:bg-slate-950',
+        'h-screen flex items-center justify-center text-slate-100 dark:bg-slate-950',
         isPendingRequest && '-mt-[20rem] md:-mt-[15rem]',
         !isPendingRequest &&
-          'md:min-h-screen md:flex md:flex-col md:items-center md:justify-center -mt-[4rem]',
-        isSearchOrUpdatePath(pathname) && 'min-h-screen',
+          'md:h-screen md:flex md:flex-col md:items-center md:justify-center md:-mt-[4rem]',
+        isSearchOrUpdatePath(pathname) && 'h-screen',
         isMetricsPath(pathname) && 'bg-slate-50/40 dark:bg-slate-950/10'
       )}
     >
