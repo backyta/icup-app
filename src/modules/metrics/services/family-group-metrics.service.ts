@@ -22,7 +22,7 @@ export const  getFamilyGroupsProportion = async ({
   try {
     const {data} = await icupApi<FamilyGroupsProportionResponse>(`/metrics/${church}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -48,7 +48,7 @@ export const  getFluctuationFamilyGroupsByYear = async ({
   try {
     const {data} = await icupApi<FamilyGroupsFluctuationResponse[]>(`/metrics/${church}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -74,7 +74,7 @@ export const  getFamilyGroupsByZone = async ({
   try {
     const {data} = await icupApi<FamilyGroupsByZoneResponse>(`/metrics/${church}&${zone}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         allFamilyGroups: allFamilyGroups?.toString(),
         order
       },
@@ -101,7 +101,7 @@ export const  getFamilyGroupsByCopastorAndZone = async ({
   try {
     const {data} = await icupApi<FamilyGroupsByCopastorAndZoneResponse>(`/metrics/${church}&${copastor}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         allZones: allZones?.toString(),
         order
       },
@@ -127,7 +127,7 @@ export const  getFamilyGroupsByDistrict = async ({
   try {
     const {data} = await icupApi<FamilyGroupsByCopastorAndZoneResponse>(`/metrics/${church}&${district}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -153,7 +153,7 @@ export const  getFamilyGroupsByServiceTime =  async ({
   try {
     const {data} = await icupApi<FamilyGroupsByServiceTimeResponse>(`/metrics/${church}&${zone}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         allZones: allZones?.toString(),
         order
       },
@@ -180,7 +180,7 @@ export const  getFamilyGroupsByRecordStatus =  async ({
   try {
     const {data} = await icupApi<FamilyGroupsByRecordStatusResponse>(`/metrics/${church}&${zone}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         allZones: allZones?.toString(),
         order
       },

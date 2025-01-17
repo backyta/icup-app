@@ -85,7 +85,7 @@ export const getUsersByTerm = async ({
             limit,
             offset,
             order,
-            'search-type': searchType
+            searchType
           },
         });
         
@@ -94,7 +94,7 @@ export const getUsersByTerm = async ({
         const {data} = await icupApi<UserResponse[]>(`/users/${selectTerm}` , {
           params: {
             order,
-            'search-type': searchType
+            searchType
           },
         });
         result = data;
@@ -120,7 +120,7 @@ export const getUsersByTerm = async ({
               limit,
               offset,
               order,
-              'search-type': searchType
+              searchType
             },
           });
           
@@ -129,7 +129,7 @@ export const getUsersByTerm = async ({
           const {data} = await icupApi<UserResponse[]>(`/users/${selectTerm}` , {
             params: {
               order,
-              'search-type': searchType
+              searchType
             },
           });
           result = data;
@@ -156,7 +156,7 @@ export const getUsersByTerm = async ({
           limit,
           offset,
           order,
-          'search-type': searchType
+          searchType
         },
       });
       
@@ -165,7 +165,7 @@ export const getUsersByTerm = async ({
       const {data} = await icupApi<UserResponse[]>(`/users/${firstNamesTerm}` , {
         params: {
           order,
-          'search-type': searchType
+          searchType
         },
       });
 
@@ -193,7 +193,7 @@ export const getUsersByTerm = async ({
           limit,
           offset,
           order,
-          'search-type': searchType
+          searchType
         },
       });
       
@@ -202,7 +202,7 @@ export const getUsersByTerm = async ({
       const {data} = await icupApi<UserResponse[]>(`/users/${lastNamesTerm}` , {
         params: {
           order,
-          'search-type': searchType
+          searchType
         },
       });
 
@@ -230,7 +230,7 @@ export const getUsersByTerm = async ({
           limit,
           offset,
           order,
-          'search-type': searchType
+          searchType
         },
       });
       
@@ -239,7 +239,7 @@ export const getUsersByTerm = async ({
       const {data} = await icupApi<UserResponse[]>(`/users/${firstNamesTerm}-${lastNamesTerm}` , {
         params: {
           order,
-          'search-type': searchType
+          searchType
         },
       });
 
@@ -386,7 +386,7 @@ export const getUsersReportByTerm = async ({
           limit,
           offset,
           order,
-          'search-type': searchType,
+          searchType,
         },
         headers: {
         'Content-Type': 'application/pdf',
@@ -401,7 +401,7 @@ export const getUsersReportByTerm = async ({
       const res = await icupApi<Blob>(`/reports/users/${newTerm}` , {
         params: {
           order,
-          'search-type': searchType,
+          searchType,
         },
         headers: {
         'Content-Type': 'application/pdf',

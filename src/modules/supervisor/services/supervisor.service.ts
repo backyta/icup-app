@@ -107,7 +107,7 @@ export const getSupervisorsByCopastor = async ({
     const {data} = await icupApi<SupervisorResponse[]>(`/supervisors/${copastorId}` , {
       params: {
         order: RecordOrder.Ascending,
-        'search-type': searchType,
+        searchType,
         isNullZone: isNullZone.toString(),
       },
     }
@@ -160,7 +160,7 @@ export const getSupervisorsByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         
@@ -170,7 +170,7 @@ export const getSupervisorsByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         result = data;
@@ -197,7 +197,7 @@ export const getSupervisorsByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         
@@ -207,7 +207,7 @@ export const getSupervisorsByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         result = data;
@@ -238,7 +238,7 @@ export const getSupervisorsByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           
@@ -248,7 +248,7 @@ export const getSupervisorsByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           result = data;
@@ -276,8 +276,8 @@ export const getSupervisorsByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -287,8 +287,8 @@ export const getSupervisorsByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -317,8 +317,8 @@ export const getSupervisorsByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
           
@@ -328,8 +328,8 @@ export const getSupervisorsByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -358,8 +358,8 @@ export const getSupervisorsByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
           
@@ -369,8 +369,8 @@ export const getSupervisorsByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -533,8 +533,8 @@ export const getSupervisorsReportByTerm = async ({
           offset,
           order,
           churchId,
-          'search-type': searchType,
-          'search-sub-type': searchSubType
+          searchType,
+          searchSubType
         },
         headers: {
         'Content-Type': 'application/pdf',
@@ -550,8 +550,8 @@ export const getSupervisorsReportByTerm = async ({
         params: {
           order,
           churchId,
-          'search-type': searchType,
-          'search-sub-type': searchSubType
+          searchType,
+          searchSubType
         },
         headers: {
         'Content-Type': 'application/pdf',

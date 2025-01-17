@@ -27,7 +27,7 @@ export const getOfferingIncomeProportion = async ({
   try {
     const {data} = await icupApi<OfferingIncomeProportionResponse>(`/metrics/${church}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -55,7 +55,7 @@ export const getOfferingIncomeBySundayService = async ({
   try {
     const {data} = await icupApi<OfferingIncomeBySundayServiceResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },
@@ -84,7 +84,7 @@ export const getOfferingIncomeByFamilyGroup = async ({
   try {
     const {data} = await icupApi<OfferingIncomeByFamilyGroupResponse[]>(`/metrics/${church}&${zone}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },
@@ -112,7 +112,7 @@ export const getOfferingIncomeBySundaySchool = async ({
   try {
     const {data} = await icupApi<OfferingIncomeBySundaySchoolResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },
@@ -140,7 +140,7 @@ export const getOfferingIncomeByFastingAndVigil = async ({
   try {
     const {data} = await icupApi<OfferingIncomeByFastingAndVigilResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },
@@ -168,7 +168,7 @@ export const getOfferingIncomeByYouthService = async ({
   try {
     const {data} = await icupApi<OfferingIncomeByYouthServiceResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },
@@ -196,7 +196,7 @@ export const getOfferingIncomeBySpecialOffering = async ({
   try {
     const {data} = await icupApi<OfferingIncomeBySpecialOfferingResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },
@@ -224,7 +224,7 @@ export const getOfferingIncomeByChurchGround = async ({
   try {
     const {data} = await icupApi<OfferingIncomeByChurchGroundOfferingResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },
@@ -252,7 +252,7 @@ export const getOfferingIncomeByUnitedService = async ({
   try {
     const {data} = await icupApi<OfferingIncomeByUnitedServiceResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },
@@ -280,7 +280,7 @@ export const getOfferingIncomeByActivities = async ({
   try {
     const {data} = await icupApi<OfferingIncomeByActivitiesResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },
@@ -308,7 +308,7 @@ export const getOfferingIncomeAdjustment = async ({
   try {
     const {data} = await icupApi<OfferingIncomeByIncomeAdjustmentResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },

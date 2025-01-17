@@ -17,7 +17,6 @@ export interface LoginResponse {
   token: string;
 }
 
-
 export class AuthService {
   static login = async(email: string, password: string): Promise<LoginResponse> => {
     try {

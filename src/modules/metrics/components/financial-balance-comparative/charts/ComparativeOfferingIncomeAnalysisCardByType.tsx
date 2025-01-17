@@ -128,7 +128,7 @@ export const ComparativeOfferingIncomeAnalysisCardByType = ({ churchId }: Props)
     queryFn: async () => {
       return await getComparativeOfferingIncomeByType({
         searchType: MetricSearchType.ComparativeOfferingIncomeByType,
-        type: searchParams?.type ?? type,
+        metricType: searchParams?.type ?? type,
         year: searchParams?.year ?? year,
         church: churchId ?? '',
         order: RecordOrder.Descending,
@@ -352,7 +352,7 @@ export const ComparativeOfferingIncomeAnalysisCardByType = ({ churchId }: Props)
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[288px] sm:h-[345px] md:h-[345px] lg:h-[415px] xl:h-[415px] 2xl:h-[415px]'
+                'w-full h-full sm:h-[345px] md:h-[345px] lg:h-[415px] xl:h-[415px] 2xl:h-[415px]'
               )}
             >
               <BarChart

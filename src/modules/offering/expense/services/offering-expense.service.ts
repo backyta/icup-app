@@ -88,8 +88,8 @@ export const getOfferingsExpensesByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType,
-            'search-sub-type': searchSubType
+            searchType,
+            searchSubType
           },
         });
         
@@ -99,8 +99,8 @@ export const getOfferingsExpensesByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType,
-            'search-sub-type': searchSubType
+            searchType,
+            searchSubType
           },
         });
 
@@ -129,7 +129,7 @@ export const getOfferingsExpensesByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           
@@ -139,7 +139,7 @@ export const getOfferingsExpensesByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
 
@@ -291,8 +291,8 @@ export const getOfferingExpensesReportByTerm = async ({
           offset,
           order,
           churchId,
-          'search-type': searchType,
-          'search-sub-type': searchSubType
+          searchType,
+          searchSubType
         },
         headers: {
         'Content-Type': 'application/pdf',
@@ -308,8 +308,8 @@ export const getOfferingExpensesReportByTerm = async ({
         params: {
           order,
           churchId,
-          'search-type': searchType,
-          'search-sub-type': searchSubType
+          searchType,
+          searchSubType
         },
         headers: {
         'Content-Type': 'application/pdf',

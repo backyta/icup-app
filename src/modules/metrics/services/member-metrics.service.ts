@@ -26,7 +26,7 @@ export const  getMembersProportion = async ({
   try {
     const {data} = await icupApi<MembersProportionResponse>(`/metrics/${church}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -52,7 +52,7 @@ export const  getFluctuationMembersByYear = async ({
   try {
     const {data} = await icupApi<MembersFluctuationResponse[]>(`/metrics/${church}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -76,7 +76,7 @@ export const  getMembersByBirthMonth = async ({
   try {
     const {data} = await icupApi<MembersByBirthMonthResponse[]>(`/metrics/${church}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -100,7 +100,7 @@ export const  getMembersByCategory = async ({
   try {
     const {data} = await icupApi<MembersByCategoryResponse>(`/metrics/${church}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -124,7 +124,7 @@ export const  getMembersByCategoryAndGender = async ({
   try {
     const {data} = await icupApi<MembersByCategoryAndGenderResponse>(`/metrics/${church}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -148,7 +148,7 @@ export const  getMembersByRole = async ({
   try {
     const {data} = await icupApi<MembersByRoleAndGenderResponse>(`/metrics/${church}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -172,7 +172,7 @@ export const  getMembersByMaritalStatus = async ({
   try {
     const {data} = await icupApi<MembersByMaritalStatusResponse>(`/metrics/${church}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -198,7 +198,7 @@ export const  getDisciplesByZoneAndGender = async ({
   try {
     const {data} = await icupApi<MembersByZoneAndGenderResponse>(`/metrics/${church}&${copastor}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         allZones: allZones?.toString(),
         order
       },
@@ -225,7 +225,7 @@ export const  getPreachersByZoneAndGender = async ({
   try {
     const {data} = await icupApi<MembersByZoneAndGenderResponse>(`/metrics/${church}&${copastor}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         allZones: allZones?.toString(),
         order
       },
@@ -251,7 +251,7 @@ export const  getMembersByDistrictAndGender = async ({
   try {
     const {data} = await icupApi<MembersByDistrictAndGenderResponse>(`/metrics/${church}&${district}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -275,7 +275,7 @@ export const  getMembersByRecordStatus = async ({
   try {
     const {data} = await icupApi<MembersByRecordStatusResponse>(`/metrics/${church}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });

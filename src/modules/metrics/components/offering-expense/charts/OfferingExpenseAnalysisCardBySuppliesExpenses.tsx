@@ -10,6 +10,7 @@ import { format } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMediaQuery } from '@react-hook/media-query';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Bar, XAxis, YAxis, CartesianGrid, BarChart } from 'recharts';
 import { FcDataBackup, FcDataConfiguration, FcDeleteDatabase } from 'react-icons/fc';
@@ -101,6 +102,9 @@ export const OfferingExpenseAnalysisCardBySuppliesExpenses = ({ churchId }: Prop
       year: new Date().getFullYear().toString(),
     },
   });
+
+  //* Hooks (external libraries)
+  const isMobile = useMediaQuery('(max-width: 640px)');
 
   //* Helpers
   const years = generateYearOptions();
@@ -365,6 +369,13 @@ export const OfferingExpenseAnalysisCardBySuppliesExpenses = ({ churchId }: Prop
                   tickMargin={10}
                   axisLine={true}
                   className='text-[12.5px] sm:text-[14px]'
+                  tickFormatter={(value) => {
+                    if (isMobile) {
+                      const [firstWord, secondWord] = value.split(' ');
+                      return secondWord ? `${firstWord} ${secondWord.charAt(0)}.` : firstWord;
+                    }
+                    return value;
+                  }}
                 />
 
                 <YAxis className='text-[12.5px] sm:text-[14px]' />

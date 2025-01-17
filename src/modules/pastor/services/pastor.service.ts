@@ -123,7 +123,7 @@ export const getPastorsByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         
@@ -133,7 +133,7 @@ export const getPastorsByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         result = data;
@@ -160,7 +160,7 @@ export const getPastorsByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         
@@ -170,7 +170,7 @@ export const getPastorsByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         result = data;
@@ -201,7 +201,7 @@ export const getPastorsByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           
@@ -211,7 +211,7 @@ export const getPastorsByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           result = data;
@@ -239,7 +239,7 @@ export const getPastorsByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           
@@ -249,7 +249,7 @@ export const getPastorsByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
 
@@ -278,7 +278,7 @@ export const getPastorsByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           
@@ -288,7 +288,7 @@ export const getPastorsByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
 
@@ -317,7 +317,7 @@ export const getPastorsByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           
@@ -327,7 +327,7 @@ export const getPastorsByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
 
@@ -488,7 +488,7 @@ export const getPastorsReportByTerm = async ({
         offset,
         order,
         churchId,
-        'search-type': searchType
+        searchType
       },
       headers: {
       'Content-Type': 'application/pdf',
@@ -504,7 +504,7 @@ export const getPastorsReportByTerm = async ({
         params: {
           order,
           churchId,
-          'search-type': searchType
+          searchType
         },
         headers: {
         'Content-Type': 'application/pdf',

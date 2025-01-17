@@ -23,7 +23,7 @@ export const getOfferingComparativeProportion = async ({
   try {
     const {data} = await icupApi<OfferingExpensesAndOfferingIncomeComparativeProportionResponse>(`/metrics/${church}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -50,7 +50,7 @@ export const getIncomeAndExpensesComparativeByYear = async ({
   try {
     const {data} = await icupApi<IncomeAndExpensesComparativeResponse[]>(`/metrics/${church}&${currency}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -77,7 +77,7 @@ export const getGeneralComparativeOfferingIncome = async ({
   try {
     const {data} = await icupApi<GeneralComparativeOfferingIncomeResponse[]>(`/metrics/${church}&${startMonth}&${endMonth}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -96,14 +96,14 @@ export const getGeneralComparativeOfferingIncome = async ({
 export const getComparativeOfferingIncomeByType = async ({ 
   searchType,
   church,
-  type,
+  metricType,
   year,
   order
 }: MetricQueryParams): Promise<ComparativeOfferingIncomeByTypeResponse[]> => {
   try {
-    const {data} = await icupApi<ComparativeOfferingIncomeByTypeResponse[]>(`/metrics/${church}&${type}&${year}`, {
+    const {data} = await icupApi<ComparativeOfferingIncomeByTypeResponse[]>(`/metrics/${church}&${metricType}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -130,7 +130,7 @@ export const getGeneralComparativeOfferingExpenses = async ({
   try {
     const {data} = await icupApi<GeneralComparativeOfferingExpensesResponse[]>(`/metrics/${church}&${startMonth}&${endMonth}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -149,14 +149,14 @@ export const getGeneralComparativeOfferingExpenses = async ({
 export const getComparativeOfferingExpensesByType = async ({ 
   searchType,
   church,
-  type,
+  metricType: type,
   year,
   order
 }: MetricQueryParams): Promise<ComparativeOfferingExpensesByTypeResponse[]> => {
   try {
     const {data} = await icupApi<ComparativeOfferingExpensesByTypeResponse[]>(`/metrics/${church}&${type}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -174,7 +174,7 @@ export const getComparativeOfferingExpensesByType = async ({
 //* Comparative offering expenses by sub-type
 export const getComparativeOfferingExpensesBySubType = async ({ 
   searchType,
-  type,
+  metricType,
   church,
   startMonth,
   endMonth,
@@ -182,9 +182,9 @@ export const getComparativeOfferingExpensesBySubType = async ({
   order
 }: MetricQueryParams): Promise<ComparativeOfferingExpensesBySubTypeResponse[]> => {
   try {
-    const {data} = await icupApi<ComparativeOfferingExpensesBySubTypeResponse[]>(`/metrics/${church}&${type}&${startMonth}&${endMonth}&${year}`, {
+    const {data} = await icupApi<ComparativeOfferingExpensesBySubTypeResponse[]>(`/metrics/${church}&${metricType}&${startMonth}&${endMonth}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });

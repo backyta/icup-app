@@ -122,7 +122,7 @@ export const getCopastorsByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         
@@ -132,7 +132,7 @@ export const getCopastorsByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         result = data;
@@ -159,7 +159,7 @@ export const getCopastorsByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         
@@ -169,7 +169,7 @@ export const getCopastorsByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         result = data;
@@ -200,7 +200,7 @@ export const getCopastorsByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           
@@ -210,7 +210,7 @@ export const getCopastorsByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           result = data;
@@ -238,8 +238,8 @@ export const getCopastorsByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -249,8 +249,8 @@ export const getCopastorsByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -279,8 +279,8 @@ export const getCopastorsByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
           
@@ -290,8 +290,8 @@ export const getCopastorsByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -320,8 +320,8 @@ export const getCopastorsByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
           
@@ -331,8 +331,8 @@ export const getCopastorsByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -494,8 +494,8 @@ export const getCopastorsReportByTerm = async ({
           offset,
           order,
           churchId,
-          'search-type': searchType,
-          'search-sub-type': searchSubType
+          searchType,
+          searchSubType
         },
         headers: {
         'Content-Type': 'application/pdf',
@@ -511,8 +511,8 @@ export const getCopastorsReportByTerm = async ({
         params: {
           order,
           churchId,
-          'search-type': searchType,
-          'search-sub-type': searchSubType
+          searchType,
+          searchSubType
         },
         headers: {
         'Content-Type': 'application/pdf',

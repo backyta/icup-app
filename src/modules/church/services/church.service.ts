@@ -124,7 +124,7 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
             limit,
             offset,
             order,
-            'search-type': searchType
+            searchType
           },
         });
         
@@ -133,7 +133,7 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
         const {data} = await icupApi<ChurchResponse[]>(`/churches/${inputTerm}` , {
           params: {
             order,
-            'search-type': searchType
+            searchType
           },
         });
         result = data;
@@ -159,7 +159,7 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
            limit,
            offset,
            order,
-           'search-type': searchType
+          searchType
          },
        });
        
@@ -168,7 +168,7 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
        const {data} = await icupApi<ChurchResponse[]>(`/churches/${dateTerm}` , {
          params: {
            order,
-           'search-type': searchType
+          searchType
          },
        });
        result = data;
@@ -194,7 +194,7 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
             limit,
             offset,
             order,
-            'search-type': searchType
+            searchType
           },
         });
 
@@ -203,7 +203,7 @@ export const getChurchesByTerm = async ({ searchType, inputTerm, dateTerm, selec
         const {data} = await icupApi<ChurchResponse[]>(`/churches/${selectTerm}` , {
           params: {
             order,
-            'search-type': searchType
+            searchType
           },
         });
         result = data;
@@ -343,7 +343,7 @@ export const getChurchesReportByTerm = async ({ searchType, inputTerm, all, date
         limit,
         offset,
         order,
-        'search-type': searchType
+        searchType
       },
       headers: {
       'Content-Type': 'application/pdf',
@@ -358,7 +358,7 @@ export const getChurchesReportByTerm = async ({ searchType, inputTerm, all, date
     const res = await icupApi<Blob>(`/reports/churches/${newTerm}` , {
       params: {
         order,
-        'search-type': searchType
+        searchType
       },
       headers: {
       'Content-Type': 'application/pdf',

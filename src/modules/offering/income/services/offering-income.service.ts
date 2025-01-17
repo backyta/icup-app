@@ -130,8 +130,8 @@ export const getOfferingsIncomeByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType,
-            'search-sub-type': searchSubType
+            searchType,
+            searchSubType
           },
         });
         
@@ -141,8 +141,8 @@ export const getOfferingsIncomeByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType,
-            'search-sub-type': searchSubType
+            searchType,
+            searchSubType
           },
         });
         result = data;
@@ -181,8 +181,8 @@ export const getOfferingsIncomeByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType,
-            'search-sub-type': searchSubType
+            searchType,
+            searchSubType
           },
         });
         
@@ -192,8 +192,8 @@ export const getOfferingsIncomeByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType,
-            'search-sub-type': searchSubType
+            searchType,
+            searchSubType
           },
         });
         result = data;
@@ -232,8 +232,8 @@ export const getOfferingsIncomeByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType,
-            'search-sub-type': searchSubType
+            searchType,
+            searchSubType
           },
         });
         
@@ -243,8 +243,8 @@ export const getOfferingsIncomeByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType,
-            'search-sub-type': searchSubType
+            searchType,
+            searchSubType
           },
         });
 
@@ -282,8 +282,8 @@ export const getOfferingsIncomeByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType,
-            'search-sub-type': searchSubType
+            searchType,
+            searchSubType
           },
         });
         
@@ -293,8 +293,8 @@ export const getOfferingsIncomeByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType,
-            'search-sub-type': searchSubType
+            searchType,
+            searchSubType
           },
         });
         result = data;
@@ -329,8 +329,8 @@ export const getOfferingsIncomeByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType,
-            'search-sub-type': searchSubType
+            searchType,
+            searchSubType
           },
         });
         
@@ -340,8 +340,8 @@ export const getOfferingsIncomeByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType,
-            'search-sub-type': searchSubType
+            searchType,
+            searchSubType
           },
         });
 
@@ -369,7 +369,7 @@ export const getOfferingsIncomeByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           
@@ -379,7 +379,7 @@ export const getOfferingsIncomeByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           
@@ -568,8 +568,8 @@ export const getOfferingIncomeReportByTerm = async ({
           offset,
           order,
           churchId,
-          'search-type': searchType,
-          'search-sub-type': searchSubType
+          searchType,
+          searchSubType
         },
         headers: {
         'Content-Type': 'application/pdf',
@@ -585,8 +585,8 @@ export const getOfferingIncomeReportByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType,
-            'search-sub-type': searchSubType
+            searchType,
+            searchSubType
           },
           headers: {
           'Content-Type': 'application/pdf',

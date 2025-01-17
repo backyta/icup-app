@@ -123,7 +123,7 @@ export const getDisciplesByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         
@@ -133,7 +133,7 @@ export const getDisciplesByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         result = data;
@@ -160,7 +160,7 @@ export const getDisciplesByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         
@@ -170,7 +170,7 @@ export const getDisciplesByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         result = data;
@@ -201,7 +201,7 @@ export const getDisciplesByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           
@@ -211,7 +211,7 @@ export const getDisciplesByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           result = data;
@@ -239,8 +239,8 @@ export const getDisciplesByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -250,8 +250,8 @@ export const getDisciplesByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -280,8 +280,8 @@ export const getDisciplesByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
           
@@ -291,8 +291,8 @@ export const getDisciplesByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -321,8 +321,8 @@ export const getDisciplesByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
           
@@ -332,8 +332,8 @@ export const getDisciplesByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -498,8 +498,8 @@ export const getDisciplesReportByTerm = async ({
           offset,
           order,
           churchId,
-          'search-type': searchType,
-          'search-sub-type': searchSubType
+          searchType,
+          searchSubType
         },
         headers: {
         'Content-Type': 'application/pdf',
@@ -515,8 +515,8 @@ export const getDisciplesReportByTerm = async ({
         params: {
           order,
           churchId,
-          'search-type': searchType,
-          'search-sub-type': searchSubType
+          searchType,
+          searchSubType
         },
         headers: {
         'Content-Type': 'application/pdf',

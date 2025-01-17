@@ -19,7 +19,7 @@ export const getOfferingExpensesProportion = async ({
   try {
     const {data} = await icupApi<OfferingExpensesProportionResponse>(`/metrics/${church}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         order
       },
     });
@@ -47,7 +47,7 @@ export const getOperationalOfferingExpenses = async ({
   try {
     const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },
@@ -75,7 +75,7 @@ export const getMaintenanceAndRepairOfferingExpenses = async ({
   try {
     const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },
@@ -103,7 +103,7 @@ export const getDecorationOfferingExpenses = async ({
   try {
     const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },
@@ -131,7 +131,7 @@ export const getEquipmentAndTechnologyOfferingExpenses = async ({
   try {
     const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },
@@ -159,7 +159,7 @@ export const getSuppliesOfferingExpenses = async ({
   try {
     const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },
@@ -187,7 +187,7 @@ export const getPlaningEventsOfferingExpenses = async ({
   try {
     const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },
@@ -215,7 +215,7 @@ export const getOthersOfferingExpenses = async ({
   try {
     const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },
@@ -243,7 +243,7 @@ export const getOfferingExpensesAdjustment = async ({
   try {
     const {data} = await icupApi<OfferingExpensesAdjustmentResponse[]>(`/metrics/${church}&${month}&${year}`, {
       params: {
-        'search-type': searchType,
+        searchType,
         isSingleMonth: isSingleMonth?.toString(),
         order
       },

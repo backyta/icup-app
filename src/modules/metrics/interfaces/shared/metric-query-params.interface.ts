@@ -1,6 +1,6 @@
 export interface MetricQueryParams {
   searchType      : string;
-  type?           : string;
+  metricType?           : string;
   church          : string;
   copastor?       : string;
   year           ?: string;

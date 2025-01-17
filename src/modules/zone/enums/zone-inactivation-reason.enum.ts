@@ -16,8 +16,8 @@ export enum ZoneInactivationReason {
   LowDiscipleCommitment = 'low_disciple_commitment',
 
   //* Reasons related to family groups
-  FamilyGroupDissolution = 'family_group_dissolution',
-  FamilyGroupRelocation = 'family_group_relocation',
+  FamilyGroupsDissolution = 'family_groups_dissolution',
+  FamilyGroupsRelocation = 'family_groups_relocation',
   MemberLoss = 'member_loss',
 
   //* Reasons due to external factor
@@ -45,8 +45,8 @@ export const ZoneInactivationReasonNames: Record<ZoneInactivationReason, string>
   [ZoneInactivationReason.LackOfParticipation]: 'Falta de participación en actividades o eventos.',
   [ZoneInactivationReason.LowDiscipleCommitment]: 'Bajo compromiso de los discípulos asignados.',
 
-  [ZoneInactivationReason.FamilyGroupDissolution]: 'Disolución de la mayoría de los grupos familiares en la zona.',
-  [ZoneInactivationReason.FamilyGroupRelocation]: 'Reubicación de los grupos familiares a otras zonas.',
+  [ZoneInactivationReason.FamilyGroupsDissolution]: 'Disolución de la mayoría de los grupos familiares en la zona.',
+  [ZoneInactivationReason.FamilyGroupsRelocation]: 'Reubicación de los grupos familiares a otras zonas.',
   [ZoneInactivationReason.MemberLoss]: 'Pérdida significativa de miembros en los grupos familiares.',
 
   [ZoneInactivationReason.DemographicChanges]: 'Cambios demográficos significativos en el área geográfica (migración, urbanización, etc.).',
@@ -102,16 +102,16 @@ export const LackOfActivityOrCommitmentReasonsNames: Record<LackOfActivityOrComm
 };
 
 //* Reasons related to family groups
-export enum GroupFamilyRelatedReasonsReasons {
-  FamilyGroupDissolution = 'family_group_dissolution',
-  FamilyGroupRelocation = 'family_group_relocation',
+export enum FamilyGroupRelatedReasonsReasons {
+  FamilyGroupsDissolution = 'family_groups_dissolution',
+  FamilyGroupsRelocation = 'family_groups_relocation',
   MemberLoss = 'member_loss',
 }
 
-export const GroupFamilyRelatedReasonsReasonsNames: Record<GroupFamilyRelatedReasonsReasons, string> = {
-  [GroupFamilyRelatedReasonsReasons.FamilyGroupDissolution]: 'Disolución de la mayoría de los grupos familiares en la zona',
-  [GroupFamilyRelatedReasonsReasons.FamilyGroupRelocation]: 'Reubicación de los grupos familiares a otras zonas',
-  [GroupFamilyRelatedReasonsReasons.MemberLoss]: 'Pérdida significativa de miembros en los grupos familiares',
+export const GroupFamilyRelatedReasonsReasonsNames: Record<FamilyGroupRelatedReasonsReasons, string> = {
+  [FamilyGroupRelatedReasonsReasons.FamilyGroupsDissolution]: 'Disolución de la mayoría de los grupos familiares en la zona',
+  [FamilyGroupRelatedReasonsReasons.FamilyGroupsRelocation]: 'Reubicación de los grupos familiares a otras zonas',
+  [FamilyGroupRelatedReasonsReasons.MemberLoss]: 'Pérdida significativa de miembros en los grupos familiares',
 };
 
 //* Reasons due to external factor

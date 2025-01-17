@@ -123,7 +123,7 @@ export const getFamilyGroupsByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         
@@ -133,7 +133,7 @@ export const getFamilyGroupsByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         result = data;
@@ -160,7 +160,7 @@ export const getFamilyGroupsByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           
@@ -170,7 +170,7 @@ export const getFamilyGroupsByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           result = data;
@@ -198,8 +198,8 @@ export const getFamilyGroupsByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -209,8 +209,8 @@ export const getFamilyGroupsByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -239,8 +239,8 @@ export const getFamilyGroupsByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
           
@@ -250,8 +250,8 @@ export const getFamilyGroupsByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -280,8 +280,8 @@ export const getFamilyGroupsByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
           
@@ -291,8 +291,8 @@ export const getFamilyGroupsByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -452,8 +452,8 @@ export const getFamilyGroupsReportByTerm = async ({
           offset,
           order,
           churchId,
-          'search-type': searchType,
-          'search-sub-type': searchSubType
+          searchType,
+          searchSubType
         },
         headers: {
         'Content-Type': 'application/pdf',
@@ -469,8 +469,8 @@ export const getFamilyGroupsReportByTerm = async ({
         params: {
           order,
           churchId,
-          'search-type': searchType,
-          'search-sub-type': searchSubType
+          searchType,
+          searchSubType
         },
         headers: {
         'Content-Type': 'application/pdf',

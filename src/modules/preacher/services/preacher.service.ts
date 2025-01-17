@@ -63,7 +63,7 @@ export const getPreachersByZone = async ({
     const {data} = await icupApi<PreacherResponse[]>(`/preachers/${zoneId}` , {
       params: {
         order: RecordOrder.Ascending,
-        'search-type': searchType,
+        searchType,
         isNullFamilyGroup: isNullFamilyGroup.toString(),
       },
     }
@@ -155,7 +155,7 @@ export const getPreachersByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         
@@ -165,7 +165,7 @@ export const getPreachersByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         result = data;
@@ -192,7 +192,7 @@ export const getPreachersByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         
@@ -202,7 +202,7 @@ export const getPreachersByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         result = data;
@@ -233,7 +233,7 @@ export const getPreachersByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           
@@ -243,7 +243,7 @@ export const getPreachersByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType
+              searchType
             },
           });
           result = data;
@@ -271,8 +271,8 @@ export const getPreachersByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -282,8 +282,8 @@ export const getPreachersByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -312,8 +312,8 @@ export const getPreachersByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
           
@@ -323,8 +323,8 @@ export const getPreachersByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -353,8 +353,8 @@ export const getPreachersByTerm = async ({
               offset,
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
           
@@ -364,8 +364,8 @@ export const getPreachersByTerm = async ({
             params: {
               order,
               churchId,
-              'search-type': searchType,
-              'search-sub-type': searchSubType
+              searchType,
+              searchSubType
             },
           });
 
@@ -531,8 +531,8 @@ export const getPreachersReportByTerm = async ({
           offset,
           order,
           churchId,
-          'search-type': searchType,
-          'search-sub-type': searchSubType
+          searchType,
+          searchSubType
         },
         headers: {
         'Content-Type': 'application/pdf',
@@ -548,8 +548,8 @@ export const getPreachersReportByTerm = async ({
         params: {
           order,
           churchId,
-          'search-type': searchType,
-          'search-sub-type': searchSubType
+          searchType,
+          searchSubType
         },
         headers: {
         'Content-Type': 'application/pdf',

@@ -120,7 +120,7 @@ export const getZonesByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         
@@ -130,7 +130,7 @@ export const getZonesByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         result = data;
@@ -157,7 +157,7 @@ export const getZonesByTerm = async ({
             offset,
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         
@@ -167,7 +167,7 @@ export const getZonesByTerm = async ({
           params: {
             order,
             churchId,
-            'search-type': searchType
+            searchType
           },
         });
         result = data;
@@ -195,8 +195,8 @@ export const getZonesByTerm = async ({
          offset,
          order,
          churchId,
-         'search-type': searchType,
-         'search-sub-type': searchSubType
+         searchType,
+         searchSubType
        },
      });
 
@@ -206,8 +206,8 @@ export const getZonesByTerm = async ({
        params: {
          order,
          churchId,
-         'search-type': searchType,
-         'search-sub-type': searchSubType
+         searchType,
+         searchSubType
        },
      });
 
@@ -236,8 +236,8 @@ if (searchType === ZoneSearchType.LastNames
          offset,
          order,
          churchId,
-         'search-type': searchType,
-         'search-sub-type': searchSubType
+         searchType,
+         searchSubType
        },
      });
      
@@ -247,8 +247,8 @@ if (searchType === ZoneSearchType.LastNames
        params: {
          order,
          churchId,
-         'search-type': searchType,
-         'search-sub-type': searchSubType
+         searchType,
+         searchSubType
        },
      });
 
@@ -277,8 +277,8 @@ if (searchType === ZoneSearchType.FullNames
          offset,
          order,
          churchId,
-         'search-type': searchType,
-         'search-sub-type': searchSubType
+         searchType,
+         searchSubType
        },
      });
      
@@ -288,8 +288,8 @@ if (searchType === ZoneSearchType.FullNames
        params: {
          order,
          churchId,
-         'search-type': searchType,
-         'search-sub-type': searchSubType
+         searchType,
+         searchSubType
        },
      });
 
@@ -444,8 +444,8 @@ export const getZonesReportByTerm = async ({
           offset,
           order,
           churchId,
-          'search-type': searchType,
-          'search-sub-type': searchSubType
+          searchType,
+          searchSubType
         },
         headers: {
         'Content-Type': 'application/pdf',
@@ -461,8 +461,8 @@ export const getZonesReportByTerm = async ({
         params: {
           order,
           churchId,
-          'search-type': searchType,
-          'search-sub-type': searchSubType
+          searchType,
+          searchSubType
         },
         headers: {
         'Content-Type': 'application/pdf',

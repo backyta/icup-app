@@ -64,6 +64,7 @@ export const OfferingExpensesAndOfferingIncomeComparativeProportionCard = ({
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       }),
+    enabled: !!churchId,
   });
 
   //* Effects

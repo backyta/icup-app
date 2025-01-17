@@ -251,7 +251,7 @@ export const ZoneInactivateCard = ({ idRow }: ZoneInactivateCardProps): JSX.Elem
                                   ZoneInactivationCategory.ExternalFactors
                                 ? ExternalFactorsReasonsNames
                                 : zoneInactivationCategory ===
-                                    ZoneInactivationCategory.GroupFamilyRelatedReasons
+                                    ZoneInactivationCategory.FamilyGroupsRelatedReasons
                                   ? GroupFamilyRelatedReasonsReasonsNames
                                   : zoneInactivationCategory ===
                                       ZoneInactivationCategory.LackOfActivityOrCommitment

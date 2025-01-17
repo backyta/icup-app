@@ -122,7 +122,7 @@ export const ComparativeOfferingExpensesAnalysisCardByType = ({ churchId }: Prop
     queryFn: async () => {
       return await getComparativeOfferingExpensesByType({
         searchType: MetricSearchType.ComparativeOfferingExpensesByType,
-        type: searchParams?.type ?? type,
+        metricType: searchParams?.type ?? type,
         year: searchParams?.year ?? year,
         church: churchId ?? '',
         order: RecordOrder.Descending,
@@ -357,6 +357,7 @@ export const ComparativeOfferingExpensesAnalysisCardByType = ({ churchId }: Prop
                   tickMargin={10}
                   axisLine={true}
                   className='text-[12.5px] sm:text-[14px]'
+                  tickFormatter={(value) => value.slice(0, 3)}
                 />
 
                 <YAxis className='text-[12.5px] sm:text-[14px]' />

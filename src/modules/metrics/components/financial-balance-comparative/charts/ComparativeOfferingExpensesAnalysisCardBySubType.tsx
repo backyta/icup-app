@@ -133,7 +133,7 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
     queryFn: async () => {
       return await getComparativeOfferingExpensesBySubType({
         searchType: MetricSearchType.ComparativeOfferingExpensesBySubType,
-        type: searchParams?.type ?? type,
+        metricType: searchParams?.type ?? type,
         startMonth: searchParams?.startMonth ?? startMonth,
         endMonth: searchParams?.endMonth ?? endMonth,
         year: searchParams?.year ?? year,
@@ -518,7 +518,7 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
             <ChartContainer
               config={chartConfig}
               className={cn(
-                'w-full h-[288px] sm:h-[345px] md:h-[350px] lg:h-[415px] xl:h-[415px] 2xl:h-[415px]'
+                'w-full h-full sm:h-[345px] md:h-[350px] lg:h-[415px] xl:h-[415px] 2xl:h-[415px]'
               )}
             >
               <BarChart

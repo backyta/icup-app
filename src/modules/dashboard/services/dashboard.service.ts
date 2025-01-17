@@ -31,7 +31,7 @@ export const  getOfferingsForBarChartByTerm = async ({
         limit,
         offset,
         order,
-        'search-type': searchType,
+        searchType,
       },
     });
 
@@ -55,7 +55,7 @@ export const  getOfferingsForBarChartByTerm = async ({
           limit,
           offset,
           order,
-          'search-type': searchType,
+          searchType,
         },
       });
 
@@ -87,7 +87,7 @@ export const getProportionFamilyGroups = async ({
         params: {
           order,
           churchId,
-          'search-type': searchType
+          searchType
         },
       });
   
@@ -110,7 +110,7 @@ export const getProportionFamilyGroups = async ({
         params: {
           order,
           churchId,
-          'search-type': searchType
+          searchType
         },
       });
         
