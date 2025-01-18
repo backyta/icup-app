@@ -512,12 +512,12 @@ export const generateTicketByOfferingIncomeId = async ({
 
     setTimeout(() => {
       openPdfInNewTab(res.data);
-    }, 800);
+    }, 100);
 
     if (setOpen) {
       setTimeout(() => {
         setOpen!(false);
-      }, 900);
+      }, 200);
     }
 
     return res;
