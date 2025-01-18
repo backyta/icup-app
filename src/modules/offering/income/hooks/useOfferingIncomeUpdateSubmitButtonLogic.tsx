@@ -10,6 +10,7 @@ import { OfferingIncomeCreationSubType } from '@/modules/offering/income/enums/o
 import { type OfferingIncomeFormData } from '@/modules/offering/income/interfaces/offering-income-form-data.interface';
 
 import { type FilesProps } from '@/modules/offering/shared/interfaces/files-props.interface';
+import { OfferingIncomeCreationCategory } from '../enums/offering-income-creation-category.enum';
 
 interface Options {
   files: FilesProps[];
@@ -35,9 +36,11 @@ export const useOfferingIncomeUpdateSubmitButtonLogic = ({
   //* Watchers
   const type = offeringIncomeUpdateForm.watch('type');
   const subType = offeringIncomeUpdateForm.watch('subType');
+  const category = offeringIncomeUpdateForm.watch('category');
   const amount = offeringIncomeUpdateForm.watch('amount');
   const shift = offeringIncomeUpdateForm.watch('shift');
   const currency = offeringIncomeUpdateForm.watch('currency');
+  const externalDonorId = offeringIncomeUpdateForm.watch('externalDonorId');
   const date = offeringIncomeUpdateForm.watch('date');
   const comments = offeringIncomeUpdateForm.watch('comments');
   const memberType = offeringIncomeUpdateForm.watch('memberType');
@@ -160,8 +163,11 @@ export const useOfferingIncomeUpdateSubmitButtonLogic = ({
     //* Member
     if (
       type === OfferingIncomeCreationType.Offering &&
+      category === OfferingIncomeCreationCategory.InternalDonation &&
       (subType === OfferingIncomeCreationSubType.Special ||
-        subType === OfferingIncomeCreationSubType.ChurchGround) &&
+        subType === OfferingIncomeCreationSubType.ChurchGround ||
+        subType === OfferingIncomeCreationSubType.YouthService ||
+        subType === OfferingIncomeCreationSubType.SundaySchool) &&
       memberType &&
       amount &&
       currency &&
@@ -176,9 +182,45 @@ export const useOfferingIncomeUpdateSubmitButtonLogic = ({
 
     if (
       type === OfferingIncomeCreationType.Offering &&
+      category === OfferingIncomeCreationCategory.InternalDonation &&
       (subType === OfferingIncomeCreationSubType.Special ||
-        subType === OfferingIncomeCreationSubType.ChurchGround) &&
+        subType === OfferingIncomeCreationSubType.ChurchGround ||
+        subType === OfferingIncomeCreationSubType.YouthService ||
+        subType === OfferingIncomeCreationSubType.SundaySchool) &&
       (!amount || !currency || !memberId || !memberType || !comments)
+    ) {
+      setIsSubmitButtonDisabled(true);
+      setIsMessageErrorDisabled(true);
+    }
+
+    //* External Donor
+    if (
+      type === OfferingIncomeCreationType.Offering &&
+      category === OfferingIncomeCreationCategory.ExternalDonation &&
+      (subType === OfferingIncomeCreationSubType.Special ||
+        subType === OfferingIncomeCreationSubType.ChurchGround ||
+        subType === OfferingIncomeCreationSubType.YouthService ||
+        subType === OfferingIncomeCreationSubType.SundaySchool) &&
+      memberType &&
+      amount &&
+      currency &&
+      externalDonorId &&
+      comments &&
+      Object.values(offeringIncomeUpdateForm.formState.errors).length === 0 &&
+      (!isInputDisabled || !isDropZoneDisabled || !isDeleteFileButtonDisabled)
+    ) {
+      setIsSubmitButtonDisabled(false);
+      setIsMessageErrorDisabled(false);
+    }
+
+    if (
+      type === OfferingIncomeCreationType.Offering &&
+      category === OfferingIncomeCreationCategory.ExternalDonation &&
+      (subType === OfferingIncomeCreationSubType.Special ||
+        subType === OfferingIncomeCreationSubType.ChurchGround ||
+        subType === OfferingIncomeCreationSubType.YouthService ||
+        subType === OfferingIncomeCreationSubType.SundaySchool) &&
+      (!amount || !currency || !externalDonorId || !memberType || !comments)
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);

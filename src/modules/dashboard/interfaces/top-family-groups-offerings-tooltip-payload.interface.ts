@@ -44,4 +44,3 @@ export interface TopFamilyGroupOfferingsPayload {
   chartType?: string | undefined;
   hide: boolean;
 }
-

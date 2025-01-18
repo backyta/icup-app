@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
 import { cn } from '@/shared/lib/utils';
 
 interface PageTitleProps {

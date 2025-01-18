@@ -9,18 +9,15 @@ export interface MembersByRoleAndGenderPayload {
   value: number;
   type?: string | undefined;
   payload: {
-    role: string,
-    men: number,
-    women: number,
-    totalPercentage: string,
-    church:{
+    role: string;
+    men: number;
+    women: number;
+    totalPercentage: string;
+    church: {
       isAnexe: boolean;
       abbreviatedChurchName: string;
-    }
+    };
   };
   chartType?: string | undefined;
   hide: boolean;
 }
-
-
-

@@ -10,43 +10,50 @@ import { type OfferingExpenseQueryParams } from '@/modules/offering/expense/inte
 
 import { OfferingExpenseSearchType } from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
 
-// ? CREATE OFFERING EXPENSE
-export const createOfferingExpense = async (formData:OfferingExpenseFormData ): Promise<OfferingExpenseResponse> => {
+//? CREATE OFFERING EXPENSE
+export const createOfferingExpense = async (
+  formData: OfferingExpenseFormData
+): Promise<OfferingExpenseResponse> => {
   try {
-    const {data} = await icupApi.post<OfferingExpenseResponse>('/offering-expenses', formData)
-    
+    const { data } = await icupApi.post<OfferingExpenseResponse>('/offering-expenses', formData);
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado')
+
+    throw new Error('Ocurrió un error inesperado');
   }
-}
+};
 
-// ? GET ALL OFFERING EXPENSES (paginated)
-export const getOfferingsExpenses = async ({limit, offset, all, order, churchId}: OfferingExpenseQueryParams): Promise<OfferingExpenseResponse[]> => {
-
- let result: OfferingExpenseResponse[];
+//? GET ALL OFFERING EXPENSES (paginated)
+export const getOfferingsExpenses = async ({
+  limit,
+  offset,
+  all,
+  order,
+  churchId,
+}: OfferingExpenseQueryParams): Promise<OfferingExpenseResponse[]> => {
+  let result: OfferingExpenseResponse[];
 
   try {
     if (!all) {
-      const {data} = await icupApi<OfferingExpenseResponse[]>('/offering-expenses' , {
+      const { data } = await icupApi<OfferingExpenseResponse[]>('/offering-expenses', {
         params: {
           limit,
           offset,
           order,
-          churchId
+          churchId,
         },
       });
-      
+
       result = data;
-    }else {
-      const {data} = await icupApi<OfferingExpenseResponse[]>('/offering-expenses' , {
+    } else {
+      const { data } = await icupApi<OfferingExpenseResponse[]>('/offering-expenses', {
         params: {
           order,
-          churchId
+          churchId,
         },
       });
 
@@ -54,129 +61,143 @@ export const getOfferingsExpenses = async ({limit, offset, all, order, churchId}
     }
 
     return result;
-
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
-  }
-}
 
-// ? GET OFFERING EXPENSES BY TERM (paginated)
-export const getOfferingsExpensesByTerm = async ({ 
-  searchType, 
-  searchSubType, 
-  dateTerm, 
-  selectTerm, 
-  limit, 
-  offset, 
-  all, 
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
+  }
+};
+
+//? GET OFFERING EXPENSES BY TERM (paginated)
+export const getOfferingsExpensesByTerm = async ({
+  searchType,
+  searchSubType,
+  dateTerm,
+  selectTerm,
+  limit,
+  offset,
+  all,
   order,
-  churchId
+  churchId,
 }: OfferingExpenseQueryParams): Promise<OfferingExpenseResponse[] | undefined> => {
   let result: OfferingExpenseResponse[];
 
   //* Others types
-  if (searchType !== OfferingExpenseSearchType.RecordStatus ) {
+  if (searchType !== OfferingExpenseSearchType.RecordStatus) {
     try {
-        if (!all) {
-            const {data} = await icupApi<OfferingExpenseResponse[]>(`/offering-expenses/${dateTerm}` , {
-          params: {
-            limit,
-            offset,
-            order,
-            churchId,
-            searchType,
-            searchSubType
-          },
-        });
-        
-        result = data;
-      }else {
-        const {data} = await icupApi<OfferingExpenseResponse[]>(`/offering-expenses/${dateTerm}` , {
-          params: {
-            order,
-            churchId,
-            searchType,
-            searchSubType
-          },
-        });
-
-
-        result = data;
-      }
-    
-      return result;
-    
-    } catch (error) {
-      if (isAxiosError(error) && error.response) {
-        throw (error.response.data)
-      }
-      
-      throw new Error('Ocurrió un error inesperado, hable con el administrador')
-    }
- }
-
- //* Record Status
-  if (searchType === OfferingExpenseSearchType.RecordStatus) {
-      try {
-        if (!all) {
-          const {data} = await icupApi<OfferingExpenseResponse[]>(`/offering-expenses/${selectTerm}` , {
+      if (!all) {
+        const { data } = await icupApi<OfferingExpenseResponse[]>(
+          `/offering-expenses/${dateTerm}`,
+          {
             params: {
               limit,
               offset,
               order,
               churchId,
-              searchType
+              searchType,
+              searchSubType,
             },
-          });
-          
-          result = data;
-        }else {
-          const {data} = await icupApi<OfferingExpenseResponse[]>(`/offering-expenses/${selectTerm}` , {
+          }
+        );
+
+        result = data;
+      } else {
+        const { data } = await icupApi<OfferingExpenseResponse[]>(
+          `/offering-expenses/${dateTerm}`,
+          {
             params: {
               order,
               churchId,
-              searchType
+              searchType,
+              searchSubType,
             },
-          });
+          }
+        );
 
-          result = data;
-        }
-      
-        return result;
-      
-      } catch (error) {
-        if (isAxiosError(error) && error.response) {
-          throw (error.response.data)
-        }
-        
-        throw new Error('Ocurrió un error inesperado, hable con el administrador')
+        result = data;
       }
-  }
-}
 
-// ? UPDATE OFFERING EXPENSE BY ID
+      return result;
+    } catch (error) {
+      if (isAxiosError(error) && error.response) {
+        throw error.response.data;
+      }
+
+      throw new Error('Ocurrió un error inesperado, hable con el administrador');
+    }
+  }
+
+  //* Record Status
+  if (searchType === OfferingExpenseSearchType.RecordStatus) {
+    try {
+      if (!all) {
+        const { data } = await icupApi<OfferingExpenseResponse[]>(
+          `/offering-expenses/${selectTerm}`,
+          {
+            params: {
+              limit,
+              offset,
+              order,
+              churchId,
+              searchType,
+            },
+          }
+        );
+
+        result = data;
+      } else {
+        const { data } = await icupApi<OfferingExpenseResponse[]>(
+          `/offering-expenses/${selectTerm}`,
+          {
+            params: {
+              order,
+              churchId,
+              searchType,
+            },
+          }
+        );
+
+        result = data;
+      }
+
+      return result;
+    } catch (error) {
+      if (isAxiosError(error) && error.response) {
+        throw error.response.data;
+      }
+
+      throw new Error('Ocurrió un error inesperado, hable con el administrador');
+    }
+  }
+};
+
+//? UPDATE OFFERING EXPENSE BY ID
 export interface UpdateOfferingExpenseOptions {
   id: string;
   formData: OfferingExpenseFormData;
 }
 
-export const updateOfferingExpense = async ({id, formData}: UpdateOfferingExpenseOptions ): Promise<OfferingExpenseResponse> => {
+export const updateOfferingExpense = async ({
+  id,
+  formData,
+}: UpdateOfferingExpenseOptions): Promise<OfferingExpenseResponse> => {
   try {
-    const {data} = await icupApi.patch<OfferingExpenseResponse>(`/offering-expenses/${id}`, formData)
+    const { data } = await icupApi.patch<OfferingExpenseResponse>(
+      `/offering-expenses/${id}`,
+      formData
+    );
 
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado')
+
+    throw new Error('Ocurrió un error inesperado');
   }
-}
+};
 
 //! INACTIVATE OFFERING EXPENSE BY ID
 export interface InactivateOfferingExpenseOptions {
@@ -184,37 +205,45 @@ export interface InactivateOfferingExpenseOptions {
   offeringInactivationReason: string;
 }
 
-export const inactivateOfferingExpense = async ({id, offeringInactivationReason}: InactivateOfferingExpenseOptions ): Promise<void> => {
+export const inactivateOfferingExpense = async ({
+  id,
+  offeringInactivationReason,
+}: InactivateOfferingExpenseOptions): Promise<void> => {
   try {
-    const {data} = await icupApi.delete(`/offering-expenses/${id}`,{
+    const { data } = await icupApi.delete(`/offering-expenses/${id}`, {
       params: {
         offeringInactivationReason,
       },
-    })
+    });
 
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
   }
-}
+};
 
-
-// ? OFFERING EXPENSES REPORTS
+//? OFFERING EXPENSES REPORTS
 const openPdfInNewTab = (pdfBlob: Blob): void => {
   const pdfUrl = URL.createObjectURL(pdfBlob);
   const newTab = window.open(pdfUrl, '_blank');
   newTab?.focus();
-}
+};
 
 //* General
-export const getGeneralOfferingExpensesReport = async ({limit, offset, all, order, churchId}: OfferingExpenseQueryParams): Promise<boolean> => {
-   try {
+export const getGeneralOfferingExpensesReport = async ({
+  limit,
+  offset,
+  all,
+  order,
+  churchId,
+}: OfferingExpenseQueryParams): Promise<boolean> => {
+  try {
     if (!all) {
-      const res = await icupApi<Blob>('/reports/offering-expenses' , {
+      const res = await icupApi<Blob>('/reports/offering-expenses', {
         params: {
           limit,
           offset,
@@ -222,54 +251,54 @@ export const getGeneralOfferingExpensesReport = async ({limit, offset, all, orde
           churchId,
         },
         headers: {
-        'Content-Type': 'application/pdf',
+          'Content-Type': 'application/pdf',
         },
         responseType: 'blob',
       });
-      
+
       openPdfInNewTab(res.data);
-      
+
       return true;
-    }else {
-      const res = await icupApi<Blob>('/reports/offering-expenses' , {
+    } else {
+      const res = await icupApi<Blob>('/reports/offering-expenses', {
         params: {
           order,
           churchId,
         },
         headers: {
-        'Content-Type': 'application/pdf',
+          'Content-Type': 'application/pdf',
         },
         responseType: 'blob',
       });
-      
+
       openPdfInNewTab(res.data);
-      
+
       return true;
     }
-   } catch (error) {
-     if (isAxiosError(error) && error.response) {
-       throw (error.response.data)
-     }
-     
-     throw new Error('Ocurrió un error inesperado, hable con el administrador')
-   }
- }
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw error.response.data;
+    }
 
- //* By term
-export const getOfferingExpensesReportByTerm = async ({   
-  searchType, 
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
+  }
+};
+
+//* By term
+export const getOfferingExpensesReportByTerm = async ({
+  searchType,
   searchSubType,
-  dateTerm, 
-  selectTerm, 
-  limit, 
+  dateTerm,
+  selectTerm,
+  limit,
   offset,
   all,
   order,
-  churchId
+  churchId,
 }: OfferingExpenseQueryParams): Promise<boolean> => {
   let newTerm: string | undefined = '';
-  
-  const termMapping: Record< OfferingExpenseSearchType, string | undefined> = {
+
+  const termMapping: Record<OfferingExpenseSearchType, string | undefined> = {
     [OfferingExpenseSearchType.DecorationExpenses]: `${dateTerm}`,
     [OfferingExpenseSearchType.EquipmentAndTechnologyExpenses]: `${dateTerm}`,
     [OfferingExpenseSearchType.ExpensesAdjustment]: `${dateTerm}`,
@@ -280,52 +309,52 @@ export const getOfferingExpensesReportByTerm = async ({
     [OfferingExpenseSearchType.OtherExpenses]: `${dateTerm}`,
     [OfferingExpenseSearchType.RecordStatus]: selectTerm,
   };
-  
+
   newTerm = termMapping[searchType as OfferingExpenseSearchType];
 
-   try {
+  try {
     if (!all) {
-      const res = await icupApi<Blob>(`/reports/offering-expenses/${newTerm}` , {
+      const res = await icupApi<Blob>(`/reports/offering-expenses/${newTerm}`, {
         params: {
           limit,
           offset,
           order,
           churchId,
           searchType,
-          searchSubType
+          searchSubType,
         },
         headers: {
-        'Content-Type': 'application/pdf',
+          'Content-Type': 'application/pdf',
         },
         responseType: 'blob',
       });
-      
+
       openPdfInNewTab(res.data);
-      
+
       return true;
-    }else {
-      const res = await icupApi<Blob>(`/reports/offering-expenses/${newTerm}` , {
+    } else {
+      const res = await icupApi<Blob>(`/reports/offering-expenses/${newTerm}`, {
         params: {
           order,
           churchId,
           searchType,
-          searchSubType
+          searchSubType,
         },
         headers: {
-        'Content-Type': 'application/pdf',
+          'Content-Type': 'application/pdf',
         },
         responseType: 'blob',
       });
-      
+
       openPdfInNewTab(res.data);
-      
+
       return true;
     }
-   } catch (error) {
-     if (isAxiosError(error) && error.response) {
-       throw (error.response.data)
-     }
-     
-     throw new Error('Ocurrió un error inesperado, hable con el administrador')
-   }
- }
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw error.response.data;
+    }
+
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
+  }
+};

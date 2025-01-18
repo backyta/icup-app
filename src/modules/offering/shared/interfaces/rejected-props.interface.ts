@@ -3,9 +3,7 @@ export interface RejectionProps {
   file: File;
 }
 
-interface ErrorProps{
+interface ErrorProps {
   code: string;
   message: string;
 }
-
-

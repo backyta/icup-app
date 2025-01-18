@@ -1,20 +1,17 @@
 export enum OfferingIncomeCreationCategory {
   Events = 'events',
   General = 'general',
-  Meetings  = 'meetings',
+  Meetings = 'meetings',
   SocialAid = 'social_aid',
   OfferingBox = 'offering_box',
   InternalDonation = 'internal_donation',
   ExternalDonation = 'external_donation',
-  FundraisingProTemple   = 'fundraising_pro_temple',
+  FundraisingProTemple = 'fundraising_pro_temple',
   FundraisingProMinistry = 'fundraising_pro_ministry',
   FundraisingProChurchGround = 'fundraising_pro_church_ground',
 }
 
-export const OfferingIncomeCreationCategoryNames: Record<
-  OfferingIncomeCreationCategory,
-  string
-> = {
+export const OfferingIncomeCreationCategoryNames: Record<OfferingIncomeCreationCategory, string> = {
   [OfferingIncomeCreationCategory.General]: 'General',
   [OfferingIncomeCreationCategory.SocialAid]: 'Ayuda Social',
   [OfferingIncomeCreationCategory.OfferingBox]: 'Alfolí',

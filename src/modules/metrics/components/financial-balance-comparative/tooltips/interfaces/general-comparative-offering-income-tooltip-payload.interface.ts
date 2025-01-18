@@ -19,9 +19,8 @@ export interface GeneralComparativeOfferingIncomePayload {
       abbreviatedChurchName: string;
     };
     totalAmount: number;
-    totalPercentage: string; 
+    totalPercentage: string;
   };
   chartType?: string | undefined;
   hide: boolean;
 }
-

@@ -24,7 +24,7 @@ export enum CopastorSearchSelectOption {
   Divorced = 'divorced',
   Other = 'other',
 
- //* Record Status
+  //* Record Status
   Inactive = 'inactive',
 }
 
@@ -54,7 +54,7 @@ export const CopastorSearchNamesSelectOption: Record<CopastorSearchSelectOption,
   [CopastorSearchSelectOption.Divorced]: 'Divorciado(a)',
   [CopastorSearchSelectOption.Other]: 'Otro',
 
- //* Record Status
+  //* Record Status
   [CopastorSearchSelectOption.Inactive]: 'Inactivo',
 };
 
@@ -117,7 +117,7 @@ export const CopastorSearchNamesByMaritalStatus: Record<CopastorSearchByMaritalS
   [CopastorSearchByMaritalStatus.Other]: 'Otro',
 };
 
- //* Record Status
+//* Record Status
 export enum CopastorSearchByRecordStatus {
   Inactive = 'inactive',
 }

@@ -7,14 +7,14 @@ export enum UserSearchSelectOption {
   Inactive = 'inactive',
 }
 
-export const UserSearchSelectOptionNames: Record<UserSearchSelectOption, string> =  {
+export const UserSearchSelectOptionNames: Record<UserSearchSelectOption, string> = {
   //* Gender
   [UserSearchSelectOption.Male]: 'Masculino',
   [UserSearchSelectOption.Female]: 'Femenino',
 
   //* Record Status
   [UserSearchSelectOption.Inactive]: 'Inactivo',
-}
+};
 
 //* Status
 export enum UserSearchByRecordStatus {

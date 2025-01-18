@@ -14,15 +14,12 @@ export interface FamilyGroupsByServiceTimePayload {
     serviceTimesCount: number;
     copastor: string;
     supervisor: string;
-    church:{
+    church: {
       isAnexe: boolean;
       abbreviatedChurchName: string;
-    }
+    };
     totalPercentage: string;
   };
   chartType?: string | undefined;
   hide: boolean;
 }
-
-
-

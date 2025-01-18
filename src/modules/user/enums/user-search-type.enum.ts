@@ -7,11 +7,11 @@ export enum UserSearchType {
   RecordStatus = 'record_status',
 }
 
-export const UserSearchTypeNames: Record<UserSearchType, string> =  {
+export const UserSearchTypeNames: Record<UserSearchType, string> = {
   [UserSearchType.FirstNames]: 'Nombres',
   [UserSearchType.LastNames]: 'Apellidos',
   [UserSearchType.FullName]: 'Nombres y Apellidos',
   [UserSearchType.Gender]: 'Género',
   [UserSearchType.Roles]: 'Roles',
   [UserSearchType.RecordStatus]: 'Estado de registro',
-}
+};

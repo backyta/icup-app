@@ -10,4 +10,3 @@ export interface IncomeAndExpensesComparativeResponse {
     abbreviatedChurchName: string;
   };
 }
-

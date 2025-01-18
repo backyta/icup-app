@@ -14,4 +14,3 @@ export interface OfferingIncomeByUnitedServiceResponse {
     date: Date;
   }>;
 }
-

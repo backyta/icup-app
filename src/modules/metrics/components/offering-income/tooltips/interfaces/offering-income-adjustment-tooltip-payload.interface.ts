@@ -4,7 +4,7 @@ interface Offering {
   date: string | Date;
 }
 
-// ? Payload
+//? Payload
 export interface OfferingIncomeAdjustmentPayload {
   fill: string;
   radius: number;
@@ -29,4 +29,3 @@ export interface OfferingIncomeAdjustmentPayload {
   chartType?: string | undefined;
   hide: boolean;
 }
-

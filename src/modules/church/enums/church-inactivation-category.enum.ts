@@ -3,9 +3,9 @@ export enum ChurchInactivationCategory {
   NaturalCircumstances = 'natural_circumstances',
   CommunityRelatedIssues = 'community_related_issues',
   FinancialChallenges = 'financial_challenges',
-  LegalOrRegulatoryIssues = 'legal_or_regulatory_issues', 
-  StrategicDecisions = 'strategic_decisions', 
-  ExternalFactors = 'external_factors', 
+  LegalOrRegulatoryIssues = 'legal_or_regulatory_issues',
+  StrategicDecisions = 'strategic_decisions',
+  ExternalFactors = 'external_factors',
 }
 
 export const ChurchInactivationCategoryNames: Record<ChurchInactivationCategory, string> = {
@@ -17,4 +17,3 @@ export const ChurchInactivationCategoryNames: Record<ChurchInactivationCategory,
   [ChurchInactivationCategory.NaturalCircumstances]: 'Razones naturales o inesperadas',
   [ChurchInactivationCategory.CommunityRelatedIssues]: 'Razones relacionados con la comunidad',
 };
-

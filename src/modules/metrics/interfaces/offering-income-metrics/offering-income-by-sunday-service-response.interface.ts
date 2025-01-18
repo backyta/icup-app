@@ -12,5 +12,3 @@ export interface OfferingIncomeBySundayServiceResponse {
     abbreviatedChurchName: string;
   };
 }
-
-

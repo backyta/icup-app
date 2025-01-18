@@ -4,7 +4,7 @@ import { create, type StateCreator } from 'zustand';
 import { type FamilyGroupResponse } from '@/modules/family-group/interfaces/family-group-response.interface';
 
 interface FamilyGroupStore {
-   //* Properties
+  //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
@@ -26,11 +26,15 @@ export const storeFamilyGroup: StateCreator<FamilyGroupStore> = (set) => ({
   dataSearchGeneralResponse: undefined,
   dataSearchByTermResponse: undefined,
 
-  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( ({isFiltersSearchGeneralDisabled: value}) ),
-  setIsFiltersSearchByTermDisabled: (value: boolean) => set( ({isFiltersSearchByTermDisabled: value}) ),
+  setIsFiltersSearchGeneralDisabled: (value: boolean) =>
+    set({ isFiltersSearchGeneralDisabled: value }),
+  setIsFiltersSearchByTermDisabled: (value: boolean) =>
+    set({ isFiltersSearchByTermDisabled: value }),
 
-  setDataSearchGeneralResponse: (value: FamilyGroupResponse[] |  undefined) => set( ({dataSearchGeneralResponse: value}) ),
-  setDataSearchByTermResponse: (value: FamilyGroupResponse[] | undefined) => set( ({dataSearchByTermResponse: value}) ),
-})
+  setDataSearchGeneralResponse: (value: FamilyGroupResponse[] | undefined) =>
+    set({ dataSearchGeneralResponse: value }),
+  setDataSearchByTermResponse: (value: FamilyGroupResponse[] | undefined) =>
+    set({ dataSearchByTermResponse: value }),
+});
 
 export const useFamilyGroupStore = create<FamilyGroupStore>()(storeFamilyGroup);

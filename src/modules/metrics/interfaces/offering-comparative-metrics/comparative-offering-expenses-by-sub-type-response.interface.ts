@@ -9,4 +9,3 @@ export interface ComparativeOfferingExpensesBySubTypeResponse {
   };
   totalAmount: number;
 }
-

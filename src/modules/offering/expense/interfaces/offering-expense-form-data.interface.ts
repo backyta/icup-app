@@ -1,14 +1,14 @@
 export interface OfferingExpenseFormData {
-  churchId    : string,
-  type         : string,
-  subType     ?: string | undefined,
-  amount       : string,
-  date         : Date;
-  currency     : string,
-  comments     : string,
-  fileNames   ?: string[] | undefined,
-  imageUrls   ?: string[] | undefined,
-  recordStatus?: string | undefined,
+  churchId: string;
+  type: string;
+  subType?: string | undefined;
+  amount: string;
+  date: Date;
+  currency: string;
+  comments: string;
+  fileNames?: string[] | undefined;
+  imageUrls?: string[] | undefined;
+  recordStatus?: string | undefined;
 }
 
 export type OfferingIncomeFormDataKeys =
@@ -20,4 +20,4 @@ export type OfferingIncomeFormDataKeys =
   | 'fileNames'
   | 'imageUrls'
   | 'churchId'
-  | 'recordStatus'
+  | 'recordStatus';

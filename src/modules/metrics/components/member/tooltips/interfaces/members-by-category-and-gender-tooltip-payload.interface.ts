@@ -9,18 +9,15 @@ export interface MembersByCategoryAndGenderPayload {
   value: number;
   type?: string | undefined;
   payload: {
-    category: string,
-    men: number,
-    women: number,
-    totalPercentage: string,
-    church:{
+    category: string;
+    men: number;
+    women: number;
+    totalPercentage: string;
+    church: {
       isAnexe: boolean;
       abbreviatedChurchName: string;
-    }
+    };
   };
   chartType?: string | undefined;
   hide: boolean;
 }
-
-
-

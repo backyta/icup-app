@@ -1,4 +1,4 @@
-interface FamilyGroupStats  {
+interface FamilyGroupStats {
   copastor: string;
   supervisor: string;
   active: number;
@@ -10,4 +10,3 @@ interface FamilyGroupStats  {
 }
 
 export type FamilyGroupsByRecordStatusResponse = Record<string, FamilyGroupStats>;
-

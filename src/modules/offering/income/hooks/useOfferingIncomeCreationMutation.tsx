@@ -8,20 +8,27 @@ import { useMutation, type UseMutationResult } from '@tanstack/react-query';
 import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces/offering-income-response.interface';
 import { type OfferingIncomeFormData } from '@/modules/offering/income/interfaces/offering-income-form-data.interface';
 
-import { createOfferingIncome } from '@/modules/offering/income/services/offering-income.service';
+import {
+  createOfferingIncome,
+  generateTicketByOfferingIncomeId,
+  updateOfferingIncome,
+} from '@/modules/offering/income/services/offering-income.service';
 
-import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
-
-import { deleteImage } from '@/modules/offering/shared/services/images-files.service';
-import { OfferingFileType } from '@/modules/offering/shared/enums/offering-file-type.enum';
-import { type FilesProps } from '@/modules/offering/shared/interfaces/files-props.interface';
 import {
   extractPath,
   extractPublicId,
 } from '@/modules/offering/shared/helpers/extract-data-secure-url.helper';
 
+import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
+
+import { deleteImage, uploadImages } from '@/modules/offering/shared/services/images-files.service';
+import { OfferingFileType } from '@/modules/offering/shared/enums/offering-file-type.enum';
+import { type FilesProps } from '@/modules/offering/shared/interfaces/files-props.interface';
+import { convertPdfBlobToImage } from '../helpers/convert-pdf-to-image';
+
 interface Options {
   imageUrls: string[];
+  generateTicket?: string;
   setFiles: React.Dispatch<React.SetStateAction<FilesProps[]>>;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsInputMemberDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -38,6 +45,7 @@ export const useOfferingIncomeCreationMutation = ({
   setIsSubmitButtonDisabled,
   setIsDeleteFileButtonDisabled,
   imageUrls,
+  generateTicket,
 }: Options): UseMutationResult<
   OfferingIncomeResponse,
   ErrorResponse,
@@ -86,7 +94,7 @@ export const useOfferingIncomeCreationMutation = ({
         }, 3500);
       }
     },
-    onSuccess: () => {
+    onSuccess: async (data) => {
       toast.success('Registro creado exitosamente.', {
         position: 'top-center',
         className: 'justify-center',
@@ -100,6 +108,45 @@ export const useOfferingIncomeCreationMutation = ({
         setFiles([]);
         offeringIncomeCreationForm.reset();
       }, 1700);
+
+      if (generateTicket === 'yes') {
+        setTimeout(async () => {
+          const response = await generateTicketByOfferingIncomeId({ id: data.id });
+
+          const pdfUrl = URL.createObjectURL(response.data);
+
+          const file = await convertPdfBlobToImage(pdfUrl);
+
+          let newFiles = [];
+          newFiles.push(file);
+
+          const { imageUrls } = await uploadImages({
+            files: newFiles as any,
+            fileType: OfferingFileType.Income,
+            offeringType: data.type,
+            offeringSubType: data.subType ?? null,
+          });
+
+          await updateOfferingIncome({
+            id: data.id,
+            formData: {
+              type: data.type,
+              subType: data.subType,
+              category: data.category,
+              shift: data.shift,
+              amount: data.amount,
+              currency: data.currency,
+              date: data.date,
+              comments: data.comments,
+              memberType: data.memberType,
+              churchId: data?.church?.id!,
+              externalDonorId: data?.externalDonor?.id,
+              recordStatus: data.recordStatus,
+              imageUrls: imageUrls,
+            },
+          });
+        }, 1100);
+      }
     },
   });
 

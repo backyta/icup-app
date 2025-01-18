@@ -10,9 +10,10 @@ export enum ZoneInactivationCategory {
 export const ZoneInactivationCategoryNames: Record<ZoneInactivationCategory, string> = {
   [ZoneInactivationCategory.AdministrativeChanges]: 'Razones por cambios administrativos',
   [ZoneInactivationCategory.LeadershipIssues]: 'Razones por problemas de liderazgo',
-  [ZoneInactivationCategory.LackOfActivityOrCommitment]: 'Razones por falta de actividad o compromiso',
-  [ZoneInactivationCategory.FamilyGroupsRelatedReasons]: 'Razones relacionadas con grupos familiares',
+  [ZoneInactivationCategory.LackOfActivityOrCommitment]:
+    'Razones por falta de actividad o compromiso',
+  [ZoneInactivationCategory.FamilyGroupsRelatedReasons]:
+    'Razones relacionadas con grupos familiares',
   [ZoneInactivationCategory.ExternalFactors]: 'Razones por factores externos',
   [ZoneInactivationCategory.UnavoidableCircumstances]: 'Razones inevitables o naturales',
 };
-

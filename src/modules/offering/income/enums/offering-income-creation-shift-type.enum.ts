@@ -3,7 +3,8 @@ export enum OfferingIncomeCreationShiftType {
   Afternoon = 'afternoon',
 }
 
-export const OfferingIncomeCreationShiftTypeNames: Record<OfferingIncomeCreationShiftType, string> = {
-  day : 'Dia',
-  afternoon : 'Tarde',
-};
+export const OfferingIncomeCreationShiftTypeNames: Record<OfferingIncomeCreationShiftType, string> =
+  {
+    day: 'Dia',
+    afternoon: 'Tarde',
+  };

@@ -14,10 +14,10 @@ export interface FamilyGroupByCopastorAndZonePayload {
     copastor: string;
     supervisor: string;
     familyGroupsCount: number;
-    church:{
+    church: {
       isAnexe: boolean;
       abbreviatedChurchName: string;
-    }
+    };
     totalPercentage: string;
   };
   chartType?: string | undefined;

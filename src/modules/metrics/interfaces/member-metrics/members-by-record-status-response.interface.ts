@@ -1,10 +1,10 @@
-interface RecordStatusStats  {
+interface RecordStatusStats {
   active: number;
   inactive: number;
-  church:{
+  church: {
     isAnexe: boolean;
     abbreviatedChurchName: string;
-  }
+  };
 }
 
 export type MembersByRecordStatusResponse = Record<string, RecordStatusStats>;

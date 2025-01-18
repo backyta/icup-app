@@ -1,29 +1,29 @@
 import { type MemberRole } from '@/shared/enums/member-role.enum';
 
 export interface PreacherFormData {
-  firstNames               : string;
-  lastNames                : string;
-  gender                   : string;
-  originCountry            : string;
-  birthDate                : Date;
-  maritalStatus            : string;
-  numberChildren           : string;
-  conversionDate           : Date;
-  email                   ?: string | undefined,
-  phoneNumber             ?: string | undefined,
-  residenceCountry         : string;
-  residenceDepartment      : string;
-  residenceProvince        : string;
-  residenceDistrict        : string;
-  residenceUrbanSector     : string;
-  residenceAddress         : string;
-  referenceAddress         : string;
-  roles                    : MemberRole[];
-  recordStatus            ?: string | undefined;
+  firstNames: string;
+  lastNames: string;
+  gender: string;
+  originCountry: string;
+  birthDate: Date;
+  maritalStatus: string;
+  numberChildren: string;
+  conversionDate: Date;
+  email?: string | undefined;
+  phoneNumber?: string | undefined;
+  residenceCountry: string;
+  residenceDepartment: string;
+  residenceProvince: string;
+  residenceDistrict: string;
+  residenceUrbanSector: string;
+  residenceAddress: string;
+  referenceAddress: string;
+  roles: MemberRole[];
+  recordStatus?: string | undefined;
   isDirectRelationToPastor?: boolean | undefined;
-  theirSupervisor         ?: string | undefined;
-  theirCopastor           ?: string | undefined;
-  theirPastor             ?: string | undefined;
+  theirSupervisor?: string | undefined;
+  theirCopastor?: string | undefined;
+  theirPastor?: string | undefined;
 }
 
 export type PreacherFormDataKeys =
@@ -49,4 +49,4 @@ export type PreacherFormDataKeys =
   | 'isDirectRelationToPastor'
   | 'theirSupervisor'
   | 'theirCopastor'
-  | 'theirPastor'
+  | 'theirPastor';

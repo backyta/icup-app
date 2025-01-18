@@ -154,7 +154,7 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
 
             <div className='space-y-1 col-start-1 col-end-4 row-start-4'>
               {data?.category === OfferingIncomeCreationCategory.ExternalDonation ? (
-                <Label className='text-[14px] md:text-[15px]'>Descripción / Petición</Label>
+                <Label className='text-[14px] md:text-[15px]'>Observaciones / Descripción</Label>
               ) : (
                 <Label className='text-[14px] md:text-[15px]'>Detalles / Observaciones</Label>
               )}
@@ -200,7 +200,7 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
               data?.subType === OfferingIncomeCreationSubType.ZonalFasting ||
               data?.subType === OfferingIncomeCreationSubType.ZonalVigil) && (
               <>
-                <Label className='md:-mb-3 mt-1 md:-mt-2 col-start-1 col-end-4 row-start-auto row-end-auto text-[15px] md:text-[16px] font-bold text-violet-500'>
+                <Label className='md:-mb-2 mt-1 md:-mt-1 col-start-1 col-end-4 row-start-auto row-end-auto text-[15px] md:text-[16px] font-bold text-violet-500'>
                   Información del aportante
                 </Label>
                 {data?.externalDonor?.id && (
@@ -306,7 +306,7 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
               </>
             )}
 
-            <Label className='md:-mb-3 mt-1 md:-mt-2 col-start-1 col-end-4 row-start-auto row-end-auto text-[15px] md:text-[16px] font-bold text-emerald-500'>
+            <Label className='md:-mb-3 mt-1 md:-mt-1 col-start-1 col-end-4 row-start-auto row-end-auto text-[15px] md:text-[16px] font-bold text-emerald-500'>
               Información de pertenecía
             </Label>
             {data?.church?.id && (

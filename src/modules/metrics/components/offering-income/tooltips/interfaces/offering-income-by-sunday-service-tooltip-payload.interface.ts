@@ -9,14 +9,14 @@ export interface OfferingIncomePayloadBySundayService {
   value: number;
   type?: string | undefined;
   payload: {
-    date: string,
-    category: string,
-    dayPEN: number,
-    afternoonPEN: number,
-    dayUSD: number,
-    afternoonUSD: number,
-    dayEUR: number,
-    afternoonEUR: number,
+    date: string;
+    category: string;
+    dayPEN: number;
+    afternoonPEN: number;
+    dayUSD: number;
+    afternoonUSD: number;
+    dayEUR: number;
+    afternoonEUR: number;
     church: {
       isAnexe: boolean;
       abbreviatedChurchName: string;

@@ -11,7 +11,7 @@ import { AuthLayout } from '@/layouts/AuthLayout';
 
 import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 
-// ? Routers by module
+//? Routers by module
 //* Members
 import { ChurchChildrenRoutes } from '@/modules/church/router/ChurchChildrenRoutes';
 import { PastorChildrenRoutes } from '@/modules/pastor/router/PastorChildrenRoutes';
@@ -80,7 +80,7 @@ const MetricsOptionsPage = lazy(() => import('@/modules/metrics/pages/MetricsOpt
 //* User
 const UserOptionsPage = lazy(() => import('@/modules/user/pages/UserOptionsPage'));
 
-// ? Browser router
+//? Browser router
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -210,7 +210,7 @@ export const router = createBrowserRouter([
         ],
       },
 
-      // ? Children routes and pages by module
+      //? Children routes and pages by module
       //* Members
       {
         path: 'churches',

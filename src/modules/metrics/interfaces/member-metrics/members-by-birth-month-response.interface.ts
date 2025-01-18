@@ -2,8 +2,8 @@ export interface MembersByBirthMonthResponse {
   month: string;
   membersCount: number;
   averageAge: string | number;
-  church:{
+  church: {
     isAnexe: boolean;
     abbreviatedChurchName: string;
-  }
+  };
 }

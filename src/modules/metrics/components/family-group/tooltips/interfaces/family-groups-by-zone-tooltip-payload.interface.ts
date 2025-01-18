@@ -9,16 +9,16 @@ export interface FamilyGroupsByZonePayload {
   value: number;
   type?: string | undefined;
   payload: {
-    familyGroupCode: string,
-    supervisor:string,
-    preacher:string,
-    men: number,
-    women: number,
-    church:{
+    familyGroupCode: string;
+    supervisor: string;
+    preacher: string;
+    men: number;
+    women: number;
+    church: {
       isAnexe: boolean;
       abbreviatedChurchName: string;
-    }
-    totalPercentage: string,
+    };
+    totalPercentage: string;
   };
   chartType?: string | undefined;
   hide: boolean;

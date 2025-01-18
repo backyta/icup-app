@@ -4,7 +4,7 @@ import { create, type StateCreator } from 'zustand';
 import { type SupervisorResponse } from '@/modules/supervisor/interfaces/supervisor-response.interface';
 
 interface SupervisorStore {
-   //* Properties
+  //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
@@ -26,12 +26,15 @@ export const storeSupervisor: StateCreator<SupervisorStore> = (set) => ({
   dataSearchGeneralResponse: undefined,
   dataSearchByTermResponse: undefined,
 
-  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( ({isFiltersSearchGeneralDisabled: value}) ),
-  setIsFiltersSearchByTermDisabled: (value: boolean) => set( ({isFiltersSearchByTermDisabled: value}) ),
+  setIsFiltersSearchGeneralDisabled: (value: boolean) =>
+    set({ isFiltersSearchGeneralDisabled: value }),
+  setIsFiltersSearchByTermDisabled: (value: boolean) =>
+    set({ isFiltersSearchByTermDisabled: value }),
 
-  setDataSearchGeneralResponse: (value: SupervisorResponse[] |  undefined) => set( ({dataSearchGeneralResponse: value}) ),
-  setDataSearchByTermResponse: (value: SupervisorResponse[] | undefined) => set( ({dataSearchByTermResponse: value}) ),
-})
+  setDataSearchGeneralResponse: (value: SupervisorResponse[] | undefined) =>
+    set({ dataSearchGeneralResponse: value }),
+  setDataSearchByTermResponse: (value: SupervisorResponse[] | undefined) =>
+    set({ dataSearchByTermResponse: value }),
+});
 
 export const useSupervisorStore = create<SupervisorStore>()(storeSupervisor);
-

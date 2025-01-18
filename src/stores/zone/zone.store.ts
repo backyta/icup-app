@@ -4,7 +4,7 @@ import { create, type StateCreator } from 'zustand';
 import { type ZoneResponse } from '@/modules/zone/interfaces/zone-response.interface';
 
 interface ZoneStore {
-   //* Properties
+  //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
@@ -26,12 +26,15 @@ export const storeZone: StateCreator<ZoneStore> = (set) => ({
   dataSearchGeneralResponse: undefined,
   dataSearchByTermResponse: undefined,
 
-  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( ({isFiltersSearchGeneralDisabled: value} )),
-  setIsFiltersSearchByTermDisabled: (value: boolean) => set( ({isFiltersSearchByTermDisabled: value} )),
+  setIsFiltersSearchGeneralDisabled: (value: boolean) =>
+    set({ isFiltersSearchGeneralDisabled: value }),
+  setIsFiltersSearchByTermDisabled: (value: boolean) =>
+    set({ isFiltersSearchByTermDisabled: value }),
 
-  setDataSearchGeneralResponse: (value: ZoneResponse[] |  undefined) => set( ({dataSearchGeneralResponse: value} )),
-  setDataSearchByTermResponse: (value: ZoneResponse[] | undefined) => set( ({dataSearchByTermResponse: value} )),
-})
+  setDataSearchGeneralResponse: (value: ZoneResponse[] | undefined) =>
+    set({ dataSearchGeneralResponse: value }),
+  setDataSearchByTermResponse: (value: ZoneResponse[] | undefined) =>
+    set({ dataSearchByTermResponse: value }),
+});
 
 export const useZoneStore = create<ZoneStore>()(storeZone);
-

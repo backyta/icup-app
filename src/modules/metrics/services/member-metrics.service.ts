@@ -17,303 +17,312 @@ import { type MembersByRoleAndGenderResponse } from '@/modules/metrics/interface
 import { type MembersByDistrictAndGenderResponse } from '@/modules/metrics/interfaces/member-metrics/members-by-district-and-gender-response.interface';
 import { type MembersByCategoryAndGenderResponse } from '@/modules/metrics/interfaces/member-metrics/members-by-category-and-gender-response.interface';
 
-// ? GET PROPORTION MEMBERS
-export const  getMembersProportion = async ({ 
-  searchType, 
+//? GET PROPORTION MEMBERS
+export const getMembersProportion = async ({
+  searchType,
   church,
-  order
+  order,
 }: MetricQueryParams): Promise<MembersProportionResponse> => {
   try {
-    const {data} = await icupApi<MembersProportionResponse>(`/metrics/${church}`, {
+    const { data } = await icupApi<MembersProportionResponse>(`/metrics/${church}`, {
       params: {
         searchType,
-        order
+        order,
       },
     });
 
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
-  }
-}
 
-// ? SEARCH BY TERM
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
+  }
+};
+
+//? SEARCH BY TERM
 //* Get Fluctuation Members by year
-export const  getFluctuationMembersByYear = async ({ 
-  searchType, 
+export const getFluctuationMembersByYear = async ({
+  searchType,
   year,
   order,
-  church
+  church,
 }: MetricQueryParams): Promise<MembersFluctuationResponse[]> => {
   try {
-    const {data} = await icupApi<MembersFluctuationResponse[]>(`/metrics/${church}&${year}`, {
+    const { data } = await icupApi<MembersFluctuationResponse[]>(`/metrics/${church}&${year}`, {
       params: {
         searchType,
-        order
+        order,
       },
     });
 
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
   }
-}
+};
 
 //* Get members by birth month
-export const  getMembersByBirthMonth = async ({ 
+export const getMembersByBirthMonth = async ({
   searchType,
   church,
-  order
+  order,
 }: MetricQueryParams): Promise<MembersByBirthMonthResponse[]> => {
   try {
-    const {data} = await icupApi<MembersByBirthMonthResponse[]>(`/metrics/${church}`, {
+    const { data } = await icupApi<MembersByBirthMonthResponse[]>(`/metrics/${church}`, {
       params: {
         searchType,
-        order
+        order,
       },
     });
-    
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
   }
-}
+};
 
 //* Get members by category
-export const  getMembersByCategory = async ({ 
-  searchType, 
+export const getMembersByCategory = async ({
+  searchType,
   church,
-  order
+  order,
 }: MetricQueryParams): Promise<MembersByCategoryResponse> => {
   try {
-    const {data} = await icupApi<MembersByCategoryResponse>(`/metrics/${church}`, {
+    const { data } = await icupApi<MembersByCategoryResponse>(`/metrics/${church}`, {
       params: {
         searchType,
-        order
+        order,
       },
     });
-    
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
   }
-}
+};
 
 //* Get members by category and gender
-export const  getMembersByCategoryAndGender = async ({ 
-  searchType, 
+export const getMembersByCategoryAndGender = async ({
+  searchType,
   church,
-  order
+  order,
 }: MetricQueryParams): Promise<MembersByCategoryAndGenderResponse> => {
   try {
-    const {data} = await icupApi<MembersByCategoryAndGenderResponse>(`/metrics/${church}`, {
+    const { data } = await icupApi<MembersByCategoryAndGenderResponse>(`/metrics/${church}`, {
       params: {
         searchType,
-        order
+        order,
       },
     });
-    
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
   }
-}
+};
 
 //* Get members by role
-export const  getMembersByRole = async ({ 
-  searchType, 
+export const getMembersByRole = async ({
+  searchType,
   church,
-  order
+  order,
 }: MetricQueryParams): Promise<MembersByRoleAndGenderResponse> => {
   try {
-    const {data} = await icupApi<MembersByRoleAndGenderResponse>(`/metrics/${church}`, {
+    const { data } = await icupApi<MembersByRoleAndGenderResponse>(`/metrics/${church}`, {
       params: {
         searchType,
-        order
+        order,
       },
     });
 
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
   }
-}
+};
 
 //* Get members by marital status
-export const  getMembersByMaritalStatus = async ({ 
-  searchType, 
+export const getMembersByMaritalStatus = async ({
+  searchType,
   church,
-  order
+  order,
 }: MetricQueryParams): Promise<MembersByMaritalStatusResponse> => {
   try {
-    const {data} = await icupApi<MembersByMaritalStatusResponse>(`/metrics/${church}`, {
+    const { data } = await icupApi<MembersByMaritalStatusResponse>(`/metrics/${church}`, {
       params: {
         searchType,
-        order
+        order,
       },
     });
-    
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
   }
-}
+};
 
 //* Get disciples by zone and gender
-export const  getDisciplesByZoneAndGender = async ({ 
+export const getDisciplesByZoneAndGender = async ({
   searchType,
   church,
   copastor,
   allZones,
-  order
+  order,
 }: MetricQueryParams): Promise<MembersByZoneAndGenderResponse> => {
   try {
-    const {data} = await icupApi<MembersByZoneAndGenderResponse>(`/metrics/${church}&${copastor}`, {
-      params: {
-        searchType,
-        allZones: allZones?.toString(),
-        order
-      },
-    });
-  
+    const { data } = await icupApi<MembersByZoneAndGenderResponse>(
+      `/metrics/${church}&${copastor}`,
+      {
+        params: {
+          searchType,
+          allZones: allZones?.toString(),
+          order,
+        },
+      }
+    );
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
 
-    throw new Error('Ocurrió un error inesperado, hable con el administrador') 
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
   }
-}
+};
 
 //* Get preacher by zone and gender
-export const  getPreachersByZoneAndGender = async ({ 
+export const getPreachersByZoneAndGender = async ({
   searchType,
   church,
   copastor,
   allZones,
-  order
+  order,
 }: MetricQueryParams): Promise<MembersByZoneAndGenderResponse> => {
   try {
-    const {data} = await icupApi<MembersByZoneAndGenderResponse>(`/metrics/${church}&${copastor}`, {
-      params: {
-        searchType,
-        allZones: allZones?.toString(),
-        order
-      },
-    });
-    
+    const { data } = await icupApi<MembersByZoneAndGenderResponse>(
+      `/metrics/${church}&${copastor}`,
+      {
+        params: {
+          searchType,
+          allZones: allZones?.toString(),
+          order,
+        },
+      }
+    );
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
 
-    throw new Error('Ocurrió un error inesperado, hable con el administrador') 
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
   }
-}
+};
 
 //* Get members by district and gender
-export const  getMembersByDistrictAndGender = async ({ 
-  searchType, 
+export const getMembersByDistrictAndGender = async ({
+  searchType,
   church,
   district,
-  order
+  order,
 }: MetricQueryParams): Promise<MembersByDistrictAndGenderResponse> => {
   try {
-    const {data} = await icupApi<MembersByDistrictAndGenderResponse>(`/metrics/${church}&${district}`, {
-      params: {
-        searchType,
-        order
-      },
-    });
-  
+    const { data } = await icupApi<MembersByDistrictAndGenderResponse>(
+      `/metrics/${church}&${district}`,
+      {
+        params: {
+          searchType,
+          order,
+        },
+      }
+    );
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
 
-    throw new Error('Ocurrió un error inesperado, hable con el administrador') 
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
   }
-}
+};
 
 //* Get Members by record status
-export const  getMembersByRecordStatus = async ({ 
-  searchType, 
+export const getMembersByRecordStatus = async ({
+  searchType,
   church,
-  order
+  order,
 }: MetricQueryParams): Promise<MembersByRecordStatusResponse> => {
   try {
-    const {data} = await icupApi<MembersByRecordStatusResponse>(`/metrics/${church}`, {
+    const { data } = await icupApi<MembersByRecordStatusResponse>(`/metrics/${church}`, {
       params: {
         searchType,
-        order
+        order,
       },
     });
 
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
-  }
-}
 
-// ? MEMBER METRICS REPORTS
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
+  }
+};
+
+//? MEMBER METRICS REPORTS
 const openPdfInNewTab = (pdfBlob: Blob): void => {
   const pdfUrl = URL.createObjectURL(pdfBlob);
   const newTab = window.open(pdfUrl, '_blank');
   newTab?.focus();
-}
+};
 
 interface MetricReportQueryParams {
   year: string;
-  churchId: string; 
+  churchId: string;
   types: string[];
   dialogClose: () => void;
 }
 
 export const getMemberMetricsReport = async ({
-  year, 
-  churchId, 
-  types, 
+  year,
+  churchId,
+  types,
   dialogClose,
 }: MetricReportQueryParams): Promise<boolean> => {
   const joinedReportTypes = types.join('+');
 
   try {
-    const res = await icupApi<Blob>('/reports/member-metrics' , {
+    const res = await icupApi<Blob>('/reports/member-metrics', {
       params: {
         churchId,
         year,
@@ -324,21 +333,21 @@ export const getMemberMetricsReport = async ({
       },
       responseType: 'blob',
     });
-    
+
     setTimeout(() => {
       dialogClose();
     }, 100);
 
     setTimeout(() => {
       openPdfInNewTab(res.data);
-    },300);
+    }, 300);
 
     return true;
-   } catch (error) {
-     if (isAxiosError(error) && error.response) {
-       throw (error.response.data)
-     }
-     
-     throw new Error('Ocurrió un error inesperado, hable con el administrador')
-   }
- }
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw error.response.data;
+    }
+
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
+  }
+};

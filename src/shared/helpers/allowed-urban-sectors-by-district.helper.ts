@@ -1,14 +1,14 @@
 import { UrbanSectorNames } from '@/shared/enums/urban-sector.enum';
 
-// ? Allowed Urban Sector by district
+//? Allowed Urban Sector by district
 //* Independencia
 export const UrbanSectorsIndependenciaAllowed = [
- UrbanSectorNames.Independencia,
- UrbanSectorNames.Ermitaño,
- UrbanSectorNames.Tahuantinsuyo,
- UrbanSectorNames.Payet,
- UrbanSectorNames.Unificada,
- UrbanSectorNames.Industrial,
+  UrbanSectorNames.Independencia,
+  UrbanSectorNames.Ermitaño,
+  UrbanSectorNames.Tahuantinsuyo,
+  UrbanSectorNames.Payet,
+  UrbanSectorNames.Unificada,
+  UrbanSectorNames.Industrial,
 ];
 
 //* Punte Piedra
@@ -39,7 +39,6 @@ export const UrbanSectorsCarabaylloAllowed = [
   UrbanSectorNames.Urbanizaciones,
   UrbanSectorNames['El Progreso'],
   UrbanSectorNames.Agricola,
-
 ];
 
 //* Los Olivos

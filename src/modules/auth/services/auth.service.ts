@@ -18,28 +18,27 @@ export interface LoginResponse {
 }
 
 export class AuthService {
-  static login = async(email: string, password: string): Promise<LoginResponse> => {
+  static login = async (email: string, password: string): Promise<LoginResponse> => {
     try {
-      const { data } = await icupApi.post<LoginResponse>('/auth/login',{ email, password })
+      const { data } = await icupApi.post<LoginResponse>('/auth/login', { email, password });
 
       return data;
-      
     } catch (error) {
       if (error instanceof AxiosError) {
         throw error;
       }
 
-      throw new Error('No se puede iniciar sesión, hable con el administrador.')
+      throw new Error('No se puede iniciar sesión, hable con el administrador.');
     }
-  }
+  };
 
-  static checkAuthStatus = async():Promise<LoginResponse> => {
+  static checkAuthStatus = async (): Promise<LoginResponse> => {
     try {
       const { data } = await icupApi.get('/auth/check-auth-status');
 
       return data;
     } catch (error) {
-      throw new Error('Sin autorización')
+      throw new Error('Sin autorización');
     }
-  }
+  };
 }

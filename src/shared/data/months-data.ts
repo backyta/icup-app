@@ -12,4 +12,3 @@ export const months = [
   { label: 'Noviembre', value: 'november' },
   { label: 'Diciembre', value: 'december' },
 ] as const;
-

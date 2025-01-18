@@ -24,7 +24,7 @@ export const SideMenu = (): JSX.Element => {
             href='/dashboard'
             className='inline-flex gap-x-5 items-center md:mt-0 pl-4 pr-3 md:py-4 md:px-0 md:flex md:flex-col-reverse md:gap-3'
           >
-            <h1 className='text-[1.8rem] pl-1 md:-ml-3 md:text-[1.8rem] font-bold font-dancing-script italic text-white'>
+            <h1 className='text-[1.8rem] pl-0 md:-ml-3 md:text-[1.8rem] font-bold font-dancing-script italic text-white'>
               ICUP <span className='md:hidden'> - </span>
               <span className='md:block text-[1.8rem] md:text-[1.8rem] md:text-center leading-3'>
                 APP

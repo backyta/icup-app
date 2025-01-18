@@ -113,7 +113,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
 
-    // ? Sunday School
+    //? Sunday School
     //* Sunday School (external donation)
     if (
       type === OfferingIncomeCreationType.Offering &&
@@ -263,7 +263,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
 
-    // ? Youth Service
+    //? Youth Service
     //* Youth Service (external donation)
     if (
       type === OfferingIncomeCreationType.Offering &&
@@ -388,7 +388,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
 
-    // ? Church Ground
+    //? Church Ground
     //* Church ground (external donation)
     if (
       type === OfferingIncomeCreationType.Offering &&
@@ -511,7 +511,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
 
-    // ? Special offering
+    //? Special offering
     //* Special offering (external donation)
     if (
       type === OfferingIncomeCreationType.Offering &&
@@ -608,7 +608,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
 
-    // ? Family group
+    //? Family group
     if (
       churchId &&
       type === OfferingIncomeCreationType.Offering &&
@@ -634,7 +634,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
 
-    // ? Zone
+    //? Zone
     if (
       churchId &&
       type === OfferingIncomeCreationType.Offering &&
@@ -662,7 +662,7 @@ export const useOfferingIncomeCreationSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
 
-    // ? Others
+    //? Others
     if (
       type === OfferingIncomeCreationType.Offering &&
       (category === OfferingIncomeCreationCategory.General ||

@@ -9,7 +9,7 @@ export interface IncomeAndExpensesComparativePayload {
   value: number;
   type?: string | undefined;
   payload: {
-    month: string,
+    month: string;
     netResultPrevious: number | null;
     totalIncome: number;
     totalExpenses: number;
@@ -23,6 +23,3 @@ export interface IncomeAndExpensesComparativePayload {
   chartType?: string | undefined;
   hide: boolean;
 }
-
-
-

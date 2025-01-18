@@ -6,21 +6,21 @@ export interface OfferingIncomeByFastingAndVigilResponse {
   accumulatedOfferingEUR: number;
   date: string | Date;
   copastor: {
-    id: string,
-    firstNames: string,
-    lastNames: string,
-  } | null ;
+    id: string;
+    firstNames: string;
+    lastNames: string;
+  } | null;
   supervisor: {
-    id: string,
-    firstNames: string,
-    lastNames: string,
-  } | null ;
+    id: string;
+    firstNames: string;
+    lastNames: string;
+  } | null;
   zone: {
-    id: string,
-      zoneName: string,
-      district: string,
-      disciples: number,
-  } | null ;
+    id: string;
+    zoneName: string;
+    district: string;
+    disciples: number;
+  } | null;
   church: {
     id: string;
     abbreviatedChurchName: string;
@@ -31,4 +31,3 @@ export interface OfferingIncomeByFastingAndVigilResponse {
     date: Date;
   }>;
 }
-

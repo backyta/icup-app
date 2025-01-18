@@ -10,283 +10,307 @@ import { type OfferingExpenseChartResponse } from '@/modules/metrics/interfaces/
 import { type OfferingExpensesProportionResponse } from '@/modules/metrics/interfaces/offering-expense-metrics/offering-expense-proportion-response.interface';
 import { type OfferingExpensesAdjustmentResponse } from '@/modules/metrics/interfaces/offering-expense-metrics/offering-expenses-adjustment-response.interface';
 
-// ? GET PROPORTION OFFERING EXPENSES 
-export const getOfferingExpensesProportion = async ({ 
-  searchType, 
+//? GET PROPORTION OFFERING EXPENSES
+export const getOfferingExpensesProportion = async ({
+  searchType,
   church,
-  order
+  order,
 }: MetricQueryParams): Promise<OfferingExpensesProportionResponse> => {
   try {
-    const {data} = await icupApi<OfferingExpensesProportionResponse>(`/metrics/${church}`, {
+    const { data } = await icupApi<OfferingExpensesProportionResponse>(`/metrics/${church}`, {
       params: {
         searchType,
-        order
+        order,
       },
     });
 
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
-  }
-}
 
-// ? SEARCH BY TERM
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
+  }
+};
+
+//? SEARCH BY TERM
 //* Operational offering expenses
-export const getOperationalOfferingExpenses = async ({ 
+export const getOperationalOfferingExpenses = async ({
   searchType,
   church,
   month,
   year,
   isSingleMonth,
-  order
+  order,
 }: MetricQueryParams): Promise<OfferingExpenseChartResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
-      params: {
-        searchType,
-        isSingleMonth: isSingleMonth?.toString(),
-        order
-      },
-    });
-    
+    const { data } = await icupApi<OfferingExpenseChartResponse[]>(
+      `/metrics/${church}&${month}&${year}`,
+      {
+        params: {
+          searchType,
+          isSingleMonth: isSingleMonth?.toString(),
+          order,
+        },
+      }
+    );
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
   }
-}
+};
 
 //* Maintenance and repair offering expenses
-export const getMaintenanceAndRepairOfferingExpenses = async ({ 
+export const getMaintenanceAndRepairOfferingExpenses = async ({
   searchType,
   church,
   month,
   year,
   isSingleMonth,
-  order
+  order,
 }: MetricQueryParams): Promise<OfferingExpenseChartResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
-      params: {
-        searchType,
-        isSingleMonth: isSingleMonth?.toString(),
-        order
-      },
-    });
-    
+    const { data } = await icupApi<OfferingExpenseChartResponse[]>(
+      `/metrics/${church}&${month}&${year}`,
+      {
+        params: {
+          searchType,
+          isSingleMonth: isSingleMonth?.toString(),
+          order,
+        },
+      }
+    );
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
   }
-}
+};
 
 //* Decoration and repair offering expenses
-export const getDecorationOfferingExpenses = async ({ 
+export const getDecorationOfferingExpenses = async ({
   searchType,
   church,
   month,
   year,
   isSingleMonth,
-  order
+  order,
 }: MetricQueryParams): Promise<OfferingExpenseChartResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
-      params: {
-        searchType,
-        isSingleMonth: isSingleMonth?.toString(),
-        order
-      },
-    });
-    
+    const { data } = await icupApi<OfferingExpenseChartResponse[]>(
+      `/metrics/${church}&${month}&${year}`,
+      {
+        params: {
+          searchType,
+          isSingleMonth: isSingleMonth?.toString(),
+          order,
+        },
+      }
+    );
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
   }
-}
+};
 
 //* Equipment and technology and repair offering expenses
-export const getEquipmentAndTechnologyOfferingExpenses = async ({ 
+export const getEquipmentAndTechnologyOfferingExpenses = async ({
   searchType,
   church,
   month,
   year,
   isSingleMonth,
-  order
+  order,
 }: MetricQueryParams): Promise<OfferingExpenseChartResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
-      params: {
-        searchType,
-        isSingleMonth: isSingleMonth?.toString(),
-        order
-      },
-    });
-    
+    const { data } = await icupApi<OfferingExpenseChartResponse[]>(
+      `/metrics/${church}&${month}&${year}`,
+      {
+        params: {
+          searchType,
+          isSingleMonth: isSingleMonth?.toString(),
+          order,
+        },
+      }
+    );
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
   }
-}
+};
 
 //* Supplies offering expenses
-export const getSuppliesOfferingExpenses = async ({ 
+export const getSuppliesOfferingExpenses = async ({
   searchType,
   church,
   month,
   year,
   isSingleMonth,
-  order
+  order,
 }: MetricQueryParams): Promise<OfferingExpenseChartResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
-      params: {
-        searchType,
-        isSingleMonth: isSingleMonth?.toString(),
-        order
-      },
-    });
-    
+    const { data } = await icupApi<OfferingExpenseChartResponse[]>(
+      `/metrics/${church}&${month}&${year}`,
+      {
+        params: {
+          searchType,
+          isSingleMonth: isSingleMonth?.toString(),
+          order,
+        },
+      }
+    );
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
   }
-}
+};
 
 //* Planing events offering expenses
-export const getPlaningEventsOfferingExpenses = async ({ 
+export const getPlaningEventsOfferingExpenses = async ({
   searchType,
   church,
   month,
   year,
   isSingleMonth,
-  order
+  order,
 }: MetricQueryParams): Promise<OfferingExpenseChartResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
-      params: {
-        searchType,
-        isSingleMonth: isSingleMonth?.toString(),
-        order
-      },
-    });
-    
+    const { data } = await icupApi<OfferingExpenseChartResponse[]>(
+      `/metrics/${church}&${month}&${year}`,
+      {
+        params: {
+          searchType,
+          isSingleMonth: isSingleMonth?.toString(),
+          order,
+        },
+      }
+    );
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
   }
-}
+};
 
 //* Others offering expenses
-export const getOthersOfferingExpenses = async ({ 
+export const getOthersOfferingExpenses = async ({
   searchType,
   church,
   month,
   year,
   isSingleMonth,
-  order
+  order,
 }: MetricQueryParams): Promise<OfferingExpenseChartResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingExpenseChartResponse[]>(`/metrics/${church}&${month}&${year}`, {
-      params: {
-        searchType,
-        isSingleMonth: isSingleMonth?.toString(),
-        order
-      },
-    });
-    
+    const { data } = await icupApi<OfferingExpenseChartResponse[]>(
+      `/metrics/${church}&${month}&${year}`,
+      {
+        params: {
+          searchType,
+          isSingleMonth: isSingleMonth?.toString(),
+          order,
+        },
+      }
+    );
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
+
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
   }
-}
+};
 
 //* Offering expenses adjustment
-export const getOfferingExpensesAdjustment = async ({ 
+export const getOfferingExpensesAdjustment = async ({
   searchType,
   church,
   month,
   year,
   isSingleMonth,
-  order
+  order,
 }: MetricQueryParams): Promise<OfferingExpensesAdjustmentResponse[]> => {
   try {
-    const {data} = await icupApi<OfferingExpensesAdjustmentResponse[]>(`/metrics/${church}&${month}&${year}`, {
-      params: {
-        searchType,
-        isSingleMonth: isSingleMonth?.toString(),
-        order
-      },
-    });
-    
+    const { data } = await icupApi<OfferingExpensesAdjustmentResponse[]>(
+      `/metrics/${church}&${month}&${year}`,
+      {
+        params: {
+          searchType,
+          isSingleMonth: isSingleMonth?.toString(),
+          order,
+        },
+      }
+    );
+
     return data;
   } catch (error) {
     if (isAxiosError(error) && error.response) {
-      throw (error.response.data)
+      throw error.response.data;
     }
-    
-    throw new Error('Ocurrió un error inesperado, hable con el administrador')
-  }
-}
 
-// ? OFFERING EXPENSE METRICS REPORTS
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
+  }
+};
+
+//? OFFERING EXPENSE METRICS REPORTS
 const openPdfInNewTab = (pdfBlob: Blob): void => {
   const pdfUrl = URL.createObjectURL(pdfBlob);
   const newTab = window.open(pdfUrl, '_blank');
   newTab?.focus();
-}
+};
 
 interface MetricReportQueryParams {
   year: string;
   startMonth: string;
   endMonth: string;
-  churchId: string; 
+  churchId: string;
   types: string[];
   dialogClose: () => void;
 }
 
 export const getOfferingExpenseMetricsReport = async ({
-  year, 
-  churchId, 
+  year,
+  churchId,
   startMonth,
   endMonth,
-  types, 
+  types,
   dialogClose,
 }: MetricReportQueryParams): Promise<boolean> => {
   const joinedReportTypes = types.join('+');
 
   try {
-    const res = await icupApi<Blob>('/reports/offering-expense-metrics' , {
+    const res = await icupApi<Blob>('/reports/offering-expense-metrics', {
       params: {
         churchId,
         year,
@@ -299,21 +323,21 @@ export const getOfferingExpenseMetricsReport = async ({
       },
       responseType: 'blob',
     });
-    
+
     setTimeout(() => {
       dialogClose();
     }, 100);
 
     setTimeout(() => {
       openPdfInNewTab(res.data);
-    },300);
+    }, 300);
 
     return true;
-   } catch (error) {
-     if (isAxiosError(error) && error.response) {
-       throw (error.response.data)
-     }
-     
-     throw new Error('Ocurrió un error inesperado, hable con el administrador')
-   }
- }
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      throw error.response.data;
+    }
+
+    throw new Error('Ocurrió un error inesperado, hable con el administrador');
+  }
+};

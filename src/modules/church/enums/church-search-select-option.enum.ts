@@ -11,7 +11,6 @@ export enum ChurchSearchByRecordStatus {
   Inactive = 'inactive',
 }
 
-export const ChurchSearchNamesByRecordStatus: Record<ChurchSearchByRecordStatus, string> =  {
+export const ChurchSearchNamesByRecordStatus: Record<ChurchSearchByRecordStatus, string> = {
   [ChurchSearchByRecordStatus.Inactive]: 'Inactivo',
-}
-
+};

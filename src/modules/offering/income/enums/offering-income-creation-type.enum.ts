@@ -4,7 +4,6 @@ export enum OfferingIncomeCreationType {
 }
 
 export const OfferingIncomeCreationTypeNames: Record<OfferingIncomeCreationType, string> = {
-  offering : 'Ofrenda',
-  income_adjustment : 'Ajuste por Ingreso '
+  offering: 'Ofrenda',
+  income_adjustment: 'Ajuste por Ingreso ',
 };
-

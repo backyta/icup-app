@@ -1,102 +1,90 @@
 import * as z from 'zod';
-import { 
-  MetricMemberSearchType, 
-  MetricFamilyGroupSearchType, 
-  MetricOfferingIncomeSearchType, 
-  MetricOfferingExpenseSearchType, 
-  MetricFinancialBalanceComparisonSearchType, 
+import {
+  MetricMemberSearchType,
+  MetricFamilyGroupSearchType,
+  MetricOfferingIncomeSearchType,
+  MetricOfferingExpenseSearchType,
+  MetricFinancialBalanceComparisonSearchType,
 } from '@/modules/metrics/enums/metrics-search-type.enum';
 
-export const memberReportFormSchema = z
-.object({
-  types: z.array(z.nativeEnum(MetricMemberSearchType),{
-    required_error: "Debes seleccionar al menos una opción.",
-  }).refine((value) => value.some((item) => item), {
-    message: "Debes seleccionar al menos una opción.",
-  }),
+export const memberReportFormSchema = z.object({
+  types: z
+    .array(z.nativeEnum(MetricMemberSearchType), {
+      required_error: 'Debes seleccionar al menos una opción.',
+    })
+    .refine((value) => value.some((item) => item), {
+      message: 'Debes seleccionar al menos una opción.',
+    }),
 
-  church: z.string({required_error: 
-  'Selecciona una Iglesia.'}),
+  church: z.string({ required_error: 'Selecciona una Iglesia.' }),
 
-  year: z.string({required_error: 
-    'Selecciona un año.'}).optional(),
-})
+  year: z.string({ required_error: 'Selecciona un año.' }).optional(),
+});
 
-export const familyGroupReportFormSchema = z
-.object({
-  types: z.array(z.nativeEnum(MetricFamilyGroupSearchType),{
-    required_error: "Debes seleccionar al menos una opción.",
-  }).refine((value) => value.some((item) => item), {
-    message: "Debes seleccionar al menos una opción.",
-  }),
+export const familyGroupReportFormSchema = z.object({
+  types: z
+    .array(z.nativeEnum(MetricFamilyGroupSearchType), {
+      required_error: 'Debes seleccionar al menos una opción.',
+    })
+    .refine((value) => value.some((item) => item), {
+      message: 'Debes seleccionar al menos una opción.',
+    }),
 
-  church: z.string({required_error: 
-  'Selecciona una Iglesia.'}),
-  
-  year: z.string({required_error: 
-    'Selecciona un año.'}).optional(),
-})
+  church: z.string({ required_error: 'Selecciona una Iglesia.' }),
 
-export const offeringIncomeReportFormSchema = z
-.object({
-  types: z.array(z.nativeEnum(MetricOfferingIncomeSearchType),{
-    required_error: "Debes seleccionar al menos una opción.",
-  }).refine((value) => value.some((item) => item), {
-    message: "Debes seleccionar al menos una opción.",
-  }),
+  year: z.string({ required_error: 'Selecciona un año.' }).optional(),
+});
 
-  church: z.string({required_error: 
-  'Selecciona una Iglesia.'}),
+export const offeringIncomeReportFormSchema = z.object({
+  types: z
+    .array(z.nativeEnum(MetricOfferingIncomeSearchType), {
+      required_error: 'Debes seleccionar al menos una opción.',
+    })
+    .refine((value) => value.some((item) => item), {
+      message: 'Debes seleccionar al menos una opción.',
+    }),
 
-  year: z.string({required_error: 
-    'Selecciona un año.'}).optional(),
+  church: z.string({ required_error: 'Selecciona una Iglesia.' }),
 
-  startMonth: z.string({required_error: 
-    'Selecciona el mes de inicio.'}).optional(),
+  year: z.string({ required_error: 'Selecciona un año.' }).optional(),
 
-  endMonth: z.string({required_error: 
-    'Selecciona el mes de fin.'}).optional(),
-})
+  startMonth: z.string({ required_error: 'Selecciona el mes de inicio.' }).optional(),
 
-export const offeringExpenseReportFormSchema = z
-.object({
-  types: z.array(z.nativeEnum(MetricOfferingExpenseSearchType),{
-    required_error: "Debes seleccionar al menos una opción.",
-  }).refine((value) => value.some((item) => item), {
-    message: "Debes seleccionar al menos una opción.",
-  }),
+  endMonth: z.string({ required_error: 'Selecciona el mes de fin.' }).optional(),
+});
 
-  church: z.string({required_error: 
-  'Selecciona una Iglesia.'}),
+export const offeringExpenseReportFormSchema = z.object({
+  types: z
+    .array(z.nativeEnum(MetricOfferingExpenseSearchType), {
+      required_error: 'Debes seleccionar al menos una opción.',
+    })
+    .refine((value) => value.some((item) => item), {
+      message: 'Debes seleccionar al menos una opción.',
+    }),
 
-  year: z.string({required_error: 
-    'Selecciona un año.'}).optional(),
+  church: z.string({ required_error: 'Selecciona una Iglesia.' }),
 
-  startMonth: z.string({required_error: 
-    'Selecciona el mes de inicio.'}).optional(),
-  
-  endMonth: z.string({required_error: 
-    'Selecciona el mes de fin.'}).optional(),
-})
+  year: z.string({ required_error: 'Selecciona un año.' }).optional(),
 
-export const FinancialBalanceComparativeReportFormSchema = z
-.object({
-  types: z.array(z.nativeEnum(MetricFinancialBalanceComparisonSearchType),{
-    required_error: "Debes seleccionar al menos una opción.",
-  }).refine((value) => value.some((item) => item), {
-    message: "Debes seleccionar al menos una opción.",
-  }),
+  startMonth: z.string({ required_error: 'Selecciona el mes de inicio.' }).optional(),
 
-  church: z.string({required_error: 
-  'Selecciona una Iglesia.'}),
+  endMonth: z.string({ required_error: 'Selecciona el mes de fin.' }).optional(),
+});
 
-  year: z.string({required_error: 
-    'Selecciona un año.'}).optional(),
+export const FinancialBalanceComparativeReportFormSchema = z.object({
+  types: z
+    .array(z.nativeEnum(MetricFinancialBalanceComparisonSearchType), {
+      required_error: 'Debes seleccionar al menos una opción.',
+    })
+    .refine((value) => value.some((item) => item), {
+      message: 'Debes seleccionar al menos una opción.',
+    }),
 
-  startMonth: z.string({required_error: 
-    'Selecciona el mes de inicio.'}).optional(),
-  
-  endMonth: z.string({required_error: 
-    'Selecciona el mes de fin.'}).optional(),
-})
+  church: z.string({ required_error: 'Selecciona una Iglesia.' }),
 
+  year: z.string({ required_error: 'Selecciona un año.' }).optional(),
+
+  startMonth: z.string({ required_error: 'Selecciona el mes de inicio.' }).optional(),
+
+  endMonth: z.string({ required_error: 'Selecciona el mes de fin.' }).optional(),
+});

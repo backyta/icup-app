@@ -10,4 +10,3 @@ export interface GeneralComparativeOfferingIncomeResponse {
   };
   totalAmount: number;
 }
-

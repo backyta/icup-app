@@ -2,8 +2,8 @@ export interface MembersFluctuationResponse {
   month: string;
   newMembers: number;
   inactiveMembers: number;
-  church:{
+  church: {
     isAnexe: boolean;
     abbreviatedChurchName: string;
-  }
+  };
 }

@@ -2,18 +2,20 @@ import { type DiscipleSearchType } from '@/modules/disciple/enums/disciple-searc
 import { type DiscipleSearchSubType } from '@/modules/disciple/enums/disciple-search-sub-type.enum';
 
 export interface DiscipleSearchFormByTerm {
-  searchType    : DiscipleSearchType;
+  searchType: DiscipleSearchType;
   searchSubType?: DiscipleSearchSubType | undefined;
-  order         : string;
-  inputTerm    ?: string | undefined;
-  selectTerm   ?: string | undefined;
-  churchId     ?: string | undefined;
-  dateTerm     ?: {
-        from : Date;
-        to  ?: Date | undefined;
-    } | undefined;
+  order: string;
+  inputTerm?: string | undefined;
+  selectTerm?: string | undefined;
+  churchId?: string | undefined;
+  dateTerm?:
+    | {
+        from: Date;
+        to?: Date | undefined;
+      }
+    | undefined;
   firstNamesTerm?: string | undefined;
-  lastNamesTerm ?: string | undefined;
-  limit         ?: string | undefined;
-  all           ?: boolean | undefined;
+  lastNamesTerm?: string | undefined;
+  limit?: string | undefined;
+  all?: boolean | undefined;
 }

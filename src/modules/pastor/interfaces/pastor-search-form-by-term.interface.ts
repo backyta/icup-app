@@ -6,10 +6,12 @@ export interface PastorSearchFormByTerm {
   inputTerm?: string | undefined;
   selectTerm?: string | undefined;
   churchId?: string | undefined;
-  dateTerm?: {
+  dateTerm?:
+    | {
         from: Date;
         to?: Date | undefined;
-    } | undefined;
+      }
+    | undefined;
   firstNamesTerm?: string | undefined;
   lastNamesTerm?: string | undefined;
   limit?: string | undefined;

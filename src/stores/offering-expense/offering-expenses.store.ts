@@ -4,7 +4,7 @@ import { create, type StateCreator } from 'zustand';
 import { type OfferingExpenseResponse } from '@/modules/offering/expense/interfaces/offering-expense-response.interface';
 
 interface OfferingExpenseStore {
-   //* Properties
+  //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
@@ -26,12 +26,15 @@ export const storeOfferingExpense: StateCreator<OfferingExpenseStore> = (set) =>
   dataSearchGeneralResponse: undefined,
   dataSearchByTermResponse: undefined,
 
-  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( ({isFiltersSearchGeneralDisabled: value}) ),
-  setIsFiltersSearchByTermDisabled: (value: boolean) => set( ({isFiltersSearchByTermDisabled: value}) ),
+  setIsFiltersSearchGeneralDisabled: (value: boolean) =>
+    set({ isFiltersSearchGeneralDisabled: value }),
+  setIsFiltersSearchByTermDisabled: (value: boolean) =>
+    set({ isFiltersSearchByTermDisabled: value }),
 
-  setDataSearchGeneralResponse: (value: OfferingExpenseResponse[] |  undefined) => set( ({dataSearchGeneralResponse: value}) ),
-  setDataSearchByTermResponse: (value: OfferingExpenseResponse[] | undefined) => set( ({dataSearchByTermResponse: value}) ),
-})
+  setDataSearchGeneralResponse: (value: OfferingExpenseResponse[] | undefined) =>
+    set({ dataSearchGeneralResponse: value }),
+  setDataSearchByTermResponse: (value: OfferingExpenseResponse[] | undefined) =>
+    set({ dataSearchByTermResponse: value }),
+});
 
 export const useOfferingExpenseStore = create<OfferingExpenseStore>()(storeOfferingExpense);
-

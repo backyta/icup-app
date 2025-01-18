@@ -1,14 +1,14 @@
 import { type UserRole } from '@/modules/user/enums/user-role.enum';
 
 export interface UserFormData {
-  firstNames      : string,
-  lastNames       : string,
-  email           : string,
-  password       ?: string | undefined,
-  passwordConfirm?: string  | undefined,
-  gender          : string,
-  roles           : UserRole[],
-  recordStatus   ?: string | undefined,
+  firstNames: string;
+  lastNames: string;
+  email: string;
+  password?: string | undefined;
+  passwordConfirm?: string | undefined;
+  gender: string;
+  roles: UserRole[];
+  recordStatus?: string | undefined;
 }
 
 export type UserFormDataKeys =

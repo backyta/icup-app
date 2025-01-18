@@ -13,7 +13,10 @@ export enum OfferingIncomeSearchSelectOption {
   ExternalDonor = 'external-donor',
 }
 
-export const OfferingIncomeSearchSelectOptionNames: Record<OfferingIncomeSearchSelectOption, string> =  {
+export const OfferingIncomeSearchSelectOptionNames: Record<
+  OfferingIncomeSearchSelectOption,
+  string
+> = {
   [OfferingIncomeSearchSelectOption.Inactive]: 'Inactivo',
   [OfferingIncomeSearchSelectOption.Day]: 'Dia',
   [OfferingIncomeSearchSelectOption.Afternoon]: 'Tarde',
@@ -23,16 +26,19 @@ export const OfferingIncomeSearchSelectOptionNames: Record<OfferingIncomeSearchS
   [OfferingIncomeSearchSelectOption.Preacher]: 'Predicador',
   [OfferingIncomeSearchSelectOption.Disciple]: 'Discípulo',
   [OfferingIncomeSearchSelectOption.ExternalDonor]: 'Donador Externo',
-}
+};
 
 //* Record Status
 export enum OfferingIncomeSearchByRecordStatus {
   Inactive = 'inactive',
 }
 
-export const OfferingIncomeSearchNamesByRecordStatus: Record<OfferingIncomeSearchByRecordStatus, string> =  {
+export const OfferingIncomeSearchNamesByRecordStatus: Record<
+  OfferingIncomeSearchByRecordStatus,
+  string
+> = {
   [OfferingIncomeSearchByRecordStatus.Inactive]: 'Inactivo',
-}
+};
 
 //* Shift
 export enum OfferingIncomeSearchByShift {
@@ -40,10 +46,10 @@ export enum OfferingIncomeSearchByShift {
   Afternoon = 'afternoon',
 }
 
-export const OfferingIncomeSearchNamesByShift: Record<OfferingIncomeSearchByShift, string> =  {
+export const OfferingIncomeSearchNamesByShift: Record<OfferingIncomeSearchByShift, string> = {
   [OfferingIncomeSearchByShift.Day]: 'Dia',
   [OfferingIncomeSearchByShift.Afternoon]: 'Tarde',
-}
+};
 
 //* Member types
 export enum OfferingIncomeSearchByMemberType {
@@ -55,13 +61,14 @@ export enum OfferingIncomeSearchByMemberType {
   ExternalDonor = 'external-donor',
 }
 
-export const OfferingIncomeSearchNamesByMemberType: Record<OfferingIncomeSearchByMemberType, string> =  {
+export const OfferingIncomeSearchNamesByMemberType: Record<
+  OfferingIncomeSearchByMemberType,
+  string
+> = {
   [OfferingIncomeSearchByMemberType.Pastor]: 'Pastor',
   [OfferingIncomeSearchByMemberType.Copastor]: 'Co-Pastor',
   [OfferingIncomeSearchByMemberType.Supervisor]: 'Supervisor',
   [OfferingIncomeSearchByMemberType.Preacher]: 'Predicador',
   [OfferingIncomeSearchByMemberType.Disciple]: 'Discípulo',
   [OfferingIncomeSearchByMemberType.ExternalDonor]: 'Donador Externo',
-}
-
-
+};

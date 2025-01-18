@@ -8,15 +8,18 @@ import { UserSearchType } from '@/modules/user/enums/user-search-type.enum';
 
 export const userSearchByTermFormSchema = z
   .object({
-    searchType: z.nativeEnum(UserSearchType,{
-      required_error: "El tipo de búsqueda es requerido.",
+    searchType: z.nativeEnum(UserSearchType, {
+      required_error: 'El tipo de búsqueda es requerido.',
     }),
-    
-    multiSelectTerm: z.array(z.nativeEnum(UserRole),{
-      required_error: "Debes seleccionar al menos un rol.",
-    }).refine((value) => value.some((item) => item), {
-      message: "Debes seleccionar al menos un rol.",
-    }).optional(),
+
+    multiSelectTerm: z
+      .array(z.nativeEnum(UserRole), {
+        required_error: 'Debes seleccionar al menos un rol.',
+      })
+      .refine((value) => value.some((item) => item), {
+        message: 'Debes seleccionar al menos un rol.',
+      })
+      .optional(),
 
     selectTerm: z.string().max(30).optional(),
 
@@ -24,30 +27,39 @@ export const userSearchByTermFormSchema = z
 
     lastNamesTerm: z.string().max(30).optional(),
 
-    limit: z.string().refine(limit => {
-      return /^\d+$/.test(limit);
-    }, {
-      message: 'El límite debe ser un número mayor a 0.'
-    }).refine(limit => {
-      const parsedLimit = parseInt(limit);
-      return !isNaN(parsedLimit) && parsedLimit > 0;
-    }, {
-      message: 'El límite debe ser un número mayor a 0.'
-    }).optional(),
+    limit: z
+      .string()
+      .refine(
+        (limit) => {
+          return /^\d+$/.test(limit);
+        },
+        {
+          message: 'El límite debe ser un número mayor a 0.',
+        }
+      )
+      .refine(
+        (limit) => {
+          const parsedLimit = parseInt(limit);
+          return !isNaN(parsedLimit) && parsedLimit > 0;
+        },
+        {
+          message: 'El límite debe ser un número mayor a 0.',
+        }
+      )
+      .optional(),
 
-    order: z.string(z.nativeEnum(RecordOrder, {
-         required_error: "Debe seleccionar una opción.",
-    })),
+    order: z.string(
+      z.nativeEnum(RecordOrder, {
+        required_error: 'Debe seleccionar una opción.',
+      })
+    ),
 
     all: z.boolean().optional(),
-   
   })
   .refine(
     (data) => {
-      if (
-        data.searchType === UserSearchType.FirstNames
-      ) {
-        return !!data.firstNamesTerm; 
+      if (data.searchType === UserSearchType.FirstNames) {
+        return !!data.firstNamesTerm;
       }
       return true;
     },
@@ -58,9 +70,7 @@ export const userSearchByTermFormSchema = z
   )
   .refine(
     (data) => {
-      if (
-        data.searchType === UserSearchType.LastNames
-      ) {
+      if (data.searchType === UserSearchType.LastNames) {
         return !!data.lastNamesTerm;
       }
       return true;
@@ -73,10 +83,8 @@ export const userSearchByTermFormSchema = z
   //* Full name
   .refine(
     (data) => {
-      if (
-        data.searchType === UserSearchType.FullName
-      ) {
-        return !!data.lastNamesTerm; 
+      if (data.searchType === UserSearchType.FullName) {
+        return !!data.lastNamesTerm;
       }
       return true;
     },
@@ -87,10 +95,8 @@ export const userSearchByTermFormSchema = z
   )
   .refine(
     (data) => {
-      if (
-        data.searchType === UserSearchType.FullName
-      ) {
-        return !!data.firstNamesTerm; 
+      if (data.searchType === UserSearchType.FullName) {
+        return !!data.firstNamesTerm;
       }
       return true;
     },
@@ -102,10 +108,10 @@ export const userSearchByTermFormSchema = z
   .refine(
     (data) => {
       if (
-          data.searchType === UserSearchType.Gender ||
-          data.searchType === UserSearchType.RecordStatus
-        ) {
-        return !!data.selectTerm; 
+        data.searchType === UserSearchType.Gender ||
+        data.searchType === UserSearchType.RecordStatus
+      ) {
+        return !!data.selectTerm;
       }
       return true;
     },
@@ -116,10 +122,8 @@ export const userSearchByTermFormSchema = z
   )
   .refine(
     (data) => {
-      if ( 
-        data.searchType === UserSearchType.Roles
-      ) {
-        return !!data.multiSelectTerm; 
+      if (data.searchType === UserSearchType.Roles) {
+        return !!data.multiSelectTerm;
       }
       return true;
     },
@@ -127,10 +131,4 @@ export const userSearchByTermFormSchema = z
       message: 'Debes seleccionar al menos un rol.',
       path: ['multiSelectTerm'],
     }
-  )
- 
-
-  
-
-  
-
+  );

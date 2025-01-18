@@ -43,5 +43,5 @@ export interface TooltipConfig<TPayload> {
   wrapperStyle: object;
   active: boolean;
   label: string;
-  payload: TPayload[]; // Generic payload 
+  payload: TPayload[]; // Generic payload
 }

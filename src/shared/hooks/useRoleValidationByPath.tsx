@@ -10,7 +10,7 @@ interface Options {
 export const useRoleValidationByPath = ({ path }: Options) => {
   let disabledRoles;
 
-  // ? Create and Update forms
+  //? Create and Update forms
   //* Pastor
   if (path === '/pastors/create') {
     disabledRoles = [

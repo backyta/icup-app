@@ -9,14 +9,14 @@ export interface FamilyGroupsByDistrictPayload {
   value: number;
   type?: string | undefined;
   payload: {
-    urbanSectorName: string,
-    familyGroupsCount: number,
+    urbanSectorName: string;
+    familyGroupsCount: number;
     district: string;
-    church:{
+    church: {
       isAnexe: boolean;
       abbreviatedChurchName: string;
-    }
-    totalPercentage: string,
+    };
+    totalPercentage: string;
   };
   chartType?: string | undefined;
   hide: boolean;

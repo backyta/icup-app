@@ -14,7 +14,7 @@ export enum FamilyGroupSearchType {
   RecordStatus = 'record_status',
 }
 
-export const FamilyGroupSearchTypeNames: Record<FamilyGroupSearchType, string> =  {
+export const FamilyGroupSearchTypeNames: Record<FamilyGroupSearchType, string> = {
   [FamilyGroupSearchType.FirstNames]: 'Nombres',
   [FamilyGroupSearchType.LastNames]: 'Apellidos',
   [FamilyGroupSearchType.FullNames]: 'Nombres y Apellidos',
@@ -28,4 +28,4 @@ export const FamilyGroupSearchTypeNames: Record<FamilyGroupSearchType, string> =
   [FamilyGroupSearchType.UrbanSector]: 'Sector Urbano',
   [FamilyGroupSearchType.Address]: 'Dirección',
   [FamilyGroupSearchType.RecordStatus]: 'Estado de registro',
-}
+};

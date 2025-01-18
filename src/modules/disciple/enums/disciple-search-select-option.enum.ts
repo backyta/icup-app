@@ -28,7 +28,7 @@ export enum DiscipleSearchSelectOption {
   Inactive = 'inactive',
 }
 
-export const DiscipleSearchSelectOptionNames: Record<DiscipleSearchSelectOption, string> =  {
+export const DiscipleSearchSelectOptionNames: Record<DiscipleSearchSelectOption, string> = {
   //* Birth Month
   [DiscipleSearchSelectOption.January]: 'Enero',
   [DiscipleSearchSelectOption.February]: 'Febrero',
@@ -54,9 +54,9 @@ export const DiscipleSearchSelectOptionNames: Record<DiscipleSearchSelectOption,
   [DiscipleSearchSelectOption.Divorced]: 'Divorciado(a)',
   [DiscipleSearchSelectOption.Other]: 'Otro',
 
- //* Record Status
+  //* Record Status
   [DiscipleSearchSelectOption.Inactive]: 'Inactivo',
-}
+};
 
 //* Month Birth
 export enum DiscipleSearchByBirthMonth {
@@ -74,7 +74,7 @@ export enum DiscipleSearchByBirthMonth {
   December = 'december',
 }
 
-export const DiscipleSearchNamesByBirthMonth: Record<DiscipleSearchByBirthMonth, string> =  {
+export const DiscipleSearchNamesByBirthMonth: Record<DiscipleSearchByBirthMonth, string> = {
   [DiscipleSearchByBirthMonth.January]: 'Enero',
   [DiscipleSearchByBirthMonth.February]: 'Febrero',
   [DiscipleSearchByBirthMonth.March]: 'Marzo',
@@ -87,7 +87,7 @@ export const DiscipleSearchNamesByBirthMonth: Record<DiscipleSearchByBirthMonth,
   [DiscipleSearchByBirthMonth.October]: 'Octubre',
   [DiscipleSearchByBirthMonth.November]: 'Noviembre',
   [DiscipleSearchByBirthMonth.December]: 'Diciembre',
-}
+};
 
 //* Gender
 export enum DiscipleSearchByGender {
@@ -95,10 +95,10 @@ export enum DiscipleSearchByGender {
   Female = 'female',
 }
 
-export const DiscipleSearchNamesByGender: Record<DiscipleSearchByGender, string> =  {
+export const DiscipleSearchNamesByGender: Record<DiscipleSearchByGender, string> = {
   [DiscipleSearchByGender.Male]: 'Masculino',
   [DiscipleSearchByGender.Female]: 'Femenino',
-}
+};
 
 //* Marital Status
 export enum DiscipleSearchByMaritalStatus {
@@ -109,19 +109,19 @@ export enum DiscipleSearchByMaritalStatus {
   Other = 'other',
 }
 
-export const DiscipleSearchNamesByMaritalStatus: Record<DiscipleSearchByMaritalStatus, string> =  {
+export const DiscipleSearchNamesByMaritalStatus: Record<DiscipleSearchByMaritalStatus, string> = {
   [DiscipleSearchByMaritalStatus.Single]: 'Soltero(a)',
   [DiscipleSearchByMaritalStatus.Married]: 'Casado(a)',
   [DiscipleSearchByMaritalStatus.Widowed]: 'Viudo(a)',
   [DiscipleSearchByMaritalStatus.Divorced]: 'Divorciado(a)',
   [DiscipleSearchByMaritalStatus.Other]: 'Otro',
-}
+};
 
 //* Record Status
 export enum DiscipleSearchByRecordStatus {
   Inactive = 'inactive',
 }
 
-export const DiscipleSearchNamesByRecordStatus: Record<DiscipleSearchByRecordStatus, string> =  {
+export const DiscipleSearchNamesByRecordStatus: Record<DiscipleSearchByRecordStatus, string> = {
   [DiscipleSearchByRecordStatus.Inactive]: 'Inactivo',
-}
+};

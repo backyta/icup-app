@@ -11,7 +11,6 @@ export enum ZoneSearchByRecordStatus {
   Inactive = 'inactive',
 }
 
-export const ZoneSearchNamesByRecordStatus: Record<ZoneSearchByRecordStatus, string> =  {
+export const ZoneSearchNamesByRecordStatus: Record<ZoneSearchByRecordStatus, string> = {
   [ZoneSearchByRecordStatus.Inactive]: 'Inactivo',
-}
-
+};

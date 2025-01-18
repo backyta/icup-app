@@ -1,32 +1,32 @@
 export interface OfferingIncomeFormData {
-  churchId                      : string,
-  type                          : string,
-  subType                      ?: string | undefined,
-  category                     ?: string | undefined,
-  isNewExternalDonor           ?: boolean | undefined;
-  externalDonorId              ?: string | undefined;
-  externalDonorFirstNames       ?: string | undefined;
-  externalDonorLastNames        ?: string | undefined;
-  externalDonorGender          ?: string | undefined;
-  externalDonorBirthDate       ?: Date | undefined;
-  externalDonorOriginCountry   ?: string | undefined;
+  churchId: string;
+  type: string;
+  subType?: string | undefined;
+  category?: string | undefined;
+  isNewExternalDonor?: boolean | undefined;
+  externalDonorId?: string | undefined;
+  externalDonorFirstNames?: string | undefined;
+  externalDonorLastNames?: string | undefined;
+  externalDonorGender?: string | undefined;
+  externalDonorBirthDate?: Date | undefined;
+  externalDonorOriginCountry?: string | undefined;
   externalDonorResidenceCountry?: string | undefined;
-  externalDonorEmail           ?: string | undefined;
-  externalDonorPhoneNumber     ?: string | undefined;
-  externalDonorResidenceCity   ?: string | undefined;
-  externalDonorPostalCode      ?: string | undefined;
-  shift                        ?: string | undefined,
-  amount                        : string,
-  date                          : Date;
-  currency                      : string,
-  comments                     ?: string | undefined,
-  fileNames                    ?: string[] | undefined,
-  imageUrls                    ?: string[] | undefined,
-  memberType                   ?: string | undefined,
-  familyGroupId                ?: string | undefined,
-  memberId                     ?: string | undefined,
-  zoneId                       ?: string | undefined,
-  recordStatus                 ?: string | undefined,
+  externalDonorEmail?: string | undefined;
+  externalDonorPhoneNumber?: string | undefined;
+  externalDonorResidenceCity?: string | undefined;
+  externalDonorPostalCode?: string | undefined;
+  shift?: string | undefined;
+  amount: string;
+  date: Date;
+  currency: string;
+  comments?: string | undefined;
+  fileNames?: string[] | undefined;
+  imageUrls?: string[] | undefined;
+  memberType?: string | undefined;
+  familyGroupId?: string | undefined;
+  memberId?: string | undefined;
+  zoneId?: string | undefined;
+  recordStatus?: string | undefined;
 }
 
 export type OfferingIncomeFormDataKeys =
@@ -56,5 +56,4 @@ export type OfferingIncomeFormDataKeys =
   | 'memberId'
   | 'zoneId'
   | 'churchId'
-  | 'recordStatus'
-
+  | 'recordStatus';

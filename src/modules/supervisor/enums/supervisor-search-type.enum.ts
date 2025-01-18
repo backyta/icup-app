@@ -2,11 +2,11 @@ export enum SupervisorSearchType {
   FirstNames = 'first_names',
   LastNames = 'last_names',
   FullNames = 'full_names',
-  BirthDate = 'birth_date', 
-  BirthMonth = 'birth_month', 
+  BirthDate = 'birth_date',
+  BirthMonth = 'birth_month',
   Gender = 'gender',
   MaritalStatus = 'marital_status',
-  OriginCountry = 'origin_country' ,
+  OriginCountry = 'origin_country',
   ZoneName = 'zone_name',
   ResidenceCountry = 'residence_country',
   ResidenceDepartment = 'residence_department',
@@ -18,7 +18,7 @@ export enum SupervisorSearchType {
   CopastorId = 'copastor_id',
 }
 
-export const SupervisorSearchTypeNames:Partial< Record<SupervisorSearchType, string>> =  {
+export const SupervisorSearchTypeNames: Partial<Record<SupervisorSearchType, string>> = {
   [SupervisorSearchType.FirstNames]: 'Nombres',
   [SupervisorSearchType.LastNames]: 'Apellidos',
   [SupervisorSearchType.FullNames]: 'Nombres y Apellidos',

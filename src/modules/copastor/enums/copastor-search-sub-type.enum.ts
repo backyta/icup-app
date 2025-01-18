@@ -16,17 +16,19 @@ export const CopastorSearchSubTypeNames: Record<CopastorSearchSubType, string> =
   [CopastorSearchSubType.ByCopastorFullNames]: 'Por sus nombres y apellidos',
 };
 
-
 //* FirstNames
 export enum SubTypeCopastorSearchByFirstNames {
   CopastorByPastorFirstNames = 'copastor_by_pastor_first_names',
   ByCopastorFirstNames = 'by_copastor_first_names',
 }
 
-export const SubTypeNamesCopastorSearchByFirstNames: Record<SubTypeCopastorSearchByFirstNames, string> =  {
+export const SubTypeNamesCopastorSearchByFirstNames: Record<
+  SubTypeCopastorSearchByFirstNames,
+  string
+> = {
   [SubTypeCopastorSearchByFirstNames.CopastorByPastorFirstNames]: 'Por nombres de su pastor',
   [SubTypeCopastorSearchByFirstNames.ByCopastorFirstNames]: 'Por sus nombres',
-}
+};
 
 //* LastNames
 export enum SubTypeCopastorSearchByLastNames {
@@ -34,10 +36,13 @@ export enum SubTypeCopastorSearchByLastNames {
   ByCopastorLastNames = 'by_copastor_last_names',
 }
 
-export const SubTypeNamesCopastorSearchByLastNames: Record<SubTypeCopastorSearchByLastNames, string> =  {
+export const SubTypeNamesCopastorSearchByLastNames: Record<
+  SubTypeCopastorSearchByLastNames,
+  string
+> = {
   [SubTypeCopastorSearchByLastNames.CopastorByPastorLastNames]: 'Por apellidos de su pastor',
   [SubTypeCopastorSearchByLastNames.ByCopastorLastNames]: 'Por sus apellidos',
-}
+};
 
 //* Full Name
 export enum SubTypeCopastorSearchByFullNames {
@@ -45,8 +50,11 @@ export enum SubTypeCopastorSearchByFullNames {
   ByCopastorFullNames = 'by_copastor_full_names',
 }
 
-export const SubTypeNamesCopastorSearchByFullNames: Record<SubTypeCopastorSearchByFullNames, string> =  {
-  [SubTypeCopastorSearchByFullNames.CopastorByPastorFullNames]: 'Por nombres y apellidos de su pastor',
+export const SubTypeNamesCopastorSearchByFullNames: Record<
+  SubTypeCopastorSearchByFullNames,
+  string
+> = {
+  [SubTypeCopastorSearchByFullNames.CopastorByPastorFullNames]:
+    'Por nombres y apellidos de su pastor',
   [SubTypeCopastorSearchByFullNames.ByCopastorFullNames]: 'Por sus nombres y apellidos',
-}
-
+};

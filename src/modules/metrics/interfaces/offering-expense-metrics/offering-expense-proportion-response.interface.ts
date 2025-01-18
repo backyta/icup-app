@@ -3,5 +3,3 @@ export interface OfferingExpensesProportionResponse {
   activeOfferingExpenseRecordsCount: number;
   inactiveOfferingExpenseRecordsCount: number;
 }
-
-

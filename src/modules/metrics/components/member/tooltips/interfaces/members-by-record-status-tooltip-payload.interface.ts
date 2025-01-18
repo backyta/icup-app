@@ -20,6 +20,3 @@ export interface MembersByRecordStatusPayload {
   chartType?: string | undefined;
   hide: boolean;
 }
-
-
-

@@ -7,7 +7,6 @@ import { useDiscipleStore } from '@/stores/disciple/disciple.store';
 
 import { DiscipleUpdateForm } from '@/modules/disciple/components/cards/update/DiscipleUpdateForm';
 
-import { Button } from '@/shared/components/ui/button';
 import {
   Dialog,
   DialogTitle,
@@ -15,6 +14,7 @@ import {
   DialogTrigger,
   DialogDescription,
 } from '@/shared/components/ui/dialog';
+import { Button } from '@/shared/components/ui/button';
 
 interface DiscipleUpdateCardProps {
   idRow: string;

@@ -23,4 +23,3 @@ export interface GeneralComparativeOfferingExpensesPayload {
   chartType?: string | undefined;
   hide: boolean;
 }
-

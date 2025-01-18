@@ -4,7 +4,7 @@ import { create, type StateCreator } from 'zustand';
 import { type CopastorResponse } from '@/modules/copastor/interfaces/copastor-response.interface';
 
 interface CopastorStore {
-   //* Properties
+  //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
@@ -26,13 +26,15 @@ export const storeCopastor: StateCreator<CopastorStore> = (set) => ({
   dataSearchGeneralResponse: undefined,
   dataSearchByTermResponse: undefined,
 
-  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( ({isFiltersSearchGeneralDisabled: value}) ),
-  setIsFiltersSearchByTermDisabled: (value: boolean) => set( ({isFiltersSearchByTermDisabled: value}) ),
+  setIsFiltersSearchGeneralDisabled: (value: boolean) =>
+    set({ isFiltersSearchGeneralDisabled: value }),
+  setIsFiltersSearchByTermDisabled: (value: boolean) =>
+    set({ isFiltersSearchByTermDisabled: value }),
 
-  setDataSearchGeneralResponse: (value: CopastorResponse[] |  undefined) => set( ({dataSearchGeneralResponse: value}) ),
-  setDataSearchByTermResponse: (value: CopastorResponse[] | undefined) => set( ({dataSearchByTermResponse: value}) ),
-
-})
+  setDataSearchGeneralResponse: (value: CopastorResponse[] | undefined) =>
+    set({ dataSearchGeneralResponse: value }),
+  setDataSearchByTermResponse: (value: CopastorResponse[] | undefined) =>
+    set({ dataSearchByTermResponse: value }),
+});
 
 export const useCopastorStore = create<CopastorStore>()(storeCopastor);
-

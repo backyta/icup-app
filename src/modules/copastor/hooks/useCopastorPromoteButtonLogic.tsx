@@ -41,7 +41,7 @@ export const useCopastorPromoteButtonLogic = ({
 
   const theirPastor = copastorUpdateForm.watch('theirPastor');
 
-  // ? Effects
+  //? Effects
   useEffect(() => {
     //* Setea los valores fijos en un estado
     const initialValues = copastorUpdateForm.getValues([...Object.values(CopastorFieldNames)]);

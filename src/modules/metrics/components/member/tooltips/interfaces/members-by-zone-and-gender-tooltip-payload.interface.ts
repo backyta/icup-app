@@ -9,20 +9,17 @@ export interface MembersByZoneAndGenderPayload {
   value: number;
   type?: string | undefined;
   payload: {
-    zoneName: string,
-    supervisor:string,
-    copastor:string,
-    men: number,
-    women: number,
-    totalPercentage: string,
-    church:{
+    zoneName: string;
+    supervisor: string;
+    copastor: string;
+    men: number;
+    women: number;
+    totalPercentage: string;
+    church: {
       isAnexe: boolean;
       abbreviatedChurchName: string;
-    }
+    };
   };
   chartType?: string | undefined;
   hide: boolean;
 }
-
-
-

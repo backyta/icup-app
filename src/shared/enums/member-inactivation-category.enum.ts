@@ -1,5 +1,5 @@
 export enum MemberInactivationCategory {
-  PersonalOrFamilyChanges = 'personal_or_family_changes', 
+  PersonalOrFamilyChanges = 'personal_or_family_changes',
   ChurchRelatedIssues = 'church_related_issues',
   DisciplinaryActions = 'disciplinary_actions',
   PersonalChallenges = 'personal_challenges',
@@ -21,4 +21,3 @@ export const MemberInactivationCategoryNames: Record<MemberInactivationCategory,
   [MemberInactivationCategory.SpecialCircumstances]: 'Razones especiales o excepcionales',
   [MemberInactivationCategory.InactivityOrLackOfCommitment]: 'Razones de actividad o compromiso',
 };
-

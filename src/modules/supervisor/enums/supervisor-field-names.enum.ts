@@ -18,7 +18,7 @@ export enum SupervisorFieldNames {
   ReferenceAddress = 'referenceAddress',
   Roles = 'roles',
   RecordStatus = 'recordStatus',
-  IsDirectRelationToPastor = "isDirectRelationToPastor",
+  IsDirectRelationToPastor = 'isDirectRelationToPastor',
   TheirCopastor = 'theirCopastor',
   TheirPastor = 'theirPastor',
 }

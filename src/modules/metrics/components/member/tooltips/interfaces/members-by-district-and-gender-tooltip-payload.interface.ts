@@ -9,19 +9,16 @@ export interface MembersByDistrictAndGenderPayload {
   value: number;
   type?: string | undefined;
   payload: {
-    urbanSectorName: string,
-    men: number,
-    women: number,
-    district: string,
-    totalPercentage: string,
-    church:{
+    urbanSectorName: string;
+    men: number;
+    women: number;
+    district: string;
+    totalPercentage: string;
+    church: {
       isAnexe: boolean;
       abbreviatedChurchName: string;
-    }
+    };
   };
   chartType?: string | undefined;
   hide: boolean;
 }
-
-
-

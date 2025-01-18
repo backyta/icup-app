@@ -25,4 +25,3 @@ export interface OfferingIncomeBySpecialOfferingResponse {
   accumulatedOfferingUSD: number;
   accumulatedOfferingEUR: number;
 }
-

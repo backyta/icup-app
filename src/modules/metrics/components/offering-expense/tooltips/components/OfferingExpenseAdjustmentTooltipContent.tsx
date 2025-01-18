@@ -47,7 +47,6 @@ export const OfferingExpenseAdjustmentTooltipContent = (
           </span>
           <span className='pl-1 dark:text-white text-black font-normal text-[13.5px] md:text-[13.5px]'>
             {`${off.offering.toFixed(2)} ${off.currency}`}
-
             70
           </span>
         </div>

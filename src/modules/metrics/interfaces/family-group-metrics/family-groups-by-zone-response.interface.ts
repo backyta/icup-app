@@ -1,4 +1,4 @@
-interface FamilyGroupStats  {
+interface FamilyGroupStats {
   familyGroupCode: string;
   supervisor: string;
   preacher: string;
@@ -11,4 +11,3 @@ interface FamilyGroupStats  {
 }
 
 export type FamilyGroupsByZoneResponse = Record<string, FamilyGroupStats>;
-

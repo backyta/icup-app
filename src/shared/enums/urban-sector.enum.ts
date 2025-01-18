@@ -1,5 +1,5 @@
 export enum UrbanSector {
-  //* Independencia 
+  //* Independencia
   Payet = 'Payet',
   Tahuantinsuyo = 'Tahuantinsuyo',
   Independencia = 'Independencia',
@@ -119,4 +119,3 @@ export const UrbanSectorNames: Record<UrbanSector, string> = {
   [UrbanSector.Infantas]: 'Sect. Infantas',
   [UrbanSector.AngelicaGamarra]: 'Sect. Angélica Gamarra',
 };
-

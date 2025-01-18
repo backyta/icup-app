@@ -1,4 +1,4 @@
-import { type OfferingIncomeCreationSubType } from "@/modules/offering/income/enums/offering-income-creation-sub-type.enum";
+import { type OfferingIncomeCreationSubType } from '@/modules/offering/income/enums/offering-income-creation-sub-type.enum';
 
 interface Offering {
   offering: number;
@@ -6,7 +6,7 @@ interface Offering {
   date: string | Date;
 }
 
-// ? Payload
+//? Payload
 export interface OfferingIncomePayloadByFastingAndVigil {
   fill: string;
   radius: number;
@@ -28,12 +28,12 @@ export interface OfferingIncomePayloadByFastingAndVigil {
       id: string;
       firstNames: string;
       lastNames: string;
-    }
+    };
     supervisor: {
       id: string;
       firstNames: string;
       lastNames: string;
-    }
+    };
     zone: {
       id: string;
       zoneName: string;
@@ -49,4 +49,3 @@ export interface OfferingIncomePayloadByFastingAndVigil {
   chartType?: string | undefined;
   hide: boolean;
 }
-

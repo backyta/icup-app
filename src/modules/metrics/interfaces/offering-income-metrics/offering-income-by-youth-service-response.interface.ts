@@ -24,4 +24,3 @@ export interface OfferingIncomeByYouthServiceResponse {
     date: Date;
   }>;
 }
-

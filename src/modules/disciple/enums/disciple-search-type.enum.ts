@@ -2,11 +2,11 @@ export enum DiscipleSearchType {
   FirstNames = 'first_names',
   LastNames = 'last_names',
   FullNames = 'full_names',
-  BirthDate = 'birth_date', 
-  BirthMonth = 'birth_month', 
+  BirthDate = 'birth_date',
+  BirthMonth = 'birth_month',
   Gender = 'gender',
   MaritalStatus = 'marital_status',
-  OriginCountry = 'origin_country' ,
+  OriginCountry = 'origin_country',
   ZoneName = 'zone_name',
   FamilyGroupCode = 'family_group_code',
   FamilyGroupName = 'family_group_name',
@@ -19,7 +19,7 @@ export enum DiscipleSearchType {
   RecordStatus = 'record_status',
 }
 
-export const DiscipleSearchTypeNames: Record<DiscipleSearchType, string> =  {
+export const DiscipleSearchTypeNames: Record<DiscipleSearchType, string> = {
   [DiscipleSearchType.FirstNames]: 'Nombres',
   [DiscipleSearchType.LastNames]: 'Apellidos',
   [DiscipleSearchType.FullNames]: 'Nombres y Apellidos',
@@ -38,4 +38,4 @@ export const DiscipleSearchTypeNames: Record<DiscipleSearchType, string> =  {
   [DiscipleSearchType.ResidenceUrbanSector]: 'Sector Urbano (residencia)',
   [DiscipleSearchType.ResidenceAddress]: 'Dirección (residencia)',
   [DiscipleSearchType.RecordStatus]: 'Estado de registro',
-}
+};

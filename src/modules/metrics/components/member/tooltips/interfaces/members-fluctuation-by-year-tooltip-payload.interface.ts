@@ -12,14 +12,11 @@ export interface MembersFluctuationByYearPayload {
     month: string;
     newMembers: number;
     inactiveMembers: number;
-    church:{
+    church: {
       isAnexe: boolean;
       abbreviatedChurchName: string;
-    }
+    };
   };
   chartType?: string | undefined;
   hide: boolean;
 }
-
-
-

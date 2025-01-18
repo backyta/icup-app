@@ -1,7 +1,5 @@
 export interface OfferingExpensesAndOfferingIncomeComparativeProportionResponse {
-  totalOfferingRecordsCount:    number;
-  offeringIncomeRecordsCount:   number;
+  totalOfferingRecordsCount: number;
+  offeringIncomeRecordsCount: number;
   offeringExpenseRecordsCount: number;
 }
-
-

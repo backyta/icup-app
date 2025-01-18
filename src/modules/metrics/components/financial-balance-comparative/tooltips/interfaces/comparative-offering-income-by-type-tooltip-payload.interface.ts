@@ -25,4 +25,3 @@ export interface ComparativeOfferingIncomePayloadByType {
   chartType?: string | undefined;
   hide: boolean;
 }
-

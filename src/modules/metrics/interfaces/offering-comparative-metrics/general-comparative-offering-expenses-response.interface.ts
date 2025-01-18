@@ -9,4 +9,3 @@ export interface GeneralComparativeOfferingExpensesResponse {
   };
   totalAmount: number;
 }
-

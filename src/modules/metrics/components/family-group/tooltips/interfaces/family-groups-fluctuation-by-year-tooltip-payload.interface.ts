@@ -12,14 +12,11 @@ export interface FamilyGroupsFluctuationByYearPayload {
     month: string;
     newFamilyGroups: number;
     inactiveFamilyGroups: number;
-    church:{
+    church: {
       isAnexe: boolean;
       abbreviatedChurchName: string;
-    }
+    };
   };
   chartType?: string | undefined;
   hide: boolean;
 }
-
-
-

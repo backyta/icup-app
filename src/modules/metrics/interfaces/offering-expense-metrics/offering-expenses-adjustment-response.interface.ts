@@ -3,14 +3,13 @@ export interface OfferingExpensesAdjustmentResponse {
   accumulatedOfferingPEN: number;
   accumulatedOfferingUSD: number;
   accumulatedOfferingEUR: number;
-  church:{
+  church: {
     isAnexe: boolean;
     abbreviatedChurchName: string;
-  }
+  };
   allOfferings: Array<{
     offering: number;
     currency: string;
     date: Date;
   }>;
 }
-

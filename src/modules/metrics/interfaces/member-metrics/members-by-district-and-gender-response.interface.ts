@@ -1,11 +1,11 @@
-interface DistrictAndGenderStats  {
+interface DistrictAndGenderStats {
   men: number;
   women: number;
   district: string;
-  church:{
+  church: {
     isAnexe: boolean;
     abbreviatedChurchName: string;
-  }
+  };
 }
 
 export type MembersByDistrictAndGenderResponse = Record<string, DistrictAndGenderStats>;

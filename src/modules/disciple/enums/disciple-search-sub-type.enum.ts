@@ -16,7 +16,7 @@ export enum DiscipleSearchSubType {
   ByDiscipleFullNames = 'by_disciple_full_names',
 }
 
-export const DiscipleSearchSubTypeNames: Record<DiscipleSearchSubType, string> =  {
+export const DiscipleSearchSubTypeNames: Record<DiscipleSearchSubType, string> = {
   [DiscipleSearchSubType.DiscipleByPastorFirstNames]: 'Por nombres de su pastor',
   [DiscipleSearchSubType.DiscipleByPastorLastNames]: 'Por apellidos de su pastor',
   [DiscipleSearchSubType.DiscipleByPastorFullNames]: 'Por nombres y apellidos de su pastor',
@@ -32,10 +32,10 @@ export const DiscipleSearchSubTypeNames: Record<DiscipleSearchSubType, string> =
   [DiscipleSearchSubType.ByDiscipleFirstNames]: 'Por sus nombres',
   [DiscipleSearchSubType.ByDiscipleLastNames]: 'Por sus apellidos',
   [DiscipleSearchSubType.ByDiscipleFullNames]: 'Por sus nombres y apellidos',
-}
+};
 
 //* FirstNames
-export enum SubTypeDiscipleSearchByFirstNames { 
+export enum SubTypeDiscipleSearchByFirstNames {
   DiscipleByPastorFirstNames = 'disciple_by_pastor_first_names',
   DiscipleByCopastorFirstNames = 'disciple_by_copastor_first_names',
   DiscipleBySupervisorFirstNames = 'disciple_by_supervisor_first_names',
@@ -43,13 +43,17 @@ export enum SubTypeDiscipleSearchByFirstNames {
   ByDiscipleFirstNames = 'by_disciple_first_names',
 }
 
-export const SubTypeNamesDiscipleSearchByFirstNames: Record<SubTypeDiscipleSearchByFirstNames, string> =  {
+export const SubTypeNamesDiscipleSearchByFirstNames: Record<
+  SubTypeDiscipleSearchByFirstNames,
+  string
+> = {
   [SubTypeDiscipleSearchByFirstNames.DiscipleByPastorFirstNames]: 'Por nombres de su pastor',
   [SubTypeDiscipleSearchByFirstNames.DiscipleByCopastorFirstNames]: 'Por nombres de su co-pastor',
-  [SubTypeDiscipleSearchByFirstNames.DiscipleBySupervisorFirstNames]: 'Por nombres de su supervisor',
+  [SubTypeDiscipleSearchByFirstNames.DiscipleBySupervisorFirstNames]:
+    'Por nombres de su supervisor',
   [SubTypeDiscipleSearchByFirstNames.DiscipleByPreacherFirstNames]: 'Por nombres de su predicador',
   [SubTypeDiscipleSearchByFirstNames.ByDiscipleFirstNames]: 'Por sus nombres',
-}
+};
 
 //* LastNames
 export enum SubTypeDiscipleSearchByLastNames {
@@ -60,13 +64,17 @@ export enum SubTypeDiscipleSearchByLastNames {
   ByDiscipleLastNames = 'by_disciple_last_names',
 }
 
-export const SubTypeNamesDiscipleSearchByLastNames: Record<SubTypeDiscipleSearchByLastNames, string> =  {
+export const SubTypeNamesDiscipleSearchByLastNames: Record<
+  SubTypeDiscipleSearchByLastNames,
+  string
+> = {
   [SubTypeDiscipleSearchByLastNames.DiscipleByPastorLastNames]: 'Por apellidos de su pastor',
   [SubTypeDiscipleSearchByLastNames.DiscipleByCopastorLastNames]: 'Por apellidos de su co-pastor',
-  [SubTypeDiscipleSearchByLastNames.DiscipleBySupervisorLastNames]: 'Por apellidos de su supervisor',
+  [SubTypeDiscipleSearchByLastNames.DiscipleBySupervisorLastNames]:
+    'Por apellidos de su supervisor',
   [SubTypeDiscipleSearchByLastNames.DiscipleByPreacherLastNames]: 'Por apellidos de su predicador',
   [SubTypeDiscipleSearchByLastNames.ByDiscipleLastNames]: 'Por sus apellidos',
-}
+};
 
 //* Full Name
 export enum SubTypeDiscipleSearchByFullNames {
@@ -77,11 +85,17 @@ export enum SubTypeDiscipleSearchByFullNames {
   ByDiscipleFullNames = 'by_disciple_full_names',
 }
 
-export const SubTypeNamesDiscipleSearchByFullNames: Record<SubTypeDiscipleSearchByFullNames, string> =  {
-  [SubTypeDiscipleSearchByFullNames.DiscipleByPastorFullNames]: 'Por nombres y apellidos de su pastor',
-  [SubTypeDiscipleSearchByFullNames.DiscipleByCopastorFullNames]: 'Por nombres y apellidos de su co-pastor',
-  [SubTypeDiscipleSearchByFullNames.DiscipleBySupervisorFullNames]: 'Por nombres y apellidos de su supervisor',
-  [SubTypeDiscipleSearchByFullNames.DiscipleByPreacherFullNames]: 'Por nombres y apellidos de su predicador',
+export const SubTypeNamesDiscipleSearchByFullNames: Record<
+  SubTypeDiscipleSearchByFullNames,
+  string
+> = {
+  [SubTypeDiscipleSearchByFullNames.DiscipleByPastorFullNames]:
+    'Por nombres y apellidos de su pastor',
+  [SubTypeDiscipleSearchByFullNames.DiscipleByCopastorFullNames]:
+    'Por nombres y apellidos de su co-pastor',
+  [SubTypeDiscipleSearchByFullNames.DiscipleBySupervisorFullNames]:
+    'Por nombres y apellidos de su supervisor',
+  [SubTypeDiscipleSearchByFullNames.DiscipleByPreacherFullNames]:
+    'Por nombres y apellidos de su predicador',
   [SubTypeDiscipleSearchByFullNames.ByDiscipleFullNames]: 'Por sus nombres y apellidos',
-}
-
+};

@@ -11,5 +11,3 @@ export const UserRoleNames: Record<UserRole, string> = {
   [UserRole.TreasurerUser]: 'Usuario Tesorero',
   [UserRole.User]: 'Usuario',
 };
-
-

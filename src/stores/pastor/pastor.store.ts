@@ -4,7 +4,7 @@ import { create, type StateCreator } from 'zustand';
 import { type PastorResponse } from '@/modules/pastor/interfaces/pastor-response.interface';
 
 interface PastorStore {
-   //* Properties
+  //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
@@ -26,13 +26,15 @@ export const storePastor: StateCreator<PastorStore> = (set) => ({
   dataSearchGeneralResponse: undefined,
   dataSearchByTermResponse: undefined,
 
-  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( ({isFiltersSearchGeneralDisabled: value}) ),
-  setIsFiltersSearchByTermDisabled: (value: boolean) => set( ({isFiltersSearchByTermDisabled: value}) ),
+  setIsFiltersSearchGeneralDisabled: (value: boolean) =>
+    set({ isFiltersSearchGeneralDisabled: value }),
+  setIsFiltersSearchByTermDisabled: (value: boolean) =>
+    set({ isFiltersSearchByTermDisabled: value }),
 
-  setDataSearchGeneralResponse: (value: PastorResponse[] |  undefined) => set( ({dataSearchGeneralResponse: value}) ),
-  setDataSearchByTermResponse: (value: PastorResponse[] | undefined) => set( ({dataSearchByTermResponse: value}) ),
-
-})
+  setDataSearchGeneralResponse: (value: PastorResponse[] | undefined) =>
+    set({ dataSearchGeneralResponse: value }),
+  setDataSearchByTermResponse: (value: PastorResponse[] | undefined) =>
+    set({ dataSearchByTermResponse: value }),
+});
 
 export const usePastorStore = create<PastorStore>()(storePastor);
-

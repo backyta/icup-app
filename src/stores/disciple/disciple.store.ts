@@ -4,7 +4,7 @@ import { create, type StateCreator } from 'zustand';
 import { type DiscipleResponse } from '@/modules/disciple/interfaces/disciple-response.interface';
 
 interface DiscipleStore {
-   //* Properties
+  //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
@@ -26,13 +26,15 @@ export const storeDisciple: StateCreator<DiscipleStore> = (set) => ({
   dataSearchGeneralResponse: undefined,
   dataSearchByTermResponse: undefined,
 
-  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( ({isFiltersSearchGeneralDisabled: value}) ),
-  setIsFiltersSearchByTermDisabled: (value: boolean) => set( ({isFiltersSearchByTermDisabled: value}) ),
+  setIsFiltersSearchGeneralDisabled: (value: boolean) =>
+    set({ isFiltersSearchGeneralDisabled: value }),
+  setIsFiltersSearchByTermDisabled: (value: boolean) =>
+    set({ isFiltersSearchByTermDisabled: value }),
 
-  setDataSearchGeneralResponse: (value: DiscipleResponse[] |  undefined) => set( ({dataSearchGeneralResponse: value}) ),
-  setDataSearchByTermResponse: (value: DiscipleResponse[] | undefined) => set( ({dataSearchByTermResponse: value}) ),
-
-})
+  setDataSearchGeneralResponse: (value: DiscipleResponse[] | undefined) =>
+    set({ dataSearchGeneralResponse: value }),
+  setDataSearchByTermResponse: (value: DiscipleResponse[] | undefined) =>
+    set({ dataSearchByTermResponse: value }),
+});
 
 export const useDiscipleStore = create<DiscipleStore>()(storeDisciple);
-

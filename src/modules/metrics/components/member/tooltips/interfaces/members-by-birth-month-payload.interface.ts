@@ -12,14 +12,11 @@ export interface MembersByBirthMonthPayload {
     month: string;
     membersCount: number;
     averageAge: string | number;
-    church:{
+    church: {
       isAnexe: boolean;
       abbreviatedChurchName: string;
-    }
+    };
   };
   chartType?: string | undefined;
   hide: boolean;
 }
-
-
-

@@ -14,7 +14,13 @@ import {
 import { type OfferingFileType } from '@/modules/offering/shared/enums/offering-file-type.enum';
 import { useImageDeletionMutation } from '@/modules/offering/shared/hooks/useImageDeletionMutation';
 
-import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogTrigger,
+  DialogDescription,
+} from '@/shared/components/ui/dialog';
 
 interface ButtonDestroyProps {
   fileType: OfferingFileType;
@@ -54,10 +60,10 @@ export const DestroyImageButton = ({
       </DialogTrigger>
       <DialogContent className='w-[23rem] sm:w-[25rem] md:w-full'>
         <div className='h-auto'>
-          <h2 className='dark:text-yellow-500 text-amber-500 font-bold text-[22px] text-center md:text-[25px] pb-3 flex flex-col'>
+          <DialogTitle className='dark:text-yellow-500 text-amber-500 font-bold text-[22px] text-center md:text-[25px] pb-3 flex flex-col'>
             <span>¿Estas seguro de eliminar esta imagen?</span>
-          </h2>
-          <p>
+          </DialogTitle>
+          <DialogDescription>
             <span className='text-green-500 font-bold mb-1 inline-block text-[15px] md:text-[17px]'>
               Recomendaciones
             </span>
@@ -84,7 +90,7 @@ export const DestroyImageButton = ({
             <span className='text-blue-500 font-bold inline-block mt-1 mb-1 text-[13.5px] md:text-[13.5px]'>
               NOTA: Al finalizar esta acción puedes seguir editando el formulario.
             </span>
-          </p>
+          </DialogDescription>
         </div>
 
         <div className='flex justify-center md:justify-end gap-x-4'>

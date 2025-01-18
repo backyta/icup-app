@@ -1,34 +1,34 @@
 export enum SupervisorSearchSelectOption {
-   //* Birth Month
-   January = 'january',
-   February = 'february',
-   March = 'march',
-   April = 'april',
-   May = 'may',
-   June = 'june',
-   July = 'july',
-   August = 'august',
-   September = 'september',
-   October = 'october',
-   November = 'november',
-   December = 'december',
- 
-   //* Gender
-   Male = 'male',
-   Female = 'female',
- 
-   //* Marital Status
-   Single = 'single',
-   Married = 'married',
-   Widowed = 'widowed',
-   Divorced = 'divorced',
-   Other = 'other',
- 
+  //* Birth Month
+  January = 'january',
+  February = 'february',
+  March = 'march',
+  April = 'april',
+  May = 'may',
+  June = 'june',
+  July = 'july',
+  August = 'august',
+  September = 'september',
+  October = 'october',
+  November = 'november',
+  December = 'december',
+
+  //* Gender
+  Male = 'male',
+  Female = 'female',
+
+  //* Marital Status
+  Single = 'single',
+  Married = 'married',
+  Widowed = 'widowed',
+  Divorced = 'divorced',
+  Other = 'other',
+
   //* Record Status
-   Inactive = 'inactive',
+  Inactive = 'inactive',
 }
 
-export const SupervisorSearchSelectOptionNames: Record<SupervisorSearchSelectOption, string> =  {
+export const SupervisorSearchSelectOptionNames: Record<SupervisorSearchSelectOption, string> = {
   //* Birth Month
   [SupervisorSearchSelectOption.January]: 'Enero',
   [SupervisorSearchSelectOption.February]: 'Febrero',
@@ -54,7 +54,7 @@ export const SupervisorSearchSelectOptionNames: Record<SupervisorSearchSelectOpt
   [SupervisorSearchSelectOption.Divorced]: 'Divorciado(a)',
   [SupervisorSearchSelectOption.Other]: 'Otro',
 
- //* Record Status
+  //* Record Status
   [SupervisorSearchSelectOption.Inactive]: 'Inactivo',
 };
 
@@ -74,7 +74,7 @@ export enum SupervisorSearchByBirthMonth {
   December = 'december',
 }
 
-export const SupervisorSearchNamesByBirthMonth: Record<SupervisorSearchByBirthMonth, string> =  {
+export const SupervisorSearchNamesByBirthMonth: Record<SupervisorSearchByBirthMonth, string> = {
   [SupervisorSearchByBirthMonth.January]: 'Enero',
   [SupervisorSearchByBirthMonth.February]: 'Febrero',
   [SupervisorSearchByBirthMonth.March]: 'Marzo',
@@ -87,7 +87,7 @@ export const SupervisorSearchNamesByBirthMonth: Record<SupervisorSearchByBirthMo
   [SupervisorSearchByBirthMonth.October]: 'Octubre',
   [SupervisorSearchByBirthMonth.November]: 'Noviembre',
   [SupervisorSearchByBirthMonth.December]: 'Diciembre',
-}
+};
 
 //* Gender
 export enum SupervisorSearchByGender {
@@ -95,10 +95,10 @@ export enum SupervisorSearchByGender {
   Female = 'female',
 }
 
-export const SupervisorSearchNamesByGender: Record<SupervisorSearchByGender, string> =  {
+export const SupervisorSearchNamesByGender: Record<SupervisorSearchByGender, string> = {
   [SupervisorSearchByGender.Male]: 'Masculino',
   [SupervisorSearchByGender.Female]: 'Femenino',
-}
+};
 
 //* Marital Status
 export enum SupervisorSearchByMaritalStatus {
@@ -109,19 +109,20 @@ export enum SupervisorSearchByMaritalStatus {
   Other = 'other',
 }
 
-export const SupervisorSearchNamesByMaritalStatus: Record<SupervisorSearchByMaritalStatus, string> =  {
-  [SupervisorSearchByMaritalStatus.Single]: 'Soltero(a)',
-  [SupervisorSearchByMaritalStatus.Married]: 'Casado(a)',
-  [SupervisorSearchByMaritalStatus.Widowed]: 'Viudo(a)',
-  [SupervisorSearchByMaritalStatus.Divorced]: 'Divorciado(a)',
-  [SupervisorSearchByMaritalStatus.Other]: 'Otro',
-}
+export const SupervisorSearchNamesByMaritalStatus: Record<SupervisorSearchByMaritalStatus, string> =
+  {
+    [SupervisorSearchByMaritalStatus.Single]: 'Soltero(a)',
+    [SupervisorSearchByMaritalStatus.Married]: 'Casado(a)',
+    [SupervisorSearchByMaritalStatus.Widowed]: 'Viudo(a)',
+    [SupervisorSearchByMaritalStatus.Divorced]: 'Divorciado(a)',
+    [SupervisorSearchByMaritalStatus.Other]: 'Otro',
+  };
 
 //* Record Status
 export enum SupervisorSearchByRecordStatus {
   Inactive = 'inactive',
 }
 
-export const SupervisorSearchNamesByRecordStatus: Record<SupervisorSearchByRecordStatus, string> =  {
+export const SupervisorSearchNamesByRecordStatus: Record<SupervisorSearchByRecordStatus, string> = {
   [SupervisorSearchByRecordStatus.Inactive]: 'Inactivo',
-}
+};

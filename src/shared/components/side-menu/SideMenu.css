@@ -3,5 +3,5 @@
 }
 
 #menu a.active {
-  @apply   dark:bg-blue-800 bg-blue-600 ;
+  @apply dark:bg-blue-800 bg-blue-600;
 }

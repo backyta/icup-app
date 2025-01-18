@@ -4,7 +4,7 @@ import { create, type StateCreator } from 'zustand';
 import { type ChurchResponse } from '@/modules/church/interfaces/church-response.interface';
 
 interface ChurchStore {
-   //* Properties
+  //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
@@ -26,13 +26,15 @@ export const storeChurch: StateCreator<ChurchStore> = (set) => ({
   dataSearchGeneralResponse: undefined,
   dataSearchByTermResponse: undefined,
 
-  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( ({isFiltersSearchGeneralDisabled: value}) ),
-  setIsFiltersSearchByTermDisabled: (value: boolean) => set( ({isFiltersSearchByTermDisabled: value}) ),
+  setIsFiltersSearchGeneralDisabled: (value: boolean) =>
+    set({ isFiltersSearchGeneralDisabled: value }),
+  setIsFiltersSearchByTermDisabled: (value: boolean) =>
+    set({ isFiltersSearchByTermDisabled: value }),
 
-  setDataSearchGeneralResponse: (value: ChurchResponse[] |  undefined) => set( ({dataSearchGeneralResponse: value}) ),
-  setDataSearchByTermResponse: (value: ChurchResponse[] | undefined) => set( ({dataSearchByTermResponse: value}) ),
-
-})
+  setDataSearchGeneralResponse: (value: ChurchResponse[] | undefined) =>
+    set({ dataSearchGeneralResponse: value }),
+  setDataSearchByTermResponse: (value: ChurchResponse[] | undefined) =>
+    set({ dataSearchByTermResponse: value }),
+});
 
 export const useChurchStore = create<ChurchStore>()(storeChurch);
-

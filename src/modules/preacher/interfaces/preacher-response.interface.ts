@@ -1,6 +1,6 @@
-import { 
+import {
   type Member,
-  type Disciple, 
+  type Disciple,
   type CreatedBy,
   type TheirZone,
   type UpdatedBy,
@@ -12,21 +12,20 @@ import {
 } from '@/shared/interfaces/relations-response.interface';
 
 export interface PreacherResponse {
-  id                   : string;
-  member               : Member;
-  createdAt           ?: Date;
-  createdBy           ?: CreatedBy;
-  updatedAt           ?: Date;
-  updatedBy           ?: UpdatedBy;
+  id: string;
+  member: Member;
+  createdAt?: Date;
+  createdBy?: CreatedBy;
+  updatedAt?: Date;
+  updatedBy?: UpdatedBy;
   inactivationCategory?: string;
-  inactivationReason  ?: string;
-  disciples           ?: Disciple[];
-  recordStatus        ?: string;
-  theirChurch         ?: TheirChurch | null;
-  theirPastor         ?: TheirPastor | null;
-  theirCopastor       ?: TheirCopastor | null;
-  theirSupervisor     ?: TheirSupervisor | null;
-  theirFamilyGroup    ?: TheirFamilyGroup | null;
-  theirZone           ?: TheirZone | null;
+  inactivationReason?: string;
+  disciples?: Disciple[];
+  recordStatus?: string;
+  theirChurch?: TheirChurch | null;
+  theirPastor?: TheirPastor | null;
+  theirCopastor?: TheirCopastor | null;
+  theirSupervisor?: TheirSupervisor | null;
+  theirFamilyGroup?: TheirFamilyGroup | null;
+  theirZone?: TheirZone | null;
 }
-

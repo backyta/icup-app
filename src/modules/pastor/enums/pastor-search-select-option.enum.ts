@@ -24,7 +24,7 @@ export enum PastorSearchSelectOption {
   Divorced = 'divorced',
   Other = 'other',
 
-   //* Record Status
+  //* Record Status
   Inactive = 'inactive',
 }
 
@@ -54,7 +54,7 @@ export const PastorSearchSelectOptionNames: Record<PastorSearchSelectOption, str
   [PastorSearchSelectOption.Divorced]: 'Divorciado(a)',
   [PastorSearchSelectOption.Other]: 'Otro',
 
- //* Record Status
+  //* Record Status
   [PastorSearchSelectOption.Inactive]: 'Inactivo',
 };
 
@@ -74,7 +74,7 @@ export enum PastorSearchByBirthMonth {
   December = 'december',
 }
 
-export const PastorSearchNamesByBirthMonth: Record<PastorSearchByBirthMonth, string> =  {
+export const PastorSearchNamesByBirthMonth: Record<PastorSearchByBirthMonth, string> = {
   [PastorSearchByBirthMonth.January]: 'Enero',
   [PastorSearchByBirthMonth.February]: 'Febrero',
   [PastorSearchByBirthMonth.March]: 'Marzo',
@@ -87,7 +87,7 @@ export const PastorSearchNamesByBirthMonth: Record<PastorSearchByBirthMonth, str
   [PastorSearchByBirthMonth.October]: 'Octubre',
   [PastorSearchByBirthMonth.November]: 'Noviembre',
   [PastorSearchByBirthMonth.December]: 'Diciembre',
-}
+};
 
 //* Gender
 export enum PastorSearchByGender {
@@ -117,7 +117,7 @@ export const PastorSearchNamesByMaritalStatus: Record<PastorSearchByMaritalStatu
   [PastorSearchByMaritalStatus.Other]: 'Otro',
 };
 
- //* Record Status
+//* Record Status
 export enum PastorSearchByRecordStatus {
   Inactive = 'inactive',
 }

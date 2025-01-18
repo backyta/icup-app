@@ -8,15 +8,17 @@ import { FamilyGroupSearchSubType } from '@/modules/family-group/enums/family-gr
 
 export const familyGroupSearchByTermFormSchema = z
   .object({
-    searchType: z.nativeEnum(FamilyGroupSearchType,{
-      required_error: "El tipo de búsqueda es requerido.",
+    searchType: z.nativeEnum(FamilyGroupSearchType, {
+      required_error: 'El tipo de búsqueda es requerido.',
     }),
 
-    searchSubType: z.nativeEnum(FamilyGroupSearchSubType ,{
-      message: "El sub-tipo de búsqueda es requerido.",
-      required_error: "El sub-tipo de búsqueda es requerido.",
-    }).optional(),
-    
+    searchSubType: z
+      .nativeEnum(FamilyGroupSearchSubType, {
+        message: 'El sub-tipo de búsqueda es requerido.',
+        required_error: 'El sub-tipo de búsqueda es requerido.',
+      })
+      .optional(),
+
     inputTerm: z.string().max(30).optional(),
 
     selectTerm: z.string().max(30).optional(),
@@ -25,34 +27,45 @@ export const familyGroupSearchByTermFormSchema = z
 
     lastNamesTerm: z.string().max(30).optional(),
 
-    limit: z.string().refine(limit => {
-      return /^\d+$/.test(limit);
-    }, {
-      message: 'El límite debe ser un número mayor a 0.'
-    }).refine(limit => {
-      const parsedLimit = parseInt(limit);
-      return !isNaN(parsedLimit) && parsedLimit > 0;
-    }, {
-      message: 'El límite debe ser un número mayor a 0.'
-    }).optional(),
+    limit: z
+      .string()
+      .refine(
+        (limit) => {
+          return /^\d+$/.test(limit);
+        },
+        {
+          message: 'El límite debe ser un número mayor a 0.',
+        }
+      )
+      .refine(
+        (limit) => {
+          const parsedLimit = parseInt(limit);
+          return !isNaN(parsedLimit) && parsedLimit > 0;
+        },
+        {
+          message: 'El límite debe ser un número mayor a 0.',
+        }
+      )
+      .optional(),
 
-    order: z.string(z.nativeEnum(RecordOrder, {
-      required_error: "El orden de registros es requerido.",
-    })),
+    order: z.string(
+      z.nativeEnum(RecordOrder, {
+        required_error: 'El orden de registros es requerido.',
+      })
+    ),
 
     churchId: z.string().max(40).optional(),
 
     all: z.boolean().optional(),
-   
   })
   .refine(
     (data) => {
       if (
-        data.searchType === FamilyGroupSearchType.FirstNames || 
-        data.searchType === FamilyGroupSearchType.LastNames || 
-        data.searchType === FamilyGroupSearchType.FullNames 
+        data.searchType === FamilyGroupSearchType.FirstNames ||
+        data.searchType === FamilyGroupSearchType.LastNames ||
+        data.searchType === FamilyGroupSearchType.FullNames
       ) {
-        return !!data.searchSubType; 
+        return !!data.searchSubType;
       }
       return true;
     },
@@ -63,10 +76,8 @@ export const familyGroupSearchByTermFormSchema = z
   )
   .refine(
     (data) => {
-      if (
-        data.searchType === FamilyGroupSearchType.FirstNames
-      ) {
-        return !!data.firstNamesTerm; 
+      if (data.searchType === FamilyGroupSearchType.FirstNames) {
+        return !!data.firstNamesTerm;
       }
       return true;
     },
@@ -77,9 +88,7 @@ export const familyGroupSearchByTermFormSchema = z
   )
   .refine(
     (data) => {
-      if (
-        data.searchType === FamilyGroupSearchType.LastNames
-      ) {
+      if (data.searchType === FamilyGroupSearchType.LastNames) {
         return !!data.lastNamesTerm;
       }
       return true;
@@ -92,10 +101,8 @@ export const familyGroupSearchByTermFormSchema = z
   //* Full name
   .refine(
     (data) => {
-      if (
-        data.searchType === FamilyGroupSearchType.FullNames
-      ) {
-        return !!data.lastNamesTerm; 
+      if (data.searchType === FamilyGroupSearchType.FullNames) {
+        return !!data.lastNamesTerm;
       }
       return true;
     },
@@ -106,10 +113,8 @@ export const familyGroupSearchByTermFormSchema = z
   )
   .refine(
     (data) => {
-      if (
-        data.searchType === FamilyGroupSearchType.FullNames
-      ) {
-        return !!data.firstNamesTerm; 
+      if (data.searchType === FamilyGroupSearchType.FullNames) {
+        return !!data.firstNamesTerm;
       }
       return true;
     },
@@ -120,14 +125,15 @@ export const familyGroupSearchByTermFormSchema = z
   )
   .refine(
     (data) => {
-      if (data.searchType === FamilyGroupSearchType.Country || 
-          data.searchType === FamilyGroupSearchType.Department || 
-          data.searchType === FamilyGroupSearchType.Province || 
-          data.searchType === FamilyGroupSearchType.District || 
-          data.searchType === FamilyGroupSearchType.UrbanSector || 
-          data.searchType === FamilyGroupSearchType.Address
-          ) {
-        return !!data.inputTerm; 
+      if (
+        data.searchType === FamilyGroupSearchType.Country ||
+        data.searchType === FamilyGroupSearchType.Department ||
+        data.searchType === FamilyGroupSearchType.Province ||
+        data.searchType === FamilyGroupSearchType.District ||
+        data.searchType === FamilyGroupSearchType.UrbanSector ||
+        data.searchType === FamilyGroupSearchType.Address
+      ) {
+        return !!data.inputTerm;
       }
       return true;
     },
@@ -138,9 +144,8 @@ export const familyGroupSearchByTermFormSchema = z
   )
   .refine(
     (data) => {
-      if (data.searchType === FamilyGroupSearchType.RecordStatus
-        ) {
-        return !!data.selectTerm; 
+      if (data.searchType === FamilyGroupSearchType.RecordStatus) {
+        return !!data.selectTerm;
       }
       return true;
     },
@@ -148,10 +153,4 @@ export const familyGroupSearchByTermFormSchema = z
       message: 'El término de búsqueda es requerido.',
       path: ['selectTerm'],
     }
-  )
- 
-
-  
-
-  
-
+  );

@@ -25,4 +25,3 @@ export interface OfferingIncomeByChurchGroundOfferingResponse {
   accumulatedOfferingUSD: number;
   accumulatedOfferingEUR: number;
 }
-

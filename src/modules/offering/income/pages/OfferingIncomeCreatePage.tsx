@@ -16,7 +16,10 @@ import { TiDeleteOutline } from 'react-icons/ti';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import { getExternalDonors } from '@/modules/offering/income/services/offering-income.service';
+import {
+  generateTicketByOfferingIncomeId,
+  getExternalDonors,
+} from '@/modules/offering/income/services/offering-income.service';
 import { DonorUpdateForm } from '@/modules/offering/income/components/cards/update/DonorUpdateForm';
 
 import {
@@ -95,6 +98,7 @@ import { Button } from '@/shared/components/ui/button';
 import { Calendar } from '@/shared/components/ui/calendar';
 import { Textarea } from '@/shared/components/ui/textarea';
 import { Checkbox } from '@/shared/components/ui/checkbox';
+import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group';
 import { Dialog, DialogContent, DialogTrigger } from '@/shared/components/ui/dialog';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 
@@ -154,6 +158,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
       memberId: '',
       zoneId: '',
       churchId: '',
+      generateTicket: 'yes',
     },
   });
 
@@ -165,6 +170,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   const isNewExternalDonor = form.watch('isNewExternalDonor');
   const memberType = form.watch('memberType');
   const externalDonorId = form.watch('externalDonorId');
+  const generateTicket = form.watch('generateTicket');
 
   //* Custom hooks
   useOfferingIncomeCreationSubmitButtonLogic({
@@ -225,6 +231,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   const offeringIncomeCreationMutation = useOfferingIncomeCreationMutation({
     setFiles,
     imageUrls,
+    generateTicket,
     setIsInputDisabled,
     setIsInputMemberDisabled,
     setIsSubmitButtonDisabled,
@@ -316,7 +323,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
         zoneId: formData.zoneId,
         churchId: formData.churchId,
         recordStatus: formData.recordStatus,
-        imageUrls: (imageUrls as any) ?? [],
+        imageUrls: imageUrls ?? [],
       });
     } catch (error) {
       if (uploadImagesMutation.isError) {
@@ -1771,6 +1778,43 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   ))}
                 </ul>
               </section>
+
+              <FormField
+                control={form.control}
+                name='generateTicket'
+                render={({ field }) => (
+                  <FormItem className='mt-4 border-t pt-3'>
+                    <FormLabel className='font-bold text-[14px] md:text-[14.5px] text-blue-500'>
+                      ¿Deseas generar el ticket para este registro?
+                    </FormLabel>
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        className='flex w-full px-4  justify-between'
+                      >
+                        <FormItem className='flex items-center mt-2 space-x-2 space-y-0'>
+                          <FormControl>
+                            <RadioGroupItem disabled={isInputDisabled} value='yes' />
+                          </FormControl>
+                          <FormLabel className='text-[14px] cursor-pointer'>
+                            Sí, quiero generar el ticket.
+                          </FormLabel>
+                        </FormItem>
+                        <FormItem className='flex items-center mt-2 space-x-2 space-y-0'>
+                          <FormControl>
+                            <RadioGroupItem value='no' />
+                          </FormControl>
+                          <FormLabel className='text-[14px] cursor-pointer'>
+                            No, solo deseo registrarlo.
+                          </FormLabel>
+                        </FormItem>
+                      </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
 
             {isMessageErrorDisabled ? (

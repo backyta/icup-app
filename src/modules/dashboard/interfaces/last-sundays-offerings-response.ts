@@ -1,13 +1,13 @@
 export interface LastSundaysOfferingsResponse {
-  date        : Date;
-  category    : string;
-  dayPEN      : number;
+  date: Date;
+  category: string;
+  dayPEN: number;
   afternoonPEN: number;
-  dayUSD      : number;
+  dayUSD: number;
   afternoonUSD: number;
-  dayEUR      : number;
+  dayEUR: number;
   afternoonEUR: number;
-  church      : {
+  church: {
     isAnexe: boolean;
     abbreviatedChurchName: string;
   };

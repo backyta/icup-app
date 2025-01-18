@@ -3,5 +3,5 @@ export enum Department {
 }
 
 export const DepartmentNames: Record<Department, string> = {
-  [Department.Lima] : 'Lima',
-}
+  [Department.Lima]: 'Lima',
+};

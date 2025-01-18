@@ -286,7 +286,8 @@ export const OfferingIncomeFormUpdate = ({
         id,
         formData: {
           type: formData.type,
-          subType: !formData.subType ? undefined : formData.subType,
+          subType: formData.subType,
+          category: formData.category,
           shift: formData.shift,
           amount: formData.amount,
           currency: formData.currency,
@@ -294,6 +295,7 @@ export const OfferingIncomeFormUpdate = ({
           comments: formData.comments,
           memberType: formData.memberType,
           memberId: formData.memberId,
+          externalDonorId: formData.externalDonorId,
           familyGroupId: formData.familyGroupId,
           zoneId: formData.zoneId,
           churchId: formData.churchId,
@@ -573,6 +575,64 @@ export const OfferingIncomeFormUpdate = ({
                       />
                     )}
 
+                    {((type === OfferingIncomeCreationType.Offering &&
+                      subType === OfferingIncomeCreationSubType.Special &&
+                      category === OfferingIncomeCreationCategory.InternalDonation) ||
+                      (type === OfferingIncomeCreationType.Offering &&
+                        subType === OfferingIncomeCreationSubType.ChurchGround &&
+                        category === OfferingIncomeCreationCategory.InternalDonation) ||
+                      (type === OfferingIncomeCreationType.Offering &&
+                        subType === OfferingIncomeCreationSubType.SundaySchool &&
+                        category === OfferingIncomeCreationCategory.InternalDonation) ||
+                      (type === OfferingIncomeCreationType.Offering &&
+                        subType === OfferingIncomeCreationSubType.YouthService &&
+                        category === OfferingIncomeCreationCategory.InternalDonation) ||
+                      (type === OfferingIncomeCreationType.Offering &&
+                        subType === OfferingIncomeCreationSubType.ChurchGround &&
+                        category === OfferingIncomeCreationCategory.ExternalDonation) ||
+                      (type === OfferingIncomeCreationType.Offering &&
+                        subType === OfferingIncomeCreationSubType.Special &&
+                        category === OfferingIncomeCreationCategory.ExternalDonation) ||
+                      (type === OfferingIncomeCreationType.Offering &&
+                        subType === OfferingIncomeCreationSubType.SundaySchool &&
+                        category === OfferingIncomeCreationCategory.ExternalDonation) ||
+                      (type === OfferingIncomeCreationType.Offering &&
+                        subType === OfferingIncomeCreationSubType.YouthService &&
+                        category === OfferingIncomeCreationCategory.ExternalDonation)) && (
+                      <FormField
+                        control={form.control}
+                        name='memberType'
+                        render={({ field }) => {
+                          return (
+                            <FormItem className='mt-3'>
+                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
+                                Tipo de Miembro
+                              </FormLabel>
+                              <Select disabled onValueChange={field.onChange} value={field.value}>
+                                <FormControl className='text-[14px] md:text-[14px]'>
+                                  <SelectTrigger>
+                                    {field.value ? (
+                                      <SelectValue placeholder='Selecciona el tipo de miembro' />
+                                    ) : (
+                                      'Selecciona el tipo de miembro'
+                                    )}
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  {Object.entries(MemberTypeNames).map(([key, value]) => (
+                                    <SelectItem className={`text-[14px]`} key={key} value={key}>
+                                      {value}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                              <FormMessage className='text-[13px]' />
+                            </FormItem>
+                          );
+                        }}
+                      />
+                    )}
+
                     {category === OfferingIncomeCreationCategory.ExternalDonation && (
                       <FormField
                         control={form.control}
@@ -658,52 +718,6 @@ export const OfferingIncomeFormUpdate = ({
                                   </Command>
                                 </PopoverContent>
                               </Popover>
-                              <FormMessage className='text-[13px]' />
-                            </FormItem>
-                          );
-                        }}
-                      />
-                    )}
-
-                    {((type === OfferingIncomeCreationType.Offering &&
-                      subType === OfferingIncomeCreationSubType.Special &&
-                      category === OfferingIncomeCreationCategory.InternalDonation) ||
-                      (type === OfferingIncomeCreationType.Offering &&
-                        subType === OfferingIncomeCreationSubType.ChurchGround &&
-                        category === OfferingIncomeCreationCategory.InternalDonation) ||
-                      (type === OfferingIncomeCreationType.Offering &&
-                        subType === OfferingIncomeCreationSubType.SundaySchool &&
-                        category === OfferingIncomeCreationCategory.InternalDonation) ||
-                      (type === OfferingIncomeCreationType.Offering &&
-                        subType === OfferingIncomeCreationSubType.YouthService &&
-                        category === OfferingIncomeCreationCategory.InternalDonation)) && (
-                      <FormField
-                        control={form.control}
-                        name='memberType'
-                        render={({ field }) => {
-                          return (
-                            <FormItem className='mt-3'>
-                              <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>
-                                Tipo de Miembro
-                              </FormLabel>
-                              <Select disabled onValueChange={field.onChange} value={field.value}>
-                                <FormControl className='text-[14px] md:text-[14px]'>
-                                  <SelectTrigger>
-                                    {field.value ? (
-                                      <SelectValue placeholder='Selecciona el tipo de miembro' />
-                                    ) : (
-                                      'Selecciona el tipo de miembro'
-                                    )}
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  {Object.entries(MemberTypeNames).map(([key, value]) => (
-                                    <SelectItem className={`text-[14px]`} key={key} value={key}>
-                                      {value}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
                               <FormMessage className='text-[13px]' />
                             </FormItem>
                           );

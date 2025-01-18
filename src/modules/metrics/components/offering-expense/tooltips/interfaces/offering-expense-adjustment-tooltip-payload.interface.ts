@@ -4,7 +4,7 @@ interface Offering {
   date: string | Date;
 }
 
-// ? Payload
+//? Payload
 export interface OfferingExpenseAdjustmentPayload {
   fill: string;
   radius: number;
@@ -20,13 +20,12 @@ export interface OfferingExpenseAdjustmentPayload {
     accumulatedOfferingPEN: number;
     accumulatedOfferingUSD: number;
     accumulatedOfferingEUR: number;
-    church:{
+    church: {
       isAnexe: boolean;
       abbreviatedChurchName: string;
-    }
+    };
     allOfferings: Offering[];
   };
   chartType?: string | undefined;
   hide: boolean;
 }
-

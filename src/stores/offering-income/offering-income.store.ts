@@ -4,7 +4,7 @@ import { create, type StateCreator } from 'zustand';
 import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces/offering-income-response.interface';
 
 interface OfferingIncomeStore {
-   //* Properties
+  //* Properties
   isFiltersSearchGeneralDisabled: boolean;
   isFiltersSearchByTermDisabled: boolean;
 
@@ -26,12 +26,15 @@ export const storeOfferingIncome: StateCreator<OfferingIncomeStore> = (set) => (
   dataSearchGeneralResponse: undefined,
   dataSearchByTermResponse: undefined,
 
-  setIsFiltersSearchGeneralDisabled: (value: boolean) => set( ({isFiltersSearchGeneralDisabled: value}) ),
-  setIsFiltersSearchByTermDisabled: (value: boolean) => set( ({isFiltersSearchByTermDisabled: value}) ),
+  setIsFiltersSearchGeneralDisabled: (value: boolean) =>
+    set({ isFiltersSearchGeneralDisabled: value }),
+  setIsFiltersSearchByTermDisabled: (value: boolean) =>
+    set({ isFiltersSearchByTermDisabled: value }),
 
-  setDataSearchGeneralResponse: (value: OfferingIncomeResponse[] |  undefined) => set( ({dataSearchGeneralResponse: value}) ),
-  setDataSearchByTermResponse: (value: OfferingIncomeResponse[] | undefined) => set( ({dataSearchByTermResponse: value}) ),
-})
+  setDataSearchGeneralResponse: (value: OfferingIncomeResponse[] | undefined) =>
+    set({ dataSearchGeneralResponse: value }),
+  setDataSearchByTermResponse: (value: OfferingIncomeResponse[] | undefined) =>
+    set({ dataSearchByTermResponse: value }),
+});
 
 export const useOfferingIncomeStore = create<OfferingIncomeStore>()(storeOfferingIncome);
-
