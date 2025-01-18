@@ -16,10 +16,7 @@ import { TiDeleteOutline } from 'react-icons/ti';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CalendarIcon, CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 
-import {
-  generateTicketByOfferingIncomeId,
-  getExternalDonors,
-} from '@/modules/offering/income/services/offering-income.service';
+import { getExternalDonors } from '@/modules/offering/income/services/offering-income.service';
 import { DonorUpdateForm } from '@/modules/offering/income/components/cards/update/DonorUpdateForm';
 
 import {
