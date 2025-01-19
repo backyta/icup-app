@@ -510,15 +510,13 @@ export const generateTicketByOfferingIncomeId = async ({
       responseType: 'blob',
     });
 
+    if (setOpen) {
+      setOpen!(false);
+    }
+
     setTimeout(() => {
       openPdfInNewTab(res.data);
     }, 100);
-
-    if (setOpen) {
-      setTimeout(() => {
-        setOpen!(false);
-      }, 200);
-    }
 
     return res;
   } catch (error) {
