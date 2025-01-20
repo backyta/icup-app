@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 
-import { addDays } from 'date-fns';
-
 import { cn } from '@/shared/lib/utils';
 
 import {
@@ -14,8 +12,8 @@ import { CurrencyType } from '@/modules/offering/shared/enums/currency-type.enum
 import { type TopFamilyGroupOfferingsPayload } from '@/modules/dashboard/interfaces/top-family-groups-offerings-tooltip-payload.interface';
 
 import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
-import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 import { getFirstNameAndLastNames } from '@/shared/helpers/get-full-names.helper';
+import { formatDateToLimaDayMonthYear } from '@/shared/helpers/format-date-to-lima';
 
 export const TopFamilyGroupsTooltipContent = (
   props: TooltipConfig<TopFamilyGroupOfferingsPayload>
@@ -75,30 +73,21 @@ export const TopFamilyGroupsTooltipContent = (
                     : CurrencyType.EUR
               } - ${
                 entry?.name === 'accumulatedOfferingPEN'
-                  ? dateFormatterToDDMMYY(
-                      addDays(
-                        entry?.payload?.allOfferings?.find(
-                          (item: any) => item.currency === CurrencyType.PEN
-                        )?.date as string,
-                        1
-                      )
+                  ? formatDateToLimaDayMonthYear(
+                      entry?.payload?.allOfferings?.find(
+                        (item: any) => item.currency === CurrencyType.PEN
+                      )?.date!
                     )
                   : entry?.name === 'accumulatedOfferingUSD'
-                    ? dateFormatterToDDMMYY(
-                        addDays(
-                          entry?.payload?.allOfferings?.find(
-                            (item: any) => item.currency === CurrencyType.USD
-                          )?.date as string,
-                          1
-                        )
+                    ? formatDateToLimaDayMonthYear(
+                        entry.payload.allOfferings.find(
+                          (item: any) => item.currency === CurrencyType.USD
+                        )?.date!
                       )
-                    : dateFormatterToDDMMYY(
-                        addDays(
-                          entry?.payload?.allOfferings?.find(
-                            (item: any) => item.currency === CurrencyType.EUR
-                          )?.date as string,
-                          1
-                        )
+                    : formatDateToLimaDayMonthYear(
+                        entry?.payload?.allOfferings?.find(
+                          (item: any) => item.currency === CurrencyType.EUR
+                        )?.date!
                       )
               }`}
                   </span>

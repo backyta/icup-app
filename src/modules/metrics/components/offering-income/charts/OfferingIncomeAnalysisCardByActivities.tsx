@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
 import { useForm } from 'react-hook-form';
-import { addDays, format } from 'date-fns';
+import { format } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
@@ -24,7 +24,7 @@ import { OfferingIncomeByActivitiesTooltipContent } from '@/modules/metrics/comp
 
 import { months } from '@/shared/data/months-data';
 import { generateYearOptions } from '@/shared/helpers/generate-year-options.helper';
-import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
+import { formatDateToLimaDayMonthYear } from '@/shared/helpers/format-date-to-lima';
 
 import {
   Command,
@@ -317,7 +317,7 @@ export const OfferingIncomeAnalysisCardByActivities = ({ churchId }: Props): JSX
                   tickLine={false}
                   tickMargin={10}
                   axisLine={true}
-                  tickFormatter={(value) => dateFormatterToDDMMYY(addDays(value, 1))}
+                  tickFormatter={(value) => formatDateToLimaDayMonthYear(value)}
                   className='text-[12.5px] sm:text-[14px]'
                 />
 

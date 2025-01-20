@@ -49,5 +49,5 @@ export const useUserUpdateSubmitButtonLogic = ({
     if (roles?.length === 0) {
       setIsSubmitButtonDisabled(true);
     }
-  }, [firstNames, lastNames, email, roles, gender, recordStatus]);
+  }, [userUpdateForm.formState, firstNames, lastNames, email, roles, gender, recordStatus]);
 };

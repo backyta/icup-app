@@ -86,6 +86,7 @@ export const usePreacherCreationSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
+    preacherCreationForm.formState,
     firstNames,
     lastNames,
     gender,

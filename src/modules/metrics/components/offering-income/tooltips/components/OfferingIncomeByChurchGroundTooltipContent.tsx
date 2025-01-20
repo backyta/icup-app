@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { addDays } from 'date-fns';
 import { cn } from '@/shared/lib/utils';
 
-import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
 
 import { CurrencyType } from '@/modules/offering/shared/enums/currency-type.enum';
@@ -13,6 +11,7 @@ import {
 } from '@/modules/offering/income/enums/offering-income-creation-category.enum';
 import { type MemberType, MemberTypeNames } from '@/modules/offering/income/enums/member-type.enum';
 import { type OfferingsIncomePayloadByChurchGround } from '@/modules/metrics/components/offering-income/tooltips/interfaces/offering-income-by-church-ground-tooltip-payload.interface';
+import { formatDateToLimaDayMonthYear } from '@/shared/helpers/format-date-to-lima';
 
 export const OfferingIncomeByChurchGroundTooltipContent = (
   props: TooltipConfig<OfferingsIncomePayloadByChurchGround>
@@ -56,7 +55,7 @@ export const OfferingIncomeByChurchGroundTooltipContent = (
             ></span>
             <span className='font-medium text-[13.5px] md:text-[13.5px]'>{`${index + 1}° Ofrenda:`}</span>
             <span className='pl-1 dark:text-white text-black font-normal text-[13.5px] md:text-[13.5px]'>
-              {`${off.offering.toFixed(2)} ${off.currency} - ${dateFormatterToDDMMYY(addDays(off.date, 1))}`}
+              {`${off.offering.toFixed(2)} ${off.currency} - ${formatDateToLimaDayMonthYear(off.date)}`}
             </span>
           </div>
         ))}
@@ -104,16 +103,10 @@ export const OfferingIncomeByChurchGroundTooltipContent = (
                         : CurrencyType.EUR
                   } - ${
                     entry?.name === 'accumulatedOfferingPEN'
-                      ? dateFormatterToDDMMYY(
-                          addDays(entry?.payload?.allOfferings?.at(-1)?.date as string, 1)
-                        )
+                      ? formatDateToLimaDayMonthYear(entry?.payload?.allOfferings?.at(-1)?.date!)
                       : entry?.name === 'accumulatedOfferingUSD'
-                        ? dateFormatterToDDMMYY(
-                            addDays(entry?.payload?.allOfferings?.at(-1)?.date as string, 1)
-                          )
-                        : dateFormatterToDDMMYY(
-                            addDays(entry?.payload?.allOfferings?.at(-1)?.date as string, 1)
-                          )
+                        ? formatDateToLimaDayMonthYear(entry?.payload?.allOfferings?.at(-1)?.date!)
+                        : formatDateToLimaDayMonthYear(entry?.payload?.allOfferings?.at(-1)?.date!)
                   }`}
 
                     {entry.payload.category !== OfferingIncomeCreationCategory.ExternalDonation &&
@@ -132,16 +125,10 @@ export const OfferingIncomeByChurchGroundTooltipContent = (
                         : CurrencyType.EUR
                   } - ${
                     entry?.name === 'accumulatedOfferingPEN'
-                      ? dateFormatterToDDMMYY(
-                          addDays(entry?.payload?.allOfferings?.at(-1)?.date as string, 1)
-                        )
+                      ? formatDateToLimaDayMonthYear(entry?.payload?.allOfferings?.at(-1)?.date!)
                       : entry?.name === 'accumulatedOfferingUSD'
-                        ? dateFormatterToDDMMYY(
-                            addDays(entry?.payload?.allOfferings?.at(-1)?.date as string, 1)
-                          )
-                        : dateFormatterToDDMMYY(
-                            addDays(entry?.payload?.allOfferings?.at(-1)?.date as string, 1)
-                          )
+                        ? formatDateToLimaDayMonthYear(entry?.payload?.allOfferings?.at(-1)?.date!)
+                        : formatDateToLimaDayMonthYear(entry?.payload?.allOfferings?.at(-1)?.date!)
                   }`}
                   </span>
                 </li>

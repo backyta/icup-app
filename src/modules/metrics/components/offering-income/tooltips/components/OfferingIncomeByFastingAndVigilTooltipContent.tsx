@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { addDays } from 'date-fns';
-
-import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { formatDateToLimaDayMonthYear } from '@/shared/helpers/format-date-to-lima';
 
 import {
   type OfferingIncomeCreationCategory,
@@ -55,7 +53,7 @@ export const OfferingIncomeByFastingAndVigilTooltipContent = (
             {payload?.[0]?.payload?.allOfferings.length > 1 ? `${index + 1}° Ofrenda:` : `Ofrenda:`}
           </span>
           <span className='pl-1 dark:text-white text-black font-normal text-[13.5px] md:text-[13.5px]'>
-            {`${off.offering.toFixed(2)} ${off.currency} - ${dateFormatterToDDMMYY(addDays(off.date, 1))}`}
+            {`${off.offering.toFixed(2)} ${off.currency} - ${formatDateToLimaDayMonthYear(off.date)}`}
           </span>
         </div>
       ))}

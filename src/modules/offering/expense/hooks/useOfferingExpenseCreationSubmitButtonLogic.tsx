@@ -36,6 +36,7 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
   const fileNames = offeringExpenseCreationForm.watch('fileNames');
   const churchId = offeringExpenseCreationForm.watch('churchId');
 
+  console.log(offeringExpenseCreationForm.formState.errors);
   //* Effects
   useEffect(() => {
     if (
@@ -53,7 +54,7 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
       amount &&
       currency &&
       date &&
-      comments &&
+      comments.length >= 5 &&
       churchId &&
       Object.values(offeringExpenseCreationForm.formState.errors).length === 0 &&
       (!isInputDisabled || !isDropZoneDisabled || !isDeleteFileButtonDisabled)
@@ -64,7 +65,7 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
 
     if (
       type === OfferingExpenseSearchType.ExpensesAdjustment &&
-      (!churchId || !amount || !currency || !date || !comments)
+      (!churchId || !amount || !currency || !date || comments.length < 5)
     ) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
@@ -84,7 +85,7 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
       amount &&
       currency &&
       churchId &&
-      comments &&
+      comments.length >= 5 &&
       Object.values(offeringExpenseCreationForm.formState.errors).length === 0 &&
       (!isInputDisabled || !isDropZoneDisabled || !isDeleteFileButtonDisabled)
     ) {
@@ -93,7 +94,7 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
     }
 
     //* Others values
-    if (!churchId || !amount || !currency || !date || !comments) {
+    if (!churchId || !amount || !currency || !date || comments.length < 5) {
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
@@ -111,7 +112,17 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
     ) {
       setIsDropZoneDisabled(false);
     }
-  }, [type, subType, amount, currency, comments, churchId, date, fileNames]);
+  }, [
+    offeringExpenseCreationForm.formState,
+    type,
+    date,
+    subType,
+    amount,
+    currency,
+    comments,
+    churchId,
+    fileNames,
+  ]);
 
   //* Reset relations
   useEffect(() => {

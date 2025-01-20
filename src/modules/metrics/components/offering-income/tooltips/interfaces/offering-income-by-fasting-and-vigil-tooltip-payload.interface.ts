@@ -3,7 +3,7 @@ import { type OfferingIncomeCreationSubType } from '@/modules/offering/income/en
 interface Offering {
   offering: number;
   currency: string;
-  date: string | Date;
+  date: Date;
 }
 
 //? Payload

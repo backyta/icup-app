@@ -4,7 +4,7 @@ interface Offering {
   donorId: string | null;
   offering: number;
   currency: string;
-  date: string | Date;
+  date: Date;
 }
 
 //? Payload

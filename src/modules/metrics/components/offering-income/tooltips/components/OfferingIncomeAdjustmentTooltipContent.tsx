@@ -1,6 +1,3 @@
-import { addDays } from 'date-fns';
-
-import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
 
 import { CurrencyType } from '@/modules/offering/shared/enums/currency-type.enum';
@@ -14,7 +11,7 @@ export const OfferingIncomeAdjustmentTooltipContent = (
   return (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
       <p>
-        <span className='font-semibold text-[14px] sm:text-[14px]'>{`${dateFormatterToDDMMYY(addDays(label, 1))}`}</span>
+        <span className='font-semibold text-[14px] sm:text-[14px]'>{`${label?.split('-')?.reverse()?.join('/')}`}</span>
       </p>
       {payload?.[0]?.payload?.allOfferings.length > 1 && (
         <span className='font-medium text-[13.5px] md:text-[13.5px]'>Lista de Ofrendas</span>

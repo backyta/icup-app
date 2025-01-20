@@ -55,6 +55,7 @@ export const useExternalDonorUpdateSubmitButtonLogic = ({
       setIsMessageErrorDisabled(true);
     }
   }, [
+    externalDonorUpdateForm.formState,
     donorFirstNames,
     donorLastNames,
     donorGender,

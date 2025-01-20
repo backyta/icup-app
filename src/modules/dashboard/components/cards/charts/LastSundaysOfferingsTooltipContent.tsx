@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 
-import { addDays } from 'date-fns';
-
 import { CurrencyType } from '@/modules/offering/shared/enums/currency-type.enum';
 
 import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
-import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 
 import { type LatestSundaysOfferingsPayload } from '@/modules/dashboard/interfaces/last-sundays-offerings-tooltip-payload.interface';
 
@@ -35,7 +32,7 @@ export const LastSundaysOfferingsTooltipContent = (
 
   return (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
-      <p className='font-medium text-[14px] sm:text-[14px]'>{`${dateFormatterToDDMMYY(addDays(label, 1))}`}</p>
+      <p className='font-medium text-[14px] sm:text-[14px]'>{`${label?.split('-')?.reverse()?.join('/')}`}</p>
       <ul className='list grid gap-1.5'>
         {payload.map((entry, index) =>
           entry.value ? (

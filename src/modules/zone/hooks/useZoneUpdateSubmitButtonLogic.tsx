@@ -50,5 +50,14 @@ export const useZoneUpdateSubmitButtonLogic = ({
       setIsSubmitButtonDisabled(true);
       setIsMessageErrorDisabled(true);
     }
-  }, [zoneName, country, department, province, district, recordStatus, theirSupervisor]);
+  }, [
+    zoneUpdateForm.formState,
+    zoneName,
+    country,
+    department,
+    province,
+    district,
+    recordStatus,
+    theirSupervisor,
+  ]);
 };

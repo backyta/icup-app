@@ -1,9 +1,5 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { addDays } from 'date-fns';
-
-import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
-
 import {
   type OfferingIncomeCreationCategory,
   OfferingIncomeCreationCategoryNames,
@@ -35,7 +31,7 @@ export const OfferingIncomeBySundayServiceTooltipContent = (
 
   return (
     <div className='grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl'>
-      <p className='font-medium text-[14px] sm:text-[14px]'>{`${dateFormatterToDDMMYY(addDays(label, 1))}`}</p>
+      <p className='font-medium text-[14px] sm:text-[14px]'>{`${label?.split('-')?.reverse()?.join('/')}`}</p>
       <ul className='list grid gap-1.5'>
         {payload.map((entry, index) =>
           entry.value ? (

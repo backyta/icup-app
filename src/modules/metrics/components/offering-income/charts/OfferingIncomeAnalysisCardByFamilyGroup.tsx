@@ -398,7 +398,7 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
                   tickLine={false}
                   tickMargin={10}
                   axisLine={true}
-                  tickFormatter={(value) => value.slice(0, 12)}
+                  tickFormatter={(value) => value}
                   className='text-[12.5px] sm:text-[14px]'
                 />
 

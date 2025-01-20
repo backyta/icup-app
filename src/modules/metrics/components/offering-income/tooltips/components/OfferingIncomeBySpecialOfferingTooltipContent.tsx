@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { addDays } from 'date-fns';
 import { cn } from '@/shared/lib/utils';
 
-import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
 import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
+import { formatDateToLimaDayMonthYear } from '@/shared/helpers/format-date-to-lima';
 
 import {
   OfferingIncomeCreationCategory,
@@ -69,16 +68,10 @@ export const OfferingIncomeBySpecialOfferingTooltipContent = (
                      : CurrencyType.EUR
                } - ${
                  entry?.name === 'accumulatedOfferingPEN'
-                   ? dateFormatterToDDMMYY(
-                       addDays(entry?.payload?.allOfferings?.at(-1)?.date as string, 1)
-                     )
+                   ? formatDateToLimaDayMonthYear(entry?.payload?.allOfferings?.at(-1)?.date!)
                    : entry?.name === 'accumulatedOfferingUSD'
-                     ? dateFormatterToDDMMYY(
-                         addDays(entry?.payload?.allOfferings?.at(-1)?.date as string, 1)
-                       )
-                     : dateFormatterToDDMMYY(
-                         addDays(entry?.payload?.allOfferings?.at(-1)?.date as string, 1)
-                       )
+                     ? formatDateToLimaDayMonthYear(entry?.payload?.allOfferings?.at(-1)?.date!)
+                     : formatDateToLimaDayMonthYear(entry?.payload?.allOfferings?.at(-1)?.date!)
                }`}
                 </span>
               </li>

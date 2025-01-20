@@ -6,7 +6,6 @@
 import { useEffect, useState } from 'react';
 
 import { type z } from 'zod';
-import { addDays } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -26,7 +25,7 @@ import { getSimpleChurches } from '@/modules/church/services/church.service';
 import { cn } from '@/shared/lib/utils';
 
 import { RecordOrder } from '@/shared/enums/record-order.enum';
-import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
+import { formatDateToLimaDayMonthYear } from '@/shared/helpers/format-date-to-lima';
 
 import {
   ChartLegend,
@@ -273,7 +272,7 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
                   tickLine={false}
                   tickMargin={10}
                   axisLine={true}
-                  tickFormatter={(value) => dateFormatterToDDMMYY(addDays(value, 1))}
+                  tickFormatter={(value) => formatDateToLimaDayMonthYear(value)}
                   className='text-[12.5px] sm:text-[14px]'
                 />
 

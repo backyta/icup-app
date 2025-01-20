@@ -1,15 +1,13 @@
-import { addDays } from 'date-fns';
-
 import { CurrencyType } from '@/modules/offering/shared/enums/currency-type.enum';
 
 import { type TooltipConfig } from '@/shared/interfaces/tooltip-config.interface';
-import { dateFormatterToDDMMYY } from '@/shared/helpers/date-formatter-to-ddmmyyyy.helper';
+import { formatDateToLimaDayMonthYear } from '@/shared/helpers/format-date-to-lima';
 
-import { type OfferingIncomePayloadByFamilyGroup } from '@/modules/metrics/components/offering-income/tooltips/interfaces/offering-income-by-family-group-tooltip-payload.interface';
 import {
   type OfferingIncomeCreationCategory,
   OfferingIncomeCreationCategoryNames,
 } from '@/modules/offering/income/enums/offering-income-creation-category.enum';
+import { type OfferingIncomePayloadByFamilyGroup } from '@/modules/metrics/components/offering-income/tooltips/interfaces/offering-income-by-family-group-tooltip-payload.interface';
 
 export const OfferingIncomeByFamilyGroupTooltipContent = (
   props: TooltipConfig<OfferingIncomePayloadByFamilyGroup>
@@ -44,7 +42,7 @@ export const OfferingIncomeByFamilyGroupTooltipContent = (
           ></span>
           <span className='font-medium text-[13.5px] md:text-[13.5px]'>{`${index + 1}° Ofrenda:`}</span>
           <span className='pl-1 dark:text-white text-black font-normal text-[13.5px] md:text-[13.5px]'>
-            {`${off.offering.toFixed(2)} ${off.currency} - ${dateFormatterToDDMMYY(addDays(off.date, 1))}`}
+            {`${off.offering.toFixed(2)} ${off.currency} - ${formatDateToLimaDayMonthYear(off.date)}`}
           </span>
         </div>
       ))}
