@@ -15,7 +15,7 @@ export interface OfferingIncomeByChurchGroundOfferingResponse {
     donorId: string | null;
     offering: number;
     currency: string;
-    date: string;
+    date: Date;
   }>;
   church: {
     isAnexe: boolean;

@@ -113,7 +113,7 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
       return getOfferingsForBarChartByTerm({
         searchType: DashboardSearchType.LastSundaysOfferings,
         churchId: searchParams?.churchId ?? churchId,
-        date: formatZonedTime(zonedDate, 'yyyy-MM-dd', { timeZone }),
+        date: formatZonedTime(zonedDate, 'yyyy-MM-dd HH:mm:ss', { timeZone }),
         limit: '14',
         order: RecordOrder.Descending,
       });

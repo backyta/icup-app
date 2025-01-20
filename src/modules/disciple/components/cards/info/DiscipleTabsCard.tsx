@@ -2,12 +2,14 @@
 
 import { useEffect } from 'react';
 
-import { addDays, format } from 'date-fns';
-
 import { cn } from '@/shared/lib/utils';
 
 import { type DiscipleResponse } from '@/modules/disciple/interfaces/disciple-response.interface';
 
+import {
+  formatDateToLimaTime,
+  formatDateToLimaDayMonthYear,
+} from '@/shared/helpers/format-date-to-lima';
 import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 
 import { RecordStatus } from '@/shared/enums/record-status.enum';
@@ -113,7 +115,7 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
               <Label className='text-[14px] md:text-[15px]'>Fecha de Nacimiento</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.member?.birthDate
-                  ? format(new Date(addDays(data?.member?.birthDate, 1)), 'dd/MM/yyyy')
+                  ? formatDateToLimaDayMonthYear(data?.member?.birthDate)
                   : '-'}
               </CardDescription>
             </div>
@@ -133,7 +135,7 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
               <Label className='text-[14px] md:text-[15px]'>Fecha de Conversion</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                 {data?.member?.conversionDate
-                  ? format(new Date(addDays(data?.member?.conversionDate, 1)), 'dd/MM/yyyy')
+                  ? formatDateToLimaDayMonthYear(data?.member?.conversionDate)
                   : '-'}
               </CardDescription>
             </div>
@@ -194,8 +196,10 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
               )}
             >
               <Label className='text-[14px] md:text-[15px]'>Fecha de creación</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.createdAt ? format(new Date(data?.createdAt), 'dd/MM/yyyy') : '-'}
+              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-right md:text-left md:whitespace-nowrap'>
+                {data?.createdAt
+                  ? `${formatDateToLimaDayMonthYear(data?.createdAt)} - ${formatDateToLimaTime(data?.createdAt)}`
+                  : '-'}
               </CardDescription>
             </div>
 
@@ -226,14 +230,14 @@ export const DiscipleTabsCard = ({ data, id }: DiscipleTabsCardProps): JSX.Eleme
               <Label className='text-[14px] md:text-[15px]'>Ultima fecha de actualización</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-right md:text-left'>
                 {data?.updatedAt
-                  ? `${format(new Date(data?.updatedAt), 'dd/MM/yyyy')} - ${`${format(new Date(data?.updatedAt), 'hh:mm a')}`}`
+                  ? `${formatDateToLimaDayMonthYear(data?.updatedAt)} - ${formatDateToLimaTime(data?.updatedAt)}`
                   : '-'}
               </CardDescription>
             </div>
 
             <div
               className={cn(
-                'space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-9 row-end-10 md:grid md:row-start-5 md:row-end-6 md:col-start-3 md:col-end-4',
+                'space-y-1 col-start-1 col-end-4 flex justify-between md:justify-center items-center row-start-9 row-end-10 md:grid md:row-start-5 md:row-end-6 md:col-start-3 md:col-end-4',
                 data?.inactivationCategory &&
                   'row-start-9 row-end-10 col-start-1 col-end-4 md:col-start-3 md:col-end-4 md:row-start-5 md:row-end-6'
               )}

@@ -55,7 +55,7 @@ export interface ExternalDonor {
   firstNames: string;
   lastNames: string;
   gender: string;
-  birthDate: string;
+  birthDate: Date;
   email: string;
   phoneNumber: string;
   originCountry: string;

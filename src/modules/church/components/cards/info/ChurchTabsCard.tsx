@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-
 import { useEffect } from 'react';
-
-import { format, addDays } from 'date-fns';
 
 import { type ChurchResponse } from '@/modules/church/interfaces/church-response.interface';
 
 import { cn } from '@/shared/lib/utils';
 
+import {
+  formatDateToLimaTime,
+  formatDateToLimaDayMonthYear,
+} from '@/shared/helpers/format-date-to-lima';
 import { RecordStatus } from '@/shared/enums/record-status.enum';
 import { PopoverDataCard } from '@/shared/components/card/PopoverDataCard';
 import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
@@ -113,9 +113,7 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
             <div className='space-y-1'>
               <Label className='text-[14px] md:text-[15px]'>Fecha de Fundación</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.foundingDate
-                  ? format(new Date(addDays(data.foundingDate, 1)), 'dd/MM/yyyy')
-                  : '-'}
+                {data?.foundingDate ? formatDateToLimaDayMonthYear(data?.foundingDate) : '-'}
               </CardDescription>
             </div>
 
@@ -308,8 +306,10 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               )}
             >
               <Label className='text-[14px] md:text-[15px]'>Fecha de creación</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.createdAt ? format(new Date(data?.createdAt), 'dd/MM/yyyy') : '-'}
+              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-right md:text-left md:whitespace-nowrap'>
+                {data?.createdAt
+                  ? `${formatDateToLimaDayMonthYear(data?.createdAt)} - ${formatDateToLimaTime(data?.createdAt)}`
+                  : '-'}
               </CardDescription>
             </div>
 
@@ -340,14 +340,14 @@ export const ChurchTabsCard = ({ data, id }: ChurchTabsCardProps): JSX.Element =
               <Label className='text-[14px] md:text-[15px]'>Ultima fecha de actualización</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-right md:text-left'>
                 {data?.updatedAt
-                  ? `${format(new Date(data?.updatedAt), 'dd/MM/yyyy')} - ${`${format(new Date(data?.updatedAt), 'hh:mm a')}`}`
+                  ? `${formatDateToLimaDayMonthYear(data?.updatedAt)} - ${formatDateToLimaTime(data?.updatedAt)}`
                   : '-'}
               </CardDescription>
             </div>
 
             <div
               className={cn(
-                'space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-12 row-end-13 md:grid md:row-start-8 md:row-end-9 md:col-start-3 md:col-end-4',
+                'space-y-1 col-start-1 col-end-4 flex justify-between md:justify-center items-center row-start-12 row-end-13 md:grid md:row-start-8 md:row-end-9 md:col-start-3 md:col-end-4',
                 data?.inactivationCategory &&
                   'row-start-12 row-end-13 col-start-1 col-end-4 md:col-start-3 md:col-end-4 md:row-start-8 md:row-end-9'
               )}

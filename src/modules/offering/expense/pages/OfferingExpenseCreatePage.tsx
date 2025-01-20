@@ -484,7 +484,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                   <FormItem className='mt-3'>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Fecha</FormLabel>
                     <FormDescription className='text-[13.5px] md:text-[14px]'>
-                      Elige la fecha de gasto o compra realizada.
+                      Selecciona la fecha de gasto o compra realizada.
                     </FormDescription>
                     <Popover open={isInputDateOpen} onOpenChange={setIsInputDateOpen}>
                       <PopoverTrigger asChild>

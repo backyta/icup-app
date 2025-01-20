@@ -9,7 +9,7 @@ export interface OfferingIncomePayloadBySundayService {
   value: number;
   type?: string | undefined;
   payload: {
-    date: string;
+    date: Date;
     category: string;
     dayPEN: number;
     afternoonPEN: number;

@@ -15,7 +15,7 @@ export interface OfferingIncomeBySpecialOfferingResponse {
     sendingCountry: string | null;
     offering: number;
     currency: string;
-    date: string;
+    date: Date;
   }>;
   church: {
     isAnexe: boolean;

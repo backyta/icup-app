@@ -1,8 +1,4 @@
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-
 import { useEffect } from 'react';
-
-import { addDays, format } from 'date-fns';
 
 import { cn } from '@/shared/lib/utils';
 
@@ -21,6 +17,10 @@ import {
   OfferingIncomeCreationCategoryNames,
 } from '@/modules/offering/income/enums/offering-income-creation-category.enum';
 
+import {
+  formatDateToLimaTime,
+  formatDateToLimaDayMonthYear,
+} from '@/shared/helpers/format-date-to-lima';
 import { RecordStatus } from '@/shared/enums/record-status.enum';
 import { GenderNames, type Gender } from '@/shared/enums/gender.enum';
 import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
@@ -146,9 +146,9 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
             </div>
 
             <div className='space-y-1'>
-              <Label className='text-[14px] md:text-[15px]'>Fecha de deposito</Label>
+              <Label className='text-[14px] md:text-[15px]'>Fecha</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.date ? format(new Date(addDays(data?.date, 1)), 'dd/MM/yyyy') : '-'}
+                {data?.date ? formatDateToLimaDayMonthYear(data?.date) : '-'}
               </CardDescription>
             </div>
 
@@ -222,12 +222,10 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
                       </p>
                       <p>
                         <span className='font-semibold'>F. Nacimiento:</span>{' '}
-                        {data?.externalDonor?.birthDate === '1900-01-01'
+                        {formatDateToLimaDayMonthYear(data?.externalDonor?.birthDate) ===
+                        '01/01/1900'
                           ? 'Anónimo'
-                          : format(
-                              new Date(addDays(data?.externalDonor?.birthDate, 1)),
-                              'dd/MM/yyyy'
-                            )}
+                          : formatDateToLimaDayMonthYear(data?.externalDonor?.birthDate)}
                       </p>
                       <p>
                         <span className='font-semibold'>País de origen:</span>{' '}
@@ -342,12 +340,14 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
 
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-11 row-end-12 md:grid md:col-auto md:row-auto'>
               <Label className='text-[14px] md:text-[15px]'>Fecha de creación</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.createdAt ? format(new Date(data?.createdAt), 'dd/MM/yyyy') : '-'}
+              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-right md:text-left md:whitespace-nowrap'>
+                {data?.createdAt
+                  ? `${formatDateToLimaDayMonthYear(data?.createdAt)} - ${formatDateToLimaTime(data?.createdAt)}`
+                  : '-'}
               </CardDescription>
             </div>
 
-            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-span-2  md:grid md:row-start-auto md:row-end-auto md:col-start-3 md:col-end-4'>
+            <div className='space-y-1 col-start-1 col-end-4 flex justify-between md:justify-center items-center row-span-2 md:grid md:row-start-auto md:row-end-auto md:col-start-3 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
               <CardDescription
                 className={cn(
@@ -375,7 +375,7 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
               <Label className='text-[14px] md:text-[15px]'>Ultima fecha de actualización</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-right md:text-left'>
                 {data?.updatedAt
-                  ? `${format(new Date(data?.updatedAt), 'dd/MM/yyyy')} - ${`${format(new Date(data?.updatedAt), 'hh:mm a')}`}`
+                  ? `${formatDateToLimaDayMonthYear(data?.updatedAt)} - ${formatDateToLimaTime(data?.updatedAt)}`
                   : '-'}
               </CardDescription>
             </div>

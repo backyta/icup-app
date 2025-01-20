@@ -523,7 +523,7 @@ export const OfferingExpenseFormUpdate = ({
                             Fecha
                           </FormLabel>
                           <FormDescription className='text-[13.5px] md:text-[14px]'>
-                            Elige la fecha de gasto o compra realizada.
+                            Selecciona la fecha del gasto o compra realizada.
                           </FormDescription>
                           <Popover open={isInputDateOpen} onOpenChange={setIsInputDateOpen}>
                             <PopoverTrigger asChild>

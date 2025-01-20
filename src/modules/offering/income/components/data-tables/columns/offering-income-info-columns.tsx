@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { addDays, format } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
@@ -10,9 +9,10 @@ import { type OfferingIncomeColumns } from '@/modules/offering/income/interfaces
 import { OfferingIncomeGenerateTicket } from '@/modules/offering/income/components/cards/info/OfferingIncomeGenerateTicket';
 
 import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
+import { formatDateToLimaDayMonthYear } from '@/shared/helpers/format-date-to-lima';
+import { CurrencyTypeNames } from '@/modules/offering/shared/enums/currency-type.enum';
 
 import { Button } from '@/shared/components/ui/button';
-import { CurrencyTypeNames } from '@/modules/offering/shared/enums/currency-type.enum';
 
 export const offeringIncomeInfoColumns: Array<ColumnDef<OfferingIncomeColumns, any>> = [
   {
@@ -119,8 +119,8 @@ export const offeringIncomeInfoColumns: Array<ColumnDef<OfferingIncomeColumns, a
     accessorKey: 'date',
     cell: (info) => {
       const date = info.getValue();
-      const adjustedDate = date ? addDays(date, 1) : null;
-      return format(new Date(adjustedDate), 'dd/MM/yyyy');
+      const adjustedDate = date ? date : null;
+      return formatDateToLimaDayMonthYear(adjustedDate);
     },
     header: ({ column }) => {
       return (

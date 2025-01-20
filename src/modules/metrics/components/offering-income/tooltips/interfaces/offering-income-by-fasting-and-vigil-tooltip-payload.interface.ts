@@ -18,7 +18,7 @@ export interface OfferingIncomePayloadByFastingAndVigil {
   value: number;
   type?: string | undefined;
   payload: {
-    date: string;
+    date: Date;
     category: string;
     type: OfferingIncomeCreationSubType;
     accumulatedOfferingPEN: number;

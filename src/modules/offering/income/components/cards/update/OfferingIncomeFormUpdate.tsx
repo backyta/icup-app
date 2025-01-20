@@ -1134,7 +1134,7 @@ export const OfferingIncomeFormUpdate = ({
                               Fecha
                             </FormLabel>
                             <FormDescription className='text-[13.5px] md:text-[14px]'>
-                              Selecciona la fecha de deposito.
+                              Selecciona la fecha de la ofrenda.
                             </FormDescription>
                             <Popover open={isInputDateOpen} onOpenChange={setIsInputDateOpen}>
                               <PopoverTrigger asChild>

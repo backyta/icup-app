@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { format, addDays } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
@@ -11,6 +10,7 @@ import { PreacherInfoCard } from '@/modules/preacher/components/cards/info/Preac
 import { type PreacherColumns } from '@/modules/preacher/interfaces/preacher-columns.interface';
 
 import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
+import { formatDateToLimaDayMonthYear } from '@/shared/helpers/format-date-to-lima';
 
 export const preacherInfoColumns: Array<ColumnDef<PreacherColumns, any>> = [
   {
@@ -98,8 +98,8 @@ export const preacherInfoColumns: Array<ColumnDef<PreacherColumns, any>> = [
     accessorKey: 'member.birthDate',
     cell: (info) => {
       const birthDate = info.getValue();
-      const adjustedDate = birthDate ? addDays(birthDate, 1) : null;
-      return format(new Date(adjustedDate), 'dd/MM/yyyy');
+      const adjustedDate = birthDate ? birthDate : null;
+      return formatDateToLimaDayMonthYear(adjustedDate);
     },
     header: ({ column }) => {
       return (

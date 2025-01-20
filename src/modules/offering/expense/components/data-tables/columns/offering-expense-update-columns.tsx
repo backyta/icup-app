@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { addDays, format } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
 
@@ -11,6 +10,8 @@ import { OfferingExpenseUpdateCard } from '@/modules/offering/expense/components
 import { type OfferingExpenseColumns } from '@/modules/offering/expense/interfaces/offering-expense-columns.interface';
 
 import { Button } from '@/shared/components/ui/button';
+
+import { formatDateToLimaDayMonthYear } from '@/shared/helpers/format-date-to-lima';
 import { CurrencyTypeNames } from '@/modules/offering/shared/enums/currency-type.enum';
 
 export const offeringExpenseUpdateColumns: Array<ColumnDef<OfferingExpenseColumns, any>> = [
@@ -118,8 +119,8 @@ export const offeringExpenseUpdateColumns: Array<ColumnDef<OfferingExpenseColumn
     accessorKey: 'date',
     cell: (info) => {
       const date = info.getValue();
-      const adjustedDate = date ? addDays(date, 1) : null;
-      return format(new Date(adjustedDate), 'dd/MM/yyyy');
+      const adjustedDate = date ? date : null;
+      return formatDateToLimaDayMonthYear(adjustedDate);
     },
     header: ({ column }) => {
       return (

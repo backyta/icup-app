@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { format, addDays } from 'date-fns';
 import { ArrowUpDown } from 'lucide-react';
 import { type ColumnDef } from '@tanstack/react-table';
+
+import { formatDateToLimaDayMonthYear } from '@/shared/helpers/format-date-to-lima';
 
 import { SupervisorInfoCard } from '@/modules/supervisor/components/cards/info/SupervisorInfoCard';
 import { SupervisorInactivateCard } from '@/modules/supervisor/components/cards/inactivate/SupervisorInactivateCard';
@@ -97,8 +98,8 @@ export const supervisorInactivateColumns: Array<ColumnDef<SupervisorColumns, any
     accessorKey: 'member.birthDate',
     cell: (info) => {
       const birthDate = info.getValue();
-      const adjustedDate = birthDate ? addDays(birthDate, 1) : null;
-      return format(new Date(adjustedDate), 'dd/MM/yyyy');
+      const adjustedDate = birthDate ? birthDate : null;
+      return formatDateToLimaDayMonthYear(adjustedDate);
     },
     header: ({ column }) => {
       return (

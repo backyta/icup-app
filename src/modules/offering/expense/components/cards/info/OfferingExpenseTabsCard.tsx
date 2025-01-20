@@ -2,13 +2,15 @@
 
 import { useEffect } from 'react';
 
-import { addDays, format } from 'date-fns';
-
 import { cn } from '@/shared/lib/utils';
 
 import { OfferingExpenseSearchTypeNames } from '@/modules/offering/expense/enums/offering-expense-search-type.enum';
 import { OfferingExpenseSearchSubTypeNames } from '@/modules/offering/expense/enums/offering-expense-search-sub-type.enum';
 
+import {
+  formatDateToLimaTime,
+  formatDateToLimaDayMonthYear,
+} from '@/shared/helpers/format-date-to-lima';
 import { RecordStatus } from '@/shared/enums/record-status.enum';
 import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 import { type OfferingExpenseResponse } from '@/modules/offering/expense/interfaces/offering-expense-response.interface';
@@ -115,9 +117,9 @@ export const OfferingExpenseTabsCard = ({
             </div>
 
             <div className='space-y-1 col-start-2 col-end-4'>
-              <Label className='text-[14px] md:text-[15px]'>Fecha de gasto</Label>
+              <Label className='text-[14px] md:text-[15px]'>Fecha del gasto</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.createdAt ? format(new Date(addDays(data?.date, 1)), 'dd/MM/yyyy') : '-'}
+                {data?.createdAt ? formatDateToLimaDayMonthYear(data?.date) : '-'}
               </CardDescription>
             </div>
 
@@ -193,8 +195,10 @@ export const OfferingExpenseTabsCard = ({
 
             <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-8 row-end-9 md:grid md:col-auto md:row-auto'>
               <Label className='text-[14px] md:text-[15px]'>Fecha de creación</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.createdAt ? format(new Date(data?.createdAt), 'dd/MM/yyyy') : '-'}
+              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-right md:text-left md:whitespace-nowrap'>
+                {data?.createdAt
+                  ? `${formatDateToLimaDayMonthYear(data?.createdAt)} - ${formatDateToLimaTime(data?.createdAt)}`
+                  : '-'}
               </CardDescription>
             </div>
 
@@ -214,12 +218,12 @@ export const OfferingExpenseTabsCard = ({
               <Label className='text-[14px] md:text-[15px]'>Ultima fecha de actualización</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-right md:text-left'>
                 {data?.updatedAt
-                  ? `${format(new Date(data?.updatedAt), 'dd/MM/yyyy')} - ${`${format(new Date(data?.updatedAt), 'hh:mm a')}`}`
+                  ? `${formatDateToLimaDayMonthYear(data?.updatedAt)} - ${formatDateToLimaTime(data?.updatedAt)}`
                   : '-'}
               </CardDescription>
             </div>
 
-            <div className='space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-11 row-end-12 md:grid md:row-start-7 md:row-end-8 md:col-start-3 md:col-end-4'>
+            <div className='space-y-1 col-start-1 col-end-4 flex justify-between md:justify-center items-center row-start-11 row-end-12 md:grid md:row-start-7 md:row-end-8 md:col-start-3 md:col-end-4'>
               <Label className='text-[14px] md:text-[15px]'>Estado</Label>
               <CardDescription
                 className={cn(

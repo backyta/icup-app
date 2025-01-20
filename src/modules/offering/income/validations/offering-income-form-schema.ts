@@ -151,7 +151,7 @@ export const offeringIncomeFormSchema = z
     ),
 
     date: z.date({
-      required_error: 'La fecha de deposito es requerida.',
+      required_error: 'La fecha de la ofrenda es requerida.',
     }),
 
     comments: z

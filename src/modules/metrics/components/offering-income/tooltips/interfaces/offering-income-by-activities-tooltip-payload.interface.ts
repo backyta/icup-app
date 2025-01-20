@@ -16,7 +16,7 @@ export interface OfferingIncomePayloadByActivities {
   value: number;
   type?: string | undefined;
   payload: {
-    date: string;
+    date: Date;
     category: string;
     accumulatedOfferingPEN: number;
     accumulatedOfferingUSD: number;

@@ -1549,7 +1549,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   <FormItem className='mt-3'>
                     <FormLabel className='text-[14px] md:text-[14.5px] font-bold'>Fecha</FormLabel>
                     <FormDescription className='text-[13.5px] md:text-[14px]'>
-                      Elige la fecha de deposito de la ofrenda.
+                      Selecciona la fecha de la ofrenda.
                     </FormDescription>
                     <Popover open={isInputDateOpen} onOpenChange={setIsInputDateOpen}>
                       <PopoverTrigger asChild>

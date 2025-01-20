@@ -2,13 +2,15 @@
 
 import { useEffect } from 'react';
 
-import { format } from 'date-fns';
-
 import { cn } from '@/shared/lib/utils';
 
 import { RecordStatus } from '@/shared/enums/record-status.enum';
 import { type Gender, GenderNames } from '@/shared/enums/gender.enum';
 
+import {
+  formatDateToLimaTime,
+  formatDateToLimaDayMonthYear,
+} from '@/shared/helpers/format-date-to-lima';
 import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 
 import {
@@ -148,8 +150,10 @@ export const UserTabsCard = ({ id, data }: UserTabsCardProps): JSX.Element => {
               )}
             >
               <Label className='text-[14px] md:text-[15px]'>Fecha de creación</Label>
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
-                {data?.createdAt ? format(new Date(data?.createdAt), 'dd/MM/yyyy') : '-'}
+              <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-right md:text-left md:whitespace-nowrap'>
+                {data?.createdAt
+                  ? `${formatDateToLimaDayMonthYear(data?.createdAt)} - ${formatDateToLimaTime(data?.createdAt)}`
+                  : '-'}
               </CardDescription>
             </div>
 
@@ -180,14 +184,14 @@ export const UserTabsCard = ({ id, data }: UserTabsCardProps): JSX.Element => {
               <Label className='text-[14px] md:text-[15px]'>Ultima fecha de actualización</Label>
               <CardDescription className='px-2 text-[14px] md:text-[14.5px] text-right md:text-left'>
                 {data?.updatedAt
-                  ? `${format(new Date(data?.updatedAt), 'dd/MM/yyyy')} - ${`${format(new Date(data?.updatedAt), 'hh:mm a')}`}`
+                  ? `${formatDateToLimaDayMonthYear(data?.updatedAt)} - ${formatDateToLimaTime(data?.updatedAt)}`
                   : '-'}
               </CardDescription>
             </div>
 
             <div
               className={cn(
-                'space-y-1 col-start-1 col-end-4 flex justify-between items-center row-start-9 row-end-10 md:grid md:row-start-4 md:row-end-5 md:col-start-3 md:col-end-4',
+                'space-y-1 col-start-1 col-end-4 flex justify-between md:justify-center items-center row-start-9 row-end-10 md:grid md:row-start-4 md:row-end-5 md:col-start-3 md:col-end-4',
                 data?.inactivationCategory &&
                   'row-start-9 row-end-10 col-start-1 col-end-4 md:col-start-3 md:col-end-4 md:row-start-4 md:row-end-5'
               )}

@@ -16,7 +16,7 @@ export interface OfferingIncomePayloadByYouthService {
   value: number;
   type?: string | undefined;
   payload: {
-    date: string;
+    date: Date;
     category: string;
     internalDonor: {
       memberType: string | null;

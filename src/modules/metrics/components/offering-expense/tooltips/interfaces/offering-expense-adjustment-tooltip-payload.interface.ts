@@ -16,7 +16,7 @@ export interface OfferingExpenseAdjustmentPayload {
   value: number;
   type?: string | undefined;
   payload: {
-    date: string;
+    date: Date;
     accumulatedOfferingPEN: number;
     accumulatedOfferingUSD: number;
     accumulatedOfferingEUR: number;
