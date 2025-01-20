@@ -110,42 +110,42 @@ export const useOfferingIncomeCreationMutation = ({
       }, 1700);
 
       if (generateTicket === 'yes') {
-        setTimeout(async () => {
-          const response = await generateTicketByOfferingIncomeId({ id: data.id });
+        // setTimeout(async () => {
+        const response = await generateTicketByOfferingIncomeId({ id: data.id });
 
-          const pdfUrl = URL.createObjectURL(response.data);
+        const pdfUrl = URL.createObjectURL(response.data);
 
-          const file = await convertPdfBlobToImage(pdfUrl);
+        const file = await convertPdfBlobToImage(pdfUrl);
 
-          let newFiles = [];
-          newFiles.push(file);
+        let newFiles = [];
+        newFiles.push(file);
 
-          const { imageUrls } = await uploadImages({
-            files: newFiles as any,
-            fileType: OfferingFileType.Income,
-            offeringType: data.type,
-            offeringSubType: data.subType ?? null,
-          });
+        const { imageUrls } = await uploadImages({
+          files: newFiles as any,
+          fileType: OfferingFileType.Income,
+          offeringType: data.type,
+          offeringSubType: data.subType ?? null,
+        });
 
-          await updateOfferingIncome({
-            id: data.id,
-            formData: {
-              type: data.type,
-              subType: data.subType,
-              category: data.category,
-              shift: data.shift,
-              amount: data.amount,
-              currency: data.currency,
-              date: data.date,
-              comments: data.comments,
-              memberType: data.memberType,
-              churchId: data?.church?.id!,
-              externalDonorId: data?.externalDonor?.id,
-              recordStatus: data.recordStatus,
-              imageUrls: imageUrls,
-            },
-          });
-        }, 1100);
+        await updateOfferingIncome({
+          id: data.id,
+          formData: {
+            type: data.type,
+            subType: data.subType,
+            category: data.category,
+            shift: data.shift,
+            amount: data.amount,
+            currency: data.currency,
+            date: data.date,
+            comments: data.comments,
+            memberType: data.memberType,
+            churchId: data?.church?.id!,
+            externalDonorId: data?.externalDonor?.id,
+            recordStatus: data.recordStatus,
+            imageUrls: imageUrls,
+          },
+        });
+        // }, 1100);
       }
     },
   });
