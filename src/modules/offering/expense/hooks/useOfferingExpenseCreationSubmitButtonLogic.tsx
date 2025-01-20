@@ -36,7 +36,6 @@ export const useOfferingExpenseCreationSubmitButtonLogic = ({
   const fileNames = offeringExpenseCreationForm.watch('fileNames');
   const churchId = offeringExpenseCreationForm.watch('churchId');
 
-  console.log(offeringExpenseCreationForm.formState.errors);
   //* Effects
   useEffect(() => {
     if (
