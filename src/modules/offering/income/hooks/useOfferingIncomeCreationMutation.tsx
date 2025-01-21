@@ -102,15 +102,14 @@ export const useOfferingIncomeCreationMutation = ({
 
       setTimeout(() => {
         navigate('/offerings/income');
-      }, 2200);
+      }, 1600);
 
       setTimeout(() => {
         setFiles([]);
         offeringIncomeCreationForm.reset();
-      }, 2300);
+      }, 1700);
 
       if (generateTicket === 'yes') {
-        // setTimeout(async () => {
         const response = await generateTicketByOfferingIncomeId({ id: data.id });
 
         const pdfUrl = URL.createObjectURL(response.data);
@@ -145,7 +144,6 @@ export const useOfferingIncomeCreationMutation = ({
             imageUrls: imageUrls,
           },
         });
-        // }, 1100);
       }
     },
   });
