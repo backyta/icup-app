@@ -100,15 +100,14 @@ export const useOfferingIncomeCreationMutation = ({
         className: 'justify-center',
       });
 
-      // TODO : bajar a menos, a 1300 0 1200
       setTimeout(() => {
         navigate('/offerings/income');
-      }, 1600);
+      }, 1300);
 
       setTimeout(() => {
         setFiles([]);
         offeringIncomeCreationForm.reset();
-      }, 1700);
+      }, 1400);
 
       if (generateTicket === 'yes') {
         const response = await generateTicketByOfferingIncomeId({ id: data.id });
