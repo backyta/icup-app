@@ -39,7 +39,7 @@ export const PastorOptionsPage = (): JSX.Element => {
           end
           className='row-start-1 row-end-2 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-2 lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-2 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-4 2xl:col-start-1 2xl:col-end-2'
         >
-          <WhiteCard className='md:h-[11rem]' centered>
+          <WhiteCard className='h-[10.5rem] md:h-[11rem]' centered>
             <FcPodiumWithSpeaker className='text-[10rem] md:text-[7rem] xl:text-[8rem]' />
             <h2 className='text-green-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Registrar Pastor

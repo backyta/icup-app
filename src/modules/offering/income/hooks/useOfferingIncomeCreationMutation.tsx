@@ -102,12 +102,12 @@ export const useOfferingIncomeCreationMutation = ({
 
       setTimeout(() => {
         navigate('/offerings/income');
-      }, 1000);
+      }, 1100);
 
       setTimeout(() => {
         setFiles([]);
         offeringIncomeCreationForm.reset();
-      }, 1100);
+      }, 1200);
 
       if (generateTicket === 'yes') {
         const response = await generateTicketByOfferingIncomeId({ id: data.id });

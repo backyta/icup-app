@@ -1832,6 +1832,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 className={cn(
                   'w-full text-[14px]',
                   (uploadImagesMutation?.isPending || offeringIncomeCreationMutation?.isPending) &&
+                    generateTicket == 'no' &&
                     'bg-emerald-500 hover:bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
                 )}
                 onClick={() => {
@@ -1846,7 +1847,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   }, 100);
                 }}
               >
-                {uploadImagesMutation?.isPending || offeringIncomeCreationMutation?.isPending
+                {(uploadImagesMutation?.isPending || offeringIncomeCreationMutation?.isPending) &&
+                generateTicket === 'no'
                   ? 'Procesando...'
                   : 'Registrar'}
               </Button>

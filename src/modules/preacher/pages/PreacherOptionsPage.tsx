@@ -54,7 +54,7 @@ export const PreacherOptionsPage = (): JSX.Element => {
           end
           className='row-start-2 row-end-3 lg:row-start-3 lg:row-end-4 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-3 xl:col-start-2 xl:col-end-3 2xl:row-start-1 2xl:row-end-3 2xl:col-start-2 2xl:col-end-3 '
         >
-          <WhiteCard className='h-[10.5rem] md:h-[11rem]' centered>
+          <WhiteCard className='h-[11rem] md:h-[11rem]' centered>
             <FcSearch className='text-[10rem] lg:text-[7rem] xl:text-[8rem]' />
             <h2 className='text-blue-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Consultar Predicadores
