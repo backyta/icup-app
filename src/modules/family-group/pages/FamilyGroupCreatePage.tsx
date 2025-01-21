@@ -165,17 +165,19 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <PageTitle className='text-family-group-color leading-10'>Modulo Grupo Familiar</PageTitle>
+      <PageTitle className='text-family-group-color leading-10 sm:leading-normal'>
+        Modulo Grupo Familiar
+      </PageTitle>
 
-      <h1 className='text-left leading-8 pb-[2px] pt-2 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h1 className='text-left leading-8 pb-[2px] pt-2 px-4 sm:px-5 2xl:px-10 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear un nuevo grupo familiar
       </h1>
 
-      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6 sm:pl-7 2xl:px-28 text-[13.5px] md:text-[15px] xl:text-base'>
+      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6 sm:pl-7 2xl:px-14 text-[13.5px] md:text-[15px] xl:text-base'>
         Por favor llena los siguientes datos para crear un nuevo grupo familiar.
       </p>
 
-      <div className='flex flex-col items-center gap-y-8 md:gap-y-8 px-6 py-4 sm:px-8 sm:py-6 lg:py-6 xl:px-14 2xl:px-36'>
+      <div className='flex flex-col items-center gap-y-8 md:gap-y-8 px-6 py-4 sm:px-8 sm:py-6 lg:py-6 xl:px-14 2xl:px-[5rem]'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}

@@ -42,7 +42,7 @@ export const FamilyGroupMetrics = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <h2 className='text-center leading-10 sm:leading-none text-amber-500 pt-2 md:py-2 xl:pt-3 font-sans font-bold text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
+      <h2 className='text-center leading-12 md:leading-normal text-amber-500 pt-2 md:py-2 xl:py-3 xl:pt-3 font-sans font-bold text-[2rem] sm:text-[2.5rem] md:text-[2.5rem] lg:text-[2.8rem] xl:text-5xl'>
         Métricas de Grupos Familiares
       </h2>
       <p className='text-center text-[15px] md:text-[16px] lg:text-[18px] xl:text-[20px] font-medium'>

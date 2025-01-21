@@ -116,7 +116,7 @@ export const UserCreatePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-user-color'>Modulo Usuario</PageTitle>
 
-      <h1 className='text-left pb-[2px] pt-2 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h1 className='text-left pb-[2px] pt-2 px-4 sm:px-5 2xl:px-10 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear un nuevo usuario
       </h1>
       <p className='dark:text-slate-300 text-left pl-5 pr-6 sm:pl-7 font-sans text-[13.5px] font-bold px-4 sm:px-10 text-sm md:text-[15px] xl:text-base 2xl:text-center'>

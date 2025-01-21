@@ -161,15 +161,15 @@ export const CopastorCreatePage = (): JSX.Element => {
     <div className='animate-fadeInPage'>
       <PageTitle className='text-copastor-color'>Modulo Co-Pastor</PageTitle>
 
-      <h2 className='text-left whitespace-nowrap pb-[2px] pt-2 px-4 sm:px-5 2xl:px-24 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h2 className='text-left whitespace-nowrap pb-[2px] pt-2 px-4 sm:px-5 2xl:px-10 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear un nuevo co-pastor
       </h2>
 
-      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6 sm:pl-7 2xl:px-28 text-[13.5px] md:text-[15px] xl:text-base'>
+      <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6 sm:pl-7 2xl:px-14 text-[13.5px] md:text-[15px] xl:text-base'>
         Por favor llena los siguientes datos para crear un nuevo co-pastor.
       </p>
 
-      <div className='flex min-h-screen flex-col items-center justify-between px-6 py-4 sm:px-8 sm:py-6 lg:py-6 xl:px-14 2xl:px-36'>
+      <div className='flex min-h-screen flex-col items-center justify-between px-6 py-4 sm:px-8 sm:py-6 lg:py-6 xl:px-14 2xl:px-[5rem]'>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}

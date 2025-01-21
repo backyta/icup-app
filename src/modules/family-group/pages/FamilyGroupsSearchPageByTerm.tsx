@@ -171,7 +171,9 @@ export const FamilyGroupsSearchPageByTerm = (): JSX.Element => {
 
   return (
     <div className='animate-fadeInPage'>
-      <PageTitle className='text-family-group-color leading-10'>Modulo Grupo Familiar</PageTitle>
+      <PageTitle className='text-family-group-color leading-10 sm:leading-normal'>
+        Modulo Grupo Familiar
+      </PageTitle>
 
       <SearchTitle
         className='w-[12rem] sm:w-auto leading-9'
