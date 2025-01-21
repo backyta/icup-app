@@ -31,7 +31,7 @@ export const OfferingOptionsPage = (): JSX.Element => {
       </p>
       <hr className='p-[0.015rem] bg-slate-500' />
 
-      <div className='w-full h-[35rem] justify-center lg:justify-normal px-8 py-10 flex flex-col gap-10 lg:grid md:gap-8 sm:h-[45rem] md:h-screen lg:h-screen'>
+      <div className='w-full h-[35rem] justify-center lg:justify-normal px-8 py-10 flex flex-col gap-10 lg:grid md:gap-8 sm:h-[45rem] md:h-[58rem] lg:h-[58rem]'>
         <NavLink
           key='/offerings/income'
           to='/offerings/income'

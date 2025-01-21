@@ -34,12 +34,12 @@ export const MetricsOptionsPage = (): JSX.Element => {
       </p>
       <hr className='p-[0.015rem] bg-slate-500' />
 
-      <div className='w-full grid gap-8 px-[2rem] py-6 sm:px-[7rem] md:px-[4rem] lg:px-[3rem] xl:px-[3rem] 2xl:px-16 lg:gap-5 2xl:gap-8 h-auto lg:min-h-screen'>
+      <div className='w-full pt-6 pb-10 px-[2rem] sm:px-[7rem] md:px-[4rem] lg:px-[3rem] xl:px-[3rem] 2xl:px-[4rem] grid gap-8 md:gap-6 2xl:gap-4 grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 lg:grid-rows-3 2xl:grid-rows-3 h-auto lg:min-h-screen'>
         <NavLink
           key='/metrics/member'
           to='/metrics/member'
           end
-          className='row-start-1 row-end-2 lg:row-start-1 lg:row-end-4 lg:col-start-1 lg:col-end- 2xl:row-start-1 2xl:row-end-7 2xl:col-start-1 2xl:col-end-2'
+          className='row-start-1 row-end-2 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-2 lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-2 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-4 2xl:col-start-1 2xl:col-end-2'
         >
           <WhiteCard className='h-[12rem] md:h-[11rem]' centered>
             <FcConferenceCall className='text-[10rem] lg:text-[8rem] xl:text-[7rem]' />
@@ -56,7 +56,7 @@ export const MetricsOptionsPage = (): JSX.Element => {
           key='/metrics/family-group'
           to='/metrics/family-group'
           end
-          className='row-start-2 row-end-3 lg:row-start-4 lg:row-end-7 lg:col-start-1 lg:col-end-2 2xl:row-start-1 2xl:row-end-7 2xl:col-start-2 2xl:col-end-3'
+          className='row-start-2 row-end-3 lg:row-start-3 lg:row-end-4 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-3 xl:col-start-2 xl:col-end-3 2xl:row-start-1 2xl:row-end-4 2xl:col-start-2 2xl:col-end-3'
         >
           <WhiteCard className='h-[12rem] md:h-[11rem]' centered>
             <FcHome className='text-[10rem] lg:text-[7rem] xl:text-[8rem]' />
@@ -73,7 +73,7 @@ export const MetricsOptionsPage = (): JSX.Element => {
           key='/metrics/offering-income'
           to='/metrics/offering-income'
           end
-          className='row-start-3 row-end-4 lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3 2xl:row-start-1 2xl:row-end-7 2xl:col-start-3 2xl:col-end-4'
+          className='row-start-3 row-end-4 lg:row-start-1 lg:row-end-2 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-2 xl:col-end-3 2xl:row-start-1 2xl:row-end-3 2xl:col-start-3 2xl:col-end-4'
         >
           <WhiteCard className='h-[12rem] md:h-[11rem]' centered>
             <FcDonate className='text-[10rem] lg:text-[7.5rem] xl:text-[7.5rem]' />
@@ -90,7 +90,7 @@ export const MetricsOptionsPage = (): JSX.Element => {
           key='/metrics/offering-expense'
           to='/metrics/offering-expense'
           end
-          className='row-start-4 row-end-5 lg:row-start-4 lg:row-end-7 lg:col-start-2 lg:col-end-3 2xl:row-start-1 2xl:row-end-7 2xl:col-start-4 2xl:col-end-5'
+          className='row-start-4 row-end-5 lg:h-full lg:row-start-2 lg:row-end-3 lg:col-start-2 lg:col-end-3 xl:row-start-2 xl:row-end-3 xl:col-start-1 xl:col-end-2 2xl:row-start-3 2xl:row-end-4 2xl:col-start-3 2xl:col-end-4'
         >
           <WhiteCard className='h-[12rem] md:h-[11rem]' centered>
             <GiExpense className='text-[5rem] lg:text-[7.5rem] xl:text-[7rem] text-amber-500' />
@@ -107,12 +107,12 @@ export const MetricsOptionsPage = (): JSX.Element => {
           key='/metrics/offering-comparative'
           to='/metrics/offering-comparative'
           end
-          className='row-start-5 row-end-6 lg:row-start-7 lg:row-end-9 lg:col-start-1 lg:col-end-3 2xl:row-start-1 2xl:row-end-7 2xl:col-start-5 2xl:col-end-6'
+          className='row-start-5 row-end-6 lg:row-start-3 lg:row-end-4 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-4 2xl:col-start-4 2xl:col-end-5'
         >
           <WhiteCard className='h-[15rem] md:h-[11rem]' centered>
             <div className='flex'>
-              <FcRefresh className='text-[3rem] lg:text-[7.5rem] xl:text-[7rem]' />
-              <FaBalanceScale className='text-[3rem] lg:text-[7.5rem] text-[#1565C0] xl:text-[7rem]' />
+              <FcRefresh className='text-[3rem] lg:text-[6rem] xl:text-[6rem]' />
+              <FaBalanceScale className='text-[3rem] lg:text-[6rem] text-[#1565C0] xl:text-[6rem]' />
             </div>
             <h2 className='text-blue-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               <span className='block'>Métricas de Ofrenda</span>
