@@ -594,11 +594,11 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
                       </FormControl>
                       <FormMessage className='text-[13px]' />
                       {files && files.length > 3 ? (
-                        <span className='text-red-500 font-bold text-[12.5px] md:text-[12.3px] text-center mx-auto justify-center flex'>
+                        <span className='text-red-500 font-bold text-[12.5px] md:text-[13px] text-center mx-auto justify-center flex'>
                           ❌ Sobrepasa el limite, elige como máximo solo 3 imágenes.
                         </span>
                       ) : (
-                        <span className='font-bold text-[12.5px] md:text-[12.3px] pl-3 md:pl-6 mt-1 flex flex-col'>
+                        <span className='font-medium text-[12.5px] md:text-[13px] pl-3 md:pl-6 mt-1 flex flex-col'>
                           <span>✅ Máximo 3 archivos.</span>
                           <span>✅ El campo se bloqueara al llegar o pasar los 3 archivos.</span>
                         </span>
