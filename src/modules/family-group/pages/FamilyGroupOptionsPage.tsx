@@ -37,7 +37,7 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
           end
           className='row-start-1 row-end-2 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-2 lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-2 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-4 2xl:col-start-1 2xl:col-end-2'
         >
-          <WhiteCard className='h-[11.5rem] md:h-[11rem]' centered>
+          <WhiteCard className='h-[11rem] md:h-[11rem]' centered>
             <FcHome className='text-[10rem] lg:text-[8rem] xl:text-[7rem]' />
             <h2 className='text-green-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Registrar Grupo Familiar
@@ -105,7 +105,7 @@ export const FamilyGroupOptionsPage = (): JSX.Element => {
           end
           className='row-start-5 row-end-6 lg:row-start-3 lg:row-end-4 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-4 2xl:col-start-4 2xl:col-end-5'
         >
-          <WhiteCard className='h-[11.5rem] md:h-[11rem]' centered>
+          <WhiteCard className='h-[11rem] md:h-[11rem]' centered>
             <RiDeleteBin2Fill className='text-[4rem] lg:text-[7rem] xl:text-[6rem] text-red-500' />
             <h2 className='text-red-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Inactivar Grupo Familiar

@@ -34,7 +34,7 @@ export const MetricsOptionsPage = (): JSX.Element => {
       </p>
       <hr className='p-[0.015rem] bg-slate-500' />
 
-      <div className='w-full pt-6 pb-10 px-[2rem] sm:px-[7rem] md:px-[4rem] lg:px-[3rem] xl:px-[3rem] 2xl:px-[4rem] grid gap-8 md:gap-6 2xl:gap-4 grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 lg:grid-rows-3 2xl:grid-rows-3 h-auto lg:min-h-screen'>
+      <div className='w-full pt-6 pb-10 px-[2rem] sm:px-[7rem] md:px-[4rem] lg:px-[3rem] xl:px-[3rem] 2xl:px-[4rem] grid gap-8 md:gap-6 2xl:gap-4 grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 lg:grid-rows-3 2xl:grid-rows-3 h-auto 2xl:h-[58rem]'>
         <NavLink
           key='/metrics/member'
           to='/metrics/member'
@@ -90,7 +90,7 @@ export const MetricsOptionsPage = (): JSX.Element => {
           key='/metrics/offering-expense'
           to='/metrics/offering-expense'
           end
-          className='row-start-4 row-end-5 lg:h-full lg:row-start-2 lg:row-end-3 lg:col-start-2 lg:col-end-3 xl:row-start-2 xl:row-end-3 xl:col-start-1 xl:col-end-2 2xl:row-start-3 2xl:row-end-4 2xl:col-start-3 2xl:col-end-4'
+          className='row-start-4 row-end-5 lg:h-full lg:row-start-2 lg:row-end-3 lg:col-start-2 lg:col-end-3 xl:row-start-2 xl:row-end-3 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-4 2xl:col-end-5'
         >
           <WhiteCard className='h-[12rem] md:h-[11rem]' centered>
             <GiExpense className='text-[5rem] lg:text-[7.5rem] xl:text-[7rem] text-amber-500' />
@@ -107,9 +107,9 @@ export const MetricsOptionsPage = (): JSX.Element => {
           key='/metrics/offering-comparative'
           to='/metrics/offering-comparative'
           end
-          className='row-start-5 row-end-6 lg:row-start-3 lg:row-end-4 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-4 2xl:col-start-4 2xl:col-end-5'
+          className='row-start-5 row-end-6 lg:row-start-3 lg:row-end-4 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-3 2xl:row-end-4 2xl:col-start-3 2xl:col-end-5'
         >
-          <WhiteCard className='h-[15rem] md:h-[11rem]' centered>
+          <WhiteCard className='h-[15rem] md:h-[11rem] 2xl:gap-y-2' centered>
             <div className='flex'>
               <FcRefresh className='text-[3rem] lg:text-[6rem] xl:text-[6rem]' />
               <FaBalanceScale className='text-[3rem] lg:text-[6rem] text-[#1565C0] xl:text-[6rem]' />
