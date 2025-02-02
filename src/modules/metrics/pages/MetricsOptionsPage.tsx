@@ -7,19 +7,9 @@ import { GiExpense } from 'react-icons/gi';
 import { FaBalanceScale } from 'react-icons/fa';
 import { FcConferenceCall, FcDonate, FcHome, FcRefresh } from 'react-icons/fc';
 
-import { useAuthStore } from '@/stores/auth/auth.store';
-
 import { WhiteCard } from '@/shared/components/card/WhiteCard';
 
 export const MetricsOptionsPage = (): JSX.Element => {
-  //* States
-  const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
-
-  //* Effects
-  useEffect(() => {
-    checkAuthStatus();
-  }, []);
-
   useEffect(() => {
     document.title = 'Modulo Métricas - IcupApp';
   }, []);
@@ -42,11 +32,11 @@ export const MetricsOptionsPage = (): JSX.Element => {
           className='row-start-1 row-end-2 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-2 lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-2 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-4 2xl:col-start-1 2xl:col-end-2'
         >
           <WhiteCard className='h-[12rem] md:h-[11rem]' centered>
-            <FcConferenceCall className='text-[10rem] lg:text-[8rem] xl:text-[7rem]' />
+            <FcConferenceCall className='text-[5rem] sm:text-[5rem] md:text-[6rem]' />
             <h2 className='text-sky-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Métricas de Miembro
             </h2>
-            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+            <p className='font-bold text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]'>
               Gráficos estadísticos y métricas de miembros
             </p>
           </WhiteCard>
@@ -59,11 +49,11 @@ export const MetricsOptionsPage = (): JSX.Element => {
           className='row-start-2 row-end-3 lg:row-start-3 lg:row-end-4 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-3 xl:col-start-2 xl:col-end-3 2xl:row-start-1 2xl:row-end-4 2xl:col-start-2 2xl:col-end-3'
         >
           <WhiteCard className='h-[12rem] md:h-[11rem]' centered>
-            <FcHome className='text-[10rem] lg:text-[7rem] xl:text-[8rem]' />
+            <FcHome className='text-[4.5rem] sm:text-[5rem] md:text-[6rem]' />
             <h2 className='text-orange-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Métricas de Grupo Familiar
             </h2>
-            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+            <p className='font-bold text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]'>
               Gráficos estadísticos y métricas de grupos familiares
             </p>
           </WhiteCard>
@@ -76,11 +66,11 @@ export const MetricsOptionsPage = (): JSX.Element => {
           className='row-start-3 row-end-4 lg:row-start-1 lg:row-end-2 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-2 xl:col-end-3 2xl:row-start-1 2xl:row-end-3 2xl:col-start-3 2xl:col-end-4'
         >
           <WhiteCard className='h-[12rem] md:h-[11rem]' centered>
-            <FcDonate className='text-[10rem] lg:text-[7.5rem] xl:text-[7.5rem]' />
+            <FcDonate className='text-[4.5rem] sm:text-[5rem] md:text-[6rem]' />
             <h2 className='text-green-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Métricas de Ofrenda (Ingreso)
             </h2>
-            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+            <p className='font-bold text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]'>
               Gráficos estadísticos y métricas de ofrendas
             </p>
           </WhiteCard>
@@ -93,11 +83,11 @@ export const MetricsOptionsPage = (): JSX.Element => {
           className='row-start-4 row-end-5 lg:h-full lg:row-start-2 lg:row-end-3 lg:col-start-2 lg:col-end-3 xl:row-start-2 xl:row-end-3 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-3 2xl:col-start-4 2xl:col-end-5'
         >
           <WhiteCard className='h-[12rem] md:h-[11rem]' centered>
-            <GiExpense className='text-[5rem] lg:text-[7.5rem] xl:text-[7rem] text-amber-500' />
+            <GiExpense className='text-[5rem] sm:text-[5rem] md:text-[6.5rem] text-amber-500' />
             <h2 className='text-red-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Métricas de Ofrenda (Salida)
             </h2>
-            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+            <p className='font-bold text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]'>
               Gráficos estadísticos y métricas de ofrendas
             </p>
           </WhiteCard>
@@ -109,16 +99,16 @@ export const MetricsOptionsPage = (): JSX.Element => {
           end
           className='row-start-5 row-end-6 lg:row-start-3 lg:row-end-4 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-3 2xl:row-end-4 2xl:col-start-3 2xl:col-end-5'
         >
-          <WhiteCard className='h-[15rem] md:h-[11rem] 2xl:gap-y-2' centered>
+          <WhiteCard className='h-[15rem] md:h-[12rem] 2xl:gap-y-2' centered>
             <div className='flex'>
-              <FcRefresh className='text-[3rem] lg:text-[6rem] xl:text-[6rem]' />
-              <FaBalanceScale className='text-[3rem] lg:text-[6rem] text-[#1565C0] xl:text-[6rem]' />
+              <FcRefresh className='text-[4.5rem] sm:text-[5rem] md:text-[5.5rem]' />
+              <FaBalanceScale className='text-[4.5rem] sm:text-[5rem] md:text-[5.5rem] text-[#1565C0] xl:text-[6rem]' />
             </div>
             <h2 className='text-blue-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               <span className='block'>Métricas de Ofrenda</span>
               <span>(Comparativas y Balance Financiero)</span>
             </h2>
-            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+            <p className='font-bold text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]'>
               Gráficos estadísticos comparativos y balance financiero de ofrendas
             </p>
           </WhiteCard>

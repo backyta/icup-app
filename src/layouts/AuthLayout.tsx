@@ -4,19 +4,11 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 import { useAuthStore } from '@/stores/auth/auth.store';
 
-import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 import { ToggleLayoutLogin } from '@/shared/components/toggle-theme/ToggleLayoutLogin';
 
 export const AuthLayout = (): JSX.Element => {
   //* States
   const authStatus = useAuthStore((state) => state.status);
-  const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
-
-  //* Auth
-  if (authStatus === 'pending') {
-    checkAuthStatus();
-    return <LoadingSpinner />;
-  }
 
   if (authStatus === 'authorized') {
     return <Navigate to='/dashboard' />;

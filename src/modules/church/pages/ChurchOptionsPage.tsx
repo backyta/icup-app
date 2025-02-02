@@ -8,17 +8,9 @@ import { PiChurch } from 'react-icons/pi';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
 import { FcClearFilters, FcSearch, FcSupport } from 'react-icons/fc';
 
-import { useAuthStore } from '@/stores/auth/auth.store';
-
 import { WhiteCard } from '@/shared/components/card/WhiteCard';
 
 export const ChurchOptionsPage = (): JSX.Element => {
-  const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
-
-  useEffect(() => {
-    checkAuthStatus();
-  }, []);
-
   useEffect(() => {
     document.title = 'Modulo Iglesia - IcupApp';
   }, []);
@@ -41,11 +33,11 @@ export const ChurchOptionsPage = (): JSX.Element => {
           className='row-start-1 row-end-2 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-2 lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-2 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-4 2xl:col-start-1 2xl:col-end-2'
         >
           <WhiteCard className='h-[10.5rem] md:h-[11rem]' centered>
-            <PiChurch className='text-[10rem] md:text-[7rem] xl:text-[8rem] text-slate-400' />
+            <PiChurch className='text-[4.3rem] sm:text-[5rem] md:text-[6rem] text-slate-400' />
             <h2 className='text-green-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Registrar Iglesia
             </h2>
-            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+            <p className='font-bold text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]'>
               Crear nuevo registro de una iglesia
             </p>
           </WhiteCard>
@@ -58,11 +50,11 @@ export const ChurchOptionsPage = (): JSX.Element => {
           className='row-start-2 row-end-3 lg:row-start-3 lg:row-end-4 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-3 xl:col-start-2 xl:col-end-3 2xl:row-start-1 2xl:row-end-3 2xl:col-start-2 2xl:col-end-3 '
         >
           <WhiteCard className='h-[11rem] md:h-[11rem]' centered>
-            <FcSearch className='text-[10rem] md:text-[7rem] xl:text-[8rem]' />
+            <FcSearch className='text-[4rem] sm:text-[5rem] md:text-[6rem]' />
             <h2 className='text-blue-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Consultar Iglesias
             </h2>
-            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+            <p className='font-bold text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]'>
               Consultar registros de iglesias y anexos en general
             </p>
           </WhiteCard>
@@ -75,11 +67,11 @@ export const ChurchOptionsPage = (): JSX.Element => {
           className='row-start-3 row-end-4 lg:row-start-1 lg:row-end-2 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-2 xl:col-end-3 2xl:row-start-3 2xl:row-end-4 2xl:col-start-2 2xl:col-end-3'
         >
           <WhiteCard className='h-[11rem] md:h-[11rem]' centered>
-            <FcClearFilters className='text-[10rem] md:text-[7rem] xl:text-[8rem]' />
+            <FcClearFilters className='text-[4rem] sm:text-[5rem] md:text-[6rem]' />
             <h2 className='text-sky-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Consultar Iglesias
             </h2>
-            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+            <p className='font-bold text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]'>
               Consultar registros de iglesias y anexos por filtros
             </p>
           </WhiteCard>
@@ -92,11 +84,11 @@ export const ChurchOptionsPage = (): JSX.Element => {
           className='row-start-4 row-end-5 lg:h-full lg:row-start-2 lg:row-end-3 lg:col-start-2 lg:col-end-3 xl:row-start-2 xl:row-end-3 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-4 2xl:col-start-3 2xl:col-end-4'
         >
           <WhiteCard className='h-[11rem] md:h-[11rem]' centered>
-            <FcSupport className='text-[10rem] md:text-[7rem] xl:text-[8rem]' />
+            <FcSupport className='text-[4rem] sm:text-[5rem] md:text-[6rem]' />
             <h2 className='text-orange-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Actualizar Iglesia
             </h2>
-            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+            <p className='font-bold text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]'>
               Modificar datos del registro de una iglesia
             </p>
           </WhiteCard>
@@ -109,11 +101,11 @@ export const ChurchOptionsPage = (): JSX.Element => {
           className='row-start-5 row-end-6 lg:row-start-3 lg:row-end-4 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-4 2xl:col-start-4 2xl:col-end-5'
         >
           <WhiteCard className='md:h-[11rem]' centered>
-            <RiDeleteBin2Fill className='text-[4rem] md:text-[7rem] xl:text-[7.5rem]  text-red-500' />
+            <RiDeleteBin2Fill className='text-[4rem] sm:text-[5rem] md:text-[6rem] text-red-500' />
             <h2 className='text-red-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Inactivar Iglesia
             </h2>
-            <p className='font-bold text-[14px] lg:text-[15px] xl:text-[16px]'>
+            <p className='font-bold text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]'>
               Inactivar registro de una iglesia
             </p>
           </WhiteCard>

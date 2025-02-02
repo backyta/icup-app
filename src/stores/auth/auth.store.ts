@@ -11,8 +11,8 @@ export interface AuthState {
   user?: User;
 
   loginUser: (email: string, password: string) => Promise<void>;
-  checkAuthStatus: () => Promise<void>;
   logoutUser: () => void;
+  setAccessToken: (data: { accessToken: string }) => void;
 }
 
 export const storeApi: StateCreator<AuthState> = (set) => ({
@@ -23,6 +23,7 @@ export const storeApi: StateCreator<AuthState> = (set) => ({
   loginUser: async (email: string, password: string) => {
     try {
       const { token, ...user } = await AuthService.login(email, password);
+
       set({ status: 'authorized', token, user });
     } catch (error) {
       set({ status: 'unauthorized', token: undefined, user: undefined });
@@ -31,17 +32,15 @@ export const storeApi: StateCreator<AuthState> = (set) => ({
     }
   },
 
-  checkAuthStatus: async () => {
-    try {
-      const { token, ...user } = await AuthService.checkAuthStatus();
-      set({ status: 'authorized', token, user });
-    } catch (error) {
-      set({ status: 'unauthorized', token: undefined, user: undefined });
-    }
-  },
-
   logoutUser: () => {
     set({ status: 'unauthorized', token: undefined, user: undefined });
+  },
+
+  setAccessToken: (data) => {
+    set({
+      token: data.accessToken,
+      status: 'authorized',
+    });
   },
 });
 

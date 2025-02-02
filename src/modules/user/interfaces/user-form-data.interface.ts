@@ -1,6 +1,7 @@
 import { type UserRole } from '@/modules/user/enums/user-role.enum';
 
 export interface UserFormData {
+  id?: string;
   firstNames: string;
   lastNames: string;
   email: string;
@@ -20,6 +21,6 @@ export type UserFormDataKeys =
   | 'password'
   | 'passwordConfirm'
   | 'roles'
-  | 'status';
+  | 'recordStatus';
 
 export type User = Omit<UserFormData, 'password' | 'passwordConfirm'>;

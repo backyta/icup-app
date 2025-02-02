@@ -203,6 +203,7 @@ export const CopastorUpdateForm = ({
   const churchesQuery = useQuery({
     queryKey: ['churches', id],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Form handler

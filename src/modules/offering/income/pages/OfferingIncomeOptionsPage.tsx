@@ -6,17 +6,9 @@ import { NavLink } from 'react-router-dom';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
 import { FcClearFilters, FcDonate, FcSearch, FcSupport } from 'react-icons/fc';
 
-import { useAuthStore } from '@/stores/auth/auth.store';
-
 import { WhiteCard } from '@/shared/components/card/WhiteCard';
 
 export const OfferingIncomeOptionsPage = (): JSX.Element => {
-  const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
-
-  useEffect(() => {
-    checkAuthStatus();
-  }, []);
-
   useEffect(() => {
     document.title = 'Modulo Ofrenda - IcupApp';
   }, []);
@@ -39,11 +31,11 @@ export const OfferingIncomeOptionsPage = (): JSX.Element => {
           className='row-start-1 row-end-2 md:row-start-1 md:row-end-2 md:col-start-1 md:col-end-2 lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-2 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-4 2xl:col-start-1 2xl:col-end-2'
         >
           <WhiteCard centered>
-            <FcDonate className='text-[10rem] md:text-[6rem] xl:text-[7rem]' />
-            <h2 className='text-green-500 font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl'>
+            <FcDonate className='text-[4rem] sm:text-[5rem] md:text-[6rem]' />
+            <h2 className='text-green-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Registrar Ingreso
             </h2>
-            <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
+            <p className='font-bold text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]'>
               Crear nuevo registro de ingreso de una ofrenda
             </p>
           </WhiteCard>
@@ -56,11 +48,11 @@ export const OfferingIncomeOptionsPage = (): JSX.Element => {
           className='row-start-2 row-end-3 lg:row-start-3 lg:row-end-4 lg:col-start-1 lg:col-end-2 xl:row-start-1 xl:row-end-3 xl:col-start-2 xl:col-end-3 2xl:row-start-1 2xl:row-end-3 2xl:col-start-2 2xl:col-end-3 '
         >
           <WhiteCard centered>
-            <FcSearch className='text-[10rem] md:text-[6rem] xl:text-[7rem]' />
-            <h2 className='text-blue-500 font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl'>
+            <FcSearch className='text-[4rem] sm:text-[5rem] md:text-[6rem]' />
+            <h2 className='text-blue-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Consultar Ingresos
             </h2>
-            <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
+            <p className='font-bold text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]'>
               Consultar registros de ingreso de ofrendas en general
             </p>
           </WhiteCard>
@@ -73,11 +65,11 @@ export const OfferingIncomeOptionsPage = (): JSX.Element => {
           className='row-start-3 row-end-4 lg:row-start-1 lg:row-end-2 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-2 xl:col-end-3 2xl:row-start-3 2xl:row-end-4 2xl:col-start-2 2xl:col-end-3'
         >
           <WhiteCard centered>
-            <FcClearFilters className='text-[10rem] md:text-[6rem] xl:text-[6rem]' />
-            <h2 className='text-sky-500 font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl'>
+            <FcClearFilters className='text-[4rem] sm:text-[5rem] md:text-[6rem]' />
+            <h2 className='text-sky-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Consultar Ingresos
             </h2>
-            <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
+            <p className='font-bold text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]'>
               Consultar registros de ingreso de ofrendas por filtros
             </p>
           </WhiteCard>
@@ -90,11 +82,11 @@ export const OfferingIncomeOptionsPage = (): JSX.Element => {
           className='row-start-4 row-end-5 lg:h-full lg:row-start-2 lg:row-end-3 lg:col-start-2 lg:col-end-3 xl:row-start-2 xl:row-end-3 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-4 2xl:col-start-3 2xl:col-end-4'
         >
           <WhiteCard centered>
-            <FcSupport className='text-[10rem] md:text-[6rem] xl:text-[7rem]' />
-            <h2 className='text-orange-500 font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl'>
+            <FcSupport className='text-[4rem] sm:text-[5rem] md:text-[6rem]' />
+            <h2 className='text-orange-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Actualizar Ingreso
             </h2>
-            <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
+            <p className='font-bold text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]'>
               Actualizar registro de ingreso de una ofrenda
             </p>
           </WhiteCard>
@@ -107,11 +99,11 @@ export const OfferingIncomeOptionsPage = (): JSX.Element => {
           className='row-start-5 row-end-6 lg:row-start-3 lg:row-end-4 lg:col-start-2 lg:col-end-3 xl:row-start-3 xl:row-end-4 xl:col-start-1 xl:col-end-2 2xl:row-start-1 2xl:row-end-4 2xl:col-start-4 2xl:col-end-5'
         >
           <WhiteCard centered>
-            <RiDeleteBin2Fill className='text-[4rem] md:text-[5rem] xl:text-[6rem] text-red-500' />
-            <h2 className='text-red-500 font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl'>
+            <RiDeleteBin2Fill className='text-[4rem] sm:text-[5rem] md:text-[6rem] text-red-500' />
+            <h2 className='text-red-500 font-bold text-[22px] sm:text-2xl lg:text-3xl xl:text-4xl'>
               Inactivar Ingreso
             </h2>
-            <p className='font-bold text-xs sm:text-sm lg:text-[15px] xl:text-[16px]'>
+            <p className='font-bold text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px]'>
               Inactivar registro de ingreso de una ofrenda
             </p>
           </WhiteCard>

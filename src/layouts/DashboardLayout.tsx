@@ -2,8 +2,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 
-import { useEffect } from 'react';
-
 import { Navigate, Outlet } from 'react-router-dom';
 
 import { useAuthStore } from '@/stores/auth/auth.store';
@@ -15,12 +13,6 @@ import { LoadingSpinner } from '@/shared/components/spinner/LoadingSpinner';
 export const DashboardLayout = (): JSX.Element => {
   //* States
   const authStatus = useAuthStore((state) => state.status);
-  const checkAuthStatus = useAuthStore((state) => state.checkAuthStatus);
-
-  //* Effects
-  useEffect(() => {
-    checkAuthStatus();
-  }, []);
 
   if (authStatus === 'pending') {
     return <LoadingSpinner />;

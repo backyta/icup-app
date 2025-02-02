@@ -31,14 +31,4 @@ export class AuthService {
       throw new Error('No se puede iniciar sesión, hable con el administrador.');
     }
   };
-
-  static checkAuthStatus = async (): Promise<LoginResponse> => {
-    try {
-      const { data } = await icupApi.get('/auth/check-auth-status');
-
-      return data;
-    } catch (error) {
-      throw new Error('Sin autorización');
-    }
-  };
 }

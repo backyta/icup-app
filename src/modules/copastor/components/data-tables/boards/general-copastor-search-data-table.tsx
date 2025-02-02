@@ -114,7 +114,7 @@ export function GeneralCopastorSearchDataTable<TData, TValue>({
       setIsFiltersSearchGeneralDisabled(true);
 
       setTimeout(() => {
-        navigate('/');
+        navigate('/auth/login');
       }, 3000);
     }
   }, [query?.error]);
