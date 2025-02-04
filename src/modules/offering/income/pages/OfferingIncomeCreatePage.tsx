@@ -187,6 +187,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
     queryKey: ['external-donors', churchId],
     queryFn: getExternalDonors,
     retry: false,
+    enabled: category === OfferingIncomeCreationCategory.ExternalDonation,
   });
 
   const churchesQuery = useQuery({

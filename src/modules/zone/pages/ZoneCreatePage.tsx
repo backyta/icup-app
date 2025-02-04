@@ -401,12 +401,10 @@ export const ZoneCreatePage = (): JSX.Element => {
                     </Popover>
                     <FormMessage className='text-[13px]' />
                     <FormDescription className='text-[12.5px] md:text-[13px] text-blue-500 italic font-medium'>
-                      <p>
-                        * Si no hay supervisores disponibles o necesitas uno nuevo, debes crearlo en{' '}
-                        <Link className='text-green-500 underline' to={'/supervisors/create'}>
-                          Crear Supervisor.
-                        </Link>
-                      </p>
+                      * Si no hay supervisores disponibles o necesitas uno nuevo, debes crearlo en{' '}
+                      <Link className='text-green-500 underline' to={'/supervisors/create'}>
+                        Crear Supervisor.
+                      </Link>
                     </FormDescription>
                   </FormItem>
                 );
