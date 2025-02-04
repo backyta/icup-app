@@ -96,12 +96,13 @@ export function SearchByTermSupervisorDataTable<TData, TValue>({
     queryKey: ['supervisors-by-term', searchParams],
     queryFn: () => getSupervisorsByTerm(searchParams as SupervisorQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   const churchesQuery = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Set data result query
@@ -169,7 +170,7 @@ export function SearchByTermSupervisorDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['supervisors-report-by-term', searchParams],
     queryFn: () => getSupervisorsReportByTerm(searchParams as SupervisorQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

@@ -148,6 +148,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
   const { data } = useQuery({
     queryKey: ['family-groups'],
     queryFn: () => getSimpleFamilyGroups({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Form handler

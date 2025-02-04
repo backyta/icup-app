@@ -146,6 +146,7 @@ export const ChurchCreatePage = (): JSX.Element => {
   const { data } = useQuery({
     queryKey: ['mainChurch'],
     queryFn: getMainChurch,
+    retry: false,
   });
 
   //* Form handler

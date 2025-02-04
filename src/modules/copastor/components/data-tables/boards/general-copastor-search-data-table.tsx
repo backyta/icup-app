@@ -85,7 +85,7 @@ export function GeneralCopastorSearchDataTable<TData, TValue>({
     queryKey: ['general-copastors', searchParams],
     queryFn: () => getCopastors(searchParams as CopastorQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   //* Set data result query
@@ -153,7 +153,7 @@ export function GeneralCopastorSearchDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['general-copastors-report', searchParams],
     queryFn: () => getGeneralCopastorsReport(searchParams as CopastorQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

@@ -157,11 +157,13 @@ export const FamilyGroupUpdateForm = ({
   const zonesQuery = useQuery({
     queryKey: ['zones'],
     queryFn: () => getSimpleZones({ isSimpleQuery: true }),
+    retry: false,
   });
 
   const preachersQuery = useQuery({
     queryKey: ['preachers'],
     queryFn: () => getSimplePreachers({ isSimpleQuery: true }),
+    retry: false,
   });
 
   const preachersByZoneQuery = useQuery({
@@ -173,7 +175,7 @@ export const FamilyGroupUpdateForm = ({
         isNullFamilyGroup: true,
       }),
     enabled: !!theirZone,
-    retry: 1,
+    retry: false,
   });
 
   //* Form handler

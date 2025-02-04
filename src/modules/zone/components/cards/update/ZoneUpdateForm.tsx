@@ -131,11 +131,13 @@ export const ZoneUpdateForm = ({
   const availableSupervisorsQuery = useQuery({
     queryKey: ['available-supervisors'],
     queryFn: () => getSimpleSupervisors({ isNullZone: true, isSimpleQuery: true }),
+    retry: false,
   });
 
   const notAvailableSupervisorQuery = useQuery({
     queryKey: ['not-available-supervisors'],
     queryFn: () => getSimpleSupervisors({ isNullZone: false, isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Form handler

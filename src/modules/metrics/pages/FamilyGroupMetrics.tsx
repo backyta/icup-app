@@ -28,6 +28,7 @@ export const FamilyGroupMetrics = (): JSX.Element => {
     queryKey: ['churches-for-family-group-metrics'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
     staleTime: 1000 * 60,
+    retry: false,
   });
 
   //* Effects

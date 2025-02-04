@@ -130,7 +130,7 @@ export const OfferingExpenseCreatePage = (): JSX.Element => {
   const churchesQuery = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
-    retry: 1,
+    retry: false,
   });
 
   const { onDrop, removeAll, removeFile, removeRejected } = useOfferingExpenseFileDropZone({

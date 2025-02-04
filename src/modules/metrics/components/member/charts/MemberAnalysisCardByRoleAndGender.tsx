@@ -66,6 +66,7 @@ export const MemberAnalysisCardByRoleAndGender = ({ churchId }: Props): JSX.Elem
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       }),
+    retry: false,
     enabled: !!churchId,
   });
 

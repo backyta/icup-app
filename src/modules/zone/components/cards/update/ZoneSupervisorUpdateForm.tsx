@@ -89,7 +89,7 @@ export const ZoneSupervisorUpdateForm = ({
         isNullZone: false,
       }),
     enabled: !!data?.theirCopastor?.id,
-    retry: 1,
+    retry: false,
   });
 
   //* Custom Hooks

@@ -197,11 +197,13 @@ export const DiscipleUpdateForm = ({
   const familyGroupsQuery = useQuery({
     queryKey: ['family-groups', id],
     queryFn: async () => await getSimpleFamilyGroups({ isSimpleQuery: true }),
+    retry: false,
   });
 
   const supervisorsQuery = useQuery({
     queryKey: ['supervisors', id],
     queryFn: async () => await getSimpleSupervisors({ isNullZone: false, isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Form handler

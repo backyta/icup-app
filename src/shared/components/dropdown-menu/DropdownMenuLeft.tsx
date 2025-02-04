@@ -84,7 +84,7 @@ export function DropdownMenuLeft(): JSX.Element {
               <span>
                 <img
                   className='bg-white rounded-full w-[3rem] h-[3rem] md:w-[4.5rem] md:h-[4.5rem] text-white'
-                  src='/logo.webp'
+                  src='/images/logo.webp'
                   alt='logo-iglesia'
                 />
               </span>
@@ -104,12 +104,12 @@ export function DropdownMenuLeft(): JSX.Element {
               <span>
                 {gender === 'male' ? (
                   <Avatar className='p-1 w-12 h-12'>
-                    <AvatarImage className='rounded-full' src={'/boy.webp'} />
+                    <AvatarImage className='rounded-full' src={'/images/boy.webp'} />
                     <AvatarFallback>UI</AvatarFallback>
                   </Avatar>
                 ) : (
                   <Avatar className='p-1 w-12 h-12'>
-                    <AvatarImage className='rounded-full' src={'/girl.webp'} />
+                    <AvatarImage className='rounded-full' src={'/images/girl.webp'} />
                     <AvatarFallback>UI</AvatarFallback>
                   </Avatar>
                 )}

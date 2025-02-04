@@ -118,6 +118,7 @@ export const FamilyGroupAnalysisCardByCopastorAndZone = ({ churchId }: Props): J
   const copastorsQuery = useQuery({
     queryKey: ['copastors-for-zone', churchId],
     queryFn: () => getSimpleCopastors({ churchId: churchId ?? '', isSimpleQuery: true }),
+    retry: false,
   });
 
   const familyGroupsByZoneQuery = useQuery({
@@ -131,7 +132,7 @@ export const FamilyGroupAnalysisCardByCopastorAndZone = ({ churchId }: Props): J
         church: churchId ?? '',
       });
     },
-    retry: 1,
+    retry: false,
     enabled:
       !!searchParams?.copastor &&
       !!churchId &&

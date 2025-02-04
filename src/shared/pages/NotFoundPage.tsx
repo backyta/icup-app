@@ -12,7 +12,7 @@ export const NotFoundPage = (): JSX.Element => {
         Lo sentimos, no pudimos encontrar la página que estás buscando.
       </p>
       <img
-        src='/404.webp'
+        src='/images/404.webp'
         alt='Not Found Image'
         className='mx-auto w-[17rem] md:w-[30rem] mb-6 rounded-full shadow-lg'
       />

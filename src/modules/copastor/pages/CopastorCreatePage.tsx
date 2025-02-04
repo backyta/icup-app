@@ -150,6 +150,7 @@ export const CopastorCreatePage = (): JSX.Element => {
   const { data } = useQuery({
     queryKey: ['pastors'],
     queryFn: () => getSimplePastors({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Form handler

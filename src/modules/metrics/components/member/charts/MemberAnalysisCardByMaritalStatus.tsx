@@ -76,6 +76,7 @@ export const MemberAnalysisCardByMaritalStatus = ({ churchId }: Props): JSX.Elem
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       }),
+    retry: false,
     enabled: !!churchId,
   });
 
@@ -83,6 +84,7 @@ export const MemberAnalysisCardByMaritalStatus = ({ churchId }: Props): JSX.Elem
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
     staleTime: 1000 * 60,
+    retry: false,
   });
 
   useEffect(() => {

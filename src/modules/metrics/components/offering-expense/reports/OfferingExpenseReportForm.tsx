@@ -117,7 +117,7 @@ export const OfferingExpenseReportForm = ({ churchId, dialogClose }: Props): JSX
         types,
         dialogClose,
       }),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

@@ -110,6 +110,7 @@ export const FamilyGroupAnalysisCardByRecordStatus = ({ churchId }: Props): JSX.
   const zonesQuery = useQuery({
     queryKey: ['zones-for-family-groups-record-status', churchId],
     queryFn: () => getSimpleZones({ churchId: churchId ?? '', isSimpleQuery: true }),
+    retry: false,
   });
 
   const familyGroupsByRecordStatusQuery = useQuery({
@@ -123,7 +124,7 @@ export const FamilyGroupAnalysisCardByRecordStatus = ({ churchId }: Props): JSX.
         church: churchId ?? '',
       });
     },
-    retry: 1,
+    retry: false,
     enabled: !!searchParams?.zone && !!churchId && !!zonesQuery?.data && !!zonesQuery.data.length,
   });
 

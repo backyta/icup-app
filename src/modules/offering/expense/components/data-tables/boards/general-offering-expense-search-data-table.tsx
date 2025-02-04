@@ -89,7 +89,7 @@ export function GeneralOfferingExpenseSearchDataTable<TData, TValue>({
     queryKey: ['general-offering-expenses', searchParams],
     queryFn: () => getOfferingsExpenses(searchParams as OfferingExpenseQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   //* Set data result query
@@ -174,7 +174,7 @@ export function GeneralOfferingExpenseSearchDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['general-offering-expenses-report', searchParams],
     queryFn: () => getGeneralOfferingExpensesReport(searchParams as OfferingExpenseQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

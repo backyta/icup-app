@@ -89,7 +89,7 @@ export function GeneralOfferingIncomeSearchDataTable<TData, TValue>({
     queryKey: ['general-offering-income', searchParams],
     queryFn: () => getOfferingsIncome(searchParams as OfferingIncomeQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   //* Set data result query
@@ -174,7 +174,7 @@ export function GeneralOfferingIncomeSearchDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['general-offering-income-report', searchParams],
     queryFn: () => getGeneralOfferingIncomeReport(searchParams as OfferingIncomeQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

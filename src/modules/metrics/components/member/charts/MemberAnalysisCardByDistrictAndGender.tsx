@@ -111,7 +111,7 @@ export const MemberAnalysisCardByDistrictAndGender = ({ churchId }: Props): JSX.
         church: churchId ?? '',
       });
     },
-    retry: 1,
+    retry: false,
     enabled: !!churchId,
   });
 

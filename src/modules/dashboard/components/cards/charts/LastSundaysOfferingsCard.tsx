@@ -123,6 +123,7 @@ export const LastSundayOfferingsCard = (): JSX.Element => {
   const churchesQuery = useQuery({
     queryKey: ['churches-for-sunday-offerings'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Effects

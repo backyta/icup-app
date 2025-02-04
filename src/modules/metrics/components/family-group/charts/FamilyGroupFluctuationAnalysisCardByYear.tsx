@@ -94,7 +94,7 @@ export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): J
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       }),
-    retry: 1,
+    retry: false,
   });
 
   //* Helpers

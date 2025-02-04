@@ -10,7 +10,7 @@ import { type OfferingIncomeFormData } from '@/modules/offering/income/interface
 
 import {
   createOfferingIncome,
-  generateTicketByOfferingIncomeId,
+  generateReceiptByOfferingIncomeId,
   updateOfferingIncome,
 } from '@/modules/offering/income/services/offering-income.service';
 
@@ -25,10 +25,11 @@ import { deleteImage, uploadImages } from '@/modules/offering/shared/services/im
 import { OfferingFileType } from '@/modules/offering/shared/enums/offering-file-type.enum';
 import { type FilesProps } from '@/modules/offering/shared/interfaces/files-props.interface';
 import { convertPdfBlobToImage } from '../helpers/convert-pdf-to-image';
+import { MemberType } from '../enums/member-type.enum';
 
 interface Options {
   imageUrls: string[];
-  generateTicket?: string;
+  generateReceipt?: string;
   setFiles: React.Dispatch<React.SetStateAction<FilesProps[]>>;
   setIsInputDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setIsInputMemberDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -45,7 +46,7 @@ export const useOfferingIncomeCreationMutation = ({
   setIsSubmitButtonDisabled,
   setIsDeleteFileButtonDisabled,
   imageUrls,
-  generateTicket,
+  generateReceipt,
 }: Options): UseMutationResult<
   OfferingIncomeResponse,
   ErrorResponse,
@@ -91,7 +92,7 @@ export const useOfferingIncomeCreationMutation = ({
 
         setTimeout(() => {
           navigate('/');
-        }, 3500);
+        }, 2000);
       }
     },
     onSuccess: async (data) => {
@@ -102,25 +103,27 @@ export const useOfferingIncomeCreationMutation = ({
 
       setTimeout(() => {
         navigate('/offerings/income');
-      }, 1100);
+      }, 2000);
 
       setTimeout(() => {
         setFiles([]);
         offeringIncomeCreationForm.reset();
-      }, 1200);
+      }, 2100);
 
-      if (generateTicket === 'yes') {
-        const response = await generateTicketByOfferingIncomeId({ id: data.id });
+      if (generateReceipt) {
+        //! OLD RECEIPT
+        const oldReceiptResponse = await generateReceiptByOfferingIncomeId({
+          id: data.id,
+          generateReceipt: 'no',
+        });
 
-        const pdfUrl = URL.createObjectURL(response.data);
+        const oldReceiptPdfUrl = URL.createObjectURL(oldReceiptResponse.data);
+        const oldReceiptImage = await convertPdfBlobToImage(oldReceiptPdfUrl);
 
-        const file = await convertPdfBlobToImage(pdfUrl);
+        let oldReceiptImages = [oldReceiptImage];
 
-        let newFiles = [];
-        newFiles.push(file);
-
-        const { imageUrls } = await uploadImages({
-          files: newFiles as any,
+        const { imageUrls: oldReceiptImageUrls } = await uploadImages({
+          files: oldReceiptImages as any,
           fileType: OfferingFileType.Income,
           offeringType: data.type,
           offeringSubType: data.subType ?? null,
@@ -138,11 +141,75 @@ export const useOfferingIncomeCreationMutation = ({
             date: data.date,
             comments: data.comments,
             memberType: data.memberType,
+            memberId:
+              data.memberType === MemberType.Pastor
+                ? data?.pastor?.id
+                : data.memberType === MemberType.Copastor
+                  ? data.copastor?.id
+                  : data.memberType === MemberType.Supervisor
+                    ? data.supervisor?.id
+                    : data.memberType === MemberType.Preacher
+                      ? data.preacher?.id
+                      : data.disciple?.id,
             churchId: data?.church?.id!,
             externalDonorId: data?.externalDonor?.id,
             recordStatus: data.recordStatus,
-            imageUrls: imageUrls,
+            imageUrls: oldReceiptImageUrls,
           },
+        });
+
+        //* VALID RECEIPT
+        const newReceiptResponse = await generateReceiptByOfferingIncomeId({
+          id: data.id,
+          generateReceipt,
+        });
+
+        const newReceiptPdfUrl = URL.createObjectURL(newReceiptResponse.data);
+        const newReceiptImage = await convertPdfBlobToImage(newReceiptPdfUrl);
+
+        let newReceiptImages = [newReceiptImage];
+
+        const { imageUrls: newReceiptImageUrls } = await uploadImages({
+          files: newReceiptImages as any,
+          fileType: OfferingFileType.Income,
+          offeringType: data.type,
+          offeringSubType: data.subType ?? null,
+        });
+
+        await updateOfferingIncome({
+          id: data.id,
+          formData: {
+            type: data.type,
+            subType: data.subType,
+            category: data.category,
+            shift: data.shift,
+            amount: data.amount,
+            currency: data.currency,
+            date: data.date,
+            comments: data.comments,
+            memberType: data.memberType,
+            memberId:
+              data.memberType === MemberType.Pastor
+                ? data?.pastor?.id
+                : data.memberType === MemberType.Copastor
+                  ? data.copastor?.id
+                  : data.memberType === MemberType.Supervisor
+                    ? data.supervisor?.id
+                    : data.memberType === MemberType.Preacher
+                      ? data.preacher?.id
+                      : data.disciple?.id,
+            churchId: data?.church?.id!,
+            externalDonorId: data?.externalDonor?.id,
+            recordStatus: data.recordStatus,
+            imageUrls: newReceiptImageUrls,
+          },
+        });
+
+        await deleteImage({
+          publicId: extractPublicId(oldReceiptImageUrls[0]),
+          path: extractPath(oldReceiptImageUrls[0]),
+          secureUrl: oldReceiptImageUrls[0],
+          fileType: OfferingFileType.Income,
         });
       }
     },

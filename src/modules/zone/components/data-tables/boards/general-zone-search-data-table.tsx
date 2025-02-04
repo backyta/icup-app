@@ -80,7 +80,7 @@ export function GeneralZoneSearchDataTable<TData, TValue>({
     queryKey: ['general-zones', searchParams],
     queryFn: () => getZones(searchParams as ZoneQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   //* Set data result query
@@ -148,7 +148,7 @@ export function GeneralZoneSearchDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['general-zones-report', searchParams],
     queryFn: () => getGeneralZonesReport(searchParams as ZoneQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

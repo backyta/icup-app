@@ -120,7 +120,7 @@ export const FinancialBalanceComparativeReportForm = ({
         types,
         dialogClose,
       }),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

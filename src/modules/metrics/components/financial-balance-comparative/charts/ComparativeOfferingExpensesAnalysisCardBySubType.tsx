@@ -141,7 +141,7 @@ export const ComparativeOfferingExpensesAnalysisCardBySubType = ({
         order: RecordOrder.Ascending,
       });
     },
-    retry: 1,
+    retry: false,
     enabled:
       !!searchParams?.type &&
       !!searchParams?.startMonth &&

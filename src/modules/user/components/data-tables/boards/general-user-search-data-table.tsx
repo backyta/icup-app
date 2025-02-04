@@ -81,7 +81,7 @@ export function GeneralUserSearchDataTable<TData, TValue>({
     queryKey: ['general-users', searchParams],
     queryFn: () => getUsers(searchParams as UserQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   //* Set data result query
@@ -149,7 +149,7 @@ export function GeneralUserSearchDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['general-users-report', searchParams],
     queryFn: () => getGeneralUsersReport(searchParams as UserQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

@@ -85,7 +85,7 @@ export function GeneralFamilyGroupSearchDataTable<TData, TValue>({
     queryKey: ['general-family-groups', searchParams],
     queryFn: () => getFamilyGroups(searchParams as FamilyGroupQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   //* Set data result query
@@ -153,7 +153,7 @@ export function GeneralFamilyGroupSearchDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['general-family-groups-report', searchParams],
     queryFn: () => getGeneralFamilyGroupsReport(searchParams as FamilyGroupQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

@@ -108,7 +108,7 @@ export const FamilyGroupReportForm = ({ churchId, dialogClose }: Props): JSX.Ele
         types,
         dialogClose,
       }),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

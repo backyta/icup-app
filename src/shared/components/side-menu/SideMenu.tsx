@@ -33,7 +33,7 @@ export const SideMenu = (): JSX.Element => {
             <span>
               <img
                 className='bg-white rounded-full w-[3.5rem] h-[3.5rem] md:w-[4.5rem] md:h-[4.5rem]'
-                src='/logo.webp'
+                src='/images/logo.webp'
                 alt='logo-iglesia'
               />
             </span>

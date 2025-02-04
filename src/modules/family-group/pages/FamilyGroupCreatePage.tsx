@@ -145,6 +145,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
   const zonesQuery = useQuery({
     queryKey: ['zones'],
     queryFn: () => getSimpleZones({ isSimpleQuery: true }),
+    retry: false,
   });
 
   const preachersQuery = useQuery({
@@ -155,6 +156,7 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
         zoneId: theirZone ?? '',
         isNullFamilyGroup: true,
       }),
+    retry: false,
     enabled: !!theirZone,
   });
 
@@ -169,9 +171,9 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
         Modulo Grupo Familiar
       </PageTitle>
 
-      <h1 className='text-left leading-8 pb-[2px] pt-2 px-4 sm:px-5 2xl:px-10 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
+      <h2 className='text-left leading-8 pb-[2px] pt-2 px-4 sm:px-5 2xl:px-10 font-sans font-bold text-green-500 text-[1.6rem] sm:text-[1.75rem] md:text-[1.85rem] lg:text-[1.9rem] xl:text-[2.1rem] 2xl:text-4xl'>
         Crear un nuevo grupo familiar
-      </h1>
+      </h2>
 
       <p className='dark:text-slate-300 text-left font-sans font-bold pl-5 pr-6 sm:pl-7 2xl:px-14 text-[13.5px] md:text-[15px] xl:text-base'>
         Por favor llena los siguientes datos para crear un nuevo grupo familiar.
@@ -580,12 +582,10 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
                       <FormMessage className='text-[13px]' />
 
                       <FormDescription className='text-[12.5px] md:text-[13px] text-blue-500 italic font-medium'>
-                        <p>
-                          * Si no hay zonas disponibles o necesitas una nueva zona, debes crearla en{' '}
-                          <Link className='text-green-500 underline' to={'/zones/create'}>
-                            Crear Zona.
-                          </Link>
-                        </p>
+                        * Si no hay zonas disponibles o necesitas una nueva zona, debes crearla en{' '}
+                        <Link className='text-green-500 underline' to={'/zones/create'}>
+                          Crear Zona.
+                        </Link>
                       </FormDescription>
                     </FormItem>
                   );
@@ -683,13 +683,10 @@ export const FamilyGroupCreatePage = (): JSX.Element => {
 
                       <FormMessage className='text-[13px]' />
                       <FormDescription className='text-[12.5px] md:text-[13px] text-blue-500 italic font-medium'>
-                        <p>
-                          * Si no hay predicadores disponibles o necesitas uno nuevo, debes crearlo
-                          en{' '}
-                          <Link className='text-green-500 underline' to={'/preachers/create'}>
-                            Crear Predicador.
-                          </Link>
-                        </p>
+                        * Si no hay predicadores disponibles o necesitas uno nuevo, debes crearlo en{' '}
+                        <Link className='text-green-500 underline' to={'/preachers/create'}>
+                          Crear Predicador.
+                        </Link>
                       </FormDescription>
                     </FormItem>
                   );

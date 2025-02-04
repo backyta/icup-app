@@ -167,11 +167,13 @@ export const SupervisorCreatePage = (): JSX.Element => {
   const copastorsQuery = useQuery({
     queryKey: ['copastors'],
     queryFn: () => getSimpleCopastors({ isSimpleQuery: true }),
+    retry: false,
   });
 
   const pastorsQuery = useQuery({
     queryKey: ['pastors'],
     queryFn: () => getSimplePastors({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Form handler

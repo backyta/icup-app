@@ -164,6 +164,7 @@ export const PastorUpdateForm = ({
   const churchesQuery = useQuery({
     queryKey: ['churches', id],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Form handler

@@ -93,7 +93,7 @@ export function SearchByTermChurchDataTable<TData, TValue>({
     queryKey: ['churches-by-term', searchParams],
     queryFn: () => getChurchesByTerm(searchParams as ChurchQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   //* Set data result query
@@ -161,7 +161,7 @@ export function SearchByTermChurchDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['churches-report-by-term', searchParams],
     queryFn: () => getChurchesReportByTerm(searchParams as ChurchQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

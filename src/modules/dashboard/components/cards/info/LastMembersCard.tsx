@@ -71,13 +71,14 @@ export function MembersInfoCard(): JSX.Element {
         churchId: searchParams?.churchId ?? churchId,
         order: RecordOrder.Ascending,
       }),
-    retry: 1,
+    retry: false,
     enabled: !!searchParams && !!searchParams.churchId,
   });
 
   const churchesQuery = useQuery({
     queryKey: ['churches-for-last-members'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Effects

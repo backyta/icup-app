@@ -104,7 +104,8 @@ export const DestroyImageButton = ({
             No, cancelar
           </Button>
           <Button
-            disabled={isButtonDisabled}
+            // disabled={isButtonDisabled}
+            disabled
             onClick={async () => {
               setIsButtonDisabled(true);
               await imageDeletionMutation.mutateAsync({
@@ -124,6 +125,9 @@ export const DestroyImageButton = ({
             {imageDeletionMutation?.isPending ? 'Procesando...' : 'Sí, eliminar'}
           </Button>
         </div>
+        <p className='text-center font-bold text-red-500 text-[14px]'>
+          No puedes eliminar esta imagen, ya que es esencial para el registro de la ofrenda.
+        </p>
       </DialogContent>
     </Dialog>
   );

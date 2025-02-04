@@ -85,7 +85,7 @@ export function GeneralPreacherSearchDataTable<TData, TValue>({
     queryKey: ['general-preachers', searchParams],
     queryFn: () => getPreachers(searchParams as PreacherQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   //* Set data result query
@@ -153,7 +153,7 @@ export function GeneralPreacherSearchDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['general-preacher-report', searchParams],
     queryFn: () => getGeneralPreachersReport(searchParams as PreacherQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

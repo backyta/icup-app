@@ -95,12 +95,13 @@ export function SearchByTermDiscipleDataTable<TData, TValue>({
     queryKey: ['disciples-by-term', searchParams],
     queryFn: () => getDisciplesByTerm(searchParams as DiscipleQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   const churchesQuery = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Set data result query
@@ -168,7 +169,7 @@ export function SearchByTermDiscipleDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['disciples-report-by-term', searchParams],
     queryFn: () => getDisciplesReportByTerm(searchParams as DiscipleQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

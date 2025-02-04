@@ -192,25 +192,26 @@ export const OfferingIncomeFormUpdate = ({
   const externalDonorsQuery = useQuery({
     queryKey: ['external-donors', churchId],
     queryFn: getExternalDonors,
+    retry: false,
   });
 
   const churchesQuery = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
-    retry: 1,
+    retry: false,
   });
 
   const familyGroupsQuery = useQuery({
     queryKey: ['family-groups', churchId],
     queryFn: () => getSimpleFamilyGroups({ isSimpleQuery: true, churchId }),
-    retry: 1,
+    retry: false,
     enabled: !!churchId,
   });
 
   const zonesQuery = useQuery({
     queryKey: ['zones', churchId],
     queryFn: () => getSimpleZones({ isSimpleQuery: true, churchId }),
-    retry: 1,
+    retry: false,
     enabled: !!churchId,
   });
 
@@ -230,7 +231,8 @@ export const OfferingIncomeFormUpdate = ({
     },
     maxSize: 1024 * 1000, // 1KB
     onDrop,
-    disabled: isDropZoneDisabled,
+    // disabled: isDropZoneDisabled,
+    disabled: true,
   });
 
   const offeringIncomeUpdateMutation = useOfferingIncomeUpdateMutation({
@@ -347,11 +349,11 @@ export const OfferingIncomeFormUpdate = ({
                   Pertenencia:{' '}
                   {`${
                     data?.type === OfferingIncomeCreationType.IncomeAdjustment ||
-                    data?.subType === OfferingIncomeCreationSubType.SundaySchool ||
+                    // data?.subType === OfferingIncomeCreationSubType.SundaySchool ||
                     data?.subType === OfferingIncomeCreationSubType.SundayService ||
                     data?.subType === OfferingIncomeCreationSubType.GeneralFasting ||
                     data?.subType === OfferingIncomeCreationSubType.GeneralVigil ||
-                    data?.subType === OfferingIncomeCreationSubType.YouthService ||
+                    // data?.subType === OfferingIncomeCreationSubType.YouthService ||
                     data?.subType === OfferingIncomeCreationSubType.Activities
                       ? data?.church?.abbreviatedChurchName
                       : data?.subType === OfferingIncomeCreationSubType.FamilyGroup
@@ -581,24 +583,24 @@ export const OfferingIncomeFormUpdate = ({
                       (type === OfferingIncomeCreationType.Offering &&
                         subType === OfferingIncomeCreationSubType.ChurchGround &&
                         category === OfferingIncomeCreationCategory.InternalDonation) ||
-                      (type === OfferingIncomeCreationType.Offering &&
-                        subType === OfferingIncomeCreationSubType.SundaySchool &&
-                        category === OfferingIncomeCreationCategory.InternalDonation) ||
-                      (type === OfferingIncomeCreationType.Offering &&
-                        subType === OfferingIncomeCreationSubType.YouthService &&
-                        category === OfferingIncomeCreationCategory.InternalDonation) ||
+                      // (type === OfferingIncomeCreationType.Offering &&
+                      //   subType === OfferingIncomeCreationSubType.SundaySchool &&
+                      //   category === OfferingIncomeCreationCategory.InternalDonation) ||
+                      // (type === OfferingIncomeCreationType.Offering &&
+                      //   subType === OfferingIncomeCreationSubType.YouthService &&
+                      //   category === OfferingIncomeCreationCategory.InternalDonation) ||
                       (type === OfferingIncomeCreationType.Offering &&
                         subType === OfferingIncomeCreationSubType.ChurchGround &&
                         category === OfferingIncomeCreationCategory.ExternalDonation) ||
                       (type === OfferingIncomeCreationType.Offering &&
                         subType === OfferingIncomeCreationSubType.Special &&
-                        category === OfferingIncomeCreationCategory.ExternalDonation) ||
-                      (type === OfferingIncomeCreationType.Offering &&
-                        subType === OfferingIncomeCreationSubType.SundaySchool &&
-                        category === OfferingIncomeCreationCategory.ExternalDonation) ||
-                      (type === OfferingIncomeCreationType.Offering &&
-                        subType === OfferingIncomeCreationSubType.YouthService &&
                         category === OfferingIncomeCreationCategory.ExternalDonation)) && (
+                      //  || (type === OfferingIncomeCreationType.Offering &&
+                      //   subType === OfferingIncomeCreationSubType.SundaySchool &&
+                      //   category === OfferingIncomeCreationCategory.ExternalDonation) ||
+                      // (type === OfferingIncomeCreationType.Offering &&
+                      //   subType === OfferingIncomeCreationSubType.YouthService &&
+                      //   category === OfferingIncomeCreationCategory.ExternalDonation)
                       <FormField
                         control={form.control}
                         name='memberType'
@@ -730,13 +732,13 @@ export const OfferingIncomeFormUpdate = ({
                       category === OfferingIncomeCreationCategory.InternalDonation) ||
                       (type === OfferingIncomeCreationType.Offering &&
                         subType === OfferingIncomeCreationSubType.ChurchGround &&
-                        category === OfferingIncomeCreationCategory.InternalDonation) ||
-                      (type === OfferingIncomeCreationType.Offering &&
-                        subType === OfferingIncomeCreationSubType.SundaySchool &&
-                        category === OfferingIncomeCreationCategory.InternalDonation) ||
-                      (type === OfferingIncomeCreationType.Offering &&
-                        subType === OfferingIncomeCreationSubType.YouthService &&
                         category === OfferingIncomeCreationCategory.InternalDonation)) && (
+                      // || (type === OfferingIncomeCreationType.Offering &&
+                      //   subType === OfferingIncomeCreationSubType.SundaySchool &&
+                      //   category === OfferingIncomeCreationCategory.InternalDonation) ||
+                      // (type === OfferingIncomeCreationType.Offering &&
+                      //   subType === OfferingIncomeCreationSubType.YouthService &&
+                      //   category === OfferingIncomeCreationCategory.InternalDonation)
                       <FormField
                         control={form.control}
                         name='memberId'
@@ -1008,8 +1010,8 @@ export const OfferingIncomeFormUpdate = ({
                       />
                     )}
 
-                    {(subType === OfferingIncomeCreationSubType.SundayService ||
-                      subType === OfferingIncomeCreationSubType.SundaySchool) &&
+                    {subType === OfferingIncomeCreationSubType.SundayService &&
+                      // || subType === OfferingIncomeCreationSubType.SundaySchool
                       category === OfferingIncomeCreationCategory.OfferingBox && (
                         <FormField
                           control={form.control}
@@ -1167,16 +1169,25 @@ export const OfferingIncomeFormUpdate = ({
                                     setIsInputDateOpen(false);
                                   }}
                                   disabled={
-                                    subType !== OfferingIncomeCreationSubType.SundayService &&
-                                    subType !== OfferingIncomeCreationSubType.SundaySchool &&
-                                    subType !== OfferingIncomeCreationSubType.FamilyGroup
-                                      ? (date) => date > new Date() || date < new Date('1900-01-01')
-                                      : (date) => {
+                                    (subType === OfferingIncomeCreationSubType.SundayService ||
+                                      // subType === OfferingIncomeCreationSubType.SundaySchool ||
+                                      subType === OfferingIncomeCreationSubType.FamilyGroup) &&
+                                    category === OfferingIncomeCreationCategory.OfferingBox
+                                      ? (date) => {
                                           const today = new Date();
                                           const minDate = new Date('1900-01-01');
                                           const dayOfWeek = date.getDay();
                                           return dayOfWeek !== 0 || date > today || date < minDate;
                                         }
+                                      : // : subType === OfferingIncomeCreationSubType.YouthService &&
+                                        //     category === OfferingIncomeCreationCategory.OfferingBox
+                                        //   ? (date) => {
+                                        //       const today = new Date();
+                                        //       const minDate = new Date('1900-01-01');
+                                        //       const dayOfWeek = date.getDay();
+                                        //       return dayOfWeek !== 6 || date > today || date < minDate;
+                                        //     }
+                                        (date) => date > new Date() || date < new Date('1900-01-01')
                                   }
                                   initialFocus
                                 />
@@ -1283,6 +1294,7 @@ export const OfferingIncomeFormUpdate = ({
                   <div className='md:col-start-2 md:col-end-3 md:border-l-2 border-slate-200 dark:border-slate-800 md:pl-6'>
                     <FormField
                       control={form.control}
+                      disabled
                       name='fileNames'
                       render={() => {
                         return (
@@ -1319,9 +1331,9 @@ export const OfferingIncomeFormUpdate = ({
                               </span>
                             ) : (
                               <span className='font-medium text-[11.5px] md:text-[13px] pl-1 md:pl-5 mt-1 flex flex-col'>
-                                <span>✅ Máximo 3 archivos.</span>
+                                <span>✅ Máximo 1 archivos.</span>
                                 <span>
-                                  ✅ El campo se bloqueara al llegar o pasar los 3 archivos.
+                                  ✅ El campo se bloqueara al llegar o pasar los 1 archivos.
                                 </span>
                               </span>
                             )}

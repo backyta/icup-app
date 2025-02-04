@@ -95,12 +95,13 @@ export function SearchByTermFamilyGroupDataTable<TData, TValue>({
     queryKey: ['family-groups-by-term', searchParams],
     queryFn: () => getFamilyGroupsByTerm(searchParams as FamilyGroupQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   const churchesQuery = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Set data result query
@@ -168,7 +169,7 @@ export function SearchByTermFamilyGroupDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['family-groups-report-by-term', searchParams],
     queryFn: () => getFamilyGroupsReportByTerm(searchParams as FamilyGroupQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

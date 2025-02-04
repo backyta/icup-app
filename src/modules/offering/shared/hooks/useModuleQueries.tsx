@@ -22,42 +22,42 @@ export const useModuleQueries = ({ memberType }: Options) => {
   const churchesQuery = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
-    retry: 1,
+    retry: false,
   });
 
   const pastorsQuery = useQuery({
     queryKey: ['pastors'],
     queryFn: () => getSimplePastors({ isSimpleQuery: true }),
     enabled: !!memberType && memberType === MemberType.Pastor,
-    retry: 1,
+    retry: false,
   });
 
   const copastorsQuery = useQuery({
     queryKey: ['copastors'],
     queryFn: () => getSimpleCopastors({ isSimpleQuery: true }),
     enabled: !!memberType && memberType === MemberType.Copastor,
-    retry: 1,
+    retry: false,
   });
 
   const supervisorsQuery = useQuery({
     queryKey: ['supervisors'],
     queryFn: () => getSimpleSupervisors({ isNullZone: false, isSimpleQuery: true }),
     enabled: !!memberType && memberType === MemberType.Supervisor,
-    retry: 1,
+    retry: false,
   });
 
   const preachersQuery = useQuery({
     queryKey: ['preachers'],
     queryFn: () => getSimplePreachers({ isSimpleQuery: true }),
     enabled: !!memberType && memberType === MemberType.Preacher,
-    retry: 1,
+    retry: false,
   });
 
   const disciplesQuery = useQuery({
     queryKey: ['disciples'],
     queryFn: () => getSimpleDisciples({ isSimpleQuery: true }),
     enabled: !!memberType && memberType === MemberType.Disciple,
-    retry: 1,
+    retry: false,
   });
 
   return {

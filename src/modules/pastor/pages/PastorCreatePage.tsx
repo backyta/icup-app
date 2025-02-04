@@ -148,6 +148,7 @@ export const PastorCreatePage = (): JSX.Element => {
   const { data } = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Form handler

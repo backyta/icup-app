@@ -128,7 +128,7 @@ export const ComparativeOfferingExpensesAnalysisCardByType = ({ churchId }: Prop
         order: RecordOrder.Descending,
       });
     },
-    retry: 1,
+    retry: false,
     enabled: !!searchParams?.year && !!searchParams?.type,
   });
 

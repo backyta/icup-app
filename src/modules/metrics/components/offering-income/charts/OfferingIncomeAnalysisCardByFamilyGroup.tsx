@@ -117,7 +117,7 @@ export const OfferingIncomeAnalysisCardByFamilyGroup = ({ churchId }: Props): JS
         order: RecordOrder.Ascending,
       });
     },
-    retry: 1,
+    retry: false,
     enabled: !!searchParams?.zone && !!searchParams?.year && !!searchParams?.month && !!churchId,
   });
 

@@ -98,7 +98,7 @@ export const OfferingComparativeAnalysisCardByIncomeAndExpenses = ({
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       }),
-    retry: 1,
+    retry: false,
     enabled: !!searchParams?.currency && !!searchParams?.year,
   });
 

@@ -92,7 +92,7 @@ export const MemberFluctuationAnalysisCardByYear = ({ churchId }: Props): JSX.El
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       }),
-    retry: 1,
+    retry: false,
     enabled: !!churchId,
   });
 

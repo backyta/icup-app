@@ -101,12 +101,13 @@ export function SearchByTermOfferingExpenseDataTable<TData, TValue>({
     queryKey: ['offering-expenses-by-term', searchParams],
     queryFn: () => getOfferingsExpensesByTerm(searchParams as OfferingExpenseQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   const churchesQuery = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Set data result query
@@ -191,7 +192,7 @@ export function SearchByTermOfferingExpenseDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['offering-expenses-report-by-term', searchParams],
     queryFn: () => getOfferingExpensesReportByTerm(searchParams as OfferingExpenseQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

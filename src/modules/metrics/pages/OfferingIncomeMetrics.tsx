@@ -14,8 +14,8 @@ import { OfferingIncomeProportionCard } from '@/modules/metrics/components/offer
 import { OfferingIncomeReportFormCard } from '@/modules/metrics/components/offering-income/reports/OfferingIncomeReportFormCard';
 import { OfferingIncomeAnalysisCardByActivities } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByActivities';
 import { OfferingIncomeAnalysisCardByFamilyGroup } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByFamilyGroup';
-import { OfferingIncomeAnalysisCardByYouthService } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByYouthService';
-import { OfferingIncomeAnalysisCardBySundaySchool } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardBySundaySchool';
+// import { OfferingIncomeAnalysisCardByYouthService } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByYouthService';
+// import { OfferingIncomeAnalysisCardBySundaySchool } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardBySundaySchool';
 import { OfferingIncomeAnalysisCardByChurchGround } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByChurchGround';
 import { OfferingIncomeAnalysisCardByUnitedService } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByUnitedService';
 import { OfferingIncomeAnalysisCardBySundayService } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardBySundayService';
@@ -32,6 +32,7 @@ export const OfferingIncomeMetrics = (): JSX.Element => {
     queryKey: ['churches-for-offering-income-metrics'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
     staleTime: 1000 * 60,
+    retry: false,
   });
 
   //* Effects
@@ -71,10 +72,10 @@ export const OfferingIncomeMetrics = (): JSX.Element => {
         <div className='mt-6 px-2 pb-10 sm:pb-10 md:px-6 xl:pb-14 flex flex-col xl:grid xl:grid-cols-2 gap-8 h-auto'>
           <OfferingIncomeAnalysisCardBySundayService churchId={churchId} />
           <OfferingIncomeAnalysisCardByFamilyGroup churchId={churchId} />
-          <OfferingIncomeAnalysisCardBySundaySchool churchId={churchId} />
+          {/* <OfferingIncomeAnalysisCardBySundaySchool churchId={churchId} /> */}
           <OfferingIncomeAnalysisCardByUnitedService churchId={churchId} />
           <OfferingIncomeAnalysisCardByFastingAndVigil churchId={churchId} />
-          <OfferingIncomeAnalysisCardByYouthService churchId={churchId} />
+          {/* <OfferingIncomeAnalysisCardByYouthService churchId={churchId} /> */}
           <OfferingIncomeAnalysisCardByChurchGround churchId={churchId} />
           <OfferingIncomeAnalysisCardByActivities churchId={churchId} />
           <OfferingIncomeAnalysisCardBySpecialOffering churchId={churchId} />

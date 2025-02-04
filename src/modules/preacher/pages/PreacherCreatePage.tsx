@@ -148,6 +148,7 @@ export const PreacherCreatePage = (): JSX.Element => {
   const { data } = useQuery({
     queryKey: ['supervisors'],
     queryFn: () => getSimpleSupervisors({ isNullZone: false, isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Form handler

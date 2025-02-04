@@ -100,6 +100,7 @@ export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element =
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       }),
+    retry: false,
     enabled: !!churchId,
   });
 
@@ -107,6 +108,7 @@ export const MemberAnalysisCardByCategory = ({ churchId }: Props): JSX.Element =
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
     staleTime: 1000 * 60,
+    retry: false,
   });
 
   useEffect(() => {

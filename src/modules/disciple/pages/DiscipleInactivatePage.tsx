@@ -143,6 +143,7 @@ export const DiscipleInactivatePage = (): JSX.Element => {
   const churchesQuery = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Effects

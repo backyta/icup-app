@@ -156,7 +156,7 @@ export const OfferingExpenseFormUpdate = ({
   const churchesQuery = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
-    retry: 1,
+    retry: false,
   });
 
   const { onDrop, removeFile, removeCloudFile, removeRejected } = useOfferingExpenseFileDropZone({

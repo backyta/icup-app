@@ -86,7 +86,7 @@ export function GeneralSupervisorSearchDataTable<TData, TValue>({
     queryKey: ['general-supervisors', searchParams],
     queryFn: () => getSupervisors(searchParams as SupervisorQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   //* Set data result query
@@ -154,7 +154,7 @@ export function GeneralSupervisorSearchDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['general-supervisors-report', searchParams],
     queryFn: () => getGeneralSupervisorsReport(searchParams as SupervisorQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

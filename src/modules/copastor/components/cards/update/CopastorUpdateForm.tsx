@@ -198,6 +198,7 @@ export const CopastorUpdateForm = ({
   const pastorsQuery = useQuery({
     queryKey: ['pastors', id],
     queryFn: () => getSimplePastors({ isSimpleQuery: true }),
+    retry: false,
   });
 
   const churchesQuery = useQuery({

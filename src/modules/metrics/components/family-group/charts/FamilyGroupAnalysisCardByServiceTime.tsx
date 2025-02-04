@@ -114,6 +114,7 @@ export const FamilyGroupAnalysisCardByServiceTime = ({ churchId }: Props): JSX.E
   const zonesQuery = useQuery({
     queryKey: ['zones-for-family-groups-service-time', churchId],
     queryFn: () => getSimpleZones({ churchId: churchId ?? '', isSimpleQuery: true }),
+    retry: false,
   });
 
   const familyGroupsByServiceTimeQuery = useQuery({
@@ -127,7 +128,7 @@ export const FamilyGroupAnalysisCardByServiceTime = ({ churchId }: Props): JSX.E
         church: churchId ?? '',
       });
     },
-    retry: 1,
+    retry: false,
     enabled: !!searchParams?.zone && !!churchId && !!zonesQuery?.data && !!zonesQuery.data.length,
   });
 

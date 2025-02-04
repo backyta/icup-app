@@ -106,7 +106,7 @@ export const OfferingIncomeAnalysisCardByIncomeAdjustment = ({ churchId }: Props
         order: RecordOrder.Ascending,
       });
     },
-    retry: 1,
+    retry: false,
     enabled: !!searchParams?.year && !!searchParams?.month && !!churchId,
   });
 

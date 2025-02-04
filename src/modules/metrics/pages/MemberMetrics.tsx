@@ -33,6 +33,7 @@ export const MemberMetrics = (): JSX.Element => {
     queryKey: ['churches-for-member-metrics'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
     staleTime: 1000 * 60,
+    retry: false,
   });
 
   //* Effects

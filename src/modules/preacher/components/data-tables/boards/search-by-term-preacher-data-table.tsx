@@ -96,7 +96,7 @@ export function SearchByTermPreacherDataTable<TData, TValue>({
     queryKey: ['preachers-by-term', searchParams],
     queryFn: () => getPreachersByTerm(searchParams as PreacherQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   const churchesQuery = useQuery({
@@ -169,7 +169,7 @@ export function SearchByTermPreacherDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['preachers-report-by-term', searchParams],
     queryFn: () => getPreachersReportByTerm(searchParams as PreacherQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

@@ -82,7 +82,7 @@ export function GeneralChurchSearchDataTable<TData, TValue>({
     queryKey: ['general-churches', searchParams],
     queryFn: () => getChurches(searchParams as ChurchQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   //* Set data result query
@@ -150,7 +150,7 @@ export function GeneralChurchSearchDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['general-churches-report', searchParams],
     queryFn: () => getGeneralChurchesReport(searchParams as ChurchQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

@@ -65,6 +65,7 @@ export const MemberAnalysisCardByRecordStatus = ({ churchId }: Props): JSX.Eleme
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       }),
+    retry: false,
     enabled: !!churchId,
   });
 

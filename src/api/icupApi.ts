@@ -18,7 +18,7 @@ const isTokenExpiringSoon = (token: string) => {
   try {
     const decoded: JwtPayload = jwtDecode(token);
     const currentTime = Date.now() / 1000;
-    return decoded.exp! - currentTime < 20;
+    return decoded.exp! - currentTime < 60;
   } catch (error) {
     return false;
   }
@@ -29,8 +29,6 @@ const isTokenExpiringSoon = (token: string) => {
 icupApi.interceptors.request.use(async (config) => {
   const token = useAuthStore.getState().token;
 
-  // console.log(document.cookie);
-
   if (token) {
     if (isTokenExpiringSoon(token)) {
       try {
@@ -40,8 +38,6 @@ icupApi.interceptors.request.use(async (config) => {
             withCredentials: true,
           }
         );
-
-        console.log(data);
 
         if (data.accessToken) {
           useAuthStore.getState().setAccessToken(data);
@@ -56,7 +52,7 @@ icupApi.interceptors.request.use(async (config) => {
 
           setTimeout(() => {
             useAuthStore.getState().logoutUser();
-          }, 3000);
+          }, 2000);
         }
       }
     } else {

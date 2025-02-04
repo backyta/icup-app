@@ -48,6 +48,7 @@ export const MemberAnalysisCardByBirthMonth = ({ churchId }: Props): JSX.Element
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       }),
+    retry: false,
     enabled: !!churchId,
   });
 

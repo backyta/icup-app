@@ -153,6 +153,7 @@ export const OfferingExpenseUpdatePage = (): JSX.Element => {
   const churchesQuery = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Form handler

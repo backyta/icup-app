@@ -108,7 +108,7 @@ export const MemberReportForm = ({ churchId, dialogClose }: Props): JSX.Element 
         types,
         dialogClose,
       }),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

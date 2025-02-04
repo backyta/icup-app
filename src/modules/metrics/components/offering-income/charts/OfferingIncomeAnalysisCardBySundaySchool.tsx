@@ -119,7 +119,7 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
     queryKey: ['offering-income-by-sunday-school', { ...searchParams, church: churchId }],
     queryFn: () => {
       return getOfferingIncomeBySundaySchool({
-        searchType: MetricSearchType.OfferingIncomeBySundaySchool,
+        searchType: MetricSearchType.OfferingExpensesAdjustment, // change by sunday school
         month: searchParams?.month ?? month,
         year: searchParams?.year ?? year,
         isSingleMonth: true,
@@ -127,7 +127,7 @@ export const OfferingIncomeAnalysisCardBySundaySchool = ({ churchId }: Props): J
         church: churchId ?? '',
       });
     },
-    retry: 1,
+    retry: false,
     enabled: !!searchParams?.year && !!searchParams?.month && !!churchId,
   });
 

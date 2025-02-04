@@ -116,6 +116,7 @@ export const PreacherAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.El
   const copastorsQuery = useQuery({
     queryKey: ['copastors-for-preachers', churchId],
     queryFn: () => getSimpleCopastors({ churchId: churchId ?? '', isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Queries
@@ -130,9 +131,8 @@ export const PreacherAnalysisCardByZoneAndGender = ({ churchId }: Props): JSX.El
         church: churchId ?? '',
       });
     },
-    retry: 1,
+    retry: false,
     enabled:
-      // !isSyncing &&
       !!searchParams?.copastor &&
       !!churchId &&
       !!copastorsQuery?.data &&

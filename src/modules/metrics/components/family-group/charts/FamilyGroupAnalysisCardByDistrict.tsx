@@ -99,6 +99,7 @@ export const FamilyGroupAnalysisCardByDistrict = ({ churchId }: Props): JSX.Elem
   const churchesQuery = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: false,
   });
 
   const familyGroupsByDistrictQuery = useQuery({
@@ -111,7 +112,7 @@ export const FamilyGroupAnalysisCardByDistrict = ({ churchId }: Props): JSX.Elem
         church: churchId ?? '',
       });
     },
-    retry: 1,
+    retry: false,
     enabled: !!searchParams?.district && !!churchId,
   });
 

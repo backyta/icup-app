@@ -22,8 +22,8 @@ import {
   OfferingIncomeSearchSubType,
   SubTypeNamesOfferingIncomeSearchByActivities,
   SubTypeNamesOfferingIncomeSearchByFamilyGroup,
-  SubTypeNamesOfferingIncomeSearchByYoungService,
-  SubTypeNamesOfferingIncomeSearchBySundaySchool,
+  // SubTypeNamesOfferingIncomeSearchByYoungService,
+  // SubTypeNamesOfferingIncomeSearchBySundaySchool,
   SubTypeNamesOfferingIncomeSearchBySundayService,
   SubTypeNamesOfferingIncomeSearchByUnitedService,
   SubTypeNamesOfferingIncomeSearchByIncomeAdjustment,
@@ -175,6 +175,7 @@ export const OfferingIncomeInactivatePage = (): JSX.Element => {
   const churchesQuery = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Form handler
@@ -283,10 +284,10 @@ export const OfferingIncomeInactivatePage = (): JSX.Element => {
                 searchType === OfferingIncomeSearchType.GeneralVigil ||
                 searchType === OfferingIncomeSearchType.IncomeAdjustment ||
                 searchType === OfferingIncomeSearchType.Special ||
-                searchType === OfferingIncomeSearchType.SundaySchool ||
+                // searchType === OfferingIncomeSearchType.SundaySchool ||
                 searchType === OfferingIncomeSearchType.SundayService ||
                 searchType === OfferingIncomeSearchType.UnitedService ||
-                searchType === OfferingIncomeSearchType.YouthService ||
+                // searchType === OfferingIncomeSearchType.YouthService ||
                 searchType === OfferingIncomeSearchType.ZonalFasting ||
                 searchType === OfferingIncomeSearchType.ZonalVigil) && (
                 <FormField
@@ -334,27 +335,26 @@ export const OfferingIncomeInactivatePage = (): JSX.Element => {
                             {Object.entries(
                               searchType === OfferingIncomeSearchType.SundayService
                                 ? SubTypeNamesOfferingIncomeSearchBySundayService
-                                : searchType === OfferingIncomeSearchType.SundaySchool
-                                  ? SubTypeNamesOfferingIncomeSearchBySundaySchool
-                                  : searchType === OfferingIncomeSearchType.FamilyGroup
-                                    ? SubTypeNamesOfferingIncomeSearchByFamilyGroup
-                                    : searchType === OfferingIncomeSearchType.ZonalVigil ||
-                                        searchType === OfferingIncomeSearchType.ZonalFasting
-                                      ? SubTypeNamesOfferingIncomeSearchByFastingAndVigilZonal
-                                      : searchType === OfferingIncomeSearchType.GeneralFasting ||
-                                          searchType === OfferingIncomeSearchType.GeneralVigil
-                                        ? SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneral
-                                        : searchType === OfferingIncomeSearchType.YouthService
-                                          ? SubTypeNamesOfferingIncomeSearchByYoungService
-                                          : searchType === OfferingIncomeSearchType.UnitedService
-                                            ? SubTypeNamesOfferingIncomeSearchByUnitedService
-                                            : searchType === OfferingIncomeSearchType.Activities
-                                              ? SubTypeNamesOfferingIncomeSearchByActivities
-                                              : searchType === OfferingIncomeSearchType.Special ||
-                                                  searchType ===
-                                                    OfferingIncomeSearchType.ChurchGround
-                                                ? SubTypeNamesOfferingIncomeSearchByChurchGroundAndSpecial
-                                                : SubTypeNamesOfferingIncomeSearchByIncomeAdjustment
+                                : // : searchType === OfferingIncomeSearchType.SundaySchool
+                                  //   ? SubTypeNamesOfferingIncomeSearchBySundaySchool
+                                  searchType === OfferingIncomeSearchType.FamilyGroup
+                                  ? SubTypeNamesOfferingIncomeSearchByFamilyGroup
+                                  : searchType === OfferingIncomeSearchType.ZonalVigil ||
+                                      searchType === OfferingIncomeSearchType.ZonalFasting
+                                    ? SubTypeNamesOfferingIncomeSearchByFastingAndVigilZonal
+                                    : searchType === OfferingIncomeSearchType.GeneralFasting ||
+                                        searchType === OfferingIncomeSearchType.GeneralVigil
+                                      ? SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneral
+                                      : // : searchType === OfferingIncomeSearchType.YouthService
+                                        //   ? SubTypeNamesOfferingIncomeSearchByYoungService
+                                        searchType === OfferingIncomeSearchType.UnitedService
+                                        ? SubTypeNamesOfferingIncomeSearchByUnitedService
+                                        : searchType === OfferingIncomeSearchType.Activities
+                                          ? SubTypeNamesOfferingIncomeSearchByActivities
+                                          : searchType === OfferingIncomeSearchType.Special ||
+                                              searchType === OfferingIncomeSearchType.ChurchGround
+                                            ? SubTypeNamesOfferingIncomeSearchByChurchGroundAndSpecial
+                                            : SubTypeNamesOfferingIncomeSearchByIncomeAdjustment
                             ).map(([key, value]) => (
                               <SelectItem
                                 className={cn(`text-[14px] md:text-[14px]`)}
@@ -417,10 +417,10 @@ export const OfferingIncomeInactivatePage = (): JSX.Element => {
                 searchType === OfferingIncomeSearchType.GeneralVigil ||
                 searchType === OfferingIncomeSearchType.IncomeAdjustment ||
                 searchType === OfferingIncomeSearchType.Special ||
-                searchType === OfferingIncomeSearchType.SundaySchool ||
+                // searchType === OfferingIncomeSearchType.SundaySchool ||
                 searchType === OfferingIncomeSearchType.SundayService ||
                 searchType === OfferingIncomeSearchType.UnitedService ||
-                searchType === OfferingIncomeSearchType.YouthService ||
+                // searchType === OfferingIncomeSearchType.YouthService ||
                 searchType === OfferingIncomeSearchType.ZonalFasting ||
                 searchType === OfferingIncomeSearchType.ZonalVigil) &&
                 (searchSubType === OfferingIncomeSearchSubType.OfferingByDate ||
@@ -485,14 +485,13 @@ export const OfferingIncomeInactivatePage = (): JSX.Element => {
                   />
                 )}
 
-              {(searchType === OfferingIncomeSearchType.RecordStatus ||
-                ((searchType === OfferingIncomeSearchType.SundaySchool ||
-                  searchType === OfferingIncomeSearchType.SundayService ||
+              {(searchType === OfferingIncomeSearchType.RecordStatus || // searchType === OfferingIncomeSearchType.SundaySchool ||
+                ((searchType === OfferingIncomeSearchType.SundayService ||
                   searchType === OfferingIncomeSearchType.GeneralFasting ||
                   searchType === OfferingIncomeSearchType.GeneralVigil ||
                   searchType === OfferingIncomeSearchType.Activities ||
                   searchType === OfferingIncomeSearchType.UnitedService ||
-                  searchType === OfferingIncomeSearchType.YouthService ||
+                  // searchType === OfferingIncomeSearchType.YouthService ||
                   searchType === OfferingIncomeSearchType.IncomeAdjustment ||
                   searchType === OfferingIncomeSearchType.Special ||
                   searchType === OfferingIncomeSearchType.ChurchGround) &&
@@ -567,9 +566,9 @@ export const OfferingIncomeInactivatePage = (): JSX.Element => {
                 searchType === OfferingIncomeSearchType.FamilyGroup ||
                 searchType === OfferingIncomeSearchType.Special ||
                 searchType === OfferingIncomeSearchType.ZonalFasting ||
-                searchType === OfferingIncomeSearchType.ZonalVigil ||
-                searchType === OfferingIncomeSearchType.YouthService ||
-                searchType === OfferingIncomeSearchType.SundaySchool) &&
+                searchType === OfferingIncomeSearchType.ZonalVigil) &&
+                // searchType === OfferingIncomeSearchType.YouthService ||
+                // searchType === OfferingIncomeSearchType.SundaySchool
                 (searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFirstNames ||
                   searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFullNames ||
                   searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherFirstNames ||
@@ -602,9 +601,9 @@ export const OfferingIncomeInactivatePage = (): JSX.Element => {
                 searchType === OfferingIncomeSearchType.FamilyGroup ||
                 searchType === OfferingIncomeSearchType.Special ||
                 searchType === OfferingIncomeSearchType.ZonalFasting ||
-                searchType === OfferingIncomeSearchType.ZonalVigil ||
-                searchType === OfferingIncomeSearchType.YouthService ||
-                searchType === OfferingIncomeSearchType.SundaySchool) &&
+                searchType === OfferingIncomeSearchType.ZonalVigil) &&
+                // searchType === OfferingIncomeSearchType.YouthService ||
+                // searchType === OfferingIncomeSearchType.SundaySchool
                 (searchSubType === OfferingIncomeSearchSubType.OfferingByContributorLastNames ||
                   searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFullNames ||
                   searchSubType === OfferingIncomeSearchSubType.OfferingByPreacherLastNames ||

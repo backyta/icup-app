@@ -113,8 +113,8 @@ export const getOfferingsIncomeByTerm = async ({
 
   //* Sunday Service, Sunday School
   if (
-    searchType === OfferingIncomeSearchType.SundayService ||
-    searchType === OfferingIncomeSearchType.SundaySchool
+    searchType === OfferingIncomeSearchType.SundayService
+    // searchType === OfferingIncomeSearchType.SundaySchool
   ) {
     const term =
       searchSubType === OfferingIncomeSearchSubType.OfferingByShift
@@ -276,8 +276,8 @@ export const getOfferingsIncomeByTerm = async ({
   //* Special, ground church, youth service
   if (
     searchType === OfferingIncomeSearchType.Special ||
-    searchType === OfferingIncomeSearchType.ChurchGround ||
-    searchType === OfferingIncomeSearchType.YouthService
+    searchType === OfferingIncomeSearchType.ChurchGround
+    // searchType === OfferingIncomeSearchType.YouthService
   ) {
     const term =
       searchSubType === OfferingIncomeSearchSubType.OfferingByDate
@@ -493,17 +493,19 @@ export const inactivateOfferingIncome = async ({
   }
 };
 
-//? GENERATE TICKET BY OFFERING INCOME ID
-export interface GenerateTicketOptions {
+//? GENERATE RECEIPT BY OFFERING INCOME ID
+export interface GenerateReceiptOptions {
   id: string;
+  generateReceipt?: string;
   setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
-export const generateTicketByOfferingIncomeId = async ({
+export const generateReceiptByOfferingIncomeId = async ({
   id,
   setOpen,
-}: GenerateTicketOptions): Promise<any> => {
+  generateReceipt,
+}: GenerateReceiptOptions): Promise<any> => {
   try {
-    const res = await icupApi<Blob>(`/reports/offering-income/${id}/ticket`, {
+    const res = await icupApi<Blob>(`/reports/offering-income/${id}/receipt`, {
       headers: {
         'Content-Type': 'application/pdf',
       },
@@ -514,9 +516,11 @@ export const generateTicketByOfferingIncomeId = async ({
       setOpen!(false);
     }
 
-    setTimeout(() => {
-      openPdfInNewTab(res.data);
-    }, 100);
+    if (generateReceipt === 'yes' || !generateReceipt) {
+      setTimeout(() => {
+        openPdfInNewTab(res.data);
+      }, 100);
+    }
 
     return res;
   } catch (error) {

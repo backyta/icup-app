@@ -108,7 +108,7 @@ export const OfferingExpenseAnalysisCardByExpensesAdjustment = ({
         order: RecordOrder.Ascending,
       });
     },
-    retry: 1,
+    retry: false,
     enabled: !!searchParams?.year && !!searchParams?.month && !!churchId,
   });
 

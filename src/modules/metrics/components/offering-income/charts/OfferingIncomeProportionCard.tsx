@@ -61,7 +61,7 @@ export const OfferingIncomeProportionCard = ({ churchId }: Props): JSX.Element =
         order: RecordOrder.Ascending,
         church: churchId ?? '',
       }),
-    retry: 1,
+    retry: false,
     enabled: !!churchId,
   });
 

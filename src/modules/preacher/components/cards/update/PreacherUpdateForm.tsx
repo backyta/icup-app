@@ -204,16 +204,19 @@ export const PreacherUpdateForm = ({
   const supervisorsQuery = useQuery({
     queryKey: ['supervisors', id],
     queryFn: () => getSimpleSupervisors({ isNullZone: false, isSimpleQuery: true }),
+    retry: false,
   });
 
   const copastorsQuery = useQuery({
     queryKey: ['copastors', id],
     queryFn: () => getSimpleCopastors({ isSimpleQuery: true }),
+    retry: false,
   });
 
   const pastorsQuery = useQuery({
     queryKey: ['pastors', id],
     queryFn: () => getSimplePastors({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Form handler

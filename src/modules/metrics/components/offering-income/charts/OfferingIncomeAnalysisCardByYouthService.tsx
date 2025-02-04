@@ -98,7 +98,7 @@ export const OfferingIncomeAnalysisCardByYouthService = ({ churchId }: Props): J
     queryKey: ['offering-income-by-youth-service', { ...searchParams, church: churchId }],
     queryFn: () => {
       return getOfferingIncomeByYouthService({
-        searchType: MetricSearchType.OfferingIncomeByYouthService,
+        searchType: MetricSearchType.OfferingExpensesAdjustment, // change by youth service
         month: searchParams?.month ?? month,
         year: searchParams?.year ?? year,
         isSingleMonth: true,
@@ -106,7 +106,7 @@ export const OfferingIncomeAnalysisCardByYouthService = ({ churchId }: Props): J
         order: RecordOrder.Ascending,
       });
     },
-    retry: 1,
+    retry: false,
     enabled: !!searchParams?.year && !!searchParams?.month && !!churchId,
   });
 

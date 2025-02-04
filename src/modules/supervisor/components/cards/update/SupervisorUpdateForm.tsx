@@ -200,11 +200,13 @@ export const SupervisorUpdateForm = ({
   const copastoresQuery = useQuery({
     queryKey: ['copastors', id],
     queryFn: () => getSimpleCopastors({ isSimpleQuery: true }),
+    retry: false,
   });
 
   const pastorsQuery = useQuery({
     queryKey: ['pastors', id],
     queryFn: () => getSimplePastors({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Form handler

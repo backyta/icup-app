@@ -6,7 +6,7 @@ import { type ColumnDef } from '@tanstack/react-table';
 
 import { OfferingIncomeInfoCard } from '@/modules/offering/income/components/cards/info/OfferingIncomeInfoCard';
 import { type OfferingIncomeColumns } from '@/modules/offering/income/interfaces/offering-income-columns.interface';
-import { OfferingIncomeGenerateTicket } from '@/modules/offering/income/components/cards/info/OfferingIncomeGenerateTicket';
+import { OfferingIncomeGenerateTicket } from '@/modules/offering/income/components/cards/info/OfferingIncomeGenerateReceipt';
 
 import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 import { formatDateToLimaDayMonthYear } from '@/shared/helpers/format-date-to-lima';
@@ -181,7 +181,7 @@ export const offeringIncomeInfoColumns: Array<ColumnDef<OfferingIncomeColumns, a
     },
   },
   {
-    id: 'generateTicket',
+    id: 'generateReceipt',
     accessorKey: 'id',
     cell: (info) => {
       const id = info.row.original.id;
@@ -193,7 +193,7 @@ export const offeringIncomeInfoColumns: Array<ColumnDef<OfferingIncomeColumns, a
           className='font-bold text-[14px] md:text-[14px] text-emerald-500 hover:text-emerald-500'
           variant='ghost'
         >
-          Ticket
+          Recibo
         </Button>
       );
     },

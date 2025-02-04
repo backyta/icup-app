@@ -97,12 +97,14 @@ export const TopFamilyGroupsOfferingsCard = (): JSX.Element => {
         order: RecordOrder.Descending, // allows you to invert the array of all offering to take the first as the last offering according to currency.
       });
     },
+    retry: false,
     enabled: !!searchParams,
   });
 
   const churchesQuery = useQuery({
     queryKey: ['churches-for-top-family-groups'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Effects

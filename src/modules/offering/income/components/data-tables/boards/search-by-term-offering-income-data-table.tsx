@@ -103,12 +103,13 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
     queryKey: ['offering-income-by-term', searchParams],
     queryFn: () => getOfferingsIncomeByTerm(searchParams as OfferingIncomeQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   const churchesQuery = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Set data result query
@@ -193,7 +194,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['offering-income-report-by-term', searchParams],
     queryFn: () => getOfferingIncomeReportByTerm(searchParams as OfferingIncomeQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 
@@ -226,10 +227,10 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               dataForm?.searchType === OfferingIncomeSearchType.GeneralVigil ||
               dataForm?.searchType === OfferingIncomeSearchType.IncomeAdjustment ||
               dataForm?.searchType === OfferingIncomeSearchType.Special ||
-              dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
+              // dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
               dataForm?.searchType === OfferingIncomeSearchType.SundayService ||
               dataForm?.searchType === OfferingIncomeSearchType.UnitedService ||
-              dataForm?.searchType === OfferingIncomeSearchType.YouthService ||
+              // dataForm?.searchType === OfferingIncomeSearchType.YouthService ||
               dataForm?.searchType === OfferingIncomeSearchType.ZonalFasting ||
               dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil) && (
               <span className='font-medium text-[14px] md:text-[14.5px] italic'>
@@ -250,9 +251,9 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               Término de búsqueda:
             </span>{' '}
             {(dataForm?.searchType === OfferingIncomeSearchType.ChurchGround ||
-              dataForm?.searchType === OfferingIncomeSearchType.Special ||
-              dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
-              dataForm?.searchType === OfferingIncomeSearchType.YouthService) &&
+              dataForm?.searchType === OfferingIncomeSearchType.Special) &&
+              // dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
+              // dataForm?.searchType === OfferingIncomeSearchType.YouthService
               (dataForm?.searchSubType ===
                 OfferingIncomeSearchSubType.OfferingByContributorFirstNames ||
                 dataForm?.searchSubType ===
@@ -282,9 +283,9 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               dataForm?.searchType === OfferingIncomeSearchType.FamilyGroup ||
               dataForm?.searchType === OfferingIncomeSearchType.Special ||
               dataForm?.searchType === OfferingIncomeSearchType.ZonalFasting ||
-              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil ||
-              dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
-              dataForm?.searchType === OfferingIncomeSearchType.YouthService) &&
+              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil) &&
+              // dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
+              // dataForm?.searchType === OfferingIncomeSearchType.YouthService
               (dataForm?.searchSubType ===
                 OfferingIncomeSearchSubType.OfferingByContributorFirstNames ||
                 dataForm?.searchSubType ===
@@ -299,9 +300,9 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               dataForm?.searchType === OfferingIncomeSearchType.FamilyGroup ||
               dataForm?.searchType === OfferingIncomeSearchType.Special ||
               dataForm?.searchType === OfferingIncomeSearchType.ZonalFasting ||
-              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil ||
-              dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
-              dataForm?.searchType === OfferingIncomeSearchType.YouthService) &&
+              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil) &&
+              // dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
+              // dataForm?.searchType === OfferingIncomeSearchType.YouthService
               (dataForm?.searchSubType ===
                 OfferingIncomeSearchSubType.OfferingByContributorLastNames ||
                 dataForm?.searchSubType ===
@@ -316,9 +317,9 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               dataForm?.searchType === OfferingIncomeSearchType.FamilyGroup ||
               dataForm?.searchType === OfferingIncomeSearchType.Special ||
               dataForm?.searchType === OfferingIncomeSearchType.ZonalFasting ||
-              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil ||
-              dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
-              dataForm?.searchType === OfferingIncomeSearchType.YouthService) &&
+              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil) &&
+              // dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
+              // dataForm?.searchType === OfferingIncomeSearchType.YouthService
               (dataForm?.searchSubType ===
                 OfferingIncomeSearchSubType.OfferingByContributorFullNames ||
                 dataForm?.searchSubType ===
@@ -336,10 +337,10 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               dataForm?.searchType === OfferingIncomeSearchType.GeneralVigil ||
               dataForm?.searchType === OfferingIncomeSearchType.IncomeAdjustment ||
               dataForm?.searchType === OfferingIncomeSearchType.Special ||
-              dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
+              // dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
               dataForm?.searchType === OfferingIncomeSearchType.SundayService ||
               dataForm?.searchType === OfferingIncomeSearchType.UnitedService ||
-              dataForm?.searchType === OfferingIncomeSearchType.YouthService ||
+              // dataForm?.searchType === OfferingIncomeSearchType.YouthService ||
               dataForm?.searchType === OfferingIncomeSearchType.ZonalFasting ||
               dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil) &&
               (dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByDate ||
@@ -353,25 +354,27 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
                     : `${dataForm?.dateTerm?.from ? dateFormatterToDDMMYYYY(dataForm?.dateTerm?.from) : ''} ${dataForm?.dateTerm?.to ? ` - ${dateFormatterToDDMMYYYY(dataForm?.dateTerm?.to)}` : ''}`}
                 </span>
               )}
-            {(((dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
-              dataForm?.searchType === OfferingIncomeSearchType.SundayService) &&
-              (dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByShift ||
-                dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate)) ||
-              dataForm?.searchType === OfferingIncomeSearchType.RecordStatus) && (
-              <span className='font-medium text-[14px] md:text-[14.5px] italic'>
-                {dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate
-                  ? ` - ${
-                      Object.entries(OfferingIncomeSearchSelectOptionNames).find(
-                        ([key, value]) => key === dataForm?.selectTerm && value
-                      )?.[1]
-                    }`
-                  : `${
-                      Object.entries(OfferingIncomeSearchSelectOptionNames).find(
-                        ([key, value]) => key === dataForm?.selectTerm && value
-                      )?.[1]
-                    }`}
-              </span>
-            )}
+            {
+              // dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
+              ((dataForm?.searchType === OfferingIncomeSearchType.SundayService &&
+                (dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByShift ||
+                  dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate)) ||
+                dataForm?.searchType === OfferingIncomeSearchType.RecordStatus) && (
+                <span className='font-medium text-[14px] md:text-[14.5px] italic'>
+                  {dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate
+                    ? ` - ${
+                        Object.entries(OfferingIncomeSearchSelectOptionNames).find(
+                          ([key, value]) => key === dataForm?.selectTerm && value
+                        )?.[1]
+                      }`
+                    : `${
+                        Object.entries(OfferingIncomeSearchSelectOptionNames).find(
+                          ([key, value]) => key === dataForm?.selectTerm && value
+                        )?.[1]
+                      }`}
+                </span>
+              )
+            }
           </div>
 
           {/* Search Church */}

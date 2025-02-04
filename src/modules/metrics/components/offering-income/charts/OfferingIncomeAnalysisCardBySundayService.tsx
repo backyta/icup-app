@@ -114,7 +114,7 @@ export const OfferingIncomeAnalysisCardBySundayService = ({ churchId }: Props): 
         church: churchId ?? '',
       });
     },
-    retry: 1,
+    retry: false,
     enabled: !!searchParams?.year && !!searchParams?.month && !!churchId,
   });
 

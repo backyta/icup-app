@@ -96,7 +96,7 @@ export function SearchByTermCopastorDataTable<TData, TValue>({
     queryKey: ['copastors-by-term', searchParams],
     queryFn: () => getCopastorsByTerm(searchParams as CopastorQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   const churchesQuery = useQuery({
@@ -169,7 +169,7 @@ export function SearchByTermCopastorDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['copastors-report-by-term', searchParams],
     queryFn: () => getCopastorsReportByTerm(searchParams as CopastorQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

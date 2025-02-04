@@ -84,7 +84,7 @@ export function SearchByTermUserDataTable<TData, TValue>({
     queryKey: ['users-by-term', searchParams],
     queryFn: () => getUsersByTerm(searchParams as UserQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   //* Set data result query
@@ -152,7 +152,7 @@ export function SearchByTermUserDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['users-report-by-term', searchParams],
     queryFn: () => getUsersReportByTerm(searchParams as UserQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

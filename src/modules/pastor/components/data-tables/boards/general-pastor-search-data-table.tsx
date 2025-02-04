@@ -82,7 +82,7 @@ export function GeneralPastorSearchDataTable<TData, TValue>({
     queryKey: ['general-pastors', searchParams],
     queryFn: () => getPastors(searchParams as PastorQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   //* Set data result query
@@ -150,7 +150,7 @@ export function GeneralPastorSearchDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['general-pastors-report', searchParams],
     queryFn: () => getGeneralPastorsReport(searchParams as PastorQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

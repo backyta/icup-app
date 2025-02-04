@@ -155,7 +155,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
       memberId: '',
       zoneId: '',
       churchId: '',
-      generateTicket: 'yes',
+      generateReceipt: 'yes',
     },
   });
 
@@ -167,7 +167,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   const isNewExternalDonor = form.watch('isNewExternalDonor');
   const memberType = form.watch('memberType');
   const externalDonorId = form.watch('externalDonorId');
-  const generateTicket = form.watch('generateTicket');
+  const generateReceipt = form.watch('generateReceipt');
 
   //* Custom hooks
   useOfferingIncomeCreationSubmitButtonLogic({
@@ -184,25 +184,26 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   const { data } = useQuery({
     queryKey: ['external-donors', churchId],
     queryFn: getExternalDonors,
+    retry: false,
   });
 
   const churchesQuery = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
-    retry: 1,
+    retry: false,
   });
 
   const familyGroupsQuery = useQuery({
     queryKey: ['family-groups', churchId],
     queryFn: () => getSimpleFamilyGroups({ isSimpleQuery: true, churchId }),
-    retry: 1,
+    retry: false,
     enabled: !!churchId,
   });
 
   const zonesQuery = useQuery({
     queryKey: ['zones', churchId],
     queryFn: () => getSimpleZones({ isSimpleQuery: true, churchId }),
-    retry: 1,
+    retry: false,
     enabled: !!churchId,
   });
 
@@ -222,13 +223,14 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
     },
     maxSize: 1024 * 1000, // 1KB
     onDrop,
-    disabled: isDropZoneDisabled,
+    // disabled: isDropZoneDisabled,
+    disabled: true,
   });
 
   const offeringIncomeCreationMutation = useOfferingIncomeCreationMutation({
     setFiles,
     imageUrls,
-    generateTicket,
+    generateReceipt,
     setIsInputDisabled,
     setIsInputMemberDisabled,
     setIsSubmitButtonDisabled,
@@ -258,6 +260,19 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
       keepError: true,
     });
   }, [memberType]);
+
+  useEffect(() => {
+    if (
+      type === OfferingIncomeCreationType.IncomeAdjustment ||
+      subType !== OfferingIncomeCreationSubType.FamilyGroup
+    ) {
+      form.setValue('generateReceipt', 'no');
+    }
+
+    if (subType === OfferingIncomeCreationSubType.FamilyGroup) {
+      form.setValue('generateReceipt', 'yes');
+    }
+  }, [type, subType]);
 
   useEffect(() => {
     document.title = 'Modulo Ofrenda - IcupApp';
@@ -585,18 +600,20 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                       {value}
                                     </SelectItem>
                                   )
-                                ) : subType === OfferingIncomeCreationSubType.SundaySchool ||
-                                  subType === OfferingIncomeCreationSubType.YouthService ? (
-                                  (key === OfferingIncomeCreationCategory.OfferingBox ||
-                                    key === OfferingIncomeCreationCategory.InternalDonation ||
-                                    key === OfferingIncomeCreationCategory.ExternalDonation ||
-                                    key ===
-                                      OfferingIncomeCreationCategory.FundraisingProMinistry) && (
-                                    <SelectItem key={key} value={key}>
-                                      {value}
-                                    </SelectItem>
-                                  )
                                 ) : (
+                                  // subType === OfferingIncomeCreationSubType.SundaySchool ||
+                                  //   subType === OfferingIncomeCreationSubType.YouthService ? (
+                                  //   (key === OfferingIncomeCreationCategory.OfferingBox ||
+                                  //     key === OfferingIncomeCreationCategory.InternalDonation ||
+                                  //     key === OfferingIncomeCreationCategory.ExternalDonation ||
+                                  //     key ===
+                                  //       OfferingIncomeCreationCategory.FundraisingProMinistry
+                                  //     ) && (
+                                  //     <SelectItem key={key} value={key}>
+                                  //       {value}
+                                  //     </SelectItem>
+                                  //   )
+                                  // ) :
                                   <SelectItem key={key} value={key}>
                                     {value}
                                   </SelectItem>
@@ -1108,13 +1125,13 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 category === OfferingIncomeCreationCategory.InternalDonation) ||
                 (type === OfferingIncomeCreationType.Offering &&
                   subType === OfferingIncomeCreationSubType.ChurchGround &&
-                  category === OfferingIncomeCreationCategory.InternalDonation) ||
-                (type === OfferingIncomeCreationType.Offering &&
-                  subType === OfferingIncomeCreationSubType.SundaySchool &&
-                  category === OfferingIncomeCreationCategory.InternalDonation) ||
-                (type === OfferingIncomeCreationType.Offering &&
-                  subType === OfferingIncomeCreationSubType.YouthService &&
                   category === OfferingIncomeCreationCategory.InternalDonation)) && (
+                // (type === OfferingIncomeCreationType.Offering &&
+                //   subType === OfferingIncomeCreationSubType.SundaySchool &&
+                //   category === OfferingIncomeCreationCategory.InternalDonation) ||
+                // (type === OfferingIncomeCreationType.Offering &&
+                //   subType === OfferingIncomeCreationSubType.YouthService &&
+                //   category === OfferingIncomeCreationCategory.InternalDonation)
                 <FormField
                   control={form.control}
                   name='memberType'
@@ -1161,13 +1178,13 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 category === OfferingIncomeCreationCategory.InternalDonation) ||
                 (type === OfferingIncomeCreationType.Offering &&
                   subType === OfferingIncomeCreationSubType.ChurchGround &&
-                  category === OfferingIncomeCreationCategory.InternalDonation) ||
-                (type === OfferingIncomeCreationType.Offering &&
-                  subType === OfferingIncomeCreationSubType.SundaySchool &&
-                  category === OfferingIncomeCreationCategory.InternalDonation) ||
-                (type === OfferingIncomeCreationType.Offering &&
-                  subType === OfferingIncomeCreationSubType.YouthService &&
                   category === OfferingIncomeCreationCategory.InternalDonation)) && (
+                // (type === OfferingIncomeCreationType.Offering &&
+                //   subType === OfferingIncomeCreationSubType.SundaySchool &&
+                //   category === OfferingIncomeCreationCategory.InternalDonation) ||
+                // (type === OfferingIncomeCreationType.Offering &&
+                //   subType === OfferingIncomeCreationSubType.YouthService &&
+                //   category === OfferingIncomeCreationCategory.InternalDonation)
                 <FormField
                   control={form.control}
                   name='memberId'
@@ -1430,8 +1447,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 />
               )}
 
-              {(subType === OfferingIncomeCreationSubType.SundayService ||
-                subType === OfferingIncomeCreationSubType.SundaySchool) &&
+              {subType === OfferingIncomeCreationSubType.SundayService &&
+                // subType === OfferingIncomeCreationSubType.SundaySchool
                 category === OfferingIncomeCreationCategory.OfferingBox && (
                   <FormField
                     control={form.control}
@@ -1581,7 +1598,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                           }}
                           disabled={
                             (subType === OfferingIncomeCreationSubType.SundayService ||
-                              subType === OfferingIncomeCreationSubType.SundaySchool ||
+                              // subType === OfferingIncomeCreationSubType.SundaySchool ||
                               subType === OfferingIncomeCreationSubType.FamilyGroup) &&
                             category === OfferingIncomeCreationCategory.OfferingBox
                               ? (date) => {
@@ -1590,15 +1607,15 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   const dayOfWeek = date.getDay();
                                   return dayOfWeek !== 0 || date > today || date < minDate;
                                 }
-                              : subType === OfferingIncomeCreationSubType.YouthService &&
-                                  category === OfferingIncomeCreationCategory.OfferingBox
-                                ? (date) => {
-                                    const today = new Date();
-                                    const minDate = new Date('1900-01-01');
-                                    const dayOfWeek = date.getDay();
-                                    return dayOfWeek !== 6 || date > today || date < minDate;
-                                  }
-                                : (date) => date > new Date() || date < new Date('1900-01-01')
+                              : // : subType === OfferingIncomeCreationSubType.YouthService &&
+                                //     category === OfferingIncomeCreationCategory.OfferingBox
+                                //   ? (date) => {
+                                //       const today = new Date();
+                                //       const minDate = new Date('1900-01-01');
+                                //       const dayOfWeek = date.getDay();
+                                //       return dayOfWeek !== 6 || date > today || date < minDate;
+                                //     }
+                                (date) => date > new Date() || date < new Date('1900-01-01')
                           }
                           initialFocus
                         />
@@ -1690,8 +1707,9 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                         </span>
                       ) : (
                         <span className='font-medium text-[12.5px] md:text-[13px] pl-3 md:pl-6 mt-1 flex flex-col'>
-                          <span>✅ Máximo 3 archivos.</span>
-                          <span>✅ El campo se bloqueara al llegar o pasar los 3 archivos.</span>
+                          <span>✅ Máximo 1 archivos.</span>
+                          <span>✅ La imagen del recibo se auto-generara.</span>
+                          <span>✅ La imagen generada se guardara en el registro.</span>
                         </span>
                       )}
                     </FormItem>
@@ -1778,16 +1796,17 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
 
               <FormField
                 control={form.control}
-                name='generateTicket'
+                name='generateReceipt'
                 render={({ field }) => (
                   <FormItem className='mt-4 border-t pt-3'>
                     <FormLabel className='font-bold text-[14px] md:text-[14.5px] text-blue-500'>
-                      ¿Deseas generar el ticket para este registro?
+                      ¿Deseas generar el recibo para este registro?
                     </FormLabel>
                     <FormControl>
                       <RadioGroup
                         onValueChange={field.onChange}
                         defaultValue={field.value}
+                        value={field.value}
                         className='flex w-full px-4  justify-between'
                       >
                         <FormItem className='flex items-center mt-2 space-x-2 space-y-0'>
@@ -1795,7 +1814,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                             <RadioGroupItem disabled={isInputDisabled} value='yes' />
                           </FormControl>
                           <FormLabel className='text-[14px] cursor-pointer'>
-                            Sí, quiero generar el ticket.
+                            Sí, quiero generar el recibo.
                           </FormLabel>
                         </FormItem>
                         <FormItem className='flex items-center mt-2 space-x-2 space-y-0'>
@@ -1832,7 +1851,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 className={cn(
                   'w-full text-[14px]',
                   (uploadImagesMutation?.isPending || offeringIncomeCreationMutation?.isPending) &&
-                    generateTicket == 'no' &&
+                    generateReceipt == 'no' &&
                     'bg-emerald-500 hover:bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
                 )}
                 onClick={() => {
@@ -1848,7 +1867,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 }}
               >
                 {(uploadImagesMutation?.isPending || offeringIncomeCreationMutation?.isPending) &&
-                generateTicket === 'no'
+                generateReceipt === 'no'
                   ? 'Procesando...'
                   : 'Registrar'}
               </Button>

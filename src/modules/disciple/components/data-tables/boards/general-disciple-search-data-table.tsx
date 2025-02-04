@@ -85,7 +85,7 @@ export function GeneralDiscipleSearchDataTable<TData, TValue>({
     queryKey: ['general-disciples', searchParams],
     queryFn: () => getDisciples(searchParams as DiscipleQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   //* Set data result query
@@ -153,7 +153,7 @@ export function GeneralDiscipleSearchDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['general-disciples-report', searchParams],
     queryFn: () => getGeneralDisciplesReport(searchParams as DiscipleQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

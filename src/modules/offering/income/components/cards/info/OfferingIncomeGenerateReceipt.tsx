@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { cn } from '@/shared/lib/utils';
 import { AiOutlineLoading } from 'react-icons/ai';
 
-import { generateTicketByOfferingIncomeId } from '@/modules/offering/income/services/offering-income.service';
+import { generateReceiptByOfferingIncomeId } from '@/modules/offering/income/services/offering-income.service';
 
 import {
   Dialog,
@@ -29,9 +29,9 @@ export const OfferingIncomeGenerateTicket = ({
 
   //* Query Report and Event trigger
   const generateReportQuery = useQuery({
-    queryKey: ['offering-income-generate-ticket', idRow],
-    queryFn: () => generateTicketByOfferingIncomeId({ id: idRow, setOpen }),
-    retry: 1,
+    queryKey: ['offering-income-generate-receipt', idRow],
+    queryFn: () => generateReceiptByOfferingIncomeId({ id: idRow, setOpen }),
+    retry: false,
     enabled: false,
   });
 
@@ -55,12 +55,12 @@ export const OfferingIncomeGenerateTicket = ({
 
       <DialogContent className='max-w-[350px] sm:max-w-[400px] w-full justify-center py-8 px-6 sm:px-8 max-h-full overflow-y-auto text-center bg-white dark:bg-slate-950 rounded-lg shadow-md'>
         <DialogTitle className='text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100'>
-          Generando ticket
+          Generando recibo
         </DialogTitle>
         <div className='flex flex-col items-center justify-center gap-6 mt-6'>
           <AiOutlineLoading className='w-16 h-16 sm:w-20 sm:h-20 text-emerald-400 animate-spin' />
           <DialogDescription className='text-lg sm:text-xl text-gray-700 dark:text-gray-300'>
-            Por favor, espere mientras generamos su ticket...
+            Por favor, espere mientras generamos su recibo...
           </DialogDescription>
         </div>
       </DialogContent>

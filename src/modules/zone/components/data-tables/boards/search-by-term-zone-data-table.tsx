@@ -85,12 +85,13 @@ export function SearchByTermZoneDataTable<TData, TValue>({
     queryKey: ['zones-by-term', searchParams],
     queryFn: () => getZonesByTerm(searchParams as ZoneQueryParams),
     enabled: !!searchParams,
-    retry: 1,
+    retry: false,
   });
 
   const churchesQuery = useQuery({
     queryKey: ['churches'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Set data result query
@@ -158,7 +159,7 @@ export function SearchByTermZoneDataTable<TData, TValue>({
   const generateReportQuery = useQuery({
     queryKey: ['zones-report-by-term', searchParams],
     queryFn: () => getZonesReportByTerm(searchParams as ZoneQueryParams),
-    retry: 1,
+    retry: false,
     enabled: false,
   });
 

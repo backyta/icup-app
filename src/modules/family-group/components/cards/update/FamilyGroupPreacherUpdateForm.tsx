@@ -89,7 +89,7 @@ export const FamilyGroupPreacherUpdateForm = ({
         isNullFamilyGroup: false,
       }),
     enabled: !!data?.theirZone?.id,
-    retry: 1,
+    retry: false,
   });
 
   //* Custom Hooks

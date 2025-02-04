@@ -134,7 +134,7 @@ export const ComparativeOfferingIncomeAnalysisCardByType = ({ churchId }: Props)
         order: RecordOrder.Descending,
       });
     },
-    retry: 1,
+    retry: false,
     enabled: !!searchParams?.year && !!searchParams?.type,
   });
 

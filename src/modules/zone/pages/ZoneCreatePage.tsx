@@ -106,6 +106,7 @@ export const ZoneCreatePage = (): JSX.Element => {
   const { data } = useQuery({
     queryKey: ['supervisors-for-zone'],
     queryFn: () => getSimpleSupervisors({ isNullZone: true, isSimpleQuery: true }),
+    retry: false,
   });
 
   //* Form handler

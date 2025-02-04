@@ -30,6 +30,7 @@ export const OfferingExpenseMetrics = (): JSX.Element => {
     queryKey: ['churches-for-offering-income-metrics'],
     queryFn: () => getSimpleChurches({ isSimpleQuery: true }),
     staleTime: 1000 * 60,
+    retry: false,
   });
 
   //* Effects
