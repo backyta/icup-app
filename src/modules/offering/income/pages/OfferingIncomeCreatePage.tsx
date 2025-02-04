@@ -136,6 +136,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const topRef = useRef<HTMLDivElement>(null);
 
+  const [isProcessing, setIsProcessing] = useState(false);
+
   //* Form
   const form = useForm<z.infer<typeof offeringIncomeFormSchema>>({
     mode: 'onChange',
@@ -241,6 +243,17 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
   const uploadImagesMutation = useImagesUploadMutation();
 
   //* Effects
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+
+    if (offeringIncomeCreationMutation?.isPending) {
+      setIsProcessing(true);
+      timer = setTimeout(() => setIsProcessing(false), 4800);
+    }
+
+    return () => clearTimeout(timer);
+  }, [offeringIncomeCreationMutation?.isPending]);
+
   useEffect(() => {
     if (memberType === MemberType.Disciple) setQueryData(disciplesQuery.data);
     if (memberType === MemberType.Preacher) setQueryData(preachersQuery.data);
@@ -1851,6 +1864,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 className={cn(
                   'w-full text-[14px]',
                   offeringIncomeCreationMutation?.isPending &&
+                    isProcessing &&
                     'bg-emerald-500 hover:bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
                 )}
                 onClick={() => {
@@ -1865,7 +1879,9 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   }, 100);
                 }}
               >
-                {offeringIncomeCreationMutation?.isPending ? 'Procesando...' : 'Registrar'}
+                {offeringIncomeCreationMutation?.isPending && isProcessing
+                  ? 'Procesando...'
+                  : 'Registrar'}
               </Button>
             </div>
           </form>
