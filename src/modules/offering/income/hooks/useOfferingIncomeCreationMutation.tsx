@@ -96,19 +96,14 @@ export const useOfferingIncomeCreationMutation = ({
       }
     },
     onSuccess: async (data) => {
-      toast.success('Registro creado exitosamente.', {
-        position: 'top-center',
-        className: 'justify-center',
-      });
-
       setTimeout(() => {
         navigate('/offerings/income');
-      }, 5000);
+      }, 4800);
 
       setTimeout(() => {
         setFiles([]);
         offeringIncomeCreationForm.reset();
-      }, 5100);
+      }, 4900);
 
       if (generateReceipt) {
         //! OLD RECEIPT
@@ -156,6 +151,11 @@ export const useOfferingIncomeCreationMutation = ({
             recordStatus: data.recordStatus,
             imageUrls: oldReceiptImageUrls,
           },
+        });
+
+        toast.success('Registro creado exitosamente.', {
+          position: 'top-center',
+          className: 'justify-center',
         });
 
         //* VALID RECEIPT
