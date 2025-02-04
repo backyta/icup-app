@@ -1850,8 +1850,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 type='submit'
                 className={cn(
                   'w-full text-[14px]',
-                  (uploadImagesMutation?.isPending || offeringIncomeCreationMutation?.isPending) &&
-                    generateReceipt == 'no' &&
+                  offeringIncomeCreationMutation?.isPending &&
                     'bg-emerald-500 hover:bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
                 )}
                 onClick={() => {
@@ -1866,10 +1865,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                   }, 100);
                 }}
               >
-                {(uploadImagesMutation?.isPending || offeringIncomeCreationMutation?.isPending) &&
-                generateReceipt === 'no'
-                  ? 'Procesando...'
-                  : 'Registrar'}
+                {offeringIncomeCreationMutation?.isPending ? 'Procesando...' : 'Registrar'}
               </Button>
             </div>
           </form>
