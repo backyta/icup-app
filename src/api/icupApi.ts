@@ -33,7 +33,7 @@ icupApi.interceptors.request.use(async (config) => {
     if (isTokenExpiringSoon(token)) {
       try {
         const { data } = await axios.get<{ accessToken: string }>(
-          `${import.meta.env.VITE_API_URL}/auth/refresh-token`,
+          `${import.meta.env.VITE_API_URL}/auth/renew-token`,
           {
             withCredentials: true,
           }
