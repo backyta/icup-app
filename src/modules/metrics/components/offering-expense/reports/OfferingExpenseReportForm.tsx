@@ -39,6 +39,13 @@ import {
   CommandGroup,
   CommandInput,
 } from '@/shared/components/ui/command';
+import {
+  Select,
+  SelectItem,
+  SelectValue,
+  SelectContent,
+  SelectTrigger,
+} from '@/shared/components/ui/select';
 import { Button } from '@/shared/components/ui/button';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Card, CardContent } from '@/shared/components/ui/card';
@@ -55,7 +62,6 @@ export const OfferingExpenseReportForm = ({ churchId, dialogClose }: Props): JSX
   const [isInputDisabled, setIsInputDisabled] = useState<boolean>(false);
   const [isSubmitButtonDisabled, setIsSubmitButtonDisabled] = useState<boolean>(true);
   const [isMessageErrorDisabled, setIsMessageErrorDisabled] = useState<boolean>(true);
-  const [isInputSearchYearOpen, setIsInputSearchYearOpen] = useState<boolean>(false);
   const [isInputSearchEndMonthOpen, setIsInputSearchEndMonthOpen] = useState<boolean>(false);
   const [isInputSearchStartMonthOpen, setIsInputSearchStartMonthOpen] = useState<boolean>(false);
 
@@ -73,7 +79,7 @@ export const OfferingExpenseReportForm = ({ churchId, dialogClose }: Props): JSX
   });
 
   //* Helpers
-  const years = generateYearOptions();
+  const years = generateYearOptions(2025);
 
   //* Watchers
   const types = form.watch('types');
@@ -153,7 +159,7 @@ export const OfferingExpenseReportForm = ({ churchId, dialogClose }: Props): JSX
                   name='year'
                   render={({ field }) => {
                     return (
-                      <FormItem className='flex justify-start gap-10 items-center'>
+                      <FormItem className='flex justify-start gap-5 items-center'>
                         <div className='w-auto'>
                           <FormLabel className='text-[14.5px] md:text-[14.5px] font-bold'>
                             Año de búsqueda
@@ -162,60 +168,24 @@ export const OfferingExpenseReportForm = ({ churchId, dialogClose }: Props): JSX
                             Selecciona el año de búsqueda que tendrán los reportes.
                           </FormDescription>
                         </div>
-                        <Popover
-                          open={isInputSearchYearOpen}
-                          onOpenChange={setIsInputSearchYearOpen}
+                        <Select
+                          onValueChange={field.onChange}
+                          value={field.value}
+                          disabled={isInputDisabled}
                         >
-                          <PopoverTrigger asChild>
-                            <FormControl className='text-[14px] md:text-[14px]'>
-                              <Button
-                                disabled={isInputDisabled}
-                                variant='outline'
-                                role='combobox'
-                                className={cn(
-                                  'mt-2 justify-center w-auto text-center px-2 text-[14px] md:text-[14px] ',
-                                  !field.value &&
-                                    'text-slate-500  dark:text-slate-200 font-normal px-2'
-                                )}
-                              >
-                                {field.value
-                                  ? years.find((year) => year.value === field.value)?.label
-                                  : 'Elige un año'}
-                                <CaretSortIcon className='h-4 w-4 shrink-0' />
-                              </Button>
-                            </FormControl>
-                          </PopoverTrigger>
-                          <PopoverContent align='center' className='w-auto px-4 py-2'>
-                            <Command>
-                              <CommandInput
-                                placeholder='Busque un año'
-                                className='h-9 text-[14px] md:text-[14px]'
-                              />
-                              <CommandEmpty>Año no encontrado.</CommandEmpty>
-                              <CommandGroup className='max-h-[100px] h-auto'>
-                                {years.map((year) => (
-                                  <CommandItem
-                                    className='text-[14px] md:text-[14px]'
-                                    value={year.label}
-                                    key={year.value}
-                                    onSelect={() => {
-                                      form.setValue('year', year.value);
-                                      setIsInputSearchYearOpen(false);
-                                    }}
-                                  >
-                                    {year.label}
-                                    <CheckIcon
-                                      className={cn(
-                                        'ml-auto h-4 w-4',
-                                        year.value === field.value ? 'opacity-100' : 'opacity-0'
-                                      )}
-                                    />
-                                  </CommandItem>
-                                ))}
-                              </CommandGroup>
-                            </Command>
-                          </PopoverContent>
-                        </Popover>
+                          <FormControl className='text-[14px] md:text-[14px] w-[5rem]'>
+                            <SelectTrigger>
+                              {field.value ? <SelectValue placeholder='Año' /> : 'Año'}
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className={cn(years.length >= 3 ? 'h-[8rem]' : 'h-auto')}>
+                            {Object.values(years).map(({ label, value }) => (
+                              <SelectItem className={`text-[14px]`} key={value} value={label}>
+                                {label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                         <FormMessage className='text-[13px]' />
                       </FormItem>
                     );

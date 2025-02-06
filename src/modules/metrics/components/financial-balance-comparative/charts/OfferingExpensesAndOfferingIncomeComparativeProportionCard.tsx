@@ -107,7 +107,7 @@ export const OfferingExpensesAndOfferingIncomeComparativeProportionCard = ({
               <CardTitle className='text-center text-[3rem] md:text-[3rem] lg:text-[3.2rem] xl:text-[3.5rem] font-extrabold leading-10'>
                 {<CountUp end={Number(data?.totalOfferingRecordsCount)} start={0} duration={4} />}
               </CardTitle>
-              <CardDescription className='text-[15px] md:text-[15px] xl:text-[16px] font-bold text-center'>
+              <div className='text-[15px] md:text-[15px] xl:text-[16px] font-bold text-center'>
                 Total Registros
                 <Badge
                   variant='active'
@@ -115,7 +115,7 @@ export const OfferingExpensesAndOfferingIncomeComparativeProportionCard = ({
                 >
                   Activos
                 </Badge>
-              </CardDescription>
+              </div>
             </div>
           </div>
         </CardHeader>

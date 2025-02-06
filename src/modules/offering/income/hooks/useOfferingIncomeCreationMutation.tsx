@@ -3,7 +3,7 @@
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { type UseFormReturn } from 'react-hook-form';
-import { useMutation, type UseMutationResult } from '@tanstack/react-query';
+import { useMutation, useQueryClient, type UseMutationResult } from '@tanstack/react-query';
 
 import { type OfferingIncomeResponse } from '@/modules/offering/income/interfaces/offering-income-response.interface';
 import { type OfferingIncomeFormData } from '@/modules/offering/income/interfaces/offering-income-form-data.interface';
@@ -55,6 +55,9 @@ export const useOfferingIncomeCreationMutation = ({
 > => {
   //* Hooks (external libraries)
   const navigate = useNavigate();
+
+  //* QueryClient
+  const queryClient = useQueryClient();
 
   //* Hooks
   const mutation = useMutation({
@@ -211,6 +214,8 @@ export const useOfferingIncomeCreationMutation = ({
           secureUrl: oldReceiptImageUrls[0],
           fileType: OfferingFileType.Income,
         });
+
+        queryClient.invalidateQueries({ queryKey: ['general-offering-income'] });
       }
     },
   });

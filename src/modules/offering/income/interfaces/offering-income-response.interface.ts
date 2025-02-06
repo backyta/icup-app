@@ -28,6 +28,7 @@ export interface OfferingIncomeResponse {
   updatedAt?: Date;
   updatedBy?: UpdatedBy;
   recordStatus: string;
+  receiptCode?: string;
   memberType?: string;
   familyGroup?: FamilyGroup | null;
   church?: Anexe | null;

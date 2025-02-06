@@ -1,10 +1,10 @@
-export const generateYearOptions = (): Array<{
+export const generateYearOptions = (
+  minYear: number
+): Array<{
   label: string;
   value: string;
 }> => {
   const currentYear = new Date().getFullYear();
-
-  const minYear = 2024;
 
   const years = [];
   for (let year = currentYear; year >= minYear; year--) {

@@ -152,20 +152,10 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
               </CardDescription>
             </div>
 
-            <div className='space-y-1 col-start-1 col-end-4 row-start-4'>
-              {data?.category === OfferingIncomeCreationCategory.ExternalDonation ? (
-                <Label className='text-[14px] md:text-[15px]'>Observaciones / Descripción</Label>
-              ) : (
-                <Label className='text-[14px] md:text-[15px]'>Detalles / Observaciones</Label>
-              )}
-              <CardDescription className='px-2 text-[14px] md:text-[14.5px] overflow-hidden text-ellipsis'>
-                {!data?.comments
-                  ? '-'
-                  : data?.comments.split('\n').map((line, index) => (
-                      <p key={index} className='whitespace-pre-wrap'>
-                        {line}
-                      </p>
-                    ))}
+            <div className='space-y-1'>
+              <Label className='text-[14px] md:text-[15px]'>Código de recibo</Label>
+              <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
+                {data?.receiptCode ? data?.receiptCode : '-'}
               </CardDescription>
             </div>
 
@@ -194,6 +184,24 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
                 </ul>
               </div>
             </div>
+
+            <div className='space-y-1 col-start-1 col-end-4 row-start-5'>
+              {data?.category === OfferingIncomeCreationCategory.ExternalDonation ? (
+                <Label className='text-[14px] md:text-[15px]'>Observaciones / Descripción</Label>
+              ) : (
+                <Label className='text-[14px] md:text-[15px]'>Detalles / Observaciones</Label>
+              )}
+              <CardDescription className='px-2 text-[14px] md:text-[14.5px] overflow-hidden text-ellipsis'>
+                {!data?.comments
+                  ? '-'
+                  : data?.comments.split('\n').map((line, index) => (
+                      <p key={index} className='whitespace-pre-wrap'>
+                        {line}
+                      </p>
+                    ))}
+              </CardDescription>
+            </div>
+
             {(data?.category === OfferingIncomeCreationCategory.ExternalDonation ||
               data?.category === OfferingIncomeCreationCategory.InternalDonation ||
               data?.subType === OfferingIncomeCreationSubType.FamilyGroup ||

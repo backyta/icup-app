@@ -10,7 +10,6 @@ import { useOfferingIncomeStore } from '@/stores/offering-income/offering-income
 
 import { OfferingIncomeTabsCard } from '@/modules/offering/income/components/cards/info/OfferingIncomeTabsCard';
 
-import { Button } from '@/shared/components/ui/button';
 import {
   Dialog,
   DialogTitle,
@@ -18,6 +17,7 @@ import {
   DialogTrigger,
   DialogDescription,
 } from '@/shared/components/ui/dialog';
+import { Button } from '@/shared/components/ui/button';
 import { Drawer, DrawerContent, DrawerTrigger } from '@/shared/components/ui/drawer';
 
 interface OfferingIncomeInfoCardProps {

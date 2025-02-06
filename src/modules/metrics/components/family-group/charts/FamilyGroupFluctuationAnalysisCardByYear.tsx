@@ -10,7 +10,6 @@ import { useQuery } from '@tanstack/react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMediaQuery } from '@react-hook/media-query';
 import { FcDataBackup, FcDeleteDatabase } from 'react-icons/fc';
-import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 
 import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
@@ -31,15 +30,13 @@ import {
   ChartLegendContent,
 } from '@/shared/components/ui/chart';
 import {
-  Command,
-  CommandItem,
-  CommandInput,
-  CommandEmpty,
-  CommandGroup,
-} from '@/shared/components/ui/command';
-import { Button } from '@/shared/components/ui/button';
+  Select,
+  SelectItem,
+  SelectValue,
+  SelectContent,
+  SelectTrigger,
+} from '@/shared/components/ui/select';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui/card';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/shared/components/ui/form';
 
 const chartConfig = {
@@ -63,7 +60,6 @@ interface Props {
 
 export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): JSX.Element => {
   //* States
-  const [isInputSearchYearOpen, setIsInputSearchYearOpen] = useState(false);
   const [searchParams, setSearchParams] = useState<SearchParamsOptions | undefined>(undefined);
 
   //* Media Queries
@@ -98,7 +94,7 @@ export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): J
   });
 
   //* Helpers
-  const years = generateYearOptions();
+  const years = generateYearOptions(2025);
 
   //* Effects
   // Default value
@@ -135,57 +131,27 @@ export const FamilyGroupFluctuationAnalysisCardByYear = ({ churchId }: Props): J
               name='year'
               render={({ field }) => {
                 return (
-                  <FormItem className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2'>
-                    <Popover open={isInputSearchYearOpen} onOpenChange={setIsInputSearchYearOpen}>
-                      <PopoverTrigger asChild>
-                        <FormControl className='text-[14px] md:text-[14px]'>
-                          <Button
-                            variant='outline'
-                            role='combobox'
-                            className={cn(
-                              'justify-between w-full text-center px-2 text-[14px] md:text-[14px]',
-                              !field.value && 'text-slate-500 dark:text-slate-200 font-normal px-2'
-                            )}
-                          >
-                            {field.value
-                              ? years.find((year) => year.value === field.value)?.label
-                              : 'Elige un año'}
-                            <CaretSortIcon className='h-4 w-4 shrink-0' />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent align='center' className='w-auto px-4 py-2'>
-                        <Command className='w-[10rem]'>
-                          <CommandInput
-                            placeholder='Busque un año'
-                            className='h-9 text-[14px] md:text-[14px]'
-                          />
-                          <CommandEmpty>Año no encontrado.</CommandEmpty>
-                          <CommandGroup className='max-h-[100px] h-auto'>
-                            {years.map((year) => (
-                              <CommandItem
-                                className='text-[14px] md:text-[14px]'
-                                value={year.label}
-                                key={year.value}
-                                onSelect={() => {
-                                  form.setValue('year', year.value);
-                                  year && form.handleSubmit(handleSubmit)();
-                                  setIsInputSearchYearOpen(false);
-                                }}
-                              >
-                                {year.label}
-                                <CheckIcon
-                                  className={cn(
-                                    'ml-auto h-4 w-4',
-                                    year.value === field.value ? 'opacity-100' : 'opacity-0'
-                                  )}
-                                />
-                              </CommandItem>
-                            ))}
-                          </CommandGroup>
-                        </Command>
-                      </PopoverContent>
-                    </Popover>
+                  <FormItem className='flex justify-start gap-5 items-center'>
+                    <Select
+                      onValueChange={(value) => {
+                        field.onChange(value);
+                        form.handleSubmit(handleSubmit)();
+                      }}
+                      value={field.value}
+                    >
+                      <FormControl className='text-[14px] md:text-[14px] w-[4.8rem] font-medium'>
+                        <SelectTrigger>
+                          {field.value ? <SelectValue placeholder='Año' /> : 'Año'}
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className={cn(years.length >= 3 ? 'h-[8rem]' : 'h-auto')}>
+                        {Object.values(years).map(({ label, value }) => (
+                          <SelectItem className={`text-[14px]`} key={value} value={label}>
+                            {label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <FormMessage className='text-[13px]' />
                   </FormItem>
                 );
