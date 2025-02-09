@@ -95,13 +95,13 @@ export const useOfferingIncomeCreationMutation = ({
 
         setTimeout(() => {
           navigate('/');
-        }, 2000);
+        }, 3200);
       }
     },
     onSuccess: async (data) => {
       setTimeout(() => {
         navigate('/offerings/income');
-      }, 2200);
+      }, 3300);
 
       setTimeout(() => {
         setFiles([]);
