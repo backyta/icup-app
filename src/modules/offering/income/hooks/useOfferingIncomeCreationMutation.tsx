@@ -164,7 +164,7 @@ export const useOfferingIncomeCreationMutation = ({
         //* VALID RECEIPT
         const newReceiptResponse = await generateReceiptByOfferingIncomeId({
           id: data.id,
-          generateReceipt,
+          generateReceipt: 'no',
         });
 
         const newReceiptPdfUrl = URL.createObjectURL(newReceiptResponse.data);
@@ -216,6 +216,11 @@ export const useOfferingIncomeCreationMutation = ({
         });
 
         queryClient.invalidateQueries({ queryKey: ['general-offering-income'] });
+
+        await generateReceiptByOfferingIncomeId({
+          id: data.id,
+          generateReceipt,
+        });
       }
     },
   });
