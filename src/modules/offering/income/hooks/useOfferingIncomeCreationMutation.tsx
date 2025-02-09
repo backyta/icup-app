@@ -101,12 +101,12 @@ export const useOfferingIncomeCreationMutation = ({
     onSuccess: async (data) => {
       setTimeout(() => {
         navigate('/offerings/income');
-      }, 4600);
+      }, 5500);
 
       setTimeout(() => {
         setFiles([]);
         offeringIncomeCreationForm.reset();
-      }, 4700);
+      }, 5600);
 
       if (generateReceipt) {
         //! OLD RECEIPT
