@@ -101,12 +101,12 @@ export const useOfferingIncomeCreationMutation = ({
     onSuccess: async (data) => {
       setTimeout(() => {
         navigate('/offerings/income');
-      }, 5000);
+      }, 6000);
 
       setTimeout(() => {
         setFiles([]);
         offeringIncomeCreationForm.reset();
-      }, 5100);
+      }, 6100);
 
       if (generateReceipt) {
         const generateReceiptPromise = await generateReceiptByOfferingIncomeId({
@@ -118,16 +118,16 @@ export const useOfferingIncomeCreationMutation = ({
 
         const receiptImage = await convertPdfBlobToImage(receiptPdfUrl);
 
+        toast.success('Registro creado exitosamente.', {
+          position: 'top-center',
+          className: 'justify-center',
+        });
+
         const { imageUrls: receiptImageUrls } = await uploadImages({
           files: [receiptImage] as any,
           fileType: OfferingFileType.Income,
           offeringType: data.type,
           offeringSubType: data.subType ?? null,
-        });
-
-        toast.success('Registro creado exitosamente.', {
-          position: 'top-center',
-          className: 'justify-center',
         });
 
         await Promise.all([
