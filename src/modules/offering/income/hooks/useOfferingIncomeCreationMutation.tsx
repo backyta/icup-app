@@ -208,6 +208,11 @@ export const useOfferingIncomeCreationMutation = ({
           },
         });
 
+        await generateReceiptByOfferingIncomeId({
+          id: data.id,
+          generateReceipt,
+        });
+
         await deleteImage({
           publicId: extractPublicId(oldReceiptImageUrls[0]),
           path: extractPath(oldReceiptImageUrls[0]),
@@ -216,11 +221,6 @@ export const useOfferingIncomeCreationMutation = ({
         });
 
         queryClient.invalidateQueries({ queryKey: ['general-offering-income'] });
-
-        await generateReceiptByOfferingIncomeId({
-          id: data.id,
-          generateReceipt,
-        });
       }
     },
   });
