@@ -249,7 +249,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
 
     if (offeringIncomeCreationMutation?.isPending) {
       setIsProcessing(true);
-      timer = setTimeout(() => setIsProcessing(false), 4000);
+      timer = setTimeout(() => setIsProcessing(false), 3500);
     }
 
     return () => clearTimeout(timer);
