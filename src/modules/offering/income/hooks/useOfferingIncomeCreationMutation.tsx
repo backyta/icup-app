@@ -21,11 +21,11 @@ import {
 
 import { type ErrorResponse } from '@/shared/interfaces/error-response.interface';
 
-import { deleteImage, uploadImages } from '@/modules/offering/shared/services/images-files.service';
+import { MemberType } from '@/modules/offering/income/enums/member-type.enum';
 import { OfferingFileType } from '@/modules/offering/shared/enums/offering-file-type.enum';
 import { type FilesProps } from '@/modules/offering/shared/interfaces/files-props.interface';
-import { convertPdfBlobToImage } from '../helpers/convert-pdf-to-image';
-import { MemberType } from '../enums/member-type.enum';
+import { convertPdfBlobToImage } from '@/modules/offering/income/helpers/convert-pdf-to-image';
+import { deleteImage, uploadImages } from '@/modules/offering/shared/services/images-files.service';
 
 interface Options {
   imageUrls: string[];
@@ -101,27 +101,25 @@ export const useOfferingIncomeCreationMutation = ({
     onSuccess: async (data) => {
       setTimeout(() => {
         navigate('/offerings/income');
-      }, 5500);
+      }, 2200);
 
       setTimeout(() => {
         setFiles([]);
         offeringIncomeCreationForm.reset();
-      }, 5600);
+      }, 2300);
 
       if (generateReceipt) {
-        //! OLD RECEIPT
-        const oldReceiptResponse = await generateReceiptByOfferingIncomeId({
+        const generateReceiptPromise = await generateReceiptByOfferingIncomeId({
           id: data.id,
           generateReceipt: 'no',
         });
 
-        const oldReceiptPdfUrl = URL.createObjectURL(oldReceiptResponse.data);
-        const oldReceiptImage = await convertPdfBlobToImage(oldReceiptPdfUrl);
+        const receiptPdfUrl = URL.createObjectURL(generateReceiptPromise.data);
 
-        let oldReceiptImages = [oldReceiptImage];
+        const receiptImage = await convertPdfBlobToImage(receiptPdfUrl);
 
-        const { imageUrls: oldReceiptImageUrls } = await uploadImages({
-          files: oldReceiptImages as any,
+        const { imageUrls: receiptImageUrls } = await uploadImages({
+          files: [receiptImage] as any,
           fileType: OfferingFileType.Income,
           offeringType: data.type,
           offeringSubType: data.subType ?? null,
@@ -132,92 +130,40 @@ export const useOfferingIncomeCreationMutation = ({
           className: 'justify-center',
         });
 
-        await updateOfferingIncome({
-          id: data.id,
-          formData: {
-            type: data.type,
-            subType: data.subType,
-            category: data.category,
-            shift: data.shift,
-            amount: data.amount,
-            currency: data.currency,
-            date: data.date,
-            comments: data.comments,
-            memberType: data.memberType,
-            memberId:
-              data.memberType === MemberType.Pastor
-                ? data?.pastor?.id
-                : data.memberType === MemberType.Copastor
-                  ? data.copastor?.id
-                  : data.memberType === MemberType.Supervisor
-                    ? data.supervisor?.id
-                    : data.memberType === MemberType.Preacher
-                      ? data.preacher?.id
-                      : data.disciple?.id,
-            churchId: data?.church?.id!,
-            externalDonorId: data?.externalDonor?.id,
-            recordStatus: data.recordStatus,
-            imageUrls: oldReceiptImageUrls,
-          },
-        });
-
-        //* VALID RECEIPT
-        const newReceiptResponse = await generateReceiptByOfferingIncomeId({
-          id: data.id,
-          generateReceipt: 'no',
-        });
-
-        const newReceiptPdfUrl = URL.createObjectURL(newReceiptResponse.data);
-        const newReceiptImage = await convertPdfBlobToImage(newReceiptPdfUrl);
-
-        let newReceiptImages = [newReceiptImage];
-
-        const { imageUrls: newReceiptImageUrls } = await uploadImages({
-          files: newReceiptImages as any,
-          fileType: OfferingFileType.Income,
-          offeringType: data.type,
-          offeringSubType: data.subType ?? null,
-        });
-
-        await updateOfferingIncome({
-          id: data.id,
-          formData: {
-            type: data.type,
-            subType: data.subType,
-            category: data.category,
-            shift: data.shift,
-            amount: data.amount,
-            currency: data.currency,
-            date: data.date,
-            comments: data.comments,
-            memberType: data.memberType,
-            memberId:
-              data.memberType === MemberType.Pastor
-                ? data?.pastor?.id
-                : data.memberType === MemberType.Copastor
-                  ? data.copastor?.id
-                  : data.memberType === MemberType.Supervisor
-                    ? data.supervisor?.id
-                    : data.memberType === MemberType.Preacher
-                      ? data.preacher?.id
-                      : data.disciple?.id,
-            churchId: data?.church?.id!,
-            externalDonorId: data?.externalDonor?.id,
-            recordStatus: data.recordStatus,
-            imageUrls: newReceiptImageUrls,
-          },
-        });
+        await Promise.all([
+          updateOfferingIncome({
+            id: data.id,
+            formData: {
+              type: data.type,
+              subType: data.subType,
+              category: data.category,
+              shift: data.shift,
+              amount: data.amount,
+              currency: data.currency,
+              date: data.date,
+              comments: data.comments,
+              memberType: data.memberType,
+              memberId:
+                data.memberType === MemberType.Pastor
+                  ? data?.pastor?.id
+                  : data.memberType === MemberType.Copastor
+                    ? data.copastor?.id
+                    : data.memberType === MemberType.Supervisor
+                      ? data.supervisor?.id
+                      : data.memberType === MemberType.Preacher
+                        ? data.preacher?.id
+                        : data.disciple?.id,
+              churchId: data?.church?.id!,
+              externalDonorId: data?.externalDonor?.id,
+              recordStatus: data.recordStatus,
+              imageUrls: receiptImageUrls,
+            },
+          }),
+        ]);
 
         await generateReceiptByOfferingIncomeId({
           id: data.id,
           generateReceipt,
-        });
-
-        await deleteImage({
-          publicId: extractPublicId(oldReceiptImageUrls[0]),
-          path: extractPath(oldReceiptImageUrls[0]),
-          secureUrl: oldReceiptImageUrls[0],
-          fileType: OfferingFileType.Income,
         });
 
         queryClient.invalidateQueries({ queryKey: ['general-offering-income'] });
