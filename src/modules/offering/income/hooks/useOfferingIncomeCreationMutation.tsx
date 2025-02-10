@@ -135,7 +135,7 @@ export const useOfferingIncomeCreationMutation = ({
               comments: data.comments,
               memberType: data.memberType,
               zoneId: data.zone?.id ?? undefined,
-              familyGroupId: data.zone?.id ?? undefined,
+              familyGroupId: data.familyGroup?.id ?? undefined,
               memberId:
                 data.memberType === MemberType.Pastor
                   ? data?.pastor?.id
