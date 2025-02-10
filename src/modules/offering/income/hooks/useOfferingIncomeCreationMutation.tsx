@@ -99,15 +99,6 @@ export const useOfferingIncomeCreationMutation = ({
       }
     },
     onSuccess: async (data) => {
-      setTimeout(() => {
-        navigate('/offerings/income');
-      }, 6000);
-
-      setTimeout(() => {
-        setFiles([]);
-        offeringIncomeCreationForm.reset();
-      }, 6100);
-
       if (generateReceipt) {
         const generateReceiptPromise = await generateReceiptByOfferingIncomeId({
           id: data.id,
@@ -168,6 +159,11 @@ export const useOfferingIncomeCreationMutation = ({
 
         queryClient.invalidateQueries({ queryKey: ['general-offering-income'] });
       }
+
+      navigate('/offerings/income');
+
+      setFiles([]);
+      offeringIncomeCreationForm.reset();
     },
   });
 
