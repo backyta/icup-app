@@ -69,7 +69,7 @@ export function MembersInfoCard(): JSX.Element {
         all: false,
         offset: '0',
         churchId: searchParams?.churchId ?? churchId,
-        order: RecordOrder.Ascending,
+        order: RecordOrder.Descending,
       }),
     retry: false,
     enabled: !!searchParams && !!searchParams.churchId,
