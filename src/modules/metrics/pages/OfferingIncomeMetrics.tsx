@@ -73,8 +73,8 @@ export const OfferingIncomeMetrics = (): JSX.Element => {
           <OfferingIncomeAnalysisCardBySundayService churchId={churchId} />
           <OfferingIncomeAnalysisCardByFamilyGroup churchId={churchId} />
           {/* <OfferingIncomeAnalysisCardBySundaySchool churchId={churchId} /> */}
-          <OfferingIncomeAnalysisCardByUnitedService churchId={churchId} />
           <OfferingIncomeAnalysisCardByFastingAndVigil churchId={churchId} />
+          <OfferingIncomeAnalysisCardByUnitedService churchId={churchId} />
           {/* <OfferingIncomeAnalysisCardByYouthService churchId={churchId} /> */}
           <OfferingIncomeAnalysisCardByChurchGround churchId={churchId} />
           <OfferingIncomeAnalysisCardByActivities churchId={churchId} />

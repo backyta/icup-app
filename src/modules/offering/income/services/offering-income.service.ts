@@ -218,10 +218,11 @@ export const getOfferingsIncomeByTerm = async ({
     }
   }
 
-  //* Zonal fasting and vigil
+  //* Zonal fasting and vigil and Zonal Evangelism
   if (
     searchType === OfferingIncomeSearchType.ZonalFasting ||
-    searchType === OfferingIncomeSearchType.ZonalVigil
+    searchType === OfferingIncomeSearchType.ZonalVigil ||
+    searchType === OfferingIncomeSearchType.ZonalEvangelism
   ) {
     const term =
       searchSubType === OfferingIncomeSearchSubType.OfferingByDate
@@ -324,10 +325,11 @@ export const getOfferingsIncomeByTerm = async ({
     }
   }
 
-  //* General Vigil, general fasting, united service, activities, adjustment income
+  //* General Vigil, general fasting, general evangelism, united service, activities, adjustment income
   if (
     searchType === OfferingIncomeSearchType.GeneralFasting ||
     searchType === OfferingIncomeSearchType.GeneralVigil ||
+    searchType === OfferingIncomeSearchType.GeneralEvangelism ||
     searchType === OfferingIncomeSearchType.UnitedService ||
     searchType === OfferingIncomeSearchType.Activities ||
     searchType === OfferingIncomeSearchType.IncomeAdjustment
@@ -498,14 +500,19 @@ export interface GenerateReceiptOptions {
   id: string;
   generateReceipt?: string;
   setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  generationType?: string;
 }
 export const generateReceiptByOfferingIncomeId = async ({
   id,
   setOpen,
   generateReceipt,
+  generationType,
 }: GenerateReceiptOptions): Promise<any> => {
   try {
     const res = await icupApi<Blob>(`/reports/offering-income/${id}/receipt`, {
+      params: {
+        generationType: generationType,
+      },
       headers: {
         'Content-Type': 'application/pdf',
       },

@@ -128,10 +128,13 @@ export const OfferingIncomeAnalysisCardByFastingAndVigil = ({ churchId }: Props)
   };
 
   return (
-    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-2 col-end-3 h-[24rem] md:h-[25rem] lg:h-[26rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
+    <Card className='bg-slate-50/40 dark:bg-slate-900/40 flex flex-col col-start-1 col-end-3 h-[24rem] md:h-[25rem] lg:h-[26rem] 2xl:h-[26rem] m-0 border-slate-200 dark:border-slate-800'>
       <CardHeader className='z-10 flex flex-col sm:flex-row items-center justify-between px-4 py-2.5'>
         <CardTitle className='whitespace-nowrap flex justify-center items-center gap-2 font-bold text-[22px] sm:text-[25px] md:text-[28px] 2xl:text-[30px]'>
-          <span>Ayunos y Vigilias</span>
+          <div>A.V.E</div>
+          <span className='text-[16px] sm:text-[22px] lg:text-[24px]'>
+            (Ayunos, Vigilias, Evangelismos)
+          </span>
 
           {offeringIncomeByFastingAndVigil?.data &&
             Object.entries(offeringIncomeByFastingAndVigil?.data)?.length > 0 && (

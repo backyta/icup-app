@@ -27,8 +27,8 @@ import {
   SubTypeNamesOfferingIncomeSearchBySundayService,
   SubTypeNamesOfferingIncomeSearchByUnitedService,
   SubTypeNamesOfferingIncomeSearchByIncomeAdjustment,
-  SubTypeNamesOfferingIncomeSearchByFastingAndVigilZonal,
-  SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneral,
+  SubTypeNamesOfferingIncomeSearchByFastingAndVigilZonalAndZonalEvangelism,
+  SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneralAndGeneralEvangelism,
   SubTypeNamesOfferingIncomeSearchByChurchGroundAndSpecial,
 } from '@/modules/offering/income/enums/offering-income-search-sub-type.enum';
 import {
@@ -279,6 +279,7 @@ export const OfferingIncomeUpdatePage = (): JSX.Element => {
                 searchType === OfferingIncomeSearchType.FamilyGroup ||
                 searchType === OfferingIncomeSearchType.GeneralFasting ||
                 searchType === OfferingIncomeSearchType.GeneralVigil ||
+                searchType === OfferingIncomeSearchType.GeneralEvangelism ||
                 searchType === OfferingIncomeSearchType.IncomeAdjustment ||
                 searchType === OfferingIncomeSearchType.Special ||
                 // searchType === OfferingIncomeSearchType.SundaySchool ||
@@ -286,7 +287,8 @@ export const OfferingIncomeUpdatePage = (): JSX.Element => {
                 searchType === OfferingIncomeSearchType.UnitedService ||
                 // searchType === OfferingIncomeSearchType.YouthService ||
                 searchType === OfferingIncomeSearchType.ZonalFasting ||
-                searchType === OfferingIncomeSearchType.ZonalVigil) && (
+                searchType === OfferingIncomeSearchType.ZonalVigil ||
+                searchType === OfferingIncomeSearchType.ZonalEvangelism) && (
                 <FormField
                   control={form.control}
                   name='searchSubType'
@@ -337,11 +339,13 @@ export const OfferingIncomeUpdatePage = (): JSX.Element => {
                                   searchType === OfferingIncomeSearchType.FamilyGroup
                                   ? SubTypeNamesOfferingIncomeSearchByFamilyGroup
                                   : searchType === OfferingIncomeSearchType.ZonalVigil ||
-                                      searchType === OfferingIncomeSearchType.ZonalFasting
-                                    ? SubTypeNamesOfferingIncomeSearchByFastingAndVigilZonal
+                                      searchType === OfferingIncomeSearchType.ZonalFasting ||
+                                      searchType === OfferingIncomeSearchType.ZonalEvangelism
+                                    ? SubTypeNamesOfferingIncomeSearchByFastingAndVigilZonalAndZonalEvangelism
                                     : searchType === OfferingIncomeSearchType.GeneralFasting ||
-                                        searchType === OfferingIncomeSearchType.GeneralVigil
-                                      ? SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneral
+                                        searchType === OfferingIncomeSearchType.GeneralVigil ||
+                                        searchType === OfferingIncomeSearchType.GeneralEvangelism
+                                      ? SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneralAndGeneralEvangelism
                                       : // : searchType === OfferingIncomeSearchType.YouthService
                                         //   ? SubTypeNamesOfferingIncomeSearchByYoungService
                                         searchType === OfferingIncomeSearchType.UnitedService
@@ -372,7 +376,8 @@ export const OfferingIncomeUpdatePage = (): JSX.Element => {
 
               {(searchType === OfferingIncomeSearchType.FamilyGroup ||
                 searchType === OfferingIncomeSearchType.ZonalFasting ||
-                searchType === OfferingIncomeSearchType.ZonalVigil) &&
+                searchType === OfferingIncomeSearchType.ZonalVigil ||
+                searchType === OfferingIncomeSearchType.ZonalEvangelism) &&
                 (searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCode ||
                   searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCodeDate ||
                   searchSubType === OfferingIncomeSearchSubType.OfferingByZone ||
@@ -412,6 +417,7 @@ export const OfferingIncomeUpdatePage = (): JSX.Element => {
                 searchType === OfferingIncomeSearchType.FamilyGroup ||
                 searchType === OfferingIncomeSearchType.GeneralFasting ||
                 searchType === OfferingIncomeSearchType.GeneralVigil ||
+                searchType === OfferingIncomeSearchType.GeneralEvangelism ||
                 searchType === OfferingIncomeSearchType.IncomeAdjustment ||
                 searchType === OfferingIncomeSearchType.Special ||
                 // searchType === OfferingIncomeSearchType.SundaySchool ||
@@ -419,7 +425,8 @@ export const OfferingIncomeUpdatePage = (): JSX.Element => {
                 searchType === OfferingIncomeSearchType.UnitedService ||
                 // searchType === OfferingIncomeSearchType.YouthService ||
                 searchType === OfferingIncomeSearchType.ZonalFasting ||
-                searchType === OfferingIncomeSearchType.ZonalVigil) &&
+                searchType === OfferingIncomeSearchType.ZonalVigil ||
+                searchType === OfferingIncomeSearchType.ZonalEvangelism) &&
                 (searchSubType === OfferingIncomeSearchSubType.OfferingByDate ||
                   searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCodeDate ||
                   searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate ||
@@ -486,6 +493,7 @@ export const OfferingIncomeUpdatePage = (): JSX.Element => {
                 ((searchType === OfferingIncomeSearchType.SundayService ||
                   searchType === OfferingIncomeSearchType.GeneralFasting ||
                   searchType === OfferingIncomeSearchType.GeneralVigil ||
+                  searchType === OfferingIncomeSearchType.GeneralEvangelism ||
                   searchType === OfferingIncomeSearchType.Activities ||
                   searchType === OfferingIncomeSearchType.UnitedService ||
                   // searchType === OfferingIncomeSearchType.YouthService ||
@@ -563,7 +571,8 @@ export const OfferingIncomeUpdatePage = (): JSX.Element => {
                 searchType === OfferingIncomeSearchType.FamilyGroup ||
                 searchType === OfferingIncomeSearchType.Special ||
                 searchType === OfferingIncomeSearchType.ZonalFasting ||
-                searchType === OfferingIncomeSearchType.ZonalVigil) &&
+                searchType === OfferingIncomeSearchType.ZonalVigil ||
+                searchType === OfferingIncomeSearchType.ZonalEvangelism) &&
                 // searchType === OfferingIncomeSearchType.YouthService ||
                 // searchType === OfferingIncomeSearchType.SundaySchool
                 (searchSubType === OfferingIncomeSearchSubType.OfferingByContributorFirstNames ||
@@ -598,7 +607,8 @@ export const OfferingIncomeUpdatePage = (): JSX.Element => {
                 searchType === OfferingIncomeSearchType.FamilyGroup ||
                 searchType === OfferingIncomeSearchType.Special ||
                 searchType === OfferingIncomeSearchType.ZonalFasting ||
-                searchType === OfferingIncomeSearchType.ZonalVigil) &&
+                searchType === OfferingIncomeSearchType.ZonalVigil ||
+                searchType === OfferingIncomeSearchType.ZonalEvangelism) &&
                 // searchType === OfferingIncomeSearchType.YouthService ||
                 // searchType === OfferingIncomeSearchType.SundaySchool
                 (searchSubType === OfferingIncomeSearchSubType.OfferingByContributorLastNames ||

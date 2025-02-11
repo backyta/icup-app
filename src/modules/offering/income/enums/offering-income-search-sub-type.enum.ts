@@ -135,7 +135,7 @@ export enum SubTypeOfferingIncomeSearchByFastingAndVigilGeneral {
   OfferingByDate = 'offering_by_date',
 }
 
-export const SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneral: Record<
+export const SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneralAndGeneralEvangelism: Record<
   SubTypeOfferingIncomeSearchByFastingAndVigilGeneral,
   string
 > = {
@@ -143,7 +143,7 @@ export const SubTypeNamesOfferingIncomeSearchByFastingAndVigilGeneral: Record<
 };
 
 //* Offering (Fasting Zonal, Vigil Zonal)
-export enum SubTypeOfferingIncomeSearchByFastingAndVigilZonal {
+export enum SubTypeOfferingIncomeSearchByFastingAndVigilZonalAndZonalEvangelismAndZonalEvangelism {
   OfferingByDate = 'offering_by_date',
   OfferingByZone = 'offering_by_zone',
   OfferingByZoneDate = 'offering_by_zone_date',
@@ -152,18 +152,21 @@ export enum SubTypeOfferingIncomeSearchByFastingAndVigilZonal {
   OfferingBySupervisorFullNames = 'offering_by_supervisor_full_names',
 }
 
-export const SubTypeNamesOfferingIncomeSearchByFastingAndVigilZonal: Record<
-  SubTypeOfferingIncomeSearchByFastingAndVigilZonal,
+export const SubTypeNamesOfferingIncomeSearchByFastingAndVigilZonalAndZonalEvangelism: Record<
+  SubTypeOfferingIncomeSearchByFastingAndVigilZonalAndZonalEvangelismAndZonalEvangelism,
   string
 > = {
-  [SubTypeOfferingIncomeSearchByFastingAndVigilZonal.OfferingByDate]: 'Por fecha',
-  [SubTypeOfferingIncomeSearchByFastingAndVigilZonal.OfferingByZone]: 'Por zona',
-  [SubTypeOfferingIncomeSearchByFastingAndVigilZonal.OfferingByZoneDate]: 'Por zona y fecha',
-  [SubTypeOfferingIncomeSearchByFastingAndVigilZonal.OfferingBySupervisorFirstNames]:
+  [SubTypeOfferingIncomeSearchByFastingAndVigilZonalAndZonalEvangelismAndZonalEvangelism.OfferingByDate]:
+    'Por fecha',
+  [SubTypeOfferingIncomeSearchByFastingAndVigilZonalAndZonalEvangelismAndZonalEvangelism.OfferingByZone]:
+    'Por zona',
+  [SubTypeOfferingIncomeSearchByFastingAndVigilZonalAndZonalEvangelismAndZonalEvangelism.OfferingByZoneDate]:
+    'Por zona y fecha',
+  [SubTypeOfferingIncomeSearchByFastingAndVigilZonalAndZonalEvangelismAndZonalEvangelism.OfferingBySupervisorFirstNames]:
     'Por nombres de su supervisor',
-  [SubTypeOfferingIncomeSearchByFastingAndVigilZonal.OfferingBySupervisorLastNames]:
+  [SubTypeOfferingIncomeSearchByFastingAndVigilZonalAndZonalEvangelismAndZonalEvangelism.OfferingBySupervisorLastNames]:
     'Por apellidos de su supervisor',
-  [SubTypeOfferingIncomeSearchByFastingAndVigilZonal.OfferingBySupervisorFullNames]:
+  [SubTypeOfferingIncomeSearchByFastingAndVigilZonalAndZonalEvangelismAndZonalEvangelism.OfferingBySupervisorFullNames]:
     'Por nombres y apellidos de su supervisor',
 };
 

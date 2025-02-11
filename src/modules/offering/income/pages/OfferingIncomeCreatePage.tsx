@@ -582,6 +582,8 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                 subType === OfferingIncomeCreationSubType.GeneralVigil ||
                                 subType === OfferingIncomeCreationSubType.ZonalFasting ||
                                 subType === OfferingIncomeCreationSubType.ZonalVigil ||
+                                subType === OfferingIncomeCreationSubType.ZonalEvangelism ||
+                                subType === OfferingIncomeCreationSubType.GeneralEvangelism ||
                                 subType === OfferingIncomeCreationSubType.UnitedService ? (
                                   key === OfferingIncomeCreationCategory.OfferingBox && (
                                     <SelectItem key={key} value={key}>
@@ -1384,6 +1386,9 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                 category === OfferingIncomeCreationCategory.OfferingBox) ||
                 (type === OfferingIncomeCreationType.Offering &&
                   subType === OfferingIncomeCreationSubType.ZonalVigil &&
+                  category === OfferingIncomeCreationCategory.OfferingBox) ||
+                (type === OfferingIncomeCreationType.Offering &&
+                  subType === OfferingIncomeCreationSubType.ZonalEvangelism &&
                   category === OfferingIncomeCreationCategory.OfferingBox)) && (
                 <FormField
                   control={form.control}

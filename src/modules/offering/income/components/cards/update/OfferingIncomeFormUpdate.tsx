@@ -1453,7 +1453,7 @@ export const OfferingIncomeFormUpdate = ({
                       type='submit'
                       className={cn(
                         'w-full text-[14px]',
-                        uploadImagesMutation?.isPending &&
+                        offeringIncomeUpdateMutation?.isPending &&
                           'bg-emerald-500 hover:bg-emerald-500 disabled:opacity-100 disabled:md:text-[15px] text-white'
                       )}
                       onClick={() => {
@@ -1467,7 +1467,9 @@ export const OfferingIncomeFormUpdate = ({
                         }, 100);
                       }}
                     >
-                      {uploadImagesMutation?.isPending ? 'Procesando...' : 'Guardar Cambios'}
+                      {offeringIncomeUpdateMutation?.isPending
+                        ? 'Procesando...'
+                        : 'Guardar Cambios'}
                     </Button>
                   </div>
                 </form>

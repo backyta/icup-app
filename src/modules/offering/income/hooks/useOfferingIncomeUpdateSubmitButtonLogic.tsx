@@ -138,7 +138,8 @@ export const useOfferingIncomeUpdateSubmitButtonLogic = ({
     if (
       type === OfferingIncomeCreationType.Offering &&
       (subType === OfferingIncomeCreationSubType.ZonalVigil ||
-        subType === OfferingIncomeCreationSubType.ZonalFasting) &&
+        subType === OfferingIncomeCreationSubType.ZonalFasting ||
+        subType === OfferingIncomeCreationSubType.ZonalEvangelism) &&
       amount &&
       currency &&
       zoneId &&
@@ -153,7 +154,8 @@ export const useOfferingIncomeUpdateSubmitButtonLogic = ({
     if (
       type === OfferingIncomeCreationType.Offering &&
       (subType === OfferingIncomeCreationSubType.ZonalVigil ||
-        subType === OfferingIncomeCreationSubType.ZonalFasting) &&
+        subType === OfferingIncomeCreationSubType.ZonalFasting ||
+        subType === OfferingIncomeCreationSubType.ZonalEvangelism) &&
       (!amount || !currency || !zoneId || !comments)
     ) {
       setIsSubmitButtonDisabled(true);
@@ -233,6 +235,7 @@ export const useOfferingIncomeUpdateSubmitButtonLogic = ({
       subType !== OfferingIncomeCreationSubType.ChurchGround &&
       subType !== OfferingIncomeCreationSubType.ZonalFasting &&
       subType !== OfferingIncomeCreationSubType.ZonalVigil &&
+      subType !== OfferingIncomeCreationSubType.ZonalEvangelism &&
       subType !== OfferingIncomeCreationSubType.FamilyGroup &&
       // subType !== OfferingIncomeCreationSubType.SundaySchool &&
       subType !== OfferingIncomeCreationSubType.SundayService &&
