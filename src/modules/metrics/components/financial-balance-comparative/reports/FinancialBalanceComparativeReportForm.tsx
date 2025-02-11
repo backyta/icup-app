@@ -73,7 +73,7 @@ export const FinancialBalanceComparativeReportForm = ({
     mode: 'onChange',
     resolver: zodResolver(FinancialBalanceComparativeReportFormSchema),
     defaultValues: {
-      types: Object.values(MetricFinancialBalanceComparisonSearchType),
+      types: [MetricFinancialBalanceComparisonSearchType.IncomeAndExpensesComparativeByYear],
       church: churchId,
       year: new Date().getFullYear().toString(),
       startMonth: months[new Date().getMonth()]?.value,

@@ -70,7 +70,7 @@ export const OfferingExpenseReportForm = ({ churchId, dialogClose }: Props): JSX
     mode: 'onChange',
     resolver: zodResolver(offeringExpenseReportFormSchema),
     defaultValues: {
-      types: Object.values(MetricOfferingExpenseSearchType),
+      types: [MetricOfferingExpenseSearchType.OperationalOfferingExpenses],
       church: churchId,
       year: new Date().getFullYear().toString(),
       startMonth: months[new Date().getMonth()]?.value,

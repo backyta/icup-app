@@ -58,7 +58,7 @@ export const MemberReportForm = ({ churchId, dialogClose }: Props): JSX.Element 
     mode: 'onChange',
     resolver: zodResolver(memberReportFormSchema),
     defaultValues: {
-      types: Object.values(MetricMemberSearchType),
+      types: [MetricMemberSearchType.MembersFluctuationByYear],
       church: churchId,
       year: new Date().getFullYear().toString(),
     },

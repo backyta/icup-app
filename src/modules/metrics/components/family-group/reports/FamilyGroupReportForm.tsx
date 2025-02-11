@@ -58,7 +58,7 @@ export const FamilyGroupReportForm = ({ churchId, dialogClose }: Props): JSX.Ele
     mode: 'onChange',
     resolver: zodResolver(familyGroupReportFormSchema),
     defaultValues: {
-      types: Object.values(MetricFamilyGroupSearchType),
+      types: [MetricFamilyGroupSearchType.FamilyGroupsFluctuationByYear],
       church: churchId,
       year: new Date().getFullYear().toString(),
     },
