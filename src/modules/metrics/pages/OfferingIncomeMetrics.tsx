@@ -19,7 +19,7 @@ import { OfferingIncomeAnalysisCardByFamilyGroup } from '@/modules/metrics/compo
 import { OfferingIncomeAnalysisCardByChurchGround } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByChurchGround';
 import { OfferingIncomeAnalysisCardByUnitedService } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByUnitedService';
 import { OfferingIncomeAnalysisCardBySundayService } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardBySundayService';
-import { OfferingIncomeAnalysisCardByFastingAndVigil } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByFastingAndVigil';
+import { OfferingIncomeAnalysisCardByFastingAndVigilAndEvangelism } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByFastingAndVigilAndEvangelism';
 import { OfferingIncomeAnalysisCardBySpecialOffering } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardBySpecialOffering';
 import { OfferingIncomeAnalysisCardByIncomeAdjustment } from '@/modules/metrics/components/offering-income/charts/OfferingIncomeAnalysisCardByIncomeAdjustment';
 
@@ -73,7 +73,7 @@ export const OfferingIncomeMetrics = (): JSX.Element => {
           <OfferingIncomeAnalysisCardBySundayService churchId={churchId} />
           <OfferingIncomeAnalysisCardByFamilyGroup churchId={churchId} />
           {/* <OfferingIncomeAnalysisCardBySundaySchool churchId={churchId} /> */}
-          <OfferingIncomeAnalysisCardByFastingAndVigil churchId={churchId} />
+          <OfferingIncomeAnalysisCardByFastingAndVigilAndEvangelism churchId={churchId} />
           <OfferingIncomeAnalysisCardByUnitedService churchId={churchId} />
           {/* <OfferingIncomeAnalysisCardByYouthService churchId={churchId} /> */}
           <OfferingIncomeAnalysisCardByChurchGround churchId={churchId} />

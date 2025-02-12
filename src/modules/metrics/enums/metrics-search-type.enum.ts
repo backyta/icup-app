@@ -26,7 +26,7 @@ export enum MetricSearchType {
   OfferingIncomeBySundayService = 'offering_income_by_sunday_service',
   OfferingIncomeByFamilyGroup = 'offering_income_by_family_group',
   // OfferingIncomeBySundaySchool = 'offering_income_by_sunday_school',
-  OfferingIncomeByFastingAndVigil = 'offering_income_by_fasting_and_vigil',
+  OfferingIncomeByFastingAndVigilAndEvangelism = 'offering_income_by_fasting_and_vigil_and_evangelism',
   // OfferingIncomeByYouthService = 'offering_income_by_youth_service',
   OfferingIncomeBySpecialOffering = 'offering_income_by_special_offering',
   OfferingIncomeByChurchGround = 'offering_income_by_church_ground',
@@ -86,8 +86,8 @@ export const MetricSearchTypeNames: Record<MetricSearchType, string> = {
     'Análisis de ingresos de ofrenda por grupo familiar.',
   // [MetricSearchType.OfferingIncomeBySundaySchool]:
   //   'Análisis de ingresos de ofrenda por escuela dominical.',
-  [MetricSearchType.OfferingIncomeByFastingAndVigil]:
-    'Análisis de ingresos de ofrenda por ayuno y vigilia.',
+  [MetricSearchType.OfferingIncomeByFastingAndVigilAndEvangelism]:
+    'Análisis de ingresos de ofrenda por ayuno, vigilia y evangelismo.',
   // [MetricSearchType.OfferingIncomeByYouthService]:
   //   'Análisis de ingresos de ofrenda por culto juvenil.',
   [MetricSearchType.OfferingIncomeBySpecialOffering]:
@@ -185,7 +185,7 @@ export enum MetricOfferingIncomeSearchType {
   OfferingIncomeBySundayService = 'offering_income_by_sunday_service',
   OfferingIncomeByFamilyGroup = 'offering_income_by_family_group',
   // OfferingIncomeBySundaySchool = 'offering_income_by_sunday_school',
-  OfferingIncomeByFastingAndVigil = 'offering_income_by_fasting_and_vigil',
+  OfferingIncomeByFastingAndVigilAndEvangelism = 'offering_income_by_fasting_and_vigil_and_evangelism',
   // OfferingIncomeByYouthService = 'offering_income_by_youth_service',
   OfferingIncomeBySpecialOffering = 'offering_income_by_special_offering',
   OfferingIncomeByChurchGround = 'offering_income_by_church_ground',
@@ -198,7 +198,8 @@ export const MetricOfferingIncomeSearchTypeNames: Record<MetricOfferingIncomeSea
   [MetricOfferingIncomeSearchType.OfferingIncomeBySundayService]: 'Ofrendas por culto dominical.',
   [MetricOfferingIncomeSearchType.OfferingIncomeByFamilyGroup]: 'Ofrendas por grupo familiar.',
   // [MetricOfferingIncomeSearchType.OfferingIncomeBySundaySchool]: 'Ofrendas por escuela dominical.',
-  [MetricOfferingIncomeSearchType.OfferingIncomeByFastingAndVigil]: 'Ofrendas por ayuno y vigilia.',
+  [MetricOfferingIncomeSearchType.OfferingIncomeByFastingAndVigilAndEvangelism]:
+    'Ofrendas por ayuno, vigilia y evangelismo.',
   // [MetricOfferingIncomeSearchType.OfferingIncomeByYouthService]: 'Ofrendas por culto juvenil.',
   [MetricOfferingIncomeSearchType.OfferingIncomeBySpecialOffering]:
     'Ofrendas por ofrenda especial.',

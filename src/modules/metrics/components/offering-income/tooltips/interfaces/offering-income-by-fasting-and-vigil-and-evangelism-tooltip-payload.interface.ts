@@ -7,7 +7,7 @@ interface Offering {
 }
 
 //? Payload
-export interface OfferingIncomePayloadByFastingAndVigil {
+export interface OfferingIncomePayloadByFastingAndVigilAndEvangelism {
   fill: string;
   radius: number;
   dataKey: string;

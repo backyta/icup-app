@@ -12,10 +12,10 @@ import {
   OfferingIncomeCreationSubTypeNames,
 } from '@/modules/offering/income/enums/offering-income-creation-sub-type.enum';
 import { CurrencyType } from '@/modules/offering/shared/enums/currency-type.enum';
-import { type OfferingIncomePayloadByFastingAndVigil } from '@/modules/metrics/components/offering-income/tooltips/interfaces/offering-income-by-fasting-and-vigil-tooltip-payload.interface';
+import { type OfferingIncomePayloadByFastingAndVigilAndEvangelism } from '@/modules/metrics/components/offering-income/tooltips/interfaces/offering-income-by-fasting-and-vigil-and-evangelism-tooltip-payload.interface';
 
-export const OfferingIncomeByFastingAndVigilTooltipContent = (
-  props: TooltipConfig<OfferingIncomePayloadByFastingAndVigil>
+export const OfferingIncomeByFastingAndVigilAndEvangelismTooltipContent = (
+  props: TooltipConfig<OfferingIncomePayloadByFastingAndVigilAndEvangelism>
 ): JSX.Element => {
   const { payload } = props;
 

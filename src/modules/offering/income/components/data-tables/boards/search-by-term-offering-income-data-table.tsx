@@ -225,6 +225,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               dataForm?.searchType === OfferingIncomeSearchType.FamilyGroup ||
               dataForm?.searchType === OfferingIncomeSearchType.GeneralFasting ||
               dataForm?.searchType === OfferingIncomeSearchType.GeneralVigil ||
+              dataForm?.searchType === OfferingIncomeSearchType.GeneralEvangelism ||
               dataForm?.searchType === OfferingIncomeSearchType.IncomeAdjustment ||
               dataForm?.searchType === OfferingIncomeSearchType.Special ||
               // dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
@@ -232,7 +233,8 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               dataForm?.searchType === OfferingIncomeSearchType.UnitedService ||
               // dataForm?.searchType === OfferingIncomeSearchType.YouthService ||
               dataForm?.searchType === OfferingIncomeSearchType.ZonalFasting ||
-              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil) && (
+              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil ||
+              dataForm?.searchType === OfferingIncomeSearchType.ZonalEvangelism) && (
               <span className='font-medium text-[14px] md:text-[14.5px] italic'>
                 {' '}
                 ~{' '}
@@ -270,7 +272,8 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               )}
             {(dataForm?.searchType === OfferingIncomeSearchType.FamilyGroup ||
               dataForm?.searchType === OfferingIncomeSearchType.ZonalFasting ||
-              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil) &&
+              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil ||
+              dataForm?.searchType === OfferingIncomeSearchType.ZonalEvangelism) &&
               (dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCode ||
                 dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCodeDate ||
                 dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByZone ||
@@ -283,7 +286,8 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               dataForm?.searchType === OfferingIncomeSearchType.FamilyGroup ||
               dataForm?.searchType === OfferingIncomeSearchType.Special ||
               dataForm?.searchType === OfferingIncomeSearchType.ZonalFasting ||
-              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil) &&
+              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil ||
+              dataForm?.searchType === OfferingIncomeSearchType.ZonalEvangelism) &&
               // dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
               // dataForm?.searchType === OfferingIncomeSearchType.YouthService
               (dataForm?.searchSubType ===
@@ -300,7 +304,8 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               dataForm?.searchType === OfferingIncomeSearchType.FamilyGroup ||
               dataForm?.searchType === OfferingIncomeSearchType.Special ||
               dataForm?.searchType === OfferingIncomeSearchType.ZonalFasting ||
-              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil) &&
+              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil ||
+              dataForm?.searchType === OfferingIncomeSearchType.ZonalEvangelism) &&
               // dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
               // dataForm?.searchType === OfferingIncomeSearchType.YouthService
               (dataForm?.searchSubType ===
@@ -317,7 +322,8 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               dataForm?.searchType === OfferingIncomeSearchType.FamilyGroup ||
               dataForm?.searchType === OfferingIncomeSearchType.Special ||
               dataForm?.searchType === OfferingIncomeSearchType.ZonalFasting ||
-              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil) &&
+              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil ||
+              dataForm?.searchType === OfferingIncomeSearchType.ZonalEvangelism) &&
               // dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
               // dataForm?.searchType === OfferingIncomeSearchType.YouthService
               (dataForm?.searchSubType ===
@@ -335,6 +341,7 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               dataForm?.searchType === OfferingIncomeSearchType.FamilyGroup ||
               dataForm?.searchType === OfferingIncomeSearchType.GeneralFasting ||
               dataForm?.searchType === OfferingIncomeSearchType.GeneralVigil ||
+              dataForm?.searchType === OfferingIncomeSearchType.GeneralEvangelism ||
               dataForm?.searchType === OfferingIncomeSearchType.IncomeAdjustment ||
               dataForm?.searchType === OfferingIncomeSearchType.Special ||
               // dataForm?.searchType === OfferingIncomeSearchType.SundaySchool ||
@@ -342,7 +349,8 @@ export function SearchByTermOfferingIncomeDataTable<TData, TValue>({
               dataForm?.searchType === OfferingIncomeSearchType.UnitedService ||
               // dataForm?.searchType === OfferingIncomeSearchType.YouthService ||
               dataForm?.searchType === OfferingIncomeSearchType.ZonalFasting ||
-              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil) &&
+              dataForm?.searchType === OfferingIncomeSearchType.ZonalVigil ||
+              dataForm?.searchType === OfferingIncomeSearchType.ZonalEvangelism) &&
               (dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByDate ||
                 dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByGroupCodeDate ||
                 dataForm?.searchSubType === OfferingIncomeSearchSubType.OfferingByShiftDate ||

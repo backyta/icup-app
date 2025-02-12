@@ -24,7 +24,7 @@ import { months } from '@/modules/metrics/data/months-data';
 import { MetricSearchType } from '@/modules/metrics/enums/metrics-search-type.enum';
 import { metricsFormSchema } from '@/modules/metrics/validations/metrics-form-schema';
 import { getOfferingIncomeByFastingAndVigil } from '@/modules/metrics/services/offering-income-metrics.service';
-import { OfferingIncomeByFastingAndVigilTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components/OfferingIncomeByFastingAndVigilTooltipContent';
+import { OfferingIncomeByFastingAndVigilAndEvangelismTooltipContent } from '@/modules/metrics/components/offering-income/tooltips/components/OfferingIncomeByFastingAndVigilAndEvangelismTooltipContent';
 
 import {
   Command,
@@ -77,7 +77,9 @@ interface Props {
   churchId: string | undefined;
 }
 
-export const OfferingIncomeAnalysisCardByFastingAndVigil = ({ churchId }: Props): JSX.Element => {
+export const OfferingIncomeAnalysisCardByFastingAndVigilAndEvangelism = ({
+  churchId,
+}: Props): JSX.Element => {
   //* States
   const [isInputSearchMonthOpen, setIsInputSearchMonthOpen] = useState<boolean>(false);
   const [searchParams, setSearchParams] = useState<SearchParamsOptions | undefined>(undefined);
@@ -104,7 +106,7 @@ export const OfferingIncomeAnalysisCardByFastingAndVigil = ({ churchId }: Props)
     queryKey: ['offering-income-by-fasting-and-vigil', { ...searchParams, church: churchId }],
     queryFn: () => {
       return getOfferingIncomeByFastingAndVigil({
-        searchType: MetricSearchType.OfferingIncomeByFastingAndVigil,
+        searchType: MetricSearchType.OfferingIncomeByFastingAndVigilAndEvangelism,
         month: searchParams?.month ?? month,
         year: searchParams?.year ?? year,
         isSingleMonth: true,
@@ -293,7 +295,7 @@ export const OfferingIncomeAnalysisCardByFastingAndVigil = ({ churchId }: Props)
                 <YAxis className='text-[12.5px] sm:text-[14px]' />
                 <ChartTooltip
                   cursor={false}
-                  content={OfferingIncomeByFastingAndVigilTooltipContent as any}
+                  content={OfferingIncomeByFastingAndVigilAndEvangelismTooltipContent as any}
                 />
 
                 <ChartLegend
