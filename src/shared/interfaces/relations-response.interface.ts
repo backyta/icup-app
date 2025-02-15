@@ -28,6 +28,8 @@ export interface Zone {
   id: string;
   zoneName: string;
   district: string;
+  supervisorFirstNames: string;
+  supervisorLastNames: string;
 }
 
 export interface Preacher {
@@ -42,6 +44,8 @@ export interface FamilyGroup {
   familyGroupCode: string;
   district: string;
   urbanSector: string;
+  preacherFirstNames: string;
+  preacherLastNames: string;
 }
 
 export interface Disciple {
