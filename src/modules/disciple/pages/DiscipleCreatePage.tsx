@@ -68,6 +68,7 @@ import { Calendar } from '@/shared/components/ui/calendar';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Textarea } from '@/shared/components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/components/ui/popover';
+import { getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 
 export const DiscipleCreatePage = (): JSX.Element => {
   //* States
@@ -147,7 +148,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
   //* Queries
   const { data } = useQuery({
     queryKey: ['family-groups'],
-    queryFn: () => getSimpleFamilyGroups({ isSimpleQuery: true }),
+    queryFn: () => getSimpleFamilyGroups({ isSimpleQuery: false }),
     retry: false,
   });
 
@@ -895,7 +896,9 @@ export const DiscipleCreatePage = (): JSX.Element => {
                               )}
                             >
                               {field.value
-                                ? `${data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupName} - ${data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupCode}`
+                                ? `${data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupName} 
+                                    (${data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupCode}) ~ 
+                                      ${getInitialFullNames({ firstNames: data?.find((familyGroup) => familyGroup.id === field.value)?.theirPreacher?.firstNames ?? '', lastNames: data?.find((familyGroup) => familyGroup.id === field.value)?.theirPreacher?.lastNames ?? '' })}`
                                 : 'Busque y seleccione un grupo familiar'}
                               <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                             </Button>
@@ -917,6 +920,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                                       value={getCodeAndNameFamilyGroup({
                                         code: familyGroup.familyGroupCode,
                                         name: familyGroup.familyGroupName,
+                                        preacher: `${getInitialFullNames({ firstNames: familyGroup.theirPreacher?.firstNames ?? '', lastNames: familyGroup.theirPreacher?.lastNames ?? '' })}`,
                                       })}
                                       key={familyGroup.id}
                                       onSelect={() => {
@@ -924,7 +928,7 @@ export const DiscipleCreatePage = (): JSX.Element => {
                                         setIsInputTheirFamilyGroupOpen(false);
                                       }}
                                     >
-                                      {`${familyGroup?.familyGroupName} - ${familyGroup?.familyGroupCode}`}
+                                      {`${familyGroup?.familyGroupName} (${familyGroup?.familyGroupCode}) ~ ${getInitialFullNames({ firstNames: familyGroup?.theirPreacher?.firstNames ?? '', lastNames: familyGroup?.theirPreacher?.lastNames ?? '' })}`}
                                       <CheckIcon
                                         className={cn(
                                           'ml-auto h-4 w-4',

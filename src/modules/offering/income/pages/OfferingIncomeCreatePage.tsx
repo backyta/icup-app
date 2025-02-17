@@ -205,7 +205,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
 
   const zonesQuery = useQuery({
     queryKey: ['zones', churchId],
-    queryFn: () => getSimpleZones({ isSimpleQuery: true, churchId }),
+    queryFn: () => getSimpleZones({ isSimpleQuery: false, churchId }),
     retry: false,
     enabled: !!churchId,
   });
@@ -1415,8 +1415,17 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                               )}
                             >
                               {field.value
-                                ? zonesQuery?.data?.find((zone) => zone.id === field.value)
-                                    ?.zoneName
+                                ? `${
+                                    zonesQuery?.data?.find((zone) => zone.id === field.value)
+                                      ?.zoneName
+                                  } ~ ${getInitialFullNames({
+                                    firstNames:
+                                      zonesQuery?.data?.find((zone) => zone.id === field.value)
+                                        ?.theirSupervisor?.firstNames ?? '',
+                                    lastNames:
+                                      zonesQuery?.data?.find((zone) => zone.id === field.value)
+                                        ?.theirSupervisor?.lastNames ?? '',
+                                  })}`
                                 : 'Busque y seleccione una zona'}
                               <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                             </Button>
@@ -1435,14 +1444,14 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                   {zonesQuery?.data?.map((zone) => (
                                     <CommandItem
                                       className='text-[14px]'
-                                      value={zone.zoneName}
+                                      value={`${zone.zoneName} ${getInitialFullNames({ firstNames: zone?.theirSupervisor?.firstNames ?? '', lastNames: zone?.theirSupervisor?.lastNames ?? '' })}`}
                                       key={zone.id}
                                       onSelect={() => {
                                         form.setValue('zoneId', zone.id);
                                         setIsInputZoneOpen(false);
                                       }}
                                     >
-                                      {zone.zoneName}
+                                      {`${zone.zoneName} ~ ${getInitialFullNames({ firstNames: zone?.theirSupervisor?.firstNames ?? '', lastNames: zone?.theirSupervisor?.lastNames ?? '' })}`}
                                       <CheckIcon
                                         className={cn(
                                           'ml-auto h-4 w-4',

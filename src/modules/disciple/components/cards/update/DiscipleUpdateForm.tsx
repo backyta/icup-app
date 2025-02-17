@@ -43,7 +43,7 @@ import { UrbanSectorNames } from '@/shared/enums/urban-sector.enum';
 import { MaritalStatusNames } from '@/shared/enums/marital-status.enum';
 import { MemberRole, MemberRoleNames } from '@/shared/enums/member-role.enum';
 
-import { getFullNames } from '@/shared/helpers/get-full-names.helper';
+import { getFullNames, getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 import { getCodeAndNameFamilyGroup } from '@/shared/helpers/get-code-and-name-family-group.helper';
 import { validateDistrictsAllowedByModule } from '@/shared/helpers/validate-districts-allowed-by-module.helper';
 import { validateUrbanSectorsAllowedByDistrict } from '@/shared/helpers/validate-urban-sectors-allowed-by-district.helper';
@@ -196,7 +196,7 @@ export const DiscipleUpdateForm = ({
   //* Queries
   const familyGroupsQuery = useQuery({
     queryKey: ['family-groups', id],
-    queryFn: async () => await getSimpleFamilyGroups({ isSimpleQuery: true }),
+    queryFn: async () => await getSimpleFamilyGroups({ isSimpleQuery: false }),
     retry: false,
   });
 
@@ -1028,7 +1028,9 @@ export const DiscipleUpdateForm = ({
                                         )}
                                       >
                                         {field.value
-                                          ? `${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupName} - ${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupCode} `
+                                          ? `${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupName} 
+                                          (${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupCode}) ~ 
+                                            ${getInitialFullNames({ firstNames: familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.theirPreacher?.firstNames ?? '', lastNames: familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.theirPreacher?.lastNames ?? '' })}`
                                           : 'Busque y seleccione un grupo familiar'}
                                         <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                       </Button>
@@ -1051,6 +1053,7 @@ export const DiscipleUpdateForm = ({
                                                 value={getCodeAndNameFamilyGroup({
                                                   code: familyGroup.familyGroupCode,
                                                   name: familyGroup.familyGroupName,
+                                                  preacher: `${getInitialFullNames({ firstNames: familyGroup.theirPreacher?.firstNames ?? '', lastNames: familyGroup.theirPreacher?.lastNames ?? '' })}`,
                                                 })}
                                                 key={familyGroup.id}
                                                 onSelect={() => {
@@ -1061,7 +1064,7 @@ export const DiscipleUpdateForm = ({
                                                   setIsInputTheirFamilyGroupOpen(false);
                                                 }}
                                               >
-                                                {`${familyGroup?.familyGroupName} - ${familyGroup?.familyGroupCode}`}
+                                                {`${familyGroup?.familyGroupName} (${familyGroup?.familyGroupCode}) ~ ${getInitialFullNames({ firstNames: familyGroup?.theirPreacher?.firstNames ?? '', lastNames: familyGroup?.theirPreacher?.lastNames ?? '' })}`}
                                                 <CheckIcon
                                                   className={cn(
                                                     'ml-auto h-4 w-4',

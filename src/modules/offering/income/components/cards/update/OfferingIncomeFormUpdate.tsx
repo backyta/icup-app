@@ -60,7 +60,7 @@ import { type SupervisorResponse } from '@/modules/supervisor/interfaces/supervi
 
 import { cn } from '@/shared/lib/utils';
 import { RecordStatus } from '@/shared/enums/record-status.enum';
-import { getFullNames } from '@/shared/helpers/get-full-names.helper';
+import { getFullNames, getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 import { getCodeAndNameFamilyGroup } from '@/shared/helpers/get-code-and-name-family-group.helper';
 
 import {
@@ -203,14 +203,14 @@ export const OfferingIncomeFormUpdate = ({
 
   const familyGroupsQuery = useQuery({
     queryKey: ['family-groups', churchId],
-    queryFn: () => getSimpleFamilyGroups({ isSimpleQuery: true, churchId }),
+    queryFn: () => getSimpleFamilyGroups({ isSimpleQuery: false, churchId }),
     retry: false,
     enabled: !!churchId,
   });
 
   const zonesQuery = useQuery({
     queryKey: ['zones', churchId],
-    queryFn: () => getSimpleZones({ isSimpleQuery: true, churchId }),
+    queryFn: () => getSimpleZones({ isSimpleQuery: false, churchId }),
     retry: false,
     enabled: !!churchId,
   });
@@ -861,7 +861,9 @@ export const OfferingIncomeFormUpdate = ({
                                       )}
                                     >
                                       {field.value
-                                        ? `${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupName} - ${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupCode}`
+                                        ? `${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupName} 
+                                            (${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupCode}) ~ 
+                                              ${getInitialFullNames({ firstNames: familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.theirPreacher?.firstNames ?? '', lastNames: familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.theirPreacher?.lastNames ?? '' })}`
                                         : 'Busque y seleccione un grupo familiar'}
                                       <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                     </Button>
@@ -884,6 +886,7 @@ export const OfferingIncomeFormUpdate = ({
                                               value={getCodeAndNameFamilyGroup({
                                                 code: familyGroup.familyGroupCode,
                                                 name: familyGroup.familyGroupName,
+                                                preacher: `${getInitialFullNames({ firstNames: familyGroup.theirPreacher?.firstNames ?? '', lastNames: familyGroup.theirPreacher?.lastNames ?? '' })}`,
                                               })}
                                               key={familyGroup.id}
                                               onSelect={() => {
@@ -954,8 +957,19 @@ export const OfferingIncomeFormUpdate = ({
                                     )}
                                   >
                                     {field.value
-                                      ? zonesQuery?.data?.find((zone) => zone.id === field.value)
-                                          ?.zoneName
+                                      ? `${
+                                          zonesQuery?.data?.find((zone) => zone.id === field.value)
+                                            ?.zoneName
+                                        } ~ ${getInitialFullNames({
+                                          firstNames:
+                                            zonesQuery?.data?.find(
+                                              (zone) => zone.id === field.value
+                                            )?.theirSupervisor?.firstNames ?? '',
+                                          lastNames:
+                                            zonesQuery?.data?.find(
+                                              (zone) => zone.id === field.value
+                                            )?.theirSupervisor?.lastNames ?? '',
+                                        })}`
                                       : 'Busque y seleccione una zona'}
                                     <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                                   </Button>
@@ -974,14 +988,14 @@ export const OfferingIncomeFormUpdate = ({
                                         {zonesQuery?.data?.map((zone) => (
                                           <CommandItem
                                             className='text-[14px]'
-                                            value={zone.zoneName}
+                                            value={`${zone.zoneName} ${getInitialFullNames({ firstNames: zone?.theirSupervisor?.firstNames ?? '', lastNames: zone?.theirSupervisor?.lastNames ?? '' })}`}
                                             key={zone.id}
                                             onSelect={() => {
                                               form.setValue('zoneId', zone.id);
                                               setIsInputRelationOpen(false);
                                             }}
                                           >
-                                            {zone.zoneName}
+                                            {`${zone.zoneName} ~ ${getInitialFullNames({ firstNames: zone?.theirSupervisor?.firstNames ?? '', lastNames: zone?.theirSupervisor?.lastNames ?? '' })}`}
                                             <CheckIcon
                                               className={cn(
                                                 'ml-auto h-4 w-4',
