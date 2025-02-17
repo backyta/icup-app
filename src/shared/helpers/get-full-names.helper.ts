@@ -12,7 +12,16 @@ export const getInitialFullNames = ({ firstNames, lastNames }: Options): string 
   const firstNamesValue = firstNames.split(' ');
   const lastNamesValue = lastNames.split(' ');
 
-  return lastNames !== '' ? `${firstNamesValue[0]} ${lastNamesValue[0]}` : `${firstNamesValue[0]}`;
+  let lastNameValueTransform: string;
+  if (lastNamesValue.length >= 3) {
+    lastNameValueTransform = `${lastNamesValue[0]} ${lastNamesValue[1]}`;
+  } else {
+    lastNameValueTransform = `${lastNamesValue[0]}`;
+  }
+
+  return lastNames !== ''
+    ? `${firstNamesValue[0]} ${lastNameValueTransform}`
+    : `${firstNamesValue[0]}`;
 };
 
 export const getFirstNameAndLastNames = ({ firstNames, lastNames }: Options): string => {

@@ -24,7 +24,7 @@ export const DashboardPage = (): JSX.Element => {
 
       <div
         className='h-auto sm:h-[168rem] mb-5 md:h-auto w-full grid grid-cols-1 gap-y-5 xl:gap-6 2xl:gap-6 lg:grid-rows-1 lg:grid-cols-1 xl:grid-rows-1 xl:grid-cols-6 
-                   py-5 px-2 sm:py-6 sm:px-4 lg:py-6 lg:px-4 xl:px-4 xl:pt-6 '
+                   py-5 px-2 sm:py-6 sm:px-4 lg:py-6 lg:px-4 xl:px-4 xl:pt-6'
       >
         <LastSundayOfferingsCard />
         <MembersInfoCard />

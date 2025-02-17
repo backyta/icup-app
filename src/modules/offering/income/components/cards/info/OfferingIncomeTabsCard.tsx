@@ -315,18 +315,18 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
 
                 {data?.familyGroup?.id && (
                   <div className='row-start-auto row-end-auto col-start-1 col-end-4  space-y-1'>
-                    <Label className='text-[14px] md:text-[15px] '>Grupo Familiar</Label>
+                    <Label className='text-[14px] md:text-[15px]'>Grupo Familiar</Label>
                     <CardDescription className='px-2 text-[14px] md:text-[14.5px]'>
                       {data?.familyGroup?.id ? (
                         <>
                           <p className='mb-1'>
-                            <span className='font-bold'>Nombre y código:</span>{' '}
+                            <span className='font-medium'>Nombre y código:</span>{' '}
                             {data?.familyGroup?.familyGroupName}{' '}
                             {`(${data?.familyGroup?.familyGroupCode})`} ~{' '}
                             {data?.familyGroup?.urbanSector}
                           </p>
                           <p>
-                            <span className='font-bold'>Predicador(a):</span>{' '}
+                            <span className='font-medium'>Predicador(a):</span>{' '}
                             {data?.familyGroup?.preacherFirstNames}{' '}
                             {data?.familyGroup?.preacherLastNames}
                           </p>

@@ -65,7 +65,7 @@ import { GenderNames } from '@/shared/enums/gender.enum';
 import { getCodeAndNameFamilyGroup } from '@/shared/helpers/get-code-and-name-family-group.helper';
 
 import { PageTitle } from '@/shared/components/page/PageTitle';
-import { getFullNames } from '@/shared/helpers/get-full-names.helper';
+import { getFullNames, getInitialFullNames } from '@/shared/helpers/get-full-names.helper';
 
 import {
   Form,
@@ -198,7 +198,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
 
   const familyGroupsQuery = useQuery({
     queryKey: ['family-groups', churchId],
-    queryFn: () => getSimpleFamilyGroups({ isSimpleQuery: true, churchId }),
+    queryFn: () => getSimpleFamilyGroups({ isSimpleQuery: false, churchId }),
     retry: false,
     enabled: !!churchId,
   });
@@ -1321,7 +1321,9 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                 )}
                               >
                                 {field.value
-                                  ? `${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupName} - ${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupCode}`
+                                  ? `${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupName} 
+                                      (${familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.familyGroupCode}) ~ 
+                                        ${getInitialFullNames({ firstNames: familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.theirPreacher?.firstNames ?? '', lastNames: familyGroupsQuery?.data?.find((familyGroup) => familyGroup.id === field.value)?.theirPreacher?.lastNames ?? '' })}`
                                   : 'Busque y seleccione un grupo familiar'}
                                 <CaretSortIcon className='ml-2 h-4 w-4 shrink-0 opacity-5' />
                               </Button>
@@ -1344,6 +1346,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                         value={getCodeAndNameFamilyGroup({
                                           code: familyGroup.familyGroupCode,
                                           name: familyGroup.familyGroupName,
+                                          preacher: `${getInitialFullNames({ firstNames: familyGroup.theirPreacher?.firstNames ?? '', lastNames: familyGroup.theirPreacher?.lastNames ?? '' })}`,
                                         })}
                                         key={familyGroup.id}
                                         onSelect={() => {
@@ -1351,7 +1354,7 @@ export const OfferingIncomeCreatePage = (): JSX.Element => {
                                           setIsInputFamilyGroupOpen(false);
                                         }}
                                       >
-                                        {`${familyGroup?.familyGroupName} ${familyGroup?.familyGroupCode}`}
+                                        {`${familyGroup?.familyGroupName} (${familyGroup?.familyGroupCode}) ~ ${getInitialFullNames({ firstNames: familyGroup?.theirPreacher?.firstNames ?? '', lastNames: familyGroup?.theirPreacher?.lastNames ?? '' })}`}
                                         <CheckIcon
                                           className={cn(
                                             'ml-auto h-4 w-4',
