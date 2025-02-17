@@ -298,11 +298,11 @@ export const OfferingIncomeTabsCard = ({ data, id }: OfferingIncomeTabsCardProps
                       {data?.zone?.id ? (
                         <>
                           <p className='mb-1'>
-                            <span className='font-bold'>Nombre y distrito:</span>{' '}
+                            <span className='font-medium'>Nombre y distrito:</span>{' '}
                             {data?.zone?.zoneName} - {data?.zone?.district}
                           </p>
                           <p>
-                            <span className='font-bold'>Supervisor:</span>{' '}
+                            <span className='font-medium'>Supervisor:</span>{' '}
                             {data?.zone?.supervisorFirstNames} {data?.zone?.supervisorLastNames}
                           </p>
                         </>
